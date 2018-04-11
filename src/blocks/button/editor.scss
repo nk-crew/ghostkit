@@ -1,0 +1,80 @@
+/**
+ * Editor Styles
+ */
+@import "../variables";
+
+.editor-block-list__block[data-type="ghostkit/button"] {
+    &[data-align="center"] {
+        text-align: center;
+    }
+
+    &[data-align="right"] {
+        text-align: right;
+    }
+}
+
+.ghostkit-button-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0;
+
+    .blocks-format-toolbar__link-modal {
+        top: calc(100% + 2px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+
+    .blocks-link-url__suggestions {
+        right: -35px;
+    }
+
+    .blocks-rich-text__tinymce {
+        cursor: text;
+    }
+}
+
+.ghostkit-button__inline-link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 280px;
+    margin-top: 10px;
+    font-family: $default-font;
+    font-size: $default-font-size;
+    line-height: $default-line-height;
+    background: #fff;
+
+    .blocks-url-input {
+        width: auto;
+    }
+
+    .dashicon {
+        color: $dark-gray-100;
+    }
+
+    // first icon
+    > .dashicon {
+        position: absolute;
+        left: 7px;
+        z-index: 1;
+    }
+
+    .blocks-url-input input[type="text"] {
+        padding-left: 30px;
+        border: 1px solid $light-gray-300;
+    }
+    .blocks-url-input input[type="text"]::placeholder {
+        color: $dark-gray-100;
+    }
+
+    [data-align="center"] & {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    [data-align="right"] & {
+        margin-right: 0;
+        margin-left: auto;
+    }
+}

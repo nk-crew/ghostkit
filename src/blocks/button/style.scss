@@ -1,0 +1,53 @@
+/**
+ * Frontend Styles
+ */
+@import "../variables";
+
+.ghostkit-button-wrap {
+    margin-bottom: 1.5em;
+
+    &.aligncenter {
+        text-align: center;
+    }
+
+    &.alignright {
+        text-align: right;
+    }
+
+    .ghostkit-button {
+        display: inline-block;
+        padding: .75em 1em;
+        margin: 0;
+        font-size: 1em;
+        line-height: 1em;
+        color: $white;
+        text-align: center;
+        text-decoration: none !important; // stylelint-disable-line declaration-no-important
+        white-space: nowrap;
+        cursor: pointer;
+        background-color: $dark-gray-700;
+        border: none;
+        box-shadow: none !important; // stylelint-disable-line declaration-no-important
+        transition: .2s background-color ease-in-out, .2s color ease-in-out, .2s border-color ease-in-out, .2s opacity ease-in-out;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: $white;
+            background-color: $dark-gray-700;
+        }
+
+        &.ghostkit-button-xs {
+            font-size: .8em;
+        }
+        &.ghostkit-button-sm {
+            font-size: .85em;
+        }
+        &.ghostkit-button-lg {
+            font-size: 1.15em;
+        }
+        &.ghostkit-button-xl {
+            font-size: 1.3em;
+        }
+    }
+}
