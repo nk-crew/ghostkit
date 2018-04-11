@@ -24,7 +24,7 @@ export const getStyles = ( data = {}, selector = '' ) => {
             let nestedSelector = selector;
             if ( nestedSelector ) {
                 if ( key.indexOf( '&' ) !== -1 ) {
-                    nestedSelector = key.replace( '&', nestedSelector );
+                    nestedSelector = key.replace( /&/g, nestedSelector );
                 } else {
                     nestedSelector = `${ nestedSelector } ${ key }`;
                 }
