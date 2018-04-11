@@ -26,6 +26,43 @@ const {
     UrlInput,
 } = wp.blocks;
 
+/**
+ * Get button styles based on attributes.
+ *
+ * @param {object} atts - button atts.
+ * @return {object} styles object.
+ */
+function getStyles( atts ) {
+    const {
+        id,
+        color,
+        textColor,
+        borderRadius,
+        borderWeight,
+        borderColor,
+        hoverColor,
+        hoverTextColor,
+        hoverBorderColor,
+    } = atts;
+
+    const ID = `ghostkit-button-${ id }`;
+
+    const style = {};
+    style[ `.${ ID } .ghostkit-button` ] = {
+        backgroundColor: color,
+        color: textColor,
+        borderRadius: borderRadius + 'px',
+        border: borderWeight && borderColor ? `${ borderWeight }px solid ${ borderColor }` : false,
+        '&:hover, &:focus': {
+            backgroundColor: hoverColor,
+            color: hoverTextColor,
+            borderColor: borderWeight && borderColor && hoverBorderColor ? hoverBorderColor : false,
+        },
+    };
+
+    return style;
+}
+
 class ButtonBlock extends Component {
     constructor( { attributes } ) {
         super( ...arguments );
@@ -82,25 +119,10 @@ class ButtonBlock extends Component {
             XL: 'xl',
         };
 
-
         // classes.
         const ID = `ghostkit-button-${ id }`;
 
         className += ` ${ className || '' } ${ ID } ghostkit-button-wrap align${ align }`;
-
-        // custom styles.
-        const style = {};
-        style[ `.${ ID } .ghostkit-button` ] = {
-            backgroundColor: color,
-            color: textColor,
-            borderRadius: borderRadius + 'px',
-            border: borderWeight && borderColor ? `${ borderWeight }px solid ${ borderColor }` : false,
-            '&:hover': {
-                backgroundColor: hoverColor,
-                color: hoverTextColor,
-                borderColor: borderWeight && borderColor && hoverBorderColor ? hoverBorderColor : false,
-            },
-        };
 
         const linkClassName = `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }`;
 
@@ -191,7 +213,7 @@ class ButtonBlock extends Component {
                     </PanelColor>
                 </PanelBody>
             </InspectorControls>,
-            <div className={ className } title={ title } key="button" { ...getCustomStylesAttr( style ) }>
+            <div className={ className } title={ title } key="button" { ...getCustomStylesAttr( getStyles( attributes ) ) }>
                 <RichText
                     tagName="span"
                     placeholder={ __( 'Add text…' ) }
@@ -332,14 +354,6 @@ export const settings = {
             title,
             align,
             size,
-            color,
-            textColor,
-            borderRadius,
-            borderWeight,
-            borderColor,
-            hoverColor,
-            hoverTextColor,
-            hoverBorderColor,
         } = attributes;
 
         // classes.
@@ -349,22 +363,8 @@ export const settings = {
 
         const linkClassName = `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }`;
 
-        // custom styles.
-        const style = {};
-        style[ `.${ ID } .ghostkit-button` ] = {
-            backgroundColor: color,
-            color: textColor,
-            borderRadius: borderRadius + 'px',
-            border: borderWeight && borderColor ? `${ borderWeight }px solid ${ borderColor }` : false,
-            '&:hover': {
-                backgroundColor: hoverColor,
-                color: hoverTextColor,
-                borderColor: borderWeight && borderColor && hoverBorderColor ? hoverBorderColor : false,
-            },
-        };
-
         return (
-            <div className={ className } { ...getCustomStylesAttr( style ) }>
+            <div className={ className } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
                 <a className={ linkClassName } href={ url } title={ title }>
                     { text }
                 </a>
