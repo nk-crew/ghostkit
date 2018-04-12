@@ -61,7 +61,7 @@ export const settings = {
                     value={ height || '' }
                     onChange={ value => setAttributes( { height: value } ) }
                     min={ 30 }
-                    max={ 800 }
+                    max={ 300 }
                 />
             </InspectorControls>
         );
