@@ -1,0 +1,20 @@
+/**
+ * Frontend Styles
+ */
+@import "../variables";
+
+.ghostkit-progress {
+    height: 15px;
+    overflow: hidden;
+    background-color: $light-gray-500;
+
+    &.ghostkit-progress-bar-striped .ghostkit-progress-bar {
+        background-image: linear-gradient(45deg, rgba(255, 255, 255, .1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 75%, transparent 75%, transparent);
+        background-size: 1rem 1rem;
+    }
+
+    .ghostkit-progress-bar {
+        height: 100%;
+        background-color: $dark-gray-700;
+    }
+}
