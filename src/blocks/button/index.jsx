@@ -29,7 +29,7 @@ const {
 /**
  * Get button styles based on attributes.
  *
- * @param {object} atts - button atts.
+ * @param {object} atts - element atts.
  * @return {object} styles object.
  */
 function getStyles( atts ) {
