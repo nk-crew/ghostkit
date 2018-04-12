@@ -1,9 +1,12 @@
+// External Dependencies.
+import shorthash from 'shorthash';
+
 // Import CSS
 import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import { getUID, getCustomStylesAttr } from '../_utils.jsx';
+import { getCustomStylesAttr } from '../_utils.jsx';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -71,8 +74,7 @@ class ButtonBlock extends Component {
 
         // generate unique ID.
         if ( ! attributes.id ) {
-            this.props.setAttributes( { id: getUID() } );
-            // attributes.id = getUID();
+            this.props.setAttributes( { id: shorthash.unique( this.props.id ) } );
         }
     }
 

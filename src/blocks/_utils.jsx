@@ -1,11 +1,3 @@
-
-/**
- * Get unique ID.
- *
- * @return {string} - unique id.
- */
-export const getUID = () => Math.floor( new Date().valueOf() * Math.random() ).toString( 36 );
-
 /**
  * Get styles from object.
  *

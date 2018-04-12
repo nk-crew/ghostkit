@@ -130,6 +130,7 @@
   },
   "dependencies": {
     "re-resizable": "^4.4.8",
-    "react": "^16.3.1"
+    "react": "^16.3.1",
+    "shorthash": "0.0.2"
   }
 }
