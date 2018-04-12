@@ -294,15 +294,12 @@ const blockAttributes = {
     },
     hoverColor: {
         type: 'string',
-        default: '#007fac',
     },
     hoverTextColor: {
         type: 'string',
-        default: '#ffffff',
     },
     hoverBorderColor: {
         type: 'string',
-        default: '#005a8c',
     },
 };
 
