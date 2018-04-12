@@ -12,7 +12,6 @@
         left: 0 !important; // stylelint-disable-line declaration-no-important
         width: 100% !important; // stylelint-disable-line declaration-no-important
         height: 32px !important; // stylelint-disable-line declaration-no-important
-        cursor: row-resize !important; // stylelint-disable-line declaration-no-important
         background: none;
         border-radius: 0;
         z-index: 999;
@@ -34,7 +33,7 @@
             margin-left: -7px;
             background-color: #555d66;
             border: 2px solid #fff;
-            border-radius: 100px;
+            border-radius: 10px;
         }
 
         &:active::after,

@@ -79,7 +79,7 @@ export const settings = {
                 maxWidth="100%"
                 minHeight="100%"
                 handleClasses={ {
-                    bottomLeft: 'ghostkit-spacer__resize-handler',
+                    bottom: 'ghostkit-spacer__resize-handler',
                 } }
                 enable={ { top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
                 onResizeStart={ () => {
