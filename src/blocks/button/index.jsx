@@ -15,7 +15,6 @@ const {
     IconButton,
     PanelBody,
     PanelColor,
-    ToggleControl,
     RangeControl,
     Button,
     ButtonGroup,
