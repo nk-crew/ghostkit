@@ -175,7 +175,7 @@ class GhostKit {
         // TODO: add fallback for this method (maybe JS will be enough).
         $dom = new DOMDocument();
         $dom->loadHTML( $post->post_content );
-        foreach ( $dom->getElementsByTagName( 'div' ) as $node ) {
+        foreach ( $dom->getElementsByTagName( '*' ) as $node ) {
             $styles = $node->getAttribute( 'data-ghostkit-styles' );
             if ( $styles ) {
                 $css .= ' ' . $styles;
