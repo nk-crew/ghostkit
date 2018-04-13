@@ -1,11 +1,15 @@
 // External Dependencies.
 import ResizableBox from 're-resizable';
+import shorthash from 'shorthash';
 
 // Import CSS
 import './editor.scss';
 
 // Internal Dependencies.
+import { getCustomStylesAttr } from '../_utils.jsx';
+
 const { __ } = wp.i18n;
+const { Component } = wp.element;
 const {
     RangeControl,
 } = wp.components;
@@ -13,46 +17,59 @@ const {
     InspectorControls,
 } = wp.blocks;
 
-export const name = 'ghostkit/spacer';
+/**
+ * Get progress styles based on attributes.
+ *
+ * @param {object} attributes - element atts.
+ * @return {object} styles object.
+ */
+function getStyles( attributes ) {
+    const {
+        id,
+        height,
+    } = attributes;
 
-export const settings = {
-    title: __( 'Spacer' ),
-    description: __( 'Add space between other blocks.' ),
-    icon: <svg aria-hidden role="img" focusable="false" className="dashicon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-        <path d="M0,3 L20,3 L20,17 L0,17 L0,3 Z M2,5.03271484 L2,15.0327148 L18.001709,15.0327148 L18.001709,5.03271484 L2,5.03271484 Z" />
-    </svg>,
-    category: 'layout',
-    keywords: [
-        __( 'hr' ),
-        __( 'separator' ),
-        __( 'ghostkit' ),
-    ],
-    supports: {
-        html: false,
-    },
-    attributes: {
-        height: {
-            type: 'number',
-            default: 50,
-        },
-    },
+    const ID = `ghostkit-spacer-${ id }`;
 
-    /**
-     * The edit function describes the structure of your block in the context of the editor.
-     * This represents what the editor will render when the block is used.
-     *
-     * The "edit" property must be a valid function.
-     *
-     * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
-     *
-     * @return {?WPBlock} - block.
-     */
-    edit( {
-        className, attributes, setAttributes, isSelected, toggleSelection,
-    } ) {
-        const { height } = attributes;
+    const style = {};
+    style[ `.${ ID }` ] = {
+        height: `${ height }px`,
+    };
 
-        className += ' ghostkit-spacer';
+    return style;
+}
+
+class SpacerBlock extends Component {
+    constructor( { attributes } ) {
+        super( ...arguments );
+
+        // generate unique ID.
+        if ( ! attributes.id ) {
+            this.props.setAttributes( { id: shorthash.unique( this.props.id ) } );
+        }
+    }
+
+    render() {
+        const {
+            attributes,
+            setAttributes,
+            isSelected,
+            toggleSelection,
+        } = this.props;
+
+        let {
+            className,
+        } = this.props;
+
+        const {
+            id,
+            height,
+        } = attributes;
+
+        // classes.
+        const ID = `ghostkit-spacer-${ id }`;
+
+        className += ` ${ className || '' } ${ ID } ghostkit-spacer`;
 
         const inspectorControls = isSelected && (
             <InspectorControls key="inspector">
@@ -91,9 +108,41 @@ export const settings = {
                     } );
                     toggleSelection( true );
                 } }
+                { ...getCustomStylesAttr( getStyles( attributes ) ) }
             />,
         ];
+    }
+}
+
+export const name = 'ghostkit/spacer';
+
+export const settings = {
+    title: __( 'Spacer' ),
+    description: __( 'Add space between other blocks.' ),
+    icon: <svg aria-hidden role="img" focusable="false" className="dashicon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+        <path d="M0,3 L20,3 L20,17 L0,17 L0,3 Z M2,5.03271484 L2,15.0327148 L18.001709,15.0327148 L18.001709,5.03271484 L2,5.03271484 Z" />
+    </svg>,
+    category: 'layout',
+    keywords: [
+        __( 'hr' ),
+        __( 'separator' ),
+        __( 'ghostkit' ),
+    ],
+    supports: {
+        html: false,
     },
+    attributes: {
+        id: {
+            type: 'string',
+            default: false,
+        },
+        height: {
+            type: 'number',
+            default: 50,
+        },
+    },
+
+    edit: SpacerBlock,
 
     /**
      * The save function defines the way in which the different attributes should be combined
@@ -106,10 +155,17 @@ export const settings = {
      * @return {?WPBlock} - block.
      */
     save( { attributes, className } ) {
-        const { height } = attributes;
+        const {
+            id,
+        } = attributes;
+
+        // classes.
+        const ID = `ghostkit-spacer-${ id }`;
+
+        className = `${ className || '' } ${ ID }`;
 
         return (
-            <hr className={ className } style={ { height: height ? `${ height }px` : undefined } } />
+            <hr className={ className } { ...getCustomStylesAttr( getStyles( attributes ) ) } />
         );
     },
 };
