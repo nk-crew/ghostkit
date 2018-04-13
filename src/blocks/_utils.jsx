@@ -24,7 +24,7 @@ export const getStyles = ( data = {}, selector = '' ) => {
                 nestedSelector = key;
             }
             resultCSS += getStyles( data[ key ], nestedSelector );
-        } else if ( data[ key ] ) {
+        } else if ( typeof data[ key ] !== 'undefined' && data[ key ] !== false ) {
             if ( ! result[ selector ] ) {
                 result[ selector ] = '';
             }
