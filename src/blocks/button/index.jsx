@@ -7,6 +7,7 @@ import './editor.scss';
 
 // Internal Dependencies.
 import { getCustomStylesAttr } from '../_utils.jsx';
+import { buttonIcon } from '../_icons.jsx';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -303,7 +304,7 @@ export const settings = {
 
     description: __( 'Add button block.' ),
 
-    icon: 'button',
+    icon: buttonIcon,
 
     category: 'layout',
 

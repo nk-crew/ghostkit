@@ -7,6 +7,7 @@ import './editor.scss';
 
 // Internal Dependencies.
 import { getCustomStylesAttr } from '../_utils.jsx';
+import { iconBoxIcon } from '../_icons.jsx';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -137,7 +138,7 @@ export const name = 'ghostkit/icon-box';
 export const settings = {
     title: __( 'Icon Box' ),
     description: __( 'Icon Box.' ),
-    icon: 'arrow-right-alt',
+    icon: iconBoxIcon,
     category: 'common',
     keywords: [
         __( 'icon' ),
