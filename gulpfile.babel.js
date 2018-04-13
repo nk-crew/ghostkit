@@ -108,7 +108,7 @@ gulp.task('build_js', function () {
 });
 gulp.task('build_scss', function () {
     return runStream(work_folders, function (itemData) {
-        return gulp.src(itemData.from + '/blocks/*.scss')
+        return gulp.src([itemData.from + '/**/*.scss', '!' + itemData.from + '/blocks/*/**/*.scss'])
             .pipe($.plumber({ errorHandler }))
             .pipe($.sass({
                 outputStyle: 'compressed'
@@ -124,7 +124,7 @@ gulp.task('build_scss', function () {
             .pipe($.rename({
                 suffix: '.min'
             }))
-            .pipe(gulp.dest(itemData.to + '/blocks'))
+            .pipe(gulp.dest(itemData.to))
     });
 });
 gulp.task('copy_to_dist_watch_php', function () {
