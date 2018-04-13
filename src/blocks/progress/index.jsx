@@ -174,7 +174,7 @@ class ProgressBlock extends Component {
                         } }
                         onResizeStop={ ( event, direction, elt, delta ) => {
                             setAttributes( {
-                                percent: Math.min( 100, Math.max( 0, parseInt( 100 * jQuery( elt ).width() / jQuery( elt ).parent().width(), 10 ) ) ),
+                                percent: Math.min( 100, Math.max( 0, percent + parseInt( 100 * delta.width / jQuery( elt ).parent().width(), 10 ) ) ),
                             } );
                             toggleSelection( true );
                         } }

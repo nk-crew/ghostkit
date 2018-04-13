@@ -120,7 +120,7 @@ class IconBoxBlock extends Component {
             </InspectorControls>,
             <div className={ `${ className || '' } ghostkit-icon-box-${ id }` } key="icon-box" { ...getCustomStylesAttr( getStyles( attributes ) ) }>
                 <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }
-                    dangerouslySetInnerHTML={{ __html: `<span class="${ icon }"></span>` }}
+                    dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
                 >
                 </div>
                 <div className="ghostkit-icon-box-content">

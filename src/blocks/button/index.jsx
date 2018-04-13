@@ -88,12 +88,11 @@ class ButtonBlock extends Component {
 
     render() {
         const {
+            className,
             attributes,
             setAttributes,
             isSelected,
         } = this.props;
-
-        let { className } = this.props;
 
         const {
             id,

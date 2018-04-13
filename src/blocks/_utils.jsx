@@ -74,7 +74,7 @@ export const renderStyles = () => {
         }
 
         $style.html( styles );
-    }, 30);
+    }, 30 );
 };
 
 /**
