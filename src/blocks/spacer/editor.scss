@@ -4,7 +4,10 @@
 @import "../variables";
 
 .wp-block-ghostkit-spacer {
-    outline: 1px dotted #ccc;
+    [data-type="ghostkit/spacer"].is-selected &,
+    [data-type="ghostkit/spacer"].is-hovered & {
+        outline: 1px solid $light-gray-300;
+    }
 
     .ghostkit-spacer__resize-handler {
         display: none;
