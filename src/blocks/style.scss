@@ -4,7 +4,8 @@
 @import "./variables";
 
 .wp-block-ghostkit-progress,
-.wp-block-ghostkit-button {
+.wp-block-ghostkit-button,
+.wp-block-ghostkit-icon-box {
     margin-bottom: 28px;
 }
 
@@ -14,3 +15,4 @@
 @import "./spacer/style";
 @import "./button/style";
 @import "./progress/style";
+@import "./icon-box/style";

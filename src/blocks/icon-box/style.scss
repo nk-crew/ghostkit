@@ -1,0 +1,31 @@
+/**
+ * Frontend Styles
+ */
+@import "../variables";
+
+.wp-block-ghostkit-icon-box {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    border: 1px solid $light-gray-200;
+
+    .ghostkit-icon-box-icon {
+        display: flex;
+        padding-right: 15px;
+    }
+    .ghostkit-icon-box-icon-align-right {
+        order: 2;
+        padding-right: 0;
+        padding-left: 15px;
+    }
+    .ghostkit-icon-box-icon-align-top {
+        flex: 100%;
+        justify-content: center;
+        padding-right: 0;
+        padding-bottom: 15px;
+    }
+
+    .ghostkit-icon-box-content {
+        flex: 1;
+    }
+}
