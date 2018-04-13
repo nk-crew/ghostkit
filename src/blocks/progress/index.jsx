@@ -237,7 +237,7 @@ export const settings = {
         },
         backgroundColor: {
             type: 'string',
-            default: '#e2e4e7',
+            default: '#f3f4f5',
         },
     },
 
@@ -266,7 +266,7 @@ export const settings = {
                         <small className="ghostkit-progress-caption" key="caption">{ caption }</small>
                     )
                 }
-                <div className={ className } { ...getCustomStylesAttr( getStyles( attributes ) ) } key="progress">
+                <div className={ className } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
                     <div className={ classNameInner } role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
                 </div>
             </div>
