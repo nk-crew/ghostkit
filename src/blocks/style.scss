@@ -1,7 +1,16 @@
 /**
- * Gutenberg Blocks Editor Frontend Styles
+ * GhostKit Frontend Styles.
  */
 @import "./variables";
+
+.wp-block-ghostkit-progress,
+.wp-block-ghostkit-button {
+    margin-bottom: 14px;
+}
+
+/**
+ * Blocks Styles
+ */
 @import "./spacer/style";
 @import "./button/style";
 @import "./progress/style";
