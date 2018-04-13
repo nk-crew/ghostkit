@@ -120,13 +120,6 @@ class ButtonBlock extends Component {
             XL: 'xl',
         };
 
-        // classes.
-        const ID = `ghostkit-button-${ id }`;
-
-        className += ` ${ className || '' } ${ ID } ghostkit-button-wrap align${ align }`;
-
-        const linkClassName = `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }`;
-
         return [
             isSelected &&
             <BlockControls key="controls">
@@ -214,14 +207,14 @@ class ButtonBlock extends Component {
                     </PanelColor>
                 </PanelBody>
             </InspectorControls>,
-            <div className={ className } title={ title } key="button" { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+            <div className={ `${ className || '' } ghostkit-button-${ id } align${ align }` } title={ title } key="button" { ...getCustomStylesAttr( getStyles( attributes ) ) }>
                 <RichText
                     tagName="span"
                     placeholder={ __( 'Add text…' ) }
                     value={ text }
                     onChange={ ( value ) => setAttributes( { text: value } ) }
                     formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                    className={ linkClassName }
+                    className={ `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }` }
                     isSelected={ isSelected }
                     keepPlaceholderOnFocus
                 />
@@ -354,16 +347,9 @@ export const settings = {
             size,
         } = attributes;
 
-        // classes.
-        const ID = `ghostkit-button-${ id }`;
-
-        className = `${ className || '' } ${ ID } ghostkit-button-wrap align${ align }`;
-
-        const linkClassName = `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }`;
-
         return (
-            <div className={ className } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
-                <a className={ linkClassName } href={ url } title={ title }>
+            <div className={ `${ className || '' } ghostkit-button-${ id } align${ align }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+                <a className={ `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }` } href={ url } title={ title }>
                     { text }
                 </a>
             </div>

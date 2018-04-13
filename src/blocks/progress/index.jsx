@@ -41,7 +41,7 @@ function getStyles( attributes ) {
     const ID = `ghostkit-progress-${ id }`;
 
     const style = {};
-    style[ `.${ ID }` ] = {
+    style[ `.${ ID } .ghostkit-progress-wrap` ] = {
         height: `${ height }px`,
         borderRadius: `${ borderRadius }px`,
         backgroundColor: backgroundColor,
@@ -66,13 +66,12 @@ class ProgressBlock extends Component {
 
     render() {
         const {
+            className,
             attributes,
             setAttributes,
             isSelected,
             toggleSelection,
         } = this.props;
-
-        let { className } = this.props;
 
         const {
             id,
@@ -84,13 +83,6 @@ class ProgressBlock extends Component {
             color,
             backgroundColor,
         } = attributes;
-
-        // classes.
-        const ID = `ghostkit-progress-${ id }`;
-
-        className += ` ${ className || '' } ${ ID } ghostkit-progress${ striped ? ' ghostkit-progress-bar-striped' : '' }`;
-
-        const classNameInner = 'ghostkit-progress-bar';
 
         return [
             isSelected &&
@@ -143,51 +135,52 @@ class ProgressBlock extends Component {
                     key="caption"
                 />
             ) : null,
-            <ResizableBox
-                key="progress"
-                className={ className }
-                size={ {
-                    width: '100%',
-                    height,
-                } }
-                minWidth="0%"
-                maxWidth="100%"
-                minHeight="5"
-                maxHeight="20"
-                enable={ { top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
-                onResizeStart={ () => {
-                    toggleSelection( false );
-                } }
-                onResizeStop={ ( event, direction, elt, delta ) => {
-                    setAttributes( {
-                        height: parseInt( height + delta.height, 10 ),
-                    } );
-                    toggleSelection( true );
-                } }
-                { ...getCustomStylesAttr( getStyles( attributes ) ) }
-            >
+            <div className={ `${ className || '' } ghostkit-progress-${ id }` } key="progress" { ...getCustomStylesAttr( getStyles( attributes ) ) }>
                 <ResizableBox
-                    key="resizable"
-                    className={ classNameInner }
+                    key="progress"
+                    className={ `ghostkit-progress-wrap${ striped ? ' ghostkit-progress-bar-striped' : '' }` }
                     size={ {
-                        width: `${ percent }%`,
+                        width: '100%',
+                        height,
                     } }
                     minWidth="0%"
                     maxWidth="100%"
-                    minHeight="100%"
-                    maxHeight="100%"
-                    enable={ { top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
+                    minHeight="5"
+                    maxHeight="20"
+                    enable={ { top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
                     onResizeStart={ () => {
                         toggleSelection( false );
                     } }
                     onResizeStop={ ( event, direction, elt, delta ) => {
                         setAttributes( {
-                            percent: Math.min( 100, Math.max( 0, parseInt( 100 * jQuery( elt ).width() / jQuery( elt ).parent().width(), 10 ) ) ),
+                            height: parseInt( height + delta.height, 10 ),
                         } );
                         toggleSelection( true );
                     } }
-                />
-            </ResizableBox>,
+                >
+                    <ResizableBox
+                        key="resizable"
+                        className="ghostkit-progress-bar"
+                        size={ {
+                            width: `${ percent }%`,
+                        } }
+                        minWidth="0%"
+                        maxWidth="100%"
+                        minHeight="100%"
+                        maxHeight="100%"
+                        enable={ { top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
+                        onResizeStart={ () => {
+                            toggleSelection( false );
+                        } }
+                        onResizeStop={ ( event, direction, elt, delta ) => {
+                            setAttributes( {
+                                percent: Math.min( 100, Math.max( 0, parseInt( 100 * jQuery( elt ).width() / jQuery( elt ).parent().width(), 10 ) ) ),
+                            } );
+                            toggleSelection( true );
+                        } }
+                    />
+                </ResizableBox>
+            </div>,
         ];
     }
 }
@@ -252,22 +245,15 @@ export const settings = {
             striped,
         } = attributes;
 
-        // classes.
-        const ID = `ghostkit-progress-${ id }`;
-
-        className = `${ className || '' } ${ ID } ghostkit-progress${ striped ? ' ghostkit-progress-bar-striped' : '' }`;
-
-        const classNameInner = 'ghostkit-progress-bar';
-
         return (
-            <div>
+            <div className={ `${ className || '' } ghostkit-progress-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
                 {
                     caption && caption.length && (
-                        <small className="ghostkit-progress-caption" key="caption">{ caption }</small>
+                        <small className="ghostkit-progress-caption">{ caption }</small>
                     )
                 }
-                <div className={ className } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
-                    <div className={ classNameInner } role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
+                <div className={ `ghostkit-progress-wrap${ striped ? ' ghostkit-progress-bar-striped' : '' }` }>
+                    <div className="ghostkit-progress-bar" role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
                 </div>
             </div>
         );
