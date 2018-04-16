@@ -126,11 +126,20 @@ class GhostKit {
         // FontAwesome.
         wp_enqueue_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/svg-with-js/js/fontawesome-all.min.js', __FILE__ ), array(), '5.0.10' );
 
+        // GhostKit.
         wp_enqueue_script(
             'ghostkit-editor',
             plugins_url( 'blocks/index.min.js', __FILE__ ),
             array( 'wp-blocks', 'wp-i18n', 'wp-element', 'underscore', 'wp-components' ),
             filemtime( plugin_dir_path( __FILE__ ) . 'blocks/index.min.js' )
+        );
+
+        // GhostKit.
+        wp_enqueue_style(
+            'ghostkit-editor',
+            plugins_url( 'assets/admin/css/style.min.css', __FILE__ ),
+            array( 'wp-blocks' ),
+            filemtime( plugin_dir_path( __FILE__ ) . 'assets/admin/css/style.min.css' )
         );
     }
 

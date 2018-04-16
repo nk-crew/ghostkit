@@ -1,0 +1,34 @@
+<svg width="20" height="20" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>countdown</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(415 410)">
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M -415 -410L -395 -410L -395 -390L -415 -390L -415 -410Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="countdown" clip-path="url(#clip-0)">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(-411 -409)" fill="#191E23"/>
+</g>
+<clipPath id="clip-1" clip-rule="evenodd">
+<path d="M -405 -400L -395 -400L -395 -390L -405 -390L -405 -400Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="Logo" clip-path="url(#clip-1)">
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(-405 -400)" fill="#008DBE"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path2_fill" transform="translate(-400.75 -396)" fill="#FFFFFF"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path3_fill" transform="translate(-398.5 -396.5)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 6 0C 2.68548 0 0 2.68548 0 6C 0 9.31452 2.68548 12 6 12C 9.31452 12 12 9.31452 12 6C 12 2.68548 9.31452 0 6 0ZM 6 10.8387C 3.32661 10.8387 1.16129 8.67339 1.16129 6C 1.16129 3.32661 3.32661 1.16129 6 1.16129C 8.67339 1.16129 10.8387 3.32661 10.8387 6C 10.8387 8.67339 8.67339 10.8387 6 10.8387ZM 7.49516 8.3129L 5.44113 6.82016C 5.36613 6.76452 5.32258 6.67742 5.32258 6.58548L 5.32258 2.6129C 5.32258 2.45323 5.45323 2.32258 5.6129 2.32258L 6.3871 2.32258C 6.54677 2.32258 6.67742 2.45323 6.67742 2.6129L 6.67742 6.04113L 8.29355 7.21693C 8.42419 7.31129 8.45081 7.49274 8.35645 7.62339L 7.90161 8.25C 7.80726 8.37823 7.62581 8.40726 7.49516 8.3129Z"/>
+<path id="path1_fill" d="M 0 10L 0 4.00003C 0 2.04655 2.54888 0.00759371 5 3.05176e-05C 7.48789 -0.00764612 10 2.09538 10 4.00003L 10 10L 8.33333 8.33957L 6.66667 10L 5 8.33957L 3.33333 10L 1.66667 8.33957L 0 10Z"/>
+<path id="path2_fill" d="M 1.5 0.75C 1.5 1.16421 1.16421 1.5 0.75 1.5C 0.335786 1.5 0 1.16421 0 0.75C 0 0.335786 0.335786 0 0.75 0C 1.16421 0 1.5 0.335786 1.5 0.75Z"/>
+<path id="path3_fill" d="M 2 1C 2 1.55228 1.55228 2 1 2C 0.447715 2 0 1.55228 0 1C 0 0.447715 0.447715 0 1 0C 1.55228 0 2 0.447715 2 1Z"/>
+</defs>
+</svg>

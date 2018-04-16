@@ -7,7 +7,7 @@ import './editor.scss';
 
 // Internal Dependencies.
 import { getCustomStylesAttr } from '../_utils.jsx';
-import { spacerIcon } from '../_icons.jsx';
+import elementIcon from '../_icons/spacer.svg';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -120,7 +120,7 @@ export const name = 'ghostkit/spacer';
 export const settings = {
     title: __( 'Spacer' ),
     description: __( 'Add space between other blocks.' ),
-    icon: spacerIcon,
+    icon: <img className="ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
     category: 'layout',
     keywords: [
         __( 'hr' ),

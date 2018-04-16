@@ -89,7 +89,18 @@ gulp.task('build_js', function () {
                                 loader: 'css-loader', // translates CSS into CommonJS
                             }, {
                                 loader: 'sass-loader', // compiles Sass to CSS
-                            }]
+                            }],
+                        }, {
+                            test: /\.svg$/,
+                            use: [
+                                {
+                                    loader: 'svg-url-loader',
+                                    options: {
+                                        noquotes: true,
+                                    },
+                                },
+                                'svgo-loader',
+                            ],
                         },
                     ]
                 }

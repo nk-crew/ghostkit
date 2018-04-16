@@ -1,0 +1,55 @@
+<svg width="20" height="20" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>accordion</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(457 410)">
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M -457 -410L -437 -410L -437 -390L -457 -390L -457 -410Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="accordion" clip-path="url(#clip-0)">
+<g id="Vector">
+<mask id="mask0_outline_ins">
+<use xlink:href="#path0_fill" fill="white" transform="translate(-457 -407)"/>
+</mask>
+<g mask="url(#mask0_outline_ins)">
+<use xlink:href="#path1_stroke_2x" transform="translate(-457 -407)" fill="#191E23"/>
+</g>
+</g>
+<g id="Vector">
+<mask id="mask1_outline_ins">
+<use xlink:href="#path0_fill" fill="white" transform="translate(-457 -402)"/>
+</mask>
+<g mask="url(#mask1_outline_ins)">
+<use xlink:href="#path1_stroke_2x" transform="translate(-457 -402)" fill="#191E23"/>
+</g>
+</g>
+<g id="+">
+<use xlink:href="#path2_fill" transform="translate(-441 -407.1)" fill="#191E23"/>
+</g>
+<g id="+">
+<use xlink:href="#path2_fill" transform="translate(-441 -402.1)" fill="#191E23"/>
+</g>
+<clipPath id="clip-1" clip-rule="evenodd">
+<path d="M -447 -400L -437 -400L -437 -390L -447 -390L -447 -400Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="Logo" clip-path="url(#clip-1)">
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(-447 -400)" fill="#008DBE"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path4_fill" transform="translate(-442.75 -396)" fill="#FFFFFF"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path5_fill" transform="translate(-440.5 -396.5)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 18 0L 2 0C 0.895431 0 0 0.895431 0 2C 0 3.10457 0.895431 4 2 4L 18 4C 19.1046 4 20 3.10457 20 2C 20 0.895431 19.1046 0 18 0Z"/>
+<path id="path1_stroke_2x" d="M 2 1L 18 1L 18 -1L 2 -1L 2 1ZM 18 3L 2 3L 2 5L 18 5L 18 3ZM 19 2C 19 2.55228 18.5523 3 18 3L 18 5C 19.6569 5 21 3.65685 21 2L 19 2ZM 18 1C 18.5523 1 19 1.44772 19 2L 21 2C 21 0.343145 19.6569 -1 18 -1L 18 1ZM 1 2C 1 1.44772 1.44772 1 2 1L 2 -1C 0.343146 -1 -1 0.343146 -1 2L 1 2ZM -1 2C -1 3.65685 0.343147 5 2 5L 2 3C 1.44772 3 1 2.55228 1 2L -1 2Z"/>
+<path id="path2_fill" d="M 2.21484 2.28955L 1.65088 2.28955L 1.65088 2.85352L 1.35498 2.85352L 1.35498 2.28955L 0.788086 2.28955L 0.788086 1.99219L 1.35498 1.99219L 1.35498 1.42529L 1.65088 1.42529L 1.65088 1.99219L 2.21484 1.99219L 2.21484 2.28955Z"/>
+<path id="path3_fill" d="M 0 10L 0 4.00003C 0 2.04655 2.54888 0.00759371 5 3.05176e-05C 7.48789 -0.00764612 10 2.09538 10 4.00003L 10 10L 8.33333 8.33957L 6.66667 10L 5 8.33957L 3.33333 10L 1.66667 8.33957L 0 10Z"/>
+<path id="path4_fill" d="M 1.5 0.75C 1.5 1.16421 1.16421 1.5 0.75 1.5C 0.335786 1.5 0 1.16421 0 0.75C 0 0.335786 0.335786 0 0.75 0C 1.16421 0 1.5 0.335786 1.5 0.75Z"/>
+<path id="path5_fill" d="M 2 1C 2 1.55228 1.55228 2 1 2C 0.447715 2 0 1.55228 0 1C 0 0.447715 0.447715 0 1 0C 1.55228 0 2 0.447715 2 1Z"/>
+</defs>
+</svg>

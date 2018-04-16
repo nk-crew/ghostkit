@@ -7,7 +7,7 @@ import './editor.scss';
 
 // Internal Dependencies.
 import { getCustomStylesAttr } from '../_utils.jsx';
-import { buttonIcon } from '../_icons.jsx';
+import elementIcon from '../_icons/button.svg';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -304,7 +304,7 @@ export const settings = {
 
     description: __( 'Add button block.' ),
 
-    icon: buttonIcon,
+    icon: <img className="ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
 
     category: 'layout',
 

@@ -1,0 +1,34 @@
+<svg width="20" height="20" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>testimonial</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(394 410)">
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M -394 -410L -374 -410L -374 -390L -394 -390L -394 -410Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="testimonial" clip-path="url(#clip-0)">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(-389 -407)" fill="#191E23"/>
+</g>
+<clipPath id="clip-1" clip-rule="evenodd">
+<path d="M -384 -400L -374 -400L -374 -390L -384 -390L -384 -400Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="Logo" clip-path="url(#clip-1)">
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(-384 -400)" fill="#008DBE"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path2_fill" transform="translate(-379.75 -396)" fill="#FFFFFF"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path3_fill" transform="translate(-377.5 -396.5)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 9.0625 0L 6.5625 0C 6.04492 0 5.625 0.43192 5.625 0.964286L 5.625 3.53571C 5.625 4.06808 6.04492 4.5 6.5625 4.5L 8.125 4.5L 8.125 5.78571C 8.125 6.49487 7.56445 7.07143 6.875 7.07143L 6.71875 7.07143C 6.45898 7.07143 6.25 7.28638 6.25 7.55357L 6.25 8.51786C 6.25 8.78504 6.45898 9 6.71875 9L 6.875 9C 8.60156 9 10 7.56161 10 5.78571L 10 0.964286C 10 0.43192 9.58008 0 9.0625 0ZM 3.4375 0L 0.9375 0C 0.419922 0 0 0.43192 0 0.964286L 0 3.53571C 0 4.06808 0.419922 4.5 0.9375 4.5L 2.5 4.5L 2.5 5.78571C 2.5 6.49487 1.93945 7.07143 1.25 7.07143L 1.09375 7.07143C 0.833984 7.07143 0.625 7.28638 0.625 7.55357L 0.625 8.51786C 0.625 8.78504 0.833984 9 1.09375 9L 1.25 9C 2.97656 9 4.375 7.56161 4.375 5.78571L 4.375 0.964286C 4.375 0.43192 3.95508 0 3.4375 0Z"/>
+<path id="path1_fill" d="M 0 10L 0 4.00003C 0 2.04655 2.54888 0.00759371 5 3.05176e-05C 7.48789 -0.00764612 10 2.09538 10 4.00003L 10 10L 8.33333 8.33957L 6.66667 10L 5 8.33957L 3.33333 10L 1.66667 8.33957L 0 10Z"/>
+<path id="path2_fill" d="M 1.5 0.75C 1.5 1.16421 1.16421 1.5 0.75 1.5C 0.335786 1.5 0 1.16421 0 0.75C 0 0.335786 0.335786 0 0.75 0C 1.16421 0 1.5 0.335786 1.5 0.75Z"/>
+<path id="path3_fill" d="M 2 1C 2 1.55228 1.55228 2 1 2C 0.447715 2 0 1.55228 0 1C 0 0.447715 0.447715 0 1 0C 1.55228 0 2 0.447715 2 1Z"/>
+</defs>
+</svg>

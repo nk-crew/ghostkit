@@ -8,7 +8,7 @@ import './editor.scss';
 
 // Internal Dependencies.
 import { getCustomStylesAttr } from '../_utils.jsx';
-import { progressIcon } from '../_icons.jsx';
+import elementIcon from '../_icons/progress.svg';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -191,7 +191,7 @@ export const name = 'ghostkit/progress';
 export const settings = {
     title: __( 'Progress' ),
     description: __( 'Progress bar.' ),
-    icon: progressIcon,
+    icon: <img className="ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
     category: 'common',
     keywords: [
         __( 'progress' ),
