@@ -6,7 +6,8 @@
 .wp-block-ghostkit-progress,
 .wp-block-ghostkit-button,
 .wp-block-ghostkit-icon-box,
-.wp-block-ghostkit-counter-box {
+.wp-block-ghostkit-counter-box,
+.wp-block-ghostkit-alert {
     margin-bottom: 28px;
 }
 
@@ -18,3 +19,4 @@
 @import "./progress/style";
 @import "./icon-box/style";
 @import "./counter-box/style";
+@import "./alert/style";

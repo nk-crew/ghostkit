@@ -1,0 +1,9 @@
+/**
+ * Editor Styles
+ */
+@import "../variables";
+
+.wp-block-ghostkit-alert .ghostkit-alert-content {
+    margin-top: -15px;
+    margin-bottom: -19px; // 4px from the inner block
+}
