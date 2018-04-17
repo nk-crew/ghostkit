@@ -1,0 +1,31 @@
+/**
+ * Frontend Styles
+ */
+@import "../variables";
+
+.wp-block-ghostkit-counter-box {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    border: 1px solid $light-gray-200;
+
+    .ghostkit-counter-box-number {
+        display: flex;
+        padding-right: 15px;
+    }
+    .ghostkit-counter-box-number-align-right {
+        order: 2;
+        padding-right: 0;
+        padding-left: 15px;
+    }
+    .ghostkit-counter-box-number-align-top {
+        flex: 100%;
+        justify-content: center;
+        padding-right: 0;
+        padding-bottom: 15px;
+    }
+
+    .ghostkit-counter-box-content {
+        flex: 1;
+    }
+}
