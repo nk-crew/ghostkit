@@ -2,6 +2,8 @@
  * Element Icons.
  */
 img.ghostkit-icon {
+    pointer-events: none;
+
     .editor-default-block-appender .editor-inserter-with-shortcuts .components-icon-button & {
         opacity: .4;
         transition: .2s opacity;
