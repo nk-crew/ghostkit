@@ -64,7 +64,6 @@ class IconBoxBlock extends Component {
             className,
             attributes,
             setAttributes,
-            isSelected,
         } = this.props;
 
         const {
@@ -76,7 +75,6 @@ class IconBoxBlock extends Component {
         } = attributes;
 
         return [
-            isSelected &&
             <InspectorControls key="inspector">
                 <TextControl
                     label={ __( 'Icon' ) }

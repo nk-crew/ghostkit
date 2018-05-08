@@ -121,11 +121,9 @@ class ButtonBlock extends Component {
         };
 
         return [
-            isSelected &&
             <BlockControls key="controls">
                 <BlockAlignmentToolbar value={ align } onChange={ this.updateAlignment } />
             </BlockControls>,
-            isSelected &&
             <InspectorControls key="inspector">
                 <PanelBody>
                     <div className="blocks-size__main">
@@ -219,19 +217,17 @@ class ButtonBlock extends Component {
                     keepPlaceholderOnFocus
                 />
             </div>,
-            isSelected && (
-                <form
-                    key="form-link"
-                    className="ghostkit-button__inline-link"
-                    onSubmit={ ( event ) => event.preventDefault() }>
-                    <Dashicon icon="admin-links" />
-                    <UrlInput
-                        value={ url }
-                        onChange={ ( value ) => setAttributes( { url: value } ) }
-                    />
-                    <IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
-                </form>
-            ),
+            <form
+                key="form-link"
+                className="ghostkit-button__inline-link"
+                onSubmit={ ( event ) => event.preventDefault() }>
+                <Dashicon icon="admin-links" />
+                <UrlInput
+                    value={ url }
+                    onChange={ ( value ) => setAttributes( { url: value } ) }
+                />
+                <IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
+            </form>,
         ];
     }
 }

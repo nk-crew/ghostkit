@@ -76,7 +76,6 @@ class CounterBoxBlock extends Component {
         } = attributes;
 
         return [
-            isSelected &&
             <InspectorControls key="inspector">
                 <RangeControl
                     label={ __( 'Number Size' ) }

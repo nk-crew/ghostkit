@@ -86,7 +86,6 @@ class ProgressBlock extends Component {
         } = attributes;
 
         return [
-            isSelected &&
             <InspectorControls key="inspector">
                 <RangeControl
                     label={ __( 'Height' ) }

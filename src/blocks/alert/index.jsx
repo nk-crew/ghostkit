@@ -66,7 +66,6 @@ class AlertBlock extends Component {
             className,
             attributes,
             setAttributes,
-            isSelected,
         } = this.props;
 
         const {
@@ -79,7 +78,6 @@ class AlertBlock extends Component {
         } = attributes;
 
         return [
-            isSelected &&
             <InspectorControls key="inspector">
                 <PanelColor title={ __( 'Color' ) } colorValue={ color } >
                     <ColorPalette
