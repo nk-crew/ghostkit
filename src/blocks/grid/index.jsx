@@ -7,7 +7,6 @@ import elementIcon from '../_icons/grid.svg';
 
 const { __, sprintf } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { addFilter } = wp.hooks;
 const {
     BaseControl,
     Button,
@@ -179,8 +178,3 @@ export const settings = {
         );
     },
 };
-
-addFilter( 'blocks.getSaveElement', 'lubus/background/withBackground', ( a ) => {
-    //console.log( a, b );
-    return a;
-} );
