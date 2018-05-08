@@ -1,0 +1,22 @@
+<svg width="20" height="20" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Canvas" fill="none">
+<g id="grid" clip-path="url(#clip0)">
+<rect id="Rectangle" width="4" height="13" transform="translate(2 2)" fill="#191E23"/>
+<rect id="Rectangle_2" width="4" height="13" transform="translate(8 2)" fill="#191E23"/>
+<rect id="Rectangle_3" width="4" height="13" transform="translate(14 2)" fill="#191E23"/>
+<g id="Logo" clip-path="url(#clip1)">
+<path id="Vector" d="M 0 10L 0 4.00003C 0 2.04655 2.54888 0.00759371 5 3.05176e-05C 7.48789 -0.00764612 10 2.09538 10 4.00003L 10 10L 8.33333 8.33957L 6.66667 10L 5 8.33957L 3.33333 10L 1.66667 8.33957L 0 10Z" transform="translate(10 9.99994)" fill="#008DBE"/>
+<path id="Ellipse" d="M 1.5 0.75C 1.5 1.16421 1.16421 1.5 0.75 1.5C 0.335787 1.5 0 1.16421 0 0.75C 0 0.335786 0.335787 0 0.75 0C 1.16421 0 1.5 0.335786 1.5 0.75Z" transform="translate(14.25 14)" fill="white"/>
+<path id="Ellipse_2" d="M 2 1C 2 1.55228 1.55228 2 1 2C 0.447715 2 0 1.55228 0 1C 0 0.447715 0.447715 0 1 0C 1.55228 0 2 0.447715 2 1Z" transform="translate(16.5 13.5)" fill="white"/>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="20" height="20" fill="white"/>
+</clipPath>
+<clipPath id="clip1">
+<rect width="10" height="10" fill="white" transform="translate(10 10)"/>
+</clipPath>
+</defs>
+</svg>

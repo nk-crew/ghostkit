@@ -69,7 +69,7 @@ gulp.task('copy_to_dist_vendors', function () {
             .pipe(gulp.dest(itemData.to))
     });
 });
-gulp.task('build_js', function () {
+gulp.task('build_blocks_js', function () {
     return runStream(work_folders, function (itemData) {
         return gulp.src(itemData.from + '/blocks/index.jsx')
             .pipe($.plumber({ errorHandler }))
@@ -115,6 +115,34 @@ gulp.task('build_js', function () {
                 suffix: '.min'
             }))
             .pipe(gulp.dest(itemData.to + '/blocks'))
+    });
+});
+gulp.task('build_js', function () {
+    return runStream(work_folders, function (itemData) {
+        return gulp.src(itemData.from + '/assets/js/**/*.js')
+            .pipe($.plumber({ errorHandler }))
+            .pipe(named())
+            .pipe(webpack({
+                module: {
+                    loaders: [
+                        {
+                            test: /.js$/,
+                            loader: 'babel-loader',
+                            exclude: /node_modules/
+                        }
+                    ]
+                }
+            }))
+            // .pipe($.changed(itemData.to))
+            .pipe($.uglify({
+                output: {
+                    comments: /^!/
+                }
+            }))
+            .pipe($.rename({
+                suffix: '.min'
+            }))
+            .pipe(gulp.dest(itemData.to + '/assets/js'))
     });
 });
 gulp.task('build_scss', function () {
@@ -220,7 +248,7 @@ gulp.task('translate', function () {
  * Build Task [default]
  */
 gulp.task('build', function(cb) {
-    runSequence('clean', 'copy_to_dist', 'copy_to_dist_vendors', 'build_scss', 'build_js', 'correct_lines_ending', 'update_template_vars', 'translate', cb);
+    runSequence('clean', 'copy_to_dist', 'copy_to_dist_vendors', 'build_scss', 'build_blocks_js', 'build_js', 'correct_lines_ending', 'update_template_vars', 'translate', cb);
 });
 gulp.task('watch_build_php', function(cb) {
     runSequence('copy_to_dist_watch_php', 'update_template_vars_watch', 'translate', cb);
@@ -240,8 +268,8 @@ gulp.task('watch', ['build'], function() {
     for (var k = 0; k < work_folders.length; k++) {
         var itemData = work_folders[k];
         gulp.watch([itemData.from + '/**/*.php', '!' + itemData.from + '/*vendor/**/*'], ['watch_build_php']);
-        gulp.watch([itemData.from + '/**/*.{js,jsx}', '!' + itemData.from + '/*vendor/**/*'], ['build_js']);
-        gulp.watch([itemData.from + '/**/*.scss', '!' + itemData.from + '/*vendor/**/*'], ['build_scss', 'build_js']);
+        gulp.watch([itemData.from + '/**/*.{js,jsx}', '!' + itemData.from + '/*vendor/**/*'], ['build_blocks_js', 'build_js']);
+        gulp.watch([itemData.from + '/**/*.scss', '!' + itemData.from + '/*vendor/**/*'], ['build_scss', 'build_blocks_js']);
         gulp.watch([itemData.from + '/**/*', '!' + itemData.from + '/**/*.{php,js,jsx,scss}', itemData.from + '/*vendor/**/*'], ['watch_build_all']);
         gulp.watch(itemData.from + '/**/vendor/**/*', ['watch_build_vendors']);
     }

@@ -1,6 +1,7 @@
 /**
  * Gutenberg Blocks
  */
+import * as grid from './grid/index.jsx';
 import * as button from './button/index.jsx';
 import * as progress from './progress/index.jsx';
 import * as iconBox from './icon-box/index.jsx';
@@ -16,6 +17,7 @@ const { registerBlockType } = wp.blocks;
  * Register blocks
  */
 [
+    grid,
     button,
     progress,
     iconBox,

@@ -1,0 +1,34 @@
+/**
+ * Frontend Styles
+ */
+@import "../variables";
+
+.wp-block-ghostkit-grid {
+    display: grid;
+    grid-auto-flow: dense;
+
+    // gap.
+    &.ghostkit-grid-gap-sm {
+        grid-gap: 15px;
+    }
+    &.ghostkit-grid-gap-md {
+        grid-gap: 30px;
+    }
+    &.ghostkit-grid-gap-lg {
+        grid-gap: 45px;
+    }
+
+    // columns count.
+    @for $i from 2 through 6 {
+        &.ghostkit-grid-cols-#{ $i } {
+            grid-template: 1fr / repeat($i, 1fr);
+        }
+    }
+
+    // columns position.
+    @for $i from 1 through 6 {
+        .layout-ghostkit-col-#{ $i } {
+            grid-column: #{ $i };
+        }
+    }
+}

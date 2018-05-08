@@ -159,6 +159,12 @@ class GhostKit {
             array( 'wp-blocks' ),
             filemtime( plugin_dir_path( __FILE__ ) . 'blocks/style.min.css' )
         );
+        wp_enqueue_script(
+            'ghostkit',
+            plugins_url( 'assets/js/script.min.js', __FILE__ ),
+            array( 'jquery', 'wp-blocks' ),
+            filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/script.min.js' )
+        );
     }
 
     /**
