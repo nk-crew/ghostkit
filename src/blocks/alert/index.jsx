@@ -10,7 +10,7 @@ import { getCustomStylesAttr } from '../_utils.jsx';
 import elementIcon from '../_icons/alert.svg';
 
 const { __ } = wp.i18n;
-const { Component } = wp.element;
+const { Component, Fragment } = wp.element;
 const {
     RangeControl,
     PanelColor,
@@ -77,56 +77,58 @@ class AlertBlock extends Component {
             hideButton,
         } = attributes;
 
-        return [
-            <InspectorControls key="inspector">
-                <PanelColor title={ __( 'Color' ) } colorValue={ color } >
-                    <ColorPalette
-                        value={ color }
-                        onChange={ ( colorValue ) => setAttributes( { color: colorValue } ) }
+        return (
+            <Fragment>
+                <InspectorControls>
+                    <PanelColor title={ __( 'Color' ) } colorValue={ color } >
+                        <ColorPalette
+                            value={ color }
+                            onChange={ ( colorValue ) => setAttributes( { color: colorValue } ) }
+                        />
+                    </PanelColor>
+                    <TextControl
+                        label={ __( 'Icon' ) }
+                        value={ icon }
+                        help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
+                        onChange={ ( value ) => setAttributes( { icon: value } ) }
                     />
-                </PanelColor>
-                <TextControl
-                    label={ __( 'Icon' ) }
-                    value={ icon }
-                    help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
-                    onChange={ ( value ) => setAttributes( { icon: value } ) }
-                />
-                <RangeControl
-                    label={ __( 'Icon Size' ) }
-                    value={ iconSize }
-                    onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-                    min={ 20 }
-                    max={ 100 }
-                    beforeIcon="editor-textcolor"
-                    afterIcon="editor-textcolor"
-                />
-                <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
-                    <ColorPalette
-                        value={ iconColor }
-                        onChange={ ( colorValue ) => setAttributes( { iconColor: colorValue } ) }
+                    <RangeControl
+                        label={ __( 'Icon Size' ) }
+                        value={ iconSize }
+                        onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+                        min={ 20 }
+                        max={ 100 }
+                        beforeIcon="editor-textcolor"
+                        afterIcon="editor-textcolor"
                     />
-                </PanelColor>
-                <ToggleControl
-                    label={ __( 'Hide Button' ) }
-                    checked={ !! hideButton }
-                    onChange={ ( val ) => setAttributes( { hideButton: val } ) }
-                />
-            </InspectorControls>,
-            <div className={ `${ className || '' } ghostkit-alert-${ id }` } key="alert" { ...getCustomStylesAttr( getStyles( attributes ) ) }>
-                { icon && (
-                    <div className="ghostkit-alert-icon" dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } } />
-                ) }
-                <div className="ghostkit-alert-content">
-                    { /* TODO: Add default blocks when this will be possible https://github.com/WordPress/gutenberg/issues/5448 */ }
-                    <InnerBlocks />
-                </div>
-                { hideButton && (
-                    <div className="ghostkit-alert-hide-button">
-                        <span className="fas fa-times" />
+                    <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
+                        <ColorPalette
+                            value={ iconColor }
+                            onChange={ ( colorValue ) => setAttributes( { iconColor: colorValue } ) }
+                        />
+                    </PanelColor>
+                    <ToggleControl
+                        label={ __( 'Hide Button' ) }
+                        checked={ !! hideButton }
+                        onChange={ ( val ) => setAttributes( { hideButton: val } ) }
+                    />
+                </InspectorControls>
+                <div className={ `${ className || '' } ghostkit-alert-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+                    { icon && (
+                        <div className="ghostkit-alert-icon" dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } } />
+                    ) }
+                    <div className="ghostkit-alert-content">
+                        { /* TODO: Add default blocks when this will be possible https://github.com/WordPress/gutenberg/issues/5448 */ }
+                        <InnerBlocks />
                     </div>
-                ) }
-            </div>,
-        ];
+                    { hideButton && (
+                        <div className="ghostkit-alert-hide-button">
+                            <span className="fas fa-times" />
+                        </div>
+                    ) }
+                </div>
+            </Fragment>
+        );
     }
 }
 

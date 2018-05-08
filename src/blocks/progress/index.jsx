@@ -11,7 +11,7 @@ import { getCustomStylesAttr } from '../_utils.jsx';
 import elementIcon from '../_icons/progress.svg';
 
 const { __ } = wp.i18n;
-const { Component } = wp.element;
+const { Component, Fragment } = wp.element;
 const {
     RangeControl,
     PanelColor,
@@ -85,103 +85,102 @@ class ProgressBlock extends Component {
             backgroundColor,
         } = attributes;
 
-        return [
-            <InspectorControls key="inspector">
-                <RangeControl
-                    label={ __( 'Height' ) }
-                    value={ height || '' }
-                    onChange={ value => setAttributes( { height: value } ) }
-                    min={ 5 }
-                    max={ 20 }
-                />
-                <RangeControl
-                    label={ __( 'Percent' ) }
-                    value={ percent || '' }
-                    onChange={ value => setAttributes( { percent: value } ) }
-                    min={ 0 }
-                    max={ 100 }
-                />
-                <RangeControl
-                    label={ __( 'Corner Radius' ) }
-                    value={ borderRadius }
-                    min="0"
-                    max="10"
-                    onChange={ ( val ) => setAttributes( { borderRadius: val } ) }
-                />
-                <ToggleControl
-                    label={ __( 'Striped' ) }
-                    checked={ !! striped }
-                    onChange={ ( val ) => setAttributes( { striped: val } ) }
-                />
-                <PanelColor title={ __( 'Color' ) } colorValue={ color } >
-                    <ColorPalette
-                        value={ color }
-                        onChange={ ( colorValue ) => setAttributes( { color: colorValue } ) }
+        return (
+            <Fragment>
+                <InspectorControls>
+                    <RangeControl
+                        label={ __( 'Height' ) }
+                        value={ height || '' }
+                        onChange={ value => setAttributes( { height: value } ) }
+                        min={ 5 }
+                        max={ 20 }
                     />
-                </PanelColor>
-                <PanelColor title={ __( 'Background Color' ) } colorValue={ backgroundColor } >
-                    <ColorPalette
-                        value={ backgroundColor }
-                        onChange={ ( colorValue ) => setAttributes( { backgroundColor: colorValue } ) }
+                    <RangeControl
+                        label={ __( 'Percent' ) }
+                        value={ percent || '' }
+                        onChange={ value => setAttributes( { percent: value } ) }
+                        min={ 0 }
+                        max={ 100 }
                     />
-                </PanelColor>
-            </InspectorControls>,
-            ( caption && caption.length > 0 ) || isSelected ? (
-                <RichText
-                    tagName="small"
-                    placeholder={ __( 'Write caption…' ) }
-                    value={ caption }
-                    onChange={ newCaption => setAttributes( { caption: newCaption } ) }
-                    key="caption"
-                />
-            ) : null,
-            <div className={ `${ className || '' } ghostkit-progress-${ id }` } key="progress" { ...getCustomStylesAttr( getStyles( attributes ) ) }>
-                <ResizableBox
-                    key="progress"
-                    className={ `ghostkit-progress-wrap${ striped ? ' ghostkit-progress-bar-striped' : '' }` }
-                    size={ {
-                        width: '100%',
-                        height,
-                    } }
-                    minWidth="0%"
-                    maxWidth="100%"
-                    minHeight="5"
-                    maxHeight="20"
-                    enable={ { top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
-                    onResizeStart={ () => {
-                        toggleSelection( false );
-                    } }
-                    onResizeStop={ ( event, direction, elt, delta ) => {
-                        setAttributes( {
-                            height: parseInt( height + delta.height, 10 ),
-                        } );
-                        toggleSelection( true );
-                    } }
-                >
+                    <RangeControl
+                        label={ __( 'Corner Radius' ) }
+                        value={ borderRadius }
+                        min="0"
+                        max="10"
+                        onChange={ ( val ) => setAttributes( { borderRadius: val } ) }
+                    />
+                    <ToggleControl
+                        label={ __( 'Striped' ) }
+                        checked={ !! striped }
+                        onChange={ ( val ) => setAttributes( { striped: val } ) }
+                    />
+                    <PanelColor title={ __( 'Color' ) } colorValue={ color } >
+                        <ColorPalette
+                            value={ color }
+                            onChange={ ( colorValue ) => setAttributes( { color: colorValue } ) }
+                        />
+                    </PanelColor>
+                    <PanelColor title={ __( 'Background Color' ) } colorValue={ backgroundColor } >
+                        <ColorPalette
+                            value={ backgroundColor }
+                            onChange={ ( colorValue ) => setAttributes( { backgroundColor: colorValue } ) }
+                        />
+                    </PanelColor>
+                </InspectorControls>
+                { ( ( caption && caption.length > 0 ) || isSelected ) && (
+                    <RichText
+                        tagName="small"
+                        placeholder={ __( 'Write caption…' ) }
+                        value={ caption }
+                        onChange={ newCaption => setAttributes( { caption: newCaption } ) }
+                    />
+                ) }
+                <div className={ `${ className || '' } ghostkit-progress-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
                     <ResizableBox
-                        key="resizable"
-                        className="ghostkit-progress-bar"
+                        className={ `ghostkit-progress-wrap${ striped ? ' ghostkit-progress-bar-striped' : '' }` }
                         size={ {
-                            width: `${ percent }%`,
+                            width: '100%',
+                            height,
                         } }
                         minWidth="0%"
                         maxWidth="100%"
-                        minHeight="100%"
-                        maxHeight="100%"
-                        enable={ { top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
+                        minHeight="5"
+                        maxHeight="20"
+                        enable={ { top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
                         onResizeStart={ () => {
                             toggleSelection( false );
                         } }
                         onResizeStop={ ( event, direction, elt, delta ) => {
                             setAttributes( {
-                                percent: Math.min( 100, Math.max( 0, percent + parseInt( 100 * delta.width / jQuery( elt ).parent().width(), 10 ) ) ),
+                                height: parseInt( height + delta.height, 10 ),
                             } );
                             toggleSelection( true );
                         } }
-                    />
-                </ResizableBox>
-            </div>,
-        ];
+                    >
+                        <ResizableBox
+                            className="ghostkit-progress-bar"
+                            size={ {
+                                width: `${ percent }%`,
+                            } }
+                            minWidth="0%"
+                            maxWidth="100%"
+                            minHeight="100%"
+                            maxHeight="100%"
+                            enable={ { top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
+                            onResizeStart={ () => {
+                                toggleSelection( false );
+                            } }
+                            onResizeStop={ ( event, direction, elt, delta ) => {
+                                setAttributes( {
+                                    percent: Math.min( 100, Math.max( 0, percent + parseInt( 100 * delta.width / jQuery( elt ).parent().width(), 10 ) ) ),
+                                } );
+                                toggleSelection( true );
+                            } }
+                        />
+                    </ResizableBox>
+                </div>
+            </Fragment>
+        );
     }
 }
 

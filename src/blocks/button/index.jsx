@@ -10,7 +10,7 @@ import { getCustomStylesAttr } from '../_utils.jsx';
 import elementIcon from '../_icons/button.svg';
 
 const { __ } = wp.i18n;
-const { Component } = wp.element;
+const { Component, Fragment } = wp.element;
 const {
     Dashicon,
     IconButton,
@@ -120,115 +120,116 @@ class ButtonBlock extends Component {
             XL: 'xl',
         };
 
-        return [
-            <BlockControls key="controls">
-                <BlockAlignmentToolbar value={ align } onChange={ this.updateAlignment } />
-            </BlockControls>,
-            <InspectorControls key="inspector">
-                <PanelBody>
-                    <div className="blocks-size__main">
-                        <ButtonGroup aria-label={ __( 'Size' ) }>
-                            {
-                                Object.keys( sizes ).map( ( key ) =>
-                                    <Button
-                                        key={ key }
-                                        isLarge
-                                        isPrimary={ size === sizes[ key ] }
-                                        aria-pressed={ size === sizes[ key ] }
-                                        onClick={ () => setAttributes( { size: sizes[ key ] } ) }
-                                    >
-                                        { key }
-                                    </Button>
-                                )
-                            }
-                        </ButtonGroup>
-                        <Button
-                            isLarge
-                            onClick={ () => setAttributes( { size: 'md' } ) }
-                        >
-                            { __( 'Reset' ) }
-                        </Button>
-                    </div>
-                    <RangeControl
-                        label={ __( 'Corner Radius' ) }
-                        value={ borderRadius }
-                        min="0"
-                        max="50"
-                        onChange={ ( val ) => setAttributes( { borderRadius: val } ) }
+        return (
+            <Fragment>
+                <BlockControls>
+                    <BlockAlignmentToolbar value={ align } onChange={ this.updateAlignment } />
+                </BlockControls>
+                <InspectorControls>
+                    <PanelBody>
+                        <div className="blocks-size__main">
+                            <ButtonGroup aria-label={ __( 'Size' ) }>
+                                {
+                                    Object.keys( sizes ).map( ( key ) =>
+                                        <Button
+                                            key={ key }
+                                            isLarge
+                                            isPrimary={ size === sizes[ key ] }
+                                            aria-pressed={ size === sizes[ key ] }
+                                            onClick={ () => setAttributes( { size: sizes[ key ] } ) }
+                                        >
+                                            { key }
+                                        </Button>
+                                    )
+                                }
+                            </ButtonGroup>
+                            <Button
+                                isLarge
+                                onClick={ () => setAttributes( { size: 'md' } ) }
+                            >
+                                { __( 'Reset' ) }
+                            </Button>
+                        </div>
+                        <RangeControl
+                            label={ __( 'Corner Radius' ) }
+                            value={ borderRadius }
+                            min="0"
+                            max="50"
+                            onChange={ ( val ) => setAttributes( { borderRadius: val } ) }
+                        />
+                        <PanelColor title={ __( 'Background Color' ) } colorValue={ color } >
+                            <ColorPalette
+                                value={ color }
+                                onChange={ ( colorValue ) => setAttributes( { color: colorValue } ) }
+                            />
+                        </PanelColor>
+                        <PanelColor title={ __( 'Text Color' ) } colorValue={ textColor } >
+                            <ColorPalette
+                                value={ textColor }
+                                onChange={ ( colorValue ) => setAttributes( { textColor: colorValue } ) }
+                            />
+                        </PanelColor>
+                    </PanelBody>
+                    <PanelBody title={ __( 'Border' ) } initialOpen={ false }>
+                        <RangeControl
+                            label={ __( 'Weight' ) }
+                            value={ borderWeight }
+                            min="0"
+                            max="6"
+                            onChange={ ( val ) => setAttributes( { borderWeight: val } ) }
+                        />
+                        <PanelColor title={ __( 'Color' ) } colorValue={ borderColor } >
+                            <ColorPalette
+                                value={ color }
+                                onChange={ ( colorValue ) => setAttributes( { borderColor: colorValue } ) }
+                            />
+                        </PanelColor>
+                    </PanelBody>
+                    <PanelBody title={ __( 'Hover Colors' ) } initialOpen={ false }>
+                        <PanelColor title={ __( 'Background Color' ) } colorValue={ hoverColor } >
+                            <ColorPalette
+                                value={ hoverColor }
+                                onChange={ ( colorValue ) => setAttributes( { hoverColor: colorValue } ) }
+                            />
+                        </PanelColor>
+                        <PanelColor title={ __( 'Text Color' ) } colorValue={ hoverTextColor } >
+                            <ColorPalette
+                                value={ hoverTextColor }
+                                onChange={ ( colorValue ) => setAttributes( { hoverTextColor: colorValue } ) }
+                            />
+                        </PanelColor>
+                        <PanelColor title={ __( 'Border Color' ) } colorValue={ hoverBorderColor } >
+                            <ColorPalette
+                                value={ hoverBorderColor }
+                                onChange={ ( colorValue ) => setAttributes( { hoverBorderColor: colorValue } ) }
+                            />
+                        </PanelColor>
+                    </PanelBody>
+                </InspectorControls>
+                <div className={ `${ className || '' } ghostkit-button-${ id } align${ align }` } title={ title } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+                    <RichText
+                        tagName="span"
+                        placeholder={ __( 'Add text…' ) }
+                        value={ text }
+                        onChange={ ( value ) => setAttributes( { text: value } ) }
+                        formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                        className={ `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }` }
+                        isSelected={ isSelected }
+                        keepPlaceholderOnFocus
                     />
-                    <PanelColor title={ __( 'Background Color' ) } colorValue={ color } >
-                        <ColorPalette
-                            value={ color }
-                            onChange={ ( colorValue ) => setAttributes( { color: colorValue } ) }
-                        />
-                    </PanelColor>
-                    <PanelColor title={ __( 'Text Color' ) } colorValue={ textColor } >
-                        <ColorPalette
-                            value={ textColor }
-                            onChange={ ( colorValue ) => setAttributes( { textColor: colorValue } ) }
-                        />
-                    </PanelColor>
-                </PanelBody>
-                <PanelBody title={ __( 'Border' ) } initialOpen={ false }>
-                    <RangeControl
-                        label={ __( 'Weight' ) }
-                        value={ borderWeight }
-                        min="0"
-                        max="6"
-                        onChange={ ( val ) => setAttributes( { borderWeight: val } ) }
+                </div>
+                <form
+                    className="ghostkit-button__inline-link"
+                    onSubmit={ ( event ) => event.preventDefault() }>
+                    <Dashicon icon="admin-links" />
+                    <UrlInput
+                        value={ url }
+                        onChange={ ( value ) => setAttributes( { url: value } ) }
                     />
-                    <PanelColor title={ __( 'Color' ) } colorValue={ borderColor } >
-                        <ColorPalette
-                            value={ color }
-                            onChange={ ( colorValue ) => setAttributes( { borderColor: colorValue } ) }
-                        />
-                    </PanelColor>
-                </PanelBody>
-                <PanelBody title={ __( 'Hover Colors' ) } initialOpen={ false }>
-                    <PanelColor title={ __( 'Background Color' ) } colorValue={ hoverColor } >
-                        <ColorPalette
-                            value={ hoverColor }
-                            onChange={ ( colorValue ) => setAttributes( { hoverColor: colorValue } ) }
-                        />
-                    </PanelColor>
-                    <PanelColor title={ __( 'Text Color' ) } colorValue={ hoverTextColor } >
-                        <ColorPalette
-                            value={ hoverTextColor }
-                            onChange={ ( colorValue ) => setAttributes( { hoverTextColor: colorValue } ) }
-                        />
-                    </PanelColor>
-                    <PanelColor title={ __( 'Border Color' ) } colorValue={ hoverBorderColor } >
-                        <ColorPalette
-                            value={ hoverBorderColor }
-                            onChange={ ( colorValue ) => setAttributes( { hoverBorderColor: colorValue } ) }
-                        />
-                    </PanelColor>
-                </PanelBody>
-            </InspectorControls>,
-            <div className={ `${ className || '' } ghostkit-button-${ id } align${ align }` } title={ title } key="button" { ...getCustomStylesAttr( getStyles( attributes ) ) }>
-                <RichText
-                    tagName="span"
-                    placeholder={ __( 'Add text…' ) }
-                    value={ text }
-                    onChange={ ( value ) => setAttributes( { text: value } ) }
-                    formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                    className={ `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }` }
-                    isSelected={ isSelected }
-                    keepPlaceholderOnFocus
-                />
-            </div>,
-            <form
-                key="form-link"
-                className="ghostkit-button__inline-link"
-                onSubmit={ ( event ) => event.preventDefault() }>
-                <Dashicon icon="admin-links" />
-                <UrlInput
-                    value={ url }
-                    onChange={ ( value ) => setAttributes( { url: value } ) }
-                />
-                <IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
-            </form>,
-        ];
+                    <IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
+                </form>
+            </Fragment>
+        );
     }
 }
 

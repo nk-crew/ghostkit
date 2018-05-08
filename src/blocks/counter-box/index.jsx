@@ -10,7 +10,7 @@ import { getCustomStylesAttr } from '../_utils.jsx';
 import elementIcon from '../_icons/counter-box.svg';
 
 const { __ } = wp.i18n;
-const { Component } = wp.element;
+const { Component, Fragment } = wp.element;
 const {
     RangeControl,
     PanelColor,
@@ -75,61 +75,63 @@ class CounterBoxBlock extends Component {
             numberColor,
         } = attributes;
 
-        return [
-            <InspectorControls key="inspector">
-                <RangeControl
-                    label={ __( 'Number Size' ) }
-                    value={ numberSize }
-                    onChange={ ( value ) => setAttributes( { numberSize: value } ) }
-                    min={ 20 }
-                    max={ 100 }
-                    beforeIcon="editor-textcolor"
-                    afterIcon="editor-textcolor"
-                />
-                <SelectControl
-                    label={ __( 'Number Position' ) }
-                    value={ numberPosition }
-                    onChange={ ( value ) => setAttributes( { numberPosition: value } ) }
-                    options={ [
-                        {
-                            label: __( 'Top' ),
-                            value: 'top',
-                        },
-                        {
-                            label: __( 'Left' ),
-                            value: 'left',
-                        },
-                        {
-                            label: __( 'Right' ),
-                            value: 'right',
-                        },
-                    ] }
-                />
-                <PanelColor title={ __( 'Number Color' ) } colorValue={ numberColor } >
-                    <ColorPalette
-                        value={ numberColor }
-                        onChange={ ( colorValue ) => setAttributes( { numberColor: colorValue } ) }
+        return (
+            <Fragment>
+                <InspectorControls>
+                    <RangeControl
+                        label={ __( 'Number Size' ) }
+                        value={ numberSize }
+                        onChange={ ( value ) => setAttributes( { numberSize: value } ) }
+                        min={ 20 }
+                        max={ 100 }
+                        beforeIcon="editor-textcolor"
+                        afterIcon="editor-textcolor"
                     />
-                </PanelColor>
-            </InspectorControls>,
-            <div className={ `${ className || '' } ghostkit-counter-box-${ id }` } key="counter-box" { ...getCustomStylesAttr( getStyles( attributes ) ) }>
-                <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
-                    <RichText
-                        tagName="div"
-                        placeholder={ __( 'Add number…' ) }
-                        value={ number }
-                        onChange={ ( value ) => setAttributes( { number: value } ) }
-                        formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                        isSelected={ isSelected }
-                        keepPlaceholderOnFocus
+                    <SelectControl
+                        label={ __( 'Number Position' ) }
+                        value={ numberPosition }
+                        onChange={ ( value ) => setAttributes( { numberPosition: value } ) }
+                        options={ [
+                            {
+                                label: __( 'Top' ),
+                                value: 'top',
+                            },
+                            {
+                                label: __( 'Left' ),
+                                value: 'left',
+                            },
+                            {
+                                label: __( 'Right' ),
+                                value: 'right',
+                            },
+                        ] }
                     />
+                    <PanelColor title={ __( 'Number Color' ) } colorValue={ numberColor } >
+                        <ColorPalette
+                            value={ numberColor }
+                            onChange={ ( colorValue ) => setAttributes( { numberColor: colorValue } ) }
+                        />
+                    </PanelColor>
+                </InspectorControls>
+                <div className={ `${ className || '' } ghostkit-counter-box-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+                    <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
+                        <RichText
+                            tagName="div"
+                            placeholder={ __( 'Add number…' ) }
+                            value={ number }
+                            onChange={ ( value ) => setAttributes( { number: value } ) }
+                            formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                            isSelected={ isSelected }
+                            keepPlaceholderOnFocus
+                        />
+                    </div>
+                    <div className="ghostkit-counter-box-content">
+                        { /* TODO: Add default blocks when this will be possible https://github.com/WordPress/gutenberg/issues/5448 */ }
+                        <InnerBlocks />
+                    </div>
                 </div>
-                <div className="ghostkit-counter-box-content">
-                    { /* TODO: Add default blocks when this will be possible https://github.com/WordPress/gutenberg/issues/5448 */ }
-                    <InnerBlocks />
-                </div>
-            </div>,
-        ];
+            </Fragment>
+        );
     }
 }
 
