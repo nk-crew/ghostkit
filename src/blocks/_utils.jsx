@@ -1,3 +1,5 @@
+const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-width', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-radius', 'bottom', 'top', 'left', 'right', 'font-size', 'height', 'width', 'min-height', 'min-width', 'max-height', 'max-width', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', 'margin', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', 'padding', 'outline-width' ];
+
 /**
  * Get styles from object.
  *
@@ -28,7 +30,15 @@ export const getStyles = ( data = {}, selector = '' ) => {
             if ( ! result[ selector ] ) {
                 result[ selector ] = '';
             }
-            result[ selector ] += ` ${ camelCaseToDash( key ) }: ${ data[ key ] };`;
+            const propName = camelCaseToDash( key );
+            let propValue = data[ key ];
+
+            // add pixels.
+            if ( typeof propValue === 'number' && propValue !== 0 && cssPropsWithPixels.includes( propName ) ) {
+                propValue += 'px';
+            }
+
+            result[ selector ] += ` ${ propName }: ${ propValue };`;
         }
     } );
 

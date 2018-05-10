@@ -53,7 +53,7 @@ function getStyles( attributes ) {
     style[ `.${ ghostkitClassname } .ghostkit-button` ] = {
         backgroundColor: color,
         color: textColor,
-        borderRadius: borderRadius + 'px',
+        borderRadius: borderRadius,
         border: borderWeight && borderColor ? `${ borderWeight }px solid ${ borderColor }` : false,
         '&:hover, &:focus': {
             backgroundColor: hoverColor,

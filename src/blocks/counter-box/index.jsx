@@ -39,7 +39,7 @@ function getStyles( attributes ) {
 
     const style = {};
     style[ `.${ ghostkitClassname } .ghostkit-counter-box-number` ] = {
-        fontSize: numberSize + 'px',
+        fontSize: numberSize,
         color: numberColor,
     };
 

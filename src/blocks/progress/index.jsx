@@ -44,8 +44,8 @@ function getStyles( attributes ) {
 
     const style = {};
     style[ `.${ ghostkitClassname } .ghostkit-progress-wrap` ] = {
-        height: height + 'px',
-        borderRadius: borderRadius + 'px',
+        height: height,
+        borderRadius: borderRadius,
         backgroundColor: backgroundColor,
         '.ghostkit-progress-bar': {
             width: percent + '%',

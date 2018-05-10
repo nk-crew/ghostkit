@@ -39,7 +39,7 @@ function getStyles( attributes ) {
 
     const style = {};
     style[ `.${ ghostkitClassname } .ghostkit-icon-box-icon` ] = {
-        fontSize: iconSize + 'px',
+        fontSize: iconSize,
         color: iconColor,
     };
 

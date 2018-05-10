@@ -42,7 +42,7 @@ function getStyles( attributes ) {
     style[ `.${ ghostkitClassname }` ] = {
         borderLeftColor: color,
         '.ghostkit-alert-icon': {
-            fontSize: `${ iconSize }px`,
+            fontSize: iconSize,
             color: iconColor,
         },
     };
