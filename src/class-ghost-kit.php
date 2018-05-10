@@ -194,6 +194,10 @@ class GhostKit {
 
         $post = get_post( $post_id );
 
+        if ( ! $post->post_content ) {
+            return;
+        }
+
         $css = '';
 
         // TODO: add fallback for this method (maybe JS will be enough).
