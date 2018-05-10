@@ -1,12 +1,8 @@
-// External Dependencies.
-import shorthash from 'shorthash';
-
 // Import CSS
 import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import { getCustomStylesAttr } from '../_utils.jsx';
 import elementIcon from '../_icons/alert.svg';
 
 const { __ } = wp.i18n;
@@ -31,16 +27,19 @@ const {
  */
 function getStyles( attributes ) {
     const {
-        id,
+        ghostkitClassname,
+        ghostkitGetStylesAttr,
         color,
         iconSize,
         iconColor,
     } = attributes;
 
-    const ID = `ghostkit-alert-${ id }`;
+    if ( ! ghostkitClassname || ! ghostkitGetStylesAttr ) {
+        return false;
+    }
 
     const style = {};
-    style[ `.${ ID }` ] = {
+    style[ `.${ ghostkitClassname }` ] = {
         borderLeftColor: color,
         '.ghostkit-alert-icon': {
             fontSize: `${ iconSize }px`,
@@ -48,34 +47,28 @@ function getStyles( attributes ) {
         },
     };
 
-    return style;
+    return ghostkitGetStylesAttr( style );
 }
 
 class AlertBlock extends Component {
-    constructor( { attributes } ) {
-        super( ...arguments );
-
-        // generate unique ID.
-        if ( ! attributes.id ) {
-            this.props.setAttributes( { id: shorthash.unique( this.props.id ) } );
-        }
-    }
-
     render() {
         const {
-            className,
             attributes,
             setAttributes,
         } = this.props;
 
+        let { className = '' } = this.props;
+
         const {
-            id,
+            ghostkitClassname,
             color,
             icon,
             iconSize,
             iconColor,
             hideButton,
         } = attributes;
+
+        className += ' ' + ghostkitClassname;
 
         return (
             <Fragment>
@@ -113,7 +106,7 @@ class AlertBlock extends Component {
                         onChange={ ( val ) => setAttributes( { hideButton: val } ) }
                     />
                 </InspectorControls>
-                <div className={ `${ className || '' } ghostkit-alert-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+                <div className={ className } { ...getStyles( attributes ) }>
                     { icon && (
                         <div className="ghostkit-alert-icon" dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } } />
                     ) }
@@ -148,10 +141,6 @@ export const settings = {
         html: false,
     },
     attributes: {
-        id: {
-            type: 'string',
-            default: false,
-        },
         color: {
             type: 'string',
             default: '#d94f4f',
@@ -176,15 +165,17 @@ export const settings = {
 
     edit: AlertBlock,
 
-    save: function( { attributes, className } ) {
+    save: function( { attributes, className = '' } ) {
         const {
-            id,
+            ghostkitClassname,
             icon,
             hideButton,
         } = attributes;
 
+        className += ' ' + ghostkitClassname;
+
         return (
-            <div className={ `${ className || '' } ghostkit-alert-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+            <div className={ className } { ...getStyles( attributes ) }>
                 { icon && (
                     <div className="ghostkit-alert-icon">
                         <span className={ icon } />

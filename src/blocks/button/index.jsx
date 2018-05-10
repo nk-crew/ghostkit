@@ -1,12 +1,8 @@
-// External Dependencies.
-import shorthash from 'shorthash';
-
 // Import CSS
 import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import { getCustomStylesAttr } from '../_utils.jsx';
 import elementIcon from '../_icons/button.svg';
 
 const { __ } = wp.i18n;
@@ -32,12 +28,13 @@ const {
 /**
  * Get button styles based on attributes.
  *
- * @param {object} atts - element atts.
+ * @param {object} attributes - element atts.
  * @return {object} styles object.
  */
-function getStyles( atts ) {
+function getStyles( attributes ) {
     const {
-        id,
+        ghostkitClassname,
+        ghostkitGetStylesAttr,
         color,
         textColor,
         borderRadius,
@@ -46,12 +43,14 @@ function getStyles( atts ) {
         hoverColor,
         hoverTextColor,
         hoverBorderColor,
-    } = atts;
+    } = attributes;
 
-    const ID = `ghostkit-button-${ id }`;
+    if ( ! ghostkitClassname || ! ghostkitGetStylesAttr ) {
+        return false;
+    }
 
     const style = {};
-    style[ `.${ ID } .ghostkit-button` ] = {
+    style[ `.${ ghostkitClassname } .ghostkit-button` ] = {
         backgroundColor: color,
         color: textColor,
         borderRadius: borderRadius + 'px',
@@ -63,19 +62,14 @@ function getStyles( atts ) {
         },
     };
 
-    return style;
+    return ghostkitGetStylesAttr( style );
 }
 
 class ButtonBlock extends Component {
-    constructor( { attributes } ) {
+    constructor() {
         super( ...arguments );
         this.updateAlignment = this.updateAlignment.bind( this );
         this.toggleClear = this.toggleClear.bind( this );
-
-        // generate unique ID.
-        if ( ! attributes.id ) {
-            this.props.setAttributes( { id: shorthash.unique( this.props.id ) } );
-        }
     }
 
     updateAlignment( nextAlign ) {
@@ -89,14 +83,15 @@ class ButtonBlock extends Component {
 
     render() {
         const {
-            className,
             attributes,
             setAttributes,
             isSelected,
         } = this.props;
 
+        let { className = '' } = this.props;
+
         const {
-            id,
+            ghostkitClassname,
             text,
             url,
             title,
@@ -119,6 +114,8 @@ class ButtonBlock extends Component {
             L: 'lg',
             XL: 'xl',
         };
+
+        className += ' ' + ghostkitClassname;
 
         return (
             <Fragment>
@@ -206,7 +203,7 @@ class ButtonBlock extends Component {
                         </PanelColor>
                     </PanelBody>
                 </InspectorControls>
-                <div className={ `${ className || '' } ghostkit-button-${ id } align${ align }` } title={ title } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+                <div className={ `${ className } align${ align }` } title={ title } { ...getStyles( attributes ) }>
                     <RichText
                         tagName="span"
                         placeholder={ __( 'Add text…' ) }
@@ -234,10 +231,6 @@ class ButtonBlock extends Component {
 }
 
 const blockAttributes = {
-    id: {
-        type: 'string',
-        default: false,
-    },
     url: {
         type: 'string',
         source: 'attribute',
@@ -334,9 +327,9 @@ export const settings = {
 
     edit: ButtonBlock,
 
-    save( { attributes, className } ) {
+    save( { attributes, className = '' } ) {
         const {
-            id,
+            ghostkitClassname,
             text,
             url,
             title,
@@ -344,8 +337,10 @@ export const settings = {
             size,
         } = attributes;
 
+        className += ' ' + ghostkitClassname;
+
         return (
-            <div className={ `${ className || '' } ghostkit-button-${ id } align${ align }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+            <div className={ `${ className } align${ align }` } { ...getStyles( attributes ) }>
                 <a className={ `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }` } href={ url } title={ title }>
                     { text }
                 </a>

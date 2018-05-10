@@ -9,6 +9,16 @@ import * as counterBox from './counter-box/index.jsx';
 import * as alert from './alert/index.jsx';
 
 /**
+ * Extensions
+ */
+import { styles } from './_extend/index.jsx';
+
+/**
+ * Add Custom Styles Selector in Blocks
+ */
+styles();
+
+/**
  * Internal dependencies
  */
 const { registerBlockType } = wp.blocks;

@@ -1,12 +1,8 @@
-// External Dependencies.
-import shorthash from 'shorthash';
-
 // Import CSS
 import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import { getCustomStylesAttr } from '../_utils.jsx';
 import elementIcon from '../_icons/icon-box.svg';
 
 const { __ } = wp.i18n;
@@ -31,48 +27,43 @@ const {
  */
 function getStyles( attributes ) {
     const {
-        id,
+        ghostkitClassname,
+        ghostkitGetStylesAttr,
         iconSize,
         iconColor,
     } = attributes;
 
-    const ID = `ghostkit-icon-box-${ id }`;
+    if ( ! ghostkitClassname || ! ghostkitGetStylesAttr ) {
+        return false;
+    }
 
     const style = {};
-    style[ `.${ ID }` ] = {
-        '.ghostkit-icon-box-icon': {
-            fontSize: `${ iconSize }px`,
-            color: iconColor,
-        },
+    style[ `.${ ghostkitClassname } .ghostkit-icon-box-icon` ] = {
+        fontSize: iconSize + 'px',
+        color: iconColor,
     };
 
-    return style;
+    return ghostkitGetStylesAttr( style );
 }
 
 class IconBoxBlock extends Component {
-    constructor( { attributes } ) {
-        super( ...arguments );
-
-        // generate unique ID.
-        if ( ! attributes.id ) {
-            this.props.setAttributes( { id: shorthash.unique( this.props.id ) } );
-        }
-    }
-
     render() {
         const {
-            className,
             attributes,
             setAttributes,
         } = this.props;
 
+        let { className = '' } = this.props;
+
         const {
-            id,
+            ghostkitClassname,
             icon,
             iconPosition,
             iconSize,
             iconColor,
         } = attributes;
+
+        className += ' ' + ghostkitClassname;
 
         return (
             <Fragment>
@@ -118,7 +109,7 @@ class IconBoxBlock extends Component {
                         />
                     </PanelColor>
                 </InspectorControls>
-                <div className={ `${ className || '' } ghostkit-icon-box-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+                <div className={ className } { ...getStyles( attributes ) }>
                     { icon && (
                         <div
                             className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }
@@ -151,10 +142,6 @@ export const settings = {
         html: false,
     },
     attributes: {
-        id: {
-            type: 'string',
-            default: false,
-        },
         icon: {
             type: 'string',
             default: 'fab fa-wordpress-simple',
@@ -175,15 +162,17 @@ export const settings = {
 
     edit: IconBoxBlock,
 
-    save: function( { attributes, className } ) {
+    save: function( { attributes, className = '' } ) {
         const {
-            id,
+            ghostkitClassname,
             icon,
             iconPosition,
         } = attributes;
 
+        className += ' ' + ghostkitClassname;
+
         return (
-            <div className={ `${ className || '' } ghostkit-icon-box-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+            <div className={ className } { ...getStyles( attributes ) }>
                 { icon && (
                     <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }>
                         <span className={ icon } />

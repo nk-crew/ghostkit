@@ -1,12 +1,8 @@
-// External Dependencies.
-import shorthash from 'shorthash';
-
 // Import CSS
 import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import { getCustomStylesAttr } from '../_utils.jsx';
 import elementIcon from '../_icons/counter-box.svg';
 
 const { __ } = wp.i18n;
@@ -31,49 +27,44 @@ const {
  */
 function getStyles( attributes ) {
     const {
-        id,
+        ghostkitClassname,
+        ghostkitGetStylesAttr,
         numberSize,
         numberColor,
     } = attributes;
 
-    const ID = `ghostkit-counter-box-${ id }`;
+    if ( ! ghostkitClassname || ! ghostkitGetStylesAttr ) {
+        return false;
+    }
 
     const style = {};
-    style[ `.${ ID }` ] = {
-        '.ghostkit-counter-box-number': {
-            fontSize: `${ numberSize }px`,
-            color: numberColor,
-        },
+    style[ `.${ ghostkitClassname } .ghostkit-counter-box-number` ] = {
+        fontSize: numberSize + 'px',
+        color: numberColor,
     };
 
-    return style;
+    return ghostkitGetStylesAttr( style );
 }
 
 class CounterBoxBlock extends Component {
-    constructor( { attributes } ) {
-        super( ...arguments );
-
-        // generate unique ID.
-        if ( ! attributes.id ) {
-            this.props.setAttributes( { id: shorthash.unique( this.props.id ) } );
-        }
-    }
-
     render() {
         const {
-            className,
             attributes,
             setAttributes,
             isSelected,
         } = this.props;
 
+        let { className = '' } = this.props;
+
         const {
-            id,
+            ghostkitClassname,
             number,
             numberPosition,
             numberSize,
             numberColor,
         } = attributes;
+
+        className += ' ' + ghostkitClassname;
 
         return (
             <Fragment>
@@ -113,7 +104,7 @@ class CounterBoxBlock extends Component {
                         />
                     </PanelColor>
                 </InspectorControls>
-                <div className={ `${ className || '' } ghostkit-counter-box-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+                <div className={ className } { ...getStyles( attributes ) }>
                     <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
                         <RichText
                             tagName="div"
@@ -151,10 +142,6 @@ export const settings = {
         html: false,
     },
     attributes: {
-        id: {
-            type: 'string',
-            default: false,
-        },
         number: {
             type: 'string',
             default: '77',
@@ -175,15 +162,17 @@ export const settings = {
 
     edit: CounterBoxBlock,
 
-    save: function( { attributes, className } ) {
+    save: function( { attributes, className = '' } ) {
         const {
-            id,
+            ghostkitClassname,
             number,
             numberPosition,
         } = attributes;
 
+        className += ' ' + ghostkitClassname;
+
         return (
-            <div className={ `${ className || '' } ghostkit-counter-box-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+            <div className={ className } { ...getStyles( attributes ) }>
                 <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
                     { number }
                 </div>

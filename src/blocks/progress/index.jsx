@@ -1,13 +1,11 @@
 // External Dependencies.
 import ResizableBox from 're-resizable';
-import shorthash from 'shorthash';
 
 // Import CSS
 import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import { getCustomStylesAttr } from '../_utils.jsx';
 import elementIcon from '../_icons/progress.svg';
 
 const { __ } = wp.i18n;
@@ -31,7 +29,8 @@ const {
  */
 function getStyles( attributes ) {
     const {
-        id,
+        ghostkitClassname,
+        ghostkitGetStylesAttr,
         height,
         percent,
         borderRadius,
@@ -39,43 +38,37 @@ function getStyles( attributes ) {
         backgroundColor,
     } = attributes;
 
-    const ID = `ghostkit-progress-${ id }`;
+    if ( ! ghostkitClassname || ! ghostkitGetStylesAttr ) {
+        return false;
+    }
 
     const style = {};
-    style[ `.${ ID } .ghostkit-progress-wrap` ] = {
-        height: `${ height }px`,
-        borderRadius: `${ borderRadius }px`,
+    style[ `.${ ghostkitClassname } .ghostkit-progress-wrap` ] = {
+        height: height + 'px',
+        borderRadius: borderRadius + 'px',
         backgroundColor: backgroundColor,
         '.ghostkit-progress-bar': {
-            width: `${ percent }%`,
+            width: percent + '%',
             backgroundColor: color,
         },
     };
 
-    return style;
+    return ghostkitGetStylesAttr( style );
 }
 
 class ProgressBlock extends Component {
-    constructor( { attributes } ) {
-        super( ...arguments );
-
-        // generate unique ID.
-        if ( ! attributes.id ) {
-            this.props.setAttributes( { id: shorthash.unique( this.props.id ) } );
-        }
-    }
-
     render() {
         const {
-            className,
             attributes,
             setAttributes,
             isSelected,
             toggleSelection,
         } = this.props;
 
+        let { className = '' } = this.props;
+
         const {
-            id,
+            ghostkitClassname,
             caption,
             height,
             percent,
@@ -84,6 +77,8 @@ class ProgressBlock extends Component {
             color,
             backgroundColor,
         } = attributes;
+
+        className += ' ' + ghostkitClassname;
 
         return (
             <Fragment>
@@ -135,7 +130,7 @@ class ProgressBlock extends Component {
                         onChange={ newCaption => setAttributes( { caption: newCaption } ) }
                     />
                 ) }
-                <div className={ `${ className || '' } ghostkit-progress-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+                <div className={ className } { ...getStyles( attributes ) }>
                     <ResizableBox
                         className={ `ghostkit-progress-wrap${ striped ? ' ghostkit-progress-bar-striped' : '' }` }
                         size={ {
@@ -200,10 +195,6 @@ export const settings = {
         html: false,
     },
     attributes: {
-        id: {
-            type: 'string',
-            default: false,
-        },
         caption: {
             type: 'caption',
         },
@@ -235,17 +226,19 @@ export const settings = {
 
     edit: ProgressBlock,
 
-    save: function( { attributes, className } ) {
+    save: function( { attributes, className = '' } ) {
         const {
-            id,
+            ghostkitClassname,
             caption,
             height,
             percent,
             striped,
         } = attributes;
 
+        className += ' ' + ghostkitClassname;
+
         return (
-            <div className={ `${ className || '' } ghostkit-progress-${ id }` } { ...getCustomStylesAttr( getStyles( attributes ) ) }>
+            <div className={ className } { ...getStyles( attributes ) }>
                 {
                     caption && caption.length && (
                         <small className="ghostkit-progress-caption">{ caption }</small>
