@@ -105,5 +105,5 @@ function camelCaseToDash( str ) {
 
     str = str.replace( /[a-z]([A-Z])+/g, m => `${ m[ 0 ] }-${ m.substring( 1 ) }` );
 
-    return str.toLowerCase();
+    return str && str.toLowerCase ? str.toLowerCase() : str;
 }
