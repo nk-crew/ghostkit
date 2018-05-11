@@ -50,7 +50,7 @@ function addAttribute( settings ) {
 const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
     return ( props ) => {
         // add new ghostkit props.
-        if ( /^ghostkit/.test( props.name ) && ! props.attributes.ghostkitId ) {
+        if ( /^ghostkit/.test( props.name ) ) {
             props.attributes.ghostkitId = shorthash.unique( props.id );
             props.attributes.ghostkitClassname = props.name.replace( '/', '-' ) + '-' + props.attributes.ghostkitId;
         }
