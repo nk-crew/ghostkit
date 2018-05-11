@@ -215,16 +215,18 @@ class ButtonBlock extends Component {
                         keepPlaceholderOnFocus
                     />
                 </div>
-                <form
-                    className="ghostkit-button__inline-link"
-                    onSubmit={ ( event ) => event.preventDefault() }>
-                    <Dashicon icon="admin-links" />
-                    <UrlInput
-                        value={ url }
-                        onChange={ ( value ) => setAttributes( { url: value } ) }
-                    />
-                    <IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
-                </form>
+                { isSelected && (
+                    <form
+                        className="ghostkit-button__inline-link"
+                        onSubmit={ ( event ) => event.preventDefault() }>
+                        <Dashicon icon="admin-links" />
+                        <UrlInput
+                            value={ url }
+                            onChange={ ( value ) => setAttributes( { url: value } ) }
+                        />
+                        <IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
+                    </form>
+                ) }
             </Fragment>
         );
     }
