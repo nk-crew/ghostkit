@@ -1,13 +1,14 @@
-const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-width', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-radius', 'bottom', 'top', 'left', 'right', 'font-size', 'height', 'width', 'min-height', 'min-width', 'max-height', 'max-width', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', 'margin', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', 'padding', 'outline-width' ];
+export const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-width', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-radius', 'bottom', 'top', 'left', 'right', 'font-size', 'height', 'width', 'min-height', 'min-width', 'max-height', 'max-width', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', 'margin', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', 'padding', 'outline-width' ];
 
 /**
  * Get styles from object.
  *
  * @param {object} data - styles data.
  * @param {string} selector - current styles selector (useful for nested styles).
+ * @param {boolean} render - render styles after generation.
  * @return {string} - ready to use styles string.
  */
-export const getStyles = ( data = {}, selector = '' ) => {
+export const getStyles = ( data = {}, selector = '', render = true ) => {
     const result = {};
     let resultCSS = '';
 
@@ -25,7 +26,7 @@ export const getStyles = ( data = {}, selector = '' ) => {
             } else {
                 nestedSelector = key;
             }
-            resultCSS += getStyles( data[ key ], nestedSelector );
+            resultCSS += getStyles( data[ key ], nestedSelector, false );
         } else if ( typeof data[ key ] !== 'undefined' && data[ key ] !== false ) {
             if ( ! result[ selector ] ) {
                 result[ selector ] = '';
@@ -34,7 +35,10 @@ export const getStyles = ( data = {}, selector = '' ) => {
             let propValue = data[ key ];
 
             // add pixels.
-            if ( typeof propValue === 'number' && propValue !== 0 && cssPropsWithPixels.includes( propName ) ) {
+            if (
+                ( typeof propValue === 'number' && propValue !== 0 && cssPropsWithPixels.includes( propName ) ) ||
+                ( typeof propValue === 'string' && /^[0-9.]*$/.test( propValue ) )
+            ) {
                 propValue += 'px';
             }
 
@@ -48,7 +52,9 @@ export const getStyles = ( data = {}, selector = '' ) => {
     } );
 
     // render new styles.
-    renderStyles();
+    if ( render ) {
+        renderStyles();
+    }
 
     return resultCSS;
 };
