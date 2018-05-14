@@ -15,14 +15,6 @@ const { createHigherOrderComponent } = wp.element;
  */
 function addAttribute( settings ) {
     if ( settings && settings.attributes && settings.name && /^ghostkit/.test( settings.name ) ) {
-        if ( ! settings.attributes.ghostkitGetStylesAttr ) {
-            settings.attributes.ghostkitGetStylesAttr = {
-                type: 'function',
-                default: ( generateStyles ) => {
-                    return getCustomStylesAttr( generateStyles );
-                },
-            };
-        }
         if ( ! settings.attributes.ghostkitStyles ) {
             settings.attributes.ghostkitStyles = {
                 type: 'object',
