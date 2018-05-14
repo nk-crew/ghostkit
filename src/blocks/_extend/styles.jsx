@@ -23,6 +23,12 @@ function addAttribute( settings ) {
                 },
             };
         }
+        if ( ! settings.attributes.ghostkitStyles ) {
+            settings.attributes.ghostkitStyles = {
+                type: 'object',
+                default: '',
+            };
+        }
         if ( ! settings.attributes.ghostkitClassname ) {
             settings.attributes.ghostkitClassname = {
                 type: 'string',
@@ -59,7 +65,54 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
     };
 }, 'withNewAttrs' );
 
+/**
+ * Override props assigned to save component to inject custom styles.
+ * This is only applied if the block's save result is an
+ * element and not a markup string.
+ *
+ * @param {Object} extraProps Additional props applied to save element.
+ * @param {Object} blockType  Block type.
+ * @param {Object} attributes Current block attributes.
+ *
+ * @return {Object} Filtered props applied to save element.
+ */
+export function addSaveProps( extraProps, blockType, attributes ) {
+    const customStyles = attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false;
+
+    if ( customStyles ) {
+        extraProps = Object.assign( extraProps || {}, getCustomStylesAttr( customStyles ) );
+
+        if ( attributes.ghostkitClassname ) {
+            extraProps.className = ( extraProps.className ? extraProps.className + ' ' : '' ) + attributes.ghostkitClassname;
+        }
+    }
+
+    return extraProps;
+}
+
+/**
+ * Override the default block element to add offset styles.
+ *
+ * @param  {Function} BlockListBlock Original component
+ * @return {Function}                Wrapped component
+ */
+const withAttributes = createHigherOrderComponent( ( BlockListBlock ) => {
+    return ( props ) => {
+        let wrapperProps = props.wrapperProps;
+
+        const customStyles = props.block.attributes.ghostkitStyles ? Object.assign( {}, props.block.attributes.ghostkitStyles ) : false;
+
+        if ( customStyles ) {
+            wrapperProps = Object.assign( wrapperProps || {}, getCustomStylesAttr( customStyles ) );
+        }
+
+        return <BlockListBlock { ...props } wrapperProps={ wrapperProps } />;
+    };
+}, 'withAttributes' );
+
 export function styles() {
     addFilter( 'blocks.registerBlockType', 'ghostkit/styles/additional-attributes', addAttribute );
     addFilter( 'blocks.BlockEdit', 'ghostkit/styles/additional-attributes', withNewAttrs );
+    addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/indents/save-props', addSaveProps );
+    addFilter( 'editor.BlockListBlock', 'ghostkit/styles/additional-attributes', withAttributes );
 }

@@ -19,33 +19,6 @@ const {
     RichText,
 } = wp.blocks;
 
-/**
- * Get counter-box styles based on attributes.
- *
- * @param {object} attributes - element atts.
- * @return {object} styles object.
- */
-function getStyles( attributes ) {
-    const {
-        ghostkitClassname,
-        ghostkitGetStylesAttr,
-        numberSize,
-        numberColor,
-    } = attributes;
-
-    if ( ! ghostkitClassname || ! ghostkitGetStylesAttr ) {
-        return false;
-    }
-
-    const style = {};
-    style[ `.${ ghostkitClassname } .ghostkit-counter-box-number` ] = {
-        fontSize: numberSize,
-        color: numberColor,
-    };
-
-    return ghostkitGetStylesAttr( style );
-}
-
 class CounterBoxBlock extends Component {
     render() {
         const {
@@ -58,13 +31,25 @@ class CounterBoxBlock extends Component {
 
         const {
             ghostkitClassname,
+            ghostkitStyles,
             number,
             numberPosition,
             numberSize,
             numberColor,
         } = attributes;
 
-        className += ' ' + ghostkitClassname;
+        // generate custom styles.
+        if ( ghostkitClassname ) {
+            const newGhostkitStyles = {};
+            newGhostkitStyles[ `.${ ghostkitClassname } .ghostkit-counter-box-number` ] = {
+                fontSize: numberSize,
+                color: numberColor,
+            };
+            if ( JSON.stringify( ghostkitStyles ) !== JSON.stringify( newGhostkitStyles ) ) {
+                setAttributes( { ghostkitStyles: newGhostkitStyles } );
+            }
+            className += ' ' + ghostkitClassname;
+        }
 
         return (
             <Fragment>
@@ -104,7 +89,7 @@ class CounterBoxBlock extends Component {
                         />
                     </PanelColor>
                 </InspectorControls>
-                <div className={ className } { ...getStyles( attributes ) }>
+                <div className={ className }>
                     <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
                         <RichText
                             tagName="div"
@@ -172,7 +157,7 @@ export const settings = {
         className += ' ' + ghostkitClassname;
 
         return (
-            <div className={ className } { ...getStyles( attributes ) }>
+            <div className={ className }>
                 <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
                     { number }
                 </div>

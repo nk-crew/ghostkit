@@ -19,37 +19,6 @@ const {
     InnerBlocks,
 } = wp.blocks;
 
-/**
- * Get alert styles based on attributes.
- *
- * @param {object} attributes - element atts.
- * @return {object} styles object.
- */
-function getStyles( attributes ) {
-    const {
-        ghostkitClassname,
-        ghostkitGetStylesAttr,
-        color,
-        iconSize,
-        iconColor,
-    } = attributes;
-
-    if ( ! ghostkitClassname || ! ghostkitGetStylesAttr ) {
-        return false;
-    }
-
-    const style = {};
-    style[ `.${ ghostkitClassname }` ] = {
-        borderLeftColor: color,
-        '.ghostkit-alert-icon': {
-            fontSize: iconSize,
-            color: iconColor,
-        },
-    };
-
-    return ghostkitGetStylesAttr( style );
-}
-
 class AlertBlock extends Component {
     render() {
         const {
@@ -61,6 +30,7 @@ class AlertBlock extends Component {
 
         const {
             ghostkitClassname,
+            ghostkitStyles,
             color,
             icon,
             iconSize,
@@ -68,7 +38,21 @@ class AlertBlock extends Component {
             hideButton,
         } = attributes;
 
-        className += ' ' + ghostkitClassname;
+        // generate custom styles.
+        if ( ghostkitClassname ) {
+            const newGhostkitStyles = {};
+            newGhostkitStyles[ `.${ ghostkitClassname }` ] = {
+                borderLeftColor: color,
+                '.ghostkit-alert-icon': {
+                    fontSize: iconSize,
+                    color: iconColor,
+                },
+            };
+            if ( JSON.stringify( ghostkitStyles ) !== JSON.stringify( newGhostkitStyles ) ) {
+                setAttributes( { ghostkitStyles: newGhostkitStyles } );
+            }
+            className += ' ' + ghostkitClassname;
+        }
 
         return (
             <Fragment>
@@ -106,7 +90,7 @@ class AlertBlock extends Component {
                         onChange={ ( val ) => setAttributes( { hideButton: val } ) }
                     />
                 </InspectorControls>
-                <div className={ className } { ...getStyles( attributes ) }>
+                <div className={ className }>
                     { icon && (
                         <div className="ghostkit-alert-icon" dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } } />
                     ) }
@@ -167,15 +151,12 @@ export const settings = {
 
     save: function( { attributes, className = '' } ) {
         const {
-            ghostkitClassname,
             icon,
             hideButton,
         } = attributes;
 
-        className += ' ' + ghostkitClassname;
-
         return (
-            <div className={ className } { ...getStyles( attributes ) }>
+            <div className={ className }>
                 { icon && (
                     <div className="ghostkit-alert-icon">
                         <span className={ icon } />

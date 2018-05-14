@@ -19,33 +19,6 @@ const {
     InnerBlocks,
 } = wp.blocks;
 
-/**
- * Get icon-box styles based on attributes.
- *
- * @param {object} attributes - element atts.
- * @return {object} styles object.
- */
-function getStyles( attributes ) {
-    const {
-        ghostkitClassname,
-        ghostkitGetStylesAttr,
-        iconSize,
-        iconColor,
-    } = attributes;
-
-    if ( ! ghostkitClassname || ! ghostkitGetStylesAttr ) {
-        return false;
-    }
-
-    const style = {};
-    style[ `.${ ghostkitClassname } .ghostkit-icon-box-icon` ] = {
-        fontSize: iconSize,
-        color: iconColor,
-    };
-
-    return ghostkitGetStylesAttr( style );
-}
-
 class IconBoxBlock extends Component {
     render() {
         const {
@@ -57,13 +30,25 @@ class IconBoxBlock extends Component {
 
         const {
             ghostkitClassname,
+            ghostkitStyles,
             icon,
             iconPosition,
             iconSize,
             iconColor,
         } = attributes;
 
-        className += ' ' + ghostkitClassname;
+        // generate custom styles.
+        if ( ghostkitClassname ) {
+            const newGhostkitStyles = {};
+            newGhostkitStyles[ `.${ ghostkitClassname } .ghostkit-icon-box-icon` ] = {
+                fontSize: iconSize,
+                color: iconColor,
+            };
+            if ( JSON.stringify( ghostkitStyles ) !== JSON.stringify( newGhostkitStyles ) ) {
+                setAttributes( { ghostkitStyles: newGhostkitStyles } );
+            }
+            className += ' ' + ghostkitClassname;
+        }
 
         return (
             <Fragment>
@@ -109,7 +94,7 @@ class IconBoxBlock extends Component {
                         />
                     </PanelColor>
                 </InspectorControls>
-                <div className={ className } { ...getStyles( attributes ) }>
+                <div className={ className }>
                     { icon && (
                         <div
                             className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }
@@ -172,7 +157,7 @@ export const settings = {
         className += ' ' + ghostkitClassname;
 
         return (
-            <div className={ className } { ...getStyles( attributes ) }>
+            <div className={ className }>
                 { icon && (
                     <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }>
                         <span className={ icon } />
