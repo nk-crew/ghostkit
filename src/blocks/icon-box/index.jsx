@@ -20,6 +20,23 @@ const {
 } = wp.blocks;
 
 class IconBoxBlock extends Component {
+    generateStyles( newAttributes ) {
+        let { attributes } = this.props;
+        const { setAttributes } = this.props;
+
+        attributes = Object.assign( attributes, newAttributes );
+
+        if ( attributes.ghostkitClassname ) {
+            newAttributes.ghostkitStyles = {};
+            newAttributes.ghostkitStyles[ `.${ attributes.ghostkitClassname } .ghostkit-icon-box-icon` ] = {
+                fontSize: attributes.iconSize,
+                color: attributes.iconColor,
+            };
+        }
+
+        setAttributes( newAttributes );
+    }
+
     render() {
         const {
             attributes,
@@ -30,23 +47,14 @@ class IconBoxBlock extends Component {
 
         const {
             ghostkitClassname,
-            ghostkitStyles,
             icon,
             iconPosition,
             iconSize,
             iconColor,
         } = attributes;
 
-        // generate custom styles.
+        // add custom classname.
         if ( ghostkitClassname ) {
-            const newGhostkitStyles = {};
-            newGhostkitStyles[ `.${ ghostkitClassname } .ghostkit-icon-box-icon` ] = {
-                fontSize: iconSize,
-                color: iconColor,
-            };
-            if ( JSON.stringify( ghostkitStyles ) !== JSON.stringify( newGhostkitStyles ) ) {
-                setAttributes( { ghostkitStyles: newGhostkitStyles } );
-            }
             className += ' ' + ghostkitClassname;
         }
 
@@ -62,7 +70,9 @@ class IconBoxBlock extends Component {
                     <RangeControl
                         label={ __( 'Icon Size' ) }
                         value={ iconSize }
-                        onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+                        onChange={ ( value ) => {
+                            this.generateStyles.call( this, { iconSize: value } );
+                        } }
                         min={ 20 }
                         max={ 100 }
                         beforeIcon="editor-textcolor"
@@ -90,7 +100,9 @@ class IconBoxBlock extends Component {
                     <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
                         <ColorPalette
                             value={ iconColor }
-                            onChange={ ( colorValue ) => setAttributes( { iconColor: colorValue } ) }
+                            onChange={ ( value ) => {
+                                this.generateStyles.call( this, { iconColor: value } );
+                            } }
                         />
                     </PanelColor>
                 </InspectorControls>

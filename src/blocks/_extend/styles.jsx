@@ -1,20 +1,31 @@
 // External Dependencies.
 import shorthash from 'shorthash';
+import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import { getCustomStylesAttr } from '../_utils.jsx';
-const { addFilter } = wp.hooks;
+const {
+    applyFilters,
+    addFilter,
+} = wp.hooks;
 const { createHigherOrderComponent } = wp.element;
 
 /**
  * Extend block attributes with styles.
  *
  * @param {Object} settings Original block settings.
+ * @param {String} name Original block name.
  *
  * @return {Object} Filtered block settings.
  */
-function addAttribute( settings ) {
-    if ( settings && settings.attributes && settings.name && /^ghostkit/.test( settings.name ) ) {
+function addAttribute( settings, name ) {
+    const allowCustomStyles = applyFilters(
+        'ghostkit.blocks.registerBlockType.allowCustomStyles',
+        settings && settings.attributes && name && /^ghostkit/.test( name ),
+        settings,
+        name
+    );
+    if ( allowCustomStyles ) {
         if ( ! settings.attributes.ghostkitStyles ) {
             settings.attributes.ghostkitStyles = {
                 type: 'object',
@@ -33,7 +44,9 @@ function addAttribute( settings ) {
                 default: false,
             };
         }
+        settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
     }
+
     return settings;
 }
 
@@ -48,7 +61,7 @@ function addAttribute( settings ) {
 const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
     return ( props ) => {
         // add new ghostkit props.
-        if ( /^ghostkit/.test( props.name ) ) {
+        if ( ! props.attributes.ghostkitClassname && typeof props.attributes.ghostkitClassname !== 'undefined' ) {
             props.attributes.ghostkitId = shorthash.unique( props.id );
             props.attributes.ghostkitClassname = props.name.replace( '/', '-' ) + '-' + props.attributes.ghostkitId;
         }
@@ -69,13 +82,19 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
  * @return {Object} Filtered props applied to save element.
  */
 export function addSaveProps( extraProps, blockType, attributes ) {
-    const customStyles = attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false;
+    const customStyles = applyFilters(
+        'ghostkit.blocks.getSaveContent.customStyles',
+        attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false,
+        extraProps,
+        blockType,
+        attributes
+    );
 
     if ( customStyles ) {
         extraProps = Object.assign( extraProps || {}, getCustomStylesAttr( customStyles ) );
 
         if ( attributes.ghostkitClassname ) {
-            extraProps.className = ( extraProps.className ? extraProps.className + ' ' : '' ) + attributes.ghostkitClassname;
+            extraProps.className = classnames( extraProps.className ? extraProps.className.split( ' ' ) : '', attributes.ghostkitClassname );
         }
     }
 
@@ -92,7 +111,11 @@ const withAttributes = createHigherOrderComponent( ( BlockListBlock ) => {
     return ( props ) => {
         let wrapperProps = props.wrapperProps;
 
-        const customStyles = props.block.attributes.ghostkitStyles ? Object.assign( {}, props.block.attributes.ghostkitStyles ) : false;
+        const customStyles = applyFilters(
+            'ghostkit.editor.BlockListBlock.customStyles',
+            props.block.attributes.ghostkitStyles ? Object.assign( {}, props.block.attributes.ghostkitStyles ) : false,
+            props
+        );
 
         if ( customStyles ) {
             wrapperProps = Object.assign( wrapperProps || {}, getCustomStylesAttr( customStyles ) );

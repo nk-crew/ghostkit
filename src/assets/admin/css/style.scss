@@ -24,3 +24,113 @@ img.ghostkit-icon {
         opacity: 1;
     }
 }
+
+/**
+ * Indents Control.
+ */
+.ghostkit-control-indent {
+    position: relative;
+    width: 100%;
+    padding-top: 90%;
+    border: 1px solid #e8eaec;
+
+    .ghostkit-control-indent-margin,
+    .ghostkit-control-indent-padding {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+
+        .components-base-control {
+            margin: 0;
+        }
+
+        > span {
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            font-size: .7em;
+        }
+
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            width: 35px;
+            padding: 3px 5px;
+            text-align: center;
+        }
+    }
+
+    // margins
+    .ghostkit-control-indent-margin {
+        .ghostkit-control-indent-margin-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .ghostkit-control-indent-margin-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+        }
+        .ghostkit-control-indent-margin-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        .ghostkit-control-indent-margin-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+    }
+
+    // paddings.
+    .ghostkit-control-indent-padding {
+        top: 36px;
+        left: 46px;
+        width: calc(100% - 92px);
+        height: calc(100% - 72px);
+        background-color: #f2f2f2;
+
+        > span {
+            top: 6px;
+            left: 10px;
+        }
+
+        // paddings.
+        .ghostkit-control-indent-padding-top {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+        }
+        .ghostkit-control-indent-padding-right {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            height: calc(100% - 10px);
+        }
+        .ghostkit-control-indent-padding-bottom {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+        }
+        .ghostkit-control-indent-padding-left {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            height: calc(100% - 10px);
+        }
+    }
+}

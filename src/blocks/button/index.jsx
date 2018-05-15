@@ -32,6 +32,30 @@ class ButtonBlock extends Component {
         this.toggleClear = this.toggleClear.bind( this );
     }
 
+    generateStyles( newAttributes ) {
+        let { attributes } = this.props;
+        const { setAttributes } = this.props;
+
+        attributes = Object.assign( attributes, newAttributes );
+
+        if ( attributes.ghostkitClassname ) {
+            newAttributes.ghostkitStyles = {};
+            newAttributes.ghostkitStyles[ `.${ attributes.ghostkitClassname } .ghostkit-button` ] = {
+                backgroundColor: attributes.color,
+                color: attributes.textColor,
+                borderRadius: attributes.borderRadius,
+                border: attributes.borderWeight && attributes.borderColor ? `${ attributes.borderWeight }px solid ${ attributes.borderColor }` : false,
+                '&:hover, &:focus': {
+                    backgroundColor: attributes.hoverColor,
+                    color: attributes.hoverTextColor,
+                    borderColor: attributes.borderWeight && attributes.borderColor && attributes.hoverBorderColor ? attributes.hoverBorderColor : false,
+                },
+            };
+        }
+
+        setAttributes( newAttributes );
+    }
+
     updateAlignment( nextAlign ) {
         this.props.setAttributes( { align: nextAlign } );
     }
@@ -52,7 +76,6 @@ class ButtonBlock extends Component {
 
         const {
             ghostkitClassname,
-            ghostkitStyles,
             text,
             url,
             title,
@@ -76,23 +99,8 @@ class ButtonBlock extends Component {
             XL: 'xl',
         };
 
-        // generate custom styles.
+        // add custom classname.
         if ( ghostkitClassname ) {
-            const newGhostkitStyles = {};
-            newGhostkitStyles[ `.${ ghostkitClassname } .ghostkit-button` ] = {
-                backgroundColor: color,
-                color: textColor,
-                borderRadius: borderRadius,
-                border: borderWeight && borderColor ? `${ borderWeight }px solid ${ borderColor }` : false,
-                '&:hover, &:focus': {
-                    backgroundColor: hoverColor,
-                    color: hoverTextColor,
-                    borderColor: borderWeight && borderColor && hoverBorderColor ? hoverBorderColor : false,
-                },
-            };
-            if ( JSON.stringify( ghostkitStyles ) !== JSON.stringify( newGhostkitStyles ) ) {
-                setAttributes( { ghostkitStyles: newGhostkitStyles } );
-            }
             className += ' ' + ghostkitClassname;
         }
 
@@ -131,18 +139,24 @@ class ButtonBlock extends Component {
                             value={ borderRadius }
                             min="0"
                             max="50"
-                            onChange={ ( val ) => setAttributes( { borderRadius: val } ) }
+                            onChange={ ( value ) => {
+                                this.generateStyles.call( this, { borderRadius: value } );
+                            } }
                         />
                         <PanelColor title={ __( 'Background Color' ) } colorValue={ color } >
                             <ColorPalette
                                 value={ color }
-                                onChange={ ( colorValue ) => setAttributes( { color: colorValue } ) }
+                                onChange={ ( value ) => {
+                                    this.generateStyles.call( this, { color: value } );
+                                } }
                             />
                         </PanelColor>
                         <PanelColor title={ __( 'Text Color' ) } colorValue={ textColor } >
                             <ColorPalette
                                 value={ textColor }
-                                onChange={ ( colorValue ) => setAttributes( { textColor: colorValue } ) }
+                                onChange={ ( value ) => {
+                                    this.generateStyles.call( this, { textColor: value } );
+                                } }
                             />
                         </PanelColor>
                     </PanelBody>
@@ -152,12 +166,16 @@ class ButtonBlock extends Component {
                             value={ borderWeight }
                             min="0"
                             max="6"
-                            onChange={ ( val ) => setAttributes( { borderWeight: val } ) }
+                            onChange={ ( value ) => {
+                                this.generateStyles.call( this, { borderWeight: value } );
+                            } }
                         />
                         <PanelColor title={ __( 'Color' ) } colorValue={ borderColor } >
                             <ColorPalette
-                                value={ color }
-                                onChange={ ( colorValue ) => setAttributes( { borderColor: colorValue } ) }
+                                value={ borderColor }
+                                onChange={ ( value ) => {
+                                    this.generateStyles.call( this, { borderColor: value } );
+                                } }
                             />
                         </PanelColor>
                     </PanelBody>
@@ -165,19 +183,25 @@ class ButtonBlock extends Component {
                         <PanelColor title={ __( 'Background Color' ) } colorValue={ hoverColor } >
                             <ColorPalette
                                 value={ hoverColor }
-                                onChange={ ( colorValue ) => setAttributes( { hoverColor: colorValue } ) }
+                                onChange={ ( value ) => {
+                                    this.generateStyles.call( this, { hoverColor: value } );
+                                } }
                             />
                         </PanelColor>
                         <PanelColor title={ __( 'Text Color' ) } colorValue={ hoverTextColor } >
                             <ColorPalette
                                 value={ hoverTextColor }
-                                onChange={ ( colorValue ) => setAttributes( { hoverTextColor: colorValue } ) }
+                                onChange={ ( value ) => {
+                                    this.generateStyles.call( this, { hoverTextColor: value } );
+                                } }
                             />
                         </PanelColor>
                         <PanelColor title={ __( 'Border Color' ) } colorValue={ hoverBorderColor } >
                             <ColorPalette
                                 value={ hoverBorderColor }
-                                onChange={ ( colorValue ) => setAttributes( { hoverBorderColor: colorValue } ) }
+                                onChange={ ( value ) => {
+                                    this.generateStyles.call( this, { hoverBorderColor: value } );
+                                } }
                             />
                         </PanelColor>
                     </PanelBody>

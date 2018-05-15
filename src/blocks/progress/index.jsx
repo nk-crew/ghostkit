@@ -22,6 +22,28 @@ const {
 } = wp.blocks;
 
 class ProgressBlock extends Component {
+    generateStyles( newAttributes ) {
+        let { attributes } = this.props;
+        const { setAttributes } = this.props;
+
+        attributes = Object.assign( attributes, newAttributes );
+
+        if ( attributes.ghostkitClassname ) {
+            newAttributes.ghostkitStyles = {};
+            newAttributes.ghostkitStyles[ `.${ attributes.ghostkitClassname } .ghostkit-progress-wrap` ] = {
+                height: attributes.height,
+                borderRadius: attributes.borderRadius,
+                backgroundColor: attributes.backgroundColor,
+                '.ghostkit-progress-bar': {
+                    width: attributes.percent + '%',
+                    backgroundColor: attributes.color,
+                },
+            };
+        }
+
+        setAttributes( newAttributes );
+    }
+
     render() {
         const {
             attributes,
@@ -36,7 +58,6 @@ class ProgressBlock extends Component {
 
         const {
             ghostkitClassname,
-            ghostkitStyles,
             caption,
             height,
             percent,
@@ -46,21 +67,8 @@ class ProgressBlock extends Component {
             backgroundColor,
         } = attributes;
 
-        // generate custom styles.
+        // add custom classname.
         if ( ghostkitClassname ) {
-            const newGhostkitStyles = {};
-            newGhostkitStyles[ `.${ ghostkitClassname } .ghostkit-progress-wrap` ] = {
-                height: height,
-                borderRadius: borderRadius,
-                backgroundColor: backgroundColor,
-                '.ghostkit-progress-bar': {
-                    width: percent + '%',
-                    backgroundColor: color,
-                },
-            };
-            if ( JSON.stringify( ghostkitStyles ) !== JSON.stringify( newGhostkitStyles ) ) {
-                setAttributes( { ghostkitStyles: newGhostkitStyles } );
-            }
             className += ' ' + ghostkitClassname;
         }
 
@@ -70,14 +78,18 @@ class ProgressBlock extends Component {
                     <RangeControl
                         label={ __( 'Height' ) }
                         value={ height || '' }
-                        onChange={ value => setAttributes( { height: value } ) }
+                        onChange={ ( value ) => {
+                            this.generateStyles.call( this, { height: value } );
+                        } }
                         min={ 5 }
                         max={ 20 }
                     />
                     <RangeControl
                         label={ __( 'Percent' ) }
                         value={ percent || '' }
-                        onChange={ value => setAttributes( { percent: value } ) }
+                        onChange={ ( value ) => {
+                            this.generateStyles.call( this, { percent: value } );
+                        } }
                         min={ 0 }
                         max={ 100 }
                     />
@@ -86,7 +98,9 @@ class ProgressBlock extends Component {
                         value={ borderRadius }
                         min="0"
                         max="10"
-                        onChange={ ( val ) => setAttributes( { borderRadius: val } ) }
+                        onChange={ ( value ) => {
+                            this.generateStyles.call( this, { borderRadius: value } );
+                        } }
                     />
                     <ToggleControl
                         label={ __( 'Striped' ) }
@@ -96,25 +110,29 @@ class ProgressBlock extends Component {
                     <PanelColor title={ __( 'Color' ) } colorValue={ color } >
                         <ColorPalette
                             value={ color }
-                            onChange={ ( colorValue ) => setAttributes( { color: colorValue } ) }
+                            onChange={ ( value ) => {
+                                this.generateStyles.call( this, { color: value } );
+                            } }
                         />
                     </PanelColor>
                     <PanelColor title={ __( 'Background Color' ) } colorValue={ backgroundColor } >
                         <ColorPalette
                             value={ backgroundColor }
-                            onChange={ ( colorValue ) => setAttributes( { backgroundColor: colorValue } ) }
+                            onChange={ ( value ) => {
+                                this.generateStyles.call( this, { backgroundColor: value } );
+                            } }
                         />
                     </PanelColor>
                 </InspectorControls>
-                { ( ( caption && caption.length > 0 ) || isSelected ) && (
-                    <RichText
-                        tagName="small"
-                        placeholder={ __( 'Write caption…' ) }
-                        value={ caption }
-                        onChange={ newCaption => setAttributes( { caption: newCaption } ) }
-                    />
-                ) }
                 <div className={ className }>
+                    { ( ( caption && caption.length > 0 ) || isSelected ) && (
+                        <RichText
+                            tagName="small"
+                            placeholder={ __( 'Write caption…' ) }
+                            value={ caption }
+                            onChange={ newCaption => setAttributes( { caption: newCaption } ) }
+                        />
+                    ) }
                     <ResizableBox
                         className={ `ghostkit-progress-wrap${ striped ? ' ghostkit-progress-bar-striped' : '' }` }
                         size={ {

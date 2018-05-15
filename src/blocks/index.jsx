@@ -11,12 +11,9 @@ import * as alert from './alert/index.jsx';
 /**
  * Extensions
  */
-import { styles } from './_extend/index.jsx';
-
-/**
- * Add Custom Styles Selector in Blocks
- */
+import { styles, indents } from './_extend/index.jsx';
 styles();
+indents();
 
 /**
  * Internal dependencies

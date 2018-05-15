@@ -20,6 +20,23 @@ const {
 } = wp.blocks;
 
 class CounterBoxBlock extends Component {
+    generateStyles( newAttributes ) {
+        let { attributes } = this.props;
+        const { setAttributes } = this.props;
+
+        attributes = Object.assign( attributes, newAttributes );
+
+        if ( attributes.ghostkitClassname ) {
+            newAttributes.ghostkitStyles = {};
+            newAttributes.ghostkitStyles[ `.${ attributes.ghostkitClassname } .ghostkit-counter-box-number` ] = {
+                fontSize: attributes.numberSize,
+                color: attributes.numberColor,
+            };
+        }
+
+        setAttributes( newAttributes );
+    }
+
     render() {
         const {
             attributes,
@@ -31,23 +48,14 @@ class CounterBoxBlock extends Component {
 
         const {
             ghostkitClassname,
-            ghostkitStyles,
             number,
             numberPosition,
             numberSize,
             numberColor,
         } = attributes;
 
-        // generate custom styles.
+        // add custom classname.
         if ( ghostkitClassname ) {
-            const newGhostkitStyles = {};
-            newGhostkitStyles[ `.${ ghostkitClassname } .ghostkit-counter-box-number` ] = {
-                fontSize: numberSize,
-                color: numberColor,
-            };
-            if ( JSON.stringify( ghostkitStyles ) !== JSON.stringify( newGhostkitStyles ) ) {
-                setAttributes( { ghostkitStyles: newGhostkitStyles } );
-            }
             className += ' ' + ghostkitClassname;
         }
 
@@ -57,7 +65,9 @@ class CounterBoxBlock extends Component {
                     <RangeControl
                         label={ __( 'Number Size' ) }
                         value={ numberSize }
-                        onChange={ ( value ) => setAttributes( { numberSize: value } ) }
+                        onChange={ ( value ) => {
+                            this.generateStyles.call( this, { numberSize: value } );
+                        } }
                         min={ 20 }
                         max={ 100 }
                         beforeIcon="editor-textcolor"
@@ -85,7 +95,9 @@ class CounterBoxBlock extends Component {
                     <PanelColor title={ __( 'Number Color' ) } colorValue={ numberColor } >
                         <ColorPalette
                             value={ numberColor }
-                            onChange={ ( colorValue ) => setAttributes( { numberColor: colorValue } ) }
+                            onChange={ ( value ) => {
+                                this.generateStyles.call( this, { numberColor: value } );
+                            } }
                         />
                     </PanelColor>
                 </InspectorControls>
