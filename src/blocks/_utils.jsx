@@ -37,7 +37,7 @@ export const getStyles = ( data = {}, selector = '', render = true ) => {
             // add pixels.
             if (
                 ( typeof propValue === 'number' && propValue !== 0 && cssPropsWithPixels.includes( propName ) ) ||
-                ( typeof propValue === 'string' && /^[0-9.]*$/.test( propValue ) )
+                ( typeof propValue === 'string' && /^[0-9.\-]*$/.test( propValue ) )
             ) {
                 propValue += 'px';
             }
