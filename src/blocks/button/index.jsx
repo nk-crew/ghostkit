@@ -2,6 +2,9 @@
 import './style.scss';
 import './editor.scss';
 
+// External Dependencies.
+import classnames from 'classnames/dedupe';
+
 // Internal Dependencies.
 import elementIcon from '../_icons/button.svg';
 
@@ -101,7 +104,7 @@ class ButtonBlock extends Component {
 
         // add custom classname.
         if ( ghostkitClassname ) {
-            className += ' ' + ghostkitClassname;
+            className = classnames( className, ghostkitClassname );
         }
 
         return (
@@ -206,14 +209,14 @@ class ButtonBlock extends Component {
                         </PanelColor>
                     </PanelBody>
                 </InspectorControls>
-                <div className={ `${ className } align${ align }` } title={ title }>
+                <div className={ classnames( className, `align${ align }` ) } title={ title }>
                     <RichText
                         tagName="span"
                         placeholder={ __( 'Add text…' ) }
                         value={ text }
                         onChange={ ( value ) => setAttributes( { text: value } ) }
                         formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                        className={ `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }` }
+                        className={ classnames( 'ghostkit-button', size ? `ghostkit-button-${ size }` : '' ) }
                         isSelected={ isSelected }
                         keepPlaceholderOnFocus
                     />
@@ -334,7 +337,6 @@ export const settings = {
 
     save( { attributes, className = '' } ) {
         const {
-            ghostkitClassname,
             text,
             url,
             title,
@@ -342,11 +344,9 @@ export const settings = {
             size,
         } = attributes;
 
-        className += ' ' + ghostkitClassname;
-
         return (
-            <div className={ `${ className } align${ align }` }>
-                <a className={ `ghostkit-button${ size ? ` ghostkit-button-${ size }` : '' }` } href={ url } title={ title }>
+            <div className={ classnames( className, `align${ align }` ) }>
+                <a className={ classnames( 'ghostkit-button', size ? `ghostkit-button-${ size }` : '' ) } href={ url } title={ title }>
                     { text }
                 </a>
             </div>

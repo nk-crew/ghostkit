@@ -2,6 +2,9 @@
 import './style.scss';
 import './editor.scss';
 
+// External Dependencies.
+import classnames from 'classnames/dedupe';
+
 // Internal Dependencies.
 import elementIcon from '../_icons/icon-box.svg';
 
@@ -55,7 +58,7 @@ class IconBoxBlock extends Component {
 
         // add custom classname.
         if ( ghostkitClassname ) {
-            className += ' ' + ghostkitClassname;
+            className = classnames( className, ghostkitClassname );
         }
 
         return (
@@ -109,7 +112,7 @@ class IconBoxBlock extends Component {
                 <div className={ className }>
                     { icon && (
                         <div
-                            className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }
+                            className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }
                             dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
                         />
                     ) }
@@ -161,12 +164,9 @@ export const settings = {
 
     save: function( { attributes, className = '' } ) {
         const {
-            ghostkitClassname,
             icon,
             iconPosition,
         } = attributes;
-
-        className += ' ' + ghostkitClassname;
 
         return (
             <div className={ className }>

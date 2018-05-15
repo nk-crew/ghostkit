@@ -2,6 +2,9 @@
 import './style.scss';
 import './editor.scss';
 
+// External Dependencies.
+import classnames from 'classnames/dedupe';
+
 // Internal Dependencies.
 import elementIcon from '../_icons/alert.svg';
 
@@ -59,7 +62,7 @@ class AlertBlock extends Component {
 
         // add custom classname.
         if ( ghostkitClassname ) {
-            className += ' ' + ghostkitClassname;
+            className += classnames( className, ghostkitClassname );
         }
 
         return (

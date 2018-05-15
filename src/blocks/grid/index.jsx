@@ -2,6 +2,9 @@
 import './style.scss';
 import './editor.scss';
 
+// External Dependencies.
+import classnames from 'classnames/dedupe';
+
 // Internal Dependencies.
 import elementIcon from '../_icons/grid.svg';
 
@@ -45,16 +48,19 @@ const getColumnLayouts = ( { columns } ) => {
 class GridBlock extends Component {
     render() {
         const {
-            className,
             attributes,
             setAttributes,
         } = this.props;
+
+        let { className = '' } = this.props;
 
         const {
             columns,
             gap,
             align,
         } = attributes;
+
+        className = classnames( className, `ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }` );
 
         return (
             <Fragment>
@@ -120,7 +126,7 @@ class GridBlock extends Component {
                         </BaseControl>
                     </PanelBody>
                 </InspectorControls>
-                <div className={ `${ className || '' } ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }` }>
+                <div className={ className }>
                     <InnerBlocks layouts={ getColumnLayouts( attributes ) } />
                 </div>
             </Fragment>
@@ -165,14 +171,14 @@ export const settings = {
 
     edit: GridBlock,
 
-    save: function( { attributes, className } ) {
+    save: function( { attributes, className = '' } ) {
         const {
             columns,
             gap,
         } = attributes;
 
         return (
-            <div className={ `${ className || '' } ghostkit-grid ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }` }>
+            <div className={ classnames( className, `ghostkit-grid ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }` ) }>
                 <InnerBlocks.Content />
             </div>
         );

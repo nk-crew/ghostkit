@@ -1,5 +1,6 @@
 // External Dependencies.
 import ResizableBox from 're-resizable';
+import classnames from 'classnames/dedupe';
 
 // Import CSS
 import './style.scss';
@@ -69,7 +70,7 @@ class ProgressBlock extends Component {
 
         // add custom classname.
         if ( ghostkitClassname ) {
-            className += ' ' + ghostkitClassname;
+            className = classnames( className, ghostkitClassname );
         }
 
         return (
@@ -134,7 +135,7 @@ class ProgressBlock extends Component {
                         />
                     ) }
                     <ResizableBox
-                        className={ `ghostkit-progress-wrap${ striped ? ' ghostkit-progress-bar-striped' : '' }` }
+                        className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }
                         size={ {
                             width: '100%',
                             height,
@@ -243,7 +244,7 @@ export const settings = {
                         <small className="ghostkit-progress-caption">{ caption }</small>
                     )
                 }
-                <div className={ `ghostkit-progress-wrap${ striped ? ' ghostkit-progress-bar-striped' : '' }` }>
+                <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
                     <div className="ghostkit-progress-bar" role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
                 </div>
             </div>

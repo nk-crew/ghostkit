@@ -2,6 +2,9 @@
 import './style.scss';
 import './editor.scss';
 
+// External Dependencies.
+import classnames from 'classnames/dedupe';
+
 // Internal Dependencies.
 import elementIcon from '../_icons/counter-box.svg';
 
@@ -56,7 +59,7 @@ class CounterBoxBlock extends Component {
 
         // add custom classname.
         if ( ghostkitClassname ) {
-            className += ' ' + ghostkitClassname;
+            className = classnames( className, ghostkitClassname );
         }
 
         return (
@@ -161,12 +164,9 @@ export const settings = {
 
     save: function( { attributes, className = '' } ) {
         const {
-            ghostkitClassname,
             number,
             numberPosition,
         } = attributes;
-
-        className += ' ' + ghostkitClassname;
 
         return (
             <div className={ className }>
