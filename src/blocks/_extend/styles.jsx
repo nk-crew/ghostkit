@@ -100,7 +100,7 @@ function addAttribute( settings, name ) {
 const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
     return ( props ) => {
         // add new ghostkit props.
-        if ( ! props.attributes.ghostkitClassname && typeof props.attributes.ghostkitClassname !== 'undefined' ) {
+        if ( ! props.attributes.ghostkitClassname && typeof props.attributes.ghostkitClassname !== 'undefined' && props.id ) {
             props.attributes.ghostkitId = shorthash.unique( props.id );
             props.attributes.ghostkitClassname = props.name.replace( '/', '-' ) + '-' + props.attributes.ghostkitId;
         }
