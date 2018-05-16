@@ -1,0 +1,12 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Logo" clip-path="url(#clip0)">
+<path id="Vector" d="M0 20V8.00006C0 4.09309 5.09776 0.0151874 10 6.10352e-05C14.9758 -0.0152922 20 4.19077 20 8.00006V20L16.6667 16.6791L13.3333 20L10 16.6791L6.66667 20L3.33333 16.6791L0 20Z" fill="#008DBE"/>
+<path id="Ellipse" d="M3 1.5C3 2.32843 2.32843 3 1.5 3C0.671573 3 0 2.32843 0 1.5C0 0.671573 0.671573 0 1.5 0C2.32843 0 3 0.671573 3 1.5Z" transform="translate(8.5 8)" fill="white"/>
+<path id="Ellipse_2" d="M4 2C4 3.10457 3.10457 4 2 4C0.895431 4 0 3.10457 0 2C0 0.89543 0.895431 0 2 0C3.10457 0 4 0.89543 4 2Z" transform="translate(13 7)" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="20" height="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>

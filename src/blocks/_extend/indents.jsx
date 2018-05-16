@@ -1,6 +1,9 @@
 // External Dependencies.
 import deepAssign from 'deep-assign';
 
+// Internal Dependencies.
+import logo from '../_icons/ghostkit-black.svg';
+
 const { __ } = wp.i18n;
 const { addFilter } = wp.hooks;
 const { createHigherOrderComponent, Fragment } = wp.element;
@@ -96,6 +99,7 @@ const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
                 <InspectorAdvancedControls>
                     <BaseControl label={ __( 'Indents' ) } >
                         <div className="ghostkit-control-indent">
+                            <img className="ghostkit-control-indent-logo" src={ logo } alt="ghostkit-icon" />
                             <div className="ghostkit-control-indent-margin">
                                 <span>{ __( 'Margin' ) }</span>
                                 <div className="ghostkit-control-indent-margin-left">

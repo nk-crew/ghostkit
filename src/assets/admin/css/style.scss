@@ -34,6 +34,19 @@ img.ghostkit-icon {
     padding-top: 90%;
     border: 1px solid #e8eaec;
 
+    // logo
+    .ghostkit-control-indent-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 24px;
+        height: 24px;
+        margin-top: -12px;
+        margin-left: -12px;
+        opacity: .15;
+        z-index: 1;
+    }
+
     .ghostkit-control-indent-margin,
     .ghostkit-control-indent-padding {
         position: absolute;
