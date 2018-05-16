@@ -239,8 +239,8 @@ export function addEditorCustomStyles( customStyles, props ) {
 export function indents() {
     addFilter( 'ghostkit.blocks.registerBlockType.allowCustomStyles', 'ghostkit/indents/allow-custom-styles', allowCustomStyles );
     addFilter( 'ghostkit.blocks.registerBlockType.withCustomStyles', 'ghostkit/indents/additional-attributes', addAttribute );
-    addFilter( 'ghostkit.blocks.getSaveContent.customStyles', 'ghostkit/indents/add-custom-styles', addCustomStyles );
-    addFilter( 'ghostkit.editor.BlockListBlock.customStyles', 'ghostkit/indents/add-custom-styles', addEditorCustomStyles );
+    addFilter( 'ghostkit.blocks.customStyles', 'ghostkit/indents/block-custom-styles', addCustomStyles );
+    addFilter( 'ghostkit.editor.customStyles', 'ghostkit/indents/editor-custom-styles', addEditorCustomStyles );
 
     addFilter( 'blocks.BlockEdit', 'ghostkit/indents/additional-attributes', withInspectorControl );
 }

@@ -66,7 +66,7 @@ function addAttribute( settings, name ) {
                         }
 
                         customStyles = applyFilters(
-                            'ghostkit.editor.BlockListBlock.customStyles',
+                            'ghostkit.editor.customStyles',
                             Object.assign( {}, customStyles ),
                             this.props
                         );
@@ -122,7 +122,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
  */
 export function addSaveProps( extraProps, blockType, attributes ) {
     const customStyles = applyFilters(
-        'ghostkit.blocks.getSaveContent.customStyles',
+        'ghostkit.blocks.customStyles',
         attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false,
         extraProps,
         blockType,
