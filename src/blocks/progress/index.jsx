@@ -23,15 +23,9 @@ const {
 } = wp.blocks;
 
 class ProgressBlock extends Component {
-    generateStyles( newAttributes ) {
-        let { attributes } = this.props;
-        const { setAttributes } = this.props;
-
-        attributes = Object.assign( attributes, newAttributes );
-
-        if ( attributes.ghostkitClassname ) {
-            newAttributes.ghostkitStyles = {};
-            newAttributes.ghostkitStyles[ `.${ attributes.ghostkitClassname } .ghostkit-progress-wrap` ] = {
+    ghostkitStyles( attributes ) {
+        return {
+            '.ghostkit-progress-wrap': {
                 height: attributes.height,
                 borderRadius: attributes.borderRadius,
                 backgroundColor: attributes.backgroundColor,
@@ -39,10 +33,8 @@ class ProgressBlock extends Component {
                     width: attributes.percent + '%',
                     backgroundColor: attributes.color,
                 },
-            };
-        }
-
-        setAttributes( newAttributes );
+            },
+        };
     }
 
     render() {
@@ -53,9 +45,7 @@ class ProgressBlock extends Component {
             toggleSelection,
         } = this.props;
 
-        let {
-            className,
-        } = this.props;
+        let { className = '' } = this.props;
 
         const {
             ghostkitClassname,
@@ -79,18 +69,14 @@ class ProgressBlock extends Component {
                     <RangeControl
                         label={ __( 'Height' ) }
                         value={ height || '' }
-                        onChange={ ( value ) => {
-                            this.generateStyles.call( this, { height: value } );
-                        } }
+                        onChange={ ( value ) => setAttributes( { height: value } ) }
                         min={ 5 }
                         max={ 20 }
                     />
                     <RangeControl
                         label={ __( 'Percent' ) }
                         value={ percent || '' }
-                        onChange={ ( value ) => {
-                            this.generateStyles.call( this, { percent: value } );
-                        } }
+                        onChange={ ( value ) => setAttributes( { percent: value } ) }
                         min={ 0 }
                         max={ 100 }
                     />
@@ -99,9 +85,7 @@ class ProgressBlock extends Component {
                         value={ borderRadius }
                         min="0"
                         max="10"
-                        onChange={ ( value ) => {
-                            this.generateStyles.call( this, { borderRadius: value } );
-                        } }
+                        onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
                     />
                     <ToggleControl
                         label={ __( 'Striped' ) }
@@ -111,17 +95,13 @@ class ProgressBlock extends Component {
                     <PanelColor title={ __( 'Color' ) } colorValue={ color } >
                         <ColorPalette
                             value={ color }
-                            onChange={ ( value ) => {
-                                this.generateStyles.call( this, { color: value } );
-                            } }
+                            onChange={ ( value ) => setAttributes( { color: value } ) }
                         />
                     </PanelColor>
                     <PanelColor title={ __( 'Background Color' ) } colorValue={ backgroundColor } >
                         <ColorPalette
                             value={ backgroundColor }
-                            onChange={ ( value ) => {
-                                this.generateStyles.call( this, { backgroundColor: value } );
-                            } }
+                            onChange={ ( value ) => setAttributes( { backgroundColor: value } ) }
                         />
                     </PanelColor>
                 </InspectorControls>

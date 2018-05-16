@@ -23,24 +23,14 @@ const {
 } = wp.blocks;
 
 class AlertBlock extends Component {
-    generateStyles( newAttributes ) {
-        let { attributes } = this.props;
-        const { setAttributes } = this.props;
-
-        attributes = Object.assign( attributes, newAttributes );
-
-        if ( attributes.ghostkitClassname ) {
-            newAttributes.ghostkitStyles = {};
-            newAttributes.ghostkitStyles[ `.${ attributes.ghostkitClassname }` ] = {
-                borderLeftColor: attributes.color,
-                '.ghostkit-alert-icon': {
-                    fontSize: attributes.iconSize,
-                    color: attributes.iconColor,
-                },
-            };
-        }
-
-        setAttributes( newAttributes );
+    ghostkitStyles( attributes ) {
+        return {
+            borderLeftColor: attributes.color,
+            '.ghostkit-alert-icon': {
+                fontSize: attributes.iconSize,
+                color: attributes.iconColor,
+            },
+        };
     }
 
     render() {
@@ -62,7 +52,7 @@ class AlertBlock extends Component {
 
         // add custom classname.
         if ( ghostkitClassname ) {
-            className += classnames( className, ghostkitClassname );
+            className = classnames( className, ghostkitClassname );
         }
 
         return (
@@ -71,9 +61,7 @@ class AlertBlock extends Component {
                     <PanelColor title={ __( 'Color' ) } colorValue={ color } >
                         <ColorPalette
                             value={ color }
-                            onChange={ ( value ) => {
-                                this.generateStyles.call( this, { color: value } );
-                            } }
+                            onChange={ ( value ) => setAttributes( { color: value } ) }
                         />
                     </PanelColor>
                     <TextControl
@@ -85,9 +73,7 @@ class AlertBlock extends Component {
                     <RangeControl
                         label={ __( 'Icon Size' ) }
                         value={ iconSize }
-                        onChange={ ( value ) => {
-                            this.generateStyles.call( this, { iconSize: value } );
-                        } }
+                        onChange={ ( value ) => setAttributes( { iconSize: value } ) }
                         min={ 20 }
                         max={ 100 }
                         beforeIcon="editor-textcolor"
@@ -96,9 +82,7 @@ class AlertBlock extends Component {
                     <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
                         <ColorPalette
                             value={ iconColor }
-                            onChange={ ( value ) => {
-                                this.generateStyles.call( this, { iconColor: value } );
-                            } }
+                            onChange={ ( value ) => setAttributes( { iconColor: value } ) }
                         />
                     </PanelColor>
                     <ToggleControl

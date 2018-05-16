@@ -23,21 +23,13 @@ const {
 } = wp.blocks;
 
 class IconBoxBlock extends Component {
-    generateStyles( newAttributes ) {
-        let { attributes } = this.props;
-        const { setAttributes } = this.props;
-
-        attributes = Object.assign( attributes, newAttributes );
-
-        if ( attributes.ghostkitClassname ) {
-            newAttributes.ghostkitStyles = {};
-            newAttributes.ghostkitStyles[ `.${ attributes.ghostkitClassname } .ghostkit-icon-box-icon` ] = {
+    ghostkitStyles( attributes ) {
+        return {
+            '.ghostkit-icon-box-icon': {
                 fontSize: attributes.iconSize,
                 color: attributes.iconColor,
-            };
-        }
-
-        setAttributes( newAttributes );
+            },
+        };
     }
 
     render() {
@@ -73,9 +65,7 @@ class IconBoxBlock extends Component {
                     <RangeControl
                         label={ __( 'Icon Size' ) }
                         value={ iconSize }
-                        onChange={ ( value ) => {
-                            this.generateStyles.call( this, { iconSize: value } );
-                        } }
+                        onChange={ ( value ) => setAttributes( { iconSize: value } ) }
                         min={ 20 }
                         max={ 100 }
                         beforeIcon="editor-textcolor"
@@ -103,9 +93,7 @@ class IconBoxBlock extends Component {
                     <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
                         <ColorPalette
                             value={ iconColor }
-                            onChange={ ( value ) => {
-                                this.generateStyles.call( this, { iconColor: value } );
-                            } }
+                            onChange={ ( value ) => setAttributes( { iconColor: value } ) }
                         />
                     </PanelColor>
                 </InspectorControls>

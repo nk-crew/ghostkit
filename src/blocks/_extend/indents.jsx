@@ -219,8 +219,8 @@ export function addCustomStyles( customStyles, extraProps, blockType, attributes
  * @return {Object} Additional element styles object.
  */
 export function addEditorCustomStyles( customStyles, props ) {
-    const customIndents = props.block.attributes.ghostkitIndents && Object.keys( props.block.attributes.ghostkitIndents ).length !== 0 ? Object.assign( {}, props.block.attributes.ghostkitIndents ) : false;
-    const uniqClassname = props.block.attributes.ghostkitClassname ? props.block.attributes.ghostkitClassname : false;
+    const customIndents = props.attributes.ghostkitIndents && Object.keys( props.attributes.ghostkitIndents ).length !== 0 ? Object.assign( {}, props.attributes.ghostkitIndents ) : false;
+    const uniqClassname = props.attributes.ghostkitClassname ? props.attributes.ghostkitClassname : false;
 
     if ( customIndents && uniqClassname ) {
         let indentStyles = {};

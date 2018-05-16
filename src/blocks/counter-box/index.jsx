@@ -23,21 +23,13 @@ const {
 } = wp.blocks;
 
 class CounterBoxBlock extends Component {
-    generateStyles( newAttributes ) {
-        let { attributes } = this.props;
-        const { setAttributes } = this.props;
-
-        attributes = Object.assign( attributes, newAttributes );
-
-        if ( attributes.ghostkitClassname ) {
-            newAttributes.ghostkitStyles = {};
-            newAttributes.ghostkitStyles[ `.${ attributes.ghostkitClassname } .ghostkit-counter-box-number` ] = {
+    ghostkitStyles( attributes ) {
+        return {
+            '.ghostkit-counter-box-number': {
                 fontSize: attributes.numberSize,
                 color: attributes.numberColor,
-            };
-        }
-
-        setAttributes( newAttributes );
+            },
+        };
     }
 
     render() {
@@ -68,9 +60,7 @@ class CounterBoxBlock extends Component {
                     <RangeControl
                         label={ __( 'Number Size' ) }
                         value={ numberSize }
-                        onChange={ ( value ) => {
-                            this.generateStyles.call( this, { numberSize: value } );
-                        } }
+                        onChange={ ( value ) => setAttributes( { numberSize: value } ) }
                         min={ 20 }
                         max={ 100 }
                         beforeIcon="editor-textcolor"
@@ -98,9 +88,7 @@ class CounterBoxBlock extends Component {
                     <PanelColor title={ __( 'Number Color' ) } colorValue={ numberColor } >
                         <ColorPalette
                             value={ numberColor }
-                            onChange={ ( value ) => {
-                                this.generateStyles.call( this, { numberColor: value } );
-                            } }
+                            onChange={ ( value ) => setAttributes( { numberColor: value } ) }
                         />
                     </PanelColor>
                 </InspectorControls>

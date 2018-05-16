@@ -8,7 +8,7 @@ const {
     applyFilters,
     addFilter,
 } = wp.hooks;
-const { createHigherOrderComponent } = wp.element;
+const { Fragment, createHigherOrderComponent } = wp.element;
 
 /**
  * Extend block attributes with styles.
@@ -45,6 +45,45 @@ function addAttribute( settings, name ) {
             };
         }
         settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
+
+        // change default edit class.
+        const defaultEdit = settings.edit;
+        if ( defaultEdit.prototype && defaultEdit.prototype.render ) {
+            class newEdit extends defaultEdit {
+                render() {
+                    const {
+                        setAttributes,
+                        attributes,
+                    } = this.props;
+
+                    let customStyles = {};
+
+                    if ( attributes.ghostkitClassname ) {
+                        // prepare custom block styles.
+                        const blockCustomStyles = this.ghostkitStyles ? this.ghostkitStyles( attributes ) : false;
+                        if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
+                            customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
+                        }
+
+                        customStyles = applyFilters(
+                            'ghostkit.editor.BlockListBlock.customStyles',
+                            Object.assign( {}, customStyles ),
+                            this.props
+                        );
+
+                        if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
+                            setAttributes( { ghostkitStyles: customStyles } );
+                        }
+                    }
+
+                    return <Fragment>
+                        { super.render( ...arguments ) }
+                        <div { ...getCustomStylesAttr( customStyles ) } />
+                    </Fragment>;
+                }
+            }
+            settings.edit = newEdit;
+        }
     }
 
     return settings;
@@ -94,40 +133,15 @@ export function addSaveProps( extraProps, blockType, attributes ) {
         extraProps = Object.assign( extraProps || {}, getCustomStylesAttr( customStyles ) );
 
         if ( attributes.ghostkitClassname ) {
-            extraProps.className = classnames( extraProps.className ? extraProps.className.split( ' ' ) : '', attributes.ghostkitClassname );
+            extraProps.className = classnames( extraProps.className, attributes.ghostkitClassname );
         }
     }
 
     return extraProps;
 }
 
-/**
- * Override the default block element to add offset styles.
- *
- * @param  {Function} BlockListBlock Original component
- * @return {Function}                Wrapped component
- */
-const withAttributes = createHigherOrderComponent( ( BlockListBlock ) => {
-    return ( props ) => {
-        let wrapperProps = props.wrapperProps;
-
-        const customStyles = applyFilters(
-            'ghostkit.editor.BlockListBlock.customStyles',
-            props.block.attributes.ghostkitStyles ? Object.assign( {}, props.block.attributes.ghostkitStyles ) : false,
-            props
-        );
-
-        if ( customStyles ) {
-            wrapperProps = Object.assign( wrapperProps || {}, getCustomStylesAttr( customStyles ) );
-        }
-
-        return <BlockListBlock { ...props } wrapperProps={ wrapperProps } />;
-    };
-}, 'withAttributes' );
-
 export function styles() {
     addFilter( 'blocks.registerBlockType', 'ghostkit/styles/additional-attributes', addAttribute );
     addFilter( 'blocks.BlockEdit', 'ghostkit/styles/additional-attributes', withNewAttrs );
     addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/indents/save-props', addSaveProps );
-    addFilter( 'editor.BlockListBlock', 'ghostkit/styles/additional-attributes', withAttributes );
 }
