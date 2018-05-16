@@ -1,6 +1,28 @@
 const $ = window.jQuery;
 
 /**
+ * Prepare custom styles.
+ */
+let customStyles = '';
+function prepareCustomStyles() {
+    let reloadStyles = false;
+    $( '[data-ghostkit-styles]' ).each( function() {
+        const $this = $( this );
+        customStyles += $this.attr( 'data-ghostkit-styles' );
+        $this.removeAttr( 'data-ghostkit-styles' );
+        reloadStyles = true;
+    } );
+
+    if ( reloadStyles ) {
+        let $style = $( '#ghostkit-blocks-custom-css' );
+        if ( ! $style.length ) {
+            $style = $( '<style id="ghostkit-blocks-custom-css">' ).appendTo( 'head' );
+        }
+        $style.html( customStyles );
+    }
+}
+
+/**
  * Prepare Grid Columns
  */
 function prepareGrid() {
@@ -36,11 +58,15 @@ function prepareGrid() {
 let observer = false;
 if ( typeof window.MutationObserver !== 'undefined' ) {
     observer = new window.MutationObserver( ( mutations ) => {
+        let readyCustomStyles = false;
         let readyGridBlock = false;
 
         mutations.forEach( function( mutation ) {
             if ( mutation.addedNodes && mutation.addedNodes.length ) {
                 mutation.addedNodes.forEach( function( node ) {
+                    if ( $( node ).is( '[data-ghostkit-styles]' ) ) {
+                        readyCustomStyles = 1;
+                    }
                     if ( $( node ).is( '.ghostkit-grid:not(.ghostkit-grid-ready)' ) ) {
                         readyGridBlock = 1;
                     }
@@ -48,6 +74,9 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
             }
         } );
 
+        if ( readyCustomStyles ) {
+            prepareCustomStyles();
+        }
         if ( readyGridBlock ) {
             prepareGrid();
         }
@@ -60,12 +89,13 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
 }
 
 // on dom ready.
-$( document ).on( 'ready load', () => {
+$( document ).on( 'DOMContentLoaded load', () => {
     // disconnect mutation observer.
     if ( observer ) {
         observer.disconnect();
         observer = false;
     }
 
+    prepareCustomStyles();
     prepareGrid();
 } );
