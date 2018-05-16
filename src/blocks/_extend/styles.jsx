@@ -3,12 +3,108 @@ import shorthash from 'shorthash';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import { getCustomStylesAttr } from '../_utils.jsx';
+import { camelCaseToDash } from '../_utils.jsx';
+
 const {
     applyFilters,
     addFilter,
 } = wp.hooks;
 const { Fragment, createHigherOrderComponent } = wp.element;
+
+const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-width', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-radius', 'bottom', 'top', 'left', 'right', 'font-size', 'height', 'width', 'min-height', 'min-width', 'max-height', 'max-width', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', 'margin', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', 'padding', 'outline-width' ];
+
+/**
+ * Get styles from object.
+ *
+ * @param {object} data - styles data.
+ * @param {string} selector - current styles selector (useful for nested styles).
+ * @param {boolean} render - render styles after generation.
+ * @return {string} - ready to use styles string.
+ */
+const getStyles = ( data = {}, selector = '', render = true ) => {
+    const result = {};
+    let resultCSS = '';
+
+    // add styles.
+    Object.keys( data ).map( ( key ) => {
+        if ( data[ key ] !== null && typeof data[ key ] === 'object' ) {
+            // prepare nested selector.
+            let nestedSelector = selector;
+            if ( nestedSelector ) {
+                if ( key.indexOf( '&' ) !== -1 ) {
+                    nestedSelector = key.replace( /&/g, nestedSelector );
+                } else {
+                    nestedSelector = `${ nestedSelector } ${ key }`;
+                }
+            } else {
+                nestedSelector = key;
+            }
+            resultCSS += ( resultCSS ? ' ' : '' ) + getStyles( data[ key ], nestedSelector, false );
+        } else if ( typeof data[ key ] !== 'undefined' && data[ key ] !== false ) {
+            if ( ! result[ selector ] ) {
+                result[ selector ] = '';
+            }
+            const propName = camelCaseToDash( key );
+            let propValue = data[ key ];
+
+            // add pixels.
+            if (
+                ( typeof propValue === 'number' && propValue !== 0 && cssPropsWithPixels.includes( propName ) ) ||
+                ( typeof propValue === 'string' && /^[0-9.\-]*$/.test( propValue ) )
+            ) {
+                propValue += 'px';
+            }
+
+            result[ selector ] += ` ${ propName }: ${ propValue };`;
+        }
+    } );
+
+    // add styles to selectors.
+    Object.keys( result ).map( ( key ) => {
+        resultCSS = `${ key } {${ result[ key ] } }${ resultCSS ? ` ${ resultCSS }` : '' }`;
+    } );
+
+    // render new styles.
+    if ( render ) {
+        renderStyles();
+    }
+
+    return resultCSS;
+};
+
+/**
+ * Get styles attribute.
+ *
+ * @param {object} data - styles data.
+ * @return {string} - data attribute with styles.
+ */
+const getCustomStylesAttr = ( data = {} ) => {
+    return {
+        'data-ghostkit-styles': getStyles( data ),
+    };
+};
+
+/**
+ * Render styles from all available ghostkit components.
+ */
+let renderTimeout;
+const renderStyles = () => {
+    clearTimeout( renderTimeout );
+    renderTimeout = setTimeout( () => {
+        let stylesString = '';
+        jQuery( '[data-ghostkit-styles]' ).each( function() {
+            stylesString += jQuery( this ).attr( 'data-ghostkit-styles' );
+        } );
+
+        let $style = jQuery( '#ghostkit-blocks-custom-css' );
+
+        if ( ! $style.length ) {
+            $style = jQuery( '<style type="text/css" id="ghostkit-blocks-custom-css">' ).appendTo( 'head' );
+        }
+
+        $style.html( stylesString );
+    }, 30 );
+};
 
 /**
  * Extend block attributes with styles.
