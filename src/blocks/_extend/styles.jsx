@@ -137,7 +137,7 @@ function addAttribute( settings, name ) {
         if ( ! settings.attributes.ghostkitId ) {
             settings.attributes.ghostkitId = {
                 type: 'string',
-                default: false,
+                default: '',
             };
         }
         settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
@@ -146,6 +146,24 @@ function addAttribute( settings, name ) {
         const defaultEdit = settings.edit;
         if ( defaultEdit.prototype && defaultEdit.prototype.render ) {
             class newEdit extends defaultEdit {
+                constructor( props ) {
+                    const {
+                        attributes,
+                        setAttributes,
+                        sharedBlock,
+                    } = props;
+                    super( ...arguments );
+
+                    // Remove custom classname if already exist the same classname on the page.
+                    // This may be because of cloned block.
+                    // Don't work for shared blocks
+                    if ( ! sharedBlock && attributes.ghostkitClassname && jQuery( '.' + attributes.ghostkitClassname ).length ) {
+                        setAttributes( {
+                            ghostkitClassname: '',
+                            ghostkitId: '',
+                        } );
+                    }
+                }
                 render() {
                     const {
                         setAttributes,
