@@ -233,7 +233,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
  *
  * @return {Object} Filtered props applied to save element.
  */
-export function addSaveProps( extraProps, blockType, attributes ) {
+function addSaveProps( extraProps, blockType, attributes ) {
     const customStyles = attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false;
 
     if ( customStyles ) {
@@ -247,8 +247,7 @@ export function addSaveProps( extraProps, blockType, attributes ) {
     return extraProps;
 }
 
-export function styles() {
-    addFilter( 'blocks.registerBlockType', 'ghostkit/styles/additional-attributes', addAttribute );
-    addFilter( 'blocks.BlockEdit', 'ghostkit/styles/additional-attributes', withNewAttrs );
-    addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/indents/save-props', addSaveProps );
-}
+// Init filters.
+addFilter( 'blocks.registerBlockType', 'ghostkit/styles/additional-attributes', addAttribute );
+addFilter( 'blocks.BlockEdit', 'ghostkit/styles/additional-attributes', withNewAttrs );
+addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/indents/save-props', addSaveProps );

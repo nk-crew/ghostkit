@@ -1,2 +1,2 @@
-export * from './styles.jsx';
-export * from './indents.jsx';
+import './styles.jsx';
+import './indents.jsx';

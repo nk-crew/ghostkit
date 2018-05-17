@@ -194,7 +194,7 @@ const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
  *
  * @return {Object} Additional element styles object.
  */
-export function addEditorCustomStyles( customStyles, props ) {
+function addEditorCustomStyles( customStyles, props ) {
     const customIndents = props.attributes.ghostkitIndents && Object.keys( props.attributes.ghostkitIndents ).length !== 0 ? Object.assign( {}, props.attributes.ghostkitIndents ) : false;
 
     if ( customStyles && customIndents ) {
@@ -204,10 +204,8 @@ export function addEditorCustomStyles( customStyles, props ) {
     return customStyles;
 }
 
-export function indents() {
-    addFilter( 'ghostkit.blocks.registerBlockType.allowCustomStyles', 'ghostkit/indents/allow-custom-styles', allowCustomStyles );
-    addFilter( 'ghostkit.blocks.registerBlockType.withCustomStyles', 'ghostkit/indents/additional-attributes', addAttribute );
-    addFilter( 'ghostkit.blocks.customStyles', 'ghostkit/indents/editor-custom-styles', addEditorCustomStyles );
-
-    addFilter( 'blocks.BlockEdit', 'ghostkit/indents/additional-attributes', withInspectorControl );
-}
+// Init filters.
+addFilter( 'ghostkit.blocks.registerBlockType.allowCustomStyles', 'ghostkit/indents/allow-custom-styles', allowCustomStyles );
+addFilter( 'ghostkit.blocks.registerBlockType.withCustomStyles', 'ghostkit/indents/additional-attributes', addAttribute );
+addFilter( 'ghostkit.blocks.customStyles', 'ghostkit/indents/editor-custom-styles', addEditorCustomStyles );
+addFilter( 'blocks.BlockEdit', 'ghostkit/indents/additional-attributes', withInspectorControl );
