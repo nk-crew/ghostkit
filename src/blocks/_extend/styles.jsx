@@ -170,20 +170,19 @@ function addAttribute( settings, name ) {
                         attributes,
                     } = this.props;
 
-                    let customStyles = {};
+                    const customStyles = {};
 
                     if ( attributes.ghostkitClassname ) {
                         // prepare custom block styles.
-                        const blockCustomStyles = this.ghostkitStyles ? this.ghostkitStyles( attributes ) : false;
+                        const blockCustomStyles = applyFilters(
+                            'ghostkit.blocks.customStyles',
+                            this.ghostkitStyles ? this.ghostkitStyles( attributes ) : {},
+                            this.props
+                        );
+
                         if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
                             customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
                         }
-
-                        customStyles = applyFilters(
-                            'ghostkit.editor.customStyles',
-                            Object.assign( {}, customStyles ),
-                            this.props
-                        );
 
                         if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
                             setAttributes( { ghostkitStyles: customStyles } );
@@ -235,13 +234,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
  * @return {Object} Filtered props applied to save element.
  */
 export function addSaveProps( extraProps, blockType, attributes ) {
-    const customStyles = applyFilters(
-        'ghostkit.blocks.customStyles',
-        attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false,
-        extraProps,
-        blockType,
-        attributes
-    );
+    const customStyles = attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false;
 
     if ( customStyles ) {
         extraProps = Object.assign( extraProps || {}, getCustomStylesAttr( customStyles ) );
