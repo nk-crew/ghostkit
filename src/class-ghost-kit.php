@@ -131,7 +131,7 @@ class GhostKit {
         wp_enqueue_script(
             'ghostkit-editor',
             plugins_url( 'blocks/index.min.js', __FILE__ ),
-            array( 'wp-blocks', 'wp-i18n', 'wp-element', 'underscore', 'wp-components' ),
+            array( 'wp-editor', 'wp-i18n', 'wp-element', 'underscore', 'wp-components' ),
             filemtime( plugin_dir_path( __FILE__ ) . 'blocks/index.min.js' )
         );
 
