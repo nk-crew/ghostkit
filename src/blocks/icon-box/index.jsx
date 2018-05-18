@@ -16,11 +16,12 @@ const {
     SelectControl,
     TextControl,
 } = wp.components;
+
 const {
     InspectorControls,
     ColorPalette,
     InnerBlocks,
-} = wp.blocks;
+} = wp.editor;
 
 class IconBoxBlock extends Component {
     ghostkitStyles( attributes ) {

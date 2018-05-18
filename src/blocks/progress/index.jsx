@@ -16,11 +16,12 @@ const {
     PanelColor,
     ToggleControl,
 } = wp.components;
+
 const {
     InspectorControls,
     ColorPalette,
     RichText,
-} = wp.blocks;
+} = wp.editor;
 
 class ProgressBlock extends Component {
     ghostkitStyles( attributes ) {

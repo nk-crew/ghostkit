@@ -7,7 +7,7 @@ import logo from '../_icons/ghostkit-black.svg';
 const { __ } = wp.i18n;
 const { addFilter } = wp.hooks;
 const { createHigherOrderComponent, Fragment } = wp.element;
-const { InspectorAdvancedControls } = wp.blocks;
+const { InspectorAdvancedControls } = wp.editor;
 const {
     BaseControl,
     TextControl,

@@ -15,12 +15,13 @@ const {
     PanelColor,
     SelectControl,
 } = wp.components;
+
 const {
     InspectorControls,
     ColorPalette,
     InnerBlocks,
     RichText,
-} = wp.blocks;
+} = wp.editor;
 
 class CounterBoxBlock extends Component {
     ghostkitStyles( attributes ) {

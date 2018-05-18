@@ -16,11 +16,12 @@ const {
     TextControl,
     ToggleControl,
 } = wp.components;
+
 const {
     InspectorControls,
     ColorPalette,
     InnerBlocks,
-} = wp.blocks;
+} = wp.editor;
 
 class AlertBlock extends Component {
     ghostkitStyles( attributes ) {

@@ -25,7 +25,7 @@ const {
     BlockAlignmentToolbar,
     InspectorControls,
     InnerBlocks,
-} = wp.blocks;
+} = wp.editor;
 
 const defaultColumnSettings = {
     sm_size: '12',

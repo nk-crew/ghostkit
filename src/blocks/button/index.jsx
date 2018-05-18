@@ -19,6 +19,7 @@ const {
     Button,
     ButtonGroup,
 } = wp.components;
+
 const {
     InspectorControls,
     BlockControls,
@@ -26,7 +27,7 @@ const {
     RichText,
     ColorPalette,
     UrlInput,
-} = wp.blocks;
+} = wp.editor;
 
 class ButtonBlock extends Component {
     constructor() {
