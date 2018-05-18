@@ -9,13 +9,6 @@
 @import "./bootstrap-grid";
 @import "./bootstrap-breakpoints";
 
-$gaps: (
-    no: 0,
-    sm: 15px,
-    md: 30px,
-    lg: 45px
-) !default;
-
 // Row
 //
 // Rows contain and clear the floats of your columns.
@@ -75,7 +68,7 @@ $gaps: (
 }
 
 // Gaps.
-@each $name, $size in $gaps {
+@each $name, $size in $grid-gaps {
     .ghostkit-grid-gap-#{$name} {
         margin-right: ($size / -2);
         margin-left: ($size / -2);

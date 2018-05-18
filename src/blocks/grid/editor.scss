@@ -2,6 +2,8 @@
  * Editor Styles
  */
 @import "../variables";
+@import "./bootstrap-functions";
+@import "./bootstrap-variables";
 
 // Styles from core Columns block
 // https://github.com/WordPress/gutenberg/blob/master/blocks/library/columns/editor.scss
@@ -9,14 +11,18 @@
     // These margins make sure that nested blocks stack/overlay with the parent block chrome
     // This is sort of an experiment at making sure the editor looks as much like the end result as possible
     // Potentially the rules here can apply to all nested blocks and enable stacking, in which case it should be moved elsewhere
-    .editor-block-list__layout {
-        &:first-child {
-            margin-left: -$block-padding;
-        }
-        &:last-child {
-            margin-right: -$block-padding;
-        }
+    margin-right: - ( $grid-gutter-width / 2 ) - 14px;
+    margin-left: - ( $grid-gutter-width / 2 ) - 14px;
 
+    // Gaps.
+    @each $name, $size in $grid-gaps {
+        &.ghostkit-grid-gap-#{$name} {
+            margin-right: - ( $size / 2 )  - 14px;
+            margin-left: - ( $size / 2 )  - 14px;
+        }
+    }
+
+    .editor-block-list__layout {
         // This max-width is used to constrain the main editor column, it should not cascade into columns
         .editor-block-list__block {
             max-width: none;
@@ -24,7 +30,7 @@
     }
 
     // Wide: show no left/right margin on wide, so they stack with the column side UI
-    .editor-block-list__block[data-align="wide"] & .editor-block-list__layout {
+    .editor-block-list__block[data-align="wide"][data-type="ghostkit/grid"] & .editor-block-list__layout {
         &:first-child {
             margin-left: 0;
         }
@@ -37,7 +43,7 @@
     // This is not a 1:1 preview with the front-end where these margins would presumably be zero
     // @todo this could be revisited, by for example showing this margin only when the parent block was selected first
     // Then at least an unselected columns block would be an accurate preview
-    .editor-block-list__block[data-align="full"] & .editor-block-list__layout {
+    .editor-block-list__block[data-align="full"][data-type="ghostkit/grid"] & .editor-block-list__layout {
         &:first-child {
             margin-left: $block-side-ui-padding;
         }
