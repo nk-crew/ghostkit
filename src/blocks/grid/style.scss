@@ -3,32 +3,86 @@
  */
 @import "../variables";
 
+// Grid from Bootstrap 4.1
+@import "./bootstrap-functions";
+@import "./bootstrap-variables";
+@import "./bootstrap-grid";
+@import "./bootstrap-breakpoints";
+
+$gaps: (
+    no: 0,
+    sm: 15px,
+    md: 30px,
+    lg: 45px
+) !default;
+
+// Row
+//
+// Rows contain and clear the floats of your columns.
 .wp-block-ghostkit-grid {
-    display: grid;
-    grid-auto-flow: dense;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: ($grid-gutter-width / -2);
+    margin-left: ($grid-gutter-width / -2);
 
-    // gap.
-    &.ghostkit-grid-gap-sm {
-        grid-gap: 15px;
+    // Columns
+    //
+    // Common styles for small and large grid columns
+    // Common properties for all breakpoints
+    > .ghostkit-col {
+        position: relative;
+        width: 100%;
+        min-height: 1px; // Prevent columns from collapsing when empty
+        padding-right: ($grid-gutter-width / 2);
+        padding-left: ($grid-gutter-width / 2);
     }
-    &.ghostkit-grid-gap-md {
-        grid-gap: 30px;
-    }
-    &.ghostkit-grid-gap-lg {
-        grid-gap: 45px;
-    }
+}
 
-    // columns count.
-    @for $i from 2 through 6 {
-        &.ghostkit-grid-cols-#{ $i } {
-            grid-template: 1fr / repeat($i, 1fr);
+@each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        // All columns classes
+        @for $col from 1 through $grid-columns {
+            // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+            .ghostkit-grid-col-#{$col}#{$infix} > .ghostkit-col-#{$col} {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+            }
+
+            @for $i from 1 through $grid-columns {
+                .ghostkit-grid-col-#{$col}#{$infix}-#{$i} > .ghostkit-col-#{$col} {
+                    @include make-col($i, $grid-columns);
+                }
+            }
+
+            .ghostkit-grid-order-#{$col}#{$infix}-first > .ghostkit-col-#{$col} {
+                order: -1;
+            }
+
+            .ghostkit-grid-order-#{$col}#{$infix}-last > .ghostkit-col-#{$col} {
+                order: $grid-columns + 1;
+            }
+
+            @for $i from 0 through $grid-columns {
+                .ghostkit-grid-order-#{$col}#{$infix}-#{$i} > .ghostkit-col-#{$col} {
+                    order: $i;
+                }
+            }
         }
     }
+}
 
-    // columns position.
-    @for $i from 1 through 6 {
-        .layout-ghostkit-col-#{ $i } {
-            grid-column: #{ $i };
+// Gaps.
+@each $name, $size in $gaps {
+    .ghostkit-grid-gap-#{$name} {
+        margin-right: ($size / -2);
+        margin-left: ($size / -2);
+
+        > .ghostkit-col {
+            padding-right: ($size / 2);
+            padding-left: ($size / 2);
         }
     }
 }

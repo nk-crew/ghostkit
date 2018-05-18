@@ -1,6 +1,8 @@
 /**
  * Element Icons.
  */
+@import "../../../blocks/variables";
+
 img.ghostkit-icon {
     pointer-events: none;
 
@@ -22,6 +24,53 @@ img.ghostkit-icon {
     .editor-inserter__block:not(:disabled):active &,
     .editor-inserter__block:not(:disabled):focus & {
         opacity: 1;
+    }
+}
+
+/**
+ * Tabs Control.
+ */
+.ghostkit-control-tabs {
+    padding: 15px;
+    border: 1px solid $light-gray-400;
+
+    .components-tab-panel__tabs {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -15px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid $light-gray-400;
+
+        .ghostkit-control-tabs-tab {
+            padding: 9px 11px;
+            padding-bottom: 11px;
+            margin: 0;
+            margin-bottom: -1px;
+            color: #555d66;
+            cursor: pointer;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            outline-offset: -1px;
+
+            &.is-active {
+                position: relative;
+                border-bottom: 2px solid $blue-medium-500;
+                z-index: 1;
+            }
+        }
+    }
+
+    .ghostkit-control-tabs-separator {
+        padding: 15px;
+        margin-right: -15px;
+        margin-left: -15px;
+        border-top: 1px solid $light-gray-400;
+
+        &:first-child {
+            margin-top: -16px;
+        }
     }
 }
 

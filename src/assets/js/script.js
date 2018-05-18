@@ -26,7 +26,7 @@ function prepareCustomStyles() {
  * Prepare Grid Columns
  */
 function prepareGrid() {
-    $( '.ghostkit-grid:not(.ghostkit-grid-ready)' ).each( function() {
+    $( '.wp-block-ghostkit-grid:not(.ghostkit-grid-ready)' ).each( function() {
         const $this = $( this );
         const columnsContent = {};
 
@@ -45,7 +45,35 @@ function prepareGrid() {
 
         // create columns.
         for ( let k = 1; k <= columns; k++ ) {
-            columnsContent[ k ] = $( `<div class="layout-ghostkit-col-${ k }">` ).append( $this.children( `.layout-ghostkit-col-${ k }` ).removeClass( `layout-ghostkit-col-${ k }` ) );
+            const $content = $this.children( `.ghostkit-col-${ k }` );
+            let columnClasses = '';
+            let getClassesFromContent = true;
+
+            // move grid classes from the content items to the column.
+            $content.each( function() {
+                const $contentItem = $( this );
+                let itemClasses = $contentItem.attr( 'class' ) || '';
+                let newItemClasses = '';
+                itemClasses = itemClasses.split( ' ' );
+
+                if ( itemClasses && itemClasses.length ) {
+                    itemClasses.forEach( ( val ) => {
+                        if ( ! /layout\-ghostkit|ghostkit\-col/.test( val ) ) {
+                            newItemClasses += ( newItemClasses ? ' ' : '' ) + val;
+                        } else if ( getClassesFromContent ) {
+                            columnClasses += ( columnClasses ? ' ' : '' ) + val;
+                        }
+                    } );
+
+                    if ( columnClasses ) {
+                        getClassesFromContent = false;
+                    }
+                }
+
+                $contentItem.attr( 'class', newItemClasses );
+            } );
+
+            columnsContent[ k ] = $( `<div class="${ columnClasses || `ghostkit-col-${ k }` }">` ).append( $content );
         }
 
         for ( const i in columnsContent ) {
