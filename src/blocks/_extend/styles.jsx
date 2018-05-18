@@ -142,8 +142,10 @@ function addAttribute( settings, name ) {
         }
         settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
 
-        // change default edit class.
+        // change default edit class/function.
         const defaultEdit = settings.edit;
+
+        // edit class.
         if ( defaultEdit.prototype && defaultEdit.prototype.render ) {
             class newEdit extends defaultEdit {
                 constructor( props ) {
@@ -187,15 +189,68 @@ function addAttribute( settings, name ) {
                         if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
                             setAttributes( { ghostkitStyles: customStyles } );
                         }
+
+                        return (
+                            <Fragment>
+                                { super.render( ...arguments ) }
+                                <div { ...getCustomStylesAttr( customStyles ) } />
+                            </Fragment>
+                        );
                     }
 
-                    return <Fragment>
-                        { super.render( ...arguments ) }
-                        <div { ...getCustomStylesAttr( customStyles ) } />
-                    </Fragment>;
+                    return super.render( ...arguments );
                 }
             }
             settings.edit = newEdit;
+
+        // edit function.
+        } else if ( defaultEdit.prototype ) {
+            let firstCall = true;
+            settings.edit = function( props ) {
+                const {
+                    attributes,
+                    setAttributes,
+                    sharedBlock,
+                } = props;
+
+                const result = defaultEdit.apply( this, arguments );
+
+                // init
+                if ( firstCall ) {
+                    firstCall = false;
+
+                    // Remove custom classname if already exist the same classname on the page.
+                    // This may be because of cloned block.
+                    // Don't work for shared blocks
+                    if ( ! sharedBlock && attributes.ghostkitClassname && jQuery( '.' + attributes.ghostkitClassname ).length ) {
+                        setAttributes( {
+                            ghostkitClassname: '',
+                            ghostkitId: '',
+                        } );
+                    }
+                }
+
+                // generate styles
+                const customStyles = {};
+                if ( attributes.ghostkitClassname ) {
+                    // prepare custom block styles.
+                    const blockCustomStyles = applyFilters(
+                        'ghostkit.blocks.customStyles',
+                        defaultEdit.ghostkitStyles ? defaultEdit.ghostkitStyles( attributes ) : {},
+                        props
+                    );
+
+                    if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
+                        customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
+                    }
+
+                    if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
+                        setAttributes( { ghostkitStyles: customStyles } );
+                    }
+                }
+
+                return result;
+            };
         }
     }
 
@@ -236,7 +291,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
 function addSaveProps( extraProps, blockType, attributes ) {
     const customStyles = attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false;
 
-    if ( customStyles ) {
+    if ( customStyles && Object.keys( customStyles ).length !== 0 ) {
         extraProps = Object.assign( extraProps || {}, getCustomStylesAttr( customStyles ) );
 
         if ( attributes.ghostkitClassname ) {
