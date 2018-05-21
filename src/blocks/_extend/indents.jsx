@@ -5,7 +5,10 @@ import deepAssign from 'deep-assign';
 import logo from '../_icons/ghostkit-black.svg';
 
 const { __ } = wp.i18n;
-const { addFilter } = wp.hooks;
+const {
+    applyFilters,
+    addFilter,
+} = wp.hooks;
 const { createHigherOrderComponent, Fragment } = wp.element;
 const { InspectorAdvancedControls } = wp.editor;
 const {
@@ -24,7 +27,12 @@ const {
  */
 function allowCustomStyles( allow, settings, name ) {
     if ( ! allow ) {
-        allow = name && /^ghostkit|^core/.test( name );
+        allow = applyFilters(
+            'ghostkit.blocks.allowCustomIndents',
+            name && /^ghostkit|^core/.test( name ),
+            settings,
+            name
+        );
     }
     return allow;
 }
@@ -38,7 +46,13 @@ function allowCustomStyles( allow, settings, name ) {
  * @return {Object} Filtered block settings.
  */
 function addAttribute( settings, name ) {
-    if ( name && /^ghostkit|^core/.test( name ) ) {
+    const allow = applyFilters(
+        'ghostkit.blocks.allowCustomIndents',
+        name && /^ghostkit|^core/.test( name ),
+        settings,
+        name
+    );
+    if ( allow ) {
         if ( ! settings.attributes.ghostkitIndents ) {
             settings.attributes.ghostkitIndents = {
                 type: 'object',
@@ -85,7 +99,13 @@ function updateIndents( name, val, allIndents, setAttributes ) {
  */
 const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
     return ( props ) => {
-        if ( ! /^ghostkit|^core/.test( props.name ) ) {
+        const allow = applyFilters(
+            'ghostkit.blocks.allowCustomIndents',
+            props.name && /^ghostkit|^core/.test( props.name ),
+            props,
+            props.name
+        );
+        if ( ! allow ) {
             return <BlockEdit { ...props } />;
         }
 

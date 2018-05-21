@@ -114,7 +114,8 @@ class GhostKit {
         // include blocks.
         // work only if Gutenberg available.
         if ( function_exists( 'register_block_type' ) ) {
-            add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
+            // we need to register the main script earlier to let 3rd-party plugins add custom styles support.
+            add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ), 9 );
             add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_block_assets' ) );
         }
     }
