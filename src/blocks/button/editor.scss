@@ -35,36 +35,34 @@
 }
 
 .ghostkit-button__inline-link {
+    $blocks-button__link-input-width: 280px;
+
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    width: 280px;
-    margin-top: 10px;
+    width: $blocks-button__link-input-width;
     font-family: $default-font;
     font-size: $default-font-size;
     line-height: $default-line-height;
     background: #fff;
 
-    .blocks-url-input {
+    .editor-url-input {
         width: auto;
+    }
+
+    .editor-url-input__suggestions {
+        width: $blocks-button__link-input-width - $icon-button-size - $icon-button-size;
+    }
+
+    > .dashicon {
+        width: $icon-button-size;
     }
 
     .dashicon {
         color: $dark-gray-100;
     }
 
-    // first icon
-    > .dashicon {
-        position: absolute;
-        left: 7px;
-        z-index: 1;
-    }
-
-    .blocks-url-input input[type="text"] {
-        padding-left: 30px;
-        border: 1px solid $light-gray-300;
-    }
-    .blocks-url-input input[type="text"]::placeholder {
+    .editor-url-input input[type="text"]::placeholder {
         color: $dark-gray-100;
     }
 
