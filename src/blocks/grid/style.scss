@@ -67,6 +67,28 @@
     }
 }
 
+// Vertical align.
+.ghostkit-grid-align-items-center {
+    align-items: center;
+}
+.ghostkit-grid-align-items-end {
+    align-items: end;
+}
+
+// Horizontal align.
+.ghostkit-grid-justify-content-center {
+    justify-content: center;
+}
+.ghostkit-grid-justify-content-end {
+    justify-content: end;
+}
+.ghostkit-grid-justify-content-around {
+    justify-content: space-around;
+}
+.ghostkit-grid-justify-content-between {
+    justify-content: space-between;
+}
+
 // Gaps.
 @each $name, $size in $grid-gaps {
     .ghostkit-grid-gap-#{$name} {

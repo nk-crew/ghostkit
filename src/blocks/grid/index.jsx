@@ -164,6 +164,8 @@ class GridBlock extends Component {
             columns,
             columnsSettings,
             gap,
+            verticalAlign,
+            horizontalAlign,
             align,
         } = attributes;
 
@@ -177,7 +179,13 @@ class GridBlock extends Component {
             } );
         }
 
-        className = classnames( className, `ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }`, getGridClass( attributes ) );
+        className = classnames(
+            className,
+            `ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }`,
+            verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,
+            horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false,
+            getGridClass( attributes )
+        );
 
         return (
             <Fragment>
@@ -307,6 +315,46 @@ class GridBlock extends Component {
                                 }
                             </TabPanel>
                         </BaseControl>
+                        <SelectControl
+                            label={ __( 'Vertical alignment' ) }
+                            value={ verticalAlign }
+                            onChange={ ( value ) => setAttributes( { verticalAlign: value } ) }
+                            options={ [
+                                {
+                                    label: __( 'Start' ),
+                                    value: '',
+                                }, {
+                                    label: __( 'Center' ),
+                                    value: 'center',
+                                }, {
+                                    label: __( 'End' ),
+                                    value: 'end',
+                                },
+                            ] }
+                        />
+                        <SelectControl
+                            label={ __( 'Horizontal alignment' ) }
+                            value={ horizontalAlign }
+                            onChange={ ( value ) => setAttributes( { horizontalAlign: value } ) }
+                            options={ [
+                                {
+                                    label: __( 'Start' ),
+                                    value: '',
+                                }, {
+                                    label: __( 'Center' ),
+                                    value: 'center',
+                                }, {
+                                    label: __( 'End' ),
+                                    value: 'end',
+                                }, {
+                                    label: __( 'Around' ),
+                                    value: 'around',
+                                }, {
+                                    label: __( 'Between' ),
+                                    value: 'between',
+                                },
+                            ] }
+                        />
                         <BaseControl label={ __( 'Gap' ) }>
                             <ButtonGroup>
                                 {
@@ -383,6 +431,12 @@ export const settings = {
             type: 'string',
             default: 'md',
         },
+        verticalAlign: {
+            type: 'string',
+        },
+        horizontalAlign: {
+            type: 'string',
+        },
         align: {
             type: 'string',
         },
@@ -399,10 +453,18 @@ export const settings = {
     save: function( { attributes, className = '' } ) {
         const {
             columns,
+            verticalAlign,
+            horizontalAlign,
             gap,
         } = attributes;
 
-        className = classnames( className, `ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }`, getGridClass( attributes ) );
+        className = classnames(
+            className,
+            `ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }`,
+            verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,
+            horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false,
+            getGridClass( attributes )
+        );
 
         return (
             <div className={ className }>
