@@ -115,9 +115,9 @@ const renderStyles = () => {
  * @return {Object} Filtered block settings.
  */
 function addAttribute( settings, name ) {
-    const allowCustomStyles = applyFilters(
+    const allowCustomStyles = settings && settings.attributes && applyFilters(
         'ghostkit.blocks.registerBlockType.allowCustomStyles',
-        settings && settings.attributes && name && /^ghostkit/.test( name ),
+        name && /^ghostkit/.test( name ),
         settings,
         name
     );

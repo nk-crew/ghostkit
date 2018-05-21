@@ -24,7 +24,7 @@ const {
  */
 function allowCustomStyles( allow, settings, name ) {
     if ( ! allow ) {
-        allow = settings && settings.attributes && name && /^ghostkit|^core/.test( name );
+        allow = name && /^ghostkit|^core/.test( name );
     }
     return allow;
 }
