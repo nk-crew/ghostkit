@@ -192,44 +192,6 @@ class GridBlock extends Component {
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody>
-                        <BaseControl label={ __( 'Gap' ) }>
-                            <ButtonGroup>
-                                {
-                                    [
-                                        {
-                                            label: __( 'none' ),
-                                            value: 'no',
-                                        },
-                                        {
-                                            label: __( 'sm' ),
-                                            value: 'sm',
-                                        },
-                                        {
-                                            label: __( 'md' ),
-                                            value: 'md',
-                                        },
-                                        {
-                                            label: __( 'lg' ),
-                                            value: 'lg',
-                                        },
-                                    ].map( ( val ) => {
-                                        const selected = gap === val.value;
-
-                                        return (
-                                            <Button
-                                                isLarge
-                                                isPrimary={ selected }
-                                                aria-pressed={ selected }
-                                                onClick={ () => setAttributes( { gap: val.value } ) }
-                                                key={ `gap_${ val.label }` }
-                                            >
-                                                { val.label }
-                                            </Button>
-                                        );
-                                    } )
-                                }
-                            </ButtonGroup>
-                        </BaseControl>
                         <RangeControl
                             label={ __( 'Columns' ) }
                             value={ columns }
@@ -344,6 +306,44 @@ class GridBlock extends Component {
                                     }
                                 }
                             </TabPanel>
+                        </BaseControl>
+                        <BaseControl label={ __( 'Gap' ) }>
+                            <ButtonGroup>
+                                {
+                                    [
+                                        {
+                                            label: __( 'none' ),
+                                            value: 'no',
+                                        },
+                                        {
+                                            label: __( 'sm' ),
+                                            value: 'sm',
+                                        },
+                                        {
+                                            label: __( 'md' ),
+                                            value: 'md',
+                                        },
+                                        {
+                                            label: __( 'lg' ),
+                                            value: 'lg',
+                                        },
+                                    ].map( ( val ) => {
+                                        const selected = gap === val.value;
+
+                                        return (
+                                            <Button
+                                                isLarge
+                                                isPrimary={ selected }
+                                                aria-pressed={ selected }
+                                                onClick={ () => setAttributes( { gap: val.value } ) }
+                                                key={ `gap_${ val.label }` }
+                                            >
+                                                { val.label }
+                                            </Button>
+                                        );
+                                    } )
+                                }
+                            </ButtonGroup>
                         </BaseControl>
                     </PanelBody>
                 </InspectorControls>
