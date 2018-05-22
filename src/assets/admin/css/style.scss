@@ -216,3 +216,22 @@ img.ghostkit-icon {
         }
     }
 }
+
+/**
+ * Display Control
+ */
+.ghostkit-control-display {
+    .ghostkit-control-display-box {
+        display: flex;
+
+        > .components-base-control {
+            flex: 1;
+        }
+    }
+    .ghostkit-control-display-icon {
+        width: 17px;
+        margin-top: 6px;
+        margin-right: 15px;
+        text-align: center;
+    }
+}

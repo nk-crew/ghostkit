@@ -12,6 +12,14 @@
 }
 
 /**
+ * Display.
+ */
+@import "./_bootstrap/functions";
+@import "./_bootstrap/variables";
+@import "./_bootstrap/breakpoints";
+@import "./_bootstrap/display";
+
+/**
  * Blocks Styles
  */
 @import "./grid/style";

@@ -44,12 +44,14 @@
                 max-width: 100%;
             }
 
+            // col size.
             @for $i from 1 through $grid-columns {
                 .ghostkit-grid-col-#{$col}#{$infix}-#{$i} > .ghostkit-col-#{$col} {
                     @include make-col($i, $grid-columns);
                 }
             }
 
+            // col order.
             .ghostkit-grid-order-#{$col}#{$infix}-first > .ghostkit-col-#{$col} {
                 order: -1;
             }
@@ -62,6 +64,14 @@
                 .ghostkit-grid-order-#{$col}#{$infix}-#{$i} > .ghostkit-col-#{$col} {
                     order: $i;
                 }
+            }
+
+            // col display.
+            .ghostkit-grid-display-#{$col}#{$infix}-show > .ghostkit-col-#{$col} {
+                display: block;
+            }
+            .ghostkit-grid-display-#{$col}#{$infix}-hide > .ghostkit-col-#{$col} {
+                display: none;
             }
         }
     }

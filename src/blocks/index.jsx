@@ -11,7 +11,9 @@ import * as alert from './alert/index.jsx';
 /**
  * Extensions
  */
-import './_extend/index.jsx';
+import './_extend/styles.jsx';
+import './_extend/indents.jsx';
+import './_extend/display.jsx';
 
 /**
  * Internal dependencies
