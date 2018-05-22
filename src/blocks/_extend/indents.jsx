@@ -9,11 +9,16 @@ const {
     applyFilters,
     addFilter,
 } = wp.hooks;
-const { createHigherOrderComponent, Fragment } = wp.element;
+const {
+    createHigherOrderComponent,
+    Component,
+    Fragment,
+} = wp.element;
 const { InspectorAdvancedControls } = wp.editor;
 const {
     BaseControl,
     TextControl,
+    SelectControl,
 } = wp.components;
 
 /**
@@ -64,32 +69,6 @@ function addAttribute( settings, name ) {
 }
 
 /**
- * Update indents object.
- *
- * @param {String} name - name of new indent.
- * @param {String} val - value for new indent.
- * @param {Object} allIndents - object with all indents.
- * @param {Function} setAttributes - set attributes function.
- */
-function updateIndents( name, val, allIndents, setAttributes ) {
-    const result = {};
-    const newIndents = {};
-    newIndents[ name ] = val;
-    allIndents = Object.assign( {}, allIndents, newIndents );
-
-    // validate values.
-    Object.keys( allIndents ).map( ( key ) => {
-        if ( allIndents[ key ] ) {
-            result[ key ] = allIndents[ key ];
-        }
-    } );
-
-    setAttributes( {
-        ghostkitIndents: result,
-    } );
-}
-
-/**
  * Override the default edit UI to include a new block inspector control for
  * assigning the custom indents if needed.
  *
@@ -97,113 +76,219 @@ function updateIndents( name, val, allIndents, setAttributes ) {
  *
  * @return {string} Wrapped component.
  */
-const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
-    return ( props ) => {
-        const allow = applyFilters(
-            'ghostkit.blocks.allowCustomIndents',
-            props.name && /^ghostkit|^core/.test( props.name ),
-            props,
-            props.name
-        );
-        if ( ! allow ) {
-            return <BlockEdit { ...props } />;
+const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) => {
+    class GhostkitIndentsWrapper extends Component {
+        constructor() {
+            super( ...arguments );
+
+            this.setState = this.setState.bind( this );
+            this.state = {
+                device: '',
+            };
+
+            this.updateIndents = this.updateIndents.bind( this );
+            this.getCurrentIndent = this.getCurrentIndent.bind( this );
         }
 
-        // add new indents controls.
+        /**
+         * Update indents object.
+         *
+         * @param {String} name - name of new indent.
+         * @param {String} val - value for new indent.
+         */
+        updateIndents( name, val ) {
+            const { setAttributes } = this.props;
+            const { device } = this.state;
+            let { ghostkitIndents = {} } = this.props.attributes;
+            const result = {};
+            const newIndents = {};
 
-        props.attributes.ghostkitIndents = props.attributes.ghostkitIndents || {};
+            if ( device ) {
+                newIndents[ device ] = {};
+                newIndents[ device ][ name ] = val;
+            } else {
+                newIndents[ name ] = val;
+            }
 
-        return (
-            <Fragment>
-                <BlockEdit { ...props } />
-                <InspectorAdvancedControls>
-                    <BaseControl label={ __( 'Indents' ) } >
-                        <div className="ghostkit-control-indent">
-                            <img className="ghostkit-control-indent-logo" src={ logo } alt="ghostkit-icon" />
-                            <div className="ghostkit-control-indent-margin">
-                                <span>{ __( 'Margin' ) }</span>
-                                <div className="ghostkit-control-indent-margin-left">
-                                    <TextControl
-                                        value={ props.attributes.ghostkitIndents.marginLeft || '' }
-                                        placeholder="-"
-                                        onChange={ ( nextValue ) => {
-                                            updateIndents( 'marginLeft', nextValue, props.attributes.ghostkitIndents, props.setAttributes );
-                                        } }
-                                    />
+            // add default properties to keep sorting.
+            ghostkitIndents = Object.assign( {
+                media_xl: {},
+                media_lg: {},
+                media_md: {},
+                media_sm: {},
+            }, ghostkitIndents, newIndents );
+
+            // validate values.
+            Object.keys( ghostkitIndents ).map( ( key ) => {
+                if ( ghostkitIndents[ key ] ) {
+                    // check if device object.
+                    if ( typeof ghostkitIndents[ key ] === 'object' ) {
+                        Object.keys( ghostkitIndents[ key ] ).map( ( keyDevice ) => {
+                            if ( ghostkitIndents[ key ][ keyDevice ] ) {
+                                if ( ! result[ key ] ) {
+                                    result[ key ] = {};
+                                }
+                                result[ key ][ keyDevice ] = ghostkitIndents[ key ][ keyDevice ];
+                            }
+                        } );
+                    } else {
+                        result[ key ] = ghostkitIndents[ key ];
+                    }
+                }
+            } );
+
+            setAttributes( {
+                ghostkitIndents: result,
+            } );
+        }
+
+        /**
+         * Get current indent for selected device type.
+         *
+         * @param {String} name - name of indent.
+         *
+         * @returns {String} indent value.
+         */
+        getCurrentIndent( name ) {
+            const { ghostkitIndents = {} } = this.props.attributes;
+            const { device } = this.state;
+            let result = '';
+
+            if ( ! device ) {
+                if ( ghostkitIndents[ name ] ) {
+                    result = ghostkitIndents[ name ];
+                }
+            } else if ( ghostkitIndents[ device ] && ghostkitIndents[ device ][ name ] ) {
+                result = ghostkitIndents[ device ][ name ];
+            }
+
+            return result;
+        }
+
+        render() {
+            const props = this.props;
+            const allow = applyFilters(
+                'ghostkit.blocks.allowCustomIndents',
+                props.name && /^ghostkit|^core/.test( props.name ),
+                props,
+                props.name
+            );
+
+            if ( ! allow ) {
+                return <OriginalComponent { ...props } />;
+            }
+
+            // add new indents controls.
+            return (
+                <Fragment>
+                    <OriginalComponent
+                        { ...props }
+                        { ...this.state }
+                        setState={ this.setState }
+                    />
+                    <InspectorAdvancedControls>
+                        <BaseControl label={ __( 'Indents' ) } >
+                            <div className="ghostkit-control-indent">
+                                <img className="ghostkit-control-indent-logo" src={ logo } alt="ghostkit-icon" />
+                                <div className="ghostkit-control-indent-margin">
+                                    <span>{ __( 'Margin' ) }</span>
+                                    <div className="ghostkit-control-indent-margin-left">
+                                        <TextControl
+                                            value={ this.getCurrentIndent( 'marginLeft' ) }
+                                            placeholder="-"
+                                            onChange={ ( nextValue ) => this.updateIndents( 'marginLeft', nextValue ) }
+                                        />
+                                    </div>
+                                    <div className="ghostkit-control-indent-margin-top">
+                                        <TextControl
+                                            value={ this.getCurrentIndent( 'marginTop' ) }
+                                            placeholder="-"
+                                            onChange={ ( nextValue ) => this.updateIndents( 'marginTop', nextValue ) }
+                                        />
+                                    </div>
+                                    <div className="ghostkit-control-indent-margin-right">
+                                        <TextControl
+                                            value={ this.getCurrentIndent( 'marginRight' ) }
+                                            placeholder="-"
+                                            onChange={ ( nextValue ) => this.updateIndents( 'marginRight', nextValue ) }
+                                        />
+                                    </div>
+                                    <div className="ghostkit-control-indent-margin-bottom">
+                                        <TextControl
+                                            value={ this.getCurrentIndent( 'marginBottom' ) }
+                                            placeholder="-"
+                                            onChange={ ( nextValue ) => this.updateIndents( 'marginBottom', nextValue ) }
+                                        />
+                                    </div>
                                 </div>
-                                <div className="ghostkit-control-indent-margin-top">
-                                    <TextControl
-                                        value={ props.attributes.ghostkitIndents.marginTop || '' }
-                                        placeholder="-"
-                                        onChange={ ( nextValue ) => {
-                                            updateIndents( 'marginTop', nextValue, props.attributes.ghostkitIndents, props.setAttributes );
-                                        } }
-                                    />
+                                <div className="ghostkit-control-indent-padding">
+                                    <span>{ __( 'Padding' ) }</span>
+                                    <div className="ghostkit-control-indent-padding-left">
+                                        <TextControl
+                                            value={ this.getCurrentIndent( 'paddingLeft' ) }
+                                            placeholder="-"
+                                            onChange={ ( nextValue ) => this.updateIndents( 'paddingLeft', nextValue ) }
+                                        />
+                                    </div>
+                                    <div className="ghostkit-control-indent-padding-top">
+                                        <TextControl
+                                            value={ this.getCurrentIndent( 'paddingTop' ) }
+                                            placeholder="-"
+                                            onChange={ ( nextValue ) => this.updateIndents( 'paddingTop', nextValue ) }
+                                        />
+                                    </div>
+                                    <div className="ghostkit-control-indent-padding-right">
+                                        <TextControl
+                                            value={ this.getCurrentIndent( 'paddingRight' ) }
+                                            placeholder="-"
+                                            onChange={ ( nextValue ) => this.updateIndents( 'paddingRight', nextValue ) }
+                                        />
+                                    </div>
+                                    <div className="ghostkit-control-indent-padding-bottom">
+                                        <TextControl
+                                            value={ this.getCurrentIndent( 'paddingBottom' ) }
+                                            placeholder="-"
+                                            onChange={ ( nextValue ) => this.updateIndents( 'paddingBottom', nextValue ) }
+                                        />
+                                    </div>
                                 </div>
-                                <div className="ghostkit-control-indent-margin-right">
-                                    <TextControl
-                                        value={ props.attributes.ghostkitIndents.marginRight || '' }
-                                        placeholder="-"
-                                        onChange={ ( nextValue ) => {
-                                            updateIndents( 'marginRight', nextValue, props.attributes.ghostkitIndents, props.setAttributes );
+                                <div className="ghostkit-control-indent-device">
+                                    <SelectControl
+                                        value={ this.state.device }
+                                        onChange={ ( value ) => {
+                                            this.setState( {
+                                                device: value,
+                                            } );
                                         } }
-                                    />
-                                </div>
-                                <div className="ghostkit-control-indent-margin-bottom">
-                                    <TextControl
-                                        value={ props.attributes.ghostkitIndents.marginBottom || '' }
-                                        placeholder="-"
-                                        onChange={ ( nextValue ) => {
-                                            updateIndents( 'marginBottom', nextValue, props.attributes.ghostkitIndents, props.setAttributes );
-                                        } }
+                                        options={ [
+                                            {
+                                                label: __( 'All' ),
+                                                value: '',
+                                            }, {
+                                                label: __( 'Desktop' ),
+                                                value: 'media_xl',
+                                            }, {
+                                                label: __( 'Laptop' ),
+                                                value: 'media_lg',
+                                            }, {
+                                                label: __( 'Tablet' ),
+                                                value: 'media_md',
+                                            }, {
+                                                label: __( 'Mobile' ),
+                                                value: 'media_sm',
+                                            },
+                                        ] }
                                     />
                                 </div>
                             </div>
-                            <div className="ghostkit-control-indent-padding">
-                                <span>{ __( 'Padding' ) }</span>
-                                <div className="ghostkit-control-indent-padding-left">
-                                    <TextControl
-                                        value={ props.attributes.ghostkitIndents.paddingLeft || '' }
-                                        placeholder="-"
-                                        onChange={ ( nextValue ) => {
-                                            updateIndents( 'paddingLeft', nextValue, props.attributes.ghostkitIndents, props.setAttributes );
-                                        } }
-                                    />
-                                </div>
-                                <div className="ghostkit-control-indent-padding-top">
-                                    <TextControl
-                                        value={ props.attributes.ghostkitIndents.paddingTop || '' }
-                                        placeholder="-"
-                                        onChange={ ( nextValue ) => {
-                                            updateIndents( 'paddingTop', nextValue, props.attributes.ghostkitIndents, props.setAttributes );
-                                        } }
-                                    />
-                                </div>
-                                <div className="ghostkit-control-indent-padding-right">
-                                    <TextControl
-                                        value={ props.attributes.ghostkitIndents.paddingRight || '' }
-                                        placeholder="-"
-                                        onChange={ ( nextValue ) => {
-                                            updateIndents( 'paddingRight', nextValue, props.attributes.ghostkitIndents, props.setAttributes );
-                                        } }
-                                    />
-                                </div>
-                                <div className="ghostkit-control-indent-padding-bottom">
-                                    <TextControl
-                                        value={ props.attributes.ghostkitIndents.paddingBottom || '' }
-                                        placeholder="-"
-                                        onChange={ ( nextValue ) => {
-                                            updateIndents( 'paddingBottom', nextValue, props.attributes.ghostkitIndents, props.setAttributes );
-                                        } }
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </BaseControl>
-                </InspectorAdvancedControls>
-            </Fragment>
-        );
-    };
+                        </BaseControl>
+                    </InspectorAdvancedControls>
+                </Fragment>
+            );
+        }
+    }
+
+    return GhostkitIndentsWrapper;
 }, 'withInspectorControl' );
 
 /**

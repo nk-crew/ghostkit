@@ -8,7 +8,7 @@ function prepareCustomStyles() {
     let reloadStyles = false;
     $( '[data-ghostkit-styles]' ).each( function() {
         const $this = $( this );
-        customStyles += $this.attr( 'data-ghostkit-styles' );
+        customStyles += window.GHOSTKIT.replaceVars( $this.attr( 'data-ghostkit-styles' ) );
         $this.removeAttr( 'data-ghostkit-styles' );
         reloadStyles = true;
     } );

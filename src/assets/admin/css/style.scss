@@ -195,4 +195,24 @@ img.ghostkit-icon {
             height: calc(100% - 10px);
         }
     }
+
+    // device selector.
+    .ghostkit-control-indent-device {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+
+        .components-base-control {
+            margin: 0;
+        }
+
+        select {
+            height: 25px;
+            font-size: .7em;
+            line-height: 25px;
+        }
+        option {
+            font-size: 1rem;
+        }
+    }
 }

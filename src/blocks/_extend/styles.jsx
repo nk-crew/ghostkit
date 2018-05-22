@@ -27,19 +27,28 @@ const getStyles = ( data = {}, selector = '', render = true ) => {
 
     // add styles.
     Object.keys( data ).map( ( key ) => {
+        // object values.
         if ( data[ key ] !== null && typeof data[ key ] === 'object' ) {
-            // prepare nested selector.
-            let nestedSelector = selector;
-            if ( nestedSelector ) {
-                if ( key.indexOf( '&' ) !== -1 ) {
-                    nestedSelector = key.replace( /&/g, nestedSelector );
-                } else {
-                    nestedSelector = `${ nestedSelector } ${ key }`;
-                }
+            // media for different screens
+            if ( /^media_/.test( key ) ) {
+                resultCSS += ( resultCSS ? ' ' : '' ) + `@media #{ghostkitvar:${ key }} { ${ getStyles( data[ key ], selector, false ) } }`;
+
+            // nested selectors.
             } else {
-                nestedSelector = key;
+                let nestedSelector = selector;
+                if ( nestedSelector ) {
+                    if ( key.indexOf( '&' ) !== -1 ) {
+                        nestedSelector = key.replace( /&/g, nestedSelector );
+                    } else {
+                        nestedSelector = `${ nestedSelector } ${ key }`;
+                    }
+                } else {
+                    nestedSelector = key;
+                }
+                resultCSS += ( resultCSS ? ' ' : '' ) + getStyles( data[ key ], nestedSelector, false );
             }
-            resultCSS += ( resultCSS ? ' ' : '' ) + getStyles( data[ key ], nestedSelector, false );
+
+        // style properties and values.
         } else if ( typeof data[ key ] !== 'undefined' && data[ key ] !== false ) {
             if ( ! result[ selector ] ) {
                 result[ selector ] = '';
@@ -102,7 +111,7 @@ const renderStyles = () => {
             $style = jQuery( '<style type="text/css" id="ghostkit-blocks-custom-css">' ).appendTo( 'head' );
         }
 
-        $style.html( stylesString );
+        $style.html( window.GHOSTKIT.replaceVars( stylesString ) );
     }, 30 );
 };
 
