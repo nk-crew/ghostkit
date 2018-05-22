@@ -27,7 +27,7 @@ const {
 const getDefaultDisplay = function( screen = '' ) {
     return [
         {
-            label: screen === 'all' ? __( 'Default' ) : __( 'Inherit from smaller' ),
+            label: screen === 'all' ? __( 'Default' ) : __( 'Inherit from larger' ),
             value: '',
         }, {
             label: __( 'Show' ),

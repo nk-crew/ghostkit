@@ -20,6 +20,24 @@
     }
 }
 
+// Descending
+// Used to evaluate Sass maps like our grid breakpoints.
+@mixin _assert-descending($map, $map-name) {
+    $prev-key: null;
+    $prev-num: null;
+    @each $key, $num in $map {
+        @if $prev-num == null or $prev-num == 0 {
+            // Do nothing
+        } @else if not comparable($prev-num, $num) {
+            @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+        } @else if $prev-num <= $num {
+            @warn "Invalid value for #{$map-name}: This map must be in descending order, but key '#{$key}' has value #{$num} which isn't lesser than #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+        }
+        $prev-key: $key;
+        $prev-num: $num;
+    }
+}
+
 // Starts at zero
 // Another grid mixin that ensures the min-width of the lowest breakpoint starts at 0.
 @mixin _assert-starts-at-zero($map) {

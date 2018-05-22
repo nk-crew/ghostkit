@@ -57,7 +57,7 @@ const defaultColumnSettings = {
 const getDefaultColumnSizes = function() {
     const result = [
         {
-            label: __( 'Inherit from smaller' ),
+            label: __( 'Inherit from larger' ),
             value: '',
         }, {
             label: __( 'Auto' ),
@@ -84,7 +84,7 @@ const getDefaultColumnSizes = function() {
 const getDefaultColumnOrders = function( columns ) {
     const result = [
         {
-            label: __( 'Inherit from smaller' ),
+            label: __( 'Inherit from larger' ),
             value: '',
         }, {
             label: __( 'Auto' ),
@@ -118,7 +118,7 @@ const getDefaultColumnOrders = function( columns ) {
 const getDefaultColumnDisplay = function() {
     return [
         {
-            label: __( 'Inherit from smaller' ),
+            label: __( 'Inherit from larger' ),
             value: '',
         }, {
             label: __( 'Show' ),

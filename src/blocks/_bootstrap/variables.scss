@@ -5,13 +5,13 @@
 
 $grid-breakpoints: (
     xs: 0,
-    sm: 576px,
-    md: 768px,
+    xl: 1200px,
     lg: 992px,
-    xl: 1200px
+    md: 768px,
+    sm: 576px,
 ) !default;
 
-@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+@include _assert-descending($grid-breakpoints, "$grid-breakpoints");
 @include _assert-starts-at-zero($grid-breakpoints);
 
 
