@@ -100,6 +100,26 @@ const getDefaultColumnOrders = function( columns ) {
 };
 
 /**
+ * Get array for Select element.
+ *
+ * @returns {Array} array for Select.
+ */
+const getDefaultColumnDisplay = function() {
+    return [
+        {
+            label: __( 'Inherit from smaller' ),
+            value: '',
+        }, {
+            label: __( 'Show' ),
+            value: 'show',
+        }, {
+            label: __( 'Hide' ),
+            value: 'hide',
+        },
+    ];
+};
+
+/**
  * Returns the layouts configuration for a given number of columns.
  *
  * @param {object} attributes - block attributes.
@@ -237,6 +257,16 @@ class GridBlock extends Component {
                                                     } }
                                                     options={ getDefaultColumnOrders( columns ) }
                                                 />
+                                                <SelectControl
+                                                    label={ __( 'Display' ) }
+                                                    value={ colSizeSettings.xl_display }
+                                                    onChange={ ( value ) => {
+                                                        colSizeSettings.xl_display = value;
+                                                        columnsSettings[ colName ] = colSizeSettings;
+                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
+                                                    } }
+                                                    options={ getDefaultColumnDisplay() }
+                                                />
 
                                                 <div className="ghostkit-control-tabs-separator">
                                                     <span className="fas fa-laptop" />
@@ -260,6 +290,16 @@ class GridBlock extends Component {
                                                         setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
                                                     } }
                                                     options={ getDefaultColumnOrders( columns ) }
+                                                />
+                                                <SelectControl
+                                                    label={ __( 'Display' ) }
+                                                    value={ colSizeSettings.lg_display }
+                                                    onChange={ ( value ) => {
+                                                        colSizeSettings.lg_display = value;
+                                                        columnsSettings[ colName ] = colSizeSettings;
+                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
+                                                    } }
+                                                    options={ getDefaultColumnDisplay() }
                                                 />
 
                                                 <div className="ghostkit-control-tabs-separator">
@@ -285,6 +325,16 @@ class GridBlock extends Component {
                                                     } }
                                                     options={ getDefaultColumnOrders( columns ) }
                                                 />
+                                                <SelectControl
+                                                    label={ __( 'Display' ) }
+                                                    value={ colSizeSettings.md_display }
+                                                    onChange={ ( value ) => {
+                                                        colSizeSettings.md_display = value;
+                                                        columnsSettings[ colName ] = colSizeSettings;
+                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
+                                                    } }
+                                                    options={ getDefaultColumnDisplay() }
+                                                />
 
                                                 <div className="ghostkit-control-tabs-separator">
                                                     <span className="fas fa-mobile-alt" />
@@ -308,6 +358,16 @@ class GridBlock extends Component {
                                                         setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
                                                     } }
                                                     options={ getDefaultColumnOrders( columns ) }
+                                                />
+                                                <SelectControl
+                                                    label={ __( 'Display' ) }
+                                                    value={ colSizeSettings.sm_display }
+                                                    onChange={ ( value ) => {
+                                                        colSizeSettings.sm_display = value;
+                                                        columnsSettings[ colName ] = colSizeSettings;
+                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
+                                                    } }
+                                                    options={ getDefaultColumnDisplay() }
                                                 />
                                             </Fragment>
                                         );

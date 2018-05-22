@@ -2,8 +2,8 @@
  * Editor Styles
  */
 @import "../variables";
-@import "./bootstrap-functions";
-@import "./bootstrap-variables";
+@import "../_bootstrap/functions";
+@import "../_bootstrap/variables";
 
 // Styles from core Columns block
 // https://github.com/WordPress/gutenberg/blob/master/blocks/library/columns/editor.scss
