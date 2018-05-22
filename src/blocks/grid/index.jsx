@@ -28,14 +28,25 @@ const {
 } = wp.editor;
 
 const defaultColumnSettings = {
-    sm_size: '12',
+    sm_size: '',
     sm_order: '',
-    md_size: 'auto',
+    sm_display: '',
+
+    md_size: '',
     md_order: '',
+    md_display: '',
+
     lg_size: '',
     lg_order: '',
+    lg_display: '',
+
     xl_size: '',
     xl_order: '',
+    xl_display: '',
+
+    order: '',
+    size: 'auto',
+    display: '',
 };
 
 /**
@@ -158,12 +169,15 @@ const getGridClass = ( { columns, columnsSettings } ) => {
                 let prefix = key.split( '_' )[ 0 ];
                 let type = key.split( '_' )[ 1 ];
 
-                prefix = prefix !== 'sm' ? `-${ prefix }` : '';
+                if ( ! type ) {
+                    type = prefix;
+                    prefix = '';
+                }
+
+                prefix = prefix ? `-${ prefix }` : '';
                 type = type === 'size' ? 'col' : type;
 
-                if ( prefix || colSettings[ key ] !== 'auto' ) {
-                    result = classnames( result, `ghostkit-grid-${ type }-${ k }${ prefix || '' }${ colSettings[ key ] !== 'auto' ? `-${ colSettings[ key ] }` : '' }` );
-                }
+                result = classnames( result, `ghostkit-grid-${ type }-${ k }${ prefix || '' }${ colSettings[ key ] !== 'auto' ? `-${ colSettings[ key ] }` : '' }` );
             }
         } );
     }
@@ -227,16 +241,49 @@ class GridBlock extends Component {
                             min={ 2 }
                             max={ 12 }
                         />
-                        <BaseControl label={ __( 'Responsive' ) }>
+                        <BaseControl>
                             <TabPanel tabs={ tabs } className="ghostkit-control-tabs">
                                 {
                                     ( colName ) => {
                                         const colSizeSettings = Object.assign( {}, defaultColumnSettings, columnsSettings[ colName ] );
                                         return (
                                             <Fragment>
-                                                <div className="ghostkit-control-tabs-separator">
-                                                    <span className="fas fa-desktop" />
-                                                </div>
+                                                <SelectControl
+                                                    label={ __( 'Size' ) }
+                                                    value={ colSizeSettings.size }
+                                                    onChange={ ( value ) => {
+                                                        colSizeSettings.size = value;
+                                                        columnsSettings[ colName ] = colSizeSettings;
+                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
+                                                    } }
+                                                    options={ getDefaultColumnSizes() }
+                                                />
+                                                <SelectControl
+                                                    label={ __( 'Order' ) }
+                                                    value={ colSizeSettings.order }
+                                                    onChange={ ( value ) => {
+                                                        colSizeSettings.order = value;
+                                                        columnsSettings[ colName ] = colSizeSettings;
+                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
+                                                    } }
+                                                    options={ getDefaultColumnOrders( columns ) }
+                                                />
+                                                <SelectControl
+                                                    label={ __( 'Display' ) }
+                                                    value={ colSizeSettings.display }
+                                                    onChange={ ( value ) => {
+                                                        colSizeSettings.display = value;
+                                                        columnsSettings[ colName ] = colSizeSettings;
+                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
+                                                    } }
+                                                    options={ getDefaultColumnDisplay() }
+                                                />
+
+                                                <BaseControl label={ __( 'Responsive' ) }>
+                                                    <div className="ghostkit-control-tabs-separator" style={ { marginBottom: -13 } }>
+                                                        <span className="fas fa-desktop" />
+                                                    </div>
+                                                </BaseControl>
                                                 <SelectControl
                                                     label={ __( 'Size' ) }
                                                     value={ colSizeSettings.xl_size }
