@@ -209,34 +209,34 @@ class GhostKit {
             return;
         }
 
-        $css = '';
-
-        // TODO: add fallback for this method (maybe JS will be enough).
-        $dom = new DOMDocument();
-        $dom->loadHTML( $post->post_content );
-        foreach ( $dom->getElementsByTagName( '*' ) as $node ) {
-            $styles = $node->getAttribute( 'data-ghostkit-styles' );
-            if ( $styles ) {
-                $css .= ' ' . $styles;
-            }
-        }
-
-        if ( empty( $css ) || ! $css ) {
-            delete_post_meta( $post_id, '_ghostkit_blocks_custom_css' );
-        } else {
-            // TODO: Move this to plugin options (part 2).
-            $vars = array(
-                'media_sm' => '(max-width: 576px)',
-                'media_md' => '(max-width: 768px)',
-                'media_lg' => '(max-width: 992px)',
-                'media_xl' => '(max-width: 1200px)',
-            );
-
-            foreach ( $vars as $k => $var ) {
-                $css = preg_replace( "/#{ghostkitvar:$k}/", $var, $css );
+        if ( class_exists( 'DOMDocument' ) ) {
+            $css = '';
+            $dom = new DOMDocument();
+            $dom->loadHTML( $post->post_content );
+            foreach ( $dom->getElementsByTagName( '*' ) as $node ) {
+                $styles = $node->getAttribute( 'data-ghostkit-styles' );
+                if ( $styles ) {
+                    $css .= ' ' . $styles;
+                }
             }
 
-            update_post_meta( $post_id, '_ghostkit_blocks_custom_css', $css );
+            if ( empty( $css ) || ! $css ) {
+                delete_post_meta( $post_id, '_ghostkit_blocks_custom_css' );
+            } else {
+                // TODO: Move this to plugin options (part 2).
+                $vars = array(
+                    'media_sm' => '(max-width: 576px)',
+                    'media_md' => '(max-width: 768px)',
+                    'media_lg' => '(max-width: 992px)',
+                    'media_xl' => '(max-width: 1200px)',
+                );
+
+                foreach ( $vars as $k => $var ) {
+                    $css = preg_replace( "/#{ghostkitvar:$k}/", $var, $css );
+                }
+
+                update_post_meta( $post_id, '_ghostkit_blocks_custom_css', $css );
+            }
         }
     }
 
