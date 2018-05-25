@@ -14,6 +14,9 @@ const {
     Component,
     Fragment,
 } = wp.element;
+const {
+    hasBlockSupport,
+} = wp.blocks;
 const { InspectorAdvancedControls } = wp.editor;
 const {
     BaseControl,
@@ -31,6 +34,10 @@ const {
  * @return {Object} Filtered block settings.
  */
 function allowCustomStyles( allow, settings, name ) {
+    if ( hasBlockSupport( settings, 'ghostkitIndents', true ) ) {
+        allow = true;
+    }
+
     if ( ! allow ) {
         allow = applyFilters(
             'ghostkit.blocks.allowCustomIndents',
@@ -51,12 +58,21 @@ function allowCustomStyles( allow, settings, name ) {
  * @return {Object} Filtered block settings.
  */
 function addAttribute( settings, name ) {
-    const allow = applyFilters(
-        'ghostkit.blocks.allowCustomIndents',
-        name && /^ghostkit|^core/.test( name ),
-        settings,
-        name
-    );
+    let allow = false;
+
+    if ( hasBlockSupport( settings, 'ghostkitIndents', false ) ) {
+        allow = true;
+    }
+
+    if ( ! allow ) {
+        allow = applyFilters(
+            'ghostkit.blocks.allowCustomIndents',
+            name && /^ghostkit|^core/.test( name ),
+            settings,
+            name
+        );
+    }
+
     if ( allow ) {
         if ( ! settings.attributes.ghostkitIndents ) {
             settings.attributes.ghostkitIndents = {
@@ -167,12 +183,20 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
         render() {
             const props = this.props;
-            const allow = applyFilters(
-                'ghostkit.blocks.allowCustomIndents',
-                props.name && /^ghostkit|^core/.test( props.name ),
-                props,
-                props.name
-            );
+            let allow = false;
+
+            if ( hasBlockSupport( props.name, 'ghostkitIndents', false ) ) {
+                allow = true;
+            }
+
+            if ( ! allow ) {
+                allow = applyFilters(
+                    'ghostkit.blocks.allowCustomIndents',
+                    props.name && /^ghostkit|^core/.test( props.name ),
+                    props,
+                    props.name
+                );
+            }
 
             if ( ! allow ) {
                 return <OriginalComponent { ...props } />;

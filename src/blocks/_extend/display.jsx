@@ -11,6 +11,9 @@ const {
     Component,
     Fragment,
 } = wp.element;
+const {
+    hasBlockSupport,
+} = wp.blocks;
 const { InspectorAdvancedControls } = wp.editor;
 const {
     BaseControl,
@@ -48,12 +51,21 @@ const getDefaultDisplay = function( screen = '' ) {
  * @return {Object} Filtered block settings.
  */
 function addAttribute( settings, name ) {
-    const allow = settings && settings.attributes && applyFilters(
-        'ghostkit.blocks.registerBlockType.allowCustomDisplay',
-        name && /^ghostkit|^core/.test( name ),
-        settings,
-        name
-    );
+    let allow = false;
+
+    if ( hasBlockSupport( settings, 'ghostkitDisplay', false ) ) {
+        allow = true;
+    }
+
+    if ( ! allow ) {
+        allow = settings && settings.attributes && applyFilters(
+            'ghostkit.blocks.registerBlockType.allowCustomDisplay',
+            name && /^ghostkit|^core/.test( name ),
+            settings,
+            name
+        );
+    }
+
     if ( allow ) {
         if ( ! settings.attributes.ghostkitDisplay ) {
             settings.attributes.ghostkitDisplay = {
@@ -119,12 +131,20 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
         render() {
             const props = this.props;
-            const allow = applyFilters(
-                'ghostkit.blocks.allowCustomDisplay',
-                props.name && /^ghostkit|^core/.test( props.name ),
-                props,
-                props.name
-            );
+            let allow = false;
+
+            if ( hasBlockSupport( props.name, 'ghostkitDisplay', false ) ) {
+                allow = true;
+            }
+
+            if ( ! allow ) {
+                allow = applyFilters(
+                    'ghostkit.blocks.allowCustomDisplay',
+                    props.name && /^ghostkit|^core/.test( props.name ),
+                    props,
+                    props.name
+                );
+            }
 
             if ( ! allow ) {
                 return <OriginalComponent { ...props } />;
@@ -232,4 +252,4 @@ function addSaveProps( extraProps, blockType, attributes ) {
 // Init filters.
 addFilter( 'blocks.registerBlockType', 'ghostkit/display/additional-attributes', addAttribute );
 addFilter( 'blocks.BlockEdit', 'ghostkit/display/additional-attributes', withInspectorControl );
-addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/indents/save-props', addSaveProps );
+addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/display/save-props', addSaveProps );

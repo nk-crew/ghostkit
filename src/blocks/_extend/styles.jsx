@@ -9,6 +9,9 @@ const {
     applyFilters,
     addFilter,
 } = wp.hooks;
+const {
+    hasBlockSupport,
+} = wp.blocks;
 const { Fragment, createHigherOrderComponent } = wp.element;
 
 const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-width', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-radius', 'bottom', 'top', 'left', 'right', 'font-size', 'height', 'width', 'min-height', 'min-width', 'max-height', 'max-width', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', 'margin', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', 'padding', 'outline-width' ];
@@ -124,13 +127,22 @@ const renderStyles = () => {
  * @return {Object} Filtered block settings.
  */
 function addAttribute( settings, name ) {
-    const allowCustomStyles = settings && settings.attributes && applyFilters(
-        'ghostkit.blocks.registerBlockType.allowCustomStyles',
-        name && /^ghostkit/.test( name ),
-        settings,
-        name
-    );
-    if ( allowCustomStyles ) {
+    let allow = false;
+
+    if ( settings && settings.attributes && hasBlockSupport( settings, 'ghostkitStyles', false ) ) {
+        allow = true;
+    }
+
+    if ( ! allow ) {
+        allow = applyFilters(
+            'ghostkit.blocks.registerBlockType.allowCustomStyles',
+            name && /^ghostkit/.test( name ),
+            settings,
+            name
+        );
+    }
+
+    if ( allow ) {
         if ( ! settings.attributes.ghostkitStyles ) {
             settings.attributes.ghostkitStyles = {
                 type: 'object',
