@@ -2,8 +2,12 @@
  * Editor Styles
  */
 @import "../variables";
+
+// Grid from Bootstrap 4.1
 @import "../_bootstrap/functions";
 @import "../_bootstrap/variables";
+@import "../_bootstrap/grid";
+@import "../_bootstrap/breakpoints";
 
 // Styles from core Columns block
 // https://github.com/WordPress/gutenberg/blob/master/blocks/library/columns/editor.scss
@@ -62,5 +66,112 @@
     .editor-default-block-appender .editor-inserter {
         right: $item-spacing;
         left: auto;
+    }
+}
+
+
+// We need to copy grid styles here and slightly change its structure.
+// Gutenberg since 3.0 placed additional wrapper `.editor-inner-blocks` to the row.
+
+// Row
+//
+// Rows contain and clear the floats of your columns.
+.wp-block-ghostkit-grid > .editor-inner-blocks {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: ($grid-gutter-width / -2);
+    margin-left: ($grid-gutter-width / -2);
+
+    // Columns
+    //
+    // Common styles for small and large grid columns
+    // Common properties for all breakpoints
+    > .ghostkit-col {
+        position: relative;
+        width: 100%;
+        min-height: 1px; // Prevent columns from collapsing when empty
+        padding-right: ($grid-gutter-width / 2);
+        padding-left: ($grid-gutter-width / 2);
+    }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-down($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        // All columns classes
+        @for $col from 1 through $grid-columns {
+            // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+            .ghostkit-grid-col-#{$col}#{$infix} > .editor-inner-blocks > .ghostkit-col-#{$col} {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+            }
+
+            // col size.
+            @for $i from 1 through $grid-columns {
+                .ghostkit-grid-col-#{$col}#{$infix}-#{$i} > .editor-inner-blocks > .ghostkit-col-#{$col} {
+                    @include make-col($i, $grid-columns);
+                }
+            }
+
+            // col order.
+            .ghostkit-grid-order-#{$col}#{$infix}-first > .editor-inner-blocks > .ghostkit-col-#{$col} {
+                order: -1;
+            }
+
+            .ghostkit-grid-order-#{$col}#{$infix}-last > .editor-inner-blocks > .ghostkit-col-#{$col} {
+                order: $grid-columns + 1;
+            }
+
+            @for $i from 0 through $grid-columns {
+                .ghostkit-grid-order-#{$col}#{$infix}-#{$i} > .editor-inner-blocks > .ghostkit-col-#{$col} {
+                    order: $i;
+                }
+            }
+
+            // col display.
+            .ghostkit-grid-display-#{$col}#{$infix}-show > .editor-inner-blocks > .ghostkit-col-#{$col} {
+                display: block;
+            }
+            .ghostkit-grid-display-#{$col}#{$infix}-hide > .editor-inner-blocks > .ghostkit-col-#{$col} {
+                display: none;
+            }
+        }
+    }
+}
+
+// Vertical align.
+.ghostkit-grid-align-items-center > .editor-inner-blocks {
+    align-items: center;
+}
+.ghostkit-grid-align-items-end > .editor-inner-blocks {
+    align-items: end;
+}
+
+// Horizontal align.
+.ghostkit-grid-justify-content-center > .editor-inner-blocks {
+    justify-content: center;
+}
+.ghostkit-grid-justify-content-end > .editor-inner-blocks {
+    justify-content: end;
+}
+.ghostkit-grid-justify-content-around > .editor-inner-blocks {
+    justify-content: space-around;
+}
+.ghostkit-grid-justify-content-between > .editor-inner-blocks {
+    justify-content: space-between;
+}
+
+// Gaps.
+@each $name, $size in $grid-gaps {
+    .ghostkit-grid-gap-#{$name} > .editor-inner-blocks {
+        margin-right: ($size / -2);
+        margin-left: ($size / -2);
+
+        > .ghostkit-col {
+            padding-right: ($size / 2);
+            padding-left: ($size / 2);
+        }
     }
 }
