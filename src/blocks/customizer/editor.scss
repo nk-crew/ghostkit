@@ -4,6 +4,7 @@
 @import "../variables";
 
 .wp-block-ghostkit-customizer {
+    min-height: 0;
     padding: 30px;
 
     > div {
@@ -100,16 +101,19 @@
                 z-index: -1;
             }
 
-            .ghostkit-customizer-list-label {
-                min-width: 120px;
-            }
             .ghostkit-customizer-list-field {
                 width: 100%;
                 margin-bottom: 0;
             }
             .ghostkit-customizer-list-info {
                 display: flex;
-                flex-wrap: wrap;
+
+                > * {
+                    max-width: 60%;
+                }
+                > * + * {
+                    margin-left: 15px;
+                }
             }
             .ghostkit-customizer-list-info-id {
                 opacity: .5;

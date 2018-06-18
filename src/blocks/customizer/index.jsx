@@ -11,6 +11,7 @@ const { __ } = wp.i18n;
 const { Component } = wp.element;
 const {
     TextControl,
+    SelectControl,
     withAPIData,
     Placeholder,
     Spinner,
@@ -84,9 +85,25 @@ class CustomizerBlock extends Component {
                 const opt = customizerOptions.data.data.response[ k ];
                 options.forEach( ( val, n ) => {
                     if ( options[ n ] && options[ n ].id === opt.id ) {
+                        const choices = [];
+
+                        if ( opt.choices && Object.keys( opt.choices ).length ) {
+                            choices.push( {
+                                value: '',
+                                label: '',
+                            } );
+                            Object.keys( opt.choices ).map( ( name ) => {
+                                choices.push( {
+                                    value: name,
+                                    label: `${ opt.choices[ name ] } [${ name }]`,
+                                } );
+                            } );
+                        }
+
                         options[ n ].label = opt.label || opt.id;
                         options[ n ].default = opt.default;
                         options[ n ].type = opt.type;
+                        options[ n ].choices = choices;
                         options[ n ].category = this.getOptionCategory( opt );
                     }
                 } );
@@ -233,16 +250,28 @@ class CustomizerBlock extends Component {
                         { options.map( ( opt ) => {
                             return (
                                 <div key={ opt.id }>
-                                    <div className="ghostkit-customizer-list-label">
-                                        { opt.label || opt.id }:
-                                    </div>
-                                    <TextControl
-                                        value={ opt.value }
-                                        onChange={ ( value ) => {
-                                            this.updateOptions( value, opt );
-                                        } }
-                                        className="ghostkit-customizer-list-field"
-                                    />
+                                    {
+                                        opt.choices && opt.choices.length ? (
+                                            <SelectControl
+                                                label={ opt.label || opt.id }
+                                                value={ opt.value }
+                                                options={ opt.choices }
+                                                onChange={ ( value ) => {
+                                                    this.updateOptions( value, opt );
+                                                } }
+                                                className="ghostkit-customizer-list-field"
+                                            />
+                                        ) : (
+                                            <TextControl
+                                                label={ opt.label || opt.id }
+                                                value={ opt.value }
+                                                onChange={ ( value ) => {
+                                                    this.updateOptions( value, opt );
+                                                } }
+                                                className="ghostkit-customizer-list-field"
+                                            />
+                                        )
+                                    }
                                     <div className="ghostkit-customizer-list-info">
                                         <small className="ghostkit-customizer-list-info-id">{ opt.id }</small>
                                         { opt.default || typeof( opt.default ) === 'boolean' ? (
