@@ -34,7 +34,7 @@ const {
  * @return {Object} Filtered block settings.
  */
 function allowCustomStyles( allow, settings, name ) {
-    if ( hasBlockSupport( settings, 'ghostkitIndents', true ) ) {
+    if ( hasBlockSupport( settings, 'ghostkitIndents', false ) ) {
         allow = true;
     }
 
