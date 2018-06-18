@@ -7,6 +7,7 @@ import * as progress from './progress/index.jsx';
 import * as iconBox from './icon-box/index.jsx';
 import * as counterBox from './counter-box/index.jsx';
 import * as alert from './alert/index.jsx';
+import * as customizer from './customizer/index.jsx';
 
 /**
  * Extensions
@@ -30,6 +31,7 @@ const { registerBlockType } = wp.blocks;
     iconBox,
     counterBox,
     alert,
+    customizer,
 ].forEach( ( { name, settings } ) => {
     registerBlockType( name, settings );
 } );

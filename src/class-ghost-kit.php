@@ -99,6 +99,12 @@ class GhostKit {
 
         // load textdomain.
         load_plugin_textdomain( '@@text_domain', false, basename( dirname( __FILE__ ) ) . '/languages' );
+
+        // additional blocks php.
+        require_once( $this->plugin_path . 'blocks/index.php' );
+
+        // rest.
+        require_once( $this->plugin_path . 'classes/class-rest.php' );
     }
 
 

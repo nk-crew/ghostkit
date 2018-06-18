@@ -1,0 +1,161 @@
+/**
+ * Editor Styles
+ */
+@import "../variables";
+
+.wp-block-ghostkit-customizer {
+    padding: 30px;
+
+    > div {
+        width: 100%;
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .components-placeholder__label {
+        justify-content: flex-start;
+    }
+
+    // no items found info block.
+    .ghostkit-customizer-info {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 13px;
+        color: #0085ba;
+    }
+
+    // loading spinner.
+    .ghostkit-customizer-spinner {
+        width: 100%;
+        margin-bottom: 13px;
+
+        > span {
+            float: left;
+            margin: 0;
+        }
+    }
+
+    // add option select.
+    .ghostkit-customizer-select {
+        width: 100%;
+        max-width: 300px;
+        margin-right: auto;
+        margin-bottom: 20px;
+
+        .ghostkit-customizer-select__control {
+            min-height: 28px;
+            border-radius: 0;
+
+            &.ghostkit-customizer-select__control-is-focused {
+                border: 1px solid #008dbe;
+                box-shadow: 0 0 0 2px #bfe7f3;
+            }
+            .ghostkit-customizer-select__dropdown-indicator {
+                padding: 4px;
+            }
+            .ghostkit-customizer-select__value-container,
+            .ghostkit-customizer-select__placeholder + div {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+        }
+        .ghostkit-customizer-select__menu {
+            width: calc(100% - 2px);
+            margin: 0 1px;
+            border-radius: 0;
+        }
+        .ghostkit-customizer-select__option {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            word-wrap: break-word;
+        }
+        .ghostkit-customizer-select__input input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+    .components-placeholder__fieldset {
+        z-index: 6;
+    }
+
+    // items list.
+    .ghostkit-customizer-list {
+        width: 100%;
+
+        > div {
+            position: relative;
+            width: 100%;
+            margin-right: auto;
+            margin-bottom: 15px;
+            margin-left: auto;
+
+            &::before {
+                content: "";
+                position: absolute;
+                display: block;
+                top: 0;
+                right: -30px;
+                bottom: 0;
+                left: -30px;
+                z-index: -1;
+            }
+
+            .ghostkit-customizer-list-label {
+                min-width: 120px;
+            }
+            .ghostkit-customizer-list-field {
+                width: 100%;
+                margin-bottom: 0;
+            }
+            .ghostkit-customizer-list-info {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .ghostkit-customizer-list-info-id {
+                opacity: .5;
+            }
+            .ghostkit-customizer-list-info-default {
+                margin-left: auto;
+                opacity: .5;
+
+                span {
+                    font-weight: 700;
+                }
+            }
+            .ghostkit-customizer-list-remove {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: 50%;
+                right: -25px;
+                width: 20px;
+                height: 20px;
+                margin-top: -10px;
+                color: #fff;
+                cursor: pointer;
+                visibility: hidden;
+                background: #cdcdcd;
+                border: none;
+                border-radius: 50%;
+                opacity: 0;
+                transition: .2s opacity, .2s visibility, .2s background-color;
+
+                &:hover {
+                    background-color: #ff4340;
+                }
+
+                span {
+                    width: 14px;
+                    height: 14px;
+                    font-size: 14px;
+                }
+            }
+
+            &:hover .ghostkit-customizer-list-remove {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+}
