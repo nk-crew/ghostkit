@@ -514,7 +514,7 @@ export const name = 'ghostkit/grid';
 export const settings = {
     title: __( 'Grid' ),
     description: __( 'Responsive Grid System.' ),
-    icon: <img className="ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
     category: 'layout',
     keywords: [
         __( 'grid' ),

@@ -168,7 +168,7 @@ export const name = 'ghostkit/progress';
 export const settings = {
     title: __( 'Progress' ),
     description: __( 'Progress bar.' ),
-    icon: <img className="ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
     category: 'common',
     keywords: [
         __( 'progress' ),

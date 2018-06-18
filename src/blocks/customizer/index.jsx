@@ -203,6 +203,7 @@ class CustomizerBlock extends Component {
 
         return (
             <Placeholder
+                icon={ <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" /> }
                 label={ __( 'Customizer Options' ) }
                 className={ className }
             >
@@ -274,7 +275,7 @@ export const name = 'ghostkit/customizer';
 export const settings = {
     title: __( 'Customizer' ),
     description: __( 'Replace the customizer options for current post.' ),
-    icon: <img className="ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
     category: 'common',
     keywords: [
         __( 'customizer' ),
