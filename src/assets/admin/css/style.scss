@@ -5,26 +5,6 @@
 
 img.ghostkit-icon {
     pointer-events: none;
-
-    .editor-default-block-appender .editor-inserter-with-shortcuts .components-icon-button & {
-        opacity: .4;
-        transition: .2s opacity;
-    }
-    .editor-default-block-appender:hover .editor-inserter-with-shortcuts .components-icon-button & {
-        opacity: 1;
-    }
-
-
-    .editor-inserter__block & {
-        opacity: .8;
-    }
-
-    .editor-inserter__block:not(:disabled):hover &,
-    .editor-inserter__block:not(:disabled).is-active &,
-    .editor-inserter__block:not(:disabled):active &,
-    .editor-inserter__block:not(:disabled):focus & {
-        opacity: 1;
-    }
 }
 
 /**
