@@ -177,6 +177,9 @@ export const settings = {
     ],
     supports: {
         html: false,
+        ghostkitStyles: true,
+        ghostkitIndents: true,
+        ghostkitDisplay: true,
     },
     attributes: {
         caption: {

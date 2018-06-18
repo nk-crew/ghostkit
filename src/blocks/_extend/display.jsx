@@ -60,7 +60,7 @@ function addAttribute( settings, name ) {
     if ( ! allow ) {
         allow = settings && settings.attributes && applyFilters(
             'ghostkit.blocks.registerBlockType.allowCustomDisplay',
-            name && /^ghostkit|^core/.test( name ),
+            name && /^core/.test( name ),
             settings,
             name
         );
@@ -140,7 +140,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             if ( ! allow ) {
                 allow = applyFilters(
                     'ghostkit.blocks.allowCustomDisplay',
-                    props.name && /^ghostkit|^core/.test( props.name ),
+                    props.name && /^core/.test( props.name ),
                     props,
                     props.name
                 );

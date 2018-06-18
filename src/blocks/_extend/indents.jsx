@@ -41,7 +41,7 @@ function allowCustomStyles( allow, settings, name ) {
     if ( ! allow ) {
         allow = applyFilters(
             'ghostkit.blocks.allowCustomIndents',
-            name && /^ghostkit|^core/.test( name ),
+            name && /^core/.test( name ),
             settings,
             name
         );
@@ -67,7 +67,7 @@ function addAttribute( settings, name ) {
     if ( ! allow ) {
         allow = applyFilters(
             'ghostkit.blocks.allowCustomIndents',
-            name && /^ghostkit|^core/.test( name ),
+            name && /^core/.test( name ),
             settings,
             name
         );
@@ -192,7 +192,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             if ( ! allow ) {
                 allow = applyFilters(
                     'ghostkit.blocks.allowCustomIndents',
-                    props.name && /^ghostkit|^core/.test( props.name ),
+                    props.name && /^core/.test( props.name ),
                     props,
                     props.name
                 );

@@ -136,7 +136,7 @@ function addAttribute( settings, name ) {
     if ( ! allow ) {
         allow = applyFilters(
             'ghostkit.blocks.registerBlockType.allowCustomStyles',
-            name && /^ghostkit/.test( name ),
+            false,
             settings,
             name
         );
