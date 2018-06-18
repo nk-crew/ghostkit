@@ -6,6 +6,7 @@ const del    = require('del');
 const merge  = require('merge-stream');
 const format = require('string-template');
 const named = require('vinyl-named-with-path');
+const webpackconfig = require('./webpack.config.js');
 const webpack = require('webpack-stream');
 
 const templateVars = data.gulp_config.variables;
@@ -74,43 +75,7 @@ gulp.task('build_blocks_js', function () {
         return gulp.src(itemData.from + '/blocks/index.jsx')
             .pipe($.plumber({ errorHandler }))
             .pipe(named())
-            .pipe(webpack({
-                module: {
-                    loaders: [
-                        {
-                            test: /.jsx$/,
-                            loader: 'babel-loader',
-                            exclude: /node_modules/
-                        }, {
-                            test: /\.scss$/,
-                            use: [{
-                                loader: 'style-loader', // creates style nodes from JS strings
-                            }, {
-                                loader: 'css-loader', // translates CSS into CommonJS
-                            }, {
-                                loader: 'sass-loader', // compiles Sass to CSS
-                            }],
-                        }, {
-                            test: /\.svg$/,
-                            use: [
-                                {
-                                    loader: 'svg-url-loader',
-                                    options: {
-                                        noquotes: true,
-                                    },
-                                },
-                                'svgo-loader',
-                            ],
-                        },
-                    ]
-                }
-            }))
-            // .pipe($.changed(itemData.to))
-            .pipe($.uglify({
-                output: {
-                    comments: /^!/
-                }
-            }))
+            .pipe(webpack(webpackconfig))
             .pipe($.rename({
                 suffix: '.min'
             }))
@@ -128,12 +93,11 @@ gulp.task('build_js', function () {
                         {
                             test: /.js$/,
                             loader: 'babel-loader',
-                            exclude: /node_modules/
-                        }
-                    ]
-                }
+                            exclude: /node_modules/,
+                        },
+                    ],
+                },
             }))
-            // .pipe($.changed(itemData.to))
             .pipe($.uglify({
                 output: {
                     comments: /^!/
