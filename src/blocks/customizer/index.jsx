@@ -72,7 +72,7 @@ class CustomizerBlock extends Component {
 
         if ( ! this.jsonOptions ) {
             try {
-                options = JSON.parse( options );
+                options = JSON.parse( decodeURI( options ) );
             } catch ( e ) {
                 options = [];
             }
@@ -205,9 +205,8 @@ class CustomizerBlock extends Component {
                 } );
             }
         }
-
         this.jsonOptions = options;
-        setAttributes( { options: JSON.stringify( options ) } );
+        setAttributes( { options: encodeURI( JSON.stringify( options ) ) } );
     }
 
     render() {
@@ -243,7 +242,9 @@ class CustomizerBlock extends Component {
                     />
                 ) : '' }
                 { Array.isArray( customizerOptionsSelect ) && ! customizerOptionsSelect.length ? (
-                    <div className="ghostkit-customizer-info">{ __( 'No customizer options found. You can manually open Customizer page, and the list will be available here.' ) }</div>
+                    <div className="ghostkit-customizer-info">
+                        { __( 'No customizer options found. You can manually open ' ) } { <strong>{ __( 'Appearance > Customize' ) }</strong> }{ __( ', and the list will be available here.' ) }
+                    </div>
                 ) : '' }
                 { Array.isArray( options ) && options.length ? (
                     <div className="ghostkit-customizer-list">
