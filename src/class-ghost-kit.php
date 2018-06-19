@@ -222,7 +222,7 @@ class GhostKit {
         if ( class_exists( 'DOMDocument' ) ) {
             $css = '';
             $dom = new DOMDocument();
-            $dom->loadHTML( $post->post_content );
+            @$dom->loadHTML( $post->post_content );
             foreach ( $dom->getElementsByTagName( '*' ) as $node ) {
                 $styles = $node->getAttribute( 'data-ghostkit-styles' );
                 if ( $styles ) {
