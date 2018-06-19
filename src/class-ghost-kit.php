@@ -131,8 +131,10 @@ class GhostKit {
      */
     public function enqueue_block_editor_assets() {
         // FontAwesome.
-        wp_enqueue_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/svg-with-js/js/fa-v4-shims.min.js', __FILE__ ), array(), '5.0.10' );
-        wp_enqueue_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/svg-with-js/js/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.10' );
+        if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
+            wp_enqueue_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/fa-v4-shims.min.js', __FILE__ ), array(), '5.0.13' );
+            wp_enqueue_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.13' );
+        }
 
         // GhostKit.
         wp_enqueue_style(
@@ -160,8 +162,10 @@ class GhostKit {
      */
     public function enqueue_block_assets() {
         // FontAwesome.
-        wp_enqueue_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/svg-with-js/js/fa-v4-shims.min.js', __FILE__ ), array(), '5.0.10' );
-        wp_enqueue_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/svg-with-js/js/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.10' );
+        if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
+            wp_enqueue_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/fa-v4-shims.min.js', __FILE__ ), array(), '5.0.13' );
+            wp_enqueue_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.13' );
+        }
 
         // GhostKit.
         wp_enqueue_style(
