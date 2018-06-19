@@ -10,3 +10,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once( ghostkit()->plugin_path . 'blocks/customizer/block.php' );
+require_once( ghostkit()->plugin_path . 'blocks/custom-css/block.php' );

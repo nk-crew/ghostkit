@@ -1,0 +1,24 @@
+/**
+ * Editor Styles
+ */
+@import "../variables";
+
+.wp-block-ghostkit-custom-css {
+    min-height: 0;
+    padding: 30px;
+
+    > div {
+        width: 100%;
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .components-placeholder__label {
+        justify-content: flex-start;
+    }
+
+    .CodeMirror {
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+}

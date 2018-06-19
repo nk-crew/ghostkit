@@ -261,10 +261,16 @@ class GhostKit {
 
         if ( $post_id ) {
             $css = get_post_meta( $post_id, '_ghostkit_blocks_custom_css', true );
+            $custom_css = get_post_meta( $post_id, 'ghostkit_custom_css', true );
 
             if ( ! empty( $css ) ) {
                 echo "<style type=\"text/css\" id=\"ghostkit-blocks-custom-css\">\n";
                 echo wp_kses( wp_unslash( $css ), array( '\'', '\"' ) );
+                echo "\n</style>\n";
+            }
+            if ( ! empty( $custom_css ) ) {
+                echo "<style type=\"text/css\" id=\"ghostkit-custom-css\">\n";
+                echo wp_kses( wp_unslash( $custom_css ), array( '\'', '\"' ) );
                 echo "\n</style>\n";
             }
         }

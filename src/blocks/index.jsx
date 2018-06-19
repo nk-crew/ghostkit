@@ -8,6 +8,7 @@ import * as iconBox from './icon-box/index.jsx';
 import * as counterBox from './counter-box/index.jsx';
 import * as alert from './alert/index.jsx';
 import * as customizer from './customizer/index.jsx';
+import * as customCSS from './custom-css/index.jsx';
 
 /**
  * Extensions
@@ -32,6 +33,7 @@ const { registerBlockType } = wp.blocks;
     counterBox,
     alert,
     customizer,
+    customCSS,
 ].forEach( ( { name, settings } ) => {
     registerBlockType( name, settings );
 } );

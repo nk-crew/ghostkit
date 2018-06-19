@@ -1,0 +1,17 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="custom-css">
+<g id="Group">
+<path id="Vector" d="M14 0L12.1333 10.6786L5.62042 13L0 10.6786L0.571667 7.92768H2.96333L2.73 9.1058L6.125 10.3942L10.0363 9.1058L10.5846 6.28817H0.860417L1.32708 3.90871H11.06L11.3663 2.37946H1.64208L2.1175 0H14V0Z" transform="translate(3 3)" fill="black"/>
+</g>
+<g id="Logo" clip-path="url(#clip0)">
+<path id="Vector_2" d="M0 10V4.00003C0 2.04655 2.54888 0.00759371 5 3.05176e-05C7.48789 -0.00764612 10 2.09538 10 4.00003V10L8.33333 8.33957L6.66667 10L5 8.33957L3.33333 10L1.66667 8.33957L0 10Z" transform="translate(10 9.99994)" fill="#008DBE"/>
+<path id="Ellipse" d="M1.5 0.75C1.5 1.16421 1.16421 1.5 0.75 1.5C0.335786 1.5 0 1.16421 0 0.75C0 0.335786 0.335786 0 0.75 0C1.16421 0 1.5 0.335786 1.5 0.75Z" transform="translate(14.25 14)" fill="white"/>
+<path id="Ellipse_2" d="M2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0C1.55228 0 2 0.447715 2 1Z" transform="translate(16.5 13.5)" fill="white"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="10" height="10" fill="white" transform="translate(10 10)"/>
+</clipPath>
+</defs>
+</svg>
