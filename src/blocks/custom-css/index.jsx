@@ -90,8 +90,6 @@ export const settings = {
         multiple: false,
         customClassName: false,
     },
-    // TODO: Will be deprecated in 3.3, use supports.multiple.
-    useOnce: true,
     attributes: {
         customCSS: {
             type: 'string',

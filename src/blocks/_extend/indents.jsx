@@ -337,4 +337,4 @@ function addEditorCustomStyles( customStyles, props ) {
 addFilter( 'ghostkit.blocks.registerBlockType.allowCustomStyles', 'ghostkit/indents/allow-custom-styles', allowCustomStyles );
 addFilter( 'ghostkit.blocks.registerBlockType.withCustomStyles', 'ghostkit/indents/additional-attributes', addAttribute );
 addFilter( 'ghostkit.blocks.customStyles', 'ghostkit/indents/editor-custom-styles', addEditorCustomStyles );
-addFilter( 'blocks.BlockEdit', 'ghostkit/indents/additional-attributes', withInspectorControl );
+addFilter( 'editor.BlockEdit', 'ghostkit/indents/additional-attributes', withInspectorControl );
