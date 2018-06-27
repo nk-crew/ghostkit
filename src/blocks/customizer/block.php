@@ -33,7 +33,7 @@ class GhostKit_Customizer_Block {
      * Try to find meta data to replace options.
      */
     public function maybe_find_options() {
-        $this->custom_options = json_decode( get_post_meta( get_queried_object_id(), 'ghostkit_customizer_options', true ), true );
+        $this->custom_options = json_decode( urldecode( get_post_meta( get_queried_object_id(), 'ghostkit_customizer_options', true ) ), true );
 
         if ( $this->custom_options && ! empty( $this->custom_options ) ) {
             foreach ( $this->custom_options as $opt ) {
