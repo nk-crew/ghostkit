@@ -95,7 +95,7 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
                     if ( $( node ).is( '[data-ghostkit-styles]' ) ) {
                         readyCustomStyles = 1;
                     }
-                    if ( $( node ).is( '.ghostkit-grid:not(.ghostkit-grid-ready)' ) ) {
+                    if ( $( node ).is( '.wp-block-ghostkit-grid:not(.ghostkit-grid-ready)' ) ) {
                         readyGridBlock = 1;
                     }
                 } );
