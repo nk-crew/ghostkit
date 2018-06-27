@@ -1,7 +1,7 @@
 # GhostKit #
 * Contributors: nko
 * Tags: gutenberg, blocks, kit, extendable, ghost
-* Requires at least: 4.0.0
+* Requires at least: 4.8.0
 * Tested up to: 4.9
 * Requires PHP: 5.4
 * Stable tag: @@plugin_version
