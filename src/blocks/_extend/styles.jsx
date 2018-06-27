@@ -108,10 +108,10 @@ const renderStyles = () => {
             stylesString += jQuery( this ).attr( 'data-ghostkit-styles' );
         } );
 
-        let $style = jQuery( '#ghostkit-blocks-custom-css' );
+        let $style = jQuery( '#ghostkit-blocks-custom-css-inline-css' );
 
         if ( ! $style.length ) {
-            $style = jQuery( '<style type="text/css" id="ghostkit-blocks-custom-css">' ).appendTo( 'head' );
+            $style = jQuery( '<style type="text/css" id="ghostkit-blocks-custom-css-inline-css">' ).appendTo( 'head' );
         }
 
         $style.html( window.GHOSTKIT.replaceVars( stylesString ) );

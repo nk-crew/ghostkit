@@ -14,9 +14,9 @@ function prepareCustomStyles() {
     } );
 
     if ( reloadStyles ) {
-        let $style = $( '#ghostkit-blocks-custom-css' );
+        let $style = $( '#ghostkit-blocks-custom-css-inline-css' );
         if ( ! $style.length ) {
-            $style = $( '<style id="ghostkit-blocks-custom-css">' ).appendTo( 'head' );
+            $style = $( '<style id="ghostkit-blocks-custom-css-inline-css">' ).appendTo( 'head' );
         }
         $style.html( customStyles );
     }

@@ -115,7 +115,7 @@ class GhostKit {
         add_action( 'admin_init', array( $this, 'admin_init' ) );
 
         add_action( 'save_post', array( $this, 'parse_styles_from_blocks' ) );
-        add_action( 'wp_head', array( $this, 'add_styles_from_blocks' ), 100 );
+        add_action( 'wp_enqueue_scripts', array( $this, 'add_styles_from_blocks' ), 100 );
 
         // include blocks.
         // work only if Gutenberg available.
@@ -268,14 +268,22 @@ class GhostKit {
             $custom_css = get_post_meta( $post_id, 'ghostkit_custom_css', true );
 
             if ( ! empty( $css ) ) {
-                echo "<style type=\"text/css\" id=\"ghostkit-blocks-custom-css\">\n";
-                echo wp_kses( wp_unslash( $css ), array( '\'', '\"' ) );
-                echo "\n</style>\n";
+                $custom_css_handle = 'ghostkit-blocks-custom-css';
+                $css = wp_kses( $css, array( '\'', '\"' ) );
+                $css = str_replace( '&gt;', '>', $css );
+
+                wp_register_style( $custom_css_handle, false );
+                wp_enqueue_style( $custom_css_handle );
+                wp_add_inline_style( $custom_css_handle, $css );
             }
             if ( ! empty( $custom_css ) ) {
-                echo "<style type=\"text/css\" id=\"ghostkit-custom-css\">\n";
-                echo wp_kses( wp_unslash( $custom_css ), array( '\'', '\"' ) );
-                echo "\n</style>\n";
+                $custom_css_handle = 'ghostkit-custom-css';
+                $css = wp_kses( $custom_css, array( '\'', '\"' ) );
+                $css = str_replace( '&gt;', '>', $css );
+
+                wp_register_style( $custom_css_handle, false );
+                wp_enqueue_style( $custom_css_handle );
+                wp_add_inline_style( $custom_css_handle, $css );
             }
         }
     }
