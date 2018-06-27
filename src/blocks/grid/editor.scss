@@ -15,31 +15,16 @@
     // These margins make sure that nested blocks stack/overlay with the parent block chrome
     // This is sort of an experiment at making sure the editor looks as much like the end result as possible
     // Potentially the rules here can apply to all nested blocks and enable stacking, in which case it should be moved elsewhere
-    margin-right: - ( $grid-gutter-width / 2 ) - 14px;
-    margin-left: - ( $grid-gutter-width / 2 ) - 14px;
-
-    // Gaps.
-    @each $name, $size in $grid-gaps {
-        &.ghostkit-grid-gap-#{$name} {
-            margin-right: - ( $size / 2 )  - 14px;
-            margin-left: - ( $size / 2 )  - 14px;
-        }
-    }
+    margin-right: 0;
+    margin-left: 0;
 
     .editor-block-list__layout {
+        margin-right: 0;
+        margin-left: 0;
+
         // This max-width is used to constrain the main editor column, it should not cascade into columns
         .editor-block-list__block {
             max-width: none;
-        }
-    }
-
-    // Wide: show no left/right margin on wide, so they stack with the column side UI
-    .editor-block-list__block[data-align="wide"][data-type="ghostkit/grid"] & .editor-block-list__layout {
-        &:first-child {
-            margin-left: 0;
-        }
-        &:last-child {
-            margin-right: 0;
         }
     }
 
@@ -79,8 +64,8 @@
 .wp-block-ghostkit-grid > .editor-inner-blocks {
     display: flex;
     flex-wrap: wrap;
-    margin-right: ($grid-gutter-width / -2);
-    margin-left: ($grid-gutter-width / -2);
+    margin-right: 0;
+    margin-left: 0;
 
     // Columns
     //
@@ -90,8 +75,6 @@
         position: relative;
         width: 100%;
         min-height: 1px; // Prevent columns from collapsing when empty
-        padding-right: ($grid-gutter-width / 2);
-        padding-left: ($grid-gutter-width / 2);
     }
 }
 
@@ -161,17 +144,4 @@
 }
 .ghostkit-grid-justify-content-between > .editor-inner-blocks {
     justify-content: space-between;
-}
-
-// Gaps.
-@each $name, $size in $grid-gaps {
-    .ghostkit-grid-gap-#{$name} > .editor-inner-blocks {
-        margin-right: ($size / -2);
-        margin-left: ($size / -2);
-
-        > .ghostkit-col {
-            padding-right: ($size / 2);
-            padding-left: ($size / 2);
-        }
-    }
 }
