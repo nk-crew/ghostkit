@@ -13,6 +13,7 @@ const { GHOSTKIT } = window;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    PanelBody,
     RangeControl,
     PanelColor,
     SelectControl,
@@ -63,51 +64,53 @@ class CounterBoxBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
+                    <PanelBody>
+                        { Object.keys( availableVariants ).length > 1 ? (
+                            <SelectControl
+                                label={ __( 'Variants' ) }
+                                value={ variant }
+                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                    value: key,
+                                    label: availableVariants[ key ].title,
+                                } ) ) }
+                                onChange={ ( value ) => setAttributes( { variant: value } ) }
+                            />
+                        ) : '' }
+                        <RangeControl
+                            label={ __( 'Number Size' ) }
+                            value={ numberSize }
+                            onChange={ ( value ) => setAttributes( { numberSize: value } ) }
+                            min={ 20 }
+                            max={ 100 }
+                            beforeIcon="editor-textcolor"
+                            afterIcon="editor-textcolor"
+                        />
                         <SelectControl
-                            label={ __( 'Variants' ) }
-                            value={ variant }
-                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                value: key,
-                                label: availableVariants[ key ].title,
-                            } ) ) }
-                            onChange={ ( value ) => setAttributes( { variant: value } ) }
+                            label={ __( 'Number Position' ) }
+                            value={ numberPosition }
+                            onChange={ ( value ) => setAttributes( { numberPosition: value } ) }
+                            options={ [
+                                {
+                                    label: __( 'Top' ),
+                                    value: 'top',
+                                },
+                                {
+                                    label: __( 'Left' ),
+                                    value: 'left',
+                                },
+                                {
+                                    label: __( 'Right' ),
+                                    value: 'right',
+                                },
+                            ] }
                         />
-                    ) : '' }
-                    <RangeControl
-                        label={ __( 'Number Size' ) }
-                        value={ numberSize }
-                        onChange={ ( value ) => setAttributes( { numberSize: value } ) }
-                        min={ 20 }
-                        max={ 100 }
-                        beforeIcon="editor-textcolor"
-                        afterIcon="editor-textcolor"
-                    />
-                    <SelectControl
-                        label={ __( 'Number Position' ) }
-                        value={ numberPosition }
-                        onChange={ ( value ) => setAttributes( { numberPosition: value } ) }
-                        options={ [
-                            {
-                                label: __( 'Top' ),
-                                value: 'top',
-                            },
-                            {
-                                label: __( 'Left' ),
-                                value: 'left',
-                            },
-                            {
-                                label: __( 'Right' ),
-                                value: 'right',
-                            },
-                        ] }
-                    />
-                    <PanelColor title={ __( 'Number Color' ) } colorValue={ numberColor } >
-                        <ColorPalette
-                            value={ numberColor }
-                            onChange={ ( value ) => setAttributes( { numberColor: value } ) }
-                        />
-                    </PanelColor>
+                        <PanelColor title={ __( 'Number Color' ) } colorValue={ numberColor } >
+                            <ColorPalette
+                                value={ numberColor }
+                                onChange={ ( value ) => setAttributes( { numberColor: value } ) }
+                            />
+                        </PanelColor>
+                    </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
                     <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>

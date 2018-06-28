@@ -112,18 +112,18 @@ class ButtonBlock extends Component {
                     <BlockAlignmentToolbar value={ align } onChange={ this.updateAlignment } />
                 </BlockControls>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <SelectControl
-                            label={ __( 'Variants' ) }
-                            value={ variant }
-                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                value: key,
-                                label: availableVariants[ key ].title,
-                            } ) ) }
-                            onChange={ ( value ) => setAttributes( { variant: value } ) }
-                        />
-                    ) : '' }
                     <PanelBody>
+                        { Object.keys( availableVariants ).length > 1 ? (
+                            <SelectControl
+                                label={ __( 'Variants' ) }
+                                value={ variant }
+                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                    value: key,
+                                    label: availableVariants[ key ].title,
+                                } ) ) }
+                                onChange={ ( value ) => setAttributes( { variant: value } ) }
+                            />
+                        ) : '' }
                         <div className="blocks-size__main">
                             <ButtonGroup aria-label={ __( 'Size' ) }>
                                 {

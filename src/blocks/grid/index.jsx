@@ -237,18 +237,18 @@ class GridBlock extends Component {
                     />
                 </BlockControls>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <SelectControl
-                            label={ __( 'Variants' ) }
-                            value={ variant }
-                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                value: key,
-                                label: availableVariants[ key ].title,
-                            } ) ) }
-                            onChange={ ( value ) => setAttributes( { variant: value } ) }
-                        />
-                    ) : '' }
                     <PanelBody>
+                        { Object.keys( availableVariants ).length > 1 ? (
+                            <SelectControl
+                                label={ __( 'Variants' ) }
+                                value={ variant }
+                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                    value: key,
+                                    label: availableVariants[ key ].title,
+                                } ) ) }
+                                onChange={ ( value ) => setAttributes( { variant: value } ) }
+                            />
+                        ) : '' }
                         <RangeControl
                             label={ __( 'Columns' ) }
                             value={ columns }

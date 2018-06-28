@@ -14,6 +14,7 @@ const { GHOSTKIT } = window;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    PanelBody,
     SelectControl,
     RangeControl,
     PanelColor,
@@ -73,55 +74,57 @@ class ProgressBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <SelectControl
-                            label={ __( 'Variants' ) }
-                            value={ variant }
-                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                value: key,
-                                label: availableVariants[ key ].title,
-                            } ) ) }
-                            onChange={ ( value ) => setAttributes( { variant: value } ) }
+                    <PanelBody>
+                        { Object.keys( availableVariants ).length > 1 ? (
+                            <SelectControl
+                                label={ __( 'Variants' ) }
+                                value={ variant }
+                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                    value: key,
+                                    label: availableVariants[ key ].title,
+                                } ) ) }
+                                onChange={ ( value ) => setAttributes( { variant: value } ) }
+                            />
+                        ) : '' }
+                        <RangeControl
+                            label={ __( 'Height' ) }
+                            value={ height || '' }
+                            onChange={ ( value ) => setAttributes( { height: value } ) }
+                            min={ 5 }
+                            max={ 20 }
                         />
-                    ) : '' }
-                    <RangeControl
-                        label={ __( 'Height' ) }
-                        value={ height || '' }
-                        onChange={ ( value ) => setAttributes( { height: value } ) }
-                        min={ 5 }
-                        max={ 20 }
-                    />
-                    <RangeControl
-                        label={ __( 'Percent' ) }
-                        value={ percent || '' }
-                        onChange={ ( value ) => setAttributes( { percent: value } ) }
-                        min={ 0 }
-                        max={ 100 }
-                    />
-                    <RangeControl
-                        label={ __( 'Corner Radius' ) }
-                        value={ borderRadius }
-                        min="0"
-                        max="10"
-                        onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
-                    />
-                    <ToggleControl
-                        label={ __( 'Striped' ) }
-                        checked={ !! striped }
-                        onChange={ ( val ) => setAttributes( { striped: val } ) }
-                    />
-                    <PanelColor title={ __( 'Color' ) } colorValue={ color } >
-                        <ColorPalette
-                            value={ color }
-                            onChange={ ( value ) => setAttributes( { color: value } ) }
+                        <RangeControl
+                            label={ __( 'Percent' ) }
+                            value={ percent || '' }
+                            onChange={ ( value ) => setAttributes( { percent: value } ) }
+                            min={ 0 }
+                            max={ 100 }
                         />
-                    </PanelColor>
-                    <PanelColor title={ __( 'Background Color' ) } colorValue={ backgroundColor } >
-                        <ColorPalette
-                            value={ backgroundColor }
-                            onChange={ ( value ) => setAttributes( { backgroundColor: value } ) }
+                        <RangeControl
+                            label={ __( 'Corner Radius' ) }
+                            value={ borderRadius }
+                            min="0"
+                            max="10"
+                            onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
                         />
-                    </PanelColor>
+                        <ToggleControl
+                            label={ __( 'Striped' ) }
+                            checked={ !! striped }
+                            onChange={ ( val ) => setAttributes( { striped: val } ) }
+                        />
+                        <PanelColor title={ __( 'Color' ) } colorValue={ color } >
+                            <ColorPalette
+                                value={ color }
+                                onChange={ ( value ) => setAttributes( { color: value } ) }
+                            />
+                        </PanelColor>
+                        <PanelColor title={ __( 'Background Color' ) } colorValue={ backgroundColor } >
+                            <ColorPalette
+                                value={ backgroundColor }
+                                onChange={ ( value ) => setAttributes( { backgroundColor: value } ) }
+                            />
+                        </PanelColor>
+                    </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
                     { ( ( caption && caption.length > 0 ) || isSelected ) && (

@@ -13,6 +13,7 @@ const { GHOSTKIT } = window;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    PanelBody,
     SelectControl,
     RangeControl,
     PanelColor,
@@ -65,49 +66,51 @@ class AlertBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <SelectControl
-                            label={ __( 'Variants' ) }
-                            value={ variant }
-                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                value: key,
-                                label: availableVariants[ key ].title,
-                            } ) ) }
-                            onChange={ ( value ) => setAttributes( { variant: value } ) }
+                    <PanelBody>
+                        { Object.keys( availableVariants ).length > 1 ? (
+                            <SelectControl
+                                label={ __( 'Variants' ) }
+                                value={ variant }
+                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                    value: key,
+                                    label: availableVariants[ key ].title,
+                                } ) ) }
+                                onChange={ ( value ) => setAttributes( { variant: value } ) }
+                            />
+                        ) : '' }
+                        <PanelColor title={ __( 'Color' ) } colorValue={ color } >
+                            <ColorPalette
+                                value={ color }
+                                onChange={ ( value ) => setAttributes( { color: value } ) }
+                            />
+                        </PanelColor>
+                        <TextControl
+                            label={ __( 'Icon' ) }
+                            value={ icon }
+                            help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
+                            onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
-                    ) : '' }
-                    <PanelColor title={ __( 'Color' ) } colorValue={ color } >
-                        <ColorPalette
-                            value={ color }
-                            onChange={ ( value ) => setAttributes( { color: value } ) }
+                        <RangeControl
+                            label={ __( 'Icon Size' ) }
+                            value={ iconSize }
+                            onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+                            min={ 20 }
+                            max={ 100 }
+                            beforeIcon="editor-textcolor"
+                            afterIcon="editor-textcolor"
                         />
-                    </PanelColor>
-                    <TextControl
-                        label={ __( 'Icon' ) }
-                        value={ icon }
-                        help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
-                        onChange={ ( value ) => setAttributes( { icon: value } ) }
-                    />
-                    <RangeControl
-                        label={ __( 'Icon Size' ) }
-                        value={ iconSize }
-                        onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-                        min={ 20 }
-                        max={ 100 }
-                        beforeIcon="editor-textcolor"
-                        afterIcon="editor-textcolor"
-                    />
-                    <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
-                        <ColorPalette
-                            value={ iconColor }
-                            onChange={ ( value ) => setAttributes( { iconColor: value } ) }
+                        <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
+                            <ColorPalette
+                                value={ iconColor }
+                                onChange={ ( value ) => setAttributes( { iconColor: value } ) }
+                            />
+                        </PanelColor>
+                        <ToggleControl
+                            label={ __( 'Hide Button' ) }
+                            checked={ !! hideButton }
+                            onChange={ ( val ) => setAttributes( { hideButton: val } ) }
                         />
-                    </PanelColor>
-                    <ToggleControl
-                        label={ __( 'Hide Button' ) }
-                        checked={ !! hideButton }
-                        onChange={ ( val ) => setAttributes( { hideButton: val } ) }
-                    />
+                    </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
                     { icon && (

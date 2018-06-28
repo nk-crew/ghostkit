@@ -13,6 +13,7 @@ const { GHOSTKIT } = window;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    PanelBody,
     RangeControl,
     PanelColor,
     SelectControl,
@@ -62,57 +63,59 @@ class IconBoxBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
+                    <PanelBody>
+                        { Object.keys( availableVariants ).length > 1 ? (
+                            <SelectControl
+                                label={ __( 'Variants' ) }
+                                value={ variant }
+                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                    value: key,
+                                    label: availableVariants[ key ].title,
+                                } ) ) }
+                                onChange={ ( value ) => setAttributes( { variant: value } ) }
+                            />
+                        ) : '' }
+                        <TextControl
+                            label={ __( 'Icon' ) }
+                            value={ icon }
+                            help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
+                            onChange={ ( value ) => setAttributes( { icon: value } ) }
+                        />
+                        <RangeControl
+                            label={ __( 'Icon Size' ) }
+                            value={ iconSize }
+                            onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+                            min={ 20 }
+                            max={ 100 }
+                            beforeIcon="editor-textcolor"
+                            afterIcon="editor-textcolor"
+                        />
                         <SelectControl
-                            label={ __( 'Variants' ) }
-                            value={ variant }
-                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                value: key,
-                                label: availableVariants[ key ].title,
-                            } ) ) }
-                            onChange={ ( value ) => setAttributes( { variant: value } ) }
+                            label={ __( 'Icon Position' ) }
+                            value={ iconPosition }
+                            onChange={ ( value ) => setAttributes( { iconPosition: value } ) }
+                            options={ [
+                                {
+                                    label: __( 'Top' ),
+                                    value: 'top',
+                                },
+                                {
+                                    label: __( 'Left' ),
+                                    value: 'left',
+                                },
+                                {
+                                    label: __( 'Right' ),
+                                    value: 'right',
+                                },
+                            ] }
                         />
-                    ) : '' }
-                    <TextControl
-                        label={ __( 'Icon' ) }
-                        value={ icon }
-                        help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
-                        onChange={ ( value ) => setAttributes( { icon: value } ) }
-                    />
-                    <RangeControl
-                        label={ __( 'Icon Size' ) }
-                        value={ iconSize }
-                        onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-                        min={ 20 }
-                        max={ 100 }
-                        beforeIcon="editor-textcolor"
-                        afterIcon="editor-textcolor"
-                    />
-                    <SelectControl
-                        label={ __( 'Icon Position' ) }
-                        value={ iconPosition }
-                        onChange={ ( value ) => setAttributes( { iconPosition: value } ) }
-                        options={ [
-                            {
-                                label: __( 'Top' ),
-                                value: 'top',
-                            },
-                            {
-                                label: __( 'Left' ),
-                                value: 'left',
-                            },
-                            {
-                                label: __( 'Right' ),
-                                value: 'right',
-                            },
-                        ] }
-                    />
-                    <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
-                        <ColorPalette
-                            value={ iconColor }
-                            onChange={ ( value ) => setAttributes( { iconColor: value } ) }
-                        />
-                    </PanelColor>
+                        <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
+                            <ColorPalette
+                                value={ iconColor }
+                                onChange={ ( value ) => setAttributes( { iconColor: value } ) }
+                            />
+                        </PanelColor>
+                    </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
                     { icon && (
