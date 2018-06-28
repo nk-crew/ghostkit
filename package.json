@@ -135,7 +135,6 @@
     "classnames": "^2.2.5",
     "deep-assign": "^2.0.0",
     "re-resizable": "^4.4.8",
-    "react": "^16.4.1",
     "react-select": "^2.0.0-beta.6",
     "shorthash": "0.0.2"
   }
