@@ -58,6 +58,7 @@ Available filters:
 * **gkt_alert_variants**
 * **gkt_button_variants**
 * **gkt_counter_box_variants**
+* **gkt_tabs_variants**
 * **gkt_grid_variants**
 * **gkt_icon_box_variants**
 * **gkt_progress_variants**

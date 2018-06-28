@@ -162,6 +162,7 @@ class GhostKit {
                 'alert'        => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
                 'button'       => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
                 'counter_box'  => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
+                'tabs'         => array_merge( $default_variant, apply_filters( 'gkt_tabs_variants', array() ) ),
                 'grid'         => array_merge( $default_variant, apply_filters( 'gkt_grid_variants', array() ) ),
                 'icon_box'     => array_merge( $default_variant, apply_filters( 'gkt_icon_box_variants', array() ) ),
                 'progress'     => array_merge( $default_variant, apply_filters( 'gkt_progress_variants', array() ) ),

@@ -1,0 +1,73 @@
+/**
+ * Editor Styles
+ */
+@import "../variables";
+
+.wp-block-ghostkit-tabs {
+    .ghostkit-tabs-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #dee2e6;
+
+        &.ghostkit-tabs-buttons-align-start {
+            justify-content: flex-start;
+        }
+        &.ghostkit-tabs-buttons-align-center {
+            justify-content: center;
+        }
+        &.ghostkit-tabs-buttons-align-end {
+            justify-content: flex-end;
+        }
+
+        .edit-post-visual-editor,
+        .edit-post-visual-editor p,
+        .editor-rich-text__tinymce.mce-content-body {
+            line-height: inherit;
+        }
+
+        .ghostkit-tabs-buttons-item {
+            display: block;
+            padding: 8px 20px;
+            margin-bottom: -1px;
+            font-weight: 500;
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            background-color: transparent;
+            border: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            box-shadow: none;
+            opacity: .6;
+            transition: .15s border-color, .15s background-color, .15s opacity;
+            will-change: border-color, background-color, opacity;
+
+            &:hover {
+                border-color: #dee2e6;
+                opacity: 1;
+            }
+
+            &.ghostkit-tabs-buttons-item-active {
+                background-color: #fff;
+                border-color: #dee2e6;
+                border-bottom-color: #fff;
+                opacity: 1;
+            }
+        }
+    }
+
+    .ghostkit-tab {
+        display: none;
+    }
+
+    // support up to 50 tabs.
+    @for $tab from 1 through 50 {
+        // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+        &.ghostkit-tabs-active-#{$tab} {
+            .ghostkit-tabs-content .ghostkit-tab-#{$tab} {
+                display: block;
+            }
+        }
+    }
+}
