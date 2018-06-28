@@ -154,7 +154,9 @@ function prepareTabs() {
         }
 
         // click action
-        $this.on( 'click', '.ghostkit-tabs-buttons-item', function() {
+        $this.on( 'click', '.ghostkit-tabs-buttons-item', function( e ) {
+            e.preventDefault();
+
             const $thisBtn = $( this );
 
             $thisBtn.addClass( 'ghostkit-tabs-buttons-item-active' )
