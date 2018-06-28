@@ -169,24 +169,6 @@ function addAttribute( settings, name ) {
         // edit class.
         if ( defaultEdit.prototype && defaultEdit.prototype.render ) {
             class newEdit extends defaultEdit {
-                constructor( props ) {
-                    const {
-                        attributes,
-                        setAttributes,
-                        sharedBlock,
-                    } = props;
-                    super( ...arguments );
-
-                    // Remove custom classname if already exist the same classname on the page.
-                    // This may be because of cloned block.
-                    // Don't work for shared blocks
-                    if ( ! sharedBlock && attributes.ghostkitClassname && jQuery( '.' + attributes.ghostkitClassname ).length ) {
-                        setAttributes( {
-                            ghostkitClassname: '',
-                            ghostkitId: '',
-                        } );
-                    }
-                }
                 render() {
                     const {
                         setAttributes,
@@ -226,30 +208,13 @@ function addAttribute( settings, name ) {
 
         // edit function.
         } else if ( defaultEdit.prototype ) {
-            let firstCall = true;
             settings.edit = function( props ) {
                 const {
                     attributes,
                     setAttributes,
-                    sharedBlock,
                 } = props;
 
                 const result = defaultEdit.apply( this, arguments );
-
-                // init
-                if ( firstCall ) {
-                    firstCall = false;
-
-                    // Remove custom classname if already exist the same classname on the page.
-                    // This may be because of cloned block.
-                    // Don't work for shared blocks
-                    if ( ! sharedBlock && attributes.ghostkitClassname && jQuery( '.' + attributes.ghostkitClassname ).length ) {
-                        setAttributes( {
-                            ghostkitClassname: '',
-                            ghostkitId: '',
-                        } );
-                    }
-                }
 
                 // generate styles
                 const customStyles = {};
@@ -279,6 +244,13 @@ function addAttribute( settings, name ) {
 }
 
 /**
+ * List of used IDs to prevent duplicates.
+ *
+ * @type {Object}
+ */
+const usedIds = {};
+
+/**
  * Override the default edit UI to include a new block inspector control for
  * assigning the custom styles if needed.
  *
@@ -289,9 +261,24 @@ function addAttribute( settings, name ) {
 const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
     return ( props ) => {
         // add new ghostkit props.
-        if ( ! props.attributes.ghostkitClassname && typeof props.attributes.ghostkitClassname !== 'undefined' && props.id ) {
-            props.attributes.ghostkitId = shorthash.unique( props.id );
-            props.attributes.ghostkitClassname = props.name.replace( '/', '-' ) + '-' + props.attributes.ghostkitId;
+        if ( props.id && typeof props.attributes.ghostkitId !== 'undefined' ) {
+            let ID = props.attributes.ghostkitId || '';
+
+            // check if ID already exist.
+            let tryCount = 10;
+            while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== props.id && tryCount > 0 ) ) {
+                ID = shorthash.unique( props.id );
+                tryCount--;
+            }
+
+            if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
+                usedIds[ ID ] = props.id;
+            }
+
+            if ( ID !== props.attributes.ghostkitId ) {
+                props.attributes.ghostkitId = ID;
+                props.attributes.ghostkitClassname = props.name.replace( '/', '-' ) + '-' + ID;
+            }
         }
 
         return <BlockEdit { ...props } />;
