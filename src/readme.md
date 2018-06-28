@@ -38,6 +38,30 @@ Available filters:
 
 * **gkt_enqueue_plugin_font_awesome**
 
+### How to extend existing blocks ####
+You can add Variants to existing blocks, so you will be able to add your own styles for it:
+
+    add_filter( 'gkt_alert_variants', 'my_alert_variants' );
+
+    function my_alert_variants( $variants ) {
+        return array_merge( $variants, array(
+            'my_variant' => array(
+                'title' => esc_html__( 'My Variant', '@@text_domain' ),
+            ),
+        ) );
+    }
+
+Then, when editing block you will see the Variants select and on frontend you will see an additional classname on the block named `ghostkit-alert-variant-my_variant`
+
+Available filters:
+
+* **gkt_alert_variants**
+* **gkt_button_variants**
+* **gkt_counter_box_variants**
+* **gkt_grid_variants**
+* **gkt_icon_box_variants**
+* **gkt_progress_variants**
+
 
 ## Changelog ##
 

@@ -7,6 +7,8 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import elementIcon from '../_icons/grid.svg';
 
+const { GHOSTKIT } = window;
+
 const { __, sprintf } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -200,7 +202,10 @@ class GridBlock extends Component {
             verticalAlign,
             horizontalAlign,
             align,
+            variant,
         } = attributes;
+
+        const availableVariants = GHOSTKIT.getVariants( 'grid' );
 
         const tabs = [];
 
@@ -232,6 +237,17 @@ class GridBlock extends Component {
                     />
                 </BlockControls>
                 <InspectorControls>
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <SelectControl
+                            label={ __( 'Variants' ) }
+                            value={ variant }
+                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                value: key,
+                                label: availableVariants[ key ].title,
+                            } ) ) }
+                            onChange={ ( value ) => setAttributes( { variant: value } ) }
+                        />
+                    ) : '' }
                     <PanelBody>
                         <RangeControl
                             label={ __( 'Columns' ) }
@@ -528,6 +544,10 @@ export const settings = {
         ghostkitDisplay: true,
     },
     attributes: {
+        variant: {
+            type: 'string',
+            default: 'default',
+        },
         columns: {
             type: 'number',
             default: 2,
@@ -565,6 +585,7 @@ export const settings = {
             verticalAlign,
             horizontalAlign,
             gap,
+            variant,
         } = attributes;
 
         className = classnames(
@@ -574,6 +595,10 @@ export const settings = {
             horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false,
             getGridClass( attributes )
         );
+
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-grid-variant-${ variant }` );
+        }
 
         return (
             <div className={ className }>

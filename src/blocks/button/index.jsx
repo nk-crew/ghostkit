@@ -8,9 +8,12 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import elementIcon from '../_icons/button.svg';
 
+const { GHOSTKIT } = window;
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    SelectControl,
     Dashicon,
     IconButton,
     PanelBody,
@@ -85,7 +88,10 @@ class ButtonBlock extends Component {
             hoverColor,
             hoverTextColor,
             hoverBorderColor,
+            variant,
         } = attributes;
+
+        const availableVariants = GHOSTKIT.getVariants( 'button' );
 
         const sizes = {
             XS: 'xs',
@@ -106,6 +112,17 @@ class ButtonBlock extends Component {
                     <BlockAlignmentToolbar value={ align } onChange={ this.updateAlignment } />
                 </BlockControls>
                 <InspectorControls>
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <SelectControl
+                            label={ __( 'Variants' ) }
+                            value={ variant }
+                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                value: key,
+                                label: availableVariants[ key ].title,
+                            } ) ) }
+                            onChange={ ( value ) => setAttributes( { variant: value } ) }
+                        />
+                    ) : '' }
                     <PanelBody>
                         <div className="blocks-size__main">
                             <ButtonGroup aria-label={ __( 'Size' ) }>
@@ -216,6 +233,10 @@ class ButtonBlock extends Component {
 }
 
 const blockAttributes = {
+    variant: {
+        type: 'string',
+        default: 'default',
+    },
     url: {
         type: 'string',
         source: 'attribute',
@@ -322,7 +343,12 @@ export const settings = {
             title,
             align,
             size,
+            variant,
         } = attributes;
+
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-button-variant-${ variant }` );
+        }
 
         return (
             <div className={ classnames( className, `align${ align }` ) }>

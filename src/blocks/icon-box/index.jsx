@@ -8,6 +8,8 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import elementIcon from '../_icons/icon-box.svg';
 
+const { GHOSTKIT } = window;
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -47,7 +49,10 @@ class IconBoxBlock extends Component {
             iconPosition,
             iconSize,
             iconColor,
+            variant,
         } = attributes;
+
+        const availableVariants = GHOSTKIT.getVariants( 'icon_box' );
 
         // add custom classname.
         if ( ghostkitClassname ) {
@@ -57,6 +62,17 @@ class IconBoxBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <SelectControl
+                            label={ __( 'Variants' ) }
+                            value={ variant }
+                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                value: key,
+                                label: availableVariants[ key ].title,
+                            } ) ) }
+                            onChange={ ( value ) => setAttributes( { variant: value } ) }
+                        />
+                    ) : '' }
                     <TextControl
                         label={ __( 'Icon' ) }
                         value={ icon }
@@ -134,6 +150,10 @@ export const settings = {
         ghostkitDisplay: true,
     },
     attributes: {
+        variant: {
+            type: 'string',
+            default: 'default',
+        },
         icon: {
             type: 'string',
             default: 'fab fa-wordpress-simple',
@@ -158,7 +178,12 @@ export const settings = {
         const {
             icon,
             iconPosition,
+            variant,
         } = attributes;
+
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-icon-box-variant-${ variant }` );
+        }
 
         return (
             <div className={ className }>

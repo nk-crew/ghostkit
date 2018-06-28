@@ -120,10 +120,53 @@ class GhostKit {
         // include blocks.
         // work only if Gutenberg available.
         if ( function_exists( 'register_block_type' ) ) {
-            // we need to register the main script earlier to let 3rd-party plugins add custom styles support.
+            add_action( 'init', array( $this, 'register_scripts' ) );
+
+            // we need to enqueue the main script earlier to let 3rd-party plugins add custom styles support.
             add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ), 9 );
             add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_block_assets' ) );
         }
+    }
+
+    /**
+     * Register scripts.
+     */
+    public function register_scripts() {
+        // FontAwesome.
+        if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
+            wp_register_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/fa-v4-shims.min.js', __FILE__ ), array(), '5.0.13' );
+            wp_register_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.13' );
+        }
+
+        // helper script.
+        wp_register_script(
+            'ghostkit-helper',
+            plugins_url( 'assets/js/helper.min.js', __FILE__ ),
+            array(),
+            filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/helper.min.js' )
+        );
+        $default_variant = array(
+            'default' => array(
+                'title' => esc_html__( 'Default', '@@text_domain' ),
+            ),
+        );
+        wp_localize_script( 'ghostkit-helper', 'ghostkitVariables', array(
+            // TODO: Move this to plugin options (part 1).
+            'media_sizes'      => array(
+                'sm' => '(max-width: 576px)',
+                'md' => '(max-width: 768px)',
+                'lg' => '(max-width: 992px)',
+                'xl' => '(max-width: 1200px)',
+            ),
+            'variants'         => array(
+                'alert'        => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
+                'button'       => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
+                'counter_box'  => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
+                'grid'         => array_merge( $default_variant, apply_filters( 'gkt_grid_variants', array() ) ),
+                'icon_box'     => array_merge( $default_variant, apply_filters( 'gkt_icon_box_variants', array() ) ),
+                'progress'     => array_merge( $default_variant, apply_filters( 'gkt_progress_variants', array() ) ),
+            ),
+        ) );
     }
 
     /**
@@ -132,8 +175,7 @@ class GhostKit {
     public function enqueue_block_editor_assets() {
         // FontAwesome.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            wp_enqueue_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/fa-v4-shims.min.js', __FILE__ ), array(), '5.0.13' );
-            wp_enqueue_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.13' );
+            wp_enqueue_script( 'font-awesome' );
         }
 
         // GhostKit.
@@ -142,12 +184,6 @@ class GhostKit {
             plugins_url( 'assets/admin/css/style.min.css', __FILE__ ),
             array( 'wp-blocks' ),
             filemtime( plugin_dir_path( __FILE__ ) . 'assets/admin/css/style.min.css' )
-        );
-        wp_enqueue_script(
-            'ghostkit-helper',
-            plugins_url( 'assets/js/helper.min.js', __FILE__ ),
-            array(),
-            filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/helper.min.js' )
         );
         wp_enqueue_script(
             'ghostkit-editor',
@@ -163,8 +199,7 @@ class GhostKit {
     public function enqueue_block_assets() {
         // FontAwesome.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            wp_enqueue_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/fa-v4-shims.min.js', __FILE__ ), array(), '5.0.13' );
-            wp_enqueue_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.13' );
+            wp_enqueue_script( 'font-awesome' );
         }
 
         // GhostKit.
@@ -173,12 +208,6 @@ class GhostKit {
             plugins_url( 'blocks/style.min.css', __FILE__ ),
             array( 'wp-blocks' ),
             filemtime( plugin_dir_path( __FILE__ ) . 'blocks/style.min.css' )
-        );
-        wp_enqueue_script(
-            'ghostkit-helper',
-            plugins_url( 'assets/js/helper.min.js', __FILE__ ),
-            array(),
-            filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/helper.min.js' )
         );
         wp_enqueue_script(
             'ghostkit',

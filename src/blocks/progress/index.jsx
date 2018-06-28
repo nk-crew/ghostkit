@@ -9,9 +9,12 @@ import './editor.scss';
 // Internal Dependencies.
 import elementIcon from '../_icons/progress.svg';
 
+const { GHOSTKIT } = window;
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    SelectControl,
     RangeControl,
     PanelColor,
     ToggleControl,
@@ -57,7 +60,10 @@ class ProgressBlock extends Component {
             striped,
             color,
             backgroundColor,
+            variant,
         } = attributes;
+
+        const availableVariants = GHOSTKIT.getVariants( 'progress' );
 
         // add custom classname.
         if ( ghostkitClassname ) {
@@ -67,6 +73,17 @@ class ProgressBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <SelectControl
+                            label={ __( 'Variants' ) }
+                            value={ variant }
+                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                value: key,
+                                label: availableVariants[ key ].title,
+                            } ) ) }
+                            onChange={ ( value ) => setAttributes( { variant: value } ) }
+                        />
+                    ) : '' }
                     <RangeControl
                         label={ __( 'Height' ) }
                         value={ height || '' }
@@ -182,6 +199,10 @@ export const settings = {
         ghostkitDisplay: true,
     },
     attributes: {
+        variant: {
+            type: 'string',
+            default: 'default',
+        },
         caption: {
             type: 'caption',
         },
@@ -219,7 +240,12 @@ export const settings = {
             height,
             percent,
             striped,
+            variant,
         } = attributes;
+
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-progress-variant-${ variant }` );
+        }
 
         return (
             <div className={ className }>

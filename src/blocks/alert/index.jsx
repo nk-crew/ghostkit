@@ -8,9 +8,12 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import elementIcon from '../_icons/alert.svg';
 
+const { GHOSTKIT } = window;
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    SelectControl,
     RangeControl,
     PanelColor,
     TextControl,
@@ -49,7 +52,10 @@ class AlertBlock extends Component {
             iconSize,
             iconColor,
             hideButton,
+            variant,
         } = attributes;
+
+        const availableVariants = GHOSTKIT.getVariants( 'alert' );
 
         // add custom classname.
         if ( ghostkitClassname ) {
@@ -59,6 +65,17 @@ class AlertBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <SelectControl
+                            label={ __( 'Variants' ) }
+                            value={ variant }
+                            options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                value: key,
+                                label: availableVariants[ key ].title,
+                            } ) ) }
+                            onChange={ ( value ) => setAttributes( { variant: value } ) }
+                        />
+                    ) : '' }
                     <PanelColor title={ __( 'Color' ) } colorValue={ color } >
                         <ColorPalette
                             value={ color }
@@ -130,6 +147,10 @@ export const settings = {
         ghostkitDisplay: true,
     },
     attributes: {
+        variant: {
+            type: 'string',
+            default: 'default',
+        },
         color: {
             type: 'string',
             default: '#d94f4f',
@@ -158,7 +179,12 @@ export const settings = {
         const {
             icon,
             hideButton,
+            variant,
         } = attributes;
+
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-alert-variant-${ variant }` );
+        }
 
         return (
             <div className={ className }>
