@@ -33,7 +33,7 @@ class AlertBlock extends Component {
             borderLeftColor: attributes.color,
             '.ghostkit-alert-icon': {
                 fontSize: attributes.iconSize,
-                color: attributes.iconColor,
+                color: attributes.color,
             },
         };
     }
@@ -51,7 +51,6 @@ class AlertBlock extends Component {
             color,
             icon,
             iconSize,
-            iconColor,
             hideButton,
             variant,
         } = attributes;
@@ -78,12 +77,6 @@ class AlertBlock extends Component {
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
                         ) : '' }
-                        <PanelColor title={ __( 'Color' ) } colorValue={ color } >
-                            <ColorPalette
-                                value={ color }
-                                onChange={ ( value ) => setAttributes( { color: value } ) }
-                            />
-                        </PanelColor>
                         <TextControl
                             label={ __( 'Icon' ) }
                             value={ icon }
@@ -99,10 +92,10 @@ class AlertBlock extends Component {
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
-                        <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
+                        <PanelColor title={ __( 'Color' ) } colorValue={ color } >
                             <ColorPalette
-                                value={ iconColor }
-                                onChange={ ( value ) => setAttributes( { iconColor: value } ) }
+                                value={ color }
+                                onChange={ ( value ) => setAttributes( { color: value } ) }
                             />
                         </PanelColor>
                         <ToggleControl
@@ -165,10 +158,6 @@ export const settings = {
         iconSize: {
             type: 'number',
             default: 30,
-        },
-        iconColor: {
-            type: 'string',
-            default: '#d94f4f',
         },
         hideButton: {
             type: 'boolean',
