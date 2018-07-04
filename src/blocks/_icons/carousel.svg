@@ -1,59 +1,20 @@
-<svg width="20" height="20" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<title>carousel</title>
-<desc>Created using Figma</desc>
-<g id="Canvas" transform="translate(478 388)">
-<clipPath id="clip-0" clip-rule="evenodd">
-<path d="M -478 -388L -458 -388L -458 -368L -478 -368L -478 -388Z" fill="#FFFFFF"/>
-</clipPath>
-<g id="carousel" clip-path="url(#clip-0)">
-<g id="Rectangle">
-<use xlink:href="#path0_fill" transform="translate(-472 -384)" fill="#C1C1C1"/>
-<mask id="mask0_outline_ins">
-<use xlink:href="#path0_fill" fill="white" transform="translate(-472 -384)"/>
-</mask>
-<g mask="url(#mask0_outline_ins)">
-<use xlink:href="#path1_stroke_2x" transform="translate(-472 -384)" fill="#191E23"/>
-</g>
-</g>
-<g id="Rectangle">
-<use xlink:href="#path0_fill" transform="translate(-481 -384)" fill="#C1C1C1"/>
-<mask id="mask1_outline_ins">
-<use xlink:href="#path0_fill" fill="white" transform="translate(-481 -384)"/>
-</mask>
-<g mask="url(#mask1_outline_ins)">
-<use xlink:href="#path1_stroke_2x" transform="translate(-481 -384)" fill="#191E23"/>
-</g>
-</g>
-<g id="Rectangle">
-<use xlink:href="#path0_fill" transform="translate(-463 -384)" fill="#C1C1C1"/>
-<mask id="mask2_outline_ins">
-<use xlink:href="#path0_fill" fill="white" transform="translate(-463 -384)"/>
-</mask>
-<g mask="url(#mask2_outline_ins)">
-<use xlink:href="#path1_stroke_2x" transform="translate(-463 -384)" fill="#191E23"/>
-</g>
-</g>
-<clipPath id="clip-1" clip-rule="evenodd">
-<path d="M -468 -378L -458 -378L -458 -368L -468 -368L -468 -378Z" fill="#FFFFFF"/>
-</clipPath>
-<g id="Logo" clip-path="url(#clip-1)">
-<g id="Vector">
-<use xlink:href="#path2_fill" transform="translate(-468 -378)" fill="#008DBE"/>
-</g>
-<g id="Ellipse">
-<use xlink:href="#path3_fill" transform="translate(-463.75 -374)" fill="#FFFFFF"/>
-</g>
-<g id="Ellipse">
-<use xlink:href="#path4_fill" transform="translate(-461.5 -374.5)" fill="#FFFFFF"/>
-</g>
-</g>
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="carousel" clip-path="url(#clip0)">
+<rect id="Rectangle" x="0.5" y="0.5" width="7" height="8" rx="1.5" transform="translate(6 4)" fill="#C1C1C1" stroke="#191E23"/>
+<rect id="Rectangle_2" x="0.5" y="0.5" width="7" height="8" rx="1.5" transform="translate(-3 4)" fill="#C1C1C1" stroke="#191E23"/>
+<rect id="Rectangle_3" x="0.5" y="0.5" width="7" height="8" rx="1.5" transform="translate(15 4)" fill="#C1C1C1" stroke="#191E23"/>
+<g id="Logo" clip-path="url(#clip1)">
+<path id="Vector" d="M0 8.00002V3.20002C0 1.63724 2.0391 0.00607497 4 2.44141e-05C5.99031 -0.0061169 8 1.67631 8 3.20002V8.00002L6.66667 6.67165L5.33333 8.00002L4 6.67165L2.66667 8.00002L1.33333 6.67165L0 8.00002Z" transform="translate(12 11.9999)" fill="#016C91"/>
+<path id="Ellipse" d="M1.2 0.6C1.2 0.931371 0.931371 1.2 0.6 1.2C0.268629 1.2 0 0.931371 0 0.6C0 0.268629 0.268629 0 0.6 0C0.931371 0 1.2 0.268629 1.2 0.6Z" transform="translate(15.4 15.2)" fill="white"/>
+<path id="Ellipse_2" d="M1.6 0.8C1.6 1.24183 1.24183 1.6 0.8 1.6C0.358172 1.6 0 1.24183 0 0.8C0 0.358172 0.358172 0 0.8 0C1.24183 0 1.6 0.358172 1.6 0.8Z" transform="translate(17.2 14.8)" fill="white"/>
 </g>
 </g>
 <defs>
-<path id="path0_fill" d="M 0 2C 0 0.89543 0.895431 0 2 0L 6 0C 7.10457 0 8 0.895431 8 2L 8 7C 8 8.10457 7.10457 9 6 9L 2 9C 0.895431 9 0 8.10457 0 7L 0 2Z"/>
-<path id="path1_stroke_2x" d="M 2 1L 6 1L 6 -1L 2 -1L 2 1ZM 7 2L 7 7L 9 7L 9 2L 7 2ZM 6 8L 2 8L 2 10L 6 10L 6 8ZM 1 7L 1 2L -1 2L -1 7L 1 7ZM 2 8C 1.44772 8 1 7.55228 1 7L -1 7C -1 8.65685 0.343146 10 2 10L 2 8ZM 7 7C 7 7.55228 6.55228 8 6 8L 6 10C 7.65685 10 9 8.65685 9 7L 7 7ZM 6 1C 6.55228 1 7 1.44772 7 2L 9 2C 9 0.343146 7.65685 -1 6 -1L 6 1ZM 2 -1C 0.343146 -1 -1 0.343146 -1 2L 1 2C 1 1.44772 1.44772 1 2 1L 2 -1Z"/>
-<path id="path2_fill" d="M 0 10L 0 4.00003C 0 2.04655 2.54888 0.00759371 5 3.05176e-05C 7.48789 -0.00764612 10 2.09538 10 4.00003L 10 10L 8.33333 8.33957L 6.66667 10L 5 8.33957L 3.33333 10L 1.66667 8.33957L 0 10Z"/>
-<path id="path3_fill" d="M 1.5 0.75C 1.5 1.16421 1.16421 1.5 0.75 1.5C 0.335786 1.5 0 1.16421 0 0.75C 0 0.335786 0.335786 0 0.75 0C 1.16421 0 1.5 0.335786 1.5 0.75Z"/>
-<path id="path4_fill" d="M 2 1C 2 1.55228 1.55228 2 1 2C 0.447715 2 0 1.55228 0 1C 0 0.447715 0.447715 0 1 0C 1.55228 0 2 0.447715 2 1Z"/>
+<clipPath id="clip0">
+<rect width="20" height="20" fill="white"/>
+</clipPath>
+<clipPath id="clip1">
+<rect width="8" height="8" fill="white" transform="translate(12 12)"/>
+</clipPath>
 </defs>
 </svg>

@@ -1,22 +1,17 @@
-<svg width="20" height="20" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="Canvas" fill="none">
-<g id="grid" clip-path="url(#clip0)">
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="grid">
 <rect id="Rectangle" width="4" height="13" transform="translate(2 2)" fill="#191E23"/>
 <rect id="Rectangle_2" width="4" height="13" transform="translate(8 2)" fill="#191E23"/>
 <rect id="Rectangle_3" width="4" height="13" transform="translate(14 2)" fill="#191E23"/>
-<g id="Logo" clip-path="url(#clip1)">
-<path id="Vector" d="M 0 10L 0 4.00003C 0 2.04655 2.54888 0.00759371 5 3.05176e-05C 7.48789 -0.00764612 10 2.09538 10 4.00003L 10 10L 8.33333 8.33957L 6.66667 10L 5 8.33957L 3.33333 10L 1.66667 8.33957L 0 10Z" transform="translate(10 9.99994)" fill="#008DBE"/>
-<path id="Ellipse" d="M 1.5 0.75C 1.5 1.16421 1.16421 1.5 0.75 1.5C 0.335787 1.5 0 1.16421 0 0.75C 0 0.335786 0.335787 0 0.75 0C 1.16421 0 1.5 0.335786 1.5 0.75Z" transform="translate(14.25 14)" fill="white"/>
-<path id="Ellipse_2" d="M 2 1C 2 1.55228 1.55228 2 1 2C 0.447715 2 0 1.55228 0 1C 0 0.447715 0.447715 0 1 0C 1.55228 0 2 0.447715 2 1Z" transform="translate(16.5 13.5)" fill="white"/>
-</g>
+<g id="Logo" clip-path="url(#clip0)">
+<path id="Vector" d="M0 8.00002V3.20002C0 1.63724 2.0391 0.00607497 4 2.44141e-05C5.99031 -0.0061169 8 1.67631 8 3.20002V8.00002L6.66667 6.67165L5.33333 8.00002L4 6.67165L2.66667 8.00002L1.33333 6.67165L0 8.00002Z" transform="translate(12 11.9999)" fill="#016C91"/>
+<path id="Ellipse" d="M1.2 0.6C1.2 0.931371 0.931371 1.2 0.6 1.2C0.268629 1.2 0 0.931371 0 0.6C0 0.268629 0.268629 0 0.6 0C0.931371 0 1.2 0.268629 1.2 0.6Z" transform="translate(15.4 15.2)" fill="white"/>
+<path id="Ellipse_2" d="M1.6 0.8C1.6 1.24183 1.24183 1.6 0.8 1.6C0.358172 1.6 0 1.24183 0 0.8C0 0.358172 0.358172 0 0.8 0C1.24183 0 1.6 0.358172 1.6 0.8Z" transform="translate(17.2 14.8)" fill="white"/>
 </g>
 </g>
 <defs>
 <clipPath id="clip0">
-<rect width="20" height="20" fill="white"/>
-</clipPath>
-<clipPath id="clip1">
-<rect width="10" height="10" fill="white" transform="translate(10 10)"/>
+<rect width="8" height="8" fill="white" transform="translate(12 12)"/>
 </clipPath>
 </defs>
 </svg>
