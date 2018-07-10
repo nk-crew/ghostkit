@@ -283,9 +283,9 @@ export const settings = {
     supports: {
         html: false,
         className: false,
-        // ghostkitStyles: true,
-        // ghostkitIndents: true,
-        // ghostkitDisplay: true,
+        ghostkitStyles: true,
+        ghostkitIndents: true,
+        ghostkitDisplay: true,
     },
     attributes: {
         variant: {
