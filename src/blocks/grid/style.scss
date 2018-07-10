@@ -12,7 +12,7 @@
 // Row
 //
 // Rows contain and clear the floats of your columns.
-.wp-block-ghostkit-grid {
+.ghostkit-grid {
     display: flex;
     flex-wrap: wrap;
     margin-right: ($grid-gutter-width / -2);
@@ -35,43 +35,32 @@
     @include media-breakpoint-down($breakpoint) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        // All columns classes
-        @for $col from 1 through $grid-columns {
-            // Provide basic `.col-{bp}` classes for equal-width flexbox columns
-            .ghostkit-grid-col-#{$col}#{$infix} > .ghostkit-col-#{$col} {
-                flex-basis: 0;
-                flex-grow: 1;
-                max-width: 100%;
-            }
+        // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+        .ghostkit-col#{$infix} {
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+        }
 
-            // col size.
-            @for $i from 1 through $grid-columns {
-                .ghostkit-grid-col-#{$col}#{$infix}-#{$i} > .ghostkit-col-#{$col} {
-                    @include make-col($i, $grid-columns);
-                }
+        // col size.
+        @for $i from 1 through $grid-columns {
+            .ghostkit-col#{$infix}-#{$i} {
+                @include make-col($i, $grid-columns);
             }
+        }
 
-            // col order.
-            .ghostkit-grid-order-#{$col}#{$infix}-first > .ghostkit-col-#{$col} {
-                order: -1;
-            }
+        // col order.
+        .ghostkit-col-order#{$infix}-first {
+            order: -1;
+        }
 
-            .ghostkit-grid-order-#{$col}#{$infix}-last > .ghostkit-col-#{$col} {
-                order: $grid-columns + 1;
-            }
+        .ghostkit-col-order#{$infix}-last {
+            order: $grid-columns + 1;
+        }
 
-            @for $i from 0 through $grid-columns {
-                .ghostkit-grid-order-#{$col}#{$infix}-#{$i} > .ghostkit-col-#{$col} {
-                    order: $i;
-                }
-            }
-
-            // col display.
-            .ghostkit-grid-display-#{$col}#{$infix}-show > .ghostkit-col-#{$col} {
-                display: block;
-            }
-            .ghostkit-grid-display-#{$col}#{$infix}-hide > .ghostkit-col-#{$col} {
-                display: none;
+        @for $i from 0 through $grid-columns {
+            .ghostkit-col-order#{$infix}-#{$i} {
+                order: $i;
             }
         }
     }

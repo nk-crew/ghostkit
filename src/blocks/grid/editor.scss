@@ -11,16 +11,19 @@
 
 // Styles from core Columns block
 // https://github.com/WordPress/gutenberg/blob/master/blocks/library/columns/editor.scss
-.wp-block-ghostkit-grid {
+.ghostkit-grid {
+    display: block;
     // These margins make sure that nested blocks stack/overlay with the parent block chrome
     // This is sort of an experiment at making sure the editor looks as much like the end result as possible
     // Potentially the rules here can apply to all nested blocks and enable stacking, in which case it should be moved elsewhere
     margin-right: 0;
     margin-left: 0;
 
-    .editor-block-list__layout {
-        margin-right: 0;
-        margin-left: 0;
+    > .editor-inner-blocks > .editor-block-list__layout {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
 
         // This max-width is used to constrain the main editor column, it should not cascade into columns
         .editor-block-list__block {
@@ -54,27 +57,18 @@
     }
 }
 
-
-// We need to copy grid styles here and slightly change its structure.
-// Gutenberg since 3.0 placed additional wrapper `.editor-inner-blocks` to the row.
-
-// Row
-//
-// Rows contain and clear the floats of your columns.
-.wp-block-ghostkit-grid > .editor-inner-blocks {
+[data-col-class] {
     display: flex;
-    flex-wrap: wrap;
-    margin-right: 0;
-    margin-left: 0;
+    flex: 1;
+    flex-direction: column;
+    width: 0;
 
-    // Columns
-    //
-    // Common styles for small and large grid columns
-    // Common properties for all breakpoints
-    > .ghostkit-col {
-        position: relative;
-        width: 100%;
-        min-height: 1px; // Prevent columns from collapsing when empty
+    > .editor-block-list__block-edit {
+        flex-basis: 100%;
+        // stylelint-disable-next-line
+        margin-top: 0 !important;
+        // stylelint-disable-next-line
+        margin-bottom: 0 !important;
     }
 }
 
@@ -82,66 +76,54 @@
     @include media-breakpoint-down($breakpoint) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        // All columns classes
-        @for $col from 1 through $grid-columns {
-            // Provide basic `.col-{bp}` classes for equal-width flexbox columns
-            .ghostkit-grid-col-#{$col}#{$infix} > .editor-inner-blocks > .ghostkit-col-#{$col} {
-                flex-basis: 0;
-                flex-grow: 1;
-                max-width: 100%;
-            }
+        // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+        [data-col-class*="ghostkit-col#{$infix}"] {
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+        }
 
-            // col size.
-            @for $i from 1 through $grid-columns {
-                .ghostkit-grid-col-#{$col}#{$infix}-#{$i} > .editor-inner-blocks > .ghostkit-col-#{$col} {
-                    @include make-col($i, $grid-columns);
-                }
+        // col size.
+        @for $i from 1 through $grid-columns {
+            [data-col-class*="ghostkit-col#{$infix}-#{$i}"] {
+                @include make-col($i, $grid-columns);
             }
+        }
 
-            // col order.
-            .ghostkit-grid-order-#{$col}#{$infix}-first > .editor-inner-blocks > .ghostkit-col-#{$col} {
-                order: -1;
-            }
+        // col order.
+        [data-col-class*="ghostkit-col-order#{$infix}-first"] {
+            order: -1;
+        }
+        [data-col-class*="ghostkit-col-order#{$infix}-last"] {
+            order: $grid-columns + 1;
+        }
 
-            .ghostkit-grid-order-#{$col}#{$infix}-last > .editor-inner-blocks > .ghostkit-col-#{$col} {
-                order: $grid-columns + 1;
-            }
-
-            @for $i from 0 through $grid-columns {
-                .ghostkit-grid-order-#{$col}#{$infix}-#{$i} > .editor-inner-blocks > .ghostkit-col-#{$col} {
-                    order: $i;
-                }
-            }
-
-            // col display.
-            .ghostkit-grid-display-#{$col}#{$infix}-show > .editor-inner-blocks > .ghostkit-col-#{$col} {
-                display: block;
-            }
-            .ghostkit-grid-display-#{$col}#{$infix}-hide > .editor-inner-blocks > .ghostkit-col-#{$col} {
-                display: none;
+        @for $i from 0 through $grid-columns {
+            [data-col-class*="ghostkit-col-order#{$infix}-#{$i}"] {
+                order: $i;
             }
         }
     }
 }
 
 // Vertical align.
-.ghostkit-grid-align-items-center > .editor-inner-blocks {
+.ghostkit-grid-align-items-center > .editor-inner-blocks > .editor-block-list__layout {
     align-items: center;
 }
-.ghostkit-grid-align-items-end > .editor-inner-blocks {
+.ghostkit-grid-align-items-end > .editor-inner-blocks > .editor-block-list__layout {
     align-items: end;
 }
 
 // Horizontal align.
-.ghostkit-grid-justify-content-center > .editor-inner-blocks {
+.ghostkit-grid-justify-content-center > .editor-inner-blocks > .editor-block-list__layout {
     justify-content: center;
 }
-.ghostkit-grid-justify-content-end > .editor-inner-blocks {
+.ghostkit-grid-justify-content-end > .editor-inner-blocks > .editor-block-list__layout {
     justify-content: end;
 }
-.ghostkit-grid-justify-content-around > .editor-inner-blocks {
+.ghostkit-grid-justify-content-around > .editor-inner-blocks > .editor-block-list__layout {
     justify-content: space-around;
 }
-.ghostkit-grid-justify-content-between > .editor-inner-blocks {
+.ghostkit-grid-justify-content-between > .editor-inner-blocks > .editor-block-list__layout {
     justify-content: space-between;
 }

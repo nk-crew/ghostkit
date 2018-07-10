@@ -18,6 +18,7 @@
     "plugins": [
         [ "transform-react-jsx", {
             "pragma": "wp.element.createElement"
-        } ]
+        } ],
+        [ "transform-object-rest-spread" ]
     ]
 }

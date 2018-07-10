@@ -6,10 +6,11 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/grid.svg';
+import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
-const { __, sprintf } = wp.i18n;
+const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     BaseControl,
@@ -18,7 +19,6 @@ const {
     PanelBody,
     RangeControl,
     SelectControl,
-    TabPanel,
 } = wp.components;
 
 const {
@@ -28,159 +28,18 @@ const {
     InnerBlocks,
 } = wp.editor;
 
-const defaultColumnSettings = {
-    sm_size: '',
-    sm_order: '',
-    sm_display: '',
-
-    md_size: '',
-    md_order: '',
-    md_display: '',
-
-    lg_size: '',
-    lg_order: '',
-    lg_display: '',
-
-    xl_size: '',
-    xl_order: '',
-    xl_display: '',
-
-    order: '',
-    size: 'auto',
-    display: '',
-};
-
-/**
- * Get array for Select element.
- *
- * @returns {Array} array for Select.
- */
-const getDefaultColumnSizes = function() {
-    const result = [
-        {
-            label: __( 'Inherit from larger' ),
-            value: '',
-        }, {
-            label: __( 'Auto' ),
-            value: 'auto',
-        },
-    ];
-
-    for ( let k = 1; k <= 12; k++ ) {
-        result.push( {
-            label: sprintf( k === 1 ? __( '%d Column (%s)' ) : __( '%d Columns (%s)' ), k, `${ Math.round( ( 100 * k / 12 ) * 100 ) / 100 }%` ),
-            value: k,
-        } );
-    }
-    return result;
-};
-
-/**
- * Get array for Select element.
- *
- * @param {Number} columns - number of available columns.
- *
- * @returns {Array} array for Select.
- */
-const getDefaultColumnOrders = function( columns ) {
-    const result = [
-        {
-            label: __( 'Inherit from larger' ),
-            value: '',
-        }, {
-            label: __( 'Auto' ),
-            value: 'auto',
-        }, {
-            label: __( 'First' ),
-            value: 'first',
-        },
-    ];
-
-    for ( let k = 1; k <= columns; k++ ) {
-        result.push( {
-            label: k,
-            value: k,
-        } );
-    }
-
-    result.push( {
-        label: __( 'Last' ),
-        value: 'last',
-    } );
-
-    return result;
-};
-
-/**
- * Get array for Select element.
- *
- * @returns {Array} array for Select.
- */
-const getDefaultColumnDisplay = function() {
-    return [
-        {
-            label: __( 'Inherit from larger' ),
-            value: '',
-        }, {
-            label: __( 'Show' ),
-            value: 'show',
-        }, {
-            label: __( 'Hide' ),
-            value: 'hide',
-        },
-    ];
-};
-
 /**
  * Returns the layouts configuration for a given number of columns.
  *
- * @param {object} attributes - block attributes.
+ * @param {number} columns Number of columns.
  *
  * @return {Object[]} Columns layout configuration.
  */
-const getColumnLayouts = ( { columns } ) => {
+const getColumnsTemplate = ( columns ) => {
     const result = [];
 
     for ( let k = 1; k <= columns; k++ ) {
-        result.push( {
-            name: `ghostkit ghostkit-col ghostkit-col-${ k }`,
-            label: sprintf( __( 'Column %d' ), k ),
-            icon: 'columns',
-        } );
-    }
-
-    return result;
-};
-
-/**
- * Returns the ready to use className for grid container.
- *
- * @param {object} attributes - block attributes.
- *
- * @return {String} Classname for Grid container.
- */
-const getGridClass = ( { columns, columnsSettings } ) => {
-    let result = '';
-
-    for ( let k = 1; k <= columns; k++ ) {
-        const colSettings = Object.assign( {}, defaultColumnSettings, columnsSettings[ 'column_' + k ] );
-
-        Object.keys( colSettings ).map( ( key ) => {
-            if ( colSettings[ key ] ) {
-                let prefix = key.split( '_' )[ 0 ];
-                let type = key.split( '_' )[ 1 ];
-
-                if ( ! type ) {
-                    type = prefix;
-                    prefix = '';
-                }
-
-                prefix = prefix ? `-${ prefix }` : '';
-                type = type === 'size' ? 'col' : type;
-
-                result = classnames( result, `ghostkit-grid-${ type }-${ k }${ prefix || '' }${ colSettings[ key ] !== 'auto' ? `-${ colSettings[ key ] }` : '' }` );
-            }
-        } );
+        result.push( [ 'ghostkit/grid-column' ] );
     }
 
     return result;
@@ -197,7 +56,6 @@ class GridBlock extends Component {
 
         const {
             columns,
-            columnsSettings,
             gap,
             verticalAlign,
             horizontalAlign,
@@ -219,10 +77,10 @@ class GridBlock extends Component {
 
         className = classnames(
             className,
-            `ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }`,
+            'ghostkit-grid',
+            `ghostkit-grid-gap-${ gap }`,
             verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,
-            horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false,
-            getGridClass( attributes )
+            horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
         );
 
         return (
@@ -256,187 +114,6 @@ class GridBlock extends Component {
                             min={ 2 }
                             max={ 12 }
                         />
-                        <BaseControl>
-                            <TabPanel tabs={ tabs } className="ghostkit-control-tabs">
-                                {
-                                    ( colName ) => {
-                                        const colSizeSettings = Object.assign( {}, defaultColumnSettings, columnsSettings[ colName ] );
-                                        return (
-                                            <Fragment>
-                                                <SelectControl
-                                                    label={ __( 'Size' ) }
-                                                    value={ colSizeSettings.size }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.size = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnSizes() }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Order' ) }
-                                                    value={ colSizeSettings.order }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.order = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnOrders( columns ) }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Display' ) }
-                                                    value={ colSizeSettings.display }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.display = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnDisplay() }
-                                                />
-
-                                                <BaseControl label={ __( 'Responsive' ) }>
-                                                    <div className="ghostkit-control-tabs-separator" style={ { marginBottom: -13 } }>
-                                                        <span className="fas fa-desktop" />
-                                                    </div>
-                                                </BaseControl>
-                                                <SelectControl
-                                                    label={ __( 'Size' ) }
-                                                    value={ colSizeSettings.xl_size }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.xl_size = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnSizes() }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Order' ) }
-                                                    value={ colSizeSettings.xl_order }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.xl_order = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnOrders( columns ) }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Display' ) }
-                                                    value={ colSizeSettings.xl_display }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.xl_display = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnDisplay() }
-                                                />
-
-                                                <div className="ghostkit-control-tabs-separator">
-                                                    <span className="fas fa-laptop" />
-                                                </div>
-                                                <SelectControl
-                                                    label={ __( 'Size' ) }
-                                                    value={ colSizeSettings.lg_size }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.lg_size = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnSizes() }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Order' ) }
-                                                    value={ colSizeSettings.lg_order }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.lg_order = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnOrders( columns ) }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Display' ) }
-                                                    value={ colSizeSettings.lg_display }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.lg_display = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnDisplay() }
-                                                />
-
-                                                <div className="ghostkit-control-tabs-separator">
-                                                    <span className="fas fa-tablet-alt" />
-                                                </div>
-                                                <SelectControl
-                                                    label={ __( 'Size' ) }
-                                                    value={ colSizeSettings.md_size }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.md_size = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnSizes() }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Order' ) }
-                                                    value={ colSizeSettings.md_order }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.md_order = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnOrders( columns ) }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Display' ) }
-                                                    value={ colSizeSettings.md_display }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.md_display = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnDisplay() }
-                                                />
-
-                                                <div className="ghostkit-control-tabs-separator">
-                                                    <span className="fas fa-mobile-alt" />
-                                                </div>
-                                                <SelectControl
-                                                    label={ __( 'Size' ) }
-                                                    value={ colSizeSettings.sm_size }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.sm_size = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnSizes() }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Order' ) }
-                                                    value={ colSizeSettings.sm_order }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.sm_order = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnOrders( columns ) }
-                                                />
-                                                <SelectControl
-                                                    label={ __( 'Display' ) }
-                                                    value={ colSizeSettings.sm_display }
-                                                    onChange={ ( value ) => {
-                                                        colSizeSettings.sm_display = value;
-                                                        columnsSettings[ colName ] = colSizeSettings;
-                                                        setAttributes( { columnsSettings: Object.assign( {}, columnsSettings ) } );
-                                                    } }
-                                                    options={ getDefaultColumnDisplay() }
-                                                />
-                                            </Fragment>
-                                        );
-                                    }
-                                }
-                            </TabPanel>
-                        </BaseControl>
                         <SelectControl
                             label={ __( 'Vertical alignment' ) }
                             value={ verticalAlign }
@@ -518,7 +195,11 @@ class GridBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
-                    <InnerBlocks layouts={ getColumnLayouts( attributes ) } />
+                    <InnerBlocks
+                        template={ getColumnsTemplate( columns ) }
+                        templateLock="all"
+                        allowedBlocks={ [ 'ghostkit/grid-column' ] }
+                    />
                 </div>
             </Fragment>
         );
@@ -529,7 +210,7 @@ export const name = 'ghostkit/grid';
 
 export const settings = {
     title: __( 'Grid' ),
-    description: __( 'Responsive Grid System.' ),
+    description: __( 'Add a block that displays content in responsive grid columns, then add whatever content blocks you\'d like.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
     category: 'layout',
     keywords: [
@@ -539,6 +220,7 @@ export const settings = {
     ],
     supports: {
         html: false,
+        className: false,
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
@@ -551,10 +233,6 @@ export const settings = {
         columns: {
             type: 'number',
             default: 2,
-        },
-        columnsSettings: {
-            type: 'object',
-            default: {},
         },
         gap: {
             type: 'string',
@@ -569,6 +247,12 @@ export const settings = {
         align: {
             type: 'string',
         },
+
+        // Should be used in Deprecated block
+        columnsSettings: {
+            type: 'object',
+            default: {},
+        },
     },
 
     getEditWrapperProps( attributes ) {
@@ -581,7 +265,6 @@ export const settings = {
 
     save: function( { attributes, className = '' } ) {
         const {
-            columns,
             verticalAlign,
             horizontalAlign,
             gap,
@@ -590,10 +273,10 @@ export const settings = {
 
         className = classnames(
             className,
-            `ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }`,
+            'ghostkit-grid',
+            `ghostkit-grid-gap-${ gap }`,
             verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,
-            horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false,
-            getGridClass( attributes )
+            horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
         );
 
         if ( 'default' !== variant ) {
@@ -606,4 +289,6 @@ export const settings = {
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };
