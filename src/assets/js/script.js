@@ -26,72 +26,13 @@ function prepareCustomStyles() {
  * Prepare Tabs
  */
 function prepareTabs() {
-    $( '.wp-block-ghostkit-tabs:not(.ghostkit-tabs-ready)' ).each( function() {
+    $( '.ghostkit-tabs:not(.ghostkit-tabs-ready)' ).each( function() {
         const $this = $( this );
         const $tabsCont = $this.children( '.ghostkit-tabs-content' );
         const $tabsButtons = $this.children( '.ghostkit-tabs-buttons' );
-        const tabsContent = {};
+        const tabsActive = $this.attr( 'data-tab-active' );
 
         $this.addClass( 'ghostkit-tabs-ready' );
-
-        // get tabs count.
-        let tabs = $this.attr( 'class' ).match( /ghostkit-tabs-\d+/ );
-        if ( tabs && tabs[ 0 ] ) {
-            tabs = tabs[ 0 ].match( /\d+/ );
-        }
-        if ( tabs && tabs[ 0 ] ) {
-            tabs = parseInt( tabs[ 0 ], 10 );
-        } else {
-            return;
-        }
-
-        // get tabs active.
-        let tabsActive = $this.attr( 'class' ).match( /ghostkit-tabs-active-\d+/ );
-        if ( tabsActive && tabsActive[ 0 ] ) {
-            tabsActive = tabsActive[ 0 ].match( /\d+/ );
-        }
-        if ( tabsActive && tabsActive[ 0 ] ) {
-            tabsActive = parseInt( tabsActive[ 0 ], 10 );
-        } else {
-            tabsActive = 1;
-        }
-
-        // create tabs.
-        for ( let k = 1; k <= tabs; k++ ) {
-            const $content = $tabsCont.children( `.ghostkit-tab-${ k }` );
-            let tabClasses = '';
-            let getClassesFromContent = true;
-
-            // move grid classes from the content items to the tab.
-            $content.each( function() {
-                const $contentItem = $( this );
-                let itemClasses = $contentItem.attr( 'class' ) || '';
-                let newItemClasses = '';
-                itemClasses = itemClasses.split( ' ' );
-
-                if ( itemClasses && itemClasses.length ) {
-                    itemClasses.forEach( ( val ) => {
-                        if ( ! /layout\-ghostkit|ghostkit\-tab/.test( val ) ) {
-                            newItemClasses += ( newItemClasses ? ' ' : '' ) + val;
-                        } else if ( getClassesFromContent ) {
-                            tabClasses += ( tabClasses ? ' ' : '' ) + val;
-                        }
-                    } );
-
-                    if ( tabClasses ) {
-                        getClassesFromContent = false;
-                    }
-                }
-
-                $contentItem.attr( 'class', newItemClasses );
-            } );
-
-            tabsContent[ k ] = $( `<div class="${ tabClasses || `ghostkit-tab-${ k }` }${ tabsActive === k ? ' ghostkit-tab-active' : '' }">` ).append( $content );
-        }
-
-        for ( const i in tabsContent ) {
-            $tabsCont.append( tabsContent[ i ] );
-        }
 
         // click action
         $this.on( 'click', '.ghostkit-tabs-buttons-item', function( e ) {
@@ -102,7 +43,7 @@ function prepareTabs() {
             $thisBtn.addClass( 'ghostkit-tabs-buttons-item-active' )
                 .siblings().removeClass( 'ghostkit-tabs-buttons-item-active' );
 
-            $tabsCont.children( `.ghostkit-tab-${ $thisBtn.attr( 'data-tab' ) }` )
+            $tabsCont.children( `[data-tab="${ $thisBtn.attr( 'data-tab' ) }"]` )
                 .addClass( 'ghostkit-tab-active' )
                 .siblings().removeClass( 'ghostkit-tab-active' );
         } );
@@ -123,7 +64,7 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
                     if ( $( node ).is( '[data-ghostkit-styles]' ) ) {
                         readyCustomStyles = 1;
                     }
-                    if ( $( node ).is( '.wp-block-ghostkit-tabs:not(.ghostkit-tabs-ready)' ) ) {
+                    if ( $( node ).is( '.ghostkit-tabs:not(.ghostkit-tabs-ready)' ) ) {
                         readyTabsBlock = 1;
                     }
                 } );

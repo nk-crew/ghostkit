@@ -7,6 +7,7 @@ import * as button from './button/index.jsx';
 import * as progress from './progress/index.jsx';
 import * as iconBox from './icon-box/index.jsx';
 import * as tabs from './tabs/index.jsx';
+import * as tabsTab from './tabs/tab.jsx';
 import * as counterBox from './counter-box/index.jsx';
 import * as alert from './alert/index.jsx';
 import * as customizer from './customizer/index.jsx';
@@ -34,6 +35,7 @@ const { registerBlockType } = wp.blocks;
     progress,
     iconBox,
     tabs,
+    tabsTab,
     counterBox,
     alert,
     customizer,

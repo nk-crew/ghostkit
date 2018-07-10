@@ -6,6 +6,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/tabs.svg';
+import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -25,38 +26,35 @@ const {
     InnerBlocks,
 } = wp.editor;
 
-const getTabs = ( { tabsCount, tabsSettings } ) => {
+/**
+ * Returns the layouts configuration for a given number of tabs.
+ *
+ * @param {number} attributes tabs attributes.
+ *
+ * @return {Object[]} Tabs layout configuration.
+ */
+const getTabsTemplate = ( attributes ) => {
+    const {
+        tabsCount,
+    } = attributes;
     const result = [];
 
     for ( let k = 1; k <= tabsCount; k++ ) {
-        result.push( {
-            name: `ghostkit ghostkit-tab ghostkit-tab-${ k }`,
-            label: tabsSettings[ 'tab_' + k ] ? tabsSettings[ 'tab_' + k ].label : sprintf( __( 'Tab %d' ), k ),
-            number: k,
-        } );
+        result.push( [ 'ghostkit/tabs-tab', { tabNumber: k } ] );
     }
 
     return result;
 };
 
-/**
- * Returns the layouts configuration for a given number of tabs.
- *
- * @param {object} attributes - block attributes.
- *
- * @return {Object[]} Columns layout configuration.
- */
-const getLayouts = ( attributes ) => {
+const getTabs = ( { tabsCount, tabsSettings } ) => {
     const result = [];
 
-    const tabs = getTabs( attributes );
-    tabs.forEach( ( tab ) => {
+    for ( let k = 1; k <= tabsCount; k++ ) {
         result.push( {
-            name: tab.name,
-            label: tab.label,
-            icon: 'columns',
+            label: tabsSettings[ 'tab_' + k ] ? tabsSettings[ 'tab_' + k ].label : sprintf( __( 'Tab %d' ), k ),
+            number: k,
         } );
-    } );
+    }
 
     return result;
 };
@@ -85,7 +83,7 @@ class TabsBlock extends Component {
 
         className = classnames(
             className,
-            `ghostkit-tabs-active-${ tabActive }`
+            'ghostkit-tabs'
         );
 
         return (
@@ -138,7 +136,7 @@ class TabsBlock extends Component {
                         />
                     </PanelBody>
                 </InspectorControls>
-                <div className={ className }>
+                <div className={ className } data-tab-active={ tabActive }>
                     <div className={ classnames( 'ghostkit-tabs-buttons', `ghostkit-tabs-buttons-align-${ buttonsAlign }` ) }>
                         {
                             tabs.map( ( val ) => {
@@ -171,7 +169,11 @@ class TabsBlock extends Component {
                         }
                     </div>
                     <div className="ghostkit-tabs-content">
-                        <InnerBlocks layouts={ getLayouts( attributes ) } />
+                        <InnerBlocks
+                            template={ getTabsTemplate( attributes ) }
+                            templateLock="all"
+                            allowedBlocks={ [ 'ghostkit/tabs-tab' ] }
+                        />
                     </div>
                 </div>
             </Fragment>
@@ -193,6 +195,7 @@ export const settings = {
     ],
     supports: {
         html: false,
+        className: false,
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
@@ -241,8 +244,8 @@ export const settings = {
 
         className = classnames(
             className,
-            `ghostkit-tabs-${ tabsCount }`,
-            `ghostkit-tabs-active-${ tabActive }`
+            'ghostkit-tabs',
+            `ghostkit-tabs-${ tabsCount }`
         );
 
         if ( 'default' !== variant ) {
@@ -252,7 +255,7 @@ export const settings = {
         const tabs = getTabs( attributes );
 
         return (
-            <div className={ className }>
+            <div className={ className } data-tab-active={ tabActive }>
                 <div className={ classnames( 'ghostkit-tabs-buttons', `ghostkit-tabs-buttons-align-${ buttonsAlign }` ) }>
                     {
                         tabs.map( ( val ) => {
@@ -270,4 +273,6 @@ export const settings = {
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };

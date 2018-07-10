@@ -3,7 +3,7 @@
  */
 @import "../variables";
 
-.wp-block-ghostkit-tabs {
+.ghostkit-tabs {
     .ghostkit-tabs-buttons {
         display: flex;
         flex-wrap: wrap;
@@ -47,7 +47,7 @@
             }
         }
     }
-    .ghostkit-tabs-content > .ghostkit-tab {
+    .ghostkit-tabs-content .ghostkit-tab {
         position: absolute;
         width: 1px;
         height: 1px;

@@ -3,7 +3,7 @@
  */
 @import "../variables";
 
-.wp-block-ghostkit-tabs {
+.ghostkit-tabs {
     .ghostkit-tabs-buttons {
         display: flex;
         flex-wrap: wrap;
@@ -57,17 +57,15 @@
         }
     }
 
-    .ghostkit-tab {
+    .ghostkit-tabs-content [data-tab] {
         display: none;
     }
 
     // support up to 50 tabs.
     @for $tab from 1 through 50 {
         // Provide basic `.col-{bp}` classes for equal-width flexbox columns
-        &.ghostkit-tabs-active-#{$tab} {
-            .ghostkit-tabs-content .ghostkit-tab-#{$tab} {
-                display: block;
-            }
+        &[data-tab-active="#{$tab}"] .ghostkit-tabs-content [data-tab="#{$tab}"] {
+            display: block;
         }
     }
 }
