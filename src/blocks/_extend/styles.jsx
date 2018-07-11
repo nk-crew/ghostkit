@@ -121,68 +121,145 @@ const renderStyles = () => {
 /**
  * Extend block attributes with styles.
  *
- * @param {Object} settings Original block settings.
+ * @param {Object} blockSettings Original block settings.
  * @param {String} name Original block name.
  *
  * @return {Object} Filtered block settings.
  */
-function addAttribute( settings, name ) {
+function addAttribute( blockSettings, name ) {
     let allow = false;
 
-    if ( settings && settings.attributes && hasBlockSupport( settings, 'ghostkitStyles', false ) ) {
-        allow = true;
+    // prepare settings of block + deprecated blocks.
+    const eachSettings = [ blockSettings ];
+    if ( blockSettings.deprecated && blockSettings.deprecated.length ) {
+        blockSettings.deprecated.forEach( ( item ) => {
+            eachSettings.push( item );
+        } );
     }
 
-    if ( ! allow ) {
-        allow = applyFilters(
-            'ghostkit.blocks.registerBlockType.allowCustomStyles',
-            false,
-            settings,
-            name
-        );
-    }
-
-    if ( allow ) {
-        if ( ! settings.attributes.ghostkitStyles ) {
-            settings.attributes.ghostkitStyles = {
-                type: 'object',
-                default: '',
-            };
+    eachSettings.forEach( ( settings ) => {
+        if ( settings && settings.attributes && hasBlockSupport( settings, 'ghostkitStyles', false ) ) {
+            allow = true;
         }
-        if ( ! settings.attributes.ghostkitClassname ) {
-            settings.attributes.ghostkitClassname = {
-                type: 'string',
-                default: '',
-            };
-        }
-        if ( ! settings.attributes.ghostkitId ) {
-            settings.attributes.ghostkitId = {
-                type: 'string',
-                default: '',
-            };
-        }
-        settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
 
-        // change default edit class/function.
-        const defaultEdit = settings.edit;
+        if ( ! allow ) {
+            allow = applyFilters(
+                'ghostkit.blocks.registerBlockType.allowCustomStyles',
+                false,
+                settings,
+                name
+            );
+        }
 
-        // edit class.
-        if ( defaultEdit.prototype && defaultEdit.prototype.render ) {
-            class newEdit extends defaultEdit {
-                render() {
+        if ( allow ) {
+            if ( ! settings.attributes.ghostkitStyles ) {
+                settings.attributes.ghostkitStyles = {
+                    type: 'object',
+                    default: '',
+                };
+
+                // add to deprecated items.
+                if ( settings.deprecated && settings.deprecated.length ) {
+                    settings.deprecated.forEach( ( item, i ) => {
+                        if ( settings.deprecated[ i ].attributes ) {
+                            settings.deprecated[ i ].attributes.ghostkitStyles = settings.attributes.ghostkitStyles;
+                        }
+                    } );
+                }
+            }
+            if ( ! settings.attributes.ghostkitClassname ) {
+                settings.attributes.ghostkitClassname = {
+                    type: 'string',
+                    default: '',
+                };
+
+                // add to deprecated items.
+                if ( settings.deprecated && settings.deprecated.length ) {
+                    settings.deprecated.forEach( ( item, i ) => {
+                        if ( settings.deprecated[ i ].attributes ) {
+                            settings.deprecated[ i ].attributes.ghostkitClassname = settings.attributes.ghostkitClassname;
+                        }
+                    } );
+                }
+            }
+            if ( ! settings.attributes.ghostkitId ) {
+                settings.attributes.ghostkitId = {
+                    type: 'string',
+                    default: '',
+                };
+
+                // add to deprecated items.
+                if ( settings.deprecated && settings.deprecated.length ) {
+                    settings.deprecated.forEach( ( item, i ) => {
+                        if ( settings.deprecated[ i ].attributes ) {
+                            settings.deprecated[ i ].attributes.ghostkitId = settings.attributes.ghostkitId;
+                        }
+                    } );
+                }
+            }
+            settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
+
+            // change default edit class/function.
+            const defaultEdit = settings.edit;
+
+            // edit class.
+            if ( defaultEdit && defaultEdit.prototype && defaultEdit.prototype.render ) {
+                class newEdit extends defaultEdit {
+                    render() {
+                        const {
+                            setAttributes,
+                            attributes,
+                        } = this.props;
+
+                        const customStyles = {};
+
+                        if ( attributes.ghostkitClassname ) {
+                            // prepare custom block styles.
+                            const blockCustomStyles = applyFilters(
+                                'ghostkit.blocks.customStyles',
+                                this.ghostkitStyles ? this.ghostkitStyles( attributes ) : {},
+                                this.props
+                            );
+
+                            if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
+                                customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
+                            }
+
+                            if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
+                                setAttributes( { ghostkitStyles: customStyles } );
+                            }
+
+                            return (
+                                <Fragment>
+                                    { super.render( ...arguments ) }
+                                    <div { ...getCustomStylesAttr( customStyles ) } />
+                                </Fragment>
+                            );
+                        }
+
+                        return super.render( ...arguments );
+                    }
+                }
+                settings.edit = newEdit;
+
+                // edit function.
+            } else if ( defaultEdit && defaultEdit.prototype ) {
+                settings.edit = function( props ) {
                     const {
-                        setAttributes,
                         attributes,
-                    } = this.props;
+                        setAttributes,
+                    } = props;
 
+                    const result = defaultEdit.apply( this, arguments );
+
+                    // generate styles
                     const customStyles = {};
-
                     if ( attributes.ghostkitClassname ) {
                         // prepare custom block styles.
                         const blockCustomStyles = applyFilters(
                             'ghostkit.blocks.customStyles',
-                            this.ghostkitStyles ? this.ghostkitStyles( attributes ) : {},
-                            this.props
+                            defaultEdit.ghostkitStyles ? defaultEdit.ghostkitStyles( attributes ) : {},
+                            props
                         );
 
                         if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
@@ -192,55 +269,15 @@ function addAttribute( settings, name ) {
                         if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
                             setAttributes( { ghostkitStyles: customStyles } );
                         }
-
-                        return (
-                            <Fragment>
-                                { super.render( ...arguments ) }
-                                <div { ...getCustomStylesAttr( customStyles ) } />
-                            </Fragment>
-                        );
                     }
 
-                    return super.render( ...arguments );
-                }
+                    return result;
+                };
             }
-            settings.edit = newEdit;
-
-        // edit function.
-        } else if ( defaultEdit.prototype ) {
-            settings.edit = function( props ) {
-                const {
-                    attributes,
-                    setAttributes,
-                } = props;
-
-                const result = defaultEdit.apply( this, arguments );
-
-                // generate styles
-                const customStyles = {};
-                if ( attributes.ghostkitClassname ) {
-                    // prepare custom block styles.
-                    const blockCustomStyles = applyFilters(
-                        'ghostkit.blocks.customStyles',
-                        defaultEdit.ghostkitStyles ? defaultEdit.ghostkitStyles( attributes ) : {},
-                        props
-                    );
-
-                    if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
-                        customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
-                    }
-
-                    if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
-                        setAttributes( { ghostkitStyles: customStyles } );
-                    }
-                }
-
-                return result;
-            };
         }
-    }
+    } );
 
-    return settings;
+    return blockSettings;
 }
 
 /**

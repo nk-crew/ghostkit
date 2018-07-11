@@ -79,6 +79,15 @@ function addAttribute( settings, name ) {
                 type: 'object',
                 default: {},
             };
+
+            // add to deprecated items.
+            if ( settings.deprecated && settings.deprecated.length ) {
+                settings.deprecated.forEach( ( item, i ) => {
+                    if ( settings.deprecated[ i ].attributes ) {
+                        settings.deprecated[ i ].attributes.ghostkitIndents = settings.attributes.ghostkitIndents;
+                    }
+                } );
+            }
         }
     }
     return settings;
