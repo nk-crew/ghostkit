@@ -22,8 +22,6 @@ const {
 } = wp.components;
 
 const {
-    BlockControls,
-    BlockAlignmentToolbar,
     InspectorControls,
     InnerBlocks,
 } = wp.editor;
@@ -59,7 +57,6 @@ class GridBlock extends Component {
             gap,
             verticalAlign,
             horizontalAlign,
-            align,
             variant,
         } = attributes;
 
@@ -85,15 +82,6 @@ class GridBlock extends Component {
 
         return (
             <Fragment>
-                <BlockControls>
-                    <BlockAlignmentToolbar
-                        controls={ [ 'wide', 'full' ] }
-                        value={ align }
-                        onChange={ ( nextAlign ) => {
-                            setAttributes( { align: nextAlign } );
-                        } }
-                    />
-                </BlockControls>
                 <InspectorControls>
                     <PanelBody>
                         { Object.keys( availableVariants ).length > 1 ? (
@@ -221,6 +209,7 @@ export const settings = {
     supports: {
         html: false,
         className: false,
+        align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
@@ -244,21 +233,12 @@ export const settings = {
         horizontalAlign: {
             type: 'string',
         },
-        align: {
-            type: 'string',
-        },
 
         // Should be used in Deprecated block
         columnsSettings: {
             type: 'object',
             default: {},
         },
-    },
-
-    getEditWrapperProps( attributes ) {
-        const { align } = attributes;
-
-        return { 'data-align': align };
     },
 
     edit: GridBlock,

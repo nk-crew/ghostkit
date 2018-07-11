@@ -20,8 +20,6 @@ const {
 
 const {
     RichText,
-    BlockControls,
-    BlockAlignmentToolbar,
     InspectorControls,
     InnerBlocks,
 } = wp.editor;
@@ -73,7 +71,6 @@ class TabsBlock extends Component {
             tabActive,
             tabsSettings,
             buttonsAlign,
-            align,
             variant,
         } = attributes;
 
@@ -88,15 +85,6 @@ class TabsBlock extends Component {
 
         return (
             <Fragment>
-                <BlockControls>
-                    <BlockAlignmentToolbar
-                        controls={ [ 'wide', 'full' ] }
-                        value={ align }
-                        onChange={ ( nextAlign ) => {
-                            setAttributes( { align: nextAlign } );
-                        } }
-                    />
-                </BlockControls>
                 <InspectorControls>
                     <PanelBody>
                         { Object.keys( availableVariants ).length > 1 ? (
@@ -196,6 +184,7 @@ export const settings = {
     supports: {
         html: false,
         className: false,
+        align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
@@ -221,15 +210,6 @@ export const settings = {
             type: 'string',
             default: 'start',
         },
-        align: {
-            type: 'string',
-        },
-    },
-
-    getEditWrapperProps( attributes ) {
-        const { align } = attributes;
-
-        return { 'data-align': align };
     },
 
     edit: TabsBlock,

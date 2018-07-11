@@ -138,6 +138,7 @@ export const settings = {
     ],
     supports: {
         html: false,
+        align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
