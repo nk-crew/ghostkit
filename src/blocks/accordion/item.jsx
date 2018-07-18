@@ -42,7 +42,7 @@ class AccordionItemBlock extends Component {
             active ? 'ghostkit-accordion-item-active' : ''
         );
 
-        const availableVariants = GHOSTKIT.getVariants( 'accordion-item' );
+        const availableVariants = GHOSTKIT.getVariants( 'accordion_item' );
 
         return (
             <Fragment>

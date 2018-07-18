@@ -9,7 +9,8 @@
 .ghostkit-tabs,
 .ghostkit-accordion,
 .wp-block-ghostkit-counter-box,
-.wp-block-ghostkit-alert {
+.wp-block-ghostkit-alert,
+.ghostkit-carousel {
     margin-bottom: 28px;
 }
 
@@ -32,3 +33,4 @@
 @import "./accordion/style";
 @import "./counter-box/style";
 @import "./alert/style";
+@import "./carousel/style";

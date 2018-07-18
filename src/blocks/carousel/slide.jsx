@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/tabs.svg';
+import elementIcon from '../_icons/carousel.svg';
 
 const { GHOSTKIT } = window;
 
@@ -18,24 +18,31 @@ const {
     InnerBlocks,
 } = wp.editor;
 
-class TabBlock extends Component {
+class CarouselSlideBlock extends Component {
     render() {
         const {
             attributes,
             setAttributes,
         } = this.props;
 
-        let {
-            className = '',
-        } = this.props;
-
         const {
             variant,
         } = attributes;
 
-        className = classnames( className, 'ghostkit-tab' );
+        let {
+            className,
+        } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'tabs_tab' );
+        className = classnames(
+            className,
+            'ghostkit-carousel-slide'
+        );
+
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-carousel-slide-variant-${ variant }` );
+        }
+
+        const availableVariants = GHOSTKIT.getVariants( 'carousel_slide' );
 
         return (
             <Fragment>
@@ -62,12 +69,12 @@ class TabBlock extends Component {
     }
 }
 
-export const name = 'ghostkit/tabs-tab';
+export const name = 'ghostkit/carousel-slide';
 
 export const settings = {
-    title: __( 'Tab' ),
-    parent: [ 'ghostkit/tabs' ],
-    description: __( 'A single tab within a tabs block.' ),
+    title: __( 'Slide' ),
+    parent: [ 'ghostkit/carousel' ],
+    description: __( 'A single slide within a carousel block.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
     category: 'layout',
     supports: {
@@ -82,35 +89,30 @@ export const settings = {
             type: 'string',
             default: 'default',
         },
-        tabNumber: {
-            type: 'number',
-        },
     },
 
-    edit: TabBlock,
-
-    getEditWrapperProps( attributes ) {
-        return { 'data-tab': attributes.tabNumber };
-    },
+    edit: CarouselSlideBlock,
 
     save: function( { attributes } ) {
         const {
             variant,
-            tabNumber,
         } = attributes;
 
         let {
             className,
         } = attributes;
 
-        className = classnames( className, 'ghostkit-tab' );
+        className = classnames(
+            className,
+            'ghostkit-carousel-slide'
+        );
 
         if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-tab-variant-${ variant }` );
+            className = classnames( className, `ghostkit-carousel-slide-variant-${ variant }` );
         }
 
         return (
-            <div className={ className } data-tab={ tabNumber }>
+            <div className={ className }>
                 <InnerBlocks.Content />
             </div>
         );

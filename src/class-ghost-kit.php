@@ -138,6 +138,12 @@ class GhostKit {
             wp_register_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.13' );
         }
 
+        // Swiper.
+        if ( apply_filters( 'gkt_enqueue_plugin_swiper', true ) ) {
+            wp_register_style( 'swiper', plugins_url( 'assets/vendor/swiper/css/swiper.css', __FILE__ ), '', '4.3.3' );
+            wp_register_script( 'swiper', plugins_url( 'assets/vendor/swiper/js/swiper.min.js', __FILE__ ), '', '4.3.3', true );
+        }
+
         // helper script.
         wp_register_script(
             'ghostkit-helper',
@@ -153,20 +159,25 @@ class GhostKit {
         wp_localize_script( 'ghostkit-helper', 'ghostkitVariables', array(
             // TODO: Move this to plugin options (part 1).
             'media_sizes' => array(
-                'sm' => '(max-width: 576px)',
-                'md' => '(max-width: 768px)',
-                'lg' => '(max-width: 992px)',
-                'xl' => '(max-width: 1200px)',
+                'sm' => 576,
+                'md' => 768,
+                'lg' => 992,
+                'xl' => 1200,
             ),
             'variants'   => array(
-                'alert'       => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
-                'button'      => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
-                'counter_box' => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
-                'tabs'        => array_merge( $default_variant, apply_filters( 'gkt_tabs_variants', array() ) ),
-                'accordion'   => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
-                'grid'        => array_merge( $default_variant, apply_filters( 'gkt_grid_variants', array() ) ),
-                'icon_box'    => array_merge( $default_variant, apply_filters( 'gkt_icon_box_variants', array() ) ),
-                'progress'    => array_merge( $default_variant, apply_filters( 'gkt_progress_variants', array() ) ),
+                'alert'          => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
+                'button'         => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
+                'counter_box'    => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
+                'tabs'           => array_merge( $default_variant, apply_filters( 'gkt_tabs_variants', array() ) ),
+                'tabs_tab'       => array_merge( $default_variant, apply_filters( 'gkt_tabs_tab_variants', array() ) ),
+                'accordion'      => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
+                'accordion_item' => array_merge( $default_variant, apply_filters( 'gkt_accordion_item_variants', array() ) ),
+                'grid'           => array_merge( $default_variant, apply_filters( 'gkt_grid_variants', array() ) ),
+                'grid_column'    => array_merge( $default_variant, apply_filters( 'gkt_grid_column_variants', array() ) ),
+                'icon_box'       => array_merge( $default_variant, apply_filters( 'gkt_icon_box_variants', array() ) ),
+                'progress'       => array_merge( $default_variant, apply_filters( 'gkt_progress_variants', array() ) ),
+                'carousel'       => array_merge( $default_variant, apply_filters( 'gkt_carousel_variants', array() ) ),
+                'carousel_slide' => array_merge( $default_variant, apply_filters( 'gkt_carousel_slide_variants', array() ) ),
             ),
         ) );
     }
@@ -202,6 +213,12 @@ class GhostKit {
         // FontAwesome.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
             wp_enqueue_script( 'font-awesome' );
+        }
+
+        // Swiper.
+        if ( apply_filters( 'gkt_enqueue_plugin_swiper', true ) ) {
+            wp_enqueue_style( 'swiper' );
+            wp_enqueue_script( 'swiper' );
         }
 
         // GhostKit.

@@ -143,7 +143,7 @@ class GridColumnBlock extends Component {
             order,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'grid-column' );
+        const availableVariants = GHOSTKIT.getVariants( 'grid_column' );
 
         return (
             <Fragment>

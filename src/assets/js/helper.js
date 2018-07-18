@@ -11,7 +11,7 @@ window.GHOSTKIT = {
     replaceVars( str ) {
         Object.keys( this.vars ).map( ( key ) => {
             // TODO: we need also check for valid key value https://stackoverflow.com/a/4371855/9039306
-            str = str.replace( new RegExp( `#{ghostkitvar:${ key }}`, 'g' ), this.vars[ key ] );
+            str = str.replace( new RegExp( `#{ghostkitvar:${ key }}`, 'g' ), `(max-width: ${ this.vars[ key ] }px)` );
         } );
 
         return str;

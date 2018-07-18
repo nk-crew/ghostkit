@@ -37,6 +37,7 @@ There are some plugins, enqueued with GhostKit on your page. If you don't like t
 Available filters:
 
 * **gkt_enqueue_plugin_font_awesome**
+* **gkt_enqueue_plugin_swiper**
 
 ### How to extend existing blocks ####
 You can add Variants to existing blocks, so you will be able to add your own styles for it:
@@ -63,6 +64,7 @@ Available filters:
 * **gkt_grid_variants**
 * **gkt_icon_box_variants**
 * **gkt_progress_variants**
+* **gkt_carousel_variants**
 
 
 ## Changelog ##
