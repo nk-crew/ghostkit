@@ -8,6 +8,8 @@ import * as progress from './progress/index.jsx';
 import * as iconBox from './icon-box/index.jsx';
 import * as tabs from './tabs/index.jsx';
 import * as tabsTab from './tabs/tab.jsx';
+import * as accordion from './accordion/index.jsx';
+import * as accordionItem from './accordion/item.jsx';
 import * as counterBox from './counter-box/index.jsx';
 import * as alert from './alert/index.jsx';
 import * as customizer from './customizer/index.jsx';
@@ -36,6 +38,8 @@ const { registerBlockType } = wp.blocks;
     iconBox,
     tabs,
     tabsTab,
+    accordion,
+    accordionItem,
     counterBox,
     alert,
     customizer,

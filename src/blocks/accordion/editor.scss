@@ -1,0 +1,64 @@
+/**
+ * Editor Styles
+ */
+@import "../variables";
+
+.ghostkit-accordion {
+    .ghostkit-accordion-item {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .edit-post-visual-editor,
+    .edit-post-visual-editor p,
+    .editor-rich-text__tinymce.mce-content-body {
+        line-height: inherit;
+    }
+
+    .ghostkit-accordion-item-heading {
+        display: block;
+        padding: 8px 20px;
+        margin-bottom: -1px;
+        font-weight: 500;
+        border: 1px solid #dee2e6;
+        border-radius: 3px;
+        opacity: .6;
+        transition: .15s border-color, .15s background-color, .15s opacity;
+        will-change: border-color, background-color, opacity;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .ghostkit-accordion-item-collapse {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 46px;
+        height: 46px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        outline: none;
+        transition: .15s transform;
+        will-change: trasnform;
+    }
+
+    .ghostkit-accordion-item-content {
+        display: none;
+    }
+
+    .ghostkit-accordion-item-active {
+        .ghostkit-accordion-item-heading {
+            border-color: #dee2e6;
+            opacity: 1;
+        }
+        .ghostkit-accordion-item-collapse {
+            transform: rotate(90deg);
+        }
+        .ghostkit-accordion-item-content {
+            display: block;
+        }
+    }
+}

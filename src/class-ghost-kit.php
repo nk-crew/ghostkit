@@ -152,20 +152,21 @@ class GhostKit {
         );
         wp_localize_script( 'ghostkit-helper', 'ghostkitVariables', array(
             // TODO: Move this to plugin options (part 1).
-            'media_sizes'      => array(
+            'media_sizes' => array(
                 'sm' => '(max-width: 576px)',
                 'md' => '(max-width: 768px)',
                 'lg' => '(max-width: 992px)',
                 'xl' => '(max-width: 1200px)',
             ),
-            'variants'         => array(
-                'alert'        => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
-                'button'       => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
-                'counter_box'  => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
-                'tabs'         => array_merge( $default_variant, apply_filters( 'gkt_tabs_variants', array() ) ),
-                'grid'         => array_merge( $default_variant, apply_filters( 'gkt_grid_variants', array() ) ),
-                'icon_box'     => array_merge( $default_variant, apply_filters( 'gkt_icon_box_variants', array() ) ),
-                'progress'     => array_merge( $default_variant, apply_filters( 'gkt_progress_variants', array() ) ),
+            'variants'   => array(
+                'alert'       => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
+                'button'      => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
+                'counter_box' => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
+                'tabs'        => array_merge( $default_variant, apply_filters( 'gkt_tabs_variants', array() ) ),
+                'accordion'   => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
+                'grid'        => array_merge( $default_variant, apply_filters( 'gkt_grid_variants', array() ) ),
+                'icon_box'    => array_merge( $default_variant, apply_filters( 'gkt_icon_box_variants', array() ) ),
+                'progress'    => array_merge( $default_variant, apply_filters( 'gkt_progress_variants', array() ) ),
             ),
         ) );
     }

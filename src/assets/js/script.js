@@ -51,12 +51,38 @@ function prepareTabs() {
     } );
 }
 
+/**
+ * Prepare Accordions
+ */
+function prepareAccordions() {
+    $( '.ghostkit-accordion:not(.ghostkit-accordion-ready)' ).each( function() {
+        $( this ).addClass( 'ghostkit-accordion-ready' )
+            .on( 'click', '.ghostkit-accordion-item .ghostkit-accordion-item-heading', function( e ) {
+                e.preventDefault();
+
+                const $heading = $( this );
+                const $item = $heading.closest( '.ghostkit-accordion-item' );
+                const $content = $item.find( '.ghostkit-accordion-item-content' );
+                const isActive = $item.hasClass( 'ghostkit-accordion-item-active' );
+
+                if ( isActive ) {
+                    $content.css( 'display', 'block' ).slideUp( 150 );
+                    $item.removeClass( 'ghostkit-accordion-item-active' );
+                } else {
+                    $content.css( 'display', 'none' ).slideDown( 150 );
+                    $item.addClass( 'ghostkit-accordion-item-active' );
+                }
+            } );
+    } );
+}
+
 // dynamically watch for elements ready state.
 let observer = false;
 if ( typeof window.MutationObserver !== 'undefined' ) {
     observer = new window.MutationObserver( ( mutations ) => {
         let readyCustomStyles = false;
         let readyTabsBlock = false;
+        let readyAccordionBlock = false;
 
         mutations.forEach( function( mutation ) {
             if ( mutation.addedNodes && mutation.addedNodes.length ) {
@@ -67,6 +93,9 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
                     if ( $( node ).is( '.ghostkit-tabs:not(.ghostkit-tabs-ready)' ) ) {
                         readyTabsBlock = 1;
                     }
+                    if ( $( node ).is( '.ghostkit-accordion:not(.ghostkit-accordion-ready)' ) ) {
+                        readyAccordionBlock = 1;
+                    }
                 } );
             }
         } );
@@ -76,6 +105,9 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
         }
         if ( readyTabsBlock ) {
             prepareTabs();
+        }
+        if ( readyAccordionBlock ) {
+            prepareAccordions();
         }
     } );
 
@@ -95,4 +127,5 @@ $( document ).on( 'DOMContentLoaded load', () => {
 
     prepareCustomStyles();
     prepareTabs();
+    prepareAccordions();
 } );
