@@ -18,8 +18,7 @@
     "lint-fix": "npm-run-all php-lint-fix css-lint-fix js-lint-fix",
     "update:packages": "npm i -g npm-check-updates && npm-check-updates -u && npm install",
     "postinstall": "composer install",
-    "precommit": "npm run lint",
-    "prepush": "npm run lint"
+    "precommit": "npm run lint"
   },
   "gulp_config": {
     "variables": {
