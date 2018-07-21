@@ -8,10 +8,44 @@
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Extendable Gutenberg blocks.
+Ghostkit is a blocks collection and extensions for Gutenberg page builder.
 
 
 ## Description ##
+
+Ghostkit is a blocks collection and powerful extensions for Gutenberg page builder. All blocks are extensible and ready for developers.
+
+[**Demo Site**](https://ghostkit.io/)
+
+#### Available blocks: ####
+
+* Grid (fully responsive)
+* Progress Bar
+* Button
+* Accordion
+* Tabs
+* Carousel
+* Alert
+* Icon Box
+* Number Box
+* Custom CSS (let you add custom CSS on the pages)
+* Customizer (let you easily overwrite customizer options on the pages)
+
+#### Available extensions: ####
+
+* Indents (paddings, margins)
+* Display (show/hide block)
+
+#### Coming soon blocks: ####
+
+* Video
+* Countdown
+* Testimonial
+* Pricing
+* Instagram
+* Twitter
+* Gif
+* Github Gist
 
 
 ## Installation ##
