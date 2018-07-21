@@ -99,7 +99,7 @@ class AlertBlock extends Component {
                             />
                         </PanelColor>
                         <ToggleControl
-                            label={ __( 'Hide Button' ) }
+                            label={ __( 'Dismiss button' ) }
                             checked={ !! hideButton }
                             onChange={ ( val ) => setAttributes( { hideButton: val } ) }
                         />

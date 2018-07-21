@@ -2,19 +2,27 @@
 import classnames from 'classnames/dedupe';
 
 const { __ } = wp.i18n;
+
 const {
     applyFilters,
     addFilter,
 } = wp.hooks;
+
 const {
-    createHigherOrderComponent,
     Component,
     Fragment,
 } = wp.element;
+
+const {
+    createHigherOrderComponent,
+} = wp.compose;
+
 const {
     hasBlockSupport,
 } = wp.blocks;
+
 const { InspectorAdvancedControls } = wp.editor;
+
 const {
     BaseControl,
     SelectControl,

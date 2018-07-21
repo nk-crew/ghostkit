@@ -199,6 +199,14 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
     } );
 }
 
+/**
+ * Prepare alerts dismiss button.
+ */
+$( document ).on( 'click', '.ghostkit-alert-hide-button', function( e ) {
+    e.preventDefault();
+    $( this ).parent().css( 'display', 'block' ).slideUp( 150 );
+} );
+
 // on dom ready.
 $( document ).on( 'DOMContentLoaded load', () => {
     // disconnect mutation observer.

@@ -7,7 +7,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 15px;
-    border: 1px solid $light-gray-400;
+    border: 1px solid $light-gray-200;
     border-left-width: 3px;
     border-radius: 3px;
 
@@ -23,6 +23,7 @@
     .ghostkit-alert-hide-button {
         display: flex;
         padding-left: 15px;
+        font-size: .7em;
         cursor: pointer;
         opacity: 1;
         transition: .2s opacity;

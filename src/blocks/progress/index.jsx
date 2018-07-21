@@ -228,7 +228,7 @@ export const settings = {
         },
         color: {
             type: 'string',
-            default: '#008dbe',
+            default: '#016c91',
         },
         backgroundColor: {
             type: 'string',

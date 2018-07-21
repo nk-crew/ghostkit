@@ -9,10 +9,18 @@ const {
     applyFilters,
     addFilter,
 } = wp.hooks;
+
 const {
     hasBlockSupport,
 } = wp.blocks;
-const { Fragment, createHigherOrderComponent } = wp.element;
+
+const {
+    Fragment,
+} = wp.element;
+
+const {
+    createHigherOrderComponent,
+} = wp.compose;
 
 const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-width', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-radius', 'bottom', 'top', 'left', 'right', 'font-size', 'height', 'width', 'min-height', 'min-width', 'max-height', 'max-width', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', 'margin', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', 'padding', 'outline-width' ];
 
@@ -298,18 +306,18 @@ const usedIds = {};
 const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
     return ( props ) => {
         // add new ghostkit props.
-        if ( props.id && typeof props.attributes.ghostkitId !== 'undefined' ) {
+        if ( props.clientId && typeof props.attributes.ghostkitId !== 'undefined' ) {
             let ID = props.attributes.ghostkitId || '';
 
             // check if ID already exist.
             let tryCount = 10;
-            while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== props.id && tryCount > 0 ) ) {
-                ID = shorthash.unique( props.id );
+            while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== props.clientId && tryCount > 0 ) ) {
+                ID = shorthash.unique( props.clientId );
                 tryCount--;
             }
 
             if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
-                usedIds[ ID ] = props.id;
+                usedIds[ ID ] = props.clientId;
             }
 
             if ( ID !== props.attributes.ghostkitId ) {

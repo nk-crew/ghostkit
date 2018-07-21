@@ -172,7 +172,7 @@ export const settings = {
         },
         numberColor: {
             type: 'string',
-            default: '#008dbe',
+            default: '#016c91',
         },
     },
 
