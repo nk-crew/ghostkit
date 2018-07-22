@@ -1,6 +1,6 @@
-# GhostKit #
+# GhostKit - Gutenberg Blocks Collection #
 * Contributors: nko
-* Tags: gutenberg, blocks, kit, extendable, ghost
+* Tags: gutenberg, blocks, kit, collection, grid
 * Requires at least: 4.8.0
 * Tested up to: 4.9
 * Requires PHP: 5.4
@@ -8,12 +8,12 @@
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Ghostkit is a blocks collection and extensions for Gutenberg page builder.
+GhostKit is a blocks collection and extensions for Gutenberg page builder.
 
 
 ## Description ##
 
-Ghostkit is a blocks collection and powerful extensions for Gutenberg page builder. All blocks are extensible and ready for developers.
+GhostKit is a blocks collection and powerful extensions for Gutenberg page builder. All blocks are extensible and ready for developers.
 
 [**Demo Site**](https://ghostkit.io/)
 
@@ -28,6 +28,7 @@ Ghostkit is a blocks collection and powerful extensions for Gutenberg page build
 * Alert
 * Icon Box
 * Number Box
+* Github Gist
 * Custom CSS (let you add custom CSS on the pages)
 * Customizer (let you easily overwrite customizer options on the pages)
 
@@ -45,10 +46,11 @@ Ghostkit is a blocks collection and powerful extensions for Gutenberg page build
 * Instagram
 * Twitter
 * Gif
-* Github Gist
 
 
 ## Installation ##
+
+You need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use GhostKit. Eventually, Gutenberg (the block editor) will be merged into WordPress and you won’t need the plugin.
 
 #### Automatic installation ####
 
@@ -72,6 +74,7 @@ Available filters:
 
 * **gkt_enqueue_plugin_font_awesome**
 * **gkt_enqueue_plugin_swiper**
+* **gkt_enqueue_plugin_gist_embed**
 
 ### How to extend existing blocks ####
 You can add Variants to existing blocks, so you will be able to add your own styles for it:
@@ -99,6 +102,21 @@ Available filters:
 * **gkt_icon_box_variants**
 * **gkt_progress_variants**
 * **gkt_carousel_variants**
+
+
+
+## Screenshots ##
+
+1. Responsive Grid
+2. Progress Bar
+3. Button
+4. Accordion
+5. Tabs
+6. Carousel
+7. Alert
+8. Icon Box
+9. Number Box
+10. Blocks Extensions
 
 
 ## Changelog ##
