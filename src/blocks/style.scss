@@ -10,7 +10,8 @@
 .ghostkit-accordion,
 .wp-block-ghostkit-counter-box,
 .wp-block-ghostkit-alert,
-.ghostkit-carousel {
+.ghostkit-carousel,
+.ghostkit-gist {
     margin-bottom: 28px;
 }
 
@@ -34,3 +35,4 @@
 @import "./counter-box/style";
 @import "./alert/style";
 @import "./carousel/style";
+@import "./gist/style";

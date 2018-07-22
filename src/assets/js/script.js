@@ -158,6 +158,34 @@ function prepareCarousels() {
     } );
 }
 
+/**
+ * Prepare Gist
+ */
+function prepareGist() {
+    $( '.ghostkit-gist:not(.ghostkit-gist-ready)' ).each( function() {
+        if ( typeof jQuery.fn.gist === 'undefined' ) {
+            return;
+        }
+
+        const $this = $( this );
+        $this.addClass( 'ghostkit-gist-ready' );
+
+        const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( $this.attr( 'data-url' ) );
+
+        if ( match && typeof match[ 1 ] !== 'undefined' ) {
+            $this.data( 'gist-id', match[ 1 ] );
+            $this.data( 'gist-file', $this.attr( 'data-file' ) );
+            $this.data( 'gist-caption', $this.attr( 'data-caption' ) );
+            $this.data( 'gist-hide-footer', $this.attr( 'data-show-footer' ) === 'false' );
+            $this.data( 'gist-hide-line-numbers', $this.attr( 'data-show-line-numbers' ) === 'false' );
+            $this.data( 'gist-show-spinner', true );
+            $this.data( 'gist-enable-cache', true );
+
+            $this.gist();
+        }
+    } );
+}
+
 // dynamically watch for elements ready state.
 let observer = false;
 if ( typeof window.MutationObserver !== 'undefined' ) {
@@ -165,6 +193,7 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
         let readyCustomStyles = false;
         let readyTabsBlock = false;
         let readyAccordionBlock = false;
+        let readyGistBlock = false;
 
         mutations.forEach( function( mutation ) {
             if ( mutation.addedNodes && mutation.addedNodes.length ) {
@@ -178,6 +207,9 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
                     if ( $( node ).is( '.ghostkit-accordion:not(.ghostkit-accordion-ready)' ) ) {
                         readyAccordionBlock = 1;
                     }
+                    if ( $( node ).is( '.ghostkit-gist:not(.ghostkit-gist-ready)' ) ) {
+                        readyGistBlock = 1;
+                    }
                 } );
             }
         } );
@@ -190,6 +222,9 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
         }
         if ( readyAccordionBlock ) {
             prepareAccordions();
+        }
+        if ( readyGistBlock ) {
+            prepareGist();
         }
     } );
 
@@ -209,14 +244,9 @@ $( document ).on( 'click', '.ghostkit-alert-hide-button', function( e ) {
 
 // on dom ready.
 $( document ).on( 'DOMContentLoaded load', () => {
-    // disconnect mutation observer.
-    if ( observer ) {
-        observer.disconnect();
-        observer = false;
-    }
-
     prepareCustomStyles();
     prepareTabs();
     prepareAccordions();
     prepareCarousels();
+    prepareGist();
 } );
