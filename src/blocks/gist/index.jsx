@@ -189,8 +189,13 @@ class GistBlock extends Component {
                         >
                             <TextControl
                                 placeholder={ __( 'https://gist.github.com/...' ) }
-                                value={ url }
-                                onChange={ ( value ) => setAttributes( { url: value } ) }
+                                value={ this.state.url }
+                                onChange={ this.urlOnChange }
+                                onKeyDown={ ( e ) => {
+                                    if ( e.keyCode === 13 ) {
+                                        this.urlOnChange( this.state.url, 0 );
+                                    }
+                                } }
                             />
                             <a href="https://gist.github.com/" target="_blank" rel="noopener noreferrer">{ __( 'Visit GitHub Gist site' ) }</a>
                         </Placeholder>
