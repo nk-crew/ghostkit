@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/gist.svg';
+import GistFilesSelect from './file-select.jsx';
 
 const { GHOSTKIT, jQuery } = window;
 
@@ -25,7 +26,18 @@ const {
 } = wp.editor;
 
 class GistBlock extends Component {
+    constructor( props ) {
+        super( props );
+        this.state = {
+            url: '',
+        };
+
+        this.onUpdate = this.onUpdate.bind( this );
+        this.urlOnChange = this.urlOnChange.bind( this );
+    }
+
     componentDidMount() {
+        this.setState( { url: this.props.attributes.url } );
         this.onUpdate();
     }
     componentDidUpdate() {
@@ -51,6 +63,13 @@ class GistBlock extends Component {
             return;
         }
 
+        // cache request to prevent reloading.
+        const cachedRequest = url + file + caption + ( showFooter ? 1 : 0 ) + ( showLineNumbers ? 1 : 0 );
+        if ( cachedRequest === this.cachedRequest ) {
+            return;
+        }
+        this.cachedRequest = cachedRequest;
+
         setTimeout( () => {
             const $gist = jQuery( this.gistNode );
 
@@ -68,6 +87,16 @@ class GistBlock extends Component {
                 $gist.gist();
             }
         }, 0 );
+    }
+
+    urlOnChange( value, timeout = 1000 ) {
+        this.setState( { url: value } );
+
+        clearTimeout( this.urlTimeout );
+
+        this.urlTimeout = setTimeout( () => {
+            this.props.setAttributes( { url: value } );
+        }, timeout );
     }
 
     render() {
@@ -115,12 +144,18 @@ class GistBlock extends Component {
 
                         <TextControl
                             label={ __( 'URL' ) }
-                            value={ url }
-                            onChange={ ( value ) => setAttributes( { url: value } ) }
+                            value={ this.state.url }
+                            onChange={ this.urlOnChange }
+                            onKeyDown={ ( e ) => {
+                                if ( e.keyCode === 13 ) {
+                                    this.urlOnChange( this.state.url, 0 );
+                                }
+                            } }
                         />
 
-                        <TextControl
+                        <GistFilesSelect
                             label={ __( 'File' ) }
+                            url={ url }
                             value={ file }
                             onChange={ ( value ) => setAttributes( { file: value } ) }
                         />
