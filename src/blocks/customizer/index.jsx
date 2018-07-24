@@ -80,9 +80,9 @@ class CustomizerBlock extends Component {
             options = this.jsonOptions;
         }
 
-        if ( customizerOptions && customizerOptions.data && customizerOptions.data.data && customizerOptions.data.data.success ) {
-            Object.keys( customizerOptions.data.data.response ).map( ( k ) => {
-                const opt = customizerOptions.data.data.response[ k ];
+        if ( customizerOptions && customizerOptions.data && customizerOptions.data && customizerOptions.data.success ) {
+            Object.keys( customizerOptions.data.response ).map( ( k ) => {
+                const opt = customizerOptions.data.response[ k ];
                 options.forEach( ( val, n ) => {
                     if ( options[ n ] && options[ n ].id === opt.id ) {
                         const choices = [];
@@ -125,12 +125,12 @@ class CustomizerBlock extends Component {
 
         let result = false;
 
-        if ( customizerOptions && customizerOptions.data && customizerOptions.data.data && customizerOptions.data.data.success ) {
+        if ( customizerOptions && customizerOptions.data && customizerOptions.data && customizerOptions.data.success ) {
             result = [];
             const groupedList = {};
 
-            Object.keys( customizerOptions.data.data.response ).map( ( k ) => {
-                const val = customizerOptions.data.data.response[ k ];
+            Object.keys( customizerOptions.data.response ).map( ( k ) => {
+                const val = customizerOptions.data.response[ k ];
                 let prevent = false;
 
                 // disable some options

@@ -86,10 +86,8 @@ class GhostKit_Rest extends WP_REST_Controller {
     public function success( $response ) {
         return new WP_REST_Response(
             array(
-                'data' => array(
-                    'success' => true,
-                    'response' => $response,
-                ),
+                'success' => true,
+                'response' => $response,
             ), 200
         );
     }
