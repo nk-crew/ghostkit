@@ -235,43 +235,46 @@ class GhostKit {
      * Enqueue editor frontend assets
      */
     public function enqueue_block_assets() {
+        $css_deps = array();
+        $js_deps = array( 'ghostkit-helper', 'jquery' );
+
         // FontAwesome.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            wp_enqueue_script( 'font-awesome' );
+            $js_deps[] = 'font-awesome';
         }
 
         // VideoWorker.
         if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
-            wp_enqueue_script( 'video-worker' );
+            $js_deps[] = 'video-worker';
         }
 
         // Object Fit Images.
         if ( apply_filters( 'gkt_enqueue_plugin_object_fit_images', true ) ) {
-            wp_enqueue_script( 'object-fit-images' );
+            $js_deps[] = 'object-fit-images';
         }
 
         // Swiper.
         if ( apply_filters( 'gkt_enqueue_plugin_swiper', true ) ) {
-            wp_enqueue_style( 'swiper' );
-            wp_enqueue_script( 'swiper' );
+            $css_deps[] = 'swiper';
+            $js_deps[] = 'swiper';
         }
 
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_embed', true ) ) {
-            wp_enqueue_script( 'gist-embed' );
+            $js_deps[] = 'gist-embed';
         }
 
         // GhostKit.
         wp_enqueue_style(
             'ghostkit',
             plugins_url( 'blocks/style.min.css', __FILE__ ),
-            array( 'wp-blocks' ),
+            $css_deps,
             filemtime( plugin_dir_path( __FILE__ ) . 'blocks/style.min.css' )
         );
         wp_enqueue_script(
             'ghostkit',
             plugins_url( 'assets/js/script.min.js', __FILE__ ),
-            array( 'ghostkit-helper', 'jquery', 'wp-blocks' ),
+            $js_deps,
             filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/script.min.js' )
         );
     }
