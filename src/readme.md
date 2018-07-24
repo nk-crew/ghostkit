@@ -103,7 +103,9 @@ Available filters:
 * **gkt_grid_variants**
 * **gkt_icon_box_variants**
 * **gkt_progress_variants**
+* **gkt_video_variants**
 * **gkt_carousel_variants**
+* **gkt_gist_variants**
 
 
 
