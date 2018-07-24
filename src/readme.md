@@ -73,9 +73,10 @@ There are some plugins, enqueued with GhostKit on your page. If you don't like t
 Available filters:
 
 * **gkt_enqueue_plugin_font_awesome**
+* **gkt_enqueue_plugin_object_fit_images**
+* **gkt_enqueue_plugin_video_worker**
 * **gkt_enqueue_plugin_swiper**
 * **gkt_enqueue_plugin_gist_embed**
-* **gkt_enqueue_plugin_video_worker**
 
 ### How to extend existing blocks ####
 You can add Variants to existing blocks, so you will be able to add your own styles for it:
@@ -117,7 +118,9 @@ Available filters:
 7. Alert
 8. Icon Box
 9. Number Box
-10. Blocks Extensions
+10. Video
+11. GitHub Gist
+12. Blocks Extensions
 
 
 ## Changelog ##

@@ -8,6 +8,11 @@ Object.keys( ghostkitVariables.media_sizes ).forEach( ( k ) => {
     screenSizes.push( ghostkitVariables.media_sizes[ k ] );
 } );
 
+// enable object-fit.
+if ( typeof window.objectFitImages !== 'undefined' ) {
+    window.objectFitImages();
+}
+
 /**
  * Prepare custom styles.
  */
