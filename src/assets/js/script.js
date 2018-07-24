@@ -330,7 +330,10 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
  */
 $( document ).on( 'click', '.ghostkit-alert-hide-button', function( e ) {
     e.preventDefault();
-    $( this ).parent().css( 'display', 'block' ).slideUp( 150 );
+    $( this ).parent()
+        .animate( { opacity: 0 }, 150, function() {
+            $( this ).slideUp( 200 );
+        } );
 } );
 
 // on dom ready.
