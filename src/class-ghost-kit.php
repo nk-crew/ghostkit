@@ -201,32 +201,35 @@ class GhostKit {
      * Enqueue editor assets
      */
     public function enqueue_block_editor_assets() {
+        $css_deps = array( 'wp-blocks' );
+        $js_deps = array( 'ghostkit-helper', 'wp-editor', 'wp-i18n', 'wp-element', 'underscore', 'wp-components' );
+
         // FontAwesome.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            wp_enqueue_script( 'font-awesome' );
+            $js_deps[] = 'font-awesome';
         }
 
         // VideoWorker.
         if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
-            wp_enqueue_script( 'video-worker' );
+            $js_deps[] = 'video-worker';
         }
 
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_embed', true ) ) {
-            wp_enqueue_script( 'gist-embed' );
+            $js_deps[] = 'gist-embed';
         }
 
         // GhostKit.
         wp_enqueue_style(
             'ghostkit-editor',
             plugins_url( 'assets/admin/css/style.min.css', __FILE__ ),
-            array( 'wp-blocks' ),
+            $css_deps,
             filemtime( plugin_dir_path( __FILE__ ) . 'assets/admin/css/style.min.css' )
         );
         wp_enqueue_script(
             'ghostkit-editor',
             plugins_url( 'blocks/index.min.js', __FILE__ ),
-            array( 'ghostkit-helper', 'wp-editor', 'wp-i18n', 'wp-element', 'underscore', 'wp-components' ),
+            $js_deps,
             filemtime( plugin_dir_path( __FILE__ ) . 'blocks/index.min.js' )
         );
     }
