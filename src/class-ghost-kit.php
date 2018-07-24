@@ -138,6 +138,11 @@ class GhostKit {
             wp_register_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.13' );
         }
 
+        // VideoWorker.
+        if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
+            wp_register_script( 'video-worker', plugins_url( 'assets/vendor/video-worker/dist/video-worker.js', __FILE__ ), array(), '1.1.2' );
+        }
+
         // Swiper.
         if ( apply_filters( 'gkt_enqueue_plugin_swiper', true ) ) {
             wp_register_style( 'swiper', plugins_url( 'assets/vendor/swiper/css/swiper.css', __FILE__ ), '', '4.3.3' );
@@ -196,6 +201,11 @@ class GhostKit {
             wp_enqueue_script( 'font-awesome' );
         }
 
+        // VideoWorker.
+        if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
+            wp_enqueue_script( 'video-worker' );
+        }
+
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_embed', true ) ) {
             wp_enqueue_script( 'gist-embed' );
@@ -223,6 +233,11 @@ class GhostKit {
         // FontAwesome.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
             wp_enqueue_script( 'font-awesome' );
+        }
+
+        // VideoWorker.
+        if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
+            wp_enqueue_script( 'video-worker' );
         }
 
         // Swiper.

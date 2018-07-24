@@ -4,7 +4,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /(\.jsx)$/,
+                test: /(\.jsx|\.esm.js)$/,
                 loader: 'babel-loader',
             }, {
                 test: /\.scss$/,

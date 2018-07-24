@@ -1,5 +1,6 @@
 const $ = window.jQuery;
 const { ghostkitVariables } = window;
+const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/g.test( window.navigator.userAgent || window.navigator.vendor || window.opera );
 
 // prepare media vars.
 const screenSizes = [];
@@ -159,14 +160,97 @@ function prepareCarousels() {
 }
 
 /**
+ * Prepare Video
+ */
+function prepareVideo() {
+    if ( typeof window.VideoWorker === 'undefined' ) {
+        return;
+    }
+
+    $( '.ghostkit-video:not(.ghostkit-video-ready)' ).each( function() {
+        const $this = $( this ).addClass( 'ghostkit-video-ready' );
+        const url = $this.attr( 'data-video' );
+        let $poster = $this.find( '.ghostkit-video-poster' );
+        let $iframe = false;
+
+        const api = new window.VideoWorker( url, {
+            autoplay: 0,
+            loop: 0,
+            mute: 0,
+            volume: parseFloat( $this.attr( 'data-video-volume' ) ) || 0,
+            showContols: 1,
+        } );
+
+        if ( api && api.isValid() ) {
+            let loaded = 0;
+            let clicked = 0;
+
+            // add play event
+            $this.on( 'click', function() {
+                if ( clicked ) {
+                    return;
+                }
+                clicked = 1;
+
+                if ( isMobile ) {
+                    window.open( api.url );
+                    return;
+                }
+
+                // add loading button
+                if ( ! loaded ) {
+                    $this.addClass( 'ghostkit-video-loading' );
+
+                    api.getIframe( ( iframe ) => {
+                        // add iframe
+                        $iframe = $( iframe );
+                        const $parent = $iframe.parent();
+                        $( '<div class="ghostkit-video-frame">' ).appendTo( $this ).append( $iframe );
+                        $parent.remove();
+                        api.play();
+                    } );
+
+                    loaded = 1;
+                } else {
+                    api.play();
+                }
+            } );
+
+            // set thumb
+            if ( ! $poster.length ) {
+                api.getImageURL( function( imgSrc ) {
+                    $poster = $( `<div class="ghostkit-video-poster"><img src="${ imgSrc }" alt=""></div>` );
+                    $this.append( $poster );
+                } );
+            }
+
+            if ( isMobile ) {
+                return;
+            }
+
+            api.on( 'ready', () => {
+                api.play();
+            } );
+            api.on( 'play', () => {
+                $this.removeClass( 'ghostkit-video-loading' ).addClass( 'ghostkit-video-playing' );
+            } );
+            api.on( 'pause', () => {
+                $this.removeClass( 'ghostkit-video-playing' );
+                clicked = 0;
+            } );
+        }
+    } );
+}
+
+/**
  * Prepare Gist
  */
 function prepareGist() {
-    $( '.ghostkit-gist:not(.ghostkit-gist-ready)' ).each( function() {
-        if ( typeof jQuery.fn.gist === 'undefined' ) {
-            return;
-        }
+    if ( typeof jQuery.fn.gist === 'undefined' ) {
+        return;
+    }
 
+    $( '.ghostkit-gist:not(.ghostkit-gist-ready)' ).each( function() {
         const $this = $( this );
         $this.addClass( 'ghostkit-gist-ready' );
 
@@ -194,6 +278,7 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
         let readyTabsBlock = false;
         let readyAccordionBlock = false;
         let readyGistBlock = false;
+        let readyVideoBlock = false;
 
         mutations.forEach( function( mutation ) {
             if ( mutation.addedNodes && mutation.addedNodes.length ) {
@@ -206,6 +291,9 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
                     }
                     if ( $( node ).is( '.ghostkit-accordion:not(.ghostkit-accordion-ready)' ) ) {
                         readyAccordionBlock = 1;
+                    }
+                    if ( $( node ).is( '.ghostkit-video:not(.ghostkit-video-ready)' ) ) {
+                        readyVideoBlock = 1;
                     }
                     if ( $( node ).is( '.ghostkit-gist:not(.ghostkit-gist-ready)' ) ) {
                         readyGistBlock = 1;
@@ -222,6 +310,9 @@ if ( typeof window.MutationObserver !== 'undefined' ) {
         }
         if ( readyAccordionBlock ) {
             prepareAccordions();
+        }
+        if ( readyVideoBlock ) {
+            prepareVideo();
         }
         if ( readyGistBlock ) {
             prepareGist();
@@ -248,5 +339,6 @@ $( document ).on( 'DOMContentLoaded load', () => {
     prepareTabs();
     prepareAccordions();
     prepareCarousels();
+    prepareVideo();
     prepareGist();
 } );

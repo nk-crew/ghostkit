@@ -48,6 +48,15 @@ class GhostKit_Rest extends WP_REST_Controller {
                 'permission_callback' => array( $this, 'get_customizer_permission' ),
             )
         );
+
+        // Get attachment image <img> tag.
+        register_rest_route(
+            $namespace, '/get_attachment_image/(?P<id>[\d]+)', array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'get_attachment_image' ),
+                'permission_callback' => array( $this, 'get_attachment_image_permission' ),
+            )
+        );
     }
 
     /**
@@ -58,6 +67,22 @@ class GhostKit_Rest extends WP_REST_Controller {
     public function get_customizer_permission() {
         if ( ! current_user_can( 'edit_theme_options' ) ) {
             return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change Customizer options.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
+     * Get attachment image <img> tag permissions.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return bool
+     */
+    public function get_attachment_image_permission( WP_REST_Request $request ) {
+        $id = $request->get_param( 'id' );
+
+        if ( ! $id ) {
+            return $this->error( 'no_id_found', __( 'Provide image ID.', '@@text_domain' ) );
         }
         return true;
     }
@@ -74,6 +99,28 @@ class GhostKit_Rest extends WP_REST_Controller {
             return $this->success( $options );
         } else {
             return $this->error( 'no_options_found', __( 'Options not found.', '@@text_domain' ) );
+        }
+    }
+
+    /**
+     * Get attachment image <img> tag.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function get_attachment_image( WP_REST_Request $request ) {
+        $id = $request->get_param( 'id' );
+        $size = $request->get_param( 'size' );
+        $icon = $request->get_param( 'icon' );
+        $attr = $request->get_param( 'attr' );
+
+        $image = wp_get_attachment_image( $id, $size, $icon, $attr );
+
+        if ( $image ) {
+            return $this->success( $image );
+        } else {
+            return $this->error( 'no_image_found', __( 'Image not found.', '@@text_domain' ) );
         }
     }
 

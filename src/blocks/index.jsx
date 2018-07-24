@@ -14,6 +14,7 @@ import * as counterBox from './counter-box/index.jsx';
 import * as alert from './alert/index.jsx';
 import * as carousel from './carousel/index.jsx';
 import * as carouselSlide from './carousel/slide.jsx';
+import * as video from './video/index.jsx';
 import * as gist from './gist/index.jsx';
 import * as customizer from './customizer/index.jsx';
 import * as customCSS from './custom-css/index.jsx';
@@ -47,6 +48,7 @@ const { registerBlockType } = wp.blocks;
     alert,
     carousel,
     carouselSlide,
+    video,
     gist,
     customizer,
     customCSS,

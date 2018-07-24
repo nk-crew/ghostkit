@@ -1,0 +1,9 @@
+/**
+ * Editor Styles
+ */
+@import "../variables";
+
+// preview image with background pattern in Inspector Controls
+.components-panel .ghostkit-gutenberg-media-upload > div {
+    height: 150px;
+}

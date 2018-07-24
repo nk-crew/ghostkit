@@ -11,6 +11,7 @@
 .wp-block-ghostkit-counter-box,
 .wp-block-ghostkit-alert,
 .ghostkit-carousel,
+.ghostkit-video,
 .ghostkit-gist {
     margin-bottom: 28px;
 }
@@ -35,4 +36,5 @@
 @import "./counter-box/style";
 @import "./alert/style";
 @import "./carousel/style";
+@import "./video/style";
 @import "./gist/style";

@@ -28,6 +28,7 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 * Alert
 * Icon Box
 * Number Box
+* Video
 * Github Gist
 * Custom CSS (let you add custom CSS on the pages)
 * Customizer (let you easily overwrite customizer options on the pages)
@@ -39,7 +40,6 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 
 #### Coming soon blocks: ####
 
-* Video
 * Countdown
 * Testimonial
 * Pricing
@@ -75,6 +75,7 @@ Available filters:
 * **gkt_enqueue_plugin_font_awesome**
 * **gkt_enqueue_plugin_swiper**
 * **gkt_enqueue_plugin_gist_embed**
+* **gkt_enqueue_plugin_video_worker**
 
 ### How to extend existing blocks ####
 You can add Variants to existing blocks, so you will be able to add your own styles for it:
