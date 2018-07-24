@@ -29,7 +29,7 @@ const {
     BlockAlignmentToolbar,
     RichText,
     ColorPalette,
-    UrlInput,
+    URLInput,
 } = wp.editor;
 
 class ButtonBlock extends Component {
@@ -220,7 +220,7 @@ class ButtonBlock extends Component {
                         className="ghostkit-button__inline-link"
                         onSubmit={ ( event ) => event.preventDefault() }>
                         <Dashicon icon="admin-links" />
-                        <UrlInput
+                        <URLInput
                             value={ url }
                             onChange={ ( value ) => setAttributes( { url: value } ) }
                         />
