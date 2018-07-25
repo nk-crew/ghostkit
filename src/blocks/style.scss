@@ -12,6 +12,7 @@
 .wp-block-ghostkit-alert,
 .ghostkit-carousel,
 .ghostkit-video,
+.ghostkit-testimonial,
 .ghostkit-gist {
     margin-bottom: 28px;
 }
@@ -37,4 +38,5 @@
 @import "./alert/style";
 @import "./carousel/style";
 @import "./video/style";
+@import "./testimonial/style";
 @import "./gist/style";

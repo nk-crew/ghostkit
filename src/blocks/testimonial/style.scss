@@ -1,0 +1,66 @@
+/**
+ * Frontend Styles
+ */
+@import "../variables";
+
+.ghostkit-testimonial {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 0;
+
+    .ghostkit-testimonial-icon {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 1.5em;
+        opacity: .15;
+
+        + .ghostkit-testimonial-content {
+            padding-left: 65px;
+        }
+    }
+
+    .ghostkit-testimonial-content {
+        flex: 100%;
+        padding: 27px;
+        margin-bottom: 10px;
+        background-color: $light-gray-100;
+        border-radius: 5px;
+
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+
+    .ghostkit-testimonial-photo {
+        width: 50px;
+        overflow: hidden;
+        border-radius: 25px;
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        + .ghostkit-testimonial-meta {
+            margin-left: 15px;
+        }
+    }
+
+    .ghostkit-testimonial-meta {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+    }
+
+    .ghostkit-testimonial-name {
+        line-height: 1.6;
+    }
+    .ghostkit-testimonial-source {
+        line-height: 1;
+        opacity: .5;
+    }
+}

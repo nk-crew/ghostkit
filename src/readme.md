@@ -105,6 +105,7 @@ Available filters:
 * **gkt_progress_variants**
 * **gkt_video_variants**
 * **gkt_carousel_variants**
+* **gkt_testimonial_variants**
 * **gkt_gist_variants**
 
 
