@@ -114,6 +114,8 @@ class GhostKit {
     public function init_hooks() {
         add_action( 'admin_init', array( $this, 'admin_init' ) );
 
+        add_action( 'init', array( $this, 'add_custom_fields_support' ), 100 );
+
         add_action( 'save_post', array( $this, 'parse_styles_from_blocks' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'add_styles_from_blocks' ), 100 );
 
@@ -292,6 +294,22 @@ class GhostKit {
         $this->plugin_version = $data['Version'];
         $this->plugin_slug = plugin_basename( __FILE__, '.php' );
         $this->plugin_name_sanitized = basename( __FILE__, '.php' );
+    }
+
+    /**
+     * Add support for 'custom-fields' for all post types.
+     * Required by Customizer and Custom CSS blocks.
+     */
+    public function add_custom_fields_support() {
+        $available_post_types = get_post_types( array(
+            'show_ui' => true,
+        ), 'object' );
+
+        foreach ( $available_post_types as $post_type ) {
+            if ( 'attachment' !== $post_type->name ) {
+                add_post_type_support( $post_type->name, 'custom-fields' );
+            }
+        }
     }
 
     /**
