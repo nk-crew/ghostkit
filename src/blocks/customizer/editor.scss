@@ -82,12 +82,15 @@
     // items list.
     .ghostkit-customizer-list {
         width: 100%;
+        margin-top: 10px;
+        margin-bottom: -30px;
 
         > div {
             position: relative;
             width: 100%;
+            padding: 25px 0;
+            margin-top: -1px;
             margin-right: auto;
-            margin-bottom: 15px;
             margin-left: auto;
 
             &::before {
@@ -98,7 +101,20 @@
                 right: -30px;
                 bottom: 0;
                 left: -30px;
+                background-color: transparent;
+                border: 1px solid #e4e4e4;
+                border-right-color: #f3f3f4;
+                border-left-color: #f3f3f4;
+                transition: .2s background-color, .2s border-color;
                 z-index: -1;
+            }
+
+            &:hover::before {
+                background-color: rgba(255, 255, 255, .8);
+                border-color: #efefef;
+            }
+            &:hover + div::before {
+                border-top-color: #efefef;
             }
 
             .ghostkit-customizer-list-field {
@@ -116,11 +132,11 @@
                 }
             }
             .ghostkit-customizer-list-info-id {
-                opacity: .5;
+                opacity: .3;
             }
             .ghostkit-customizer-list-info-default {
                 margin-left: auto;
-                opacity: .5;
+                opacity: .3;
 
                 span {
                     font-weight: 700;
@@ -131,15 +147,14 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                top: 50%;
-                right: -25px;
+                top: 14px;
+                right: -19px;
                 width: 20px;
                 height: 20px;
-                margin-top: -10px;
                 color: #fff;
                 cursor: pointer;
                 visibility: hidden;
-                background: #cdcdcd;
+                background: #eaeaea;
                 border: none;
                 border-radius: 50%;
                 opacity: 0;
@@ -160,6 +175,14 @@
                 visibility: visible;
                 opacity: 1;
             }
+        }
+
+        // controls
+        .components-toggle-control {
+            margin-bottom: 0;
+        }
+        .components-color-palette {
+            margin-bottom: -10px;
         }
     }
 }

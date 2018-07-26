@@ -111,14 +111,15 @@ class GhostKit_Customizer_Block {
 
                 // get control data.
                 $settings[] = array(
-                    'id'      => $setting->id,
-                    'type'    => $setting->type,
-                    'default' => $setting->default,
-                    'section' => $section,
-                    'panel'   => $panel,
-                    'label'   => isset( $control->label ) ? $control->label : false,
-                    'description' => isset( $control->description ) ? $control->description : false,
-                    'choices' => isset( $control->choices ) ? $control->choices : false,
+                    'id'           => $setting->id,
+                    'type'         => $setting->type,
+                    'default'      => $setting->default,
+                    'section'      => $section,
+                    'panel'        => $panel,
+                    'label'        => isset( $control->label ) ? $control->label : false,
+                    'description'  => isset( $control->description ) ? $control->description : false,
+                    'choices'      => isset( $control->choices ) ? $control->choices : false,
+                    'control_type' => $control->type,
                 );
             }
         }

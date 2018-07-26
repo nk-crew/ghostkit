@@ -10,12 +10,20 @@ import elementIcon from '../_icons/customizer.svg';
 const { __ } = wp.i18n;
 const { Component } = wp.element;
 const {
+    BaseControl,
     TextControl,
+    TextareaControl,
+    ToggleControl,
     SelectControl,
+    RangeControl,
     withAPIData,
     Placeholder,
     Spinner,
 } = wp.components;
+
+const {
+    ColorPalette,
+} = wp.editor;
 
 class CustomizerBlock extends Component {
     constructor() {
@@ -105,6 +113,7 @@ class CustomizerBlock extends Component {
                         options[ n ].type = opt.type;
                         options[ n ].choices = choices;
                         options[ n ].category = this.getOptionCategory( opt );
+                        options[ n ].control_type = opt.control_type;
                     }
                 } );
             } );
@@ -249,30 +258,112 @@ class CustomizerBlock extends Component {
                 { Array.isArray( options ) && options.length ? (
                     <div className="ghostkit-customizer-list">
                         { options.map( ( opt ) => {
+                            let control = '';
+
+                            // Kirki support.
+                            switch ( opt.control_type ) {
+                            case 'kirki-color':
+                                control = (
+                                    <BaseControl
+                                        label={ opt.label || opt.id }
+                                        className="ghostkit-customizer-list-field"
+                                    >
+                                        <ColorPalette
+                                            value={ opt.value }
+                                            onChange={ ( value ) => {
+                                                this.updateOptions( value, opt );
+                                            } }
+                                        />
+                                    </BaseControl>
+                                );
+                                break;
+                            case 'kirki-slider':
+                                const sliderAttrs = {
+                                    min: '',
+                                    max: '',
+                                    step: '',
+                                };
+                                if ( opt.choices && opt.choices ) {
+                                    if ( opt.choices.min ) {
+                                        sliderAttrs.min = opt.choices.min;
+                                    }
+                                    if ( opt.choices.max ) {
+                                        sliderAttrs.max = opt.choices.max;
+                                    }
+                                    if ( opt.choices.step ) {
+                                        sliderAttrs.step = opt.choices.step;
+                                    }
+                                }
+                                control = (
+                                    <RangeControl
+                                        label={ opt.label || opt.id }
+                                        value={ opt.value }
+                                        onChange={ ( value ) => {
+                                            this.updateOptions( value, opt );
+                                        } }
+                                        className="ghostkit-customizer-list-field"
+                                        { ...sliderAttrs }
+                                    />
+                                );
+                                break;
+                            case 'kirki-toggle':
+                                control = (
+                                    <ToggleControl
+                                        label={ opt.label || opt.id }
+                                        checked={ opt.value === 'on' }
+                                        onChange={ ( value ) => {
+                                            this.updateOptions( value ? 'on' : 'off', opt );
+                                        } }
+                                        className="ghostkit-customizer-list-field"
+                                    />
+                                );
+                                break;
+                            case 'kirki-editor':
+                                control = (
+                                    <TextareaControl
+                                        label={ opt.label || opt.id }
+                                        value={ opt.value }
+                                        onChange={ ( value ) => {
+                                            this.updateOptions( value, opt );
+                                        } }
+                                        className="ghostkit-customizer-list-field"
+                                    />
+                                );
+                                break;
+                            case 'kirki-image':
+                                opt.choices = [];
+                            // fallthrough
+                            default:
+                                if ( opt.choices && opt.choices.length ) {
+                                    control = (
+                                        <SelectControl
+                                            label={ opt.label || opt.id }
+                                            value={ opt.value }
+                                            options={ opt.choices }
+                                            onChange={ ( value ) => {
+                                                this.updateOptions( value, opt );
+                                            } }
+                                            className="ghostkit-customizer-list-field"
+                                        />
+                                    );
+                                } else {
+                                    control = (
+                                        <TextControl
+                                            label={ opt.label || opt.id }
+                                            value={ opt.value }
+                                            onChange={ ( value ) => {
+                                                this.updateOptions( value, opt );
+                                            } }
+                                            className="ghostkit-customizer-list-field"
+                                        />
+                                    );
+                                }
+                                break;
+                            }
+
                             return (
                                 <div key={ opt.id }>
-                                    {
-                                        opt.choices && opt.choices.length ? (
-                                            <SelectControl
-                                                label={ opt.label || opt.id }
-                                                value={ opt.value }
-                                                options={ opt.choices }
-                                                onChange={ ( value ) => {
-                                                    this.updateOptions( value, opt );
-                                                } }
-                                                className="ghostkit-customizer-list-field"
-                                            />
-                                        ) : (
-                                            <TextControl
-                                                label={ opt.label || opt.id }
-                                                value={ opt.value }
-                                                onChange={ ( value ) => {
-                                                    this.updateOptions( value, opt );
-                                                } }
-                                                className="ghostkit-customizer-list-field"
-                                            />
-                                        )
-                                    }
+                                    { control }
                                     <div className="ghostkit-customizer-list-info">
                                         <small className="ghostkit-customizer-list-info-id">{ opt.id }</small>
                                         { opt.default || typeof( opt.default ) === 'boolean' ? (
