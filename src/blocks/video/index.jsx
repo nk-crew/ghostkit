@@ -1,4 +1,5 @@
 // External Dependencies.
+import { ChromePicker } from 'react-color';
 import classnames from 'classnames/dedupe';
 
 // Import CSS
@@ -7,6 +8,7 @@ import './editor.scss';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/video.svg';
+import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -20,6 +22,7 @@ const {
     ButtonGroup,
     RangeControl,
     TextControl,
+    PanelColor,
     withAPIData,
 } = wp.components;
 
@@ -158,13 +161,16 @@ class VideoBlock extends Component {
             posterTag,
             posterSizes,
             posterSize,
+
+            clickAction,
+            fullscreenBackgroundColor,
+            fullscreenActionCloseIcon,
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'video' );
 
         className = classnames(
             'ghostkit-video',
-            'ghostkit-video-aspect-ratio-' + videoAspectRatio,
             className
         );
 
@@ -363,13 +369,13 @@ class VideoBlock extends Component {
                             value={ videoAspectRatio }
                             options={ [
                                 {
-                                    value: '16-9',
+                                    value: '16:9',
                                     label: __( '16:9' ),
                                 }, {
-                                    value: '21-9',
+                                    value: '21:9',
                                     label: __( '21:9' ),
                                 }, {
-                                    value: '4-3',
+                                    value: '4:3',
                                     label: __( '4:3' ),
                                 },
                             ] }
@@ -394,6 +400,47 @@ class VideoBlock extends Component {
                             help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                             onChange={ ( value ) => setAttributes( { iconLoading: value } ) }
                         />
+
+                        <SelectControl
+                            label={ __( 'Click action' ) }
+                            value={ clickAction }
+                            options={ [
+                                {
+                                    value: 'plain',
+                                    label: 'Plain',
+                                }, {
+                                    value: 'fullscreen',
+                                    label: 'Fullscreen',
+                                },
+                            ] }
+                            onChange={ ( value ) => setAttributes( { clickAction: value } ) }
+                        />
+                        { clickAction === 'fullscreen' ? (
+                            <Fragment>
+                                <PanelColor title={ __( 'Fullscreen background color' ) } colorValue={ fullscreenBackgroundColor }>
+                                    <ChromePicker
+                                        color={ fullscreenBackgroundColor }
+                                        onChangeComplete={ ( picker ) => {
+                                            let newColor = picker.hex;
+
+                                            if ( picker.rgb && picker.rgb.a < 1 ) {
+                                                newColor = `rgba(${ picker.rgb.r }, ${ picker.rgb.g }, ${ picker.rgb.b }, ${ picker.rgb.a })`;
+                                            }
+
+                                            setAttributes( { fullscreenBackgroundColor: newColor } );
+                                        } }
+                                        style={ { width: '100%' } }
+                                        disableAlpha={ false }
+                                    />
+                                </PanelColor>
+                                <TextControl
+                                    label={ __( 'Fullscreen close icon' ) }
+                                    value={ fullscreenActionCloseIcon }
+                                    help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
+                                    onChange={ ( value ) => setAttributes( { fullscreenActionCloseIcon: value } ) }
+                                />
+                            </Fragment>
+                        ) : '' }
                     </PanelBody>
 
                     <PanelBody title={ __( 'Poster Image' ) }>
@@ -468,7 +515,7 @@ class VideoBlock extends Component {
                         ) }
                     </PanelBody>
                 </InspectorControls>
-                <div className={ className }>
+                <div className={ className } data-video-aspect-ratio={ videoAspectRatio }>
                     { posterTag ? (
                         <div className="ghostkit-video-poster"
                             dangerouslySetInnerHTML={ {
@@ -548,7 +595,7 @@ export const settings = {
         },
         videoAspectRatio: {
             type: 'string',
-            default: '16-9',
+            default: '16:9',
         },
         videoVolume: {
             type: 'number',
@@ -580,6 +627,19 @@ export const settings = {
             type: 'string',
             default: 'full',
         },
+
+        clickAction: {
+            type: 'string',
+            default: 'plain',
+        },
+        fullscreenBackgroundColor: {
+            type: 'string',
+            default: 'rgba(0, 0, 0, .9)',
+        },
+        fullscreenActionCloseIcon: {
+            type: 'string',
+            default: 'fas fa-times',
+        },
     },
 
     edit: withAPIData( ( { attributes } ) => {
@@ -610,13 +670,16 @@ export const settings = {
             iconLoading,
 
             posterTag,
+
+            clickAction,
+            fullscreenActionCloseIcon,
+            fullscreenBackgroundColor,
         } = attributes;
 
         const resultAttrs = {};
 
         resultAttrs.className = classnames(
             'ghostkit-video',
-            'ghostkit-video-aspect-ratio-' + videoAspectRatio,
             className
         );
         if ( 'default' !== variant ) {
@@ -640,7 +703,16 @@ export const settings = {
             resultAttrs[ 'data-video' ] = video;
         }
 
+        resultAttrs[ 'data-video-aspect-ratio' ] = videoAspectRatio;
+
         resultAttrs[ 'data-video-volume' ] = videoVolume;
+
+        resultAttrs[ 'data-click-action' ] = clickAction;
+
+        if ( clickAction === 'fullscreen' ) {
+            resultAttrs[ 'data-fullscreen-action-close-icon' ] = fullscreenActionCloseIcon;
+            resultAttrs[ 'data-fullscreen-background-color' ] = fullscreenBackgroundColor;
+        }
 
         return (
             <div { ...resultAttrs }>
@@ -664,4 +736,6 @@ export const settings = {
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };

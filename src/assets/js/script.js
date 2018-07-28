@@ -1,3 +1,5 @@
+import { throttle } from 'throttle-debounce';
+
 const $ = window.jQuery;
 const { ghostkitVariables } = window;
 const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/g.test( window.navigator.userAgent || window.navigator.vendor || window.opera );
@@ -7,6 +9,17 @@ const screenSizes = [];
 Object.keys( ghostkitVariables.media_sizes ).forEach( ( k ) => {
     screenSizes.push( ghostkitVariables.media_sizes[ k ] );
 } );
+
+// Get window size
+const $wnd = $( window );
+let wndW = 0;
+let wndH = 0;
+function getWndSize() {
+    wndW = $wnd.width();
+    wndH = $wnd.height();
+}
+getWndSize();
+$wnd.on( 'resize load orientationchange', getWndSize );
 
 // enable object-fit.
 if ( typeof window.objectFitImages !== 'undefined' ) {
@@ -164,6 +177,32 @@ function prepareCarousels() {
     } );
 }
 
+// set video size
+const setFullscreenVideoSize = throttle( 200, () => {
+    $( '.ghostkit-video-fullscreen:visible .ghostkit-video-fullscreen-frame' ).each( function() {
+        const $this = $( this );
+        const aspectRatio = $this.data( 'ghostkit-video-aspect-ratio' ) || 16 / 9;
+        let resultW;
+        let resultH;
+
+        if ( aspectRatio > wndW / wndH ) {
+            resultW = wndW * 0.9;
+            resultH = resultW / aspectRatio;
+        } else {
+            resultH = wndH * 0.9;
+            resultW = resultH * aspectRatio;
+        }
+
+        $this.css( {
+            width: resultW,
+            height: resultH,
+            top: ( wndH - resultH ) / 2,
+            left: ( wndW - resultW ) / 2,
+        } );
+    } );
+} );
+$wnd.on( 'resize load orientationchange', setFullscreenVideoSize );
+
 /**
  * Prepare Video
  */
@@ -175,8 +214,19 @@ function prepareVideo() {
     $( '.ghostkit-video:not(.ghostkit-video-ready)' ).each( function() {
         const $this = $( this ).addClass( 'ghostkit-video-ready' );
         const url = $this.attr( 'data-video' );
+        const clickAction = $this.attr( 'data-click-action' );
+        const fullscreenCloseIcon = $this.attr( 'data-fullscreen-action-close-icon' );
+        const fullscreenBackgroundColor = $this.attr( 'data-fullscreen-background-color' );
         let $poster = $this.find( '.ghostkit-video-poster' );
+        let $fullscreenWrapper = false;
         let $iframe = false;
+
+        let aspectRatio = $this.attr( 'data-video-aspect-ratio' );
+        if ( aspectRatio && aspectRatio.split( ':' )[ 0 ] && aspectRatio.split( ':' )[ 1 ] ) {
+            aspectRatio = aspectRatio.split( ':' )[ 0 ] / aspectRatio.split( ':' )[ 1 ];
+        } else {
+            aspectRatio = 16 / 9;
+        }
 
         const api = new window.VideoWorker( url, {
             autoplay: 0,
@@ -202,8 +252,43 @@ function prepareVideo() {
                     return;
                 }
 
-                // add loading button
-                if ( ! loaded ) {
+                // fullscreen video
+                if ( 'fullscreen' === clickAction ) {
+                    // add loading button
+                    if ( ! loaded ) {
+                        $this.addClass( 'ghostkit-video-loading' );
+
+                        api.getIframe( ( iframe ) => {
+                            // add iframe
+                            $iframe = $( iframe );
+                            const $parent = $iframe.parent();
+
+                            $fullscreenWrapper = $( `<div class="ghostkit-video-fullscreen" style="background-color: ${ fullscreenBackgroundColor };">` )
+                                .appendTo( 'body' )
+                                .append( $( `<div class="ghostkit-video-fullscreen-close"><span class="${ fullscreenCloseIcon }"></span></div>` ) )
+                                .append( $( '<div class="ghostkit-video-fullscreen-frame">' ).append( $iframe ) );
+                            $fullscreenWrapper.data( 'ghostkit-video-aspect-ratio', aspectRatio );
+                            $parent.remove();
+
+                            $fullscreenWrapper.fadeIn( 200 );
+
+                            $fullscreenWrapper.on( 'click', '.ghostkit-video-fullscreen-close', () => {
+                                api.pause();
+                                $fullscreenWrapper.fadeOut( 200 );
+                            } );
+
+                            setFullscreenVideoSize();
+                            api.play();
+                        } );
+
+                        loaded = 1;
+                    } else if ( $fullscreenWrapper ) {
+                        $fullscreenWrapper.fadeIn( 200 );
+                        api.play();
+                    }
+
+                // plain video
+                } else if ( ! loaded ) {
                     $this.addClass( 'ghostkit-video-loading' );
 
                     api.getIframe( ( iframe ) => {
@@ -237,10 +322,16 @@ function prepareVideo() {
                 api.play();
             } );
             api.on( 'play', () => {
-                $this.removeClass( 'ghostkit-video-loading' ).addClass( 'ghostkit-video-playing' );
+                $this.removeClass( 'ghostkit-video-loading' );
+
+                if ( 'fullscreen' !== clickAction ) {
+                    $this.addClass( 'ghostkit-video-playing' );
+                }
             } );
             api.on( 'pause', () => {
-                $this.removeClass( 'ghostkit-video-playing' );
+                if ( 'fullscreen' !== clickAction ) {
+                    $this.removeClass( 'ghostkit-video-playing' );
+                }
                 clicked = 0;
             } );
         }
