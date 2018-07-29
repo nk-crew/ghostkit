@@ -61,6 +61,10 @@ const getStyles = ( data = {}, selector = '', render = true ) => {
 
         // style properties and values.
         } else if ( typeof data[ key ] !== 'undefined' && data[ key ] !== false ) {
+            // fix selector > and < usage.
+            selector = selector.replace( />/g, '&gt;' );
+            selector = selector.replace( /</g, '&lt;' );
+
             if ( ! result[ selector ] ) {
                 result[ selector ] = '';
             }
