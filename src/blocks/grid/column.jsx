@@ -12,6 +12,8 @@ const {
     BaseControl,
     PanelBody,
     SelectControl,
+    ToggleControl,
+    TextControl,
 } = wp.components;
 
 const {
@@ -116,6 +118,34 @@ const getColClass = ( attributes ) => {
 };
 
 class GridColumnBlock extends Component {
+    ghostkitStyles( attributes ) {
+        const {
+            stickyContent,
+            stickyContentTop,
+            stickyContentBottom,
+        } = attributes;
+
+        const result = {};
+
+        if ( stickyContent ) {
+            result[ '& > .ghostkit-col-content' ] = {
+                position: '-webkit-sticky',
+            };
+            result[ '> .ghostkit-col-content' ] = {
+                position: 'sticky',
+            };
+
+            if ( stickyContentTop ) {
+                result[ '> .ghostkit-col-content' ].top = stickyContentTop;
+            }
+            if ( stickyContentBottom ) {
+                result[ '> .ghostkit-col-content' ].bottom = stickyContentBottom;
+            }
+        }
+
+        return result;
+    }
+
     render() {
         const {
             attributes,
@@ -141,6 +171,9 @@ class GridColumnBlock extends Component {
 
             size,
             order,
+            stickyContent,
+            stickyContentTop,
+            stickyContentBottom,
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'grid_column' );
@@ -177,6 +210,28 @@ class GridColumnBlock extends Component {
                                 } }
                                 options={ getDefaultColumnOrders() }
                             />
+                            <ToggleControl
+                                label={ __( 'Sticky content' ) }
+                                checked={ !! stickyContent }
+                                onChange={ ( value ) => setAttributes( { stickyContent: value } ) }
+                            />
+                            <p>{ __( '`position: sticky` will be applied to column content. Don\'t forget to set top or bottom value in pixels.' ) }</p>
+                            { stickyContent ? (
+                                <Fragment>
+                                    <TextControl
+                                        label={ __( 'Top' ) }
+                                        type="number"
+                                        value={ stickyContentTop }
+                                        onChange={ ( value ) => setAttributes( { stickyContentTop: value } ) }
+                                    />
+                                    <TextControl
+                                        label={ __( 'Bottom' ) }
+                                        type="number"
+                                        value={ stickyContentBottom }
+                                        onChange={ ( value ) => setAttributes( { stickyContentBottom: value } ) }
+                                    />
+                                </Fragment>
+                            ) : '' }
                         </BaseControl>
                     </PanelBody>
 
@@ -337,6 +392,18 @@ export const settings = {
             type: 'string',
             default: '',
         },
+        stickyContent: {
+            type: 'boolean',
+            default: false,
+        },
+        stickyContentTop: {
+            type: 'number',
+            default: 40,
+        },
+        stickyContentBottom: {
+            type: 'number',
+            default: '',
+        },
     },
 
     edit: GridColumnBlock,
@@ -348,6 +415,7 @@ export const settings = {
     save: function( { attributes } ) {
         const {
             variant,
+            stickyContent,
         } = attributes;
 
         let {
@@ -361,6 +429,16 @@ export const settings = {
 
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-col-variant-${ variant }` );
+        }
+
+        if ( stickyContent ) {
+            return (
+                <div className={ className }>
+                    <div className="ghostkit-col-content">
+                        <InnerBlocks.Content />
+                    </div>
+                </div>
+            );
         }
 
         return (
