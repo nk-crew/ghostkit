@@ -3,6 +3,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/accordion.svg';
+import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -24,6 +25,7 @@ class AccordionItemBlock extends Component {
         const {
             attributes,
             setAttributes,
+            isSelected,
         } = this.props;
 
         let {
@@ -62,24 +64,27 @@ class AccordionItemBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
-                    <RichText
-                        tagName="div"
-                        className="ghostkit-accordion-item-heading"
-                        placeholder={ __( 'Item label…' ) }
-                        value={ heading }
-                        onChange={ ( value ) => {
-                            setAttributes( { heading: value } );
-                        } }
-                        formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                        format="string"
-                        inlineToolbar
-                    />
-                    <button
-                        className="ghostkit-accordion-item-collapse"
-                        onClick={ () => setAttributes( { active: ! active } ) }
-                    >
-                        <span className="fas fa-angle-right" />
-                    </button>
+                    <div className="ghostkit-accordion-item-heading">
+                        <RichText
+                            tagName="div"
+                            className="ghostkit-accordion-item-label"
+                            placeholder={ __( 'Item label…' ) }
+                            value={ heading }
+                            onChange={ ( value ) => {
+                                setAttributes( { heading: value } );
+                            } }
+                            formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                            inlineToolbar
+                            isSelected={ isSelected }
+                            keepPlaceholderOnFocus
+                        />
+                        <button
+                            className="ghostkit-accordion-item-collapse"
+                            onClick={ () => setAttributes( { active: ! active } ) }
+                        >
+                            <span className="fas fa-angle-right" />
+                        </button>
+                    </div>
                     <div className="ghostkit-accordion-item-content"><InnerBlocks templateLock={ false } /></div>
                 </div>
             </Fragment>
@@ -97,6 +102,7 @@ export const settings = {
     category: 'layout',
     supports: {
         html: false,
+        align: [ 'wide', 'full' ],
         className: false,
         ghostkitStyles: true,
         ghostkitIndents: true,
@@ -108,7 +114,9 @@ export const settings = {
             default: 'default',
         },
         heading: {
-            type: 'string',
+            type: 'array',
+            source: 'children',
+            selector: '.ghostkit-accordion-item-label',
             default: 'Accordion Item',
         },
         active: {
@@ -122,7 +130,7 @@ export const settings = {
 
     edit: AccordionItemBlock,
 
-    save: function( { attributes } ) {
+    save: function( { attributes, className = '' } ) {
         const {
             variant,
             heading,
@@ -130,13 +138,9 @@ export const settings = {
             itemNumber,
         } = attributes;
 
-        let {
-            className,
-        } = attributes;
-
         className = classnames(
-            className,
             'ghostkit-accordion-item',
+            className,
             active ? 'ghostkit-accordion-item-active' : ''
         );
 
@@ -147,7 +151,11 @@ export const settings = {
         return (
             <div className={ className }>
                 <a href={ `#accordion-${ itemNumber }` } className="ghostkit-accordion-item-heading">
-                    { heading }
+                    <RichText.Content
+                        className="ghostkit-accordion-item-label"
+                        tagName="span"
+                        value={ heading }
+                    />
                     <span className="ghostkit-accordion-item-collapse">
                         <span className="fas fa-angle-right" />
                     </span>
@@ -156,4 +164,6 @@ export const settings = {
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };
