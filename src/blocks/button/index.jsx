@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/button.svg';
+import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -100,6 +101,8 @@ class ButtonBlock extends Component {
             L: 'lg',
             XL: 'xl',
         };
+
+        className = classnames( 'ghostkit-button-wrapper', className );
 
         // add custom classname.
         if ( ghostkitClassname ) {
@@ -252,7 +255,8 @@ const blockAttributes = {
     text: {
         type: 'array',
         source: 'children',
-        selector: 'a',
+        selector: '.ghostkit-button',
+        default: 'Button',
     },
     align: {
         type: 'string',
@@ -312,6 +316,8 @@ export const settings = {
 
     supports: {
         html: false,
+        align: [ 'wide', 'full' ],
+        className: false,
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
@@ -346,16 +352,24 @@ export const settings = {
             variant,
         } = attributes;
 
+        className = classnames( 'ghostkit-button-wrapper', className );
+
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-button-variant-${ variant }` );
         }
 
         return (
             <div className={ classnames( className, `align${ align }` ) }>
-                <a className={ classnames( 'ghostkit-button', size ? `ghostkit-button-${ size }` : '' ) } href={ url } title={ title }>
-                    { text }
-                </a>
+                <RichText.Content
+                    tagName="a"
+                    className={ classnames( 'ghostkit-button', size ? `ghostkit-button-${ size }` : '' ) }
+                    href={ url }
+                    title={ title }
+                    value={ text }
+                />
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };
