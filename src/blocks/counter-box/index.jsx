@@ -159,7 +159,9 @@ export const settings = {
             default: 'default',
         },
         number: {
-            type: 'string',
+            type: 'array',
+            source: 'children',
+            selector: '.ghostkit-counter-box-number',
             default: '77',
         },
         numberPosition: {
@@ -191,9 +193,11 @@ export const settings = {
 
         return (
             <div className={ className }>
-                <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
-                    { number }
-                </div>
+                <RichText.Content
+                    tagName="div"
+                    className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }
+                    value={ number }
+                />
                 <div className="ghostkit-counter-box-content">
                     <InnerBlocks.Content />
                 </div>
