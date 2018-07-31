@@ -4,6 +4,7 @@ import './editor.scss';
 
 // External Dependencies.
 import classnames from 'classnames/dedupe';
+import deprecatedArray from './deprecated.jsx';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/alert.svg';
@@ -56,6 +57,8 @@ class AlertBlock extends Component {
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'alert' );
+
+        className = classnames( 'ghostkit-alert', className );
 
         // add custom classname.
         if ( ghostkitClassname ) {
@@ -139,6 +142,7 @@ export const settings = {
     supports: {
         html: false,
         align: [ 'wide', 'full' ],
+        className: false,
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
@@ -175,6 +179,8 @@ export const settings = {
             variant,
         } = attributes;
 
+        className = classnames( 'ghostkit-alert', className );
+
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-alert-variant-${ variant }` );
         }
@@ -197,4 +203,6 @@ export const settings = {
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };
