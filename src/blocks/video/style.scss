@@ -3,19 +3,25 @@
  */
 @import "../variables";
 
-.ghostkit-video[data-video-aspect-ratio="16-9"],
-.ghostkit-video[data-video-aspect-ratio="16:9"],
-.ghostkit-video-aspect-ratio-16-9 {
+.ghostkit-video::before {
+    content: "";
+    display: block;
+    width: 100%;
+}
+
+.ghostkit-video[data-video-aspect-ratio="16-9"]::before,
+.ghostkit-video[data-video-aspect-ratio="16:9"]::before,
+.ghostkit-video-aspect-ratio-16-9::before {
     padding-top: 56.25%;
 }
-.ghostkit-video[data-video-aspect-ratio="21-9"],
-.ghostkit-video[data-video-aspect-ratio="21:9"],
-.ghostkit-video-aspect-ratio-21-9 {
+.ghostkit-video[data-video-aspect-ratio="21-9"]::before,
+.ghostkit-video[data-video-aspect-ratio="21:9"]::before,
+.ghostkit-video-aspect-ratio-21-9::before {
     padding-top: 42.857%;
 }
-.ghostkit-video[data-video-aspect-ratio="4-3"],
-.ghostkit-video[data-video-aspect-ratio="4:3"],
-.ghostkit-video-aspect-ratio-4-3 {
+.ghostkit-video[data-video-aspect-ratio="4-3"]::before,
+.ghostkit-video[data-video-aspect-ratio="4:3"]::before,
+.ghostkit-video-aspect-ratio-4-3::before {
     padding-top: 75%;
 }
 
