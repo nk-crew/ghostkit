@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/icon-box.svg';
+import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -54,6 +55,8 @@ class IconBoxBlock extends Component {
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'icon_box' );
+
+        className = classnames( 'ghostkit-icon-box', className );
 
         // add custom classname.
         if ( ghostkitClassname ) {
@@ -149,6 +152,7 @@ export const settings = {
     supports: {
         html: false,
         align: [ 'wide', 'full' ],
+        className: false,
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
@@ -185,6 +189,8 @@ export const settings = {
             variant,
         } = attributes;
 
+        className = classnames( 'ghostkit-icon-box', className );
+
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-icon-box-variant-${ variant }` );
         }
@@ -202,4 +208,6 @@ export const settings = {
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };
