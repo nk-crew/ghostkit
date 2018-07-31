@@ -148,7 +148,6 @@ class TabsBlock extends Component {
                                             }
                                         } }
                                         formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                                        format="string"
                                         inlineToolbar
                                         key={ `tab_button_${ val.number }` }
                                     />
@@ -240,9 +239,14 @@ export const settings = {
                     {
                         tabs.map( ( val ) => {
                             return (
-                                <a data-tab={ val.number } href={ `#tab-${ val.number }` } className="ghostkit-tabs-buttons-item" key={ `tab_button_${ val.number }` } >
-                                    { val.label }
-                                </a>
+                                <RichText.Content
+                                    tagName="a"
+                                    data-tab={ val.number }
+                                    href={ `#tab-${ val.number }` }
+                                    className="ghostkit-tabs-buttons-item"
+                                    key={ `tab_button_${ val.number }` }
+                                    value={ val.label }
+                                />
                             );
                         } )
                     }
