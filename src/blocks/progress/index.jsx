@@ -208,7 +208,9 @@ export const settings = {
             default: 'default',
         },
         caption: {
-            type: 'caption',
+            type: 'array',
+            source: 'children',
+            selector: '.ghostkit-progress-caption',
         },
         height: {
             type: 'number',
@@ -255,7 +257,11 @@ export const settings = {
             <div className={ className }>
                 {
                     caption && caption.length && (
-                        <small className="ghostkit-progress-caption">{ caption }</small>
+                        <RichText.Content
+                            tagName="small"
+                            className="ghostkit-progress-caption"
+                            value={ caption }
+                        />
                     )
                 }
                 <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
