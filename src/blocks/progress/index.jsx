@@ -8,6 +8,7 @@ import './editor.scss';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/progress.svg';
+import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -65,6 +66,8 @@ class ProgressBlock extends Component {
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'progress' );
+
+        className = classnames( 'ghostkit-progress', className );
 
         // add custom classname.
         if ( ghostkitClassname ) {
@@ -198,6 +201,7 @@ export const settings = {
     supports: {
         html: false,
         align: [ 'wide', 'full' ],
+        className: false,
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
@@ -249,6 +253,8 @@ export const settings = {
             variant,
         } = attributes;
 
+        className = classnames( 'ghostkit-progress', className );
+
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-progress-variant-${ variant }` );
         }
@@ -270,4 +276,6 @@ export const settings = {
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };
