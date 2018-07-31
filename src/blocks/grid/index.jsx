@@ -53,11 +53,12 @@ class GridBlock extends Component {
         let { className = '' } = this.props;
 
         const {
+            ghostkitClassname,
+            variant,
             columns,
             gap,
             verticalAlign,
             horizontalAlign,
-            variant,
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'grid' );
@@ -79,6 +80,11 @@ class GridBlock extends Component {
             verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,
             horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
         );
+
+        // add custom classname.
+        if ( ghostkitClassname ) {
+            className = classnames( className, ghostkitClassname );
+        }
 
         return (
             <Fragment>

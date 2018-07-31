@@ -51,6 +51,7 @@ class CarouselBlock extends Component {
         let { className = '' } = this.props;
 
         const {
+            ghostkitClassname,
             variant,
             slides,
             effect,
@@ -74,6 +75,11 @@ class CarouselBlock extends Component {
             className,
             'ghostkit-carousel'
         );
+
+        // add custom classname.
+        if ( ghostkitClassname ) {
+            className = classnames( className, ghostkitClassname );
+        }
 
         return (
             <Fragment>

@@ -52,8 +52,9 @@ class AccordionBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            itemsCount,
+            ghostkitClassname,
             variant,
+            itemsCount,
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'accordion' );
@@ -62,6 +63,11 @@ class AccordionBlock extends Component {
             className,
             'ghostkit-accordion'
         );
+
+        // add custom classname.
+        if ( ghostkitClassname ) {
+            className = classnames( className, ghostkitClassname );
+        }
 
         return (
             <Fragment>

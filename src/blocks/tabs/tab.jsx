@@ -30,10 +30,16 @@ class TabBlock extends Component {
         } = this.props;
 
         const {
+            ghostkitClassname,
             variant,
         } = attributes;
 
         className = classnames( className, 'ghostkit-tab' );
+
+        // add custom classname.
+        if ( ghostkitClassname ) {
+            className = classnames( className, ghostkitClassname );
+        }
 
         const availableVariants = GHOSTKIT.getVariants( 'tabs_tab' );
 

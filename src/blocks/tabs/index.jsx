@@ -67,11 +67,12 @@ class TabsBlock extends Component {
         let { className = '' } = this.props;
 
         const {
+            ghostkitClassname,
+            variant,
             tabsCount,
             tabActive,
             tabsSettings,
             buttonsAlign,
-            variant,
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'tabs' );
@@ -82,6 +83,11 @@ class TabsBlock extends Component {
             className,
             'ghostkit-tabs'
         );
+
+        // add custom classname.
+        if ( ghostkitClassname ) {
+            className = classnames( className, ghostkitClassname );
+        }
 
         return (
             <Fragment>
