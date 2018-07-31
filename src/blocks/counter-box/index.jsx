@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/counter-box.svg';
+import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -55,6 +56,8 @@ class CounterBoxBlock extends Component {
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'counter_box' );
+
+        className = classnames( 'ghostkit-counter-box', className );
 
         // add custom classname.
         if ( ghostkitClassname ) {
@@ -149,6 +152,7 @@ export const settings = {
     supports: {
         html: false,
         align: [ 'wide', 'full' ],
+        className: false,
         ghostkitStyles: true,
         ghostkitIndents: true,
         ghostkitDisplay: true,
@@ -187,6 +191,8 @@ export const settings = {
             variant,
         } = attributes;
 
+        className = classnames( 'ghostkit-counter-box', className );
+
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-counter-box-variant-${ variant }` );
         }
@@ -204,4 +210,6 @@ export const settings = {
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };
