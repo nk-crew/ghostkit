@@ -1,5 +1,5 @@
 {
-  "name": "ghost-kit",
+  "name": "ghostkit",
   "title": "GhostKit",
   "description": "Extendable Gutenberg blocks",
   "license": "GPL-2.0",
@@ -23,7 +23,7 @@
   "gulp_config": {
     "variables": {
       "dist": "dist",
-      "plugin_name": "ghost-kit",
+      "plugin_name": "ghostkit",
       "plugin_title": "GhostKit",
       "plugin_version": "1.0.0"
     },
