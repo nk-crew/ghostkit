@@ -20,6 +20,7 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 #### Available blocks: ####
 
 * Grid (fully responsive)
+* Divider
 * Progress Bar
 * Button
 * Accordion
@@ -29,9 +30,10 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 * Icon Box
 * Number Box
 * Video
-* Github Gist
-* Custom CSS (let you add custom CSS on the pages)
-* Customizer (let you easily overwrite customizer options on the pages)
+* Testimonial
+* GitHub Gist
+* Custom CSS (add custom CSS on the pages)
+* Customizer (overwrite customizer options on the pages)
 
 #### Available extensions: ####
 
@@ -41,7 +43,6 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 #### Coming soon blocks: ####
 
 * Countdown
-* Testimonial
 * Pricing
 * Instagram
 * Twitter
@@ -123,11 +124,27 @@ Available filters:
 8. Icon Box
 9. Number Box
 10. Video
-11. GitHub Gist
-12. Blocks Extensions
+11. Testimonial
+12. GitHub Gist
+13. Blocks Extensions
 
 
 ## Changelog ##
+
+= 1.1.0 =
+* added Testimonial block
+* added Divider block
+* added support for some Kirki fields in Customizer block
+* added Fullscreen click action in Video block
+* added column block Sticky option
+* updated FontAwesome to 5.2.0
+* changed RichText usage (some blocks may break)
+* removed wp-block-... classname from all blocks
+* fixed Customizer and Custom CSS blocks save meta data in custom posts
+* fixed Custom CSS block styles escaping (escape > and <)
+* fixed columns centering in Grid block editor
+* fixed GitHub Gist block iOs smooth scroll
+* minor fixes
 
 = 1.0.0 =
 * Initial Release
