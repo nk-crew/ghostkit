@@ -3,3 +3,6 @@
  */
 @import "../variables";
 
+.ghostkit-gist .blob-wrapper {
+    -webkit-overflow-scrolling: touch;
+}
