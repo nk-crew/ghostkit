@@ -3,6 +3,7 @@
  */
 import * as grid from './grid/index.jsx';
 import * as gridColumn from './grid/column.jsx';
+import * as divider from './divider/index.jsx';
 import * as button from './button/index.jsx';
 import * as progress from './progress/index.jsx';
 import * as iconBox from './icon-box/index.jsx';
@@ -38,6 +39,7 @@ const { registerBlockType } = wp.blocks;
 [
     grid,
     gridColumn,
+    divider,
     button,
     progress,
     iconBox,

@@ -95,12 +95,13 @@ Then, when editing block you will see the Variants select and on frontend you wi
 
 Available filters:
 
+* **gkt_grid_variants**
+* **gkt_divider_variants**
 * **gkt_alert_variants**
 * **gkt_button_variants**
 * **gkt_counter_box_variants**
 * **gkt_tabs_variants**
 * **gkt_accordion_variants**
-* **gkt_grid_variants**
 * **gkt_icon_box_variants**
 * **gkt_progress_variants**
 * **gkt_video_variants**
