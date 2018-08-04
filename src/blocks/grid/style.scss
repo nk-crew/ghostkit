@@ -71,7 +71,7 @@
     align-items: center;
 }
 .ghostkit-grid-align-items-end {
-    align-items: end;
+    align-items: flex-end;
 }
 
 // Horizontal align.
@@ -79,7 +79,7 @@
     justify-content: center;
 }
 .ghostkit-grid-justify-content-end {
-    justify-content: end;
+    justify-content: flex-end;
 }
 .ghostkit-grid-justify-content-around {
     justify-content: space-around;
