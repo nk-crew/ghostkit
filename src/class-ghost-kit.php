@@ -136,8 +136,8 @@ class GhostKit {
     public function register_scripts() {
         // FontAwesome.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            wp_register_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/fa-v4-shims.min.js', __FILE__ ), array(), '5.0.13' );
-            wp_register_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/fontawesome-all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.0.13' );
+            wp_register_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/v4-shims.min.js', __FILE__ ), array(), '5.2.0' );
+            wp_register_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.2.0' );
         }
 
         // VideoWorker.
