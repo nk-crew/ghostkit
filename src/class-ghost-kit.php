@@ -2,7 +2,7 @@
 /**
  * Plugin Name:  GhostKit
  * Description:  Extendable Gutenberg blocks
- * Version:      1.0.0
+ * Version:      @@plugin_version
  * Author:       nK
  * Author URI:   https://nkdev.info
  * License:      GPLv2 or later
