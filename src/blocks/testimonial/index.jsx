@@ -65,7 +65,7 @@ function onPhotoSelect( media, setAttributes ) {
     } );
 }
 
-class TestimonialBlock extends Component {
+class TestimonialBlockEdit extends Component {
     constructor( props ) {
         super( props );
         this.onUpdate = this.onUpdate.bind( this );
@@ -229,6 +229,82 @@ class TestimonialBlock extends Component {
     }
 }
 
+class TestimonialBlockSave extends Component {
+    constructor() {
+        super( ...arguments );
+
+        // inside exported xml file almost all symbols are escaped.
+        const posterTag = this.props.attributes.posterTag;
+        if ( posterTag && /^u003c/g.test( posterTag ) ) {
+            this.props.attributes.posterTag = posterTag
+                .replace( /u003c/g, '<' )
+                .replace( /u003e/g, '>' )
+                .replace( /u0022/g, '"' )
+                .replace( /u0026/g, '&' );
+        }
+    }
+
+    render() {
+        const {
+            attributes,
+        } = this.props;
+        let {
+            className,
+        } = this.props;
+
+        const {
+            variant,
+            photoTag,
+            icon,
+            source,
+        } = attributes;
+
+        className = classnames( 'ghostkit-testimonial', className );
+
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-testimonial-variant-${ variant }` );
+        }
+
+        return (
+            <div className={ className }>
+                { icon ? (
+                    <div className="ghostkit-testimonial-icon">
+                        <span className={ icon } />
+                    </div>
+                ) : '' }
+                <div className="ghostkit-testimonial-content">
+                    <InnerBlocks.Content />
+                </div>
+                { photoTag ? (
+                    <div className="ghostkit-testimonial-photo"
+                        dangerouslySetInnerHTML={ {
+                            __html: photoTag,
+                        } }
+                    />
+                ) : '' }
+                { ( attributes.name && attributes.name.length > 0 ) || ( source && source.length > 0 ) ? (
+                    <div className="ghostkit-testimonial-meta">
+                        { attributes.name && attributes.name.length > 0 ? (
+                            <RichText.Content
+                                tagName="div"
+                                className="ghostkit-testimonial-name"
+                                value={ attributes.name }
+                            />
+                        ) : '' }
+                        { source && source.length > 0 ? (
+                            <RichText.Content
+                                tagName="small"
+                                className="ghostkit-testimonial-source"
+                                value={ source }
+                            />
+                        ) : '' }
+                    </div>
+                ) : '' }
+            </div>
+        );
+    }
+}
+
 export const name = 'ghostkit/testimonial';
 
 export const settings = {
@@ -306,58 +382,7 @@ export const settings = {
         return {
             photoData: `/ghostkit/v1/get_attachment_image/${ photo }?${ query }`,
         };
-    } )( TestimonialBlock ),
+    } )( TestimonialBlockEdit ),
 
-    save: function( { attributes, className = '' } ) {
-        const {
-            variant,
-            photoTag,
-            icon,
-            source,
-        } = attributes;
-
-        className = classnames( 'ghostkit-testimonial', className );
-
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-testimonial-variant-${ variant }` );
-        }
-
-        return (
-            <div className={ className }>
-                { icon ? (
-                    <div className="ghostkit-testimonial-icon">
-                        <span className={ icon } />
-                    </div>
-                ) : '' }
-                <div className="ghostkit-testimonial-content">
-                    <InnerBlocks.Content />
-                </div>
-                { photoTag ? (
-                    <div className="ghostkit-testimonial-photo"
-                        dangerouslySetInnerHTML={ {
-                            __html: photoTag,
-                        } }
-                    />
-                ) : '' }
-                { ( attributes.name && attributes.name.length > 0 ) || ( source && source.length > 0 ) ? (
-                    <div className="ghostkit-testimonial-meta">
-                        { attributes.name && attributes.name.length > 0 ? (
-                            <RichText.Content
-                                tagName="div"
-                                className="ghostkit-testimonial-name"
-                                value={ attributes.name }
-                            />
-                        ) : '' }
-                        { source && source.length > 0 ? (
-                            <RichText.Content
-                                tagName="small"
-                                className="ghostkit-testimonial-source"
-                                value={ source }
-                            />
-                        ) : '' }
-                    </div>
-                ) : '' }
-            </div>
-        );
-    },
+    save: TestimonialBlockSave,
 };

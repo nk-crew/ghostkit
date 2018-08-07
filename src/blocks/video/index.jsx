@@ -101,7 +101,7 @@ function getVideoPoster( url, cb ) {
     }, 500 );
 }
 
-class VideoBlock extends Component {
+class VideoBlockEdit extends Component {
     constructor( props ) {
         super( props );
         this.onUpdate = this.onUpdate.bind( this );
@@ -544,6 +544,109 @@ class VideoBlock extends Component {
     }
 }
 
+class VideoBlockSave extends Component {
+    constructor() {
+        super( ...arguments );
+
+        // inside exported xml file almost all symbols are escaped.
+        const posterTag = this.props.attributes.posterTag;
+        if ( posterTag && /^u003c/g.test( posterTag ) ) {
+            this.props.attributes.posterTag = posterTag
+                .replace( /u003c/g, '<' )
+                .replace( /u003e/g, '>' )
+                .replace( /u0022/g, '"' )
+                .replace( /u0026/g, '&' );
+        }
+    }
+
+    render() {
+        const {
+            attributes,
+            className,
+        } = this.props;
+
+        const {
+            variant,
+
+            type,
+            video,
+            videoMp4,
+            videoOgv,
+            videoWebm,
+            videoAspectRatio,
+            videoVolume,
+            iconPlay,
+            iconLoading,
+
+            posterTag,
+
+            clickAction,
+            fullscreenActionCloseIcon,
+            fullscreenBackgroundColor,
+        } = attributes;
+
+        const resultAttrs = {};
+
+        resultAttrs.className = classnames(
+            'ghostkit-video',
+            className
+        );
+        if ( 'default' !== variant ) {
+            resultAttrs.className = classnames( resultAttrs.className, `ghostkit-video-variant-${ variant }` );
+        }
+
+        resultAttrs[ 'data-video-type' ] = type;
+
+        resultAttrs[ 'data-video' ] = '';
+        if ( 'video' === type ) {
+            if ( videoMp4 ) {
+                resultAttrs[ 'data-video' ] += `mp4:${ videoMp4 }`;
+            }
+            if ( videoOgv ) {
+                resultAttrs[ 'data-video' ] += `${ resultAttrs[ 'data-video' ].length ? ',' : '' }ogv:${ videoOgv }`;
+            }
+            if ( videoWebm ) {
+                resultAttrs[ 'data-video' ] += `${ resultAttrs[ 'data-video' ].length ? ',' : '' }webm:${ videoWebm }`;
+            }
+        } else {
+            resultAttrs[ 'data-video' ] = video;
+        }
+
+        resultAttrs[ 'data-video-aspect-ratio' ] = videoAspectRatio;
+
+        resultAttrs[ 'data-video-volume' ] = videoVolume;
+
+        resultAttrs[ 'data-click-action' ] = clickAction;
+
+        if ( clickAction === 'fullscreen' ) {
+            resultAttrs[ 'data-fullscreen-action-close-icon' ] = fullscreenActionCloseIcon;
+            resultAttrs[ 'data-fullscreen-background-color' ] = fullscreenBackgroundColor;
+        }
+
+        return (
+            <div { ...resultAttrs }>
+                { posterTag ? (
+                    <div className="ghostkit-video-poster"
+                        dangerouslySetInnerHTML={ {
+                            __html: posterTag,
+                        } }
+                    />
+                ) : '' }
+                { iconPlay ? (
+                    <div className="ghostkit-video-play-icon">
+                        <span className={ iconPlay } />
+                    </div>
+                ) : '' }
+                { iconLoading ? (
+                    <div className="ghostkit-video-loading-icon">
+                        <span className={ iconLoading } />
+                    </div>
+                ) : '' }
+            </div>
+        );
+    }
+}
+
 export const name = 'ghostkit/video';
 
 export const settings = {
@@ -653,89 +756,9 @@ export const settings = {
         return {
             posterData: `/ghostkit/v1/get_attachment_image/${ poster }?${ query }`,
         };
-    } )( VideoBlock ),
+    } )( VideoBlockEdit ),
 
-    save: function( { attributes, className = '' } ) {
-        const {
-            variant,
-
-            type,
-            video,
-            videoMp4,
-            videoOgv,
-            videoWebm,
-            videoAspectRatio,
-            videoVolume,
-            iconPlay,
-            iconLoading,
-
-            posterTag,
-
-            clickAction,
-            fullscreenActionCloseIcon,
-            fullscreenBackgroundColor,
-        } = attributes;
-
-        const resultAttrs = {};
-
-        resultAttrs.className = classnames(
-            'ghostkit-video',
-            className
-        );
-        if ( 'default' !== variant ) {
-            resultAttrs.className = classnames( resultAttrs.className, `ghostkit-video-variant-${ variant }` );
-        }
-
-        resultAttrs[ 'data-video-type' ] = type;
-
-        resultAttrs[ 'data-video' ] = '';
-        if ( 'video' === type ) {
-            if ( videoMp4 ) {
-                resultAttrs[ 'data-video' ] += `mp4:${ videoMp4 }`;
-            }
-            if ( videoOgv ) {
-                resultAttrs[ 'data-video' ] += `${ resultAttrs[ 'data-video' ].length ? ',' : '' }ogv:${ videoOgv }`;
-            }
-            if ( videoWebm ) {
-                resultAttrs[ 'data-video' ] += `${ resultAttrs[ 'data-video' ].length ? ',' : '' }webm:${ videoWebm }`;
-            }
-        } else {
-            resultAttrs[ 'data-video' ] = video;
-        }
-
-        resultAttrs[ 'data-video-aspect-ratio' ] = videoAspectRatio;
-
-        resultAttrs[ 'data-video-volume' ] = videoVolume;
-
-        resultAttrs[ 'data-click-action' ] = clickAction;
-
-        if ( clickAction === 'fullscreen' ) {
-            resultAttrs[ 'data-fullscreen-action-close-icon' ] = fullscreenActionCloseIcon;
-            resultAttrs[ 'data-fullscreen-background-color' ] = fullscreenBackgroundColor;
-        }
-
-        return (
-            <div { ...resultAttrs }>
-                { posterTag ? (
-                    <div className="ghostkit-video-poster"
-                        dangerouslySetInnerHTML={ {
-                            __html: posterTag,
-                        } }
-                    />
-                ) : '' }
-                { iconPlay ? (
-                    <div className="ghostkit-video-play-icon">
-                        <span className={ iconPlay } />
-                    </div>
-                ) : '' }
-                { iconLoading ? (
-                    <div className="ghostkit-video-loading-icon">
-                        <span className={ iconLoading } />
-                    </div>
-                ) : '' }
-            </div>
-        );
-    },
+    save: VideoBlockSave,
 
     deprecated: deprecatedArray,
 };

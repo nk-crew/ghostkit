@@ -50,6 +50,10 @@ const getStyles = ( data = {}, selector = '', render = true ) => {
                 if ( nestedSelector ) {
                     if ( key.indexOf( '&' ) !== -1 ) {
                         nestedSelector = key.replace( /&/g, nestedSelector );
+
+                    // inside exported xml file all & symbols converted to \u0026
+                    } else if ( key.indexOf( 'u0026' ) !== -1 ) {
+                        nestedSelector = key.replace( /u0026/g, nestedSelector );
                     } else {
                         nestedSelector = `${ nestedSelector } ${ key }`;
                     }
