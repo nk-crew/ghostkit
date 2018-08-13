@@ -131,6 +131,12 @@ Available filters:
 
 ## Changelog ##
 
+= 1.1.1 =
+* added "Select Column" helper UI element to easily select Grid columns [https://wordpress.org/support/topic/selecting-a-column-in-a-grid/](https://wordpress.org/support/topic/selecting-a-column-in-a-grid/)
+* moved all blocks to GhostKit category
+* fixed compatibility with WordPress Import/Export content
+* fixed Indents (margins / paddings) responsive values change [https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/](https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/)
+
 = 1.1.0 =
 * added Testimonial block
 * added Divider block
