@@ -82,7 +82,7 @@ export const settings = {
     parent: [ 'ghostkit/carousel' ],
     description: __( 'A single slide within a carousel block.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'layout',
+    category: 'ghostkit',
     supports: {
         html: false,
         className: false,

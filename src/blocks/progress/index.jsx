@@ -192,7 +192,7 @@ export const settings = {
     title: __( 'Progress' ),
     description: __( 'Progress bar.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'common',
+    category: 'ghostkit',
     keywords: [
         __( 'progress' ),
         __( 'bar' ),

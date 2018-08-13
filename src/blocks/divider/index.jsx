@@ -163,7 +163,7 @@ export const settings = {
     title: __( 'Divider' ),
     description: __( 'Content divider.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'common',
+    category: 'ghostkit',
     keywords: [
         __( 'divider' ),
         __( 'spacer' ),

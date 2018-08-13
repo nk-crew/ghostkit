@@ -306,7 +306,7 @@ export const settings = {
 
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
 
-    category: 'layout',
+    category: 'ghostkit',
 
     keywords: [
         __( 'btn' ),

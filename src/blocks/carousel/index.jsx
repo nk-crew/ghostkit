@@ -231,7 +231,7 @@ export const settings = {
     title: __( 'Carousel' ),
     description: __( 'Add a block that displays content inside carousel, then add whatever content blocks you\'d like.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'layout',
+    category: 'ghostkit',
     keywords: [
         __( 'carousel' ),
         __( 'slider' ),

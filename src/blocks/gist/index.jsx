@@ -223,7 +223,7 @@ export const settings = {
     title: __( 'GitHub Gist' ),
     description: __( 'GitHub Gist embed.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'common',
+    category: 'ghostkit',
     keywords: [
         __( 'github' ),
         __( 'gist' ),

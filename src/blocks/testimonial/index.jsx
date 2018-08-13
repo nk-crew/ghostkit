@@ -311,7 +311,7 @@ export const settings = {
     title: __( 'Testimonial' ),
     description: __( 'Testimonial block.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'common',
+    category: 'ghostkit',
     keywords: [
         __( 'testimonial' ),
         __( 'quote' ),

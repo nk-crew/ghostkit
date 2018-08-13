@@ -206,7 +206,7 @@ export const settings = {
     title: __( 'Grid' ),
     description: __( 'Add a block that displays content in responsive grid columns, then add whatever content blocks you\'d like.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'layout',
+    category: 'ghostkit',
     keywords: [
         __( 'grid' ),
         __( 'column' ),

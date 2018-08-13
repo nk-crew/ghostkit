@@ -397,7 +397,7 @@ export const settings = {
     title: __( 'Customizer' ),
     description: __( 'Replace the customizer options for current post.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'common',
+    category: 'ghostkit',
     keywords: [
         __( 'customizer' ),
         __( 'options' ),

@@ -99,7 +99,7 @@ export const settings = {
     parent: [ 'ghostkit/accordion' ],
     description: __( 'A single item within a accordion block.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'layout',
+    category: 'ghostkit',
     supports: {
         html: false,
         align: [ 'wide', 'full' ],

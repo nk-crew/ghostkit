@@ -180,7 +180,7 @@ export const settings = {
     title: __( 'Tabs' ),
     description: __( 'Tabs.' ),
     icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
-    category: 'layout',
+    category: 'ghostkit',
     keywords: [
         __( 'tabs' ),
         __( 'tab' ),

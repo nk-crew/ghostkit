@@ -124,10 +124,31 @@ class GhostKit {
         if ( function_exists( 'register_block_type' ) ) {
             add_action( 'init', array( $this, 'register_scripts' ) );
 
+            // add GhostKit blocks category.
+            add_filter( 'block_categories', array( $this, 'block_categories' ), 9 );
+
             // we need to enqueue the main script earlier to let 3rd-party plugins add custom styles support.
             add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ), 9 );
             add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_block_assets' ) );
         }
+    }
+
+    /**
+     * Register GhostKit blocks category
+     *
+     * @param array $categories - available categories.
+     * @return array
+     */
+    public function block_categories( $categories ) {
+        return array_merge(
+            $categories,
+            array(
+                array(
+                    'slug'  => 'ghostkit',
+                    'title' => __( 'GhostKit', '@@text_domain' ),
+                ),
+            )
+        );
     }
 
     /**
