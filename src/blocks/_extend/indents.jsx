@@ -143,7 +143,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             }
 
             // add default properties to keep sorting.
-            ghostkitIndents = Object.assign( {
+            ghostkitIndents = deepAssign( {
                 media_xl: {},
                 media_lg: {},
                 media_md: {},
@@ -340,7 +340,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
  * @return {Object} Additional element styles object.
  */
 function addEditorCustomStyles( customStyles, props ) {
-    const customIndents = props.attributes.ghostkitIndents && Object.keys( props.attributes.ghostkitIndents ).length !== 0 ? Object.assign( {}, props.attributes.ghostkitIndents ) : false;
+    const customIndents = props.attributes.ghostkitIndents && Object.keys( props.attributes.ghostkitIndents ).length !== 0 ? deepAssign( {}, props.attributes.ghostkitIndents ) : false;
 
     if ( customStyles && customIndents ) {
         customStyles = deepAssign( customStyles, customIndents );
