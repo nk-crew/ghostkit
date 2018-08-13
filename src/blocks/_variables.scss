@@ -51,6 +51,7 @@ $blue-medium-300: #66c6e4 !default;
 $blue-medium-200: #bfe7f3 !default;
 $blue-medium-100: #e5f5fa !default;
 $blue-medium-highlight: #b3e7fe !default;
+$blue-medium-focus: #007cba !default;
 
 // Alert colors
 $alert-yellow: #f0b849 !default;
@@ -83,33 +84,41 @@ $admin-bar-height-big: 46px !default;
 $admin-sidebar-width: 160px !default;
 $admin-sidebar-width-big: 190px !default;
 $admin-sidebar-width-collapsed: 36px !default;
+$empty-paragraph-height: $text-editor-font-size * 4 !default;
 
 // Visuals
-$shadow-popover: 0 3px 20px rgba($dark-gray-900, .1), 0 1px 3px rgba($dark-gray-900, .1) !default;
+$shadow-popover: 0 3px 30px rgba($dark-gray-900, .1) !default;
 $shadow-toolbar: 0 2px 10px rgba($dark-gray-900, .1), 0 0 2px rgba($dark-gray-900, .1) !default;
+$shadow-below-only: 0 5px 10px rgba($dark-gray-900, .05), 0 2px 2px rgba($dark-gray-900, .05) !default;
+$shadow-modal: 0 3px 30px rgba($dark-gray-900, .2) !default;
 
 // Editor Widths
 $sidebar-width: 280px !default;
-$text-editor-max-width: 760px !default;	// @todo: merge with variable below
-$content-width: 636px !default;	// @todo: leverage theme $content_width variable
+$content-width: 610px !default; // For the visual width, subtract 30px (2 * $block-padding + 2px borders). This comes to 580px, which is optimized for 70 characters.
 
 // Block UI
+$border-width: 1px !default;
 $block-controls-height: 36px !default;
 $icon-button-size: 36px !default;
 $icon-button-size-small: 24px !default;
 $inserter-tabs-height: 36px !default;
-$block-toolbar-height: 37px !default;
+$block-toolbar-height: $block-controls-height + $border-width !default;
 
 // Blocks
-$block-padding: 14px !default;
-$block-mover-margin: 18px !default;
-$block-spacing: 4px !default;
-$block-side-ui-padding: 36px !default;
-$block-side-ui-width: 28px !default;		// The side UI max height matches a single line of text, 56px. 28px is half, allowing 2 mover arrows
+$parent-block-padding: 28px !default; // padding of top level blocks, should be larger than $block-padding, otherwise a user can't select the parent from a child
+$block-padding: 14px !default; // padding of nested blocks
+$block-spacing: 4px !default; // vertical space between blocks
+
+$block-side-ui-width: 28px !default; // width of the side UI, matches half matches half of a single line of text, so two buttons stacke matches 1
+$block-side-ui-clearance: 2px !default; // space between side UI and block
+$block-side-ui-padding: $block-side-ui-width + $block-side-ui-clearance !default; // total space used to accommodate side UI
+$block-parent-side-ui-clearance: $parent-block-padding - $block-padding !default; // space between side UI and block on top level blocks
+
+$block-container-side-padding: $block-side-ui-width + $block-padding + 2 * $block-side-ui-clearance !default;
 
 // Buttons & UI Widgets
-$button-style__radius-roundrect: 4px !default;
-$button-style__radius-round: 50% !default;
+$radius-round-rectangle: 4px !default;
+$radius-round: 50% !default;
 
 
 /**
