@@ -2,6 +2,7 @@
 import './editor.scss';
 
 // external Dependencies.
+import 'babel-polyfill';
 import Select from 'react-select';
 
 // Internal Dependencies.
@@ -16,14 +17,68 @@ const {
     ToggleControl,
     SelectControl,
     RangeControl,
-    withAPIData,
     Placeholder,
     Spinner,
 } = wp.components;
 
+const { apiFetch } = wp;
+const {
+    registerStore,
+    withSelect,
+} = wp.data;
+
 const {
     ColorPalette,
 } = wp.editor;
+
+const actions = {
+    setCustomizerData( query, data ) {
+        return {
+            type: 'SET_CUSTOMIZER_DATA',
+            query,
+            data,
+        };
+    },
+    getCustomizerData( query ) {
+        return {
+            type: 'GET_CUSTOMIZER_DATA',
+            query,
+        };
+    },
+};
+registerStore( 'ghostkit/customizer', {
+    reducer( state = { data: false }, action ) {
+        switch ( action.type ) {
+        case 'SET_CUSTOMIZER_DATA':
+            if ( ! state.data && action.data ) {
+                state.data = action.data;
+            }
+            return state;
+        case 'GET_CUSTOMIZER_DATA':
+            return action.data;
+        // no default
+        }
+        return state;
+    },
+    actions,
+    selectors: {
+        getCustomizerData( state ) {
+            return state.data;
+        },
+    },
+    resolvers: {
+        * getCustomizerData( state, query ) {
+            const data = apiFetch( { path: query } )
+                .then( ( fetchedData ) => {
+                    if ( fetchedData && fetchedData.success && fetchedData.response ) {
+                        return actions.setCustomizerData( query, fetchedData.response );
+                    }
+                    return false;
+                } );
+            yield data;
+        },
+    },
+} );
 
 class CustomizerBlock extends Component {
     constructor() {
@@ -88,9 +143,9 @@ class CustomizerBlock extends Component {
             options = this.jsonOptions;
         }
 
-        if ( customizerOptions && customizerOptions.data && customizerOptions.data && customizerOptions.data.success ) {
-            Object.keys( customizerOptions.data.response ).map( ( k ) => {
-                const opt = customizerOptions.data.response[ k ];
+        if ( customizerOptions ) {
+            Object.keys( customizerOptions ).map( ( k ) => {
+                const opt = customizerOptions[ k ];
                 options.forEach( ( val, n ) => {
                     if ( options[ n ] && options[ n ].id === opt.id ) {
                         const choices = [];
@@ -134,12 +189,12 @@ class CustomizerBlock extends Component {
 
         let result = false;
 
-        if ( customizerOptions && customizerOptions.data && customizerOptions.data && customizerOptions.data.success ) {
+        if ( customizerOptions ) {
             result = [];
             const groupedList = {};
 
-            Object.keys( customizerOptions.data.response ).map( ( k ) => {
-                const val = customizerOptions.data.response[ k ];
+            Object.keys( customizerOptions ).map( ( k ) => {
+                const val = customizerOptions[ k ];
                 let prevent = false;
 
                 // disable some options
@@ -416,9 +471,9 @@ export const settings = {
         },
     },
 
-    edit: withAPIData( () => {
+    edit: withSelect( ( select ) => {
         return {
-            customizerOptions: '/ghostkit/v1/get_customizer/',
+            customizerOptions: select( 'ghostkit/customizer' ).getCustomizerData( '/ghostkit/v1/get_customizer/' ),
         };
     } )( CustomizerBlock ),
 

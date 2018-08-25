@@ -1,4 +1,5 @@
 // External Dependencies.
+import 'babel-polyfill';
 import { ChromePicker } from 'react-color';
 import classnames from 'classnames/dedupe';
 
@@ -23,8 +24,13 @@ const {
     RangeControl,
     TextControl,
     PanelColor,
-    withAPIData,
 } = wp.components;
+
+const { apiFetch } = wp;
+const {
+    registerStore,
+    withSelect,
+} = wp.data;
 
 const {
     InspectorControls,
@@ -44,6 +50,55 @@ function toTitleCase( str ) {
         return word && word.length ? word.replace( word[ 0 ], word[ 0 ].toUpperCase() ) : word;
     } ).join( ' ' );
 }
+
+const actions = {
+    setImageTagData( query, image ) {
+        return {
+            type: 'SET_IMAGE_TAG_DATA',
+            query,
+            image,
+        };
+    },
+    getImageTagData( query ) {
+        return {
+            type: 'GET_IMAGE_TAG_DATA',
+            query,
+        };
+    },
+};
+registerStore( 'ghostkit/video', {
+    reducer( state = { images: {} }, action ) {
+        switch ( action.type ) {
+        case 'SET_IMAGE_TAG_DATA':
+            if ( ! state.images[ action.query ] && action.image ) {
+                state.images[ action.query ] = action.image;
+            }
+            return state;
+        case 'GET_IMAGE_TAG_DATA':
+            return action.images[ action.query ];
+        // no default
+        }
+        return state;
+    },
+    actions,
+    selectors: {
+        getImageTagData( state, query ) {
+            return state.images[ query ];
+        },
+    },
+    resolvers: {
+        * getImageTagData( state, query ) {
+            const image = apiFetch( { path: query } )
+                .then( ( fetchedData ) => {
+                    if ( fetchedData && fetchedData.success && fetchedData.response ) {
+                        return actions.setImageTagData( query, fetchedData.response );
+                    }
+                    return false;
+                } );
+            yield image;
+        },
+    },
+} );
 
 /**
  * Select poster
@@ -120,8 +175,8 @@ class VideoBlockEdit extends Component {
         } = this.props;
 
         // set poster tag to attribute
-        if ( attributes.poster && posterData && ! posterData.isLoading && posterData.data && posterData.data.success ) {
-            setAttributes( { posterTag: posterData.data.response } );
+        if ( attributes.poster && posterData ) {
+            setAttributes( { posterTag: posterData } );
         }
 
         // load YouTube / Vimeo poster
@@ -745,16 +800,17 @@ export const settings = {
         },
     },
 
-    edit: withAPIData( ( { attributes } ) => {
-        const { poster } = attributes;
+    edit: withSelect( ( select, props ) => {
+        const { poster } = props.attributes;
+
         if ( ! poster ) {
             return {};
         }
 
-        const query = `size=${ encodeURIComponent( attributes.posterSize ) }`;
+        const query = `size=${ encodeURIComponent( props.attributes.posterSize ) }`;
 
         return {
-            posterData: `/ghostkit/v1/get_attachment_image/${ poster }?${ query }`,
+            posterData: select( 'ghostkit/video' ).getImageTagData( `/ghostkit/v1/get_attachment_image/${ poster }?${ query }` ),
         };
     } )( VideoBlockEdit ),
 
