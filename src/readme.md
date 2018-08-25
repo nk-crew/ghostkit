@@ -47,6 +47,7 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 * Instagram
 * Twitter
 * Gif
+* Google Maps
 
 
 ## Installation ##
@@ -130,6 +131,10 @@ Available filters:
 
 
 ## Changelog ##
+
+= 1.1.2 =
+* added support for Gutenberg 3.7.0
+* improved custom styles extension (simplified code and prevent console warnings)
 
 = 1.1.1 =
 * added "Select Column" helper UI element to easily select Grid columns [https://wordpress.org/support/topic/selecting-a-column-in-a-grid/](https://wordpress.org/support/topic/selecting-a-column-in-a-grid/)
