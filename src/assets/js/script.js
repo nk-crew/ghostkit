@@ -366,61 +366,6 @@ function prepareGist() {
     } );
 }
 
-// dynamically watch for elements ready state.
-let observer = false;
-if ( typeof window.MutationObserver !== 'undefined' ) {
-    observer = new window.MutationObserver( ( mutations ) => {
-        let readyCustomStyles = false;
-        let readyTabsBlock = false;
-        let readyAccordionBlock = false;
-        let readyGistBlock = false;
-        let readyVideoBlock = false;
-
-        mutations.forEach( function( mutation ) {
-            if ( mutation.addedNodes && mutation.addedNodes.length ) {
-                mutation.addedNodes.forEach( function( node ) {
-                    if ( $( node ).is( '[data-ghostkit-styles]' ) ) {
-                        readyCustomStyles = 1;
-                    }
-                    if ( $( node ).is( '.ghostkit-tabs:not(.ghostkit-tabs-ready)' ) ) {
-                        readyTabsBlock = 1;
-                    }
-                    if ( $( node ).is( '.ghostkit-accordion:not(.ghostkit-accordion-ready)' ) ) {
-                        readyAccordionBlock = 1;
-                    }
-                    if ( $( node ).is( '.ghostkit-video:not(.ghostkit-video-ready)' ) ) {
-                        readyVideoBlock = 1;
-                    }
-                    if ( $( node ).is( '.ghostkit-gist:not(.ghostkit-gist-ready)' ) ) {
-                        readyGistBlock = 1;
-                    }
-                } );
-            }
-        } );
-
-        if ( readyCustomStyles ) {
-            prepareCustomStyles();
-        }
-        if ( readyTabsBlock ) {
-            prepareTabs();
-        }
-        if ( readyAccordionBlock ) {
-            prepareAccordions();
-        }
-        if ( readyVideoBlock ) {
-            prepareVideo();
-        }
-        if ( readyGistBlock ) {
-            prepareGist();
-        }
-    } );
-
-    observer.observe( document.documentElement, {
-        childList: true,
-        subtree: true,
-    } );
-}
-
 /**
  * Prepare alerts dismiss button.
  */
@@ -432,8 +377,10 @@ $( document ).on( 'click', '.ghostkit-alert-hide-button', function( e ) {
         } );
 } );
 
-// on dom ready.
-$( document ).on( 'DOMContentLoaded load', () => {
+/**
+ * Init Blocks.
+ */
+const throttledInitBlocks = throttle( 200, () => {
     prepareCustomStyles();
     prepareTabs();
     prepareAccordions();
@@ -441,3 +388,13 @@ $( document ).on( 'DOMContentLoaded load', () => {
     prepareVideo();
     prepareGist();
 } );
+if ( window.MutationObserver ) {
+    new window.MutationObserver( throttledInitBlocks )
+        .observe( document.documentElement, {
+            childList: true, subtree: true,
+        } );
+} else {
+    $( document ).on( 'DOMContentLoaded DOMNodeInserted load', () => {
+        throttledInitBlocks();
+    } );
+}
