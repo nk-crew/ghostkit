@@ -2,7 +2,9 @@
 import './editor.scss';
 
 // External Dependencies.
-import 'babel-polyfill';
+if ( ! global._babelPolyfill ) {
+    require( 'babel-polyfill' );
+}
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
