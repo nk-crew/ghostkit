@@ -40,22 +40,6 @@ class ButtonBlock extends Component {
         this.toggleClear = this.toggleClear.bind( this );
     }
 
-    ghostkitStyles( attributes ) {
-        return {
-            '.ghostkit-button': {
-                backgroundColor: attributes.color,
-                color: attributes.textColor,
-                borderRadius: attributes.borderRadius,
-                border: attributes.borderWeight && attributes.borderColor ? `${ attributes.borderWeight }px solid ${ attributes.borderColor }` : false,
-                '&:hover, &:focus': {
-                    backgroundColor: attributes.hoverColor,
-                    color: attributes.hoverTextColor,
-                    borderColor: attributes.borderWeight && attributes.borderColor && attributes.hoverBorderColor ? attributes.hoverBorderColor : false,
-                },
-            },
-        };
-    }
-
     updateAlignment( nextAlign ) {
         this.props.setAttributes( { align: nextAlign } );
     }
@@ -319,6 +303,21 @@ export const settings = {
         align: [ 'wide', 'full' ],
         className: false,
         ghostkitStyles: true,
+        ghostkitStylesCallback( attributes ) {
+            return {
+                '.ghostkit-button': {
+                    backgroundColor: attributes.color,
+                    color: attributes.textColor,
+                    borderRadius: attributes.borderRadius,
+                    border: attributes.borderWeight && attributes.borderColor ? `${ attributes.borderWeight }px solid ${ attributes.borderColor }` : false,
+                    '&:hover, &:focus': {
+                        backgroundColor: attributes.hoverColor,
+                        color: attributes.hoverTextColor,
+                        borderColor: attributes.borderWeight && attributes.borderColor && attributes.hoverBorderColor ? attributes.hoverBorderColor : false,
+                    },
+                },
+            };
+        },
         ghostkitIndents: true,
         ghostkitDisplay: true,
     },

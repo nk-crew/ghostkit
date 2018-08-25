@@ -15,6 +15,7 @@ const {
 } = wp.blocks;
 
 const {
+    Component,
     Fragment,
 } = wp.element;
 
@@ -213,83 +214,23 @@ function addAttribute( blockSettings, name ) {
                     } );
                 }
             }
-            settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
 
-            // change default edit class/function.
-            const defaultEdit = settings.edit;
-
-            // edit class.
-            if ( defaultEdit && defaultEdit.prototype && defaultEdit.prototype.render ) {
-                class newEdit extends defaultEdit {
-                    render() {
-                        const {
-                            setAttributes,
-                            attributes,
-                        } = this.props;
-
-                        const customStyles = {};
-
-                        if ( attributes.ghostkitClassname ) {
-                            // prepare custom block styles.
-                            const blockCustomStyles = applyFilters(
-                                'ghostkit.blocks.customStyles',
-                                this.ghostkitStyles ? this.ghostkitStyles( attributes ) : {},
-                                this.props
-                            );
-
-                            if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
-                                customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
-                            }
-
-                            if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
-                                setAttributes( { ghostkitStyles: customStyles } );
-                            }
-
-                            return (
-                                <Fragment>
-                                    { super.render( ...arguments ) }
-                                    <div { ...getCustomStylesAttr( customStyles ) } />
-                                </Fragment>
-                            );
-                        }
-
-                        return super.render( ...arguments );
-                    }
-                }
-                settings.edit = newEdit;
-
-                // edit function.
-            } else if ( defaultEdit && defaultEdit.prototype ) {
-                settings.edit = function( props ) {
-                    const {
-                        attributes,
-                        setAttributes,
-                    } = props;
-
-                    const result = defaultEdit.apply( this, arguments );
-
-                    // generate styles
-                    const customStyles = {};
-                    if ( attributes.ghostkitClassname ) {
-                        // prepare custom block styles.
-                        const blockCustomStyles = applyFilters(
-                            'ghostkit.blocks.customStyles',
-                            defaultEdit.ghostkitStyles ? defaultEdit.ghostkitStyles( attributes ) : {},
-                            props
-                        );
-
-                        if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
-                            customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
-                        }
-
-                        if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
-                            setAttributes( { ghostkitStyles: customStyles } );
-                        }
-                    }
-
-                    return result;
+            if ( blockSettings.supports && blockSettings.supports.ghostkitStylesCallback ) {
+                settings.attributes.ghostkitStylesCallback = {
+                    type: 'function',
+                    default: blockSettings.supports.ghostkitStylesCallback,
                 };
+
+                // add to deprecated items.
+                if ( settings.deprecated && settings.deprecated.length ) {
+                    settings.deprecated.forEach( ( item, i ) => {
+                        if ( settings.deprecated[ i ].attributes ) {
+                            settings.deprecated[ i ].attributes.ghostkitStylesCallback = settings.attributes.ghostkitStylesCallback;
+                        }
+                    } );
+                }
             }
+            settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
         }
     } );
 
@@ -312,30 +253,85 @@ const usedIds = {};
  * @return {string} Wrapped component.
  */
 const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
-    return ( props ) => {
-        // add new ghostkit props.
-        if ( props.clientId && typeof props.attributes.ghostkitId !== 'undefined' ) {
-            let ID = props.attributes.ghostkitId || '';
+    class newEdit extends Component {
+        constructor() {
+            super( ...arguments );
 
-            // check if ID already exist.
-            let tryCount = 10;
-            while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== props.clientId && tryCount > 0 ) ) {
-                ID = shorthash.unique( props.clientId );
-                tryCount--;
-            }
+            this.onUpdate = this.onUpdate.bind( this );
 
-            if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
-                usedIds[ ID ] = props.clientId;
-            }
+            // add new ghostkit props.
+            if ( this.props.clientId && typeof this.props.attributes.ghostkitId !== 'undefined' ) {
+                let ID = this.props.attributes.ghostkitId || '';
 
-            if ( ID !== props.attributes.ghostkitId ) {
-                props.attributes.ghostkitId = ID;
-                props.attributes.ghostkitClassname = props.name.replace( '/', '-' ) + '-' + ID;
+                // check if ID already exist.
+                let tryCount = 10;
+                while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== this.props.clientId && tryCount > 0 ) ) {
+                    ID = shorthash.unique( this.props.clientId );
+                    tryCount--;
+                }
+
+                if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
+                    usedIds[ ID ] = this.props.clientId;
+                }
+
+                if ( ID !== this.props.attributes.ghostkitId ) {
+                    this.props.attributes.ghostkitId = ID;
+                    this.props.attributes.ghostkitClassname = this.props.name.replace( '/', '-' ) + '-' + ID;
+                }
             }
         }
 
-        return <BlockEdit { ...props } />;
-    };
+        componentDidMount() {
+            this.onUpdate();
+        }
+        componentDidUpdate() {
+            this.onUpdate();
+        }
+
+        onUpdate() {
+            const {
+                setAttributes,
+                attributes,
+            } = this.props;
+
+            if ( attributes.ghostkitClassname ) {
+                const customStyles = {};
+
+                // prepare custom block styles.
+                const blockCustomStyles = applyFilters(
+                    'ghostkit.blocks.customStyles',
+                    attributes.ghostkitStylesCallback ? attributes.ghostkitStylesCallback( attributes ) : {},
+                    this.props
+                );
+
+                if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
+                    customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
+                }
+
+                if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
+                    setAttributes( { ghostkitStyles: customStyles } );
+                }
+            }
+        }
+
+        render() {
+            const {
+                attributes,
+            } = this.props;
+
+            if ( attributes.ghostkitStyles && attributes.ghostkitClassname ) {
+                return (
+                    <Fragment>
+                        <BlockEdit { ...this.props } />
+                        <div { ...getCustomStylesAttr( attributes.ghostkitStyles ) } />
+                    </Fragment>
+                );
+            }
+
+            return <BlockEdit { ...this.props } />;
+        }
+    }
+    return newEdit;
 }, 'withNewAttrs' );
 
 /**

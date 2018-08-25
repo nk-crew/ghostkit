@@ -29,16 +29,6 @@ const {
 } = wp.editor;
 
 class AlertBlock extends Component {
-    ghostkitStyles( attributes ) {
-        return {
-            borderLeftColor: attributes.color,
-            '.ghostkit-alert-icon': {
-                fontSize: attributes.iconSize,
-                color: attributes.color,
-            },
-        };
-    }
-
     render() {
         const {
             attributes,
@@ -144,6 +134,15 @@ export const settings = {
         align: [ 'wide', 'full' ],
         className: false,
         ghostkitStyles: true,
+        ghostkitStylesCallback( attributes ) {
+            return {
+                borderLeftColor: attributes.color,
+                '.ghostkit-alert-icon': {
+                    fontSize: attributes.iconSize,
+                    color: attributes.color,
+                },
+            };
+        },
         ghostkitIndents: true,
         ghostkitDisplay: true,
     },

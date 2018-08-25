@@ -29,20 +29,6 @@ const {
 } = wp.editor;
 
 class ProgressBlock extends Component {
-    ghostkitStyles( attributes ) {
-        return {
-            '.ghostkit-progress-wrap': {
-                height: attributes.height,
-                borderRadius: attributes.borderRadius,
-                backgroundColor: attributes.backgroundColor,
-                '.ghostkit-progress-bar': {
-                    width: attributes.percent + '%',
-                    backgroundColor: attributes.color,
-                },
-            },
-        };
-    }
-
     render() {
         const {
             attributes,
@@ -203,6 +189,19 @@ export const settings = {
         align: [ 'wide', 'full' ],
         className: false,
         ghostkitStyles: true,
+        ghostkitStylesCallback( attributes ) {
+            return {
+                '.ghostkit-progress-wrap': {
+                    height: attributes.height,
+                    borderRadius: attributes.borderRadius,
+                    backgroundColor: attributes.backgroundColor,
+                    '.ghostkit-progress-bar': {
+                        width: attributes.percent + '%',
+                        backgroundColor: attributes.color,
+                    },
+                },
+            };
+        },
         ghostkitIndents: true,
         ghostkitDisplay: true,
     },

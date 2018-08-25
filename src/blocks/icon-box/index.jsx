@@ -28,15 +28,6 @@ const {
 } = wp.editor;
 
 class IconBoxBlock extends Component {
-    ghostkitStyles( attributes ) {
-        return {
-            '.ghostkit-icon-box-icon': {
-                fontSize: attributes.iconSize,
-                color: attributes.iconColor,
-            },
-        };
-    }
-
     render() {
         const {
             attributes,
@@ -154,6 +145,14 @@ export const settings = {
         align: [ 'wide', 'full' ],
         className: false,
         ghostkitStyles: true,
+        ghostkitStylesCallback( attributes ) {
+            return {
+                '.ghostkit-icon-box-icon': {
+                    fontSize: attributes.iconSize,
+                    color: attributes.iconColor,
+                },
+            };
+        },
         ghostkitIndents: true,
         ghostkitDisplay: true,
     },

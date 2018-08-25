@@ -28,15 +28,6 @@ const {
 } = wp.editor;
 
 class CounterBoxBlock extends Component {
-    ghostkitStyles( attributes ) {
-        return {
-            '.ghostkit-counter-box-number': {
-                fontSize: attributes.numberSize,
-                color: attributes.numberColor,
-            },
-        };
-    }
-
     render() {
         const {
             attributes,
@@ -154,6 +145,14 @@ export const settings = {
         align: [ 'wide', 'full' ],
         className: false,
         ghostkitStyles: true,
+        ghostkitStylesCallback( attributes ) {
+            return {
+                '.ghostkit-counter-box-number': {
+                    fontSize: attributes.numberSize,
+                    color: attributes.numberColor,
+                },
+            };
+        },
         ghostkitIndents: true,
         ghostkitDisplay: true,
     },

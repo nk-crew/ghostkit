@@ -118,34 +118,6 @@ const getColClass = ( attributes ) => {
 };
 
 class GridColumnBlock extends Component {
-    ghostkitStyles( attributes ) {
-        const {
-            stickyContent,
-            stickyContentTop,
-            stickyContentBottom,
-        } = attributes;
-
-        const result = {};
-
-        if ( stickyContent ) {
-            result[ '& > .ghostkit-col-content' ] = {
-                position: '-webkit-sticky',
-            };
-            result[ '> .ghostkit-col-content' ] = {
-                position: 'sticky',
-            };
-
-            if ( stickyContentTop ) {
-                result[ '> .ghostkit-col-content' ].top = stickyContentTop;
-            }
-            if ( stickyContentBottom ) {
-                result[ '> .ghostkit-col-content' ].bottom = stickyContentBottom;
-            }
-        }
-
-        return result;
-    }
-
     render() {
         const {
             attributes,
@@ -339,6 +311,33 @@ export const settings = {
         html: false,
         className: false,
         ghostkitStyles: true,
+        ghostkitStylesCallback( attributes ) {
+            const {
+                stickyContent,
+                stickyContentTop,
+                stickyContentBottom,
+            } = attributes;
+
+            const result = {};
+
+            if ( stickyContent ) {
+                result[ '& > .ghostkit-col-content' ] = {
+                    position: '-webkit-sticky',
+                };
+                result[ '> .ghostkit-col-content' ] = {
+                    position: 'sticky',
+                };
+
+                if ( stickyContentTop ) {
+                    result[ '> .ghostkit-col-content' ].top = stickyContentTop;
+                }
+                if ( stickyContentBottom ) {
+                    result[ '> .ghostkit-col-content' ].bottom = stickyContentBottom;
+                }
+            }
+
+            return result;
+        },
         ghostkitIndents: true,
         ghostkitDisplay: true,
     },

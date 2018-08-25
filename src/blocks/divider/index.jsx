@@ -26,19 +26,6 @@ const {
 } = wp.editor;
 
 class DividerBlock extends Component {
-    ghostkitStyles( attributes ) {
-        return {
-            '&::before, &::after': {
-                borderColor: attributes.color,
-                borderWidth: attributes.size,
-            },
-            '.ghostkit-divider-icon': {
-                fontSize: attributes.iconSize,
-                color: attributes.iconColor,
-            },
-        };
-    }
-
     render() {
         const {
             attributes,
@@ -174,6 +161,18 @@ export const settings = {
         align: [ 'wide', 'full' ],
         className: false,
         ghostkitStyles: true,
+        ghostkitStylesCallback( attributes ) {
+            return {
+                '&::before, &::after': {
+                    borderColor: attributes.color,
+                    borderWidth: attributes.size,
+                },
+                '.ghostkit-divider-icon': {
+                    fontSize: attributes.iconSize,
+                    color: attributes.iconColor,
+                },
+            };
+        },
         ghostkitIndents: true,
         ghostkitDisplay: true,
     },
