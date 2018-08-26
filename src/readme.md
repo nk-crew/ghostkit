@@ -115,19 +115,20 @@ Available filters:
 
 ## Screenshots ##
 
-1. Responsive Grid
-2. Progress Bar
-3. Button
-4. Accordion
-5. Tabs
-6. Carousel
-7. Alert
-8. Icon Box
-9. Number Box
-10. Video
-11. Testimonial
-12. GitHub Gist
-13. Blocks Extensions
+1. List of all available blocks
+2. Responsive Grid
+3. Progress Bar
+4. Button
+5. Accordion
+6. Tabs
+7. Carousel
+8. Alert
+9. Icon Box
+10. Counter Box
+11. Video
+12. Testimonial
+13. GitHub Gist
+14. Blocks Extensions
 
 
 ## Changelog ##
