@@ -133,17 +133,25 @@ Available filters:
 
 ## Changelog ##
 
+= 1.1.3 =
+
+* improved blocks JS initialization. Support dynamic blocks (for example after AJAX content loading)
+* updated block icons
+
 = 1.1.2 =
+
 * added support for Gutenberg 3.7.0
 * improved custom styles extension (simplified code and prevent console warnings)
 
 = 1.1.1 =
+
 * added "Select Column" helper UI element to easily select Grid columns [https://wordpress.org/support/topic/selecting-a-column-in-a-grid/](https://wordpress.org/support/topic/selecting-a-column-in-a-grid/)
 * moved all blocks to GhostKit category
 * fixed compatibility with WordPress Import/Export content
 * fixed Indents (margins / paddings) responsive values change [https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/](https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/)
 
 = 1.1.0 =
+
 * added Testimonial block
 * added Divider block
 * added support for some Kirki fields in Customizer block
@@ -159,4 +167,5 @@ Available filters:
 * minor fixes
 
 = 1.0.0 =
+
 * Initial Release
