@@ -3,7 +3,9 @@
 - Site https://ghostkit.io/
 - WordPress Plugin https://wordpress.org/plugins/ghostkit/
 
-## Requirements
+## Development
+
+### Requirements
 
 | Prerequisite              | How to check  | How to install                                  |
 | ------------------------- | ------------- | ----------------------------------------------- |
@@ -11,17 +13,17 @@
 | Node.js >= 6.x.x          | `node -v`     | [nodejs.org](https://nodejs.org/)                |
 | Composer >= 1.0.0	        | `composer -V` | [getcomposer.org](https://getcomposer.org)       |
 
-## Installation
+### Installation
 
 - Run `npm install` in the command line. Or if you need to update some dependencies, run `npm update`
 
-## Building
+### Building
 
 - `npm run build` to run build
 - `npm run watch` to run build and start files watcher
 - `npm run production` to run build and prepare zip files for production
 
-## Linting
+### Linting
 
 We use `pre-commit` and `pre-push` hooks for Git to lint sources with `phpcs`, `eslint` and `stylelint` tasks.
 
