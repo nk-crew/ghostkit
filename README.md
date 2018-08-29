@@ -1,4 +1,4 @@
-# Gutenberg blocks for WordPress
+# GhostKit - Gutenberg blocks for WordPress
 
 - Site https://ghostkit.io/
 - WordPress Plugin https://wordpress.org/plugins/ghostkit/
