@@ -1,3 +1,8 @@
+# Gutenberg blocks for WordPress
+
+- Site https://ghostkit.io/
+- WordPress Plugin https://wordpress.org/plugins/ghostkit/
+
 ## Requirements
 
 | Prerequisite              | How to check  | How to install                                  |
