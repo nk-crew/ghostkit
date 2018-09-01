@@ -209,7 +209,7 @@ export const settings = {
     category: 'ghostkit',
     keywords: [
         __( 'grid' ),
-        __( 'column' ),
+        __( 'row' ),
         __( 'ghostkit' ),
     ],
     supports: {
