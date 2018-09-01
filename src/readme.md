@@ -15,7 +15,10 @@ GhostKit is a blocks collection and extensions for Gutenberg page builder.
 
 GhostKit is a blocks collection and powerful extensions for Gutenberg page builder. All blocks are extensible and ready for developers.
 
-[**Demo Site**](https://ghostkit.io/)
+#### Links ####
+
+* [Demo Site](https://ghostkit.io/)
+* [GitHub](https://github.com/nk-o/ghost-kit)
 
 #### Available blocks: ####
 
