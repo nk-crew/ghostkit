@@ -25,7 +25,7 @@ class CustomCSSBlock extends Component {
 
         return (
             <Placeholder
-                icon={ <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" /> }
+                icon={ elementIcon }
                 label={ __( 'Custom CSS' ) }
                 className={ className }
             >
@@ -78,7 +78,7 @@ export const name = 'ghostkit/custom-css';
 export const settings = {
     title: __( 'Custom CSS' ),
     description: __( 'Custom CSS for current post.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     keywords: [
         __( 'styles' ),

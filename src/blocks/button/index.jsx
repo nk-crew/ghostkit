@@ -288,7 +288,7 @@ export const settings = {
 
     description: __( 'Add button block.' ),
 
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
 
     category: 'ghostkit',
 

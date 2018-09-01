@@ -305,7 +305,7 @@ export const settings = {
     title: __( 'Column' ),
     parent: [ 'ghostkit/grid' ],
     description: __( 'A single column within a grid block.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     supports: {
         html: false,

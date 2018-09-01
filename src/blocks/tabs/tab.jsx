@@ -74,7 +74,7 @@ export const settings = {
     title: __( 'Tab' ),
     parent: [ 'ghostkit/tabs' ],
     description: __( 'A single tab within a tabs block.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     supports: {
         html: false,

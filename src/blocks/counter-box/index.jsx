@@ -133,7 +133,7 @@ export const name = 'ghostkit/counter-box';
 export const settings = {
     title: __( 'Number Box' ),
     description: __( 'Number Box.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     keywords: [
         __( 'number' ),

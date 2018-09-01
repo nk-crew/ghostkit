@@ -110,7 +110,7 @@ export const name = 'ghostkit/accordion';
 export const settings = {
     title: __( 'Accordion' ),
     description: __( 'Accordion.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     keywords: [
         __( 'accordion' ),

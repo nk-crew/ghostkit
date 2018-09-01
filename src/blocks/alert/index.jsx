@@ -122,7 +122,7 @@ export const name = 'ghostkit/alert';
 export const settings = {
     title: __( 'Alert' ),
     description: __( 'Alert.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     keywords: [
         __( 'alert' ),

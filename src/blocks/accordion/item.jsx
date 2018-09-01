@@ -98,7 +98,7 @@ export const settings = {
     title: __( 'Item' ),
     parent: [ 'ghostkit/accordion' ],
     description: __( 'A single item within a accordion block.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     supports: {
         html: false,

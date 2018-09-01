@@ -133,7 +133,7 @@ export const name = 'ghostkit/icon-box';
 export const settings = {
     title: __( 'Icon Box' ),
     description: __( 'Icon Box.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     keywords: [
         __( 'icon' ),

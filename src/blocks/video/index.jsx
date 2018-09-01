@@ -709,7 +709,7 @@ export const name = 'ghostkit/video';
 export const settings = {
     title: __( 'Video' ),
     description: __( 'YouTube/Vimeo video block.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     keywords: [
         __( 'video' ),

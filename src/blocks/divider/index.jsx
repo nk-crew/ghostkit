@@ -149,7 +149,7 @@ export const name = 'ghostkit/divider';
 export const settings = {
     title: __( 'Divider' ),
     description: __( 'Content divider.' ),
-    icon: <img className="dashicon ghostkit-icon" src={ elementIcon } alt="ghostkit-icon" />,
+    icon: elementIcon,
     category: 'ghostkit',
     keywords: [
         __( 'divider' ),
