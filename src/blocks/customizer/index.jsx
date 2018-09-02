@@ -8,7 +8,7 @@ if ( ! global._babelPolyfill ) {
 import Select from 'react-select';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/customizer.svg';
+import ElementIcon from '../_icons/customizer.svg';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -285,7 +285,7 @@ class CustomizerBlock extends Component {
 
         return (
             <Placeholder
-                icon={ elementIcon }
+                icon={ <ElementIcon /> }
                 label={ __( 'Customizer Options' ) }
                 className={ className }
             >
@@ -453,7 +453,7 @@ export const name = 'ghostkit/customizer';
 export const settings = {
     title: __( 'Customizer' ),
     description: __( 'Replace the customizer options for current post.' ),
-    icon: elementIcon,
+    icon: ElementIcon,
     category: 'ghostkit',
     keywords: [
         __( 'customizer' ),

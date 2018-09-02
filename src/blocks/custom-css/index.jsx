@@ -2,7 +2,7 @@
 import './editor.scss';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/custom-css.svg';
+import ElementIcon from '../_icons/custom-css.svg';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -25,7 +25,7 @@ class CustomCSSBlock extends Component {
 
         return (
             <Placeholder
-                icon={ elementIcon }
+                icon={ <ElementIcon /> }
                 label={ __( 'Custom CSS' ) }
                 className={ className }
             >
@@ -78,7 +78,7 @@ export const name = 'ghostkit/custom-css';
 export const settings = {
     title: __( 'Custom CSS' ),
     description: __( 'Custom CSS for current post.' ),
-    icon: elementIcon,
+    icon: ElementIcon,
     category: 'ghostkit',
     keywords: [
         __( 'styles' ),
