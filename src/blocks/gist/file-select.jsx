@@ -1,7 +1,11 @@
 const { jQuery } = window;
 const { Component } = wp.element;
+
+const { __ } = wp.i18n;
+
 const {
     SelectControl,
+    DropdownMenu,
 } = wp.components;
 
 const cache = {};
@@ -40,7 +44,7 @@ class GistFilesSelect extends Component {
         const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( url );
 
         if ( match && typeof match[ 1 ] !== 'undefined' ) {
-            url = `https://gist.github.com/${ match[ 1 ] }.json`;
+            url = `https://gist.github.com/${ match[ 1 ].split( '#' )[ 0 ] }.json`;
         } else {
             return;
         }
@@ -90,6 +94,8 @@ class GistFilesSelect extends Component {
             label,
             value,
             onChange,
+            isToolbar,
+            className,
         } = this.props;
 
         const {
@@ -97,15 +103,29 @@ class GistFilesSelect extends Component {
         } = this.state;
 
         return (
-            <SelectControl
-                label={ label }
-                value={ value }
-                options={ items.map( ( item ) => ( {
-                    value: item,
-                    label: item,
-                } ) ) }
-                onChange={ onChange }
-            />
+            isToolbar ? (
+                <DropdownMenu
+                    icon={ 'media-default' }
+                    label={ label }
+                    controls={ items.map( ( item ) => ( {
+                        title: item || __( 'Show all files' ),
+                        isActive: item === value,
+                        onClick: () => onChange( item ),
+                    } ) ) }
+                    className={ className }
+                />
+            ) : (
+                <SelectControl
+                    label={ label }
+                    value={ value }
+                    options={ items.map( ( item ) => ( {
+                        value: item,
+                        label: item || __( 'Show all files' ),
+                    } ) ) }
+                    onChange={ onChange }
+                    className={ className }
+                />
+            )
         );
     }
 }

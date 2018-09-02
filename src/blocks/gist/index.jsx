@@ -19,11 +19,17 @@ const {
     TextControl,
     ToggleControl,
     Placeholder,
+    Toolbar,
 } = wp.components;
 
 const {
     InspectorControls,
+    BlockControls,
 } = wp.editor;
+
+const {
+    createBlock,
+} = wp.blocks;
 
 class GistBlock extends Component {
     constructor( props ) {
@@ -34,6 +40,7 @@ class GistBlock extends Component {
 
         this.onUpdate = this.onUpdate.bind( this );
         this.urlOnChange = this.urlOnChange.bind( this );
+        this.getValidGistUrl = this.getValidGistUrl.bind( this );
     }
 
     componentDidMount() {
@@ -42,6 +49,22 @@ class GistBlock extends Component {
     }
     componentDidUpdate() {
         this.onUpdate();
+    }
+
+    getValidGistUrl() {
+        const {
+            url,
+        } = this.props.attributes;
+
+        if ( url ) {
+            const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( url );
+
+            if ( match && typeof match[ 1 ] !== 'undefined' ) {
+                return match[ 1 ].split( '#' )[ 0 ];
+            }
+        }
+
+        return false;
     }
 
     onUpdate() {
@@ -57,6 +80,12 @@ class GistBlock extends Component {
             return;
         }
 
+        const validUrl = this.getValidGistUrl();
+
+        if ( ! validUrl ) {
+            return;
+        }
+
         if ( typeof jQuery.fn.gist === 'undefined' ) {
             // eslint-disable-next-line
             console.warn( __( 'Gist Embed plugin is not defined.' ) );
@@ -64,7 +93,7 @@ class GistBlock extends Component {
         }
 
         // cache request to prevent reloading.
-        const cachedRequest = url + file + caption + ( showFooter ? 1 : 0 ) + ( showLineNumbers ? 1 : 0 );
+        const cachedRequest = validUrl + file + caption + ( showFooter ? 1 : 0 ) + ( showLineNumbers ? 1 : 0 );
         if ( cachedRequest === this.cachedRequest ) {
             return;
         }
@@ -73,19 +102,15 @@ class GistBlock extends Component {
         setTimeout( () => {
             const $gist = jQuery( this.gistNode );
 
-            const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( url );
+            $gist.data( 'gist-id', validUrl );
+            $gist.data( 'gist-file', file );
+            $gist.data( 'gist-caption', caption );
+            $gist.data( 'gist-hide-footer', ! showFooter );
+            $gist.data( 'gist-hide-line-numbers', ! showLineNumbers );
+            $gist.data( 'gist-show-spinner', true );
+            $gist.data( 'gist-enable-cache', true );
 
-            if ( match && typeof match[ 1 ] !== 'undefined' ) {
-                $gist.data( 'gist-id', match[ 1 ] );
-                $gist.data( 'gist-file', file );
-                $gist.data( 'gist-caption', caption );
-                $gist.data( 'gist-hide-footer', ! showFooter );
-                $gist.data( 'gist-hide-line-numbers', ! showLineNumbers );
-                $gist.data( 'gist-show-spinner', true );
-                $gist.data( 'gist-enable-cache', true );
-
-                $gist.gist();
-            }
+            $gist.gist();
         }, 0 );
     }
 
@@ -128,6 +153,35 @@ class GistBlock extends Component {
 
         return (
             <Fragment>
+                <BlockControls>
+                    { url ? (
+                        <Toolbar>
+                            <TextControl
+                                type="url"
+                                value={ this.state.url }
+                                placeholder={ __( 'Gist URL' ) }
+                                onChange={ this.urlOnChange }
+                                onKeyDown={ ( e ) => {
+                                    if ( e.keyCode === 13 ) {
+                                        this.urlOnChange( this.state.url, 0 );
+                                    }
+                                } }
+                                className="ghostkit-gist-toolbar-url"
+                            />
+                        </Toolbar>
+                    ) : '' }
+                    { this.getValidGistUrl() ? (
+                        <Toolbar>
+                            <GistFilesSelect
+                                label={ __( 'File' ) }
+                                url={ url }
+                                value={ file }
+                                isToolbar={ true }
+                                onChange={ ( value ) => setAttributes( { file: value } ) }
+                            />
+                        </Toolbar>
+                    ) : '' }
+                </BlockControls>
                 <InspectorControls>
                     <PanelBody>
                         { Object.keys( availableVariants ).length > 1 ? (
@@ -144,6 +198,7 @@ class GistBlock extends Component {
 
                         <TextControl
                             label={ __( 'URL' ) }
+                            type="url"
                             value={ this.state.url }
                             onChange={ this.urlOnChange }
                             onKeyDown={ ( e ) => {
@@ -262,6 +317,27 @@ export const settings = {
             type: 'boolean',
             default: true,
         },
+    },
+
+    transforms: {
+        from: [ {
+            type: 'raw',
+            priority: 1,
+            isMatch: ( node ) => {
+                const match = node.nodeName === 'P' && /^https:\/\/gist.github.com?.+\/(.+)/g.exec( node.textContent );
+
+                if ( match && typeof match[ 1 ] !== 'undefined' ) {
+                    return true;
+                }
+
+                return false;
+            },
+            transform: ( node ) => {
+                return createBlock( 'ghostkit/gist', {
+                    url: node.textContent.trim(),
+                } );
+            },
+        } ],
     },
 
     edit: GistBlock,
