@@ -7,13 +7,10 @@
  * Tabs Control.
  */
 .ghostkit-control-tabs {
-    padding: 15px;
-    border: 1px solid $light-gray-400;
 
     .components-tab-panel__tabs {
         display: flex;
         flex-wrap: wrap;
-        margin: -15px;
         margin-bottom: 15px;
         border-bottom: 1px solid $light-gray-400;
 

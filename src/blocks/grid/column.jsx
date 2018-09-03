@@ -14,6 +14,7 @@ const {
     SelectControl,
     ToggleControl,
     TextControl,
+    TabPanel,
 } = wp.components;
 
 const {
@@ -127,22 +128,6 @@ class GridColumnBlock extends Component {
         const {
             variant,
 
-            /* eslint-disable camelcase */
-            sm_size,
-            sm_order,
-
-            md_size,
-            md_order,
-
-            lg_size,
-            lg_order,
-
-            xl_size,
-            xl_order,
-            /* stylelint-enable camelcase */
-
-            size,
-            order,
             stickyContent,
             stickyContentTop,
             stickyContentBottom,
@@ -165,29 +150,99 @@ class GridColumnBlock extends Component {
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
                         ) : '' }
+                        <TabPanel
+                            className="ghostkit-control-tabs"
+                            tabs={ [
+                                {
+                                    name: 'all',
+                                    title: <span className="fas fa-tv" />,
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'xl',
+                                    title: <span className="fas fa-desktop" />,
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'lg',
+                                    title: <span className="fas fa-laptop" />,
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'md',
+                                    title: <span className="fas fa-tablet-alt" />,
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'sm',
+                                    title: <span className="fas fa-mobile-alt" />,
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                            ] }>
+                            {
+                                ( tabName ) => {
+                                    let sizeName = 'size';
+                                    let orderName = 'order';
+
+                                    if ( tabName !== 'all' ) {
+                                        sizeName = `${ tabName }_${ sizeName }`;
+                                        orderName = `${ tabName }_${ orderName }`;
+                                    }
+
+                                    let note = __( 'Will be applied to all devices' );
+
+                                    switch ( tabName ) {
+                                    case 'xl':
+                                        note = __( 'Will be applied to devices with screen width <= 1200px' );
+                                        break;
+                                    case 'lg':
+                                        note = __( 'Will be applied to devices with screen width <= 992px' );
+                                        break;
+                                    case 'md':
+                                        note = __( 'Will be applied to devices with screen width <= 768px' );
+                                        break;
+                                    case 'sm':
+                                        note = __( 'Will be applied to devices with screen width <= 576px' );
+                                        break;
+                                    }
+
+                                    return (
+                                        <Fragment>
+                                            <SelectControl
+                                                label={ __( 'Size' ) }
+                                                value={ attributes[ sizeName ] }
+                                                onChange={ ( value ) => {
+                                                    const result = {};
+                                                    result[ sizeName ] = value;
+                                                    setAttributes( result );
+                                                } }
+                                                options={ getDefaultColumnSizes() }
+                                            />
+                                            <SelectControl
+                                                label={ __( 'Order' ) }
+                                                value={ attributes[ orderName ] }
+                                                onChange={ ( value ) => {
+                                                    const result = {};
+                                                    result[ orderName ] = value;
+                                                    setAttributes( result );
+                                                } }
+                                                options={ getDefaultColumnOrders() }
+                                            />
+                                            <p><em>{ note }</em></p>
+                                        </Fragment>
+                                    );
+                                }
+                            }
+                        </TabPanel>
+                    </PanelBody>
+                    <PanelBody>
                         <BaseControl>
-                            <SelectControl
-                                label={ __( 'Size' ) }
-                                value={ size }
-                                onChange={ ( value ) => {
-                                    setAttributes( { size: value } );
-                                } }
-                                options={ getDefaultColumnSizes() }
-                            />
-                            <SelectControl
-                                label={ __( 'Order' ) }
-                                value={ order }
-                                onChange={ ( value ) => {
-                                    setAttributes( { order: value } );
-                                } }
-                                options={ getDefaultColumnOrders() }
-                            />
                             <ToggleControl
                                 label={ __( 'Sticky content' ) }
                                 checked={ !! stickyContent }
                                 onChange={ ( value ) => setAttributes( { stickyContent: value } ) }
                             />
-                            <p>{ __( '`position: sticky` will be applied to column content. Don\'t forget to set top or bottom value in pixels.' ) }</p>
+                            <p><em>{ __( '`position: sticky` will be applied to column content. Don\'t forget to set top or bottom value in pixels.' ) }</em></p>
                             { stickyContent ? (
                                 <Fragment>
                                     <TextControl
@@ -205,90 +260,6 @@ class GridColumnBlock extends Component {
                                 </Fragment>
                             ) : '' }
                         </BaseControl>
-                    </PanelBody>
-
-                    <PanelBody>
-                        <BaseControl label={ __( 'Responsive' ) }>
-                            <div className="ghostkit-control-tabs-separator" style={ { marginBottom: -13 } }>
-                                <span className="fas fa-desktop" />
-                            </div>
-                        </BaseControl>
-                        <SelectControl
-                            label={ __( 'Size' ) }
-                            value={ xl_size }
-                            onChange={ ( value ) => {
-                                setAttributes( { xl_size: value } );
-                            } }
-                            options={ getDefaultColumnSizes() }
-                        />
-                        <SelectControl
-                            label={ __( 'Order' ) }
-                            value={ xl_order }
-                            onChange={ ( value ) => {
-                                setAttributes( { xl_order: value } );
-                            } }
-                            options={ getDefaultColumnOrders() }
-                        />
-
-                        <div className="ghostkit-control-tabs-separator">
-                            <span className="fas fa-laptop" />
-                        </div>
-                        <SelectControl
-                            label={ __( 'Size' ) }
-                            value={ lg_size }
-                            onChange={ ( value ) => {
-                                setAttributes( { lg_size: value } );
-                            } }
-                            options={ getDefaultColumnSizes() }
-                        />
-                        <SelectControl
-                            label={ __( 'Order' ) }
-                            value={ lg_order }
-                            onChange={ ( value ) => {
-                                setAttributes( { lg_order: value } );
-                            } }
-                            options={ getDefaultColumnOrders() }
-                        />
-
-                        <div className="ghostkit-control-tabs-separator">
-                            <span className="fas fa-tablet-alt" />
-                        </div>
-                        <SelectControl
-                            label={ __( 'Size' ) }
-                            value={ md_size }
-                            onChange={ ( value ) => {
-                                setAttributes( { md_size: value } );
-                            } }
-                            options={ getDefaultColumnSizes() }
-                        />
-                        <SelectControl
-                            label={ __( 'Order' ) }
-                            value={ md_order }
-                            onChange={ ( value ) => {
-                                setAttributes( { md_order: value } );
-                            } }
-                            options={ getDefaultColumnOrders() }
-                        />
-
-                        <div className="ghostkit-control-tabs-separator">
-                            <span className="fas fa-mobile-alt" />
-                        </div>
-                        <SelectControl
-                            label={ __( 'Size' ) }
-                            value={ sm_size }
-                            onChange={ ( value ) => {
-                                setAttributes( { sm_size: value } );
-                            } }
-                            options={ getDefaultColumnSizes() }
-                        />
-                        <SelectControl
-                            label={ __( 'Order' ) }
-                            value={ sm_order }
-                            onChange={ ( value ) => {
-                                setAttributes( { sm_order: value } );
-                            } }
-                            options={ getDefaultColumnOrders() }
-                        />
                     </PanelBody>
                 </InspectorControls>
                 <div>
