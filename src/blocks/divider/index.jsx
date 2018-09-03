@@ -18,11 +18,14 @@ const {
     PanelColor,
     SelectControl,
     TextControl,
+    Toolbar,
+    DropdownMenu,
 } = wp.components;
 
 const {
     InspectorControls,
     ColorPalette,
+    BlockControls,
 } = wp.editor;
 
 class DividerBlock extends Component {
@@ -60,6 +63,32 @@ class DividerBlock extends Component {
 
         return (
             <Fragment>
+                <BlockControls>
+                    <Toolbar>
+                        <DropdownMenu
+                            icon="minus"
+                            label={ __( 'Type' ) }
+                            controls={ [
+                                {
+                                    title: __( 'Line' ),
+                                    onClick: () => setAttributes( { type: 'solid' } ),
+                                },
+                                {
+                                    title: __( 'Dashed' ),
+                                    onClick: () => setAttributes( { type: 'dashed' } ),
+                                },
+                                {
+                                    title: __( 'Dotted' ),
+                                    onClick: () => setAttributes( { type: 'dotted' } ),
+                                },
+                                {
+                                    title: __( 'Double' ),
+                                    onClick: () => setAttributes( { type: 'double' } ),
+                                },
+                            ] }
+                        />
+                    </Toolbar>
+                </BlockControls>
                 <InspectorControls>
                     <PanelBody>
                         { Object.keys( availableVariants ).length > 1 ? (
