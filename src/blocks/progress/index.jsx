@@ -16,6 +16,7 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
+    TextControl,
     SelectControl,
     RangeControl,
     PanelColor,
@@ -46,6 +47,9 @@ class ProgressBlock extends Component {
             percent,
             borderRadius,
             striped,
+            showCount,
+            countPrefix,
+            countSuffix,
             color,
             backgroundColor,
             variant,
@@ -97,6 +101,25 @@ class ProgressBlock extends Component {
                             onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
                         />
                         <ToggleControl
+                            label={ __( 'Show Count' ) }
+                            checked={ !! showCount }
+                            onChange={ ( val ) => setAttributes( { showCount: val } ) }
+                        />
+                        { showCount ? (
+                            <Fragment>
+                                <TextControl
+                                    label={ __( 'Count Prefix' ) }
+                                    value={ countPrefix }
+                                    onChange={ ( value ) => setAttributes( { countPrefix: value } ) }
+                                />
+                                <TextControl
+                                    label={ __( 'Count Suffix' ) }
+                                    value={ countSuffix }
+                                    onChange={ ( value ) => setAttributes( { countSuffix: value } ) }
+                                />
+                            </Fragment>
+                        ) : '' }
+                        <ToggleControl
                             label={ __( 'Striped' ) }
                             checked={ !! striped }
                             onChange={ ( val ) => setAttributes( { striped: val } ) }
@@ -124,6 +147,11 @@ class ProgressBlock extends Component {
                             onChange={ newCaption => setAttributes( { caption: newCaption } ) }
                         />
                     ) }
+                    { showCount ? (
+                        <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
+                            <div>{ countPrefix }{ percent }{ countSuffix }</div>
+                        </div>
+                    ) : '' }
                     <ResizableBox
                         className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }
                         size={ {
@@ -214,6 +242,7 @@ export const settings = {
             type: 'array',
             source: 'children',
             selector: '.ghostkit-progress-caption',
+            default: 'Progress Caption',
         },
         height: {
             type: 'number',
@@ -230,6 +259,18 @@ export const settings = {
         striped: {
             type: 'boolean',
             default: true,
+        },
+        showCount: {
+            type: 'boolean',
+            default: false,
+        },
+        countPrefix: {
+            type: 'string',
+            default: '',
+        },
+        countSuffix: {
+            type: 'string',
+            default: '%',
         },
         color: {
             type: 'string',
@@ -249,6 +290,9 @@ export const settings = {
             height,
             percent,
             striped,
+            showCount,
+            countPrefix,
+            countSuffix,
             variant,
         } = attributes;
 
@@ -269,6 +313,11 @@ export const settings = {
                         />
                     )
                 }
+                { showCount ? (
+                    <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
+                        <div>{ countPrefix }{ percent }{ countSuffix }</div>
+                    </div>
+                ) : '' }
                 <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
                     <div className="ghostkit-progress-bar" role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
                 </div>

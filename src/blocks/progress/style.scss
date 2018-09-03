@@ -4,6 +4,37 @@
 @import "../variables";
 
 .ghostkit-progress {
+    .ghostkit-progress-bar-count {
+        position: relative;
+
+        > div {
+            position: absolute;
+            right: 0;
+            bottom: 100%;
+            padding: 0 5px;
+            margin-bottom: 3px;
+            font-size: x-small;
+            color: #fff;
+            background-color: #3c3c3c;
+            border-radius: 2px;
+            transform: translateX(50%);
+
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                top: 100%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                margin-left: -2px;
+                border-top: 2px solid #3c3c3c;
+                border-right: 2px solid transparent;
+                border-left: 2px solid transparent;
+            }
+        }
+    }
+
     .ghostkit-progress-wrap {
         height: 15px;
         overflow: hidden;
