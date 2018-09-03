@@ -3,10 +3,6 @@
  */
 @import "../../../blocks/variables";
 
-img.ghostkit-icon {
-    pointer-events: none;
-}
-
 /**
  * Tabs Control.
  */
@@ -70,9 +66,9 @@ img.ghostkit-icon {
         left: 50%;
         width: 24px;
         height: 24px;
-        margin-top: -12px;
-        margin-left: -12px;
-        opacity: .15;
+        margin-top: -15px;
+        margin-left: -10px;
+        opacity: .3;
         z-index: 1;
     }
 

@@ -2,7 +2,7 @@
 import deepAssign from 'deep-assign';
 
 // Internal Dependencies.
-import logo from '../_icons/ghostkit-black.svg';
+import Logo from '../_icons/ghostkit.svg';
 
 const { __ } = wp.i18n;
 
@@ -229,7 +229,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                     <InspectorAdvancedControls>
                         <BaseControl label={ __( 'Indents' ) } >
                             <div className="ghostkit-control-indent">
-                                <img className="ghostkit-control-indent-logo" src={ logo } alt="ghostkit-icon" />
+                                <Logo className="ghostkit-control-indent-logo" />
                                 <div className="ghostkit-control-indent-margin">
                                     <span>{ __( 'Margin' ) }</span>
                                     <div className="ghostkit-control-indent-margin-left">
