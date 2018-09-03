@@ -87,9 +87,11 @@ function prepareAccordions() {
                 e.preventDefault();
 
                 const $heading = $( this );
+                const $accordion = $heading.closest( '.ghostkit-accordion' );
                 const $item = $heading.closest( '.ghostkit-accordion-item' );
                 const $content = $item.find( '.ghostkit-accordion-item-content' );
                 const isActive = $item.hasClass( 'ghostkit-accordion-item-active' );
+                const collapseOne = $accordion.hasClass( 'ghostkit-accordion-collapse-one' );
 
                 if ( isActive ) {
                     $content.css( 'display', 'block' ).slideUp( 150 );
@@ -97,6 +99,14 @@ function prepareAccordions() {
                 } else {
                     $content.css( 'display', 'none' ).slideDown( 150 );
                     $item.addClass( 'ghostkit-accordion-item-active' );
+                }
+
+                if ( collapseOne ) {
+                    const $collapseItems = $accordion.find( '.ghostkit-accordion-item-active' ).not( $item );
+                    if ( $collapseItems.length ) {
+                        $collapseItems.find( '.ghostkit-accordion-item-content' ).css( 'display', 'block' ).slideUp( 150 );
+                        $collapseItems.removeClass( 'ghostkit-accordion-item-active' );
+                    }
                 }
             } );
     } );

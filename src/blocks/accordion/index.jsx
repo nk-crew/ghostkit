@@ -15,6 +15,7 @@ const {
     PanelBody,
     RangeControl,
     SelectControl,
+    ToggleControl,
 } = wp.components;
 
 const {
@@ -55,6 +56,7 @@ class AccordionBlock extends Component {
             ghostkitClassname,
             variant,
             itemsCount,
+            collapseOne,
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'accordion' );
@@ -90,6 +92,11 @@ class AccordionBlock extends Component {
                             onChange={ ( value ) => setAttributes( { itemsCount: value } ) }
                             min={ 1 }
                             max={ 6 }
+                        />
+                        <ToggleControl
+                            label={ __( 'Collapse one item only' ) }
+                            checked={ !! collapseOne }
+                            onChange={ ( val ) => setAttributes( { collapseOne: val } ) }
                         />
                     </PanelBody>
                 </InspectorControls>
@@ -134,6 +141,10 @@ export const settings = {
             type: 'number',
             default: 2,
         },
+        collapseOne: {
+            type: 'boolean',
+            default: false,
+        },
     },
 
     edit: AccordionBlock,
@@ -142,12 +153,14 @@ export const settings = {
         const {
             variant,
             itemsCount,
+            collapseOne,
         } = attributes;
 
         className = classnames(
             className,
             'ghostkit-accordion',
-            `ghostkit-accordion-${ itemsCount }`
+            `ghostkit-accordion-${ itemsCount }`,
+            collapseOne ? 'ghostkit-accordion-collapse-one' : ''
         );
 
         if ( 'default' !== variant ) {
