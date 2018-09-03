@@ -2,3 +2,13 @@
  * Editor Styles
  */
 @import "../variables";
+
+.ghostkit-alert {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .ghostkit-alert-icon {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+}

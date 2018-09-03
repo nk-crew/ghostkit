@@ -7,11 +7,13 @@
     display: flex;
     flex-wrap: wrap;
     padding: 15px;
+    background-color: #fff;
     border: 1px solid $light-gray-200;
-    border-left-width: 3px;
+    border-left-width: 2px;
 
     .ghostkit-alert-icon {
         display: flex;
+        padding: 3px;
         padding-right: 15px;
     }
 

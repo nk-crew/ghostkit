@@ -20,12 +20,15 @@ const {
     PanelColor,
     TextControl,
     ToggleControl,
+    Toolbar,
+    DropdownMenu,
 } = wp.components;
 
 const {
     InspectorControls,
     ColorPalette,
     InnerBlocks,
+    BlockControls,
 } = wp.editor;
 
 class AlertBlock extends Component {
@@ -57,6 +60,41 @@ class AlertBlock extends Component {
 
         return (
             <Fragment>
+                <BlockControls>
+                    <Toolbar>
+                        <DropdownMenu
+                            icon="info"
+                            label={ __( 'Type' ) }
+                            controls={ [
+                                {
+                                    title: __( 'Primary' ),
+                                    icon: 'editor-help',
+                                    onClick: () => setAttributes( { color: '#2E77C3' } ),
+                                },
+                                {
+                                    title: __( 'Success' ),
+                                    icon: 'marker',
+                                    onClick: () => setAttributes( { color: '#22CF6E' } ),
+                                },
+                                {
+                                    title: __( 'Danger' ),
+                                    icon: 'dismiss',
+                                    onClick: () => setAttributes( { color: '#DC3232' } ),
+                                },
+                                {
+                                    title: __( 'Warning' ),
+                                    icon: 'warning',
+                                    onClick: () => setAttributes( { color: '#E47F3B' } ),
+                                },
+                                {
+                                    title: __( 'Info' ),
+                                    icon: 'info',
+                                    onClick: () => setAttributes( { color: '#2DC7E8' } ),
+                                },
+                            ] }
+                        />
+                    </Toolbar>
+                </BlockControls>
                 <InspectorControls>
                     <PanelBody>
                         { Object.keys( availableVariants ).length > 1 ? (
@@ -153,15 +191,15 @@ export const settings = {
         },
         color: {
             type: 'string',
-            default: '#d94f4f',
+            default: '#E47F3B',
         },
         icon: {
             type: 'string',
-            default: 'fas fa-exclamation-triangle',
+            default: 'fas fa-exclamation-circle',
         },
         iconSize: {
             type: 'number',
-            default: 30,
+            default: 17,
         },
         hideButton: {
             type: 'boolean',
