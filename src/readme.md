@@ -136,6 +136,16 @@ Available filters:
 
 ## Changelog ##
 
+= 1.1.4 =
+
+* added Gist block transformation from url
+* added option collapseOne to Accordion block
+* added option count to Progress block
+* added helper toolbar with predefined styles to Alert block
+* added helper toolbar with line type to Divider block
+* improved Grid column responsive settings (added tabs for each device)
+* changed icons to use &lt;svg&gt; instead of &lt;img&gt;
+
 = 1.1.3 =
 
 * improved blocks JS initialization. Support dynamic blocks (for example after AJAX content loading)
