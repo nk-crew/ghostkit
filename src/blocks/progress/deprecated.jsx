@@ -64,15 +64,13 @@ export default [
 
             return (
                 <div className={ className }>
-                    {
-                        caption && caption.length && (
-                            <RichText.Content
-                                tagName="small"
-                                className="ghostkit-progress-caption"
-                                value={ caption }
-                            />
-                        )
-                    }
+                    { caption && caption.length ? (
+                        <RichText.Content
+                            tagName="small"
+                            className="ghostkit-progress-caption"
+                            value={ caption }
+                        />
+                    ) : '' }
                     <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
                         <div className="ghostkit-progress-bar" role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
                     </div>

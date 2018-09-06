@@ -112,12 +112,12 @@ class IconBoxBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
-                    { icon && (
+                    { icon ? (
                         <div
                             className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }
                             dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
                         />
-                    ) }
+                    ) : '' }
                     <div className="ghostkit-icon-box-content">
                         { /* TODO: Add default blocks when this will be possible https://github.com/WordPress/gutenberg/issues/5448 */ }
                         <InnerBlocks />
@@ -196,11 +196,11 @@ export const settings = {
 
         return (
             <div className={ className }>
-                { icon && (
+                { icon ? (
                     <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }>
                         <span className={ icon } />
                     </div>
-                ) }
+                ) : '' }
                 <div className="ghostkit-icon-box-content">
                     <InnerBlocks.Content />
                 </div>

@@ -139,14 +139,14 @@ class ProgressBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
-                    { ( ( caption && caption.length > 0 ) || isSelected ) && (
+                    { ( ( caption && caption.length > 0 ) || isSelected ) ? (
                         <RichText
                             tagName="small"
                             placeholder={ __( 'Write caption…' ) }
                             value={ caption }
                             onChange={ newCaption => setAttributes( { caption: newCaption } ) }
                         />
-                    ) }
+                    ) : '' }
                     { showCount ? (
                         <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
                             <div>{ countPrefix }{ percent }{ countSuffix }</div>
@@ -304,15 +304,13 @@ export const settings = {
 
         return (
             <div className={ className }>
-                {
-                    caption && caption.length && (
-                        <RichText.Content
-                            tagName="small"
-                            className="ghostkit-progress-caption"
-                            value={ caption }
-                        />
-                    )
-                }
+                { caption && caption.length ? (
+                    <RichText.Content
+                        tagName="small"
+                        className="ghostkit-progress-caption"
+                        value={ caption }
+                    />
+                ) : '' }
                 { showCount ? (
                     <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
                         <div>{ countPrefix }{ percent }{ countSuffix }</div>

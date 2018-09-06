@@ -286,22 +286,22 @@ class VideoBlockEdit extends Component {
                         }
 
                         { /* Preview Video */ }
-                        { type === 'video' && ( videoMp4 || videoOgv || videoWebm ) && (
+                        { type === 'video' && ( videoMp4 || videoOgv || videoWebm ) ? (
                             <video controls>
-                                { videoMp4 && (
+                                { videoMp4 ? (
                                     <source src={ videoMp4 } type="video/mp4" />
-                                ) }
-                                { videoOgv && (
+                                ) : '' }
+                                { videoOgv ? (
                                     <source src={ videoOgv } type="video/ogg" />
-                                ) }
-                                { videoWebm && (
+                                ) : '' }
+                                { videoWebm ? (
                                     <source src={ videoWebm } type="video/webm" />
-                                ) }
+                                ) : '' }
                             </video>
-                        ) }
+                        ) : '' }
 
                         { /* Select Videos */ }
-                        { type === 'video' && ! videoMp4 && (
+                        { type === 'video' && ! videoMp4 ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
                                     setAttributes( {
@@ -323,8 +323,8 @@ class VideoBlockEdit extends Component {
                                     </div>
                                 ) }
                             />
-                        ) }
-                        { type === 'video' && videoMp4 && (
+                        ) : '' }
+                        { type === 'video' && videoMp4 ? (
                             <div>
                                 <span>{ videoMp4.substring( videoMp4.lastIndexOf( '/' ) + 1 ) } </span>
                                 <a
@@ -340,8 +340,8 @@ class VideoBlockEdit extends Component {
                                 </a>
                                 <div style={ { marginBottom: 13 } } />
                             </div>
-                        ) }
-                        { type === 'video' && ! videoOgv && (
+                        ) : '' }
+                        { type === 'video' && ! videoOgv ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
                                     setAttributes( {
@@ -363,8 +363,8 @@ class VideoBlockEdit extends Component {
                                     </div>
                                 ) }
                             />
-                        ) }
-                        { type === 'video' && videoOgv && (
+                        ) : '' }
+                        { type === 'video' && videoOgv ? (
                             <div>
                                 <span>{ videoOgv.substring( videoOgv.lastIndexOf( '/' ) + 1 ) } </span>
                                 <a
@@ -380,8 +380,8 @@ class VideoBlockEdit extends Component {
                                 </a>
                                 <div style={ { marginBottom: 13 } } />
                             </div>
-                        ) }
-                        { type === 'video' && ! videoWebm && (
+                        ) : '' }
+                        { type === 'video' && ! videoWebm ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
                                     setAttributes( {
@@ -403,8 +403,8 @@ class VideoBlockEdit extends Component {
                                     </div>
                                 ) }
                             />
-                        ) }
-                        { type === 'video' && videoWebm && (
+                        ) : '' }
+                        { type === 'video' && videoWebm ? (
                             <div>
                                 <span>{ videoWebm.substring( videoWebm.lastIndexOf( '/' ) + 1 ) } </span>
                                 <a
@@ -420,7 +420,7 @@ class VideoBlockEdit extends Component {
                                 </a>
                                 <div style={ { marginBottom: 13 } } />
                             </div>
-                        ) }
+                        ) : '' }
                         <SelectControl
                             label={ __( 'Aspect ratio' ) }
                             value={ videoAspectRatio }
@@ -501,7 +501,7 @@ class VideoBlockEdit extends Component {
                     </PanelBody>
 
                     <PanelBody title={ __( 'Poster Image' ) }>
-                        { ! poster && (
+                        { ! poster ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
                                     onPosterSelect( media, setAttributes );
@@ -514,9 +514,9 @@ class VideoBlockEdit extends Component {
                                     </Button>
                                 ) }
                             />
-                        ) }
+                        ) : '' }
 
-                        { poster && posterTag && (
+                        { poster && posterTag ? (
                             <Fragment>
                                 <MediaUpload
                                     onSelect={ ( media ) => {
@@ -551,7 +551,7 @@ class VideoBlockEdit extends Component {
                                     { __( 'Remove image' ) }
                                 </a>
                                 <div style={ { marginBottom: 13 } } />
-                                { posterSizes && (
+                                { posterSizes ? (
                                     <SelectControl
                                         label={ __( 'Size' ) }
                                         value={ posterSize }
@@ -567,9 +567,9 @@ class VideoBlockEdit extends Component {
                                         } )() }
                                         onChange={ v => setAttributes( { posterSize: v } ) }
                                     />
-                                ) }
+                                ) : '' }
                             </Fragment>
-                        ) }
+                        ) : '' }
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className } data-video-aspect-ratio={ videoAspectRatio }>

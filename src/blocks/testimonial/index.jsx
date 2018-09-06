@@ -196,7 +196,7 @@ class TestimonialBlockEdit extends Component {
                             help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
-                        { photoSizes && (
+                        { photoSizes ? (
                             <SelectControl
                                 label={ __( 'Photo Size' ) }
                                 value={ photoSize }
@@ -212,7 +212,7 @@ class TestimonialBlockEdit extends Component {
                                 } )() }
                                 onChange={ v => setAttributes( { photoSize: v } ) }
                             />
-                        ) }
+                        ) : '' }
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
@@ -226,7 +226,7 @@ class TestimonialBlockEdit extends Component {
                         <InnerBlocks />
                     </div>
                     <div className="ghostkit-testimonial-photo">
-                        { ! photo && (
+                        { ! photo ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
                                     onPhotoSelect( media, setAttributes );
@@ -239,9 +239,9 @@ class TestimonialBlockEdit extends Component {
                                     </Button>
                                 ) }
                             />
-                        ) }
+                        ) : '' }
 
-                        { photo && photoTag && (
+                        { photo && photoTag ? (
                             <Fragment>
                                 <MediaUpload
                                     onSelect={ ( media ) => {
@@ -260,7 +260,7 @@ class TestimonialBlockEdit extends Component {
                                     ) }
                                 />
                             </Fragment>
-                        ) }
+                        ) : '' }
                     </div>
                     <div className="ghostkit-testimonial-meta">
                         <div className="ghostkit-testimonial-name">

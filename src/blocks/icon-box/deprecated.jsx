@@ -49,11 +49,11 @@ export default [
 
             return (
                 <div className={ className }>
-                    { icon && (
+                    { icon ? (
                         <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }>
                             <span className={ icon } />
                         </div>
-                    ) }
+                    ) : '' }
                     <div className="ghostkit-icon-box-content">
                         <InnerBlocks.Content />
                     </div>

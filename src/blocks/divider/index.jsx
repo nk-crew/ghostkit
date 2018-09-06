@@ -161,12 +161,12 @@ class DividerBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
-                    { icon && (
+                    { icon ? (
                         <div
                             className="ghostkit-divider-icon"
                             dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
                         />
-                    ) }
+                    ) : '' }
                 </div>
             </Fragment>
         );
@@ -257,11 +257,11 @@ export const settings = {
 
         return (
             <div className={ className }>
-                { icon && (
+                { icon ? (
                     <div className="ghostkit-divider-icon">
                         <span className={ icon } />
                     </div>
-                ) }
+                ) : '' }
             </div>
         );
     },

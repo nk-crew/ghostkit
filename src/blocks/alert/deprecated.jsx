@@ -49,19 +49,19 @@ export default [
 
             return (
                 <div className={ className }>
-                    { icon && (
+                    { icon ? (
                         <div className="ghostkit-alert-icon">
                             <span className={ icon } />
                         </div>
-                    ) }
+                    ) : '' }
                     <div className="ghostkit-alert-content">
                         <InnerBlocks.Content />
                     </div>
-                    { hideButton && (
+                    { hideButton ? (
                         <div className="ghostkit-alert-hide-button">
                             <span className="fas fa-times" />
                         </div>
-                    ) }
+                    ) : '' }
                 </div>
             );
         },

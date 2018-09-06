@@ -202,7 +202,7 @@ class ButtonBlock extends Component {
                         keepPlaceholderOnFocus
                     />
                 </div>
-                { isSelected && (
+                { isSelected ? (
                     <form
                         className="ghostkit-button__inline-link"
                         onSubmit={ ( event ) => event.preventDefault() }>
@@ -213,7 +213,7 @@ class ButtonBlock extends Component {
                         />
                         <IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
                     </form>
-                ) }
+                ) : '' }
             </Fragment>
         );
     }
