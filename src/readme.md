@@ -1,4 +1,5 @@
 # GhostKit - Gutenberg Blocks Collection #
+
 * Contributors: nko
 * Tags: gutenberg, blocks, kit, collection, grid
 * Requires at least: 4.8.0
@@ -10,17 +11,16 @@
 
 GhostKit is a blocks collection and extensions for Gutenberg page builder.
 
-
 ## Description ##
 
 GhostKit is a blocks collection and powerful extensions for Gutenberg page builder. All blocks are extensible and ready for developers.
 
-#### Links ####
+### Links ###
 
 * [Demo Site](https://ghostkit.io/)
 * [GitHub](https://github.com/nk-o/ghostkit)
 
-#### Available blocks: ####
+### Available blocks: ###
 
 * Grid (fully responsive)
 * Divider
@@ -39,12 +39,12 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 * Custom CSS (add custom CSS on the pages)
 * Customizer (overwrite customizer options on the pages)
 
-#### Available extensions: ####
+### Available extensions: ###
 
 * Indents (paddings, margins)
 * Display (show/hide block)
 
-#### Coming soon blocks: ####
+### Coming soon blocks: ###
 
 * Countdown
 * Pricing
@@ -53,25 +53,24 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 * Gif
 * Google Maps
 
-
 ## Installation ##
 
 You need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use GhostKit. Eventually, Gutenberg (the block editor) will be merged into WordPress and you won’t need the plugin.
 
-#### Automatic installation ####
+### Automatic installation ###
 
 Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of GhostKit, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
 
 In the search field type GhostKit and click Search Plugins. Once you’ve found our plugin you can view details about it such as the point release, rating and description. Most importantly of course, you can install it by simply clicking “Install Now”.
 
-#### Manual installation ####
+### Manual installation ###
 
 The manual installation method involves downloading our GhostKit plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
-
 
 ## Frequently Asked Questions ##
 
 ### How to disable enqueued plugins (JS, CSS) on frontend ####
+
 There are some plugins, enqueued with GhostKit on your page. If you don't like the plugin and/or want to change it to your alternate plugin, you can disable it using filters. Example:
 
     add_filter( 'gkt_enqueue_plugin_font_awesome', '__return_false' );
@@ -85,6 +84,7 @@ Available filters:
 * **gkt_enqueue_plugin_gist_embed**
 
 ### How to extend existing blocks ####
+
 You can add Variants to existing blocks, so you will be able to add your own styles for it:
 
     add_filter( 'gkt_alert_variants', 'my_alert_variants' );
@@ -115,8 +115,6 @@ Available filters:
 * **gkt_testimonial_variants**
 * **gkt_gist_variants**
 
-
-
 ## Screenshots ##
 
 1. List of all available blocks
@@ -133,7 +131,6 @@ Available filters:
 12. Testimonial
 13. GitHub Gist
 14. Blocks Extensions
-
 
 ## Changelog ##
 
