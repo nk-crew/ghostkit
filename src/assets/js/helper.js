@@ -17,6 +17,8 @@ window.GHOSTKIT = {
         return str;
     },
 
+    sidebars: ghostkitVariables.sidebars,
+
     variants: ghostkitVariables.variants,
     getVariants( name ) {
         if ( typeof this.variants[ name ] !== 'undefined' ) {

@@ -182,6 +182,17 @@ class GhostKit {
             wp_register_script( 'gist-embed', plugins_url( 'assets/vendor/gist-embed/gist-embed.min.js', __FILE__ ), array( 'jquery' ), '2.7.1', true );
         }
 
+        // Get all sidebars.
+        $sidebars = false;
+        if ( ! empty( $GLOBALS['wp_registered_sidebars'] ) ) {
+            foreach ( $GLOBALS['wp_registered_sidebars'] as $k => $sidebar ) {
+                $sidebars[ $k ] = array(
+                    'id'   => $sidebar['id'],
+                    'name' => $sidebar['name'],
+                );
+            }
+        }
+
         // helper script.
         wp_register_script(
             'ghostkit-helper',
@@ -202,7 +213,8 @@ class GhostKit {
                 'lg' => 992,
                 'xl' => 1200,
             ),
-            'variants'   => array(
+            'sidebars'    => $sidebars,
+            'variants'    => array(
                 'alert'          => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
                 'button'         => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
                 'counter_box'    => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
