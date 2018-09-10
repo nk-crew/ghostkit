@@ -1,9 +1,24 @@
 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="grid">
 <g id="Group">
-<rect id="Rectangle" x="4" y="4" width="4" height="13" fill="#191E23"/>
-<rect id="Rectangle_2" x="10" y="4" width="4" height="13" fill="#191E23"/>
-<rect id="Rectangle_3" x="16" y="4" width="4" height="13" fill="#191E23"/>
+<g id="Rectangle">
+<mask id="path-1-inside-1" fill="white">
+<rect x="2" y="4" width="6" height="13" rx="1"/>
+</mask>
+<rect x="2" y="4" width="6" height="13" rx="1" fill="white" stroke="#191E23" stroke-width="3" mask="url(#path-1-inside-1)"/>
+</g>
+<g id="Rectangle_2">
+<mask id="path-2-inside-2" fill="white">
+<rect x="9" y="4" width="6" height="13" rx="1"/>
+</mask>
+<rect x="9" y="4" width="6" height="13" rx="1" fill="white" stroke="#191E23" stroke-width="3" mask="url(#path-2-inside-2)"/>
+</g>
+<g id="Rectangle_3">
+<mask id="path-3-inside-3" fill="white">
+<rect x="16" y="4" width="6" height="13" rx="1"/>
+</mask>
+<rect x="16" y="4" width="6" height="13" rx="1" fill="white" stroke="#191E23" stroke-width="3" mask="url(#path-3-inside-3)"/>
+</g>
 </g>
 <g id="ghostkit">
 <path id="Vector" d="M14.5 22V23.2039L15.3529 22.3542L16.1667 21.5435L16.9804 22.3542L17.3333 22.7058L17.6862 22.3542L18.5 21.5435L19.3138 22.3542L19.6667 22.7058L20.0196 22.3542L20.8333 21.5435L21.6471 22.3542L22.5 23.2039V22V17.8C22.5 16.9234 21.9369 16.0937 21.2183 15.51C20.4879 14.9165 19.504 14.4969 18.4985 14.5C17.5101 14.5031 16.5283 14.9115 15.7942 15.4988C15.071 16.0774 14.5 16.9049 14.5 17.8V22Z" fill="#9EA5A7" stroke="white"/>
