@@ -13,7 +13,9 @@
 .ghostkit-carousel,
 .ghostkit-video,
 .ghostkit-testimonial,
-.ghostkit-gist {
+.ghostkit-gist,
+.ghostkit-changelog,
+.ghostkit-widgetized-area {
     margin-bottom: 28px;
 }
 
@@ -41,3 +43,64 @@
 @import "./video/style";
 @import "./testimonial/style";
 @import "./gist/style";
+@import "./changelog/style";
+
+/**
+ * Additional classes.
+ */
+// badges
+.ghostkit-badge {
+    display: inline-block;
+    padding: 6px 5px;
+    font-size: 75%;
+    font-weight: 600;
+    line-height: 1;
+    color: rgba(255, 255, 255, .8);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #6a6c75;
+    border: 0 solid #6a6c75;
+    border-radius: 2px;
+}
+.ghostkit-badge-primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+}
+.ghostkit-badge-success {
+    background-color: $color-success;
+    border-color: $color-success;
+}
+.ghostkit-badge-danger {
+    background-color: $color-danger;
+    border-color: $color-danger;
+}
+.ghostkit-badge-warning {
+    background-color: $color-warning;
+    border-color: $color-warning;
+}
+.ghostkit-badge-info {
+    background-color: $color-info;
+    border-color: $color-info;
+}
+.ghostkit-badge-outline {
+    color: #6a6c75;
+    background-color: #fff;
+    border-width: 1px;
+
+    &.ghostkit-badge-primary {
+        color: $color-primary;
+    }
+    &.ghostkit-badge-success {
+        color: $color-success;
+    }
+    &.ghostkit-badge-danger {
+        color: $color-danger;
+    }
+    &.ghostkit-badge-warning {
+        color: $color-warning;
+    }
+    &.ghostkit-badge-info {
+        color: $color-info;
+    }
+}

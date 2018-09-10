@@ -18,6 +18,7 @@ import * as carouselSlide from './carousel/slide.jsx';
 import * as video from './video/index.jsx';
 import * as testimonial from './testimonial/index.jsx';
 import * as gist from './gist/index.jsx';
+import * as changelog from './changelog/index.jsx';
 import * as widgetizedArea from './widgetized-area/index.jsx';
 import * as customizer from './customizer/index.jsx';
 import * as customCSS from './custom-css/index.jsx';
@@ -55,6 +56,7 @@ const { registerBlockType } = wp.blocks;
     testimonial,
     video,
     gist,
+    changelog,
     widgetizedArea,
     customizer,
     customCSS,

@@ -228,6 +228,7 @@ class GhostKit {
                 'progress'       => array_merge( $default_variant, apply_filters( 'gkt_progress_variants', array() ) ),
                 'carousel'       => array_merge( $default_variant, apply_filters( 'gkt_carousel_variants', array() ) ),
                 'carousel_slide' => array_merge( $default_variant, apply_filters( 'gkt_carousel_slide_variants', array() ) ),
+                'changelog'      => array_merge( $default_variant, apply_filters( 'gkt_changelog_variants', array() ) ),
             ),
         ) );
     }

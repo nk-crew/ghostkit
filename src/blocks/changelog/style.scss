@@ -1,0 +1,59 @@
+/**
+ * Frontend Styles
+ */
+@import "../variables";
+
+.ghostkit-changelog {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .ghostkit-changelog-version {
+        width: 65px;
+        min-width: 65px;
+        padding: 2px 1px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, .8);
+        text-align: center;
+        background-color: #6a6c75;
+        border-radius: 2px;
+    }
+
+    .ghostkit-changelog-date {
+        margin: 0;
+        margin-left: 10px;
+        font-size: 1em;
+    }
+
+    .ghostkit-changelog-more {
+        width: 100%;
+        min-width: 100%;
+        padding-left: 75px;
+        margin-top: 20px;
+
+        > ul,
+        > ol {
+            padding: 0;
+            margin-bottom: 1rem;
+            list-style: none;
+
+            li {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 7px;
+            }
+        }
+    }
+
+    .ghostkit-alert {
+        margin-bottom: 1rem;
+    }
+
+    .ghostkit-badge {
+        flex: 0 0 65px;
+        margin-right: 10px;
+        font-size: 65%;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+}

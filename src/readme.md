@@ -35,6 +35,7 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 * Video
 * Testimonial
 * GitHub Gist
+* Changelog
 * Widgetized Area (output registered sidebars)
 * Custom CSS (add custom CSS on the pages)
 * Customizer (overwrite customizer options on the pages)
@@ -114,6 +115,7 @@ Available filters:
 * **gkt_carousel_variants**
 * **gkt_testimonial_variants**
 * **gkt_gist_variants**
+* **gkt_changelog_variants**
 
 ## Screenshots ##
 
