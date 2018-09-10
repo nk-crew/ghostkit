@@ -63,6 +63,53 @@
     }
 }
 
+// Layouts selector.
+.ghostkit-grid .ghostkit-select-layout {
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: -15px;
+        right: -29px;
+        bottom: -15px;
+        left: -29px;
+        border: 1px solid $light-gray-400;
+
+        .is-hovered &,
+        .is-selected & {
+            content: none;
+        }
+    }
+
+    > div {
+        max-width: 450px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .ghostkit-select-layout-title {
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    button {
+        padding: 5px;
+        padding-bottom: 0;
+        cursor: pointer;
+        background: none;
+        border: none;
+        opacity: .5;
+        transition: .15s opacity ease;
+
+        &:hover,
+        &:focus {
+            opacity: 1;
+        }
+    }
+}
+
 // Highlight the label to easily select grid/column block by clicking on it.
 [data-type="ghostkit/grid-column"] {
     &:hover::after {
