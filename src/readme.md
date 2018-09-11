@@ -136,6 +136,16 @@ Available filters:
 
 ## Changelog ##
 
+= 1.2.0 =
+
+* added Changelog block
+* added Widgetized Area block
+* added vertical align buttons in Grid toolbar
+* added predefined layouts in Grid block (when you first insert Grid, you can choose)
+* updated some block icons
+* fixed Gist block table styles bug in default themes
+* fixed possible bug with "0" number output in some blocks
+
 = 1.1.4 =
 
 * added Gist block transformation from url
