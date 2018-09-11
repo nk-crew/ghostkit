@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:  GhostKit
- * Description:  Extendable Gutenberg blocks
+ * Description:  Blocks collection and extensions for Gutenberg
  * Version:      @@plugin_version
  * Author:       nK
  * Author URI:   https://nkdev.info
