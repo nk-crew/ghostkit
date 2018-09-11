@@ -69,6 +69,78 @@ export default [
     {
         supports: {
             html: false,
+            className: false,
+            align: [ 'wide', 'full' ],
+            ghostkitStyles: true,
+            ghostkitIndents: true,
+            ghostkitDisplay: true,
+        },
+        attributes: {
+            variant: {
+                type: 'string',
+                default: 'default',
+            },
+            columns: {
+                type: 'number',
+                default: 2,
+            },
+            gap: {
+                type: 'string',
+                default: 'md',
+            },
+            verticalAlign: {
+                type: 'string',
+            },
+            horizontalAlign: {
+                type: 'string',
+            },
+
+            // Should be used in Deprecated block
+            columnsSettings: {
+                type: 'object',
+                default: {},
+            },
+        },
+        isEligible( attributes, innerBlocks ) {
+            return attributes.columns === 0 && innerBlocks.length;
+        },
+        migrate( attributes, innerBlocks ) {
+            attributes.columns = innerBlocks.length;
+
+            return [
+                attributes,
+                innerBlocks,
+            ];
+        },
+        save: function( { attributes, className = '' } ) {
+            const {
+                verticalAlign,
+                horizontalAlign,
+                gap,
+                variant,
+            } = attributes;
+
+            className = classnames(
+                className,
+                'ghostkit-grid',
+                `ghostkit-grid-gap-${ gap }`,
+                verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,
+                horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
+            );
+
+            if ( 'default' !== variant ) {
+                className = classnames( className, `ghostkit-grid-variant-${ variant }` );
+            }
+
+            return (
+                <div className={ className }>
+                    <InnerBlocks.Content />
+                </div>
+            );
+        },
+    }, {
+        supports: {
+            html: false,
             ghostkitStyles: true,
             ghostkitIndents: true,
             ghostkitDisplay: true,
