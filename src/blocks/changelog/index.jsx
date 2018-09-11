@@ -63,7 +63,7 @@ class ChangelogBlock extends Component {
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
                         ) : '' }
-                        <p>{ __( 'Supported highlighting badges, just put these texts in the start of items list: [Added], [Fixed], [Improved], [New], [Removed], [Changed]' ) }</p>
+                        <p>{ __( 'Supported highlighting badges, just put these texts in the start of items list: [Added], [Fixed], [Improved], [Updated], [New], [Removed], [Changed]' ) }</p>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>

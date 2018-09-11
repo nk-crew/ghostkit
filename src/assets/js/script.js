@@ -388,7 +388,7 @@ function prepareChangelog() {
         $this.children( '.ghostkit-changelog-more' ).find( '> ul li, > ol li' ).each( function() {
             const $li = $( this );
             const text = $.trim( $li.html() );
-            const typeMatches = text.match( /^\[(new|fixed|improved|removed|added|changed)\]\s(.*)/i );
+            const typeMatches = text.match( /^\[(new|added|fixed|improved|updated|removed|changed)\]\s(.*)/i );
 
             if ( typeMatches ) {
                 const changeType = typeMatches[ 1 ];
@@ -403,6 +403,7 @@ function prepareChangelog() {
                     break;
                 case 'fixed':
                 case 'improved':
+                case 'updated':
                     className += ' ghostkit-badge-primary';
                     break;
                 case 'removed':
