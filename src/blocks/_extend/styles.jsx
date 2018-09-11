@@ -75,6 +75,11 @@ const getStyles = ( data = {}, selector = '', render = true ) => {
             }
             const propName = camelCaseToDash( key );
             let propValue = data[ key ];
+            const thereIsImportant = / !important$/.test( propValue );
+
+            if ( thereIsImportant ) {
+                propValue = propValue.replace( / !important$/, '' );
+            }
 
             // add pixels.
             if (
@@ -82,6 +87,10 @@ const getStyles = ( data = {}, selector = '', render = true ) => {
                 ( typeof propValue === 'string' && /^[0-9.\-]*$/.test( propValue ) )
             ) {
                 propValue += 'px';
+            }
+
+            if ( thereIsImportant ) {
+                propValue += ' !important';
             }
 
             result[ selector ] += ` ${ propName }: ${ propValue };`;

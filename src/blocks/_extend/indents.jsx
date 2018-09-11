@@ -29,6 +29,7 @@ const {
     BaseControl,
     TextControl,
     SelectControl,
+    CheckboxControl,
 } = wp.components;
 
 /**
@@ -320,6 +321,13 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         ] }
                                     />
                                 </div>
+                                <div className="ghostkit-control-indent-important">
+                                    <CheckboxControl
+                                        label={ __( '!important' ) }
+                                        checked={ !! this.getCurrentIndent( '!important' ) }
+                                        onChange={ ( nextValue ) => this.updateIndents( '!important', nextValue ) }
+                                    />
+                                </div>
                             </div>
                         </BaseControl>
                     </InspectorAdvancedControls>
@@ -340,7 +348,30 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
  * @return {Object} Additional element styles object.
  */
 function addEditorCustomStyles( customStyles, props ) {
-    const customIndents = props.attributes.ghostkitIndents && Object.keys( props.attributes.ghostkitIndents ).length !== 0 ? deepAssign( {}, props.attributes.ghostkitIndents ) : false;
+    let customIndents = props.attributes.ghostkitIndents && Object.keys( props.attributes.ghostkitIndents ).length !== 0 ? deepAssign( {}, props.attributes.ghostkitIndents ) : false;
+
+    // prepare !important tag.
+    // validate values.
+    const result = {};
+    Object.keys( customIndents ).map( ( key ) => {
+        if ( customIndents[ key ] && '!important' !== key ) {
+            // check if device object.
+            if ( typeof customIndents[ key ] === 'object' ) {
+                Object.keys( customIndents[ key ] ).map( ( keyDevice ) => {
+                    if ( customIndents[ key ][ keyDevice ] && '!important' !== keyDevice ) {
+                        if ( ! result[ key ] ) {
+                            result[ key ] = {};
+                        }
+                        result[ key ][ keyDevice ] = customIndents[ key ][ keyDevice ] + ( customIndents[ key ][ '!important' ] ? ' !important' : '' );
+                    }
+                } );
+            } else {
+                result[ key ] = customIndents[ key ] + ( customIndents[ '!important' ] ? ' !important' : '' );
+            }
+        }
+    } );
+
+    customIndents = Object.keys( result ).length !== 0 ? result : false;
 
     if ( customStyles && customIndents ) {
         customStyles = deepAssign( customStyles, customIndents );

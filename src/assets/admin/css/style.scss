@@ -61,12 +61,17 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 24px;
-        height: 24px;
-        margin-top: -15px;
-        margin-left: -10px;
+        width: 22px;
+        height: 22px;
+        margin-top: -11px;
+        margin-left: -11px;
         opacity: .3;
         z-index: 1;
+    }
+
+    .components-base-control,
+    .components-base-control__field {
+        margin: 0;
     }
 
     .ghostkit-control-indent-margin,
@@ -76,10 +81,6 @@
         left: 5px;
         width: calc(100% - 10px);
         height: calc(100% - 10px);
-
-        .components-base-control {
-            margin: 0;
-        }
 
         > span {
             position: absolute;
@@ -186,6 +187,54 @@
         }
         option {
             font-size: 1rem;
+        }
+    }
+
+    // !important
+    .ghostkit-control-indent-important {
+        position: absolute;
+        right: 15px;
+        bottom: 11px;
+
+        .components-base-control__field {
+            position: relative;
+        }
+
+        .components-checkbox-control__input {
+            margin-right: 0;
+        }
+
+        .components-checkbox-control__label {
+            position: absolute;
+            right: 0;
+            bottom: 100%;
+            padding: 2px 6px;
+            margin-bottom: 4px;
+            color: #fff;
+            pointer-events: none;
+            visibility: hidden;
+            background-color: #555d66;
+            border-radius: 3px;
+            box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
+            opacity: 0;
+            transition: .1s ease-in-out;
+            transform: translateY(5px);
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                right: 5px;
+                width: 0;
+                height: 0;
+                border: 3px solid transparent;
+                border-top-color: #555d66;
+            }
+        }
+        .components-base-control__field:hover .components-checkbox-control__label {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 }
