@@ -1,4 +1,5 @@
 import { throttle } from 'throttle-debounce';
+import * as scriptjs from 'scriptjs';
 
 const $ = window.jQuery;
 const { ghostkitVariables } = window;
@@ -418,6 +419,57 @@ function prepareChangelog() {
 }
 
 /**
+ * Prepare Google Maps
+ */
+function prepareGoogleMaps() {
+    if ( window.GHOSTKIT.googleMapsLibrary && window.GHOSTKIT.googleMapsAPIKey ) {
+        $( '.ghostkit-google-maps:not(.ghostkit-google-maps-ready)' ).each( function() {
+            const $this = $( this );
+            $this.addClass( 'ghostkit-google-maps-ready' );
+
+            scriptjs( `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${ window.GHOSTKIT.googleMapsAPIKey }`, () => {
+                scriptjs( window.GHOSTKIT.googleMapsLibrary.url, () => {
+                    let styles = '';
+                    let markers = '';
+
+                    try {
+                        styles = JSON.parse( $this.attr( 'data-styles' ) );
+                        markers = JSON.parse( $this.attr( 'data-markers' ) );
+                    } catch ( e ) { }
+
+                    const mapObject = new window.GMaps( {
+                        div: $this[ 0 ],
+                        lat: parseFloat( $this.attr( 'data-lat' ) ),
+                        lng: parseFloat( $this.attr( 'data-lng' ) ),
+                        zoom: parseInt( $this.attr( 'data-zoom' ), 10 ),
+                        zoomControl: 'true' === $this.attr( 'data-show-zoom-buttons' ),
+                        zoomControlOpt: {
+                            style: 'DEFAULT',
+                            position: 'RIGHT_BOTTOM',
+                        },
+                        mapTypeControl: 'true' === $this.attr( 'data-show-map-type-buttons' ),
+                        streetViewControl: 'true' === $this.attr( 'data-show-street-view-button' ),
+                        fullscreenControl: 'true' === $this.attr( 'data-show-fullscreen-button' ),
+                        scrollwheel: 'true' === $this.attr( 'data-option-scroll-wheel' ),
+                        draggable: 'true' === $this.attr( 'data-option-draggable' ),
+                        styles: styles,
+                    } );
+
+                    if ( markers && markers.length ) {
+                        markers.forEach( ( marker ) => {
+                            mapObject.addMarker( {
+                                lat: marker.lat,
+                                lng: marker.lng,
+                            } );
+                        } );
+                    }
+                } );
+            } );
+        } );
+    }
+}
+
+/**
  * Prepare alerts dismiss button.
  */
 $( document ).on( 'click', '.ghostkit-alert-hide-button', function( e ) {
@@ -439,6 +491,7 @@ const throttledInitBlocks = throttle( 200, () => {
     prepareVideo();
     prepareGist();
     prepareChangelog();
+    prepareGoogleMaps();
 } );
 if ( window.MutationObserver ) {
     new window.MutationObserver( throttledInitBlocks )

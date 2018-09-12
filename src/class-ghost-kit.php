@@ -205,16 +205,21 @@ class GhostKit {
                 'title' => esc_html__( 'Default', '@@text_domain' ),
             ),
         );
+
         wp_localize_script( 'ghostkit-helper', 'ghostkitVariables', array(
             // TODO: Move this to plugin options (part 1).
-            'media_sizes' => array(
+            'media_sizes'       => array(
                 'sm' => 576,
                 'md' => 768,
                 'lg' => 992,
                 'xl' => 1200,
             ),
-            'sidebars'    => $sidebars,
-            'variants'    => array(
+            'googleMapsAPIKey'  => get_option( 'ghostkit_google_maps_api_key' ),
+            'googleMapsLibrary' => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
+                'url' => plugins_url( 'assets/vendor/gmaps/gmaps.min.js', __FILE__ ) . '?ver=0.4.25',
+            ) : false,
+            'sidebars'          => $sidebars,
+            'variants'          => array(
                 'alert'          => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
                 'button'         => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
                 'counter_box'    => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
@@ -229,6 +234,7 @@ class GhostKit {
                 'carousel'       => array_merge( $default_variant, apply_filters( 'gkt_carousel_variants', array() ) ),
                 'carousel_slide' => array_merge( $default_variant, apply_filters( 'gkt_carousel_slide_variants', array() ) ),
                 'changelog'      => array_merge( $default_variant, apply_filters( 'gkt_changelog_variants', array() ) ),
+                'google_maps'    => array_merge( $default_variant, apply_filters( 'gkt_google_maps_variants', array() ) ),
             ),
         ) );
     }

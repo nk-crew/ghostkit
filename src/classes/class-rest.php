@@ -57,10 +57,19 @@ class GhostKit_Rest extends WP_REST_Controller {
                 'permission_callback' => array( $this, 'get_attachment_image_permission' ),
             )
         );
+
+        // Update Google Maps API key.
+        register_rest_route(
+            $namespace, '/update_google_maps_api_key/', array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'update_google_maps_api_key' ),
+                'permission_callback' => array( $this, 'update_google_maps_api_key_permission' ),
+            )
+        );
     }
 
     /**
-     * Get read portfolios permissions.
+     * Get read customizer permissions.
      *
      * @return bool
      */
@@ -83,6 +92,18 @@ class GhostKit_Rest extends WP_REST_Controller {
 
         if ( ! $id ) {
             return $this->error( 'no_id_found', __( 'Provide image ID.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
+     * Get read google maps api key permissions.
+     *
+     * @return bool
+     */
+    public function update_google_maps_api_key_permission() {
+        if ( ! current_user_can( 'edit_theme_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
         }
         return true;
     }
@@ -121,6 +142,23 @@ class GhostKit_Rest extends WP_REST_Controller {
             return $this->success( $image );
         } else {
             return $this->error( 'no_image_found', __( 'Image not found.', '@@text_domain' ) );
+        }
+    }
+
+    /**
+     * Update Google Maps API key.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function update_google_maps_api_key( WP_REST_Request $request ) {
+        $updated = update_option( 'ghostkit_google_maps_api_key', $request->get_param( 'key' ) );
+
+        if ( ! empty( $updated ) ) {
+            return $this->success( $updated );
+        } else {
+            return $this->error( 'no_options_found', __( 'Failed to update option.', '@@text_domain' ) );
         }
     }
 

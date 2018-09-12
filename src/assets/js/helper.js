@@ -19,6 +19,10 @@ window.GHOSTKIT = {
 
     sidebars: ghostkitVariables.sidebars,
 
+    googleMapsAPIKey: ghostkitVariables.googleMapsAPIKey,
+
+    googleMapsLibrary: ghostkitVariables.googleMapsLibrary,
+
     variants: ghostkitVariables.variants,
     getVariants( name ) {
         if ( typeof this.variants[ name ] !== 'undefined' ) {

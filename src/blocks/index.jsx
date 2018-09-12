@@ -19,6 +19,7 @@ import * as video from './video/index.jsx';
 import * as testimonial from './testimonial/index.jsx';
 import * as gist from './gist/index.jsx';
 import * as changelog from './changelog/index.jsx';
+import * as googleMaps from './google-maps/index.jsx';
 import * as widgetizedArea from './widgetized-area/index.jsx';
 import * as customizer from './customizer/index.jsx';
 import * as customCSS from './custom-css/index.jsx';
@@ -57,6 +58,7 @@ const { registerBlockType } = wp.blocks;
     video,
     gist,
     changelog,
+    googleMaps,
     widgetizedArea,
     customizer,
     customCSS,

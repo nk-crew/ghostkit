@@ -14,6 +14,7 @@
 .ghostkit-video,
 .ghostkit-testimonial,
 .ghostkit-gist,
+.ghostkit-google-maps,
 .ghostkit-changelog,
 .ghostkit-widgetized-area {
     margin-bottom: 28px;
@@ -43,6 +44,7 @@
 @import "./video/style";
 @import "./testimonial/style";
 @import "./gist/style";
+@import "./google-maps/style";
 @import "./changelog/style";
 
 /**
