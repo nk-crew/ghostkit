@@ -399,7 +399,7 @@ class GoogleMapsBlock extends Component {
                             } }
                         />
                         <p><em>{ __( 'A valid API key is required to use Google Maps. How to get API key' ) } <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">{ __( 'read here' ) }</a>.</em></p>
-                        <p><em>{ __( 'This key will be used in all Google Maps blocks.' ) }</em></p>
+                        <p><em>{ __( 'This key will be used in all Google Maps blocks on your site.' ) }</em></p>
                     </PanelBody>
                 </InspectorControls>
 
