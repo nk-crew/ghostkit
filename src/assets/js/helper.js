@@ -20,7 +20,7 @@ window.GHOSTKIT = {
     sidebars: ghostkitVariables.sidebars,
 
     googleMapsAPIKey: ghostkitVariables.googleMapsAPIKey,
-
+    googleMapsAPIUrl: ghostkitVariables.googleMapsAPIUrl,
     googleMapsLibrary: ghostkitVariables.googleMapsLibrary,
 
     variants: ghostkitVariables.variants,

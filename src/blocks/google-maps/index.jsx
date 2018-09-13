@@ -14,10 +14,10 @@ import IconMarker from './icons/marker.svg';
 import MapBlock from './map-block.jsx';
 import SearchBox from './search-box.jsx';
 
-const mapsUrl = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places';
-let geocoder = false;
-
 const { GHOSTKIT } = window;
+
+const mapsUrl = window.GHOSTKIT.googleMapsAPIUrl + '&libraries=geometry,drawing,places';
+let geocoder = false;
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;

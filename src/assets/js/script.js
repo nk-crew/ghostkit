@@ -427,7 +427,7 @@ function prepareGoogleMaps() {
             const $this = $( this );
             $this.addClass( 'ghostkit-google-maps-ready' );
 
-            scriptjs( `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${ window.GHOSTKIT.googleMapsAPIKey }`, () => {
+            scriptjs( `${ window.GHOSTKIT.googleMapsAPIUrl }&key=${ window.GHOSTKIT.googleMapsAPIKey }`, () => {
                 scriptjs( window.GHOSTKIT.googleMapsLibrary.url, () => {
                     let styles = '';
                     let markers = '';

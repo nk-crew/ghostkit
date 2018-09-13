@@ -206,6 +206,21 @@ class GhostKit {
             ),
         );
 
+        // Google Maps prepare localization as in WordPress settings.
+        $gmaps_locale = get_locale();
+        $gmaps_suffix = '.com';
+        switch ( $gmaps_locale ) {
+            case 'he_IL':
+                // Hebrew correction.
+                $gmaps_locale = 'iw';
+                break;
+            case 'zh_CN':
+                // Chinese integration.
+                $gmaps_suffix = '.cn';
+                break;
+        }
+        $gmaps_locale = substr( $gmaps_locale, 0, 2 );
+
         wp_localize_script( 'ghostkit-helper', 'ghostkitVariables', array(
             // TODO: Move this to plugin options (part 1).
             'media_sizes'       => array(
@@ -215,6 +230,7 @@ class GhostKit {
                 'xl' => 1200,
             ),
             'googleMapsAPIKey'  => get_option( 'ghostkit_google_maps_api_key' ),
+            'googleMapsAPIUrl'  => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
             'googleMapsLibrary' => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
                 'url' => plugins_url( 'assets/vendor/gmaps/gmaps.min.js', __FILE__ ) . '?ver=0.4.25',
             ) : false,
