@@ -24,11 +24,16 @@ module.exports = {
                     loader: '@svgr/webpack',
                     options: {
                         svgoConfig: {
-                            plugins: [ {
-                                cleanupIDs: {
-                                    prefix: `ghostkit-${ md5( resource ) }-`,
+                            plugins: [
+                                {
+                                    removeViewBox: false,
                                 },
-                            } ],
+                                {
+                                    cleanupIDs: {
+                                        prefix: `ghostkit-${ md5( resource ) }-`,
+                                    },
+                                },
+                            ],
                         },
                     },
                 } ),
