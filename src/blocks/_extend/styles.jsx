@@ -371,4 +371,4 @@ function addSaveProps( extraProps, blockType, attributes ) {
 // Init filters.
 addFilter( 'blocks.registerBlockType', 'ghostkit/styles/additional-attributes', addAttribute );
 addFilter( 'editor.BlockEdit', 'ghostkit/styles/additional-attributes', withNewAttrs );
-addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/indents/save-props', addSaveProps );
+addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/styles/save-props', addSaveProps );
