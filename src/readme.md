@@ -139,6 +139,12 @@ Available filters:
 
 ## Changelog ##
 
+= 1.3.0 =
+
+* added Google Maps block
+* added !important style support in Indents extension
+* changed plugin logo
+
 = 1.2.0 =
 
 * added Changelog block
