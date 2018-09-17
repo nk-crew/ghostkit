@@ -23,7 +23,7 @@
     position: relative;
     background-color: #e2e2e2;
 
-    &::after {
+    &::before {
         content: "";
         position: absolute;
         display: block;
