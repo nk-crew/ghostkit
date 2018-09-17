@@ -6,6 +6,7 @@ import classnames from 'classnames/dedupe';
 import { debounce } from 'throttle-debounce';
 
 // Internal Dependencies.
+import deprecatedArray from './deprecated.jsx';
 import ElementIcon from '../_icons/google-maps.svg';
 import IconFullHeight from './icons/fullheight.svg';
 import IconFullHeightWhite from './icons/fullheight-white.svg';
@@ -605,9 +606,9 @@ export const settings = {
                 data-styles={ styleCustom }
                 data-markers={ markers ? JSON.stringify( markers ) : '' }
                 style={ { minHeight: height } }
-            >
-                <IconMarker />
-            </div>
+            />
         );
     },
+
+    deprecated: deprecatedArray,
 };

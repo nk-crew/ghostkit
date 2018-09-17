@@ -23,6 +23,19 @@
     position: relative;
     background-color: #e2e2e2;
 
+    &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 50%;
+        width: 36px;
+        height: 36px;
+        background-image: url("../assets/images/google-maps-marker.svg");
+        opacity: .3;
+        transform: translateY(-50%) translateX(-50%);
+    }
+
     > svg {
         position: absolute;
         top: 50%;
