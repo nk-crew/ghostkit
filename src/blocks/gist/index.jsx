@@ -289,7 +289,7 @@ export const settings = {
         className: false,
         align: [ 'wide', 'full' ],
         ghostkitStyles: true,
-        ghostkitIndents: true,
+        ghostkitSpacings: true,
         ghostkitDisplay: true,
     },
     attributes: {

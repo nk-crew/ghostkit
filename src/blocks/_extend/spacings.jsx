@@ -42,14 +42,21 @@ const {
  * @return {Object} Filtered block settings.
  */
 function allowCustomStyles( allow, settings, name ) {
-    if ( hasBlockSupport( settings, 'ghostkitIndents', false ) ) {
+    if ( hasBlockSupport( settings, 'ghostkitSpacings', false ) || hasBlockSupport( settings, 'ghostkitIndents', false ) ) {
         allow = true;
     }
 
     if ( ! allow ) {
+        allow = name && /^core/.test( name );
+        allow = applyFilters(
+            'ghostkit.blocks.allowCustomSpacings',
+            allow,
+            settings,
+            name
+        );
         allow = applyFilters(
             'ghostkit.blocks.allowCustomIndents',
-            name && /^core/.test( name ),
+            allow,
             settings,
             name
         );
@@ -58,7 +65,7 @@ function allowCustomStyles( allow, settings, name ) {
 }
 
 /**
- * Extend ghostkit block attributes with indents.
+ * Extend ghostkit block attributes with spacings.
  *
  * @param {Object} settings Original block settings.
  * @param {String} name Original block name.
@@ -68,20 +75,42 @@ function allowCustomStyles( allow, settings, name ) {
 function addAttribute( settings, name ) {
     let allow = false;
 
-    if ( hasBlockSupport( settings, 'ghostkitIndents', false ) ) {
+    if ( hasBlockSupport( settings, 'ghostkitSpacings', false ) || hasBlockSupport( settings, 'ghostkitIndents', false ) ) {
         allow = true;
     }
 
     if ( ! allow ) {
+        allow = name && /^core/.test( name );
+        allow = applyFilters(
+            'ghostkit.blocks.allowCustomSpacings',
+            allow,
+            settings,
+            name
+        );
         allow = applyFilters(
             'ghostkit.blocks.allowCustomIndents',
-            name && /^core/.test( name ),
+            allow,
             settings,
             name
         );
     }
 
     if ( allow ) {
+        if ( ! settings.attributes.ghostkitSpacings ) {
+            settings.attributes.ghostkitSpacings = {
+                type: 'object',
+                default: {},
+            };
+
+            // add to deprecated items.
+            if ( settings.deprecated && settings.deprecated.length ) {
+                settings.deprecated.forEach( ( item, i ) => {
+                    if ( settings.deprecated[ i ].attributes ) {
+                        settings.deprecated[ i ].attributes.ghostkitSpacings = settings.attributes.ghostkitSpacings;
+                    }
+                } );
+            }
+        }
         if ( ! settings.attributes.ghostkitIndents ) {
             settings.attributes.ghostkitIndents = {
                 type: 'object',
@@ -103,14 +132,14 @@ function addAttribute( settings, name ) {
 
 /**
  * Override the default edit UI to include a new block inspector control for
- * assigning the custom indents if needed.
+ * assigning the custom spacings if needed.
  *
  * @param {function|Component} BlockEdit Original component.
  *
  * @return {string} Wrapped component.
  */
 const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) => {
-    class GhostkitIndentsWrapper extends Component {
+    class GhostkitSpacingsWrapper extends Component {
         constructor() {
             super( ...arguments );
 
@@ -119,80 +148,100 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 device: '',
             };
 
-            this.updateIndents = this.updateIndents.bind( this );
-            this.getCurrentIndent = this.getCurrentIndent.bind( this );
+            this.updateSpacings = this.updateSpacings.bind( this );
+            this.getCurrentSpacing = this.getCurrentSpacing.bind( this );
+        }
+
+        componentDidMount() {
+            const {
+                attributes,
+                setAttributes,
+            } = this.props;
+
+            const {
+                ghostkitIndents = {},
+                ghostkitSpacings = {},
+            } = attributes;
+
+            // since Indents renamed to Spacings we need to migrate it.
+            if ( Object.keys( ghostkitIndents ).length > 0 && Object.keys( ghostkitSpacings ).length === 0 ) {
+                setAttributes( {
+                    ghostkitIndents: {},
+                    ghostkitSpacings: ghostkitIndents,
+                } );
+            }
         }
 
         /**
-         * Update indents object.
+         * Update spacings object.
          *
-         * @param {String} name - name of new indent.
-         * @param {String} val - value for new indent.
+         * @param {String} name - name of new spacing.
+         * @param {String} val - value for new spacing.
          */
-        updateIndents( name, val ) {
+        updateSpacings( name, val ) {
             const { setAttributes } = this.props;
             const { device } = this.state;
-            let { ghostkitIndents = {} } = this.props.attributes;
+            let { ghostkitSpacings = {} } = this.props.attributes;
             const result = {};
-            const newIndents = {};
+            const newSpacings = {};
 
             if ( device ) {
-                newIndents[ device ] = {};
-                newIndents[ device ][ name ] = val;
+                newSpacings[ device ] = {};
+                newSpacings[ device ][ name ] = val;
             } else {
-                newIndents[ name ] = val;
+                newSpacings[ name ] = val;
             }
 
             // add default properties to keep sorting.
-            ghostkitIndents = deepAssign( {
+            ghostkitSpacings = deepAssign( {
                 media_xl: {},
                 media_lg: {},
                 media_md: {},
                 media_sm: {},
-            }, ghostkitIndents, newIndents );
+            }, ghostkitSpacings, newSpacings );
 
             // validate values.
-            Object.keys( ghostkitIndents ).map( ( key ) => {
-                if ( ghostkitIndents[ key ] ) {
+            Object.keys( ghostkitSpacings ).map( ( key ) => {
+                if ( ghostkitSpacings[ key ] ) {
                     // check if device object.
-                    if ( typeof ghostkitIndents[ key ] === 'object' ) {
-                        Object.keys( ghostkitIndents[ key ] ).map( ( keyDevice ) => {
-                            if ( ghostkitIndents[ key ][ keyDevice ] ) {
+                    if ( typeof ghostkitSpacings[ key ] === 'object' ) {
+                        Object.keys( ghostkitSpacings[ key ] ).map( ( keyDevice ) => {
+                            if ( ghostkitSpacings[ key ][ keyDevice ] ) {
                                 if ( ! result[ key ] ) {
                                     result[ key ] = {};
                                 }
-                                result[ key ][ keyDevice ] = ghostkitIndents[ key ][ keyDevice ];
+                                result[ key ][ keyDevice ] = ghostkitSpacings[ key ][ keyDevice ];
                             }
                         } );
                     } else {
-                        result[ key ] = ghostkitIndents[ key ];
+                        result[ key ] = ghostkitSpacings[ key ];
                     }
                 }
             } );
 
             setAttributes( {
-                ghostkitIndents: result,
+                ghostkitSpacings: result,
             } );
         }
 
         /**
-         * Get current indent for selected device type.
+         * Get current spacing for selected device type.
          *
-         * @param {String} name - name of indent.
+         * @param {String} name - name of spacing.
          *
-         * @returns {String} indent value.
+         * @returns {String} spacing value.
          */
-        getCurrentIndent( name ) {
-            const { ghostkitIndents = {} } = this.props.attributes;
+        getCurrentSpacing( name ) {
+            const { ghostkitSpacings = {} } = this.props.attributes;
             const { device } = this.state;
             let result = '';
 
             if ( ! device ) {
-                if ( ghostkitIndents[ name ] ) {
-                    result = ghostkitIndents[ name ];
+                if ( ghostkitSpacings[ name ] ) {
+                    result = ghostkitSpacings[ name ];
                 }
-            } else if ( ghostkitIndents[ device ] && ghostkitIndents[ device ][ name ] ) {
-                result = ghostkitIndents[ device ][ name ];
+            } else if ( ghostkitSpacings[ device ] && ghostkitSpacings[ device ][ name ] ) {
+                result = ghostkitSpacings[ device ][ name ];
             }
 
             return result;
@@ -202,14 +251,21 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             const props = this.props;
             let allow = false;
 
-            if ( hasBlockSupport( props.name, 'ghostkitIndents', false ) ) {
+            if ( hasBlockSupport( props.name, 'ghostkitSpacings', false ) || hasBlockSupport( props.name, 'ghostkitIndents', false ) ) {
                 allow = true;
             }
 
             if ( ! allow ) {
+                allow = props.name && /^core/.test( props.name );
+                allow = applyFilters(
+                    'ghostkit.blocks.allowCustomSpacings',
+                    allow,
+                    props,
+                    props.name
+                );
                 allow = applyFilters(
                     'ghostkit.blocks.allowCustomIndents',
-                    props.name && /^core/.test( props.name ),
+                    allow,
                     props,
                     props.name
                 );
@@ -219,7 +275,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 return <OriginalComponent { ...props } />;
             }
 
-            // add new indents controls.
+            // add new spacings controls.
             return (
                 <Fragment>
                     <OriginalComponent
@@ -230,75 +286,75 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                     <InspectorControls>
                         <PanelBody title={ (
                             <Fragment>
-                                { __( 'Indents' ) }
+                                { __( 'Spacings' ) }
                                 <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
                             </Fragment>
                         ) } initialOpen={ false }>
-                            <div className="ghostkit-control-indent">
-                                <Logo className="ghostkit-control-indent-logo" />
-                                <div className="ghostkit-control-indent-margin">
+                            <div className="ghostkit-control-spacing">
+                                <Logo className="ghostkit-control-spacing-logo" />
+                                <div className="ghostkit-control-spacing-margin">
                                     <span>{ __( 'Margin' ) }</span>
-                                    <div className="ghostkit-control-indent-margin-left">
+                                    <div className="ghostkit-control-spacing-margin-left">
                                         <TextControl
-                                            value={ this.getCurrentIndent( 'marginLeft' ) }
+                                            value={ this.getCurrentSpacing( 'marginLeft' ) }
                                             placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateIndents( 'marginLeft', nextValue ) }
+                                            onChange={ ( nextValue ) => this.updateSpacings( 'marginLeft', nextValue ) }
                                         />
                                     </div>
-                                    <div className="ghostkit-control-indent-margin-top">
+                                    <div className="ghostkit-control-spacing-margin-top">
                                         <TextControl
-                                            value={ this.getCurrentIndent( 'marginTop' ) }
+                                            value={ this.getCurrentSpacing( 'marginTop' ) }
                                             placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateIndents( 'marginTop', nextValue ) }
+                                            onChange={ ( nextValue ) => this.updateSpacings( 'marginTop', nextValue ) }
                                         />
                                     </div>
-                                    <div className="ghostkit-control-indent-margin-right">
+                                    <div className="ghostkit-control-spacing-margin-right">
                                         <TextControl
-                                            value={ this.getCurrentIndent( 'marginRight' ) }
+                                            value={ this.getCurrentSpacing( 'marginRight' ) }
                                             placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateIndents( 'marginRight', nextValue ) }
+                                            onChange={ ( nextValue ) => this.updateSpacings( 'marginRight', nextValue ) }
                                         />
                                     </div>
-                                    <div className="ghostkit-control-indent-margin-bottom">
+                                    <div className="ghostkit-control-spacing-margin-bottom">
                                         <TextControl
-                                            value={ this.getCurrentIndent( 'marginBottom' ) }
+                                            value={ this.getCurrentSpacing( 'marginBottom' ) }
                                             placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateIndents( 'marginBottom', nextValue ) }
+                                            onChange={ ( nextValue ) => this.updateSpacings( 'marginBottom', nextValue ) }
                                         />
                                     </div>
                                 </div>
-                                <div className="ghostkit-control-indent-padding">
+                                <div className="ghostkit-control-spacing-padding">
                                     <span>{ __( 'Padding' ) }</span>
-                                    <div className="ghostkit-control-indent-padding-left">
+                                    <div className="ghostkit-control-spacing-padding-left">
                                         <TextControl
-                                            value={ this.getCurrentIndent( 'paddingLeft' ) }
+                                            value={ this.getCurrentSpacing( 'paddingLeft' ) }
                                             placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateIndents( 'paddingLeft', nextValue ) }
+                                            onChange={ ( nextValue ) => this.updateSpacings( 'paddingLeft', nextValue ) }
                                         />
                                     </div>
-                                    <div className="ghostkit-control-indent-padding-top">
+                                    <div className="ghostkit-control-spacing-padding-top">
                                         <TextControl
-                                            value={ this.getCurrentIndent( 'paddingTop' ) }
+                                            value={ this.getCurrentSpacing( 'paddingTop' ) }
                                             placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateIndents( 'paddingTop', nextValue ) }
+                                            onChange={ ( nextValue ) => this.updateSpacings( 'paddingTop', nextValue ) }
                                         />
                                     </div>
-                                    <div className="ghostkit-control-indent-padding-right">
+                                    <div className="ghostkit-control-spacing-padding-right">
                                         <TextControl
-                                            value={ this.getCurrentIndent( 'paddingRight' ) }
+                                            value={ this.getCurrentSpacing( 'paddingRight' ) }
                                             placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateIndents( 'paddingRight', nextValue ) }
+                                            onChange={ ( nextValue ) => this.updateSpacings( 'paddingRight', nextValue ) }
                                         />
                                     </div>
-                                    <div className="ghostkit-control-indent-padding-bottom">
+                                    <div className="ghostkit-control-spacing-padding-bottom">
                                         <TextControl
-                                            value={ this.getCurrentIndent( 'paddingBottom' ) }
+                                            value={ this.getCurrentSpacing( 'paddingBottom' ) }
                                             placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateIndents( 'paddingBottom', nextValue ) }
+                                            onChange={ ( nextValue ) => this.updateSpacings( 'paddingBottom', nextValue ) }
                                         />
                                     </div>
                                 </div>
-                                <div className="ghostkit-control-indent-device">
+                                <div className="ghostkit-control-spacing-device">
                                     <SelectControl
                                         value={ this.state.device }
                                         onChange={ ( value ) => {
@@ -326,11 +382,11 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         ] }
                                     />
                                 </div>
-                                <div className="ghostkit-control-indent-important">
+                                <div className="ghostkit-control-spacing-important">
                                     <CheckboxControl
                                         label={ __( '!important' ) }
-                                        checked={ !! this.getCurrentIndent( '!important' ) }
-                                        onChange={ ( nextValue ) => this.updateIndents( '!important', nextValue ) }
+                                        checked={ !! this.getCurrentSpacing( '!important' ) }
+                                        onChange={ ( nextValue ) => this.updateSpacings( '!important', nextValue ) }
                                     />
                                 </div>
                             </div>
@@ -341,7 +397,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
         }
     }
 
-    return GhostkitIndentsWrapper;
+    return GhostkitSpacingsWrapper;
 }, 'withInspectorControl' );
 
 /**
@@ -353,40 +409,40 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
  * @return {Object} Additional element styles object.
  */
 function addEditorCustomStyles( customStyles, props ) {
-    let customIndents = props.attributes.ghostkitIndents && Object.keys( props.attributes.ghostkitIndents ).length !== 0 ? deepAssign( {}, props.attributes.ghostkitIndents ) : false;
+    let customSpacings = props.attributes.ghostkitSpacings && Object.keys( props.attributes.ghostkitSpacings ).length !== 0 ? deepAssign( {}, props.attributes.ghostkitSpacings ) : false;
 
     // prepare !important tag.
     // validate values.
     const result = {};
-    Object.keys( customIndents ).map( ( key ) => {
-        if ( customIndents[ key ] && '!important' !== key ) {
+    Object.keys( customSpacings ).map( ( key ) => {
+        if ( customSpacings[ key ] && '!important' !== key ) {
             // check if device object.
-            if ( typeof customIndents[ key ] === 'object' ) {
-                Object.keys( customIndents[ key ] ).map( ( keyDevice ) => {
-                    if ( customIndents[ key ][ keyDevice ] && '!important' !== keyDevice ) {
+            if ( typeof customSpacings[ key ] === 'object' ) {
+                Object.keys( customSpacings[ key ] ).map( ( keyDevice ) => {
+                    if ( customSpacings[ key ][ keyDevice ] && '!important' !== keyDevice ) {
                         if ( ! result[ key ] ) {
                             result[ key ] = {};
                         }
-                        result[ key ][ keyDevice ] = customIndents[ key ][ keyDevice ] + ( customIndents[ key ][ '!important' ] ? ' !important' : '' );
+                        result[ key ][ keyDevice ] = customSpacings[ key ][ keyDevice ] + ( customSpacings[ key ][ '!important' ] ? ' !important' : '' );
                     }
                 } );
             } else {
-                result[ key ] = customIndents[ key ] + ( customIndents[ '!important' ] ? ' !important' : '' );
+                result[ key ] = customSpacings[ key ] + ( customSpacings[ '!important' ] ? ' !important' : '' );
             }
         }
     } );
 
-    customIndents = Object.keys( result ).length !== 0 ? result : false;
+    customSpacings = Object.keys( result ).length !== 0 ? result : false;
 
-    if ( customStyles && customIndents ) {
-        customStyles = deepAssign( customStyles, customIndents );
+    if ( customStyles && customSpacings ) {
+        customStyles = deepAssign( customStyles, customSpacings );
     }
 
     return customStyles;
 }
 
 // Init filters.
-addFilter( 'ghostkit.blocks.registerBlockType.allowCustomStyles', 'ghostkit/indents/allow-custom-styles', allowCustomStyles );
-addFilter( 'ghostkit.blocks.registerBlockType.withCustomStyles', 'ghostkit/indents/additional-attributes', addAttribute );
-addFilter( 'ghostkit.blocks.customStyles', 'ghostkit/indents/editor-custom-styles', addEditorCustomStyles );
-addFilter( 'editor.BlockEdit', 'ghostkit/indents/additional-attributes', withInspectorControl );
+addFilter( 'ghostkit.blocks.registerBlockType.allowCustomStyles', 'ghostkit/spacings/allow-custom-styles', allowCustomStyles );
+addFilter( 'ghostkit.blocks.registerBlockType.withCustomStyles', 'ghostkit/spacings/additional-attributes', addAttribute );
+addFilter( 'ghostkit.blocks.customStyles', 'ghostkit/spacings/editor-custom-styles', addEditorCustomStyles );
+addFilter( 'editor.BlockEdit', 'ghostkit/spacings/additional-attributes', withInspectorControl );

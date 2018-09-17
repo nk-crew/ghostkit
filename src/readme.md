@@ -43,7 +43,7 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 
 ### Available extensions ###
 
-* Indents (paddings, margins)
+* Spacings (paddings, margins)
 * Display (show/hide block)
 
 ### Coming soon blocks ###
@@ -143,7 +143,7 @@ Available filters:
 = 1.3.0 =
 
 * added Google Maps block
-* added !important style support in Indents extension
+* added !important style support in Spacings extension
 * changed plugin logo
 
 = 1.2.0 =
@@ -181,7 +181,7 @@ Available filters:
 * added "Select Column" helper UI element to easily select Grid columns [https://wordpress.org/support/topic/selecting-a-column-in-a-grid/](https://wordpress.org/support/topic/selecting-a-column-in-a-grid/)
 * moved all blocks to GhostKit category
 * fixed compatibility with WordPress Import/Export content
-* fixed Indents (margins / paddings) responsive values change [https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/](https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/)
+* fixed Spacings (margins / paddings) responsive values change [https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/](https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/)
 
 = 1.1.0 =
 

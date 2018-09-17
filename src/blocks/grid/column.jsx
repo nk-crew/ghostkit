@@ -309,7 +309,7 @@ export const settings = {
 
             return result;
         },
-        ghostkitIndents: true,
+        ghostkitSpacings: true,
         ghostkitDisplay: true,
     },
     attributes: {

@@ -6,7 +6,7 @@ export default [
         supports: {
             html: false,
             ghostkitStyles: true,
-            ghostkitIndents: true,
+            ghostkitSpacings: true,
             ghostkitDisplay: true,
         },
         attributes: {

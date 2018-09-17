@@ -12,7 +12,7 @@ export default [
             html: false,
             className: false,
             ghostkitStyles: true,
-            ghostkitIndents: true,
+            ghostkitSpacings: true,
             ghostkitDisplay: true,
         },
         attributes: {

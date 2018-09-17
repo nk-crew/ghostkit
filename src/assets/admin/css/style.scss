@@ -69,16 +69,16 @@
 }
 
 /**
- * Indents Control.
+ * Spacings Control.
  */
-.ghostkit-control-indent {
+.ghostkit-control-spacing {
     position: relative;
     width: 100%;
     padding-top: 90%;
     border: 1px solid #e8eaec;
 
     // logo
-    .ghostkit-control-indent-logo {
+    .ghostkit-control-spacing-logo {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -95,8 +95,8 @@
         margin: 0;
     }
 
-    .ghostkit-control-indent-margin,
-    .ghostkit-control-indent-padding {
+    .ghostkit-control-spacing-margin,
+    .ghostkit-control-spacing-padding {
         position: absolute;
         top: 5px;
         left: 5px;
@@ -124,26 +124,26 @@
     }
 
     // margins
-    .ghostkit-control-indent-margin {
-        .ghostkit-control-indent-margin-top {
+    .ghostkit-control-spacing-margin {
+        .ghostkit-control-spacing-margin-top {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
         }
-        .ghostkit-control-indent-margin-right {
+        .ghostkit-control-spacing-margin-right {
             position: absolute;
             top: 0;
             right: 0;
             height: 100%;
         }
-        .ghostkit-control-indent-margin-bottom {
+        .ghostkit-control-spacing-margin-bottom {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
         }
-        .ghostkit-control-indent-margin-left {
+        .ghostkit-control-spacing-margin-left {
             position: absolute;
             top: 0;
             left: 0;
@@ -152,7 +152,7 @@
     }
 
     // paddings.
-    .ghostkit-control-indent-padding {
+    .ghostkit-control-spacing-padding {
         top: 36px;
         left: 46px;
         width: calc(100% - 92px);
@@ -165,25 +165,25 @@
         }
 
         // paddings.
-        .ghostkit-control-indent-padding-top {
+        .ghostkit-control-spacing-padding-top {
             position: absolute;
             top: 5px;
             left: 5px;
             width: calc(100% - 10px);
         }
-        .ghostkit-control-indent-padding-right {
+        .ghostkit-control-spacing-padding-right {
             position: absolute;
             top: 5px;
             right: 5px;
             height: calc(100% - 10px);
         }
-        .ghostkit-control-indent-padding-bottom {
+        .ghostkit-control-spacing-padding-bottom {
             position: absolute;
             bottom: 5px;
             left: 5px;
             width: calc(100% - 10px);
         }
-        .ghostkit-control-indent-padding-left {
+        .ghostkit-control-spacing-padding-left {
             position: absolute;
             top: 5px;
             left: 5px;
@@ -192,7 +192,7 @@
     }
 
     // device selector.
-    .ghostkit-control-indent-device {
+    .ghostkit-control-spacing-device {
         position: absolute;
         bottom: 5px;
         left: 5px;
@@ -212,7 +212,7 @@
     }
 
     // !important
-    .ghostkit-control-indent-important {
+    .ghostkit-control-spacing-important {
         position: absolute;
         right: 15px;
         bottom: 11px;

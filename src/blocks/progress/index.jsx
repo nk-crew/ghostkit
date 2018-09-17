@@ -230,7 +230,7 @@ export const settings = {
                 },
             };
         },
-        ghostkitIndents: true,
+        ghostkitSpacings: true,
         ghostkitDisplay: true,
     },
     attributes: {
