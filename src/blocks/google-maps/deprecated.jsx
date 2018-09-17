@@ -2,6 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 import IconMarker from './icons/deprecated-marker.svg';
+import IconMarker2 from './icons/deprecated-marker-2.svg';
 
 const fixMarker = {
     supports: {
@@ -161,10 +162,6 @@ export default [
                 className = classnames( className, `ghostkit-google-maps-variant-${ variant }` );
             }
 
-            // in the first version of the block there was no viewBox attribute.
-            const iconMarkerNoViewBox = IconMarker();
-            delete iconMarkerNoViewBox.props.viewBox;
-
             return (
                 <div
                     className={ className }
@@ -181,7 +178,7 @@ export default [
                     data-markers={ markers ? JSON.stringify( markers ) : '' }
                     style={ { minHeight: height } }
                 >
-                    { iconMarkerNoViewBox }
+                    <IconMarker2 />
                 </div>
             );
         },
