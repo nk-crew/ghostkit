@@ -131,11 +131,12 @@ Available filters:
 9. Alert
 10. Icon Box
 11. Counter Box
-12. Video
-13. Testimonial
-14. GitHub Gist
-15. Changelog
-16. Blocks Extensions
+12. Google Maps
+13. Video
+14. Testimonial
+15. GitHub Gist
+16. Changelog
+17. Blocks Extensions
 
 ## Changelog ##
 
