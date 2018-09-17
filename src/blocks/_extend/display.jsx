@@ -21,10 +21,10 @@ const {
     hasBlockSupport,
 } = wp.blocks;
 
-const { InspectorAdvancedControls } = wp.editor;
+const { InspectorControls } = wp.editor;
 
 const {
-    BaseControl,
+    PanelBody,
     SelectControl,
 } = wp.components;
 
@@ -174,8 +174,13 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         { ...props }
                         setState={ this.setState }
                     />
-                    <InspectorAdvancedControls>
-                        <BaseControl label={ __( 'Display' ) } >
+                    <InspectorControls>
+                        <PanelBody title={ (
+                            <Fragment>
+                                { __( 'Display' ) }
+                                <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
+                            </Fragment>
+                        ) } initialOpen={ false }>
                             <div className="ghostkit-control-display">
                                 <div className="ghostkit-control-display-box">
                                     <div className="ghostkit-control-display-icon" />
@@ -230,8 +235,8 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     />
                                 </div>
                             </div>
-                        </BaseControl>
-                    </InspectorAdvancedControls>
+                        </PanelBody>
+                    </InspectorControls>
                 </Fragment>
             );
         }

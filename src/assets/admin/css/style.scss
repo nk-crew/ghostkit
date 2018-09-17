@@ -4,6 +4,27 @@
 @import "../../../blocks/variables";
 
 /**
+ * Extensions badge
+ */
+.ghostkit-ext-badge {
+    position: relative;
+    left: 8px;
+    padding: 1px 3px;
+    font-size: 8px;
+    font-weight: 700;
+    color: #a9a9a9;
+    text-transform: uppercase;
+    background-color: #f3f3f3;
+    border-radius: 2px;
+    transition: .15s background-color, .15s color;
+
+    .components-panel__body-toggle:hover > & {
+        color: #fff;
+        background-color: #4ac6ff;
+    }
+}
+
+/**
  * Tabs Control.
  */
 .ghostkit-control-tabs {

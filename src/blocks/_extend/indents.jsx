@@ -23,10 +23,10 @@ const {
 const {
     hasBlockSupport,
 } = wp.blocks;
-const { InspectorAdvancedControls } = wp.editor;
+const { InspectorControls } = wp.editor;
 
 const {
-    BaseControl,
+    PanelBody,
     TextControl,
     SelectControl,
     CheckboxControl,
@@ -227,8 +227,13 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         { ...this.state }
                         setState={ this.setState }
                     />
-                    <InspectorAdvancedControls>
-                        <BaseControl label={ __( 'Indents' ) } >
+                    <InspectorControls>
+                        <PanelBody title={ (
+                            <Fragment>
+                                { __( 'Indents' ) }
+                                <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
+                            </Fragment>
+                        ) } initialOpen={ false }>
                             <div className="ghostkit-control-indent">
                                 <Logo className="ghostkit-control-indent-logo" />
                                 <div className="ghostkit-control-indent-margin">
@@ -329,8 +334,8 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     />
                                 </div>
                             </div>
-                        </BaseControl>
-                    </InspectorAdvancedControls>
+                        </PanelBody>
+                    </InspectorControls>
                 </Fragment>
             );
         }
