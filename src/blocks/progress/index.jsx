@@ -47,6 +47,7 @@ class ProgressBlock extends Component {
             percent,
             borderRadius,
             striped,
+            animateInViewport,
             showCount,
             countPrefix,
             countSuffix,
@@ -123,6 +124,11 @@ class ProgressBlock extends Component {
                             label={ __( 'Striped' ) }
                             checked={ !! striped }
                             onChange={ ( val ) => setAttributes( { striped: val } ) }
+                        />
+                        <ToggleControl
+                            label={ __( 'Animate in viewport' ) }
+                            checked={ !! animateInViewport }
+                            onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
                         />
                         <PanelColor title={ __( 'Color' ) } colorValue={ color } >
                             <ColorPalette
@@ -260,6 +266,10 @@ export const settings = {
             type: 'boolean',
             default: true,
         },
+        animateInViewport: {
+            type: 'boolean',
+            default: false,
+        },
         showCount: {
             type: 'boolean',
             default: false,
@@ -293,6 +303,7 @@ export const settings = {
             showCount,
             countPrefix,
             countSuffix,
+            animateInViewport,
             variant,
         } = attributes;
 
@@ -317,7 +328,7 @@ export const settings = {
                     </div>
                 ) : '' }
                 <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
-                    <div className="ghostkit-progress-bar" role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
+                    <div className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) } role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
                 </div>
             </div>
         );

@@ -15,9 +15,11 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
+    TextControl,
     RangeControl,
     PanelColor,
     SelectControl,
+    ToggleControl,
 } = wp.components;
 
 const {
@@ -38,12 +40,14 @@ class CounterBoxBlock extends Component {
         let { className = '' } = this.props;
 
         const {
+            variant,
             ghostkitClassname,
             number,
+            animateInViewport,
+            animateInViewportFrom,
             numberPosition,
             numberSize,
             numberColor,
-            variant,
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'counter_box' );
@@ -68,6 +72,19 @@ class CounterBoxBlock extends Component {
                                     label: availableVariants[ key ].title,
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
+                            />
+                        ) : '' }
+                        <ToggleControl
+                            label={ __( 'Animate in viewport' ) }
+                            checked={ !! animateInViewport }
+                            onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
+                        />
+                        { animateInViewport ? (
+                            <TextControl
+                                label={ __( 'Animate from' ) }
+                                type="number"
+                                value={ animateInViewportFrom }
+                                onChange={ ( value ) => setAttributes( { animateInViewportFrom: value } ) }
                             />
                         ) : '' }
                         <RangeControl
@@ -167,6 +184,14 @@ export const settings = {
             selector: '.ghostkit-counter-box-number',
             default: '77',
         },
+        animateInViewport: {
+            type: 'boolean',
+            default: false,
+        },
+        animateInViewportFrom: {
+            type: 'number',
+            default: 0,
+        },
         numberPosition: {
             type: 'string',
             default: 'top',
@@ -185,10 +210,16 @@ export const settings = {
 
     save: function( { attributes, className = '' } ) {
         const {
-            number,
-            numberPosition,
             variant,
+            number,
+            animateInViewport,
+            numberPosition,
         } = attributes;
+        let {
+            animateInViewportFrom,
+        } = attributes;
+
+        animateInViewportFrom = parseFloat( animateInViewportFrom );
 
         className = classnames( 'ghostkit-counter-box', className );
 
@@ -200,8 +231,11 @@ export const settings = {
             <div className={ className }>
                 <RichText.Content
                     tagName="div"
-                    className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }
+                    className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }${ animateInViewport ? ' ghostkit-count-up' : '' }` }
                     value={ number }
+                    { ...{
+                        'data-count-from': animateInViewport && animateInViewportFrom ? animateInViewportFrom : null,
+                    } }
                 />
                 <div className="ghostkit-counter-box-content">
                     <InnerBlocks.Content />

@@ -27,6 +27,102 @@ if ( typeof window.objectFitImages !== 'undefined' ) {
     window.objectFitImages();
 }
 
+/*
+ * Additional easing
+ */
+$.extend( $.easing, {
+    easeOutCubic( x, t, b, c, d ) {
+        return ( c * ( ( ( t = ( t / d ) - 1 ) * t * t ) + 1 ) ) + b;
+    },
+} );
+
+/**
+ * Is element in viewport.
+ * https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
+ *
+ * @param {DOM} el - element.
+ *
+ * @returns {Boolean} - visible.
+ */
+function isElementInViewport( el ) {
+    const rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= ( window.innerHeight || document.documentElement.clientHeight ) &&
+        rect.right <= ( window.innerWidth || document.documentElement.clientWidth )
+    );
+}
+
+/**
+ * Prepare Counters (Number Box, Progress Bar)
+ */
+const counters = [];
+function prepareCounters() {
+    $( '.ghostkit-count-up:not(.ghostkit-count-up-ready)' ).each( function() {
+        const $this = $( this );
+        const isProgress = $this.hasClass( 'ghostkit-progress-bar' );
+        const from = parseFloat( $this.attr( 'data-count-from' ) ) || 0;
+        const to = parseFloat( isProgress ? $this.attr( 'aria-valuenow' ) : $this.text() ) || 0;
+        let $progressCountBadge;
+
+        $this.addClass( 'ghostkit-count-up-ready' );
+
+        if ( isProgress ) {
+            $progressCountBadge = $this.closest( '.ghostkit-progress' ).find( '.ghostkit-progress-bar-count > div' );
+            $this.css( 'width', '0%' );
+            $progressCountBadge.hide();
+        } else {
+            $this.text( from );
+        }
+
+        counters.push( {
+            el: this,
+            from: from,
+            to: to,
+            cb( num, complete ) {
+                if ( isProgress ) {
+                    $this.css( 'width', `${ Math.ceil( num * 100 ) / 100 }%` );
+
+                    if ( complete && $progressCountBadge ) {
+                        $progressCountBadge.fadeIn( 200 );
+                    }
+                } else {
+                    $this.text( Math.ceil( num ) );
+                }
+            },
+        } );
+    } );
+    runCounters();
+}
+
+function runCounters() {
+    if ( ! counters.length ) {
+        return;
+    }
+
+    counters.forEach( ( item, index ) => {
+        if ( isElementInViewport( item.el ) ) {
+            counters.splice( index, 1 );
+
+            $( { Counter: item.from } ).animate( { Counter: item.to }, {
+                duration: 1000,
+                easing: 'easeOutCubic',
+                step() {
+                    item.cb( this.Counter, false );
+                },
+                complete() {
+                    item.cb( item.to, true );
+                },
+            } );
+        }
+    } );
+}
+runCounters = throttle( 200, runCounters );
+
+$( window ).on( 'DOMContentLoaded load resize scroll', runCounters );
+
 /**
  * Prepare custom styles.
  */
@@ -73,6 +169,8 @@ function prepareTabs() {
             $tabsCont.children( `[data-tab="${ $thisBtn.attr( 'data-tab' ) }"]` )
                 .addClass( 'ghostkit-tab-active' )
                 .siblings().removeClass( 'ghostkit-tab-active' );
+
+            runCounters();
         } );
         $tabsButtons.find( `[data-tab="${ tabsActive }"]` ).click();
     } );
@@ -109,6 +207,8 @@ function prepareAccordions() {
                         $collapseItems.removeClass( 'ghostkit-accordion-item-active' );
                     }
                 }
+
+                runCounters();
             } );
     } );
 }
@@ -477,6 +577,8 @@ $( document ).on( 'click', '.ghostkit-alert-hide-button', function( e ) {
     $( this ).parent()
         .animate( { opacity: 0 }, 150, function() {
             $( this ).slideUp( 200 );
+
+            runCounters();
         } );
 } );
 
@@ -492,6 +594,7 @@ const throttledInitBlocks = throttle( 200, () => {
     prepareGist();
     prepareChangelog();
     prepareGoogleMaps();
+    prepareCounters();
 } );
 if ( window.MutationObserver ) {
     new window.MutationObserver( throttledInitBlocks )
