@@ -32,6 +32,8 @@ const {
     CheckboxControl,
 } = wp.components;
 
+let initialOpenPanel = false;
+
 /**
  * Allow custom styles in blocks.
  *
@@ -284,12 +286,18 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         setState={ this.setState }
                     />
                     <InspectorControls>
-                        <PanelBody title={ (
-                            <Fragment>
-                                { __( 'Spacings' ) }
-                                <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
-                            </Fragment>
-                        ) } initialOpen={ false }>
+                        <PanelBody
+                            title={ (
+                                <Fragment>
+                                    { __( 'Spacings' ) }
+                                    <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
+                                </Fragment>
+                            ) }
+                            initialOpen={ initialOpenPanel }
+                            onToggle={ () => {
+                                initialOpenPanel = ! initialOpenPanel;
+                            } }
+                        >
                             <div className="ghostkit-control-spacing">
                                 <Logo className="ghostkit-control-spacing-logo" />
                                 <div className="ghostkit-control-spacing-margin">

@@ -25,6 +25,8 @@ const {
     SelectControl,
 } = wp.components;
 
+let initialOpenPanel = false;
+
 /**
  * Extend ghostkit block attributes with SR.
  *
@@ -116,12 +118,18 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         setState={ this.setState }
                     />
                     <InspectorControls>
-                        <PanelBody title={ (
-                            <Fragment>
-                                { __( 'Animate on Scroll' ) }
-                                <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
-                            </Fragment>
-                        ) } initialOpen={ false }>
+                        <PanelBody
+                            title={ (
+                                <Fragment>
+                                    { __( 'Animate on Scroll' ) }
+                                    <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
+                                </Fragment>
+                            ) }
+                            initialOpen={ initialOpenPanel }
+                            onToggle={ () => {
+                                initialOpenPanel = ! initialOpenPanel;
+                            } }
+                        >
                             <SelectControl
                                 value={ ghostkitSR }
                                 onChange={ ( val ) => setAttributes( { ghostkitSR: val } ) }

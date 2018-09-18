@@ -28,6 +28,8 @@ const {
     SelectControl,
 } = wp.components;
 
+let initialOpenPanel = false;
+
 /**
  * Get array for Select element.
  *
@@ -175,12 +177,18 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         setState={ this.setState }
                     />
                     <InspectorControls>
-                        <PanelBody title={ (
-                            <Fragment>
-                                { __( 'Display' ) }
-                                <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
-                            </Fragment>
-                        ) } initialOpen={ false }>
+                        <PanelBody
+                            title={ (
+                                <Fragment>
+                                    { __( 'Display' ) }
+                                    <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
+                                </Fragment>
+                            ) }
+                            initialOpen={ initialOpenPanel }
+                            onToggle={ () => {
+                                initialOpenPanel = ! initialOpenPanel;
+                            } }
+                        >
                             <div className="ghostkit-control-display">
                                 <div className="ghostkit-control-display-box">
                                     <div className="ghostkit-control-display-icon" />
