@@ -50,6 +50,7 @@
 /**
  * Additional classes.
  */
+
 // badges
 .ghostkit-badge {
     display: inline-block;
@@ -105,4 +106,10 @@
     &.ghostkit-badge-info {
         color: $color-info;
     }
+}
+
+// Scroll Reveal
+[data-ghostkit-sr] {
+    pointer-events: none;
+    visibility: hidden;
 }

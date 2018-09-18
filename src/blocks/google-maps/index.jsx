@@ -496,6 +496,7 @@ export const settings = {
         ghostkitStyles: true,
         ghostkitSpacings: true,
         ghostkitDisplay: true,
+        ghostkitSR: true,
     },
     attributes: {
         variant: {

@@ -182,6 +182,11 @@ class GhostKit {
             wp_register_script( 'gist-embed', plugins_url( 'assets/vendor/gist-embed/gist-embed.min.js', __FILE__ ), array( 'jquery' ), '2.7.1', true );
         }
 
+        // ScrollReveal.
+        if ( apply_filters( 'gkt_enqueue_plugin_scrollreveal', true ) ) {
+            wp_register_script( 'scrollreveal', plugins_url( 'assets/vendor/scrollreveal/scrollreveal.min.js', __FILE__ ), array(), '4.0.2', true );
+        }
+
         // Get all sidebars.
         $sidebars = false;
         if ( ! empty( $GLOBALS['wp_registered_sidebars'] ) ) {
@@ -323,6 +328,11 @@ class GhostKit {
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_embed', true ) ) {
             $js_deps[] = 'gist-embed';
+        }
+
+        // ScrollReveal.
+        if ( apply_filters( 'gkt_enqueue_plugin_scrollreveal', true ) ) {
+            $js_deps[] = 'scrollreveal';
         }
 
         // GhostKit.

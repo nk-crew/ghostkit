@@ -12,6 +12,7 @@ const fixMarker = {
         ghostkitStyles: true,
         ghostkitSpacings: true,
         ghostkitDisplay: true,
+        ghostkitSR: true,
     },
     attributes: {
         variant: {

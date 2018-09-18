@@ -570,6 +570,57 @@ function prepareGoogleMaps() {
 }
 
 /**
+ * Prepare ScrollReveal
+ */
+let reveal = window.ScrollReveal ? window.ScrollReveal().reveal : false;
+function prepareSR() {
+    if ( ! window.ScrollReveal ) {
+        return;
+    } else if ( ! reveal ) {
+        reveal = window.ScrollReveal ? window.ScrollReveal().reveal : false;
+    }
+
+    $( '[data-ghostkit-sr]:not(.data-ghostkit-sr-ready)' ).each( function() {
+        const $this = $( this );
+
+        $this.addClass( 'data-ghostkit-sr-ready' );
+
+        const effect = $this.attr( 'data-ghostkit-sr' );
+        const data = {
+            distance: '50px',
+            origin: 'center',
+            opacity: 0,
+            scale: 1,
+            duration: 900,
+            reset: false,
+            afterReveal() {
+                $this.removeAttr( 'data-ghostkit-sr' );
+                $this.removeClass( 'data-ghostkit-sr-ready' );
+            },
+        };
+
+        switch ( effect ) {
+        case 'fade':
+            data.distance = 0;
+            break;
+        case 'fade-up':
+            data.origin = 'bottom';
+            break;
+        case 'zoom':
+            data.distance = 0;
+            data.scale = 0.9;
+            break;
+        case 'zoom-up':
+            data.origin = 'bottom';
+            data.scale = 0.9;
+            break;
+        }
+
+        reveal( this, data, 100 );
+    } );
+}
+
+/**
  * Prepare alerts dismiss button.
  */
 $( document ).on( 'click', '.ghostkit-alert-hide-button', function( e ) {
@@ -595,6 +646,7 @@ const throttledInitBlocks = throttle( 200, () => {
     prepareChangelog();
     prepareGoogleMaps();
     prepareCounters();
+    prepareSR();
 } );
 if ( window.MutationObserver ) {
     new window.MutationObserver( throttledInitBlocks )

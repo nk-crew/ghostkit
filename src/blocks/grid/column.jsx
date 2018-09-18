@@ -311,6 +311,7 @@ export const settings = {
         },
         ghostkitSpacings: true,
         ghostkitDisplay: true,
+        ghostkitSR: true,
     },
     attributes: {
         variant: {

@@ -74,6 +74,7 @@ export default [
             ghostkitStyles: true,
             ghostkitSpacings: true,
             ghostkitDisplay: true,
+            ghostkitSR: true,
         },
         attributes: {
             variant: {
@@ -144,6 +145,7 @@ export default [
             ghostkitStyles: true,
             ghostkitSpacings: true,
             ghostkitDisplay: true,
+            ghostkitSR: true,
         },
         attributes: {
             variant: {

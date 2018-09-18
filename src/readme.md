@@ -45,6 +45,7 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 
 * Spacings (paddings, margins)
 * Display (show/hide block)
+* Animate on Scroll (show block in viewport)
 
 ### Coming soon blocks ###
 
@@ -83,6 +84,7 @@ Available filters:
 * **gkt_enqueue_plugin_video_worker**
 * **gkt_enqueue_plugin_swiper**
 * **gkt_enqueue_plugin_gist_embed**
+* **gkt_enqueue_plugin_scrollreveal**
 
 ### How to extend existing blocks ####
 
