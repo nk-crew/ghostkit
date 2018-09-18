@@ -299,10 +299,10 @@ export const settings = {
                     position: 'sticky',
                 };
 
-                if ( stickyContentTop ) {
+                if ( typeof stickyContentTop === 'number' ) {
                     result[ '> .ghostkit-col-content' ].top = stickyContentTop;
                 }
-                if ( stickyContentBottom ) {
+                if ( typeof stickyContentBottom === 'number' ) {
                     result[ '> .ghostkit-col-content' ].bottom = stickyContentBottom;
                 }
             }
