@@ -325,7 +325,11 @@ export const settings = {
                 ) : '' }
                 { showCount ? (
                     <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
-                        <div>{ countPrefix }{ percent }{ countSuffix }</div>
+                        <div>
+                            <span>{ countPrefix }</span>
+                            <span>{ percent }</span>
+                            <span>{ countSuffix }</span>
+                        </div>
                     </div>
                 ) : '' }
                 <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>

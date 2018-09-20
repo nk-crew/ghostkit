@@ -65,14 +65,18 @@ function prepareCounters() {
         const isProgress = $this.hasClass( 'ghostkit-progress-bar' );
         const from = parseFloat( $this.attr( 'data-count-from' ) ) || 0;
         const to = parseFloat( isProgress ? $this.attr( 'aria-valuenow' ) : $this.text() ) || 0;
+        let $progressCountBadgeWrap;
         let $progressCountBadge;
 
         $this.addClass( 'ghostkit-count-up-ready' );
 
         if ( isProgress ) {
-            $progressCountBadge = $this.closest( '.ghostkit-progress' ).find( '.ghostkit-progress-bar-count > div' );
+            $progressCountBadgeWrap = $this.closest( '.ghostkit-progress' ).find( '.ghostkit-progress-bar-count' );
+            $progressCountBadge = $progressCountBadgeWrap.find( '> div > span:eq(1)' );
+
+            $progressCountBadgeWrap.css( 'width', '0%' );
+            $progressCountBadge.text( '0' );
             $this.css( 'width', '0%' );
-            $progressCountBadge.hide();
         } else {
             $this.text( from );
         }
@@ -81,13 +85,12 @@ function prepareCounters() {
             el: this,
             from: from,
             to: to,
-            cb( num, complete ) {
+            cb( num ) {
                 if ( isProgress ) {
                     $this.css( 'width', `${ Math.ceil( num * 100 ) / 100 }%` );
+                    $progressCountBadgeWrap.css( 'width', `${ Math.ceil( num * 100 ) / 100 }%` );
 
-                    if ( complete && $progressCountBadge ) {
-                        $progressCountBadge.fadeIn( 200 );
-                    }
+                    $progressCountBadge.text( Math.ceil( num ) );
                 } else {
                     $this.text( Math.ceil( num ) );
                 }
