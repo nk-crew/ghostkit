@@ -1,6 +1,9 @@
 // Import CSS
 import './editor.scss';
 
+// External Dependencies.
+import { debounce } from 'throttle-debounce';
+
 // Internal Dependencies.
 import ElementIcon from '../_icons/custom-css.svg';
 
@@ -11,7 +14,22 @@ const {
     CodeEditor,
 } = wp.components;
 
+// style tag for preview
+const $head = document.head || document.getElementsByTagName( 'head' )[ 0 ];
+const $stylePreview = document.createElement( 'style' );
+$stylePreview.setAttribute( 'id', 'ghostkit-blocks-custom-css-block-preview' );
+$head.appendChild( $stylePreview );
+
+function updateStyles( newStyles ) {
+    $stylePreview.innerHTML = newStyles;
+}
+updateStyles = debounce( 400, updateStyles );
+
 class CustomCSSBlock extends Component {
+    constructor() {
+        super( ...arguments );
+        updateStyles( this.props.attributes.customCSS );
+    }
     render() {
         const {
             className,
@@ -31,7 +49,10 @@ class CustomCSSBlock extends Component {
             >
                 <CodeEditor
                     value={ customCSS }
-                    onChange={ value => setAttributes( { customCSS: value } ) }
+                    onChange={ value => {
+                        setAttributes( { customCSS: value } );
+                        updateStyles( value );
+                    } }
                     settings={ {
                         codemirror: {
                             mode: 'css',
