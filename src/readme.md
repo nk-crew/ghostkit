@@ -142,6 +142,17 @@ Available filters:
 
 ## Changelog ##
 
+= 1.4.0 =
+
+* added Animate in viewport options in Number Box and Progress Bar
+* added Animate on Scroll extension (use scrollreveal library)
+* added Custom CSS block styles in editor to preview
+* extensions moved from Advanced inspector to bottom of Inspector Controls
+* renamed extension Indents to Spacings
+* fixed column sticky position 0
+* fixed Google Maps placeholder marker icon map overlap
+* fixed Google Maps deprecated object
+
 = 1.3.0 =
 
 * added Google Maps block
