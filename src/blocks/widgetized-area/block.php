@@ -24,9 +24,11 @@ class GhostKit_Widgetized_Area_Block {
      * Init.
      */
     public function init() {
-        register_block_type( 'ghostkit/widgetized-area', array(
-            'render_callback' => array( $this, 'block_render' ),
-        ) );
+        if ( function_exists( 'register_block_type' ) ) {
+            register_block_type( 'ghostkit/widgetized-area', array(
+                'render_callback' => array( $this, 'block_render' ),
+            ) );
+        }
     }
 
     /**
