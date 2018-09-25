@@ -107,6 +107,7 @@ export default [
                 className = classnames( className, 'ghostkit-google-maps-fullheight' );
             }
 
+            // variant classname.
             if ( 'default' !== variant ) {
                 className = classnames( className, `ghostkit-google-maps-variant-${ variant }` );
             }
@@ -159,6 +160,7 @@ export default [
                 className = classnames( className, 'ghostkit-google-maps-fullheight' );
             }
 
+            // variant classname.
             if ( 'default' !== variant ) {
                 className = classnames( className, `ghostkit-google-maps-variant-${ variant }` );
             }

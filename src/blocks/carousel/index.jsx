@@ -76,6 +76,11 @@ class CarouselBlock extends Component {
             'ghostkit-carousel'
         );
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-carousel-variant-${ variant }` );
+        }
+
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
@@ -334,6 +339,7 @@ export const settings = {
             'ghostkit-carousel'
         );
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-carousel-variant-${ variant }` );
         }

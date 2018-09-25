@@ -56,6 +56,11 @@ class DividerBlock extends Component {
             className = classnames( className, 'ghostkit-divider-with-icon' );
         }
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-divider-variant-${ variant }` );
+        }
+
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
@@ -252,6 +257,7 @@ export const settings = {
             className = classnames( className, 'ghostkit-divider-with-icon' );
         }
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-divider-variant-${ variant }` );
         }

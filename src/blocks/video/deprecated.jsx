@@ -100,6 +100,8 @@ export default [
                 'ghostkit-video-aspect-ratio-' + videoAspectRatio,
                 className
             );
+
+            // variant classname.
             if ( 'default' !== variant ) {
                 resultAttrs.className = classnames( resultAttrs.className, `ghostkit-video-variant-${ variant }` );
             }

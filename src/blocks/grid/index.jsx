@@ -193,6 +193,11 @@ class GridBlock extends Component {
             horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
         );
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-grid-variant-${ variant }` );
+        }
+
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
@@ -425,6 +430,7 @@ export const settings = {
             horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
         );
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-grid-variant-${ variant }` );
         }

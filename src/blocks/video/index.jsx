@@ -231,6 +231,11 @@ class VideoBlockEdit extends Component {
             className
         );
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-video-variant-${ variant }` );
+        }
+
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
@@ -648,6 +653,8 @@ class VideoBlockSave extends Component {
             'ghostkit-video',
             className
         );
+
+        // variant classname.
         if ( 'default' !== variant ) {
             resultAttrs.className = classnames( resultAttrs.className, `ghostkit-video-variant-${ variant }` );
         }

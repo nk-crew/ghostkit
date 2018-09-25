@@ -146,6 +146,11 @@ class GistBlock extends Component {
 
         className = classnames( 'ghostkit-gist', className );
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-gist-variant-${ variant }` );
+        }
+
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
@@ -355,6 +360,7 @@ export const settings = {
 
         className = classnames( 'ghostkit-gist', className );
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-gist-variant-${ variant }` );
         }

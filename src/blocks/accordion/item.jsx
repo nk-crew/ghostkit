@@ -44,6 +44,11 @@ class AccordionItemBlock extends Component {
             active ? 'ghostkit-accordion-item-active' : ''
         );
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-accordion-item-variant-${ variant }` );
+        }
+
         const availableVariants = GHOSTKIT.getVariants( 'accordion_item' );
 
         return (
@@ -145,6 +150,7 @@ export const settings = {
             active ? 'ghostkit-accordion-item-active' : ''
         );
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-accordion-item-variant-${ variant }` );
         }

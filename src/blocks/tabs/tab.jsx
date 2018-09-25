@@ -36,6 +36,11 @@ class TabBlock extends Component {
 
         className = classnames( className, 'ghostkit-tab' );
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-tab-variant-${ variant }` );
+        }
+
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
@@ -112,6 +117,7 @@ export const settings = {
 
         className = classnames( className, 'ghostkit-tab' );
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-tab-variant-${ variant }` );
         }

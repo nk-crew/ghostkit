@@ -60,6 +60,11 @@ class ProgressBlock extends Component {
 
         className = classnames( 'ghostkit-progress', className );
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-progress-variant-${ variant }` );
+        }
+
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
@@ -310,6 +315,7 @@ export const settings = {
 
         className = classnames( 'ghostkit-progress', className );
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-progress-variant-${ variant }` );
         }

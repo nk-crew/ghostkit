@@ -66,6 +66,11 @@ class AccordionBlock extends Component {
             'ghostkit-accordion'
         );
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-accordion-variant-${ variant }` );
+        }
+
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
@@ -164,6 +169,7 @@ export const settings = {
             collapseOne ? 'ghostkit-accordion-collapse-one' : ''
         );
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-accordion-variant-${ variant }` );
         }

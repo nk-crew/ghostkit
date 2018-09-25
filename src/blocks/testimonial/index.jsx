@@ -168,6 +168,11 @@ class TestimonialBlockEdit extends Component {
 
         className = classnames( 'ghostkit-testimonial', className );
 
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-testimonial-variant-${ variant }` );
+        }
+
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
@@ -318,6 +323,7 @@ class TestimonialBlockSave extends Component {
 
         className = classnames( 'ghostkit-testimonial', className );
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-testimonial-variant-${ variant }` );
         }

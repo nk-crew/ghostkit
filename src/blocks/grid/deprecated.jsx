@@ -129,6 +129,7 @@ export default [
                 horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
             );
 
+            // variant classname.
             if ( 'default' !== variant ) {
                 className = classnames( className, `ghostkit-grid-variant-${ variant }` );
             }
@@ -249,6 +250,7 @@ export default [
                 getGridClass( attributes )
             );
 
+            // variant classname.
             if ( 'default' !== variant ) {
                 className = classnames( className, `ghostkit-grid-variant-${ variant }` );
             }

@@ -398,6 +398,7 @@ export const settings = {
             getColClass( attributes )
         );
 
+        // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-col-variant-${ variant }` );
         }

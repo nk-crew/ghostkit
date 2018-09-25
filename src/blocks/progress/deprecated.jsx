@@ -59,6 +59,7 @@ export default [
                 variant,
             } = attributes;
 
+            // variant classname.
             if ( 'default' !== variant ) {
                 className = classnames( className, `ghostkit-progress-variant-${ variant }` );
             }
@@ -168,6 +169,7 @@ export default [
 
             className = classnames( 'ghostkit-progress', className );
 
+            // variant classname.
             if ( 'default' !== variant ) {
                 className = classnames( className, `ghostkit-progress-variant-${ variant }` );
             }

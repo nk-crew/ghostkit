@@ -121,6 +121,7 @@ export default [
                 `ghostkit-tabs-active-${ tabActive }`
             );
 
+            // variant classname.
             if ( 'default' !== variant ) {
                 className = classnames( className, `ghostkit-tabs-variant-${ variant }` );
             }
