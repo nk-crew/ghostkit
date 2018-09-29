@@ -126,13 +126,13 @@ class GhostKit_Instagram_Block {
                         <div class="ghostkit-instagram-profile">
                             <?php if ( $attributes['showProfileAvatar'] && isset( $profile['profile_picture'] ) ) : ?>
                                 <div class="ghostkit-instagram-profile-avatar">
-                                    <a href="<?php echo esc_url( $url ); ?>"><img src="<?php echo esc_url( $profile['profile_picture'] ); ?>" alt="<?php echo esc_attr( $profile['full_name'] ); ?>" width="<?php echo esc_attr( $attributes['profileAvatarSize'] ); ?>" height="<?php echo esc_attr( $attributes['profileAvatarSize'] ); ?>" /></a>
+                                    <a href="<?php echo esc_url( $url ); ?>" target="_blank"><img src="<?php echo esc_url( $profile['profile_picture'] ); ?>" alt="<?php echo esc_attr( $profile['full_name'] ); ?>" width="<?php echo esc_attr( $attributes['profileAvatarSize'] ); ?>" height="<?php echo esc_attr( $attributes['profileAvatarSize'] ); ?>" /></a>
                                 </div>
                             <?php endif; ?>
                             <div class="ghostkit-instagram-profile-side">
                                 <?php if ( $attributes['showProfileName'] && isset( $profile['full_name'] ) ) : ?>
                                     <div class="ghostkit-instagram-profile-name">
-                                        <a href="<?php echo esc_url( $url ); ?>"><?php echo esc_html( $profile['username'] ); ?></a>
+                                        <a href="<?php echo esc_url( $url ); ?>" target="_blank"><?php echo esc_html( $profile['username'] ); ?></a>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ( $attributes['showProfileStats'] && isset( $profile['counts'] ) ) : ?>
@@ -156,7 +156,7 @@ class GhostKit_Instagram_Block {
                                 <?php endif; ?>
                                 <?php if ( $attributes['showProfileWebsite'] && isset( $profile['website'] ) ) : ?>
                                     <div class="ghostkit-instagram-profile-website">
-                                        <a href="<?php echo esc_url( $profile['website'] ); ?>"><?php echo esc_url( $profile['website'] ); ?></a>
+                                        <a href="<?php echo esc_url( $profile['website'] ); ?>" target="_blank"><?php echo esc_url( $profile['website'] ); ?></a>
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -170,7 +170,7 @@ class GhostKit_Instagram_Block {
                             foreach ( $feed as $item ) {
                                 ?>
                                 <div class="ghostkit-instagram-item">
-                                    <a href="<?php echo esc_url( $item['link'] ); ?>">
+                                    <a href="<?php echo esc_url( $item['link'] ); ?>" target="_blank">
                                         <img
                                             src="<?php echo esc_url( $item['images']['standard_resolution']['url'] ); ?>"
                                             width="<?php echo esc_attr( $item['images']['standard_resolution']['width'] ); ?>"
