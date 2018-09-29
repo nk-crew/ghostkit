@@ -38,6 +38,7 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 * Changelog
 * Google Maps
 * Instagram
+* Twitter
 * Widgetized Area (output registered sidebars)
 * Custom CSS (add custom CSS on the pages)
 * Customizer (overwrite customizer options on the pages)
@@ -52,7 +53,6 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 
 * Countdown
 * Pricing
-* Twitter
 * Gif
 
 ## Installation ##

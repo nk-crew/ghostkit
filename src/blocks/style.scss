@@ -17,7 +17,8 @@
 .ghostkit-google-maps,
 .ghostkit-changelog,
 .ghostkit-widgetized-area,
-.ghostkit-instagram {
+.ghostkit-instagram,
+.ghostkit-twitter {
     margin-bottom: 28px;
 }
 
@@ -48,6 +49,7 @@
 @import "./google-maps/style";
 @import "./changelog/style";
 @import "./instagram/style";
+@import "./twitter/style";
 
 /**
  * Additional classes.

@@ -1,0 +1,193 @@
+/**
+ * Frontend Styles
+ */
+@import "../variables";
+
+.ghostkit-twitter {
+    // fix for negative margins.
+    &::after {
+        content: "";
+        display: block;
+        height: .01px;
+        clear: both;
+    }
+
+    // verified badge.
+    .ghostkit-twitter-item-meta-name-verified,
+    .ghostkit-twitter-profile-verified {
+        font-size: 0;
+
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background-image: url("../assets/images/twitter-verified-badge.svg");
+        }
+    }
+    .ghostkit-twitter-profile-verified::before {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+// profile.
+.ghostkit-twitter-profile {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+
+    .ghostkit-twitter-profile-avatar img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0;
+        border-radius: 50%;
+    }
+
+    .ghostkit-twitter-profile-side {
+        flex: 1;
+        max-width: 100%;
+    }
+    .ghostkit-twitter-profile-avatar + .ghostkit-twitter-profile-side {
+        margin-left: 30px;
+    }
+
+    .ghostkit-twitter-profile-name {
+        a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .ghostkit-twitter-profile-fullname {
+            margin: 0;
+            font-size: 1.4em;
+        }
+        .ghostkit-twitter-profile-username {
+            margin: 0;
+            font-size: 1em;
+            font-weight: 400;
+            opacity: .7;
+        }
+    }
+
+    .ghostkit-twitter-profile-stats {
+        display: flex;
+        flex-wrap: wrap;
+
+        > div {
+            margin-right: 25px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    div + .ghostkit-twitter-profile-stats,
+    div + .ghostkit-twitter-profile-description,
+    div + .ghostkit-twitter-profile-website,
+    div + .ghostkit-twitter-profile-location {
+        margin-top: 20px;
+    }
+}
+
+// items.
+.ghostkit-twitter-items {
+    .ghostkit-twitter-item {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+    .ghostkit-twitter-item-content {
+        flex: 1;
+
+        img {
+            margin-top: 1em;
+            border: 1px solid rgba(0, 0, 0, .1);
+            border-radius: 3px;
+        }
+    }
+    .ghostkit-twitter-item-avatar {
+        margin-right: 10px;
+
+        img {
+            height: auto;
+            border-radius: 50%;
+        }
+    }
+
+    .ghostkit-twitter-item-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .ghostkit-twitter-item-meta-name {
+        a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: none;
+
+            &:hover strong {
+                text-decoration: underline;
+            }
+        }
+        span:last-child {
+            opacity: .7;
+        }
+    }
+    .ghostkit-twitter-item-meta-name + .ghostkit-twitter-item-meta-date::before {
+        content: "\00b7";
+        margin: 0 5px;
+        font-size: .7em;
+    }
+    .ghostkit-twitter-item-meta-date {
+        display: flex;
+        align-items: center;
+        opacity: .7;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .ghostkit-twitter-item-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 1em;
+        font-size: .9em;
+
+        > div {
+            margin-right: 20px;
+        }
+        > div:last-child {
+            margin-right: 0;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: none;
+            opacity: .7;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        span {
+            margin-left: 5px;
+        }
+    }
+}
