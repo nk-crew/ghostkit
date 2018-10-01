@@ -31,10 +31,9 @@ const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-b
  *
  * @param {object} data - styles data.
  * @param {string} selector - current styles selector (useful for nested styles).
- * @param {boolean} render - render styles after generation.
  * @return {string} - ready to use styles string.
  */
-const getStyles = ( data = {}, selector = '', render = true ) => {
+const getStyles = ( data = {}, selector = '' ) => {
     const result = {};
     let resultCSS = '';
 
@@ -44,7 +43,7 @@ const getStyles = ( data = {}, selector = '', render = true ) => {
         if ( data[ key ] !== null && typeof data[ key ] === 'object' ) {
             // media for different screens
             if ( /^media_/.test( key ) ) {
-                resultCSS += ( resultCSS ? ' ' : '' ) + `@media #{ghostkitvar:${ key }} { ${ getStyles( data[ key ], selector, false ) } }`;
+                resultCSS += ( resultCSS ? ' ' : '' ) + `@media #{ghostkitvar:${ key }} { ${ getStyles( data[ key ], selector ) } }`;
 
             // nested selectors.
             } else {
@@ -62,7 +61,7 @@ const getStyles = ( data = {}, selector = '', render = true ) => {
                 } else {
                     nestedSelector = key;
                 }
-                resultCSS += ( resultCSS ? ' ' : '' ) + getStyles( data[ key ], nestedSelector, false );
+                resultCSS += ( resultCSS ? ' ' : '' ) + getStyles( data[ key ], nestedSelector );
             }
 
         // style properties and values.
@@ -103,11 +102,6 @@ const getStyles = ( data = {}, selector = '', render = true ) => {
         resultCSS = `${ key } {${ result[ key ] } }${ resultCSS ? ` ${ resultCSS }` : '' }`;
     } );
 
-    // render new styles.
-    if ( render ) {
-        renderStyles();
-    }
-
     return resultCSS;
 };
 
@@ -121,28 +115,6 @@ const getCustomStylesAttr = ( data = {} ) => {
     return {
         'data-ghostkit-styles': getStyles( data ),
     };
-};
-
-/**
- * Render styles from all available ghostkit components.
- */
-let renderTimeout;
-const renderStyles = () => {
-    clearTimeout( renderTimeout );
-    renderTimeout = setTimeout( () => {
-        let stylesString = '';
-        jQuery( '[data-ghostkit-styles]' ).each( function() {
-            stylesString += jQuery( this ).attr( 'data-ghostkit-styles' );
-        } );
-
-        let $style = jQuery( '#ghostkit-blocks-custom-css-inline-css' );
-
-        if ( ! $style.length ) {
-            $style = jQuery( '<style type="text/css" id="ghostkit-blocks-custom-css-inline-css">' ).appendTo( 'head' );
-        }
-
-        $style.html( window.GHOSTKIT.replaceVars( stylesString ) );
-    }, 30 );
 };
 
 /**
@@ -333,7 +305,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
                 return (
                     <Fragment>
                         <BlockEdit { ...this.props } />
-                        <div { ...getCustomStylesAttr( attributes.ghostkitStyles ) } />
+                        <style>{ window.GHOSTKIT.replaceVars( getStyles( attributes.ghostkitStyles ) ) }</style>
                     </Fragment>
                 );
             }
