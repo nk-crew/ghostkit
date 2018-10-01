@@ -347,14 +347,14 @@ class TestimonialBlockSave extends Component {
                 ) : '' }
                 { ( attributes.name && attributes.name.length > 0 ) || ( source && source.length > 0 ) ? (
                     <div className="ghostkit-testimonial-meta">
-                        { attributes.name && attributes.name.length > 0 ? (
+                        { ! RichText.isEmpty( attributes.name ) ? (
                             <RichText.Content
                                 tagName="div"
                                 className="ghostkit-testimonial-name"
                                 value={ attributes.name }
                             />
                         ) : '' }
-                        { source && source.length > 0 ? (
+                        { ! RichText.isEmpty( source ) ? (
                             <RichText.Content
                                 tagName="small"
                                 className="ghostkit-testimonial-source"

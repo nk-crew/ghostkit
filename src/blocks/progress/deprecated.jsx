@@ -66,7 +66,7 @@ export default [
 
             return (
                 <div className={ className }>
-                    { caption && caption.length ? (
+                    { ! RichText.isEmpty( caption ) ? (
                         <RichText.Content
                             tagName="small"
                             className="ghostkit-progress-caption"
@@ -176,7 +176,7 @@ export default [
 
             return (
                 <div className={ className }>
-                    { caption && caption.length ? (
+                    { ! RichText.isEmpty( caption ) ? (
                         <RichText.Content
                             tagName="small"
                             className="ghostkit-progress-caption"

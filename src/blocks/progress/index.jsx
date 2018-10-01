@@ -150,7 +150,7 @@ class ProgressBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
-                    { ( ( caption && caption.length > 0 ) || isSelected ) ? (
+                    { ( ! RichText.isEmpty( caption ) || isSelected ) ? (
                         <RichText
                             tagName="small"
                             placeholder={ __( 'Write caption…' ) }
@@ -322,7 +322,7 @@ export const settings = {
 
         return (
             <div className={ className }>
-                { caption && caption.length ? (
+                { ! RichText.isEmpty( caption ) ? (
                     <RichText.Content
                         tagName="small"
                         className="ghostkit-progress-caption"

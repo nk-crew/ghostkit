@@ -163,14 +163,14 @@ export const settings = {
 
         return (
             <div className={ className }>
-                { version && version.length > 0 ? (
+                { ! RichText.isEmpty( version ) ? (
                     <RichText.Content
                         tagName="span"
                         className="ghostkit-changelog-version"
                         value={ version }
                     />
                 ) : '' }
-                { date && date.length > 0 ? (
+                { ! RichText.isEmpty( date ) ? (
                     <RichText.Content
                         tagName="h2"
                         className="ghostkit-changelog-date"
