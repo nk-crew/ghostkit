@@ -32,6 +32,7 @@ class PricingTableItemBlock extends Component {
         let { className = '' } = this.props;
 
         const {
+            ghostkitClassname,
             variant,
             popularText,
             title,
@@ -52,6 +53,11 @@ class PricingTableItemBlock extends Component {
             className,
             'ghostkit-pricing-table-item'
         );
+
+        // add custom classname.
+        if ( ghostkitClassname ) {
+            className = classnames( className, ghostkitClassname );
+        }
 
         const availableVariants = GHOSTKIT.getVariants( 'pricing_table_item' );
 
