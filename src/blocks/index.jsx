@@ -19,6 +19,8 @@ import * as video from './video/index.jsx';
 import * as testimonial from './testimonial/index.jsx';
 import * as gist from './gist/index.jsx';
 import * as changelog from './changelog/index.jsx';
+import * as pricingTable from './pricing-table/index.jsx';
+import * as pricingTableItem from './pricing-table/item.jsx';
 import * as googleMaps from './google-maps/index.jsx';
 import * as widgetizedArea from './widgetized-area/index.jsx';
 import * as instagram from './instagram/index.jsx';
@@ -61,6 +63,8 @@ const { registerBlockType } = wp.blocks;
     video,
     gist,
     changelog,
+    pricingTable,
+    pricingTableItem,
     googleMaps,
     widgetizedArea,
     instagram,

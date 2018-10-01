@@ -16,6 +16,7 @@
 .ghostkit-gist,
 .ghostkit-google-maps,
 .ghostkit-changelog,
+.ghostkit-pricing-table,
 .ghostkit-widgetized-area,
 .ghostkit-instagram,
 .ghostkit-twitter {
@@ -48,6 +49,7 @@
 @import "./gist/style";
 @import "./google-maps/style";
 @import "./changelog/style";
+@import "./pricing-table/style";
 @import "./instagram/style";
 @import "./twitter/style";
 

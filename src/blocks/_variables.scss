@@ -19,6 +19,21 @@ $instagram-gaps: (
 ) !default;
 
 /**
+ * Pricing Table
+ */
+$pricing-table-gaps: (
+    no: 0,
+    sm: 15px,
+    md: 30px,
+    lg: 45px
+) !default;
+
+$media-xs: 576px !default;
+$media-sm: 768px !default;
+$media-md: 992px !default;
+$media-lg: 1200px !default;
+
+/**
  * Colors
  */
 
