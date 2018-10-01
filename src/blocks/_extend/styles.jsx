@@ -1,6 +1,7 @@
 // External Dependencies.
 import shorthash from 'shorthash';
 import classnames from 'classnames/dedupe';
+import deepEqual from 'deep-equal';
 
 // Internal Dependencies.
 import { camelCaseToDash } from '../_utils.jsx';
@@ -317,7 +318,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
                     customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
                 }
 
-                if ( JSON.stringify( attributes.ghostkitStyles ) !== JSON.stringify( customStyles ) ) {
+                if ( ! deepEqual( attributes.ghostkitStyles, customStyles ) ) {
                     setAttributes( { ghostkitStyles: customStyles } );
                 }
             }
