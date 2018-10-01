@@ -290,7 +290,7 @@ export const settings = {
         },
         color: {
             type: 'string',
-            default: '#016c91',
+            default: '#0366d6',
         },
         backgroundColor: {
             type: 'string',

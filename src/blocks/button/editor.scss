@@ -38,20 +38,22 @@
     $blocks-button__link-input-width: 280px;
 
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    width: $blocks-button__link-input-width;
+    width: 100%;
+    max-width: $blocks-button__link-input-width;
+    margin-top: 10px;
     font-family: $default-font;
     font-size: $default-font-size;
     line-height: $default-line-height;
     background: #fff;
+    border: 1px solid #f1f1f1;
 
     .editor-url-input {
         width: auto;
     }
 
     .editor-url-input__suggestions {
-        width: $blocks-button__link-input-width - $icon-button-size - $icon-button-size;
+        max-width: $blocks-button__link-input-width - $icon-button-size - $icon-button-size;
     }
 
     > .dashicon {

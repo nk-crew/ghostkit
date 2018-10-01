@@ -257,7 +257,7 @@ const blockAttributes = {
     },
     color: {
         type: 'string',
-        default: '#016c91',
+        default: '#0366d6',
     },
     textColor: {
         type: 'string',

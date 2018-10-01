@@ -181,7 +181,7 @@ export const settings = {
         },
         iconColor: {
             type: 'string',
-            default: '#016c91',
+            default: '#0366d6',
         },
     },
 
