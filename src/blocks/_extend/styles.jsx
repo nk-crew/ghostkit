@@ -328,7 +328,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
                 attributes,
             } = this.props;
 
-            if ( attributes.ghostkitStyles && attributes.ghostkitClassname ) {
+            if ( attributes.ghostkitClassname && attributes.ghostkitStyles && Object.keys( attributes.ghostkitStyles ).length !== 0 ) {
                 return (
                     <Fragment>
                         <BlockEdit { ...this.props } />
