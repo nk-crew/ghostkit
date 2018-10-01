@@ -260,6 +260,11 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
                     this.props.attributes.ghostkitId = ID;
                     this.props.attributes.ghostkitClassname = this.props.name.replace( '/', '-' ) + '-' + ID;
                 }
+
+                // force update when new ID.
+                if ( tryCount < 10 ) {
+                    this.onUpdate( false );
+                }
             }
         }
 
@@ -270,7 +275,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             this.onUpdate();
         }
 
-        onUpdate() {
+        onUpdate( useSetAttributes = true ) {
             const {
                 setAttributes,
                 attributes,
@@ -291,7 +296,11 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
                 }
 
                 if ( ! deepEqual( attributes.ghostkitStyles, customStyles ) ) {
-                    setAttributes( { ghostkitStyles: customStyles } );
+                    if ( useSetAttributes ) {
+                        setAttributes( { ghostkitStyles: customStyles } );
+                    } else {
+                        this.props.attributes.ghostkitStyles = customStyles;
+                    }
                 }
             }
         }
