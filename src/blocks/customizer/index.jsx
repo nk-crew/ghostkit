@@ -3,7 +3,7 @@ import './editor.scss';
 
 // external Dependencies.
 if ( ! global._babelPolyfill ) {
-    require( 'babel-polyfill' );
+    require( '@babel/polyfill' );
 }
 import Select from 'react-select';
 

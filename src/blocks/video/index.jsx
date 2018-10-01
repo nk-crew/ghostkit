@@ -1,6 +1,6 @@
 // External Dependencies.
 if ( ! global._babelPolyfill ) {
-    require( 'babel-polyfill' );
+    require( '@babel/polyfill' );
 }
 import { ChromePicker } from 'react-color';
 import classnames from 'classnames/dedupe';
