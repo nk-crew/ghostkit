@@ -106,8 +106,8 @@ function runCounters() {
     }
 
     counters.forEach( ( item, index ) => {
-        if ( isElementInViewport( item.el ) ) {
-            counters.splice( index, 1 );
+        if ( item && isElementInViewport( item.el ) ) {
+            counters[ index ] = false;
 
             $( { Counter: item.from } ).animate( { Counter: item.to }, {
                 duration: 1000,
