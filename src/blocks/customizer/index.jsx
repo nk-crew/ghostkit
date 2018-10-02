@@ -278,6 +278,7 @@ class CustomizerBlock extends Component {
     render() {
         const {
             className,
+            isPlugin,
         } = this.props;
 
         const options = this.getSelectedOptions();
@@ -287,10 +288,16 @@ class CustomizerBlock extends Component {
             <Placeholder
                 icon={ <ElementIcon /> }
                 label={ __( 'Customizer Options' ) }
-                className={ className }
+                className={ className + ( isPlugin ? ' ghostkit-customizer-plugin' : '' ) }
             >
                 { ! customizerOptionsSelect ? (
                     <div className="ghostkit-customizer-spinner"><Spinner /></div>
+                ) : '' }
+                { ! isPlugin ? (
+                    <p style={ { color: '#c72323' } }>{ __( 'This block is deprecated, please, use customizer options in the page settings (top right corner after "Update" button).' ) }</p>
+                ) : '' }
+                { isPlugin ? (
+                    <p>{ __( 'Replace customizer options for the current post.' ) }</p>
                 ) : '' }
                 { Array.isArray( customizerOptionsSelect ) && customizerOptionsSelect.length ? (
                     <Select
@@ -462,8 +469,8 @@ export const settings = {
     ],
     supports: {
         html: false,
-        multiple: false,
         customClassName: false,
+        inserter: false,
     },
     attributes: {
         options: {

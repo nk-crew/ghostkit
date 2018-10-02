@@ -35,6 +35,7 @@ class CustomCSSBlock extends Component {
             className,
             setAttributes,
             attributes,
+            isPlugin,
         } = this.props;
 
         const {
@@ -45,8 +46,14 @@ class CustomCSSBlock extends Component {
             <Placeholder
                 icon={ <ElementIcon /> }
                 label={ __( 'Custom CSS' ) }
-                className={ className }
+                className={ className + ( isPlugin ? ' ghostkit-custom-css-plugin' : '' ) }
             >
+                { ! isPlugin ? (
+                    <p style={ { color: '#c72323' } }>{ __( 'This block is deprecated, please, use custom CSS in the page settings (top right corner after "Update" button).' ) }</p>
+                ) : '' }
+                { isPlugin ? (
+                    <p>{ __( 'Custom CSS for the current post.' ) }</p>
+                ) : '' }
                 <CodeEditor
                     value={ customCSS }
                     onChange={ value => {
@@ -108,8 +115,8 @@ export const settings = {
     ],
     supports: {
         html: false,
-        multiple: false,
         customClassName: false,
+        inserter: false,
     },
     attributes: {
         customCSS: {

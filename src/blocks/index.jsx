@@ -37,6 +37,12 @@ import './_extend/display.jsx';
 import './_extend/scroll-reveal.jsx';
 
 /**
+ * Plugins
+ */
+import './_plugins/customizer.jsx';
+import './_plugins/custom-css.jsx';
+
+/**
  * Internal dependencies
  */
 const { registerBlockType } = wp.blocks;

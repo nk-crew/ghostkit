@@ -1,0 +1,13 @@
+/**
+ * Editor Styles
+ */
+@import "../variables";
+
+.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) svg.ghostkit-custom-css-plugin-icon,
+.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) svg.ghostkit-custom-css-plugin-icon *,
+.edit-post-pinned-plugins .components-icon-button.is-toggled svg.ghostkit-custom-css-plugin-icon,
+.edit-post-pinned-plugins .components-icon-button.is-toggled svg.ghostkit-custom-css-plugin-icon *,
+.edit-post-pinned-plugins .components-icon-button:hover svg.ghostkit-custom-css-plugin-icon,
+.edit-post-pinned-plugins .components-icon-button:hover svg.ghostkit-custom-css-plugin-icon * {
+    stroke: initial !important; // stylelint-disable-line
+}

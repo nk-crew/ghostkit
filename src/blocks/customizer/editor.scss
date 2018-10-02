@@ -187,3 +187,28 @@
         }
     }
 }
+
+/* Plugin styles*/
+.wp-block-ghostkit-customizer.ghostkit-customizer-plugin {
+    padding: 15px;
+    background: none;
+
+    .components-placeholder__label {
+        display: none;
+    }
+
+    .ghostkit-customizer-list {
+        margin-top: 0;
+        margin-bottom: -15px;
+    }
+
+    .ghostkit-customizer-list > div .ghostkit-customizer-list-remove {
+        right: 0;
+    }
+
+    .ghostkit-customizer-list > div::before {
+        right: -15px;
+        left: -15px;
+        border-color: #f3f3f3;
+    }
+}

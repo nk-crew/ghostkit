@@ -22,3 +22,17 @@
         border: 1px solid #ddd;
     }
 }
+
+/* Plugin styles*/
+.wp-block-ghostkit-custom-css.ghostkit-custom-css-plugin {
+    padding: 15px;
+    background: none;
+
+    .components-placeholder__label {
+        display: none;
+    }
+
+    .components-placeholder__fieldset > p {
+        width: 100%;
+    }
+}
