@@ -30,4 +30,6 @@ window.GHOSTKIT = {
         }
         return false;
     },
+
+    adminUrl: ghostkitVariables.admin_url,
 };

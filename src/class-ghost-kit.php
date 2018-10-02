@@ -263,6 +263,7 @@ class GhostKit {
                 'testimonial'        => array_merge( $default_variant, apply_filters( 'gkt_testimonial_variants', array() ) ),
                 'video'              => array_merge( $default_variant, apply_filters( 'gkt_video_variants', array() ) ),
             ),
+            'admin_url'         => admin_url(),
         ) );
     }
 

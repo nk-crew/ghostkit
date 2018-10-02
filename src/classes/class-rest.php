@@ -864,10 +864,14 @@ class GhostKit_Rest extends WP_REST_Controller {
      * @return mixed
      */
     public function error( $code, $response ) {
-        return new WP_Error( $code, $response, array(
-            'error'      => true,
-            'success'    => false,
-        ) );
+        return new WP_REST_Response(
+            array(
+                'error' => true,
+                'success' => false,
+                'error_code' => $code,
+                'response' => $response,
+            ), 401
+        );
     }
 }
 new GhostKit_Rest();
