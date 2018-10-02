@@ -290,14 +290,14 @@ class CustomizerBlock extends Component {
                 label={ __( 'Customizer Options' ) }
                 className={ className + ( isPlugin ? ' ghostkit-customizer-plugin' : '' ) }
             >
-                { ! customizerOptionsSelect ? (
-                    <div className="ghostkit-customizer-spinner"><Spinner /></div>
-                ) : '' }
                 { ! isPlugin ? (
                     <p style={ { color: '#c72323' } }>{ __( 'This block is deprecated, please, use customizer options in the page settings (top right corner after "Update" button).' ) }</p>
                 ) : '' }
                 { isPlugin ? (
                     <p>{ __( 'Replace customizer options for the current post.' ) }</p>
+                ) : '' }
+                { ! customizerOptionsSelect ? (
+                    <div className="ghostkit-customizer-spinner"><Spinner /></div>
                 ) : '' }
                 { Array.isArray( customizerOptionsSelect ) && customizerOptionsSelect.length ? (
                     <Select
