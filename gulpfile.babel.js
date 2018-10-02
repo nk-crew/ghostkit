@@ -62,7 +62,7 @@ gulp.task('clean', function() {
  */
 gulp.task('copy_to_dist', function () {
     return runStream(work_folders, function (itemData) {
-        return gulp.src([itemData.from + '/**/*', '!' + itemData.from + '/**/*.{js,jsx,scss}'])
+        return gulp.src([itemData.from + '/**/*', '!' + itemData.from + '/**/*.{js,jsx,scss}'], { nodir: true })
             .pipe(gulp.dest(itemData.to))
     });
 });
