@@ -105,6 +105,9 @@ class GhostKit {
 
         // rest.
         require_once( $this->plugin_path . 'classes/class-rest.php' );
+
+        // reusable widget.
+        require_once( $this->plugin_path . 'classes/class-reusable-widget.php' );
     }
 
 
