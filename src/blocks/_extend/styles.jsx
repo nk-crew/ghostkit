@@ -220,6 +220,33 @@ function addAttribute( blockSettings, name ) {
 }
 
 /**
+ * Extend block attributes with styles after block transformation
+ *
+ * @param {Object} transformedBlock Original transformed block.
+ * @param {Object} blocks           Blocks on which transform was applied.
+ *
+ * @return {Object} Modified transformed block, with layout preserved.
+ */
+function addAttributeTransform( transformedBlock, blocks ) {
+    if (
+        blocks &&
+        blocks[ 0 ] &&
+        blocks[ 0 ].clientId === transformedBlock.clientId &&
+        blocks[ 0 ].attributes &&
+        blocks[ 0 ].attributes.ghostkitStyles &&
+        Object.keys( blocks[ 0 ].attributes.ghostkitStyles ).length
+    ) {
+        Object.keys( blocks[ 0 ].attributes ).forEach( ( attrName ) => {
+            if ( /^ghostkit/.test( attrName ) ) {
+                transformedBlock.attributes[ attrName ] = blocks[ 0 ].attributes[ attrName ];
+            }
+        } );
+    }
+
+    return transformedBlock;
+}
+
+/**
  * List of used IDs to prevent duplicates.
  *
  * @type {Object}
@@ -352,5 +379,6 @@ function addSaveProps( extraProps, blockType, attributes ) {
 
 // Init filters.
 addFilter( 'blocks.registerBlockType', 'ghostkit/styles/additional-attributes', addAttribute );
+addFilter( 'blocks.switchToBlockType.transformedBlock', 'ghostkit/styles/additional-attributes', addAttributeTransform );
 addFilter( 'editor.BlockEdit', 'ghostkit/styles/additional-attributes', withNewAttrs );
 addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/styles/save-props', addSaveProps );
