@@ -26,6 +26,11 @@
                 margin-right: 0;
             }
 
+            // fix items margin top.
+            > .editor-block-list__block-edit {
+                margin-top: 12px;
+            }
+
             > .editor-block-list__block-edit::before {
                 background-color: #f1f1f1;
             }
