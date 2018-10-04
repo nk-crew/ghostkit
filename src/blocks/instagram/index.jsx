@@ -252,16 +252,18 @@ class InstagramBlock extends Component {
                                 </Fragment>
                             ) : '' }
                         </PanelBody>
-                        <PanelBody title={ __( 'Access Token' ) } initialOpen={ false }>
-                            <TextControl
-                                placeholder={ __( 'Enter Access Token' ) }
-                                value={ accessToken }
-                                onChange={ ( value ) => setAttributes( { accessToken: value } ) }
-                            />
-                            <p><em>{ __( 'A valid access token is required to use Instagram feed. How to get token' ) } <a href="http://instagram.pixelunion.net/" target="_blank" rel="noopener noreferrer">http://instagram.pixelunion.net/</a></em></p>
-                        </PanelBody>
                     </InspectorControls>
                 ) : '' }
+                <InspectorControls>
+                    <PanelBody title={ __( 'API Data' ) } initialOpen={ ! accessToken }>
+                        <TextControl
+                            placeholder={ __( 'Access Token' ) }
+                            value={ accessToken }
+                            onChange={ ( value ) => setAttributes( { accessToken: value } ) }
+                        />
+                        <p><em>{ __( 'A valid Access Token is required to use Instagram feed. How to get token' ) } <a href="http://instagram.pixelunion.net/" target="_blank" rel="noopener noreferrer">http://instagram.pixelunion.net/</a></em></p>
+                    </PanelBody>
+                </InspectorControls>
                 <div className={ className }>
                     { accessToken && showProfile && instagramProfile && instagramProfile.data ? (
                         <div className="ghostkit-instagram-profile">
@@ -320,21 +322,17 @@ class InstagramBlock extends Component {
                                 ) )
                             }
                         </div>
-                    ) : (
+                    ) : '' }
+                    { accessToken && ( ! instagramFeed || ! instagramFeed.data ) ? (
                         <div className="ghostkit-instagram-spinner"><Spinner /></div>
-                    ) }
+                    ) : '' }
                     { ! accessToken ? (
                         <Placeholder
                             icon={ <ElementIcon /> }
                             label={ __( 'Instagram' ) }
                             className={ className }
                         >
-                            <TextControl
-                                label={ __( 'Access Token' ) }
-                                value={ accessToken }
-                                onChange={ ( value ) => setAttributes( { accessToken: value } ) }
-                            />
-                            <p><em>{ __( 'A valid access token is required to use Instagram feed. How to get token' ) } <a href="http://instagram.pixelunion.net/" target="_blank" rel="noopener noreferrer">http://instagram.pixelunion.net/</a></em></p>
+                            <div><em>{ __( 'A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector.' ) }</em></div>
                         </Placeholder>
                     ) : '' }
                 </div>

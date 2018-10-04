@@ -435,7 +435,7 @@ class TwitterBlock extends Component {
                             label={ __( 'Twitter' ) }
                             className={ className }
                         >
-                            <p><em>{ __( 'A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.' ) }</em></p>
+                            <div><em>{ __( 'A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.' ) }</em></div>
                         </Placeholder>
                     ) : '' }
                 </div>
