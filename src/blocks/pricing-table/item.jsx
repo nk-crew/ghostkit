@@ -295,7 +295,7 @@ export const settings = {
         },
         showDescription: {
             type: 'boolean',
-            default: true,
+            default: false,
         },
         showFeatures: {
             type: 'boolean',
