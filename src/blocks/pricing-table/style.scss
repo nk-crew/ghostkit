@@ -13,7 +13,7 @@
 // Item.
 .ghostkit-pricing-table-item {
     position: relative;
-    padding: 60px 30px;
+    padding: 40px 30px;
     background-color: #fff;
     border: 1px solid #efefef;
     border-radius: 5px;
@@ -58,20 +58,33 @@
         font-size: .9em;
         list-style: none;
 
-        > li::after {
-            content: "";
-            display: block;
-            margin: 10px -30px;
-            border-bottom: 1px solid #f7f7f7;
+        li + li {
+            margin-top: 10px;
         }
-        > li:last-child::after {
-            content: none;
-        }
+    }
+
+    .ghostkit-button-wrapper {
+        margin-bottom: 0;
     }
 
     > * + .ghostkit-pricing-table-item-features,
     > * + * {
-        margin-top: 30px;
+        padding-top: 40px;
+        margin-top: 40px;
+    }
+
+    > * + * {
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            display: block;
+            top: 0;
+            width: 100%;
+            border-bottom: 1px solid;
+            opacity: .05;
+        }
     }
 }
 
