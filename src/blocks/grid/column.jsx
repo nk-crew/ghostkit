@@ -281,6 +281,7 @@ export const settings = {
     supports: {
         html: false,
         className: false,
+        anchor: true,
         ghostkitStyles: true,
         ghostkitStylesCallback( attributes ) {
             const {

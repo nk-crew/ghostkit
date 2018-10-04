@@ -86,6 +86,7 @@ export const settings = {
     supports: {
         html: false,
         className: false,
+        anchor: true,
         ghostkitStyles: true,
         ghostkitSpacings: true,
         ghostkitDisplay: true,

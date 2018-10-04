@@ -147,8 +147,9 @@ export const settings = {
     ],
     supports: {
         html: false,
-        align: [ 'wide', 'full' ],
         className: false,
+        anchor: true,
+        align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitStylesCallback( attributes ) {
             return {

@@ -107,8 +107,9 @@ export const settings = {
     category: 'ghostkit',
     supports: {
         html: false,
-        align: [ 'wide', 'full' ],
         className: false,
+        anchor: true,
+        align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitSpacings: true,
         ghostkitDisplay: true,
