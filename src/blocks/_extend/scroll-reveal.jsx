@@ -28,6 +28,17 @@ const {
 let initialOpenPanel = false;
 
 /**
+ * Add support for core blocks.
+ *
+ * @param {String} name - block name.
+ *
+ * @return {Boolean} block supported.
+ */
+function addCoreBlocksSupport( name ) {
+    return name && /^core/.test( name ) && ! /^core\/block$/.test( name );
+}
+
+/**
  * Extend ghostkit block attributes with SR.
  *
  * @param {Object} settings Original block settings.
@@ -45,7 +56,7 @@ function addAttribute( settings, name ) {
     if ( ! allow ) {
         allow = settings && settings.attributes && applyFilters(
             'ghostkit.blocks.registerBlockType.allowCustomSR',
-            name && /^core/.test( name ),
+            addCoreBlocksSupport( name ),
             settings,
             name
         );
@@ -100,7 +111,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             if ( ! allow ) {
                 allow = applyFilters(
                     'ghostkit.blocks.allowCustomSR',
-                    props.name && /^core/.test( props.name ),
+                    addCoreBlocksSupport( props.name ),
                     props,
                     props.name
                 );

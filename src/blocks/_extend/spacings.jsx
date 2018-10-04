@@ -35,6 +35,17 @@ const {
 let initialOpenPanel = false;
 
 /**
+ * Add support for core blocks.
+ *
+ * @param {String} name - block name.
+ *
+ * @return {Boolean} block supported.
+ */
+function addCoreBlocksSupport( name ) {
+    return name && /^core/.test( name ) && ! /^core\/block$/.test( name );
+}
+
+/**
  * Allow custom styles in blocks.
  *
  * @param {Boolean} allow Original block allow custom styles.
@@ -49,7 +60,7 @@ function allowCustomStyles( allow, settings, name ) {
     }
 
     if ( ! allow ) {
-        allow = name && /^core/.test( name );
+        allow = addCoreBlocksSupport( name );
         allow = applyFilters(
             'ghostkit.blocks.allowCustomSpacings',
             allow,
@@ -82,7 +93,7 @@ function addAttribute( settings, name ) {
     }
 
     if ( ! allow ) {
-        allow = name && /^core/.test( name );
+        allow = addCoreBlocksSupport( name );
         allow = applyFilters(
             'ghostkit.blocks.allowCustomSpacings',
             allow,
@@ -258,7 +269,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             }
 
             if ( ! allow ) {
-                allow = props.name && /^core/.test( props.name );
+                allow = addCoreBlocksSupport( props.name );
                 allow = applyFilters(
                     'ghostkit.blocks.allowCustomSpacings',
                     allow,
