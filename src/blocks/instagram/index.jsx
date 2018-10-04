@@ -151,110 +151,111 @@ class InstagramBlock extends Component {
 
         return (
             <Fragment>
-                { accessToken ? (
-                    <InspectorControls>
-                        <PanelBody>
-                            <RangeControl
-                                label={ __( 'Photos Number' ) }
-                                value={ count }
-                                onChange={ ( value ) => setAttributes( { count: value } ) }
-                                min={ 1 }
-                                max={ 20 }
-                            />
-                            <RangeControl
-                                label={ __( 'Columns' ) }
-                                value={ columns }
-                                onChange={ ( value ) => setAttributes( { columns: value } ) }
-                                min={ 1 }
-                                max={ 8 }
-                            />
-                            <BaseControl label={ __( 'Gap' ) }>
-                                <ButtonGroup>
-                                    {
-                                        [
-                                            {
-                                                label: __( 'none' ),
-                                                value: 'no',
-                                            },
-                                            {
-                                                label: __( 'sm' ),
-                                                value: 'sm',
-                                            },
-                                            {
-                                                label: __( 'md' ),
-                                                value: 'md',
-                                            },
-                                            {
-                                                label: __( 'lg' ),
-                                                value: 'lg',
-                                            },
-                                        ].map( ( val ) => {
-                                            const selected = gap === val.value;
-
-                                            return (
-                                                <Button
-                                                    isLarge
-                                                    isPrimary={ selected }
-                                                    aria-pressed={ selected }
-                                                    onClick={ () => setAttributes( { gap: val.value } ) }
-                                                    key={ `gap_${ val.label }` }
-                                                >
-                                                    { val.label }
-                                                </Button>
-                                            );
-                                        } )
-                                    }
-                                </ButtonGroup>
-                            </BaseControl>
-                        </PanelBody>
-                        <PanelBody title={ __( 'Profile Info' ) }>
-                            <ToggleControl
-                                label={ __( 'Show Profile Info' ) }
-                                checked={ !! attributes.showProfile }
-                                onChange={ ( val ) => setAttributes( { showProfile: val } ) }
-                            />
-                            { attributes.showProfile ? (
-                                <Fragment>
-                                    <ToggleControl
-                                        label={ __( 'Show Avatar' ) }
-                                        checked={ !! showProfileAvatar }
-                                        onChange={ ( val ) => setAttributes( { showProfileAvatar: val } ) }
-                                    />
-                                    { showProfileAvatar ? (
-                                        <RangeControl
-                                            label={ __( 'Avatar Size' ) }
-                                            value={ profileAvatarSize }
-                                            onChange={ ( value ) => setAttributes( { profileAvatarSize: value } ) }
-                                            min={ 30 }
-                                            max={ 150 }
-                                        />
-                                    ) : '' }
-                                    <ToggleControl
-                                        label={ __( 'Show Name' ) }
-                                        checked={ !! showProfileName }
-                                        onChange={ ( val ) => setAttributes( { showProfileName: val } ) }
-                                    />
-                                    <ToggleControl
-                                        label={ __( 'Show Stats' ) }
-                                        checked={ !! showProfileStats }
-                                        onChange={ ( val ) => setAttributes( { showProfileStats: val } ) }
-                                    />
-                                    <ToggleControl
-                                        label={ __( 'Show BIO' ) }
-                                        checked={ !! showProfileBio }
-                                        onChange={ ( val ) => setAttributes( { showProfileBio: val } ) }
-                                    />
-                                    <ToggleControl
-                                        label={ __( 'Show Website' ) }
-                                        checked={ !! showProfileWebsite }
-                                        onChange={ ( val ) => setAttributes( { showProfileWebsite: val } ) }
-                                    />
-                                </Fragment>
-                            ) : '' }
-                        </PanelBody>
-                    </InspectorControls>
-                ) : '' }
                 <InspectorControls>
+                    { accessToken ? (
+                        <Fragment>
+                            <PanelBody>
+                                <RangeControl
+                                    label={ __( 'Photos Number' ) }
+                                    value={ count }
+                                    onChange={ ( value ) => setAttributes( { count: value } ) }
+                                    min={ 1 }
+                                    max={ 20 }
+                                />
+                                <RangeControl
+                                    label={ __( 'Columns' ) }
+                                    value={ columns }
+                                    onChange={ ( value ) => setAttributes( { columns: value } ) }
+                                    min={ 1 }
+                                    max={ 8 }
+                                />
+                                <BaseControl label={ __( 'Gap' ) }>
+                                    <ButtonGroup>
+                                        {
+                                            [
+                                                {
+                                                    label: __( 'none' ),
+                                                    value: 'no',
+                                                },
+                                                {
+                                                    label: __( 'sm' ),
+                                                    value: 'sm',
+                                                },
+                                                {
+                                                    label: __( 'md' ),
+                                                    value: 'md',
+                                                },
+                                                {
+                                                    label: __( 'lg' ),
+                                                    value: 'lg',
+                                                },
+                                            ].map( ( val ) => {
+                                                const selected = gap === val.value;
+
+                                                return (
+                                                    <Button
+                                                        isLarge
+                                                        isPrimary={ selected }
+                                                        aria-pressed={ selected }
+                                                        onClick={ () => setAttributes( { gap: val.value } ) }
+                                                        key={ `gap_${ val.label }` }
+                                                    >
+                                                        { val.label }
+                                                    </Button>
+                                                );
+                                            } )
+                                        }
+                                    </ButtonGroup>
+                                </BaseControl>
+                            </PanelBody>
+                            <PanelBody title={ __( 'Profile Info' ) }>
+                                <ToggleControl
+                                    label={ __( 'Show Profile Info' ) }
+                                    checked={ !! attributes.showProfile }
+                                    onChange={ ( val ) => setAttributes( { showProfile: val } ) }
+                                />
+                                { attributes.showProfile ? (
+                                    <Fragment>
+                                        <ToggleControl
+                                            label={ __( 'Show Avatar' ) }
+                                            checked={ !! showProfileAvatar }
+                                            onChange={ ( val ) => setAttributes( { showProfileAvatar: val } ) }
+                                        />
+                                        { showProfileAvatar ? (
+                                            <RangeControl
+                                                label={ __( 'Avatar Size' ) }
+                                                value={ profileAvatarSize }
+                                                onChange={ ( value ) => setAttributes( { profileAvatarSize: value } ) }
+                                                min={ 30 }
+                                                max={ 150 }
+                                            />
+                                        ) : '' }
+                                        <ToggleControl
+                                            label={ __( 'Show Name' ) }
+                                            checked={ !! showProfileName }
+                                            onChange={ ( val ) => setAttributes( { showProfileName: val } ) }
+                                        />
+                                        <ToggleControl
+                                            label={ __( 'Show Stats' ) }
+                                            checked={ !! showProfileStats }
+                                            onChange={ ( val ) => setAttributes( { showProfileStats: val } ) }
+                                        />
+                                        <ToggleControl
+                                            label={ __( 'Show BIO' ) }
+                                            checked={ !! showProfileBio }
+                                            onChange={ ( val ) => setAttributes( { showProfileBio: val } ) }
+                                        />
+                                        <ToggleControl
+                                            label={ __( 'Show Website' ) }
+                                            checked={ !! showProfileWebsite }
+                                            onChange={ ( val ) => setAttributes( { showProfileWebsite: val } ) }
+                                        />
+                                    </Fragment>
+                                ) : '' }
+                            </PanelBody>
+                        </Fragment>
+                    ) : '' }
+
                     <PanelBody title={ __( 'API Data' ) } initialOpen={ ! accessToken }>
                         <TextControl
                             placeholder={ __( 'Access Token' ) }

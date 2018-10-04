@@ -161,128 +161,129 @@ class TwitterBlock extends Component {
 
         return (
             <Fragment>
-                { APIDataReady ? (
-                    <InspectorControls>
-                        <PanelBody>
-                            <TextControl
-                                placeholder={ __( 'Username' ) }
-                                value={ userName }
-                                onChange={ ( value ) => setAttributes( { userName: value } ) }
-                            />
-                        </PanelBody>
-                        <PanelBody title={ __( 'Feed' ) }>
-                            <RangeControl
-                                label={ __( 'Tweets Number' ) }
-                                value={ count }
-                                onChange={ ( value ) => setAttributes( { count: value } ) }
-                                min={ 1 }
-                                max={ 20 }
-                            />
-                            <ToggleControl
-                                label={ __( 'Show Replies' ) }
-                                checked={ !! showReplies }
-                                onChange={ ( value ) => setAttributes( { showReplies: value } ) }
-                            />
-                            <ToggleControl
-                                label={ __( 'Show Avatar' ) }
-                                checked={ !! showFeedAvatar }
-                                onChange={ ( value ) => setAttributes( { showFeedAvatar: value } ) }
-                            />
-                            { showFeedAvatar ? (
-                                <RangeControl
-                                    label={ __( 'Avatar Size' ) }
-                                    value={ feedAvatarSize }
-                                    onChange={ ( value ) => setAttributes( { feedAvatarSize: value } ) }
-                                    min={ 10 }
-                                    max={ 100 }
-                                />
-                            ) : '' }
-                            <ToggleControl
-                                label={ __( 'Show Name' ) }
-                                checked={ !! showFeedName }
-                                onChange={ ( value ) => setAttributes( { showFeedName: value } ) }
-                            />
-                            <ToggleControl
-                                label={ __( 'Show Date' ) }
-                                checked={ !! showFeedDate }
-                                onChange={ ( value ) => setAttributes( { showFeedDate: value } ) }
-                            />
-                            <ToggleControl
-                                label={ __( 'Show Actions' ) }
-                                checked={ !! showFeedActions }
-                                onChange={ ( value ) => setAttributes( { showFeedActions: value } ) }
-                            />
-                            <SelectControl
-                                label={ __( 'Convert Text Links' ) }
-                                value={ feedTextConvertLinks }
-                                options={ [
-                                    {
-                                        value: 'links_media',
-                                        label: __( 'Links + Media' ),
-                                    }, {
-                                        value: 'links',
-                                        label: __( 'Links' ),
-                                    }, {
-                                        value: 'no',
-                                        label: __( 'No Convert' ),
-                                    },
-                                ] }
-                                onChange={ ( value ) => setAttributes( { feedTextConvertLinks: value } ) }
-                            />
-                        </PanelBody>
-                        <PanelBody title={ __( 'Profile' ) }>
-                            <ToggleControl
-                                label={ __( 'Show Profile' ) }
-                                checked={ !! showProfile }
-                                onChange={ ( value ) => setAttributes( { showProfile: value } ) }
-                            />
-                            { showProfile ? (
-                                <Fragment>
-                                    <ToggleControl
-                                        label={ __( 'Show Avatar' ) }
-                                        checked={ !! showProfileAvatar }
-                                        onChange={ ( value ) => setAttributes( { showProfileAvatar: value } ) }
-                                    />
-                                    { showProfileAvatar ? (
-                                        <RangeControl
-                                            label={ __( 'Avatar Size' ) }
-                                            value={ profileAvatarSize }
-                                            onChange={ ( value ) => setAttributes( { profileAvatarSize: value } ) }
-                                            min={ 30 }
-                                            max={ 150 }
-                                        />
-                                    ) : '' }
-                                    <ToggleControl
-                                        label={ __( 'Show Name' ) }
-                                        checked={ !! showProfileName }
-                                        onChange={ ( value ) => setAttributes( { showProfileName: value } ) }
-                                    />
-                                    <ToggleControl
-                                        label={ __( 'Show Stats' ) }
-                                        checked={ !! showProfileStats }
-                                        onChange={ ( value ) => setAttributes( { showProfileStats: value } ) }
-                                    />
-                                    <ToggleControl
-                                        label={ __( 'Show Description' ) }
-                                        checked={ !! showProfileDescription }
-                                        onChange={ ( value ) => setAttributes( { showProfileDescription: value } ) }
-                                    />
-                                    <ToggleControl
-                                        label={ __( 'Show Website' ) }
-                                        checked={ !! showProfileWebsite }
-                                        onChange={ ( value ) => setAttributes( { showProfileWebsite: value } ) }
-                                    />
-                                    <ToggleControl
-                                        label={ __( 'Show Location' ) }
-                                        checked={ !! showProfileLocation }
-                                        onChange={ ( value ) => setAttributes( { showProfileLocation: value } ) }
-                                    />
-                                </Fragment>
-                            ) : '' }
-                        </PanelBody>
-                    </InspectorControls>
-                ) : '' }
                 <InspectorControls>
+                    { APIDataReady ? (
+                        <Fragment>
+                            <PanelBody>
+                                <TextControl
+                                    placeholder={ __( 'Username' ) }
+                                    value={ userName }
+                                    onChange={ ( value ) => setAttributes( { userName: value } ) }
+                                />
+                            </PanelBody>
+                            <PanelBody title={ __( 'Feed' ) }>
+                                <RangeControl
+                                    label={ __( 'Tweets Number' ) }
+                                    value={ count }
+                                    onChange={ ( value ) => setAttributes( { count: value } ) }
+                                    min={ 1 }
+                                    max={ 20 }
+                                />
+                                <ToggleControl
+                                    label={ __( 'Show Replies' ) }
+                                    checked={ !! showReplies }
+                                    onChange={ ( value ) => setAttributes( { showReplies: value } ) }
+                                />
+                                <ToggleControl
+                                    label={ __( 'Show Avatar' ) }
+                                    checked={ !! showFeedAvatar }
+                                    onChange={ ( value ) => setAttributes( { showFeedAvatar: value } ) }
+                                />
+                                { showFeedAvatar ? (
+                                    <RangeControl
+                                        label={ __( 'Avatar Size' ) }
+                                        value={ feedAvatarSize }
+                                        onChange={ ( value ) => setAttributes( { feedAvatarSize: value } ) }
+                                        min={ 10 }
+                                        max={ 100 }
+                                    />
+                                ) : '' }
+                                <ToggleControl
+                                    label={ __( 'Show Name' ) }
+                                    checked={ !! showFeedName }
+                                    onChange={ ( value ) => setAttributes( { showFeedName: value } ) }
+                                />
+                                <ToggleControl
+                                    label={ __( 'Show Date' ) }
+                                    checked={ !! showFeedDate }
+                                    onChange={ ( value ) => setAttributes( { showFeedDate: value } ) }
+                                />
+                                <ToggleControl
+                                    label={ __( 'Show Actions' ) }
+                                    checked={ !! showFeedActions }
+                                    onChange={ ( value ) => setAttributes( { showFeedActions: value } ) }
+                                />
+                                <SelectControl
+                                    label={ __( 'Convert Text Links' ) }
+                                    value={ feedTextConvertLinks }
+                                    options={ [
+                                        {
+                                            value: 'links_media',
+                                            label: __( 'Links + Media' ),
+                                        }, {
+                                            value: 'links',
+                                            label: __( 'Links' ),
+                                        }, {
+                                            value: 'no',
+                                            label: __( 'No Convert' ),
+                                        },
+                                    ] }
+                                    onChange={ ( value ) => setAttributes( { feedTextConvertLinks: value } ) }
+                                />
+                            </PanelBody>
+                            <PanelBody title={ __( 'Profile' ) }>
+                                <ToggleControl
+                                    label={ __( 'Show Profile' ) }
+                                    checked={ !! showProfile }
+                                    onChange={ ( value ) => setAttributes( { showProfile: value } ) }
+                                />
+                                { showProfile ? (
+                                    <Fragment>
+                                        <ToggleControl
+                                            label={ __( 'Show Avatar' ) }
+                                            checked={ !! showProfileAvatar }
+                                            onChange={ ( value ) => setAttributes( { showProfileAvatar: value } ) }
+                                        />
+                                        { showProfileAvatar ? (
+                                            <RangeControl
+                                                label={ __( 'Avatar Size' ) }
+                                                value={ profileAvatarSize }
+                                                onChange={ ( value ) => setAttributes( { profileAvatarSize: value } ) }
+                                                min={ 30 }
+                                                max={ 150 }
+                                            />
+                                        ) : '' }
+                                        <ToggleControl
+                                            label={ __( 'Show Name' ) }
+                                            checked={ !! showProfileName }
+                                            onChange={ ( value ) => setAttributes( { showProfileName: value } ) }
+                                        />
+                                        <ToggleControl
+                                            label={ __( 'Show Stats' ) }
+                                            checked={ !! showProfileStats }
+                                            onChange={ ( value ) => setAttributes( { showProfileStats: value } ) }
+                                        />
+                                        <ToggleControl
+                                            label={ __( 'Show Description' ) }
+                                            checked={ !! showProfileDescription }
+                                            onChange={ ( value ) => setAttributes( { showProfileDescription: value } ) }
+                                        />
+                                        <ToggleControl
+                                            label={ __( 'Show Website' ) }
+                                            checked={ !! showProfileWebsite }
+                                            onChange={ ( value ) => setAttributes( { showProfileWebsite: value } ) }
+                                        />
+                                        <ToggleControl
+                                            label={ __( 'Show Location' ) }
+                                            checked={ !! showProfileLocation }
+                                            onChange={ ( value ) => setAttributes( { showProfileLocation: value } ) }
+                                        />
+                                    </Fragment>
+                                ) : '' }
+                            </PanelBody>
+                        </Fragment>
+                    ) : '' }
+
                     <PanelBody title={ __( 'API Data' ) } initialOpen={ ! APIDataReady }>
                         <TextControl
                             placeholder={ __( 'Consumer Key' ) }
