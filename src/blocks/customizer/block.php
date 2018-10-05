@@ -119,7 +119,7 @@ class GhostKit_Customizer_Block {
                     'label'        => isset( $control->label ) ? $control->label : false,
                     'description'  => isset( $control->description ) ? $control->description : false,
                     'choices'      => isset( $control->choices ) ? $control->choices : false,
-                    'control_type' => $control->type,
+                    'control_type' => isset( $control->type ) ? $control->type : false,
                 );
             }
         }
