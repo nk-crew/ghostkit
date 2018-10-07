@@ -480,13 +480,14 @@ class GhostKit_Rest extends WP_REST_Controller {
         $cache_name = 'ghostkit_twitter_feed_cache';
         $cache_expiration = $request->get_param( 'cache_expiration' ) ? : 60 * 60 * 24; // 1 day in seconds.
 
-        $count = $request->get_param( 'count' ) ? : 6;
+        $count = (int) $request->get_param( 'count' ) ? : 6;
         $consumer_key = $request->get_param( 'consumer_key' );
         $consumer_secret = $request->get_param( 'consumer_secret' );
         $access_token = $request->get_param( 'access_token' );
         $access_token_secret = $request->get_param( 'access_token_secret' );
         $screen_name = $request->get_param( 'screen_name' );
-        $exclude_replies = $request->get_param( 'exclude_replies' );
+        $exclude_replies = 'true' === $request->get_param( 'exclude_replies' );
+        $include_rts = 'true' === $request->get_param( 'include_rts' );
 
         $api_data_ready = $consumer_key && $consumer_secret && $access_token && $access_token_secret;
 
@@ -498,8 +499,6 @@ class GhostKit_Rest extends WP_REST_Controller {
                     $access_token,
                     $access_token_secret,
                     $cache_expiration,
-                    $exclude_replies,
-                    $count,
                 )
             )
         );
@@ -507,80 +506,62 @@ class GhostKit_Rest extends WP_REST_Controller {
         $cache_name = $cache_name . '_' . $screen_name . '_' . $hash;
 
         // get cached data.
-        $result = get_transient( $cache_name );
+        $feed = get_transient( $cache_name );
 
-        // if there is no cache available, request twitter feed.
-        if ( false === $result && $api_data_ready ) {
-            // request_api_twitter.
-            $feed = $this->request_api_twitter( array(
-                'url' => 'https://api.twitter.com/1.1/statuses/user_timeline.json',
-                'consumer_key' => $consumer_key,
-                'consumer_secret' => $consumer_secret,
-                'access_token' => $access_token,
-                'access_token_secret' => $access_token_secret,
-                'screen_name' => $screen_name,
-                'exclude_replies' => $exclude_replies,
-                'count' => $count,
-            ) );
+        $result = array();
 
-            if ( $feed && ! ( isset( $feed['errors'] ) && count( $feed['errors'] ) > 0 ) ) {
-                // Fetch succeeded.
-                $tweets_count = count( $feed );
+        if ( $api_data_ready ) {
+            // if there is no cache available, request twitter feed.
+            if ( false === $feed ) {
+                $feed = $this->request_api_twitter( array(
+                    'url' => 'https://api.twitter.com/1.1/statuses/user_timeline.json',
+                    'consumer_key' => $consumer_key,
+                    'consumer_secret' => $consumer_secret,
+                    'access_token' => $access_token,
+                    'access_token_secret' => $access_token_secret,
+                    'screen_name' => $screen_name,
+                    'exclude_replies' => 'false',
+                    'include_rts' => 'true',
+                    'count' => 200,
+                ) );
 
-                $result = array();
+                if ( $feed && ! ( isset( $feed['errors'] ) && count( $feed['errors'] ) > 0 ) ) {
+                    set_transient( $cache_name, $feed, $cache_expiration );
+                } else {
+                    $feed = false;
+                }
+            }
 
+            $tweets_count = $feed ? count( $feed ) : 0;
+            $limit_to_display = min( $count, $tweets_count );
+
+            if ( $limit_to_display > 0 ) {
                 for ( $i = 0; $i < $tweets_count; $i++ ) {
                     $new_item = $feed[ $i ];
 
-                    // prepare different profile image sizes.
-                    if ( $new_item['user']['profile_image_url'] ) {
-                        $new_item['user']['profile_images'] = $this->get_twitter_profile_images( $new_item['user']['profile_image_url'] );
-                    }
-                    if ( $new_item['user']['profile_image_url_https'] ) {
-                        $new_item['user']['profile_images_https'] = $this->get_twitter_profile_images( $new_item['user']['profile_image_url_https'] );
+                    // check for replies.
+                    if ( $exclude_replies && $new_item['in_reply_to_user_id'] ) {
+                        continue;
                     }
 
-                    // prepare short counts.
-                    $new_item['retweet_count_short'] = $this->convert_number_short( $new_item['retweet_count'] );
-                    $new_item['favorite_count_short'] = $this->convert_number_short( $new_item['favorite_count'] );
-
-                    // user friendly date.
-                    $date = strtotime( $new_item['created_at'] );
-                    $now = time();
-                    $diff_date = $now - $date;
-
-                    if ( $diff_date / 60 < 1 ) {
-                        // seconds.
-                        // translators: %d - seconds.
-                        $date = sprintf( esc_html__( '%ds', '@@text_domain' ), intval( $diff_date % 60 ) );
-                    } elseif ( $diff_date / 60 < 60 ) {
-                        // minutes.
-                        // translators: %d - minutes.
-                        $date = sprintf( esc_html__( '%dm', '@@text_domain' ), intval( $diff_date / 60 ) );
-                    } elseif ( $diff_date / 3600 < 24 ) {
-                        // hours.
-                        // translators: %d - hours.
-                        $date = sprintf( esc_html__( '%dh', '@@text_domain' ), intval( $diff_date / 3600 ) );
-                    } elseif ( date( 'Y' ) === date( 'Y', $date ) ) {
-                        // current year.
-                        $date = date( esc_html__( 'M d', '@@text_domain' ), $date );
-                    } else {
-                        // past years.
-                        $date = date( esc_html__( 'Y M d', '@@text_domain' ), $date );
+                    // check for retweets.
+                    if ( ! $include_rts && isset( $new_item['retweeted_status'] ) ) {
+                        continue;
                     }
 
-                    $new_item['date_formatted'] = $date;
+                    // prepare tweet content.
+                    $new_item = $this->prepare_tweet_content( $new_item );
 
-                    // text with links and media.
-                    $new_item['text_entitled'] = $this->add_tweet_entity_links( $new_item['text'], $new_item['entities'] );
-
-                    // text with links only.
-                    $new_item['text_entitled_no_media'] = $this->add_tweet_entity_links( $new_item['text'], $new_item['entities'], false );
+                    if ( isset( $new_item['retweeted_status'] ) ) {
+                        $new_item['retweeted_status'] = $this->prepare_tweet_content( $new_item['retweeted_status'] );
+                    }
 
                     $result[] = $new_item;
-                }
 
-                set_transient( $cache_name, $result, $cache_expiration );
+                    if ( count( $result ) >= $limit_to_display ) {
+                        break;
+                    }
+                }
             }
         }
 
@@ -607,6 +588,7 @@ class GhostKit_Rest extends WP_REST_Controller {
             'access_token_secret' => '',
             'screen_name' => '',
             'exclude_replies' => '',
+            'include_rts' => '',
             'count' => '',
             'include_entities' => '',
         ), $data );
@@ -631,6 +613,11 @@ class GhostKit_Rest extends WP_REST_Controller {
             $data['url'] .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
             $data['url'] .= 'exclude_replies=' . $data['exclude_replies'];
             $oauth['exclude_replies'] = $data['exclude_replies'];
+        }
+        if ( $data['include_rts'] ) {
+            $data['url'] .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
+            $data['url'] .= 'include_rts=' . $data['include_rts'];
+            $oauth['include_rts'] = $data['include_rts'];
         }
         if ( $data['count'] ) {
             $data['url'] .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
@@ -697,6 +684,62 @@ class GhostKit_Rest extends WP_REST_Controller {
         }
         $r .= implode( ', ', $values );
         return $r;
+    }
+
+    /**
+     * Prepare tweet content.
+     *
+     * @param array $tweet - tweet data.
+     *
+     * @return array - new tweet data.
+     */
+    public function prepare_tweet_content( $tweet ) {
+        // prepare different profile image sizes.
+        if ( $tweet['user']['profile_image_url'] ) {
+            $tweet['user']['profile_images'] = $this->get_twitter_profile_images( $tweet['user']['profile_image_url'] );
+        }
+        if ( $tweet['user']['profile_image_url_https'] ) {
+            $tweet['user']['profile_images_https'] = $this->get_twitter_profile_images( $tweet['user']['profile_image_url_https'] );
+        }
+
+        // prepare short counts.
+        $tweet['retweet_count_short'] = $this->convert_number_short( $tweet['retweet_count'] );
+        $tweet['favorite_count_short'] = $this->convert_number_short( $tweet['favorite_count'] );
+
+        // user friendly date.
+        $date = strtotime( $tweet['created_at'] );
+        $now = time();
+        $diff_date = $now - $date;
+
+        if ( $diff_date / 60 < 1 ) {
+            // seconds.
+            // translators: %d - seconds.
+            $date = sprintf( esc_html__( '%ds', '@@text_domain' ), intval( $diff_date % 60 ) );
+        } elseif ( $diff_date / 60 < 60 ) {
+            // minutes.
+            // translators: %d - minutes.
+            $date = sprintf( esc_html__( '%dm', '@@text_domain' ), intval( $diff_date / 60 ) );
+        } elseif ( $diff_date / 3600 < 24 ) {
+            // hours.
+            // translators: %d - hours.
+            $date = sprintf( esc_html__( '%dh', '@@text_domain' ), intval( $diff_date / 3600 ) );
+        } elseif ( date( 'Y' ) === date( 'Y', $date ) ) {
+            // current year.
+            $date = date( esc_html__( 'M j', '@@text_domain' ), $date );
+        } else {
+            // past years.
+            $date = date( esc_html__( 'Y M j', '@@text_domain' ), $date );
+        }
+
+        $tweet['date_formatted'] = $date;
+
+        // text with links and media.
+        $tweet['text_entitled'] = $this->add_tweet_entity_links( $tweet['text'], $tweet['entities'] );
+
+        // text with links only.
+        $tweet['text_entitled_no_media'] = $this->add_tweet_entity_links( $tweet['text'], $tweet['entities'], false );
+
+        return $tweet;
     }
 
     /**

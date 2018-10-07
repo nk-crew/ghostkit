@@ -135,6 +135,7 @@ class TwitterBlock extends Component {
             count,
 
             showReplies,
+            showRetweets,
             showFeedAvatar,
             feedAvatarSize,
             showFeedName,
@@ -183,6 +184,11 @@ class TwitterBlock extends Component {
                                     label={ __( 'Show Replies' ) }
                                     checked={ !! showReplies }
                                     onChange={ ( value ) => setAttributes( { showReplies: value } ) }
+                                />
+                                <ToggleControl
+                                    label={ __( 'Show Retweets' ) }
+                                    checked={ !! showRetweets }
+                                    onChange={ ( value ) => setAttributes( { showRetweets: value } ) }
                                 />
                                 <ToggleControl
                                     label={ __( 'Show Avatar' ) }
@@ -360,70 +366,90 @@ class TwitterBlock extends Component {
                     { APIDataReady && twitterFeed ? (
                         <div className="ghostkit-twitter-items">
                             {
-                                twitterFeed.map( ( item, i ) => (
-                                    <div className="ghostkit-twitter-item" key={ i }>
-                                        { showFeedAvatar ? (
-                                            <div className="ghostkit-twitter-item-avatar">
-                                                <a href={ 'https://twitter.com/' + item.user.screen_name + '/' } target="_blank" rel="noopener noreferrer">
-                                                    <img src={ item.user.profile_images_https.bigger } alt={ item.user.screen_name } width={ feedAvatarSize } height={ feedAvatarSize } />
-                                                </a>
-                                            </div>
-                                        ) : '' }
-                                        <div className="ghostkit-twitter-item-content">
-                                            { showFeedName || showFeedDate ? (
-                                                <div className="ghostkit-twitter-item-meta">
-                                                    { showFeedName ? (
-                                                        <div className="ghostkit-twitter-item-meta-name">
-                                                            <a href={ 'https://twitter.com/' + item.user.screen_name + '/' } target="_blank" rel="noopener noreferrer">
-                                                                <strong>{ item.user.name }</strong>
-                                                                { ' ' }
-                                                                { item.user.verified ? (
-                                                                    <span className="ghostkit-twitter-item-meta-name-verified">{ __( 'Verified account' ) }</span>
+                                twitterFeed.map( ( item, i ) => {
+                                    const oldItem = item;
+                                    let isRetweet = false;
+
+                                    if ( item.retweeted_status ) {
+                                        item = item.retweeted_status;
+                                        isRetweet = true;
+                                    }
+
+                                    return (
+                                        <div className="ghostkit-twitter-item" key={ i }>
+                                            { showFeedAvatar ? (
+                                                <div className="ghostkit-twitter-item-avatar">
+                                                    { isRetweet ? <br /> : '' }
+                                                    <a href={ 'https://twitter.com/' + item.user.screen_name + '/' } target="_blank" rel="noopener noreferrer">
+                                                        <img src={ item.user.profile_images_https.bigger } alt={ item.user.screen_name } width={ feedAvatarSize } height={ feedAvatarSize } />
+                                                    </a>
+                                                </div>
+                                            ) : '' }
+                                            <div className="ghostkit-twitter-item-content">
+                                                { isRetweet ? (
+                                                    <div className="ghostkit-twitter-item-retweeted">
+                                                        <span className="ghostkit-twitter-item-retweeted-icon"><span className="fas fa-retweet"></span></span>
+                                                        <a href={ 'https://twitter.com/' + oldItem.user.screen_name + '/' } target="_blank" rel="noopener noreferrer">
+                                                            <strong>{ oldItem.user.name }</strong>
+                                                        </a>
+                                                        { __( 'Retweeted' ) }
+                                                    </div>
+                                                ) : '' }
+                                                { showFeedName || showFeedDate ? (
+                                                    <div className="ghostkit-twitter-item-meta">
+                                                        { showFeedName ? (
+                                                            <div className="ghostkit-twitter-item-meta-name">
+                                                                <a href={ 'https://twitter.com/' + item.user.screen_name + '/' } target="_blank" rel="noopener noreferrer">
+                                                                    <strong>{ item.user.name }</strong>
+                                                                    { ' ' }
+                                                                    { item.user.verified ? (
+                                                                        <span className="ghostkit-twitter-item-meta-name-verified">{ __( 'Verified account' ) }</span>
+                                                                    ) : '' }
+                                                                    { ' ' }
+                                                                    <span>@{ item.user.screen_name }</span>
+                                                                </a>
+                                                            </div>
+                                                        ) : '' }
+                                                        { showFeedDate ? (
+                                                            <div className="ghostkit-twitter-item-meta-date">
+                                                                <a href={ 'https://twitter.com/' + item.user.screen_name + '/status/' + item.id_str } target="_blank" rel="noopener noreferrer">{ item.date_formatted }</a>
+                                                            </div>
+                                                        ) : '' }
+                                                    </div>
+                                                ) : '' }
+                                                { 'links_media' === feedTextConvertLinks ? (
+                                                    <div className="ghostkit-twitter-item-text" dangerouslySetInnerHTML={ { __html: item.text_entitled } }></div>
+                                                ) : '' }
+                                                { 'links' === feedTextConvertLinks ? (
+                                                    <div className="ghostkit-twitter-item-text" dangerouslySetInnerHTML={ { __html: item.text_entitled_no_media } }></div>
+                                                ) : '' }
+                                                { 'links_media' !== feedTextConvertLinks && 'links' !== feedTextConvertLinks ? (
+                                                    <div className="ghostkit-twitter-item-text" dangerouslySetInnerHTML={ { __html: item.text } }></div>
+                                                ) : '' }
+                                                { showFeedActions ? (
+                                                    <div className="ghostkit-twitter-item-actions">
+                                                        <div className="ghostkit-twitter-item-actions-retweet">
+                                                            <a href={ 'https://twitter.com/' + item.user.screen_name + '/status/' + item.id_str } target="_blank" rel="noopener noreferrer">
+                                                                <span className="fas fa-retweet"></span>
+                                                                { item.retweet_count_short ? (
+                                                                    <span>{ item.retweet_count_short }</span>
                                                                 ) : '' }
-                                                                { ' ' }
-                                                                <span>@{ item.user.screen_name }</span>
                                                             </a>
                                                         </div>
-                                                    ) : '' }
-                                                    { showFeedDate ? (
-                                                        <div className="ghostkit-twitter-item-meta-date">
-                                                            <a href={ 'https://twitter.com/' + item.user.screen_name + '/status/' + item.id_str } target="_blank" rel="noopener noreferrer">{ item.date_formatted }</a>
+                                                        <div className="ghostkit-twitter-item-actions-like">
+                                                            <a href={ 'https://twitter.com/' + item.user.screen_name + '/status/' + item.id_str } target="_blank" rel="noopener noreferrer">
+                                                                <span className="far fa-heart"></span>
+                                                                { item.favorite_count_short ? (
+                                                                    <span>{ item.favorite_count_short }</span>
+                                                                ) : '' }
+                                                            </a>
                                                         </div>
-                                                    ) : '' }
-                                                </div>
-                                            ) : '' }
-                                            { 'links_media' === feedTextConvertLinks ? (
-                                                <div className="ghostkit-twitter-item-text" dangerouslySetInnerHTML={ { __html: item.text_entitled } }></div>
-                                            ) : '' }
-                                            { 'links' === feedTextConvertLinks ? (
-                                                <div className="ghostkit-twitter-item-text" dangerouslySetInnerHTML={ { __html: item.text_entitled_no_media } }></div>
-                                            ) : '' }
-                                            { 'links_media' !== feedTextConvertLinks && 'links' !== feedTextConvertLinks ? (
-                                                <div className="ghostkit-twitter-item-text" dangerouslySetInnerHTML={ { __html: item.text } }></div>
-                                            ) : '' }
-                                            { showFeedActions ? (
-                                                <div className="ghostkit-twitter-item-actions">
-                                                    <div className="ghostkit-twitter-item-actions-retweet">
-                                                        <a href={ 'https://twitter.com/' + item.user.screen_name + '/status/' + item.id_str } target="_blank" rel="noopener noreferrer">
-                                                            <span className="fas fa-retweet"></span>
-                                                            { item.retweet_count_short ? (
-                                                                <span>{ item.retweet_count_short }</span>
-                                                            ) : '' }
-                                                        </a>
                                                     </div>
-                                                    <div className="ghostkit-twitter-item-actions-like">
-                                                        <a href={ 'https://twitter.com/' + item.user.screen_name + '/status/' + item.id_str } target="_blank" rel="noopener noreferrer">
-                                                            <span className="far fa-heart"></span>
-                                                            { item.favorite_count_short ? (
-                                                                <span>{ item.favorite_count_short }</span>
-                                                            ) : '' }
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            ) : '' }
+                                                ) : '' }
+                                            </div>
                                         </div>
-                                    </div>
-                                ) )
+                                    );
+                                } )
                             }
                         </div>
                     ) : '' }
@@ -486,6 +512,10 @@ export const settings = {
         showReplies: {
             type: 'boolean',
             default: false,
+        },
+        showRetweets: {
+            type: 'boolean',
+            default: true,
         },
         showFeedAvatar: {
             type: 'boolean',
@@ -555,6 +585,7 @@ export const settings = {
             count,
             userName,
             showReplies,
+            showRetweets,
         } = props.attributes;
 
         const APIDataReady = consumerKey && consumerSecret && accessToken && accessTokenSecret && userName;
@@ -566,7 +597,7 @@ export const settings = {
         const urlData = `consumer_key=${ encodeURIComponent( consumerKey ) }&consumer_secret=${ encodeURIComponent( consumerSecret ) }&access_token=${ encodeURIComponent( accessToken ) }&access_token_secret=${ encodeURIComponent( accessTokenSecret ) }&screen_name=${ encodeURIComponent( userName ) }`;
 
         return {
-            twitterFeed: select( 'ghostkit/twitter' ).getTwitterFeed( `/ghostkit/v1/get_twitter_feed/?count=${ count }&exclude_replies=${ showReplies ? 'false' : 'true' }&${ urlData }` ),
+            twitterFeed: select( 'ghostkit/twitter' ).getTwitterFeed( `/ghostkit/v1/get_twitter_feed/?count=${ count }&exclude_replies=${ showReplies ? 'false' : 'true' }&include_rts=${ showRetweets ? 'true' : 'false' }&${ urlData }` ),
             twitterProfile: select( 'ghostkit/twitter' ).getTwitterProfile( `/ghostkit/v1/get_twitter_profile/?${ urlData }` ),
         };
     } )( TwitterBlock ),

@@ -44,7 +44,7 @@ class GhostKit_Twitter_Block {
         $server = rest_get_server();
         $data = $server->response_to_data( $response, false );
 
-        return isset( $data['response'] ) ? $data['response'] : false;
+        return isset( $data['response'] ) && isset( $data['success'] ) && $data['success'] ? $data['response'] : false;
     }
 
     /**
@@ -60,7 +60,7 @@ class GhostKit_Twitter_Block {
         $server = rest_get_server();
         $data = $server->response_to_data( $response, false );
 
-        return isset( $data['response'] ) ? $data['response'] : false;
+        return isset( $data['response'] ) && isset( $data['success'] ) && $data['success'] ? $data['response'] : false;
     }
 
     /**
@@ -82,6 +82,7 @@ class GhostKit_Twitter_Block {
 
             'count' => 3,
             'showReplies' => false,
+            'showRetweets' => true,
             'showFeedAvatar' => true,
             'feedAvatarSize' => 48,
             'showFeedName' => true,
@@ -126,6 +127,7 @@ class GhostKit_Twitter_Block {
                 'access_token_secret' => $attributes['accessTokenSecret'],
                 'count' => $attributes['count'],
                 'exclude_replies' => $attributes['showReplies'] ? 'false' : 'true',
+                'include_rts' => $attributes['showRetweets'] ? 'true' : 'false',
                 'screen_name' => $attributes['userName'],
             ) );
 
@@ -196,17 +198,37 @@ class GhostKit_Twitter_Block {
                         <div class="ghostkit-twitter-items">
                             <?php
                             foreach ( $feed as $item ) {
+                                $old_item = $item;
+                                $is_retweet = false;
+
+                                if ( isset( $item['retweeted_status'] ) ) {
+                                    $item = $item['retweeted_status'];
+                                    $is_retweet = true;
+                                }
+
                                 $url = 'https://twitter.com/' . $item['user']['screen_name'] . '/status/' . $item['id_str'];
                                 ?>
                                 <div class="ghostkit-twitter-item">
                                     <?php if ( $attributes['showFeedAvatar'] ) : ?>
                                         <div class="ghostkit-twitter-item-avatar">
+                                            <?php if ( $is_retweet ) : ?>
+                                                <br>
+                                            <?php endif; ?>
                                             <a href="https://twitter.com/<?php echo esc_attr( $item['user']['screen_name'] ); ?>/" target="_blank">
                                                 <img src="<?php echo esc_url( $item['user']['profile_images_https']['bigger'] ); ?>" alt="<?php echo esc_attr( $item['user']['screen_name'] ); ?>" width="<?php echo esc_attr( $attributes['feedAvatarSize'] ); ?>" height="<?php echo esc_attr( $attributes['feedAvatarSize'] ); ?>">
                                             </a>
                                         </div>
                                     <?php endif; ?>
                                     <div class="ghostkit-twitter-item-content">
+                                        <?php if ( $is_retweet ) : ?>
+                                            <div class="ghostkit-twitter-item-retweeted">
+                                                <span class="ghostkit-twitter-item-retweeted-icon"><span class="fas fa-retweet"></span></span>
+                                                <a href="https://twitter.com/<?php echo esc_attr( $old_item['user']['screen_name'] ); ?>/" target="_blank">
+                                                    <strong><?php echo esc_html( $old_item['user']['name'] ); ?></strong>
+                                                </a>
+                                                <?php echo esc_html__( 'Retweeted', '@@text_domain' ); ?>
+                                            </div>
+                                        <?php endif; ?>
                                         <?php if ( $attributes['showFeedName'] || $attributes['showFeedDate'] ) : ?>
                                             <div class="ghostkit-twitter-item-meta">
                                                 <?php if ( $attributes['showFeedName'] ) : ?>

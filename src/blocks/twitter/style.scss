@@ -126,6 +126,28 @@
         }
     }
 
+    .ghostkit-twitter-item-retweeted {
+        position: relative;
+        font-size: .8em;
+        opacity: .7;
+
+        .ghostkit-twitter-item-retweeted-icon {
+            position: absolute;
+            right: 100%;
+            margin-right: 10px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
     .ghostkit-twitter-item-meta {
         display: flex;
         flex-wrap: wrap;
