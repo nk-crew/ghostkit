@@ -74,6 +74,7 @@ class GhostKit_Twitter_Block {
         ob_start();
 
         $attributes = array_merge( array(
+            'variant' => 'default',
             'consumerKey' => '',
             'consumerSecret' => '',
             'accessToken' => '',
@@ -107,6 +108,11 @@ class GhostKit_Twitter_Block {
         $attributes['showProfile'] = $attributes['showProfile'] && ( $attributes['showProfileAvatar'] || $attributes['showProfileName'] || $attributes['showProfileDescription'] || $attributes['showProfileWebsite'] || $attributes['showProfileStats'] || $attributes['showProfileLocation'] );
 
         $class = 'ghostkit-twitter';
+
+        // variant classname.
+        if ( 'default' !== $attributes['variant'] ) {
+            $class .= ' ghostkit-twitter-variant-' . $attributes['variant'];
+        }
 
         if ( $attributes['className'] ) {
             $class .= ' ' . $attributes['className'];

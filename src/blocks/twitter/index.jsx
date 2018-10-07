@@ -8,6 +8,8 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import ElementIcon from '../_icons/twitter.svg';
 
+const { GHOSTKIT } = window;
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -126,6 +128,7 @@ class TwitterBlock extends Component {
         } = this.props;
 
         const {
+            variant,
             consumerKey,
             consumerSecret,
             accessToken,
@@ -153,10 +156,17 @@ class TwitterBlock extends Component {
             showProfileLocation,
         } = attributes;
 
+        const availableVariants = GHOSTKIT.getVariants( 'twitter' );
+
         className = classnames(
             'ghostkit-twitter',
             className
         );
+
+        // variant classname.
+        if ( 'default' !== variant ) {
+            className = classnames( className, `ghostkit-twitter-variant-${ variant }` );
+        }
 
         const APIDataReady = consumerKey && consumerSecret && accessToken && accessTokenSecret && userName;
 
@@ -165,6 +175,19 @@ class TwitterBlock extends Component {
                 <InspectorControls>
                     { APIDataReady ? (
                         <Fragment>
+                            { Object.keys( availableVariants ).length > 1 ? (
+                                <PanelBody>
+                                    <SelectControl
+                                        label={ __( 'Variants' ) }
+                                        value={ variant }
+                                        options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                            value: key,
+                                            label: availableVariants[ key ].title,
+                                        } ) ) }
+                                        onChange={ ( value ) => setAttributes( { variant: value } ) }
+                                    />
+                                </PanelBody>
+                            ) : '' }
                             <PanelBody>
                                 <TextControl
                                     placeholder={ __( 'Username' ) }
@@ -488,6 +511,10 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
+        variant: {
+            type: 'string',
+            default: 'default',
+        },
         consumerKey: {
             type: 'string',
         },

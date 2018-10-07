@@ -76,6 +76,7 @@ class GhostKit_Instagram_Block {
         ob_start();
 
         $attributes = array_merge( array(
+            'variant' => 'default',
             'accessToken' => '',
             'count' => 8,
             'columns' => 4,
@@ -93,6 +94,11 @@ class GhostKit_Instagram_Block {
         $attributes['showProfile'] = $attributes['showProfile'] && ( $attributes['showProfileAvatar'] || $attributes['showProfileName'] || $attributes['showProfileBio'] || $attributes['showProfileWebsite'] || $attributes['showProfileStats'] );
 
         $class = 'ghostkit-instagram';
+
+        // variant classname.
+        if ( 'default' !== $attributes['variant'] ) {
+            $class .= ' ghostkit-instagram-variant-' . $attributes['variant'];
+        }
 
         if ( $attributes['gap'] ) {
             $class .= ' ghostkit-instagram-gap-' . $attributes['gap'];
