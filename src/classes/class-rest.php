@@ -794,7 +794,7 @@ class GhostKit_Rest extends WP_REST_Controller {
                     $replacements[ $start ] = array(
                         $start,
                         $end,
-                        "<a href=\"{$media['url']}\" target=\"_blank\"><img src=\"{$media['media_url_https']}\" /></a>",
+                        "<div><a href=\"{$media['url']}\" target=\"_blank\"><img src=\"{$media['media_url_https']}\" /></a></div>",
                     );
                 } else {
                     $replacements[ $start ] = array(
