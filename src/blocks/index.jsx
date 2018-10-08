@@ -4,7 +4,8 @@
 import * as grid from './grid/index.jsx';
 import * as gridColumn from './grid/column.jsx';
 import * as divider from './divider/index.jsx';
-import * as button from './button/index.jsx';
+import * as buttonWrapper from './button/index.jsx';
+import * as button from './button/button.jsx';
 import * as progress from './progress/index.jsx';
 import * as iconBox from './icon-box/index.jsx';
 import * as tabs from './tabs/index.jsx';
@@ -54,6 +55,7 @@ const { registerBlockType } = wp.blocks;
     grid,
     gridColumn,
     divider,
+    buttonWrapper,
     button,
     progress,
     iconBox,

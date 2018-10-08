@@ -4,12 +4,16 @@
 @import "../variables";
 
 .ghostkit-button-wrapper {
-    &.aligncenter {
-        text-align: center;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
 
-    &.alignright {
-        text-align: right;
+    &.ghostkit-button-wrapper-align-right {
+        justify-content: flex-end;
+    }
+    &.ghostkit-button-wrapper-align-center {
+        justify-content: center;
     }
 }
 
@@ -47,5 +51,20 @@
     }
     &.ghostkit-button-xl {
         font-size: 1.3em;
+    }
+}
+
+// Gaps.
+@each $name, $size in $instagram-gaps {
+    .ghostkit-button-wrapper-gap-#{$name} {
+        margin-right: ($size / -2);
+        margin-bottom: -$size;
+        margin-left: ($size / -2);
+
+        .ghostkit-button {
+            margin-right: ($size / 2);
+            margin-bottom: $size;
+            margin-left: ($size / 2);
+        }
     }
 }

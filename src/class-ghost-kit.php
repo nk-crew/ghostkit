@@ -247,6 +247,7 @@ class GhostKit {
                 'accordion'          => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
                 'accordion_item'     => array_merge( $default_variant, apply_filters( 'gkt_accordion_item_variants', array() ) ),
                 'alert'              => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
+                'button_wrapper'     => array_merge( $default_variant, apply_filters( 'gkt_button_wrapper_variants', array() ) ),
                 'button'             => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
                 'carousel'           => array_merge( $default_variant, apply_filters( 'gkt_carousel_variants', array() ) ),
                 'carousel_slide'     => array_merge( $default_variant, apply_filters( 'gkt_carousel_slide_variants', array() ) ),

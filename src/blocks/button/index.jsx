@@ -13,84 +13,77 @@ const { GHOSTKIT } = window;
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
+
 const {
     SelectControl,
-    Dashicon,
-    IconButton,
     PanelBody,
-    PanelColor,
-    RangeControl,
+    BaseControl,
     Button,
     ButtonGroup,
+    RangeControl,
 } = wp.components;
 
 const {
     InspectorControls,
+    InnerBlocks,
     BlockControls,
     BlockAlignmentToolbar,
-    RichText,
-    ColorPalette,
-    URLInput,
 } = wp.editor;
 
 class ButtonBlock extends Component {
-    constructor() {
-        super( ...arguments );
-        this.updateAlignment = this.updateAlignment.bind( this );
-        this.toggleClear = this.toggleClear.bind( this );
-    }
+    /**
+     * Returns the layouts configuration for a given number of items.
+     *
+     * @return {Object[]} Items layout configuration.
+     */
+    getInnerBlocksTemplate() {
+        const {
+            attributes,
+        } = this.props;
 
-    updateAlignment( nextAlign ) {
-        this.props.setAttributes( { align: nextAlign } );
-    }
+        const {
+            count,
+        } = attributes;
 
-    toggleClear() {
-        const { attributes, setAttributes } = this.props;
-        setAttributes( { clear: ! attributes.clear } );
+        const result = [];
+
+        if ( count > 0 ) {
+            for ( let k = 1; k <= count; k++ ) {
+                result.push( [ 'ghostkit/button-single' ] );
+            }
+        }
+
+        return result;
     }
 
     render() {
         const {
             attributes,
             setAttributes,
-            isSelected,
         } = this.props;
 
         let { className = '' } = this.props;
 
         const {
             ghostkitClassname,
-            text,
-            url,
-            title,
-            align,
-            size,
-            color,
-            textColor,
-            borderRadius,
-            borderWeight,
-            borderColor,
-            hoverColor,
-            hoverTextColor,
-            hoverBorderColor,
             variant,
+            align,
+            count,
+            gap,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'button' );
+        const availableVariants = GHOSTKIT.getVariants( 'button_wrapper' );
 
-        const sizes = {
-            XS: 'xs',
-            S: 'sm',
-            M: 'md',
-            L: 'lg',
-            XL: 'xl',
-        };
-
-        className = classnames( 'ghostkit-button-wrapper', className );
+        className = classnames(
+            'ghostkit-button-wrapper',
+            gap ? `ghostkit-button-wrapper-gap-${ gap }` : false,
+            align && align !== 'none' ? `ghostkit-button-wrapper-align-${ align }` : false,
+            className
+        );
 
         // variant classname.
         if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-button-variant-${ variant }` );
+            className = classnames( className, `ghostkit-button-wrapper-variant-${ variant }` );
         }
 
         // add custom classname.
@@ -101,7 +94,11 @@ class ButtonBlock extends Component {
         return (
             <Fragment>
                 <BlockControls>
-                    <BlockAlignmentToolbar value={ align } onChange={ this.updateAlignment } />
+                    <BlockAlignmentToolbar
+                        value={ align }
+                        onChange={ ( value ) => setAttributes( { align: value } ) }
+                        controls={ [ 'left', 'center', 'right' ] }
+                    />
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody>
@@ -116,109 +113,62 @@ class ButtonBlock extends Component {
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
                         ) : '' }
-                        <div className="blocks-size__main">
-                            <ButtonGroup aria-label={ __( 'Size' ) }>
+                        <RangeControl
+                            label={ __( 'Buttons' ) }
+                            value={ count }
+                            onChange={ ( value ) => setAttributes( { count: value } ) }
+                            min={ 1 }
+                            max={ 5 }
+                        />
+                        <BaseControl label={ __( 'Gap' ) }>
+                            <ButtonGroup>
                                 {
-                                    Object.keys( sizes ).map( ( key ) =>
-                                        <Button
-                                            key={ key }
-                                            isLarge
-                                            isPrimary={ size === sizes[ key ] }
-                                            aria-pressed={ size === sizes[ key ] }
-                                            onClick={ () => setAttributes( { size: sizes[ key ] } ) }
-                                        >
-                                            { key }
-                                        </Button>
-                                    )
+                                    [
+                                        {
+                                            label: __( 'none' ),
+                                            value: 'no',
+                                        },
+                                        {
+                                            label: __( 'sm' ),
+                                            value: 'sm',
+                                        },
+                                        {
+                                            label: __( 'md' ),
+                                            value: 'md',
+                                        },
+                                        {
+                                            label: __( 'lg' ),
+                                            value: 'lg',
+                                        },
+                                    ].map( ( val ) => {
+                                        const selected = gap === val.value;
+
+                                        return (
+                                            <Button
+                                                isLarge
+                                                isPrimary={ selected }
+                                                aria-pressed={ selected }
+                                                onClick={ () => setAttributes( { gap: val.value } ) }
+                                                key={ `gap_${ val.label }` }
+                                            >
+                                                { val.label }
+                                            </Button>
+                                        );
+                                    } )
                                 }
                             </ButtonGroup>
-                            <Button
-                                isLarge
-                                onClick={ () => setAttributes( { size: 'md' } ) }
-                            >
-                                { __( 'Reset' ) }
-                            </Button>
-                        </div>
-                        <RangeControl
-                            label={ __( 'Corner Radius' ) }
-                            value={ borderRadius }
-                            min="0"
-                            max="50"
-                            onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
-                        />
-                        <PanelColor title={ __( 'Background Color' ) } colorValue={ color } >
-                            <ColorPalette
-                                value={ color }
-                                onChange={ ( value ) => setAttributes( { color: value } ) }
-                            />
-                        </PanelColor>
-                        <PanelColor title={ __( 'Text Color' ) } colorValue={ textColor } >
-                            <ColorPalette
-                                value={ textColor }
-                                onChange={ ( value ) => setAttributes( { textColor: value } ) }
-                            />
-                        </PanelColor>
-                    </PanelBody>
-                    <PanelBody title={ __( 'Border' ) } initialOpen={ false }>
-                        <RangeControl
-                            label={ __( 'Weight' ) }
-                            value={ borderWeight }
-                            min="0"
-                            max="6"
-                            onChange={ ( value ) => setAttributes( { borderWeight: value } ) }
-                        />
-                        <PanelColor title={ __( 'Color' ) } colorValue={ borderColor } >
-                            <ColorPalette
-                                value={ borderColor }
-                                onChange={ ( value ) => setAttributes( { borderColor: value } ) }
-                            />
-                        </PanelColor>
-                    </PanelBody>
-                    <PanelBody title={ __( 'Hover Colors' ) } initialOpen={ false }>
-                        <PanelColor title={ __( 'Background Color' ) } colorValue={ hoverColor } >
-                            <ColorPalette
-                                value={ hoverColor }
-                                onChange={ ( value ) => setAttributes( { hoverColor: value } ) }
-                            />
-                        </PanelColor>
-                        <PanelColor title={ __( 'Text Color' ) } colorValue={ hoverTextColor } >
-                            <ColorPalette
-                                value={ hoverTextColor }
-                                onChange={ ( value ) => setAttributes( { hoverTextColor: value } ) }
-                            />
-                        </PanelColor>
-                        <PanelColor title={ __( 'Border Color' ) } colorValue={ hoverBorderColor } >
-                            <ColorPalette
-                                value={ hoverBorderColor }
-                                onChange={ ( value ) => setAttributes( { hoverBorderColor: value } ) }
-                            />
-                        </PanelColor>
+                        </BaseControl>
                     </PanelBody>
                 </InspectorControls>
-                <div className={ classnames( className, `align${ align }` ) } title={ title }>
-                    <RichText
-                        tagName="span"
-                        placeholder={ __( 'Add text…' ) }
-                        value={ text }
-                        onChange={ ( value ) => setAttributes( { text: value } ) }
-                        formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                        className={ classnames( 'ghostkit-button', size ? `ghostkit-button-${ size }` : '' ) }
-                        isSelected={ isSelected }
-                        keepPlaceholderOnFocus
-                    />
-                </div>
-                { isSelected ? (
-                    <form
-                        className="ghostkit-button__inline-link"
-                        onSubmit={ ( event ) => event.preventDefault() }>
-                        <Dashicon icon="admin-links" />
-                        <URLInput
-                            value={ url }
-                            onChange={ ( value ) => setAttributes( { url: value } ) }
+                <div className={ className }>
+                    { count > 0 ? (
+                        <InnerBlocks
+                            template={ this.getInnerBlocksTemplate() }
+                            templateLock="all"
+                            allowedBlocks={ [ 'ghostkit/button-single' ] }
                         />
-                        <IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
-                    </form>
-                ) : '' }
+                    ) : '' }
+                </div>
             </Fragment>
         );
     }
@@ -229,6 +179,21 @@ const blockAttributes = {
         type: 'string',
         default: 'default',
     },
+    align: {
+        type: 'string',
+        default: 'none',
+    },
+    count: {
+        type: 'number',
+        default: 1,
+    },
+    gap: {
+        type: 'string',
+        default: 'md',
+    },
+
+    // Deprecated attributes, but we can't remove it from there just because block can't be migrated from deprecated block to actual...
+    // TODO: remove it when this issue will be fixed https://github.com/WordPress/gutenberg/issues/10406
     url: {
         type: 'string',
         source: 'attribute',
@@ -246,10 +211,6 @@ const blockAttributes = {
         source: 'children',
         selector: '.ghostkit-button',
         default: 'Button',
-    },
-    align: {
-        type: 'string',
-        default: 'none',
     },
     size: {
         type: 'string',
@@ -289,9 +250,9 @@ const blockAttributes = {
 export const name = 'ghostkit/button';
 
 export const settings = {
-    title: __( 'Button' ),
+    title: __( 'Buttons' ),
 
-    description: __( 'Add button block.' ),
+    description: __( 'Add button wrapper block with inner buttons.' ),
 
     icon: elementIcon,
 
@@ -307,23 +268,7 @@ export const settings = {
         html: false,
         className: false,
         anchor: true,
-        align: [ 'wide', 'full' ],
         ghostkitStyles: true,
-        ghostkitStylesCallback( attributes ) {
-            return {
-                '.ghostkit-button': {
-                    backgroundColor: attributes.color,
-                    color: attributes.textColor,
-                    borderRadius: attributes.borderRadius,
-                    border: attributes.borderWeight && attributes.borderColor ? `${ attributes.borderWeight }px solid ${ attributes.borderColor }` : false,
-                    '&:hover, &:focus': {
-                        backgroundColor: attributes.hoverColor,
-                        color: attributes.hoverTextColor,
-                        borderColor: attributes.borderWeight && attributes.borderColor && attributes.hoverBorderColor ? attributes.hoverBorderColor : false,
-                    },
-                },
-            };
-        },
         ghostkitSpacings: true,
         ghostkitDisplay: true,
         ghostkitSR: true,
@@ -331,49 +276,30 @@ export const settings = {
 
     attributes: blockAttributes,
 
-    getEditWrapperProps( attributes ) {
-        const { align, clear } = attributes;
-        const props = { 'data-resized': true };
-
-        if ( 'left' === align || 'right' === align || 'center' === align ) {
-            props[ 'data-align' ] = align;
-        }
-
-        if ( clear ) {
-            props[ 'data-clear' ] = 'true';
-        }
-
-        return props;
-    },
-
     edit: ButtonBlock,
 
     save( { attributes, className = '' } ) {
         const {
-            text,
-            url,
-            title,
-            align,
-            size,
             variant,
+            align,
+            gap,
         } = attributes;
 
-        className = classnames( 'ghostkit-button-wrapper', className );
+        className = classnames(
+            'ghostkit-button-wrapper',
+            gap ? `ghostkit-button-wrapper-gap-${ gap }` : false,
+            align && align !== 'none' ? `ghostkit-button-wrapper-align-${ align }` : false,
+            className
+        );
 
         // variant classname.
         if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-button-variant-${ variant }` );
+            className = classnames( className, `ghostkit-button-wrapper-variant-${ variant }` );
         }
 
         return (
-            <div className={ classnames( className, `align${ align }` ) }>
-                <RichText.Content
-                    tagName="a"
-                    className={ classnames( 'ghostkit-button', size ? `ghostkit-button-${ size }` : '' ) }
-                    href={ url }
-                    title={ title }
-                    value={ text }
-                />
+            <div className={ className }>
+                <InnerBlocks.Content />
             </div>
         );
     },

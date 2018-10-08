@@ -1,11 +1,37 @@
 // External Dependencies.
 import classnames from 'classnames/dedupe';
 
+const {
+    RichText,
+} = wp.editor;
+
+const {
+    createBlock,
+} = wp.blocks;
+
 export default [
     {
         supports: {
             html: false,
+            className: false,
+            anchor: true,
+            align: [ 'wide', 'full' ],
             ghostkitStyles: true,
+            ghostkitStylesCallback( attributes ) {
+                return {
+                    '.ghostkit-button': {
+                        backgroundColor: attributes.color,
+                        color: attributes.textColor,
+                        borderRadius: attributes.borderRadius,
+                        border: attributes.borderWeight && attributes.borderColor ? `${ attributes.borderWeight }px solid ${ attributes.borderColor }` : false,
+                        '&:hover, &:focus': {
+                            backgroundColor: attributes.hoverColor,
+                            color: attributes.hoverTextColor,
+                            borderColor: attributes.borderWeight && attributes.borderColor && attributes.hoverBorderColor ? attributes.hoverBorderColor : false,
+                        },
+                    },
+                };
+            },
             ghostkitSpacings: true,
             ghostkitDisplay: true,
             ghostkitSR: true,
@@ -30,7 +56,8 @@ export default [
             text: {
                 type: 'array',
                 source: 'children',
-                selector: 'a',
+                selector: '.ghostkit-button',
+                default: 'Button',
             },
             align: {
                 type: 'string',
@@ -42,7 +69,7 @@ export default [
             },
             color: {
                 type: 'string',
-                default: '#016c91',
+                default: '#0366d6',
             },
             textColor: {
                 type: 'string',
@@ -70,7 +97,39 @@ export default [
                 type: 'string',
             },
         },
-        save: function( { attributes, className = '' } ) {
+        migrate( attributes ) {
+            return [
+                {
+                    variant: attributes.variant,
+                    align: attributes.align,
+                    count: 1,
+                    gap: 'md',
+                    ghostkitClassname: '',
+                    ghostkitId: '',
+                    ghostkitDisplay: {},
+                    ghostkitIndents: {},
+                    ghostkitSpacings: {},
+                    ghostkitStyles: {},
+                },
+                [
+                    createBlock( 'ghostkit/button-single', {
+                        url: attributes.url,
+                        title: attributes.title,
+                        text: attributes.text,
+                        size: attributes.size,
+                        color: attributes.color,
+                        textColor: attributes.textColor,
+                        borderRadius: attributes.borderRadius,
+                        borderWeight: attributes.borderWeight,
+                        borderColor: attributes.borderColor,
+                        hoverColor: attributes.hoverColor,
+                        hoverTextColor: attributes.hoverTextColor,
+                        hoverBorderColor: attributes.hoverBorderColor,
+                    } ),
+                ],
+            ];
+        },
+        save( { attributes, className = '' } ) {
             const {
                 text,
                 url,
@@ -80,15 +139,21 @@ export default [
                 variant,
             } = attributes;
 
+            className = classnames( 'ghostkit-button-wrapper', className );
+
             if ( 'default' !== variant ) {
                 className = classnames( className, `ghostkit-button-variant-${ variant }` );
             }
 
             return (
                 <div className={ classnames( className, `align${ align }` ) }>
-                    <a className={ classnames( 'ghostkit-button', size ? `ghostkit-button-${ size }` : '' ) } href={ url } title={ title }>
-                        { text }
-                    </a>
+                    <RichText.Content
+                        tagName="a"
+                        className={ classnames( 'ghostkit-button', size ? `ghostkit-button-${ size }` : '' ) }
+                        href={ url }
+                        title={ title }
+                        value={ text }
+                    />
                 </div>
             );
         },
