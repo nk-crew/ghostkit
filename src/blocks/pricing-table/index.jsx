@@ -301,7 +301,7 @@ export const settings = {
             className,
             'ghostkit-pricing-table',
             `ghostkit-pricing-table-gap-${ gap }`,
-            verticalAlign ? `ghostkit-pricing-table-items-${ count }` : false,
+            count ? `ghostkit-pricing-table-items-${ count }` : false,
             verticalAlign ? `ghostkit-pricing-table-align-vertical-${ verticalAlign }` : false,
             horizontalAlign ? `ghostkit-pricing-table-align-horizontal-${ horizontalAlign }` : false
         );
