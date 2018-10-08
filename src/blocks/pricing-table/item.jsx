@@ -177,9 +177,16 @@ class PricingTableItemBlock extends Component {
                     ) : '' }
                     { showButton ? (
                         <InnerBlocks
-                            template={ [ [ 'ghostkit/button', {
-                                text: 'Purchase',
-                            } ] ] }
+                            template={ [
+                                [ 'ghostkit/button', {
+                                    align: 'center',
+                                }, [
+                                    [ 'ghostkit/button-single', {
+                                        text: 'Purchase',
+                                    } ],
+                                ],
+                                ],
+                            ] }
                             templateLock="all"
                             allowedBlocks={ [ 'ghostkit/button' ] }
                         />
