@@ -576,12 +576,12 @@ function prepareGoogleMaps() {
 /**
  * Prepare ScrollReveal
  */
-let reveal = window.ScrollReveal ? window.ScrollReveal().reveal : false;
+let reveal = false;
 function prepareSR() {
     if ( ! window.ScrollReveal ) {
         return;
     } else if ( ! reveal ) {
-        reveal = window.ScrollReveal ? window.ScrollReveal().reveal : false;
+        reveal = window.ScrollReveal().reveal;
     }
 
     $( '[data-ghostkit-sr]:not(.data-ghostkit-sr-ready)' ).each( function() {
