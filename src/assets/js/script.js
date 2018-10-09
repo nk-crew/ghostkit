@@ -1,5 +1,6 @@
 import { throttle } from 'throttle-debounce';
-import * as scriptjs from 'scriptjs';
+import scriptjs from 'scriptjs';
+import rafl from 'rafl';
 
 const $ = window.jQuery;
 const { ghostkitVariables } = window;
@@ -640,16 +641,18 @@ $( document ).on( 'click', '.ghostkit-alert-hide-button', function( e ) {
  * Init Blocks.
  */
 const throttledInitBlocks = throttle( 200, () => {
-    prepareCustomStyles();
-    prepareTabs();
-    prepareAccordions();
-    prepareCarousels();
-    prepareVideo();
-    prepareGist();
-    prepareChangelog();
-    prepareGoogleMaps();
-    prepareCounters();
-    prepareSR();
+    rafl( () => {
+        prepareCustomStyles();
+        prepareTabs();
+        prepareAccordions();
+        prepareCarousels();
+        prepareVideo();
+        prepareGist();
+        prepareChangelog();
+        prepareGoogleMaps();
+        prepareCounters();
+        prepareSR();
+    } );
 } );
 if ( window.MutationObserver ) {
     new window.MutationObserver( throttledInitBlocks )
