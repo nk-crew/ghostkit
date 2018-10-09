@@ -133,10 +133,12 @@
                 }
             }
             .ghostkit-customizer-list-info-id {
+                word-break: break-word;
                 opacity: .3;
             }
             .ghostkit-customizer-list-info-default {
                 margin-left: auto;
+                word-break: break-word;
                 opacity: .3;
 
                 span {
