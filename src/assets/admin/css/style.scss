@@ -86,10 +86,13 @@
 /**
  * Spacings Control.
  */
+.ghostkit-control-tabs-spacings .components-tab-panel__tabs {
+    margin-bottom: 0;
+}
 .ghostkit-control-spacing {
     position: relative;
     width: 100%;
-    padding-top: 90%;
+    padding-top: 87%;
     border: 1px solid #e8eaec;
 
     // logo
@@ -132,9 +135,11 @@
         }
 
         input {
-            width: 35px;
+            width: 39px;
             padding: 3px 5px;
             text-align: center;
+            background: none;
+            border: none;
         }
     }
 
@@ -169,8 +174,8 @@
     // paddings.
     .ghostkit-control-spacing-padding {
         top: 36px;
-        left: 46px;
-        width: calc(100% - 92px);
+        left: 50px;
+        width: calc(100% - 100px);
         height: calc(100% - 72px);
         background-color: #f2f2f2;
 

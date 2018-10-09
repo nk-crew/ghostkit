@@ -26,10 +26,11 @@ const {
 const { InspectorControls } = wp.editor;
 
 const {
+    BaseControl,
     PanelBody,
     TextControl,
-    SelectControl,
     CheckboxControl,
+    TabPanel,
 } = wp.components;
 
 let initialOpenPanel = false;
@@ -156,11 +157,6 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
         constructor() {
             super( ...arguments );
 
-            this.setState = this.setState.bind( this );
-            this.state = {
-                device: '',
-            };
-
             this.updateSpacings = this.updateSpacings.bind( this );
             this.getCurrentSpacing = this.getCurrentSpacing.bind( this );
         }
@@ -190,10 +186,10 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
          *
          * @param {String} name - name of new spacing.
          * @param {String} val - value for new spacing.
+         * @param {String} device - spacing for device.
          */
-        updateSpacings( name, val ) {
+        updateSpacings( name, val, device ) {
             const { setAttributes } = this.props;
-            const { device } = this.state;
             let { ghostkitSpacings = {} } = this.props.attributes;
             const result = {};
             const newSpacings = {};
@@ -241,12 +237,12 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
          * Get current spacing for selected device type.
          *
          * @param {String} name - name of spacing.
+         * @param {String} device - spacing for device.
          *
          * @returns {String} spacing value.
          */
-        getCurrentSpacing( name ) {
+        getCurrentSpacing( name, device ) {
             const { ghostkitSpacings = {} } = this.props.attributes;
-            const { device } = this.state;
             let result = '';
 
             if ( ! device ) {
@@ -309,106 +305,140 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 initialOpenPanel = ! initialOpenPanel;
                             } }
                         >
-                            <div className="ghostkit-control-spacing">
-                                <Logo className="ghostkit-control-spacing-logo" />
-                                <div className="ghostkit-control-spacing-margin">
-                                    <span>{ __( 'Margin' ) }</span>
-                                    <div className="ghostkit-control-spacing-margin-left">
-                                        <TextControl
-                                            value={ this.getCurrentSpacing( 'marginLeft' ) }
-                                            placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateSpacings( 'marginLeft', nextValue ) }
-                                        />
-                                    </div>
-                                    <div className="ghostkit-control-spacing-margin-top">
-                                        <TextControl
-                                            value={ this.getCurrentSpacing( 'marginTop' ) }
-                                            placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateSpacings( 'marginTop', nextValue ) }
-                                        />
-                                    </div>
-                                    <div className="ghostkit-control-spacing-margin-right">
-                                        <TextControl
-                                            value={ this.getCurrentSpacing( 'marginRight' ) }
-                                            placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateSpacings( 'marginRight', nextValue ) }
-                                        />
-                                    </div>
-                                    <div className="ghostkit-control-spacing-margin-bottom">
-                                        <TextControl
-                                            value={ this.getCurrentSpacing( 'marginBottom' ) }
-                                            placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateSpacings( 'marginBottom', nextValue ) }
-                                        />
-                                    </div>
-                                </div>
-                                <div className="ghostkit-control-spacing-padding">
-                                    <span>{ __( 'Padding' ) }</span>
-                                    <div className="ghostkit-control-spacing-padding-left">
-                                        <TextControl
-                                            value={ this.getCurrentSpacing( 'paddingLeft' ) }
-                                            placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateSpacings( 'paddingLeft', nextValue ) }
-                                        />
-                                    </div>
-                                    <div className="ghostkit-control-spacing-padding-top">
-                                        <TextControl
-                                            value={ this.getCurrentSpacing( 'paddingTop' ) }
-                                            placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateSpacings( 'paddingTop', nextValue ) }
-                                        />
-                                    </div>
-                                    <div className="ghostkit-control-spacing-padding-right">
-                                        <TextControl
-                                            value={ this.getCurrentSpacing( 'paddingRight' ) }
-                                            placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateSpacings( 'paddingRight', nextValue ) }
-                                        />
-                                    </div>
-                                    <div className="ghostkit-control-spacing-padding-bottom">
-                                        <TextControl
-                                            value={ this.getCurrentSpacing( 'paddingBottom' ) }
-                                            placeholder="-"
-                                            onChange={ ( nextValue ) => this.updateSpacings( 'paddingBottom', nextValue ) }
-                                        />
-                                    </div>
-                                </div>
-                                <div className="ghostkit-control-spacing-device">
-                                    <SelectControl
-                                        value={ this.state.device }
-                                        onChange={ ( value ) => {
-                                            this.setState( {
-                                                device: value,
-                                            } );
-                                        } }
-                                        options={ [
-                                            {
-                                                label: __( 'All' ),
-                                                value: '',
-                                            }, {
-                                                label: __( 'Desktop' ),
-                                                value: 'media_xl',
-                                            }, {
-                                                label: __( 'Laptop' ),
-                                                value: 'media_lg',
-                                            }, {
-                                                label: __( 'Tablet' ),
-                                                value: 'media_md',
-                                            }, {
-                                                label: __( 'Mobile' ),
-                                                value: 'media_sm',
-                                            },
-                                        ] }
-                                    />
-                                </div>
-                                <div className="ghostkit-control-spacing-important">
-                                    <CheckboxControl
-                                        label={ __( '!important' ) }
-                                        checked={ !! this.getCurrentSpacing( '!important' ) }
-                                        onChange={ ( nextValue ) => this.updateSpacings( '!important', nextValue ) }
-                                    />
-                                </div>
-                            </div>
+                            <TabPanel
+                                className="ghostkit-control-tabs ghostkit-control-tabs-spacings"
+                                tabs={ [
+                                    {
+                                        name: 'all',
+                                        title: <span className="fas fa-tv" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                    {
+                                        name: 'xl',
+                                        title: <span className="fas fa-desktop" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                    {
+                                        name: 'lg',
+                                        title: <span className="fas fa-laptop" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                    {
+                                        name: 'md',
+                                        title: <span className="fas fa-tablet-alt" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                    {
+                                        name: 'sm',
+                                        title: <span className="fas fa-mobile-alt" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                ] }>
+                                {
+                                    ( tabName ) => {
+                                        let device = '';
+
+                                        if ( tabName !== 'all' ) {
+                                            device = `media_${ tabName }`;
+                                        }
+
+                                        let note = __( 'Will be applied to all devices' );
+
+                                        switch ( tabName ) {
+                                        case 'xl':
+                                            note = __( 'Will be applied to devices with screen width <= 1200px' );
+                                            break;
+                                        case 'lg':
+                                            note = __( 'Will be applied to devices with screen width <= 992px' );
+                                            break;
+                                        case 'md':
+                                            note = __( 'Will be applied to devices with screen width <= 768px' );
+                                            break;
+                                        case 'sm':
+                                            note = __( 'Will be applied to devices with screen width <= 576px' );
+                                            break;
+                                        }
+
+                                        return (
+                                            <Fragment>
+                                                <BaseControl className="ghostkit-control-spacing">
+                                                    <Logo className="ghostkit-control-spacing-logo" />
+                                                    <div className="ghostkit-control-spacing-margin">
+                                                        <span>{ __( 'Margin' ) }</span>
+                                                        <div className="ghostkit-control-spacing-margin-left">
+                                                            <TextControl
+                                                                value={ this.getCurrentSpacing( 'marginLeft', device ) }
+                                                                placeholder="-"
+                                                                onChange={ ( nextValue ) => this.updateSpacings( 'marginLeft', nextValue, device ) }
+                                                            />
+                                                        </div>
+                                                        <div className="ghostkit-control-spacing-margin-top">
+                                                            <TextControl
+                                                                value={ this.getCurrentSpacing( 'marginTop', device ) }
+                                                                placeholder="-"
+                                                                onChange={ ( nextValue ) => this.updateSpacings( 'marginTop', nextValue, device ) }
+                                                            />
+                                                        </div>
+                                                        <div className="ghostkit-control-spacing-margin-right">
+                                                            <TextControl
+                                                                value={ this.getCurrentSpacing( 'marginRight', device ) }
+                                                                placeholder="-"
+                                                                onChange={ ( nextValue ) => this.updateSpacings( 'marginRight', nextValue, device ) }
+                                                            />
+                                                        </div>
+                                                        <div className="ghostkit-control-spacing-margin-bottom">
+                                                            <TextControl
+                                                                value={ this.getCurrentSpacing( 'marginBottom', device ) }
+                                                                placeholder="-"
+                                                                onChange={ ( nextValue ) => this.updateSpacings( 'marginBottom', nextValue, device ) }
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="ghostkit-control-spacing-padding">
+                                                        <span>{ __( 'Padding' ) }</span>
+                                                        <div className="ghostkit-control-spacing-padding-left">
+                                                            <TextControl
+                                                                value={ this.getCurrentSpacing( 'paddingLeft', device ) }
+                                                                placeholder="-"
+                                                                onChange={ ( nextValue ) => this.updateSpacings( 'paddingLeft', nextValue, device ) }
+                                                            />
+                                                        </div>
+                                                        <div className="ghostkit-control-spacing-padding-top">
+                                                            <TextControl
+                                                                value={ this.getCurrentSpacing( 'paddingTop', device ) }
+                                                                placeholder="-"
+                                                                onChange={ ( nextValue ) => this.updateSpacings( 'paddingTop', nextValue, device ) }
+                                                            />
+                                                        </div>
+                                                        <div className="ghostkit-control-spacing-padding-right">
+                                                            <TextControl
+                                                                value={ this.getCurrentSpacing( 'paddingRight', device ) }
+                                                                placeholder="-"
+                                                                onChange={ ( nextValue ) => this.updateSpacings( 'paddingRight', nextValue, device ) }
+                                                            />
+                                                        </div>
+                                                        <div className="ghostkit-control-spacing-padding-bottom">
+                                                            <TextControl
+                                                                value={ this.getCurrentSpacing( 'paddingBottom', device ) }
+                                                                placeholder="-"
+                                                                onChange={ ( nextValue ) => this.updateSpacings( 'paddingBottom', nextValue, device ) }
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="ghostkit-control-spacing-important">
+                                                        <CheckboxControl
+                                                            label={ __( '!important' ) }
+                                                            checked={ !! this.getCurrentSpacing( '!important', device ) }
+                                                            onChange={ ( nextValue ) => this.updateSpacings( '!important', nextValue, device ) }
+                                                        />
+                                                    </div>
+                                                </BaseControl>
+                                                <p><em>{ note }</em></p>
+                                            </Fragment>
+                                        );
+                                    }
+                                }
+                            </TabPanel>
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>
