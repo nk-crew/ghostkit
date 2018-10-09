@@ -202,7 +202,9 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         >
                             <div className="ghostkit-control-display">
                                 <div className="ghostkit-control-display-box">
-                                    <div className="ghostkit-control-display-icon" />
+                                    <div className="ghostkit-control-display-icon">
+                                        <span className="fas fa-tv" />
+                                    </div>
                                     <SelectControl
                                         value={ this.getCurrentDisplay( 'all' ) }
                                         onChange={ ( nextValue ) => this.updateDisplay( 'all', nextValue ) }
