@@ -183,10 +183,12 @@
 // Gaps.
 @each $name, $size in $pricing-table-gaps {
     .ghostkit-pricing-table-gap-#{$name} {
+        margin-top: -$size;
         margin-right: ($size / -2);
         margin-left: ($size / -2);
 
         > .ghostkit-pricing-table-item-wrap {
+            padding-top: $size;
             padding-right: ($size / 2);
             padding-left: ($size / 2);
         }
