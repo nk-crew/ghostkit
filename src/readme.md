@@ -9,11 +9,13 @@
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-GhostKit is a blocks collection and extensions for Gutenberg page builder.
+GhostKit is a blocks collection and extensions for Gutenberg block editor.
 
 ## Description ##
 
-GhostKit is a blocks collection and powerful extensions for Gutenberg page builder. All blocks are extensible and ready for developers.
+GhostKit is a blocks collection and powerful extensions for Gutenberg block editor. With this collection, you will gain more control over content just like with popular page builders. Just start with responsive Grid block and you can't stop building the page ;)
+
+We are using this plugin in our premium themes, so all the blocks are extensible and ready for developers.
 
 ### Links ###
 
@@ -36,24 +38,20 @@ GhostKit is a blocks collection and powerful extensions for Gutenberg page build
 * Testimonial
 * GitHub Gist
 * Changelog
+* Pricing Table
 * Google Maps
 * Instagram
 * Twitter
 * Widgetized Area (output registered sidebars)
-* Custom CSS (add custom CSS on the pages)
-* Customizer (overwrite customizer options on the pages)
 
 ### Available extensions ###
 
 * Spacings (paddings, margins)
 * Display (show/hide block)
 * Animate on Scroll (show block in viewport)
+* Custom CSS (add custom CSS on the pages)
+* Customizer (overwrite customizer options on the pages)
 
-### Coming soon blocks ###
-
-* Countdown
-* Pricing
-* Gif
 
 ## Installation ##
 
@@ -104,21 +102,30 @@ Then, when editing block you will see the Variants select and on frontend you wi
 
 Available filters:
 
-* **gkt_grid_variants**
-* **gkt_divider_variants**
-* **gkt_alert_variants**
-* **gkt_button_variants**
-* **gkt_counter_box_variants**
-* **gkt_tabs_variants**
 * **gkt_accordion_variants**
-* **gkt_icon_box_variants**
-* **gkt_progress_variants**
-* **gkt_video_variants**
+* **gkt_accordion_item_variants**
+* **gkt_alert_variants**
+* **gkt_button_wrapper_variants**
+* **gkt_button_variants**
 * **gkt_carousel_variants**
-* **gkt_testimonial_variants**
-* **gkt_gist_variants**
+* **gkt_carousel_slide_variants**
 * **gkt_changelog_variants**
+* **gkt_counter_box_variants**
+* **gkt_divider_variants**
+* **gkt_gist_variants**
 * **gkt_google_maps_variants**
+* **gkt_grid_variants**
+* **gkt_grid_column_variants**
+* **gkt_icon_box_variants**
+* **gkt_instagram_variants**
+* **gkt_pricing_table_variants**
+* **gkt_pricing_table_item_variants**
+* **gkt_progress_variants**
+* **gkt_tabs_variants**
+* **gkt_tabs_tab_variants**
+* **gkt_testimonial_variants**
+* **gkt_twitter_variants**
+* **gkt_video_variants**
 
 ## Screenshots ##
 
@@ -136,11 +143,36 @@ Available filters:
 12. Google Maps
 13. Video
 14. Testimonial
-15. GitHub Gist
-16. Changelog
-17. Blocks Extensions
+15. Instagram
+16. Twitter
+17. GitHub Gist
+18. Changelog
+19. Pricing Table
+20. Blocks Extensions
 
 ## Changelog ##
+
+= 1.5.0 =
+
+* deprecated Customizer and Custom CSS blocks. This functionality you can find in the top right corner of the editor
+* added multiple buttons support in Button block. Be careful, Button block may lose some settings when you update the plugin
+* added Instagram block
+* added Twitter block
+* added Pricing Table block
+* added widget for reusable blocks to use in sidebars
+* added anchor support to almost all blocks
+* improved Animate on Scroll extension (added more options)
+* changed default blocks color
+* changed button block url input style (now floating)
+* changed Spacings extension (device selector changed to tabs)
+* prevent adding extensions on reusable blocks
+* fixed php error when Gutenberg plugin is not activated
+* fixed animate in viewport, when on the screen > 1 counters or progress bars
+* fixed styles rendering for new and duplicated blocks
+* fixed first loading of Customizer block
+* fixed php notices in customizer
+* fixed custom styles in transformed blocks
+* minor changes
 
 = 1.4.0 =
 
