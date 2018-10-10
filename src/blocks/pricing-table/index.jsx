@@ -79,7 +79,7 @@ class PricingTableBlock extends Component {
             horizontalAlign,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'pricing-table' );
+        const availableVariants = GHOSTKIT.getVariants( 'pricing_table' );
 
         className = classnames(
             className,
