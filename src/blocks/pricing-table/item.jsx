@@ -231,7 +231,7 @@ export const settings = {
             type: 'string',
             default: 'default',
         },
-        popular: {
+        showPopular: {
             type: 'boolean',
             default: false,
         },
