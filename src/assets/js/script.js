@@ -538,6 +538,9 @@ function prepareGoogleMaps() {
 
                     try {
                         styles = JSON.parse( $this.attr( 'data-styles' ) );
+                    } catch ( e ) { }
+
+                    try {
                         markers = JSON.parse( $this.attr( 'data-markers' ) );
                     } catch ( e ) { }
 
