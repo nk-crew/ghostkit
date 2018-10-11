@@ -17,7 +17,7 @@ import SearchBox from './search-box.jsx';
 
 const { GHOSTKIT } = window;
 
-const mapsUrl = window.GHOSTKIT.googleMapsAPIUrl + '&libraries=geometry,drawing,places';
+const mapsUrl = GHOSTKIT.googleMapsAPIUrl + '&libraries=geometry,drawing,places';
 let geocoder = false;
 
 const { __ } = wp.i18n;
