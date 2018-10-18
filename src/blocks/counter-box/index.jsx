@@ -89,7 +89,7 @@ class CounterBoxBlock extends Component {
                                 label={ __( 'Animate from' ) }
                                 type="number"
                                 value={ animateInViewportFrom }
-                                onChange={ ( value ) => setAttributes( { animateInViewportFrom: value } ) }
+                                onChange={ ( value ) => setAttributes( { animateInViewportFrom: parseInt( value, 10 ) } ) }
                             />
                         ) : '' }
                         <RangeControl

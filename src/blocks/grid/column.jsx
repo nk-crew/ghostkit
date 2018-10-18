@@ -249,13 +249,13 @@ class GridColumnBlock extends Component {
                                         label={ __( 'Top' ) }
                                         type="number"
                                         value={ stickyContentTop }
-                                        onChange={ ( value ) => setAttributes( { stickyContentTop: value } ) }
+                                        onChange={ ( value ) => setAttributes( { stickyContentTop: parseInt( value, 10 ) } ) }
                                     />
                                     <TextControl
                                         label={ __( 'Bottom' ) }
                                         type="number"
                                         value={ stickyContentBottom }
-                                        onChange={ ( value ) => setAttributes( { stickyContentBottom: value } ) }
+                                        onChange={ ( value ) => setAttributes( { stickyContentBottom: parseInt( value, 10 ) } ) }
                                     />
                                 </Fragment>
                             ) : '' }
