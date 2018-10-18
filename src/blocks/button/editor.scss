@@ -91,6 +91,10 @@
 
     .editor-url-input {
         width: auto;
+
+        input[type="text"] {
+            width: 100%;
+        }
     }
 
     .editor-url-input__suggestions {
