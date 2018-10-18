@@ -335,16 +335,16 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     },
                                 ] }>
                                 {
-                                    ( tabName ) => {
+                                    ( tabData ) => {
                                         let device = '';
 
-                                        if ( tabName !== 'all' ) {
-                                            device = `media_${ tabName }`;
+                                        if ( tabData.name !== 'all' ) {
+                                            device = `media_${ tabData.name }`;
                                         }
 
                                         let note = __( 'Will be applied to all devices' );
 
-                                        switch ( tabName ) {
+                                        switch ( tabData.name ) {
                                         case 'xl':
                                             note = __( 'Will be applied to devices with screen width <= 1200px' );
                                             break;

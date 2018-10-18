@@ -180,18 +180,18 @@ class GridColumnBlock extends Component {
                                 },
                             ] }>
                             {
-                                ( tabName ) => {
+                                ( tabData ) => {
                                     let sizeName = 'size';
                                     let orderName = 'order';
 
-                                    if ( tabName !== 'all' ) {
-                                        sizeName = `${ tabName }_${ sizeName }`;
-                                        orderName = `${ tabName }_${ orderName }`;
+                                    if ( tabData.name !== 'all' ) {
+                                        sizeName = `${ tabData.name }_${ sizeName }`;
+                                        orderName = `${ tabData.name }_${ orderName }`;
                                     }
 
                                     let note = __( 'Will be applied to all devices' );
 
-                                    switch ( tabName ) {
+                                    switch ( tabData.name ) {
                                     case 'xl':
                                         note = __( 'Will be applied to devices with screen width <= 1200px' );
                                         break;
