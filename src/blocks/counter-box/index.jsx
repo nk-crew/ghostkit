@@ -141,8 +141,10 @@ class CounterBoxBlock extends Component {
                         />
                     </div>
                     <div className="ghostkit-counter-box-content">
-                        { /* TODO: Add default blocks when this will be possible https://github.com/WordPress/gutenberg/issues/5448 */ }
-                        <InnerBlocks />
+                        <InnerBlocks
+                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important counts, that you should know!' ) } ] ] }
+                            templateLock={ false }
+                        />
                     </div>
                 </div>
             </Fragment>

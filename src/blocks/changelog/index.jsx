@@ -91,15 +91,13 @@ class ChangelogBlock extends Component {
                     <div className="ghostkit-changelog-more">
                         <InnerBlocks
                             allowedBlocks={ [ 'core/list', 'core/paragraph', 'ghostkit/alert' ] }
-                            // TODO: Add template when this PR will be merged https://github.com/WordPress/gutenberg/pull/9674
-                            //
-                            // template={ [ [ 'core/list', {
-                            // values: [
-                            //     <li key="list-item-1">[Added] Something</li>,
-                            //     <li key="list-item-2">[Fixed] Something</li>,
-                            //     <li key="list-item-3">[Improved] Something</li>,
-                            // ],
-                            // } ] ] }
+                            template={ [ [ 'core/list', {
+                                values: [
+                                    <li key="list-item-1">{ __( '[Added] Something' ) }</li>,
+                                    <li key="list-item-2">{ __( '[Fixed] Something' ) }</li>,
+                                    <li key="list-item-3">{ __( '[Improved] Something' ) }</li>,
+                                ],
+                            } ] ] }
                             templateLock={ false }
                         />
                     </div>

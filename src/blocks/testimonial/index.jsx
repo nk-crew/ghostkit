@@ -227,8 +227,10 @@ class TestimonialBlockEdit extends Component {
                         </div>
                     ) : '' }
                     <div className="ghostkit-testimonial-content">
-                        { /* TODO: Add default blocks when this will be possible https://github.com/WordPress/gutenberg/issues/5448 */ }
-                        <InnerBlocks />
+                        <InnerBlocks
+                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important testimonial, so many delights here!' ) } ] ] }
+                            templateLock={ false }
+                        />
                     </div>
                     <div className="ghostkit-testimonial-photo">
                         { ! photo ? (

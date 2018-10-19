@@ -146,8 +146,10 @@ class AlertBlock extends Component {
                         <div className="ghostkit-alert-icon" dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } } />
                     ) : '' }
                     <div className="ghostkit-alert-content">
-                        { /* TODO: Add default blocks when this will be possible https://github.com/WordPress/gutenberg/issues/5448 */ }
-                        <InnerBlocks />
+                        <InnerBlocks
+                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important message, that you cannot miss!' ) } ] ] }
+                            templateLock={ false }
+                        />
                     </div>
                     { hideButton ? (
                         <div className="ghostkit-alert-hide-button">
