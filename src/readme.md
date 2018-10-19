@@ -152,6 +152,19 @@ Available filters:
 
 ## Changelog ##
 
+= 1.5.1 =
+
+* added default InnerBlocks in Alert, Number Box, Icon Box, Testimonial, Changelog
+* fixed Gutenberg 4.0 Spacing extension and Grid Columns options
+* fixed Gutenberg 4.0 number attribute type automatic convert
+* fixed Gutenberg 4.0 Button block url input width
+* fixed Pricing Table block variant name to extend it
+* fixed Pricing Table block error when enabled showPopular option
+* fixed Pricing Table block padding in features list
+* fixed Pricing Table block bottom margin on mobile devices
+* fixed Grid block fullwidth styles in editor
+* fixed Google Maps block markers show when no custom map Style defined
+
 = 1.5.0 =
 
 * deprecated Customizer and Custom CSS blocks. This functionality you can find in the top right corner of the editor
