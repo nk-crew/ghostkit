@@ -6,12 +6,15 @@ Object.keys( ghostkitVariables.media_sizes ).forEach( ( k ) => {
     vars[ `media_${ k }` ] = ghostkitVariables.media_sizes[ k ];
 } );
 
+function escapeRegExp( s ) {
+    return s.replace( /[-/\\^$*+?.()|[\]{}]/g, '\\$&' );
+}
+
 window.GHOSTKIT = {
     vars: vars,
     replaceVars( str ) {
         Object.keys( this.vars ).map( ( key ) => {
-            // TODO: we need also check for valid key value https://stackoverflow.com/a/4371855/9039306
-            str = str.replace( new RegExp( `#{ghostkitvar:${ key }}`, 'g' ), `(max-width: ${ this.vars[ key ] }px)` );
+            str = str.replace( new RegExp( `#{ghostkitvar:${ escapeRegExp( key ) }}`, 'g' ), `(max-width: ${ this.vars[ key ] }px)` );
         } );
 
         return str;
