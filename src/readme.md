@@ -152,6 +152,10 @@ Available filters:
 
 ## Changelog ##
 
+= 1.5.2 =
+
+* fixed selected image preview in Inspector (Video and Testimonial blocks)
+
 = 1.5.1 =
 
 * added default InnerBlocks in Alert, Number Box, Icon Box, Testimonial, Changelog
