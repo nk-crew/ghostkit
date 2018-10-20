@@ -781,7 +781,7 @@ export const settings = {
         },
 
         poster: {
-            type: 'string',
+            type: 'number',
             default: '',
         },
         posterTag: {

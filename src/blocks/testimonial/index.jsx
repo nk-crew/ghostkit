@@ -402,7 +402,7 @@ export const settings = {
             default: 'fas fa-quote-left',
         },
         photo: {
-            type: 'string',
+            type: 'number',
             default: '',
         },
         photoTag: {
