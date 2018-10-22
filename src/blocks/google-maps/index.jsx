@@ -245,8 +245,7 @@ class GoogleMapsBlock extends Component {
                                             <li key={ index }>
                                                 <SearchBox
                                                     googleMapURL={ mapsUrl + '&key=' + this.state.apiKey }
-                                                    placeholder={ __( 'Enter address' ) }
-                                                    value={ marker.address || this.state.addresses[ marker.lat + marker.lng ] || '' }
+                                                    placeholder={ marker.address || this.state.addresses[ marker.lat + marker.lng ] || '' }
                                                     onChange={ ( value ) => {
                                                         if ( value && value[ 0 ] ) {
                                                             markers[ index ].address = value[ 0 ].formatted_address;
