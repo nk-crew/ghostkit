@@ -66,6 +66,7 @@
 
 // markers
 .ghostkit-google-maps-markers {
+
     li {
         margin-bottom: 15px;
 
@@ -76,6 +77,12 @@
             margin-right: -16px;
             margin-left: -16px;
             border-bottom: 1px solid #efefef;
+        }
+
+        .marker-image-preview {
+            float: right;
+            max-width: 55px;
+            max-height: 55px;
         }
     }
 

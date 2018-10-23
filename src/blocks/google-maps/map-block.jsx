@@ -1,12 +1,24 @@
-import { compose, withProps, withHandlers } from 'recompose';
+import { compose, withProps, withHandlers, withStateHandlers } from 'recompose';
 import {
     withScriptjs,
     withGoogleMap,
     GoogleMap,
     Marker,
+    InfoWindow,
 } from 'react-google-maps';
 
 const MapBlock = compose(
+    withStateHandlers( () => ( {
+        isOpen: false,
+    } ), {
+        onToggleOpen: ( { isOpen } ) => () => ( {
+            isOpen: ! isOpen,
+        } ),
+        showInfo: ( { isOpen, infoIndex } ) => ( index ) => ( {
+            isOpen: infoIndex !== index || ! isOpen,
+            infoIndex: index,
+        } ),
+    } ),
     withProps( {
         loadingElement: <div style={ { height: '100%' } } />,
         mapElement: <div style={ { height: '100%' } } />,
@@ -48,7 +60,15 @@ const MapBlock = compose(
                 <Marker
                     key={ index }
                     position={ { lat: marker.lat, lng: marker.lng } }
-                />
+                    icon={ marker.iconUrl }
+                    onClick={ () => props.showInfo( index ) }
+                >
+                    { ( props.isOpen && marker.infoWindow && props.infoIndex === index ) &&
+                    <InfoWindow onCloseClick={ props.onToggleOpen }>
+                        <div dangerouslySetInnerHTML={ { __html: marker.infoWindow } }>
+                        </div>
+                    </InfoWindow> }
+                </Marker>
             ) ) }
         </GoogleMap>
     );

@@ -564,10 +564,19 @@ function prepareGoogleMaps() {
 
                     if ( markers && markers.length ) {
                         markers.forEach( ( marker ) => {
-                            mapObject.addMarker( {
+                            const mapMarker = mapObject.addMarker( {
                                 lat: marker.lat,
                                 lng: marker.lng,
+                                icon: marker.iconUrl,
                             } );
+                            if ( marker.infoWindow ) {
+                                const infowindow = new window.google.maps.InfoWindow( {
+                                    content: marker.infoWindow,
+                                } );
+                                mapMarker.addListener( 'click', function() {
+                                    infowindow.open( mapObject, mapMarker );
+                                } );
+                            }
                         } );
                     }
                 } );

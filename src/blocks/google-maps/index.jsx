@@ -31,11 +31,14 @@ const {
     ToggleControl,
     Button,
     Toolbar,
+    SVG,
+    Path,
 } = wp.components;
 
 const {
     InspectorControls,
     BlockControls,
+    MediaUpload,
 } = wp.editor;
 
 const { apiFetch } = wp;
@@ -258,6 +261,51 @@ class GoogleMapsBlock extends Component {
                                                         }
                                                     } }
                                                     className="ghostkit-google-maps-search-box"
+                                                />
+                                                <MediaUpload
+                                                    allowedTypes={ [ 'image' ] }
+                                                    value={ marker.iconId }
+                                                    onSelect={ function( media ) {
+                                                        markers[ index ].iconId = media.id;
+                                                        markers[ index ].iconUrl = media.url;
+                                                        return setAttributes( {
+                                                            markers: Object.assign( [], markers ),
+                                                        } );
+                                                    } }
+                                                    render={ function( obj ) {
+                                                        return (
+                                                            <Fragment>
+                                                                <Button
+                                                                    className="components-icon-button components-toolbar__control"
+                                                                    onClick={ obj.open }
+                                                                >
+                                                                    <SVG
+                                                                        className="dashicon dashicons-edit"
+                                                                        width="20"
+                                                                        height="20"
+                                                                    >
+                                                                        <Path d="M2.25 1h15.5c.69 0 1.25.56 1.25 1.25v15.5c0 .69-.56 1.25-1.25 1.25H2.25C1.56 19 1 18.44 1 17.75V2.25C1 1.56 1.56 1 2.25 1zM17 17V3H3v14h14zM10 6c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm3 5s0-6 3-6v10c0 .55-.45 1-1 1H5c-.55 0-1-.45-1-1V8c2 0 3 4 3 4s1-3 3-3 3 2 3 2z" />
+                                                                    </SVG>
+                                                                </Button>
+                                                                { marker.iconUrl ? <img alt={ __( 'Google Map Custom' ) } src={ marker.iconUrl } className="marker-image-preview" /> : <img alt={ __( 'Google Map Marker Default' ) } src="https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png" className="marker-image-preview" /> }
+                                                            </Fragment>
+                                                        );
+                                                    } }
+                                                />
+                                                <TextareaControl
+                                                    label={ __( 'Info Window Text' ) }
+                                                    help={ __( 'Optional' ) }
+                                                    value={ markers[ index ].infoWindow }
+                                                    onChange={ function( text ) {
+                                                        // no HTML inside markers right now possible because
+                                                        // we are doing stringify of json in a data attribute for frontend
+                                                        // from where if html given in html attribute it will not properly be fetched back
+                                                        // and converted to JSON again.
+                                                        markers[ index ].infoWindow = text.replace( /<[^>]*>/g, '' );
+                                                        return setAttributes( {
+                                                            markers: Object.assign( [], markers ),
+                                                        } );
+                                                    } }
                                                 />
                                                 <Button
                                                     onClick={ () => {
