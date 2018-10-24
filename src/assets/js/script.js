@@ -623,7 +623,7 @@ function prepareSR() {
             distance = 0;
         }
 
-        if ( 'scale' === effect ) {
+        if ( 'zoom' === effect ) {
             scale = 0.9;
         }
 
