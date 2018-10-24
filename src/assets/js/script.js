@@ -568,6 +568,7 @@ function prepareGoogleMaps() {
                                 lat: marker.lat,
                                 lng: marker.lng,
                                 icon: marker.iconUrl,
+                                animation: marker.animation,
                             } );
                             if ( marker.infoWindow ) {
                                 const infowindow = new window.google.maps.InfoWindow( {

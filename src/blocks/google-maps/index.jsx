@@ -274,7 +274,9 @@ class GoogleMapsBlock extends Component {
                                                     } }
                                                     render={ function( obj ) {
                                                         return (
-                                                            <Fragment>
+                                                            <div
+                                                                className="marker-icon-picker-container"
+                                                            >
                                                                 <Button
                                                                     className="components-icon-button components-toolbar__control"
                                                                     onClick={ obj.open }
@@ -288,7 +290,7 @@ class GoogleMapsBlock extends Component {
                                                                     </SVG>
                                                                 </Button>
                                                                 { marker.iconUrl ? <img alt={ __( 'Google Map Custom' ) } src={ marker.iconUrl } className="marker-image-preview" /> : <img alt={ __( 'Google Map Marker Default' ) } src="https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png" className="marker-image-preview" /> }
-                                                            </Fragment>
+                                                            </div>
                                                         );
                                                     } }
                                                 />
@@ -302,6 +304,22 @@ class GoogleMapsBlock extends Component {
                                                         // from where if html given in html attribute it will not properly be fetched back
                                                         // and converted to JSON again.
                                                         markers[ index ].infoWindow = text.replace( /<[^>]*>/g, '' );
+                                                        return setAttributes( {
+                                                            markers: Object.assign( [], markers ),
+                                                        } );
+                                                    } }
+                                                />
+                                                <SelectControl
+                                                    label={ __( 'Marker Animations' ) }
+                                                    value={ markers[ index ].animation }
+                                                    options={ [
+                                                        { label: 'None', value: 0 },
+                                                        { label: 'BOUNCE', value: 1 },
+                                                        { label: 'DROP', value: 2 },
+                                                        { label: 'DROP SHORT', value: 4 },
+                                                    ] }
+                                                    onChange={ ( animation ) => {
+                                                        markers[ index ].animation = animation;
                                                         return setAttributes( {
                                                             markers: Object.assign( [], markers ),
                                                         } );

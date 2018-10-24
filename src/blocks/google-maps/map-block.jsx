@@ -61,6 +61,7 @@ const MapBlock = compose(
                     key={ index }
                     position={ { lat: marker.lat, lng: marker.lng } }
                     icon={ marker.iconUrl }
+                    animation={ marker.animation ? marker.animation : '' }
                     onClick={ () => props.showInfo( index ) }
                 >
                     { ( props.isOpen && marker.infoWindow && props.infoIndex === index ) &&
