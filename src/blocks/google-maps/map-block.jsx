@@ -60,12 +60,18 @@ const MapBlock = compose(
                 <Marker
                     key={ index }
                     position={ { lat: marker.lat, lng: marker.lng } }
-                    icon={ marker.iconUrl }
+                    icon={ {
+                        url: marker.iconUrl, // url
+                        scaledSize: new window.google.maps.Size( 30, 30 ), // scaled size
+                    } }
                     animation={ marker.animation ? marker.animation : '' }
                     onClick={ () => props.showInfo( index ) }
                 >
                     { ( props.isOpen && marker.infoWindow && props.infoIndex === index ) &&
-                    <InfoWindow onCloseClick={ props.onToggleOpen }>
+                    <InfoWindow
+                        onCloseClick={ props.onToggleOpen }
+                        options={ { maxWidth: '150' } }
+                    >
                         <div dangerouslySetInnerHTML={ { __html: marker.infoWindow } }>
                         </div>
                     </InfoWindow> }

@@ -567,12 +567,16 @@ function prepareGoogleMaps() {
                             const mapMarker = mapObject.addMarker( {
                                 lat: marker.lat,
                                 lng: marker.lng,
-                                icon: marker.iconUrl,
+                                icon: {
+                                    url: marker.iconUrl, // url
+                                    scaledSize: new window.google.maps.Size( 30, 30 ), // scaled size
+                                },
                                 animation: marker.animation,
                             } );
                             if ( marker.infoWindow ) {
                                 const infowindow = new window.google.maps.InfoWindow( {
                                     content: marker.infoWindow,
+                                    maxWidth: 150,
                                 } );
                                 mapMarker.addListener( 'click', function() {
                                     infowindow.open( mapObject, mapMarker );
