@@ -10,21 +10,22 @@ import elementIcon from '../_icons/divider.svg';
 
 const { GHOSTKIT } = window;
 
+import ColorPicker from '../_components/color-picker.jsx';
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     RangeControl,
-    PanelColor,
     SelectControl,
     TextControl,
     Toolbar,
     DropdownMenu,
+    ColorIndicator,
 } = wp.components;
 
 const {
     InspectorControls,
-    ColorPalette,
     BlockControls,
 } = wp.editor;
 
@@ -136,33 +137,47 @@ class DividerBlock extends Component {
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
-                        <PanelColor title={ __( 'Color' ) } colorValue={ color } >
-                            <ColorPalette
-                                value={ color }
-                                onChange={ ( value ) => setAttributes( { color: value } ) }
-                            />
-                        </PanelColor>
                         <TextControl
                             label={ __( 'Icon' ) }
                             value={ icon }
                             help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
-                        <RangeControl
-                            label={ __( 'Icon Size' ) }
-                            value={ iconSize }
-                            onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-                            min={ 10 }
-                            max={ 100 }
-                            beforeIcon="editor-textcolor"
-                            afterIcon="editor-textcolor"
-                        />
-                        <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
-                            <ColorPalette
-                                value={ iconColor }
-                                onChange={ ( value ) => setAttributes( { iconColor: value } ) }
+                        { icon ? (
+                            <RangeControl
+                                label={ __( 'Icon Size' ) }
+                                value={ iconSize }
+                                onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+                                min={ 10 }
+                                max={ 100 }
+                                beforeIcon="editor-textcolor"
+                                afterIcon="editor-textcolor"
                             />
-                        </PanelColor>
+                        ) : '' }
+                        <PanelBody title={ (
+                            <Fragment>
+                                { __( 'Colors' ) }
+                                <ColorIndicator colorValue={ color } />
+                                { icon ? (
+                                    <ColorIndicator colorValue={ iconColor } />
+                                ) : '' }
+                            </Fragment>
+                        ) } initialOpen={ false }>
+                            <ColorPicker
+                                label={ __( 'Divider' ) }
+                                value={ color }
+                                onChange={ ( val ) => setAttributes( { color: val } ) }
+                                alpha={ true }
+                            />
+                            { icon ? (
+                                <ColorPicker
+                                    label={ __( 'Icon' ) }
+                                    value={ iconColor }
+                                    onChange={ ( val ) => setAttributes( { iconColor: val } ) }
+                                    alpha={ true }
+                                />
+                            ) : '' }
+                        </PanelBody>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>

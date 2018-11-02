@@ -6,6 +6,8 @@ import elementIcon from '../_icons/button.svg';
 
 const { GHOSTKIT } = window;
 
+import ColorPicker from '../_components/color-picker.jsx';
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -13,16 +15,16 @@ const {
     Dashicon,
     IconButton,
     PanelBody,
-    PanelColor,
     RangeControl,
     Button,
     ButtonGroup,
+    TabPanel,
+    ColorIndicator,
 } = wp.components;
 
 const {
     InspectorControls,
     RichText,
-    ColorPalette,
     URLInput,
 } = wp.editor;
 
@@ -123,53 +125,68 @@ class ButtonSingleBlock extends Component {
                             max="50"
                             onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
                         />
-                        <PanelColor title={ __( 'Background Color' ) } colorValue={ color } >
-                            <ColorPalette
-                                value={ color }
-                                onChange={ ( value ) => setAttributes( { color: value } ) }
-                            />
-                        </PanelColor>
-                        <PanelColor title={ __( 'Text Color' ) } colorValue={ textColor } >
-                            <ColorPalette
-                                value={ textColor }
-                                onChange={ ( value ) => setAttributes( { textColor: value } ) }
-                            />
-                        </PanelColor>
-                    </PanelBody>
-                    <PanelBody title={ __( 'Border' ) } initialOpen={ false }>
                         <RangeControl
-                            label={ __( 'Weight' ) }
+                            label={ __( 'Border Weight' ) }
                             value={ borderWeight }
                             min="0"
                             max="6"
                             onChange={ ( value ) => setAttributes( { borderWeight: value } ) }
                         />
-                        <PanelColor title={ __( 'Color' ) } colorValue={ borderColor } >
-                            <ColorPalette
-                                value={ borderColor }
-                                onChange={ ( value ) => setAttributes( { borderColor: value } ) }
-                            />
-                        </PanelColor>
                     </PanelBody>
-                    <PanelBody title={ __( 'Hover Colors' ) } initialOpen={ false }>
-                        <PanelColor title={ __( 'Background Color' ) } colorValue={ hoverColor } >
-                            <ColorPalette
-                                value={ hoverColor }
-                                onChange={ ( value ) => setAttributes( { hoverColor: value } ) }
-                            />
-                        </PanelColor>
-                        <PanelColor title={ __( 'Text Color' ) } colorValue={ hoverTextColor } >
-                            <ColorPalette
-                                value={ hoverTextColor }
-                                onChange={ ( value ) => setAttributes( { hoverTextColor: value } ) }
-                            />
-                        </PanelColor>
-                        <PanelColor title={ __( 'Border Color' ) } colorValue={ hoverBorderColor } >
-                            <ColorPalette
-                                value={ hoverBorderColor }
-                                onChange={ ( value ) => setAttributes( { hoverBorderColor: value } ) }
-                            />
-                        </PanelColor>
+                    <PanelBody title={ (
+                        <Fragment>
+                            { __( 'Colors' ) }
+                            <ColorIndicator colorValue={ color } />
+                            <ColorIndicator colorValue={ textColor } />
+                            { borderWeight ? (
+                                <ColorIndicator colorValue={ borderColor } />
+                            ) : '' }
+                        </Fragment>
+                    ) } initialOpen={ false }>
+                        <TabPanel
+                            className="ghostkit-control-tabs"
+                            tabs={ [
+                                {
+                                    name: 'normal',
+                                    title: __( 'Normal' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'hover',
+                                    title: __( 'Hover' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                            ] }>
+                            {
+                                ( tabData ) => {
+                                    const isHover = tabData.name === 'hover';
+                                    return (
+                                        <Fragment>
+                                            <ColorPicker
+                                                label={ __( 'Background' ) }
+                                                value={ isHover ? hoverColor : color }
+                                                onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
+                                                alpha={ true }
+                                            />
+                                            <ColorPicker
+                                                label={ __( 'Text' ) }
+                                                value={ isHover ? hoverTextColor : textColor }
+                                                onChange={ ( val ) => setAttributes( isHover ? { hoverTextColor: val } : { textColor: val } ) }
+                                                alpha={ true }
+                                            />
+                                            { borderWeight ? (
+                                                <ColorPicker
+                                                    label={ __( 'Border' ) }
+                                                    value={ isHover ? hoverBorderColor : borderColor }
+                                                    onChange={ ( val ) => setAttributes( isHover ? { hoverBorderColor: val } : { borderColor: val } ) }
+                                                    alpha={ true }
+                                                />
+                                            ) : '' }
+                                        </Fragment>
+                                    );
+                                }
+                            }
+                        </TabPanel>
                     </PanelBody>
                 </InspectorControls>
                 <div>

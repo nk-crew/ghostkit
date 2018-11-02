@@ -11,20 +11,20 @@ import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
+import ColorPicker from '../_components/color-picker.jsx';
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     TextControl,
     RangeControl,
-    PanelColor,
     SelectControl,
     ToggleControl,
 } = wp.components;
 
 const {
     InspectorControls,
-    ColorPalette,
     InnerBlocks,
     RichText,
 } = wp.editor;
@@ -120,12 +120,12 @@ class CounterBoxBlock extends Component {
                                 },
                             ] }
                         />
-                        <PanelColor title={ __( 'Number Color' ) } colorValue={ numberColor } >
-                            <ColorPalette
-                                value={ numberColor }
-                                onChange={ ( value ) => setAttributes( { numberColor: value } ) }
-                            />
-                        </PanelColor>
+                        <ColorPicker
+                            label={ __( 'Number Color' ) }
+                            value={ numberColor }
+                            onChange={ ( val ) => setAttributes( { numberColor: val } ) }
+                            alpha={ true }
+                        />
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>

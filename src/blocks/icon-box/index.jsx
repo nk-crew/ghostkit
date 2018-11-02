@@ -11,19 +11,19 @@ import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
+import ColorPicker from '../_components/color-picker.jsx';
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     RangeControl,
-    PanelColor,
     SelectControl,
     TextControl,
 } = wp.components;
 
 const {
     InspectorControls,
-    ColorPalette,
     InnerBlocks,
 } = wp.editor;
 
@@ -108,12 +108,12 @@ class IconBoxBlock extends Component {
                                 },
                             ] }
                         />
-                        <PanelColor title={ __( 'Icon Color' ) } colorValue={ iconColor } >
-                            <ColorPalette
-                                value={ iconColor }
-                                onChange={ ( value ) => setAttributes( { iconColor: value } ) }
-                            />
-                        </PanelColor>
+                        <ColorPicker
+                            label={ __( 'Icon Color' ) }
+                            value={ iconColor }
+                            onChange={ ( val ) => setAttributes( { iconColor: val } ) }
+                            alpha={ true }
+                        />
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>

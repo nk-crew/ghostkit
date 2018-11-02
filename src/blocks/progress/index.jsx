@@ -12,6 +12,8 @@ import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
+import ColorPicker from '../_components/color-picker.jsx';
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -19,13 +21,12 @@ const {
     TextControl,
     SelectControl,
     RangeControl,
-    PanelColor,
     ToggleControl,
+    ColorIndicator,
 } = wp.components;
 
 const {
     InspectorControls,
-    ColorPalette,
     RichText,
 } = wp.editor;
 
@@ -135,18 +136,26 @@ class ProgressBlock extends Component {
                             checked={ !! animateInViewport }
                             onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
                         />
-                        <PanelColor title={ __( 'Color' ) } colorValue={ color } >
-                            <ColorPalette
-                                value={ color }
-                                onChange={ ( value ) => setAttributes( { color: value } ) }
-                            />
-                        </PanelColor>
-                        <PanelColor title={ __( 'Background Color' ) } colorValue={ backgroundColor } >
-                            <ColorPalette
-                                value={ backgroundColor }
-                                onChange={ ( value ) => setAttributes( { backgroundColor: value } ) }
-                            />
-                        </PanelColor>
+                    </PanelBody>
+                    <PanelBody title={ (
+                        <Fragment>
+                            { __( 'Colors' ) }
+                            <ColorIndicator colorValue={ color } />
+                            <ColorIndicator colorValue={ backgroundColor } />
+                        </Fragment>
+                    ) } initialOpen={ false }>
+                        <ColorPicker
+                            label={ __( 'Bar' ) }
+                            value={ color }
+                            onChange={ ( val ) => setAttributes( { color: val } ) }
+                            alpha={ true }
+                        />
+                        <ColorPicker
+                            label={ __( 'Background' ) }
+                            value={ backgroundColor }
+                            onChange={ ( val ) => setAttributes( { backgroundColor: val } ) }
+                            alpha={ true }
+                        />
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>

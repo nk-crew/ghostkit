@@ -11,13 +11,14 @@ import elementIcon from '../_icons/alert.svg';
 
 const { GHOSTKIT } = window;
 
+import ColorPicker from '../_components/color-picker.jsx';
+
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     SelectControl,
     RangeControl,
-    PanelColor,
     TextControl,
     ToggleControl,
     Toolbar,
@@ -26,7 +27,6 @@ const {
 
 const {
     InspectorControls,
-    ColorPalette,
     InnerBlocks,
     BlockControls,
 } = wp.editor;
@@ -128,12 +128,12 @@ class AlertBlock extends Component {
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
-                        <PanelColor title={ __( 'Color' ) } colorValue={ color } >
-                            <ColorPalette
-                                value={ color }
-                                onChange={ ( value ) => setAttributes( { color: value } ) }
-                            />
-                        </PanelColor>
+                        <ColorPicker
+                            label={ __( 'Color' ) }
+                            value={ color }
+                            onChange={ ( val ) => setAttributes( { color: val } ) }
+                            alpha={ true }
+                        />
                         <ToggleControl
                             label={ __( 'Dismiss button' ) }
                             checked={ !! hideButton }
