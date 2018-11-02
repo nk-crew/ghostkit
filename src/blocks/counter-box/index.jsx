@@ -21,6 +21,8 @@ const {
     RangeControl,
     SelectControl,
     ToggleControl,
+    TabPanel,
+    ColorIndicator,
 } = wp.components;
 
 const {
@@ -48,6 +50,7 @@ class CounterBoxBlock extends Component {
             numberPosition,
             numberSize,
             numberColor,
+            hoverNumberColor,
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'counter_box' );
@@ -120,12 +123,43 @@ class CounterBoxBlock extends Component {
                                 },
                             ] }
                         />
-                        <ColorPicker
-                            label={ __( 'Number Color' ) }
-                            value={ numberColor }
-                            onChange={ ( val ) => setAttributes( { numberColor: val } ) }
-                            alpha={ true }
-                        />
+                    </PanelBody>
+                    <PanelBody title={ (
+                        <Fragment>
+                            { __( 'Colors' ) }
+                            <ColorIndicator colorValue={ numberColor } />
+                        </Fragment>
+                    ) } initialOpen={ false }>
+                        <TabPanel
+                            className="ghostkit-control-tabs"
+                            tabs={ [
+                                {
+                                    name: 'normal',
+                                    title: __( 'Normal' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'hover',
+                                    title: __( 'Hover' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                            ] }>
+                            {
+                                ( tabData ) => {
+                                    const isHover = tabData.name === 'hover';
+                                    return (
+                                        <Fragment>
+                                            <ColorPicker
+                                                label={ __( 'Color' ) }
+                                                value={ isHover ? hoverNumberColor : numberColor }
+                                                onChange={ ( val ) => setAttributes( isHover ? { hoverNumberColor: val } : { numberColor: val } ) }
+                                                alpha={ true }
+                                            />
+                                        </Fragment>
+                                    );
+                                }
+                            }
+                        </TabPanel>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
@@ -171,12 +205,20 @@ export const settings = {
         align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitStylesCallback( attributes ) {
-            return {
+            const styles = {
                 '.ghostkit-counter-box-number': {
                     fontSize: attributes.numberSize,
                     color: attributes.numberColor,
                 },
             };
+
+            if ( attributes.hoverNumberColor ) {
+                styles[ '&:hover .ghostkit-counter-box-number' ] = {
+                    color: attributes.hoverNumberColor,
+                };
+            }
+
+            return styles;
         },
         ghostkitSpacings: true,
         ghostkitDisplay: true,
@@ -212,6 +254,9 @@ export const settings = {
         numberColor: {
             type: 'string',
             default: '#0366d6',
+        },
+        hoverNumberColor: {
+            type: 'string',
         },
     },
 

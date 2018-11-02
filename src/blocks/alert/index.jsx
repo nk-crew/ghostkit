@@ -23,6 +23,8 @@ const {
     ToggleControl,
     Toolbar,
     DropdownMenu,
+    TabPanel,
+    ColorIndicator,
 } = wp.components;
 
 const {
@@ -43,6 +45,7 @@ class AlertBlock extends Component {
         const {
             ghostkitClassname,
             color,
+            hoverColor,
             icon,
             iconSize,
             hideButton,
@@ -128,17 +131,48 @@ class AlertBlock extends Component {
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
-                        <ColorPicker
-                            label={ __( 'Color' ) }
-                            value={ color }
-                            onChange={ ( val ) => setAttributes( { color: val } ) }
-                            alpha={ true }
-                        />
                         <ToggleControl
                             label={ __( 'Dismiss button' ) }
                             checked={ !! hideButton }
                             onChange={ ( val ) => setAttributes( { hideButton: val } ) }
                         />
+                    </PanelBody>
+                    <PanelBody title={ (
+                        <Fragment>
+                            { __( 'Colors' ) }
+                            <ColorIndicator colorValue={ color } />
+                        </Fragment>
+                    ) } initialOpen={ false }>
+                        <TabPanel
+                            className="ghostkit-control-tabs"
+                            tabs={ [
+                                {
+                                    name: 'normal',
+                                    title: __( 'Normal' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'hover',
+                                    title: __( 'Hover' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                            ] }>
+                            {
+                                ( tabData ) => {
+                                    const isHover = tabData.name === 'hover';
+                                    return (
+                                        <Fragment>
+                                            <ColorPicker
+                                                label={ __( 'Color' ) }
+                                                value={ isHover ? hoverColor : color }
+                                                onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
+                                                alpha={ true }
+                                            />
+                                        </Fragment>
+                                    );
+                                }
+                            }
+                        </TabPanel>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
@@ -181,13 +215,24 @@ export const settings = {
         align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitStylesCallback( attributes ) {
-            return {
+            const styles = {
                 borderLeftColor: attributes.color,
                 '.ghostkit-alert-icon': {
                     fontSize: attributes.iconSize,
                     color: attributes.color,
                 },
             };
+
+            if ( attributes.hoverColor ) {
+                styles[ '&:hover' ] = {
+                    borderLeftColor: attributes.hoverColor,
+                    '.ghostkit-alert-icon': {
+                        color: attributes.hoverColor,
+                    },
+                };
+            }
+
+            return styles;
         },
         ghostkitSpacings: true,
         ghostkitDisplay: true,
@@ -201,6 +246,9 @@ export const settings = {
         color: {
             type: 'string',
             default: '#E47F3B',
+        },
+        hoverColor: {
+            type: 'string',
         },
         icon: {
             type: 'string',

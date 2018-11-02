@@ -16,6 +16,7 @@
         flex: 1;
         max-width: 50%;
         border-bottom: 1px solid $light-gray-200;
+        transition: .2s border-color ease-in-out;
     }
 
     &:not(.ghostkit-divider-with-icon) {
@@ -48,5 +49,6 @@
         display: flex;
         padding-right: 1em;
         padding-left: 1em;
+        transition: .2s color ease-in-out;
     }
 }

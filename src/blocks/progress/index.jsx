@@ -1,6 +1,7 @@
 // External Dependencies.
 import ResizableBox from 're-resizable';
 import classnames from 'classnames/dedupe';
+import deepAssign from 'deep-assign';
 
 // Import CSS
 import './style.scss';
@@ -23,6 +24,7 @@ const {
     RangeControl,
     ToggleControl,
     ColorIndicator,
+    TabPanel,
 } = wp.components;
 
 const {
@@ -54,6 +56,8 @@ class ProgressBlock extends Component {
             countSuffix,
             color,
             backgroundColor,
+            hoverColor,
+            hoverBackgroundColor,
             variant,
         } = attributes;
 
@@ -144,18 +148,42 @@ class ProgressBlock extends Component {
                             <ColorIndicator colorValue={ backgroundColor } />
                         </Fragment>
                     ) } initialOpen={ false }>
-                        <ColorPicker
-                            label={ __( 'Bar' ) }
-                            value={ color }
-                            onChange={ ( val ) => setAttributes( { color: val } ) }
-                            alpha={ true }
-                        />
-                        <ColorPicker
-                            label={ __( 'Background' ) }
-                            value={ backgroundColor }
-                            onChange={ ( val ) => setAttributes( { backgroundColor: val } ) }
-                            alpha={ true }
-                        />
+                        <TabPanel
+                            className="ghostkit-control-tabs"
+                            tabs={ [
+                                {
+                                    name: 'normal',
+                                    title: __( 'Normal' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'hover',
+                                    title: __( 'Hover' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                            ] }>
+                            {
+                                ( tabData ) => {
+                                    const isHover = tabData.name === 'hover';
+                                    return (
+                                        <Fragment>
+                                            <ColorPicker
+                                                label={ __( 'Bar' ) }
+                                                value={ isHover ? hoverColor : color }
+                                                onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
+                                                alpha={ true }
+                                            />
+                                            <ColorPicker
+                                                label={ __( 'Background' ) }
+                                                value={ isHover ? hoverBackgroundColor : backgroundColor }
+                                                onChange={ ( val ) => setAttributes( isHover ? { hoverBackgroundColor: val } : { backgroundColor: val } ) }
+                                                alpha={ true }
+                                            />
+                                        </Fragment>
+                                    );
+                                }
+                            }
+                        </TabPanel>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
@@ -239,7 +267,7 @@ export const settings = {
         align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitStylesCallback( attributes ) {
-            return {
+            const styles = {
                 '.ghostkit-progress-wrap': {
                     height: attributes.height,
                     borderRadius: attributes.borderRadius,
@@ -250,6 +278,25 @@ export const settings = {
                     },
                 },
             };
+
+            if ( attributes.hoverColor ) {
+                styles[ '&:hover' ] = {
+                    '.ghostkit-progress-wrap': {
+                        '.ghostkit-progress-bar': {
+                            backgroundColor: attributes.hoverColor,
+                        },
+                    },
+                };
+            }
+            if ( attributes.hoverBackgroundColor ) {
+                styles[ '&:hover' ] = deepAssign( styles[ '&:hover' ] || {}, {
+                    '.ghostkit-progress-wrap': {
+                        backgroundColor: attributes.hoverBackgroundColor,
+                    },
+                } );
+            }
+
+            return styles;
         },
         ghostkitSpacings: true,
         ghostkitDisplay: true,
@@ -305,6 +352,12 @@ export const settings = {
         backgroundColor: {
             type: 'string',
             default: '#f3f4f5',
+        },
+        hoverColor: {
+            type: 'string',
+        },
+        hoverBackgroundColor: {
+            type: 'string',
         },
     },
 

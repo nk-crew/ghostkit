@@ -10,11 +10,13 @@
     background-color: #fff;
     border: 1px solid $light-gray-200;
     border-left-width: 2px;
+    transition: .2s border-color ease-in-out;
 
     .ghostkit-alert-icon {
         display: flex;
         padding: 3px;
         padding-right: 15px;
+        transition: .2s color ease-in-out;
     }
 
     .ghostkit-alert-content {

@@ -4,6 +4,7 @@ import './editor.scss';
 
 // External Dependencies.
 import classnames from 'classnames/dedupe';
+import deepAssign from 'deep-assign';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/divider.svg';
@@ -22,6 +23,7 @@ const {
     Toolbar,
     DropdownMenu,
     ColorIndicator,
+    TabPanel,
 } = wp.components;
 
 const {
@@ -42,10 +44,12 @@ class DividerBlock extends Component {
             ghostkitClassname,
             type,
             size,
-            color,
             icon,
             iconSize,
+            color,
             iconColor,
+            hoverColor,
+            hoverIconColor,
             variant,
         } = attributes;
 
@@ -163,20 +167,44 @@ class DividerBlock extends Component {
                                 ) : '' }
                             </Fragment>
                         ) } initialOpen={ false }>
-                            <ColorPicker
-                                label={ __( 'Divider' ) }
-                                value={ color }
-                                onChange={ ( val ) => setAttributes( { color: val } ) }
-                                alpha={ true }
-                            />
-                            { icon ? (
-                                <ColorPicker
-                                    label={ __( 'Icon' ) }
-                                    value={ iconColor }
-                                    onChange={ ( val ) => setAttributes( { iconColor: val } ) }
-                                    alpha={ true }
-                                />
-                            ) : '' }
+                            <TabPanel
+                                className="ghostkit-control-tabs"
+                                tabs={ [
+                                    {
+                                        name: 'normal',
+                                        title: __( 'Normal' ),
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                    {
+                                        name: 'hover',
+                                        title: __( 'Hover' ),
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                ] }>
+                                {
+                                    ( tabData ) => {
+                                        const isHover = tabData.name === 'hover';
+                                        return (
+                                            <Fragment>
+                                                <ColorPicker
+                                                    label={ __( 'Divider' ) }
+                                                    value={ isHover ? hoverColor : color }
+                                                    onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
+                                                    alpha={ true }
+                                                />
+                                                { icon ? (
+                                                    <ColorPicker
+                                                        label={ __( 'Icon' ) }
+                                                        value={ isHover ? hoverIconColor : iconColor }
+                                                        onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
+                                                        alpha={ true }
+                                                    />
+                                                ) : '' }
+                                            </Fragment>
+                                        );
+                                    }
+                                }
+                            </TabPanel>
                         </PanelBody>
                     </PanelBody>
                 </InspectorControls>
@@ -212,7 +240,7 @@ export const settings = {
         align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitStylesCallback( attributes ) {
-            return {
+            const styles = {
                 '&::before, &::after': {
                     borderColor: attributes.color,
                     borderWidth: attributes.size,
@@ -222,6 +250,23 @@ export const settings = {
                     color: attributes.iconColor,
                 },
             };
+
+            if ( attributes.hoverColor ) {
+                styles[ '&:hover' ] = {
+                    '&::before, &::after': {
+                        borderColor: attributes.hoverColor,
+                    },
+                };
+            }
+            if ( attributes.hoverIconColor ) {
+                styles[ '&:hover' ] = deepAssign( styles[ '&:hover' ] || {}, {
+                    '.ghostkit-divider-icon': {
+                        color: attributes.hoverIconColor,
+                    },
+                } );
+            }
+
+            return styles;
         },
         ghostkitSpacings: true,
         ghostkitDisplay: true,
@@ -240,10 +285,6 @@ export const settings = {
             type: 'number',
             default: 2,
         },
-        color: {
-            type: 'string',
-            default: '#a7a9ab',
-        },
         icon: {
             type: 'string',
             default: '',
@@ -252,9 +293,19 @@ export const settings = {
             type: 'number',
             default: 10,
         },
+        color: {
+            type: 'string',
+            default: '#a7a9ab',
+        },
         iconColor: {
             type: 'string',
             default: '#a7a9ab',
+        },
+        hoverColor: {
+            type: 'string',
+        },
+        hoverIconColor: {
+            type: 'string',
         },
     },
 

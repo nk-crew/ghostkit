@@ -20,6 +20,8 @@ const {
     RangeControl,
     SelectControl,
     TextControl,
+    TabPanel,
+    ColorIndicator,
 } = wp.components;
 
 const {
@@ -42,6 +44,7 @@ class IconBoxBlock extends Component {
             iconPosition,
             iconSize,
             iconColor,
+            hoverIconColor,
             variant,
         } = attributes;
 
@@ -108,12 +111,43 @@ class IconBoxBlock extends Component {
                                 },
                             ] }
                         />
-                        <ColorPicker
-                            label={ __( 'Icon Color' ) }
-                            value={ iconColor }
-                            onChange={ ( val ) => setAttributes( { iconColor: val } ) }
-                            alpha={ true }
-                        />
+                    </PanelBody>
+                    <PanelBody title={ (
+                        <Fragment>
+                            { __( 'Colors' ) }
+                            <ColorIndicator colorValue={ iconColor } />
+                        </Fragment>
+                    ) } initialOpen={ false }>
+                        <TabPanel
+                            className="ghostkit-control-tabs"
+                            tabs={ [
+                                {
+                                    name: 'normal',
+                                    title: __( 'Normal' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'hover',
+                                    title: __( 'Hover' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                            ] }>
+                            {
+                                ( tabData ) => {
+                                    const isHover = tabData.name === 'hover';
+                                    return (
+                                        <Fragment>
+                                            <ColorPicker
+                                                label={ __( 'Icon' ) }
+                                                value={ isHover ? hoverIconColor : iconColor }
+                                                onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
+                                                alpha={ true }
+                                            />
+                                        </Fragment>
+                                    );
+                                }
+                            }
+                        </TabPanel>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
@@ -154,12 +188,20 @@ export const settings = {
         align: [ 'wide', 'full' ],
         ghostkitStyles: true,
         ghostkitStylesCallback( attributes ) {
-            return {
+            const styles = {
                 '.ghostkit-icon-box-icon': {
                     fontSize: attributes.iconSize,
                     color: attributes.iconColor,
                 },
             };
+
+            if ( attributes.hoverIconColor ) {
+                styles[ '&:hover .ghostkit-icon-box-icon' ] = {
+                    color: attributes.hoverIconColor,
+                };
+            }
+
+            return styles;
         },
         ghostkitSpacings: true,
         ghostkitDisplay: true,
@@ -185,6 +227,9 @@ export const settings = {
         iconColor: {
             type: 'string',
             default: '#0366d6',
+        },
+        hoverIconColor: {
+            type: 'string',
         },
     },
 

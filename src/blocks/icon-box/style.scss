@@ -12,6 +12,7 @@
     .ghostkit-icon-box-icon {
         display: flex;
         padding-right: 15px;
+        transition: .2s color ease-in-out;
     }
     .ghostkit-icon-box-icon-align-right {
         order: 2;
