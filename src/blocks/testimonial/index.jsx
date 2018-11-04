@@ -123,8 +123,8 @@ function onPhotoSelect( media, setAttributes ) {
 }
 
 class TestimonialBlockEdit extends Component {
-    constructor( props ) {
-        super( props );
+    constructor() {
+        super( ...arguments );
         this.onUpdate = this.onUpdate.bind( this );
     }
     componentDidMount() {

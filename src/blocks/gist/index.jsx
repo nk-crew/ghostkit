@@ -32,8 +32,8 @@ const {
 } = wp.blocks;
 
 class GistBlock extends Component {
-    constructor( props ) {
-        super( props );
+    constructor() {
+        super( ...arguments );
         this.state = {
             url: '',
         };

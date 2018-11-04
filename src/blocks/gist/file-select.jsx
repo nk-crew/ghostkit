@@ -11,8 +11,8 @@ const {
 const cache = {};
 
 class GistFilesSelect extends Component {
-    constructor( props ) {
-        super( props );
+    constructor() {
+        super( ...arguments );
         this.state = {
             error: null,
             isLoaded: false,

@@ -159,8 +159,8 @@ function getVideoPoster( url, cb ) {
 }
 
 class VideoBlockEdit extends Component {
-    constructor( props ) {
-        super( props );
+    constructor() {
+        super( ...arguments );
         this.onUpdate = this.onUpdate.bind( this );
     }
     componentDidMount() {

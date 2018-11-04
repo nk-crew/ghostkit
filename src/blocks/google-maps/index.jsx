@@ -41,8 +41,8 @@ const {
 const { apiFetch } = wp;
 
 class GoogleMapsBlock extends Component {
-    constructor( props ) {
-        super( props );
+    constructor() {
+        super( ...arguments );
 
         this.state = {
             mapID: this.props.attributes.apiKey,
