@@ -6,6 +6,9 @@ import elementIcon from '../_icons/tabs.svg';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -45,6 +48,8 @@ class TabBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         const availableVariants = GHOSTKIT.getVariants( 'tabs_tab' );
 
@@ -106,15 +111,15 @@ export const settings = {
         return { 'data-tab': attributes.tabNumber };
     },
 
-    save: function( { attributes } ) {
+    save: function( props ) {
         const {
             variant,
             tabNumber,
-        } = attributes;
+        } = props.attributes;
 
         let {
             className,
-        } = attributes;
+        } = props.attributes;
 
         className = classnames( className, 'ghostkit-tab' );
 
@@ -122,6 +127,13 @@ export const settings = {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-tab-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         return (
             <div className={ className } data-tab={ tabNumber }>

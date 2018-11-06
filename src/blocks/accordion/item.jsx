@@ -7,6 +7,9 @@ import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -48,6 +51,8 @@ class AccordionItemBlock extends Component {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-accordion-item-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         const availableVariants = GHOSTKIT.getVariants( 'accordion_item' );
 

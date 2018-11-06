@@ -9,6 +9,9 @@ import elementIcon from '../_icons/accordion.svg';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -75,6 +78,8 @@ class AccordionBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -156,12 +161,16 @@ export const settings = {
 
     edit: AccordionBlock,
 
-    save: function( { attributes, className = '' } ) {
+    save: function( props ) {
         const {
             variant,
             itemsCount,
             collapseOne,
-        } = attributes;
+        } = props.attributes;
+
+        let {
+            className,
+        } = props.attributes;
 
         className = classnames(
             className,
@@ -174,6 +183,13 @@ export const settings = {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-accordion-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         return (
             <div className={ className }>

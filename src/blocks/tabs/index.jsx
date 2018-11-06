@@ -10,6 +10,9 @@ import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __, sprintf } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -93,6 +96,8 @@ class TabsBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -226,13 +231,17 @@ export const settings = {
 
     edit: TabsBlock,
 
-    save: function( { attributes, className = '' } ) {
+    save: function( props ) {
         const {
             variant,
             tabsCount,
             tabActive,
             buttonsAlign,
-        } = attributes;
+        } = props.attributes;
+
+        let {
+            className,
+        } = props.attributes;
 
         className = classnames(
             className,
@@ -245,7 +254,14 @@ export const settings = {
             className = classnames( className, `ghostkit-tabs-variant-${ variant }` );
         }
 
-        const tabs = getTabs( attributes );
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
+
+        const tabs = getTabs( props.attributes );
 
         return (
             <div className={ className } data-tab-active={ tabActive }>

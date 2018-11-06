@@ -127,6 +127,37 @@ Available filters:
 * **gkt_twitter_variants**
 * **gkt_video_variants**
 
+### How to extend existing blocks classnames ####
+
+You can add additional classnames to blocks using JavaScript filters:
+
+    /**
+    * Classnames filter.
+    *
+    * @param {String} className Classname applied to save and edit element.
+    * @param {Object} props  Block props.
+    *
+    * @return {String} Classname.
+    */
+    function customClassName( className, props ) {
+        switch ( props.name ) {
+        case 'ghostkit/button-single':
+            className += ' my-classname';
+
+            break;
+        }
+
+        return className;
+    }
+
+    wp.hooks.addFilter( 'ghostkit.blocks.className', 'ghostkit/my-new-className', customClassName );
+    wp.hooks.addFilter( 'ghostkit.editor.className', 'ghostkit/my-new-className', customClassName );
+
+Available filters:
+
+* **ghostkit.blocks.className**
+* **ghostkit.editor.className**
+
 ## Screenshots ##
 
 1. List of all available blocks

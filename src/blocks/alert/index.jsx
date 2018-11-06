@@ -12,7 +12,11 @@ import elementIcon from '../_icons/alert.svg';
 const { GHOSTKIT } = window;
 
 import ColorPicker from '../_components/color-picker.jsx';
+import ApplyFilters from '../_components/apply-filters.jsx';
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -65,6 +69,8 @@ class AlertBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -161,14 +167,14 @@ class AlertBlock extends Component {
                                 ( tabData ) => {
                                     const isHover = tabData.name === 'hover';
                                     return (
-                                        <Fragment>
+                                        <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
                                             <ColorPicker
                                                 label={ __( 'Color' ) }
                                                 value={ isHover ? hoverColor : color }
                                                 onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
                                                 alpha={ true }
                                             />
-                                        </Fragment>
+                                        </ApplyFilters>
                                     );
                                 }
                             }
@@ -266,12 +272,16 @@ export const settings = {
 
     edit: AlertBlock,
 
-    save: function( { attributes, className = '' } ) {
+    save: function( props ) {
         const {
             icon,
             hideButton,
             variant,
-        } = attributes;
+        } = props.attributes;
+
+        let {
+            className,
+        } = props.attributes;
 
         className = classnames( 'ghostkit-alert', className );
 
@@ -279,6 +289,13 @@ export const settings = {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-alert-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         return (
             <div className={ className }>

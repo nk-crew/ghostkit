@@ -30,6 +30,9 @@ import IconVerticalBottomWhite from './icons/vertical-bottom-white.svg';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -202,6 +205,8 @@ class GridBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -415,13 +420,17 @@ export const settings = {
 
     edit: GridBlock,
 
-    save: function( { attributes, className = '' } ) {
+    save: function( props ) {
         const {
             verticalAlign,
             horizontalAlign,
             gap,
             variant,
-        } = attributes;
+        } = props.attributes;
+
+        let {
+            className,
+        } = props.attributes;
 
         className = classnames(
             className,
@@ -435,6 +444,13 @@ export const settings = {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-grid-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         return (
             <div className={ className }>

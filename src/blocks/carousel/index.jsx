@@ -9,6 +9,9 @@ import elementIcon from '../_icons/carousel.svg';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -85,6 +88,8 @@ class CarouselBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -317,7 +322,7 @@ export const settings = {
 
     edit: CarouselBlock,
 
-    save: function( { attributes, className = '' } ) {
+    save: function( props ) {
         const {
             variant,
             effect,
@@ -333,7 +338,11 @@ export const settings = {
             showBullets,
             dynamicBullets,
             gap,
-        } = attributes;
+        } = props.attributes;
+
+        let {
+            className,
+        } = props.attributes;
 
         className = classnames(
             className,
@@ -344,6 +353,13 @@ export const settings = {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-carousel-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         return (
             <div

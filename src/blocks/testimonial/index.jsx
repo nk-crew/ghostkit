@@ -12,6 +12,9 @@ import elementIcon from '../_icons/testimonial.svg';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -178,6 +181,8 @@ class TestimonialBlockEdit extends Component {
             className = classnames( className, ghostkitClassname );
         }
 
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
+
         const availableVariants = GHOSTKIT.getVariants( 'testimonial' );
 
         return (
@@ -312,9 +317,6 @@ class TestimonialBlockSave extends Component {
         const {
             attributes,
         } = this.props;
-        let {
-            className,
-        } = this.props;
 
         const {
             variant,
@@ -323,12 +325,23 @@ class TestimonialBlockSave extends Component {
             source,
         } = attributes;
 
+        let {
+            className,
+        } = attributes;
+
         className = classnames( 'ghostkit-testimonial', className );
 
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-testimonial-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...this.props,
+        } );
 
         return (
             <div className={ className }>

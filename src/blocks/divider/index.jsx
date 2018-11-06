@@ -12,7 +12,11 @@ import elementIcon from '../_icons/divider.svg';
 const { GHOSTKIT } = window;
 
 import ColorPicker from '../_components/color-picker.jsx';
+import ApplyFilters from '../_components/apply-filters.jsx';
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -70,6 +74,8 @@ class DividerBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -186,19 +192,23 @@ class DividerBlock extends Component {
                                         const isHover = tabData.name === 'hover';
                                         return (
                                             <Fragment>
-                                                <ColorPicker
-                                                    label={ __( 'Divider' ) }
-                                                    value={ isHover ? hoverColor : color }
-                                                    onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
-                                                    alpha={ true }
-                                                />
-                                                { icon ? (
+                                                <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
                                                     <ColorPicker
-                                                        label={ __( 'Icon' ) }
-                                                        value={ isHover ? hoverIconColor : iconColor }
-                                                        onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
+                                                        label={ __( 'Divider' ) }
+                                                        value={ isHover ? hoverColor : color }
+                                                        onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
                                                         alpha={ true }
                                                     />
+                                                </ApplyFilters>
+                                                { icon ? (
+                                                    <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverIconColor' : 'iconColor' } props={ this.props }>
+                                                        <ColorPicker
+                                                            label={ __( 'Icon' ) }
+                                                            value={ isHover ? hoverIconColor : iconColor }
+                                                            onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
+                                                            alpha={ true }
+                                                        />
+                                                    </ApplyFilters>
                                                 ) : '' }
                                             </Fragment>
                                         );
@@ -311,12 +321,16 @@ export const settings = {
 
     edit: DividerBlock,
 
-    save: function( { attributes, className = '' } ) {
+    save: function( props ) {
         const {
             icon,
             type,
             variant,
-        } = attributes;
+        } = props.attributes;
+
+        let {
+            className,
+        } = props.attributes;
 
         className = classnames( 'ghostkit-divider', `ghostkit-divider-type-${ type }`, className );
 
@@ -328,6 +342,13 @@ export const settings = {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-divider-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         return (
             <div className={ className }>

@@ -11,6 +11,9 @@ import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 
@@ -90,6 +93,8 @@ class ButtonBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -278,12 +283,16 @@ export const settings = {
 
     edit: ButtonBlock,
 
-    save( { attributes, className = '' } ) {
+    save( props ) {
         const {
             variant,
             align,
             gap,
-        } = attributes;
+        } = props.attributes;
+
+        let {
+            className,
+        } = props.attributes;
 
         className = classnames(
             'ghostkit-button-wrapper',
@@ -291,6 +300,13 @@ export const settings = {
             align && align !== 'none' ? `ghostkit-button-wrapper-align-${ align }` : false,
             className
         );
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         // variant classname.
         if ( 'default' !== variant ) {

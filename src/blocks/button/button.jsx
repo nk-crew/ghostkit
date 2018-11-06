@@ -7,7 +7,11 @@ import elementIcon from '../_icons/button.svg';
 const { GHOSTKIT } = window;
 
 import ColorPicker from '../_components/color-picker.jsx';
+import ApplyFilters from '../_components/apply-filters.jsx';
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -79,6 +83,8 @@ class ButtonSingleBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -162,25 +168,31 @@ class ButtonSingleBlock extends Component {
                                     const isHover = tabData.name === 'hover';
                                     return (
                                         <Fragment>
-                                            <ColorPicker
-                                                label={ __( 'Background' ) }
-                                                value={ isHover ? hoverColor : color }
-                                                onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
-                                                alpha={ true }
-                                            />
-                                            <ColorPicker
-                                                label={ __( 'Text' ) }
-                                                value={ isHover ? hoverTextColor : textColor }
-                                                onChange={ ( val ) => setAttributes( isHover ? { hoverTextColor: val } : { textColor: val } ) }
-                                                alpha={ true }
-                                            />
-                                            { borderWeight ? (
+                                            <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
                                                 <ColorPicker
-                                                    label={ __( 'Border' ) }
-                                                    value={ isHover ? hoverBorderColor : borderColor }
-                                                    onChange={ ( val ) => setAttributes( isHover ? { hoverBorderColor: val } : { borderColor: val } ) }
+                                                    label={ __( 'Background' ) }
+                                                    value={ isHover ? hoverColor : color }
+                                                    onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
                                                     alpha={ true }
                                                 />
+                                            </ApplyFilters>
+                                            <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverTextColor' : 'textColor' } props={ this.props }>
+                                                <ColorPicker
+                                                    label={ __( 'Text' ) }
+                                                    value={ isHover ? hoverTextColor : textColor }
+                                                    onChange={ ( val ) => setAttributes( isHover ? { hoverTextColor: val } : { textColor: val } ) }
+                                                    alpha={ true }
+                                                />
+                                            </ApplyFilters>
+                                            { borderWeight ? (
+                                                <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverBorderColor' : 'borderColor' } props={ this.props }>
+                                                    <ColorPicker
+                                                        label={ __( 'Border' ) }
+                                                        value={ isHover ? hoverBorderColor : borderColor }
+                                                        onChange={ ( val ) => setAttributes( isHover ? { hoverBorderColor: val } : { borderColor: val } ) }
+                                                        alpha={ true }
+                                                    />
+                                                </ApplyFilters>
                                             ) : '' }
                                         </Fragment>
                                     );
@@ -310,18 +322,18 @@ export const settings = {
 
     edit: ButtonSingleBlock,
 
-    save: function( { attributes } ) {
+    save: function( props ) {
         const {
             variant,
             text,
             url,
             title,
             size,
-        } = attributes;
+        } = props.attributes;
 
         let {
             className,
-        } = attributes;
+        } = props.attributes;
 
         className = classnames(
             'ghostkit-button',
@@ -333,6 +345,13 @@ export const settings = {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-button-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         return url ? (
             <RichText.Content

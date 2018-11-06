@@ -6,6 +6,9 @@ import elementIcon from '../_icons/pricing.svg';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -58,6 +61,8 @@ class PricingTableItemBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         const availableVariants = GHOSTKIT.getVariants( 'pricing_table_item' );
 
@@ -316,7 +321,7 @@ export const settings = {
 
     edit: PricingTableItemBlock,
 
-    save: function( { attributes } ) {
+    save: function( props ) {
         const {
             variant,
             popularText,
@@ -332,11 +337,11 @@ export const settings = {
             showDescription,
             showFeatures,
             showButton,
-        } = attributes;
+        } = props.attributes;
 
         let {
             className,
-        } = attributes;
+        } = props.attributes;
 
         className = classnames(
             className,
@@ -348,6 +353,13 @@ export const settings = {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-pricing-table-item-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         return (
             <div className="ghostkit-pricing-table-item-wrap">

@@ -15,6 +15,9 @@ import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -240,6 +243,8 @@ class VideoBlockEdit extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -624,7 +629,6 @@ class VideoBlockSave extends Component {
     render() {
         const {
             attributes,
-            className,
         } = this.props;
 
         const {
@@ -647,6 +651,10 @@ class VideoBlockSave extends Component {
             fullscreenBackgroundColor,
         } = attributes;
 
+        const {
+            className,
+        } = attributes;
+
         const resultAttrs = {};
 
         resultAttrs.className = classnames(
@@ -658,6 +666,13 @@ class VideoBlockSave extends Component {
         if ( 'default' !== variant ) {
             resultAttrs.className = classnames( resultAttrs.className, `ghostkit-video-variant-${ variant }` );
         }
+
+        resultAttrs.className = applyFilters( 'ghostkit.blocks.className', resultAttrs.className, {
+            ...{
+                name,
+            },
+            ...this.props,
+        } );
 
         resultAttrs[ 'data-video-type' ] = type;
 

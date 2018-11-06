@@ -12,7 +12,11 @@ import deprecatedArray from './deprecated.jsx';
 const { GHOSTKIT } = window;
 
 import ColorPicker from '../_components/color-picker.jsx';
+import ApplyFilters from '../_components/apply-filters.jsx';
 
+const {
+    applyFilters,
+} = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -61,6 +65,8 @@ class IconBoxBlock extends Component {
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
         }
+
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
@@ -136,14 +142,14 @@ class IconBoxBlock extends Component {
                                 ( tabData ) => {
                                     const isHover = tabData.name === 'hover';
                                     return (
-                                        <Fragment>
+                                        <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverIconColor' : 'iconColor' } props={ this.props }>
                                             <ColorPicker
                                                 label={ __( 'Icon' ) }
                                                 value={ isHover ? hoverIconColor : iconColor }
                                                 onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
                                                 alpha={ true }
                                             />
-                                        </Fragment>
+                                        </ApplyFilters>
                                     );
                                 }
                             }
@@ -235,12 +241,16 @@ export const settings = {
 
     edit: IconBoxBlock,
 
-    save: function( { attributes, className = '' } ) {
+    save: function( props ) {
         const {
             icon,
             iconPosition,
             variant,
-        } = attributes;
+        } = props.attributes;
+
+        let {
+            className,
+        } = props.attributes;
 
         className = classnames( 'ghostkit-icon-box', className );
 
@@ -248,6 +258,13 @@ export const settings = {
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-icon-box-variant-${ variant }` );
         }
+
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
 
         return (
             <div className={ className }>
