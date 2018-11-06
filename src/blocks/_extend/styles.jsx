@@ -46,6 +46,10 @@ const getStyles = ( data = {}, selector = '', escape = true ) => {
             if ( /^media_/.test( key ) ) {
                 resultCSS += ( resultCSS ? ' ' : '' ) + `@media #{ghostkitvar:${ key }} { ${ getStyles( data[ key ], selector, escape ) } }`;
 
+            // @supports css
+            } else if ( /^@supports/.test( key ) ) {
+                resultCSS += ( resultCSS ? ' ' : '' ) + `${ key } { ${ getStyles( data[ key ], selector, escape ) } }`;
+
             // nested selectors.
             } else {
                 let nestedSelector = selector;
