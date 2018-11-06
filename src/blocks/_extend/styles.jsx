@@ -31,9 +31,10 @@ const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-b
  *
  * @param {object} data - styles data.
  * @param {string} selector - current styles selector (useful for nested styles).
+ * @param {boolean} escape - escape strings to save in database.
  * @return {string} - ready to use styles string.
  */
-const getStyles = ( data = {}, selector = '' ) => {
+const getStyles = ( data = {}, selector = '', escape = true ) => {
     const result = {};
     let resultCSS = '';
 
@@ -43,7 +44,7 @@ const getStyles = ( data = {}, selector = '' ) => {
         if ( data[ key ] !== null && typeof data[ key ] === 'object' ) {
             // media for different screens
             if ( /^media_/.test( key ) ) {
-                resultCSS += ( resultCSS ? ' ' : '' ) + `@media #{ghostkitvar:${ key }} { ${ getStyles( data[ key ], selector ) } }`;
+                resultCSS += ( resultCSS ? ' ' : '' ) + `@media #{ghostkitvar:${ key }} { ${ getStyles( data[ key ], selector, escape ) } }`;
 
             // nested selectors.
             } else {
@@ -61,14 +62,16 @@ const getStyles = ( data = {}, selector = '' ) => {
                 } else {
                     nestedSelector = key;
                 }
-                resultCSS += ( resultCSS ? ' ' : '' ) + getStyles( data[ key ], nestedSelector );
+                resultCSS += ( resultCSS ? ' ' : '' ) + getStyles( data[ key ], nestedSelector, escape );
             }
 
         // style properties and values.
         } else if ( typeof data[ key ] !== 'undefined' && data[ key ] !== false ) {
             // fix selector > and < usage.
-            selector = selector.replace( />/g, '&gt;' );
-            selector = selector.replace( /</g, '&lt;' );
+            if ( escape ) {
+                selector = selector.replace( />/g, '&gt;' );
+                selector = selector.replace( /</g, '&lt;' );
+            }
 
             if ( ! result[ selector ] ) {
                 result[ selector ] = '';
@@ -341,7 +344,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
                 return (
                     <Fragment>
                         <BlockEdit { ...this.props } />
-                        <style>{ window.GHOSTKIT.replaceVars( getStyles( attributes.ghostkitStyles ) ) }</style>
+                        <style>{ window.GHOSTKIT.replaceVars( getStyles( attributes.ghostkitStyles, '', false ) ) }</style>
                     </Fragment>
                 );
             }
