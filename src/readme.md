@@ -183,6 +183,16 @@ Available filters:
 
 ## Changelog ##
 
+= 1.6.0 =
+
+* added hover colors options to Alert, Number Box, Counter Box, Icon Box, Divider, Progress blocks
+* improved color pickers in blocks (show colors palette only in popover)
+* changed fullscreen video popup z-index to 1500
+* removed CodeEditor from Custom CSS since it removed in Gutenberg 4.2
+* fixed error in Customizer, Instagram, Twitter, Testimonial, Video blocks in Gutenberg 4.2
+* fixed Animate on Scroll zoom effect
+* minor changes
+
 = 1.5.2 =
 
 * fixed selected image preview in Inspector (Video and Testimonial blocks)
