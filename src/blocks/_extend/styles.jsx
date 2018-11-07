@@ -144,17 +144,19 @@ function addAttribute( blockSettings, name ) {
     }
 
     eachSettings.forEach( ( settings ) => {
-        if ( settings && settings.attributes && hasBlockSupport( settings, 'ghostkitStyles', false ) ) {
-            allow = true;
-        }
+        allow = false;
 
-        if ( ! allow ) {
-            allow = applyFilters(
-                'ghostkit.blocks.registerBlockType.allowCustomStyles',
-                false,
-                settings,
-                name
-            );
+        if ( settings && settings.attributes ) {
+            if ( hasBlockSupport( settings, 'ghostkitStyles', false ) ) {
+                allow = true;
+            } else {
+                allow = applyFilters(
+                    'ghostkit.blocks.registerBlockType.allowCustomStyles',
+                    false,
+                    settings,
+                    name
+                );
+            }
         }
 
         if ( allow ) {
@@ -276,7 +278,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             this.onUpdate = this.onUpdate.bind( this );
 
             // add new ghostkit props.
-            if ( this.props.clientId && typeof this.props.attributes.ghostkitId !== 'undefined' ) {
+            if ( this.props.clientId && this.props.attributes && typeof this.props.attributes.ghostkitId !== 'undefined' ) {
                 let ID = this.props.attributes.ghostkitId || '';
 
                 // check if ID already exist.
