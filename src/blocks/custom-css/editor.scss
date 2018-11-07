@@ -21,6 +21,15 @@
         width: 100%;
         border: 1px solid #ddd;
     }
+
+    .editor-plain-text {
+        padding: .8em 1em;
+        font-family: Menlo, Consolas, monaco, monospace;
+        font-size: 14px;
+        color: #23282d;
+        border: 1px solid #e2e4e7;
+        border-radius: 4px;
+    }
 }
 
 /* Plugin styles*/

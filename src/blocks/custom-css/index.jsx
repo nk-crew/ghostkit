@@ -11,8 +11,10 @@ const { __ } = wp.i18n;
 const { Component } = wp.element;
 const {
     Placeholder,
-    CodeEditor,
 } = wp.components;
+const {
+    PlainText,
+} = wp.editor;
 
 // style tag for preview
 const $head = document.head || document.getElementsByTagName( 'head' )[ 0 ];
@@ -54,47 +56,14 @@ class CustomCSSBlock extends Component {
                 { isPlugin ? (
                     <p>{ __( 'Custom CSS for the current post.' ) }</p>
                 ) : '' }
-                <CodeEditor
+                <PlainText
                     value={ customCSS }
                     onChange={ value => {
                         setAttributes( { customCSS: value } );
                         updateStyles( value );
                     } }
-                    settings={ {
-                        codemirror: {
-                            mode: 'css',
-                            indentUnit: 4,
-                            autoCloseTags: true,
-                            autoCloseBrackets: true,
-                            matchBrackets: true,
-                            foldGutter: true,
-                            lint: {
-                                options: {
-                                    errors: true,
-                                    'box-model': true,
-                                    'display-property-grouping': true,
-                                    'duplicate-properties': true,
-                                    'known-properties': true,
-                                    'outline-none': true,
-                                },
-                            },
-                            lineNumbers: true,
-                            lineWrapping: true,
-                            scrollPastEnd: true,
-                            emmet_active: true,
-                            emmet: true,
-                            styleActiveLine: true,
-                            continueComments: true,
-                            scrollbarStyle: 'simple',
-                            extraKeys: {
-                                'Ctrl-Space': 'autocomplete',
-                                'Ctrl-/': 'toggleComment',
-                                'Cmd-/': 'toggleComment',
-                                'Alt-F': 'findPersistent',
-                            },
-                            gutters: [ 'CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter' ],
-                        },
-                    } }
+                    placeholder={ __( 'Write CSS…' ) }
+                    aria-label={ __( 'CSS' ) }
                 />
             </Placeholder>
         );
