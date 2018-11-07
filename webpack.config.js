@@ -1,6 +1,6 @@
 const md5 = require( 'md5' );
 
-module.exports = function ( isDev = false ) {
+module.exports = function( isDev = false ) {
     return {
         mode: isDev ? 'development' : 'production',
         module: {
