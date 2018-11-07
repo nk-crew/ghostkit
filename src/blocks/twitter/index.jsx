@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import ElementIcon from '../_icons/twitter.svg';
+import './store.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -22,97 +23,13 @@ const {
     Spinner,
 } = wp.components;
 
-const { apiFetch } = wp;
 const {
-    registerStore,
     withSelect,
 } = wp.data;
 
 const {
     InspectorControls,
 } = wp.editor;
-
-const actions = {
-    setTwitterFeed( query, feed ) {
-        return {
-            type: 'SET_TWITTER_FEED',
-            query,
-            feed,
-        };
-    },
-    getTwitterFeed( query ) {
-        return {
-            type: 'GET_TWITTER_FEED',
-            query,
-        };
-    },
-    setTwitterProfile( query, profile ) {
-        return {
-            type: 'SET_TWITTER_PROFILE',
-            query,
-            profile,
-        };
-    },
-    getTwitterProfile( query ) {
-        return {
-            type: 'GET_TWITTER_PROFILE',
-            query,
-        };
-    },
-};
-registerStore( 'ghostkit/twitter', {
-    reducer( state = { feeds: {}, profiles: {} }, action ) {
-        switch ( action.type ) {
-        case 'SET_TWITTER_FEED':
-            if ( ! state.feeds[ action.query ] && action.feed ) {
-                state.feeds[ action.query ] = action.feed;
-            }
-            return state;
-        case 'GET_TWITTER_FEED':
-            return action.feeds[ action.query ];
-        case 'SET_TWITTER_PROFILE':
-            if ( ! state.profiles[ action.query ] && action.profile ) {
-                state.profiles[ action.query ] = action.profile;
-            }
-            return state;
-        case 'GET_TWITTER_PROFILE':
-            return action.profiles[ action.query ];
-        // no default
-        }
-        return state;
-    },
-    actions,
-    selectors: {
-        getTwitterFeed( state, query ) {
-            return state.feeds[ query ];
-        },
-        getTwitterProfile( state, query ) {
-            return state.profiles[ query ];
-        },
-    },
-    resolvers: {
-        * getTwitterFeed( state, query ) {
-            const feed = apiFetch( { path: query } )
-                .then( ( fetchedData ) => {
-                    if ( fetchedData && fetchedData.success && fetchedData.response ) {
-                        return actions.setTwitterFeed( query, fetchedData.response );
-                    }
-                    return false;
-                } );
-            yield feed;
-        },
-        * getTwitterProfile( state, query ) {
-            const profile = apiFetch( { path: query } )
-                .then( ( fetchedData ) => {
-                    if ( fetchedData && fetchedData.success && fetchedData.response ) {
-                        return actions.setTwitterProfile( query, fetchedData.response );
-                    }
-                    return false;
-                } );
-            yield profile;
-        },
-    },
-} );
 
 class TwitterBlock extends Component {
     render() {

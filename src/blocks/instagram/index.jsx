@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import ElementIcon from '../_icons/instagram.svg';
+import './store.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -25,97 +26,13 @@ const {
     Spinner,
 } = wp.components;
 
-const { apiFetch } = wp;
 const {
-    registerStore,
     withSelect,
 } = wp.data;
 
 const {
     InspectorControls,
 } = wp.editor;
-
-const actions = {
-    setInstagramFeed( query, feed ) {
-        return {
-            type: 'SET_INSTAGRAM_FEED',
-            query,
-            feed,
-        };
-    },
-    getInstagramFeed( query ) {
-        return {
-            type: 'GET_INSTAGRAM_FEED',
-            query,
-        };
-    },
-    setInstagramProfile( query, profile ) {
-        return {
-            type: 'SET_INSTAGRAM_PROFILE',
-            query,
-            profile,
-        };
-    },
-    getInstagramProfile( query ) {
-        return {
-            type: 'GET_INSTAGRAM_PROFILE',
-            query,
-        };
-    },
-};
-registerStore( 'ghostkit/instagram', {
-    reducer( state = { feeds: {}, profiles: {} }, action ) {
-        switch ( action.type ) {
-        case 'SET_INSTAGRAM_FEED':
-            if ( ! state.feeds[ action.query ] && action.feed ) {
-                state.feeds[ action.query ] = action.feed;
-            }
-            return state;
-        case 'GET_INSTAGRAM_FEED':
-            return action.feeds[ action.query ];
-        case 'SET_INSTAGRAM_PROFILE':
-            if ( ! state.profiles[ action.query ] && action.profile ) {
-                state.profiles[ action.query ] = action.profile;
-            }
-            return state;
-        case 'GET_INSTAGRAM_PROFILE':
-            return action.profiles[ action.query ];
-        // no default
-        }
-        return state;
-    },
-    actions,
-    selectors: {
-        getInstagramFeed( state, query ) {
-            return state.feeds[ query ];
-        },
-        getInstagramProfile( state, query ) {
-            return state.profiles[ query ];
-        },
-    },
-    resolvers: {
-        * getInstagramFeed( state, query ) {
-            const feed = apiFetch( { path: query } )
-                .then( ( fetchedData ) => {
-                    if ( fetchedData && fetchedData.success && fetchedData.response ) {
-                        return actions.setInstagramFeed( query, fetchedData.response );
-                    }
-                    return false;
-                } );
-            yield feed;
-        },
-        * getInstagramProfile( state, query ) {
-            const profile = apiFetch( { path: query } )
-                .then( ( fetchedData ) => {
-                    if ( fetchedData && fetchedData.success && fetchedData.response ) {
-                        return actions.setInstagramProfile( query, fetchedData.response );
-                    }
-                    return false;
-                } );
-            yield profile;
-        },
-    },
-} );
 
 class InstagramBlock extends Component {
     render() {

@@ -9,6 +9,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/testimonial.svg';
+import './store.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -24,9 +25,7 @@ const {
     Button,
 } = wp.components;
 
-const { apiFetch } = wp;
 const {
-    registerStore,
     withSelect,
 } = wp.data;
 
@@ -50,55 +49,6 @@ function toTitleCase( str ) {
         return word && word.length ? word.replace( word[ 0 ], word[ 0 ].toUpperCase() ) : word;
     } ).join( ' ' );
 }
-
-const actions = {
-    setImageTagData( query, image ) {
-        return {
-            type: 'SET_IMAGE_TAG_DATA',
-            query,
-            image,
-        };
-    },
-    getImageTagData( query ) {
-        return {
-            type: 'GET_IMAGE_TAG_DATA',
-            query,
-        };
-    },
-};
-registerStore( 'ghostkit/testimonial', {
-    reducer( state = { images: {} }, action ) {
-        switch ( action.type ) {
-        case 'SET_IMAGE_TAG_DATA':
-            if ( ! state.images[ action.query ] && action.image ) {
-                state.images[ action.query ] = action.image;
-            }
-            return state;
-        case 'GET_IMAGE_TAG_DATA':
-            return action.images[ action.query ];
-        // no default
-        }
-        return state;
-    },
-    actions,
-    selectors: {
-        getImageTagData( state, query ) {
-            return state.images[ query ];
-        },
-    },
-    resolvers: {
-        * getImageTagData( state, query ) {
-            const image = apiFetch( { path: query } )
-                .then( ( fetchedData ) => {
-                    if ( fetchedData && fetchedData.success && fetchedData.response ) {
-                        return actions.setImageTagData( query, fetchedData.response );
-                    }
-                    return false;
-                } );
-            yield image;
-        },
-    },
-} );
 
 /**
  * Select photo

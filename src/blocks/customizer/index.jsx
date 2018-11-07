@@ -9,6 +9,7 @@ import Select from 'react-select';
 
 // Internal Dependencies.
 import ElementIcon from '../_icons/customizer.svg';
+import './store.jsx';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -23,100 +24,13 @@ const {
     Spinner,
 } = wp.components;
 
-const { apiFetch } = wp;
 const {
-    registerStore,
     withSelect,
 } = wp.data;
 
 const {
     ColorPalette,
 } = wp.editor;
-
-const actions = {
-    setCustomizerData( query, data ) {
-        return {
-            type: 'SET_CUSTOMIZER_DATA',
-            query,
-            data,
-        };
-    },
-    getCustomizerData( query ) {
-        return {
-            type: 'GET_CUSTOMIZER_DATA',
-            query,
-        };
-    },
-};
-registerStore( 'ghostkit/customizer', {
-    reducer( state = { data: false }, action ) {
-        switch ( action.type ) {
-        case 'SET_CUSTOMIZER_DATA':
-            if ( ! state.data && action.data ) {
-                state.data = action.data;
-            }
-            return state;
-        case 'GET_CUSTOMIZER_DATA':
-            return action.data;
-        // no default
-        }
-        return state;
-    },
-    actions,
-    selectors: {
-        getCustomizerData( state ) {
-            return state.data;
-        },
-    },
-    resolvers: {
-        * getCustomizerData( state, query ) {
-            // create iframe with customizer url to prepare customizer data.
-            async function maybeGetCustomizerData() {
-                const promise = new Promise( ( resolve ) => {
-                    const iframe = document.createElement( 'iframe' );
-                    iframe.style.display = 'none';
-                    iframe.onload = () => {
-                        iframe.parentNode.removeChild( iframe );
-                        resolve();
-                    };
-                    iframe.src = window.GHOSTKIT.adminUrl + 'customize.php';
-                    document.body.appendChild( iframe );
-                } );
-
-                return await promise;
-            }
-
-            const data = apiFetch( { path: query } )
-                .catch( async function( fetchedData ) {
-                    // try to get customizer data.
-                    if ( fetchedData && fetchedData.error && 'no_options_found' === fetchedData.error_code ) {
-                        await maybeGetCustomizerData();
-                        return apiFetch( { path: query } );
-                    }
-
-                    return fetchedData;
-                } )
-                .catch( ( fetchedData ) => {
-                    if ( fetchedData && fetchedData.error && 'no_options_found' === fetchedData.error_code ) {
-                        return {
-                            response: {},
-                            error: false,
-                            success: true,
-                        };
-                    }
-
-                    return false;
-                } )
-                .then( ( fetchedData ) => {
-                    if ( fetchedData && fetchedData.success && fetchedData.response ) {
-                        return actions.setCustomizerData( query, fetchedData.response );
-                    }
-                    return actions.setCustomizerData( query, {} );
-                } );
-            yield data;
-        },
-    },
-} );
 
 class CustomizerBlock extends Component {
     constructor() {
