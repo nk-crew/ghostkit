@@ -183,7 +183,7 @@ class ProgressBlock extends Component {
                                             </ApplyFilters>
                                             <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverBackgroundColor' : 'backgroundColor' } props={ this.props }>
                                                 <ColorPicker
-                                                    label={ __( 'Bar' ) }
+                                                    label={ __( 'Background' ) }
                                                     value={ isHover ? hoverBackgroundColor : backgroundColor }
                                                     onChange={ ( val ) => setAttributes( isHover ? { hoverBackgroundColor: val } : { backgroundColor: val } ) }
                                                     alpha={ true }
