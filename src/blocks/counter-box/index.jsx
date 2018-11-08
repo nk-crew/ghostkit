@@ -172,6 +172,7 @@ class CounterBoxBlock extends Component {
                     <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
                         <RichText
                             tagName="div"
+                            className="ghostkit-counter-box-number-wrap"
                             placeholder={ __( 'Add number…' ) }
                             value={ number }
                             onChange={ ( value ) => setAttributes( { number: value } ) }
@@ -238,7 +239,7 @@ export const settings = {
         number: {
             type: 'array',
             source: 'children',
-            selector: '.ghostkit-counter-box-number',
+            selector: '.ghostkit-counter-box-number-wrap',
             default: '77',
         },
         animateInViewport: {
@@ -299,14 +300,18 @@ export const settings = {
 
         return (
             <div className={ className }>
-                <RichText.Content
-                    tagName="div"
-                    className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }${ animateInViewport ? ' ghostkit-count-up' : '' }` }
-                    value={ number }
-                    { ...{
-                        'data-count-from': animateInViewport && animateInViewportFrom ? animateInViewportFrom : null,
-                    } }
-                />
+                <div
+                    className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }
+                >
+                    <RichText.Content
+                        tagName="div"
+                        className={ `ghostkit-counter-box-number-wrap${ animateInViewport ? ' ghostkit-count-up' : '' }` }
+                        value={ number }
+                        { ...{
+                            'data-count-from': animateInViewport && animateInViewportFrom ? animateInViewportFrom : null,
+                        } }
+                    />
+                </div>
                 <div className="ghostkit-counter-box-content">
                     <InnerBlocks.Content />
                 </div>
