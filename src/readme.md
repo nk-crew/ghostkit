@@ -183,6 +183,14 @@ Available filters:
 
 ## Changelog ##
 
+= 1.6.1 =
+
+* added number wrapper in counter box
+* changed carousel slides backgrounds in editor
+* fixed usage of deprecated PanelColor
+* fixed button line height in editor
+* fixed "Bar" label in progress bar background color control
+
 = 1.6.0 =
 
 * added hover colors options to Alert, Number Box, Counter Box, Icon Box, Divider, Progress blocks
