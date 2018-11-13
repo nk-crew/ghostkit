@@ -2,8 +2,9 @@
 if ( ! global._babelPolyfill ) {
     require( '@babel/polyfill' );
 }
-import { ChromePicker } from 'react-color';
 import classnames from 'classnames/dedupe';
+import ColorPicker from '../_components/color-picker.jsx';
+import ApplyFilters from '../_components/apply-filters.jsx';
 
 // Import CSS
 import './style.scss';
@@ -29,7 +30,6 @@ const {
     ButtonGroup,
     RangeControl,
     TextControl,
-    PanelColor,
 } = wp.components;
 
 const {
@@ -434,22 +434,14 @@ class VideoBlockEdit extends Component {
                         />
                         { clickAction === 'fullscreen' ? (
                             <Fragment>
-                                <PanelColor title={ __( 'Fullscreen background color' ) } colorValue={ fullscreenBackgroundColor }>
-                                    <ChromePicker
-                                        color={ fullscreenBackgroundColor }
-                                        onChangeComplete={ ( picker ) => {
-                                            let newColor = picker.hex;
-
-                                            if ( picker.rgb && picker.rgb.a < 1 ) {
-                                                newColor = `rgba(${ picker.rgb.r }, ${ picker.rgb.g }, ${ picker.rgb.b }, ${ picker.rgb.a })`;
-                                            }
-
-                                            setAttributes( { fullscreenBackgroundColor: newColor } );
-                                        } }
-                                        style={ { width: '100%' } }
-                                        disableAlpha={ false }
+                                <ApplyFilters name="ghostkit.editor.controls" attribute={ 'fullscreenBackgroundColor' } props={ this.props }>
+                                    <ColorPicker
+                                        label={ __( 'Fullscreen Background' ) }
+                                        value={ fullscreenBackgroundColor }
+                                        onChange={ ( val ) => setAttributes( { fullscreenBackgroundColor: val } ) }
+                                        alpha={ true }
                                     />
-                                </PanelColor>
+                                </ApplyFilters>
                                 <TextControl
                                     label={ __( 'Fullscreen close icon' ) }
                                     value={ fullscreenActionCloseIcon }
