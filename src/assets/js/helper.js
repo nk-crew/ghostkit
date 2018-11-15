@@ -1,4 +1,5 @@
 const { ghostkitVariables } = window;
+const $doc = jQuery( document );
 
 // prepare media vars.
 const vars = {};
@@ -35,4 +36,8 @@ window.GHOSTKIT = {
     },
 
     adminUrl: ghostkitVariables.admin_url,
+
+    triggerEvent( name, ...args ) {
+        $doc.trigger( `${ name }.ghostkit`, [ ...args ] );
+    },
 };

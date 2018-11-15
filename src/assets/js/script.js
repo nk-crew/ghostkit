@@ -41,6 +41,8 @@ class GhostKitClass {
         self.prepareGoogleMaps = self.prepareGoogleMaps.bind( self );
         self.prepareSR = self.prepareSR.bind( self );
 
+        GHOSTKIT.triggerEvent( 'beforeInit', self );
+
         // Enable object-fit.
         if ( typeof window.objectFitImages !== 'undefined' ) {
             window.objectFitImages( '.ghostkit-video-poster img' );
@@ -100,11 +102,16 @@ class GhostKitClass {
                 throttledInitBlocks();
             } );
         }
+
+        GHOSTKIT.triggerEvent( 'afterInit', self );
     }
 
     // Init blocks.
     initBlocks() {
         const self = this;
+
+        GHOSTKIT.triggerEvent( 'beforeInitBlocks', self );
+
         self.prepareCustomStyles();
         self.prepareTabs();
         self.prepareAccordions();
@@ -115,6 +122,8 @@ class GhostKitClass {
         self.prepareGoogleMaps();
         self.prepareCounters();
         self.prepareSR();
+
+        GHOSTKIT.triggerEvent( 'afterInitBlocks', self );
     }
 
     // Get window size.
@@ -150,6 +159,9 @@ class GhostKitClass {
      */
     prepareCounters() {
         const self = this;
+
+        GHOSTKIT.triggerEvent( 'beforePrepareCounters', self );
+
         $( '.ghostkit-count-up:not(.ghostkit-count-up-ready)' ).each( function() {
             const $this = $( this );
             const isProgress = $this.hasClass( 'ghostkit-progress-bar' );
@@ -188,6 +200,8 @@ class GhostKitClass {
             } );
         } );
         self.runCounters();
+
+        GHOSTKIT.triggerEvent( 'afterPrepareCounters', self );
     }
 
     runCounters() {
@@ -196,6 +210,8 @@ class GhostKitClass {
         if ( ! self.counters.length ) {
             return;
         }
+
+        GHOSTKIT.triggerEvent( 'beforeRunCounters', self );
 
         self.counters.forEach( ( item, index ) => {
             if ( item && self.isElementInViewport( item.el ) ) {
@@ -213,6 +229,8 @@ class GhostKitClass {
                 } );
             }
         } );
+
+        GHOSTKIT.triggerEvent( 'afterRunCounters', self );
     }
 
     /**
@@ -221,6 +239,8 @@ class GhostKitClass {
     prepareCustomStyles() {
         const self = this;
         let reloadStyles = false;
+
+        GHOSTKIT.triggerEvent( 'beforePrepareCustomStyles', self );
 
         $( '[data-ghostkit-styles]' ).each( function() {
             const $this = $( this );
@@ -236,6 +256,8 @@ class GhostKitClass {
             }
             $style.html( self.customStyles );
         }
+
+        GHOSTKIT.triggerEvent( 'afterPrepareCustomStyles', self );
     }
 
     /**
@@ -243,6 +265,8 @@ class GhostKitClass {
      */
     prepareTabs() {
         const self = this;
+
+        GHOSTKIT.triggerEvent( 'beforePrepareTabs', self );
 
         $( '.ghostkit-tabs:not(.ghostkit-tabs-ready)' ).each( function() {
             const $this = $( this );
@@ -269,6 +293,8 @@ class GhostKitClass {
             } );
             $tabsButtons.find( `[data-tab="${ tabsActive }"]` ).click();
         } );
+
+        GHOSTKIT.triggerEvent( 'afterPrepareTabs', self );
     }
 
     /**
@@ -276,6 +302,8 @@ class GhostKitClass {
      */
     prepareAccordions() {
         const self = this;
+
+        GHOSTKIT.triggerEvent( 'beforePrepareAccordions', self );
 
         $( '.ghostkit-accordion:not(.ghostkit-accordion-ready)' ).each( function() {
             $( this ).addClass( 'ghostkit-accordion-ready' )
@@ -308,6 +336,8 @@ class GhostKitClass {
                     self.runCounters();
                 } );
         } );
+
+        GHOSTKIT.triggerEvent( 'afterPrepareAccordions', self );
     }
 
     /**
@@ -319,6 +349,8 @@ class GhostKitClass {
         if ( typeof window.Swiper === 'undefined' ) {
             return;
         }
+
+        GHOSTKIT.triggerEvent( 'beforePrepareCarousels', self );
 
         $( '.ghostkit-carousel:not(.ghostkit-carousel-ready)' ).each( function() {
             const $carousel = $( this );
@@ -385,6 +417,8 @@ class GhostKitClass {
             // init swiper
             new window.Swiper( $carousel[ 0 ], options );
         } );
+
+        GHOSTKIT.triggerEvent( 'afterPrepareCarousels', self );
     }
 
     // set video size
@@ -423,6 +457,8 @@ class GhostKitClass {
         if ( typeof window.VideoWorker === 'undefined' ) {
             return;
         }
+
+        GHOSTKIT.triggerEvent( 'beforePrepareVideo', self );
 
         $( '.ghostkit-video:not(.ghostkit-video-ready)' ).each( function() {
             const $this = $( this ).addClass( 'ghostkit-video-ready' );
@@ -549,15 +585,21 @@ class GhostKitClass {
                 } );
             }
         } );
+
+        GHOSTKIT.triggerEvent( 'afterPrepareVideo', self );
     }
 
     /**
      * Prepare Gist
      */
     prepareGist() {
+        const self = this;
+
         if ( typeof jQuery.fn.gist === 'undefined' ) {
             return;
         }
+
+        GHOSTKIT.triggerEvent( 'beforePrepareGist', self );
 
         $( '.ghostkit-gist:not(.ghostkit-gist-ready)' ).each( function() {
             const $this = $( this );
@@ -577,12 +619,18 @@ class GhostKitClass {
                 $this.gist();
             }
         } );
+
+        GHOSTKIT.triggerEvent( 'afterPrepareGist', self );
     }
 
     /**
      * Prepare Changelog
      */
     prepareChangelog() {
+        const self = this;
+
+        GHOSTKIT.triggerEvent( 'beforePrepareChangelog', self );
+
         $( '.ghostkit-changelog:not(.ghostkit-changelog-ready)' ).each( function() {
             const $this = $( this );
             $this.addClass( 'ghostkit-changelog-ready' );
@@ -618,13 +666,19 @@ class GhostKitClass {
                 }
             } );
         } );
+
+        GHOSTKIT.triggerEvent( 'afterPrepareChangelog', self );
     }
 
     /**
      * Prepare Google Maps
      */
     prepareGoogleMaps() {
+        const self = this;
+
         if ( GHOSTKIT.googleMapsLibrary && GHOSTKIT.googleMapsAPIKey ) {
+            GHOSTKIT.triggerEvent( 'beforePrepareGoogleMaps', self );
+
             $( '.ghostkit-google-maps:not(.ghostkit-google-maps-ready)' ).each( function() {
                 const $this = $( this );
                 $this.addClass( 'ghostkit-google-maps-ready' );
@@ -671,6 +725,8 @@ class GhostKitClass {
                     } );
                 } );
             } );
+
+            GHOSTKIT.triggerEvent( 'afterPrepareGoogleMaps', self );
         }
     }
 
@@ -685,6 +741,8 @@ class GhostKitClass {
         } else if ( ! self.reveal ) {
             self.reveal = window.ScrollReveal().reveal;
         }
+
+        GHOSTKIT.triggerEvent( 'beforePrepareSR', self );
 
         $( '[data-ghostkit-sr]:not(.data-ghostkit-sr-ready)' ).each( function() {
             const $this = $( this );
@@ -756,6 +814,8 @@ class GhostKitClass {
 
             self.reveal( this, config );
         } );
+
+        GHOSTKIT.triggerEvent( 'afterPrepareSR', self );
     }
 }
 

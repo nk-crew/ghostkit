@@ -158,6 +158,43 @@ Available filters:
 * **ghostkit.blocks.className**
 * **ghostkit.editor.className**
 
+### jQuery frontend events ####
+
+On frontend there are a lot of jQuery events. Usage example:
+
+    jQuery( document ).on( 'ghostkit.afterInitBlocks', function( evt, classObject ) {
+        console.log( evt, classObject );
+    } );
+
+Available events:
+
+* **beforeInit.ghostkit**
+* **afterInit.ghostkit**
+* **beforeInitBlocks.ghostkit**
+* **afterInitBlocks.ghostkit**
+* **beforePrepareCounters.ghostkit**
+* **afterPrepareCounters.ghostkit**
+* **beforeRunCounters.ghostkit**
+* **afterRunCounters.ghostkit**
+* **beforePrepareCustomStyles.ghostkit**
+* **afterPrepareCustomStyles.ghostkit**
+* **beforePrepareTabs.ghostkit**
+* **afterPrepareTabs.ghostkit**
+* **beforePrepareAccordions.ghostkit**
+* **afterPrepareAccordions.ghostkit**
+* **beforePrepareCarousels.ghostkit**
+* **afterPrepareCarousels.ghostkit**
+* **beforePrepareVideo.ghostkit**
+* **afterPrepareVideo.ghostkit**
+* **beforePrepareGist.ghostkit**
+* **afterPrepareGist.ghostkit**
+* **beforePrepareChangelog.ghostkit**
+* **afterPrepareChangelog.ghostkit**
+* **beforePrepareGoogleMaps.ghostkit**
+* **afterPrepareGoogleMaps.ghostkit**
+* **beforePrepareSR.ghostkit**
+* **afterPrepareSR.ghostkit**
+
 ## Screenshots ##
 
 1. List of all available blocks
