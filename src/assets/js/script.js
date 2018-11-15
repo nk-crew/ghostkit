@@ -43,7 +43,7 @@ class GhostKitClass {
 
         // Enable object-fit.
         if ( typeof window.objectFitImages !== 'undefined' ) {
-            window.objectFitImages();
+            window.objectFitImages( '.ghostkit-video-poster img' );
         }
 
         // Additional easing.
