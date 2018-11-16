@@ -113,7 +113,7 @@ function addAttribute( settings, name ) {
         if ( ! settings.attributes.ghostkitSpacings ) {
             settings.attributes.ghostkitSpacings = {
                 type: 'object',
-                default: {},
+                default: '',
             };
 
             // add to deprecated items.
@@ -128,7 +128,7 @@ function addAttribute( settings, name ) {
         if ( ! settings.attributes.ghostkitIndents ) {
             settings.attributes.ghostkitIndents = {
                 type: 'object',
-                default: {},
+                default: '',
             };
 
             // add to deprecated items.
@@ -229,7 +229,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             } );
 
             setAttributes( {
-                ghostkitSpacings: result,
+                ghostkitSpacings: Object.keys( result ).length ? result : '',
             } );
         }
 

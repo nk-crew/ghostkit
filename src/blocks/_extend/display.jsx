@@ -91,7 +91,7 @@ function addAttribute( settings, name ) {
         if ( ! settings.attributes.ghostkitDisplay ) {
             settings.attributes.ghostkitDisplay = {
                 type: 'object',
-                default: {},
+                default: '',
             };
 
             // add to deprecated items.
@@ -133,11 +133,22 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
         updateDisplay( screen, val ) {
             const { setAttributes } = this.props;
             const { ghostkitDisplay = {} } = this.props.attributes;
-            const newDisplay = {};
-            newDisplay[ screen ] = val;
+            let newDisplay = Object.assign( {}, ghostkitDisplay );
+
+            if ( ! val ) {
+                if ( newDisplay[ screen ] ) {
+                    delete newDisplay[ screen ];
+
+                    if ( ! Object.keys( newDisplay ).length ) {
+                        newDisplay = '';
+                    }
+                }
+            } else {
+                newDisplay[ screen ] = val;
+            }
 
             setAttributes( {
-                ghostkitDisplay: Object.assign( {}, ghostkitDisplay, newDisplay ),
+                ghostkitDisplay: newDisplay,
             } );
         }
 

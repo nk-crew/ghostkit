@@ -276,32 +276,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             super( ...arguments );
 
             this.onUpdate = this.onUpdate.bind( this );
-
-            // add new ghostkit props.
-            if ( this.props.clientId && this.props.attributes && typeof this.props.attributes.ghostkitId !== 'undefined' ) {
-                let ID = this.props.attributes.ghostkitId || '';
-
-                // check if ID already exist.
-                let tryCount = 10;
-                while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== this.props.clientId && tryCount > 0 ) ) {
-                    ID = shorthash.unique( this.props.clientId );
-                    tryCount--;
-                }
-
-                if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
-                    usedIds[ ID ] = this.props.clientId;
-                }
-
-                if ( ID !== this.props.attributes.ghostkitId ) {
-                    this.props.attributes.ghostkitId = ID;
-                    this.props.attributes.ghostkitClassname = this.props.name.replace( '/', '-' ) + '-' + ID;
-                }
-
-                // force update when new ID.
-                if ( tryCount < 10 ) {
-                    this.onUpdate( false );
-                }
-            }
+            this.getGhostkitAtts = this.getGhostkitAtts.bind( this );
         }
 
         componentDidMount() {
@@ -311,34 +286,93 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             this.onUpdate();
         }
 
-        onUpdate( useSetAttributes = true ) {
+        onUpdate() {
             const {
                 setAttributes,
                 attributes,
             } = this.props;
 
-            if ( attributes.ghostkitClassname ) {
-                const customStyles = {};
+            const newAttrs = {};
 
-                // prepare custom block styles.
-                const blockCustomStyles = applyFilters(
-                    'ghostkit.blocks.customStyles',
-                    attributes.ghostkitStylesCallback ? attributes.ghostkitStylesCallback( attributes ) : {},
-                    this.props
-                );
+            // prepare custom block styles.
+            const blockCustomStyles = applyFilters(
+                'ghostkit.blocks.customStyles',
+                attributes.ghostkitStylesCallback ? attributes.ghostkitStylesCallback( attributes ) : {},
+                this.props
+            );
 
-                if ( blockCustomStyles && Object.keys( blockCustomStyles ).length !== 0 ) {
-                    customStyles[ `.${ attributes.ghostkitClassname }` ] = blockCustomStyles;
-                }
+            if ( blockCustomStyles && Object.keys( blockCustomStyles ).length ) {
+                const ghostkitAtts = this.getGhostkitAtts();
 
-                if ( ! deepEqual( attributes.ghostkitStyles, customStyles ) ) {
-                    if ( useSetAttributes ) {
-                        setAttributes( { ghostkitStyles: customStyles } );
-                    } else {
-                        this.props.attributes.ghostkitStyles = customStyles;
+                if ( ghostkitAtts.ghostkitClassname ) {
+                    let updateAttrs = false;
+
+                    newAttrs.ghostkitStyles = {
+                        [ `.${ attributes.ghostkitClassname }` ]: blockCustomStyles,
+                    };
+
+                    if ( ghostkitAtts.ghostkitClassname !== attributes.ghostkitClassname ) {
+                        newAttrs.ghostkitClassname = ghostkitAtts.ghostkitClassname;
+                        updateAttrs = true;
+                    }
+                    if ( ghostkitAtts.ghostkitId !== attributes.ghostkitId ) {
+                        newAttrs.ghostkitId = ghostkitAtts.ghostkitId;
+                        updateAttrs = true;
+                    }
+
+                    updateAttrs = updateAttrs || ! deepEqual( attributes.ghostkitStyles, newAttrs.ghostkitStyles );
+
+                    if ( updateAttrs ) {
+                        setAttributes( newAttrs );
                     }
                 }
+            } else if ( attributes.ghostkitStyles ) {
+                if ( attributes.ghostkitId && typeof usedIds[ attributes.ghostkitId ] !== 'undefined' ) {
+                    delete usedIds[ attributes.ghostkitId ];
+                }
+
+                setAttributes( {
+                    ghostkitClassname: '',
+                    ghostkitId: '',
+                    ghostkitStyles: '',
+                } );
             }
+        }
+
+        getGhostkitAtts() {
+            const props = this.props;
+            let result = false;
+
+            if ( props.attributes.ghostkitId && props.attributes.ghostkitClassname ) {
+                result = {
+                    ghostkitId: props.attributes.ghostkitId,
+                    ghostkitClassname: props.attributes.ghostkitClassname,
+                };
+
+                // add new ghostkit props.
+            } else if ( props.clientId && props.attributes && typeof props.attributes.ghostkitId !== 'undefined' ) {
+                let ID = props.attributes.ghostkitId || '';
+
+                // check if ID already exist.
+                let tryCount = 10;
+                while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== props.clientId && tryCount > 0 ) ) {
+                    ID = shorthash.unique( props.clientId );
+                    tryCount--;
+                }
+
+                if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
+                    usedIds[ ID ] = props.clientId;
+                }
+
+                if ( ID !== props.attributes.ghostkitId ) {
+                    result = {
+                        ghostkitId: ID,
+                        ghostkitClassname: props.name.replace( '/', '-' ) + '-' + ID,
+                    };
+                }
+            }
+
+            return result;
         }
 
         render() {
