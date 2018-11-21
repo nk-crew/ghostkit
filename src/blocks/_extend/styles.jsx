@@ -77,13 +77,29 @@ const getStyles = ( data = {}, selector = '', escape = true ) => {
                 selector = selector.replace( /</g, '&lt;' );
             }
 
+            // inside exported xml file all > symbols converted to \u003e
+            // inside exported xml file all < symbols converted to \u003c
+            if ( selector.indexOf( 'u003e' ) !== -1 ) {
+                selector = selector.replace( /u003e/g, '&gt;' );
+                selector = selector.replace( /u003c/g, '&lt;' );
+            }
+
             if ( ! result[ selector ] ) {
                 result[ selector ] = '';
             }
             const propName = camelCaseToDash( key );
             let propValue = data[ key ];
-            const thereIsImportant = / !important$/.test( propValue );
 
+            // inside exported xml file all " symbols converted to \u0022
+            if ( typeof propValue === 'string' && propValue.indexOf( 'u0022' ) !== -1 ) {
+                propValue = propValue.replace( /u0022/g, '"' );
+            }
+            // inside exported xml file all ' symbols converted to \u0027
+            if ( typeof propValue === 'string' && propValue.indexOf( 'u0027' ) !== -1 ) {
+                propValue = propValue.replace( /u0027/g, '\'' );
+            }
+
+            const thereIsImportant = / !important$/.test( propValue );
             if ( thereIsImportant ) {
                 propValue = propValue.replace( / !important$/, '' );
             }
