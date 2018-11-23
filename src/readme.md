@@ -220,6 +220,15 @@ Available events:
 
 ## Changelog ##
 
+= 1.6.2 =
+
+* added jQuery custom events trigger
+* added img selector string in OFI script
+* improved ghostkit attributes - created only when custom styles added (before this update it was always added on all blocks)
+* changed main script to es6 class for extensions
+* fixed Google Maps marker address change
+* fixed some blocks broken after XML content importing (escaped characters in custom styles)
+
 = 1.6.1 =
 
 * added number wrapper in counter box
