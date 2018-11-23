@@ -162,7 +162,7 @@ Available filters:
 
 On frontend there are a lot of jQuery events. Usage example:
 
-    jQuery( document ).on( 'ghostkit.afterInitBlocks', function( evt, classObject ) {
+    jQuery( document ).on( 'afterInitBlocks.ghostkit', function( evt, classObject ) {
         console.log( evt, classObject );
     } );
 
