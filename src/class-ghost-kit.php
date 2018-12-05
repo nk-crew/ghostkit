@@ -205,7 +205,7 @@ class GhostKit {
         wp_register_script(
             'ghostkit-helper',
             plugins_url( 'assets/js/helper.min.js', __FILE__ ),
-            array(),
+            array( 'jquery' ),
             filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/helper.min.js' )
         );
         $default_variant = array(
@@ -315,7 +315,7 @@ class GhostKit {
      */
     public function enqueue_block_assets() {
         $css_deps = array();
-        $js_deps = array( 'ghostkit-helper', 'jquery' );
+        $js_deps = array( 'jquery', 'ghostkit-helper' );
 
         // FontAwesome.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {

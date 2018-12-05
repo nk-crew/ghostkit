@@ -1,5 +1,6 @@
 const { ghostkitVariables } = window;
-const $doc = jQuery( document );
+const $ = window.jQuery;
+const $doc = $( document );
 
 // prepare media vars.
 const vars = {};
