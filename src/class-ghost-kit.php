@@ -277,7 +277,7 @@ class GhostKit {
      * Enqueue editor assets
      */
     public function enqueue_block_editor_assets() {
-        $css_deps = array( 'wp-blocks' );
+        $css_deps = array();
         $js_deps = array( 'ghostkit-helper', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-components' );
 
         // FontAwesome.
