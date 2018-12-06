@@ -29,7 +29,7 @@
       "dist": "dist",
       "plugin_name": "ghostkit",
       "plugin_title": "GhostKit",
-      "plugin_version": "1.6.2"
+      "plugin_version": "1.6.3"
     },
     "template_vars": [
       {

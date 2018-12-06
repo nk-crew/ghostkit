@@ -220,6 +220,13 @@ Available events:
 
 ## Changelog ##
 
+= 1.6.3 =
+
+* added file types limitations in Video and Testimonial blocks
+* fixed WP 5.0 admin styles enqueue
+* fixed self-hosted videos play on mobile devices
+* fixed jQuery is undefined error in some of the themes
+
 = 1.6.2 =
 
 * added jQuery custom events trigger
