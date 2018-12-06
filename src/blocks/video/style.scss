@@ -27,6 +27,7 @@
 
 .ghostkit-video {
     position: relative;
+    overflow: hidden;
     cursor: pointer;
     background-color: $light-gray-200;
 
@@ -112,13 +113,13 @@
     .ghostkit-video-frame {
         position: absolute;
         top: 0;
-        left: 0;
+        left: 100%;
         width: 100%;
         height: 100%;
         opacity: 0;
-        transition: .2s opacity ease-in-out, 0s .2s z-index;
+        transition: .2s opacity ease-in-out, 0s .2s left;
         will-change: opacity;
-        z-index: 0;
+        z-index: 4;
 
         iframe,
         video {
@@ -127,9 +128,9 @@
         }
     }
     &.ghostkit-video-playing .ghostkit-video-frame {
+        left: 0;
         opacity: 1;
-        transition: .2s opacity ease-in-out, 0s z-index;
-        z-index: 4;
+        transition: .2s opacity ease-in-out, 0s left;
     }
 }
 
