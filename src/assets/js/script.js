@@ -496,7 +496,7 @@ class GhostKitClass {
                     }
                     clicked = 1;
 
-                    if ( self.isMobile ) {
+                    if ( self.isMobile && api.type !== 'local' ) {
                         window.open( api.url );
                         return;
                     }
@@ -563,7 +563,7 @@ class GhostKitClass {
                     } );
                 }
 
-                if ( self.isMobile ) {
+                if ( self.isMobile && api.type !== 'local' ) {
                     return;
                 }
 
