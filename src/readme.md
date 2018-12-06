@@ -2,8 +2,8 @@
 
 * Contributors: nko
 * Tags: gutenberg, blocks, kit, collection, grid
-* Requires at least: 4.8.0
-* Tested up to: 4.9
+* Requires at least: 5.0.0
+* Tested up to: 5.0
 * Requires PHP: 5.4
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
@@ -55,7 +55,7 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 
 ## Installation ##
 
-You need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use GhostKit. Eventually, Gutenberg (the block editor) will be merged into WordPress and you won’t need the plugin.
+Make sure you use WordPress 5.0.x. As alternative you need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use GhostKit.
 
 ### Automatic installation ###
 
