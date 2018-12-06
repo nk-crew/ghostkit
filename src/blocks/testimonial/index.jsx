@@ -193,7 +193,7 @@ class TestimonialBlockEdit extends Component {
                                 onSelect={ ( media ) => {
                                     onPhotoSelect( media, setAttributes );
                                 } }
-                                type="image"
+                                allowedTypes={ [ 'image' ] }
                                 value={ photo }
                                 render={ ( { open } ) => (
                                     <Button onClick={ open }>
@@ -209,7 +209,7 @@ class TestimonialBlockEdit extends Component {
                                     onSelect={ ( media ) => {
                                         onPhotoSelect( media, setAttributes );
                                     } }
-                                    type="image"
+                                    allowedTypes={ [ 'image' ] }
                                     value={ photo }
                                     render={ ( { open } ) => (
                                         <a

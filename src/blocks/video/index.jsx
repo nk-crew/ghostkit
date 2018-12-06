@@ -273,7 +273,7 @@ class VideoBlockEdit extends Component {
                                         } );
                                     } );
                                 } }
-                                type="video"
+                                allowedTypes={ [ 'video/mp4', 'video/m4v' ] }
                                 value={ videoMp4 }
                                 render={ ( { open } ) => (
                                     <div style={ { marginBottom: 13 } }>
@@ -313,7 +313,7 @@ class VideoBlockEdit extends Component {
                                         } );
                                     } );
                                 } }
-                                type="video"
+                                allowedTypes={ [ 'video/ogg', 'video/ogv' ] }
                                 value={ videoOgv }
                                 render={ ( { open } ) => (
                                     <div style={ { marginBottom: 13 } }>
@@ -353,7 +353,7 @@ class VideoBlockEdit extends Component {
                                         } );
                                     } );
                                 } }
-                                type="video"
+                                allowedTypes={ [ 'video/webm' ] }
                                 value={ videoWebm }
                                 render={ ( { open } ) => (
                                     <div style={ { marginBottom: 13 } }>
@@ -458,7 +458,7 @@ class VideoBlockEdit extends Component {
                                 onSelect={ ( media ) => {
                                     onPosterSelect( media, setAttributes );
                                 } }
-                                type="image"
+                                allowedTypes={ [ 'image' ] }
                                 value={ poster }
                                 render={ ( { open } ) => (
                                     <Button onClick={ open } isPrimary>
@@ -474,7 +474,7 @@ class VideoBlockEdit extends Component {
                                     onSelect={ ( media ) => {
                                         onPosterSelect( media, setAttributes );
                                     } }
-                                    type="image"
+                                    allowedTypes={ [ 'image' ] }
                                     value={ poster }
                                     render={ ( { open } ) => (
                                         <BaseControl help={ __( 'Click the image to edit or update' ) }>
