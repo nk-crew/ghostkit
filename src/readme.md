@@ -2,7 +2,7 @@
 
 * Contributors: nko
 * Tags: gutenberg, blocks, kit, collection, grid
-* Requires at least: 5.0.0
+* Requires at least: 4.9.0
 * Tested up to: 5.0
 * Requires PHP: 5.4
 * Stable tag: @@plugin_version
