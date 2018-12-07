@@ -24,6 +24,10 @@
         justify-content: center;
         padding-right: 0;
         padding-bottom: 15px;
+
+        ~ .ghostkit-counter-box-content {
+            flex: 100%;
+        }
     }
 
     .ghostkit-counter-box-content {
