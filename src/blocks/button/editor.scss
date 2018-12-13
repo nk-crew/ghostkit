@@ -9,7 +9,7 @@
 
     .ghostkit-button {
         margin: 0 !important; // stylelint-disable-line
-        line-height: inherit;
+        line-height: 1em !important; // stylelint-disable-line
     }
 
     > .editor-inner-blocks > .editor-block-list__layout {
