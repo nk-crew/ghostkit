@@ -54,7 +54,8 @@
                 opacity: 1;
             }
 
-            &.ghostkit-tabs-buttons-item-active {
+            // apply on first tab only to prevent placeholder color change.
+            &.ghostkit-tabs-buttons-item-active:first-of-type {
                 background-color: #fff;
                 border-color: #dee2e6;
                 border-bottom-color: #fff;

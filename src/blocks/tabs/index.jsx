@@ -148,10 +148,10 @@ class TabsBlock extends Component {
 
                                 return (
                                     <RichText
-                                        tagName="a"
+                                        tagName="div"
                                         data-tab={ val.number }
                                         className={ classnames( 'ghostkit-tabs-buttons-item', selected ? 'ghostkit-tabs-buttons-item-active' : '' ) }
-                                        placeholder={ __( 'Tab label…' ) }
+                                        placeholder={ __( 'Tab label' ) }
                                         value={ val.label }
                                         unstableOnFocus={ () => setAttributes( { tabActive: val.number } ) }
                                         onChange={ ( value ) => {
@@ -165,6 +165,7 @@ class TabsBlock extends Component {
                                         } }
                                         formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
                                         inlineToolbar
+                                        keepPlaceholderOnFocus
                                         key={ `tab_button_${ val.number }` }
                                     />
                                 );
