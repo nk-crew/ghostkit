@@ -164,7 +164,6 @@ class TabsBlock extends Component {
                                             }
                                         } }
                                         formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                                        inlineToolbar
                                         keepPlaceholderOnFocus
                                         key={ `tab_button_${ val.number }` }
                                     />

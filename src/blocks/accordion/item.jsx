@@ -84,7 +84,6 @@ class AccordionItemBlock extends Component {
                                 setAttributes( { heading: value } );
                             } }
                             formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                            inlineToolbar
                             isSelected={ isSelected }
                             keepPlaceholderOnFocus
                         />
