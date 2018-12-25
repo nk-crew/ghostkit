@@ -18,6 +18,12 @@
         flex-wrap: wrap;
         align-items: flex-start;
         justify-content: flex-start;
+        margin-right: 0;
+        margin-left: 0;
+
+        > div {
+            width: auto;
+        }
     }
 
     &.ghostkit-button-wrapper-align-right > .editor-inner-blocks > .editor-block-list__layout {
