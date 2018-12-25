@@ -3,10 +3,12 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/button.svg';
+import deprecatedArray from './deprecated-button.jsx';
 
 const { GHOSTKIT } = window;
 
 import ColorPicker from '../_components/color-picker.jsx';
+import IconPicker from '../_components/icon-picker.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 
 const {
@@ -46,6 +48,8 @@ class ButtonSingleBlock extends Component {
             ghostkitClassname,
             variant,
             text,
+            icon,
+            iconPosition,
             url,
             size,
             color,
@@ -138,6 +142,27 @@ class ButtonSingleBlock extends Component {
                             max="6"
                             onChange={ ( value ) => setAttributes( { borderWeight: value } ) }
                         />
+                        <IconPicker
+                            label={ __( 'Icon' ) }
+                            value={ icon }
+                            onChange={ ( value ) => setAttributes( { icon: value } ) }
+                        />
+                        { icon ? (
+                            <SelectControl
+                                label={ __( 'Icon Position' ) }
+                                value={ iconPosition }
+                                options={ [
+                                    {
+                                        value: 'left',
+                                        label: __( 'Left' ),
+                                    }, {
+                                        value: 'right',
+                                        label: __( 'Right' ),
+                                    },
+                                ] }
+                                onChange={ ( value ) => setAttributes( { iconPosition: value } ) }
+                            />
+                        ) : '' }
                     </PanelBody>
                     <PanelBody title={ (
                         <Fragment>
@@ -202,16 +227,23 @@ class ButtonSingleBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div>
-                    <RichText
-                        tagName="span"
-                        placeholder={ __( 'Add text…' ) }
-                        value={ text }
-                        onChange={ ( value ) => setAttributes( { text: value } ) }
-                        formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                        className={ className }
-                        isSelected={ isSelected }
-                        keepPlaceholderOnFocus
-                    />
+                    <span className={ className }>
+                        { icon && iconPosition === 'left' ? (
+                            <span className="ghostkit-button-icon ghostkit-button-icon-left"><span className={ icon } /></span>
+                        ) : '' }
+                        <RichText
+                            tagName="span"
+                            placeholder={ __( 'Add text…' ) }
+                            value={ text }
+                            onChange={ ( value ) => setAttributes( { text: value } ) }
+                            formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                            isSelected={ isSelected }
+                            keepPlaceholderOnFocus
+                        />
+                        { icon && iconPosition === 'right' ? (
+                            <span className="ghostkit-button-icon ghostkit-button-icon-right"><span className={ icon } /></span>
+                        ) : '' }
+                    </span>
                 </div>
                 { isSelected ? (
                     <form
@@ -273,17 +305,19 @@ export const settings = {
             selector: 'a.ghostkit-button',
             attribute: 'href',
         },
-        title: {
-            type: 'string',
-            source: 'attribute',
-            selector: '.ghostkit-button',
-            attribute: 'title',
-        },
         text: {
             type: 'array',
             source: 'children',
-            selector: '.ghostkit-button',
+            selector: '.ghostkit-button .ghostkit-button-text',
             default: 'Button',
+        },
+        icon: {
+            type: 'string',
+            default: '',
+        },
+        iconPosition: {
+            type: 'string',
+            default: 'left',
         },
         size: {
             type: 'string',
@@ -326,8 +360,9 @@ export const settings = {
         const {
             variant,
             text,
+            icon,
+            iconPosition,
             url,
-            title,
             size,
         } = props.attributes;
 
@@ -353,21 +388,29 @@ export const settings = {
             ...props,
         } );
 
+        const result = [
+            <RichText.Content tagName="span" className="ghostkit-button-text" value={ text } key="button-text" />,
+        ];
+
+        // add icon.
+        if ( icon ) {
+            if ( iconPosition === 'right' ) {
+                result.push( <span className="ghostkit-button-icon ghostkit-button-icon-right" key="button-icon"><span className={ icon } /></span> );
+            } else {
+                result.unshift( <span className="ghostkit-button-icon ghostkit-button-icon-left" key="button-icon"><span className={ icon } /></span> );
+            }
+        }
+
         return url ? (
-            <RichText.Content
-                tagName="a"
-                className={ className }
-                href={ url }
-                title={ title }
-                value={ text }
-            />
+            <a className={ className } href={ url }>
+                { result }
+            </a>
         ) : (
-            <RichText.Content
-                tagName="span"
-                className={ className }
-                title={ title }
-                value={ text }
-            />
+            <span className={ className }>
+                { result }
+            </span>
         );
     },
+
+    deprecated: deprecatedArray,
 };

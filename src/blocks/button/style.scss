@@ -18,7 +18,9 @@
 }
 
 .ghostkit-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: .75em 1em;
     margin: 0;
     font-size: 1em;
@@ -38,6 +40,13 @@
     &:active {
         color: $white;
         background-color: $dark-gray-700;
+    }
+
+    .ghostkit-button-icon-left {
+        margin-right: 10px;
+    }
+    .ghostkit-button-icon-right {
+        margin-left: 10px;
     }
 
     &.ghostkit-button-xs {
