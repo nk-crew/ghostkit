@@ -139,6 +139,7 @@
     "deep-equal": "^1.0.1",
     "rafl": "^1.2.2",
     "re-resizable": "^4.9.0",
+    "react-ace": "^6.3.2",
     "react-color": "^2.14.1",
     "react-google-maps": "^9.4.5",
     "react-select": "^2.0.0-beta.6",

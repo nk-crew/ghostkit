@@ -3,6 +3,11 @@ import './editor.scss';
 
 // External Dependencies.
 import { debounce } from 'throttle-debounce';
+import AceEditor from 'react-ace';
+import 'brace/mode/css';
+import 'brace/snippets/css';
+import 'brace/theme/textmate';
+import 'brace/ext/language_tools';
 
 // Internal Dependencies.
 import ElementIcon from '../_icons/custom-css.svg';
@@ -12,9 +17,6 @@ const { Component } = wp.element;
 const {
     Placeholder,
 } = wp.components;
-const {
-    PlainText,
-} = wp.editor;
 
 // style tag for preview
 const $head = document.head || document.getElementsByTagName( 'head' )[ 0 ];
@@ -56,14 +58,30 @@ class CustomCSSBlock extends Component {
                 { isPlugin ? (
                     <p>{ __( 'Custom CSS for the current post.' ) }</p>
                 ) : '' }
-                <PlainText
-                    value={ customCSS }
+                <AceEditor
+                    mode="css"
+                    theme="textmate"
+                    placeholder={ __( 'Write CSS…' ) }
                     onChange={ value => {
                         setAttributes( { customCSS: value } );
                         updateStyles( value );
                     } }
-                    placeholder={ __( 'Write CSS…' ) }
-                    aria-label={ __( 'CSS' ) }
+                    fontSize={ 13 }
+                    showPrintMargin={ true }
+                    showGutter={ false }
+                    highlightActiveLine={ true }
+                    value={ customCSS }
+                    maxLines={ Infinity }
+                    setOptions={ {
+                        enableBasicAutocompletion: true,
+                        enableLiveAutocompletion: true,
+                        enableSnippets: true,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    } }
+                    editorProps={ {
+                        $blockScrolling: Infinity,
+                    } }
                 />
             </Placeholder>
         );
