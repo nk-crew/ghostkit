@@ -4,6 +4,7 @@ if ( ! global._babelPolyfill ) {
 }
 import classnames from 'classnames/dedupe';
 import ColorPicker from '../_components/color-picker.jsx';
+import IconPicker from '../_components/icon-picker.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 
 // Import CSS
@@ -405,16 +406,14 @@ class VideoBlockEdit extends Component {
                             max="100"
                             onChange={ v => setAttributes( { videoVolume: v } ) }
                         />
-                        <TextControl
+                        <IconPicker
                             label={ __( 'Play Icon' ) }
                             value={ iconPlay }
-                            help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                             onChange={ ( value ) => setAttributes( { iconPlay: value } ) }
                         />
-                        <TextControl
+                        <IconPicker
                             label={ __( 'Loading Icon' ) }
                             value={ iconLoading }
-                            help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                             onChange={ ( value ) => setAttributes( { iconLoading: value } ) }
                         />
 
@@ -442,10 +441,9 @@ class VideoBlockEdit extends Component {
                                         alpha={ true }
                                     />
                                 </ApplyFilters>
-                                <TextControl
+                                <IconPicker
                                     label={ __( 'Fullscreen close icon' ) }
                                     value={ fullscreenActionCloseIcon }
-                                    help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                                     onChange={ ( value ) => setAttributes( { fullscreenActionCloseIcon: value } ) }
                                 />
                             </Fragment>

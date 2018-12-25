@@ -13,6 +13,8 @@ import './store.jsx';
 
 const { GHOSTKIT } = window;
 
+import IconPicker from '../_components/icon-picker.jsx';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -21,7 +23,6 @@ const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     SelectControl,
-    TextControl,
     Button,
 } = wp.components;
 
@@ -150,10 +151,9 @@ class TestimonialBlockEdit extends Component {
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
                         ) : '' }
-                        <TextControl
+                        <IconPicker
                             label={ __( 'Icon' ) }
                             value={ icon }
-                            help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                         { photoSizes ? (

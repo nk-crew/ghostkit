@@ -108,6 +108,9 @@ class GhostKit {
 
         // reusable widget.
         require_once( $this->plugin_path . 'classes/class-reusable-widget.php' );
+
+        // icons.
+        require_once( $this->plugin_path . 'classes/class-icons.php' );
     }
 
 
@@ -243,6 +246,25 @@ class GhostKit {
                 'url' => plugins_url( 'assets/vendor/gmaps/gmaps.min.js', __FILE__ ) . '?ver=0.4.25',
             ) : false,
             'sidebars'          => $sidebars,
+            'icons'             => is_admin() ? apply_filters( 'gkt_icons_list', array(
+                /**
+                 * Example:
+                   array(
+                       array(
+                           'name' => 'FontAwesome',
+                           'icons' => array(
+                               array(
+                                    'class': 'fab fa-google',
+                                    'keys': 'google',
+                                    // optional preview for editor.
+                                    'preview': `<span class="fab fa-google"></span>`,
+                               ),
+                               ...
+                           ),
+                       ),
+                   )
+                 */
+            ) ) : array(),
             'variants'          => array(
                 'accordion'          => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
                 'accordion_item'     => array_merge( $default_variant, apply_filters( 'gkt_accordion_item_variants', array() ) ),

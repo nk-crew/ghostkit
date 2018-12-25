@@ -9,6 +9,8 @@ import elementIcon from '../_icons/carousel.svg';
 
 const { GHOSTKIT } = window;
 
+import IconPicker from '../_components/icon-picker.jsx';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -19,7 +21,6 @@ const {
     RangeControl,
     SelectControl,
     ToggleControl,
-    TextControl,
 } = wp.components;
 
 const {
@@ -185,16 +186,14 @@ class CarouselBlock extends Component {
 
                         { showArrows ? (
                             <Fragment>
-                                <TextControl
+                                <IconPicker
                                     label={ __( 'Prev arrow icon' ) }
                                     value={ arrowPrevIcon }
-                                    help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                                     onChange={ ( value ) => setAttributes( { arrowPrevIcon: value } ) }
                                 />
-                                <TextControl
+                                <IconPicker
                                     label={ __( 'Next arrow icon' ) }
                                     value={ arrowNextIcon }
-                                    help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                                     onChange={ ( value ) => setAttributes( { arrowNextIcon: value } ) }
                                 />
                             </Fragment>

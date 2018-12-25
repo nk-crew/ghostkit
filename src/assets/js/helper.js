@@ -28,6 +28,8 @@ window.GHOSTKIT = {
     googleMapsAPIUrl: ghostkitVariables.googleMapsAPIUrl,
     googleMapsLibrary: ghostkitVariables.googleMapsLibrary,
 
+    icons: ghostkitVariables.icons,
+
     variants: ghostkitVariables.variants,
     getVariants( name ) {
         if ( typeof this.variants[ name ] !== 'undefined' ) {

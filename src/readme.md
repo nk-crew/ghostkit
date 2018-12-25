@@ -158,6 +158,31 @@ Available filters:
 * **ghostkit.blocks.className**
 * **ghostkit.editor.className**
 
+### How to extend icons in icon picker list ####
+
+By default icon picker contains FontAwesome icons. You can add any icons you want. First of all you need to enqueue these icons in editor and frontend pages to see it, then extend icon picker using PHP filter:
+
+    add_filter( 'gkt_icons_list', 'my_gkt_icons' );
+
+    function my_gkt_icons( $icons ) {
+        $icons[] = array(
+            'name' => 'My Icons',
+            'icons' => array(
+                array(
+                    'class' => 'fab fa-500px',
+                    'keys' => '500px',
+                ),
+                array(
+                    'class' => 'fab fa-500px',
+                    'keys' => '500px',
+                ),
+                ...
+            ),
+        );
+
+        return $icons;
+    }
+
 ### jQuery frontend events ####
 
 On frontend there are a lot of jQuery events. Usage example:

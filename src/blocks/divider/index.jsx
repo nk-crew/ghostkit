@@ -12,6 +12,7 @@ import elementIcon from '../_icons/divider.svg';
 const { GHOSTKIT } = window;
 
 import ColorPicker from '../_components/color-picker.jsx';
+import IconPicker from '../_components/icon-picker.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 
 const {
@@ -23,7 +24,6 @@ const {
     PanelBody,
     RangeControl,
     SelectControl,
-    TextControl,
     Toolbar,
     DropdownMenu,
     ColorIndicator,
@@ -147,10 +147,9 @@ class DividerBlock extends Component {
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
-                        <TextControl
+                        <IconPicker
                             label={ __( 'Icon' ) }
                             value={ icon }
-                            help={ __( 'Icon class. By default available FontAwesome classes. https://fontawesome.com/icons' ) }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                         { icon ? (
