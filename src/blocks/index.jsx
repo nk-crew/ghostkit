@@ -44,9 +44,34 @@ import './_plugins/customizer.jsx';
 import './_plugins/custom-css.jsx';
 
 /**
+ * Icon
+ */
+import GhostKitIcon from './_icons/ghostkit-black.svg';
+
+/**
  * Internal dependencies
  */
-const { registerBlockType } = wp.blocks;
+const {
+    registerBlockType,
+    updateCategory,
+} = wp.blocks;
+
+/**
+ * Add category icon.
+ */
+if ( updateCategory ) {
+    updateCategory( 'ghostkit', { icon: (
+        <GhostKitIcon
+            style={ {
+                width: '20px',
+                height: '20px',
+                marginLeft: '7px',
+                marginTop: '-1px',
+            } }
+            className="components-panel__icon"
+        />
+    ) } );
+}
 
 /**
  * Register blocks
