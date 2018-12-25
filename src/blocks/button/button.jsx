@@ -229,7 +229,10 @@ class ButtonSingleBlock extends Component {
                 <div>
                     <span className={ className }>
                         { icon && iconPosition === 'left' ? (
-                            <span className="ghostkit-button-icon ghostkit-button-icon-left"><span className={ icon } /></span>
+                            <span
+                                className="ghostkit-button-icon ghostkit-button-icon-left"
+                                dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
+                            />
                         ) : '' }
                         <RichText
                             tagName="span"
@@ -241,7 +244,10 @@ class ButtonSingleBlock extends Component {
                             keepPlaceholderOnFocus
                         />
                         { icon && iconPosition === 'right' ? (
-                            <span className="ghostkit-button-icon ghostkit-button-icon-right"><span className={ icon } /></span>
+                            <span
+                                className="ghostkit-button-icon ghostkit-button-icon-right"
+                                dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
+                            />
                         ) : '' }
                     </span>
                 </div>

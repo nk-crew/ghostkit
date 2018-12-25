@@ -182,7 +182,10 @@ class AlertBlock extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     { icon ? (
-                        <div className="ghostkit-alert-icon" dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } } />
+                        <div
+                            className="ghostkit-alert-icon"
+                            dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
+                        />
                     ) : '' }
                     <div className="ghostkit-alert-content">
                         <InnerBlocks

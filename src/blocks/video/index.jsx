@@ -536,14 +536,16 @@ class VideoBlockEdit extends Component {
                         </div>
                     ) : '' }
                     { iconPlay ? (
-                        <div className="ghostkit-video-play-icon">
-                            <span className={ iconPlay } />
-                        </div>
+                        <div
+                            className="ghostkit-video-play-icon"
+                            dangerouslySetInnerHTML={ { __html: `<span class="${ iconPlay }"></span>` } }
+                        />
                     ) : '' }
                     { iconLoading ? (
-                        <div className="ghostkit-video-loading-icon">
-                            <span className={ iconLoading } />
-                        </div>
+                        <div
+                            className="ghostkit-video-loading-icon"
+                            dangerouslySetInnerHTML={ { __html: `<span class="${ iconLoading }"></span>` } }
+                        />
                     ) : '' }
                 </div>
             </Fragment>

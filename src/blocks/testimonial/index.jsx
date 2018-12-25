@@ -177,9 +177,10 @@ class TestimonialBlockEdit extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     { icon ? (
-                        <div className="ghostkit-testimonial-icon">
-                            <span className={ icon } />
-                        </div>
+                        <div
+                            className="ghostkit-testimonial-icon"
+                            dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
+                        />
                     ) : '' }
                     <div className="ghostkit-testimonial-content">
                         <InnerBlocks
