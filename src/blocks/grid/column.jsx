@@ -283,6 +283,8 @@ export const settings = {
         className: false,
         anchor: true,
         ghostkitStyles: true,
+        inserter: false,
+        reusable: false,
         ghostkitStylesCallback( attributes ) {
             const {
                 stickyContent,

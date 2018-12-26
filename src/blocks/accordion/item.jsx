@@ -114,6 +114,8 @@ export const settings = {
         className: false,
         anchor: true,
         align: [ 'wide', 'full' ],
+        inserter: false,
+        reusable: false,
         ghostkitStyles: true,
         ghostkitSpacings: true,
         ghostkitDisplay: true,

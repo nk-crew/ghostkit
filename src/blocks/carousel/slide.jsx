@@ -92,6 +92,8 @@ export const settings = {
         html: false,
         className: false,
         anchor: true,
+        inserter: false,
+        reusable: false,
         ghostkitStyles: true,
         ghostkitSpacings: true,
         ghostkitDisplay: true,
