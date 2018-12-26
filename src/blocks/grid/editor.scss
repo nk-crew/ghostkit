@@ -40,12 +40,13 @@
     // This is not a 1:1 preview with the front-end where these margins would presumably be zero
     // @todo this could be revisited, by for example showing this margin only when the parent block was selected first
     // Then at least an unselected columns block would be an accurate preview
-    .editor-block-list__block[data-align="full"][data-type="ghostkit/grid"] > .editor-block-list__block-edit > & > .editor-inner-blocks > .editor-block-list__layout {
-        &:first-child {
-            margin-left: 1px;
+    .editor-block-list__block[data-align="full"][data-type="ghostkit/grid"] > .editor-block-list__block-edit > div > & {
+        > .ghostkit-grid-button-select {
+            right: 1px;
         }
-        &:last-child {
+        > .editor-inner-blocks > .editor-block-list__layout {
             margin-right: 1px;
+            margin-left: 1px;
         }
     }
 
