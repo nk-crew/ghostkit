@@ -178,16 +178,6 @@ class GridBlock extends Component {
 
         const availableVariants = GHOSTKIT.getVariants( 'grid' );
 
-        const tabs = [];
-
-        for ( let val = 1; val <= columns; val++ ) {
-            tabs.push( {
-                name: 'column_' + val,
-                title: val,
-                className: 'ghostkit-control-tabs-tab',
-            } );
-        }
-
         className = classnames(
             className,
             'ghostkit-grid',
