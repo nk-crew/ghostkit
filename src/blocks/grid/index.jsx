@@ -110,29 +110,29 @@ class GridBlock extends Component {
 
             columnsData.forEach( ( col ) => {
                 const colAttrs = {
-                    size: col === 'a' ? 'auto' : parseInt( col, 10 ),
+                    size: col === 'a' ? 'auto' : col,
                 };
 
                 // responsive.
                 if ( columnsData.length === 2 ) {
-                    colAttrs.md_size = 12;
+                    colAttrs.md_size = '12';
                 }
                 if ( columnsData.length === 3 ) {
-                    colAttrs.lg_size = 12;
+                    colAttrs.lg_size = '12';
                 }
                 if ( columnsData.length === 4 ) {
-                    colAttrs.md_size = 12;
-                    colAttrs.lg_size = 6;
+                    colAttrs.md_size = '12';
+                    colAttrs.lg_size = '6';
                 }
                 if ( columnsData.length === 5 ) {
-                    colAttrs.sm_size = 12;
-                    colAttrs.md_size = 5;
-                    colAttrs.lg_size = 4;
+                    colAttrs.sm_size = '12';
+                    colAttrs.md_size = '5';
+                    colAttrs.lg_size = '4';
                 }
                 if ( columnsData.length === 6 ) {
-                    colAttrs.sm_size = 6;
-                    colAttrs.md_size = 4;
-                    colAttrs.lg_size = 3;
+                    colAttrs.sm_size = '6';
+                    colAttrs.md_size = '4';
+                    colAttrs.lg_size = '3';
                 }
 
                 result.push( [ 'ghostkit/grid-column', colAttrs, [
