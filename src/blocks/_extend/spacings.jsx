@@ -370,6 +370,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                                 value={ this.getCurrentSpacing( 'marginLeft', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'marginLeft', nextValue, device ) }
+                                                                autocomplete="off"
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-margin-top">
@@ -377,6 +378,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                                 value={ this.getCurrentSpacing( 'marginTop', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'marginTop', nextValue, device ) }
+                                                                autocomplete="off"
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-margin-right">
@@ -384,6 +386,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                                 value={ this.getCurrentSpacing( 'marginRight', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'marginRight', nextValue, device ) }
+                                                                autocomplete="off"
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-margin-bottom">
@@ -391,6 +394,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                                 value={ this.getCurrentSpacing( 'marginBottom', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'marginBottom', nextValue, device ) }
+                                                                autocomplete="off"
                                                             />
                                                         </div>
                                                     </div>
@@ -401,6 +405,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                                 value={ this.getCurrentSpacing( 'paddingLeft', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'paddingLeft', nextValue, device ) }
+                                                                autocomplete="off"
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-padding-top">
@@ -408,6 +413,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                                 value={ this.getCurrentSpacing( 'paddingTop', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'paddingTop', nextValue, device ) }
+                                                                autocomplete="off"
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-padding-right">
@@ -415,6 +421,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                                 value={ this.getCurrentSpacing( 'paddingRight', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'paddingRight', nextValue, device ) }
+                                                                autocomplete="off"
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-padding-bottom">
@@ -422,6 +429,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                                 value={ this.getCurrentSpacing( 'paddingBottom', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'paddingBottom', nextValue, device ) }
+                                                                autocomplete="off"
                                                             />
                                                         </div>
                                                     </div>
