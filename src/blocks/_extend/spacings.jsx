@@ -4,6 +4,8 @@ import deepAssign from 'deep-assign';
 // Internal Dependencies.
 import Logo from '../_icons/ghostkit.svg';
 
+import InputDrag from '../_components/input-drag.jsx';
+
 const { __ } = wp.i18n;
 
 const {
@@ -28,7 +30,6 @@ const { InspectorControls } = wp.editor;
 const {
     BaseControl,
     PanelBody,
-    TextControl,
     CheckboxControl,
     TabPanel,
 } = wp.components;
@@ -366,7 +367,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     <div className="ghostkit-control-spacing-margin">
                                                         <span>{ __( 'Margin' ) }</span>
                                                         <div className="ghostkit-control-spacing-margin-left">
-                                                            <TextControl
+                                                            <InputDrag
                                                                 value={ this.getCurrentSpacing( 'marginLeft', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'marginLeft', nextValue, device ) }
@@ -374,7 +375,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-margin-top">
-                                                            <TextControl
+                                                            <InputDrag
                                                                 value={ this.getCurrentSpacing( 'marginTop', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'marginTop', nextValue, device ) }
@@ -382,7 +383,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-margin-right">
-                                                            <TextControl
+                                                            <InputDrag
                                                                 value={ this.getCurrentSpacing( 'marginRight', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'marginRight', nextValue, device ) }
@@ -390,7 +391,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-margin-bottom">
-                                                            <TextControl
+                                                            <InputDrag
                                                                 value={ this.getCurrentSpacing( 'marginBottom', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'marginBottom', nextValue, device ) }
@@ -401,7 +402,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     <div className="ghostkit-control-spacing-padding">
                                                         <span>{ __( 'Padding' ) }</span>
                                                         <div className="ghostkit-control-spacing-padding-left">
-                                                            <TextControl
+                                                            <InputDrag
                                                                 value={ this.getCurrentSpacing( 'paddingLeft', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'paddingLeft', nextValue, device ) }
@@ -409,7 +410,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-padding-top">
-                                                            <TextControl
+                                                            <InputDrag
                                                                 value={ this.getCurrentSpacing( 'paddingTop', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'paddingTop', nextValue, device ) }
@@ -417,7 +418,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-padding-right">
-                                                            <TextControl
+                                                            <InputDrag
                                                                 value={ this.getCurrentSpacing( 'paddingRight', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'paddingRight', nextValue, device ) }
@@ -425,7 +426,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                             />
                                                         </div>
                                                         <div className="ghostkit-control-spacing-padding-bottom">
-                                                            <TextControl
+                                                            <InputDrag
                                                                 value={ this.getCurrentSpacing( 'paddingBottom', device ) }
                                                                 placeholder="-"
                                                                 onChange={ ( nextValue ) => this.updateSpacings( 'paddingBottom', nextValue, device ) }
