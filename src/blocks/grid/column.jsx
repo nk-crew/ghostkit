@@ -390,14 +390,7 @@ export const settings = {
             stickyContent,
         } = attributes;
 
-        let {
-            className,
-        } = attributes;
-
-        className = classnames(
-            className,
-            getColClass( attributes )
-        );
+        let className = getColClass( attributes );
 
         // variant classname.
         if ( 'default' !== variant ) {

@@ -593,16 +593,9 @@ class VideoBlockSave extends Component {
             fullscreenBackgroundColor,
         } = attributes;
 
-        const {
-            className,
-        } = attributes;
-
         const resultAttrs = {};
 
-        resultAttrs.className = classnames(
-            'ghostkit-video',
-            className
-        );
+        resultAttrs.className = 'ghostkit-video';
 
         // variant classname.
         if ( 'default' !== variant ) {

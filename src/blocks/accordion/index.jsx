@@ -168,12 +168,7 @@ export const settings = {
             collapseOne,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames(
-            className,
+        let className = classnames(
             'ghostkit-accordion',
             `ghostkit-accordion-${ itemsCount }`,
             collapseOne ? 'ghostkit-accordion-collapse-one' : ''

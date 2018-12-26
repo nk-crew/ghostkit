@@ -290,15 +290,10 @@ export const settings = {
             gap,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames(
+        let className = classnames(
             'ghostkit-button-wrapper',
             gap ? `ghostkit-button-wrapper-gap-${ gap }` : false,
-            align && align !== 'none' ? `ghostkit-button-wrapper-align-${ align }` : false,
-            className
+            align && align !== 'none' ? `ghostkit-button-wrapper-align-${ align }` : false
         );
 
         className = applyFilters( 'ghostkit.blocks.className', className, {

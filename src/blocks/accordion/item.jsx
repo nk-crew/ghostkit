@@ -141,7 +141,7 @@ export const settings = {
 
     edit: AccordionItemBlock,
 
-    save: function( { attributes, className = '' } ) {
+    save: function( { attributes } ) {
         const {
             variant,
             heading,
@@ -149,9 +149,8 @@ export const settings = {
             itemNumber,
         } = attributes;
 
-        className = classnames(
+        let className = classnames(
             'ghostkit-accordion-item',
-            className,
             active ? 'ghostkit-accordion-item-active' : ''
         );
 

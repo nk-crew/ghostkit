@@ -302,12 +302,7 @@ export const settings = {
             horizontalAlign,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames(
-            className,
+        let className = classnames(
             'ghostkit-pricing-table',
             `ghostkit-pricing-table-gap-${ gap }`,
             count ? `ghostkit-pricing-table-items-${ count }` : false,

@@ -327,11 +327,7 @@ export const settings = {
             variant,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames( 'ghostkit-divider', `ghostkit-divider-type-${ type }`, className );
+        let className = `ghostkit-divider ghostkit-divider-type-${ type }`;
 
         if ( icon ) {
             className = classnames( className, 'ghostkit-divider-with-icon' );

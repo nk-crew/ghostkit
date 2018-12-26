@@ -364,11 +364,7 @@ export const settings = {
             showLineNumbers,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames( 'ghostkit-gist', className );
+        let className = 'ghostkit-gist';
 
         // variant classname.
         if ( 'default' !== variant ) {

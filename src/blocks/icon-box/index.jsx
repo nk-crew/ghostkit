@@ -247,11 +247,7 @@ export const settings = {
             variant,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames( 'ghostkit-icon-box', className );
+        let className = 'ghostkit-icon-box';
 
         // variant classname.
         if ( 'default' !== variant ) {

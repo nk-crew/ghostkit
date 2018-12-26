@@ -592,11 +592,7 @@ export const settings = {
             fullHeight,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames( 'ghostkit-google-maps', className );
+        let className = 'ghostkit-google-maps';
 
         // add full height classname.
         if ( fullHeight ) {

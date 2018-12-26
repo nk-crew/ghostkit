@@ -239,15 +239,7 @@ export const settings = {
             buttonsAlign,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames(
-            className,
-            'ghostkit-tabs',
-            `ghostkit-tabs-${ tabsCount }`
-        );
+        let className = `ghostkit-tabs ghostkit-tabs-${ tabsCount }`;
 
         // variant classname.
         if ( 'default' !== variant ) {

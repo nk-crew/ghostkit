@@ -158,11 +158,7 @@ export const settings = {
             date,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames( 'ghostkit-changelog', className );
+        let className = 'ghostkit-changelog';
 
         // variant classname.
         if ( 'default' !== variant ) {

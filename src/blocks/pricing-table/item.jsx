@@ -339,12 +339,7 @@ export const settings = {
             showButton,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames(
-            className,
+        let className = classnames(
             'ghostkit-pricing-table-item',
             showPopular ? 'ghostkit-pricing-table-item-popular' : ''
         );

@@ -386,11 +386,7 @@ export const settings = {
             variant,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames( 'ghostkit-progress', className );
+        let className = 'ghostkit-progress';
 
         // variant classname.
         if ( 'default' !== variant ) {

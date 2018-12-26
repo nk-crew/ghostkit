@@ -117,11 +117,7 @@ export const settings = {
             tabNumber,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames( className, 'ghostkit-tab' );
+        let className = 'ghostkit-tab';
 
         // variant classname.
         if ( 'default' !== variant ) {

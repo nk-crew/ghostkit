@@ -279,12 +279,11 @@ export const settings = {
 
         let {
             animateInViewportFrom,
-            className,
         } = props.attributes;
 
         animateInViewportFrom = parseFloat( animateInViewportFrom );
 
-        className = classnames( 'ghostkit-counter-box', className );
+        let className = 'ghostkit-counter-box';
 
         // variant classname.
         if ( 'default' !== variant ) {

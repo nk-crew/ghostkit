@@ -428,12 +428,7 @@ export const settings = {
             variant,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames(
-            className,
+        let className = classnames(
             'ghostkit-grid',
             `ghostkit-grid-gap-${ gap }`,
             verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,

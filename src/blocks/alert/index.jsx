@@ -281,11 +281,7 @@ export const settings = {
             variant,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames( 'ghostkit-alert', className );
+        let className = 'ghostkit-alert';
 
         // variant classname.
         if ( 'default' !== variant ) {

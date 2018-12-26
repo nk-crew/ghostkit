@@ -339,14 +339,7 @@ export const settings = {
             gap,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames(
-            className,
-            'ghostkit-carousel'
-        );
+        let className = 'ghostkit-carousel';
 
         // variant classname.
         if ( 'default' !== variant ) {

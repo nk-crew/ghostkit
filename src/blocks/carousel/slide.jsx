@@ -111,14 +111,7 @@ export const settings = {
             variant,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames(
-            className,
-            'ghostkit-carousel-slide'
-        );
+        let className = 'ghostkit-carousel-slide';
 
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-carousel-slide-variant-${ variant }` );

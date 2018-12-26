@@ -372,14 +372,9 @@ export const settings = {
             size,
         } = props.attributes;
 
-        let {
-            className,
-        } = props.attributes;
-
-        className = classnames(
+        let className = classnames(
             'ghostkit-button',
-            size ? `ghostkit-button-${ size }` : '',
-            className
+            size ? `ghostkit-button-${ size }` : ''
         );
 
         // variant classname.

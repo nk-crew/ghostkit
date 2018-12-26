@@ -276,11 +276,7 @@ class TestimonialBlockSave extends Component {
             source,
         } = attributes;
 
-        let {
-            className,
-        } = attributes;
-
-        className = classnames( 'ghostkit-testimonial', className );
+        let className = 'ghostkit-testimonial';
 
         // variant classname.
         if ( 'default' !== variant ) {
