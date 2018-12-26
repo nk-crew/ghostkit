@@ -163,6 +163,7 @@ class GridBlock extends Component {
         const {
             attributes,
             setAttributes,
+            isSelected,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -327,11 +328,18 @@ class GridBlock extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     { columns > 0 || this.state.selectedLayout ? (
-                        <InnerBlocks
-                            template={ this.getColumnsTemplate() }
-                            templateLock="all"
-                            allowedBlocks={ [ 'ghostkit/grid-column' ] }
-                        />
+                        <Fragment>
+                            { ! isSelected ? (
+                                <div className="ghostkit-grid-button-select">
+                                    { __( 'Select Grid' ) }
+                                </div>
+                            ) : '' }
+                            <InnerBlocks
+                                template={ this.getColumnsTemplate() }
+                                templateLock="all"
+                                allowedBlocks={ [ 'ghostkit/grid-column' ] }
+                            />
+                        </Fragment>
                     ) : (
                         <div className="ghostkit-select-layout">
                             <div>

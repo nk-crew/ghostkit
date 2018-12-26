@@ -24,7 +24,6 @@
         position: relative;
         display: flex;
         flex-wrap: wrap;
-        align-items: flex-start;
         justify-content: flex-start;
         margin-right: -15px;
         margin-left: -15px;
@@ -61,6 +60,55 @@
         right: $item-spacing;
         left: auto;
     }
+}
+
+// Highlight the label to easily select grid/column block by clicking on it.
+.ghostkit-grid-button-select,
+.ghostkit-column-button-select {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    padding: 4px 10px;
+    font-family: $default-font;
+    font-size: 11px;
+    line-height: 1;
+    color: #fff;
+    cursor: pointer;
+    visibility: hidden;
+    background-color: $light-gray-700;
+    opacity: 0;
+    transition: .2s opacity, .2s visibility, .2s background-color;
+    z-index: 21;
+}
+.ghostkit-grid-button-select {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 15px;
+}
+[data-type="ghostkit/grid"]:hover > .editor-block-list__block-edit > div > div > .ghostkit-grid-button-select,
+[data-type="ghostkit/grid-column"]:hover > .editor-block-list__block-edit > div > div > .ghostkit-column-button-select {
+    visibility: visible;
+    opacity: 1;
+}
+[data-type="ghostkit/grid"].is-hovered > .editor-block-list__block-edit > div > div > .ghostkit-grid-button-select,
+[data-type="ghostkit/grid-column"].is-hovered > .editor-block-list__block-edit > div > div > .ghostkit-column-button-select {
+    background-color: $blue-wordpress;
+}
+
+// add outlines on hover
+.editor-block-list__layout > [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit::before {
+    left: -15px;
+}
+[data-type="ghostkit/grid"]:hover [data-type="ghostkit/grid-column"]:not(.is-selected) > .editor-block-list__block-edit::before {
+    outline: 1px dashed rgba(145, 151, 162, .25);
+}
+[data-type="ghostkit/grid"]:hover [data-type="ghostkit/grid-column"].is-hovered > .editor-block-list__block-edit::before {
+    outline: 1px solid $blue-wordpress;
+}
+
+// hide default grid breadcrumb
+[data-type="ghostkit/grid"] > .editor-block-list__block-edit > .editor-block-list__breadcrumb {
+    display: none;
 }
 
 // Layouts selector.
@@ -107,31 +155,6 @@
         &:focus {
             opacity: 1;
         }
-    }
-}
-
-// Highlight the label to easily select grid/column block by clicking on it.
-[data-type="ghostkit/grid-column"] {
-    &:hover::after {
-        content: "Select Column";
-        position: absolute;
-        display: block;
-        top: -16px;
-        right: 0;
-        padding: 4px;
-        font-family: $default-font;
-        font-size: 11px;
-        line-height: 1;
-        color: #fff;
-        cursor: pointer;
-        background-color: $light-gray-700;
-        z-index: 21;
-    }
-    &.is-hovered::after {
-        opacity: 0;
-    }
-    &.is-selected::after {
-        display: none;
     }
 }
 

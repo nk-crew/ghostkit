@@ -123,6 +123,7 @@ class GridColumnBlock extends Component {
         const {
             attributes,
             setAttributes,
+            isSelected,
         } = this.props;
 
         const {
@@ -263,6 +264,11 @@ class GridColumnBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div>
+                    { ! isSelected ? (
+                        <div className="ghostkit-column-button-select">
+                            { __( 'Select Column' ) }
+                        </div>
+                    ) : '' }
                     <InnerBlocks templateLock={ false } />
                 </div>
             </Fragment>
