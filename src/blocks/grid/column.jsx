@@ -5,6 +5,7 @@ import classnames from 'classnames/dedupe';
 import elementIcon from '../_icons/grid.svg';
 import getColClass from './get-col-class.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
+import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -16,7 +17,6 @@ const {
     SelectControl,
     ToggleControl,
     TextControl,
-    TabPanel,
 } = wp.components;
 
 const {
@@ -119,35 +119,7 @@ class GridColumnBlock extends Component {
                                     onChange={ ( value ) => setAttributes( { variant: value } ) }
                                 />
                             ) : '' }
-                            <TabPanel
-                                className="ghostkit-control-tabs"
-                                tabs={ [
-                                    {
-                                        name: 'all',
-                                        title: <span className="fas fa-tv" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                    {
-                                        name: 'xl',
-                                        title: <span className="fas fa-desktop" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                    {
-                                        name: 'lg',
-                                        title: <span className="fas fa-laptop" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                    {
-                                        name: 'md',
-                                        title: <span className="fas fa-tablet-alt" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                    {
-                                        name: 'sm',
-                                        title: <span className="fas fa-mobile-alt" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                ] }>
+                            <TabPanelScreenSizes>
                                 {
                                     ( tabData ) => {
                                         let sizeName = 'size';
@@ -156,23 +128,6 @@ class GridColumnBlock extends Component {
                                         if ( tabData.name !== 'all' ) {
                                             sizeName = `${ tabData.name }_${ sizeName }`;
                                             orderName = `${ tabData.name }_${ orderName }`;
-                                        }
-
-                                        let note = __( 'Applied to all devices' );
-
-                                        switch ( tabData.name ) {
-                                        case 'xl':
-                                            note = __( 'Applied to devices with screen width <= 1200px' );
-                                            break;
-                                        case 'lg':
-                                            note = __( 'Applied to devices with screen width <= 992px' );
-                                            break;
-                                        case 'md':
-                                            note = __( 'Applied to devices with screen width <= 768px' );
-                                            break;
-                                        case 'sm':
-                                            note = __( 'Applied to devices with screen width <= 576px' );
-                                            break;
                                         }
 
                                         return (
@@ -197,12 +152,11 @@ class GridColumnBlock extends Component {
                                                     } }
                                                     options={ getDefaultColumnOrders() }
                                                 />
-                                                <p><em>{ note }</em></p>
                                             </Fragment>
                                         );
                                     }
                                 }
-                            </TabPanel>
+                            </TabPanelScreenSizes>
                         </PanelBody>
                     </ApplyFilters>
                     <PanelBody>

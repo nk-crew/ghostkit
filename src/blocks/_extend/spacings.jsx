@@ -5,6 +5,7 @@ import deepAssign from 'deep-assign';
 import Logo from '../_icons/ghostkit.svg';
 
 import InputDrag from '../_components/input-drag.jsx';
+import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
 
 const { __ } = wp.i18n;
 
@@ -31,7 +32,6 @@ const {
     BaseControl,
     PanelBody,
     CheckboxControl,
-    TabPanel,
 } = wp.components;
 
 let initialOpenPanel = false;
@@ -306,58 +306,13 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 initialOpenPanel = ! initialOpenPanel;
                             } }
                         >
-                            <TabPanel
-                                className="ghostkit-control-tabs ghostkit-control-tabs-spacings"
-                                tabs={ [
-                                    {
-                                        name: 'all',
-                                        title: <span className="fas fa-tv" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                    {
-                                        name: 'xl',
-                                        title: <span className="fas fa-desktop" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                    {
-                                        name: 'lg',
-                                        title: <span className="fas fa-laptop" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                    {
-                                        name: 'md',
-                                        title: <span className="fas fa-tablet-alt" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                    {
-                                        name: 'sm',
-                                        title: <span className="fas fa-mobile-alt" />,
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                ] }>
+                            <TabPanelScreenSizes>
                                 {
                                     ( tabData ) => {
                                         let device = '';
 
                                         if ( tabData.name !== 'all' ) {
                                             device = `media_${ tabData.name }`;
-                                        }
-
-                                        let note = __( 'Applied to all devices' );
-
-                                        switch ( tabData.name ) {
-                                        case 'xl':
-                                            note = __( 'Applied to devices with screen width <= 1200px' );
-                                            break;
-                                        case 'lg':
-                                            note = __( 'Applied to devices with screen width <= 992px' );
-                                            break;
-                                        case 'md':
-                                            note = __( 'Applied to devices with screen width <= 768px' );
-                                            break;
-                                        case 'sm':
-                                            note = __( 'Applied to devices with screen width <= 576px' );
-                                            break;
                                         }
 
                                         return (
@@ -442,12 +397,11 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                         />
                                                     </div>
                                                 </BaseControl>
-                                                <p><em>{ note }</em></p>
                                             </Fragment>
                                         );
                                     }
                                 }
-                            </TabPanel>
+                            </TabPanelScreenSizes>
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>
