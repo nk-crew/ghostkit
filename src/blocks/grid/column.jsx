@@ -3,6 +3,8 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/grid.svg';
+import getColClass from './get-col-class.jsx';
+import ApplyFilters from '../_components/apply-filters.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -83,41 +85,6 @@ const getDefaultColumnOrders = function( columns = 12 ) {
     return result;
 };
 
-/**
- * Returns the ready to use className for grid column.
- *
- * @param {object} attributes - block attributes.
- *
- * @return {String} Classname for Grid container.
- */
-const getColClass = ( attributes ) => {
-    let result = 'ghostkit-col';
-
-    Object.keys( attributes ).map( ( key ) => {
-        if ( attributes[ key ] ) {
-            let prefix = key.split( '_' )[ 0 ];
-            let type = key.split( '_' )[ 1 ];
-
-            if ( ! type ) {
-                type = prefix;
-                prefix = '';
-            }
-
-            if ( type && ( type === 'size' || type === 'order' ) ) {
-                prefix = prefix ? `-${ prefix }` : '';
-                type = type === 'size' ? '' : `-${ type }`;
-
-                result = classnames(
-                    result,
-                    `ghostkit-col${ type }${ prefix || '' }${ attributes[ key ] !== 'auto' ? `-${ attributes[ key ] }` : '' }`
-                );
-            }
-        }
-    } );
-
-    return result;
-};
-
 class GridColumnBlock extends Component {
     render() {
         const {
@@ -139,103 +106,105 @@ class GridColumnBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        ) : '' }
-                        <TabPanel
-                            className="ghostkit-control-tabs"
-                            tabs={ [
+                    <ApplyFilters name="ghostkit.editor.controls" attribute="columnSettings" props={ this.props }>
+                        <PanelBody>
+                            { Object.keys( availableVariants ).length > 1 ? (
+                                <SelectControl
+                                    label={ __( 'Variants' ) }
+                                    value={ variant }
+                                    options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                        value: key,
+                                        label: availableVariants[ key ].title,
+                                    } ) ) }
+                                    onChange={ ( value ) => setAttributes( { variant: value } ) }
+                                />
+                            ) : '' }
+                            <TabPanel
+                                className="ghostkit-control-tabs"
+                                tabs={ [
+                                    {
+                                        name: 'all',
+                                        title: <span className="fas fa-tv" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                    {
+                                        name: 'xl',
+                                        title: <span className="fas fa-desktop" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                    {
+                                        name: 'lg',
+                                        title: <span className="fas fa-laptop" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                    {
+                                        name: 'md',
+                                        title: <span className="fas fa-tablet-alt" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                    {
+                                        name: 'sm',
+                                        title: <span className="fas fa-mobile-alt" />,
+                                        className: 'ghostkit-control-tabs-tab',
+                                    },
+                                ] }>
                                 {
-                                    name: 'all',
-                                    title: <span className="fas fa-tv" />,
-                                    className: 'ghostkit-control-tabs-tab',
-                                },
-                                {
-                                    name: 'xl',
-                                    title: <span className="fas fa-desktop" />,
-                                    className: 'ghostkit-control-tabs-tab',
-                                },
-                                {
-                                    name: 'lg',
-                                    title: <span className="fas fa-laptop" />,
-                                    className: 'ghostkit-control-tabs-tab',
-                                },
-                                {
-                                    name: 'md',
-                                    title: <span className="fas fa-tablet-alt" />,
-                                    className: 'ghostkit-control-tabs-tab',
-                                },
-                                {
-                                    name: 'sm',
-                                    title: <span className="fas fa-mobile-alt" />,
-                                    className: 'ghostkit-control-tabs-tab',
-                                },
-                            ] }>
-                            {
-                                ( tabData ) => {
-                                    let sizeName = 'size';
-                                    let orderName = 'order';
+                                    ( tabData ) => {
+                                        let sizeName = 'size';
+                                        let orderName = 'order';
 
-                                    if ( tabData.name !== 'all' ) {
-                                        sizeName = `${ tabData.name }_${ sizeName }`;
-                                        orderName = `${ tabData.name }_${ orderName }`;
+                                        if ( tabData.name !== 'all' ) {
+                                            sizeName = `${ tabData.name }_${ sizeName }`;
+                                            orderName = `${ tabData.name }_${ orderName }`;
+                                        }
+
+                                        let note = __( 'Applied to all devices' );
+
+                                        switch ( tabData.name ) {
+                                        case 'xl':
+                                            note = __( 'Applied to devices with screen width <= 1200px' );
+                                            break;
+                                        case 'lg':
+                                            note = __( 'Applied to devices with screen width <= 992px' );
+                                            break;
+                                        case 'md':
+                                            note = __( 'Applied to devices with screen width <= 768px' );
+                                            break;
+                                        case 'sm':
+                                            note = __( 'Applied to devices with screen width <= 576px' );
+                                            break;
+                                        }
+
+                                        return (
+                                            <Fragment>
+                                                <SelectControl
+                                                    label={ __( 'Size' ) }
+                                                    value={ attributes[ sizeName ] }
+                                                    onChange={ ( value ) => {
+                                                        const result = {};
+                                                        result[ sizeName ] = value;
+                                                        setAttributes( result );
+                                                    } }
+                                                    options={ getDefaultColumnSizes() }
+                                                />
+                                                <SelectControl
+                                                    label={ __( 'Order' ) }
+                                                    value={ attributes[ orderName ] }
+                                                    onChange={ ( value ) => {
+                                                        const result = {};
+                                                        result[ orderName ] = value;
+                                                        setAttributes( result );
+                                                    } }
+                                                    options={ getDefaultColumnOrders() }
+                                                />
+                                                <p><em>{ note }</em></p>
+                                            </Fragment>
+                                        );
                                     }
-
-                                    let note = __( 'Will be applied to all devices' );
-
-                                    switch ( tabData.name ) {
-                                    case 'xl':
-                                        note = __( 'Will be applied to devices with screen width <= 1200px' );
-                                        break;
-                                    case 'lg':
-                                        note = __( 'Will be applied to devices with screen width <= 992px' );
-                                        break;
-                                    case 'md':
-                                        note = __( 'Will be applied to devices with screen width <= 768px' );
-                                        break;
-                                    case 'sm':
-                                        note = __( 'Will be applied to devices with screen width <= 576px' );
-                                        break;
-                                    }
-
-                                    return (
-                                        <Fragment>
-                                            <SelectControl
-                                                label={ __( 'Size' ) }
-                                                value={ attributes[ sizeName ] }
-                                                onChange={ ( value ) => {
-                                                    const result = {};
-                                                    result[ sizeName ] = value;
-                                                    setAttributes( result );
-                                                } }
-                                                options={ getDefaultColumnSizes() }
-                                            />
-                                            <SelectControl
-                                                label={ __( 'Order' ) }
-                                                value={ attributes[ orderName ] }
-                                                onChange={ ( value ) => {
-                                                    const result = {};
-                                                    result[ orderName ] = value;
-                                                    setAttributes( result );
-                                                } }
-                                                options={ getDefaultColumnOrders() }
-                                            />
-                                            <p><em>{ note }</em></p>
-                                        </Fragment>
-                                    );
                                 }
-                            }
-                        </TabPanel>
-                    </PanelBody>
+                            </TabPanel>
+                        </PanelBody>
+                    </ApplyFilters>
                     <PanelBody>
                         <BaseControl>
                             <ToggleControl

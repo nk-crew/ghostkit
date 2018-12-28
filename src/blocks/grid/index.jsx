@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import elementIcon from '../_icons/grid.svg';
 import deprecatedArray from './deprecated.jsx';
+import ApplyFilters from '../_components/apply-filters.jsx';
 
 // layout icons.
 import IconLayout12 from './icons/layout-12.svg';
@@ -239,91 +240,97 @@ class GridBlock extends Component {
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
                         ) : '' }
-                        <RangeControl
-                            label={ __( 'Columns' ) }
-                            value={ columns }
-                            onChange={ ( value ) => setAttributes( { columns: value } ) }
-                            min={ 2 }
-                            max={ 12 }
-                        />
-                        <SelectControl
-                            label={ __( 'Vertical alignment' ) }
-                            value={ verticalAlign }
-                            onChange={ ( value ) => setAttributes( { verticalAlign: value } ) }
-                            options={ [
-                                {
-                                    label: __( 'Start' ),
-                                    value: '',
-                                }, {
-                                    label: __( 'Center' ),
-                                    value: 'center',
-                                }, {
-                                    label: __( 'End' ),
-                                    value: 'end',
-                                },
-                            ] }
-                        />
-                        <SelectControl
-                            label={ __( 'Horizontal alignment' ) }
-                            value={ horizontalAlign }
-                            onChange={ ( value ) => setAttributes( { horizontalAlign: value } ) }
-                            options={ [
-                                {
-                                    label: __( 'Start' ),
-                                    value: '',
-                                }, {
-                                    label: __( 'Center' ),
-                                    value: 'center',
-                                }, {
-                                    label: __( 'End' ),
-                                    value: 'end',
-                                }, {
-                                    label: __( 'Around' ),
-                                    value: 'around',
-                                }, {
-                                    label: __( 'Between' ),
-                                    value: 'between',
-                                },
-                            ] }
-                        />
-                        <BaseControl label={ __( 'Gap' ) }>
-                            <ButtonGroup>
-                                {
-                                    [
-                                        {
-                                            label: __( 'none' ),
-                                            value: 'no',
-                                        },
-                                        {
-                                            label: __( 'sm' ),
-                                            value: 'sm',
-                                        },
-                                        {
-                                            label: __( 'md' ),
-                                            value: 'md',
-                                        },
-                                        {
-                                            label: __( 'lg' ),
-                                            value: 'lg',
-                                        },
-                                    ].map( ( val ) => {
-                                        const selected = gap === val.value;
+                        <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={ this.props }>
+                            <RangeControl
+                                label={ __( 'Columns' ) }
+                                value={ columns }
+                                onChange={ ( value ) => setAttributes( { columns: value } ) }
+                                min={ 2 }
+                                max={ 12 }
+                            />
+                        </ApplyFilters>
+                        <PanelBody>
+                            <SelectControl
+                                label={ __( 'Vertical alignment' ) }
+                                value={ verticalAlign }
+                                onChange={ ( value ) => setAttributes( { verticalAlign: value } ) }
+                                options={ [
+                                    {
+                                        label: __( 'Start' ),
+                                        value: '',
+                                    }, {
+                                        label: __( 'Center' ),
+                                        value: 'center',
+                                    }, {
+                                        label: __( 'End' ),
+                                        value: 'end',
+                                    },
+                                ] }
+                            />
+                            <SelectControl
+                                label={ __( 'Horizontal alignment' ) }
+                                value={ horizontalAlign }
+                                onChange={ ( value ) => setAttributes( { horizontalAlign: value } ) }
+                                options={ [
+                                    {
+                                        label: __( 'Start' ),
+                                        value: '',
+                                    }, {
+                                        label: __( 'Center' ),
+                                        value: 'center',
+                                    }, {
+                                        label: __( 'End' ),
+                                        value: 'end',
+                                    }, {
+                                        label: __( 'Around' ),
+                                        value: 'around',
+                                    }, {
+                                        label: __( 'Between' ),
+                                        value: 'between',
+                                    },
+                                ] }
+                            />
+                        </PanelBody>
+                        <PanelBody>
+                            <BaseControl label={ __( 'Gap' ) }>
+                                <ButtonGroup>
+                                    {
+                                        [
+                                            {
+                                                label: __( 'none' ),
+                                                value: 'no',
+                                            },
+                                            {
+                                                label: __( 'sm' ),
+                                                value: 'sm',
+                                            },
+                                            {
+                                                label: __( 'md' ),
+                                                value: 'md',
+                                            },
+                                            {
+                                                label: __( 'lg' ),
+                                                value: 'lg',
+                                            },
+                                        ].map( ( val ) => {
+                                            const selected = gap === val.value;
 
-                                        return (
-                                            <Button
-                                                isLarge
-                                                isPrimary={ selected }
-                                                aria-pressed={ selected }
-                                                onClick={ () => setAttributes( { gap: val.value } ) }
-                                                key={ `gap_${ val.label }` }
-                                            >
-                                                { val.label }
-                                            </Button>
-                                        );
-                                    } )
-                                }
-                            </ButtonGroup>
-                        </BaseControl>
+                                            return (
+                                                <Button
+                                                    isLarge
+                                                    isPrimary={ selected }
+                                                    aria-pressed={ selected }
+                                                    onClick={ () => setAttributes( { gap: val.value } ) }
+                                                    key={ `gap_${ val.label }` }
+                                                >
+                                                    { val.label }
+                                                </Button>
+                                            );
+                                        } )
+                                    }
+                                </ButtonGroup>
+                            </BaseControl>
+                        </PanelBody>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
