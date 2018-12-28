@@ -1,7 +1,11 @@
 // External Dependencies.
 import classnames from 'classnames/dedupe';
 
+import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
+
 const { __ } = wp.i18n;
+
+const { ghostkitVariables } = window;
 
 const {
     applyFilters,
@@ -25,7 +29,8 @@ const { InspectorControls } = wp.editor;
 
 const {
     PanelBody,
-    SelectControl,
+    ButtonGroup,
+    Button,
 } = wp.components;
 
 let initialOpenPanel = false;
@@ -40,7 +45,7 @@ let initialOpenPanel = false;
 const getDefaultDisplay = function( screen = '' ) {
     return [
         {
-            label: screen === 'all' ? __( 'Default' ) : __( 'Inherit from larger' ),
+            label: screen === 'all' ? __( 'Default' ) : __( 'Inherit' ),
             value: '',
         }, {
             label: __( 'Show' ),
@@ -191,6 +196,15 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 return <OriginalComponent { ...props } />;
             }
 
+            const iconsColor = {};
+            if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
+                Object.keys( ghostkitVariables.media_sizes ).forEach( ( media ) => {
+                    if ( ! this.getCurrentDisplay( media ) ) {
+                        iconsColor[ media ] = '#cccccc';
+                    }
+                } );
+            }
+
             // add new display controls.
             return (
                 <Fragment>
@@ -211,62 +225,33 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 initialOpenPanel = ! initialOpenPanel;
                             } }
                         >
-                            <div className="ghostkit-control-display">
-                                <div className="ghostkit-control-display-box">
-                                    <div className="ghostkit-control-display-icon">
-                                        <span className="fas fa-tv" />
-                                    </div>
-                                    <SelectControl
-                                        value={ this.getCurrentDisplay( 'all' ) }
-                                        onChange={ ( nextValue ) => this.updateDisplay( 'all', nextValue ) }
-                                        options={ getDefaultDisplay( 'all' ) }
-                                    />
-                                </div>
+                            <TabPanelScreenSizes iconsColor={ iconsColor }>
+                                {
+                                    ( tabData ) => {
+                                        return (
+                                            <ButtonGroup>
+                                                {
+                                                    getDefaultDisplay( tabData.name ).map( ( val ) => {
+                                                        const selected = this.getCurrentDisplay( tabData.name ) === val.value;
 
-                                <div className="ghostkit-control-display-box">
-                                    <div className="ghostkit-control-display-icon">
-                                        <span className="fas fa-desktop" />
-                                    </div>
-                                    <SelectControl
-                                        value={ this.getCurrentDisplay( 'xl' ) }
-                                        onChange={ ( nextValue ) => this.updateDisplay( 'xl', nextValue ) }
-                                        options={ getDefaultDisplay() }
-                                    />
-                                </div>
-
-                                <div className="ghostkit-control-display-box">
-                                    <div className="ghostkit-control-display-icon">
-                                        <span className="fas fa-laptop" />
-                                    </div>
-                                    <SelectControl
-                                        value={ this.getCurrentDisplay( 'lg' ) }
-                                        onChange={ ( nextValue ) => this.updateDisplay( 'lg', nextValue ) }
-                                        options={ getDefaultDisplay() }
-                                    />
-                                </div>
-
-                                <div className="ghostkit-control-display-box">
-                                    <div className="ghostkit-control-display-icon">
-                                        <span className="fas fa-tablet-alt" />
-                                    </div>
-                                    <SelectControl
-                                        value={ this.getCurrentDisplay( 'md' ) }
-                                        onChange={ ( nextValue ) => this.updateDisplay( 'md', nextValue ) }
-                                        options={ getDefaultDisplay() }
-                                    />
-                                </div>
-
-                                <div className="ghostkit-control-display-box">
-                                    <div className="ghostkit-control-display-icon">
-                                        <span className="fas fa-mobile-alt" />
-                                    </div>
-                                    <SelectControl
-                                        value={ this.getCurrentDisplay( 'sm' ) }
-                                        onChange={ ( nextValue ) => this.updateDisplay( 'sm', nextValue ) }
-                                        options={ getDefaultDisplay() }
-                                    />
-                                </div>
-                            </div>
+                                                        return (
+                                                            <Button
+                                                                isLarge
+                                                                isPrimary={ selected }
+                                                                aria-pressed={ selected }
+                                                                onClick={ () => this.updateDisplay( tabData.name, val.value ) }
+                                                                key={ `gap_${ val.label }` }
+                                                            >
+                                                                { val.label }
+                                                            </Button>
+                                                        );
+                                                    } )
+                                                }
+                                            </ButtonGroup>
+                                        );
+                                    }
+                                }
+                            </TabPanelScreenSizes>
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>
