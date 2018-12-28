@@ -9,6 +9,7 @@ import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
 
 const { GHOSTKIT } = window;
 
+const { ghostkitVariables } = window;
 const { __, sprintf } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -103,6 +104,23 @@ class GridColumnBlock extends Component {
 
         const availableVariants = GHOSTKIT.getVariants( 'grid_column' );
 
+        const iconsColor = {};
+        if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
+            Object.keys( ghostkitVariables.media_sizes ).forEach( ( media ) => {
+                let sizeName = 'size';
+                let orderName = 'order';
+
+                if ( media !== 'all' ) {
+                    sizeName = `${ media }_${ sizeName }`;
+                    orderName = `${ media }_${ orderName }`;
+                }
+
+                if ( ! attributes[ sizeName ] && ! attributes[ orderName ] ) {
+                    iconsColor[ media ] = '#cccccc';
+                }
+            } );
+        }
+
         return (
             <Fragment>
                 <InspectorControls>
@@ -119,7 +137,7 @@ class GridColumnBlock extends Component {
                                     onChange={ ( value ) => setAttributes( { variant: value } ) }
                                 />
                             ) : '' }
-                            <TabPanelScreenSizes>
+                            <TabPanelScreenSizes iconsColor={ iconsColor }>
                                 {
                                     ( tabData ) => {
                                         let sizeName = 'size';

@@ -9,6 +9,8 @@ import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
 
 const { __ } = wp.i18n;
 
+const { ghostkitVariables } = window;
+
 const {
     applyFilters,
     addFilter,
@@ -285,6 +287,28 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 return <OriginalComponent { ...props } />;
             }
 
+            const iconsColor = {};
+            const allSpacings = [
+                'marginLeft',
+                'marginTop',
+                'marginRight',
+                'marginBottom',
+                'paddingLeft',
+                'paddingTop',
+                'paddingRight',
+                'paddingBottom',
+            ];
+            if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
+                Object.keys( ghostkitVariables.media_sizes ).forEach( ( media ) => {
+                    iconsColor[ media ] = '#cccccc';
+                    allSpacings.forEach( ( spacing ) => {
+                        if ( this.getCurrentSpacing( spacing, media !== 'all' ? `media_${ media }` : media ) ) {
+                            delete iconsColor[ media ];
+                        }
+                    } );
+                } );
+            }
+
             // add new spacings controls.
             return (
                 <Fragment>
@@ -306,7 +330,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 initialOpenPanel = ! initialOpenPanel;
                             } }
                         >
-                            <TabPanelScreenSizes>
+                            <TabPanelScreenSizes iconsColor={ iconsColor }>
                                 {
                                     ( tabData ) => {
                                         let device = '';
