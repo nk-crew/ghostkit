@@ -100,10 +100,14 @@
 .editor-block-list__layout > [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit::before {
     left: -15px;
 }
-[data-type="ghostkit/grid"]:hover [data-type="ghostkit/grid-column"]:not(.is-selected) > .editor-block-list__block-edit::before {
+// stylelint-disable-next-line
+[data-type="ghostkit/grid"]:hover > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .editor-block-list__block-edit::before,
+[data-type="ghostkit/grid"].is-hovered > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .editor-block-list__block-edit::before,
+[data-type="ghostkit/grid"].is-selected > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .editor-block-list__block-edit::before {
     outline: 1px dashed rgba(145, 151, 162, .25);
 }
-[data-type="ghostkit/grid"]:hover [data-type="ghostkit/grid-column"].is-hovered > .editor-block-list__block-edit::before {
+// stylelint-disable-next-line
+[data-type="ghostkit/grid"]:hover > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout >  [data-type="ghostkit/grid-column"].is-hovered > .editor-block-list__block-edit::before {
     outline: 1px solid $blue-wordpress;
 }
 
