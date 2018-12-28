@@ -6,6 +6,7 @@ import elementIcon from '../_icons/grid.svg';
 import getColClass from './get-col-class.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
+import deprecatedArray from './deprecated-column.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -204,7 +205,7 @@ class GridColumnBlock extends Component {
                         </BaseControl>
                     </PanelBody>
                 </InspectorControls>
-                <div>
+                <div className="ghostkit-col-content">
                     { ! isSelected ? (
                         <div className="ghostkit-column-button-select">
                             { __( 'Select Column' ) }
@@ -358,8 +359,11 @@ export const settings = {
 
         return (
             <div className={ className }>
-                <InnerBlocks.Content />
+                <div className="ghostkit-col-content">
+                    <InnerBlocks.Content />
+                </div>
             </div>
         );
     },
+    deprecated: deprecatedArray,
 };

@@ -24,6 +24,7 @@
     // Common properties for all breakpoints
     > .ghostkit-col {
         position: relative;
+        display: flex;
         width: 100%;
         min-height: 1px; // Prevent columns from collapsing when empty
         padding-right: ($grid-gutter-width / 2);
@@ -67,11 +68,11 @@
 }
 
 // Vertical align.
-.ghostkit-grid-align-items-center {
-    align-items: center;
+.ghostkit-grid-align-items-center > .ghostkit-col > .ghostkit-col-content {
+    align-self: center;
 }
-.ghostkit-grid-align-items-end {
-    align-items: flex-end;
+.ghostkit-grid-align-items-end > .ghostkit-col > .ghostkit-col-content {
+    align-self: flex-end;
 }
 
 // Horizontal align.

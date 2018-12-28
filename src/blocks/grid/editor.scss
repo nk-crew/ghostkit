@@ -170,6 +170,7 @@
     width: 0;
 
     > .editor-block-list__block-edit {
+        display: flex;
         flex-basis: 100%;
         // stylelint-disable-next-line
         margin-top: 0 !important;
@@ -213,10 +214,10 @@
 }
 
 // Vertical align.
-.ghostkit-grid-align-items-center > .editor-inner-blocks > .editor-block-list__layout {
+.ghostkit-grid-align-items-center > .editor-inner-blocks > .editor-block-list__layout > [data-col-class] > .editor-block-list__block-edit {
     align-items: center;
 }
-.ghostkit-grid-align-items-end > .editor-inner-blocks > .editor-block-list__layout {
+.ghostkit-grid-align-items-end > .editor-inner-blocks > .editor-block-list__layout > [data-col-class] > .editor-block-list__block-edit {
     align-items: flex-end;
 }
 
