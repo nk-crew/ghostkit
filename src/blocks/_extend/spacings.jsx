@@ -343,20 +343,20 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                             device = `media_${ tabData.name }`;
                                         }
 
-                                        let note = __( 'Will be applied to all devices' );
+                                        let note = __( 'Applied to all devices' );
 
                                         switch ( tabData.name ) {
                                         case 'xl':
-                                            note = __( 'Will be applied to devices with screen width <= 1200px' );
+                                            note = __( 'Applied to devices with screen width <= 1200px' );
                                             break;
                                         case 'lg':
-                                            note = __( 'Will be applied to devices with screen width <= 992px' );
+                                            note = __( 'Applied to devices with screen width <= 992px' );
                                             break;
                                         case 'md':
-                                            note = __( 'Will be applied to devices with screen width <= 768px' );
+                                            note = __( 'Applied to devices with screen width <= 768px' );
                                             break;
                                         case 'sm':
-                                            note = __( 'Will be applied to devices with screen width <= 576px' );
+                                            note = __( 'Applied to devices with screen width <= 576px' );
                                             break;
                                         }
 
