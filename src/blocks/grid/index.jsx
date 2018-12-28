@@ -22,12 +22,26 @@ import IconLayout282 from './icons/layout-2-8-2.svg';
 import IconLayout3333 from './icons/layout-3-3-3-3.svg';
 import IconLayoutaaaaa from './icons/layout-a-a-a-a-a.svg';
 import IconLayout222222 from './icons/layout-2-2-2-2-2-2.svg';
-import IconVerticalCenter from './icons/vertical-center.svg';
+
 import IconVerticalTop from './icons/vertical-top.svg';
+import IconVerticalCenter from './icons/vertical-center.svg';
 import IconVerticalBottom from './icons/vertical-bottom.svg';
-import IconVerticalCenterWhite from './icons/vertical-center-white.svg';
+
 import IconVerticalTopWhite from './icons/vertical-top-white.svg';
+import IconVerticalCenterWhite from './icons/vertical-center-white.svg';
 import IconVerticalBottomWhite from './icons/vertical-bottom-white.svg';
+
+import IconHorizontalStart from './icons/horizontal-start.svg';
+import IconHorizontalCenter from './icons/horizontal-center.svg';
+import IconHorizontalEnd from './icons/horizontal-end.svg';
+import IconHorizontalAround from './icons/horizontal-around.svg';
+import IconHorizontalBetween from './icons/horizontal-between.svg';
+
+import IconHorizontalCenterWhite from './icons/horizontal-center-white.svg';
+import IconHorizontalStartWhite from './icons/horizontal-start-white.svg';
+import IconHorizontalEndWhite from './icons/horizontal-end-white.svg';
+import IconHorizontalAroundWhite from './icons/horizontal-around-white.svg';
+import IconHorizontalBetweenWhite from './icons/horizontal-between-white.svg';
 
 const { GHOSTKIT } = window;
 
@@ -250,46 +264,68 @@ class GridBlock extends Component {
                             />
                         </ApplyFilters>
                         <PanelBody>
-                            <SelectControl
+                            <BaseControl
                                 label={ __( 'Vertical alignment' ) }
-                                value={ verticalAlign }
-                                onChange={ ( value ) => setAttributes( { verticalAlign: value } ) }
-                                options={ [
+                            >
+                                <Toolbar controls={ [
                                     {
-                                        label: __( 'Start' ),
-                                        value: '',
-                                    }, {
-                                        label: __( 'Center' ),
-                                        value: 'center',
-                                    }, {
-                                        label: __( 'End' ),
-                                        value: 'end',
+                                        icon: verticalAlign === '' ? <IconVerticalTopWhite viewBox="0 0 24 24" /> : <IconVerticalTop viewBox="0 0 24 24" />,
+                                        title: __( 'Start' ),
+                                        onClick: () => setAttributes( { verticalAlign: '' } ),
+                                        isActive: verticalAlign === '',
+                                    },
+                                    {
+                                        icon: verticalAlign === 'center' ? <IconVerticalCenterWhite viewBox="0 0 24 24" /> : <IconVerticalCenter viewBox="0 0 24 24" />,
+                                        title: __( 'Center' ),
+                                        onClick: () => setAttributes( { verticalAlign: 'center' } ),
+                                        isActive: verticalAlign === 'center',
+                                    },
+                                    {
+                                        icon: verticalAlign === 'end' ? <IconVerticalBottomWhite viewBox="0 0 24 24" /> : <IconVerticalBottom viewBox="0 0 24 24" />,
+                                        title: __( 'End' ),
+                                        onClick: () => setAttributes( { verticalAlign: 'end' } ),
+                                        isActive: verticalAlign === 'end',
                                     },
                                 ] }
-                            />
-                            <SelectControl
+                                />
+                            </BaseControl>
+                            <BaseControl
                                 label={ __( 'Horizontal alignment' ) }
-                                value={ horizontalAlign }
-                                onChange={ ( value ) => setAttributes( { horizontalAlign: value } ) }
-                                options={ [
+                            >
+                                <Toolbar controls={ [
                                     {
-                                        label: __( 'Start' ),
-                                        value: '',
-                                    }, {
-                                        label: __( 'Center' ),
-                                        value: 'center',
-                                    }, {
-                                        label: __( 'End' ),
-                                        value: 'end',
-                                    }, {
-                                        label: __( 'Around' ),
-                                        value: 'around',
-                                    }, {
-                                        label: __( 'Between' ),
-                                        value: 'between',
+                                        icon: horizontalAlign === '' ? <IconHorizontalStartWhite viewBox="0 0 24 24" /> : <IconHorizontalStart viewBox="0 0 24 24" />,
+                                        title: __( 'Start' ),
+                                        onClick: () => setAttributes( { horizontalAlign: '' } ),
+                                        isActive: horizontalAlign === '',
+                                    },
+                                    {
+                                        icon: horizontalAlign === 'center' ? <IconHorizontalCenterWhite viewBox="0 0 24 24" /> : <IconHorizontalCenter viewBox="0 0 24 24" />,
+                                        title: __( 'Center' ),
+                                        onClick: () => setAttributes( { horizontalAlign: 'center' } ),
+                                        isActive: horizontalAlign === 'center',
+                                    },
+                                    {
+                                        icon: horizontalAlign === 'end' ? <IconHorizontalEndWhite viewBox="0 0 24 24" /> : <IconHorizontalEnd viewBox="0 0 24 24" />,
+                                        title: __( 'End' ),
+                                        onClick: () => setAttributes( { horizontalAlign: 'end' } ),
+                                        isActive: horizontalAlign === 'end',
+                                    },
+                                    {
+                                        icon: horizontalAlign === 'around' ? <IconHorizontalAroundWhite viewBox="0 0 24 24" /> : <IconHorizontalAround viewBox="0 0 24 24" />,
+                                        title: __( 'Around' ),
+                                        onClick: () => setAttributes( { horizontalAlign: 'around' } ),
+                                        isActive: horizontalAlign === 'around',
+                                    },
+                                    {
+                                        icon: horizontalAlign === 'between' ? <IconHorizontalBetweenWhite viewBox="0 0 24 24" /> : <IconHorizontalBetween viewBox="0 0 24 24" />,
+                                        title: __( 'Between' ),
+                                        onClick: () => setAttributes( { horizontalAlign: 'between' } ),
+                                        isActive: horizontalAlign === 'between',
                                     },
                                 ] }
-                            />
+                                />
+                            </BaseControl>
                         </PanelBody>
                         <PanelBody>
                             <BaseControl label={ __( 'Gap' ) }>
