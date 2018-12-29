@@ -63,6 +63,17 @@
     }
 }
 
+// Fix columns overflowing.
+.ghostkit-grid > .editor-inner-blocks::before {
+    content: "";
+    display: block;
+    height: 1px;
+    margin-bottom: -30px;
+}
+.wp-block.ghostkit-col {
+    margin-top: 29px;
+}
+
 // Highlight the label to easily select grid/column block by clicking on it.
 .ghostkit-grid-button-select,
 .ghostkit-column-button-select {
