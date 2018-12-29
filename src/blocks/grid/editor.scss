@@ -163,7 +163,7 @@
     }
 }
 
-[data-col-class] {
+.ghostkit-col {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -176,6 +176,15 @@
         margin-top: 0 !important;
         // stylelint-disable-next-line
         margin-bottom: 0 !important;
+
+        > [data-block] {
+            flex: 100%;
+        }
+
+        // fix selected column block content position.
+        > .editor-block-contextual-toolbar + [data-block] {
+            margin-left: 30px;
+        }
     }
 }
 
@@ -184,7 +193,7 @@
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
         // Provide basic `.col-{bp}` classes for equal-width flexbox columns
-        [data-col-class*="ghostkit-col#{$infix}"] {
+        .ghostkit-col#{$infix} {
             flex-basis: 0;
             flex-grow: 1;
             max-width: 100%;
@@ -192,21 +201,21 @@
 
         // col size.
         @for $i from 1 through $grid-columns {
-            [data-col-class*="ghostkit-col#{$infix}-#{$i}"] {
+            .ghostkit-col#{$infix}-#{$i} {
                 @include make-col($i, $grid-columns);
             }
         }
 
         // col order.
-        [data-col-class*="ghostkit-col-order#{$infix}-first"] {
+        .ghostkit-col-order#{$infix}-first {
             order: -1;
         }
-        [data-col-class*="ghostkit-col-order#{$infix}-last"] {
+        .ghostkit-col-order#{$infix}-last {
             order: $grid-columns + 1;
         }
 
         @for $i from 0 through $grid-columns {
-            [data-col-class*="ghostkit-col-order#{$infix}-#{$i}"] {
+            .ghostkit-col-order#{$infix}-#{$i} {
                 order: $i;
             }
         }
@@ -214,11 +223,11 @@
 }
 
 // Vertical align.
-.ghostkit-grid-align-items-center > .editor-inner-blocks > .editor-block-list__layout > [data-col-class] > .editor-block-list__block-edit {
-    align-items: center;
+.ghostkit-grid-align-items-center > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col > .editor-block-list__block-edit > [data-block] {
+    align-self: center;
 }
-.ghostkit-grid-align-items-end > .editor-inner-blocks > .editor-block-list__layout > [data-col-class] > .editor-block-list__block-edit {
-    align-items: flex-end;
+.ghostkit-grid-align-items-end > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col > .editor-block-list__block-edit > [data-block] {
+    align-self: flex-end;
 }
 
 // Horizontal align.

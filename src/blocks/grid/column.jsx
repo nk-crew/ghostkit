@@ -13,6 +13,8 @@ const { GHOSTKIT } = window;
 const { ghostkitVariables } = window;
 const { __, sprintf } = wp.i18n;
 const { Component, Fragment } = wp.element;
+const { createHigherOrderComponent } = wp.compose;
+const { addFilter } = wp.hooks;
 const {
     BaseControl,
     PanelBody,
@@ -330,32 +332,8 @@ export const settings = {
 
     edit: GridColumnBlock,
 
-    getEditWrapperProps( attributes ) {
-        return { 'data-col-class': getColClass( attributes ) };
-    },
-
-    save: function( { attributes } ) {
-        const {
-            variant,
-            stickyContent,
-        } = attributes;
-
-        let className = getColClass( attributes );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-col-variant-${ variant }` );
-        }
-
-        if ( stickyContent ) {
-            return (
-                <div className={ className }>
-                    <div className="ghostkit-col-content">
-                        <InnerBlocks.Content />
-                    </div>
-                </div>
-            );
-        }
+    save: function( props ) {
+        const className = getColClass( props );
 
         return (
             <div className={ className }>
@@ -367,3 +345,26 @@ export const settings = {
     },
     deprecated: deprecatedArray,
 };
+
+// getEditWrapperProps
+
+/**
+ * Override the default block element to add column classes on wrapper.
+ *
+ * @param  {Function} BlockListBlock Original component
+ * @return {Function}                Wrapped component
+ */
+export const withClasses = createHigherOrderComponent( ( BlockListBlock ) => (
+    ( props ) => {
+        const { name: blockName } = props;
+        let className = props.className;
+
+        if ( 'ghostkit/grid-column' === blockName ) {
+            className = classnames( className, getColClass( props, true ) );
+        }
+
+        return <BlockListBlock { ...props } className={ className } />;
+    }
+) );
+
+addFilter( 'editor.BlockListBlock', 'core/editor/grid-column/with-classes', withClasses );
