@@ -1,6 +1,8 @@
 import classnames from 'classnames/dedupe';
 
-const { Component } = wp.element;
+const {
+    Component,
+} = wp.element;
 
 const { __ } = wp.i18n;
 
@@ -12,6 +14,30 @@ const {
     BaseControl,
     TextControl,
 } = wp.components;
+
+// we need this lazy loading component to prevent a huge lags while first loading SVG icons
+class Icon extends Component {
+    render() {
+        const {
+            iconData,
+            onClick,
+            active,
+        } = this.props;
+
+        return (
+            <button
+                className={ classnames( 'ghostkit-component-icon-picker-button', active ? 'ghostkit-component-icon-picker-button-active' : '' ) }
+                onClick={ onClick }
+            >
+                { iconData.preview ? (
+                    <span dangerouslySetInnerHTML={ { __html: iconData.preview } }></span>
+                ) : (
+                    <span className={ iconData.class }></span>
+                ) }
+            </button>
+        );
+    }
+}
 
 export default class IconPicker extends Component {
     constructor() {
@@ -60,19 +86,14 @@ export default class IconPicker extends Component {
                                             ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
                                         ) {
                                             return (
-                                                <button
+                                                <Icon
                                                     key={ iconData.class }
-                                                    className={ classnames( 'ghostkit-component-icon-picker-button', iconData.class === value ? 'ghostkit-component-icon-picker-button-active' : '' ) }
+                                                    active={ iconData.class === value }
+                                                    iconData={ iconData }
                                                     onClick={ () => {
                                                         onChange( iconData.class );
                                                     } }
-                                                >
-                                                    { iconData.preview ? (
-                                                        <span dangerouslySetInnerHTML={ { __html: iconData.preview } }></span>
-                                                    ) : (
-                                                        <span className={ iconData.class }></span>
-                                                    ) }
-                                                </button>
+                                                />
                                             );
                                         }
 
