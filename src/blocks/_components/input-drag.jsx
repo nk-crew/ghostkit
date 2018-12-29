@@ -12,10 +12,12 @@ export default class InputDrag extends Component {
     constructor() {
         super( ...arguments );
 
+        this.parseValue = this.parseValue.bind( this );
         this.reset = this.reset.bind( this );
         this.mouseUp = this.mouseUp.bind( this );
         this.mouseDown = this.mouseDown.bind( this );
         this.mouseMove = this.mouseMove.bind( this );
+        this.keyDown = this.keyDown.bind( this );
 
         this.reset();
     }
@@ -28,6 +30,30 @@ export default class InputDrag extends Component {
     componentWillUnmount() {
         document.removeEventListener( 'mouseup', this.mouseUp, false );
         document.removeEventListener( 'mousemove', this.mouseMove, false );
+    }
+
+    parseValue() {
+        let valueNum = parseFloat( this.props.value );
+        let unit = '';
+
+        // check if value contains units and save it.
+        if ( this.props.value !== `${ valueNum }` ) {
+            const matchUnit = this.props.value.match( new RegExp( `${ valueNum }(${ units.join( '|' ) })`, 'i' ) );
+
+            if ( matchUnit && matchUnit[ 1 ] ) {
+                unit = matchUnit[ 1 ];
+            }
+        }
+
+        if ( isNaN( valueNum ) ) {
+            valueNum = 0;
+        }
+
+        return {
+            num: valueNum,
+            unit: unit,
+            full: this.props.value,
+        };
     }
 
     reset() {
@@ -48,27 +74,13 @@ export default class InputDrag extends Component {
             x: e.pageX,
             y: e.pageY,
         };
-        this.initialValue = this.props.value;
+        const valueObj = this.parseValue();
 
-        const valueNum = parseFloat( this.initialValue );
-
-        // check if value contains units and save it.
-        if ( this.initialValue !== `${ valueNum }` ) {
-            const matchUnit = this.initialValue.match( new RegExp( `${ valueNum }(${ units.join( '|' ) })`, 'i' ) );
-
-            if ( matchUnit && matchUnit[ 1 ] ) {
-                this.initialUnit = matchUnit[ 1 ];
-            }
-        }
+        this.initialValue = valueObj.num;
+        this.initialUnit = valueObj.unit;
 
         if ( e.shiftKey ) {
             this.initialShiftKey = 1;
-        }
-
-        this.initialValue = valueNum;
-
-        if ( isNaN( this.initialValue ) ) {
-            this.initialValue = 0;
         }
 
         this.dragState = 1;
@@ -99,6 +111,35 @@ export default class InputDrag extends Component {
         }
     }
 
+    keyDown( e ) {
+        if (
+            this.initialPosition ||
+            ( e.keyCode !== 40 && e.keyCode !== 38 )
+        ) {
+            return;
+        }
+
+        e.preventDefault();
+
+        const valueObj = this.parseValue();
+        let newVal = 1;
+
+        if ( e.shiftKey ) {
+            newVal = 10;
+        }
+
+        switch ( e.keyCode ) {
+        // down.
+        case 40:
+            this.props.onChange( valueObj.num - newVal + valueObj.unit );
+            break;
+        // up.
+        case 38:
+            this.props.onChange( valueObj.num + newVal + valueObj.unit );
+            break;
+        }
+    }
+
     render() {
         const {
             value,
@@ -109,6 +150,7 @@ export default class InputDrag extends Component {
             <TextControl
                 { ...this.props }
                 onMouseDown={ this.mouseDown }
+                onKeyDown={ this.keyDown }
                 value={ value }
                 onChange={ ( val ) => {
                     onChange( val );
