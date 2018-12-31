@@ -101,3 +101,32 @@
         }
     }
 }
+
+// AWB backgrounds
+.ghostkit-grid-with-bg,
+.ghostkit-col-with-bg {
+    position: relative;
+
+    > .nk-awb {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+    }
+}
+.ghostkit-grid-with-bg {
+    &.ghostkit-grid-gap-lg > .nk-awb {
+        right: 22.5px;
+        left: 22.5px;
+    }
+    &.ghostkit-grid-gap-md > .nk-awb {
+        right: 15px;
+        left: 15px;
+    }
+    &.ghostkit-grid-gap-sm > .nk-awb {
+        right: 7.5px;
+        left: 7.5px;
+    }
+}

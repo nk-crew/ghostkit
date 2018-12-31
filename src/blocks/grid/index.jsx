@@ -8,6 +8,7 @@ import classnames from 'classnames/dedupe';
 import elementIcon from '../_icons/grid.svg';
 import deprecatedArray from './deprecated.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
+import ColorPicker from '../_components/color-picker.jsx';
 
 // layout icons.
 import IconLayout12 from './icons/layout-12.svg';
@@ -190,6 +191,7 @@ class GridBlock extends Component {
             gap,
             verticalAlign,
             horizontalAlign,
+            awb_color, // eslint-disable-line
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'grid' );
@@ -210,6 +212,23 @@ class GridBlock extends Component {
         // add custom classname.
         if ( ghostkitClassname ) {
             className = classnames( className, ghostkitClassname );
+        }
+
+        // background
+        let background = '';
+        // eslint-disable-next-line
+        if ( awb_color ) {
+            background = (
+                <div className="awb-gutenberg-preview-block">
+                    <div className="nk-awb-overlay" style={ { 'background-color': awb_color } }></div>
+                </div>
+            );
+        }
+
+        background = applyFilters( 'ghostkit.editor.grid.background', background, this.props );
+
+        if ( background ) {
+            className = classnames( className, 'ghostkit-grid-with-bg' );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
@@ -367,11 +386,36 @@ class GridBlock extends Component {
                                 </ButtonGroup>
                             </BaseControl>
                         </PanelBody>
+                        <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props }>
+                            <PanelBody
+                                title={ __( 'Background' ) }
+                                initialOpen={ false }
+                            >
+                                <ColorPicker
+                                    label={ __( 'Background Color' ) }
+                                    value={ awb_color } // eslint-disable-line
+                                    onChange={ ( val ) => setAttributes( { awb_color: val } ) }
+                                    alpha={ true }
+                                />
+                                <p>
+                                    { __( 'Install AWB plugin to set image, video backgrounds with parallax support.' ) }
+                                </p>
+                                <a
+                                    className="components-button is-button is-default is-small"
+                                    href="https://wordpress.org/plugins/advanced-backgrounds/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    { __( 'Install' ) }
+                                </a>
+                            </PanelBody>
+                        </ApplyFilters>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
                     { columns > 0 || this.state.selectedLayout ? (
                         <Fragment>
+                            { background }
                             { ! isSelected ? (
                                 <div className="ghostkit-grid-button-select">
                                     { __( 'Select Grid' ) }
@@ -457,6 +501,16 @@ export const settings = {
             type: 'object',
             default: {},
         },
+
+        // AWB support.
+        awb_type: {
+            type: 'string',
+            default: 'color',
+        },
+        awb_color: {
+            type: 'string',
+            default: '',
+        },
     },
 
     edit: GridBlock,
@@ -467,6 +521,7 @@ export const settings = {
             horizontalAlign,
             gap,
             variant,
+            awb_color, // eslint-disable-line
         } = props.attributes;
 
         let className = classnames(
@@ -481,6 +536,30 @@ export const settings = {
             className = classnames( className, `ghostkit-grid-variant-${ variant }` );
         }
 
+        // background
+        let background = '';
+        // eslint-disable-next-line
+        if ( awb_color ) {
+            background = (
+                <div className="nk-awb">
+                    <div className="nk-awb-wrap" data-awb-type="color">
+                        <div className="nk-awb-overlay" style={ { 'background-color': awb_color } }></div>
+                    </div>
+                </div>
+            );
+        }
+
+        background = applyFilters( 'ghostkit.blocks.grid.background', background, {
+            ...{
+                name,
+            },
+            ...props,
+        } );
+
+        if ( background ) {
+            className = classnames( className, 'ghostkit-grid-with-bg' );
+        }
+
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{
                 name,
@@ -490,6 +569,7 @@ export const settings = {
 
         return (
             <div className={ className }>
+                { background }
                 <InnerBlocks.Content />
             </div>
         );
