@@ -76,34 +76,36 @@ if ( updateCategory ) {
 /**
  * Register blocks
  */
-[
-    grid,
-    gridColumn,
-    divider,
-    buttonWrapper,
-    button,
-    progress,
-    iconBox,
-    tabs,
-    tabsTab,
-    accordion,
-    accordionItem,
-    counterBox,
-    alert,
-    carousel,
-    carouselSlide,
-    testimonial,
-    video,
-    gist,
-    changelog,
-    pricingTable,
-    pricingTableItem,
-    googleMaps,
-    widgetizedArea,
-    instagram,
-    twitter,
-    customizer,
-    customCSS,
-].forEach( ( { name, settings } ) => {
-    registerBlockType( name, settings );
+jQuery( () => {
+    [
+        grid,
+        gridColumn,
+        divider,
+        buttonWrapper,
+        button,
+        progress,
+        iconBox,
+        tabs,
+        tabsTab,
+        accordion,
+        accordionItem,
+        counterBox,
+        alert,
+        carousel,
+        carouselSlide,
+        testimonial,
+        video,
+        gist,
+        changelog,
+        pricingTable,
+        pricingTableItem,
+        googleMaps,
+        widgetizedArea,
+        instagram,
+        twitter,
+        customizer,
+        customCSS,
+    ].forEach( ( { name, settings } ) => {
+        registerBlockType( name, settings );
+    } );
 } );

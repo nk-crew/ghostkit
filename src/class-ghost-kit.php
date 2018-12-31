@@ -300,7 +300,7 @@ class GhostKit {
      */
     public function enqueue_block_editor_assets() {
         $css_deps = array();
-        $js_deps = array( 'ghostkit-helper', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-components' );
+        $js_deps = array( 'ghostkit-helper', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-components', 'jquery' );
 
         // FontAwesome.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
