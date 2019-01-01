@@ -254,3 +254,33 @@
 .ghostkit-grid-justify-content-between > .editor-inner-blocks > .editor-block-list__layout {
     justify-content: space-between;
 }
+
+// Background AWB
+.ghostkit-grid > .awb-gutenberg-preview-block,
+.ghostkit-col > .editor-block-list__block-edit > div > .awb-gutenberg-preview-block {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    bottom: -15px;
+    left: -15px;
+    pointer-events: none;
+    transition: .15s border ease-in-out;
+
+    // fix for AWB border style.
+    &:empty {
+        border: none;
+    }
+
+    > div {
+        width: 100%;
+        height: 100%;
+    }
+}
+@media (min-width: 600px) {
+    [data-align="full"] > .editor-block-list__block-edit > div > .ghostkit-grid {
+        > .awb-gutenberg-preview-block {
+            right: 0;
+            left: 0;
+        }
+    }
+}
