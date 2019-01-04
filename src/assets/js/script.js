@@ -469,6 +469,7 @@ class GhostKitClass {
             let $poster = $this.find( '.ghostkit-video-poster' );
             let $fullscreenWrapper = false;
             let $iframe = false;
+            let mute = 0;
 
             let aspectRatio = $this.attr( 'data-video-aspect-ratio' );
             if ( aspectRatio && aspectRatio.split( ':' )[ 0 ] && aspectRatio.split( ':' )[ 1 ] ) {
@@ -477,10 +478,15 @@ class GhostKitClass {
                 aspectRatio = 16 / 9;
             }
 
+            // mute on mobile devices
+            if ( self.isMobile ) {
+                mute = 1;
+            }
+
             const api = new window.VideoWorker( url, {
                 autoplay: 0,
                 loop: 0,
-                mute: 0,
+                mute: mute,
                 volume: parseFloat( $this.attr( 'data-video-volume' ) ) || 0,
                 showContols: 1,
             } );
@@ -495,11 +501,6 @@ class GhostKitClass {
                         return;
                     }
                     clicked = 1;
-
-                    if ( self.isMobile && api.type !== 'local' ) {
-                        window.open( api.url );
-                        return;
-                    }
 
                     // fullscreen video
                     if ( 'fullscreen' === clickAction ) {
@@ -561,10 +562,6 @@ class GhostKitClass {
                         $poster = $( `<div class="ghostkit-video-poster"><img src="${ imgSrc }" alt=""></div>` );
                         $this.append( $poster );
                     } );
-                }
-
-                if ( self.isMobile && api.type !== 'local' ) {
-                    return;
                 }
 
                 api.on( 'ready', () => {
