@@ -31,6 +31,9 @@
         padding-left: ($grid-gutter-width / 2);
     }
 }
+.ghostkit-col-content {
+    width: 100%;
+}
 
 @each $breakpoint in map-keys($grid-breakpoints) {
     @include media-breakpoint-down($breakpoint) {
