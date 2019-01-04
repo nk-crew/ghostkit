@@ -110,13 +110,13 @@ export default [
                 default: '',
             },
         },
-        save: function( { attributes } ) {
+        save: function( props ) {
             const {
                 variant,
                 stickyContent,
-            } = attributes;
+            } = props.attributes;
 
-            let className = getColClass( attributes );
+            let className = getColClass( props );
 
             // variant classname.
             if ( 'default' !== variant ) {

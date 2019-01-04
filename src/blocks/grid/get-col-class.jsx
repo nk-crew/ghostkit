@@ -13,7 +13,7 @@ const {
  *
  * @return {String} Classname for Grid container.
  */
-export default function colClass( props, addGhostkitIdClass = false ) {
+export default function getColClass( props, addGhostkitIdClass = false ) {
     const {
         attributes,
     } = props;
