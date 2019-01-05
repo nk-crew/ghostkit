@@ -161,12 +161,6 @@ class GhostKit {
      * Register scripts.
      */
     public function register_scripts() {
-        // FontAwesome.
-        if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            wp_register_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/v4-shims.min.js', __FILE__ ), array(), '5.2.0' );
-            wp_register_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.2.0' );
-        }
-
         // VideoWorker.
         if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
             wp_register_script( 'video-worker', plugins_url( 'assets/vendor/video-worker/dist/video-worker.js', __FILE__ ), array(), '1.1.2' );
@@ -302,11 +296,6 @@ class GhostKit {
         $css_deps = array();
         $js_deps = array( 'ghostkit-helper', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-components', 'jquery' );
 
-        // FontAwesome.
-        if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            $js_deps[] = 'font-awesome';
-        }
-
         // VideoWorker.
         if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
             $js_deps[] = 'video-worker';
@@ -338,11 +327,6 @@ class GhostKit {
     public function enqueue_block_assets() {
         $css_deps = array();
         $js_deps = array( 'jquery', 'ghostkit-helper' );
-
-        // FontAwesome.
-        if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            $js_deps[] = 'font-awesome';
-        }
 
         // VideoWorker.
         if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {

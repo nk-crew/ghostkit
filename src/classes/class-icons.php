@@ -15,6 +15,28 @@ class Ghostkit_Icons_List {
      */
     public function __construct() {
         add_filter( 'gkt_icons_list', array( $this, 'add_font_awesome_icons' ) );
+
+        // Allow enqueue FontAwesome scripts.
+        if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
+            add_action( 'init', array( $this, 'register_scripts' ) );
+            add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_block_assets' ) );
+            add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_assets' ) );
+        }
+    }
+
+    /**
+     * Register scripts.
+     */
+    public function register_scripts() {
+        wp_register_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/v4-shims.min.js', __FILE__ ), array(), '5.2.0' );
+        wp_register_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.2.0' );
+    }
+
+    /**
+     * Enqueue frontend & editor assets
+     */
+    public function enqueue_block_assets() {
+        wp_enqueue_script( 'font-awesome' );
     }
 
     /**
