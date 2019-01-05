@@ -11,7 +11,7 @@
  */
 class Ghostkit_Icons_List {
     /**
-     * GhostKit_Rest constructor.
+     * Ghostkit_Icons_List constructor.
      */
     public function __construct() {
         add_filter( 'gkt_icons_list', array( $this, 'add_font_awesome_icons' ) );
@@ -28,8 +28,8 @@ class Ghostkit_Icons_List {
      * Register scripts.
      */
     public function register_scripts() {
-        wp_register_script( 'font-awesome-v4-shims', plugins_url( 'assets/vendor/font-awesome/v4-shims.min.js', __FILE__ ), array(), '5.2.0' );
-        wp_register_script( 'font-awesome', plugins_url( 'assets/vendor/font-awesome/all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.2.0' );
+        wp_register_script( 'font-awesome-v4-shims', plugins_url( '../assets/vendor/font-awesome/v4-shims.min.js', __FILE__ ), array(), '5.6.3' );
+        wp_register_script( 'font-awesome', plugins_url( '../assets/vendor/font-awesome/all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.6.3' );
     }
 
     /**
