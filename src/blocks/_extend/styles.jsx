@@ -291,6 +291,20 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
         constructor() {
             super( ...arguments );
 
+            const {
+                attributes,
+                clientId,
+            } = this.props;
+
+            // fix duplicated classes after block clone.
+            if ( clientId && attributes.ghostkitId ) {
+                if ( typeof usedIds[ attributes.ghostkitId ] === 'undefined' ) {
+                    usedIds[ attributes.ghostkitId ] = clientId;
+                } else {
+                    this.props.attributes.ghostkitId = '';
+                }
+            }
+
             this.onUpdate = this.onUpdate.bind( this );
             this.getGhostkitAtts = this.getGhostkitAtts.bind( this );
         }
