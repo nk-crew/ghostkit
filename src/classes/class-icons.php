@@ -40,7 +40,7 @@ class Ghostkit_Icons_List {
     }
 
     /**
-     * FontAwesome.
+     * Extend icons list.
      *
      * @param array $icons - icons list.
      *
@@ -68,7 +68,7 @@ class Ghostkit_Icons_List {
             result += ')';
             console.log( result );
         */
-        $icons[] = array(
+        $icons['font-awesome'] = array(
             'name' => 'FontAwesome',
             'icons' => array(
                 array(

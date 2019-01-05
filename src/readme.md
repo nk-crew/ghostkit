@@ -165,7 +165,7 @@ By default icon picker contains FontAwesome icons. You can add any icons you wan
     add_filter( 'gkt_icons_list', 'my_gkt_icons' );
 
     function my_gkt_icons( $icons ) {
-        $icons[] = array(
+        $icons['my-icons-pack'] = array(
             'name' => 'My Icons',
             'icons' => array(
                 array(
