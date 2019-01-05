@@ -76,7 +76,8 @@ export default class IconPicker extends Component {
                     renderContent={ () => {
                         const result = [];
 
-                        GHOSTKIT.icons.forEach( ( iconsData ) => {
+                        Object.keys( GHOSTKIT.icons ).forEach( ( key ) => {
+                            const iconsData = GHOSTKIT.icons[ key ];
                             result.push( <span>{ iconsData.name }</span> );
                             result.push(
                                 <div className="ghostkit-component-icon-picker-list">
