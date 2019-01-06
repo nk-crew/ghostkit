@@ -532,13 +532,13 @@ class GhostKitClass {
                 aspectRatio = 16 / 9;
             }
 
-            // mute on mobile devices
-            if ( self.isMobile ) {
+            // mute if volume 0
+            if ( ! parseFloat( $this.attr( 'data-video-volume' ) ) ) {
                 mute = 1;
             }
 
-            // mute if volume 0
-            if ( ! parseFloat( $this.attr( 'data-video-volume' ) ) ) {
+            // mute if autoplay
+            if ( videoAutoplay ) {
                 mute = 1;
             }
 
