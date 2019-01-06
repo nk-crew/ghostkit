@@ -32,8 +32,12 @@
     cursor: pointer;
     background-color: $dark-gray-700;
     border: none;
-    box-shadow: none !important; // stylelint-disable-line declaration-no-important
-    transition: .2s background-color ease-in-out, .2s color ease-in-out, .2s border-color ease-in-out, .2s opacity ease-in-out;
+    outline: none;
+    transition: .2s background-color ease-in-out, .2s color ease-in-out, .2s border-color ease-in-out, .2s opacity ease-in-out, .2s box-shadow ease-in-out;
+
+    &:not(.ghostkit-button-with-outline) {
+        box-shadow: none !important; // stylelint-disable-line declaration-no-important
+    }
 
     &:hover,
     &:focus,

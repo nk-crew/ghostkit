@@ -57,6 +57,8 @@ class ButtonSingleBlock extends Component {
             borderRadius,
             borderWeight,
             borderColor,
+            focusOutlineWeight,
+            focusOutlineColor,
             hoverColor,
             hoverTextColor,
             hoverBorderColor,
@@ -78,6 +80,11 @@ class ButtonSingleBlock extends Component {
             className
         );
 
+        // focus outline
+        if ( focusOutlineWeight && focusOutlineColor ) {
+            className = classnames( className, 'ghostkit-button-with-outline' );
+        }
+
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-button-variant-${ variant }` );
@@ -89,6 +96,27 @@ class ButtonSingleBlock extends Component {
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
+
+        const colorsTabs = [
+            {
+                name: 'normal',
+                title: __( 'Normal' ),
+                className: 'ghostkit-control-tabs-tab',
+            },
+            {
+                name: 'hover',
+                title: __( 'Hover' ),
+                className: 'ghostkit-control-tabs-tab',
+            },
+        ];
+
+        if ( focusOutlineWeight && focusOutlineColor ) {
+            colorsTabs.push( {
+                name: 'focus',
+                title: __( 'Focus' ),
+                className: 'ghostkit-control-tabs-tab',
+            } );
+        }
 
         return (
             <Fragment>
@@ -136,11 +164,18 @@ class ButtonSingleBlock extends Component {
                             onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
                         />
                         <RangeControl
-                            label={ __( 'Border Weight' ) }
+                            label={ __( 'Border Size' ) }
                             value={ borderWeight }
                             min="0"
                             max="6"
                             onChange={ ( value ) => setAttributes( { borderWeight: value } ) }
+                        />
+                        <RangeControl
+                            label={ __( 'Focus Outline Size' ) }
+                            value={ focusOutlineWeight }
+                            min="0"
+                            max="6"
+                            onChange={ ( value ) => setAttributes( { focusOutlineWeight: value } ) }
                         />
                         <IconPicker
                             label={ __( 'Icon' ) }
@@ -172,25 +207,32 @@ class ButtonSingleBlock extends Component {
                             { borderWeight ? (
                                 <ColorIndicator colorValue={ borderColor } />
                             ) : '' }
+                            { focusOutlineWeight && focusOutlineColor ? (
+                                <ColorIndicator colorValue={ focusOutlineColor } />
+                            ) : '' }
                         </Fragment>
                     ) } initialOpen={ false }>
                         <TabPanel
                             className="ghostkit-control-tabs"
-                            tabs={ [
-                                {
-                                    name: 'normal',
-                                    title: __( 'Normal' ),
-                                    className: 'ghostkit-control-tabs-tab',
-                                },
-                                {
-                                    name: 'hover',
-                                    title: __( 'Hover' ),
-                                    className: 'ghostkit-control-tabs-tab',
-                                },
-                            ] }>
+                            tabs={ colorsTabs }>
                             {
                                 ( tabData ) => {
                                     const isHover = tabData.name === 'hover';
+
+                                    // focus tab
+                                    if ( 'focus' === tabData.name ) {
+                                        return (
+                                            <ApplyFilters name="ghostkit.editor.controls" attribute="focusOutlineColor" props={ this.props }>
+                                                <ColorPicker
+                                                    label={ __( 'Outline' ) }
+                                                    value={ focusOutlineColor }
+                                                    onChange={ ( val ) => setAttributes( { focusOutlineColor: val } ) }
+                                                    alpha={ true }
+                                                />
+                                            </ApplyFilters>
+                                        );
+                                    }
+
                                     return (
                                         <Fragment>
                                             <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
@@ -286,7 +328,7 @@ export const settings = {
         reusable: false,
         ghostkitStyles: true,
         ghostkitStylesCallback( attributes ) {
-            return {
+            const result = {
                 backgroundColor: attributes.color,
                 color: attributes.textColor,
                 borderRadius: attributes.borderRadius,
@@ -297,6 +339,13 @@ export const settings = {
                     borderColor: attributes.borderWeight && attributes.borderColor && attributes.hoverBorderColor ? attributes.hoverBorderColor : false,
                 },
             };
+
+            if ( attributes.focusOutlineWeight && attributes.focusOutlineColor ) {
+                result[ '&:focus' ] = result[ '&:focus' ] || {};
+                result[ '&:focus' ][ 'box-shadow' ] = `0 0 0 ${ attributes.focusOutlineWeight }px ${ attributes.focusOutlineColor }`;
+            }
+
+            return result;
         },
         ghostkitSpacings: true,
         ghostkitDisplay: true,
@@ -339,6 +388,7 @@ export const settings = {
             type: 'string',
             default: '#ffffff',
         },
+
         borderRadius: {
             type: 'number',
             default: 2,
@@ -351,6 +401,12 @@ export const settings = {
             type: 'string',
             default: '#00669b',
         },
+
+        focusOutlineWeight: {
+            type: 'number',
+            default: 0,
+        },
+
         hoverColor: {
             type: 'string',
         },
@@ -359,6 +415,11 @@ export const settings = {
         },
         hoverBorderColor: {
             type: 'string',
+        },
+
+        focusOutlineColor: {
+            type: 'string',
+            default: 'rgba(3, 102, 214, 0.5)',
         },
     },
 
@@ -372,12 +433,19 @@ export const settings = {
             iconPosition,
             url,
             size,
+            focusOutlineWeight,
+            focusOutlineColor,
         } = props.attributes;
 
         let className = classnames(
             'ghostkit-button',
             size ? `ghostkit-button-${ size }` : ''
         );
+
+        // focus outline
+        if ( focusOutlineWeight && focusOutlineColor ) {
+            className = classnames( className, 'ghostkit-button-with-outline' );
+        }
 
         // variant classname.
         if ( 'default' !== variant ) {
