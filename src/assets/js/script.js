@@ -565,20 +565,16 @@ class GhostKitClass {
                 }
 
                 api.on( 'ready', () => {
-                    api.play();
-                } );
-                api.on( 'play', () => {
                     $this.removeClass( 'ghostkit-video-loading' );
-
                     if ( 'fullscreen' !== clickAction ) {
                         $this.addClass( 'ghostkit-video-playing' );
                     }
+                    api.play();
                 } );
                 api.on( 'pause', () => {
-                    if ( 'fullscreen' !== clickAction ) {
-                        $this.removeClass( 'ghostkit-video-playing' );
+                    if ( 'fullscreen' === clickAction ) {
+                        clicked = 0;
                     }
-                    clicked = 0;
                 } );
             }
         } );
