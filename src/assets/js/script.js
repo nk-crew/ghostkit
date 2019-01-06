@@ -624,6 +624,8 @@ class GhostKitClass {
                     } );
                 }
 
+                let autoplayOnce = false;
+
                 api.on( 'ready', () => {
                     $this.removeClass( 'ghostkit-video-loading' );
                     if ( 'fullscreen' !== clickAction ) {
@@ -636,6 +638,7 @@ class GhostKitClass {
                 } );
                 api.on( 'pause', () => {
                     isPlaying = false;
+                    autoplayOnce = true;
                     if ( 'fullscreen' === clickAction ) {
                         clicked = 0;
                     }
@@ -644,7 +647,7 @@ class GhostKitClass {
                 if ( 'fullscreen' !== clickAction && ( videoAutoplay || videoAutopause ) ) {
                     throttleScroll( () => {
                         // autoplay
-                        if ( ! isPlaying && videoAutoplay && self.isElementInViewport( $this[ 0 ], 0.6 ) ) {
+                        if ( ! autoplayOnce && ! isPlaying && videoAutoplay && self.isElementInViewport( $this[ 0 ], 0.6 ) ) {
                             if ( clicked ) {
                                 api.play();
                             } else {
