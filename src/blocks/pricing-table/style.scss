@@ -13,7 +13,7 @@
 // Item.
 .ghostkit-pricing-table-item {
     position: relative;
-    padding: 40px 30px;
+    padding: 2.2em 1.65em;
     background-color: #fff;
     border: 1px solid #efefef;
     border-radius: 5px;
@@ -59,6 +59,10 @@
         font-size: .9em;
         list-style: none;
 
+        li {
+            list-style: none;
+        }
+
         li + li {
             margin-top: 10px;
         }
@@ -70,8 +74,8 @@
 
     > * + .ghostkit-pricing-table-item-features,
     > * + * {
-        padding-top: 40px;
-        margin-top: 40px;
+        padding-top: 2.2em;
+        margin-top: 2.2em;
     }
 
     > * + * {

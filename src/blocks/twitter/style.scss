@@ -35,7 +35,7 @@
 .ghostkit-twitter-profile {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 40px;
+    margin-bottom: 2.5em;
 
     .ghostkit-twitter-profile-avatar img {
         display: block;
@@ -50,7 +50,7 @@
         max-width: 100%;
     }
     .ghostkit-twitter-profile-avatar + .ghostkit-twitter-profile-side {
-        margin-left: 30px;
+        margin-left: 1.5em;
     }
 
     .ghostkit-twitter-profile-name {
@@ -93,7 +93,7 @@
     div + .ghostkit-twitter-profile-description,
     div + .ghostkit-twitter-profile-website,
     div + .ghostkit-twitter-profile-location {
-        margin-top: 20px;
+        margin-top: 1.2em;
     }
 }
 
@@ -101,7 +101,7 @@
 .ghostkit-twitter-items {
     .ghostkit-twitter-item {
         display: flex;
-        margin-bottom: 20px;
+        margin-bottom: 1.5em;
 
         &:last-child {
             margin-bottom: 0;
@@ -118,7 +118,7 @@
         }
     }
     .ghostkit-twitter-item-avatar {
-        margin-right: 10px;
+        margin-right: 1.2em;
 
         img {
             height: auto;
@@ -169,7 +169,7 @@
     }
     .ghostkit-twitter-item-meta-name + .ghostkit-twitter-item-meta-date::before {
         content: "\00b7";
-        margin: 0 5px;
+        margin: 0 .5em;
         font-size: .7em;
     }
     .ghostkit-twitter-item-meta-date {
@@ -192,11 +192,10 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        margin-top: 1em;
         font-size: .9em;
 
         > div {
-            margin-right: 20px;
+            margin-right: 1.2em;
         }
         > div:last-child {
             margin-right: 0;
@@ -215,5 +214,10 @@
         span {
             margin-left: 5px;
         }
+    }
+
+    div + .ghostkit-twitter-item-text,
+    div + .ghostkit-twitter-item-actions {
+        margin-top: .5em;
     }
 }

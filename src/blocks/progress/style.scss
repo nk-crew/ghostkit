@@ -4,6 +4,10 @@
 @import "../variables";
 
 .ghostkit-progress {
+    .ghostkit-progress-caption {
+        display: block;
+        margin-bottom: .3em;
+    }
     .ghostkit-progress-bar-count {
         position: relative;
 
@@ -11,7 +15,7 @@
             position: absolute;
             right: 0;
             bottom: 100%;
-            padding: 0 5px;
+            padding: 0 .7em;
             margin-bottom: 3px;
             font-size: x-small;
             color: #fff;

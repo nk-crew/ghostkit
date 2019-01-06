@@ -7,7 +7,7 @@
     .ghostkit-tabs-buttons {
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: 15px;
+        margin-bottom: 1em;
         border-bottom: 1px solid #dee2e6;
 
         &.ghostkit-tabs-buttons-align-start {
@@ -21,7 +21,7 @@
         }
 
         > .ghostkit-tabs-buttons-item {
-            padding: 8px 20px;
+            padding: .5em 1.5em;
             margin-bottom: -1px;
             font-weight: 500;
             color: inherit;

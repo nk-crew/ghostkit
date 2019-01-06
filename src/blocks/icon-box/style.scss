@@ -6,27 +6,36 @@
 .ghostkit-icon-box {
     display: flex;
     flex-wrap: wrap;
-    padding: 15px;
+    padding: 1.5em;
     border: 1px solid $light-gray-200;
+    border-radius: 4px;
 
     .ghostkit-icon-box-icon {
         display: flex;
-        padding-right: 15px;
         transition: .2s color ease-in-out;
+
+        ~ .ghostkit-icon-box-content {
+            padding-left: 1.5em;
+        }
     }
     .ghostkit-icon-box-icon-align-right {
         order: 2;
         padding-right: 0;
-        padding-left: 15px;
+
+        ~ .ghostkit-icon-box-content {
+            padding-right: 1.5em;
+            padding-left: 0;
+        }
     }
     .ghostkit-icon-box-icon-align-top {
         flex: 100%;
         justify-content: center;
         padding-right: 0;
-        padding-bottom: 15px;
 
         ~ .ghostkit-icon-box-content {
             flex: 100%;
+            padding-top: 1.5em;
+            padding-left: 0;
         }
     }
 

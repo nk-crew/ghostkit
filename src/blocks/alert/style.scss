@@ -6,16 +6,17 @@
 .ghostkit-alert {
     display: flex;
     flex-wrap: wrap;
-    padding: 15px;
+    padding: 1.5em;
     background-color: #fff;
     border: 1px solid $light-gray-200;
     border-left-width: 2px;
+    border-radius: 4px;
     transition: .2s border-color ease-in-out;
 
     .ghostkit-alert-icon {
         display: flex;
         padding: 3px;
-        padding-right: 15px;
+        padding-right: 1.5em;
         transition: .2s color ease-in-out;
     }
 
@@ -29,7 +30,7 @@
 
     .ghostkit-alert-hide-button {
         display: flex;
-        padding-left: 15px;
+        padding-left: 1.5em;
         font-size: .8em;
         cursor: pointer;
         opacity: 1;

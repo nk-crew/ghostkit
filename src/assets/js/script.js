@@ -642,7 +642,7 @@ class GhostKitClass {
                     const changeType = typeMatches[ 1 ];
                     const changeDescription = typeMatches[ 2 ];
 
-                    let className = 'ghostkit-badge ghostkit-badge-outline';
+                    let className = 'ghostkit-badge';
 
                     switch ( changeType.toLowerCase() ) {
                     case 'added':

@@ -17,7 +17,7 @@
 .ghostkit-instagram-profile {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 40px;
+    margin-bottom: 2.5em;
 
     .ghostkit-instagram-profile-avatar img {
         display: block;
@@ -32,7 +32,7 @@
         max-width: 100%;
     }
     .ghostkit-instagram-profile-avatar + .ghostkit-instagram-profile-side {
-        margin-left: 30px;
+        margin-left: 1.5em;
     }
 
     .ghostkit-instagram-profile-name {
@@ -53,26 +53,25 @@
         flex-wrap: wrap;
 
         > div {
-            margin-right: 25px;
+            margin-right: 1.2em;
 
             &:last-child {
                 margin-right: 0;
             }
         }
     }
-    div + .ghostkit-instagram-profile-stats {
-        margin-top: 20px;
-    }
 
     .ghostkit-instagram-profile-bio {
         h2 {
             margin: 0;
-            margin-bottom: 10px;
+            margin-bottom: .5em;
             font-size: inherit;
         }
     }
+
+    div + .ghostkit-instagram-profile-stats,
     div + .ghostkit-instagram-profile-bio {
-        margin-top: 20px;
+        margin-top: 1.2em;
     }
 }
 

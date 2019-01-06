@@ -31,25 +31,25 @@
     .ghostkit-changelog-version {
         width: 65px;
         min-width: 65px;
-        padding: 2px 1px;
+        padding: 0;
         font-weight: 600;
-        color: rgba(255, 255, 255, .8);
+        color: #fff;
         text-align: center;
         background-color: #6a6c75;
-        border-radius: 2px;
+        border-radius: 4px;
     }
 
     .ghostkit-changelog-date {
         margin: 0;
-        margin-left: 10px;
+        margin-left: 1em;
         font-size: 1em;
     }
 
     .ghostkit-changelog-more {
         width: 100%;
         min-width: 100%;
-        padding-left: 75px;
-        margin-top: 20px;
+        padding-left: calc(65px + 1em);
+        margin-top: 1.5em;
 
         @media screen and (max-width: 768px) {
             padding-left: 0;
@@ -65,7 +65,7 @@
             li {
                 display: flex;
                 align-items: flex-start;
-                margin-bottom: 7px;
+                margin-bottom: .5em;
             }
         }
     }
@@ -75,8 +75,8 @@
     }
 
     .ghostkit-badge {
-        flex: 0 0 65px;
-        margin-right: 10px;
+        flex: 0 0 75px;
+        margin-right: 1em;
         font-size: 65%;
         font-weight: 600;
         text-transform: uppercase;

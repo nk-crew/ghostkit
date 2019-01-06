@@ -60,17 +60,17 @@
 // badges
 .ghostkit-badge {
     display: inline-block;
-    padding: 6px 5px;
+    padding: 7px 5px;
     font-size: 75%;
     font-weight: 600;
     line-height: 1;
-    color: rgba(255, 255, 255, .8);
+    color: #fff;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
     background-color: #6a6c75;
     border: 0 solid #6a6c75;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 .ghostkit-badge-primary {
     background-color: $color-primary;
@@ -93,6 +93,7 @@
     border-color: $color-info;
 }
 .ghostkit-badge-outline {
+    padding: 6px 5px;
     color: #6a6c75;
     background-color: #fff;
     border-width: 1px;
