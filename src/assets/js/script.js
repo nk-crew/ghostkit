@@ -3,10 +3,60 @@ import scriptjs from 'scriptjs';
 import rafl from 'rafl';
 
 const $ = window.jQuery;
+const $wnd = $( window );
 const {
     ghostkitVariables,
     GHOSTKIT,
 } = window;
+
+/**
+ * Throttle scroll
+ */
+const throttleScrollList = [];
+let lastST = 0;
+
+const hasScrolled = () => {
+    const body = document.body;
+    const html = document.documentElement;
+    const ST = window.pageYOffset || html.scrollTop;
+
+    let type = ''; // [up, down, end, start]
+
+    if ( ST > lastST ) {
+        type = 'down';
+    } else if ( ST < lastST ) {
+        type = 'up';
+    } else {
+        type = 'none';
+    }
+
+    const docH = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
+    const wndH = window.innerHeight || html.clientHeight || body.clientHeight;
+
+    if ( ST === 0 ) {
+        type = 'start';
+    } else if ( ST >= docH - wndH ) {
+        type = 'end';
+    }
+
+    throttleScrollList.forEach( ( value ) => {
+        if ( typeof value === 'function' ) {
+            value( type, ST, lastST );
+        }
+    } );
+
+    lastST = ST;
+};
+
+$wnd.on( 'scroll ready load resize orientationchange', throttle( 200, () => {
+    if ( throttleScrollList.length ) {
+        rafl( hasScrolled );
+    }
+} ) );
+
+function throttleScroll( callback ) {
+    throttleScrollList.push( callback );
+}
 
 class GhostKitClass {
     constructor() {
@@ -20,7 +70,6 @@ class GhostKitClass {
             self.screenSizes.push( ghostkitVariables.media_sizes[ k ] );
         } );
 
-        self.counters = [];
         self.customStyles = '';
         self.reveal = false;
 
@@ -29,7 +78,6 @@ class GhostKitClass {
         self.getWnd = self.getWnd.bind( self );
         self.isElementInViewport = self.isElementInViewport.bind( self );
         self.prepareCounters = self.prepareCounters.bind( self );
-        self.runCounters = self.runCounters.bind( self );
         self.prepareCustomStyles = self.prepareCustomStyles.bind( self );
         self.prepareTabs = self.prepareTabs.bind( self );
         self.prepareAccordions = self.prepareAccordions.bind( self );
@@ -62,18 +110,8 @@ class GhostKitClass {
                 .animate( { opacity: 0 }, 150, function() {
                     $( this ).slideUp( 200 );
 
-                    self.runCounters();
+                    hasScrolled();
                 } );
-        } );
-
-        // Run counters.
-        const throttledRunCounters = throttle( 200, () => {
-            rafl( () => {
-                self.runCounters();
-            } );
-        } );
-        $( window ).on( 'DOMContentLoaded load resize scroll', () => {
-            throttledRunCounters();
         } );
 
         // Set FS video size.
@@ -183,7 +221,7 @@ class GhostKitClass {
                 $this.text( from );
             }
 
-            self.counters.push( {
+            const item = {
                 el: this,
                 from: from,
                 to: to,
@@ -197,40 +235,28 @@ class GhostKitClass {
                         $this.text( Math.ceil( num ) );
                     }
                 },
+            };
+            let showed = false;
+
+            // Run counter.
+            throttleScroll( () => {
+                if ( ! showed && item && self.isElementInViewport( item.el ) ) {
+                    showed = true;
+                    $( { Counter: item.from } ).animate( { Counter: item.to }, {
+                        duration: 1000,
+                        easing: 'easeOutCubic',
+                        step() {
+                            item.cb( this.Counter, false );
+                        },
+                        complete() {
+                            item.cb( item.to, true );
+                        },
+                    } );
+                }
             } );
         } );
-        self.runCounters();
 
         GHOSTKIT.triggerEvent( 'afterPrepareCounters', self );
-    }
-
-    runCounters() {
-        const self = this;
-
-        if ( ! self.counters.length ) {
-            return;
-        }
-
-        GHOSTKIT.triggerEvent( 'beforeRunCounters', self );
-
-        self.counters.forEach( ( item, index ) => {
-            if ( item && self.isElementInViewport( item.el ) ) {
-                self.counters[ index ] = false;
-
-                $( { Counter: item.from } ).animate( { Counter: item.to }, {
-                    duration: 1000,
-                    easing: 'easeOutCubic',
-                    step() {
-                        item.cb( this.Counter, false );
-                    },
-                    complete() {
-                        item.cb( item.to, true );
-                    },
-                } );
-            }
-        } );
-
-        GHOSTKIT.triggerEvent( 'afterRunCounters', self );
     }
 
     /**
@@ -289,7 +315,7 @@ class GhostKitClass {
                     .addClass( 'ghostkit-tab-active' )
                     .siblings().removeClass( 'ghostkit-tab-active' );
 
-                self.runCounters();
+                hasScrolled();
             } );
             $tabsButtons.find( `[data-tab="${ tabsActive }"]` ).click();
         } );
@@ -333,7 +359,7 @@ class GhostKitClass {
                         }
                     }
 
-                    self.runCounters();
+                    hasScrolled();
                 } );
         } );
 
