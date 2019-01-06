@@ -177,19 +177,42 @@ class GhostKitClass {
      * https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
      *
      * @param {DOM} el - element.
+     * @param {Number} allowPercent - visible percent of the element.
      *
      * @returns {Boolean} - visible.
      */
-    isElementInViewport( el ) {
+    isElementInViewport( el, allowPercent = 1 ) {
         const rect = el.getBoundingClientRect();
+        const rectW = rect.width || 1;
+        const rectH = rect.height || 1;
         const self = this;
+        let visibleHeight = 0;
+        let visibleWidth = 0;
 
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= self.getWnd().h &&
-            rect.right <= self.getWnd().w
-        );
+        // on top of viewport
+        if ( rect.top < 0 && rectH + rect.top > 0 ) {
+            visibleHeight = rectH + rect.top;
+
+        // on bot of viewport.
+        } else if ( rect.top > 0 && rect.top < self.getWnd().h ) {
+            visibleHeight = self.getWnd().h - rect.top;
+        }
+
+        // on left of viewport
+        if ( rect.left < 0 && rectW + rect.left > 0 ) {
+            visibleWidth = rectW + rect.left;
+
+        // on bot of viewport.
+        } else if ( self.getWnd().w - rect.left > 0 ) {
+            visibleWidth = self.getWnd().w - rect.left;
+        }
+
+        visibleHeight = Math.min( visibleHeight, rectH );
+        visibleWidth = Math.min( visibleWidth, rectW );
+
+        const visiblePercent = visibleWidth * visibleHeight / ( rectW * rectH );
+
+        return visiblePercent >= allowPercent;
     }
 
     /**
@@ -490,8 +513,13 @@ class GhostKitClass {
             const $this = $( this ).addClass( 'ghostkit-video-ready' );
             const url = $this.attr( 'data-video' );
             const clickAction = $this.attr( 'data-click-action' );
+
+            const videoAutoplay = $this.attr( 'data-video-autoplay' ) === 'true';
+            const videoAutopause = $this.attr( 'data-video-autopause' ) === 'true';
+
             const fullscreenCloseIcon = $this.attr( 'data-fullscreen-action-close-icon' );
             const fullscreenBackgroundColor = $this.attr( 'data-fullscreen-background-color' );
+
             let $poster = $this.find( '.ghostkit-video-poster' );
             let $fullscreenWrapper = false;
             let $iframe = false;
@@ -509,6 +537,11 @@ class GhostKitClass {
                 mute = 1;
             }
 
+            // mute if volume 0
+            if ( ! parseFloat( $this.attr( 'data-video-volume' ) ) ) {
+                mute = 1;
+            }
+
             const api = new window.VideoWorker( url, {
                 autoplay: 0,
                 loop: 0,
@@ -520,6 +553,7 @@ class GhostKitClass {
             if ( api && api.isValid() ) {
                 let loaded = 0;
                 let clicked = 0;
+                let isPlaying = false;
 
                 // add play event
                 $this.on( 'click', function() {
@@ -597,11 +631,33 @@ class GhostKitClass {
                     }
                     api.play();
                 } );
+                api.on( 'play', () => {
+                    isPlaying = true;
+                } );
                 api.on( 'pause', () => {
+                    isPlaying = false;
                     if ( 'fullscreen' === clickAction ) {
                         clicked = 0;
                     }
                 } );
+
+                if ( 'fullscreen' !== clickAction && ( videoAutoplay || videoAutopause ) ) {
+                    throttleScroll( () => {
+                        // autoplay
+                        if ( ! isPlaying && videoAutoplay && self.isElementInViewport( $this[ 0 ], 0.6 ) ) {
+                            if ( clicked ) {
+                                api.play();
+                            } else {
+                                $this.click();
+                            }
+                        }
+
+                        // autopause
+                        if ( isPlaying && videoAutopause && ! self.isElementInViewport( $this[ 0 ], 0.6 ) ) {
+                            api.pause();
+                        }
+                    } );
+                }
             }
         } );
 

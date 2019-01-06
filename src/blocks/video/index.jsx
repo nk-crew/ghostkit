@@ -29,6 +29,7 @@ const {
     SelectControl,
     Button,
     ButtonGroup,
+    ToggleControl,
     RangeControl,
     TextControl,
 } = wp.components;
@@ -165,6 +166,9 @@ class VideoBlockEdit extends Component {
             videoWebm,
             videoAspectRatio,
             videoVolume,
+            videoAutoplay,
+            videoAutopause,
+
             iconPlay,
             iconLoading,
 
@@ -447,7 +451,22 @@ class VideoBlockEdit extends Component {
                                     onChange={ ( value ) => setAttributes( { fullscreenActionCloseIcon: value } ) }
                                 />
                             </Fragment>
-                        ) : '' }
+                        ) : (
+                            <Fragment>
+                                <ToggleControl
+                                    label={ __( 'Autoplay' ) }
+                                    help={ __( 'Automatically play video when block reaches the viewport. The video will be play muted due to browser Autoplay policy.' ) }
+                                    checked={ !! videoAutoplay }
+                                    onChange={ ( value ) => setAttributes( { videoAutoplay: value } ) }
+                                />
+                                <ToggleControl
+                                    label={ __( 'Autopause' ) }
+                                    help={ __( 'Automatically pause video when block out of the viewport.' ) }
+                                    checked={ !! videoAutopause }
+                                    onChange={ ( value ) => setAttributes( { videoAutopause: value } ) }
+                                />
+                            </Fragment>
+                        ) }
                     </PanelBody>
 
                     <PanelBody title={ __( 'Poster Image' ) }>
@@ -583,6 +602,9 @@ class VideoBlockSave extends Component {
             videoWebm,
             videoAspectRatio,
             videoVolume,
+            videoAutoplay,
+            videoAutopause,
+
             iconPlay,
             iconLoading,
 
@@ -635,6 +657,13 @@ class VideoBlockSave extends Component {
         if ( clickAction === 'fullscreen' ) {
             resultAttrs[ 'data-fullscreen-action-close-icon' ] = fullscreenActionCloseIcon;
             resultAttrs[ 'data-fullscreen-background-color' ] = fullscreenBackgroundColor;
+        } else {
+            if ( videoAutoplay ) {
+                resultAttrs[ 'data-video-autoplay' ] = 'true';
+            }
+            if ( videoAutopause ) {
+                resultAttrs[ 'data-video-autopause' ] = 'true';
+            }
         }
 
         return (
@@ -719,6 +748,14 @@ export const settings = {
         videoVolume: {
             type: 'number',
             default: 100,
+        },
+        videoAutoplay: {
+            type: 'boolean',
+            default: false,
+        },
+        videoAutopause: {
+            type: 'boolean',
+            default: false,
         },
 
         iconPlay: {
