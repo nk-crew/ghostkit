@@ -234,7 +234,7 @@ export const name = 'ghostkit/divider';
 
 export const settings = {
     title: __( 'Divider' ),
-    description: __( 'Content divider.' ),
+    description: __( 'Divide your long texts and blocks.' ),
     icon: elementIcon,
     category: 'ghostkit',
     keywords: [

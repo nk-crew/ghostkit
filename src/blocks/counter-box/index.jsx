@@ -197,7 +197,7 @@ export const name = 'ghostkit/counter-box';
 
 export const settings = {
     title: __( 'Number Box' ),
-    description: __( 'Number Box.' ),
+    description: __( 'Show your progress and rewards using counting numbers.' ),
     icon: elementIcon,
     category: 'ghostkit',
     keywords: [

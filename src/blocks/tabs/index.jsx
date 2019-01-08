@@ -188,7 +188,7 @@ export const name = 'ghostkit/tabs';
 
 export const settings = {
     title: __( 'Tabs' ),
-    description: __( 'Tabs.' ),
+    description: __( 'Separate content on the tabs with titles.' ),
     icon: elementIcon,
     category: 'ghostkit',
     keywords: [

@@ -250,7 +250,7 @@ export const name = 'ghostkit/pricing-table';
 
 export const settings = {
     title: __( 'Pricing Table' ),
-    description: __( 'Add pricing tables.' ),
+    description: __( 'Sell your products or services and show all features.' ),
     icon: elementIcon,
     category: 'ghostkit',
     keywords: [

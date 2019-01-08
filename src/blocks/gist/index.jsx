@@ -286,7 +286,7 @@ export const name = 'ghostkit/gist';
 
 export const settings = {
     title: __( 'GitHub Gist' ),
-    description: __( 'GitHub Gist embed.' ),
+    description: __( 'Embed code parts form GitHub Gist to your site or documentation.' ),
     icon: ElementIcon,
     category: 'ghostkit',
     keywords: [

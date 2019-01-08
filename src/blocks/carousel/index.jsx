@@ -238,7 +238,7 @@ export const name = 'ghostkit/carousel';
 
 export const settings = {
     title: __( 'Carousel' ),
-    description: __( 'Add a block that displays content inside carousel, then add whatever content blocks you\'d like.' ),
+    description: __( 'Carousel for any type of content – images or other blocks.' ),
     icon: elementIcon,
     category: 'ghostkit',
     keywords: [

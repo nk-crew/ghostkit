@@ -287,7 +287,7 @@ export const name = 'ghostkit/instagram';
 
 export const settings = {
     title: __( 'Instagram' ),
-    description: __( 'Show instagram feed and user data.' ),
+    description: __( 'Show Instagram feed and user data.' ),
     icon: ElementIcon,
     category: 'ghostkit',
     keywords: [

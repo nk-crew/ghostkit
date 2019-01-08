@@ -257,7 +257,7 @@ export const name = 'ghostkit/button';
 export const settings = {
     title: __( 'Buttons' ),
 
-    description: __( 'Add button wrapper block with inner buttons.' ),
+    description: __( 'Change important links to buttons to get more click rate.' ),
 
     icon: elementIcon,
 

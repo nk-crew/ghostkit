@@ -415,7 +415,7 @@ export const name = 'ghostkit/twitter';
 
 export const settings = {
     title: __( 'Twitter' ),
-    description: __( 'Show twitter feed and user data.' ),
+    description: __( 'Show Twitter feed and user data.' ),
     icon: ElementIcon,
     category: 'ghostkit',
     keywords: [

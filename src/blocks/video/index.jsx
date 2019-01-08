@@ -694,7 +694,7 @@ export const name = 'ghostkit/video';
 
 export const settings = {
     title: __( 'Video' ),
-    description: __( 'YouTube/Vimeo video block.' ),
+    description: __( 'Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.' ),
     icon: elementIcon,
     category: 'ghostkit',
     keywords: [

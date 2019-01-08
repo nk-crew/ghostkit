@@ -491,7 +491,7 @@ export const name = 'ghostkit/google-maps';
 
 export const settings = {
     title: __( 'Google Maps' ),
-    description: __( 'Show Google Maps with markers.' ),
+    description: __( 'Show maps with custom styles, markers and settings.' ),
     icon: ElementIcon,
     category: 'ghostkit',
     keywords: [

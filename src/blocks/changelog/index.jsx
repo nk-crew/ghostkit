@@ -116,7 +116,7 @@ export const name = 'ghostkit/changelog';
 
 export const settings = {
     title: __( 'Changelog' ),
-    description: __( 'Block for adding changelog for you products.' ),
+    description: __( 'Show the changes log of your product.' ),
     icon: elementIcon,
     category: 'ghostkit',
     keywords: [

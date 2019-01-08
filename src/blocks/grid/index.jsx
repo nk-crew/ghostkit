@@ -458,7 +458,7 @@ export const name = 'ghostkit/grid';
 
 export const settings = {
     title: __( 'Grid' ),
-    description: __( 'Add a block that displays content in responsive grid columns, then add whatever content blocks you\'d like.' ),
+    description: __( 'Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.' ),
     icon: elementIcon,
     category: 'ghostkit',
     keywords: [

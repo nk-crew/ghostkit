@@ -72,7 +72,7 @@ export const name = 'ghostkit/widgetized-area';
 
 export const settings = {
     title: __( 'Widgetized Area' ),
-    description: __( 'Output registered sidebars.' ),
+    description: __( 'Select registered sidebars and put it in any place.' ),
     icon: ElementIcon,
     category: 'ghostkit',
     keywords: [

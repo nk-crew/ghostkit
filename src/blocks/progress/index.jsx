@@ -262,7 +262,7 @@ export const name = 'ghostkit/progress';
 
 export const settings = {
     title: __( 'Progress' ),
-    description: __( 'Progress bar.' ),
+    description: __( 'Show the progress of your work, skills or earnings.' ),
     icon: elementIcon,
     category: 'ghostkit',
     keywords: [
