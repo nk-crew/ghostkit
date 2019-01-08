@@ -106,11 +106,13 @@ const getColClass = ( attributes ) => {
             if ( type && ( type === 'size' || type === 'order' ) ) {
                 prefix = prefix ? `-${ prefix }` : '';
                 type = type === 'size' ? '' : `-${ type }`;
-
-                result = classnames(
-                    result,
-                    `ghostkit-col${ type }${ prefix || '' }${ attributes[ key ] !== 'auto' ? `-${ attributes[ key ] }` : '' }`
-                );
+                
+                if ( result.indexOf( `gg-col${ type }${ prefix }` ) < 0 ) {
+                    result = classnames(
+                        result,
+                        `ghostkit-col${ type }${ prefix || '' }${ attributes[ key ] !== 'auto' ? `-${ attributes[ key ] }` : '' }`
+                    );
+                }
             }
         }
     } );
