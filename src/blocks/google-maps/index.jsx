@@ -499,6 +499,9 @@ export const settings = {
         __( 'google' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/google-maps/',
+    },
     supports: {
         html: false,
         className: false,

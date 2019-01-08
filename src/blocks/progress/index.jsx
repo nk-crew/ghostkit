@@ -270,6 +270,9 @@ export const settings = {
         __( 'bar' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/progress/',
+    },
     supports: {
         html: false,
         className: false,

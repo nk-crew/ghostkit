@@ -422,6 +422,9 @@ export const settings = {
         __( 'twitter' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/twitter/',
+    },
     supports: {
         html: false,
         className: false,

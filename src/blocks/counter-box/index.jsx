@@ -205,6 +205,9 @@ export const settings = {
         __( 'counter' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/number-box/',
+    },
     supports: {
         html: false,
         className: false,

@@ -216,6 +216,9 @@ export const settings = {
         __( 'notification' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/alert/',
+    },
     supports: {
         html: false,
         className: false,

@@ -294,6 +294,9 @@ export const settings = {
         __( 'gist' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/github-gist/',
+    },
     supports: {
         html: false,
         className: false,

@@ -124,6 +124,9 @@ export const settings = {
         __( 'log' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/changelog/',
+    },
     supports: {
         html: false,
         className: false,

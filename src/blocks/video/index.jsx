@@ -702,6 +702,9 @@ export const settings = {
         __( 'youtube' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/video/',
+    },
     supports: {
         html: false,
         className: false,

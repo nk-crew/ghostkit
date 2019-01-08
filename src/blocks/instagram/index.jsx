@@ -294,6 +294,9 @@ export const settings = {
         __( 'instagram' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/instagram/',
+    },
     supports: {
         html: false,
         className: false,

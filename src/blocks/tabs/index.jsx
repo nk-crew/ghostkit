@@ -196,6 +196,9 @@ export const settings = {
         __( 'tab' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/tabs/',
+    },
     supports: {
         html: false,
         className: false,

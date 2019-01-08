@@ -258,6 +258,9 @@ export const settings = {
         __( 'table' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/pricing-tables/',
+    },
     supports: {
         html: false,
         className: false,

@@ -230,6 +230,11 @@ export default class Blocks extends Component {
                             { block.description }
                         </div>
                     ) : '' }
+                    { block.ghostkitAttrs && block.ghostkitAttrs.previewUrl ? (
+                        <div className="ghostkit-settings-blocks-item-preview-url">
+                            <a href={ block.ghostkitAttrs.previewUrl }>{ __( 'Preview' ) }</a>
+                        </div>
+                    ) : '' }
                     <Tooltip text={ this.getDisabledBlock( block ) ? __( 'Enable Block' ) : __( 'Disable Block' ) }>
                         <div className="ghostkit-settings-blocks-item-check">
                             <ToggleControl

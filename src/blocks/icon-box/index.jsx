@@ -186,6 +186,9 @@ export const settings = {
         __( 'icon-box' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/icon-box/',
+    },
     supports: {
         html: false,
         className: false,

@@ -246,6 +246,9 @@ export const settings = {
         __( 'slider' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/carousel/',
+    },
     supports: {
         html: false,
         className: false,

@@ -269,6 +269,10 @@ export const settings = {
         __( 'ghostkit' ),
     ],
 
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/button/',
+    },
+
     supports: {
         html: false,
         className: false,

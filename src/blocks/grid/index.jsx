@@ -466,6 +466,9 @@ export const settings = {
         __( 'row' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/grid/',
+    },
     supports: {
         html: false,
         className: false,

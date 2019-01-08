@@ -242,6 +242,9 @@ export const settings = {
         __( 'spacer' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/divider/',
+    },
     supports: {
         html: false,
         className: false,

@@ -80,6 +80,9 @@ export const settings = {
         __( 'sidebar' ),
         __( 'ghostkit' ),
     ],
+    ghostkitAttrs: {
+        previewUrl: 'https://ghostkit.io/blocks/widgetized-area/',
+    },
     supports: {
         html: false,
         className: false,
