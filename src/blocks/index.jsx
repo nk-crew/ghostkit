@@ -109,3 +109,8 @@ jQuery( () => {
         registerBlockType( name, settings );
     } );
 } );
+
+/**
+ * Disable Blocks
+ */
+import './_disable-blocks/index.jsx';

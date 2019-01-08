@@ -74,14 +74,14 @@ gulp.task('copy_to_dist_vendors', function () {
 });
 gulp.task('build_blocks_js', function () {
     return runStream(work_folders, function (itemData) {
-        return gulp.src(itemData.from + '/blocks/index.jsx')
+        return gulp.src([itemData.from + '/*blocks/index.jsx', itemData.from + '/*settings/index.jsx'])
             .pipe($.plumber({ errorHandler }))
             .pipe(named())
             .pipe(webpack(webpackconfig(isDev)))
             .pipe($.rename({
                 suffix: '.min'
             }))
-            .pipe(gulp.dest(itemData.to + '/blocks'))
+            .pipe(gulp.dest(itemData.to))
     });
 });
 gulp.task('build_js', function () {
@@ -109,7 +109,7 @@ gulp.task('build_js', function () {
 });
 gulp.task('build_scss', function () {
     return runStream(work_folders, function (itemData) {
-        return gulp.src([itemData.from + '/**/*.scss', '!' + itemData.from + '/blocks/*/**/*.scss'])
+        return gulp.src([itemData.from + '/**/*.scss', '!' + itemData.from + '/blocks/*/**/*.scss', '!' + itemData.from + '/settings/*/**/*.scss'])
             .pipe($.plumber({ errorHandler }))
             .pipe($.sass({
                 outputStyle: 'compressed'

@@ -1,0 +1,241 @@
+@import "../../blocks/variables";
+
+$arrow-size: 8px !default;
+
+.components-popover {
+    position: fixed;
+    left: 50%;
+    z-index: 20;
+
+    &.is-mobile {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    &:not(.is-without-arrow):not(.is-mobile) {
+        margin-left: 2px;
+
+        &::before {
+            border: $arrow-size solid $light-gray-500;
+        }
+
+        &::after {
+            border: $arrow-size solid $white;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            line-height: 0;
+        }
+
+        &.is-top {
+            margin-top: - $arrow-size;
+
+            &::before {
+                bottom: - $arrow-size;
+            }
+
+            &::after {
+                bottom: -6px;
+            }
+
+            &::before,
+            &::after {
+                margin-left: -10px;
+                border-top-style: solid;
+                border-right-color: transparent;
+                border-bottom: none;
+                border-left-color: transparent;
+            }
+        }
+
+        &.is-bottom {
+            margin-top: $arrow-size;
+
+            &::before {
+                top: -$arrow-size;
+            }
+
+            &::after {
+                top: -6px;
+            }
+
+            &::before,
+            &::after {
+                margin-left: -10px;
+                border-top: none;
+                border-right-color: transparent;
+                border-bottom-style: solid;
+                border-left-color: transparent;
+            }
+        }
+
+        &.is-middle.is-left {
+            margin-left: -$arrow-size;
+
+            &::before {
+                right: -$arrow-size;
+            }
+
+            &::after {
+                right: -6px;
+            }
+
+            &::before,
+            &::after {
+                border-top-color: transparent;
+                border-right: none;
+                border-bottom-color: transparent;
+                border-left-style: solid;
+            }
+        }
+
+        &.is-middle.is-right {
+            margin-left: $arrow-size;
+
+            &::before {
+                left: -$arrow-size;
+            }
+
+            &::after {
+                left: -6px;
+            }
+
+            &::before,
+            &::after {
+                border-top-color: transparent;
+                border-right-style: solid;
+                border-bottom-color: transparent;
+                border-left: none;
+            }
+        }
+    }
+
+    &:not(.is-mobile) {
+        &.is-top {
+            bottom: 100%;
+        }
+
+        &.is-bottom {
+            top: 100%;
+            z-index: 20;
+        }
+
+        &.is-middle {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.components-popover__content {
+    height: 100%;
+    background: $white;
+    border: $border-width solid $light-gray-500;
+    box-shadow: $shadow-popover;
+
+    .components-popover.is-mobile & {
+        height: calc(100% - #{ $panel-header-height });
+        border-top: 0;
+    }
+
+    .components-popover:not(.is-mobile) & {
+        position: absolute;
+        min-width: 260px;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .components-popover:not(.is-mobile).is-top & {
+        bottom: 100%;
+    }
+
+    .components-popover:not(.is-mobile).is-center & {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .components-popover:not(.is-mobile).is-right & {
+        position: absolute;
+        left: 100%;
+    }
+
+    .components-popover:not(.is-mobile):not(.is-middle).is-right & {
+        margin-left: -24px;
+    }
+
+    .components-popover:not(.is-mobile).is-left & {
+        position: absolute;
+        right: 100%;
+    }
+
+    .components-popover:not(.is-mobile):not(.is-middle).is-left & {
+        margin-right: -24px;
+    }
+}
+
+// The withFocusReturn div
+.components-popover__content > div {
+    height: 100%;
+}
+
+.components-popover__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: $panel-header-height;
+    padding: 0 8px 0 $panel-padding;
+    background: $white;
+    border: $border-width solid $light-gray-500;
+}
+
+.components-popover__header-title {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.components-popover__close.components-icon-button {
+    z-index: 20;
+}
+
+.components-tooltip.components-popover {
+    z-index: 20;
+
+    &::before {
+        border-color: transparent;
+    }
+
+    &.is-top::after {
+        border-top-color: $dark-gray-900;
+    }
+
+    &.is-bottom::after {
+        border-bottom-color: $dark-gray-900;
+    }
+}
+
+.components-tooltip .components-popover__content {
+    padding: 4px 12px;
+    color: $white;
+    white-space: nowrap;
+    background: $dark-gray-900;
+    border-width: 0;
+}
+
+.components-tooltip:not(.is-mobile) .components-popover__content {
+    min-width: 0;
+}
+
+.components-tooltip__shortcut {
+    display: block;
+    color: $dark-gray-200;
+    text-align: center;
+}

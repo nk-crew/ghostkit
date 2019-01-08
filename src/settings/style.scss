@@ -1,0 +1,20 @@
+/**
+ * GhostKit Settings Styles.
+ */
+@import "../blocks/variables";
+
+body.toplevel_page_ghostkit {
+    // prevent content jumping
+    overflow-y: scroll;
+    background-color: $light-gray-100;
+}
+
+.ghostkit-admin-page {
+    padding: 35px;
+    margin-left: -20px;
+
+    &,
+    * {
+        box-sizing: border-box;
+    }
+}

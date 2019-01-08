@@ -102,6 +102,15 @@ class GhostKit_Rest extends WP_REST_Controller {
                 'permission_callback' => array( $this, 'update_google_maps_api_key_permission' ),
             )
         );
+
+        // Update Disabled Blocks.
+        register_rest_route(
+            $namespace, '/update_disabled_blocks/', array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'update_disabled_blocks' ),
+                'permission_callback' => array( $this, 'update_disabled_blocks_permission' ),
+            )
+        );
     }
 
     /**
@@ -237,6 +246,18 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_google_maps_api_key_permission() {
         if ( ! current_user_can( 'edit_theme_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
+     * Get edit options permissions.
+     *
+     * @return bool
+     */
+    public function update_disabled_blocks_permission() {
+        if ( ! current_user_can( 'manage_options' ) ) {
             return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
         }
         return true;
@@ -881,6 +902,28 @@ class GhostKit_Rest extends WP_REST_Controller {
             return $this->success( $updated );
         } else {
             return $this->error( 'no_options_found', __( 'Failed to update option.', '@@text_domain' ) );
+        }
+    }
+
+    /**
+     * Update Disabled Blocks.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function update_disabled_blocks( WP_REST_Request $request ) {
+        $new_settings = $request->get_param( 'blocks' );
+        $updated = '';
+
+        if ( is_array( $new_settings ) ) {
+            $updated = update_option( 'ghostkit_disabled_blocks', $new_settings );
+        }
+
+        if ( ! empty( $updated ) ) {
+            return $this->success( true );
+        } else {
+            return $this->error( 'no_disabled_blocks_updated', __( 'Failed to update disabled blocks.', '@@text_domain' ) );
         }
     }
 

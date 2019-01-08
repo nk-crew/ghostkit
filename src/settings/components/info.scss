@@ -1,0 +1,9 @@
+@import "../../blocks/variables";
+
+.ghostkit-settings-info {
+    padding: 20px;
+    color: $color-brand-3;
+    background-color: rgba($color-brand-3, .1);
+    border-left: 4px solid $color-brand-3;
+    border-radius: 4px;
+}

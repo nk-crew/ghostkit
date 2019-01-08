@@ -100,6 +100,9 @@ class GhostKit {
         // load textdomain.
         load_plugin_textdomain( '@@text_domain', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
+        // settings.
+        require_once( $this->plugin_path . 'settings/index.php' );
+
         // additional blocks php.
         require_once( $this->plugin_path . 'blocks/index.php' );
 
@@ -227,6 +230,8 @@ class GhostKit {
         $gmaps_locale = substr( $gmaps_locale, 0, 2 );
 
         wp_localize_script( 'ghostkit-helper', 'ghostkitVariables', array(
+            'disabledBlocks'    => get_option( 'ghostkit_disabled_blocks', array() ),
+
             // TODO: Move this to plugin options (part 1).
             'media_sizes'       => array(
                 'sm' => 576,

@@ -13,6 +13,8 @@ function escapeRegExp( s ) {
 }
 
 window.GHOSTKIT = {
+    disabledBlocks: ghostkitVariables.disabledBlocks,
+
     vars: vars,
     replaceVars( str ) {
         Object.keys( this.vars ).map( ( key ) => {
