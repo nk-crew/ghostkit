@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:  GhostKit
+ * Plugin Name:  Ghost Kit
  * Description:  Blocks collection and extensions for Gutenberg
  * Version:      @@plugin_version
  * Author:       nK
@@ -133,7 +133,7 @@ class GhostKit {
         if ( function_exists( 'register_block_type' ) ) {
             add_action( 'init', array( $this, 'register_scripts' ) );
 
-            // add GhostKit blocks category.
+            // add Ghost Kit blocks category.
             add_filter( 'block_categories', array( $this, 'block_categories' ), 9 );
 
             // we need to enqueue the main script earlier to let 3rd-party plugins add custom styles support.
@@ -143,7 +143,7 @@ class GhostKit {
     }
 
     /**
-     * Register GhostKit blocks category
+     * Register Ghost Kit blocks category
      *
      * @param array $categories - available categories.
      * @return array
@@ -154,7 +154,7 @@ class GhostKit {
             array(
                 array(
                     'slug'  => 'ghostkit',
-                    'title' => __( 'GhostKit', '@@text_domain' ),
+                    'title' => __( 'Ghost Kit', '@@text_domain' ),
                 ),
             )
         );
@@ -311,7 +311,7 @@ class GhostKit {
             $js_deps[] = 'gist-embed';
         }
 
-        // GhostKit.
+        // Ghost Kit.
         wp_enqueue_style(
             'ghostkit-editor',
             plugins_url( 'assets/admin/css/style.min.css', __FILE__ ),
@@ -359,7 +359,7 @@ class GhostKit {
             $js_deps[] = 'scrollreveal';
         }
 
-        // GhostKit.
+        // Ghost Kit.
         wp_enqueue_style(
             'ghostkit',
             plugins_url( 'blocks/style.min.css', __FILE__ ),

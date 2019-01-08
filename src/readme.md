@@ -1,4 +1,4 @@
-# GhostKit - Gutenberg Blocks Collection #
+# Ghost Kit - Blocks Collection #
 
 * Contributors: nko
 * Tags: gutenberg, blocks, kit, collection, grid
@@ -9,11 +9,11 @@
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-GhostKit is a blocks collection and extensions for Gutenberg block editor.
+Ghost Kit is a blocks collection and extensions for Gutenberg block editor.
 
 ## Description ##
 
-GhostKit is a blocks collection and powerful extensions for Gutenberg block editor. With this collection, you will gain more control over content just like with popular page builders. Just start with responsive Grid block and you can't stop building the page ;)
+Ghost Kit is a blocks collection and powerful extensions for Gutenberg block editor. With this collection, you will gain more control over content just like with popular page builders. Just start with responsive Grid block and you can't stop building the page ;)
 
 We are using this plugin in our premium themes, so all the blocks are extensible and ready for developers.
 
@@ -55,23 +55,23 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 
 ## Installation ##
 
-Make sure you use WordPress 5.0.x. As alternative you need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use GhostKit.
+Make sure you use WordPress 5.0.x. As alternative you need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use Ghost Kit.
 
 ### Automatic installation ###
 
-Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of GhostKit, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
+Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of Ghost Kit, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
 
-In the search field type GhostKit and click Search Plugins. Once you’ve found our plugin you can view details about it such as the point release, rating and description. Most importantly of course, you can install it by simply clicking “Install Now”.
+In the search field type Ghost Kit and click Search Plugins. Once you’ve found our plugin you can view details about it such as the point release, rating and description. Most importantly of course, you can install it by simply clicking “Install Now”.
 
 ### Manual installation ###
 
-The manual installation method involves downloading our GhostKit plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+The manual installation method involves downloading our Ghost Kit plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
 
 ## Frequently Asked Questions ##
 
 ### How to disable enqueued plugins (JS, CSS) on frontend ####
 
-There are some plugins, enqueued with GhostKit on your page. If you don't like the plugin and/or want to change it to your alternate plugin, you can disable it using filters. Example:
+There are some plugins, enqueued with Ghost Kit on your page. If you don't like the plugin and/or want to change it to your alternate plugin, you can disable it using filters. Example:
 
     add_filter( 'gkt_enqueue_plugin_font_awesome', '__return_false' );
 
@@ -368,7 +368,7 @@ Available events:
 = 1.1.1 =
 
 * added "Select Column" helper UI element to easily select Grid columns [https://wordpress.org/support/topic/selecting-a-column-in-a-grid/](https://wordpress.org/support/topic/selecting-a-column-in-a-grid/)
-* moved all blocks to GhostKit category
+* moved all blocks to Ghost Kit category
 * fixed compatibility with WordPress Import/Export content
 * fixed Spacings (margins / paddings) responsive values change [https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/](https://wordpress.org/support/topic/indents-settings-not-working-on-desktop-laptop-table-mobile/)
 

@@ -306,7 +306,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             }
 
             this.onUpdate = this.onUpdate.bind( this );
-            this.getGhostkitAtts = this.getGhostkitAtts.bind( this );
+            this.getGhostKitAtts = this.getGhostKitAtts.bind( this );
         }
 
         componentDidMount() {
@@ -332,7 +332,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             );
 
             if ( blockCustomStyles && Object.keys( blockCustomStyles ).length ) {
-                const ghostkitAtts = this.getGhostkitAtts();
+                const ghostkitAtts = this.getGhostKitAtts();
 
                 if ( ghostkitAtts.ghostkitClassname ) {
                     let updateAttrs = false;
@@ -369,7 +369,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             }
         }
 
-        getGhostkitAtts() {
+        getGhostKitAtts() {
             const props = this.props;
             let result = false;
 

@@ -6,9 +6,9 @@
  */
 
 /**
- * Ghostkit_Reusable_Widget
+ * GhostKit_Reusable_Widget
  */
-class Ghostkit_Reusable_Widget extends WP_Widget {
+class GhostKit_Reusable_Widget extends WP_Widget {
     /**
      * Sets up the widgets name etc
      */
@@ -114,6 +114,6 @@ class Ghostkit_Reusable_Widget extends WP_Widget {
  * Register Widget
  */
 function ghostkit_register_reusable_widget() {
-    register_widget( 'Ghostkit_Reusable_Widget' );
+    register_widget( 'GhostKit_Reusable_Widget' );
 }
 add_action( 'widgets_init', 'ghostkit_register_reusable_widget' );

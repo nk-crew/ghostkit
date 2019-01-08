@@ -9,11 +9,11 @@ const {
  * Returns the ready to use className for grid column.
  *
  * @param {object} props - block properties.
- * @param {boolean} addGhostkitIdClass - add class with unique ID.
+ * @param {boolean} addGhostKitIdClass - add class with unique ID.
  *
  * @return {String} Classname for Grid container.
  */
-export default function getColClass( props, addGhostkitIdClass = false ) {
+export default function getColClass( props, addGhostKitIdClass = false ) {
     const {
         attributes,
     } = props;
@@ -47,7 +47,7 @@ export default function getColClass( props, addGhostkitIdClass = false ) {
     }
 
     // add custom classname.
-    if ( addGhostkitIdClass && attributes.ghostkitClassname ) {
+    if ( addGhostKitIdClass && attributes.ghostkitClassname ) {
         result = classnames( result, attributes.ghostkitClassname );
     }
 

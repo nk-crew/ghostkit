@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Ghostkit_Settings
+ * GhostKit_Settings
  */
-class Ghostkit_Settings {
+class GhostKit_Settings {
     /**
      * Slug of the plugin screen.
      *
@@ -21,7 +21,7 @@ class Ghostkit_Settings {
     protected $plugin_screen_hook_suffix = null;
 
     /**
-     * Ghostkit_Settings constructor.
+     * GhostKit_Settings constructor.
      */
     public function __construct() {
         // work only if Gutenberg available.
@@ -112,4 +112,4 @@ class Ghostkit_Settings {
     }
 }
 
-new Ghostkit_Settings();
+new GhostKit_Settings();

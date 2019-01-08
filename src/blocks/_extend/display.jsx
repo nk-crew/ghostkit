@@ -121,7 +121,7 @@ function addAttribute( settings, name ) {
  * @return {string} Wrapped component.
  */
 const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) => {
-    class GhostkitDisplayWrapper extends Component {
+    class GhostKitDisplayWrapper extends Component {
         constructor() {
             super( ...arguments );
 
@@ -259,7 +259,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
         }
     }
 
-    return GhostkitDisplayWrapper;
+    return GhostKitDisplayWrapper;
 }, 'withInspectorControl' );
 
 /**

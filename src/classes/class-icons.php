@@ -7,11 +7,11 @@
  */
 
 /**
- * Ghostkit_Icons_List
+ * GhostKit_Icons_List
  */
-class Ghostkit_Icons_List {
+class GhostKit_Icons_List {
     /**
-     * Ghostkit_Icons_List constructor.
+     * GhostKit_Icons_List constructor.
      */
     public function __construct() {
         add_filter( 'gkt_icons_list', array( $this, 'add_font_awesome_icons' ) );
@@ -7478,4 +7478,4 @@ class Ghostkit_Icons_List {
     }
 }
 
-new Ghostkit_Icons_List();
+new GhostKit_Icons_List();
