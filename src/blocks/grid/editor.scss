@@ -122,6 +122,12 @@
     outline: 1px solid $blue-wordpress;
 }
 
+// fix background overlap outlines
+.editor-block-list__layout > [data-type="ghostkit/grid"] > .editor-block-list__block-edit::before,
+.editor-block-list__layout > [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit::before {
+    z-index: 1;
+}
+
 // hide default grid breadcrumb
 [data-type="ghostkit/grid"] > .editor-block-list__block-edit > .editor-block-list__breadcrumb {
     display: none;
