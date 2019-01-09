@@ -25,6 +25,8 @@
     > .ghostkit-col {
         position: relative;
         display: flex;
+        // Fix for previous columns implementation without .ghostkit-col-content
+        flex-wrap: wrap;
         width: 100%;
         min-height: 1px; // Prevent columns from collapsing when empty
         padding-right: ($grid-gutter-width / 2);
