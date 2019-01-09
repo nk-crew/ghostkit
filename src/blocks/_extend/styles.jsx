@@ -138,11 +138,19 @@ const getStyles = ( data = {}, selector = '', escape = true ) => {
  * Get styles attribute.
  *
  * @param {object} data - styles data.
+ * @param {object} blockType - styles data.
+ * @param {object} attributes - block attributes.
  * @return {string} - data attribute with styles.
  */
-const getCustomStylesAttr = ( data = {} ) => {
+const getCustomStylesAttr = ( data = {}, blockType, attributes ) => {
+    let styles = getStyles( data );
+
+    if ( blockType.ghostkit && blockType.ghostkit.customStylesFilter ) {
+        styles = blockType.ghostkit.customStylesFilter( styles, data, false, attributes );
+    }
+
     return {
-        'data-ghostkit-styles': getStyles( data ),
+        'data-ghostkit-styles': styles,
     };
 };
 
@@ -406,13 +414,20 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
         render() {
             const {
                 attributes,
+                blockSettings,
             } = this.props;
 
             if ( attributes.ghostkitClassname && attributes.ghostkitStyles && Object.keys( attributes.ghostkitStyles ).length !== 0 ) {
+                let styles = getStyles( attributes.ghostkitStyles, '', false );
+
+                if ( blockSettings && blockSettings.ghostkit && blockSettings.ghostkit.customStylesFilter ) {
+                    styles = blockSettings.ghostkit.customStylesFilter( styles, attributes.ghostkitStyles, true, attributes );
+                }
+
                 return (
                     <Fragment>
                         <BlockEdit { ...this.props } />
-                        <style>{ window.GHOSTKIT.replaceVars( getStyles( attributes.ghostkitStyles, '', false ) ) }</style>
+                        <style>{ window.GHOSTKIT.replaceVars( styles ) }</style>
                     </Fragment>
                 );
             }
@@ -443,7 +458,7 @@ function addSaveProps( extraProps, blockType, attributes ) {
     const customStyles = attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false;
 
     if ( customStyles && Object.keys( customStyles ).length !== 0 ) {
-        extraProps = Object.assign( extraProps || {}, getCustomStylesAttr( customStyles ) );
+        extraProps = Object.assign( extraProps || {}, getCustomStylesAttr( customStyles, blockType, attributes ) );
 
         if ( attributes.ghostkitClassname ) {
             extraProps.className = classnames( extraProps.className, attributes.ghostkitClassname );

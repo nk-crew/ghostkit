@@ -306,6 +306,13 @@ export const settings = {
 
             return result;
         },
+        customStylesFilter( styles, data, isEditor, attributes ) {
+            if ( isEditor && attributes.ghostkitClassname ) {
+                // change editor custom styles class to fix columns position
+                styles = styles.replace( new RegExp( `.ghostkit-grid .${ attributes.ghostkitClassname }`, 'g' ), `.ghostkit-grid .${ attributes.ghostkitClassname } > .editor-block-list__block-edit` );
+            }
+            return styles;
+        },
         supports: {
             styles: true,
             spacings: true,
