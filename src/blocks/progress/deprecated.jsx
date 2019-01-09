@@ -7,13 +7,17 @@ const {
 
 export default [
     {
+        ghostkit: {
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
         supports: {
             html: false,
             align: [ 'wide', 'full' ],
-            ghostkitStyles: true,
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
         },
         attributes: {
             variant: {
@@ -80,12 +84,8 @@ export default [
             );
         },
     }, {
-        supports: {
-            html: false,
-            align: [ 'wide', 'full' ],
-            className: false,
-            ghostkitStyles: true,
-            ghostkitStylesCallback( attributes ) {
+        ghostkit: {
+            customStylesCallback( attributes ) {
                 return {
                     '.ghostkit-progress-wrap': {
                         height: attributes.height,
@@ -98,9 +98,17 @@ export default [
                     },
                 };
             },
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
+        supports: {
+            html: false,
+            align: [ 'wide', 'full' ],
+            className: false,
         },
         attributes: {
             variant: {

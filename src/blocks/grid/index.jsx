@@ -466,18 +466,20 @@ export const settings = {
         __( 'row' ),
         __( 'ghostkit' ),
     ],
-    ghostkitAttrs: {
+    ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/grid/',
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
     },
     supports: {
         html: false,
         className: false,
         anchor: true,
         align: [ 'wide', 'full' ],
-        ghostkitStyles: true,
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
     },
     attributes: {
         variant: {

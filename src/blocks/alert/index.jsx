@@ -216,16 +216,9 @@ export const settings = {
         __( 'notification' ),
         __( 'ghostkit' ),
     ],
-    ghostkitAttrs: {
+    ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/alert/',
-    },
-    supports: {
-        html: false,
-        className: false,
-        anchor: true,
-        align: [ 'wide', 'full' ],
-        ghostkitStyles: true,
-        ghostkitStylesCallback( attributes ) {
+        customStylesCallback( attributes ) {
             const styles = {
                 borderLeftColor: attributes.color,
                 '.ghostkit-alert-icon': {
@@ -245,9 +238,18 @@ export const settings = {
 
             return styles;
         },
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
+    },
+    supports: {
+        html: false,
+        className: false,
+        anchor: true,
+        align: [ 'wide', 'full' ],
     },
     attributes: {
         variant: {

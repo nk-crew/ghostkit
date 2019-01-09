@@ -222,16 +222,20 @@ export const settings = {
     description: __( 'A single item within a pricing table block.' ),
     icon: elementIcon,
     category: 'ghostkit',
+    ghostkit: {
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
+    },
     supports: {
         html: false,
         className: false,
         anchor: true,
         inserter: false,
         reusable: false,
-        ghostkitStyles: true,
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
     },
     attributes: {
         variant: {

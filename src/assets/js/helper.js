@@ -45,4 +45,36 @@ window.GHOSTKIT = {
     triggerEvent( name, ...args ) {
         $doc.trigger( `${ name }.ghostkit`, [ ...args ] );
     },
+
+    /**
+     * Check for block support GhostKit features.
+     *
+     * @param {Mixed} block - block props / block name
+     * @param {String} featureName - feature name
+     * @param {Mixed} defaultVal - default return value
+     *
+     * @return {Mixed} - supports flag
+     */
+    hasBlockSupport( block, featureName, defaultVal = false ) {
+        if ( typeof block === 'string' && wp && wp.blocks ) {
+            const {
+                getBlockType,
+            } = wp.blocks;
+
+            if ( getBlockType ) {
+                block = getBlockType( block );
+            }
+        }
+
+        if (
+            block &&
+            block.ghostkit &&
+            block.ghostkit.supports &&
+            typeof block.ghostkit.supports[ featureName ] !== 'undefined'
+        ) {
+            return block.ghostkit.supports[ featureName ];
+        }
+
+        return defaultVal;
+    },
 };

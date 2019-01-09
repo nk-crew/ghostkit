@@ -25,9 +25,6 @@ const {
     createHigherOrderComponent,
 } = wp.compose;
 
-const {
-    hasBlockSupport,
-} = wp.blocks;
 const { InspectorControls } = wp.editor;
 
 const {
@@ -35,6 +32,8 @@ const {
     PanelBody,
     CheckboxControl,
 } = wp.components;
+
+const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
 
@@ -54,28 +53,27 @@ function addCoreBlocksSupport( name ) {
  *
  * @param {Boolean} allow Original block allow custom styles.
  * @param {Object} settings Original block settings.
- * @param {String} name Original block name.
  *
  * @return {Object} Filtered block settings.
  */
-function allowCustomStyles( allow, settings, name ) {
-    if ( hasBlockSupport( settings, 'ghostkitSpacings', false ) || hasBlockSupport( settings, 'ghostkitIndents', false ) ) {
+function allowCustomStyles( allow, settings ) {
+    if ( GHOSTKIT.hasBlockSupport( settings, 'spacings', false ) || GHOSTKIT.hasBlockSupport( settings, 'indents', false ) ) {
         allow = true;
     }
 
     if ( ! allow ) {
-        allow = addCoreBlocksSupport( name );
+        allow = addCoreBlocksSupport( settings.name );
         allow = applyFilters(
             'ghostkit.blocks.allowCustomSpacings',
             allow,
             settings,
-            name
+            settings.name
         );
         allow = applyFilters(
             'ghostkit.blocks.allowCustomIndents',
             allow,
             settings,
-            name
+            settings.name
         );
     }
     return allow;
@@ -85,30 +83,29 @@ function allowCustomStyles( allow, settings, name ) {
  * Extend ghostkit block attributes with spacings.
  *
  * @param {Object} settings Original block settings.
- * @param {String} name Original block name.
  *
  * @return {Object} Filtered block settings.
  */
-function addAttribute( settings, name ) {
+function addAttribute( settings ) {
     let allow = false;
 
-    if ( hasBlockSupport( settings, 'ghostkitSpacings', false ) || hasBlockSupport( settings, 'ghostkitIndents', false ) ) {
+    if ( GHOSTKIT.hasBlockSupport( settings, 'spacings', false ) || GHOSTKIT.hasBlockSupport( settings, 'indents', false ) ) {
         allow = true;
     }
 
     if ( ! allow ) {
-        allow = addCoreBlocksSupport( name );
+        allow = addCoreBlocksSupport( settings.name );
         allow = applyFilters(
             'ghostkit.blocks.allowCustomSpacings',
             allow,
             settings,
-            name
+            settings.name
         );
         allow = applyFilters(
             'ghostkit.blocks.allowCustomIndents',
             allow,
             settings,
-            name
+            settings.name
         );
     }
 
@@ -263,7 +260,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             const props = this.props;
             let allow = false;
 
-            if ( hasBlockSupport( props.name, 'ghostkitSpacings', false ) || hasBlockSupport( props.name, 'ghostkitIndents', false ) ) {
+            if ( GHOSTKIT.hasBlockSupport( props.name, 'spacings', false ) || GHOSTKIT.hasBlockSupport( props.name, 'indents', false ) ) {
                 allow = true;
             }
 

@@ -11,12 +11,8 @@ const {
 
 export default [
     {
-        supports: {
-            html: false,
-            className: false,
-            anchor: true,
-            ghostkitStyles: true,
-            ghostkitStylesCallback( attributes ) {
+        ghostkit: {
+            customStylesCallback( attributes ) {
                 return {
                     backgroundColor: attributes.color,
                     color: attributes.textColor,
@@ -29,9 +25,17 @@ export default [
                     },
                 };
             },
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
+        supports: {
+            html: false,
+            className: false,
+            anchor: true,
         },
         attributes: {
             variant: {

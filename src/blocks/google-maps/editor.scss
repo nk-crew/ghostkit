@@ -72,20 +72,19 @@
         &::after {
             content: "";
             display: block;
-            margin-top: 15px;
+            padding-top: 15px;
             margin-right: -16px;
             margin-left: -16px;
+            clear: both;
             border-bottom: 1px solid #efefef;
         }
     }
 
     .ghostkit-google-maps-marker-remove {
-        display: block;
-        width: 100%;
+        float: right;
         padding: 0;
         font-size: 10px;
         color: #b9b9b9;
-        text-align: right;
         box-shadow: none !important; // stylelint-disable-line
 
         &:hover {

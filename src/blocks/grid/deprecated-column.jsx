@@ -9,14 +9,8 @@ const {
 
 export default [
     {
-        supports: {
-            html: false,
-            className: false,
-            anchor: true,
-            ghostkitStyles: true,
-            inserter: false,
-            reusable: false,
-            ghostkitStylesCallback( attributes ) {
+        ghostkit: {
+            customStylesCallback( attributes ) {
                 const {
                     stickyContent,
                     stickyContentTop,
@@ -43,9 +37,19 @@ export default [
 
                 return result;
             },
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
+        supports: {
+            html: false,
+            className: false,
+            anchor: true,
+            inserter: false,
+            reusable: false,
         },
         attributes: {
             variant: {

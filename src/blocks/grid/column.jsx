@@ -272,22 +272,14 @@ export const settings = {
     description: __( 'A single column within a grid block.' ),
     icon: elementIcon,
     category: 'ghostkit',
-    ghostkitAttrs: {
+    ghostkit: {
         customSelector( selector ) {
             // extend selector to add possibility to override default column spacings without !important
             selector = `.ghostkit-grid ${ selector }`;
 
             return selector;
         },
-    },
-    supports: {
-        html: false,
-        className: false,
-        anchor: true,
-        ghostkitStyles: true,
-        inserter: false,
-        reusable: false,
-        ghostkitStylesCallback( attributes ) {
+        customStylesCallback( attributes ) {
             const {
                 stickyContent,
                 stickyContentTop,
@@ -314,9 +306,19 @@ export const settings = {
 
             return result;
         },
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
+    },
+    supports: {
+        html: false,
+        className: false,
+        anchor: true,
+        inserter: false,
+        reusable: false,
     },
     attributes: {
         variant: {

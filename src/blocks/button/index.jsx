@@ -269,18 +269,20 @@ export const settings = {
         __( 'ghostkit' ),
     ],
 
-    ghostkitAttrs: {
+    ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/button/',
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
     },
 
     supports: {
         html: false,
         className: false,
         anchor: true,
-        ghostkitStyles: true,
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
     },
 
     attributes: blockAttributes,

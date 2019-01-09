@@ -26,12 +26,16 @@ const getTabs = ( { tabsCount, tabsSettings } ) => {
 
 export default [
     {
+        ghostkit: {
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
         supports: {
             html: false,
-            ghostkitStyles: true,
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
         },
         attributes: {
             variant: {

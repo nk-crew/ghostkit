@@ -270,16 +270,9 @@ export const settings = {
         __( 'bar' ),
         __( 'ghostkit' ),
     ],
-    ghostkitAttrs: {
+    ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/progress/',
-    },
-    supports: {
-        html: false,
-        className: false,
-        anchor: true,
-        align: [ 'wide', 'full' ],
-        ghostkitStyles: true,
-        ghostkitStylesCallback( attributes ) {
+        customStylesCallback( attributes ) {
             const styles = {
                 '.ghostkit-progress-wrap': {
                     height: attributes.height,
@@ -311,9 +304,18 @@ export const settings = {
 
             return styles;
         },
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
+    },
+    supports: {
+        html: false,
+        className: false,
+        anchor: true,
+        align: [ 'wide', 'full' ],
     },
     attributes: {
         variant: {

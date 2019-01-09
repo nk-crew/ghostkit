@@ -5,14 +5,18 @@ import IconMarker from './icons/deprecated-marker.svg';
 import IconMarker2 from './icons/deprecated-marker-2.svg';
 
 const fixMarker = {
+    ghostkit: {
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
+    },
     supports: {
         html: false,
         className: false,
         align: [ 'wide', 'full' ],
-        ghostkitStyles: true,
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
     },
     attributes: {
         variant: {

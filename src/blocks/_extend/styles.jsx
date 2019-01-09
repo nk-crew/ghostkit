@@ -12,7 +12,6 @@ const {
 } = wp.hooks;
 
 const {
-    hasBlockSupport,
     getBlockType,
 } = wp.blocks;
 
@@ -28,6 +27,8 @@ const {
 const {
     createHigherOrderComponent,
 } = wp.compose;
+
+const { GHOSTKIT } = window;
 
 const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-width', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-radius', 'bottom', 'top', 'left', 'right', 'font-size', 'height', 'width', 'min-height', 'min-width', 'max-height', 'max-width', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', 'margin', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', 'padding', 'outline-width' ];
 
@@ -168,14 +169,14 @@ function addAttribute( blockSettings, name ) {
         allow = false;
 
         if ( settings && settings.attributes ) {
-            if ( hasBlockSupport( settings, 'ghostkitStyles', false ) ) {
+            if ( GHOSTKIT.hasBlockSupport( settings || blockSettings, 'styles', false ) ) {
                 allow = true;
             } else {
                 allow = applyFilters(
                     'ghostkit.blocks.registerBlockType.allowCustomStyles',
                     false,
                     settings,
-                    name
+                    settings.name || blockSettings.name
                 );
             }
         }
@@ -227,21 +228,6 @@ function addAttribute( blockSettings, name ) {
                 }
             }
 
-            if ( blockSettings.supports && blockSettings.supports.ghostkitStylesCallback ) {
-                settings.attributes.ghostkitStylesCallback = {
-                    type: 'function',
-                    default: blockSettings.supports.ghostkitStylesCallback,
-                };
-
-                // add to deprecated items.
-                if ( settings.deprecated && settings.deprecated.length ) {
-                    settings.deprecated.forEach( ( item, i ) => {
-                        if ( settings.deprecated[ i ].attributes ) {
-                            settings.deprecated[ i ].attributes.ghostkitStylesCallback = settings.attributes.ghostkitStylesCallback;
-                        }
-                    } );
-                }
-            }
             settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
         }
     } );
@@ -333,7 +319,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             // prepare custom block styles.
             const blockCustomStyles = applyFilters(
                 'ghostkit.blocks.customStyles',
-                attributes.ghostkitStylesCallback ? attributes.ghostkitStylesCallback( attributes ) : {},
+                blockSettings.ghostkit && blockSettings.ghostkit.customStylesCallback ? blockSettings.ghostkit.customStylesCallback( attributes, this.props ) : {},
                 this.props
             );
 
@@ -345,8 +331,8 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
 
                     let className = `.${ attributes.ghostkitClassname }`;
 
-                    if ( blockSettings && blockSettings.ghostkitAttrs && blockSettings.ghostkitAttrs.customSelector ) {
-                        className = blockSettings.ghostkitAttrs.customSelector( className, blockSettings );
+                    if ( blockSettings.ghostkit && blockSettings.ghostkit.customSelector ) {
+                        className = blockSettings.ghostkit.customSelector( className, this.props );
                     }
 
                     newAttrs.ghostkitStyles = {

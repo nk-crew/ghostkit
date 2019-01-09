@@ -67,14 +67,18 @@ const getGridClass = ( { columns, columnsSettings } ) => {
 
 export default [
     {
+        ghostkit: {
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
         supports: {
             html: false,
             className: false,
             align: [ 'wide', 'full' ],
-            ghostkitStyles: true,
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
         },
         attributes: {
             variant: {
@@ -141,12 +145,16 @@ export default [
             );
         },
     }, {
+        ghostkit: {
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
         supports: {
             html: false,
-            ghostkitStyles: true,
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
         },
         attributes: {
             variant: {

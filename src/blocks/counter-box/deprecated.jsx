@@ -13,13 +13,8 @@ const name = 'ghostkit/counter-box';
 
 export default [
     {
-        supports: {
-            html: false,
-            className: false,
-            anchor: true,
-            align: [ 'wide', 'full' ],
-            ghostkitStyles: true,
-            ghostkitStylesCallback( attributes ) {
+        ghostkit: {
+            customStylesCallback( attributes ) {
                 const styles = {
                     '.ghostkit-counter-box-number': {
                         fontSize: attributes.numberSize,
@@ -35,9 +30,18 @@ export default [
 
                 return styles;
             },
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
+        supports: {
+            html: false,
+            className: false,
+            anchor: true,
+            align: [ 'wide', 'full' ],
         },
         attributes: {
             variant: {
@@ -121,13 +125,17 @@ export default [
         },
     },
     {
+        ghostkit: {
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
         supports: {
             html: false,
             align: [ 'wide', 'full' ],
-            ghostkitStyles: true,
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
         },
         attributes: {
             variant: {

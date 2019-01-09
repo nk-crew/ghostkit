@@ -422,7 +422,7 @@ export const settings = {
         __( 'twitter' ),
         __( 'ghostkit' ),
     ],
-    ghostkitAttrs: {
+    ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/twitter/',
     },
     supports: {

@@ -21,10 +21,6 @@ const {
     createHigherOrderComponent,
 } = wp.compose;
 
-const {
-    hasBlockSupport,
-} = wp.blocks;
-
 const { InspectorControls } = wp.editor;
 
 const {
@@ -32,6 +28,8 @@ const {
     ButtonGroup,
     Button,
 } = wp.components;
+
+const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
 
@@ -72,23 +70,22 @@ function addCoreBlocksSupport( name ) {
  * Extend ghostkit block attributes with display.
  *
  * @param {Object} settings Original block settings.
- * @param {String} name Original block name.
  *
  * @return {Object} Filtered block settings.
  */
-function addAttribute( settings, name ) {
+function addAttribute( settings ) {
     let allow = false;
 
-    if ( hasBlockSupport( settings, 'ghostkitDisplay', false ) ) {
+    if ( GHOSTKIT.hasBlockSupport( settings, 'display', false ) ) {
         allow = true;
     }
 
     if ( ! allow ) {
         allow = settings && settings.attributes && applyFilters(
             'ghostkit.blocks.registerBlockType.allowCustomDisplay',
-            addCoreBlocksSupport( name ),
+            addCoreBlocksSupport( settings.name ),
             settings,
-            name
+            settings.name
         );
     }
 
@@ -179,7 +176,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             const props = this.props;
             let allow = false;
 
-            if ( hasBlockSupport( props.name, 'ghostkitDisplay', false ) ) {
+            if ( GHOSTKIT.hasBlockSupport( props.name, 'display', false ) ) {
                 allow = true;
             }
 

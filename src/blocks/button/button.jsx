@@ -320,14 +320,8 @@ export const settings = {
     description: __( 'A single button within a buttons wrapper block.' ),
     icon: elementIcon,
     category: 'ghostkit',
-    supports: {
-        html: false,
-        className: false,
-        anchor: true,
-        inserter: false,
-        reusable: false,
-        ghostkitStyles: true,
-        ghostkitStylesCallback( attributes ) {
+    ghostkit: {
+        customStylesCallback( attributes ) {
             const result = {
                 backgroundColor: attributes.color,
                 color: attributes.textColor,
@@ -347,9 +341,19 @@ export const settings = {
 
             return result;
         },
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
+    },
+    supports: {
+        html: false,
+        className: false,
+        anchor: true,
+        inserter: false,
+        reusable: false,
     },
     attributes: {
         variant: {

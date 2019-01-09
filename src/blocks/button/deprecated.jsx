@@ -11,13 +11,8 @@ const {
 
 export default [
     {
-        supports: {
-            html: false,
-            className: false,
-            anchor: true,
-            align: [ 'wide', 'full' ],
-            ghostkitStyles: true,
-            ghostkitStylesCallback( attributes ) {
+        ghostkit: {
+            customStylesCallback( attributes ) {
                 return {
                     '.ghostkit-button': {
                         backgroundColor: attributes.color,
@@ -32,9 +27,18 @@ export default [
                     },
                 };
             },
-            ghostkitSpacings: true,
-            ghostkitDisplay: true,
-            ghostkitSR: true,
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+            },
+        },
+        supports: {
+            html: false,
+            className: false,
+            anchor: true,
+            align: [ 'wide', 'full' ],
         },
         attributes: {
             variant: {

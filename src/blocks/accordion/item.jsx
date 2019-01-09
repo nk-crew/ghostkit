@@ -109,6 +109,14 @@ export const settings = {
     description: __( 'A single item within a accordion block.' ),
     icon: elementIcon,
     category: 'ghostkit',
+    ghostkit: {
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
+    },
     supports: {
         html: false,
         className: false,
@@ -116,10 +124,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
         inserter: false,
         reusable: false,
-        ghostkitStyles: true,
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
     },
     attributes: {
         variant: {

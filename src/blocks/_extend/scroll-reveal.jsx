@@ -14,9 +14,7 @@ const {
     createHigherOrderComponent,
 } = wp.compose;
 
-const {
-    hasBlockSupport,
-} = wp.blocks;
+const { GHOSTKIT } = window;
 
 const { InspectorControls } = wp.editor;
 
@@ -45,23 +43,22 @@ function addCoreBlocksSupport( name ) {
  * Extend ghostkit block attributes with SR.
  *
  * @param {Object} settings Original block settings.
- * @param {String} name Original block name.
  *
  * @return {Object} Filtered block settings.
  */
-function addAttribute( settings, name ) {
+function addAttribute( settings ) {
     let allow = false;
 
-    if ( hasBlockSupport( settings, 'ghostkitSR', false ) ) {
+    if ( GHOSTKIT.hasBlockSupport( settings, 'scrollReveal', false ) ) {
         allow = true;
     }
 
     if ( ! allow ) {
         allow = settings && settings.attributes && applyFilters(
             'ghostkit.blocks.registerBlockType.allowCustomSR',
-            addCoreBlocksSupport( name ),
+            addCoreBlocksSupport( settings.name ),
             settings,
-            name
+            settings.name
         );
     }
 
@@ -196,7 +193,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             const props = this.props;
             let allow = false;
 
-            if ( hasBlockSupport( props.name, 'ghostkitSR', false ) ) {
+            if ( GHOSTKIT.hasBlockSupport( props.name, 'scrollReveal', false ) ) {
                 allow = true;
             }
 
