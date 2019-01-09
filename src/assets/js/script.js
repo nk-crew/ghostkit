@@ -48,7 +48,7 @@ const hasScrolled = () => {
     lastST = ST;
 };
 
-$wnd.on( 'scroll ready load resize orientationchange', throttle( 200, () => {
+$wnd.on( 'scroll ready load resize orientationchange throttlescroll.ghostkit', throttle( 200, () => {
     if ( throttleScrollList.length ) {
         rafl( hasScrolled );
     }
