@@ -272,6 +272,14 @@ export const settings = {
     description: __( 'A single column within a grid block.' ),
     icon: elementIcon,
     category: 'ghostkit',
+    ghostkitAttrs: {
+        customSelector( selector ) {
+            // extend selector to add possibility to override default column spacings without !important
+            selector = `.ghostkit-grid ${ selector }`;
+
+            return selector;
+        },
+    },
     supports: {
         html: false,
         className: false,

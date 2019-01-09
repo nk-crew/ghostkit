@@ -13,7 +13,12 @@ const {
 
 const {
     hasBlockSupport,
+    getBlockType,
 } = wp.blocks;
+
+const {
+    withSelect,
+} = wp.data;
 
 const {
     Component,
@@ -320,6 +325,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             const {
                 setAttributes,
                 attributes,
+                blockSettings,
             } = this.props;
 
             const newAttrs = {};
@@ -337,8 +343,14 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
                 if ( ghostkitAtts.ghostkitClassname ) {
                     let updateAttrs = false;
 
+                    let className = `.${ attributes.ghostkitClassname }`;
+
+                    if ( blockSettings && blockSettings.ghostkitAttrs && blockSettings.ghostkitAttrs.customSelector ) {
+                        className = blockSettings.ghostkitAttrs.customSelector( className, blockSettings );
+                    }
+
                     newAttrs.ghostkitStyles = {
-                        [ `.${ attributes.ghostkitClassname }` ]: blockCustomStyles,
+                        [ className ]: blockCustomStyles,
                     };
 
                     if ( ghostkitAtts.ghostkitClassname !== attributes.ghostkitClassname ) {
@@ -422,7 +434,12 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             return <BlockEdit { ...this.props } />;
         }
     }
-    return newEdit;
+
+    return withSelect( ( select, ownProps ) => {
+        return {
+            blockSettings: getBlockType( ownProps.name ),
+        };
+    } )( newEdit );
 }, 'withNewAttrs' );
 
 /**
