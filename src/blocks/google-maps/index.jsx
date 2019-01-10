@@ -15,6 +15,8 @@ import IconMarker from './icons/marker.svg';
 import MapBlock from './map-block.jsx';
 import SearchBox from './search-box.jsx';
 
+import ApplyFilters from '../_components/apply-filters.jsx';
+
 const { GHOSTKIT } = window;
 
 const mapsUrl = GHOSTKIT.googleMapsAPIUrl + '&libraries=geometry,drawing,places';
@@ -265,6 +267,22 @@ class GoogleMapsBlock extends Component {
                                                         }
                                                     } }
                                                     className="ghostkit-google-maps-search-box"
+                                                />
+                                                <ApplyFilters
+                                                    name="ghostkit.editor.controls"
+                                                    attribute="additionalMarkerOptions"
+                                                    marker={ marker }
+                                                    props={ this.props }
+                                                    setMarkerOptions={ ( newMarkerOptions ) => {
+                                                        markers[ index ] = {
+                                                            ...markers[ index ],
+                                                            ...newMarkerOptions,
+                                                        };
+
+                                                        setAttributes( {
+                                                            markers: Object.assign( [], markers ),
+                                                        } );
+                                                    } }
                                                 />
                                                 <Button
                                                     onClick={ () => {
@@ -635,11 +653,11 @@ export const settings = {
             >
                 { markers ? (
                     markers.map( ( marker, i ) => {
-                        const markerData = {};
-
-                        Object.keys( marker ).forEach( ( dataName ) => {
-                            markerData[ `data-${ dataName }` ] = marker[ dataName ];
-                        } );
+                        const markerData = {
+                            'data-lat': marker.lat,
+                            'data-lng': marker.lng,
+                            'data-address': marker.address,
+                        };
 
                         return (
                             <div

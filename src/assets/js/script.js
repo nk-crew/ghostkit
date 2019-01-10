@@ -763,6 +763,8 @@ class GhostKitClass {
 
                 scriptjs( `${ GHOSTKIT.googleMapsAPIUrl }&key=${ GHOSTKIT.googleMapsAPIKey }`, () => {
                     scriptjs( GHOSTKIT.googleMapsLibrary.url, () => {
+                        GHOSTKIT.triggerEvent( 'beforePrepareGoogleMapsStart', self, $this );
+
                         let styles = '';
                         let markers = '';
 
@@ -806,6 +808,8 @@ class GhostKitClass {
                         if ( markers && markers.length ) {
                             mapObject.addMarkers( markers );
                         }
+
+                        GHOSTKIT.triggerEvent( 'beforePrepareGoogleMapsEnd', self, $this, mapObject );
                     } );
                 } );
             } );

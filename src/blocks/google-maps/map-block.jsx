@@ -6,6 +6,8 @@ import {
     Marker,
 } from 'react-google-maps';
 
+import ApplyFilters from '../_components/apply-filters.jsx';
+
 const MapBlock = compose(
     withProps( {
         loadingElement: <div style={ { height: '100%' } } />,
@@ -45,10 +47,17 @@ const MapBlock = compose(
             onCenterChanged={ props.onCenterChanged }
         >
             { props.markers.map( ( marker, index ) => (
-                <Marker
+                <ApplyFilters
                     key={ index }
-                    position={ { lat: marker.lat, lng: marker.lng } }
-                />
+                    name="ghostkit.editor"
+                    attribute="mapMarker"
+                    marker={ marker }
+                    props={ props }
+                >
+                    <Marker
+                        position={ { lat: marker.lat, lng: marker.lng } }
+                    />
+                </ApplyFilters>
             ) ) }
         </GoogleMap>
     );

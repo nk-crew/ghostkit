@@ -216,6 +216,8 @@ Available events:
 * **beforePrepareChangelog.ghostkit**
 * **afterPrepareChangelog.ghostkit**
 * **beforePrepareGoogleMaps.ghostkit**
+* **beforePrepareGoogleMapsStart.ghostkit**
+* **beforePrepareGoogleMapsEnd.ghostkit**
 * **afterPrepareGoogleMaps.ghostkit**
 * **beforePrepareSR.ghostkit**
 * **afterPrepareSR.ghostkit**
