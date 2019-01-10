@@ -110,6 +110,8 @@ class InstagramBlock extends Component {
                                     min={ 1 }
                                     max={ 8 }
                                 />
+                            </PanelBody>
+                            <PanelBody>
                                 <BaseControl label={ __( 'Gap' ) }>
                                     <ButtonGroup>
                                         {

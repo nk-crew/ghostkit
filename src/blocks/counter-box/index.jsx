@@ -76,8 +76,8 @@ class CounterBoxBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -87,20 +87,9 @@ class CounterBoxBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
-                        <ToggleControl
-                            label={ __( 'Animate in viewport' ) }
-                            checked={ !! animateInViewport }
-                            onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
-                        />
-                        { animateInViewport ? (
-                            <TextControl
-                                label={ __( 'Animate from' ) }
-                                type="number"
-                                value={ animateInViewportFrom }
-                                onChange={ ( value ) => setAttributes( { animateInViewportFrom: parseInt( value, 10 ) } ) }
-                            />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Number Size' ) }
                             value={ numberSize }
@@ -129,6 +118,21 @@ class CounterBoxBlock extends Component {
                                 },
                             ] }
                         />
+                    </PanelBody>
+                    <PanelBody>
+                        <ToggleControl
+                            label={ __( 'Animate in viewport' ) }
+                            checked={ !! animateInViewport }
+                            onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
+                        />
+                        { animateInViewport ? (
+                            <TextControl
+                                label={ __( 'Animate from' ) }
+                                type="number"
+                                value={ animateInViewportFrom }
+                                onChange={ ( value ) => setAttributes( { animateInViewportFrom: parseInt( value, 10 ) } ) }
+                            />
+                        ) : '' }
                     </PanelBody>
                     <PanelBody title={ (
                         <Fragment>

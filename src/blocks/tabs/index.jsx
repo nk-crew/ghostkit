@@ -102,8 +102,8 @@ class TabsBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -113,7 +113,9 @@ class TabsBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Tabs' ) }
                             value={ tabsCount }

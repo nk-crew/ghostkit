@@ -84,8 +84,8 @@ class AccordionBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -95,7 +95,9 @@ class AccordionBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Items' ) }
                             value={ itemsCount }
@@ -103,6 +105,8 @@ class AccordionBlock extends Component {
                             min={ 1 }
                             max={ 6 }
                         />
+                    </PanelBody>
+                    <PanelBody>
                         <ToggleControl
                             label={ __( 'Collapse one item only' ) }
                             checked={ !! collapseOne }

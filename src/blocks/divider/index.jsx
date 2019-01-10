@@ -106,8 +106,8 @@ class DividerBlock extends Component {
                     </Toolbar>
                 </BlockControls>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -117,7 +117,9 @@ class DividerBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <SelectControl
                             label={ __( 'Type' ) }
                             value={ type }
@@ -147,6 +149,8 @@ class DividerBlock extends Component {
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
+                    </PanelBody>
+                    <PanelBody>
                         <IconPicker
                             label={ __( 'Icon' ) }
                             value={ icon }
@@ -163,58 +167,58 @@ class DividerBlock extends Component {
                                 afterIcon="editor-textcolor"
                             />
                         ) : '' }
-                        <PanelBody title={ (
-                            <Fragment>
-                                { __( 'Colors' ) }
-                                <ColorIndicator colorValue={ color } />
-                                { icon ? (
-                                    <ColorIndicator colorValue={ iconColor } />
-                                ) : '' }
-                            </Fragment>
-                        ) } initialOpen={ false }>
-                            <TabPanel
-                                className="ghostkit-control-tabs"
-                                tabs={ [
-                                    {
-                                        name: 'normal',
-                                        title: __( 'Normal' ),
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                    {
-                                        name: 'hover',
-                                        title: __( 'Hover' ),
-                                        className: 'ghostkit-control-tabs-tab',
-                                    },
-                                ] }>
+                    </PanelBody>
+                    <PanelBody title={ (
+                        <Fragment>
+                            { __( 'Colors' ) }
+                            <ColorIndicator colorValue={ color } />
+                            { icon ? (
+                                <ColorIndicator colorValue={ iconColor } />
+                            ) : '' }
+                        </Fragment>
+                    ) } initialOpen={ false }>
+                        <TabPanel
+                            className="ghostkit-control-tabs"
+                            tabs={ [
                                 {
-                                    ( tabData ) => {
-                                        const isHover = tabData.name === 'hover';
-                                        return (
-                                            <Fragment>
-                                                <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
+                                    name: 'normal',
+                                    title: __( 'Normal' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                                {
+                                    name: 'hover',
+                                    title: __( 'Hover' ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                            ] }>
+                            {
+                                ( tabData ) => {
+                                    const isHover = tabData.name === 'hover';
+                                    return (
+                                        <Fragment>
+                                            <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
+                                                <ColorPicker
+                                                    label={ __( 'Divider' ) }
+                                                    value={ isHover ? hoverColor : color }
+                                                    onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
+                                                    alpha={ true }
+                                                />
+                                            </ApplyFilters>
+                                            { icon ? (
+                                                <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverIconColor' : 'iconColor' } props={ this.props }>
                                                     <ColorPicker
-                                                        label={ __( 'Divider' ) }
-                                                        value={ isHover ? hoverColor : color }
-                                                        onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
+                                                        label={ __( 'Icon' ) }
+                                                        value={ isHover ? hoverIconColor : iconColor }
+                                                        onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
                                                         alpha={ true }
                                                     />
                                                 </ApplyFilters>
-                                                { icon ? (
-                                                    <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverIconColor' : 'iconColor' } props={ this.props }>
-                                                        <ColorPicker
-                                                            label={ __( 'Icon' ) }
-                                                            value={ isHover ? hoverIconColor : iconColor }
-                                                            onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
-                                                            alpha={ true }
-                                                        />
-                                                    </ApplyFilters>
-                                                ) : '' }
-                                            </Fragment>
-                                        );
-                                    }
+                                            ) : '' }
+                                        </Fragment>
+                                    );
                                 }
-                            </TabPanel>
-                        </PanelBody>
+                            }
+                        </TabPanel>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>

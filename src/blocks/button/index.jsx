@@ -106,8 +106,8 @@ class ButtonBlock extends Component {
                     />
                 </BlockControls>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -117,7 +117,9 @@ class ButtonBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Buttons' ) }
                             value={ count }
@@ -125,6 +127,8 @@ class ButtonBlock extends Component {
                             min={ 1 }
                             max={ 5 }
                         />
+                    </PanelBody>
+                    <PanelBody>
                         <BaseControl label={ __( 'Gap' ) }>
                             <ButtonGroup>
                                 {

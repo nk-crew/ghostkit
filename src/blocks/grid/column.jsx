@@ -147,8 +147,8 @@ class GridColumnBlock extends Component {
             <Fragment>
                 <InspectorControls>
                     <ApplyFilters name="ghostkit.editor.controls" attribute="columnSettings" props={ this.props }>
-                        <PanelBody>
-                            { Object.keys( availableVariants ).length > 1 ? (
+                        { Object.keys( availableVariants ).length > 1 ? (
+                            <PanelBody>
                                 <SelectControl
                                     label={ __( 'Variants' ) }
                                     value={ variant }
@@ -158,7 +158,9 @@ class GridColumnBlock extends Component {
                                     } ) ) }
                                     onChange={ ( value ) => setAttributes( { variant: value } ) }
                                 />
-                            ) : '' }
+                            </PanelBody>
+                        ) : '' }
+                        <PanelBody>
                             <TabPanelScreenSizes iconsColor={ iconsColor }>
                                 {
                                     ( tabData ) => {

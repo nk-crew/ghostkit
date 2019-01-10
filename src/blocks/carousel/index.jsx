@@ -95,8 +95,8 @@ class CarouselBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -106,7 +106,9 @@ class CarouselBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Slides' ) }
                             value={ slides }
@@ -114,7 +116,8 @@ class CarouselBlock extends Component {
                             min={ 2 }
                             max={ 20 }
                         />
-
+                    </PanelBody>
+                    <PanelBody>
                         <SelectControl
                             label={ __( 'Effect' ) }
                             value={ effect }
@@ -132,7 +135,8 @@ class CarouselBlock extends Component {
                             ] }
                             onChange={ ( value ) => setAttributes( { effect: value } ) }
                         />
-
+                    </PanelBody>
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Speed (seconds)' ) }
                             suffix={ __( 'sec' ) }
@@ -142,7 +146,6 @@ class CarouselBlock extends Component {
                             max={ 10 }
                             step={ 0.1 }
                         />
-
                         <RangeControl
                             label={ __( 'Autoplay (seconds)' ) }
                             value={ autoplay }
@@ -151,7 +154,6 @@ class CarouselBlock extends Component {
                             max={ 20 }
                             step={ 0.3 }
                         />
-
                         <RangeControl
                             label={ __( 'Slides per view' ) }
                             value={ slidesPerView }
@@ -159,31 +161,35 @@ class CarouselBlock extends Component {
                             min={ 1 }
                             max={ 8 }
                         />
-
+                        <RangeControl
+                            label={ __( 'Gap' ) }
+                            value={ gap }
+                            onChange={ ( value ) => setAttributes( { gap: value } ) }
+                            min={ 0 }
+                            max={ 60 }
+                        />
+                    </PanelBody>
+                    <PanelBody>
                         <ToggleControl
                             label={ __( 'Centered slides' ) }
                             checked={ !! centeredSlides }
                             onChange={ ( val ) => setAttributes( { centeredSlides: val } ) }
                         />
-
                         <ToggleControl
                             label={ __( 'Loop' ) }
                             checked={ !! loop }
                             onChange={ ( val ) => setAttributes( { loop: val } ) }
                         />
-
                         <ToggleControl
                             label={ __( 'Free scroll' ) }
                             checked={ !! freeScroll }
                             onChange={ ( val ) => setAttributes( { freeScroll: val } ) }
                         />
-
                         <ToggleControl
                             label={ __( 'Show arrows' ) }
                             checked={ !! showArrows }
                             onChange={ ( val ) => setAttributes( { showArrows: val } ) }
                         />
-
                         { showArrows ? (
                             <Fragment>
                                 <IconPicker
@@ -198,13 +204,11 @@ class CarouselBlock extends Component {
                                 />
                             </Fragment>
                         ) : '' }
-
                         <ToggleControl
                             label={ __( 'Show bullets' ) }
                             checked={ !! showBullets }
                             onChange={ ( val ) => setAttributes( { showBullets: val } ) }
                         />
-
                         { showBullets ? (
                             <ToggleControl
                                 label={ __( 'Dynamic bullets' ) }
@@ -212,14 +216,6 @@ class CarouselBlock extends Component {
                                 onChange={ ( val ) => setAttributes( { dynamicBullets: val } ) }
                             />
                         ) : '' }
-
-                        <RangeControl
-                            label={ __( 'Gap' ) }
-                            value={ gap }
-                            onChange={ ( value ) => setAttributes( { gap: value } ) }
-                            min={ 0 }
-                            max={ 60 }
-                        />
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>

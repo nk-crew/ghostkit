@@ -121,8 +121,8 @@ class ButtonSingleBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -132,7 +132,9 @@ class ButtonSingleBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <div className="blocks-size__main">
                             <ButtonGroup aria-label={ __( 'Size' ) }>
                                 {
@@ -156,6 +158,8 @@ class ButtonSingleBlock extends Component {
                                 { __( 'Reset' ) }
                             </Button>
                         </div>
+                    </PanelBody>
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Corner Radius' ) }
                             value={ borderRadius }
@@ -177,6 +181,8 @@ class ButtonSingleBlock extends Component {
                             max="6"
                             onChange={ ( value ) => setAttributes( { focusOutlineWeight: value } ) }
                         />
+                    </PanelBody>
+                    <PanelBody>
                         <IconPicker
                             label={ __( 'Icon' ) }
                             value={ icon }

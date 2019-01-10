@@ -204,8 +204,8 @@ class VideoBlockEdit extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -215,8 +215,9 @@ class VideoBlockEdit extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
-
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <ButtonGroup aria-label={ __( 'Type' ) } style={ { marginBottom: 10 } }>
                             {
                                 [
@@ -240,7 +241,6 @@ class VideoBlockEdit extends Component {
                                 ) )
                             }
                         </ButtonGroup>
-
                         { type === 'yt_vm_video' &&
                             <TextControl
                                 label={ __( 'Video URL' ) }
@@ -386,6 +386,8 @@ class VideoBlockEdit extends Component {
                                 <div style={ { marginBottom: 13 } } />
                             </div>
                         ) : '' }
+                    </PanelBody>
+                    <PanelBody>
                         <SelectControl
                             label={ __( 'Aspect ratio' ) }
                             value={ videoAspectRatio }
@@ -410,6 +412,8 @@ class VideoBlockEdit extends Component {
                             max="100"
                             onChange={ v => setAttributes( { videoVolume: v } ) }
                         />
+                    </PanelBody>
+                    <PanelBody>
                         <IconPicker
                             label={ __( 'Play Icon' ) }
                             value={ iconPlay }
@@ -420,7 +424,8 @@ class VideoBlockEdit extends Component {
                             value={ iconLoading }
                             onChange={ ( value ) => setAttributes( { iconLoading: value } ) }
                         />
-
+                    </PanelBody>
+                    <PanelBody>
                         <SelectControl
                             label={ __( 'Click action' ) }
                             value={ clickAction }

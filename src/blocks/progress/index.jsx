@@ -84,8 +84,8 @@ class ProgressBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -95,7 +95,9 @@ class ProgressBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Height' ) }
                             value={ height || '' }
@@ -117,6 +119,8 @@ class ProgressBlock extends Component {
                             max="10"
                             onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
                         />
+                    </PanelBody>
+                    <PanelBody>
                         <ToggleControl
                             label={ __( 'Show Count' ) }
                             checked={ !! showCount }

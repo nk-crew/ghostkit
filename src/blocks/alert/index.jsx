@@ -110,8 +110,8 @@ class AlertBlock extends Component {
                     </Toolbar>
                 </BlockControls>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -121,7 +121,9 @@ class AlertBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <IconPicker
                             label={ __( 'Icon' ) }
                             value={ icon }
@@ -136,6 +138,8 @@ class AlertBlock extends Component {
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
+                    </PanelBody>
+                    <PanelBody>
                         <ToggleControl
                             label={ __( 'Dismiss button' ) }
                             checked={ !! hideButton }

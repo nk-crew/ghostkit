@@ -193,8 +193,8 @@ class GistBlock extends Component {
                     ) : '' }
                 </BlockControls>
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -204,8 +204,9 @@ class GistBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
-
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <TextControl
                             label={ __( 'URL' ) }
                             type="url"
@@ -217,26 +218,24 @@ class GistBlock extends Component {
                                 }
                             } }
                         />
-
                         <GistFilesSelect
                             label={ __( 'File' ) }
                             url={ url }
                             value={ file }
                             onChange={ ( value ) => setAttributes( { file: value } ) }
                         />
-
+                    </PanelBody>
+                    <PanelBody>
                         <TextControl
                             label={ __( 'Caption' ) }
                             value={ caption }
                             onChange={ ( value ) => setAttributes( { caption: value } ) }
                         />
-
                         <ToggleControl
                             label={ __( 'Show footer' ) }
                             checked={ !! showFooter }
                             onChange={ ( val ) => setAttributes( { showFooter: val } ) }
                         />
-
                         <ToggleControl
                             label={ __( 'Show line numbers' ) }
                             checked={ !! showLineNumbers }

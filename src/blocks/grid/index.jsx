@@ -261,8 +261,8 @@ class GridBlock extends Component {
                     </BlockControls>
                 ) : '' }
                 <InspectorControls>
-                    <PanelBody>
-                        { Object.keys( availableVariants ).length > 1 ? (
+                    { Object.keys( availableVariants ).length > 1 ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -272,7 +272,9 @@ class GridBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={ this.props }>
                             <RangeControl
                                 label={ __( 'Columns' ) }
