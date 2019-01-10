@@ -135,15 +135,14 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "deep-assign": "^2.0.0",
+    "deep-assign": "^3.0.0",
     "deep-equal": "^1.0.1",
     "rafl": "^1.2.2",
-    "re-resizable": "^4.9.0",
+    "re-resizable": "^4.11.0",
     "react-ace": "^6.3.2",
-    "react-color": "^2.14.1",
     "react-google-maps": "^9.4.5",
-    "react-select": "^2.0.0-beta.6",
-    "scriptjs": "^2.5.8",
+    "react-select": "^2.2.0",
+    "scriptjs": "^2.5.9",
     "shorthash": "0.0.2",
     "throttle-debounce": "^2.0.1"
   }
