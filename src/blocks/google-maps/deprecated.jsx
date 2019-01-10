@@ -4,6 +4,10 @@ import classnames from 'classnames/dedupe';
 import IconMarker from './icons/deprecated-marker.svg';
 import IconMarker2 from './icons/deprecated-marker-2.svg';
 
+const {
+    applyFilters,
+} = wp.hooks;
+
 const fixMarker = {
     ghostkit: {
         supports: {
@@ -84,6 +88,64 @@ const fixMarker = {
 
 export default [
     {
+        supports: fixMarker.supports,
+        attributes: fixMarker.attributes,
+        save: function( props ) {
+            const {
+                variant,
+                height,
+                zoom,
+                lat,
+                lng,
+                showZoomButtons,
+                showMapTypeButtons,
+                showStreetViewButton,
+                showFullscreenButton,
+                optionScrollWheel,
+                optionDraggable,
+                styleCustom,
+                markers,
+                fullHeight,
+            } = props.attributes;
+
+            let className = 'ghostkit-google-maps';
+
+            // add full height classname.
+            if ( fullHeight ) {
+                className = classnames( className, 'ghostkit-google-maps-fullheight' );
+            }
+
+            // variant classname.
+            if ( 'default' !== variant ) {
+                className = classnames( className, `ghostkit-google-maps-variant-${ variant }` );
+            }
+
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/google-maps',
+                },
+                ...props,
+            } );
+
+            return (
+                <div
+                    className={ className }
+                    data-lat={ lat }
+                    data-lng={ lng }
+                    data-zoom={ zoom }
+                    data-show-zoom-buttons={ showZoomButtons ? 'true' : 'false' }
+                    data-show-map-type-buttons={ showMapTypeButtons ? 'true' : 'false' }
+                    data-show-street-view-button={ showStreetViewButton ? 'true' : 'false' }
+                    data-show-fullscreen-button={ showFullscreenButton ? 'true' : 'false' }
+                    data-option-scroll-wheel={ optionScrollWheel ? 'true' : 'false' }
+                    data-option-draggable={ optionDraggable ? 'true' : 'false' }
+                    data-styles={ styleCustom }
+                    data-markers={ markers ? JSON.stringify( markers ) : '' }
+                    style={ { minHeight: height } }
+                />
+            );
+        },
+    }, {
         supports: fixMarker.supports,
         attributes: fixMarker.attributes,
         save: function( { attributes, className = '' } ) {

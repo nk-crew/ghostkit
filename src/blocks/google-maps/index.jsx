@@ -285,13 +285,14 @@ class GoogleMapsBlock extends Component {
                                 <Button
                                     isDefault
                                     onClick={ () => {
-                                        markers.push( {
-                                            lat,
-                                            lng,
-                                        } );
-
                                         setAttributes( {
-                                            markers: Object.assign( [], markers ),
+                                            markers: [
+                                                ...markers,
+                                                ...[ {
+                                                    lat,
+                                                    lng,
+                                                } ],
+                                            ],
                                         } );
                                     } }
                                 >
@@ -630,9 +631,26 @@ export const settings = {
                 data-option-scroll-wheel={ optionScrollWheel ? 'true' : 'false' }
                 data-option-draggable={ optionDraggable ? 'true' : 'false' }
                 data-styles={ styleCustom }
-                data-markers={ markers ? JSON.stringify( markers ) : '' }
                 style={ { minHeight: height } }
-            />
+            >
+                { markers ? (
+                    markers.map( ( marker, i ) => {
+                        const markerData = {};
+
+                        Object.keys( marker ).forEach( ( dataName ) => {
+                            markerData[ `data-${ dataName }` ] = marker[ dataName ];
+                        } );
+
+                        return (
+                            <div
+                                key={ `marker-${ i }` }
+                                className="ghostkit-google-maps-marker"
+                                { ...markerData }
+                            />
+                        );
+                    } )
+                ) : '' }
+            </div>
         );
     },
 

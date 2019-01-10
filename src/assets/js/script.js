@@ -770,9 +770,20 @@ class GhostKitClass {
                             styles = JSON.parse( $this.attr( 'data-styles' ) );
                         } catch ( e ) { }
 
-                        try {
-                            markers = JSON.parse( $this.attr( 'data-markers' ) );
-                        } catch ( e ) { }
+                        const $markers = $this.find( '.ghostkit-google-maps-marker' );
+                        if ( $markers.length ) {
+                            markers = [];
+
+                            $markers.each( function() {
+                                markers.push( $( this ).data() );
+                            } );
+
+                        // old way.
+                        } else if ( $this.attr( 'data-markers' ) ) {
+                            try {
+                                markers = JSON.parse( $this.attr( 'data-markers' ) );
+                            } catch ( e ) { }
+                        }
 
                         const mapObject = new window.GMaps( {
                             div: $this[ 0 ],
@@ -793,12 +804,7 @@ class GhostKitClass {
                         } );
 
                         if ( markers && markers.length ) {
-                            markers.forEach( ( marker ) => {
-                                mapObject.addMarker( {
-                                    lat: marker.lat,
-                                    lng: marker.lng,
-                                } );
-                            } );
+                            mapObject.addMarkers( markers );
                         }
                     } );
                 } );
