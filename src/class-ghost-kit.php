@@ -150,13 +150,13 @@ class GhostKit {
      */
     public function block_categories( $categories ) {
         return array_merge(
-            $categories,
             array(
                 array(
                     'slug'  => 'ghostkit',
                     'title' => __( 'Ghost Kit', '@@text_domain' ),
                 ),
-            )
+            ),
+            $categories
         );
     }
 
