@@ -224,7 +224,7 @@ class ProgressBlock extends Component {
                         maxWidth="100%"
                         minHeight="5"
                         maxHeight="20"
-                        enable={ { top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
+                        enable={ { bottom: true } }
                         onResizeStart={ () => {
                             toggleSelection( false );
                         } }
@@ -244,7 +244,7 @@ class ProgressBlock extends Component {
                             maxWidth="100%"
                             minHeight="100%"
                             maxHeight="100%"
-                            enable={ { top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: true, topLeft: false } }
+                            enable={ { right: true } }
                             onResizeStart={ () => {
                                 toggleSelection( false );
                             } }
