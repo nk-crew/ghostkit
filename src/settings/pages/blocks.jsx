@@ -288,7 +288,7 @@ export default class Blocks extends Component {
 
         if ( ! count ) {
             resultBlocks.push(
-                <Info>{ __( 'No blocks in selected category.' ) }</Info>
+                <Info key="no-blocks">{ __( 'No blocks in selected category.' ) }</Info>
             );
         }
 
