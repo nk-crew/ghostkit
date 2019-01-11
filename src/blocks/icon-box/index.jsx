@@ -159,10 +159,9 @@ class IconBoxBlock extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     { icon ? (
-                        <div
-                            className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }
-                            dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
-                        />
+                        <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }>
+                            <IconPicker.Preview name={ icon } />
+                        </div>
                     ) : '' }
                     <div className="ghostkit-icon-box-content">
                         <InnerBlocks
@@ -272,7 +271,7 @@ export const settings = {
             <div className={ className }>
                 { icon ? (
                     <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }>
-                        <span className={ icon } />
+                        <IconPicker.Render name={ icon } />
                     </div>
                 ) : '' }
                 <div className="ghostkit-icon-box-content">

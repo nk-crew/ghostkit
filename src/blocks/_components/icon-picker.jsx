@@ -15,6 +15,21 @@ const {
     TextControl,
 } = wp.components;
 
+function eachIcons( callback ) {
+    const {
+        icons,
+        settings,
+    } = GHOSTKIT;
+
+    Object.keys( icons ).forEach( ( key ) => {
+        const allow = typeof settings[ `icon_pack_${ key }` ] === 'undefined' || settings[ `icon_pack_${ key }` ];
+
+        if ( allow ) {
+            callback( icons[ key ] );
+        }
+    } );
+}
+
 // we need this lazy loading component to prevent a huge lags while first loading SVG icons
 class Icon extends Component {
     render() {
@@ -29,11 +44,7 @@ class Icon extends Component {
                 className={ classnames( 'ghostkit-component-icon-picker-button', active ? 'ghostkit-component-icon-picker-button-active' : '' ) }
                 onClick={ onClick }
             >
-                { iconData.preview ? (
-                    <span dangerouslySetInnerHTML={ { __html: iconData.preview } }></span>
-                ) : (
-                    <span className={ iconData.class }></span>
-                ) }
+                <IconPicker.Preview data={ iconData } />
             </button>
         );
     }
@@ -55,11 +66,6 @@ export default class IconPicker extends Component {
             label,
         } = this.props;
 
-        const {
-            icons,
-            settings,
-        } = GHOSTKIT;
-
         return (
             <BaseControl
                 label={ label }
@@ -74,43 +80,38 @@ export default class IconPicker extends Component {
                                 onClick={ onToggle }
                                 className="ghostkit-component-icon-picker-button"
                             >
-                                <span dangerouslySetInnerHTML={ { __html: `<span class="${ value }"></span>` } }></span>
+                                <IconPicker.Preview name={ value } />
                             </button>
                         </Tooltip>
                     ) }
                     renderContent={ () => {
                         const result = [];
 
-                        Object.keys( icons ).forEach( ( key ) => {
-                            const allow = typeof settings[ `icon_pack_${ key }` ] === 'undefined' || settings[ `icon_pack_${ key }` ];
+                        eachIcons( ( iconsData ) => {
+                            result.push( <span>{ iconsData.name }</span> );
+                            result.push(
+                                <div className="ghostkit-component-icon-picker-list">
+                                    { iconsData.icons.map( ( iconData ) => {
+                                        if (
+                                            ! this.state.search ||
+                                            ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
+                                        ) {
+                                            return (
+                                                <Icon
+                                                    key={ iconData.class }
+                                                    active={ iconData.class === value }
+                                                    iconData={ iconData }
+                                                    onClick={ () => {
+                                                        onChange( iconData.class );
+                                                    } }
+                                                />
+                                            );
+                                        }
 
-                            if ( allow ) {
-                                const iconsData = icons[ key ];
-                                result.push( <span>{ iconsData.name }</span> );
-                                result.push(
-                                    <div className="ghostkit-component-icon-picker-list">
-                                        { iconsData.icons.map( ( iconData ) => {
-                                            if (
-                                                ! this.state.search ||
-                                                ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
-                                            ) {
-                                                return (
-                                                    <Icon
-                                                        key={ iconData.class }
-                                                        active={ iconData.class === value }
-                                                        iconData={ iconData }
-                                                        onClick={ () => {
-                                                            onChange( iconData.class );
-                                                        } }
-                                                    />
-                                                );
-                                            }
-
-                                            return '';
-                                        } ) }
-                                    </div>
-                                );
-                            }
+                                        return '';
+                                    } ) }
+                                </div>
+                            );
                         } );
 
                         return (
@@ -142,3 +143,33 @@ export default class IconPicker extends Component {
         );
     }
 }
+
+// preview icon.
+IconPicker.Preview = ( { data, name } ) => {
+    if ( ! data && name ) {
+        eachIcons( ( iconsData ) => {
+            iconsData.icons.forEach( ( iconData ) => {
+                if ( ! data && iconData.class && iconData.class === name && iconData.preview ) {
+                    if ( iconData.preview ) {
+                        data = iconData;
+                    } else {
+                        name = iconData.class;
+                    }
+                }
+            } );
+        } );
+    }
+
+    if ( data && data.preview ) {
+        return <span dangerouslySetInnerHTML={ { __html: data.preview } }></span>;
+    } else if ( name || data.class ) {
+        return <IconPicker.Render name={ name || data.class } />;
+    }
+
+    return '';
+};
+
+// render icon.
+IconPicker.Render = ( { name } ) => {
+    return <span className={ name } />;
+};

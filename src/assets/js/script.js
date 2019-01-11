@@ -435,9 +435,28 @@ class GhostKitClass {
 
             // add arrows
             if ( options.navigation ) {
+                let $prevArrowIcon = $carousel.find( '.ghostkit-carousel-arrow-prev-icon' );
+                let $nextArrowIcon = $carousel.find( '.ghostkit-carousel-arrow-next-icon' );
+
+                if ( $prevArrowIcon.length ) {
+                    $prevArrowIcon = $prevArrowIcon.html();
+                } else if ( $carousel.attr( 'data-arrow-prev-icon' ) ) {
+                    $prevArrowIcon = `<span class="${ $carousel.attr( 'data-arrow-prev-icon' ) }"></span>`;
+                } else {
+                    $prevArrowIcon = '';
+                }
+
+                if ( $nextArrowIcon.length ) {
+                    $nextArrowIcon = $nextArrowIcon.html();
+                } else if ( $carousel.attr( 'data-arrow-next-icon' ) ) {
+                    $nextArrowIcon = `<span class="${ $carousel.attr( 'data-arrow-next-icon' ) }"></span>`;
+                } else {
+                    $nextArrowIcon = '';
+                }
+
                 $carousel.append( `
-                    <div class="ghostkit-carousel-arrow ghostkit-carousel-arrow-prev"><span class="${ $carousel.attr( 'data-arrow-prev-icon' ) }"></span></div>
-                    <div class="ghostkit-carousel-arrow ghostkit-carousel-arrow-next"><span class="${ $carousel.attr( 'data-arrow-next-icon' ) }"></span></div>
+                    <div class="ghostkit-carousel-arrow ghostkit-carousel-arrow-prev">${ $prevArrowIcon }</div>
+                    <div class="ghostkit-carousel-arrow ghostkit-carousel-arrow-next">${ $nextArrowIcon }</div>
                 ` );
             }
 
@@ -517,7 +536,15 @@ class GhostKitClass {
             const videoAutoplay = $this.attr( 'data-video-autoplay' ) === 'true';
             const videoAutopause = $this.attr( 'data-video-autopause' ) === 'true';
 
-            const fullscreenCloseIcon = $this.attr( 'data-fullscreen-action-close-icon' );
+            let fullscreenCloseIcon = $this.find( '.ghostkit-video-fullscreen-close-icon' );
+            if ( fullscreenCloseIcon.length ) {
+                fullscreenCloseIcon = fullscreenCloseIcon.html();
+            } else if ( $this.attr( 'data-fullscreen-action-close-icon' ) ) {
+                fullscreenCloseIcon = `<span class="${ $this.attr( 'data-fullscreen-action-close-icon' ) }"></span>`;
+            } else {
+                fullscreenCloseIcon = '';
+            }
+
             const fullscreenBackgroundColor = $this.attr( 'data-fullscreen-background-color' );
 
             let $poster = $this.find( '.ghostkit-video-poster' );
@@ -575,7 +602,7 @@ class GhostKitClass {
 
                                 $fullscreenWrapper = $( `<div class="ghostkit-video-fullscreen" style="background-color: ${ fullscreenBackgroundColor };">` )
                                     .appendTo( 'body' )
-                                    .append( $( `<div class="ghostkit-video-fullscreen-close"><span class="${ fullscreenCloseIcon }"></span></div>` ) )
+                                    .append( $( `<div class="ghostkit-video-fullscreen-close">${ fullscreenCloseIcon }</div>` ) )
                                     .append( $( '<div class="ghostkit-video-fullscreen-frame">' ).append( $iframe ) );
                                 $fullscreenWrapper.data( 'ghostkit-video-aspect-ratio', aspectRatio );
                                 $parent.remove();

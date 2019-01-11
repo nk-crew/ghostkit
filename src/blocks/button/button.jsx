@@ -277,10 +277,9 @@ class ButtonSingleBlock extends Component {
                 <div>
                     <span className={ className }>
                         { icon && iconPosition === 'left' ? (
-                            <span
-                                className="ghostkit-button-icon ghostkit-button-icon-left"
-                                dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
-                            />
+                            <span className="ghostkit-button-icon ghostkit-button-icon-left">
+                                <IconPicker.Preview name={ icon } />
+                            </span>
                         ) : '' }
                         <RichText
                             tagName="span"
@@ -292,10 +291,9 @@ class ButtonSingleBlock extends Component {
                             keepPlaceholderOnFocus
                         />
                         { icon && iconPosition === 'right' ? (
-                            <span
-                                className="ghostkit-button-icon ghostkit-button-icon-right"
-                                dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
-                            />
+                            <span className="ghostkit-button-icon ghostkit-button-icon-right">
+                                <IconPicker.Preview name={ icon } />
+                            </span>
                         ) : '' }
                     </span>
                 </div>
@@ -476,9 +474,17 @@ export const settings = {
         // add icon.
         if ( icon ) {
             if ( iconPosition === 'right' ) {
-                result.push( <span className="ghostkit-button-icon ghostkit-button-icon-right" key="button-icon"><span className={ icon } /></span> );
+                result.push(
+                    <span className="ghostkit-button-icon ghostkit-button-icon-right" key="button-icon">
+                        <IconPicker.Render name={ icon } />
+                    </span>
+                );
             } else {
-                result.unshift( <span className="ghostkit-button-icon ghostkit-button-icon-left" key="button-icon"><span className={ icon } /></span> );
+                result.unshift(
+                    <span className="ghostkit-button-icon ghostkit-button-icon-left" key="button-icon">
+                        <IconPicker.Render name={ icon } />
+                    </span>
+                );
             }
         }
 

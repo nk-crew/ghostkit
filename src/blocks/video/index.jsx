@@ -560,16 +560,14 @@ class VideoBlockEdit extends Component {
                         </div>
                     ) : '' }
                     { iconPlay ? (
-                        <div
-                            className="ghostkit-video-play-icon"
-                            dangerouslySetInnerHTML={ { __html: `<span class="${ iconPlay }"></span>` } }
-                        />
+                        <div className="ghostkit-video-play-icon">
+                            <IconPicker.Preview name={ iconPlay } />
+                        </div>
                     ) : '' }
                     { iconLoading ? (
-                        <div
-                            className="ghostkit-video-loading-icon"
-                            dangerouslySetInnerHTML={ { __html: `<span class="${ iconLoading }"></span>` } }
-                        />
+                        <div className="ghostkit-video-loading-icon">
+                            <IconPicker.Preview name={ iconLoading } />
+                        </div>
                     ) : '' }
                 </div>
             </Fragment>
@@ -660,7 +658,6 @@ class VideoBlockSave extends Component {
         resultAttrs[ 'data-click-action' ] = clickAction;
 
         if ( clickAction === 'fullscreen' ) {
-            resultAttrs[ 'data-fullscreen-action-close-icon' ] = fullscreenActionCloseIcon;
             resultAttrs[ 'data-fullscreen-background-color' ] = fullscreenBackgroundColor;
         } else {
             if ( videoAutoplay ) {
@@ -682,12 +679,17 @@ class VideoBlockSave extends Component {
                 ) : '' }
                 { iconPlay ? (
                     <div className="ghostkit-video-play-icon">
-                        <span className={ iconPlay } />
+                        <IconPicker.Render name={ iconPlay } />
                     </div>
                 ) : '' }
                 { iconLoading ? (
                     <div className="ghostkit-video-loading-icon">
-                        <span className={ iconLoading } />
+                        <IconPicker.Render name={ iconLoading } />
+                    </div>
+                ) : '' }
+                { clickAction === 'fullscreen' && fullscreenActionCloseIcon ? (
+                    <div className="ghostkit-video-fullscreen-close-icon">
+                        <IconPicker.Render name={ fullscreenActionCloseIcon } />
                     </div>
                 ) : '' }
             </div>

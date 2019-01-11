@@ -186,10 +186,9 @@ class AlertBlock extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     { icon ? (
-                        <div
-                            className="ghostkit-alert-icon"
-                            dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
-                        />
+                        <div className="ghostkit-alert-icon">
+                            <IconPicker.Preview name={ icon } />
+                        </div>
                     ) : '' }
                     <div className="ghostkit-alert-content">
                         <InnerBlocks
@@ -308,7 +307,7 @@ export const settings = {
             <div className={ className }>
                 { icon ? (
                     <div className="ghostkit-alert-icon">
-                        <span className={ icon } />
+                        <IconPicker.Render name={ icon } />
                     </div>
                 ) : '' }
                 <div className="ghostkit-alert-content">

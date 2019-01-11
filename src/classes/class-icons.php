@@ -14,7 +14,7 @@ class GhostKit_Icons_List {
      * GhostKit_Icons_List constructor.
      */
     public function __construct() {
-        add_filter( 'gkt_icons_list', array( $this, 'add_font_awesome_icons' ) );
+        add_filter( 'gkt_icons_list', array( $this, 'add_font_awesome_icons' ), 9 );
 
         // Allow enqueue FontAwesome assets.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {

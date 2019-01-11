@@ -179,10 +179,9 @@ class TestimonialBlockEdit extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     { icon ? (
-                        <div
-                            className="ghostkit-testimonial-icon"
-                            dangerouslySetInnerHTML={ { __html: `<span class="${ icon }"></span>` } }
-                        />
+                        <div className="ghostkit-testimonial-icon">
+                            <IconPicker.Preview name={ icon } />
+                        </div>
                     ) : '' }
                     <div className="ghostkit-testimonial-content">
                         <InnerBlocks
@@ -296,7 +295,7 @@ class TestimonialBlockSave extends Component {
             <div className={ className }>
                 { icon ? (
                     <div className="ghostkit-testimonial-icon">
-                        <span className={ icon } />
+                        <IconPicker.Render name={ icon } />
                     </div>
                 ) : '' }
                 <div className="ghostkit-testimonial-content">

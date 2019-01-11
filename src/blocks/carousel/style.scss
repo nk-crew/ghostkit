@@ -51,6 +51,12 @@
         right: 10px;
     }
 
+    // arrow icons
+    .ghostkit-carousel-arrow-prev-icon,
+    .ghostkit-carousel-arrow-next-icon {
+        display: none;
+    }
+
     // bullets
     &[data-show-bullets="true"] .ghostkit-carousel-items {
         padding-bottom: 25px;

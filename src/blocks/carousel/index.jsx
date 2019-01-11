@@ -6,6 +6,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/carousel.svg';
+import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -365,8 +366,6 @@ export const settings = {
                 data-loop={ loop ? 'true' : 'false' }
                 data-free-scroll={ freeScroll ? 'true' : 'false' }
                 data-show-arrows={ showArrows ? 'true' : 'false' }
-                data-arrow-prev-icon={ arrowPrevIcon }
-                data-arrow-next-icon={ arrowNextIcon }
                 data-show-bullets={ showBullets ? 'true' : 'false' }
                 data-dynamic-bullets={ dynamicBullets ? 'true' : 'false' }
                 data-gap={ gap }
@@ -374,7 +373,19 @@ export const settings = {
                 <div className="ghostkit-carousel-items">
                     <InnerBlocks.Content />
                 </div>
+                { arrowPrevIcon ? (
+                    <div className="ghostkit-carousel-arrow-prev-icon">
+                        <IconPicker.Render name={ arrowPrevIcon } />
+                    </div>
+                ) : '' }
+                { arrowNextIcon ? (
+                    <div className="ghostkit-carousel-arrow-next-icon">
+                        <IconPicker.Render name={ arrowNextIcon } />
+                    </div>
+                ) : '' }
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };
