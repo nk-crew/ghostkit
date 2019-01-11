@@ -66,9 +66,9 @@ export default class Blocks extends Component {
 
         this.setState( {
             disabledBlocks: allBlocks,
+        }, () => {
+            this.updateDisabledBlocksDebounce();
         } );
-
-        this.updateDisabledBlocksDebounce();
     }
 
     updateDisabledBlocksDebounce() {

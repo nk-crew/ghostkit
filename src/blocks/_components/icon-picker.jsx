@@ -55,6 +55,11 @@ export default class IconPicker extends Component {
             label,
         } = this.props;
 
+        const {
+            icons,
+            settings,
+        } = GHOSTKIT;
+
         return (
             <BaseControl
                 label={ label }
@@ -76,32 +81,36 @@ export default class IconPicker extends Component {
                     renderContent={ () => {
                         const result = [];
 
-                        Object.keys( GHOSTKIT.icons ).forEach( ( key ) => {
-                            const iconsData = GHOSTKIT.icons[ key ];
-                            result.push( <span>{ iconsData.name }</span> );
-                            result.push(
-                                <div className="ghostkit-component-icon-picker-list">
-                                    { iconsData.icons.map( ( iconData ) => {
-                                        if (
-                                            ! this.state.search ||
-                                            ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
-                                        ) {
-                                            return (
-                                                <Icon
-                                                    key={ iconData.class }
-                                                    active={ iconData.class === value }
-                                                    iconData={ iconData }
-                                                    onClick={ () => {
-                                                        onChange( iconData.class );
-                                                    } }
-                                                />
-                                            );
-                                        }
+                        Object.keys( icons ).forEach( ( key ) => {
+                            const allow = typeof settings[ `icon_pack_${ key }` ] === 'undefined' || settings[ `icon_pack_${ key }` ];
 
-                                        return '';
-                                    } ) }
-                                </div>
-                            );
+                            if ( allow ) {
+                                const iconsData = icons[ key ];
+                                result.push( <span>{ iconsData.name }</span> );
+                                result.push(
+                                    <div className="ghostkit-component-icon-picker-list">
+                                        { iconsData.icons.map( ( iconData ) => {
+                                            if (
+                                                ! this.state.search ||
+                                                ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
+                                            ) {
+                                                return (
+                                                    <Icon
+                                                        key={ iconData.class }
+                                                        active={ iconData.class === value }
+                                                        iconData={ iconData }
+                                                        onClick={ () => {
+                                                            onChange( iconData.class );
+                                                        } }
+                                                    />
+                                                );
+                                            }
+
+                                            return '';
+                                        } ) }
+                                    </div>
+                                );
+                            }
                         } );
 
                         return (

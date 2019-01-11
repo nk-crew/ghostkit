@@ -16,26 +16,49 @@ class GhostKit_Icons_List {
     public function __construct() {
         add_filter( 'gkt_icons_list', array( $this, 'add_font_awesome_icons' ) );
 
-        // Allow enqueue FontAwesome scripts.
+        // Allow enqueue FontAwesome assets.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            add_action( 'init', array( $this, 'register_scripts' ) );
-            add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_block_assets' ) );
-            add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_assets' ) );
+            add_action( 'init', array( $this, 'register_font_awesome_assets' ) );
+            add_action( 'gkt_icons_enqueue_assets__font-awesome', array( $this, 'enqueue_font_awesome_assets' ) );
         }
-    }
 
-    /**
-     * Register scripts.
-     */
-    public function register_scripts() {
-        wp_register_script( 'font-awesome-v4-shims', plugins_url( '../assets/vendor/font-awesome/v4-shims.min.js', __FILE__ ), array(), '5.6.3' );
-        wp_register_script( 'font-awesome', plugins_url( '../assets/vendor/font-awesome/all.min.js', __FILE__ ), array( 'font-awesome-v4-shims' ), '5.6.3' );
+        // enqueue icons
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all_icons_assets' ), 12 );
+        add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_all_icons_assets' ), 12 );
     }
 
     /**
      * Enqueue frontend & editor assets
      */
-    public function enqueue_block_assets() {
+    public function enqueue_all_icons_assets() {
+        $icons = apply_filters( 'gkt_icons_list', array() );
+        $settings = get_option( 'ghostkit_settings', array() );
+
+        do_action( 'gkt_icons_enqueue_assets' );
+
+        if ( ! empty( $icons ) ) {
+            foreach( $icons as $key => $icon ) {
+                $allow_icon = ! isset( $settings[ 'icon_pack_' . $key ] ) || isset( $settings[ 'icon_pack_' . $key ] ) && $settings[ 'icon_pack_' . $key ];
+
+                if ( $allow_icon ) {
+                    do_action( 'gkt_icons_enqueue_assets__' . $key );
+                }
+            }
+        }
+    }
+
+    /**
+     * Register Font Awesome assets.
+     */
+    public function register_font_awesome_assets() {
+        wp_register_script( 'font-awesome-v4-shims', ghostkit()->plugin_url . 'assets/vendor/font-awesome/v4-shims.min.js', array(), '5.6.3' );
+        wp_register_script( 'font-awesome', ghostkit()->plugin_url . 'assets/vendor/font-awesome/all.min.js', array( 'font-awesome-v4-shims' ), '5.6.3' );
+    }
+
+    /**
+     * Enqueue Font Awesome assets
+     */
+    public function enqueue_font_awesome_assets() {
         wp_enqueue_script( 'font-awesome' );
     }
 

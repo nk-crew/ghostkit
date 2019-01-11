@@ -100,6 +100,21 @@ class GhostKit_Settings {
             'dashicons-admin-ghostkit',
             105
         );
+
+        add_submenu_page(
+            'ghostkit',
+            '',
+            esc_html__( 'Blocks', '@@text_domain' ),
+            'manage_options',
+            'ghostkit'
+        );
+        add_submenu_page(
+            'ghostkit',
+            '',
+            esc_html__( 'Settings', '@@text_domain' ),
+            'manage_options',
+            'admin.php?page=ghostkit&sub_page=settings'
+        );
     }
 
     /**

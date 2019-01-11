@@ -1,0 +1,15 @@
+@import "../../blocks/variables";
+
+.ghostkit-settings {
+    .components-base-control + .components-base-control {
+        margin-top: 1.5em;
+    }
+    .components-toggle-control {
+        .components-base-control__field {
+            display: flex;
+        }
+        .components-toggle-control__label {
+            margin-left: 15px;
+        }
+    }
+}

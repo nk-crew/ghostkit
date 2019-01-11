@@ -30,9 +30,15 @@
 }
 
 .ghostkit-admin-tabs {
+    display: flex;
+    flex-wrap: wrap;
     padding-top: 50px;
     margin: 0;
     list-style: none;
+
+    > li {
+        margin: 0;
+    }
 
     button {
         padding: 12px 25px;

@@ -162,8 +162,8 @@ Available filters:
 
 By default icon picker contains FontAwesome icons. You can add any icons you want. First of all you need to enqueue these icons in editor and frontend pages to see it, then extend icon picker using PHP filter:
 
+    // add icons list.
     add_filter( 'gkt_icons_list', 'my_gkt_icons' );
-
     function my_gkt_icons( $icons ) {
         $icons['my-icons-pack'] = array(
             'name' => 'My Icons',
@@ -181,6 +181,13 @@ By default icon picker contains FontAwesome icons. You can add any icons you wan
         );
 
         return $icons;
+    }
+
+    // add icons assets
+    // will be automatically added in Editor and Frontend
+    add_action( 'gkt_icons_enqueue_assets__my-icons-pack', 'my_gkt_icons_enqueue_assets' );
+    function my_gkt_icons_enqueue_assets( $icons ) {
+        wp_register_script( 'my-icons-pack', plugins_url( '/assets/my-icons-pack/script.min.js', __FILE__ ), array(), '1.0.0' );
     }
 
 ### jQuery frontend events ####

@@ -111,6 +111,15 @@ class GhostKit_Rest extends WP_REST_Controller {
                 'permission_callback' => array( $this, 'update_disabled_blocks_permission' ),
             )
         );
+
+        // Update Settings.
+        register_rest_route(
+            $namespace, '/update_settings/', array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'update_settings' ),
+                'permission_callback' => array( $this, 'update_settings_permission' ),
+            )
+        );
     }
 
     /**
@@ -257,6 +266,18 @@ class GhostKit_Rest extends WP_REST_Controller {
      * @return bool
      */
     public function update_disabled_blocks_permission() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
+     * Get edit options permissions.
+     *
+     * @return bool
+     */
+    public function update_settings_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
             return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
         }
@@ -924,6 +945,28 @@ class GhostKit_Rest extends WP_REST_Controller {
             return $this->success( true );
         } else {
             return $this->error( 'no_disabled_blocks_updated', __( 'Failed to update disabled blocks.', '@@text_domain' ) );
+        }
+    }
+
+    /**
+     * Update Settings.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function update_settings( WP_REST_Request $request ) {
+        $new_settings = $request->get_param( 'settings' );
+        $updated = '';
+
+        if ( is_array( $new_settings ) ) {
+            $updated = update_option( 'ghostkit_settings', $new_settings );
+        }
+
+        if ( ! empty( $updated ) ) {
+            return $this->success( true );
+        } else {
+            return $this->error( 'no_settings_updated', __( 'Failed to update settings.', '@@text_domain' ) );
         }
     }
 

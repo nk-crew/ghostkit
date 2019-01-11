@@ -230,6 +230,8 @@ class GhostKit {
         $gmaps_locale = substr( $gmaps_locale, 0, 2 );
 
         wp_localize_script( 'ghostkit-helper', 'ghostkitVariables', array(
+            'settings'          => get_option( 'ghostkit_settings', array() ),
+
             'disabledBlocks'    => get_option( 'ghostkit_disabled_blocks', array() ),
 
             // TODO: Move this to plugin options (part 1).
@@ -249,7 +251,7 @@ class GhostKit {
                 /**
                  * Example:
                    array(
-                       array(
+                       'font-awesome' => array(
                            'name' => 'FontAwesome',
                            'icons' => array(
                                array(
