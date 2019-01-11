@@ -45,6 +45,9 @@ class PricingTableItemBlock extends Component {
 
             showPopular,
             showTitle,
+            showPrice,
+            showPriceCurrency,
+            showPriceRepeat,
             showDescription,
             showFeatures,
             showButton,
@@ -93,6 +96,25 @@ class PricingTableItemBlock extends Component {
                                 onChange={ ( value ) => setAttributes( { showTitle: value } ) }
                             />
                             <ToggleControl
+                                label={ __( 'Show Price' ) }
+                                checked={ !! showPrice }
+                                onChange={ ( value ) => setAttributes( { showPrice: value } ) }
+                            />
+                            { showPrice ? (
+                                <Fragment>
+                                    <ToggleControl
+                                        label={ __( 'Show Price Currency' ) }
+                                        checked={ !! showPriceCurrency }
+                                        onChange={ ( value ) => setAttributes( { showPriceCurrency: value } ) }
+                                    />
+                                    <ToggleControl
+                                        label={ __( 'Show Price Repeat' ) }
+                                        checked={ !! showPriceRepeat }
+                                        onChange={ ( value ) => setAttributes( { showPriceRepeat: value } ) }
+                                    />
+                                </Fragment>
+                            ) : '' }
+                            <ToggleControl
                                 label={ __( 'Show Description' ) }
                                 checked={ !! showDescription }
                                 onChange={ ( value ) => setAttributes( { showDescription: value } ) }
@@ -122,42 +144,44 @@ class PricingTableItemBlock extends Component {
                             keepPlaceholderOnFocus
                         />
                     ) : '' }
-                    <div className="ghostkit-pricing-table-item-price">
-                        { ! RichText.isEmpty( priceCurrency ) || isSelected ? (
-                            <div className="ghostkit-pricing-table-item-price-currency">
+                    { showPrice ? (
+                        <div className="ghostkit-pricing-table-item-price">
+                            { showPriceCurrency && ( ! RichText.isEmpty( priceCurrency ) || isSelected ) ? (
+                                <div className="ghostkit-pricing-table-item-price-currency">
+                                    <RichText
+                                        tagName="span"
+                                        onChange={ ( val ) => setAttributes( { priceCurrency: val } ) }
+                                        value={ priceCurrency }
+                                        placeholder={ __( '$' ) }
+                                        formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                                        keepPlaceholderOnFocus
+                                    />
+                                </div>
+                            ) : '' }
+                            <div className="ghostkit-pricing-table-item-price-amount">
                                 <RichText
                                     tagName="span"
-                                    onChange={ ( val ) => setAttributes( { priceCurrency: val } ) }
-                                    value={ priceCurrency }
-                                    placeholder={ __( '$' ) }
+                                    onChange={ ( val ) => setAttributes( { price: val } ) }
+                                    value={ price }
+                                    placeholder={ __( '77' ) }
                                     formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
                                     keepPlaceholderOnFocus
                                 />
                             </div>
-                        ) : '' }
-                        <div className="ghostkit-pricing-table-item-price-amount">
-                            <RichText
-                                tagName="span"
-                                onChange={ ( val ) => setAttributes( { price: val } ) }
-                                value={ price }
-                                placeholder={ __( '77' ) }
-                                formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                                keepPlaceholderOnFocus
-                            />
+                            { showPriceRepeat && ( ! RichText.isEmpty( priceRepeat ) || isSelected ) ? (
+                                <div className="ghostkit-pricing-table-item-price-repeat">
+                                    <RichText
+                                        tagName="span"
+                                        onChange={ ( val ) => setAttributes( { priceRepeat: val } ) }
+                                        value={ priceRepeat }
+                                        placeholder={ __( '/mo' ) }
+                                        formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                                        keepPlaceholderOnFocus
+                                    />
+                                </div>
+                            ) : '' }
                         </div>
-                        { ! RichText.isEmpty( priceRepeat ) || isSelected ? (
-                            <div className="ghostkit-pricing-table-item-price-repeat">
-                                <RichText
-                                    tagName="span"
-                                    onChange={ ( val ) => setAttributes( { priceRepeat: val } ) }
-                                    value={ priceRepeat }
-                                    placeholder={ __( '/mo' ) }
-                                    formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                                    keepPlaceholderOnFocus
-                                />
-                            </div>
-                        ) : '' }
-                    </div>
+                    ) : '' }
                     { showDescription && ( ! RichText.isEmpty( description ) || isSelected ) ? (
                         <RichText
                             tagName="div"
@@ -242,10 +266,6 @@ export const settings = {
             type: 'string',
             default: 'default',
         },
-        showPopular: {
-            type: 'boolean',
-            default: false,
-        },
         popularText: {
             type: 'array',
             source: 'children',
@@ -307,7 +327,23 @@ export const settings = {
             ],
         },
 
+        showPopular: {
+            type: 'boolean',
+            default: false,
+        },
         showTitle: {
+            type: 'boolean',
+            default: true,
+        },
+        showPrice: {
+            type: 'boolean',
+            default: true,
+        },
+        showPriceCurrency: {
+            type: 'boolean',
+            default: true,
+        },
+        showPriceRepeat: {
             type: 'boolean',
             default: true,
         },
@@ -340,6 +376,9 @@ export const settings = {
 
             showPopular,
             showTitle,
+            showPrice,
+            showPriceCurrency,
+            showPriceRepeat,
             showDescription,
             showFeatures,
             showButton,
@@ -373,9 +412,9 @@ export const settings = {
                         />
                     ) : '' }
 
-                    { ! RichText.isEmpty( price ) ? (
+                    { showPrice && ! RichText.isEmpty( price ) ? (
                         <div className="ghostkit-pricing-table-item-price">
-                            { ! RichText.isEmpty( priceCurrency ) ? (
+                            { showPriceCurrency && ! RichText.isEmpty( priceCurrency ) ? (
                                 <RichText.Content
                                     tagName="span"
                                     className="ghostkit-pricing-table-item-price-currency"
@@ -387,7 +426,7 @@ export const settings = {
                                 className="ghostkit-pricing-table-item-price-amount"
                                 value={ price }
                             />
-                            { ! RichText.isEmpty( priceRepeat ) ? (
+                            { showPriceRepeat && ! RichText.isEmpty( priceRepeat ) ? (
                                 <RichText.Content
                                     tagName="span"
                                     className="ghostkit-pricing-table-item-price-repeat"
