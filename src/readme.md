@@ -24,33 +24,48 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 
 ### Available blocks ###
 
-* Grid (fully responsive)
-* Divider
-* Progress Bar
-* Button
-* Accordion
-* Tabs
-* Carousel
-* Alert
-* Icon Box
-* Number Box
-* Video
-* Testimonial
-* GitHub Gist
-* Changelog
-* Pricing Table
-* Google Maps
-* Instagram
-* Twitter
-* Widgetized Area (output registered sidebars)
+* **Grid**. Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change. [Preview](https://ghostkit.io/blocks/grid/)
+* **Progress**. Show the progress of your work, skills or earnings.
+* **Button**. Change important links to buttons to get more click rate.
+* **Divider**. Divide your long texts and blocks.
+* **Alert**. Provide contextual feedback messages for user actions.
+* **Icon Box**. Icons are one of the best visual replacement for text descriptions.
+* **Number Box**. Show your progress and rewards using counting numbers.
+* **Accordion**. Toggle the visibility of content across your project.
+* **Tabs**. Separate content on the tabs with titles.
+* **Video**. Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.
+* **Carousel**. Carousel for any type of content – images or other blocks.
+* **Pricing Table**. Sell your products or services and show all features.
+* **Testimonial**. Show how your users love your products and what saying.
+* **Twitter**. Show Twitter feed and user data.
+* **Instagram**. Show Instagram feed and user data.
+* **Google Maps**. Show maps with custom styles, markers and settings.
+* **GitHub Gist**. Embed code parts form GitHub Gist to your site or documentation.
+* **Changelog**. Show the changes log of your product.
+* **Widgetized Area**. Select registered sidebars and put it in any place.
 
 ### Available extensions ###
 
-* Spacings (paddings, margins)
-* Display (show/hide block)
-* Animate on Scroll (show block in viewport)
-* Custom CSS (add custom CSS on the pages)
-* Customizer (overwrite customizer options on the pages)
+* **Spacings**. Easily add spacings in GhostKit and Core blocks.
+* **Display**. Show and hide blocks GhostKit and Core blocks on different screen sizes.
+* **Animate on Scroll**. Show with animation GhostKit and Core blocks on page scrolling.
+* **Custom CSS**. This extension is available on all pages and let you add custom CSS for the current page.
+* **Customizer**. This extension is available on all pages and let you change customizer options on the current page.
+
+### Try Ghost Kit PRO Addon ###
+
+[Ghost Kit PRO Addon](https://ghostkit.io/pricing/) extends Ghost Kit functionality and improve you design experience. The list of PRO features:
+
+* 3 icon packs
+* Visual Grid editor
+* Grid full height option
+* Google Maps custom markers
+* Google Maps info boxes
+* Gradient backgrounds
+* Gradient text icons
+* Features list will grow in updates
+
+If you like it - [Go Pro](https://ghostkit.io/pricing/)
 
 
 ## Installation ##

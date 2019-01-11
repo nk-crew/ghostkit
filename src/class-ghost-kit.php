@@ -491,6 +491,15 @@ class GhostKit {
             }
         }
     }
+
+    /**
+     * Get Go Pro link
+     *
+     * @return string
+     */
+    public function go_pro_link() {
+        return 'https://ghostkit.io/pricing/';
+    }
 }
 
 /**

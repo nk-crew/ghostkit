@@ -88,6 +88,21 @@ class GhostKit_Settings {
     }
 
     /**
+     * Go Pro.
+     * Redirect to the Pro purchase page.
+     */
+    public function go_pro_redirect() {
+        if ( empty( $_GET['page'] ) ) {
+            return;
+        }
+
+        if ( 'ghostkit_go_pro' === $_GET['page'] ) {
+            wp_redirect( ghostkit()->go_pro_link() );
+            die;
+        }
+    }
+
+    /**
      * Add admin menu.
      */
     public function admin_menu() {
@@ -114,6 +129,14 @@ class GhostKit_Settings {
             esc_html__( 'Settings', '@@text_domain' ),
             'manage_options',
             'admin.php?page=ghostkit&sub_page=settings'
+        );
+        add_submenu_page(
+            'ghostkit',
+            '',
+            '<span class="dashicons dashicons-star-filled" style="font-size: 17px"></span> ' . esc_html__( 'Go Pro', '@@text_domain' ),
+            'manage_options',
+            'ghostkit_go_pro',
+            array( $this, 'go_pro_redirect' )
         );
     }
 
