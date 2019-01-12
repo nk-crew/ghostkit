@@ -162,7 +162,7 @@ IconPicker.Preview = ( { data, name } ) => {
 
     if ( data && data.preview ) {
         return <span dangerouslySetInnerHTML={ { __html: data.preview } }></span>;
-    } else if ( name || data.class ) {
+    } else if ( name || ( data && data.class ) ) {
         return <IconPicker.Render name={ name || data.class } />;
     }
 
