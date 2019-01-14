@@ -166,8 +166,8 @@ class TabsBlockEdit extends Component {
                                         newTabsData.push( tabsData[ k ] );
                                     } else {
                                         newTabsData.push( {
-                                            slug: `tab-${ k }`,
-                                            title: `Tab ${ k }`,
+                                            slug: `tab-${ k + 1 }`,
+                                            title: `Tab ${ k + 1 }`,
                                         } );
                                     }
                                 }
