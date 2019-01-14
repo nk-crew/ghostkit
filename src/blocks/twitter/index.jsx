@@ -6,7 +6,7 @@ import './style.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/twitter.svg';
+import ElementIcon from '../_icons/block-twitter.svg';
 import './store.jsx';
 
 const { GHOSTKIT } = window;

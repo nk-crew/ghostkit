@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/accordion.svg';
+import elementIcon from '../_icons/block-accordion.svg';
 import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;

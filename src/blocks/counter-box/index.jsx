@@ -6,7 +6,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/counter-box.svg';
+import elementIcon from '../_icons/block-counter-box.svg';
 import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;

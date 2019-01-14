@@ -7,7 +7,7 @@ import classnames from 'classnames/dedupe';
 import deepAssign from 'deep-assign';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/divider.svg';
+import elementIcon from '../_icons/block-divider.svg';
 
 const { GHOSTKIT } = window;
 

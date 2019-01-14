@@ -5,7 +5,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/accordion.svg';
+import elementIcon from '../_icons/block-accordion.svg';
 
 const { GHOSTKIT } = window;
 

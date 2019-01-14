@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/pricing.svg';
+import elementIcon from '../_icons/block-pricing.svg';
 
 const { GHOSTKIT } = window;
 

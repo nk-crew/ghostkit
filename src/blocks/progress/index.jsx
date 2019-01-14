@@ -8,7 +8,7 @@ import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/progress.svg';
+import elementIcon from '../_icons/block-progress.svg';
 import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;

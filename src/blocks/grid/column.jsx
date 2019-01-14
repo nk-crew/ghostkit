@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/grid.svg';
+import elementIcon from '../_icons/block-grid.svg';
 import getColClass from './get-col-class.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';

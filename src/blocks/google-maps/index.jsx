@@ -7,7 +7,7 @@ import { debounce } from 'throttle-debounce';
 
 // Internal Dependencies.
 import deprecatedArray from './deprecated.jsx';
-import ElementIcon from '../_icons/google-maps.svg';
+import ElementIcon from '../_icons/block-google-maps.svg';
 import IconFullHeight from './icons/fullheight.svg';
 import IconFullHeightWhite from './icons/fullheight-white.svg';
 import IconMarker from './icons/marker.svg';

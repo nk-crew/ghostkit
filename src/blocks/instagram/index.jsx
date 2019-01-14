@@ -6,7 +6,7 @@ import './style.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/instagram.svg';
+import ElementIcon from '../_icons/block-instagram.svg';
 import './store.jsx';
 
 const { GHOSTKIT } = window;

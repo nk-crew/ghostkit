@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 import slugify from 'slugify';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/tabs.svg';
+import elementIcon from '../_icons/block-tabs.svg';
 
 const { GHOSTKIT } = window;
 

@@ -8,7 +8,7 @@ if ( ! global._babelPolyfill ) {
 import Select from 'react-select';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/customizer.svg';
+import ElementIcon from '../_icons/block-customizer.svg';
 import './store.jsx';
 
 const { __ } = wp.i18n;

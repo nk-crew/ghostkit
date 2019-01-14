@@ -8,7 +8,7 @@ if ( ! global._babelPolyfill ) {
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/testimonial.svg';
+import elementIcon from '../_icons/block-testimonial.svg';
 import './store.jsx';
 
 const { GHOSTKIT } = window;

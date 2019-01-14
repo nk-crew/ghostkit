@@ -12,7 +12,7 @@ import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/video.svg';
+import elementIcon from '../_icons/block-video.svg';
 import deprecatedArray from './deprecated.jsx';
 import './store.jsx';
 

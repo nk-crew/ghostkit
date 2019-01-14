@@ -5,7 +5,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/grid.svg';
+import elementIcon from '../_icons/block-grid.svg';
 import deprecatedArray from './deprecated.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 import ColorPicker from '../_components/color-picker.jsx';

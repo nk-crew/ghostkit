@@ -10,7 +10,7 @@ import 'brace/theme/textmate';
 import 'brace/ext/language_tools';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/custom-css.svg';
+import ElementIcon from '../_icons/block-custom-css.svg';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;

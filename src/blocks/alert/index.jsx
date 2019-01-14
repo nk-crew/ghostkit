@@ -7,7 +7,7 @@ import classnames from 'classnames/dedupe';
 import deprecatedArray from './deprecated.jsx';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/alert.svg';
+import elementIcon from '../_icons/block-alert.svg';
 
 const { GHOSTKIT } = window;
 

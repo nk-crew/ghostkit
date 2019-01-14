@@ -6,7 +6,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/gist.svg';
+import ElementIcon from '../_icons/block-gist.svg';
 import GistFilesSelect from './file-select.jsx';
 
 const { GHOSTKIT, jQuery } = window;

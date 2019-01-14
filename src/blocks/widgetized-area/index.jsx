@@ -3,7 +3,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/widgetized-area.svg';
+import ElementIcon from '../_icons/block-widgetized-area.svg';
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
