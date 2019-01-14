@@ -1,3 +1,9 @@
+import iconMobile from '../_icons/tabs-mobile.svg';
+import iconTablet from '../_icons/tabs-tablet.svg';
+import iconLaptop from '../_icons/tabs-laptop.svg';
+import iconDesktop from '../_icons/tabs-desktop.svg';
+import iconTv from '../_icons/tabs-tv.svg';
+
 const { Component } = wp.element;
 
 const { __, sprintf } = wp.i18n;
@@ -24,11 +30,11 @@ export default class TabPanelScreenSizes extends Component {
 
         const tabs = [];
         const icons = [
-            'fas fa-mobile-alt',
-            'fas fa-tablet-alt',
-            'fas fa-laptop',
-            'fas fa-desktop',
-            'fas fa-tv',
+            iconMobile,
+            iconTablet,
+            iconLaptop,
+            iconDesktop,
+            iconTv,
         ];
 
         Object.keys( ghostkitVariables.media_sizes ).forEach( ( mediaName, i ) => {
@@ -39,7 +45,7 @@ export default class TabPanelScreenSizes extends Component {
                         <span style={ iconsColor && iconsColor[ mediaName ] ? {
                             color: iconsColor[ mediaName ],
                         } : {} }>
-                            <span className={ icons[ i ] } />
+                            { icons[ i ]() }
                         </span>
                     </Tooltip>
                 ),
@@ -51,7 +57,7 @@ export default class TabPanelScreenSizes extends Component {
             title: (
                 <Tooltip text={ __( 'All devices' ) }>
                     <span>
-                        <span className={ icons[ icons.length - 1 ] } />
+                        { icons[ icons.length - 1 ]() }
                     </span>
                 </Tooltip>
             ),

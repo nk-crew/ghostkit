@@ -1,3 +1,9 @@
+import IconArrowUp from '../_icons/extension-sr-arrow-up.svg';
+import IconArrowRight from '../_icons/extension-sr-arrow-right.svg';
+import IconArrowDown from '../_icons/extension-sr-arrow-down.svg';
+import IconArrowLeft from '../_icons/extension-sr-arrow-left.svg';
+import IconCircle from '../_icons/extension-sr-circle.svg';
+
 const { __ } = wp.i18n;
 
 const {
@@ -274,7 +280,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'left' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'left' } ) }
                                                 >
-                                                    <span className="fas fa-arrow-right" />
+                                                    <IconArrowRight />
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-top">
@@ -282,7 +288,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'down' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'down' } ) }
                                                 >
-                                                    <span className="fas fa-arrow-down" />
+                                                    <IconArrowDown />
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-right">
@@ -290,7 +296,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'right' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'right' } ) }
                                                 >
-                                                    <span className="fas fa-arrow-left" />
+                                                    <IconArrowLeft />
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-bottom">
@@ -298,7 +304,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'up' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'up' } ) }
                                                 >
-                                                    <span className="fas fa-arrow-up" />
+                                                    <IconArrowUp />
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-center">
@@ -306,7 +312,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ ! this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: '' } ) }
                                                 >
-                                                    <span className="fas fa-circle" />
+                                                    <IconCircle />
                                                 </Button>
                                             </div>
                                         </div>

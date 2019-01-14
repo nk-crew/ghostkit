@@ -63,6 +63,12 @@
             border-radius: 0;
             outline-offset: -1px;
 
+            svg {
+                display: block;
+                width: auto;
+                height: 1.4em;
+            }
+
             &.is-active {
                 position: relative;
                 border-bottom: 2px solid $blue-medium-500;
@@ -311,7 +317,7 @@
             justify-content: center;
             width: 35px;
             height: 30px;
-            padding: 10px 15px;
+            padding: 10px;
             font-size: 10px;
             text-align: center;
             border-radius: 3px;
@@ -325,6 +331,12 @@
             &.ghostkit-control-sr-direction-active:focus {
                 color: #fff;
                 background-color: $color-primary;
+            }
+
+            svg {
+                display: block;
+                width: auto;
+                height: 1em;
             }
         }
 
