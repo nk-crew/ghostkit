@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/tabs.svg';
+import elementIcon from '../../_icons/tabs.svg';
 
 const { GHOSTKIT } = window;
 
@@ -56,8 +56,8 @@ class TabBlock extends Component {
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
+                    <PanelBody>
+                        { Object.keys( availableVariants ).length > 1 ? (
                             <SelectControl
                                 label={ __( 'Variants' ) }
                                 value={ variant }
@@ -67,8 +67,8 @@ class TabBlock extends Component {
                                 } ) ) }
                                 onChange={ ( value ) => setAttributes( { variant: value } ) }
                             />
-                        </PanelBody>
-                    ) : '' }
+                        ) : '' }
+                    </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
                     <InnerBlocks templateLock={ false } />
@@ -78,49 +78,45 @@ class TabBlock extends Component {
     }
 }
 
-export const name = 'ghostkit/tabs-tab-v2';
+export const name = 'ghostkit/tabs-tab';
 
 export const settings = {
     title: __( 'Tab' ),
-    parent: [ 'ghostkit/tabs-v2' ],
+    parent: [ 'ghostkit/tabs' ],
     description: __( 'A single tab within a tabs block.' ),
     icon: elementIcon,
     category: 'ghostkit',
-    ghostkit: {
-        supports: {
-            styles: true,
-            spacings: true,
-            display: true,
-            scrollReveal: true,
-        },
-    },
     supports: {
         html: false,
         className: false,
         anchor: true,
         inserter: false,
         reusable: false,
+        ghostkitStyles: true,
+        ghostkitSpacings: true,
+        ghostkitDisplay: true,
+        ghostkitSR: true,
     },
     attributes: {
         variant: {
             type: 'string',
             default: 'default',
         },
-        slug: {
-            type: 'string',
+        tabNumber: {
+            type: 'number',
         },
     },
 
     edit: TabBlock,
 
     getEditWrapperProps( attributes ) {
-        return { 'data-tab': attributes.slug };
+        return { 'data-tab': attributes.tabNumber };
     },
 
     save: function( props ) {
         const {
             variant,
-            slug,
+            tabNumber,
         } = props.attributes;
 
         let className = 'ghostkit-tab';
@@ -138,7 +134,7 @@ export const settings = {
         } );
 
         return (
-            <div className={ className } data-tab={ slug }>
+            <div className={ className } data-tab={ tabNumber }>
                 <InnerBlocks.Content />
             </div>
         );

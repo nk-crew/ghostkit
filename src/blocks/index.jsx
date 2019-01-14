@@ -10,6 +10,8 @@ import * as progress from './progress/index.jsx';
 import * as iconBox from './icon-box/index.jsx';
 import * as tabs from './tabs/index.jsx';
 import * as tabsTab from './tabs/tab.jsx';
+import * as tabsLegacy from './tabs/legacy/index.jsx';
+import * as tabsLegacyTab from './tabs/legacy/tab.jsx';
 import * as accordion from './accordion/index.jsx';
 import * as accordionItem from './accordion/item.jsx';
 import * as counterBox from './counter-box/index.jsx';
@@ -91,6 +93,8 @@ jQuery( () => {
         accordionItem,
         tabs,
         tabsTab,
+        tabsLegacy,
+        tabsLegacyTab,
         video,
         carousel,
         carouselSlide,

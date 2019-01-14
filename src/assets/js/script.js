@@ -309,19 +309,46 @@ class GhostKitClass {
         GHOSTKIT.triggerEvent( 'afterPrepareCustomStyles', self );
     }
 
+    activateTab( $tabs, tabName ) {
+        const isLegacy = ! /^#/g.test( tabName );
+        let $activeBtn = false;
+        const $activeTab = $tabs.children( '.ghostkit-tabs-content' ).children( `[data-tab="${ tabName.replace( /^#/, '' ) }"]` );
+
+        if ( isLegacy ) {
+            $activeBtn = $tabs.find( '.ghostkit-tabs-buttons' ).find( `[href="#tab-${ tabName }"]` );
+        } else {
+            $activeBtn = $tabs.find( '.ghostkit-tabs-buttons' ).find( `[href="${ tabName }"]` );
+        }
+
+        if ( ! $activeBtn || ! $activeBtn.length || ! $activeTab.length ) {
+            return false;
+        }
+
+        $activeBtn.addClass( 'ghostkit-tabs-buttons-item-active' )
+            .siblings().removeClass( 'ghostkit-tabs-buttons-item-active' );
+
+        $activeTab.addClass( 'ghostkit-tab-active' )
+            .siblings().removeClass( 'ghostkit-tab-active' );
+
+        hasScrolled();
+
+        return true;
+    }
+
     /**
      * Prepare Tabs
      */
     prepareTabs() {
         const self = this;
+        const pageHash = window.location.hash;
 
         GHOSTKIT.triggerEvent( 'beforePrepareTabs', self );
 
         $( '.ghostkit-tabs:not(.ghostkit-tabs-ready)' ).each( function() {
             const $this = $( this );
-            const $tabsCont = $this.children( '.ghostkit-tabs-content' );
-            const $tabsButtons = $this.children( '.ghostkit-tabs-buttons' );
             const tabsActive = $this.attr( 'data-tab-active' );
+
+            // pageHash
 
             $this.addClass( 'ghostkit-tabs-ready' );
 
@@ -330,17 +357,25 @@ class GhostKitClass {
                 e.preventDefault();
 
                 const $thisBtn = $( this );
+                const tabName = $thisBtn.attr( 'data-tab' ) || this.hash;
 
-                $thisBtn.addClass( 'ghostkit-tabs-buttons-item-active' )
-                    .siblings().removeClass( 'ghostkit-tabs-buttons-item-active' );
-
-                $tabsCont.children( `[data-tab="${ $thisBtn.attr( 'data-tab' ) }"]` )
-                    .addClass( 'ghostkit-tab-active' )
-                    .siblings().removeClass( 'ghostkit-tab-active' );
-
-                hasScrolled();
+                self.activateTab( $this, tabName );
             } );
-            $tabsButtons.find( `[data-tab="${ tabsActive }"]` ).click();
+
+            // activate by page hash
+            let tabActivated = false;
+            if ( pageHash ) {
+                tabActivated = self.activateTab( $this, pageHash );
+            }
+
+            if ( ! tabActivated && tabsActive ) {
+                tabActivated = self.activateTab( $this, `#${ tabsActive }` );
+            }
+
+            // legacy
+            if ( ! tabActivated && tabsActive ) {
+                tabActivated = self.activateTab( $this, tabsActive );
+            }
         } );
 
         GHOSTKIT.triggerEvent( 'afterPrepareTabs', self );

@@ -3,17 +3,17 @@ import './editor.scss';
 
 // External Dependencies.
 import classnames from 'classnames/dedupe';
+import slugify from 'slugify';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/tabs.svg';
-import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
 
 const {
     applyFilters,
 } = wp.hooks;
-const { __, sprintf } = wp.i18n;
+const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
@@ -27,44 +27,84 @@ const {
     InnerBlocks,
 } = wp.editor;
 
-/**
- * Returns the layouts configuration for a given number of tabs.
- *
- * @param {number} attributes tabs attributes.
- *
- * @return {Object[]} Tabs layout configuration.
- */
-const getTabsTemplate = ( attributes ) => {
-    const {
-        tabsCount,
-    } = attributes;
-    const result = [];
+const {
+    withSelect,
+    withDispatch,
+} = wp.data;
 
-    for ( let k = 1; k <= tabsCount; k++ ) {
-        result.push( [ 'ghostkit/tabs-tab', { tabNumber: k } ] );
+const {
+    compose,
+} = wp.compose;
+
+class TabsBlockEdit extends Component {
+    constructor() {
+        super( ...arguments );
+
+        this.getTabsTemplate = this.getTabsTemplate.bind( this );
+        this.getTabs = this.getTabs.bind( this );
+        this.isUniqueSlug = this.isUniqueSlug.bind( this );
+        this.getUniqueSlug = this.getUniqueSlug.bind( this );
     }
 
-    return result;
-};
+    /**
+     * Returns the layouts configuration for a given number of tabs.
+     *
+     * @param {number} attributes tabs attributes.
+     *
+     * @return {Object[]} Tabs layout configuration.
+     */
+    getTabsTemplate() {
+        const {
+            tabsData = [],
+        } = this.props.attributes;
+        const result = [];
 
-const getTabs = ( { tabsCount, tabsSettings } ) => {
-    const result = [];
-
-    for ( let k = 1; k <= tabsCount; k++ ) {
-        result.push( {
-            label: tabsSettings[ 'tab_' + k ] ? tabsSettings[ 'tab_' + k ].label : sprintf( __( 'Tab %d' ), k ),
-            number: k,
+        tabsData.forEach( ( tabData ) => {
+            result.push( [ 'ghostkit/tabs-tab-v2', tabData ] );
         } );
+
+        return result;
     }
 
-    return result;
-};
+    getTabs() {
+        return this.props.block.innerBlocks;
+    }
 
-class TabsBlock extends Component {
+    isUniqueSlug( slug, ignoreClientId ) {
+        const tabs = this.getTabs();
+        let isUnique = true;
+
+        tabs.forEach( ( tabProps ) => {
+            if ( tabProps.clientId !== ignoreClientId && tabProps.attributes.slug === slug ) {
+                isUnique = false;
+            }
+        } );
+
+        return isUnique;
+    }
+
+    getUniqueSlug( newTitle, tabData ) {
+        let newSlug = '';
+        let i = 0;
+
+        while ( ! newSlug || ! this.isUniqueSlug( newSlug, tabData.clientId ) ) {
+            if ( newSlug ) {
+                i += 1;
+            }
+            newSlug = slugify( `tab-${ newTitle }${ i ? `-${ i }` : '' }`, {
+                replacement: '-',
+                lower: true,
+            } );
+        }
+
+        return newSlug;
+    }
+
     render() {
         const {
             attributes,
             setAttributes,
+            updateBlockAttributes,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -72,15 +112,14 @@ class TabsBlock extends Component {
         const {
             ghostkitClassname,
             variant,
-            tabsCount,
             tabActive,
-            tabsSettings,
             buttonsAlign,
+            tabsData = [],
         } = attributes;
 
         const availableVariants = GHOSTKIT.getVariants( 'tabs' );
 
-        const tabs = getTabs( attributes );
+        const tabs = this.getTabs();
 
         className = classnames(
             className,
@@ -118,8 +157,23 @@ class TabsBlock extends Component {
                     <PanelBody>
                         <RangeControl
                             label={ __( 'Tabs' ) }
-                            value={ tabsCount }
-                            onChange={ ( value ) => setAttributes( { tabsCount: value } ) }
+                            value={ tabsData.length }
+                            onChange={ ( value ) => {
+                                const newTabsData = [];
+
+                                for ( let k = 0; k < value; k += 1 ) {
+                                    if ( tabsData[ k ] ) {
+                                        newTabsData.push( tabsData[ k ] );
+                                    } else {
+                                        newTabsData.push( {
+                                            slug: `tab-${ k }`,
+                                            title: `Tab ${ k }`,
+                                        } );
+                                    }
+                                }
+
+                                setAttributes( { tabsData: newTabsData } );
+                            } }
                             min={ 1 }
                             max={ 6 }
                         />
@@ -145,29 +199,49 @@ class TabsBlock extends Component {
                 <div className={ className } data-tab-active={ tabActive }>
                     <div className={ classnames( 'ghostkit-tabs-buttons', `ghostkit-tabs-buttons-align-${ buttonsAlign }` ) }>
                         {
-                            tabs.map( ( val ) => {
-                                const selected = tabActive === val.number;
+                            tabsData.map( ( tabData, i ) => {
+                                const {
+                                    slug,
+                                    title,
+                                } = tabData;
+                                const selected = tabActive === slug;
 
                                 return (
                                     <RichText
                                         tagName="div"
-                                        data-tab={ val.number }
                                         className={ classnames( 'ghostkit-tabs-buttons-item', selected ? 'ghostkit-tabs-buttons-item-active' : '' ) }
                                         placeholder={ __( 'Tab label' ) }
-                                        value={ val.label }
-                                        unstableOnFocus={ () => setAttributes( { tabActive: val.number } ) }
+                                        value={ title }
+                                        unstableOnFocus={ () => setAttributes( { tabActive: slug } ) }
                                         onChange={ ( value ) => {
-                                            if ( typeof tabs[ val.number - 1 ] !== 'undefined' ) {
-                                                if ( typeof tabsSettings[ `tab_${ val.number }` ] === 'undefined' ) {
-                                                    tabsSettings[ `tab_${ val.number }` ] = {};
-                                                }
-                                                tabsSettings[ `tab_${ val.number }` ].label = value;
-                                                setAttributes( { tabsSettings: Object.assign( {}, tabsSettings ) } );
+                                            if ( tabs[ i ] ) {
+                                                const newSlug = this.getUniqueSlug( value, tabs[ i ] );
+                                                const newTabsData = tabsData.map( ( oldTabData, newIndex ) => {
+                                                    if ( i === newIndex ) {
+                                                        return {
+                                                            ...oldTabData,
+                                                            ...{
+                                                                title: value,
+                                                                slug: newSlug,
+                                                            },
+                                                        };
+                                                    }
+
+                                                    return oldTabData;
+                                                } );
+
+                                                setAttributes( {
+                                                    tabActive: newSlug,
+                                                    tabsData: newTabsData,
+                                                } );
+                                                updateBlockAttributes( tabs[ i ].clientId, {
+                                                    slug: newSlug,
+                                                } );
                                             }
                                         } }
                                         formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
                                         keepPlaceholderOnFocus
-                                        key={ `tab_button_${ val.number }` }
+                                        key={ `tab_button_${ i }` }
                                     />
                                 );
                             } )
@@ -175,18 +249,25 @@ class TabsBlock extends Component {
                     </div>
                     <div className="ghostkit-tabs-content">
                         <InnerBlocks
-                            template={ getTabsTemplate( attributes ) }
+                            template={ this.getTabsTemplate() }
                             templateLock="all"
-                            allowedBlocks={ [ 'ghostkit/tabs-tab' ] }
+                            allowedBlocks={ [ 'ghostkit/tabs-tab-v2' ] }
                         />
                     </div>
                 </div>
+                <style>
+                    { `
+                    .ghostkit-tabs .ghostkit-tabs-content [data-tab="${ tabActive }"] {
+                        display: block;
+                    }
+                    ` }
+                </style>
             </Fragment>
         );
     }
 }
 
-export const name = 'ghostkit/tabs';
+export const name = 'ghostkit/tabs-v2';
 
 export const settings = {
     title: __( 'Tabs' ),
@@ -218,35 +299,64 @@ export const settings = {
             type: 'string',
             default: 'default',
         },
-        tabsCount: {
-            type: 'number',
-            default: 2,
-        },
         tabActive: {
-            type: 'number',
-            default: 1,
-        },
-        tabsSettings: {
-            type: 'object',
-            default: {},
+            type: 'string',
+            default: 'tab-1',
         },
         buttonsAlign: {
             type: 'string',
             default: 'start',
         },
+
+        // as we can't access innerBlocks array in save() function,
+        // we need this attribute to get tabs slug and titles
+        tabsData: {
+            type: 'array',
+            default: [
+                {
+                    slug: 'tab-1',
+                    title: 'Tab 1',
+                },
+                {
+                    slug: 'tab-2',
+                    title: 'Tab 2',
+                },
+            ],
+        },
     },
 
-    edit: TabsBlock,
+    edit: compose( [
+        withSelect( ( select, ownProps ) => {
+            const {
+                getBlock,
+            } = select( 'core/editor' );
 
-    save: function( props ) {
+            const { clientId } = ownProps;
+
+            return {
+                block: getBlock( clientId ),
+            };
+        } ),
+        withDispatch( ( dispatch ) => {
+            const {
+                updateBlockAttributes,
+            } = dispatch( 'core/editor' );
+
+            return {
+                updateBlockAttributes,
+            };
+        } ),
+    ] )( TabsBlockEdit ),
+
+    save( props ) {
         const {
             variant,
-            tabsCount,
             tabActive,
             buttonsAlign,
+            tabsData = [],
         } = props.attributes;
 
-        let className = `ghostkit-tabs ghostkit-tabs-${ tabsCount }`;
+        let className = 'ghostkit-tabs';
 
         // variant classname.
         if ( 'default' !== variant ) {
@@ -260,21 +370,18 @@ export const settings = {
             ...props,
         } );
 
-        const tabs = getTabs( props.attributes );
-
         return (
             <div className={ className } data-tab-active={ tabActive }>
                 <div className={ classnames( 'ghostkit-tabs-buttons', `ghostkit-tabs-buttons-align-${ buttonsAlign }` ) }>
                     {
-                        tabs.map( ( val ) => {
+                        tabsData.map( ( tabData ) => {
                             return (
                                 <RichText.Content
                                     tagName="a"
-                                    data-tab={ val.number }
-                                    href={ `#tab-${ val.number }` }
+                                    href={ `#${ tabData.slug }` }
                                     className="ghostkit-tabs-buttons-item"
-                                    key={ `tab_button_${ val.number }` }
-                                    value={ val.label }
+                                    key={ `tab_button_${ tabData.slug }` }
+                                    value={ tabData.title }
                                 />
                             );
                         } )
@@ -286,6 +393,4 @@ export const settings = {
             </div>
         );
     },
-
-    deprecated: deprecatedArray,
 };
