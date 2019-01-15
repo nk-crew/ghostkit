@@ -46,15 +46,15 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 
 ### Extensions ##
 
-* [**Spacings**](https://ghostkit.io/extensions/spacings/). Easily add spacings in GhostKit and Core blocks
-* [**Display**](https://ghostkit.io/extensions/display/). Show and hide blocks GhostKit and Core blocks on different screen sizes
-* [**Animate on Scroll**](https://ghostkit.io/extensions/animate-on-scroll/). Show with animation GhostKit and Core blocks on page scrolling
+* [**Spacings**](https://ghostkit.io/extensions/spacings/). Easily add spacings in Ghost Kit and Core blocks
+* [**Display**](https://ghostkit.io/extensions/display/). Show and hide blocks Ghost Kit and Core blocks on different screen sizes
+* [**Animate on Scroll**](https://ghostkit.io/extensions/animate-on-scroll/). Show with animation Ghost Kit and Core blocks on page scrolling
 * [**Custom CSS**](https://ghostkit.io/extensions/custom-css/). This extension is available on all pages and let you add custom CSS for the current page
 * [**Customizer**](https://ghostkit.io/extensions/customizer/). This extension is available on all pages and let you change customizer options on the current page
 
 ### Try Ghost Kit PRO Addon ###
 
-[Ghost Kit PRO Addon](https://ghostkit.io/pricing/) extends Ghost Kit functionality and improve you design experience. The list of PRO features:
+[Ghost Kit PRO Addon](https://ghostkit.io/pricing/) extends Ghost Kit functionality and improve your design experience. The list of PRO features:
 
 * 3 icon packs
 * Visual Grid editor
@@ -280,7 +280,7 @@ Available events:
 * added plugin Settings page
 * added Tabs page hash support (old tabs are deprecated, you need to add new Tabs block on the page)
 * added controls to show/hide Pricing Table price/currency/repeat items
-* added `ghostkit` attribute with plugin parameters support for blocks (3rd-party blocks may be extended with GhostKit Extensions)
+* added `ghostkit` attribute with plugin parameters support for blocks (3rd-party blocks may be extended with Ghost Kit Extensions)
 * added :focus styles outline for Button block
 * added [Ghost Kit PRO](https://ghostkit.io/pricing/) addon support
 * added 'inserter' and 'reusable' attributes with 'false' value in inner blocks
@@ -293,7 +293,7 @@ Available events:
 * changed Video block image placeholder only visible until video start playing
 * changed Google Maps data-markers attribute to children blocks for each marker (better extensions possibility)
 * changed column structure (added content wrapper for better extensions possibility)
-* changed Grid Column editor classes (added variants and custom GhostKit unique class support)
+* changed Grid Column editor classes (added variants and custom Ghost Kit unique class support)
 * removed inline toolbar from Tabs & Accordion
 * disabled Spacings inputs autocomplete
 * fixed IE11 Counter Box and Icon Box blocks with top icon and number
