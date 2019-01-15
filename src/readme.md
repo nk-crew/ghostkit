@@ -22,35 +22,35 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 * [Demo Site](https://ghostkit.io/)
 * [GitHub](https://github.com/nk-o/ghostkit)
 
-### Available blocks ###
+### Blocks ###
 
-* **Grid**. Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change. [Preview](https://ghostkit.io/blocks/grid/)
-* **Progress**. Show the progress of your work, skills or earnings.
-* **Button**. Change important links to buttons to get more click rate.
-* **Divider**. Divide your long texts and blocks.
-* **Alert**. Provide contextual feedback messages for user actions.
-* **Icon Box**. Icons are one of the best visual replacement for text descriptions.
-* **Number Box**. Show your progress and rewards using counting numbers.
-* **Accordion**. Toggle the visibility of content across your project.
-* **Tabs**. Separate content on the tabs with titles.
-* **Video**. Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.
-* **Carousel**. Carousel for any type of content – images or other blocks.
-* **Pricing Table**. Sell your products or services and show all features.
-* **Testimonial**. Show how your users love your products and what saying.
-* **Twitter**. Show Twitter feed and user data.
-* **Instagram**. Show Instagram feed and user data.
-* **Google Maps**. Show maps with custom styles, markers and settings.
-* **GitHub Gist**. Embed code parts form GitHub Gist to your site or documentation.
-* **Changelog**. Show the changes log of your product.
+* **Grid**. Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change. [Block Preview](https://ghostkit.io/blocks/grid/)
+* **Progress**. Show the progress of your work, skills or earnings. [Block Preview](https://ghostkit.io/blocks/progress/)
+* **Button**. Change important links to buttons to get more click rate. [Block Preview](https://ghostkit.io/blocks/button/)
+* **Divider**. Divide your long texts and blocks. [Block Preview](https://ghostkit.io/blocks/divider/)
+* **Alert**. Provide contextual feedback messages for user actions. [Block Preview](https://ghostkit.io/blocks/alert/)
+* **Icon Box**. Icons are one of the best visual replacement for text descriptions. [Block Preview](https://ghostkit.io/blocks/icon-box/)
+* **Number Box**. Show your progress and rewards using counting numbers. [Block Preview](https://ghostkit.io/blocks/number-box/)
+* **Accordion**. Toggle the visibility of content across your project. [Block Preview](https://ghostkit.io/blocks/accordion/)
+* **Tabs**. Separate content on the tabs with titles. [Block Preview](https://ghostkit.io/blocks/tabs/)
+* **Video**. Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos. [Block Preview](https://ghostkit.io/blocks/video/)
+* **Carousel**. Carousel for any type of content – images or other blocks. [Block Preview](https://ghostkit.io/blocks/carousel/)
+* **Pricing Table**. Sell your products or services and show all features. [Block Preview](https://ghostkit.io/blocks/pricing-tables/)
+* **Testimonial**. Show how your users love your products and what saying. [Block Preview](https://ghostkit.io/blocks/testimonial/)
+* **Twitter**. Show Twitter feed and user data. [Block Preview](https://ghostkit.io/blocks/twitter/)
+* **Instagram**. Show Instagram feed and user data. [Block Preview](https://ghostkit.io/blocks/instagram/)
+* **Google Maps**. Show maps with custom styles, markers and settings. [Block Preview](https://ghostkit.io/blocks/google-maps/)
+* **GitHub Gist**. Embed code parts form GitHub Gist to your site or documentation. [Block Preview](https://ghostkit.io/blocks/github-gist/)
+* **Changelog**. Show the changes log of your product. [Block Preview](https://ghostkit.io/blocks/changelog/)
 * **Widgetized Area**. Select registered sidebars and put it in any place.
 
-### Available extensions ###
+### Extensions ##
 
-* **Spacings**. Easily add spacings in GhostKit and Core blocks.
-* **Display**. Show and hide blocks GhostKit and Core blocks on different screen sizes.
-* **Animate on Scroll**. Show with animation GhostKit and Core blocks on page scrolling.
-* **Custom CSS**. This extension is available on all pages and let you add custom CSS for the current page.
-* **Customizer**. This extension is available on all pages and let you change customizer options on the current page.
+* **Spacings**. Easily add spacings in GhostKit and Core blocks. [Block Preview](https://ghostkit.io/extensions/spacings/)
+* **Display**. Show and hide blocks GhostKit and Core blocks on different screen sizes. [Block Preview](https://ghostkit.io/extensions/display/)
+* **Animate on Scroll**. Show with animation GhostKit and Core blocks on page scrolling. [Block Preview](https://ghostkit.io/extensions/animate-on-scroll/)
+* **Custom CSS**. This extension is available on all pages and let you add custom CSS for the current page. [Block Preview](https://ghostkit.io/extensions/custom-css/)
+* **Customizer**. This extension is available on all pages and let you change customizer options on the current page. [Block Preview](https://ghostkit.io/extensions/customizer/)
 
 ### Try Ghost Kit PRO Addon ###
 
@@ -65,12 +65,12 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 * Gradient text icons
 * Features list will grow in updates
 
-If you like it - [Go Pro](https://ghostkit.io/pricing/)
+If you like it or if you simply want to help us keep improving Ghost Kit plugin - [Go Pro](https://ghostkit.io/pricing/).
 
 
 ## Installation ##
 
-Make sure you use WordPress 5.0.x. As alternative you need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use Ghost Kit.
+Make sure you use WordPress 5 As alternative you need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use Ghost Kit.
 
 ### Automatic installation ###
 
@@ -268,6 +268,46 @@ Available events:
 20. Blocks Extensions
 
 ## Changelog ##
+
+= 2.0.0 =
+
+* added background option for Grid and Column blocks (+ support image, video and parallax backgrounds with [AWB plugin](https://wordpress.org/plugins/advanced-backgrounds/))
+* added Video block possibility to play videos on mobile devices without open new tab
+* added Video block autoplay & autopause options
+* added Icons to Button block
+* added extendable Icon Picker control with default FontAwesome icons
+* added draggable for Spacing inputs. Now you can change value using mouse and up, down keys
+* added plugin Settings page
+* added Tabs page hash support (old tabs are deprecated, you need to add new Tabs block on the page)
+* added controls to show/hide Pricing Table price/currency/repeat items
+* added `ghostkit` attribute with plugin parameters support for blocks (3rd-party blocks may be extended with GhostKit Extensions)
+* added :focus styles outline for Button block
+* added [Ghost Kit PRO](https://ghostkit.io/pricing/) addon support
+* added 'inserter' and 'reusable' attributes with 'false' value in inner blocks
+* added icon in Ghost Kit blocks category
+* improved Grid block columns and row hovering styles
+* updated overall styles
+  * changed offsets to em
+  * changed changelog badges to solid color
+  * added border-radius to some blocks
+* changed Video block image placeholder only visible until video start playing
+* changed Google Maps data-markers attribute to children blocks for each marker (better extensions possibility)
+* changed column structure (added content wrapper for better extensions possibility)
+* changed Grid Column editor classes (added variants and custom GhostKit unique class support)
+* removed inline toolbar from Tabs & Accordion
+* disabled Spacings inputs autocomplete
+* fixed IE11 Counter Box and Icon Box blocks with top icon and number
+* fixed Tabs block disappearing of tabs when renaming it
+* fixed Button line height in editor
+* fixed Accordion collapse icon size & position in editor
+* fixed Alert, Icon Box & Number Box editor content margins
+* fixed custom className duplicates in most of blocks
+* fixed Grid columns attributes resets to defaults after initial insertion
+* fixed Grid block full width align horizontal scrollbar in editor
+* fixed multiple rows in Grid block editor columns overlapping
+* fixed custom style unique class duplication after block clone
+* fixed inner blocks overlapping in editor Alert, Number Box & Icon Box blocks
+* fixed invisible video in some themes
 
 = 1.6.3 =
 

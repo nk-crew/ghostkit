@@ -1,6 +1,6 @@
 {
   "name": "ghostkit",
-  "title": "GhostKit",
+  "title": "Ghost Kit",
   "description": "Blocks collection and extensions for Gutenberg",
   "license": "GPL-2.0",
   "author": "nK <https://nkdev.info>",
@@ -28,8 +28,8 @@
     "variables": {
       "dist": "dist",
       "plugin_name": "ghostkit",
-      "plugin_title": "GhostKit",
-      "plugin_version": "1.6.3"
+      "plugin_title": "Ghost Kit",
+      "plugin_version": "2.0.0"
     },
     "template_vars": [
       {
