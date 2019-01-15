@@ -24,33 +24,33 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 
 ### Blocks ###
 
-* **Grid**. Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change. [Block Preview](https://ghostkit.io/blocks/grid/)
-* **Progress**. Show the progress of your work, skills or earnings. [Block Preview](https://ghostkit.io/blocks/progress/)
-* **Button**. Change important links to buttons to get more click rate. [Block Preview](https://ghostkit.io/blocks/button/)
-* **Divider**. Divide your long texts and blocks. [Block Preview](https://ghostkit.io/blocks/divider/)
-* **Alert**. Provide contextual feedback messages for user actions. [Block Preview](https://ghostkit.io/blocks/alert/)
-* **Icon Box**. Icons are one of the best visual replacement for text descriptions. [Block Preview](https://ghostkit.io/blocks/icon-box/)
-* **Number Box**. Show your progress and rewards using counting numbers. [Block Preview](https://ghostkit.io/blocks/number-box/)
-* **Accordion**. Toggle the visibility of content across your project. [Block Preview](https://ghostkit.io/blocks/accordion/)
-* **Tabs**. Separate content on the tabs with titles. [Block Preview](https://ghostkit.io/blocks/tabs/)
-* **Video**. Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos. [Block Preview](https://ghostkit.io/blocks/video/)
-* **Carousel**. Carousel for any type of content – images or other blocks. [Block Preview](https://ghostkit.io/blocks/carousel/)
-* **Pricing Table**. Sell your products or services and show all features. [Block Preview](https://ghostkit.io/blocks/pricing-tables/)
-* **Testimonial**. Show how your users love your products and what saying. [Block Preview](https://ghostkit.io/blocks/testimonial/)
-* **Twitter**. Show Twitter feed and user data. [Block Preview](https://ghostkit.io/blocks/twitter/)
-* **Instagram**. Show Instagram feed and user data. [Block Preview](https://ghostkit.io/blocks/instagram/)
-* **Google Maps**. Show maps with custom styles, markers and settings. [Block Preview](https://ghostkit.io/blocks/google-maps/)
-* **GitHub Gist**. Embed code parts form GitHub Gist to your site or documentation. [Block Preview](https://ghostkit.io/blocks/github-gist/)
-* **Changelog**. Show the changes log of your product. [Block Preview](https://ghostkit.io/blocks/changelog/)
-* **Widgetized Area**. Select registered sidebars and put it in any place.
+* [**Grid**](https://ghostkit.io/blocks/grid/). Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change
+* [**Progress**](https://ghostkit.io/blocks/progress/). Show the progress of your work, skills or earnings
+* [**Button**](https://ghostkit.io/blocks/button/). Change important links to buttons to get more click rate
+* [**Divider**](https://ghostkit.io/blocks/divider/). Divide your long texts and blocks
+* [**Alert**](https://ghostkit.io/blocks/alert/). Provide contextual feedback messages for user actions
+* [**Icon Box**](https://ghostkit.io/blocks/icon-box/). Icons are one of the best visual replacement for text descriptions
+* [**Number Box**](https://ghostkit.io/blocks/number-box/). Show your progress and rewards using counting numbers
+* [**Accordion**](https://ghostkit.io/blocks/accordion/). Toggle the visibility of content across your project
+* [**Tabs**](https://ghostkit.io/blocks/tabs/). Separate content on the tabs with titles
+* [**Video**](https://ghostkit.io/blocks/video/). Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos
+* [**Carousel**](https://ghostkit.io/blocks/carousel/). Carousel for any type of content – images or other blocks
+* [**Pricing Table**](https://ghostkit.io/blocks/pricing-tables/). Sell your products or services and show all features
+* [**Testimonial**](https://ghostkit.io/blocks/testimonial/). Show how your users love your products and what saying
+* [**Twitter**](https://ghostkit.io/blocks/twitter/). Show Twitter feed and user data
+* [**Instagram**](https://ghostkit.io/blocks/instagram/). Show Instagram feed and user data
+* [**Google Maps**](https://ghostkit.io/blocks/google-maps/). Show maps with custom styles, markers and settings
+* [**GitHub Gist**](https://ghostkit.io/blocks/github-gist/). Embed code parts form GitHub Gist to your site or documentation
+* [**Changelog**](https://ghostkit.io/blocks/changelog/). Show the changes log of your product
+* **Widgetized Area**. Select registered sidebars and put it in any place
 
 ### Extensions ##
 
-* **Spacings**. Easily add spacings in GhostKit and Core blocks. [Block Preview](https://ghostkit.io/extensions/spacings/)
-* **Display**. Show and hide blocks GhostKit and Core blocks on different screen sizes. [Block Preview](https://ghostkit.io/extensions/display/)
-* **Animate on Scroll**. Show with animation GhostKit and Core blocks on page scrolling. [Block Preview](https://ghostkit.io/extensions/animate-on-scroll/)
-* **Custom CSS**. This extension is available on all pages and let you add custom CSS for the current page. [Block Preview](https://ghostkit.io/extensions/custom-css/)
-* **Customizer**. This extension is available on all pages and let you change customizer options on the current page. [Block Preview](https://ghostkit.io/extensions/customizer/)
+* [**Spacings**](https://ghostkit.io/extensions/spacings/). Easily add spacings in GhostKit and Core blocks
+* [**Display**](https://ghostkit.io/extensions/display/). Show and hide blocks GhostKit and Core blocks on different screen sizes
+* [**Animate on Scroll**](https://ghostkit.io/extensions/animate-on-scroll/). Show with animation GhostKit and Core blocks on page scrolling
+* [**Custom CSS**](https://ghostkit.io/extensions/custom-css/). This extension is available on all pages and let you add custom CSS for the current page
+* [**Customizer**](https://ghostkit.io/extensions/customizer/). This extension is available on all pages and let you change customizer options on the current page
 
 ### Try Ghost Kit PRO Addon ###
 
