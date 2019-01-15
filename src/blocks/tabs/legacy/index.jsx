@@ -203,16 +203,20 @@ export const settings = {
         __( 'tab' ),
         __( 'ghostkit' ),
     ],
+    ghostkit: {
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+            scrollReveal: true,
+        },
+    },
     supports: {
         inserter: false,
         html: false,
         className: false,
         anchor: true,
         align: [ 'wide', 'full' ],
-        ghostkitStyles: true,
-        ghostkitSpacings: true,
-        ghostkitDisplay: true,
-        ghostkitSR: true,
     },
     attributes: {
         variant: {
