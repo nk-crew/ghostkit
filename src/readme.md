@@ -269,6 +269,10 @@ Available events:
 
 ## Changelog ##
 
+= 2.0.1 =
+
+* fixed Tabs Legacy block extensions support
+
 = 2.0.0 =
 
 * added background option for Grid and Column blocks (+ support image, video and parallax backgrounds with [AWB plugin](https://wordpress.org/plugins/advanced-backgrounds/))
