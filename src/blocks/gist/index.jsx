@@ -291,7 +291,6 @@ export const settings = {
     keywords: [
         __( 'github' ),
         __( 'gist' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/github-gist/',

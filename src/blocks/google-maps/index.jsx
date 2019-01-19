@@ -517,7 +517,6 @@ export const settings = {
     keywords: [
         __( 'maps' ),
         __( 'google' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/google-maps/',

@@ -466,7 +466,7 @@ export const settings = {
     keywords: [
         __( 'grid' ),
         __( 'row' ),
-        __( 'ghostkit' ),
+        __( 'columns' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/grid/',

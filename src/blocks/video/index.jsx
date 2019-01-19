@@ -707,7 +707,7 @@ export const settings = {
     keywords: [
         __( 'video' ),
         __( 'youtube' ),
-        __( 'ghostkit' ),
+        __( 'vimeo' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/video/',

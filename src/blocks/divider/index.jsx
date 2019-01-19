@@ -243,7 +243,6 @@ export const settings = {
     keywords: [
         __( 'divider' ),
         __( 'spacer' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/divider/',

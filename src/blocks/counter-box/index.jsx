@@ -207,7 +207,6 @@ export const settings = {
     keywords: [
         __( 'number' ),
         __( 'counter' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/number-box/',

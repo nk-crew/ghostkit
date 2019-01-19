@@ -262,7 +262,6 @@ export const settings = {
     keywords: [
         __( 'pricing' ),
         __( 'table' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/pricing-tables/',

@@ -294,7 +294,6 @@ export const settings = {
     category: 'ghostkit',
     keywords: [
         __( 'instagram' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/instagram/',

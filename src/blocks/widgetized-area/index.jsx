@@ -78,7 +78,6 @@ export const settings = {
     keywords: [
         __( 'widget' ),
         __( 'sidebar' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/widgetized-area/',

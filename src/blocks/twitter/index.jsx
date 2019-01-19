@@ -420,7 +420,6 @@ export const settings = {
     category: 'ghostkit',
     keywords: [
         __( 'twitter' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/twitter/',

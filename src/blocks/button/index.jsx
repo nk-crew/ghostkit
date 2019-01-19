@@ -270,7 +270,6 @@ export const settings = {
     keywords: [
         __( 'btn' ),
         __( 'button' ),
-        __( 'ghostkit' ),
     ],
 
     ghostkit: {

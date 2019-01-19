@@ -98,7 +98,6 @@ export const settings = {
     keywords: [
         __( 'styles' ),
         __( 'css' ),
-        __( 'ghostkit' ),
     ],
     supports: {
         html: false,

@@ -340,8 +340,8 @@ export const settings = {
     category: 'ghostkit',
     keywords: [
         __( 'testimonial' ),
+        __( 'blockquote' ),
         __( 'quote' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/testimonial/',

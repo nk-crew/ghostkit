@@ -241,7 +241,6 @@ export const settings = {
     keywords: [
         __( 'carousel' ),
         __( 'slider' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/carousel/',

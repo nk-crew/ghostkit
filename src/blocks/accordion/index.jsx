@@ -135,8 +135,8 @@ export const settings = {
     category: 'ghostkit',
     keywords: [
         __( 'accordion' ),
-        __( 'tab' ),
-        __( 'ghostkit' ),
+        __( 'collapsible' ),
+        __( 'collapse' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/accordion/',

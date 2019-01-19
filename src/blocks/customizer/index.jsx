@@ -415,7 +415,6 @@ export const settings = {
     keywords: [
         __( 'customizer' ),
         __( 'options' ),
-        __( 'ghostkit' ),
     ],
     supports: {
         html: false,

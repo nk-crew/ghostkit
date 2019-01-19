@@ -185,7 +185,6 @@ export const settings = {
     keywords: [
         __( 'icon' ),
         __( 'icon-box' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/icon-box/',

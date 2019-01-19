@@ -124,7 +124,6 @@ export const settings = {
     keywords: [
         __( 'changelog' ),
         __( 'log' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/changelog/',

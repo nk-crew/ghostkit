@@ -277,7 +277,6 @@ export const settings = {
     keywords: [
         __( 'tabs' ),
         __( 'tab' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/tabs/',

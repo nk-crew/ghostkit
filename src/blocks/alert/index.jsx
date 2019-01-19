@@ -217,7 +217,6 @@ export const settings = {
     keywords: [
         __( 'alert' ),
         __( 'notification' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/alert/',

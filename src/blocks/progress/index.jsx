@@ -272,7 +272,6 @@ export const settings = {
     keywords: [
         __( 'progress' ),
         __( 'bar' ),
-        __( 'ghostkit' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/progress/',
