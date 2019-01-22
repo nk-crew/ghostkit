@@ -73,6 +73,9 @@
 }
 
 // Vertical align.
+.ghostkit-col > .ghostkit-col-content {
+    align-self: flex-start;
+}
 .ghostkit-grid-align-items-center > .ghostkit-col > .ghostkit-col-content {
     align-self: center;
 }
