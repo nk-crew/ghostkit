@@ -14,7 +14,7 @@ export default class ApplyFilters extends Component {
         return (
             applyFilters(
                 name,
-                children,
+                children || '',
                 this.props,
             )
         );
