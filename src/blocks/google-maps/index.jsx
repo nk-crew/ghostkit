@@ -174,6 +174,7 @@ class GoogleMapsBlock extends Component {
             showFullscreenButton,
             optionScrollWheel,
             optionDraggable,
+            gestureHandling,
             style,
             styleCustom,
             markers,
@@ -348,6 +349,36 @@ class GoogleMapsBlock extends Component {
                                     checked={ !! optionDraggable }
                                     onChange={ ( val ) => setAttributes( { optionDraggable: val } ) }
                                 />
+                                { optionScrollWheel || optionDraggable ? (
+                                    <ToggleControl
+                                        label={ ( () => {
+                                            if ( optionScrollWheel && optionDraggable ) {
+                                                return __( 'Better Scroll & Draggable' );
+                                            }
+                                            if ( optionScrollWheel ) {
+                                                return __( 'Better Scroll' );
+                                            }
+                                            if ( optionDraggable ) {
+                                                return __( 'Better Draggable' );
+                                            }
+                                        } )() }
+                                        help={ ( () => {
+                                            if ( optionScrollWheel && optionDraggable ) {
+                                                return __( 'Scroll with pressed Ctrl or ⌘ key to zoom. Draggable with two fingers.' );
+                                            }
+                                            if ( optionScrollWheel ) {
+                                                return __( 'Scroll with pressed Ctrl or ⌘ key to zoom.' );
+                                            }
+                                            if ( optionDraggable ) {
+                                                return __( 'Draggable with two fingers.' );
+                                            }
+                                        } )() }
+                                        checked={ gestureHandling === 'cooperative' }
+                                        onChange={ () => {
+                                            setAttributes( { gestureHandling: gestureHandling === 'greedy' ? 'cooperative' : 'greedy' } );
+                                        } }
+                                    />
+                                ) : '' }
                             </PanelBody>
                             <PanelBody title={ __( 'Style' ) }>
                                 <SelectControl
@@ -450,7 +481,7 @@ class GoogleMapsBlock extends Component {
                                     mapTypeControl: showMapTypeButtons,
                                     streetViewControl: showStreetViewButton,
                                     fullscreenControl: showFullscreenButton,
-                                    scrollwheel: isSelected ? optionScrollWheel : false,
+                                    gestureHandling: 'cooperative',
                                     draggable: optionDraggable,
                                 } }
                                 defaultZoom={ zoom }
@@ -461,7 +492,7 @@ class GoogleMapsBlock extends Component {
                                     mapTypeControl: showMapTypeButtons,
                                     streetViewControl: showStreetViewButton,
                                     fullscreenControl: showFullscreenButton,
-                                    scrollwheel: isSelected ? optionScrollWheel : false,
+                                    gestureHandling: 'cooperative',
                                     draggable: optionDraggable,
                                 } }
                                 onZoomChanged={ debounce( 500, ( val ) => setAttributes( { zoom: val } ) ) }
@@ -574,6 +605,10 @@ export const settings = {
             type: 'boolean',
             default: true,
         },
+        gestureHandling: {
+            type: 'string',
+            default: 'greedy',
+        },
         optionDraggable: {
             type: 'boolean',
             default: true,
@@ -610,6 +645,7 @@ export const settings = {
             showStreetViewButton,
             showFullscreenButton,
             optionScrollWheel,
+            gestureHandling,
             optionDraggable,
             styleCustom,
             markers,
@@ -635,21 +671,27 @@ export const settings = {
             ...props,
         } );
 
+        const attrs = {
+            className: className,
+            style: { minHeight: height },
+            'data-lat': lat,
+            'data-lng': lng,
+            'data-zoom': zoom,
+            'data-show-zoom-buttons': showZoomButtons ? 'true' : 'false',
+            'data-show-map-type-buttons': showMapTypeButtons ? 'true' : 'false',
+            'data-show-street-view-button': showStreetViewButton ? 'true' : 'false',
+            'data-show-fullscreen-button': showFullscreenButton ? 'true' : 'false',
+            'data-option-scroll-wheel': optionScrollWheel ? 'true' : 'false',
+            'data-option-draggable': optionDraggable ? 'true' : 'false',
+            'data-styles': styleCustom,
+        };
+
+        if ( 'greedy' !== gestureHandling ) {
+            attrs[ 'data-gesture-handling' ] = gestureHandling;
+        }
+
         return (
-            <div
-                className={ className }
-                data-lat={ lat }
-                data-lng={ lng }
-                data-zoom={ zoom }
-                data-show-zoom-buttons={ showZoomButtons ? 'true' : 'false' }
-                data-show-map-type-buttons={ showMapTypeButtons ? 'true' : 'false' }
-                data-show-street-view-button={ showStreetViewButton ? 'true' : 'false' }
-                data-show-fullscreen-button={ showFullscreenButton ? 'true' : 'false' }
-                data-option-scroll-wheel={ optionScrollWheel ? 'true' : 'false' }
-                data-option-draggable={ optionDraggable ? 'true' : 'false' }
-                data-styles={ styleCustom }
-                style={ { minHeight: height } }
-            >
+            <div { ...attrs }>
                 { markers ? (
                     markers.map( ( marker, i ) => {
                         const markerData = {

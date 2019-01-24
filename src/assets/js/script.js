@@ -849,7 +849,7 @@ class GhostKitClass {
                             } catch ( e ) { }
                         }
 
-                        const mapObject = new window.GMaps( {
+                        const opts = {
                             div: $this[ 0 ],
                             lat: parseFloat( $this.attr( 'data-lat' ) ),
                             lng: parseFloat( $this.attr( 'data-lng' ) ),
@@ -865,7 +865,18 @@ class GhostKitClass {
                             scrollwheel: 'true' === $this.attr( 'data-option-scroll-wheel' ),
                             draggable: 'true' === $this.attr( 'data-option-draggable' ),
                             styles: styles,
-                        } );
+                        };
+
+                        const mapObject = new window.GMaps( opts );
+
+                        // add gestureHandling
+                        const gestureHandling = $this.attr( 'data-gesture-handling' );
+                        if ( mapObject && 'cooperative' === gestureHandling ) {
+                            mapObject.setOptions( {
+                                gestureHandling,
+                                scrollwheel: opts.scrollwheel ? null : opts.scrollwheel,
+                            } );
+                        }
 
                         if ( markers && markers.length ) {
                             mapObject.addMarkers( markers );
