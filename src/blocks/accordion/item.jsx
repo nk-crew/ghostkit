@@ -64,6 +64,7 @@ class AccordionItemBlock extends Component {
             attributes,
             setAttributes,
             isSelected,
+            isSelectedBlockInRoot,
         } = this.props;
 
         let {
@@ -130,7 +131,7 @@ class AccordionItemBlock extends Component {
                         </button>
 
                         <RemoveButton
-                            show={ isSelected }
+                            show={ isSelectedBlockInRoot }
                             tooltipText={ __( 'Remove accordion item?' ) }
                             onRemove={ () => {
                                 const parentAccordion = this.findParentAccordion( this.props.rootBlock );
@@ -208,10 +209,15 @@ export const settings = {
             const {
                 getBlockHierarchyRootClientId,
                 getBlock,
+                isBlockSelected,
+                hasSelectedInnerBlock,
             } = select( 'core/editor' );
 
+            const { clientId } = ownProps;
+
             return {
-                rootBlock: ownProps.clientId ? getBlock( getBlockHierarchyRootClientId( ownProps.clientId ) ) : null,
+                isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
+                rootBlock: clientId ? getBlock( getBlockHierarchyRootClientId( clientId ) ) : null,
             };
         } ),
         withDispatch( ( dispatch ) => {

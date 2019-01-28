@@ -26,6 +26,10 @@ const {
     InnerBlocks,
 } = wp.editor;
 
+const {
+    withSelect,
+} = wp.data;
+
 /**
  * Returns the layouts configuration for a given number of items.
  *
@@ -51,7 +55,7 @@ class AccordionBlock extends Component {
         const {
             attributes,
             setAttributes,
-            isSelected,
+            isSelectedBlockInRoot,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -113,7 +117,7 @@ class AccordionBlock extends Component {
                         allowedBlocks={ [ 'ghostkit/accordion-item' ] }
                     />
                 </div>
-                { isSelected ? (
+                { isSelectedBlockInRoot ? (
                     <div className="ghostkit-accordion-add-item">
                         <IconButton
                             icon={ 'insert' }
@@ -123,7 +127,7 @@ class AccordionBlock extends Component {
                                 } );
                             } }
                         >
-                            { __( 'Add accordion item' ) }
+                            { __( 'Add Accordion Item' ) }
                         </IconButton>
                     </div>
                 ) : '' }
@@ -174,7 +178,18 @@ export const settings = {
         },
     },
 
-    edit: AccordionBlock,
+    edit: withSelect( ( select, ownProps ) => {
+        const {
+            isBlockSelected,
+            hasSelectedInnerBlock,
+        } = select( 'core/editor' );
+
+        const { clientId } = ownProps;
+
+        return {
+            isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
+        };
+    } )( AccordionBlock ),
 
     save: function( props ) {
         const {
