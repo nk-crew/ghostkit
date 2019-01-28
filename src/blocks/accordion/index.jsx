@@ -16,9 +16,9 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
-    RangeControl,
     SelectControl,
     ToggleControl,
+    IconButton,
 } = wp.components;
 
 const {
@@ -51,6 +51,7 @@ class AccordionBlock extends Component {
         const {
             attributes,
             setAttributes,
+            isSelected,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -98,15 +99,6 @@ class AccordionBlock extends Component {
                         </PanelBody>
                     ) : '' }
                     <PanelBody>
-                        <RangeControl
-                            label={ __( 'Items' ) }
-                            value={ itemsCount }
-                            onChange={ ( value ) => setAttributes( { itemsCount: value } ) }
-                            min={ 1 }
-                            max={ 6 }
-                        />
-                    </PanelBody>
-                    <PanelBody>
                         <ToggleControl
                             label={ __( 'Collapse one item only' ) }
                             checked={ !! collapseOne }
@@ -121,6 +113,20 @@ class AccordionBlock extends Component {
                         allowedBlocks={ [ 'ghostkit/accordion-item' ] }
                     />
                 </div>
+                { isSelected ? (
+                    <div className="ghostkit-accordion-add-item">
+                        <IconButton
+                            icon={ 'insert' }
+                            onClick={ () => {
+                                setAttributes( {
+                                    itemsCount: itemsCount + 1,
+                                } );
+                            } }
+                        >
+                            { __( 'Add accordion item' ) }
+                        </IconButton>
+                    </div>
+                ) : '' }
             </Fragment>
         );
     }

@@ -3,6 +3,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/block-accordion.svg';
+import RemoveButton from '../_components/remove-button.jsx';
 import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
@@ -23,7 +24,41 @@ const {
     RichText,
 } = wp.editor;
 
+const {
+    compose,
+} = wp.compose;
+const {
+    withSelect,
+    withDispatch,
+} = wp.data;
+
 class AccordionItemBlock extends Component {
+    constructor() {
+        super( ...arguments );
+
+        this.findParentAccordion = this.findParentAccordion.bind( this );
+    }
+
+    findParentAccordion( rootBlock ) {
+        const {
+            block,
+        } = this.props;
+
+        let result = false;
+
+        if ( rootBlock.innerBlocks && rootBlock.innerBlocks.length ) {
+            rootBlock.innerBlocks.forEach( ( item ) => {
+                if ( ! result && item.clientId === block.clientId ) {
+                    result = rootBlock;
+                } else if ( ! result ) {
+                    result = this.findParentAccordion( item );
+                }
+            } );
+        }
+
+        return result;
+    }
+
     render() {
         const {
             attributes,
@@ -93,6 +128,29 @@ class AccordionItemBlock extends Component {
                         >
                             <span className="fas fa-angle-right" />
                         </button>
+
+                        <RemoveButton
+                            show={ isSelected }
+                            tooltipText={ __( 'Remove accordion item?' ) }
+                            onRemove={ () => {
+                                const parentAccordion = this.findParentAccordion( this.props.rootBlock );
+                                if ( parentAccordion && parentAccordion.clientId ) {
+                                    this.props.removeBlock( this.props.clientId );
+
+                                    if ( parentAccordion.innerBlocks.length > 1 ) {
+                                        this.props.updateBlockAttributes( parentAccordion.clientId, {
+                                            itemsCount: parentAccordion.innerBlocks.length - 1,
+                                        } );
+                                    } else {
+                                        this.props.removeBlock( parentAccordion.clientId );
+                                    }
+                                }
+                            } }
+                            style={ {
+                                top: '50%',
+                                marginTop: -11,
+                            } }
+                        />
                     </div>
                     <div className="ghostkit-accordion-item-content"><InnerBlocks templateLock={ false } /></div>
                 </div>
@@ -145,7 +203,29 @@ export const settings = {
         },
     },
 
-    edit: AccordionItemBlock,
+    edit: compose( [
+        withSelect( ( select, ownProps ) => {
+            const {
+                getBlockHierarchyRootClientId,
+                getBlock,
+            } = select( 'core/editor' );
+
+            return {
+                rootBlock: ownProps.clientId ? getBlock( getBlockHierarchyRootClientId( ownProps.clientId ) ) : null,
+            };
+        } ),
+        withDispatch( ( dispatch ) => {
+            const {
+                updateBlockAttributes,
+                removeBlock,
+            } = dispatch( 'core/editor' );
+
+            return {
+                updateBlockAttributes,
+                removeBlock,
+            };
+        } ),
+    ] )( AccordionItemBlock ),
 
     save: function( { attributes } ) {
         const {
