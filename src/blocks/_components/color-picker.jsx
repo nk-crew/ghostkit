@@ -1,5 +1,8 @@
 import classnames from 'classnames/dedupe';
 
+// Import CSS
+import './color-picker.scss';
+
 const WPColorPicker = wp.components.ColorPicker;
 
 const { Component } = wp.element;

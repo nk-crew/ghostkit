@@ -1,0 +1,63 @@
+@import "../variables";
+
+.ghostkit-component-icon-picker-wrapper {
+    > .components-base-control__field {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+    }
+}
+.ghostkit-component-icon-picker-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    background: $light-gray-200;
+    border: 1px solid $light-gray-200;
+    border-radius: 4px;
+    transition: .15s background-color, .15s box-shadow, .15s border-color;
+
+    &:hover {
+        background-color: #fff;
+        border-color: $light-gray-500;
+        box-shadow: 0 2px 7px 0 $light-gray-500;
+    }
+
+    &.ghostkit-component-icon-picker-button-active {
+        background-color: #fff;
+        border-color: $color-primary;
+    }
+}
+.ghostkit-component-icon-picker {
+    padding: 15px;
+
+    .ghostkit-component-icon-picker-list-wrap {
+        > span {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    }
+    .ghostkit-component-icon-picker-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: -10px;
+        margin-left: -10px;
+
+        .ghostkit-component-icon-picker-button {
+            width: calc(25% - 10px);
+            max-width: calc(25% - 10px);
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+    }
+}
+.ghostkit-component-icon-picker-preview-clickable {
+    cursor: pointer;
+}

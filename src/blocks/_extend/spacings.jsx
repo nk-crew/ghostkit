@@ -1,6 +1,9 @@
 // External Dependencies.
 import deepAssign from 'deep-assign';
 
+// Import CSS
+import './spacings.scss';
+
 // Internal Dependencies.
 import Logo from '../_icons/ghostkit.svg';
 

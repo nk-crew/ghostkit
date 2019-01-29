@@ -1,5 +1,8 @@
 import classnames from 'classnames/dedupe';
 
+// Import CSS
+import './icon-picker.scss';
+
 const {
     Component,
 } = wp.element;

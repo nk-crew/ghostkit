@@ -1,3 +1,6 @@
+// Import CSS
+import './scroll-reveal.scss';
+
 import IconArrowUp from '../_icons/extension-sr-arrow-up.svg';
 import IconArrowRight from '../_icons/extension-sr-arrow-right.svg';
 import IconArrowDown from '../_icons/extension-sr-arrow-down.svg';
