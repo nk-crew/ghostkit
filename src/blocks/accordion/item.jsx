@@ -216,6 +216,7 @@ export const settings = {
             const { clientId } = ownProps;
 
             return {
+                block: getBlock( clientId ),
                 isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
                 rootBlock: clientId ? getBlock( getBlockHierarchyRootClientId( clientId ) ) : null,
             };
