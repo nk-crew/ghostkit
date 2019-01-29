@@ -25,6 +25,7 @@ const {
     Button,
     ButtonGroup,
     IconButton,
+    Tooltip,
 } = wp.components;
 
 const {
@@ -180,12 +181,14 @@ class ButtonBlock extends Component {
                         allowedBlocks={ [ 'ghostkit/button-single' ] }
                     />
                     { isSelectedBlockInRoot ? (
-                        <IconButton
-                            icon={ 'insert' }
-                            onClick={ () => {
-                                insertButtonSingle();
-                            } }
-                        />
+                        <Tooltip text={ __( 'Add Button' ) }>
+                            <IconButton
+                                icon={ 'insert' }
+                                onClick={ () => {
+                                    insertButtonSingle();
+                                } }
+                            />
+                        </Tooltip>
                     ) : '' }
                 </div>
             </Fragment>
