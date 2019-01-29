@@ -6,6 +6,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import elementIcon from '../_icons/block-accordion.svg';
+import { settings as accordionItemSettings } from './item.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -27,7 +28,15 @@ const {
 } = wp.editor;
 
 const {
+    createBlock,
+} = wp.blocks;
+
+const {
+    compose,
+} = wp.compose;
+const {
     withSelect,
+    withDispatch,
 } = wp.data;
 
 /**
@@ -56,6 +65,7 @@ class AccordionBlock extends Component {
             attributes,
             setAttributes,
             isSelectedBlockInRoot,
+            insertAccordionItem,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -63,7 +73,6 @@ class AccordionBlock extends Component {
         const {
             ghostkitClassname,
             variant,
-            itemsCount,
             collapseOne,
         } = attributes;
 
@@ -113,7 +122,6 @@ class AccordionBlock extends Component {
                 <div className={ className }>
                     <InnerBlocks
                         template={ getTabsTemplate( attributes ) }
-                        templateLock="all"
                         allowedBlocks={ [ 'ghostkit/accordion-item' ] }
                     />
                 </div>
@@ -122,9 +130,7 @@ class AccordionBlock extends Component {
                         <IconButton
                             icon={ 'insert' }
                             onClick={ () => {
-                                setAttributes( {
-                                    itemsCount: itemsCount + 1,
-                                } );
+                                insertAccordionItem();
                             } }
                         >
                             { __( 'Add Accordion Item' ) }
@@ -178,18 +184,33 @@ export const settings = {
         },
     },
 
-    edit: withSelect( ( select, ownProps ) => {
-        const {
-            isBlockSelected,
-            hasSelectedInnerBlock,
-        } = select( 'core/editor' );
+    edit: compose( [
+        withSelect( ( select, ownProps ) => {
+            const {
+                isBlockSelected,
+                hasSelectedInnerBlock,
+            } = select( 'core/editor' );
 
-        const { clientId } = ownProps;
+            const { clientId } = ownProps;
 
-        return {
-            isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
-        };
-    } )( AccordionBlock ),
+            return {
+                isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
+            };
+        } ),
+        withDispatch( ( dispatch, ownProps ) => {
+            const {
+                insertBlock,
+            } = dispatch( 'core/editor' );
+
+            const { clientId } = ownProps;
+
+            return {
+                insertAccordionItem() {
+                    insertBlock( createBlock( 'ghostkit/accordion-item', accordionItemSettings ), undefined, clientId );
+                },
+            };
+        } ),
+    ] )( AccordionBlock ),
 
     save: function( props ) {
         const {

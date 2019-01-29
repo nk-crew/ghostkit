@@ -138,11 +138,7 @@ class AccordionItemBlock extends Component {
                                 if ( parentAccordion && parentAccordion.clientId ) {
                                     this.props.removeBlock( this.props.clientId );
 
-                                    if ( parentAccordion.innerBlocks.length > 1 ) {
-                                        this.props.updateBlockAttributes( parentAccordion.clientId, {
-                                            itemsCount: parentAccordion.innerBlocks.length - 1,
-                                        } );
-                                    } else {
+                                    if ( parentAccordion.innerBlocks.length <= 1 ) {
                                         this.props.removeBlock( parentAccordion.clientId );
                                     }
                                 }
