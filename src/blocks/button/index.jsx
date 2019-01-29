@@ -8,6 +8,7 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import elementIcon from '../_icons/block-button.svg';
 import deprecatedArray from './deprecated.jsx';
+import { settings as buttonSingleSettings } from './button.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -23,7 +24,7 @@ const {
     BaseControl,
     Button,
     ButtonGroup,
-    RangeControl,
+    IconButton,
 } = wp.components;
 
 const {
@@ -32,6 +33,18 @@ const {
     BlockControls,
     BlockAlignmentToolbar,
 } = wp.editor;
+
+const {
+    createBlock,
+} = wp.blocks;
+
+const {
+    compose,
+} = wp.compose;
+const {
+    withSelect,
+    withDispatch,
+} = wp.data;
 
 class ButtonBlock extends Component {
     /**
@@ -63,6 +76,8 @@ class ButtonBlock extends Component {
         const {
             attributes,
             setAttributes,
+            isSelectedBlockInRoot,
+            insertButtonSingle,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -71,7 +86,6 @@ class ButtonBlock extends Component {
             ghostkitClassname,
             variant,
             align,
-            count,
             gap,
         } = attributes;
 
@@ -120,15 +134,6 @@ class ButtonBlock extends Component {
                         </PanelBody>
                     ) : '' }
                     <PanelBody>
-                        <RangeControl
-                            label={ __( 'Buttons' ) }
-                            value={ count }
-                            onChange={ ( value ) => setAttributes( { count: value } ) }
-                            min={ 1 }
-                            max={ 5 }
-                        />
-                    </PanelBody>
-                    <PanelBody>
                         <BaseControl label={ __( 'Gap' ) }>
                             <ButtonGroup>
                                 {
@@ -170,11 +175,16 @@ class ButtonBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
-                    { count > 0 ? (
-                        <InnerBlocks
-                            template={ this.getInnerBlocksTemplate() }
-                            templateLock="all"
-                            allowedBlocks={ [ 'ghostkit/button-single' ] }
+                    <InnerBlocks
+                        template={ this.getInnerBlocksTemplate() }
+                        allowedBlocks={ [ 'ghostkit/button-single' ] }
+                    />
+                    { isSelectedBlockInRoot ? (
+                        <IconButton
+                            icon={ 'insert' }
+                            onClick={ () => {
+                                insertButtonSingle();
+                            } }
                         />
                     ) : '' }
                 </div>
@@ -290,7 +300,33 @@ export const settings = {
 
     attributes: blockAttributes,
 
-    edit: ButtonBlock,
+    edit: compose( [
+        withSelect( ( select, ownProps ) => {
+            const {
+                isBlockSelected,
+                hasSelectedInnerBlock,
+            } = select( 'core/editor' );
+
+            const { clientId } = ownProps;
+
+            return {
+                isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
+            };
+        } ),
+        withDispatch( ( dispatch, ownProps ) => {
+            const {
+                insertBlock,
+            } = dispatch( 'core/editor' );
+
+            const { clientId } = ownProps;
+
+            return {
+                insertButtonSingle() {
+                    insertBlock( createBlock( 'ghostkit/button-single', buttonSingleSettings ), undefined, clientId );
+                },
+            };
+        } ),
+    ] )( ButtonBlock ),
 
     save( props ) {
         const {

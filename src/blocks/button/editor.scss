@@ -57,6 +57,27 @@
     .blocks-rich-text__tinymce {
         cursor: text;
     }
+
+    // add new button
+    .components-icon-button {
+        align-self: center;
+
+        &:not(:disabled):not([aria-disabled="true"]):not(.is-default):hover {
+            box-shadow: none;
+        }
+    }
+}
+
+// hide drag handler from single buttons
+// rotate move buttons
+[data-type="ghostkit/button-single"] > .editor-block-mover {
+    > .editor-block-mover__control-drag-handle {
+        display: none;
+    }
+    > .components-button:first-child svg,
+    > .editor-block-mover__control-drag-handle + .components-button svg {
+        transform: rotate(-90deg);
+    }
 }
 
 .ghostkit-button__inline-link {
