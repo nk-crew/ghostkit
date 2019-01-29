@@ -277,9 +277,18 @@ class ButtonSingleBlock extends Component {
                 <div>
                     <span className={ className }>
                         { icon && iconPosition === 'left' ? (
-                            <span className="ghostkit-button-icon ghostkit-button-icon-left">
-                                <IconPicker.Preview name={ icon } />
-                            </span>
+                            <div className="ghostkit-button-icon ghostkit-button-icon-left">
+                                <IconPicker.Dropdown
+                                    onChange={ ( value ) => setAttributes( { icon: value } ) }
+                                    value={ icon }
+                                    renderToggle={ ( { onToggle } ) => (
+                                        <IconPicker.Preview
+                                            onClick={ onToggle }
+                                            name={ icon }
+                                        />
+                                    ) }
+                                />
+                            </div>
                         ) : '' }
                         <RichText
                             tagName="span"

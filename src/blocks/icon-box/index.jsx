@@ -160,7 +160,16 @@ class IconBoxBlock extends Component {
                 <div className={ className }>
                     { icon ? (
                         <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }>
-                            <IconPicker.Preview name={ icon } />
+                            <IconPicker.Dropdown
+                                onChange={ ( value ) => setAttributes( { icon: value } ) }
+                                value={ icon }
+                                renderToggle={ ( { onToggle } ) => (
+                                    <IconPicker.Preview
+                                        onClick={ onToggle }
+                                        name={ icon }
+                                    />
+                                ) }
+                            />
                         </div>
                     ) : '' }
                     <div className="ghostkit-icon-box-content">

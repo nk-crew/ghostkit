@@ -561,12 +561,16 @@ class VideoBlockEdit extends Component {
                     ) : '' }
                     { iconPlay ? (
                         <div className="ghostkit-video-play-icon">
-                            <IconPicker.Preview name={ iconPlay } />
-                        </div>
-                    ) : '' }
-                    { iconLoading ? (
-                        <div className="ghostkit-video-loading-icon">
-                            <IconPicker.Preview name={ iconLoading } />
+                            <IconPicker.Dropdown
+                                onChange={ ( value ) => setAttributes( { iconPlay: value } ) }
+                                value={ iconPlay }
+                                renderToggle={ ( { onToggle } ) => (
+                                    <IconPicker.Preview
+                                        onClick={ onToggle }
+                                        name={ iconPlay }
+                                    />
+                                ) }
+                            />
                         </div>
                     ) : '' }
                 </div>

@@ -40,17 +40,16 @@ class Icon extends Component {
         } = this.props;
 
         return (
-            <button
+            <IconPicker.Preview
                 className={ classnames( 'ghostkit-component-icon-picker-button', active ? 'ghostkit-component-icon-picker-button-active' : '' ) }
                 onClick={ onClick }
-            >
-                <IconPicker.Preview data={ iconData } />
-            </button>
+                data={ iconData }
+            />
         );
     }
 }
 
-export default class IconPicker extends Component {
+class IconPickerDropdown extends Component {
     constructor() {
         super( ...arguments );
 
@@ -61,91 +60,133 @@ export default class IconPicker extends Component {
 
     render() {
         const {
+            label,
+            className,
+            onChange,
+            value,
+            renderToggle,
+        } = this.props;
+
+        const dropdown = (
+            <Dropdown
+                className={ className }
+                renderToggle={ renderToggle }
+                renderContent={ () => {
+                    const result = [];
+
+                    eachIcons( ( iconsData ) => {
+                        result.push( <span>{ iconsData.name }</span> );
+                        result.push(
+                            <div className="ghostkit-component-icon-picker-list">
+                                { iconsData.icons.map( ( iconData ) => {
+                                    if (
+                                        ! this.state.search ||
+                                        ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
+                                    ) {
+                                        return (
+                                            <Icon
+                                                key={ iconData.class }
+                                                active={ iconData.class === value }
+                                                iconData={ iconData }
+                                                onClick={ () => {
+                                                    onChange( iconData.class );
+                                                } }
+                                            />
+                                        );
+                                    }
+
+                                    return '';
+                                } ) }
+                            </div>
+                        );
+                    } );
+
+                    return (
+                        <div className="ghostkit-component-icon-picker">
+                            <div>
+                                <TextControl
+                                    label={ __( 'Icon class' ) }
+                                    value={ value }
+                                    onChange={ ( newClass ) => {
+                                        onChange( newClass );
+                                    } }
+                                    placeholder={ __( 'Icon class' ) }
+                                />
+                                <TextControl
+                                    label={ __( 'Search icon' ) }
+                                    value={ this.state.search }
+                                    onChange={ ( searchVal ) => this.setState( { search: searchVal } ) }
+                                    placeholder={ __( 'Type to search...' ) }
+                                />
+                            </div>
+                            <div className="ghostkit-component-icon-picker-list-wrap">
+                                { result }
+                            </div>
+                        </div>
+                    );
+                } }
+            />
+        );
+
+        return label ? (
+            <BaseControl
+                label={ label }
+                className={ className }
+            >
+                { dropdown }
+            </BaseControl>
+        ) : (
+            dropdown
+        );
+    }
+}
+
+export default class IconPicker extends Component {
+    render() {
+        const {
             value,
             onChange,
             label,
         } = this.props;
 
         return (
-            <BaseControl
+            <IconPicker.Dropdown
                 label={ label }
                 className="ghostkit-component-icon-picker-wrapper"
-            >
-                <Dropdown
-                    renderToggle={ ( { isOpen, onToggle } ) => (
-                        <Tooltip text={ __( 'Custom color picker' ) }>
-                            <button
-                                type="button"
-                                aria-expanded={ isOpen }
-                                onClick={ onToggle }
-                                className="ghostkit-component-icon-picker-button"
-                            >
-                                <IconPicker.Preview name={ value } />
-                            </button>
-                        </Tooltip>
-                    ) }
-                    renderContent={ () => {
-                        const result = [];
-
-                        eachIcons( ( iconsData ) => {
-                            result.push( <span>{ iconsData.name }</span> );
-                            result.push(
-                                <div className="ghostkit-component-icon-picker-list">
-                                    { iconsData.icons.map( ( iconData ) => {
-                                        if (
-                                            ! this.state.search ||
-                                            ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
-                                        ) {
-                                            return (
-                                                <Icon
-                                                    key={ iconData.class }
-                                                    active={ iconData.class === value }
-                                                    iconData={ iconData }
-                                                    onClick={ () => {
-                                                        onChange( iconData.class );
-                                                    } }
-                                                />
-                                            );
-                                        }
-
-                                        return '';
-                                    } ) }
-                                </div>
-                            );
-                        } );
-
-                        return (
-                            <div className="ghostkit-component-icon-picker">
-                                <div>
-                                    <TextControl
-                                        label={ __( 'Icon class' ) }
-                                        value={ value }
-                                        onChange={ ( newClass ) => {
-                                            onChange( newClass );
-                                        } }
-                                        placeholder={ __( 'Icon class' ) }
-                                    />
-                                    <TextControl
-                                        label={ __( 'Search icon' ) }
-                                        value={ this.state.search }
-                                        onChange={ ( searchVal ) => this.setState( { search: searchVal } ) }
-                                        placeholder={ __( 'Type to search...' ) }
-                                    />
-                                </div>
-                                <div className="ghostkit-component-icon-picker-list-wrap">
-                                    { result }
-                                </div>
-                            </div>
-                        );
-                    } }
-                />
-            </BaseControl>
+                onChange={ onChange }
+                value={ value }
+                renderToggle={ ( { isOpen, onToggle } ) => (
+                    <Tooltip text={ __( 'Icon Picker' ) }>
+                        <IconPicker.Preview
+                            className="ghostkit-component-icon-picker-button"
+                            aria-expanded={ isOpen }
+                            onClick={ onToggle }
+                            name={ value }
+                            alwaysRender={ true }
+                        />
+                    </Tooltip>
+                ) }
+            />
         );
     }
 }
 
+// dropdown
+IconPicker.Dropdown = IconPickerDropdown;
+
 // preview icon.
-IconPicker.Preview = ( { data, name } ) => {
+IconPicker.Preview = ( props ) => {
+    const {
+        onClick,
+        className,
+        alwaysRender = false,
+    } = props;
+
+    let {
+        data,
+        name,
+    } = props;
+
     if ( ! data && name ) {
         eachIcons( ( iconsData ) => {
             iconsData.icons.forEach( ( iconData ) => {
@@ -160,13 +201,25 @@ IconPicker.Preview = ( { data, name } ) => {
         } );
     }
 
+    let result = '';
+
     if ( data && data.preview ) {
-        return <span dangerouslySetInnerHTML={ { __html: data.preview } }></span>;
+        result = <span dangerouslySetInnerHTML={ { __html: data.preview } }></span>;
     } else if ( name || ( data && data.class ) ) {
-        return <IconPicker.Render name={ name || data.class } />;
+        result = <IconPicker.Render name={ name || data.class } />;
     }
 
-    return '';
+    return ( result || alwaysRender ? (
+        <span
+            className={ classnames( className, 'ghostkit-component-icon-picker-preview', onClick ? 'ghostkit-component-icon-picker-preview-clickable' : '' ) }
+            onClick={ onClick }
+            onKeyPress={ () => {} }
+            role="button"
+            tabIndex={ 0 }
+        >
+            { result }
+        </span>
+    ) : '' );
 };
 
 // render icon.

@@ -224,7 +224,16 @@ class DividerBlock extends Component {
                 <div className={ className }>
                     { icon ? (
                         <div className="ghostkit-divider-icon">
-                            <IconPicker.Preview name={ icon } />
+                            <IconPicker.Dropdown
+                                onChange={ ( value ) => setAttributes( { icon: value } ) }
+                                value={ icon }
+                                renderToggle={ ( { onToggle } ) => (
+                                    <IconPicker.Preview
+                                        onClick={ onToggle }
+                                        name={ icon }
+                                    />
+                                ) }
+                            />
                         </div>
                     ) : '' }
                 </div>
