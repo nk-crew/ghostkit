@@ -10,20 +10,6 @@ import deprecatedArray from './deprecated.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 import ColorPicker from '../_components/color-picker.jsx';
 
-// layout icons.
-import IconLayout12 from './icons/layout-12.svg';
-import IconLayout66 from './icons/layout-6-6.svg';
-import IconLayout57 from './icons/layout-5-7.svg';
-import IconLayout75 from './icons/layout-7-5.svg';
-import IconLayout444 from './icons/layout-4-4-4.svg';
-import IconLayout336 from './icons/layout-3-3-6.svg';
-import IconLayout363 from './icons/layout-3-6-3.svg';
-import IconLayout633 from './icons/layout-6-3-3.svg';
-import IconLayout282 from './icons/layout-2-8-2.svg';
-import IconLayout3333 from './icons/layout-3-3-3-3.svg';
-import IconLayoutaaaaa from './icons/layout-a-a-a-a-a.svg';
-import IconLayout222222 from './icons/layout-2-2-2-2-2-2.svg';
-
 import IconVerticalTop from './icons/vertical-top.svg';
 import IconVerticalCenter from './icons/vertical-center.svg';
 import IconVerticalBottom from './icons/vertical-bottom.svg';
@@ -58,6 +44,7 @@ const {
     PanelBody,
     RangeControl,
     SelectControl,
+    Placeholder,
     Toolbar,
 } = wp.components;
 
@@ -77,6 +64,8 @@ class GridBlock extends Component {
 
         this.getColumnsTemplate = this.getColumnsTemplate.bind( this );
         this.onLayoutSelect = this.onLayoutSelect.bind( this );
+        this.getColumnsFromLayout = this.getColumnsFromLayout.bind( this );
+        this.getLayoutsSelector = this.getLayoutsSelector.bind( this );
     }
 
     componentDidUpdate() {
@@ -91,7 +80,7 @@ class GridBlock extends Component {
 
         // update columns number
         if ( this.state.selectedLayout ) {
-            const columnsData = this.state.selectedLayout.split( '-' );
+            const columnsData = this.getColumnsFromLayout( this.state.selectedLayout );
             columns = columnsData.length;
 
             setAttributes( {
@@ -120,41 +109,18 @@ class GridBlock extends Component {
 
         const result = [];
 
+        // create columns from selected layout.
         if ( columns < 1 && this.state.selectedLayout ) {
-            const columnsData = this.state.selectedLayout.split( '-' );
+            const columnsData = this.getColumnsFromLayout( this.state.selectedLayout );
             columns = columnsData.length;
 
-            columnsData.forEach( ( col ) => {
-                const colAttrs = {
-                    size: col === 'a' ? 'auto' : col,
-                };
-
-                // responsive.
-                if ( columnsData.length === 2 ) {
-                    colAttrs.md_size = '12';
-                }
-                if ( columnsData.length === 3 ) {
-                    colAttrs.lg_size = '12';
-                }
-                if ( columnsData.length === 4 ) {
-                    colAttrs.md_size = '12';
-                    colAttrs.lg_size = '6';
-                }
-                if ( columnsData.length === 5 ) {
-                    colAttrs.sm_size = '12';
-                    colAttrs.md_size = '5';
-                    colAttrs.lg_size = '4';
-                }
-                if ( columnsData.length === 6 ) {
-                    colAttrs.sm_size = '6';
-                    colAttrs.md_size = '4';
-                    colAttrs.lg_size = '3';
-                }
-
+            columnsData.forEach( ( colAttrs ) => {
                 result.push( [ 'ghostkit/grid-column', colAttrs, [
-                    [ 'core/paragraph', { content: 'Column ' + ( col === 'a' ? 'Auto' : col ) } ],
+                    [ 'core/paragraph', { content: 'Column ' + ( colAttrs.size === 'auto' ? 'Auto' : colAttrs.size ) } ],
                 ] ] );
             } );
+
+        // create columns template from columns count.
         } else {
             for ( let k = 1; k <= columns; k++ ) {
                 result.push( [ 'ghostkit/grid-column' ] );
@@ -162,6 +128,107 @@ class GridBlock extends Component {
         }
 
         return result;
+    }
+
+    /**
+     * Get columns sizes array from layout string
+     *
+     * @param {string} layout - layout data. Example: `3-6-3`
+     *
+     * @return {array}.
+     */
+    getColumnsFromLayout( layout ) {
+        const result = [];
+        const columnsData = layout.split( '-' );
+
+        columnsData.forEach( ( col ) => {
+            const colAttrs = {
+                size: col === 'a' ? 'auto' : col,
+            };
+
+            // responsive.
+            if ( columnsData.length === 2 ) {
+                colAttrs.md_size = '12';
+            }
+            if ( columnsData.length === 3 ) {
+                colAttrs.lg_size = '12';
+            }
+            if ( columnsData.length === 4 ) {
+                colAttrs.md_size = '12';
+                colAttrs.lg_size = '6';
+            }
+            if ( columnsData.length === 5 ) {
+                colAttrs.sm_size = '12';
+                colAttrs.md_size = '5';
+                colAttrs.lg_size = '4';
+            }
+            if ( columnsData.length === 6 ) {
+                colAttrs.sm_size = '6';
+                colAttrs.md_size = '4';
+                colAttrs.lg_size = '3';
+            }
+
+            result.push( colAttrs );
+        } );
+
+        return result;
+    }
+
+    /**
+     * Layouts selector when no columns selected.
+     *
+     * @return {jsx}.
+     */
+    getLayoutsSelector() {
+        let layouts = [
+            '12',
+            '6-6',
+            '4-4-4',
+            '3-3-3-3',
+
+            '5-7',
+            '7-5',
+            '3-3-6',
+            '3-6-3',
+
+            '6-3-3',
+            '2-8-2',
+            'a-a-a-a-a',
+            '2-2-2-2-2-2',
+        ];
+        layouts = applyFilters( 'ghostkit.editor.grid.layouts', layouts, this.props );
+
+        return (
+            <Placeholder
+                icon={ getIcon( 'block-grid', true ) }
+                label={ __( 'Grid' ) }
+                className="ghostkit-select-layout"
+            >
+                <em>{ __( 'Select one layout to get started.' ) }</em>
+                <div className="ghostkit-grid-layout-preview">
+                    { layouts.map( ( layout ) => {
+                        const columnsData = this.getColumnsFromLayout( layout );
+
+                        return (
+                            <button
+                                key={ `layout-${ layout }` }
+                                className="ghostkit-grid-layout-preview-btn"
+                                onClick={ () => this.onLayoutSelect( layout ) }
+                            >
+                                { columnsData.map( ( colAttrs, i ) => {
+                                    return (
+                                        <div
+                                            key={ `layout-${ layout }-col-${ i }` }
+                                            className={ classnames( 'ghostkit-col', `ghostkit-col-${ colAttrs.size }` ) }
+                                        />
+                                    );
+                                } ) }
+                            </button>
+                        );
+                    } ) }
+                </div>
+            </Placeholder>
+        );
     }
 
     /**
@@ -429,27 +496,7 @@ class GridBlock extends Component {
                                 allowedBlocks={ [ 'ghostkit/grid-column' ] }
                             />
                         </Fragment>
-                    ) : (
-                        <div className="ghostkit-select-layout">
-                            <div>
-                                <div className="ghostkit-select-layout-title">{ __( 'Select Layout' ) }</div>
-                                <button onClick={ () => this.onLayoutSelect( '12' ) }><IconLayout12 /></button>
-                                <button onClick={ () => this.onLayoutSelect( '6-6' ) }><IconLayout66 /></button>
-                                <button onClick={ () => this.onLayoutSelect( '4-4-4' ) }><IconLayout444 /></button>
-                                <button onClick={ () => this.onLayoutSelect( '3-3-3-3' ) }><IconLayout3333 /></button>
-
-                                <button onClick={ () => this.onLayoutSelect( '5-7' ) }><IconLayout57 /></button>
-                                <button onClick={ () => this.onLayoutSelect( '7-5' ) }><IconLayout75 /></button>
-                                <button onClick={ () => this.onLayoutSelect( '3-3-6' ) }><IconLayout336 /></button>
-                                <button onClick={ () => this.onLayoutSelect( '3-6-3' ) }><IconLayout363 /></button>
-
-                                <button onClick={ () => this.onLayoutSelect( '6-3-3' ) }><IconLayout633 /></button>
-                                <button onClick={ () => this.onLayoutSelect( '2-8-2' ) }><IconLayout282 /></button>
-                                <button onClick={ () => this.onLayoutSelect( 'a-a-a-a-a' ) }><IconLayoutaaaaa /></button>
-                                <button onClick={ () => this.onLayoutSelect( '2-2-2-2-2-2' ) }><IconLayout222222 /></button>
-                            </div>
-                        </div>
-                    ) }
+                    ) : this.getLayoutsSelector() }
                 </div>
             </Fragment>
         );

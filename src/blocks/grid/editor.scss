@@ -134,48 +134,54 @@
 }
 
 // Layouts selector.
-.ghostkit-grid .ghostkit-select-layout {
-    position: relative;
+.ghostkit-select-layout {
+    padding: 25px;
 
-    &::after {
-        content: "";
-        position: absolute;
-        display: block;
-        top: -15px;
-        right: -29px;
-        bottom: -15px;
-        left: -29px;
-        border: 1px solid $light-gray-400;
-
-        .is-hovered &,
-        .is-selected & {
-            content: none;
-        }
+    .components-placeholder__fieldset > em {
+        margin-bottom: 25px;
     }
 
-    > div {
-        max-width: 450px;
-        margin: 0 auto;
-        text-align: center;
-    }
+    .ghostkit-grid-layout-preview {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-right: -7px;
+        margin-left: -7px;
 
-    .ghostkit-select-layout-title {
-        margin-bottom: 15px;
-        font-weight: 600;
-    }
+        .ghostkit-grid-layout-preview-btn {
+            display: flex;
+            flex-wrap: wrap;
+            width: 85px;
+            padding: 0;
+            margin-right: 7px;
+            margin-bottom: 14px;
+            margin-left: 7px;
+            overflow: hidden;
+            cursor: pointer;
+            background: none;
+            border: 2px solid rgba($color-brand-3, .75);
+            border-radius: 4px;
+            transition: .15s border-color, .15s background-color;
 
-    button {
-        padding: 5px;
-        padding-bottom: 0;
-        cursor: pointer;
-        background: none;
-        border: none;
-        opacity: .5;
-        transition: .15s opacity ease;
+            .ghostkit-col {
+                height: 40px;
+                border-right: 2px solid rgba($color-brand-3, .75);
+                transition: .15s border-color;
 
-        &:hover,
-        &:focus {
-            opacity: 1;
+                &:last-of-type {
+                    border-right: none;
+                }
+            }
+
+            &:hover,
+            &:focus {
+                background-color: #fff;
+                border-color: $color-brand-3;
+
+                .ghostkit-col {
+                    border-color: $color-brand-3;
+                }
+            }
         }
     }
 }
