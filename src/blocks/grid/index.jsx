@@ -182,9 +182,9 @@ class GridBlock extends Component {
             <Placeholder
                 icon={ getIcon( 'block-grid', true ) }
                 label={ __( 'Grid' ) }
+                instructions={ __( 'Select one layout to get started.' ) }
                 className="ghostkit-select-layout"
             >
-                <em>{ __( 'Select one layout to get started.' ) }</em>
                 <div className="ghostkit-grid-layout-preview">
                     { layouts.map( ( layout ) => {
                         const columnsData = this.getColumnsFromLayout( layout );

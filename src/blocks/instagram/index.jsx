@@ -274,10 +274,9 @@ class InstagramBlock extends Component {
                         <Placeholder
                             icon={ getIcon( 'block-instagram', true ) }
                             label={ __( 'Instagram' ) }
+                            instructions={ __( 'A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector.' ) }
                             className={ className }
-                        >
-                            <div><em>{ __( 'A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector.' ) }</em></div>
-                        </Placeholder>
+                        />
                     ) : '' }
                 </div>
             </Fragment>

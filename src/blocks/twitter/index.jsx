@@ -400,10 +400,9 @@ class TwitterBlock extends Component {
                         <Placeholder
                             icon={ getIcon( 'block-twitter', true ) }
                             label={ __( 'Twitter' ) }
+                            instructions={ __( 'A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.' ) }
                             className={ className }
-                        >
-                            <div><em>{ __( 'A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.' ) }</em></div>
-                        </Placeholder>
+                        />
                     ) : '' }
                 </div>
             </Fragment>

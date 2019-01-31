@@ -49,13 +49,11 @@ class CustomCSSBlock extends Component {
         return (
             <Placeholder
                 label={ __( 'Custom CSS' ) }
+                instructions={ __( 'Custom CSS for the current post.' ) }
                 className={ className + ( isPlugin ? ' ghostkit-custom-css-plugin' : '' ) }
             >
                 { ! isPlugin ? (
                     <p style={ { color: '#c72323' } }>{ __( 'This block is deprecated, please, use custom CSS in the page settings (top right corner after "Update" button).' ) }</p>
-                ) : '' }
-                { isPlugin ? (
-                    <p>{ __( 'Custom CSS for the current post.' ) }</p>
                 ) : '' }
                 <AceEditor
                     mode="css"
