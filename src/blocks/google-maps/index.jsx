@@ -7,7 +7,7 @@ import { debounce } from 'throttle-debounce';
 
 // Internal Dependencies.
 import deprecatedArray from './deprecated.jsx';
-import ElementIcon from '../_icons/block-google-maps.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import IconFullHeight from './icons/fullheight.svg';
 import IconFullHeightWhite from './icons/fullheight-white.svg';
 import IconMarker from './icons/marker.svg';
@@ -543,7 +543,7 @@ export const name = 'ghostkit/google-maps';
 export const settings = {
     title: __( 'Google Maps' ),
     description: __( 'Show maps with custom styles, markers and settings.' ),
-    icon: ElementIcon,
+    icon: getIcon( 'block-google-maps' ),
     category: 'ghostkit',
     keywords: [
         __( 'maps' ),

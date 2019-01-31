@@ -7,7 +7,7 @@ import classnames from 'classnames/dedupe';
 import deprecatedArray from './deprecated.jsx';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-alert.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -221,7 +221,7 @@ export const name = 'ghostkit/alert';
 export const settings = {
     title: __( 'Alert' ),
     description: __( 'Provide contextual feedback messages for user actions.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-alert' ),
     category: 'ghostkit',
     keywords: [
         __( 'alert' ),

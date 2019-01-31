@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-accordion.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import RemoveButton from '../_components/remove-button.jsx';
 import deprecatedArray from './deprecated.jsx';
 
@@ -162,7 +162,7 @@ export const settings = {
     title: __( 'Item' ),
     parent: [ 'ghostkit/accordion' ],
     description: __( 'A single item within a accordion block.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-accordion' ),
     category: 'ghostkit',
     ghostkit: {
         supports: {

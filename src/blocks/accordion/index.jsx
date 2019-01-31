@@ -5,7 +5,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-accordion.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import { settings as accordionItemSettings } from './item.jsx';
 
 const { GHOSTKIT } = window;
@@ -147,7 +147,7 @@ export const name = 'ghostkit/accordion';
 export const settings = {
     title: __( 'Accordion' ),
     description: __( 'Toggle the visibility of content across your project.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-accordion' ),
     category: 'ghostkit',
     keywords: [
         __( 'accordion' ),

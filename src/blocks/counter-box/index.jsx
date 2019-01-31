@@ -6,7 +6,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-counter-box.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
@@ -202,7 +202,7 @@ export const name = 'ghostkit/counter-box';
 export const settings = {
     title: __( 'Number Box' ),
     description: __( 'Show your progress and rewards using counting numbers.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-counter-box' ),
     category: 'ghostkit',
     keywords: [
         __( 'number' ),

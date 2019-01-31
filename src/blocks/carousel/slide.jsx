@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-carousel.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -86,7 +86,7 @@ export const settings = {
     title: __( 'Slide' ),
     parent: [ 'ghostkit/carousel' ],
     description: __( 'A single slide within a carousel block.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-carousel' ),
     category: 'ghostkit',
     ghostkit: {
         supports: {

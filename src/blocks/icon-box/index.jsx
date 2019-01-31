@@ -6,7 +6,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-icon-box.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
@@ -189,7 +189,7 @@ export const name = 'ghostkit/icon-box';
 export const settings = {
     title: __( 'Icon Box' ),
     description: __( 'Icons are one of the best visual replacement for text descriptions.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-icon-box' ),
     category: 'ghostkit',
     keywords: [
         __( 'icon' ),

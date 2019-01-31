@@ -8,7 +8,7 @@ import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-progress.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
@@ -267,7 +267,7 @@ export const name = 'ghostkit/progress';
 export const settings = {
     title: __( 'Progress' ),
     description: __( 'Show the progress of your work, skills or earnings.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-progress' ),
     category: 'ghostkit',
     keywords: [
         __( 'progress' ),

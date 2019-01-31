@@ -6,7 +6,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/block-gist.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import GistFilesSelect from './file-select.jsx';
 
 const { GHOSTKIT, jQuery } = window;
@@ -247,7 +247,7 @@ class GistBlock extends Component {
                 <div>
                     { ! url ? (
                         <Placeholder
-                            icon={ <ElementIcon /> }
+                            icon={ getIcon( 'block-gist', true ) }
                             label={ __( 'Gist URL' ) }
                             className={ className }
                         >
@@ -286,7 +286,7 @@ export const name = 'ghostkit/gist';
 export const settings = {
     title: __( 'GitHub Gist' ),
     description: __( 'Embed code parts form GitHub Gist to your site or documentation.' ),
-    icon: ElementIcon,
+    icon: getIcon( 'block-gist' ),
     category: 'ghostkit',
     keywords: [
         __( 'github' ),

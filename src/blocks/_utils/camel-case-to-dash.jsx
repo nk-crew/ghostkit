@@ -8,7 +8,7 @@
  * @param {string} str - camel-cased string.
  * @return {string} - new dashed string.
  */
-export function camelCaseToDash( str ) {
+export default function camelCaseToDash( str ) {
     if ( typeof str !== 'string' ) {
         return str;
     }

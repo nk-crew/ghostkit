@@ -6,7 +6,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-changelog.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -119,7 +119,7 @@ export const name = 'ghostkit/changelog';
 export const settings = {
     title: __( 'Changelog' ),
     description: __( 'Show the changes log of your product.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-changelog' ),
     category: 'ghostkit',
     keywords: [
         __( 'changelog' ),

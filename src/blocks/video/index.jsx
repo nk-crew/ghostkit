@@ -12,7 +12,7 @@ import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-video.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 import './store.jsx';
 
@@ -706,7 +706,7 @@ export const name = 'ghostkit/video';
 export const settings = {
     title: __( 'Video' ),
     description: __( 'Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-video' ),
     category: 'ghostkit',
     keywords: [
         __( 'video' ),

@@ -8,7 +8,7 @@ if ( ! global._babelPolyfill ) {
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-testimonial.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import './store.jsx';
 
 const { GHOSTKIT } = window;
@@ -345,7 +345,7 @@ export const name = 'ghostkit/testimonial';
 export const settings = {
     title: __( 'Testimonial' ),
     description: __( 'Show how your users love your products and what saying.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-testimonial' ),
     category: 'ghostkit',
     keywords: [
         __( 'testimonial' ),

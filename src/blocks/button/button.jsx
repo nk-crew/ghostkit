@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-button.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated-button.jsx';
 
 const { GHOSTKIT } = window;
@@ -331,7 +331,7 @@ export const settings = {
     title: __( 'Button' ),
     parent: [ 'ghostkit/button' ],
     description: __( 'A single button within a buttons wrapper block.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-button' ),
     category: 'ghostkit',
     ghostkit: {
         customStylesCallback( attributes ) {

@@ -6,7 +6,7 @@ import './style.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/block-twitter.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import './store.jsx';
 
 const { GHOSTKIT } = window;
@@ -398,7 +398,7 @@ class TwitterBlock extends Component {
                     ) : '' }
                     { ! APIDataReady ? (
                         <Placeholder
-                            icon={ <ElementIcon /> }
+                            icon={ getIcon( 'block-twitter', true ) }
                             label={ __( 'Twitter' ) }
                             className={ className }
                         >
@@ -416,7 +416,7 @@ export const name = 'ghostkit/twitter';
 export const settings = {
     title: __( 'Twitter' ),
     description: __( 'Show Twitter feed and user data.' ),
-    icon: ElementIcon,
+    icon: getIcon( 'block-twitter' ),
     category: 'ghostkit',
     keywords: [
         __( 'twitter' ),

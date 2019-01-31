@@ -5,7 +5,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-grid.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 import ColorPicker from '../_components/color-picker.jsx';
@@ -461,7 +461,7 @@ export const name = 'ghostkit/grid';
 export const settings = {
     title: __( 'Grid' ),
     description: __( 'Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-grid' ),
     category: 'ghostkit',
     keywords: [
         __( 'grid' ),

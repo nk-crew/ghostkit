@@ -5,7 +5,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-carousel.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
@@ -236,7 +236,7 @@ export const name = 'ghostkit/carousel';
 export const settings = {
     title: __( 'Carousel' ),
     description: __( 'Carousel for any type of content – images or other blocks.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-carousel' ),
     category: 'ghostkit',
     keywords: [
         __( 'carousel' ),

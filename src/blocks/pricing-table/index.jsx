@@ -5,7 +5,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-pricing.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 // layout icons.
 import IconVerticalCenter from './icons/vertical-center.svg';
@@ -257,7 +257,7 @@ export const name = 'ghostkit/pricing-table';
 export const settings = {
     title: __( 'Pricing Table' ),
     description: __( 'Sell your products or services and show all features.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-pricing-table' ),
     category: 'ghostkit',
     keywords: [
         __( 'pricing' ),

@@ -6,7 +6,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-button.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 import { settings as buttonSingleSettings } from './button.jsx';
 
@@ -276,7 +276,7 @@ export const settings = {
 
     description: __( 'Change important links to buttons to get more click rate.' ),
 
-    icon: elementIcon,
+    icon: getIcon( 'block-button' ),
 
     category: 'ghostkit',
 

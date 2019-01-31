@@ -6,7 +6,7 @@ import './style.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/block-instagram.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import './store.jsx';
 
 const { GHOSTKIT } = window;
@@ -272,7 +272,7 @@ class InstagramBlock extends Component {
                     ) : '' }
                     { ! accessToken ? (
                         <Placeholder
-                            icon={ <ElementIcon /> }
+                            icon={ getIcon( 'block-instagram', true ) }
                             label={ __( 'Instagram' ) }
                             className={ className }
                         >
@@ -290,7 +290,7 @@ export const name = 'ghostkit/instagram';
 export const settings = {
     title: __( 'Instagram' ),
     description: __( 'Show Instagram feed and user data.' ),
-    icon: ElementIcon,
+    icon: getIcon( 'block-instagram' ),
     category: 'ghostkit',
     keywords: [
         __( 'instagram' ),

@@ -4,7 +4,7 @@ import classnames from 'classnames/dedupe';
 import deepEqual from 'deep-equal';
 
 // Internal Dependencies.
-import { camelCaseToDash } from '../_utils.jsx';
+import camelCaseToDash from '../_utils/camel-case-to-dash.jsx';
 
 const {
     applyFilters,

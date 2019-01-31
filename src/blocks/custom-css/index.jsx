@@ -10,7 +10,7 @@ import 'brace/theme/textmate';
 import 'brace/ext/language_tools';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/block-custom-css.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -48,7 +48,6 @@ class CustomCSSBlock extends Component {
 
         return (
             <Placeholder
-                icon={ <ElementIcon /> }
                 label={ __( 'Custom CSS' ) }
                 className={ className + ( isPlugin ? ' ghostkit-custom-css-plugin' : '' ) }
             >
@@ -93,7 +92,7 @@ export const name = 'ghostkit/custom-css';
 export const settings = {
     title: __( 'Custom CSS' ),
     description: __( 'Custom CSS for current post.' ),
-    icon: ElementIcon,
+    icon: getIcon( 'block-custom-css' ),
     category: 'ghostkit',
     keywords: [
         __( 'styles' ),

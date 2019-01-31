@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-pricing.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -244,7 +244,7 @@ export const settings = {
     title: __( 'Pricing Table Item' ),
     parent: [ 'ghostkit/pricing-table' ],
     description: __( 'A single item within a pricing table block.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-pricing-table' ),
     category: 'ghostkit',
     ghostkit: {
         supports: {

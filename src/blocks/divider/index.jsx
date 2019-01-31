@@ -7,7 +7,7 @@ import classnames from 'classnames/dedupe';
 import deepAssign from 'deep-assign';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-divider.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -247,7 +247,7 @@ export const name = 'ghostkit/divider';
 export const settings = {
     title: __( 'Divider' ),
     description: __( 'Divide your long texts and blocks.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-divider' ),
     category: 'ghostkit',
     keywords: [
         __( 'divider' ),

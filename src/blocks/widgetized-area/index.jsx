@@ -3,7 +3,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/block-widgetized-area.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
@@ -37,7 +37,7 @@ class WidgetizedAreaBlock extends Component {
         return (
             <Fragment>
                 <Placeholder
-                    icon={ <ElementIcon /> }
+                    icon={ getIcon( 'block-widgetized-area', true ) }
                     label={ __( 'Widgetized Area' ) }
                     className={ className }
                 >
@@ -73,7 +73,7 @@ export const name = 'ghostkit/widgetized-area';
 export const settings = {
     title: __( 'Widgetized Area' ),
     description: __( 'Select registered sidebars and put it in any place.' ),
-    icon: ElementIcon,
+    icon: getIcon( 'block-widgetized-area' ),
     category: 'ghostkit',
     keywords: [
         __( 'widget' ),

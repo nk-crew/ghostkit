@@ -48,7 +48,7 @@ import './_plugins/custom-css.jsx';
 /**
  * Icon
  */
-import GhostKitIcon from './_icons/ghostkit-black.svg';
+import GhostKitCategoryIcon from './_icons/ghostkit-category.svg';
 
 /**
  * Internal dependencies
@@ -63,7 +63,7 @@ const {
  */
 if ( updateCategory ) {
     updateCategory( 'ghostkit', { icon: (
-        <GhostKitIcon
+        <GhostKitCategoryIcon
             style={ {
                 width: '20px',
                 height: '20px',

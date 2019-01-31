@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 import slugify from 'slugify';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-tabs.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -272,7 +272,7 @@ export const name = 'ghostkit/tabs-v2';
 export const settings = {
     title: __( 'Tabs' ),
     description: __( 'Separate content on the tabs with titles.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-tabs' ),
     category: 'ghostkit',
     keywords: [
         __( 'tabs' ),
