@@ -7,14 +7,6 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 
-// layout icons.
-import IconVerticalCenter from './icons/vertical-center.svg';
-import IconVerticalTop from './icons/vertical-top.svg';
-import IconVerticalBottom from './icons/vertical-bottom.svg';
-import IconVerticalCenterWhite from './icons/vertical-center-white.svg';
-import IconVerticalTopWhite from './icons/vertical-top-white.svg';
-import IconVerticalBottomWhite from './icons/vertical-bottom-white.svg';
-
 const { GHOSTKIT } = window;
 
 const {
@@ -117,19 +109,19 @@ class PricingTableBlock extends Component {
                     <BlockControls>
                         <Toolbar controls={ [
                             {
-                                icon: verticalAlign === '' ? <IconVerticalTopWhite viewBox="0 0 24 24" /> : <IconVerticalTop viewBox="0 0 24 24" />,
+                                icon: getIcon( 'icon-vertical-top', true ),
                                 title: __( 'ItemsVertical Start' ),
                                 onClick: () => setAttributes( { verticalAlign: '' } ),
                                 isActive: verticalAlign === '',
                             },
                             {
-                                icon: verticalAlign === 'center' ? <IconVerticalCenterWhite viewBox="0 0 24 24" /> : <IconVerticalCenter viewBox="0 0 24 24" />,
+                                icon: getIcon( 'icon-vertical-center', true ),
                                 title: __( 'ItemsVertical Center' ),
                                 onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                 isActive: verticalAlign === 'center',
                             },
                             {
-                                icon: verticalAlign === 'end' ? <IconVerticalBottomWhite viewBox="0 0 24 24" /> : <IconVerticalBottom viewBox="0 0 24 24" />,
+                                icon: getIcon( 'icon-vertical-bottom', true ),
                                 title: __( 'ItemsVertical End' ),
                                 onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                 isActive: verticalAlign === 'end',

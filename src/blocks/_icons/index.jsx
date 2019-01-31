@@ -21,6 +21,16 @@ import blockTwitter from '../_icons/block-twitter.svg';
 import blockVideo from '../_icons/block-video.svg';
 import blockWidgetizedArea from '../_icons/block-widgetized-area.svg';
 
+import iconFullheight from '../_icons/icon-fullheight.svg';
+import iconHorizontalAround from '../_icons/icon-horizontal-around.svg';
+import iconHorizontalBetween from '../_icons/icon-horizontal-between.svg';
+import iconHorizontalCenter from '../_icons/icon-horizontal-center.svg';
+import iconHorizontalEnd from '../_icons/icon-horizontal-end.svg';
+import iconHorizontalStart from '../_icons/icon-horizontal-start.svg';
+import iconVerticalBottom from '../_icons/icon-vertical-bottom.svg';
+import iconVerticalCenter from '../_icons/icon-vertical-center.svg';
+import iconVerticalTop from '../_icons/icon-vertical-top.svg';
+
 export default {
     'block-accordion': blockAccordion,
     'block-alert': blockAlert,
@@ -43,4 +53,14 @@ export default {
     'block-twitter': blockTwitter,
     'block-video': blockVideo,
     'block-widgetized-area': blockWidgetizedArea,
+
+    'icon-fullheight': iconFullheight,
+    'icon-horizontal-around': iconHorizontalAround,
+    'icon-horizontal-between': iconHorizontalBetween,
+    'icon-horizontal-center': iconHorizontalCenter,
+    'icon-horizontal-end': iconHorizontalEnd,
+    'icon-horizontal-start': iconHorizontalStart,
+    'icon-vertical-bottom': iconVerticalBottom,
+    'icon-vertical-center': iconVerticalCenter,
+    'icon-vertical-top': iconVerticalTop,
 };

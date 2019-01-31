@@ -10,26 +10,6 @@ import deprecatedArray from './deprecated.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 import ColorPicker from '../_components/color-picker.jsx';
 
-import IconVerticalTop from './icons/vertical-top.svg';
-import IconVerticalCenter from './icons/vertical-center.svg';
-import IconVerticalBottom from './icons/vertical-bottom.svg';
-
-import IconVerticalTopWhite from './icons/vertical-top-white.svg';
-import IconVerticalCenterWhite from './icons/vertical-center-white.svg';
-import IconVerticalBottomWhite from './icons/vertical-bottom-white.svg';
-
-import IconHorizontalStart from './icons/horizontal-start.svg';
-import IconHorizontalCenter from './icons/horizontal-center.svg';
-import IconHorizontalEnd from './icons/horizontal-end.svg';
-import IconHorizontalAround from './icons/horizontal-around.svg';
-import IconHorizontalBetween from './icons/horizontal-between.svg';
-
-import IconHorizontalCenterWhite from './icons/horizontal-center-white.svg';
-import IconHorizontalStartWhite from './icons/horizontal-start-white.svg';
-import IconHorizontalEndWhite from './icons/horizontal-end-white.svg';
-import IconHorizontalAroundWhite from './icons/horizontal-around-white.svg';
-import IconHorizontalBetweenWhite from './icons/horizontal-between-white.svg';
-
 const { GHOSTKIT } = window;
 
 const {
@@ -306,19 +286,19 @@ class GridBlock extends Component {
                     <BlockControls>
                         <Toolbar controls={ [
                             {
-                                icon: verticalAlign === '' ? <IconVerticalTopWhite viewBox="0 0 24 24" /> : <IconVerticalTop viewBox="0 0 24 24" />,
+                                icon: getIcon( 'icon-vertical-top', true ),
                                 title: __( 'Content Vertical Start' ),
                                 onClick: () => setAttributes( { verticalAlign: '' } ),
                                 isActive: verticalAlign === '',
                             },
                             {
-                                icon: verticalAlign === 'center' ? <IconVerticalCenterWhite viewBox="0 0 24 24" /> : <IconVerticalCenter viewBox="0 0 24 24" />,
+                                icon: getIcon( 'icon-vertical-center', true ),
                                 title: __( 'Content Vertical Center' ),
                                 onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                 isActive: verticalAlign === 'center',
                             },
                             {
-                                icon: verticalAlign === 'end' ? <IconVerticalBottomWhite viewBox="0 0 24 24" /> : <IconVerticalBottom viewBox="0 0 24 24" />,
+                                icon: getIcon( 'icon-vertical-bottom', true ),
                                 title: __( 'Content Vertical End' ),
                                 onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                 isActive: verticalAlign === 'end',
@@ -359,19 +339,19 @@ class GridBlock extends Component {
                             >
                                 <Toolbar controls={ [
                                     {
-                                        icon: verticalAlign === '' ? <IconVerticalTopWhite viewBox="0 0 24 24" /> : <IconVerticalTop viewBox="0 0 24 24" />,
+                                        icon: getIcon( 'icon-vertical-top', true ),
                                         title: __( 'Start' ),
                                         onClick: () => setAttributes( { verticalAlign: '' } ),
                                         isActive: verticalAlign === '',
                                     },
                                     {
-                                        icon: verticalAlign === 'center' ? <IconVerticalCenterWhite viewBox="0 0 24 24" /> : <IconVerticalCenter viewBox="0 0 24 24" />,
+                                        icon: getIcon( 'icon-vertical-center', true ),
                                         title: __( 'Center' ),
                                         onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                         isActive: verticalAlign === 'center',
                                     },
                                     {
-                                        icon: verticalAlign === 'end' ? <IconVerticalBottomWhite viewBox="0 0 24 24" /> : <IconVerticalBottom viewBox="0 0 24 24" />,
+                                        icon: getIcon( 'icon-vertical-bottom', true ),
                                         title: __( 'End' ),
                                         onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                         isActive: verticalAlign === 'end',
@@ -384,31 +364,31 @@ class GridBlock extends Component {
                             >
                                 <Toolbar controls={ [
                                     {
-                                        icon: horizontalAlign === '' ? <IconHorizontalStartWhite viewBox="0 0 24 24" /> : <IconHorizontalStart viewBox="0 0 24 24" />,
+                                        icon: getIcon( 'icon-horizontal-start', true ),
                                         title: __( 'Start' ),
                                         onClick: () => setAttributes( { horizontalAlign: '' } ),
                                         isActive: horizontalAlign === '',
                                     },
                                     {
-                                        icon: horizontalAlign === 'center' ? <IconHorizontalCenterWhite viewBox="0 0 24 24" /> : <IconHorizontalCenter viewBox="0 0 24 24" />,
+                                        icon: getIcon( 'icon-horizontal-center', true ),
                                         title: __( 'Center' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'center' } ),
                                         isActive: horizontalAlign === 'center',
                                     },
                                     {
-                                        icon: horizontalAlign === 'end' ? <IconHorizontalEndWhite viewBox="0 0 24 24" /> : <IconHorizontalEnd viewBox="0 0 24 24" />,
+                                        icon: getIcon( 'icon-horizontal-end', true ),
                                         title: __( 'End' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'end' } ),
                                         isActive: horizontalAlign === 'end',
                                     },
                                     {
-                                        icon: horizontalAlign === 'around' ? <IconHorizontalAroundWhite viewBox="0 0 24 24" /> : <IconHorizontalAround viewBox="0 0 24 24" />,
+                                        icon: getIcon( 'icon-horizontal-around', true ),
                                         title: __( 'Around' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'around' } ),
                                         isActive: horizontalAlign === 'around',
                                     },
                                     {
-                                        icon: horizontalAlign === 'between' ? <IconHorizontalBetweenWhite viewBox="0 0 24 24" /> : <IconHorizontalBetween viewBox="0 0 24 24" />,
+                                        icon: getIcon( 'icon-horizontal-between', true ),
                                         title: __( 'Between' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'between' } ),
                                         isActive: horizontalAlign === 'between',
