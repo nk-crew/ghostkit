@@ -5,7 +5,7 @@ import deepAssign from 'deep-assign';
 import './spacings.scss';
 
 // Internal Dependencies.
-import Logo from '../_icons/ghostkit.svg';
+import Logo from '../_icons/extension-spacings-box.svg';
 
 import InputDrag from '../_components/input-drag.jsx';
 import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
