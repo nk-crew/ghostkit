@@ -327,160 +327,162 @@ class GridBlock extends Component {
                         />
                     </BlockControls>
                 ) : '' }
-                <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
-                    <PanelBody>
-                        <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={ this.props }>
-                            <RangeControl
-                                label={ __( 'Columns' ) }
-                                value={ columns }
-                                onChange={ ( value ) => setAttributes( { columns: value } ) }
-                                min={ 2 }
-                                max={ 12 }
-                            />
-                        </ApplyFilters>
-                        <PanelBody>
-                            <BaseControl
-                                label={ __( 'Vertical alignment' ) }
-                            >
-                                <Toolbar controls={ [
-                                    {
-                                        icon: verticalAlign === '' ? <IconVerticalTopWhite viewBox="0 0 24 24" /> : <IconVerticalTop viewBox="0 0 24 24" />,
-                                        title: __( 'Start' ),
-                                        onClick: () => setAttributes( { verticalAlign: '' } ),
-                                        isActive: verticalAlign === '',
-                                    },
-                                    {
-                                        icon: verticalAlign === 'center' ? <IconVerticalCenterWhite viewBox="0 0 24 24" /> : <IconVerticalCenter viewBox="0 0 24 24" />,
-                                        title: __( 'Center' ),
-                                        onClick: () => setAttributes( { verticalAlign: 'center' } ),
-                                        isActive: verticalAlign === 'center',
-                                    },
-                                    {
-                                        icon: verticalAlign === 'end' ? <IconVerticalBottomWhite viewBox="0 0 24 24" /> : <IconVerticalBottom viewBox="0 0 24 24" />,
-                                        title: __( 'End' ),
-                                        onClick: () => setAttributes( { verticalAlign: 'end' } ),
-                                        isActive: verticalAlign === 'end',
-                                    },
-                                ] }
+                { columns > 1 ? (
+                    <InspectorControls>
+                        { Object.keys( availableVariants ).length > 1 ? (
+                            <PanelBody>
+                                <SelectControl
+                                    label={ __( 'Variants' ) }
+                                    value={ variant }
+                                    options={ Object.keys( availableVariants ).map( ( key ) => ( {
+                                        value: key,
+                                        label: availableVariants[ key ].title,
+                                    } ) ) }
+                                    onChange={ ( value ) => setAttributes( { variant: value } ) }
                                 />
-                            </BaseControl>
-                            <BaseControl
-                                label={ __( 'Horizontal alignment' ) }
-                            >
-                                <Toolbar controls={ [
-                                    {
-                                        icon: horizontalAlign === '' ? <IconHorizontalStartWhite viewBox="0 0 24 24" /> : <IconHorizontalStart viewBox="0 0 24 24" />,
-                                        title: __( 'Start' ),
-                                        onClick: () => setAttributes( { horizontalAlign: '' } ),
-                                        isActive: horizontalAlign === '',
-                                    },
-                                    {
-                                        icon: horizontalAlign === 'center' ? <IconHorizontalCenterWhite viewBox="0 0 24 24" /> : <IconHorizontalCenter viewBox="0 0 24 24" />,
-                                        title: __( 'Center' ),
-                                        onClick: () => setAttributes( { horizontalAlign: 'center' } ),
-                                        isActive: horizontalAlign === 'center',
-                                    },
-                                    {
-                                        icon: horizontalAlign === 'end' ? <IconHorizontalEndWhite viewBox="0 0 24 24" /> : <IconHorizontalEnd viewBox="0 0 24 24" />,
-                                        title: __( 'End' ),
-                                        onClick: () => setAttributes( { horizontalAlign: 'end' } ),
-                                        isActive: horizontalAlign === 'end',
-                                    },
-                                    {
-                                        icon: horizontalAlign === 'around' ? <IconHorizontalAroundWhite viewBox="0 0 24 24" /> : <IconHorizontalAround viewBox="0 0 24 24" />,
-                                        title: __( 'Around' ),
-                                        onClick: () => setAttributes( { horizontalAlign: 'around' } ),
-                                        isActive: horizontalAlign === 'around',
-                                    },
-                                    {
-                                        icon: horizontalAlign === 'between' ? <IconHorizontalBetweenWhite viewBox="0 0 24 24" /> : <IconHorizontalBetween viewBox="0 0 24 24" />,
-                                        title: __( 'Between' ),
-                                        onClick: () => setAttributes( { horizontalAlign: 'between' } ),
-                                        isActive: horizontalAlign === 'between',
-                                    },
-                                ] }
-                                />
-                            </BaseControl>
-                        </PanelBody>
-                        <PanelBody>
-                            <BaseControl label={ __( 'Gap' ) }>
-                                <ButtonGroup>
-                                    {
-                                        [
-                                            {
-                                                label: __( 'none' ),
-                                                value: 'no',
-                                            },
-                                            {
-                                                label: __( 'sm' ),
-                                                value: 'sm',
-                                            },
-                                            {
-                                                label: __( 'md' ),
-                                                value: 'md',
-                                            },
-                                            {
-                                                label: __( 'lg' ),
-                                                value: 'lg',
-                                            },
-                                        ].map( ( val ) => {
-                                            const selected = gap === val.value;
-
-                                            return (
-                                                <Button
-                                                    isLarge
-                                                    isPrimary={ selected }
-                                                    aria-pressed={ selected }
-                                                    onClick={ () => setAttributes( { gap: val.value } ) }
-                                                    key={ `gap_${ val.label }` }
-                                                >
-                                                    { val.label }
-                                                </Button>
-                                            );
-                                        } )
-                                    }
-                                </ButtonGroup>
-                            </BaseControl>
-                        </PanelBody>
-                        <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props }>
-                            <PanelBody
-                                title={ __( 'Background' ) }
-                                initialOpen={ false }
-                            >
-                                <ColorPicker
-                                    label={ __( 'Background Color' ) }
-                                    value={ awb_color } // eslint-disable-line
-                                    onChange={ ( val ) => setAttributes( { awb_color: val } ) }
-                                    alpha={ true }
-                                />
-                                <p>
-                                    { __( 'Install AWB plugin to set image, video backgrounds with parallax support.' ) }
-                                </p>
-                                <a
-                                    className="components-button is-button is-default is-small"
-                                    href="https://wordpress.org/plugins/advanced-backgrounds/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    { __( 'Install' ) }
-                                </a>
                             </PanelBody>
-                        </ApplyFilters>
-                    </PanelBody>
-                </InspectorControls>
+                        ) : '' }
+                        <PanelBody>
+                            <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={ this.props }>
+                                <RangeControl
+                                    label={ __( 'Columns' ) }
+                                    value={ columns }
+                                    onChange={ ( value ) => setAttributes( { columns: value } ) }
+                                    min={ 2 }
+                                    max={ 12 }
+                                />
+                            </ApplyFilters>
+                            <PanelBody>
+                                <BaseControl
+                                    label={ __( 'Vertical alignment' ) }
+                                >
+                                    <Toolbar controls={ [
+                                        {
+                                            icon: verticalAlign === '' ? <IconVerticalTopWhite viewBox="0 0 24 24" /> : <IconVerticalTop viewBox="0 0 24 24" />,
+                                            title: __( 'Start' ),
+                                            onClick: () => setAttributes( { verticalAlign: '' } ),
+                                            isActive: verticalAlign === '',
+                                        },
+                                        {
+                                            icon: verticalAlign === 'center' ? <IconVerticalCenterWhite viewBox="0 0 24 24" /> : <IconVerticalCenter viewBox="0 0 24 24" />,
+                                            title: __( 'Center' ),
+                                            onClick: () => setAttributes( { verticalAlign: 'center' } ),
+                                            isActive: verticalAlign === 'center',
+                                        },
+                                        {
+                                            icon: verticalAlign === 'end' ? <IconVerticalBottomWhite viewBox="0 0 24 24" /> : <IconVerticalBottom viewBox="0 0 24 24" />,
+                                            title: __( 'End' ),
+                                            onClick: () => setAttributes( { verticalAlign: 'end' } ),
+                                            isActive: verticalAlign === 'end',
+                                        },
+                                    ] }
+                                    />
+                                </BaseControl>
+                                <BaseControl
+                                    label={ __( 'Horizontal alignment' ) }
+                                >
+                                    <Toolbar controls={ [
+                                        {
+                                            icon: horizontalAlign === '' ? <IconHorizontalStartWhite viewBox="0 0 24 24" /> : <IconHorizontalStart viewBox="0 0 24 24" />,
+                                            title: __( 'Start' ),
+                                            onClick: () => setAttributes( { horizontalAlign: '' } ),
+                                            isActive: horizontalAlign === '',
+                                        },
+                                        {
+                                            icon: horizontalAlign === 'center' ? <IconHorizontalCenterWhite viewBox="0 0 24 24" /> : <IconHorizontalCenter viewBox="0 0 24 24" />,
+                                            title: __( 'Center' ),
+                                            onClick: () => setAttributes( { horizontalAlign: 'center' } ),
+                                            isActive: horizontalAlign === 'center',
+                                        },
+                                        {
+                                            icon: horizontalAlign === 'end' ? <IconHorizontalEndWhite viewBox="0 0 24 24" /> : <IconHorizontalEnd viewBox="0 0 24 24" />,
+                                            title: __( 'End' ),
+                                            onClick: () => setAttributes( { horizontalAlign: 'end' } ),
+                                            isActive: horizontalAlign === 'end',
+                                        },
+                                        {
+                                            icon: horizontalAlign === 'around' ? <IconHorizontalAroundWhite viewBox="0 0 24 24" /> : <IconHorizontalAround viewBox="0 0 24 24" />,
+                                            title: __( 'Around' ),
+                                            onClick: () => setAttributes( { horizontalAlign: 'around' } ),
+                                            isActive: horizontalAlign === 'around',
+                                        },
+                                        {
+                                            icon: horizontalAlign === 'between' ? <IconHorizontalBetweenWhite viewBox="0 0 24 24" /> : <IconHorizontalBetween viewBox="0 0 24 24" />,
+                                            title: __( 'Between' ),
+                                            onClick: () => setAttributes( { horizontalAlign: 'between' } ),
+                                            isActive: horizontalAlign === 'between',
+                                        },
+                                    ] }
+                                    />
+                                </BaseControl>
+                            </PanelBody>
+                            <PanelBody>
+                                <BaseControl label={ __( 'Gap' ) }>
+                                    <ButtonGroup>
+                                        {
+                                            [
+                                                {
+                                                    label: __( 'none' ),
+                                                    value: 'no',
+                                                },
+                                                {
+                                                    label: __( 'sm' ),
+                                                    value: 'sm',
+                                                },
+                                                {
+                                                    label: __( 'md' ),
+                                                    value: 'md',
+                                                },
+                                                {
+                                                    label: __( 'lg' ),
+                                                    value: 'lg',
+                                                },
+                                            ].map( ( val ) => {
+                                                const selected = gap === val.value;
+
+                                                return (
+                                                    <Button
+                                                        isLarge
+                                                        isPrimary={ selected }
+                                                        aria-pressed={ selected }
+                                                        onClick={ () => setAttributes( { gap: val.value } ) }
+                                                        key={ `gap_${ val.label }` }
+                                                    >
+                                                        { val.label }
+                                                    </Button>
+                                                );
+                                            } )
+                                        }
+                                    </ButtonGroup>
+                                </BaseControl>
+                            </PanelBody>
+                            <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props }>
+                                <PanelBody
+                                    title={ __( 'Background' ) }
+                                    initialOpen={ false }
+                                >
+                                    <ColorPicker
+                                        label={ __( 'Background Color' ) }
+                                        value={ awb_color } // eslint-disable-line
+                                        onChange={ ( val ) => setAttributes( { awb_color: val } ) }
+                                        alpha={ true }
+                                    />
+                                    <p>
+                                        { __( 'Install AWB plugin to set image, video backgrounds with parallax support.' ) }
+                                    </p>
+                                    <a
+                                        className="components-button is-button is-default is-small"
+                                        href="https://wordpress.org/plugins/advanced-backgrounds/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        { __( 'Install' ) }
+                                    </a>
+                                </PanelBody>
+                            </ApplyFilters>
+                        </PanelBody>
+                    </InspectorControls>
+                ) : '' }
                 <div className={ className }>
                     { columns > 0 || this.state.selectedLayout ? (
                         <Fragment>
