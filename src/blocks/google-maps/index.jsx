@@ -6,10 +6,8 @@ import classnames from 'classnames/dedupe';
 import { debounce } from 'throttle-debounce';
 
 // Internal Dependencies.
-import deprecatedArray from './deprecated.jsx';
 import getIcon from '../_utils/get-icon.jsx';
-import IconFullHeight from './icons/fullheight.svg';
-import IconFullHeightWhite from './icons/fullheight-white.svg';
+import deprecatedArray from './deprecated.jsx';
 import IconMarker from './icons/marker.svg';
 
 import MapBlock from './map-block.jsx';
@@ -207,7 +205,7 @@ class GoogleMapsBlock extends Component {
                 <BlockControls>
                     <Toolbar controls={ [
                         {
-                            icon: fullHeight ? <IconFullHeightWhite viewBox="0 0 24 24" /> : <IconFullHeight viewBox="0 0 24 24" />,
+                            icon: getIcon( 'icon-fullheight', true ),
                             title: __( 'Full Height' ),
                             onClick: () => setAttributes( { fullHeight: ! fullHeight } ),
                             isActive: fullHeight,

@@ -1,6 +1,7 @@
 // Import CSS
 import './remove-button.scss';
-import TimesIcon from '../_icons/components-trash.svg';
+
+import getIcon from '../_utils/get-icon.jsx';
 
 const {
     Component,
@@ -85,7 +86,7 @@ export default class RemoveButton extends Component {
                         </Button>
                     </Popover>
                 ) : '' }
-                <TimesIcon />
+                { getIcon( 'icon-trash', true ) }
             </Button>
         );
     }

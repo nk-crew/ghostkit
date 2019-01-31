@@ -3,11 +3,11 @@
  */
 @import "../variables";
 
-.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) svg.ghostkit-customizer-plugin-icon,
-.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) svg.ghostkit-customizer-plugin-icon *,
-.edit-post-pinned-plugins .components-icon-button.is-toggled svg.ghostkit-customizer-plugin-icon,
-.edit-post-pinned-plugins .components-icon-button.is-toggled svg.ghostkit-customizer-plugin-icon *,
-.edit-post-pinned-plugins .components-icon-button:hover svg.ghostkit-customizer-plugin-icon,
-.edit-post-pinned-plugins .components-icon-button:hover svg.ghostkit-customizer-plugin-icon * {
+.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) .ghostkit-customizer-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) .ghostkit-customizer-plugin-icon svg *,
+.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-customizer-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-customizer-plugin-icon svg *,
+.edit-post-pinned-plugins .components-icon-button:hover .ghostkit-customizer-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button:hover .ghostkit-customizer-plugin-icon svg * {
     stroke: initial !important; // stylelint-disable-line
 }

@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../../_icons/block-tabs.svg';
+import getIcon from '../../_utils/get-icon.jsx';
 
 const { GHOSTKIT } = window;
 
@@ -84,7 +84,7 @@ export const settings = {
     title: __( 'Tab' ),
     parent: [ 'ghostkit/tabs' ],
     description: __( 'A single tab within a tabs block.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-tabs' ),
     category: 'ghostkit',
     ghostkit: {
         supports: {

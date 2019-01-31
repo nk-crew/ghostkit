@@ -5,7 +5,7 @@ import deepAssign from 'deep-assign';
 import './spacings.scss';
 
 // Internal Dependencies.
-import Logo from '../_icons/extension-spacings-box.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 import InputDrag from '../_components/input-drag.jsx';
 import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
@@ -342,7 +342,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         return (
                                             <Fragment>
                                                 <BaseControl className="ghostkit-control-spacing">
-                                                    <Logo className="ghostkit-control-spacing-logo" />
+                                                    { getIcon( 'icon-box', true ) }
                                                     <div className="ghostkit-control-spacing-margin">
                                                         <span>{ __( 'Margin' ) }</span>
                                                         <div className="ghostkit-control-spacing-margin-left">

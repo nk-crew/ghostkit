@@ -5,7 +5,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../../_icons/block-tabs.svg';
+import getIcon from '../../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 
 const { GHOSTKIT } = window;
@@ -196,7 +196,7 @@ export const name = 'ghostkit/tabs';
 export const settings = {
     title: __( 'Tabs (legacy)' ),
     description: __( 'Tabs.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-tabs' ),
     category: 'ghostkit',
     keywords: [
         __( 'tabs' ),

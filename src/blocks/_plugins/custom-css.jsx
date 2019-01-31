@@ -2,7 +2,7 @@
 import './custom-css.scss';
 
 // Internal Dependencies.
-import ElementIcon from '../_icons/plugin-custom-css.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const {
     Fragment,
@@ -81,6 +81,6 @@ const plugin = compose( [
 ] )( CustomCSSPlugin );
 
 registerPlugin( 'ghostkit-custom-css', {
-    icon: <ElementIcon className="ghostkit-custom-css-plugin-icon" />,
+    icon: <div className="ghostkit-custom-css-plugin-icon">{ getIcon( 'plugin-custom-css', true ) }</div>,
     render: plugin,
 } );

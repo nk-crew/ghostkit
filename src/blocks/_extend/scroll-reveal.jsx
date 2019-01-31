@@ -1,11 +1,7 @@
 // Import CSS
 import './scroll-reveal.scss';
 
-import IconArrowUp from '../_icons/extension-sr-arrow-up.svg';
-import IconArrowRight from '../_icons/extension-sr-arrow-right.svg';
-import IconArrowDown from '../_icons/extension-sr-arrow-down.svg';
-import IconArrowLeft from '../_icons/extension-sr-arrow-left.svg';
-import IconCircle from '../_icons/extension-sr-circle.svg';
+import getIcon from '../_utils/get-icon.jsx';
 
 const { __ } = wp.i18n;
 
@@ -283,7 +279,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'left' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'left' } ) }
                                                 >
-                                                    <IconArrowRight />
+                                                    { getIcon( 'icon-arrow-right', true ) }
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-top">
@@ -291,7 +287,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'down' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'down' } ) }
                                                 >
-                                                    <IconArrowDown />
+                                                    { getIcon( 'icon-arrow-down', true ) }
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-right">
@@ -299,7 +295,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'right' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'right' } ) }
                                                 >
-                                                    <IconArrowLeft />
+                                                    { getIcon( 'icon-arrow-left', true ) }
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-bottom">
@@ -307,7 +303,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'up' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'up' } ) }
                                                 >
-                                                    <IconArrowUp />
+                                                    { getIcon( 'icon-arrow-up', true ) }
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-center">
@@ -315,7 +311,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ ! this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: '' } ) }
                                                 >
-                                                    <IconCircle />
+                                                    { getIcon( 'icon-circle', true ) }
                                                 </Button>
                                             </div>
                                         </div>

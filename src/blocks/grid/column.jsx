@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import elementIcon from '../_icons/block-grid.svg';
+import getIcon from '../_utils/get-icon.jsx';
 import getColClass from './get-col-class.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
@@ -272,7 +272,7 @@ export const settings = {
     title: __( 'Column' ),
     parent: [ 'ghostkit/grid' ],
     description: __( 'A single column within a grid block.' ),
-    icon: elementIcon,
+    icon: getIcon( 'block-grid' ),
     category: 'ghostkit',
     ghostkit: {
         customSelector( selector ) {
