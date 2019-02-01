@@ -20,18 +20,21 @@ const {
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    BaseControl,
     PanelBody,
     TextControl,
     RangeControl,
     SelectControl,
     ToggleControl,
     TabPanel,
+    Toolbar,
     ColorIndicator,
 } = wp.components;
 
 const {
     InspectorControls,
     InnerBlocks,
+    BlockControls,
     RichText,
 } = wp.editor;
 
@@ -53,6 +56,7 @@ class CounterBoxBlock extends Component {
             animateInViewportFrom,
             numberPosition,
             numberSize,
+            showContent,
             numberColor,
             hoverNumberColor,
         } = attributes;
@@ -99,31 +103,41 @@ class CounterBoxBlock extends Component {
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
-                        <SelectControl
+                        <BaseControl
                             label={ __( 'Number Position' ) }
-                            value={ numberPosition }
-                            onChange={ ( value ) => setAttributes( { numberPosition: value } ) }
-                            options={ [
+                        >
+                            <Toolbar controls={ [
                                 {
-                                    label: __( 'Top' ),
-                                    value: 'top',
+                                    icon: 'align-center',
+                                    title: __( 'Top' ),
+                                    onClick: () => setAttributes( { numberPosition: 'top' } ),
+                                    isActive: numberPosition === 'top',
                                 },
                                 {
-                                    label: __( 'Left' ),
-                                    value: 'left',
+                                    icon: 'align-left',
+                                    title: __( 'Left' ),
+                                    onClick: () => setAttributes( { numberPosition: 'left' } ),
+                                    isActive: numberPosition === 'left',
                                 },
                                 {
-                                    label: __( 'Right' ),
-                                    value: 'right',
+                                    icon: 'align-right',
+                                    title: __( 'Right' ),
+                                    onClick: () => setAttributes( { numberPosition: 'right' } ),
+                                    isActive: numberPosition === 'right',
                                 },
-                            ] }
-                        />
+                            ] } />
+                        </BaseControl>
                     </PanelBody>
                     <PanelBody>
                         <ToggleControl
                             label={ __( 'Animate in viewport' ) }
                             checked={ !! animateInViewport }
                             onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
+                        />
+                        <ToggleControl
+                            label={ __( 'Show Content' ) }
+                            checked={ !! showContent }
+                            onChange={ ( val ) => setAttributes( { showContent: val } ) }
                         />
                         { animateInViewport ? (
                             <TextControl
@@ -172,6 +186,28 @@ class CounterBoxBlock extends Component {
                         </TabPanel>
                     </PanelBody>
                 </InspectorControls>
+                <BlockControls>
+                    <Toolbar controls={ [
+                        {
+                            icon: 'align-center',
+                            title: __( 'Number Position Top' ),
+                            onClick: () => setAttributes( { numberPosition: 'top' } ),
+                            isActive: numberPosition === 'top',
+                        },
+                        {
+                            icon: 'align-left',
+                            title: __( 'Number Position Left' ),
+                            onClick: () => setAttributes( { numberPosition: 'left' } ),
+                            isActive: numberPosition === 'left',
+                        },
+                        {
+                            icon: 'align-right',
+                            title: __( 'Number Position Right' ),
+                            onClick: () => setAttributes( { numberPosition: 'right' } ),
+                            isActive: numberPosition === 'right',
+                        },
+                    ] } />
+                </BlockControls>
                 <div className={ className }>
                     <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
                         <RichText
@@ -185,12 +221,14 @@ class CounterBoxBlock extends Component {
                             keepPlaceholderOnFocus
                         />
                     </div>
-                    <div className="ghostkit-counter-box-content">
-                        <InnerBlocks
-                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important counts, that you should know!' ) } ] ] }
-                            templateLock={ false }
-                        />
-                    </div>
+                    { showContent ? (
+                        <div className="ghostkit-counter-box-content">
+                            <InnerBlocks
+                                template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important counts, that you should know!' ) } ] ] }
+                                templateLock={ false }
+                            />
+                        </div>
+                    ) : '' }
                 </div>
             </Fragment>
         );
@@ -266,6 +304,10 @@ export const settings = {
             type: 'number',
             default: 50,
         },
+        showContent: {
+            type: 'boolean',
+            default: true,
+        },
         numberColor: {
             type: 'string',
             default: '#0366d6',
@@ -283,6 +325,7 @@ export const settings = {
             number,
             animateInViewport,
             numberPosition,
+            showContent,
         } = props.attributes;
 
         let {
@@ -319,9 +362,11 @@ export const settings = {
                         } }
                     />
                 </div>
-                <div className="ghostkit-counter-box-content">
-                    <InnerBlocks.Content />
-                </div>
+                { showContent ? (
+                    <div className="ghostkit-counter-box-content">
+                        <InnerBlocks.Content />
+                    </div>
+                ) : '' }
             </div>
         );
     },

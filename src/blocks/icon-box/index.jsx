@@ -21,16 +21,20 @@ const {
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    BaseControl,
     PanelBody,
     RangeControl,
     SelectControl,
+    ToggleControl,
     TabPanel,
+    Toolbar,
     ColorIndicator,
 } = wp.components;
 
 const {
     InspectorControls,
     InnerBlocks,
+    BlockControls,
 } = wp.editor;
 
 class IconBoxBlock extends Component {
@@ -47,6 +51,7 @@ class IconBoxBlock extends Component {
             icon,
             iconPosition,
             iconSize,
+            showContent,
             iconColor,
             hoverIconColor,
             variant,
@@ -99,24 +104,34 @@ class IconBoxBlock extends Component {
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
-                        <SelectControl
+                        <BaseControl
                             label={ __( 'Icon Position' ) }
-                            value={ iconPosition }
-                            onChange={ ( value ) => setAttributes( { iconPosition: value } ) }
-                            options={ [
+                        >
+                            <Toolbar controls={ [
                                 {
-                                    label: __( 'Top' ),
-                                    value: 'top',
+                                    icon: 'align-center',
+                                    title: __( 'Top' ),
+                                    onClick: () => setAttributes( { iconPosition: 'top' } ),
+                                    isActive: iconPosition === 'top',
                                 },
                                 {
-                                    label: __( 'Left' ),
-                                    value: 'left',
+                                    icon: 'align-left',
+                                    title: __( 'Left' ),
+                                    onClick: () => setAttributes( { iconPosition: 'left' } ),
+                                    isActive: iconPosition === 'left',
                                 },
                                 {
-                                    label: __( 'Right' ),
-                                    value: 'right',
+                                    icon: 'align-right',
+                                    title: __( 'Right' ),
+                                    onClick: () => setAttributes( { iconPosition: 'right' } ),
+                                    isActive: iconPosition === 'right',
                                 },
-                            ] }
+                            ] } />
+                        </BaseControl>
+                        <ToggleControl
+                            label={ __( 'Show Content' ) }
+                            checked={ !! showContent }
+                            onChange={ ( val ) => setAttributes( { showContent: val } ) }
                         />
                     </PanelBody>
                     <PanelBody title={ (
@@ -157,6 +172,28 @@ class IconBoxBlock extends Component {
                         </TabPanel>
                     </PanelBody>
                 </InspectorControls>
+                <BlockControls>
+                    <Toolbar controls={ [
+                        {
+                            icon: 'align-center',
+                            title: __( 'Icon Position Top' ),
+                            onClick: () => setAttributes( { iconPosition: 'top' } ),
+                            isActive: iconPosition === 'top',
+                        },
+                        {
+                            icon: 'align-left',
+                            title: __( 'Icon Position Left' ),
+                            onClick: () => setAttributes( { iconPosition: 'left' } ),
+                            isActive: iconPosition === 'left',
+                        },
+                        {
+                            icon: 'align-right',
+                            title: __( 'Icon Position Right' ),
+                            onClick: () => setAttributes( { iconPosition: 'right' } ),
+                            isActive: iconPosition === 'right',
+                        },
+                    ] } />
+                </BlockControls>
                 <div className={ className }>
                     { icon ? (
                         <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }>
@@ -172,12 +209,14 @@ class IconBoxBlock extends Component {
                             />
                         </div>
                     ) : '' }
-                    <div className="ghostkit-icon-box-content">
-                        <InnerBlocks
-                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important icons, that you should see!' ) } ] ] }
-                            templateLock={ false }
-                        />
-                    </div>
+                    { showContent ? (
+                        <div className="ghostkit-icon-box-content">
+                            <InnerBlocks
+                                template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important icons, that you should see!' ) } ] ] }
+                                templateLock={ false }
+                            />
+                        </div>
+                    ) : '' }
                 </div>
             </Fragment>
         );
@@ -243,6 +282,10 @@ export const settings = {
             type: 'number',
             default: 30,
         },
+        showContent: {
+            type: 'boolean',
+            default: true,
+        },
         iconColor: {
             type: 'string',
             default: '#0366d6',
@@ -258,6 +301,7 @@ export const settings = {
         const {
             icon,
             iconPosition,
+            showContent,
             variant,
         } = props.attributes;
 
@@ -282,9 +326,11 @@ export const settings = {
                         <IconPicker.Render name={ icon } />
                     </div>
                 ) : '' }
-                <div className="ghostkit-icon-box-content">
-                    <InnerBlocks.Content />
-                </div>
+                { showContent ? (
+                    <div className="ghostkit-icon-box-content">
+                        <InnerBlocks.Content />
+                    </div>
+                ) : '' }
             </div>
         );
     },
