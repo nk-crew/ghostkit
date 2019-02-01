@@ -444,6 +444,21 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
 }, 'withNewAttrs' );
 
 /**
+ * Add block custom classname.
+ *
+ * @param {string} className block editor/save classname
+ * @param {object} { attributes } - block attributes
+ * @return {string} changed classname
+ */
+function blocksEditorCustomClassName( className, { attributes } ) {
+    if ( attributes.ghostkitClassname ) {
+        className = classnames( className, attributes.ghostkitClassname );
+    }
+
+    return className;
+}
+
+/**
  * Override props assigned to save component to inject custom styles.
  * This is only applied if the block's save result is an
  * element and not a markup string.
@@ -459,10 +474,7 @@ function addSaveProps( extraProps, blockType, attributes ) {
 
     if ( customStyles && Object.keys( customStyles ).length !== 0 ) {
         extraProps = Object.assign( extraProps || {}, getCustomStylesAttr( customStyles, blockType, attributes ) );
-
-        if ( attributes.ghostkitClassname ) {
-            extraProps.className = classnames( extraProps.className, attributes.ghostkitClassname );
-        }
+        extraProps.className = blocksEditorCustomClassName( extraProps.className, { attributes } );
     }
 
     return extraProps;
@@ -473,3 +485,4 @@ addFilter( 'blocks.registerBlockType', 'ghostkit/styles/additional-attributes', 
 addFilter( 'blocks.switchToBlockType.transformedBlock', 'ghostkit/styles/additional-attributes', addAttributeTransform );
 addFilter( 'editor.BlockEdit', 'ghostkit/styles/additional-attributes', withNewAttrs );
 addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/styles/save-props', addSaveProps );
+addFilter( 'ghostkit.editor.className', 'ghostkit/editor/custom-class-name', blocksEditorCustomClassName );

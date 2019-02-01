@@ -160,7 +160,6 @@ class GoogleMapsBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            ghostkitClassname,
             variant,
             height,
             zoom,
@@ -191,11 +190,6 @@ class GoogleMapsBlock extends Component {
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-google-maps-variant-${ variant }` );
-        }
-
-        // add custom classname.
-        if ( ghostkitClassname ) {
-            className = classnames( className, ghostkitClassname );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );

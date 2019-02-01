@@ -232,7 +232,6 @@ class GridBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            ghostkitClassname,
             variant,
             columns,
             gap,
@@ -254,11 +253,6 @@ class GridBlock extends Component {
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-grid-variant-${ variant }` );
-        }
-
-        // add custom classname.
-        if ( ghostkitClassname ) {
-            className = classnames( className, ghostkitClassname );
         }
 
         // background

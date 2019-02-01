@@ -29,7 +29,6 @@ class CarouselSlideBlock extends Component {
         } = this.props;
 
         const {
-            ghostkitClassname,
             variant,
         } = attributes;
 
@@ -44,11 +43,6 @@ class CarouselSlideBlock extends Component {
 
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-carousel-slide-variant-${ variant }` );
-        }
-
-        // add custom classname.
-        if ( ghostkitClassname ) {
-            className = classnames( className, ghostkitClassname );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );

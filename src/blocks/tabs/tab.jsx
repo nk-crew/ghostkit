@@ -33,7 +33,6 @@ class TabBlock extends Component {
         } = this.props;
 
         const {
-            ghostkitClassname,
             variant,
         } = attributes;
 
@@ -42,11 +41,6 @@ class TabBlock extends Component {
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-tab-variant-${ variant }` );
-        }
-
-        // add custom classname.
-        if ( ghostkitClassname ) {
-            className = classnames( className, ghostkitClassname );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );

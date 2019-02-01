@@ -71,7 +71,6 @@ class AccordionBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            ghostkitClassname,
             variant,
             collapseOne,
         } = attributes;
@@ -86,11 +85,6 @@ class AccordionBlock extends Component {
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-accordion-variant-${ variant }` );
-        }
-
-        // add custom classname.
-        if ( ghostkitClassname ) {
-            className = classnames( className, ghostkitClassname );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );

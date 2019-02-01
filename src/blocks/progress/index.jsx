@@ -48,7 +48,6 @@ class ProgressBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            ghostkitClassname,
             caption,
             height,
             percent,
@@ -72,11 +71,6 @@ class ProgressBlock extends Component {
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-progress-variant-${ variant }` );
-        }
-
-        // add custom classname.
-        if ( ghostkitClassname ) {
-            className = classnames( className, ghostkitClassname );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );

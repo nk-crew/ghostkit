@@ -50,7 +50,6 @@ class CounterBoxBlock extends Component {
 
         const {
             variant,
-            ghostkitClassname,
             number,
             animateInViewport,
             animateInViewportFrom,
@@ -68,11 +67,6 @@ class CounterBoxBlock extends Component {
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-counter-box-variant-${ variant }` );
-        }
-
-        // add custom classname.
-        if ( ghostkitClassname ) {
-            className = classnames( className, ghostkitClassname );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );

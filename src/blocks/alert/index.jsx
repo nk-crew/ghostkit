@@ -47,7 +47,6 @@ class AlertBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            ghostkitClassname,
             color,
             hoverColor,
             icon,
@@ -63,11 +62,6 @@ class AlertBlock extends Component {
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-alert-variant-${ variant }` );
-        }
-
-        // add custom classname.
-        if ( ghostkitClassname ) {
-            className = classnames( className, ghostkitClassname );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );

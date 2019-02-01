@@ -461,7 +461,7 @@ export const withClasses = createHigherOrderComponent( ( BlockListBlock ) => (
         let className = props.className;
 
         if ( 'ghostkit/grid-column' === blockName ) {
-            className = classnames( className, getColClass( props, true ) );
+            className = classnames( className, getColClass( props ) );
         }
 
         return <BlockListBlock { ...props } className={ className } />;

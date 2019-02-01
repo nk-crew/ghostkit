@@ -45,7 +45,6 @@ class DividerBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            ghostkitClassname,
             type,
             size,
             icon,
@@ -68,11 +67,6 @@ class DividerBlock extends Component {
         // variant classname.
         if ( 'default' !== variant ) {
             className = classnames( className, `ghostkit-divider-variant-${ variant }` );
-        }
-
-        // add custom classname.
-        if ( ghostkitClassname ) {
-            className = classnames( className, ghostkitClassname );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
