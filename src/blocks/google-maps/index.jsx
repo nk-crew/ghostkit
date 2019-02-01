@@ -211,6 +211,23 @@ class GoogleMapsBlock extends Component {
                             isActive: fullHeight,
                         },
                     ] } />
+                    <Toolbar controls={ [
+                        {
+                            icon: getIcon( 'icon-marker', true ),
+                            title: __( 'Add Marker' ),
+                            onClick: () => {
+                                setAttributes( {
+                                    markers: [
+                                        ...markers,
+                                        ...[ {
+                                            lat,
+                                            lng,
+                                        } ],
+                                    ],
+                                } );
+                            },
+                        },
+                    ] } />
                 </BlockControls>
                 <InspectorControls>
                     { this.state.apiKey ? (
