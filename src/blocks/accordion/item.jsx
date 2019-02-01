@@ -14,12 +14,14 @@ const {
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
+    Toolbar,
     PanelBody,
     SelectControl,
 } = wp.components;
 
 const {
     InspectorControls,
+    BlockControls,
     InnerBlocks,
     RichText,
 } = wp.editor;
@@ -109,6 +111,16 @@ class AccordionItemBlock extends Component {
                         </PanelBody>
                     ) : '' }
                 </InspectorControls>
+                <BlockControls>
+                    <Toolbar controls={ [
+                        {
+                            icon: getIcon( 'icon-collapse', true ),
+                            title: __( 'Collapse' ),
+                            onClick: () => setAttributes( { active: ! active } ),
+                            isActive: active,
+                        },
+                    ] } />
+                </BlockControls>
                 <div className={ className }>
                     <div className="ghostkit-accordion-item-heading">
                         <RichText
