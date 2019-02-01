@@ -67,13 +67,13 @@ function allowCustomStyles( allow, settings ) {
     if ( ! allow ) {
         allow = addCoreBlocksSupport( settings.name );
         allow = applyFilters(
-            'ghostkit.blocks.allowCustomSpacings',
+            'ghostkit.blocks.allowSpacings',
             allow,
             settings,
             settings.name
         );
         allow = applyFilters(
-            'ghostkit.blocks.allowCustomIndents',
+            'ghostkit.blocks.allowIndents',
             allow,
             settings,
             settings.name
@@ -99,13 +99,13 @@ function addAttribute( settings ) {
     if ( ! allow ) {
         allow = addCoreBlocksSupport( settings.name );
         allow = applyFilters(
-            'ghostkit.blocks.allowCustomSpacings',
+            'ghostkit.blocks.allowSpacings',
             allow,
             settings,
             settings.name
         );
         allow = applyFilters(
-            'ghostkit.blocks.allowCustomIndents',
+            'ghostkit.blocks.allowIndents',
             allow,
             settings,
             settings.name
@@ -270,13 +270,13 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             if ( ! allow ) {
                 allow = addCoreBlocksSupport( props.name );
                 allow = applyFilters(
-                    'ghostkit.blocks.allowCustomSpacings',
+                    'ghostkit.blocks.allowSpacings',
                     allow,
                     props,
                     props.name
                 );
                 allow = applyFilters(
-                    'ghostkit.blocks.allowCustomIndents',
+                    'ghostkit.blocks.allowIndents',
                     allow,
                     props,
                     props.name
@@ -478,7 +478,7 @@ function addEditorCustomStyles( customStyles, props ) {
 }
 
 // Init filters.
-addFilter( 'ghostkit.blocks.registerBlockType.allowCustomStyles', 'ghostkit/spacings/allow-custom-styles', allowCustomStyles );
-addFilter( 'ghostkit.blocks.registerBlockType.withCustomStyles', 'ghostkit/spacings/additional-attributes', addAttribute );
+addFilter( 'ghostkit.blocks.allowCustomStyles', 'ghostkit/spacings/allow-custom-styles', allowCustomStyles );
+addFilter( 'ghostkit.blocks.withCustomStyles', 'ghostkit/spacings/additional-attributes', addAttribute );
 addFilter( 'ghostkit.blocks.customStyles', 'ghostkit/spacings/editor-custom-styles', addEditorCustomStyles );
 addFilter( 'editor.BlockEdit', 'ghostkit/spacings/additional-attributes', withInspectorControl );

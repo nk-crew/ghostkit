@@ -60,7 +60,7 @@ function addAttribute( settings ) {
 
     if ( ! allow ) {
         allow = settings && settings.attributes && applyFilters(
-            'ghostkit.blocks.registerBlockType.allowCustomSR',
+            'ghostkit.blocks.allowScrollReveal',
             addCoreBlocksSupport( settings.name ),
             settings,
             settings.name
@@ -204,7 +204,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
             if ( ! allow ) {
                 allow = applyFilters(
-                    'ghostkit.blocks.allowCustomSR',
+                    'ghostkit.blocks.allowScrollReveal',
                     addCoreBlocksSupport( props.name ),
                     props,
                     props.name

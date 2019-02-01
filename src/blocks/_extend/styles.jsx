@@ -181,7 +181,7 @@ function addAttribute( blockSettings, name ) {
                 allow = true;
             } else {
                 allow = applyFilters(
-                    'ghostkit.blocks.registerBlockType.allowCustomStyles',
+                    'ghostkit.blocks.allowCustomStyles',
                     false,
                     settings,
                     settings.name || blockSettings.name
@@ -236,7 +236,7 @@ function addAttribute( blockSettings, name ) {
                 }
             }
 
-            settings = applyFilters( 'ghostkit.blocks.registerBlockType.withCustomStyles', settings, name );
+            settings = applyFilters( 'ghostkit.blocks.withCustomStyles', settings, name );
         }
     } );
 
