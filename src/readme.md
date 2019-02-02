@@ -101,7 +101,11 @@ Available filters:
 
 ### How to extend existing blocks ####
 
-You can add Variants to existing blocks, so you will be able to add your own styles for it:
+You should use default Gutenberg hooks to extend blocks functionality. Read more here: https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations
+
+Ghost Kit also has Variants hooks, but please use default Gutenberg implementation called Styles, so you can extend not only Ghost Kit blocks but all available.
+
+Variants example:
 
     add_filter( 'gkt_alert_variants', 'my_alert_variants' );
 
