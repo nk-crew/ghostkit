@@ -308,6 +308,40 @@ class GoogleMapsBlock extends Component {
                                     { __( '+ Add Marker' ) }
                                 </Button>
                             </PanelBody>
+                            <PanelBody title={ __( 'Style' ) }>
+                                <ImagePicker
+                                    value={ style }
+                                    options={ styles }
+                                    onChange={ ( value ) => {
+                                        let customString = styleCustom;
+
+                                        if ( 'default' === value ) {
+                                            customString = '';
+                                        } else if ( 'custom' !== value ) {
+                                            styles.forEach( ( styleData ) => {
+                                                if ( value === styleData.value ) {
+                                                    customString = JSON.stringify( styleData.json );
+                                                }
+                                            } );
+                                        }
+
+                                        setAttributes( {
+                                            style: value,
+                                            styleCustom: customString,
+                                        } );
+                                    } }
+                                />
+                                { 'custom' === style ? (
+                                    <Fragment>
+                                        <TextareaControl
+                                            placeholder={ __( 'Enter Style JSON' ) }
+                                            value={ styleCustom }
+                                            onChange={ ( value ) => setAttributes( { styleCustom: value } ) }
+                                        />
+                                        <p><em>{ __( 'You can use custom styles presets from the' ) } <a href="https://snazzymaps.com/" target="_blank" rel="noopener noreferrer">{ __( 'Snazzy Maps' ) }</a>.</em></p>
+                                    </Fragment>
+                                ) : '' }
+                            </PanelBody>
                             <PanelBody title={ __( 'Options' ) }>
                                 <ToggleControl
                                     label={ __( 'Zoom Buttons' ) }
@@ -368,40 +402,6 @@ class GoogleMapsBlock extends Component {
                                             setAttributes( { gestureHandling: gestureHandling === 'greedy' ? 'cooperative' : 'greedy' } );
                                         } }
                                     />
-                                ) : '' }
-                            </PanelBody>
-                            <PanelBody title={ __( 'Style' ) }>
-                                <ImagePicker
-                                    value={ style }
-                                    options={ styles }
-                                    onChange={ ( value ) => {
-                                        let customString = styleCustom;
-
-                                        if ( 'default' === value ) {
-                                            customString = '';
-                                        } else if ( 'custom' !== value ) {
-                                            styles.forEach( ( styleData ) => {
-                                                if ( value === styleData.value ) {
-                                                    customString = JSON.stringify( styleData.json );
-                                                }
-                                            } );
-                                        }
-
-                                        setAttributes( {
-                                            style: value,
-                                            styleCustom: customString,
-                                        } );
-                                    } }
-                                />
-                                { 'custom' === style ? (
-                                    <Fragment>
-                                        <TextareaControl
-                                            placeholder={ __( 'Enter Style JSON' ) }
-                                            value={ styleCustom }
-                                            onChange={ ( value ) => setAttributes( { styleCustom: value } ) }
-                                        />
-                                        <p><em>{ __( 'You can use custom styles presets from the' ) } <a href="https://snazzymaps.com/" target="_blank" rel="noopener noreferrer">{ __( 'Snazzy Maps' ) }</a>.</em></p>
-                                    </Fragment>
                                 ) : '' }
                             </PanelBody>
                         </Fragment>
