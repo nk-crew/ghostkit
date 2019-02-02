@@ -80,30 +80,39 @@
     position: absolute;
     top: -15px;
     right: -15px;
-    padding: 4px 10px;
+    padding: 2px 4px;
     font-family: $default-font;
-    font-size: 11px;
+    font-size: 17px;
     line-height: 1;
     color: #fff;
     cursor: pointer;
     visibility: hidden;
     background-color: $light-gray-700;
+    border-bottom-left-radius: 3px;
     opacity: 0;
     transition: .2s opacity, .2s visibility, .2s background-color;
     z-index: 21;
+
+    svg {
+        width: auto;
+        height: 1em;
+    }
 }
 .ghostkit-grid-button-select {
     top: auto;
     bottom: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 14px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 0;
 }
 [data-type="ghostkit/grid"]:hover > .editor-block-list__block-edit > div > div > .ghostkit-grid-button-select,
 [data-type="ghostkit/grid-column"]:hover > .editor-block-list__block-edit > div > div > .ghostkit-column-button-select {
     visibility: visible;
     opacity: 1;
 }
-[data-type="ghostkit/grid"].is-hovered > .editor-block-list__block-edit > div > div > .ghostkit-grid-button-select,
-[data-type="ghostkit/grid-column"].is-hovered > .editor-block-list__block-edit > div > div > .ghostkit-column-button-select {
+.ghostkit-grid-button-select:hover,
+.ghostkit-column-button-select:hover {
     background-color: $blue-wordpress;
 }
 
@@ -128,8 +137,9 @@
     z-index: 1;
 }
 
-// hide default grid breadcrumb
-[data-type="ghostkit/grid"] > .editor-block-list__block-edit > .editor-block-list__breadcrumb {
+// hide default grid and column breadcrumb
+[data-type="ghostkit/grid"] > .editor-block-list__block-edit > .editor-block-list__breadcrumb,
+[data-type="ghostkit/grid-column"] > .editor-block-list__block-edit > .editor-block-list__breadcrumb {
     display: none;
 }
 

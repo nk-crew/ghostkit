@@ -23,6 +23,7 @@ const {
     RangeControl,
     Placeholder,
     Toolbar,
+    Tooltip,
 } = wp.components;
 
 const {
@@ -439,7 +440,9 @@ class GridBlock extends Component {
                             { background }
                             { ! isSelected ? (
                                 <div className="ghostkit-grid-button-select">
-                                    { __( 'Select Grid' ) }
+                                    <Tooltip text={ __( 'Select Grid' ) }>
+                                        { getIcon( 'block-grid', true ) }
+                                    </Tooltip>
                                 </div>
                             ) : '' }
                             <InnerBlocks

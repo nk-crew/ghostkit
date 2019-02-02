@@ -20,6 +20,7 @@ const {
     SelectControl,
     ToggleControl,
     TextControl,
+    Tooltip,
 } = wp.components;
 
 const {
@@ -237,7 +238,9 @@ class GridColumnBlock extends Component {
                 <div className="ghostkit-col-content">
                     { ! isSelected ? (
                         <div className="ghostkit-column-button-select">
-                            { __( 'Select Column' ) }
+                            <Tooltip text={ __( 'Select Column' ) }>
+                                { getIcon( 'block-grid-column', true ) }
+                            </Tooltip>
                         </div>
                     ) : '' }
                     <InnerBlocks templateLock={ false } />
@@ -253,7 +256,7 @@ export const settings = {
     title: __( 'Column' ),
     parent: [ 'ghostkit/grid' ],
     description: __( 'A single column within a grid block.' ),
-    icon: getIcon( 'block-grid' ),
+    icon: getIcon( 'block-grid-column' ),
     category: 'ghostkit',
     ghostkit: {
         customSelector( selector ) {
@@ -422,8 +425,6 @@ export const settings = {
     },
     deprecated: deprecatedArray,
 };
-
-// getEditWrapperProps
 
 /**
  * Override the default block element to add column classes on wrapper.

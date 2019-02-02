@@ -11,6 +11,7 @@ import blockDivider from '../_icons/block-divider.svg';
 import blockGist from '../_icons/block-gist.svg';
 import blockGoogleMaps from '../_icons/block-google-maps.svg';
 import blockGrid from '../_icons/block-grid.svg';
+import blockGridColumn from '../_icons/block-grid-column.svg';
 import blockIconBox from '../_icons/block-icon-box.svg';
 import blockInstagram from '../_icons/block-instagram.svg';
 import blockPricingTable from '../_icons/block-pricing.svg';
@@ -63,6 +64,7 @@ export default {
     'block-gist': blockGist,
     'block-google-maps': blockGoogleMaps,
     'block-grid': blockGrid,
+    'block-grid-column': blockGridColumn,
     'block-icon-box': blockIconBox,
     'block-instagram': blockInstagram,
     'block-pricing-table': blockPricingTable,
