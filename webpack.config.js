@@ -41,6 +41,9 @@ module.exports = function( isDev = false ) {
                             },
                         },
                     } ),
+                }, {
+                    test: /\.(gif|png|jpe?g)$/i,
+                    loader: 'base64-inline-loader',
                 },
             ],
         },
