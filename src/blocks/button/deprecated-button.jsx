@@ -38,10 +38,6 @@ export default [
             anchor: true,
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             url: {
                 type: 'string',
                 source: 'attribute',
@@ -97,7 +93,6 @@ export default [
 
         save: function( props ) {
             const {
-                variant,
                 title,
                 text,
                 url,
@@ -113,11 +108,6 @@ export default [
                 size ? `ghostkit-button-${ size }` : '',
                 className
             );
-
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-button-variant-${ variant }` );
-            }
 
             className = applyFilters( 'ghostkit.blocks.className', className, {
                 ...{

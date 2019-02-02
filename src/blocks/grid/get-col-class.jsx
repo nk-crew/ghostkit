@@ -40,11 +40,6 @@ export default function getColClass( props ) {
         }
     } );
 
-    // variant classname.
-    if ( 'default' !== attributes.variant ) {
-        result = classnames( result, `ghostkit-col-attributes.-${ attributes.variant }` );
-    }
-
     result = applyFilters( 'ghostkit.editor.className', result, props );
 
     return result;

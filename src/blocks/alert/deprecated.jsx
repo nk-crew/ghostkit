@@ -1,5 +1,6 @@
-// External Dependencies.
-import classnames from 'classnames/dedupe';
+const {
+    applyFilters,
+} = wp.hooks;
 
 const {
     InnerBlocks,
@@ -20,10 +21,6 @@ export default [
             align: [ 'wide', 'full' ],
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             color: {
                 type: 'string',
                 default: '#d94f4f',
@@ -41,16 +38,22 @@ export default [
                 default: false,
             },
         },
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
                 icon,
                 hideButton,
-                variant,
-            } = attributes;
+            } = props.attributes;
 
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-alert-variant-${ variant }` );
-            }
+            let {
+                className,
+            } = props;
+
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/alert',
+                },
+                ...props,
+            } );
 
             return (
                 <div className={ className }>

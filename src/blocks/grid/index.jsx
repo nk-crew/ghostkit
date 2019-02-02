@@ -10,8 +10,6 @@ import deprecatedArray from './deprecated.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 import ColorPicker from '../_components/color-picker.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -23,7 +21,6 @@ const {
     ButtonGroup,
     PanelBody,
     RangeControl,
-    SelectControl,
     Placeholder,
     Toolbar,
 } = wp.components;
@@ -232,15 +229,12 @@ class GridBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
             columns,
             gap,
             verticalAlign,
             horizontalAlign,
             awb_color, // eslint-disable-line
         } = attributes;
-
-        const availableVariants = GHOSTKIT.getVariants( 'grid' );
 
         className = classnames(
             className,
@@ -249,11 +243,6 @@ class GridBlock extends Component {
             verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,
             horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
         );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-grid-variant-${ variant }` );
-        }
 
         // background
         let background = '';
@@ -303,19 +292,6 @@ class GridBlock extends Component {
                 ) : '' }
                 { columns > 1 ? (
                     <InspectorControls>
-                        { Object.keys( availableVariants ).length > 1 ? (
-                            <PanelBody>
-                                <SelectControl
-                                    label={ __( 'Variants' ) }
-                                    value={ variant }
-                                    options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                        value: key,
-                                        label: availableVariants[ key ].title,
-                                    } ) ) }
-                                    onChange={ ( value ) => setAttributes( { variant: value } ) }
-                                />
-                            </PanelBody>
-                        ) : '' }
                         <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={ this.props }>
                             <PanelBody>
                                 <RangeControl
@@ -507,10 +483,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         columns: {
             type: 'number',
             default: 0,
@@ -550,7 +522,6 @@ export const settings = {
             verticalAlign,
             horizontalAlign,
             gap,
-            variant,
             awb_color, // eslint-disable-line
         } = props.attributes;
 
@@ -560,11 +531,6 @@ export const settings = {
             verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,
             horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
         );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-grid-variant-${ variant }` );
-        }
 
         // background
         let background = '';

@@ -27,8 +27,6 @@ class VideoBlockSave extends Component {
         } = this.props;
 
         const {
-            variant,
-
             type,
             video,
             videoMp4,
@@ -52,11 +50,6 @@ class VideoBlockSave extends Component {
         const resultAttrs = {};
 
         resultAttrs.className = 'ghostkit-video';
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            resultAttrs.className = classnames( resultAttrs.className, `ghostkit-video-variant-${ variant }` );
-        }
 
         resultAttrs.className = applyFilters( 'ghostkit.blocks.className', resultAttrs.className, {
             ...{
@@ -142,10 +135,6 @@ export default [
             align: [ 'wide', 'full' ],
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             type: {
                 type: 'string',
                 default: 'yt_vm_video',
@@ -243,10 +232,6 @@ export default [
             align: [ 'wide', 'full' ],
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             type: {
                 type: 'string',
                 default: 'yt_vm_video',
@@ -308,8 +293,6 @@ export default [
         },
         save: function( { attributes, className = '' } ) {
             const {
-                variant,
-
                 type,
                 video,
                 videoMp4,
@@ -331,10 +314,7 @@ export default [
                 className
             );
 
-            // variant classname.
-            if ( 'default' !== variant ) {
-                resultAttrs.className = classnames( resultAttrs.className, `ghostkit-video-variant-${ variant }` );
-            }
+            resultAttrs.className = applyFilters( 'ghostkit.editor.className', resultAttrs.className, this.props );
 
             resultAttrs[ 'data-video-type' ] = type;
 

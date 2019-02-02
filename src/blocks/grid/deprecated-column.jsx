@@ -1,6 +1,3 @@
-// External Dependencies.
-import classnames from 'classnames/dedupe';
-
 import getColClass from './get-col-class.jsx';
 
 const {
@@ -52,11 +49,6 @@ export default [
             reusable: false,
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
-
             sm_size: {
                 type: 'string',
                 default: '',
@@ -116,16 +108,10 @@ export default [
         },
         save: function( props ) {
             const {
-                variant,
                 stickyContent,
             } = props.attributes;
 
-            let className = getColClass( props );
-
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-col-variant-${ variant }` );
-            }
+            const className = getColClass( props );
 
             if ( stickyContent ) {
                 return (

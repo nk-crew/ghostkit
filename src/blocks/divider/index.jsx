@@ -9,8 +9,6 @@ import deepAssign from 'deep-assign';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 
-const { GHOSTKIT } = window;
-
 import ColorPicker from '../_components/color-picker.jsx';
 import IconPicker from '../_components/icon-picker.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
@@ -53,20 +51,12 @@ class DividerBlock extends Component {
             iconColor,
             hoverColor,
             hoverIconColor,
-            variant,
         } = attributes;
-
-        const availableVariants = GHOSTKIT.getVariants( 'divider' );
 
         className = classnames( 'ghostkit-divider', `ghostkit-divider-type-${ type }`, className );
 
         if ( icon ) {
             className = classnames( className, 'ghostkit-divider-with-icon' );
-        }
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-divider-variant-${ variant }` );
         }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
@@ -100,19 +90,6 @@ class DividerBlock extends Component {
                     </Toolbar>
                 </BlockControls>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <SelectControl
                             label={ __( 'Type' ) }
@@ -292,10 +269,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         type: {
             type: 'string',
             default: 'solid',
@@ -334,18 +307,12 @@ export const settings = {
         const {
             icon,
             type,
-            variant,
         } = props.attributes;
 
         let className = `ghostkit-divider ghostkit-divider-type-${ type }`;
 
         if ( icon ) {
             className = classnames( className, 'ghostkit-divider-with-icon' );
-        }
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-divider-variant-${ variant }` );
         }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {

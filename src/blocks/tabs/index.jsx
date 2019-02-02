@@ -8,8 +8,6 @@ import slugify from 'slugify';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -110,13 +108,10 @@ class TabsBlockEdit extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
             tabActive,
             buttonsAlign,
             tabsData = [],
         } = attributes;
-
-        const availableVariants = GHOSTKIT.getVariants( 'tabs' );
 
         const tabs = this.getTabs();
 
@@ -125,29 +120,11 @@ class TabsBlockEdit extends Component {
             'ghostkit-tabs'
         );
 
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-tabs-variant-${ variant }` );
-        }
-
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <RangeControl
                             label={ __( 'Tabs' ) }
@@ -288,10 +265,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         tabActive: {
             type: 'string',
             default: 'tab-1',
@@ -343,18 +316,12 @@ export const settings = {
 
     save( props ) {
         const {
-            variant,
             tabActive,
             buttonsAlign,
             tabsData = [],
         } = props.attributes;
 
         let className = 'ghostkit-tabs';
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-tabs-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{

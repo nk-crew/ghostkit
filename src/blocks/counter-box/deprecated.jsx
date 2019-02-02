@@ -44,10 +44,6 @@ export default [
             align: [ 'wide', 'full' ],
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             number: {
                 type: 'array',
                 source: 'children',
@@ -80,7 +76,6 @@ export default [
         },
         save: function( props ) {
             const {
-                variant,
                 number,
                 animateInViewport,
                 numberPosition,
@@ -94,11 +89,6 @@ export default [
             animateInViewportFrom = parseFloat( animateInViewportFrom );
 
             className = classnames( 'ghostkit-counter-box', className );
-
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-counter-box-variant-${ variant }` );
-            }
 
             className = applyFilters( 'ghostkit.blocks.className', className, {
                 ...{
@@ -138,10 +128,6 @@ export default [
             align: [ 'wide', 'full' ],
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             number: {
                 type: 'array',
                 source: 'children',
@@ -161,16 +147,22 @@ export default [
                 default: '#016c91',
             },
         },
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
                 number,
                 numberPosition,
-                variant,
-            } = attributes;
+            } = props.attributes;
 
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-counter-box-variant-${ variant }` );
-            }
+            let {
+                className,
+            } = props;
+
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name,
+                },
+                ...props,
+            } );
 
             return (
                 <div className={ className }>

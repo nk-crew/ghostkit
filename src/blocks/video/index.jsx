@@ -16,8 +16,6 @@ import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 import './store.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -155,8 +153,6 @@ class VideoBlockEdit extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
-
             type,
             video,
             videoPosterPreview,
@@ -181,36 +177,16 @@ class VideoBlockEdit extends Component {
             fullscreenActionCloseIcon,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'video' );
-
         className = classnames(
             'ghostkit-video',
             className
         );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-video-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <ButtonGroup aria-label={ __( 'Type' ) } style={ { marginBottom: 10 } }>
                             {
@@ -594,8 +570,6 @@ class VideoBlockSave extends Component {
         } = this.props;
 
         const {
-            variant,
-
             type,
             video,
             videoMp4,
@@ -619,11 +593,6 @@ class VideoBlockSave extends Component {
         const resultAttrs = {};
 
         resultAttrs.className = 'ghostkit-video';
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            resultAttrs.className = classnames( resultAttrs.className, `ghostkit-video-variant-${ variant }` );
-        }
 
         resultAttrs.className = applyFilters( 'ghostkit.blocks.className', resultAttrs.className, {
             ...{
@@ -723,10 +692,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         type: {
             type: 'string',
             default: 'yt_vm_video',

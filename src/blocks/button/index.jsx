@@ -10,8 +10,6 @@ import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 import { settings as buttonSingleSettings } from './button.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -19,7 +17,6 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 
 const {
-    SelectControl,
     PanelBody,
     BaseControl,
     Button,
@@ -84,12 +81,9 @@ class ButtonBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
             align,
             gap,
         } = attributes;
-
-        const availableVariants = GHOSTKIT.getVariants( 'button_wrapper' );
 
         className = classnames(
             'ghostkit-button-wrapper',
@@ -97,11 +91,6 @@ class ButtonBlock extends Component {
             align && align !== 'none' ? `ghostkit-button-wrapper-align-${ align }` : false,
             className
         );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-button-wrapper-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
@@ -115,19 +104,6 @@ class ButtonBlock extends Component {
                     />
                 </BlockControls>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <BaseControl label={ __( 'Gap' ) }>
                             <ButtonGroup>
@@ -191,10 +167,6 @@ class ButtonBlock extends Component {
 }
 
 const blockAttributes = {
-    variant: {
-        type: 'string',
-        default: 'default',
-    },
     align: {
         type: 'string',
         default: 'none',
@@ -327,7 +299,6 @@ export const settings = {
 
     save( props ) {
         const {
-            variant,
             align,
             gap,
         } = props.attributes;
@@ -344,11 +315,6 @@ export const settings = {
             },
             ...props,
         } );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-button-wrapper-variant-${ variant }` );
-        }
 
         return (
             <div className={ className }>

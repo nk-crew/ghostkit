@@ -9,7 +9,7 @@ import classnames from 'classnames/dedupe';
 import getIcon from '../_utils/get-icon.jsx';
 import GistFilesSelect from './file-select.jsx';
 
-const { GHOSTKIT, jQuery } = window;
+const { jQuery } = window;
 
 const {
     applyFilters,
@@ -18,7 +18,6 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
-    SelectControl,
     TextControl,
     ToggleControl,
     Placeholder,
@@ -136,7 +135,6 @@ class GistBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
             url,
             file,
             caption,
@@ -144,14 +142,7 @@ class GistBlock extends Component {
             showLineNumbers,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'gist' );
-
         className = classnames( 'ghostkit-gist', className );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-gist-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
@@ -187,19 +178,6 @@ class GistBlock extends Component {
                     ) : '' }
                 </BlockControls>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <TextControl
                             label={ __( 'URL' ) }
@@ -302,10 +280,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         url: {
             type: 'string',
             default: '',
@@ -353,7 +327,6 @@ export const settings = {
 
     save: function( props ) {
         const {
-            variant,
             url,
             file,
             caption,
@@ -362,11 +335,6 @@ export const settings = {
         } = props.attributes;
 
         let className = 'ghostkit-gist';
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-gist-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{

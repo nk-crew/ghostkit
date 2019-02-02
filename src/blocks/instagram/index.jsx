@@ -9,8 +9,6 @@ import classnames from 'classnames/dedupe';
 import getIcon from '../_utils/get-icon.jsx';
 import './store.jsx';
 
-const { GHOSTKIT } = window;
-
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
@@ -19,12 +17,15 @@ const {
     ButtonGroup,
     PanelBody,
     Placeholder,
-    SelectControl,
     TextControl,
     RangeControl,
     ToggleControl,
     Spinner,
 } = wp.components;
+
+const {
+    applyFilters,
+} = wp.hooks;
 
 const {
     withSelect,
@@ -48,7 +49,6 @@ class InstagramBlock extends Component {
         } = this.props;
 
         const {
-            variant,
             accessToken,
             count,
             columns,
@@ -61,8 +61,6 @@ class InstagramBlock extends Component {
             showProfileWebsite,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'instagram' );
-
         const showProfile = attributes.showProfile && ( showProfileName || showProfileAvatar || showProfileBio || showProfileWebsite || showProfileStats );
 
         className = classnames(
@@ -72,29 +70,13 @@ class InstagramBlock extends Component {
             className
         );
 
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-instagram-variant-${ variant }` );
-        }
+        className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
                 <InspectorControls>
                     { accessToken ? (
                         <Fragment>
-                            { Object.keys( availableVariants ).length > 1 ? (
-                                <PanelBody>
-                                    <SelectControl
-                                        label={ __( 'Variants' ) }
-                                        value={ variant }
-                                        options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                            value: key,
-                                            label: availableVariants[ key ].title,
-                                        } ) ) }
-                                        onChange={ ( value ) => setAttributes( { variant: value } ) }
-                                    />
-                                </PanelBody>
-                            ) : '' }
                             <PanelBody>
                                 <RangeControl
                                     label={ __( 'Photos Number' ) }
@@ -303,10 +285,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         accessToken: {
             type: 'string',
         },

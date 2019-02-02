@@ -8,8 +8,6 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -17,7 +15,6 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
-    SelectControl,
 } = wp.components;
 
 const {
@@ -36,38 +33,17 @@ class ChangelogBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
             version,
             date,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'changelog' );
-
         className = classnames( 'ghostkit-changelog', className );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-changelog-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <p>{ __( 'Supported highlighting badges, just put these texts in the start of items list: [Added], [Fixed], [Improved], [Updated], [New], [Removed], [Changed]' ) }</p>
                     </PanelBody>
@@ -135,10 +111,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         version: {
             type: 'string',
             default: '',
@@ -153,17 +125,11 @@ export const settings = {
 
     save: function( props ) {
         const {
-            variant,
             version,
             date,
         } = props.attributes;
 
         let className = 'ghostkit-changelog';
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-changelog-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{

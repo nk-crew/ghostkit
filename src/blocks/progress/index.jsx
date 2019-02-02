@@ -11,8 +11,6 @@ import './editor.scss';
 import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 
-const { GHOSTKIT } = window;
-
 import ColorPicker from '../_components/color-picker.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 
@@ -24,7 +22,6 @@ const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     TextControl,
-    SelectControl,
     RangeControl,
     ToggleControl,
     ColorIndicator,
@@ -61,36 +58,15 @@ class ProgressBlock extends Component {
             backgroundColor,
             hoverColor,
             hoverBackgroundColor,
-            variant,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'progress' );
-
         className = classnames( 'ghostkit-progress', className );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-progress-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <RangeControl
                             label={ __( 'Height' ) }
@@ -315,10 +291,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         caption: {
             type: 'array',
             source: 'children',
@@ -385,15 +357,9 @@ export const settings = {
             countPrefix,
             countSuffix,
             animateInViewport,
-            variant,
         } = props.attributes;
 
         let className = 'ghostkit-progress';
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-progress-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{

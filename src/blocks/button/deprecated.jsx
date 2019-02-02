@@ -2,6 +2,10 @@
 import classnames from 'classnames/dedupe';
 
 const {
+    applyFilters,
+} = wp.hooks;
+
+const {
     RichText,
 } = wp.editor;
 
@@ -41,10 +45,6 @@ export default [
             align: [ 'wide', 'full' ],
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             url: {
                 type: 'string',
                 source: 'attribute',
@@ -133,21 +133,27 @@ export default [
                 ],
             ];
         },
-        save( { attributes, className = '' } ) {
+        save( props ) {
             const {
                 text,
                 url,
                 title,
                 align,
                 size,
-                variant,
-            } = attributes;
+            } = props.attributes;
+
+            let {
+                className,
+            } = props;
 
             className = classnames( 'ghostkit-button-wrapper', className );
 
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-button-variant-${ variant }` );
-            }
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/button-single',
+                },
+                ...props,
+            } );
 
             return (
                 <div className={ classnames( className, `align${ align }` ) }>

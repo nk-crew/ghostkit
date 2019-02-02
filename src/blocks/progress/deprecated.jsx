@@ -5,6 +5,10 @@ const {
     RichText,
 } = wp.editor;
 
+const {
+    applyFilters,
+} = wp.hooks;
+
 export default [
     {
         ghostkit: {
@@ -20,10 +24,6 @@ export default [
             align: [ 'wide', 'full' ],
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             caption: {
                 type: 'array',
                 source: 'children',
@@ -54,19 +54,24 @@ export default [
                 default: '#f3f4f5',
             },
         },
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
                 caption,
                 height,
                 percent,
                 striped,
-                variant,
-            } = attributes;
+            } = props.attributes;
 
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-progress-variant-${ variant }` );
-            }
+            let {
+                className,
+            } = props;
+
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/progress',
+                },
+                ...props,
+            } );
 
             return (
                 <div className={ className }>
@@ -111,10 +116,6 @@ export default [
             className: false,
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             caption: {
                 type: 'array',
                 source: 'children',
@@ -162,7 +163,7 @@ export default [
                 default: '#f3f4f5',
             },
         },
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
                 caption,
                 height,
@@ -172,15 +173,20 @@ export default [
                 countPrefix,
                 countSuffix,
                 animateInViewport,
-                variant,
-            } = attributes;
+            } = props.attributes;
+
+            let {
+                className,
+            } = props;
 
             className = classnames( 'ghostkit-progress', className );
 
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-progress-variant-${ variant }` );
-            }
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/progress',
+                },
+                ...props,
+            } );
 
             return (
                 <div className={ className }>

@@ -1,6 +1,3 @@
-// External Dependencies.
-import classnames from 'classnames/dedupe';
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -27,10 +24,6 @@ export default [
             align: [ 'wide', 'full' ],
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             slides: {
                 type: 'number',
                 default: 3,
@@ -90,7 +83,6 @@ export default [
         },
         save: function( props ) {
             const {
-                variant,
                 effect,
                 speed,
                 autoplay,
@@ -107,11 +99,6 @@ export default [
             } = props.attributes;
 
             let className = 'ghostkit-carousel';
-
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-carousel-variant-${ variant }` );
-            }
 
             className = applyFilters( 'ghostkit.blocks.className', className, {
                 ...{

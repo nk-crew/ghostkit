@@ -34,6 +34,7 @@ import * as customCSS from './custom-css/index.jsx';
 /**
  * Extensions
  */
+import './_extend/variants.jsx';
 import './_extend/styles.jsx';
 import './_extend/spacings.jsx';
 import './_extend/display.jsx';

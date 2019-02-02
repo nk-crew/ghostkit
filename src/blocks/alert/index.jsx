@@ -9,8 +9,6 @@ import deprecatedArray from './deprecated.jsx';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 
-const { GHOSTKIT } = window;
-
 import ColorPicker from '../_components/color-picker.jsx';
 import IconPicker from '../_components/icon-picker.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
@@ -22,7 +20,6 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
-    SelectControl,
     RangeControl,
     ToggleControl,
     Toolbar,
@@ -52,17 +49,9 @@ class AlertBlock extends Component {
             icon,
             iconSize,
             hideButton,
-            variant,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'alert' );
-
         className = classnames( 'ghostkit-alert', className );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-alert-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
@@ -104,19 +93,6 @@ class AlertBlock extends Component {
                     </Toolbar>
                 </BlockControls>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <IconPicker
                             label={ __( 'Icon' ) }
@@ -257,10 +233,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         color: {
             type: 'string',
             default: '#E47F3B',
@@ -288,15 +260,9 @@ export const settings = {
         const {
             icon,
             hideButton,
-            variant,
         } = props.attributes;
 
         let className = 'ghostkit-alert';
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-alert-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{

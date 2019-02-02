@@ -23,10 +23,6 @@ const fixMarker = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         lat: {
             type: 'number',
             default: 40.7127753,
@@ -92,7 +88,6 @@ export default [
         attributes: fixMarker.attributes,
         save: function( props ) {
             const {
-                variant,
                 height,
                 zoom,
                 lat,
@@ -113,11 +108,6 @@ export default [
             // add full height classname.
             if ( fullHeight ) {
                 className = classnames( className, 'ghostkit-google-maps-fullheight' );
-            }
-
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-google-maps-variant-${ variant }` );
             }
 
             className = applyFilters( 'ghostkit.blocks.className', className, {
@@ -148,9 +138,8 @@ export default [
     }, {
         supports: fixMarker.supports,
         attributes: fixMarker.attributes,
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
-                variant,
                 height,
                 zoom,
                 lat,
@@ -164,7 +153,11 @@ export default [
                 styleCustom,
                 markers,
                 fullHeight,
-            } = attributes;
+            } = props.attributes;
+
+            let {
+                className,
+            } = props;
 
             className = classnames( 'ghostkit-google-maps', className );
 
@@ -173,10 +166,12 @@ export default [
                 className = classnames( className, 'ghostkit-google-maps-fullheight' );
             }
 
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-google-maps-variant-${ variant }` );
-            }
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/google-maps',
+                },
+                ...props,
+            } );
 
             return (
                 <div
@@ -201,9 +196,8 @@ export default [
     }, {
         supports: fixMarker.supports,
         attributes: fixMarker.attributes,
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
-                variant,
                 height,
                 zoom,
                 lat,
@@ -217,7 +211,11 @@ export default [
                 styleCustom,
                 markers,
                 fullHeight,
-            } = attributes;
+            } = props.attributes;
+
+            let {
+                className,
+            } = props;
 
             className = classnames( 'ghostkit-google-maps', className );
 
@@ -226,10 +224,12 @@ export default [
                 className = classnames( className, 'ghostkit-google-maps-fullheight' );
             }
 
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-google-maps-variant-${ variant }` );
-            }
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/google-maps',
+                },
+                ...props,
+            } );
 
             return (
                 <div

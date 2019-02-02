@@ -8,6 +8,10 @@ const {
 } = wp.editor;
 
 const {
+    applyFilters,
+} = wp.hooks;
+
+const {
     createBlock,
 } = wp.blocks;
 
@@ -34,10 +38,6 @@ export default [
             ghostkitSR: true,
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             tabsCount: {
                 type: 'number',
                 default: 2,
@@ -107,13 +107,16 @@ export default [
                 migratedInnerBlocks,
             ];
         },
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
                 tabsCount,
                 tabActive,
                 buttonsAlign,
-                variant,
-            } = attributes;
+            } = props.attributes;
+
+            let {
+                className,
+            } = props;
 
             className = classnames(
                 className,
@@ -121,12 +124,14 @@ export default [
                 `ghostkit-tabs-active-${ tabActive }`
             );
 
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-tabs-variant-${ variant }` );
-            }
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/tabs',
+                },
+                ...props,
+            } );
 
-            const tabs = getTabs( attributes );
+            const tabs = getTabs( props.attributes );
 
             return (
                 <div className={ className }>

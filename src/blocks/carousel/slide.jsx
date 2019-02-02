@@ -4,20 +4,13 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const {
-    PanelBody,
-    SelectControl,
-} = wp.components;
 
 const {
-    InspectorControls,
     InnerBlocks,
 } = wp.editor;
 
@@ -25,12 +18,7 @@ class CarouselSlideBlock extends Component {
     render() {
         const {
             attributes,
-            setAttributes,
         } = this.props;
-
-        const {
-            variant,
-        } = attributes;
 
         let {
             className,
@@ -41,31 +29,10 @@ class CarouselSlideBlock extends Component {
             'ghostkit-carousel-slide'
         );
 
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-carousel-slide-variant-${ variant }` );
-        }
-
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
-
-        const availableVariants = GHOSTKIT.getVariants( 'carousel_slide' );
 
         return (
             <Fragment>
-                <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
-                </InspectorControls>
                 <div className={ className }>
                     <InnerBlocks templateLock={ false } />
                 </div>
@@ -98,24 +65,12 @@ export const settings = {
         reusable: false,
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
     },
 
     edit: CarouselSlideBlock,
 
     save: function( props ) {
-        const {
-            variant,
-        } = props.attributes;
-
         let className = 'ghostkit-carousel-slide';
-
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-carousel-slide-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{

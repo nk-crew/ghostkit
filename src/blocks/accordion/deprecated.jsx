@@ -2,6 +2,10 @@
 import classnames from 'classnames/dedupe';
 
 const {
+    applyFilters,
+} = wp.hooks;
+
+const {
     InnerBlocks,
     RichText,
 } = wp.editor;
@@ -21,10 +25,6 @@ export default [
             className: false,
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             heading: {
                 type: 'array',
                 default: 'Accordion Item',
@@ -37,17 +37,16 @@ export default [
                 type: 'number',
             },
         },
-        save: function( { attributes } ) {
+        save: function( props ) {
             const {
-                variant,
                 heading,
                 active,
                 itemNumber,
-            } = attributes;
+            } = props.attributes;
 
             let {
                 className,
-            } = attributes;
+            } = props.attributes;
 
             className = classnames(
                 className,
@@ -55,9 +54,12 @@ export default [
                 active ? 'ghostkit-accordion-item-active' : ''
             );
 
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-accordion-item-variant-${ variant }` );
-            }
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/accordion-item',
+                },
+                ...props,
+            } );
 
             return (
                 <div className={ className }>

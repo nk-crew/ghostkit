@@ -9,8 +9,6 @@ import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
 import deprecatedArray from './deprecated-column.jsx';
 import ColorPicker from '../_components/color-picker.jsx';
 
-const { GHOSTKIT } = window;
-
 const { ghostkitVariables } = window;
 const { __, sprintf } = wp.i18n;
 const { Component, Fragment } = wp.element;
@@ -103,16 +101,12 @@ class GridColumnBlock extends Component {
         } = this.props;
 
         const {
-            variant,
-
             stickyContent,
             stickyContentTop,
             stickyContentBottom,
 
             awb_color, // eslint-disable-line
         } = attributes;
-
-        const availableVariants = GHOSTKIT.getVariants( 'grid_column' );
 
         const iconsColor = {};
         if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
@@ -147,19 +141,6 @@ class GridColumnBlock extends Component {
             <Fragment>
                 <InspectorControls>
                     <ApplyFilters name="ghostkit.editor.controls" attribute="columnSettings" props={ this.props }>
-                        { Object.keys( availableVariants ).length > 1 ? (
-                            <PanelBody>
-                                <SelectControl
-                                    label={ __( 'Variants' ) }
-                                    value={ variant }
-                                    options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                        value: key,
-                                        label: availableVariants[ key ].title,
-                                    } ) ) }
-                                    onChange={ ( value ) => setAttributes( { variant: value } ) }
-                                />
-                            </PanelBody>
-                        ) : '' }
                         <PanelBody>
                             <TabPanelScreenSizes iconsColor={ iconsColor }>
                                 {
@@ -330,11 +311,6 @@ export const settings = {
         reusable: false,
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
-
         sm_size: {
             type: 'string',
             default: '',

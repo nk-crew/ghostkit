@@ -2,6 +2,10 @@
 import classnames from 'classnames/dedupe';
 
 const {
+    applyFilters,
+} = wp.hooks;
+
+const {
     InnerBlocks,
 } = wp.editor;
 
@@ -81,10 +85,6 @@ export default [
             align: [ 'wide', 'full' ],
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             columns: {
                 type: 'number',
                 default: 2,
@@ -117,13 +117,16 @@ export default [
                 innerBlocks,
             ];
         },
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
                 verticalAlign,
                 horizontalAlign,
                 gap,
-                variant,
-            } = attributes;
+            } = props.attributes;
+
+            let {
+                className,
+            } = props;
 
             className = classnames(
                 className,
@@ -133,10 +136,12 @@ export default [
                 horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false
             );
 
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-grid-variant-${ variant }` );
-            }
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/grid',
+                },
+                ...props,
+            } );
 
             return (
                 <div className={ className }>
@@ -157,10 +162,6 @@ export default [
             html: false,
         },
         attributes: {
-            variant: {
-                type: 'string',
-                default: 'default',
-            },
             columns: {
                 type: 'number',
                 default: 2,
@@ -241,27 +242,32 @@ export default [
                 migratedInnerBlocks,
             ];
         },
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
                 columns,
                 verticalAlign,
                 horizontalAlign,
                 gap,
-                variant,
-            } = attributes;
+            } = props.attributes;
+
+            let {
+                className,
+            } = props;
 
             className = classnames(
                 className,
                 `ghostkit-grid-cols-${ columns } ghostkit-grid-gap-${ gap }`,
                 verticalAlign ? `ghostkit-grid-align-items-${ verticalAlign }` : false,
                 horizontalAlign ? `ghostkit-grid-justify-content-${ horizontalAlign }` : false,
-                getGridClass( attributes )
+                getGridClass( props.attributes )
             );
 
-            // variant classname.
-            if ( 'default' !== variant ) {
-                className = classnames( className, `ghostkit-grid-variant-${ variant }` );
-            }
+            className = applyFilters( 'ghostkit.blocks.className', className, {
+                ...{
+                    name: 'ghostkit/grid',
+                },
+                ...props,
+            } );
 
             return (
                 <div className={ className }>

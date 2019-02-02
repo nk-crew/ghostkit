@@ -4,8 +4,6 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -14,7 +12,6 @@ const { Component, Fragment } = wp.element;
 const {
     BaseControl,
     PanelBody,
-    SelectControl,
     ToggleControl,
 } = wp.components;
 
@@ -33,7 +30,6 @@ class PricingTableItemBlock extends Component {
         } = this.props;
 
         const {
-            variant,
             popularText,
             title,
             price,
@@ -59,24 +55,9 @@ class PricingTableItemBlock extends Component {
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
-        const availableVariants = GHOSTKIT.getVariants( 'pricing_table_item' );
-
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <BaseControl>
                             <ToggleControl
@@ -256,10 +237,6 @@ export const settings = {
         reusable: false,
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         popularText: {
             type: 'array',
             source: 'children',
@@ -359,7 +336,6 @@ export const settings = {
 
     save: function( props ) {
         const {
-            variant,
             popularText,
             title,
             price,
@@ -382,11 +358,6 @@ export const settings = {
             'ghostkit-pricing-table-item',
             showPopular ? 'ghostkit-pricing-table-item-popular' : ''
         );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-pricing-table-item-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{

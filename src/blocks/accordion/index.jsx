@@ -8,8 +8,6 @@ import classnames from 'classnames/dedupe';
 import getIcon from '../_utils/get-icon.jsx';
 import { settings as accordionItemSettings } from './item.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -17,7 +15,6 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
-    SelectControl,
     ToggleControl,
     IconButton,
 } = wp.components;
@@ -71,40 +68,19 @@ class AccordionBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
             collapseOne,
         } = attributes;
-
-        const availableVariants = GHOSTKIT.getVariants( 'accordion' );
 
         className = classnames(
             className,
             'ghostkit-accordion'
         );
 
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-accordion-variant-${ variant }` );
-        }
-
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <ToggleControl
                             label={ __( 'Collapse one item only' ) }
@@ -164,10 +140,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         itemsCount: {
             type: 'number',
             default: 2,
@@ -208,7 +180,6 @@ export const settings = {
 
     save: function( props ) {
         const {
-            variant,
             itemsCount,
             collapseOne,
         } = props.attributes;
@@ -218,11 +189,6 @@ export const settings = {
             `ghostkit-accordion-${ itemsCount }`,
             collapseOne ? 'ghostkit-accordion-collapse-one' : ''
         );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-accordion-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{

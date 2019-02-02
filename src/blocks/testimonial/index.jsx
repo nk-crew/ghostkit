@@ -11,8 +11,6 @@ import classnames from 'classnames/dedupe';
 import getIcon from '../_utils/get-icon.jsx';
 import './store.jsx';
 
-const { GHOSTKIT } = window;
-
 import IconPicker from '../_components/icon-picker.jsx';
 
 const {
@@ -109,7 +107,6 @@ class TestimonialBlockEdit extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
             icon,
             source,
 
@@ -121,31 +118,11 @@ class TestimonialBlockEdit extends Component {
 
         className = classnames( 'ghostkit-testimonial', className );
 
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-testimonial-variant-${ variant }` );
-        }
-
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
-
-        const availableVariants = GHOSTKIT.getVariants( 'testimonial' );
 
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <IconPicker
                             label={ __( 'Icon' ) }
@@ -274,18 +251,12 @@ class TestimonialBlockSave extends Component {
         } = this.props;
 
         const {
-            variant,
             photoTag,
             icon,
             source,
         } = attributes;
 
         let className = 'ghostkit-testimonial';
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-testimonial-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{
@@ -362,10 +333,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         icon: {
             type: 'string',
             default: 'fas fa-quote-left',

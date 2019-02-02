@@ -6,8 +6,6 @@ import getIcon from '../_utils/get-icon.jsx';
 import RemoveButton from '../_components/remove-button.jsx';
 import deprecatedArray from './deprecated.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -15,12 +13,9 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     Toolbar,
-    PanelBody,
-    SelectControl,
 } = wp.components;
 
 const {
-    InspectorControls,
     BlockControls,
     InnerBlocks,
     RichText,
@@ -74,7 +69,6 @@ class AccordionItemBlock extends Component {
         } = this.props;
 
         const {
-            variant,
             heading,
             active,
         } = attributes;
@@ -85,32 +79,10 @@ class AccordionItemBlock extends Component {
             active ? 'ghostkit-accordion-item-active' : ''
         );
 
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-accordion-item-variant-${ variant }` );
-        }
-
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
-
-        const availableVariants = GHOSTKIT.getVariants( 'accordion_item' );
 
         return (
             <Fragment>
-                <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
-                </InspectorControls>
                 <BlockControls>
                     <Toolbar controls={ [
                         {
@@ -193,10 +165,6 @@ export const settings = {
         reusable: false,
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         heading: {
             type: 'array',
             source: 'children',
@@ -242,23 +210,24 @@ export const settings = {
         } ),
     ] )( AccordionItemBlock ),
 
-    save: function( { attributes } ) {
+    save: function( props ) {
         const {
-            variant,
             heading,
             active,
             itemNumber,
-        } = attributes;
+        } = props.attributes;
 
         let className = classnames(
             'ghostkit-accordion-item',
             active ? 'ghostkit-accordion-item-active' : ''
         );
 
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-accordion-item-variant-${ variant }` );
-        }
+        className = applyFilters( 'ghostkit.blocks.className', className, {
+            ...{
+                name: 'ghostkit/accordion-item',
+            },
+            ...props,
+        } );
 
         return (
             <div className={ className }>

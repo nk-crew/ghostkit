@@ -7,8 +7,6 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 
-const { GHOSTKIT } = window;
-
 const {
     applyFilters,
 } = wp.hooks;
@@ -66,14 +64,11 @@ class PricingTableBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
             count,
             gap,
             verticalAlign,
             horizontalAlign,
         } = attributes;
-
-        const availableVariants = GHOSTKIT.getVariants( 'pricing_table' );
 
         className = classnames(
             className,
@@ -83,11 +78,6 @@ class PricingTableBlock extends Component {
             verticalAlign ? `ghostkit-pricing-table-align-vertical-${ verticalAlign }` : false,
             horizontalAlign ? `ghostkit-pricing-table-align-horizontal-${ horizontalAlign }` : false
         );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-pricing-table-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
@@ -125,19 +115,6 @@ class PricingTableBlock extends Component {
                     </BlockControls>
                 ) : '' }
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <RangeControl
                             label={ __( 'Items' ) }
@@ -265,10 +242,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         count: {
             type: 'number',
             default: 2,
@@ -291,7 +264,6 @@ export const settings = {
 
     save: function( props ) {
         const {
-            variant,
             count,
             gap,
             verticalAlign,
@@ -305,11 +277,6 @@ export const settings = {
             verticalAlign ? `ghostkit-pricing-table-align-vertical-${ verticalAlign }` : false,
             horizontalAlign ? `ghostkit-pricing-table-align-horizontal-${ horizontalAlign }` : false
         );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-pricing-table-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{

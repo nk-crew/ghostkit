@@ -9,8 +9,6 @@ import classnames from 'classnames/dedupe';
 import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 
-const { GHOSTKIT } = window;
-
 import ColorPicker from '../_components/color-picker.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
 
@@ -24,7 +22,6 @@ const {
     PanelBody,
     TextControl,
     RangeControl,
-    SelectControl,
     ToggleControl,
     TabPanel,
     Toolbar,
@@ -49,7 +46,6 @@ class CounterBoxBlock extends Component {
         let { className = '' } = this.props;
 
         const {
-            variant,
             number,
             animateInViewport,
             animateInViewportFrom,
@@ -60,33 +56,13 @@ class CounterBoxBlock extends Component {
             hoverNumberColor,
         } = attributes;
 
-        const availableVariants = GHOSTKIT.getVariants( 'counter_box' );
-
         className = classnames( 'ghostkit-counter-box', className );
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-counter-box-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
             <Fragment>
                 <InspectorControls>
-                    { Object.keys( availableVariants ).length > 1 ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Variants' ) }
-                                value={ variant }
-                                options={ Object.keys( availableVariants ).map( ( key ) => ( {
-                                    value: key,
-                                    label: availableVariants[ key ].title,
-                                } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
-                            />
-                        </PanelBody>
-                    ) : '' }
                     <PanelBody>
                         <RangeControl
                             label={ __( 'Number Size' ) }
@@ -272,10 +248,6 @@ export const settings = {
         align: [ 'wide', 'full' ],
     },
     attributes: {
-        variant: {
-            type: 'string',
-            default: 'default',
-        },
         number: {
             type: 'array',
             source: 'children',
@@ -315,7 +287,6 @@ export const settings = {
 
     save: function( props ) {
         const {
-            variant,
             number,
             animateInViewport,
             numberPosition,
@@ -329,11 +300,6 @@ export const settings = {
         animateInViewportFrom = parseFloat( animateInViewportFrom );
 
         let className = 'ghostkit-counter-box';
-
-        // variant classname.
-        if ( 'default' !== variant ) {
-            className = classnames( className, `ghostkit-counter-box-variant-${ variant }` );
-        }
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{
