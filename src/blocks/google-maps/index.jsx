@@ -36,6 +36,8 @@ const {
     ToggleControl,
     Button,
     Toolbar,
+    Dropdown,
+    IconButton,
 } = wp.components;
 
 const {
@@ -61,6 +63,7 @@ class GoogleMapsBlock extends Component {
         this.onChangeAPIKey = debounce( 600, this.onChangeAPIKey.bind( this ) );
         this.saveAPIKey = debounce( 3000, this.saveAPIKey.bind( this ) );
         this.getStyles = this.getStyles.bind( this );
+        this.getStylesPicker = this.getStylesPicker.bind( this );
     }
 
     componentDidUpdate() {
@@ -152,6 +155,55 @@ class GoogleMapsBlock extends Component {
         return result;
     }
 
+    getStylesPicker() {
+        const {
+            attributes,
+            setAttributes,
+        } = this.props;
+
+        const {
+            style,
+            styleCustom,
+        } = attributes;
+
+        return (
+            <Fragment>
+                <ImagePicker
+                    value={ style }
+                    options={ styles }
+                    onChange={ ( value ) => {
+                        let customString = styleCustom;
+
+                        if ( 'default' === value ) {
+                            customString = '';
+                        } else if ( 'custom' !== value ) {
+                            styles.forEach( ( styleData ) => {
+                                if ( value === styleData.value ) {
+                                    customString = JSON.stringify( styleData.json );
+                                }
+                            } );
+                        }
+
+                        setAttributes( {
+                            style: value,
+                            styleCustom: customString,
+                        } );
+                    } }
+                />
+                { 'custom' === style ? (
+                    <Fragment>
+                        <TextareaControl
+                            placeholder={ __( 'Enter Style JSON' ) }
+                            value={ styleCustom }
+                            onChange={ ( value ) => setAttributes( { styleCustom: value } ) }
+                        />
+                        <p><em>{ __( 'You can use custom styles presets from the' ) } <a href="https://snazzymaps.com/" target="_blank" rel="noopener noreferrer">{ __( 'Snazzy Maps' ) }</a>.</em></p>
+                    </Fragment>
+                ) : '' }
+            </Fragment>
+        );
+    }
+
     render() {
         const {
             attributes,
@@ -173,7 +225,6 @@ class GoogleMapsBlock extends Component {
             optionScrollWheel,
             optionDraggable,
             gestureHandling,
-            style,
             styleCustom,
             markers,
             fullHeight,
@@ -199,23 +250,48 @@ class GoogleMapsBlock extends Component {
                             isActive: fullHeight,
                         },
                     ] } />
-                    <Toolbar controls={ [
-                        {
-                            icon: getIcon( 'icon-marker', true ),
-                            title: __( 'Add Marker' ),
-                            onClick: () => {
-                                setAttributes( {
-                                    markers: [
-                                        ...markers,
-                                        ...[ {
-                                            lat,
-                                            lng,
-                                        } ],
-                                    ],
-                                } );
+                    <Toolbar
+                        controls={ [
+                            {
+                                icon: getIcon( 'icon-marker', true ),
+                                title: __( 'Add Marker' ),
+                                onClick: () => {
+                                    setAttributes( {
+                                        markers: [
+                                            ...markers,
+                                            ...[ {
+                                                lat,
+                                                lng,
+                                            } ],
+                                        ],
+                                    } );
+                                },
                             },
-                        },
-                    ] } />
+                        ] }
+                    >
+                        <Dropdown
+                            className={ className }
+                            renderToggle={ ( { onToggle } ) => (
+                                <IconButton
+                                    label={ __( 'Style' ) }
+                                    icon={ getIcon( 'icon-map', true ) }
+                                    className="components-toolbar__control"
+                                    onClick={ onToggle }
+                                />
+                            ) }
+                            renderContent={ () => {
+                                return (
+                                    <div style={ {
+                                        padding: 15,
+                                        paddingTop: 10,
+                                        paddingBottom: 0,
+                                    } }>
+                                        { this.getStylesPicker() }
+                                    </div>
+                                );
+                            } }
+                        />
+                    </Toolbar>
                 </BlockControls>
                 <InspectorControls>
                     { this.state.apiKey ? (
@@ -309,38 +385,7 @@ class GoogleMapsBlock extends Component {
                                 </Button>
                             </PanelBody>
                             <PanelBody title={ __( 'Style' ) }>
-                                <ImagePicker
-                                    value={ style }
-                                    options={ styles }
-                                    onChange={ ( value ) => {
-                                        let customString = styleCustom;
-
-                                        if ( 'default' === value ) {
-                                            customString = '';
-                                        } else if ( 'custom' !== value ) {
-                                            styles.forEach( ( styleData ) => {
-                                                if ( value === styleData.value ) {
-                                                    customString = JSON.stringify( styleData.json );
-                                                }
-                                            } );
-                                        }
-
-                                        setAttributes( {
-                                            style: value,
-                                            styleCustom: customString,
-                                        } );
-                                    } }
-                                />
-                                { 'custom' === style ? (
-                                    <Fragment>
-                                        <TextareaControl
-                                            placeholder={ __( 'Enter Style JSON' ) }
-                                            value={ styleCustom }
-                                            onChange={ ( value ) => setAttributes( { styleCustom: value } ) }
-                                        />
-                                        <p><em>{ __( 'You can use custom styles presets from the' ) } <a href="https://snazzymaps.com/" target="_blank" rel="noopener noreferrer">{ __( 'Snazzy Maps' ) }</a>.</em></p>
-                                    </Fragment>
-                                ) : '' }
+                                { this.getStylesPicker() }
                             </PanelBody>
                             <PanelBody title={ __( 'Options' ) }>
                                 <ToggleControl

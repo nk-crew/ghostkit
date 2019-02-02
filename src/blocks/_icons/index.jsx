@@ -48,6 +48,7 @@ import iconCircle from '../_icons/icon-circle.svg';
 import iconTrash from '../_icons/icon-trash.svg';
 import iconCollapse from '../_icons/icon-collapse.svg';
 import iconMarker from '../_icons/icon-marker.svg';
+import iconMap from '../_icons/icon-map.svg';
 
 export default {
     'block-accordion': blockAccordion,
@@ -99,4 +100,5 @@ export default {
     'icon-trash': iconTrash,
     'icon-collapse': iconCollapse,
     'icon-marker': iconMarker,
+    'icon-map': iconMap,
 };
