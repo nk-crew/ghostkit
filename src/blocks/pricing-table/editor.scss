@@ -13,6 +13,18 @@
     }
 }
 
+// hide drag handler from single pricings
+// rotate move pricings
+[data-type="ghostkit/pricing-table-item"] > .editor-block-mover {
+    > .editor-block-mover__control-drag-handle {
+        display: none;
+    }
+    > .components-button:first-child svg,
+    > .editor-block-mover__control-drag-handle + .components-button svg {
+        transform: rotate(-90deg);
+    }
+}
+
 // Item.
 .ghostkit-pricing-table-item {
     position: relative;

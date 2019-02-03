@@ -6,6 +6,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
+import { settings as pricingItemSettings } from './item.jsx';
 
 const {
     applyFilters,
@@ -17,9 +18,9 @@ const {
     Button,
     ButtonGroup,
     PanelBody,
-    RangeControl,
     SelectControl,
     Toolbar,
+    IconButton,
 } = wp.components;
 
 const {
@@ -29,7 +30,26 @@ const {
     AlignmentToolbar,
 } = wp.editor;
 
+const {
+    createBlock,
+} = wp.blocks;
+
+const {
+    compose,
+} = wp.compose;
+const {
+    withSelect,
+    withDispatch,
+} = wp.data;
+
 class PricingTableBlock extends Component {
+    constructor() {
+        super( ...arguments );
+
+        this.getInnerBlocksTemplate = this.getInnerBlocksTemplate.bind( this );
+        this.maybeUpdateColumnsNumber = this.maybeUpdateColumnsNumber.bind( this );
+    }
+
     /**
      * Returns the layouts configuration for a given number of items.
      *
@@ -55,10 +75,39 @@ class PricingTableBlock extends Component {
         return result;
     }
 
+    componentDidMount() {
+        this.maybeUpdateColumnsNumber();
+    }
+    componentDidUpdate() {
+        this.maybeUpdateColumnsNumber();
+    }
+
+    /**
+     * Update current columns number.
+     */
+    maybeUpdateColumnsNumber() {
+        const {
+            count,
+        } = this.props.attributes;
+
+        const {
+            block,
+            setAttributes,
+        } = this.props;
+
+        if ( count !== block.innerBlocks.length ) {
+            setAttributes( {
+                count: block.innerBlocks.length,
+            } );
+        }
+    }
+
     render() {
         const {
             attributes,
             setAttributes,
+            isSelectedBlockInRoot,
+            insertPricingItem,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -115,15 +164,6 @@ class PricingTableBlock extends Component {
                     </BlockControls>
                 ) : '' }
                 <InspectorControls>
-                    <PanelBody>
-                        <RangeControl
-                            label={ __( 'Items' ) }
-                            value={ count }
-                            onChange={ ( value ) => setAttributes( { count: value } ) }
-                            min={ 1 }
-                            max={ 5 }
-                        />
-                    </PanelBody>
                     <PanelBody>
                         <SelectControl
                             label={ __( 'Vertical alignment' ) }
@@ -205,11 +245,22 @@ class PricingTableBlock extends Component {
                     { count > 0 ? (
                         <InnerBlocks
                             template={ this.getInnerBlocksTemplate() }
-                            templateLock="all"
                             allowedBlocks={ [ 'ghostkit/pricing-table-item' ] }
                         />
                     ) : '' }
                 </div>
+                { isSelectedBlockInRoot && count < 6 ? (
+                    <div className="ghostkit-accordion-add-item">
+                        <IconButton
+                            icon={ 'insert' }
+                            onClick={ () => {
+                                insertPricingItem();
+                            } }
+                        >
+                            { __( 'Add Pricing Table' ) }
+                        </IconButton>
+                    </div>
+                ) : '' }
             </Fragment>
         );
     }
@@ -260,7 +311,35 @@ export const settings = {
         },
     },
 
-    edit: PricingTableBlock,
+    edit: compose( [
+        withSelect( ( select, ownProps ) => {
+            const {
+                getBlock,
+                isBlockSelected,
+                hasSelectedInnerBlock,
+            } = select( 'core/editor' );
+
+            const { clientId } = ownProps;
+
+            return {
+                block: getBlock( clientId ),
+                isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
+            };
+        } ),
+        withDispatch( ( dispatch, ownProps ) => {
+            const {
+                insertBlock,
+            } = dispatch( 'core/editor' );
+
+            const { clientId } = ownProps;
+
+            return {
+                insertPricingItem() {
+                    insertBlock( createBlock( 'ghostkit/pricing-table-item', pricingItemSettings ), undefined, clientId );
+                },
+            };
+        } ),
+    ] )( PricingTableBlock ),
 
     save: function( props ) {
         const {
