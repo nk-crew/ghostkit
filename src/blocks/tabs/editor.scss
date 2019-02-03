@@ -33,6 +33,7 @@
         }
 
         .ghostkit-tabs-buttons-item {
+            position: relative;
             display: block;
             padding: 8px 20px;
             margin-bottom: -1px;
@@ -55,11 +56,16 @@
             }
 
             // apply on first tab only to prevent placeholder color change.
-            &.ghostkit-tabs-buttons-item-active:first-of-type {
+            &.ghostkit-tabs-buttons-item-active {
                 background-color: #fff;
                 border-color: #dee2e6;
                 border-bottom-color: #fff;
                 opacity: 1;
+            }
+
+            // show remove button on hover.
+            &:not(:hover) > .ghostkit-component-remove-button {
+                opacity: 0;
             }
         }
     }

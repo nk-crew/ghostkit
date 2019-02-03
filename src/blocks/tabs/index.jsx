@@ -7,6 +7,7 @@ import slugify from 'slugify';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
+import RemoveButton from '../_components/remove-button.jsx';
 
 const {
     applyFilters,
@@ -15,8 +16,9 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
-    RangeControl,
     SelectControl,
+    IconButton,
+    Tooltip,
 } = wp.components;
 
 const {
@@ -26,13 +28,12 @@ const {
 } = wp.editor;
 
 const {
+    compose,
+} = wp.compose;
+const {
     withSelect,
     withDispatch,
 } = wp.data;
-
-const {
-    compose,
-} = wp.compose;
 
 class TabsBlockEdit extends Component {
     constructor() {
@@ -103,6 +104,8 @@ class TabsBlockEdit extends Component {
             attributes,
             setAttributes,
             updateBlockAttributes,
+            isSelectedBlockInRoot,
+            block,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -126,28 +129,6 @@ class TabsBlockEdit extends Component {
             <Fragment>
                 <InspectorControls>
                     <PanelBody>
-                        <RangeControl
-                            label={ __( 'Tabs' ) }
-                            value={ tabsData.length }
-                            onChange={ ( value ) => {
-                                const newTabsData = [];
-
-                                for ( let k = 0; k < value; k += 1 ) {
-                                    if ( tabsData[ k ] ) {
-                                        newTabsData.push( tabsData[ k ] );
-                                    } else {
-                                        newTabsData.push( {
-                                            slug: `tab-${ k + 1 }`,
-                                            title: `Tab ${ k + 1 }`,
-                                        } );
-                                    }
-                                }
-
-                                setAttributes( { tabsData: newTabsData } );
-                            } }
-                            min={ 1 }
-                            max={ 6 }
-                        />
                         <SelectControl
                             label={ __( 'Tabs align' ) }
                             value={ buttonsAlign }
@@ -178,45 +159,92 @@ class TabsBlockEdit extends Component {
                                 const selected = tabActive === slug;
 
                                 return (
-                                    <RichText
-                                        tagName="div"
+                                    <div
                                         className={ classnames( 'ghostkit-tabs-buttons-item', selected ? 'ghostkit-tabs-buttons-item-active' : '' ) }
-                                        placeholder={ __( 'Tab label' ) }
-                                        value={ title }
-                                        unstableOnFocus={ () => setAttributes( { tabActive: slug } ) }
-                                        onChange={ ( value ) => {
-                                            if ( tabs[ i ] ) {
-                                                const newSlug = this.getUniqueSlug( value, tabs[ i ] );
-                                                const newTabsData = tabsData.map( ( oldTabData, newIndex ) => {
-                                                    if ( i === newIndex ) {
-                                                        return {
-                                                            ...oldTabData,
-                                                            ...{
-                                                                title: value,
-                                                                slug: newSlug,
-                                                            },
-                                                        };
-                                                    }
-
-                                                    return oldTabData;
-                                                } );
-
-                                                setAttributes( {
-                                                    tabActive: newSlug,
-                                                    tabsData: newTabsData,
-                                                } );
-                                                updateBlockAttributes( tabs[ i ].clientId, {
-                                                    slug: newSlug,
-                                                } );
-                                            }
-                                        } }
-                                        formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                                        keepPlaceholderOnFocus
                                         key={ `tab_button_${ i }` }
-                                    />
+                                    >
+                                        <RichText
+                                            tagName="span"
+                                            placeholder={ __( 'Tab label' ) }
+                                            value={ title }
+                                            unstableOnFocus={ () => setAttributes( { tabActive: slug } ) }
+                                            onChange={ ( value ) => {
+                                                if ( tabs[ i ] ) {
+                                                    const newSlug = this.getUniqueSlug( value, tabs[ i ] );
+                                                    const newTabsData = tabsData.map( ( oldTabData, newIndex ) => {
+                                                        if ( i === newIndex ) {
+                                                            return {
+                                                                ...oldTabData,
+                                                                ...{
+                                                                    title: value,
+                                                                    slug: newSlug,
+                                                                },
+                                                            };
+                                                        }
+
+                                                        return oldTabData;
+                                                    } );
+
+                                                    setAttributes( {
+                                                        tabActive: newSlug,
+                                                        tabsData: newTabsData,
+                                                    } );
+                                                    updateBlockAttributes( tabs[ i ].clientId, {
+                                                        slug: newSlug,
+                                                    } );
+                                                }
+                                            } }
+                                            formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                                            keepPlaceholderOnFocus
+                                        />
+                                        <RemoveButton
+                                            show={ isSelectedBlockInRoot }
+                                            tooltipText={ __( 'Remove tab?' ) }
+                                            onRemove={ () => {
+                                                if ( block.innerBlocks.length <= 1 ) {
+                                                    this.props.removeBlock( block.clientId );
+                                                } else if ( block.innerBlocks[ i ] ) {
+                                                    this.props.removeBlock( block.innerBlocks[ i ].clientId );
+
+                                                    if ( tabsData[ i ] ) {
+                                                        const newTabsData = Object.assign( [], tabsData );
+                                                        newTabsData.splice( i, 1 );
+
+                                                        setAttributes( {
+                                                            tabsData: newTabsData,
+                                                        } );
+                                                    }
+                                                }
+                                            } }
+                                        />
+                                    </div>
                                 );
                             } )
                         }
+                        { isSelectedBlockInRoot ? (
+                            <Tooltip text={ __( 'Add Tab' ) }>
+                                <IconButton
+                                    icon={ 'insert' }
+                                    onClick={ () => {
+                                        const newTabsData = [];
+                                        const newDataLength = tabsData.length + 1;
+
+                                        for ( let k = 0; k < newDataLength; k += 1 ) {
+                                            if ( tabsData[ k ] ) {
+                                                newTabsData.push( tabsData[ k ] );
+                                            } else {
+                                                newTabsData.push( {
+                                                    slug: `tab-${ k + 1 }`,
+                                                    title: `Tab ${ k + 1 }`,
+                                                } );
+                                            }
+                                        }
+
+                                        setAttributes( { tabsData: newTabsData } );
+                                    } }
+                                />
+                            </Tooltip>
+                        ) : '' }
                     </div>
                     <div className="ghostkit-tabs-content">
                         <InnerBlocks
@@ -295,21 +323,26 @@ export const settings = {
         withSelect( ( select, ownProps ) => {
             const {
                 getBlock,
+                isBlockSelected,
+                hasSelectedInnerBlock,
             } = select( 'core/editor' );
 
             const { clientId } = ownProps;
 
             return {
                 block: getBlock( clientId ),
+                isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
             };
         } ),
         withDispatch( ( dispatch ) => {
             const {
                 updateBlockAttributes,
+                removeBlock,
             } = dispatch( 'core/editor' );
 
             return {
                 updateBlockAttributes,
+                removeBlock,
             };
         } ),
     ] )( TabsBlockEdit ),
