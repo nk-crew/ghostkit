@@ -57,6 +57,39 @@ const getTabsTemplate = ( attributes ) => {
 };
 
 class AccordionBlock extends Component {
+    constructor() {
+        super( ...arguments );
+
+        this.maybeUpdateItemsCount = this.maybeUpdateItemsCount.bind( this );
+    }
+
+    componentDidMount() {
+        this.maybeUpdateItemsCount();
+    }
+    componentDidUpdate() {
+        this.maybeUpdateItemsCount();
+    }
+
+    /**
+     * Update current items number.
+     */
+    maybeUpdateItemsCount() {
+        const {
+            itemsCount,
+        } = this.props.attributes;
+
+        const {
+            block,
+            setAttributes,
+        } = this.props;
+
+        if ( itemsCount !== block.innerBlocks.length ) {
+            setAttributes( {
+                itemsCount: block.innerBlocks.length,
+            } );
+        }
+    }
+
     render() {
         const {
             attributes,
@@ -153,6 +186,7 @@ export const settings = {
     edit: compose( [
         withSelect( ( select, ownProps ) => {
             const {
+                getBlock,
                 isBlockSelected,
                 hasSelectedInnerBlock,
             } = select( 'core/editor' );
@@ -160,6 +194,7 @@ export const settings = {
             const { clientId } = ownProps;
 
             return {
+                block: getBlock( clientId ),
                 isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
             };
         } ),
