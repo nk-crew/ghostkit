@@ -228,7 +228,7 @@ class TabsBlockEdit extends Component {
                 </div>
                 <style>
                     { `
-                    .ghostkit-tabs .ghostkit-tabs-content [data-tab="${ tabActive }"] {
+                    [data-block="${ this.props.clientId }"] > .ghostkit-tabs > .ghostkit-tabs-content > .editor-inner-blocks > .editor-block-list__layout [data-tab="${ tabActive }"] {
                         display: block;
                     }
                     ` }
