@@ -36,6 +36,9 @@ const {
     ToggleControl,
     RangeControl,
     TextControl,
+    Toolbar,
+    Dropdown,
+    IconButton,
 } = wp.components;
 
 const {
@@ -44,6 +47,7 @@ const {
 
 const {
     InspectorControls,
+    BlockControls,
     MediaUpload,
 } = wp.editor;
 
@@ -120,7 +124,9 @@ function getVideoPoster( url, cb ) {
 class VideoBlockEdit extends Component {
     constructor() {
         super( ...arguments );
+
         this.onUpdate = this.onUpdate.bind( this );
+        this.getAspectRatioPicker = this.getAspectRatioPicker.bind( this );
     }
     componentDidMount() {
         this.onUpdate();
@@ -148,6 +154,47 @@ class VideoBlockEdit extends Component {
                 }
             } );
         }
+    }
+
+    getAspectRatioPicker() {
+        const {
+            attributes,
+            setAttributes,
+        } = this.props;
+
+        const {
+            videoAspectRatio,
+        } = attributes;
+
+        return (
+            <ImagePicker
+                label={ __( 'Aspect ratio' ) }
+                value={ videoAspectRatio }
+                options={ [
+                    {
+                        value: '16:9',
+                        label: __( 'Wide' ),
+                        image: ImgAspectRatio169,
+                    },
+                    {
+                        value: '21:9',
+                        label: __( 'Ultra Wide' ),
+                        image: ImgAspectRatio219,
+                    },
+                    {
+                        value: '4:3',
+                        label: __( 'TV' ),
+                        image: ImgAspectRatio43,
+                    },
+                    {
+                        value: '3:2',
+                        label: __( 'Classic Film' ),
+                        image: ImgAspectRatio32,
+                    },
+                ] }
+                onChange={ ( value ) => setAttributes( { videoAspectRatio: value } ) }
+            />
+        );
     }
 
     render() {
@@ -190,8 +237,44 @@ class VideoBlockEdit extends Component {
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
+        let toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-16-9', true );
+        if ( '3:2' === videoAspectRatio ) {
+            toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-3-2', true );
+        }
+        if ( '4:3' === videoAspectRatio ) {
+            toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-4-3', true );
+        }
+        if ( '21:9' === videoAspectRatio ) {
+            toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-21-9', true );
+        }
+
         return (
             <Fragment>
+                <BlockControls>
+                    <Toolbar>
+                        <Dropdown
+                            renderToggle={ ( { onToggle } ) => (
+                                <IconButton
+                                    label={ __( 'Aspect Ratio' ) }
+                                    icon={ toolbarAspectRatioIcon }
+                                    className="components-toolbar__control"
+                                    onClick={ onToggle }
+                                />
+                            ) }
+                            renderContent={ () => {
+                                return (
+                                    <div style={ {
+                                        padding: 15,
+                                        paddingTop: 10,
+                                        paddingBottom: 0,
+                                    } }>
+                                        { this.getAspectRatioPicker() }
+                                    </div>
+                                );
+                            } }
+                        />
+                    </Toolbar>
+                </BlockControls>
                 <InspectorControls>
                     <PanelBody>
                         <ButtonGroup aria-label={ __( 'Type' ) } style={ { marginBottom: 10 } }>
@@ -364,33 +447,7 @@ class VideoBlockEdit extends Component {
                         ) : '' }
                     </PanelBody>
                     <PanelBody>
-                        <ImagePicker
-                            label={ __( 'Aspect ratio' ) }
-                            value={ videoAspectRatio }
-                            options={ [
-                                {
-                                    value: '16:9',
-                                    label: __( 'Wide' ),
-                                    image: ImgAspectRatio169,
-                                },
-                                {
-                                    value: '21:9',
-                                    label: __( 'Ultra Wide' ),
-                                    image: ImgAspectRatio219,
-                                },
-                                {
-                                    value: '4:3',
-                                    label: __( 'TV' ),
-                                    image: ImgAspectRatio43,
-                                },
-                                {
-                                    value: '3:2',
-                                    label: __( 'Classic Film' ),
-                                    image: ImgAspectRatio32,
-                                },
-                            ] }
-                            onChange={ ( value ) => setAttributes( { videoAspectRatio: value } ) }
-                        />
+                        { this.getAspectRatioPicker() }
                     </PanelBody>
                     <PanelBody>
                         <RangeControl

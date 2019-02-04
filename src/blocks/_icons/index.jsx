@@ -50,6 +50,10 @@ import iconTrash from '../_icons/icon-trash.svg';
 import iconCollapse from '../_icons/icon-collapse.svg';
 import iconMarker from '../_icons/icon-marker.svg';
 import iconMap from '../_icons/icon-map.svg';
+import iconAspectRatio32 from '../_icons/icon-aspect-ratio-3-2.svg';
+import iconAspectRatio43 from '../_icons/icon-aspect-ratio-4-3.svg';
+import iconAspectRatio169 from '../_icons/icon-aspect-ratio-16-9.svg';
+import iconAspectRatio219 from '../_icons/icon-aspect-ratio-21-9.svg';
 
 export default {
     'block-accordion': blockAccordion,
@@ -103,4 +107,8 @@ export default {
     'icon-collapse': iconCollapse,
     'icon-marker': iconMarker,
     'icon-map': iconMap,
+    'icon-aspect-ratio-3-2': iconAspectRatio32,
+    'icon-aspect-ratio-4-3': iconAspectRatio43,
+    'icon-aspect-ratio-16-9': iconAspectRatio169,
+    'icon-aspect-ratio-21-9': iconAspectRatio219,
 };
