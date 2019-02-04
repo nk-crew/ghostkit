@@ -1,5 +1,4 @@
 // External Dependencies.
-import ResizableBox from 're-resizable';
 import classnames from 'classnames/dedupe';
 import deepAssign from 'deep-assign';
 
@@ -26,6 +25,7 @@ const {
     ToggleControl,
     ColorIndicator,
     TabPanel,
+    ResizableBox,
 } = wp.components;
 
 const {
@@ -185,7 +185,7 @@ class ProgressBlock extends Component {
                         </div>
                     ) : '' }
                     <ResizableBox
-                        className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }
+                        className={ classnames( { 'is-selected': isSelected } ) }
                         size={ {
                             width: '100%',
                             height,
@@ -193,7 +193,7 @@ class ProgressBlock extends Component {
                         minWidth="0%"
                         maxWidth="100%"
                         minHeight="5"
-                        maxHeight="20"
+                        maxHeight="30"
                         enable={ { bottom: true } }
                         onResizeStart={ () => {
                             toggleSelection( false );
@@ -205,26 +205,33 @@ class ProgressBlock extends Component {
                             toggleSelection( true );
                         } }
                     >
-                        <ResizableBox
-                            className="ghostkit-progress-bar"
-                            size={ {
-                                width: `${ percent }%`,
-                            } }
-                            minWidth="0%"
-                            maxWidth="100%"
-                            minHeight="100%"
-                            maxHeight="100%"
-                            enable={ { right: true } }
-                            onResizeStart={ () => {
-                                toggleSelection( false );
-                            } }
-                            onResizeStop={ ( event, direction, elt, delta ) => {
-                                setAttributes( {
-                                    percent: Math.min( 100, Math.max( 0, percent + parseInt( 100 * delta.width / jQuery( elt ).parent().width(), 10 ) ) ),
-                                } );
-                                toggleSelection( true );
-                            } }
-                        />
+                        <div
+                            className={ classnames( {
+                                'ghostkit-progress-wrap': true,
+                                'ghostkit-progress-bar-striped': striped,
+                            } ) }
+                        >
+                            <ResizableBox
+                                className={ classnames( 'ghostkit-progress-bar', { 'is-selected': isSelected } ) }
+                                size={ {
+                                    width: `${ percent }%`,
+                                } }
+                                minWidth="0%"
+                                maxWidth="100%"
+                                minHeight="100%"
+                                maxHeight="100%"
+                                enable={ { right: true } }
+                                onResizeStart={ () => {
+                                    toggleSelection( false );
+                                } }
+                                onResizeStop={ ( event, direction, elt, delta ) => {
+                                    setAttributes( {
+                                        percent: Math.min( 100, Math.max( 0, percent + parseInt( 100 * delta.width / jQuery( elt ).parent().width(), 10 ) ) ),
+                                    } );
+                                    toggleSelection( true );
+                                } }
+                            />
+                        </div>
                     </ResizableBox>
                 </div>
             </Fragment>

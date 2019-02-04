@@ -139,7 +139,6 @@
     "deep-assign": "^3.0.0",
     "deep-equal": "^1.0.1",
     "rafl": "^1.2.2",
-    "re-resizable": "^4.11.0",
     "react-ace": "^6.3.2",
     "react-google-maps": "^9.4.5",
     "react-select": "^2.2.0",
