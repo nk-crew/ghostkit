@@ -7,8 +7,8 @@
 // 32px - wordpress top bar
 // 56px - gutenberg top bar
 // 28px - block padding
-.gutenberg .ghostkit-google-maps-fullheight .ghostkit-google-maps-wrap,
-.gutenberg .ghostkit-google-maps-fullheight .ghostkit-google-maps-placeholder {
+.ghostkit-google-maps-fullheight .ghostkit-google-maps-wrap,
+.ghostkit-google-maps-fullheight .ghostkit-google-maps-placeholder {
     height: calc(100vh - 32px - 56px - 28px);
 
     @media screen and (max-width: 782px) {

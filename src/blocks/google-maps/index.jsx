@@ -298,14 +298,18 @@ class GoogleMapsBlock extends Component {
                     { this.state.apiKey ? (
                         <Fragment>
                             <PanelBody>
+                                <ToggleControl
+                                    label={ __( 'Full Height' ) }
+                                    checked={ !! fullHeight }
+                                    onChange={ ( val ) => setAttributes( { fullHeight: val } ) }
+                                />
                                 <RangeControl
-                                    label={ __( 'Height' ) }
+                                    label={ fullHeight ? __( 'Minimal Height' ) : __( 'Height' ) }
                                     value={ height }
                                     onChange={ ( value ) => setAttributes( { height: value } ) }
                                     min={ 100 }
                                     max={ 800 }
                                 />
-
                                 <RangeControl
                                     label={ __( 'Zoom' ) }
                                     value={ zoom }
