@@ -274,6 +274,17 @@ class VideoBlockEdit extends Component {
                             } }
                         />
                     </Toolbar>
+                    { type === 'yt_vm_video' ? (
+                        <Toolbar>
+                            <TextControl
+                                type="url"
+                                value={ video }
+                                placeholder={ __( 'YouTube / Vimeo URL' ) }
+                                onChange={ ( value ) => setAttributes( { video: value } ) }
+                                className="ghostkit-video-toolbar-url"
+                            />
+                        </Toolbar>
+                    ) : '' }
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody>
