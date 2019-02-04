@@ -73,7 +73,7 @@ class ProgressBlock extends Component {
                             value={ height || '' }
                             onChange={ ( value ) => setAttributes( { height: value } ) }
                             min={ 5 }
-                            max={ 20 }
+                            max={ 30 }
                         />
                         <RangeControl
                             label={ __( 'Percent' ) }
