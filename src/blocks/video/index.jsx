@@ -20,6 +20,7 @@ import './editor.scss';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
+import transforms from './transforms.jsx';
 import './store.jsx';
 
 const {
@@ -341,10 +342,12 @@ class VideoBlockEdit extends Component {
                                 onSelect={ ( media ) => {
                                     setAttributes( {
                                         videoMp4: '',
+                                        videoMp4Id: '',
                                     } );
                                     wp.media.attachment( media.id ).fetch().then( ( data ) => {
                                         setAttributes( {
                                             videoMp4: data.url,
+                                            videoMp4Id: data.id,
                                         } );
                                     } );
                                 } }
@@ -367,6 +370,7 @@ class VideoBlockEdit extends Component {
                                     onClick={ ( e ) => {
                                         setAttributes( {
                                             videoMp4: '',
+                                            videoMp4Id: '',
                                         } );
                                         e.preventDefault();
                                     } }
@@ -381,10 +385,12 @@ class VideoBlockEdit extends Component {
                                 onSelect={ ( media ) => {
                                     setAttributes( {
                                         videoOgv: '',
+                                        videoOgvId: '',
                                     } );
                                     wp.media.attachment( media.id ).fetch().then( ( data ) => {
                                         setAttributes( {
                                             videoOgv: data.url,
+                                            videoOgvId: data.id,
                                         } );
                                     } );
                                 } }
@@ -407,6 +413,7 @@ class VideoBlockEdit extends Component {
                                     onClick={ ( e ) => {
                                         setAttributes( {
                                             videoOgv: '',
+                                            videoOgvId: '',
                                         } );
                                         e.preventDefault();
                                     } }
@@ -421,10 +428,12 @@ class VideoBlockEdit extends Component {
                                 onSelect={ ( media ) => {
                                     setAttributes( {
                                         videoWebm: '',
+                                        videoWebmId: '',
                                     } );
                                     wp.media.attachment( media.id ).fetch().then( ( data ) => {
                                         setAttributes( {
                                             videoWebm: data.url,
+                                            videoWebmId: data.id,
                                         } );
                                     } );
                                 } }
@@ -447,6 +456,7 @@ class VideoBlockEdit extends Component {
                                     onClick={ ( e ) => {
                                         setAttributes( {
                                             videoWebm: '',
+                                            videoWebmId: '',
                                         } );
                                         e.preventDefault();
                                     } }
@@ -794,13 +804,22 @@ export const settings = {
             type: 'string',
             default: '',
         },
+        videoMp4Id: {
+            type: 'number',
+        },
         videoOgv: {
             type: 'string',
             default: '',
         },
+        videoOgvId: {
+            type: 'number',
+        },
         videoWebm: {
             type: 'string',
             default: '',
+        },
+        videoWebmId: {
+            type: 'number',
         },
         videoAspectRatio: {
             type: 'string',
@@ -875,5 +894,6 @@ export const settings = {
 
     save: VideoBlockSave,
 
+    transforms,
     deprecated: deprecatedArray,
 };
