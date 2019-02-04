@@ -7,6 +7,7 @@
     content: "";
     display: block;
     width: 100%;
+    padding-top: 56.25%;
 }
 
 .ghostkit-video[data-video-aspect-ratio="16-9"]::before,
@@ -23,6 +24,11 @@
 .ghostkit-video[data-video-aspect-ratio="4:3"]::before,
 .ghostkit-video-aspect-ratio-4-3::before {
     padding-top: 75%;
+}
+.ghostkit-video[data-video-aspect-ratio="3-2"]::before,
+.ghostkit-video[data-video-aspect-ratio="3:2"]::before,
+.ghostkit-video-aspect-ratio-3-2::before {
+    padding-top: 66.667%;
 }
 
 .ghostkit-video {

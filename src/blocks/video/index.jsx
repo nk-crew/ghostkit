@@ -6,6 +6,12 @@ import classnames from 'classnames/dedupe';
 import ColorPicker from '../_components/color-picker.jsx';
 import IconPicker from '../_components/icon-picker.jsx';
 import ApplyFilters from '../_components/apply-filters.jsx';
+import ImagePicker from '../_components/image-picker.jsx';
+
+import ImgAspectRatio32 from './aspect-ratio/aspect-ratio-3-2.png';
+import ImgAspectRatio43 from './aspect-ratio/aspect-ratio-4-3.png';
+import ImgAspectRatio169 from './aspect-ratio/aspect-ratio-16-9.png';
+import ImgAspectRatio219 from './aspect-ratio/aspect-ratio-21-9.png';
 
 // Import CSS
 import './style.scss';
@@ -358,23 +364,35 @@ class VideoBlockEdit extends Component {
                         ) : '' }
                     </PanelBody>
                     <PanelBody>
-                        <SelectControl
+                        <ImagePicker
                             label={ __( 'Aspect ratio' ) }
                             value={ videoAspectRatio }
                             options={ [
                                 {
                                     value: '16:9',
-                                    label: __( '16:9' ),
-                                }, {
+                                    label: __( 'Wide' ),
+                                    image: ImgAspectRatio169,
+                                },
+                                {
                                     value: '21:9',
-                                    label: __( '21:9' ),
-                                }, {
+                                    label: __( 'Ultra Wide' ),
+                                    image: ImgAspectRatio219,
+                                },
+                                {
                                     value: '4:3',
-                                    label: __( '4:3' ),
+                                    label: __( 'TV' ),
+                                    image: ImgAspectRatio43,
+                                },
+                                {
+                                    value: '3:2',
+                                    label: __( 'Classic Film' ),
+                                    image: ImgAspectRatio32,
                                 },
                             ] }
                             onChange={ ( value ) => setAttributes( { videoAspectRatio: value } ) }
                         />
+                    </PanelBody>
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Volume' ) }
                             value={ videoVolume }

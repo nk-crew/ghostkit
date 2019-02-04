@@ -5,6 +5,10 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+
+        > .components-base-control__label {
+            min-width: 100%;
+        }
     }
 
     .ghostkit-component-image-picker-item {
