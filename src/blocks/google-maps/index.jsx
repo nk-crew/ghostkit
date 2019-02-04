@@ -38,6 +38,7 @@ const {
     Toolbar,
     Dropdown,
     IconButton,
+    ResizableBox,
 } = wp.components;
 
 const {
@@ -209,6 +210,7 @@ class GoogleMapsBlock extends Component {
             attributes,
             setAttributes,
             isSelected,
+            toggleSelection,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -300,7 +302,7 @@ class GoogleMapsBlock extends Component {
                                     label={ __( 'Height' ) }
                                     value={ height }
                                     onChange={ ( value ) => setAttributes( { height: value } ) }
-                                    min={ 200 }
+                                    min={ 100 }
                                     max={ 800 }
                                 />
 
@@ -468,36 +470,58 @@ class GoogleMapsBlock extends Component {
                 <div className={ className }>
                     { this.state.apiKey ? (
                         <Fragment>
-                            <MapBlock
-                                key={ this.state.mapID + markers.length }
-                                googleMapURL={ mapsUrl + '&key=' + this.state.apiKey }
-                                containerElement={ <div className="ghostkit-google-maps-wrap" style={ { minHeight: height } } /> }
-                                markers={ markers }
-                                zoom={ zoom }
-                                center={ { lat: lat, lng: lng } }
-                                options={ {
-                                    styles: styleCustom ? this.getStyles( styleCustom ) : [],
-                                    zoomControl: showZoomButtons,
-                                    mapTypeControl: showMapTypeButtons,
-                                    streetViewControl: showStreetViewButton,
-                                    fullscreenControl: showFullscreenButton,
-                                    gestureHandling: 'cooperative',
-                                    draggable: optionDraggable,
+                            <ResizableBox
+                                className={ classnames( 'ghostkit-progress-bar', { 'is-selected': isSelected } ) }
+                                size={ {
+                                    width: '100%',
+                                    height,
                                 } }
-                                defaultZoom={ zoom }
-                                defaultCenter={ { lat: lat, lng: lng } }
-                                defaultOptions={ {
-                                    styles: styleCustom ? this.getStyles( styleCustom ) : [],
-                                    zoomControl: showZoomButtons,
-                                    mapTypeControl: showMapTypeButtons,
-                                    streetViewControl: showStreetViewButton,
-                                    fullscreenControl: showFullscreenButton,
-                                    gestureHandling: 'cooperative',
-                                    draggable: optionDraggable,
+                                style={ { minHeight: height } }
+                                minHeight="100"
+                                enable={ { bottom: true } }
+                                onResizeStart={ () => {
+                                    toggleSelection( false );
                                 } }
-                                onZoomChanged={ debounce( 500, ( val ) => setAttributes( { zoom: val } ) ) }
-                                onCenterChanged={ debounce( 500, ( val ) => setAttributes( { lat: val.lat(), lng: val.lng() } ) ) }
-                            />
+                                onResizeStop={ ( event, direction, elt, delta ) => {
+                                    setAttributes( {
+                                        height: parseInt( height + delta.height, 10 ),
+                                    } );
+                                    toggleSelection( true );
+                                } }
+                            >
+                                <MapBlock
+                                    key={ this.state.mapID + markers.length }
+                                    googleMapURL={ mapsUrl + '&key=' + this.state.apiKey }
+                                    loadingElement={ <div style={ { height: '100%' } } /> }
+                                    mapElement={ <div style={ { height: '100%' } } /> }
+                                    containerElement={ <div className="ghostkit-google-maps-wrap" style={ { minHeight: '100%' } } /> }
+                                    markers={ markers }
+                                    zoom={ zoom }
+                                    center={ { lat: lat, lng: lng } }
+                                    options={ {
+                                        styles: styleCustom ? this.getStyles( styleCustom ) : [],
+                                        zoomControl: showZoomButtons,
+                                        mapTypeControl: showMapTypeButtons,
+                                        streetViewControl: showStreetViewButton,
+                                        fullscreenControl: showFullscreenButton,
+                                        gestureHandling: 'cooperative',
+                                        draggable: optionDraggable,
+                                    } }
+                                    defaultZoom={ zoom }
+                                    defaultCenter={ { lat: lat, lng: lng } }
+                                    defaultOptions={ {
+                                        styles: styleCustom ? this.getStyles( styleCustom ) : [],
+                                        zoomControl: showZoomButtons,
+                                        mapTypeControl: showMapTypeButtons,
+                                        streetViewControl: showStreetViewButton,
+                                        fullscreenControl: showFullscreenButton,
+                                        gestureHandling: 'cooperative',
+                                        draggable: optionDraggable,
+                                    } }
+                                    onZoomChanged={ debounce( 500, ( val ) => setAttributes( { zoom: val } ) ) }
+                                    onCenterChanged={ debounce( 500, ( val ) => setAttributes( { lat: val.lat(), lng: val.lng() } ) ) }
+                                />
+                            </ResizableBox>
                             { isSelected ? (
                                 <div className="ghostkit-google-maps-search">
                                     <SearchBox
