@@ -18,7 +18,6 @@ const {
     Button,
     ButtonGroup,
     PanelBody,
-    SelectControl,
     Toolbar,
     IconButton,
 } = wp.components;
@@ -165,40 +164,35 @@ class PricingTableBlock extends Component {
                 ) : '' }
                 <InspectorControls>
                     <PanelBody>
-                        <SelectControl
-                            label={ __( 'Vertical alignment' ) }
-                            value={ verticalAlign }
-                            onChange={ ( value ) => setAttributes( { verticalAlign: value } ) }
-                            options={ [
+                        <BaseControl label={ __( 'Vertical align' ) }>
+                            <Toolbar controls={ [
                                 {
-                                    label: __( 'Start' ),
-                                    value: '',
-                                }, {
-                                    label: __( 'Center' ),
-                                    value: 'center',
-                                }, {
-                                    label: __( 'End' ),
-                                    value: 'end',
+                                    icon: getIcon( 'icon-vertical-top', true ),
+                                    title: __( 'ItemsVertical Start' ),
+                                    onClick: () => setAttributes( { verticalAlign: '' } ),
+                                    isActive: verticalAlign === '',
+                                },
+                                {
+                                    icon: getIcon( 'icon-vertical-center', true ),
+                                    title: __( 'ItemsVertical Center' ),
+                                    onClick: () => setAttributes( { verticalAlign: 'center' } ),
+                                    isActive: verticalAlign === 'center',
+                                },
+                                {
+                                    icon: getIcon( 'icon-vertical-bottom', true ),
+                                    title: __( 'ItemsVertical End' ),
+                                    onClick: () => setAttributes( { verticalAlign: 'end' } ),
+                                    isActive: verticalAlign === 'end',
                                 },
                             ] }
-                        />
-                        <SelectControl
-                            label={ __( 'Horizontal alignment' ) }
-                            value={ horizontalAlign }
-                            onChange={ ( value ) => setAttributes( { horizontalAlign: value } ) }
-                            options={ [
-                                {
-                                    label: __( 'Left' ),
-                                    value: 'left',
-                                }, {
-                                    label: __( 'Center' ),
-                                    value: 'center',
-                                }, {
-                                    label: __( 'Right' ),
-                                    value: 'right',
-                                },
-                            ] }
-                        />
+                            />
+                        </BaseControl>
+                        <BaseControl label={ __( 'Horizontal align' ) }>
+                            <AlignmentToolbar
+                                value={ horizontalAlign }
+                                onChange={ ( val ) => setAttributes( { horizontalAlign: val } ) }
+                            />
+                        </BaseControl>
                     </PanelBody>
                     <PanelBody>
                         <BaseControl label={ __( 'Gap' ) }>
