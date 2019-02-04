@@ -7,7 +7,6 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
-import './store.jsx';
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
@@ -518,11 +517,22 @@ export const settings = {
             return false;
         }
 
-        const urlData = `consumer_key=${ encodeURIComponent( consumerKey ) }&consumer_secret=${ encodeURIComponent( consumerSecret ) }&access_token=${ encodeURIComponent( accessToken ) }&access_token_secret=${ encodeURIComponent( accessTokenSecret ) }&screen_name=${ encodeURIComponent( userName ) }`;
+        const apiKeys = {
+            consumer_key: consumerKey,
+            consumer_secret: consumerSecret,
+            access_token: accessToken,
+            access_token_secret: accessTokenSecret,
+            screen_name: userName,
+        };
 
         return {
-            twitterFeed: select( 'ghostkit/twitter' ).getTwitterFeed( `/ghostkit/v1/get_twitter_feed/?count=${ count }&exclude_replies=${ showReplies ? 'false' : 'true' }&include_rts=${ showRetweets ? 'true' : 'false' }&${ urlData }` ),
-            twitterProfile: select( 'ghostkit/twitter' ).getTwitterProfile( `/ghostkit/v1/get_twitter_profile/?${ urlData }` ),
+            twitterFeed: select( 'ghostkit/blocks/twitter' ).getTwitterFeed( {
+                count,
+                exclude_replies: showReplies ? 'false' : 'true',
+                include_rts: showRetweets ? 'true' : 'false',
+                ...apiKeys,
+            } ),
+            twitterProfile: select( 'ghostkit/blocks/twitter' ).getTwitterProfile( apiKeys ),
         };
     } )( TwitterBlock ),
 

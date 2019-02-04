@@ -21,7 +21,6 @@ import './editor.scss';
 import getIcon from '../_utils/get-icon.jsx';
 import deprecatedArray from './deprecated.jsx';
 import transforms from './transforms.jsx';
-import './store.jsx';
 
 const {
     applyFilters,
@@ -885,10 +884,11 @@ export const settings = {
             return {};
         }
 
-        const query = `size=${ encodeURIComponent( props.attributes.posterSize ) }`;
-
         return {
-            posterData: select( 'ghostkit/video' ).getImageTagData( `/ghostkit/v1/get_attachment_image/${ poster }?${ query }` ),
+            posterData: select( 'ghostkit/base/images' ).getImageTagData( {
+                id: poster,
+                size: props.attributes.posterSize,
+            } ),
         };
     } )( VideoBlockEdit ),
 

@@ -9,7 +9,6 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
-import './store.jsx';
 
 import IconPicker from '../_components/icon-picker.jsx';
 
@@ -381,10 +380,11 @@ export const settings = {
             return false;
         }
 
-        const query = `size=${ encodeURIComponent( props.attributes.photoSize ) }`;
-
         return {
-            photoData: select( 'ghostkit/testimonial' ).getImageTagData( `/ghostkit/v1/get_attachment_image/${ photo }?${ query }` ),
+            photoData: select( 'ghostkit/base/images' ).getImageTagData( {
+                id: photo,
+                size: props.attributes.photoSize,
+            } ),
         };
     } )( TestimonialBlockEdit ),
 

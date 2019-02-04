@@ -9,7 +9,6 @@ import Select from 'react-select';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
-import './store.jsx';
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
@@ -428,7 +427,7 @@ export const settings = {
 
     edit: withSelect( ( select ) => {
         return {
-            customizerOptions: select( 'ghostkit/customizer' ).getCustomizerData( '/ghostkit/v1/get_customizer/' ),
+            customizerOptions: select( 'ghostkit/plugins/customizer' ).getCustomizerData(),
         };
     } )( CustomizerBlock ),
 

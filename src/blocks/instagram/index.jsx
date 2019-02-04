@@ -7,7 +7,6 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
-import './store.jsx';
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
@@ -341,8 +340,13 @@ export const settings = {
         }
 
         return {
-            instagramFeed: select( 'ghostkit/instagram' ).getInstagramFeed( `/ghostkit/v1/get_instagram_feed/?access_token=${ encodeURIComponent( accessToken ) }&count=${ encodeURIComponent( count ) }` ),
-            instagramProfile: select( 'ghostkit/instagram' ).getInstagramProfile( `/ghostkit/v1/get_instagram_profile/?access_token=${ encodeURIComponent( accessToken ) }` ),
+            instagramFeed: select( 'ghostkit/blocks/instagram' ).getInstagramFeed( {
+                access_token: accessToken,
+                count,
+            } ),
+            instagramProfile: select( 'ghostkit/blocks/instagram' ).getInstagramProfile( {
+                access_token: accessToken,
+            } ),
         };
     } )( InstagramBlock ),
 

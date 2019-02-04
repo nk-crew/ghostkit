@@ -1,5 +1,10 @@
 /**
- * Gutenberg Blocks
+ * Store
+ */
+import './_store/index.jsx';
+
+/**
+ * Blocks
  */
 import * as grid from './grid/index.jsx';
 import * as gridColumn from './grid/column.jsx';
