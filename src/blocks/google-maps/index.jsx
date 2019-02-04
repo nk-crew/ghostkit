@@ -270,7 +270,6 @@ class GoogleMapsBlock extends Component {
                         ] }
                     >
                         <Dropdown
-                            className={ className }
                             renderToggle={ ( { onToggle } ) => (
                                 <IconButton
                                     label={ __( 'Style' ) }
