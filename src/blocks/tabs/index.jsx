@@ -16,7 +16,7 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
-    SelectControl,
+    BaseControl,
     IconButton,
     Tooltip,
 } = wp.components;
@@ -25,6 +25,8 @@ const {
     RichText,
     InspectorControls,
     InnerBlocks,
+    BlockControls,
+    AlignmentToolbar,
 } = wp.editor;
 
 const {
@@ -125,27 +127,45 @@ class TabsBlockEdit extends Component {
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
+        let buttonsAlignValForControl = buttonsAlign;
+        if ( buttonsAlignValForControl === 'start' ) {
+            buttonsAlignValForControl = 'left';
+        } else if ( buttonsAlignValForControl === 'end' ) {
+            buttonsAlignValForControl = 'right';
+        }
+
         return (
             <Fragment>
+                <BlockControls>
+                    <AlignmentToolbar
+                        value={ buttonsAlignValForControl }
+                        onChange={ ( value ) => {
+                            if ( value === 'left' ) {
+                                value = 'start';
+                            } else if ( value === 'right' ) {
+                                value = 'end';
+                            }
+                            setAttributes( { buttonsAlign: value } );
+                        } }
+                        controls={ [ 'left', 'center', 'right' ] }
+                    />
+                </BlockControls>
                 <InspectorControls>
                     <PanelBody>
-                        <SelectControl
-                            label={ __( 'Tabs align' ) }
-                            value={ buttonsAlign }
-                            options={ [
-                                {
-                                    value: 'start',
-                                    label: __( 'Start' ),
-                                }, {
-                                    value: 'center',
-                                    label: __( 'Center' ),
-                                }, {
-                                    value: 'end',
-                                    label: __( 'End' ),
-                                },
-                            ] }
-                            onChange={ ( value ) => setAttributes( { buttonsAlign: value } ) }
-                        />
+                        <BaseControl label={ __( 'Tabs Align' ) }>
+                            <AlignmentToolbar
+                                value={ buttonsAlignValForControl }
+                                onChange={ ( value ) => {
+                                    if ( value === 'left' ) {
+                                        value = 'start';
+                                    } else if ( value === 'right' ) {
+                                        value = 'end';
+                                    }
+                                    setAttributes( { buttonsAlign: value } );
+                                } }
+                                controls={ [ 'left', 'center', 'right' ] }
+                            />
+                        </BaseControl>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className } data-tab-active={ tabActive }>
