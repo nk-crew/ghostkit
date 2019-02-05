@@ -426,6 +426,9 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     }
                                 }
                             </TabPanelScreenSizes>
+
+                            <p style={ { marginBottom: 20 } }></p>
+                            <BaseControl help={ __( 'Spacings settings will only take effect on Ghost Kit blocks. Core blocks will have spacings only on the preview or live page, and not while you\'re in editing mode.' ) } />
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>

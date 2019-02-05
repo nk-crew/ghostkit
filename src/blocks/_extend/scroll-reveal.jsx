@@ -235,40 +235,38 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 initialOpenPanel = ! initialOpenPanel;
                             } }
                         >
-                            <BaseControl>
-                                <ButtonGroup>
-                                    {
-                                        [
-                                            {
-                                                label: __( 'none' ),
-                                                value: '',
-                                            },
-                                            {
-                                                label: __( 'Fade' ),
-                                                value: 'fade',
-                                            },
-                                            {
-                                                label: __( 'Zoom' ),
-                                                value: 'zoom',
-                                            },
-                                        ].map( ( val ) => {
-                                            const selected = this.state.effect === val.value;
+                            <ButtonGroup>
+                                {
+                                    [
+                                        {
+                                            label: __( 'none' ),
+                                            value: '',
+                                        },
+                                        {
+                                            label: __( 'Fade' ),
+                                            value: 'fade',
+                                        },
+                                        {
+                                            label: __( 'Zoom' ),
+                                            value: 'zoom',
+                                        },
+                                    ].map( ( val ) => {
+                                        const selected = this.state.effect === val.value;
 
-                                            return (
-                                                <Button
-                                                    isLarge
-                                                    isPrimary={ selected }
-                                                    aria-pressed={ selected }
-                                                    onClick={ () => this.updateData( { effect: val.value } ) }
-                                                    key={ `effect_${ val.label }` }
-                                                >
-                                                    { val.label }
-                                                </Button>
-                                            );
-                                        } )
-                                    }
-                                </ButtonGroup>
-                            </BaseControl>
+                                        return (
+                                            <Button
+                                                isLarge
+                                                isPrimary={ selected }
+                                                aria-pressed={ selected }
+                                                onClick={ () => this.updateData( { effect: val.value } ) }
+                                                key={ `effect_${ val.label }` }
+                                            >
+                                                { val.label }
+                                            </Button>
+                                        );
+                                    } )
+                                }
+                            </ButtonGroup>
 
                             { this.state.effect ? (
                                 <Fragment>
@@ -366,6 +364,8 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     </div>
                                 </Fragment>
                             ) : '' }
+
+                            <BaseControl help={ __( 'Animate on Scroll settings will only take effect once you are on the preview or live page, and not while you\'re in editing mode.' ) } />
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>

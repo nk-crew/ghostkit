@@ -25,6 +25,7 @@ const { InspectorControls } = wp.editor;
 
 const {
     PanelBody,
+    BaseControl,
     ButtonGroup,
     Button,
 } = wp.components;
@@ -249,6 +250,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     }
                                 }
                             </TabPanelScreenSizes>
+                            <BaseControl help={ __( 'Display settings will only take effect once you are on the preview or live page, and not while you\'re in editing mode.' ) } />
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>
