@@ -282,38 +282,38 @@ Available events:
   * Icon Box
   * Testimonial
   * Video
-* added Buttons "+" button to add buttons
+* added Buttons '+' button to add buttons
 * added Buttons block prev/next move buttons to resort
-* added Buttons "Align" button in Inspector
-* added Accordion "+" button to add new accordion
-* added Accordion "-" button to remove selected accordion
-* added Accordion "Collapse" button in Toolbar
+* added Buttons 'Align' button in Inspector
+* added Accordion '+' button to add new accordion
+* added Accordion '-' button to remove selected accordion
+* added Accordion 'Collapse' button in Toolbar
 * added Accordion items up/down buttons to resort
-* added Tabs "+" button to add new tab
-* added Tabs "-" button to remove selected tab
-* added Tabs "Align" button in Toolbar
-* added Number Box "Position" button in Toolbar
-* added Number Box "Show Content" option
-* added Pricing Table "+" button to add new tables
-* added Pricing Table "-" button to remove selected table
+* added Tabs '+' button to add new tab
+* added Tabs '-' button to remove selected tab
+* added Tabs 'Align' button in Toolbar
+* added Number Box 'Position' button in Toolbar
+* added Number Box 'Show Content' option
+* added Pricing Table '+' button to add new tables
+* added Pricing Table '-' button to remove selected table
 * added Pricing Table items prev/next buttons to resort
-* added Icon Box "Position" button in Toolbar
-* added Icon Box "Show Content" option
-* added Video "Aspect Ratio" button in Toolbar
-* added Video "URL" input in Toolbar
+* added Icon Box 'Position' button in Toolbar
+* added Icon Box 'Show Content' option
+* added Video 'Aspect Ratio' button in Toolbar
+* added Video 'URL' input in Toolbar
 * added Progress Bar resizable indicators
-* added Google Maps "Add Marker" button in Toolbar
-* added Google Maps "Style" button in Toolbar
-* added Google Maps "Full Height" option in Inspector
+* added Google Maps 'Add Marker' button in Toolbar
+* added Google Maps 'Style' button in Toolbar
+* added Google Maps 'Full Height' option in Inspector
 * added Google Maps height resizable box
-* added Google Maps "Better Scroll & Draggable" option
+* added Google Maps 'Better Scroll & Draggable' option
 * added Grid dynamic layouts preview generator (without SVG)
-* added custom filter "ghostkit.editor.grid.layouts" to extend predefined Grid layouts
+* added custom filter 'ghostkit.editor.grid.layouts' to extend predefined Grid layouts
 * added Video transformations to Core blocks
 * added Divider transformations to Separator
-* changed Grid and Column buttons to icons instead of "Select Grid" and "Select Column"
-* changed Google Maps "Style" selector to image picker
-* change Video "Aspect Ratio" selector to image picker
+* changed Grid and Column buttons to icons instead of 'Select Grid' and 'Select Column'
+* changed Google Maps 'Style' selector to image picker
+* change Video 'Aspect Ratio' selector to image picker
 * changed default Google Maps styles (better contrast)
 * improved icon picker:
   * larger icons
@@ -324,7 +324,7 @@ Available events:
 * fixed Google Maps error after adding marker
 * fixed Google Maps Full Height styles in Editor
 * fixed column content sticky
-* fixed "gkt_enqueue_plugin_font_awesome" filter order (you can use it in themes functions.php)
+* fixed 'gkt_enqueue_plugin_font_awesome' filter order (you can use it in themes functions.php)
 * a lot of minor changes
 
 = 2.0.1 =
@@ -342,7 +342,7 @@ Available events:
 * added plugin Settings page
 * added Tabs page hash support (old tabs are deprecated, you need to add new Tabs block on the page)
 * added controls to show/hide Pricing Table price/currency/repeat items
-* added `ghostkit` attribute with plugin parameters support for blocks (3rd-party blocks may be extended with Ghost Kit Extensions)
+* added 'ghostkit' attribute with plugin parameters support for blocks (3rd-party blocks may be extended with Ghost Kit Extensions)
 * added :focus styles outline for Button block
 * added [Ghost Kit PRO](https://ghostkit.io/pricing/) addon support
 * added 'inserter' and 'reusable' attributes with 'false' value in inner blocks
