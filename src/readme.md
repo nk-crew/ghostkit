@@ -273,6 +273,60 @@ Available events:
 
 ## Changelog ##
 
+= 2.1.0 =
+
+* added icon picker right inside block preview in editor for blocks:
+  * Alert
+  * Button
+  * Divider
+  * Icon Box
+  * Testimonial
+  * Video
+* added Buttons `+` button to add buttons
+* added Buttons block prev/next move buttons to resort
+* added Buttons `Align` button in Inspector
+* added Accordion `+` button to add new accordion
+* added Accordion `-` button to remove selected accordion
+* added Accordion `Collapse` button in Toolbar
+* added Accordion items up/down buttons to resort
+* added Tabs `+` button to add new tab
+* added Tabs `-` button to remove selected tab
+* added Tabs `Align` button in Toolbar
+* added Number Box `Position` button in Toolbar
+* added Number Box `Show Content` option
+* added Pricing Table `+` button to add new tables
+* added Pricing Table `-` button to remove selected table
+* added Pricing Table items prev/next buttons to resort
+* added Icon Box `Position` button in Toolbar
+* added Icon Box `Show Content` option
+* added Video `Aspect Ratio` button in Toolbar
+* added Video `URL` input in Toolbar
+* added Progress Bar resizable indicators
+* added Google Maps `Add Marker` button in Toolbar
+* added Google Maps `Style` button in Toolbar
+* added Google Maps `Full Height` option in Inspector
+* added Google Maps height resizable box
+* added Google Maps `Better Scroll & Draggable` option
+* added Grid dynamic layouts preview generator (without SVG)
+* added custom filter `ghostkit.editor.grid.layouts` to extend predefined Grid layouts
+* added Video transformations to Core blocks
+* added Divider transformations to Separator
+* changed Grid and Column buttons to icons instead of `Select Grid` and `Select Column`
+* changed Google Maps `Style` selector to image picker
+* change Video `Aspect Ratio` selector to image picker
+* changed default Google Maps styles (better contrast)
+* improved icon picker:
+  * larger icons
+  * 3 icons per row
+  * sticky icons pack label
+* updated all block icons (removed ghost from icons and changed color)
+* hide Grid options if no layout selected
+* fixed Google Maps error after adding marker
+* fixed Google Maps Full Height styles in Editor
+* fixed column content sticky
+* fixed `gkt_enqueue_plugin_font_awesome` filter order (you can use it in themes functions.php)
+* a lot of minor changes
+
 = 2.0.1 =
 
 * fixed Tabs Legacy block extensions support
