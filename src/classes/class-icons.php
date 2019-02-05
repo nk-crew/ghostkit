@@ -51,8 +51,8 @@ class GhostKit_Icons_List {
     public function register_font_awesome_assets() {
         // Allow enqueue FontAwesome assets.
         if ( apply_filters( 'gkt_enqueue_plugin_font_awesome', true ) ) {
-            wp_register_script( 'font-awesome-v4-shims', ghostkit()->plugin_url . 'assets/vendor/font-awesome/v4-shims.min.js', array(), '5.6.3' );
-            wp_register_script( 'font-awesome', ghostkit()->plugin_url . 'assets/vendor/font-awesome/all.min.js', array( 'font-awesome-v4-shims' ), '5.6.3' );
+            wp_register_script( 'font-awesome-v4-shims', ghostkit()->plugin_url . 'assets/vendor/font-awesome/v4-shims.min.js', array(), '5.7.1' );
+            wp_register_script( 'font-awesome', ghostkit()->plugin_url . 'assets/vendor/font-awesome/all.min.js', array( 'font-awesome-v4-shims' ), '5.7.1' );
         }
     }
 
