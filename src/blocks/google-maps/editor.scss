@@ -80,7 +80,57 @@
             border-bottom: 1px solid #efefef;
         }
     }
+    .ghostkit-google-maps-child-panel.is-opened {
+        margin-top: 15px;
+    }
+    .ghostkit-google-maps-child-panel {
+        margin: 0;
+        background-color: #f7f7f7;
+        border: none;
+        h2{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            border: #8d96a0 1px solid;
+            border-radius: 5px;
+            &:hover{
+                background-color: transparent;
+            }
+            button {
+                &:focus:not(:disabled):not([aria-disabled="true"]) {
+                    background: none;
+                    outline: none;
+                }
+            }
+        }
+        .components-panel__body-title {
+            button {
+                padding: 15px 15px 15px 15px;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 0;
+                span {
+                    svg {
+                        width: 16px;
+                    }
+                }
+            }
 
+        }
+        .ghostkit-google-maps-marker-image-preview {
+            width: 27px;
+        }
+        .ghostkit-google-maps-change-icon-button {
+            float: right;
+            margin-top: 7px;
+        }
+        .components-range-control {
+            margin-top: 30px;
+            clear: both;
+        }
+        .ghostkit-google-maps-mediaupload-wrapper {
+            margin: 20px 0;
+        }
+    }
     .ghostkit-google-maps-marker-remove {
         float: right;
         padding: 0;

@@ -30,6 +30,7 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     PanelBody,
+    SelectControl,
     TextControl,
     TextareaControl,
     RangeControl,
@@ -44,6 +45,7 @@ const {
 const {
     InspectorControls,
     BlockControls,
+    MediaUpload,
 } = wp.editor;
 
 const { apiFetch } = wp;
@@ -340,6 +342,99 @@ class GoogleMapsBlock extends Component {
                                                     } }
                                                     className="ghostkit-google-maps-search-box"
                                                 />
+                                                <PanelBody
+                                                    title={ __( 'More Options' ) }
+                                                    initialOpen={ false }
+                                                    className="ghostkit-google-maps-child-panel"
+                                                >
+                                                    <div className="ghostkit-google-maps-mediaupload-wrapper">
+                                                        <MediaUpload
+                                                            allowedTypes={ [ 'image' ] }
+                                                            value={ marker.iconId }
+                                                            onSelect={ function( media ) {
+                                                                markers[ index ].iconId = media.id;
+                                                                markers[ index ].iconUrl = media.url;
+                                                                markers[ index ].markerWidth = 27;
+                                                                markers[ index ].markerHeight = ( ( media.height / media.width ) * markers[ index ].markerWidth );
+                                                                return setAttributes( {
+                                                                    markers: Object.assign( [], markers ),
+                                                                } );
+                                                            } }
+                                                            render={ function( obj ) {
+                                                                return (
+                                                                    <Fragment>
+                                                                        { marker.iconUrl ? <img alt={ __( 'Google Map Custom' ) } src={ marker.iconUrl } className="ghostkit-google-maps-marker-image-preview" /> : <img alt={ __( 'Google Map Marker Default' ) } src="https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png" className="ghostkit-google-maps-marker-image-preview" /> }
+                                                                        <Button
+                                                                            isDefault
+                                                                            className="ghostkit-google-maps-change-icon-button"
+                                                                            onClick={ obj.open }
+                                                                        >
+                                                                            { __( 'Change Icon' ) }
+                                                                        </Button>
+                                                                    </Fragment>
+                                                                );
+                                                            } }
+                                                        />
+                                                    </div>
+                                                    { markers[ index ].iconUrl ? (
+                                                        <RangeControl
+                                                            label={ __( 'Marker Icon Width' ) }
+                                                            value={ markers[ index ].markerWidth ? markers[ index ].markerWidth : 27 }
+                                                            min={ 27 }
+                                                            max={ 100 }
+                                                            onChange={ function( newWidth ) {
+                                                                markers[ index ].markerHeight = ( ( markers[ index ].markerHeight / markers[ index ].markerWidth ) * newWidth );
+                                                                markers[ index ].markerWidth = newWidth;
+
+                                                                return setAttributes( {
+                                                                    markers: Object.assign( [], markers ),
+                                                                } );
+                                                            } }
+                                                        />
+                                                    ) : '' }
+                                                    <SelectControl
+                                                        label={ __( 'Marker Animations' ) }
+                                                        value={ markers[ index ].animation }
+                                                        options={ [
+                                                            { label: __( 'None' ), value: '' },
+                                                            { label: __( 'Bounce' ), value: 'BOUNCE' },
+                                                            { label: __( 'Drop' ), value: 'DROP' },
+                                                            { label: __( 'Drop Short' ), value: 'Kn' },
+                                                        ] }
+                                                        onChange={ ( animation ) => {
+                                                            markers[ index ].animation = animation;
+                                                            return setAttributes( {
+                                                                markers: Object.assign( [], markers ),
+                                                            } );
+                                                        } }
+                                                    />
+                                                    <TextareaControl
+                                                        label={ __( 'Info Window Text' ) }
+                                                        value={ markers[ index ].infoWindow }
+                                                        onChange={ function( text ) {
+                                                            // no HTML inside markers right now possible because
+                                                            // we are doing stringify of json in a data attribute for frontend
+                                                            // from where if html given in html attribute it will not properly be fetched back
+                                                            // and converted to JSON again.
+                                                            markers[ index ].infoWindow = text.replace( /<[^>]*>/g, '' );
+                                                            return setAttributes( {
+                                                                markers: Object.assign( [], markers ),
+                                                            } );
+                                                        } }
+                                                    />
+                                                    <RangeControl
+                                                        label={ __( 'Info Window Width' ) }
+                                                        value={ markers[ index ].infoWindowWidth ? markers[ index ].infoWindowWidth : 150 }
+                                                        min={ 50 }
+                                                        max={ 999 }
+                                                        onChange={ function( text ) {
+                                                            markers[ index ].infoWindowWidth = text;
+                                                            return setAttributes( {
+                                                                markers: Object.assign( [], markers ),
+                                                            } );
+                                                        } }
+                                                    />
+                                                </PanelBody>
                                                 <ApplyFilters
                                                     name="ghostkit.editor.controls"
                                                     attribute="additionalMarkerOptions"
@@ -716,6 +811,11 @@ export const settings = {
                             'data-lat': marker.lat,
                             'data-lng': marker.lng,
                             'data-address': marker.address,
+                            'data-iconurl': marker.iconUrl,
+                            'data-infowindow': marker.infoWindow,
+                            'data-infowindowwidth': marker.infoWindowWidth,
+                            'data-markerwidth': marker.markerWidth,
+                            'data-markerheight': marker.markerHeight,
                         };
 
                         return (

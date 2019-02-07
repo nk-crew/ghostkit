@@ -879,7 +879,26 @@ class GhostKitClass {
                         }
 
                         if ( markers && markers.length ) {
-                            mapObject.addMarkers( markers );
+                            markers.forEach( ( marker ) => {
+                                const mapMarker = mapObject.addMarker( {
+                                    lat: marker.lat,
+                                    lng: marker.lng,
+                                    icon: {
+                                        url: marker.iconurl, // url
+                                        scaledSize: new window.google.maps.Size( marker.markerwidth, marker.markerheight ), // scaled size
+                                    },
+                                    animation: marker.animation,
+                                } );
+                                if ( marker.infowindow ) {
+                                    const infowindow = new window.google.maps.InfoWindow( {
+                                        content: marker.infowindow,
+                                        maxWidth: marker.infowindowwidth,
+                                    } );
+                                    mapMarker.addListener( 'click', function() {
+                                        infowindow.open( mapObject, mapMarker );
+                                    } );
+                                }
+                            } );
                         }
 
                         GHOSTKIT.triggerEvent( 'beforePrepareGoogleMapsEnd', self, $this, mapObject );
