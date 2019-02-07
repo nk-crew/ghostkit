@@ -68,6 +68,11 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 If you like it or if you simply want to help us keep improving Ghost Kit plugin - [Go Pro](https://ghostkit.io/pricing/).
 
 
+= Real Usage Examples =
+
+* [Skylith - Multipurpose Gutenberg Theme](https://demo.nkdev.info/#skylith)
+
+
 ## Installation ##
 
 Make sure you use WordPress 5 As alternative you need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use Ghost Kit.
