@@ -20,6 +20,7 @@ import './editor.scss';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
 import fixXmlImportedContent from '../_utils/fix-xml-imported-content.jsx';
+import dashCaseToTitle from '../_utils/dash-case-to-title.jsx';
 import deprecatedArray from './deprecated.jsx';
 import transforms from './transforms.jsx';
 
@@ -51,20 +52,6 @@ const {
     BlockControls,
     MediaUpload,
 } = wp.editor;
-
-/**
- * Camel case to Title case.
- * https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
- *
- * @param {string} str - camel case string.
- *
- * @return {string} title case string.
- */
-function toTitleCase( str ) {
-    return str.split( /[.,/ \-_]/ ).map( ( word ) => {
-        return word && word.length ? word.replace( word[ 0 ], word[ 0 ].toUpperCase() ) : word;
-    } ).join( ' ' );
-}
 
 /**
  * Select poster
@@ -600,7 +587,7 @@ class VideoBlockEdit extends Component {
                                             Object.keys( posterSizes ).forEach( ( k ) => {
                                                 result.push( {
                                                     value: k,
-                                                    label: toTitleCase( k ),
+                                                    label: dashCaseToTitle( k ),
                                                 } );
                                             } );
                                             return result;

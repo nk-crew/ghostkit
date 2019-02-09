@@ -9,6 +9,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
+import dashCaseToTitle from '../_utils/dash-case-to-title.jsx';
 import fixXmlImportedContent from '../_utils/fix-xml-imported-content.jsx';
 
 import IconPicker from '../_components/icon-picker.jsx';
@@ -34,20 +35,6 @@ const {
     RichText,
     MediaUpload,
 } = wp.editor;
-
-/**
- * Camel case to Title case.
- * https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
- *
- * @param {string} str - camel case string.
- *
- * @return {string} title case string.
- */
-function toTitleCase( str ) {
-    return str.split( /[.,/ \-_]/ ).map( ( word ) => {
-        return word && word.length ? word.replace( word[ 0 ], word[ 0 ].toUpperCase() ) : word;
-    } ).join( ' ' );
-}
 
 /**
  * Select photo
@@ -138,7 +125,7 @@ class TestimonialBlockEdit extends Component {
                                     Object.keys( photoSizes ).forEach( ( k ) => {
                                         result.push( {
                                             value: k,
-                                            label: toTitleCase( k ),
+                                            label: dashCaseToTitle( k ),
                                         } );
                                     } );
                                     return result;
