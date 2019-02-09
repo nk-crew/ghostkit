@@ -9,6 +9,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon.jsx';
+import fixXmlImportedContent from '../_utils/fix-xml-imported-content.jsx';
 
 import IconPicker from '../_components/icon-picker.jsx';
 
@@ -233,15 +234,8 @@ class TestimonialBlockSave extends Component {
     constructor() {
         super( ...arguments );
 
-        // inside exported xml file almost all symbols are escaped.
-        const posterTag = this.props.attributes.posterTag;
-        if ( posterTag && /^u003c/g.test( posterTag ) ) {
-            this.props.attributes.posterTag = posterTag
-                .replace( /u003c/g, '<' )
-                .replace( /u003e/g, '>' )
-                .replace( /u0022/g, '"' )
-                .replace( /u0026/g, '&' );
-        }
+        // fix xml imported string.
+        this.props.attributes.posterTag = fixXmlImportedContent( this.props.attributes.posterTag );
     }
 
     render() {
