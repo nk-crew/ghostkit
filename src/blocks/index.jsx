@@ -35,6 +35,11 @@ import * as instagram from './instagram';
 import * as twitter from './twitter';
 
 /**
+ * Formats
+ */
+import './_formats';
+
+/**
  * Extensions
  */
 import './_extend';

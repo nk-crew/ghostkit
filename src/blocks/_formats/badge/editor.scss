@@ -1,0 +1,15 @@
+@import "../../variables";
+
+.ghostkit-format-badge-popover {
+    &:not(.is-without-arrow):not(.is-mobile).is-bottom {
+        margin-top: 15px;
+    }
+
+    &:not(.is-mobile) .components-popover__content {
+        min-width: 275px;
+    }
+
+    .components-popover__content {
+        padding: 16px;
+    }
+}

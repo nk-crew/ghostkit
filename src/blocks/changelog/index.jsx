@@ -13,12 +13,8 @@ const {
 } = wp.hooks;
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const {
-    PanelBody,
-} = wp.components;
 
 const {
-    InspectorControls,
     InnerBlocks,
     RichText,
 } = wp.editor;
@@ -43,11 +39,6 @@ class ChangelogBlock extends Component {
 
         return (
             <Fragment>
-                <InspectorControls>
-                    <PanelBody>
-                        <p>{ __( 'Supported highlighting badges, just put these texts in the start of items list: [Added], [Fixed], [Improved], [Updated], [New], [Removed], [Changed]' ) }</p>
-                    </PanelBody>
-                </InspectorControls>
                 <div className={ className }>
                     <div className="ghostkit-changelog-version">
                         <RichText
@@ -70,9 +61,18 @@ class ChangelogBlock extends Component {
                             allowedBlocks={ [ 'core/list', 'core/paragraph', 'ghostkit/alert' ] }
                             template={ [ [ 'core/list', {
                                 values: [
-                                    <li key="list-item-1">{ __( '[Added] Something' ) }</li>,
-                                    <li key="list-item-2">{ __( '[Fixed] Something' ) }</li>,
-                                    <li key="list-item-3">{ __( '[Improved] Something' ) }</li>,
+                                    <li key="list-item-1">
+                                        <span className="ghostkit-badge" style="background-color: #4ab866;">{ __( 'Added' ) }</span>
+                                        { __( 'Something' ) }
+                                    </li>,
+                                    <li key="list-item-2">
+                                        <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Fixed' ) }</span>
+                                        { __( 'Something' ) }
+                                    </li>,
+                                    <li key="list-item-3">
+                                        <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Improved' ) }</span>
+                                        { __( 'Something' ) }
+                                    </li>,
                                 ],
                             } ] ] }
                             templateLock={ false }
