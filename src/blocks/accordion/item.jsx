@@ -2,9 +2,9 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import RemoveButton from '../_components/remove-button.jsx';
-import deprecatedArray from './deprecated.jsx';
+import getIcon from '../_utils/get-icon';
+import RemoveButton from '../_components/remove-button';
+import deprecatedArray from './deprecated';
 
 const {
     applyFilters,

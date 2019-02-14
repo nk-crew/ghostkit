@@ -1,0 +1,89 @@
+@import "../../variables";
+
+.ghostkit-control-sr-direction {
+    position: relative;
+    width: 100%;
+    padding-top: 60%;
+    border: 1px solid #e8eaec;
+
+    .components-base-control,
+    .components-base-control__field {
+        margin: 0;
+    }
+
+    .ghostkit-control-sr-direction-wrap {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            justify-content: center;
+            width: 35px;
+            height: 32px;
+            padding: 10px;
+            font-size: 10px;
+            text-align: center;
+            border-radius: 3px;
+            transition: .15s background-color, .15s color;
+
+            &:hover {
+                background-color: #eaeaea;
+            }
+
+            &.ghostkit-control-sr-direction-active,
+            &.ghostkit-control-sr-direction-active:focus {
+                color: #fff;
+                background-color: $color-primary;
+            }
+
+            svg {
+                display: block;
+                width: auto;
+                height: 1.2em;
+            }
+        }
+
+        .ghostkit-control-sr-direction-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .ghostkit-control-sr-direction-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+        }
+        .ghostkit-control-sr-direction-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        .ghostkit-control-sr-direction-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+        .ghostkit-control-sr-direction-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+
+            button {
+                font-size: 5px;
+            }
+        }
+    }
+}

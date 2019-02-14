@@ -1,8 +1,8 @@
-import reducer from './reducer.jsx';
-import * as selectors from './selectors.jsx';
-import * as actions from './actions.jsx';
-import * as controls from './controls.jsx';
-import * as resolvers from './resolvers.jsx';
+import reducer from './reducer';
+import * as selectors from './selectors';
+import * as actions from './actions';
+import * as controls from './controls';
+import * as resolvers from './resolvers';
 
 const {
     registerStore,

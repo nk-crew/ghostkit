@@ -126,7 +126,7 @@ class GhostKit {
         add_action( 'init', array( $this, 'add_custom_fields_support' ), 100 );
 
         add_action( 'save_post', array( $this, 'parse_styles_from_blocks' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'add_styles_from_blocks' ), 100 );
+        add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_css_js' ), 100 );
 
         // include blocks.
         // work only if Gutenberg available.
@@ -459,37 +459,93 @@ class GhostKit {
      *
      * @param int $post_id - current post id.
      */
-    public function add_styles_from_blocks( $post_id ) {
-        if ( ! is_singular() ) {
-            return;
-        }
-        if ( ! $post_id ) {
+    public function add_custom_css_js( $post_id ) {
+        $global_code = get_option( 'ghostkit_custom_code', array() );
+
+        if ( is_singular() && ! $post_id ) {
             $post_id = get_the_ID();
         }
 
-        if ( $post_id ) {
-            $css = get_post_meta( $post_id, '_ghostkit_blocks_custom_css', true );
-            $custom_css = get_post_meta( $post_id, 'ghostkit_custom_css', true );
+        $is_single = is_singular() && $post_id;
 
-            if ( ! empty( $css ) ) {
-                $custom_css_handle = 'ghostkit-blocks-custom-css';
-                $css = wp_kses( $css, array( '\'', '\"' ) );
-                $css = str_replace( '&gt;', '>', $css );
+        // Blocks custom CSS.
+        if ( $is_single ) {
+            $blocks_css = get_post_meta( $post_id, '_ghostkit_blocks_custom_css', true );
 
-                wp_register_style( $custom_css_handle, false );
-                wp_enqueue_style( $custom_css_handle );
-                wp_add_inline_style( $custom_css_handle, $css );
-            }
-            if ( ! empty( $custom_css ) ) {
-                $custom_css_handle = 'ghostkit-custom-css';
-                $css = wp_kses( $custom_css, array( '\'', '\"' ) );
-                $css = str_replace( '&gt;', '>', $css );
-
-                wp_register_style( $custom_css_handle, false );
-                wp_enqueue_style( $custom_css_handle );
-                wp_add_inline_style( $custom_css_handle, $css );
+            if ( ! empty( $blocks_css ) ) {
+                $this->add_custom_css( 'ghostkit-blocks-custom-css', $blocks_css );
             }
         }
+
+        // Global custom CSS.
+        if ( $global_code && isset( $global_code['ghostkit_custom_css'] ) && $global_code['ghostkit_custom_css'] ) {
+            $this->add_custom_css( 'ghostkit-global-custom-css', $global_code['ghostkit_custom_css'] );
+        }
+
+        // Local custom CSS.
+        if ( $is_single ) {
+            $meta_css = get_post_meta( $post_id, 'ghostkit_custom_css', true );
+
+            if ( ! empty( $meta_css ) ) {
+                $this->add_custom_css( 'ghostkit-custom-css', $meta_css );
+            }
+        }
+
+        // Global custom JS head.
+        if ( $global_code && isset( $global_code['ghostkit_custom_js_head'] ) && $global_code['ghostkit_custom_js_head'] ) {
+            $this->add_custom_js( 'ghostkit-global-custom-js-head', $global_code['ghostkit_custom_js_head'] );
+        }
+
+        // Local custom JS head.
+        if ( $is_single ) {
+            $meta_js_head = get_post_meta( $post_id, 'ghostkit_custom_js_head', true );
+
+            if ( ! empty( $meta_js_head ) ) {
+                $this->add_custom_js( 'ghostkit-custom-js-head', $meta_js_head );
+            }
+        }
+
+        // Global custom JS foot.
+        if ( $global_code && isset( $global_code['ghostkit_custom_js_foot'] ) && $global_code['ghostkit_custom_js_foot'] ) {
+            $this->add_custom_js( 'ghostkit-global-custom-js-foot', $global_code['ghostkit_custom_js_foot'], true );
+        }
+
+        // Local custom JS foot.
+        if ( $is_single ) {
+            $meta_js_foot = get_post_meta( $post_id, 'ghostkit_custom_js_foot', true );
+
+            if ( ! empty( $meta_js_foot ) ) {
+                $this->add_custom_js( 'ghostkit-custom-js-foot', $meta_js_foot, true );
+            }
+        }
+    }
+
+    /**
+     * Add custom CSS.
+     *
+     * @param String $name - handle name.
+     * @param String $css - code.
+     */
+    public function add_custom_css( $name, $css ) {
+        $css = wp_kses( $css, array( '\'', '\"' ) );
+        $css = str_replace( '&gt;', '>', $css );
+
+        wp_register_style( $name, false );
+        wp_enqueue_style( $name );
+        wp_add_inline_style( $name, $css );
+    }
+
+    /**
+     * Add custom JS.
+     *
+     * @param String  $name - handle name.
+     * @param String  $js - code.
+     * @param Boolean $footer - print in footer.
+     */
+    public function add_custom_js( $name, $js, $footer = false ) {
+        wp_register_script( $name, '', array(), '', $footer );
+        wp_enqueue_script( $name );
+        wp_add_inline_script( $name, $js );
     }
 
     /**

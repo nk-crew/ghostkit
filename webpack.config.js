@@ -47,6 +47,9 @@ module.exports = function( isDev = false ) {
                 },
             ],
         },
+        resolve: {
+            extensions: [ '.js', '.jsx', '.json' ],
+        },
         externals: {
             react: 'React',
             'react-dom': 'ReactDOM',

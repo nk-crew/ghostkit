@@ -3,10 +3,10 @@ if ( ! global._babelPolyfill ) {
     require( '@babel/polyfill' );
 }
 import classnames from 'classnames/dedupe';
-import ColorPicker from '../_components/color-picker.jsx';
-import IconPicker from '../_components/icon-picker.jsx';
-import ApplyFilters from '../_components/apply-filters.jsx';
-import ImagePicker from '../_components/image-picker.jsx';
+import ColorPicker from '../_components/color-picker';
+import IconPicker from '../_components/icon-picker';
+import ApplyFilters from '../_components/apply-filters';
+import ImagePicker from '../_components/image-picker';
 
 import ImgAspectRatio32 from './aspect-ratio/aspect-ratio-3-2.png';
 import ImgAspectRatio43 from './aspect-ratio/aspect-ratio-4-3.png';
@@ -18,11 +18,11 @@ import './style.scss';
 import './editor.scss';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import fixXmlImportedContent from '../_utils/fix-xml-imported-content.jsx';
-import dashCaseToTitle from '../_utils/dash-case-to-title.jsx';
-import deprecatedArray from './deprecated.jsx';
-import transforms from './transforms.jsx';
+import getIcon from '../_utils/get-icon';
+import fixXmlImportedContent from '../_utils/fix-xml-imported-content';
+import dashCaseToTitle from '../_utils/dash-case-to-title';
+import deprecatedArray from './deprecated';
+import transforms from './transforms';
 
 const {
     applyFilters,

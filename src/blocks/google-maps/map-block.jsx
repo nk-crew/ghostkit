@@ -6,7 +6,7 @@ import {
     Marker,
 } from 'react-google-maps';
 
-import ApplyFilters from '../_components/apply-filters.jsx';
+import ApplyFilters from '../_components/apply-filters';
 
 const MapBlock = compose(
     withProps( {

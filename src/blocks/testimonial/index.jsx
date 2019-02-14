@@ -8,11 +8,11 @@ if ( ! global._babelPolyfill ) {
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import dashCaseToTitle from '../_utils/dash-case-to-title.jsx';
-import fixXmlImportedContent from '../_utils/fix-xml-imported-content.jsx';
+import getIcon from '../_utils/get-icon';
+import dashCaseToTitle from '../_utils/dash-case-to-title';
+import fixXmlImportedContent from '../_utils/fix-xml-imported-content';
 
-import IconPicker from '../_components/icon-picker.jsx';
+import IconPicker from '../_components/icon-picker';
 
 const {
     applyFilters,

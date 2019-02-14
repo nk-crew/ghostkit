@@ -3,6 +3,17 @@
  */
 @import "../../../blocks/variables";
 
+.ghostkit-help-text {
+    font-size: 90%;
+    font-style: italic;
+    color: #a0a0a0;
+}
+
+.ghostkit-code {
+    background: #eef0f3;
+    border-radius: 3px;
+}
+
 /**
  * Grid for controls.
  */

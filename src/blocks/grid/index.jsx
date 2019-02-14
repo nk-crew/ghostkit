@@ -5,10 +5,10 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import deprecatedArray from './deprecated.jsx';
-import ApplyFilters from '../_components/apply-filters.jsx';
-import ColorPicker from '../_components/color-picker.jsx';
+import getIcon from '../_utils/get-icon';
+import deprecatedArray from './deprecated';
+import ApplyFilters from '../_components/apply-filters';
+import ColorPicker from '../_components/color-picker';
 
 const {
     applyFilters,

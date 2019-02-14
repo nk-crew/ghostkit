@@ -1,4 +1,4 @@
-import * as actions from './actions.jsx';
+import * as actions from './actions';
 
 export function * getCustomizerData() {
     const query = '/ghostkit/v1/get_customizer/';

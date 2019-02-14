@@ -94,10 +94,28 @@ class GhostKit_Rest extends WP_REST_Controller {
             )
         );
 
+        // Get Custom Code.
+        register_rest_route(
+            $namespace, '/get_custom_code/', array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'get_custom_code' ),
+                'permission_callback' => array( $this, 'get_custom_code_permission' ),
+            )
+        );
+
+        // Update Custom Code.
+        register_rest_route(
+            $namespace, '/update_custom_code/', array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'update_custom_code' ),
+                'permission_callback' => array( $this, 'update_custom_code_permission' ),
+            )
+        );
+
         // Update Google Maps API key.
         register_rest_route(
             $namespace, '/update_google_maps_api_key/', array(
-                'methods'             => WP_REST_Server::READABLE,
+                'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array( $this, 'update_google_maps_api_key' ),
                 'permission_callback' => array( $this, 'update_google_maps_api_key_permission' ),
             )
@@ -249,12 +267,36 @@ class GhostKit_Rest extends WP_REST_Controller {
     }
 
     /**
+     * Get read custom code permissions.
+     *
+     * @return bool
+     */
+    public function get_custom_code_permission() {
+        if ( ! current_user_can( 'edit_theme_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
+     * Get edit custom code permissions.
+     *
+     * @return bool
+     */
+    public function update_custom_code_permission() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
      * Get read google maps api key permissions.
      *
      * @return bool
      */
     public function update_google_maps_api_key_permission() {
-        if ( ! current_user_can( 'edit_theme_options' ) ) {
+        if ( ! current_user_can( 'manage_options' ) ) {
             return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
         }
         return true;
@@ -910,6 +952,44 @@ class GhostKit_Rest extends WP_REST_Controller {
     }
 
     /**
+     * Get custom code.
+     *
+     * @return mixed
+     */
+    public function get_custom_code() {
+        $custom_code = get_option( 'ghostkit_custom_code', array() );
+
+        if ( is_array( $custom_code ) ) {
+            return $this->success( $custom_code );
+        } else {
+            return $this->error( 'no_custom_code', __( 'Custom code not found.', '@@text_domain' ) );
+        }
+    }
+
+    /**
+     * Update custom code.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function update_custom_code( WP_REST_Request $request ) {
+        $new_code = $request->get_param( 'data' );
+        $updated = '';
+
+        if ( is_array( $new_code ) ) {
+            $current_code = get_option( 'ghostkit_custom_code', array() );
+            $updated = update_option( 'ghostkit_custom_code', array_merge( $current_code, $new_code ) );
+        }
+
+        if ( ! empty( $updated ) ) {
+            return $this->success( true );
+        } else {
+            return $this->error( 'no_code_updated', __( 'Failed to update custom code.', '@@text_domain' ) );
+        }
+    }
+
+    /**
      * Update Google Maps API key.
      *
      * @param WP_REST_Request $request  request object.
@@ -938,7 +1018,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         $updated = '';
 
         if ( is_array( $new_settings ) ) {
-            $updated = update_option( 'ghostkit_disabled_blocks', $new_settings );
+            $updated = update_option( 'ghostkit_disabled_blocks', $current_settings, $new_settings );
         }
 
         if ( ! empty( $updated ) ) {
@@ -960,7 +1040,8 @@ class GhostKit_Rest extends WP_REST_Controller {
         $updated = '';
 
         if ( is_array( $new_settings ) ) {
-            $updated = update_option( 'ghostkit_settings', $new_settings );
+            $current_settings = get_option( 'ghostkit_settings', array() );
+            $updated = update_option( 'ghostkit_settings', array_merge( $current_settings, $new_settings ) );
         }
 
         if ( ! empty( $updated ) ) {

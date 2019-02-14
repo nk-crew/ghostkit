@@ -1,4 +1,4 @@
-import prepareQuery from './prepare-query.jsx';
+import prepareQuery from './prepare-query';
 
 export function getImageTagData( state, data ) {
     const query = prepareQuery( data );

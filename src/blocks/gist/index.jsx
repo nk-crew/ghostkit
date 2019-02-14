@@ -6,8 +6,8 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import GistFilesSelect from './file-select.jsx';
+import getIcon from '../_utils/get-icon';
+import GistFilesSelect from './file-select';
 
 const { jQuery } = window;
 

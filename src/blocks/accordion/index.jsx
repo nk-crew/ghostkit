@@ -5,8 +5,8 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import { settings as accordionItemSettings } from './item.jsx';
+import getIcon from '../_utils/get-icon';
+import { settings as accordionItemSettings } from './item';
 
 const {
     applyFilters,

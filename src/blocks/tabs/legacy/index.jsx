@@ -5,8 +5,8 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../../_utils/get-icon.jsx';
-import deprecatedArray from './deprecated.jsx';
+import getIcon from '../../_utils/get-icon';
+import deprecatedArray from './deprecated';
 
 const {
     applyFilters,

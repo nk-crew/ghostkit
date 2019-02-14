@@ -6,12 +6,12 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import deprecatedArray from './deprecated.jsx';
+import getIcon from '../_utils/get-icon';
+import deprecatedArray from './deprecated';
 
-import ColorPicker from '../_components/color-picker.jsx';
-import IconPicker from '../_components/icon-picker.jsx';
-import ApplyFilters from '../_components/apply-filters.jsx';
+import ColorPicker from '../_components/color-picker';
+import IconPicker from '../_components/icon-picker';
+import ApplyFilters from '../_components/apply-filters';
 
 const {
     applyFilters,

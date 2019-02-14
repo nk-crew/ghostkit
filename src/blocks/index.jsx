@@ -1,55 +1,48 @@
 /**
  * Store
  */
-import './_store/index.jsx';
+import './_store';
 
 /**
  * Blocks
  */
-import * as grid from './grid/index.jsx';
-import * as gridColumn from './grid/column.jsx';
-import * as divider from './divider/index.jsx';
-import * as buttonWrapper from './button/index.jsx';
-import * as button from './button/button.jsx';
-import * as progress from './progress/index.jsx';
-import * as iconBox from './icon-box/index.jsx';
-import * as tabs from './tabs/index.jsx';
-import * as tabsTab from './tabs/tab.jsx';
-import * as tabsLegacy from './tabs/legacy/index.jsx';
-import * as tabsLegacyTab from './tabs/legacy/tab.jsx';
-import * as accordion from './accordion/index.jsx';
-import * as accordionItem from './accordion/item.jsx';
-import * as counterBox from './counter-box/index.jsx';
-import * as alert from './alert/index.jsx';
-import * as carousel from './carousel/index.jsx';
-import * as carouselSlide from './carousel/slide.jsx';
-import * as video from './video/index.jsx';
-import * as testimonial from './testimonial/index.jsx';
-import * as gist from './gist/index.jsx';
-import * as changelog from './changelog/index.jsx';
-import * as pricingTable from './pricing-table/index.jsx';
-import * as pricingTableItem from './pricing-table/item.jsx';
-import * as googleMaps from './google-maps/index.jsx';
-import * as widgetizedArea from './widgetized-area/index.jsx';
-import * as instagram from './instagram/index.jsx';
-import * as twitter from './twitter/index.jsx';
-import * as customizer from './customizer/index.jsx';
-import * as customCSS from './custom-css/index.jsx';
+import * as grid from './grid';
+import * as gridColumn from './grid/column';
+import * as divider from './divider';
+import * as buttonWrapper from './button';
+import * as button from './button/button';
+import * as progress from './progress';
+import * as iconBox from './icon-box';
+import * as tabs from './tabs';
+import * as tabsTab from './tabs/tab';
+import * as tabsLegacy from './tabs/legacy';
+import * as tabsLegacyTab from './tabs/legacy/tab';
+import * as accordion from './accordion';
+import * as accordionItem from './accordion/item';
+import * as counterBox from './counter-box';
+import * as alert from './alert';
+import * as carousel from './carousel';
+import * as carouselSlide from './carousel/slide';
+import * as video from './video';
+import * as testimonial from './testimonial';
+import * as gist from './gist';
+import * as changelog from './changelog';
+import * as pricingTable from './pricing-table';
+import * as pricingTableItem from './pricing-table/item';
+import * as googleMaps from './google-maps';
+import * as widgetizedArea from './widgetized-area';
+import * as instagram from './instagram';
+import * as twitter from './twitter';
 
 /**
  * Extensions
  */
-import './_extend/variants.jsx';
-import './_extend/styles.jsx';
-import './_extend/spacings.jsx';
-import './_extend/display.jsx';
-import './_extend/scroll-reveal.jsx';
+import './_extend';
 
 /**
  * Plugins
  */
-import './_plugins/customizer.jsx';
-import './_plugins/custom-css.jsx';
+import './_plugins';
 
 /**
  * Icon
@@ -113,8 +106,6 @@ jQuery( () => {
         gist,
         changelog,
         widgetizedArea,
-        customizer,
-        customCSS,
     ].forEach( ( { name, settings } ) => {
         registerBlockType( name, settings );
     } );
@@ -123,4 +114,4 @@ jQuery( () => {
 /**
  * Disable Blocks
  */
-import './_disable-blocks/index.jsx';
+import './_disable-blocks';

@@ -1,6 +1,7 @@
-import './base/images/index.jsx';
+import './base/images';
 
-import './plugins/customizer/index.jsx';
+import './plugins/custom-code';
+import './plugins/customizer';
 
-import './blocks/instagram/index.jsx';
-import './blocks/twitter/index.jsx';
+import './blocks/instagram';
+import './blocks/twitter';

@@ -7,13 +7,13 @@ import classnames from 'classnames/dedupe';
 import deepAssign from 'deep-assign';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
+import getIcon from '../_utils/get-icon';
 
-import ColorPicker from '../_components/color-picker.jsx';
-import IconPicker from '../_components/icon-picker.jsx';
-import ApplyFilters from '../_components/apply-filters.jsx';
+import ColorPicker from '../_components/color-picker';
+import IconPicker from '../_components/icon-picker';
+import ApplyFilters from '../_components/apply-filters';
 
-import transforms from './transforms.jsx';
+import transforms from './transforms';
 
 const {
     applyFilters,

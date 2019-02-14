@@ -5,8 +5,6 @@ import blockButton from '../_icons/block-button.svg';
 import blockCarousel from '../_icons/block-carousel.svg';
 import blockChangelog from '../_icons/block-changelog.svg';
 import blockCounterBox from '../_icons/block-counter-box.svg';
-import blockCustomCSS from '../_icons/block-custom-css.svg';
-import blockCustomizer from '../_icons/block-customizer.svg';
 import blockDivider from '../_icons/block-divider.svg';
 import blockGist from '../_icons/block-gist.svg';
 import blockGoogleMaps from '../_icons/block-google-maps.svg';
@@ -22,7 +20,8 @@ import blockTwitter from '../_icons/block-twitter.svg';
 import blockVideo from '../_icons/block-video.svg';
 import blockWidgetizedArea from '../_icons/block-widgetized-area.svg';
 
-import pluginCustomCss from '../_icons/plugin-custom-css.svg';
+import pluginGhostkit from '../_icons/plugin-ghostkit.svg';
+import pluginCustomCode from '../_icons/plugin-custom-code.svg';
 import pluginCustomizer from '../_icons/plugin-customizer.svg';
 
 import tabsTv from '../_icons/tabs-tv.svg';
@@ -62,8 +61,6 @@ export default {
     'block-carousel': blockCarousel,
     'block-changelog': blockChangelog,
     'block-counter-box': blockCounterBox,
-    'block-custom-css': blockCustomCSS,
-    'block-customizer': blockCustomizer,
     'block-divider': blockDivider,
     'block-gist': blockGist,
     'block-google-maps': blockGoogleMaps,
@@ -79,7 +76,8 @@ export default {
     'block-video': blockVideo,
     'block-widgetized-area': blockWidgetizedArea,
 
-    'plugin-custom-css': pluginCustomCss,
+    'plugin-ghostkit': pluginGhostkit,
+    'plugin-custom-code': pluginCustomCode,
     'plugin-customizer': pluginCustomizer,
 
     'tabs-tv': tabsTv,

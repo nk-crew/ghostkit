@@ -2,12 +2,12 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import getColClass from './get-col-class.jsx';
-import ApplyFilters from '../_components/apply-filters.jsx';
-import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes.jsx';
-import deprecatedArray from './deprecated-column.jsx';
-import ColorPicker from '../_components/color-picker.jsx';
+import getIcon from '../_utils/get-icon';
+import getColClass from './get-col-class';
+import ApplyFilters from '../_components/apply-filters';
+import TabPanelScreenSizes from '../_components/tab-panel-screen-sizes';
+import ColorPicker from '../_components/color-picker';
+import deprecatedArray from './deprecated-column';
 
 const { ghostkitVariables } = window;
 const { __, sprintf } = wp.i18n;

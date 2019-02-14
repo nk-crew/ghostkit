@@ -1,6 +1,6 @@
 // External Dependencies.
 import classnames from 'classnames/dedupe';
-import fixXmlImportedContent from '../_utils/fix-xml-imported-content.jsx';
+import fixXmlImportedContent from '../_utils/fix-xml-imported-content';
 
 const { Component } = wp.element;
 const {

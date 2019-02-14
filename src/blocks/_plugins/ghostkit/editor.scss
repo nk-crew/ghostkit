@@ -1,0 +1,93 @@
+/**
+ * Editor Styles
+ */
+@import "../../variables";
+
+.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) .ghostkit-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button:hover .ghostkit-plugin-icon svg {
+    display: block;
+
+    * {
+        stroke: initial !important; // stylelint-disable-line
+    }
+
+    [fill="#fff"] {
+        fill: #fff !important; // stylelint-disable-line
+    }
+}
+
+// default Gutenberg icons is 20x20, but we use 24x24
+// so, we need to compensate the padding
+.edit-post-pinned-plugins .components-icon-button .ghostkit-plugin-icon svg {
+    margin: -2px;
+}
+
+.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-plugin-icon svg [fill="#fff"] {
+    fill: #555d66 !important; // stylelint-disable-line
+}
+
+.plugin-ghostkit-panel {
+    .plugin-ghostkit-panel-button {
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 15px 10px;
+        margin-bottom: 16px;
+        flex-shrink: 0;
+        overflow: hidden;
+        color: inherit;
+        text-align: center;
+        cursor: pointer;
+        background: none;
+        border: 1px solid;
+        border-radius: 4px;
+        transition: .2s color, .2s background-color;
+
+        &,
+        &:hover,
+        &:focus,
+        &:focus:enabled,
+        &:active,
+        &:active:enabled {
+            border-color: rgba(79, 89, 105, .2);
+            box-shadow: none;
+        }
+
+        &:hover,
+        &:active,
+        &:active:enabled {
+            color: $dark-gray-900;
+            background-color: $light-gray-100;
+        }
+
+        &:focus,
+        &:focus:enabled {
+            color: $dark-gray-900;
+            outline: 2px solid transparent;
+            outline-offset: -2px;
+            box-shadow: 0 0 0 2px $blue-medium-500;
+        }
+
+        svg {
+            display: block;
+            margin: 0 auto;
+            margin-top: 3px;
+            text-align: center;
+        }
+    }
+    // .plugin-ghostkit-panel-button {
+    //     align-items: center;
+    //     width: 100%;
+    //     height: auto;
+    //     padding: 12px 16px;
+    //     margin-bottom: 16px;
+    //     text-align: left;
+
+    //     svg {
+    //         width: 20px;
+    //         height: auto;
+    //         margin-right: 6px;
+    //     }
+    // }
+}

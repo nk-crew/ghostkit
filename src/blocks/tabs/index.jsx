@@ -6,8 +6,8 @@ import classnames from 'classnames/dedupe';
 import slugify from 'slugify';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import RemoveButton from '../_components/remove-button.jsx';
+import getIcon from '../_utils/get-icon';
+import RemoveButton from '../_components/remove-button';
 
 const {
     applyFilters,

@@ -6,17 +6,17 @@ import classnames from 'classnames/dedupe';
 import { debounce } from 'throttle-debounce';
 
 // Internal Dependencies.
-import getIcon from '../_utils/get-icon.jsx';
-import deprecatedArray from './deprecated.jsx';
+import getIcon from '../_utils/get-icon';
+import deprecatedArray from './deprecated';
 import IconMarker from './icons/marker.svg';
 
-import styles from './styles/index.jsx';
+import styles from './styles';
 
-import MapBlock from './map-block.jsx';
-import SearchBox from './search-box.jsx';
+import MapBlock from './map-block';
+import SearchBox from './search-box';
 
-import ApplyFilters from '../_components/apply-filters.jsx';
-import ImagePicker from '../_components/image-picker.jsx';
+import ApplyFilters from '../_components/apply-filters';
+import ImagePicker from '../_components/image-picker';
 
 const { GHOSTKIT } = window;
 
@@ -140,7 +140,13 @@ class GoogleMapsBlock extends Component {
             this.setState( {
                 apiKeySaved: GHOSTKIT.googleMapsAPIKey,
             } );
-            apiFetch( { path: `/ghostkit/v1/update_google_maps_api_key?key=${ GHOSTKIT.googleMapsAPIKey }` } );
+            apiFetch( {
+                path: '/ghostkit/v1/update_google_maps_api_key',
+                method: 'POST',
+                data: {
+                    key: GHOSTKIT.googleMapsAPIKey,
+                },
+            } );
         }
     }
 

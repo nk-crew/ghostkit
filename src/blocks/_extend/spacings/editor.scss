@@ -1,0 +1,195 @@
+@import "../../variables";
+
+.ghostkit-control-tabs-spacings .components-tab-panel__tabs {
+    margin-bottom: 0;
+}
+.ghostkit-control-spacing {
+    position: relative;
+    width: 100%;
+    padding-top: 87%;
+    border: 1px solid #e8eaec;
+
+    // icon
+    .components-base-control__field > svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 22px;
+        height: 22px;
+        margin-top: -9px;
+        margin-left: -11px;
+        opacity: .3;
+        z-index: 1;
+    }
+
+    .components-base-control,
+    .components-base-control__field {
+        margin: 0 !important; // stylelint-disable-line
+    }
+
+    .ghostkit-control-spacing-margin,
+    .ghostkit-control-spacing-padding {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+
+        > span {
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            font-size: .7em;
+        }
+
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            width: 39px;
+            padding: 3px 5px;
+            text-align: center;
+            background: none;
+            border: none;
+        }
+    }
+
+    // margins
+    .ghostkit-control-spacing-margin {
+        .ghostkit-control-spacing-margin-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .ghostkit-control-spacing-margin-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+        }
+        .ghostkit-control-spacing-margin-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        .ghostkit-control-spacing-margin-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+    }
+
+    // paddings.
+    .ghostkit-control-spacing-padding {
+        top: 36px;
+        left: 50px;
+        width: calc(100% - 100px);
+        height: calc(100% - 72px);
+        background-color: #f2f2f2;
+
+        > span {
+            top: 6px;
+            left: 10px;
+        }
+
+        // paddings.
+        .ghostkit-control-spacing-padding-top {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+        }
+        .ghostkit-control-spacing-padding-right {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            height: calc(100% - 10px);
+        }
+        .ghostkit-control-spacing-padding-bottom {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+        }
+        .ghostkit-control-spacing-padding-left {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            height: calc(100% - 10px);
+        }
+    }
+
+    // device selector.
+    .ghostkit-control-spacing-device {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+
+        .components-base-control {
+            margin: 0;
+        }
+
+        select {
+            height: 25px;
+            font-size: .7em;
+            line-height: 25px;
+        }
+        option {
+            font-size: 1rem;
+        }
+    }
+
+    // !important
+    .ghostkit-control-spacing-important {
+        position: absolute;
+        right: 15px;
+        bottom: 11px;
+
+        .components-base-control__field {
+            position: relative;
+        }
+
+        .components-checkbox-control__input {
+            margin-right: 0;
+        }
+
+        .components-checkbox-control__label {
+            position: absolute;
+            right: 0;
+            bottom: 100%;
+            padding: 2px 6px;
+            margin-bottom: 4px;
+            color: #fff;
+            pointer-events: none;
+            visibility: hidden;
+            background-color: #555d66;
+            border-radius: 3px;
+            box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
+            opacity: 0;
+            transition: .1s ease-in-out;
+            transform: translateY(5px);
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                right: 5px;
+                width: 0;
+                height: 0;
+                border: 3px solid transparent;
+                border-top-color: #555d66;
+            }
+        }
+        .components-base-control__field:hover .components-checkbox-control__label {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

@@ -1,5 +1,5 @@
-import * as actions from './actions.jsx';
-import prepareQuery from './prepare-query.jsx';
+import * as actions from './actions';
+import prepareQuery from './prepare-query';
 
 export function * getTwitterFeed( data ) {
     const query = prepareQuery( 'feed', data );

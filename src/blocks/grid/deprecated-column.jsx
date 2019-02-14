@@ -1,4 +1,4 @@
-import getColClass from './get-col-class.jsx';
+import getColClass from './get-col-class';
 
 const {
     InnerBlocks,

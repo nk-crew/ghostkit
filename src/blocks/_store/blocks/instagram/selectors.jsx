@@ -1,4 +1,4 @@
-import prepareQuery from './prepare-query.jsx';
+import prepareQuery from './prepare-query';
 
 export function getInstagramFeed( state, data ) {
     const query = prepareQuery( 'feed', data );
