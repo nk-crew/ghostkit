@@ -49,6 +49,7 @@ import iconTrash from '../_icons/icon-trash.svg';
 import iconCollapse from '../_icons/icon-collapse.svg';
 import iconMarker from '../_icons/icon-marker.svg';
 import iconMap from '../_icons/icon-map.svg';
+import iconKebabMenu from '../_icons/icon-kebab-menu.svg';
 import iconAspectRatio32 from '../_icons/icon-aspect-ratio-3-2.svg';
 import iconAspectRatio43 from '../_icons/icon-aspect-ratio-4-3.svg';
 import iconAspectRatio169 from '../_icons/icon-aspect-ratio-16-9.svg';
@@ -105,6 +106,7 @@ export default {
     'icon-collapse': iconCollapse,
     'icon-marker': iconMarker,
     'icon-map': iconMap,
+    'icon-kebab-menu': iconKebabMenu,
     'icon-aspect-ratio-3-2': iconAspectRatio32,
     'icon-aspect-ratio-4-3': iconAspectRatio43,
     'icon-aspect-ratio-16-9': iconAspectRatio169,

@@ -8,6 +8,7 @@ import deprecatedArray from './deprecated-button';
 import ColorPicker from '../_components/color-picker';
 import IconPicker from '../_components/icon-picker';
 import ApplyFilters from '../_components/apply-filters';
+import URLInput from '../_components/url-input';
 
 const {
     applyFilters,
@@ -16,8 +17,6 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const {
     SelectControl,
-    Dashicon,
-    IconButton,
     PanelBody,
     RangeControl,
     Button,
@@ -29,7 +28,6 @@ const {
 const {
     InspectorControls,
     RichText,
-    URLInput,
 } = wp.editor;
 
 class ButtonSingleBlock extends Component {
@@ -47,6 +45,8 @@ class ButtonSingleBlock extends Component {
             icon,
             iconPosition,
             url,
+            target,
+            rel,
             size,
             color,
             textColor,
@@ -278,18 +278,16 @@ class ButtonSingleBlock extends Component {
                     </span>
                 </div>
                 { isSelected ? (
-                    <form
-                        className="ghostkit-button__inline-link"
-                        onSubmit={ ( event ) => event.preventDefault() }
-                    >
-                        <Dashicon icon="admin-links" />
-                        <URLInput
-                            value={ url }
-                            onChange={ ( value ) => setAttributes( { url: value } ) }
-                            autoFocus={ false }
-                        />
-                        <IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
-                    </form>
+                    <URLInput
+                        url={ url }
+                        target={ target }
+                        rel={ rel }
+                        onChange={ ( data ) => {
+                            setAttributes( data );
+                        } }
+                        autoFocus={ false }
+                        className="ghostkit-component-url-input-float"
+                    />
                 ) : '' }
             </Fragment>
         );
@@ -345,6 +343,18 @@ export const settings = {
             source: 'attribute',
             selector: 'a.ghostkit-button',
             attribute: 'href',
+        },
+        target: {
+            type: 'string',
+            source: 'attribute',
+            selector: 'a.ghostkit-button',
+            attribute: 'target',
+        },
+        rel: {
+            type: 'string',
+            source: 'attribute',
+            selector: 'a.ghostkit-button',
+            attribute: 'rel',
         },
         text: {
             type: 'array',
@@ -415,6 +425,8 @@ export const settings = {
             icon,
             iconPosition,
             url,
+            target,
+            rel,
             size,
             focusOutlineWeight,
             focusOutlineColor,
@@ -459,7 +471,7 @@ export const settings = {
         }
 
         return url ? (
-            <a className={ className } href={ url }>
+            <a className={ className } href={ url } target={ target || false } rel={ rel || false }>
                 { result }
             </a>
         ) : (

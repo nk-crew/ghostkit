@@ -80,21 +80,13 @@
     }
 }
 
-.ghostkit-button__inline-link {
+// URL input
+.ghostkit-component-url-input-float {
     $blocks-button__link-input-width: 260px;
 
     position: absolute;
-    display: flex;
-    align-items: center;
-    width: 100%;
     min-width: $blocks-button__link-input-width;
     max-width: $blocks-button__link-input-width;
-    margin-top: 10px;
-    font-family: $default-font;
-    font-size: $default-font-size;
-    line-height: $default-line-height;
-    background: #fff;
-    border: 1px solid #e2e4e7;
     box-shadow: 0 3px 30px rgba(25, 30, 35, .1);
     z-index: 7;
 
@@ -120,37 +112,7 @@
         border-bottom-color: #e2e4e7;
     }
 
-    .editor-url-input {
-        width: auto;
-
-        input[type="text"] {
-            width: 100%;
-        }
-    }
-
     .editor-url-input__suggestions {
         max-width: $blocks-button__link-input-width - $icon-button-size - $icon-button-size;
-    }
-
-    > .dashicon {
-        width: $icon-button-size;
-    }
-
-    .dashicon {
-        color: $dark-gray-100;
-    }
-
-    .editor-url-input input[type="text"]::placeholder {
-        color: $dark-gray-100;
-    }
-
-    [data-align="center"] & {
-        margin-right: auto;
-        margin-left: auto;
-    }
-
-    [data-align="right"] & {
-        margin-right: 0;
-        margin-left: auto;
     }
 }
