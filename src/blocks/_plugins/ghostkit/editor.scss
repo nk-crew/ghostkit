@@ -42,7 +42,7 @@
         background: none;
         border: 1px solid;
         border-radius: 4px;
-        transition: .2s color, .2s background-color;
+        transition: .2s color, .2s background-color, .2s border-color, .2s box-shadow;
 
         &,
         &:hover,
@@ -64,8 +64,7 @@
         &:focus,
         &:focus:enabled {
             color: $dark-gray-900;
-            outline: 2px solid transparent;
-            outline-offset: -2px;
+            border-color: $blue-medium-700;
             box-shadow: 0 0 0 2px $blue-medium-500;
         }
 
