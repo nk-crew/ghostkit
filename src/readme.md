@@ -49,7 +49,7 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 * [**Spacings**](https://ghostkit.io/extensions/spacings/). Easily add spacings in Ghost Kit and Core blocks
 * [**Display**](https://ghostkit.io/extensions/display/). Show and hide blocks Ghost Kit and Core blocks on different screen sizes
 * [**Animate on Scroll**](https://ghostkit.io/extensions/animate-on-scroll/). Show with animation Ghost Kit and Core blocks on page scrolling
-* [**Custom CSS**](https://ghostkit.io/extensions/custom-css/). This extension is available on all pages and let you add custom CSS for the current page
+* [**Custom CSS & JavaScript**](https://ghostkit.io/extensions/custom-css-js/). This extension is available on all pages and let you add custom CSS and JavaScript for the current page and globally site wide
 * [**Customizer**](https://ghostkit.io/extensions/customizer/). This extension is available on all pages and let you change customizer options on the current page
 
 ### Try Ghost Kit PRO Addon ###
@@ -277,6 +277,16 @@ Available events:
 20. Blocks Extensions
 
 ## Changelog ##
+
+= 2.2.0 =
+
+* added local and global Custom CSS / JS options
+* added Ghost Kit options, that contains Custom Code and Customizer buttons (top right corner of Gutenberg editor)
+* added Open in new tab and nofollow options on Buttons block
+* added inline badges support (see text editor toolbar for new option)
+* added uppercase format to text editor
+* removed Custom CSS and Customizer blocks (use Ghost Kit options instead)
+* minor changes
 
 = 2.1.0 =
 
