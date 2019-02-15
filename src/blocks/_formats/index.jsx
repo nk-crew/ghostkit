@@ -1,5 +1,5 @@
-import * as badge from './badge';
 import * as uppercase from './uppercase';
+import * as badge from './badge';
 
 const {
     registerFormatType,
@@ -9,8 +9,8 @@ const {
  * Register formats
  */
 [
-    badge,
     uppercase,
+    badge,
 ].forEach( ( { name, settings } ) => {
     registerFormatType( name, settings );
 } );
