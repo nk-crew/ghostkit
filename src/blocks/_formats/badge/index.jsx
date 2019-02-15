@@ -25,9 +25,8 @@ export const name = 'ghostkit/badge';
 export const settings = {
     title: __( 'Badge' ),
     tagName: 'span',
-    className: null,
+    className: 'ghostkit-badge',
     attributes: {
-        class: 'class',
         style: 'style',
     },
     edit: class BadgeFormat extends Component {
@@ -43,9 +42,7 @@ export const settings = {
                 onChange,
             } = this.props;
 
-            const attributes = {
-                class: 'ghostkit-badge',
-            };
+            const attributes = {};
 
             if ( color ) {
                 attributes.style = `background-color: ${ color };`;

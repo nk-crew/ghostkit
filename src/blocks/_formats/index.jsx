@@ -1,3 +1,4 @@
+import * as spanFix from './span-fix';
 import * as uppercase from './uppercase';
 import * as badge from './badge';
 
@@ -9,6 +10,7 @@ const {
  * Register formats
  */
 [
+    spanFix,
     uppercase,
     badge,
 ].forEach( ( { name, settings } ) => {
