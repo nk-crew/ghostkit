@@ -8,7 +8,6 @@ import classnames from 'classnames/dedupe';
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon';
 import deprecatedArray from './deprecated';
-import { settings as buttonSingleSettings } from './button';
 
 const {
     applyFilters,
@@ -333,7 +332,7 @@ export const settings = {
 
             return {
                 insertButtonSingle() {
-                    insertBlock( createBlock( 'ghostkit/button-single', buttonSingleSettings ), undefined, clientId );
+                    insertBlock( createBlock( 'ghostkit/button-single' ), undefined, clientId );
                 },
             };
         } ),

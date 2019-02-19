@@ -6,7 +6,6 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon';
-import { settings as accordionItemSettings } from './item';
 
 const {
     applyFilters,
@@ -207,7 +206,7 @@ export const settings = {
 
             return {
                 insertAccordionItem() {
-                    insertBlock( createBlock( 'ghostkit/accordion-item', accordionItemSettings ), undefined, clientId );
+                    insertBlock( createBlock( 'ghostkit/accordion-item' ), undefined, clientId );
                 },
             };
         } ),

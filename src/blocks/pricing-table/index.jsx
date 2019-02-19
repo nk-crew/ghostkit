@@ -6,7 +6,6 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../_utils/get-icon';
-import { settings as pricingItemSettings } from './item';
 
 const {
     applyFilters,
@@ -329,7 +328,7 @@ export const settings = {
 
             return {
                 insertPricingItem() {
-                    insertBlock( createBlock( 'ghostkit/pricing-table-item', pricingItemSettings ), undefined, clientId );
+                    insertBlock( createBlock( 'ghostkit/pricing-table-item' ), undefined, clientId );
                 },
             };
         } ),
