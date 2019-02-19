@@ -72,9 +72,9 @@ gulp.task('copy_to_dist_vendors', function () {
             .pipe(gulp.dest(itemData.to))
     });
 });
-gulp.task('build_blocks_js', function () {
+gulp.task('build_gutenberg_js', function () {
     return runStream(work_folders, function (itemData) {
-        return gulp.src([itemData.from + '/*blocks/index.jsx', itemData.from + '/*settings/index.jsx'])
+        return gulp.src([itemData.from + '/*gutenberg/index.jsx', itemData.from + '/*settings/index.jsx'])
             .pipe($.plumber({ errorHandler }))
             .pipe(named())
             .pipe(webpack(webpackconfig(isDev)))
@@ -109,7 +109,7 @@ gulp.task('build_js', function () {
 });
 gulp.task('build_scss', function () {
     return runStream(work_folders, function (itemData) {
-        return gulp.src([itemData.from + '/**/*.scss', '!' + itemData.from + '/blocks/*/**/*.scss', '!' + itemData.from + '/settings/*/**/*.scss'])
+        return gulp.src([itemData.from + '/**/*.scss', '!' + itemData.from + '/gutenberg/*/**/*.scss', '!' + itemData.from + '/settings/*/**/*.scss'])
             .pipe($.plumber({ errorHandler }))
             .pipe($.sass({
                 outputStyle: 'compressed'
@@ -210,7 +210,7 @@ gulp.task('translate', function () {
  * Build Task [default]
  */
 gulp.task('build', function(cb) {
-    runSequence('clean', 'copy_to_dist', 'copy_to_dist_vendors', 'build_scss', 'build_blocks_js', 'build_js', 'correct_lines_ending', 'update_template_vars', 'translate', cb);
+    runSequence('clean', 'copy_to_dist', 'copy_to_dist_vendors', 'build_scss', 'build_gutenberg_js', 'build_js', 'correct_lines_ending', 'update_template_vars', 'translate', cb);
 });
 gulp.task('watch_build_php', function(cb) {
     runSequence('copy_to_dist_watch_php', 'update_template_vars_watch', 'translate', cb);
@@ -235,9 +235,9 @@ gulp.task('watch', function() {
                 var itemData = work_folders[k];
                 gulp.watch([itemData.from + '/**/*.php', '!' + itemData.from + '/*vendor/**/*'], ['watch_build_php']);
                 gulp.watch([itemData.from + '/**/*.{js,jsx}', '!' + itemData.from + '/*vendor/**/*'], () => {
-                    runSequence('build_blocks_js', 'build_js');
+                    runSequence('build_gutenberg_js', 'build_js');
                 });
-                gulp.watch([itemData.from + '/**/*.scss', '!' + itemData.from + '/*vendor/**/*'], ['build_scss', 'build_blocks_js']);
+                gulp.watch([itemData.from + '/**/*.scss', '!' + itemData.from + '/*vendor/**/*'], ['build_scss', 'build_gutenberg_js']);
                 gulp.watch([itemData.from + '/**/*', '!' + itemData.from + '/**/*.{php,js,jsx,scss}', itemData.from + '/*vendor/**/*'], ['watch_build_all']);
                 gulp.watch(itemData.from + '/**/vendor/**/*', ['watch_build_vendors']);
             }

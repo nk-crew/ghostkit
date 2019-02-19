@@ -1,0 +1,45 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+.ghostkit-counter-box {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5em;
+    border: 1px solid $light-gray-200;
+    border-radius: 4px;
+
+    .ghostkit-counter-box-number {
+        display: flex;
+        transition: .2s color ease-in-out;
+
+        ~ .ghostkit-counter-box-content {
+            padding-left: 1.5em;
+        }
+    }
+    .ghostkit-counter-box-number-align-right {
+        order: 2;
+        padding-right: 0;
+
+        ~ .ghostkit-counter-box-content {
+            padding-right: 1.5em;
+            padding-left: 0;
+        }
+    }
+    .ghostkit-counter-box-number-align-top {
+        flex: 100%;
+        justify-content: center;
+        padding-right: 0;
+
+        ~ .ghostkit-counter-box-content {
+            flex: 100%;
+            padding-top: 1.5em;
+            padding-left: 0;
+        }
+    }
+
+    .ghostkit-counter-box-content {
+        flex: 1;
+    }
+}

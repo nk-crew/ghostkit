@@ -104,7 +104,7 @@ class GhostKit {
         require_once( $this->plugin_path . 'settings/index.php' );
 
         // additional blocks php.
-        require_once( $this->plugin_path . 'blocks/index.php' );
+        require_once( $this->plugin_path . 'gutenberg/index.php' );
 
         // rest.
         require_once( $this->plugin_path . 'classes/class-rest.php' );
@@ -322,9 +322,9 @@ class GhostKit {
         );
         wp_enqueue_script(
             'ghostkit-editor',
-            plugins_url( 'blocks/index.min.js', __FILE__ ),
+            plugins_url( 'gutenberg/index.min.js', __FILE__ ),
             $js_deps,
-            filemtime( plugin_dir_path( __FILE__ ) . 'blocks/index.min.js' )
+            filemtime( plugin_dir_path( __FILE__ ) . 'gutenberg/index.min.js' )
         );
     }
 
@@ -364,9 +364,9 @@ class GhostKit {
         // Ghost Kit.
         wp_enqueue_style(
             'ghostkit',
-            plugins_url( 'blocks/style.min.css', __FILE__ ),
+            plugins_url( 'gutenberg/style.min.css', __FILE__ ),
             $css_deps,
-            filemtime( plugin_dir_path( __FILE__ ) . 'blocks/style.min.css' )
+            filemtime( plugin_dir_path( __FILE__ ) . 'gutenberg/style.min.css' )
         );
         wp_enqueue_script(
             'ghostkit',

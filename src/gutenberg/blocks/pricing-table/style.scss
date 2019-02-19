@@ -1,0 +1,200 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+.ghostkit-pricing-table {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    text-align: center;
+}
+
+// Item.
+.ghostkit-pricing-table-item {
+    position: relative;
+    padding: 2.2em 1.65em;
+    background-color: #fff;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+
+    .ghostkit-pricing-table-item-popular-badge {
+        position: absolute;
+        top: 20px;
+        right: -1px;
+        padding: 2px 18px;
+        margin-top: 0;
+        font-size: .8em;
+        color: #fff;
+        background-color: $color-primary;
+    }
+
+    .ghostkit-pricing-table-item-title {
+        margin: 0;
+        font-size: 1em;
+    }
+
+    .ghostkit-pricing-table-item-price {
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+    .ghostkit-pricing-table-item-price-amount {
+        font-size: 3.5em;
+        line-height: 1.3;
+    }
+    .ghostkit-pricing-table-item-price-currency {
+        align-self: flex-start;
+    }
+    .ghostkit-pricing-table-item-price-repeat {
+        align-self: flex-end;
+        font-size: .8em;
+        opacity: .7;
+    }
+
+    .ghostkit-pricing-table-item-features {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-size: .9em;
+        list-style: none;
+
+        li {
+            list-style: none;
+        }
+
+        li + li {
+            margin-top: 10px;
+        }
+    }
+
+    .ghostkit-button-wrapper {
+        margin-bottom: 0;
+    }
+
+    > * + .ghostkit-pricing-table-item-features,
+    > * + * {
+        padding-top: 2.2em;
+        margin-top: 2.2em;
+    }
+
+    > * + * {
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            display: block;
+            top: 0;
+            width: 100%;
+            border-bottom: 1px solid;
+            opacity: .05;
+        }
+    }
+}
+
+// Count.
+.ghostkit-pricing-table-item-wrap {
+    width: 50%;
+
+    .ghostkit-pricing-table-items-1 & {
+        width: 100%;
+    }
+    .ghostkit-pricing-table-items-2 & {
+        width: 50%;
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 100%;
+        }
+    }
+    .ghostkit-pricing-table-items-3 & {
+        width: 33.3333%;
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 100%;
+        }
+    }
+    .ghostkit-pricing-table-items-4 & {
+        width: 25%;
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 50%;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            width: 100%;
+        }
+    }
+    .ghostkit-pricing-table-items-5 & {
+        width: 20%;
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 50%;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            width: 100%;
+        }
+    }
+    .ghostkit-pricing-table-items-6 & {
+        width: 16.6666%;
+
+        @media screen and (max-width: #{$media-md}) {
+            width: 33.3333%;
+        }
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 50%;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            width: 100%;
+        }
+    }
+}
+
+// Horizontal align.
+.ghostkit-pricing-table-align-horizontal-left {
+    text-align: left;
+
+    .ghostkit-pricing-table-item-price {
+        justify-content: flex-start;
+    }
+}
+.ghostkit-pricing-table-align-horizontal-center {
+    text-align: center;
+
+    .ghostkit-pricing-table-item-price {
+        justify-content: center;
+    }
+}
+.ghostkit-pricing-table-align-horizontal-right {
+    text-align: right;
+
+    .ghostkit-pricing-table-item-price {
+        justify-content: flex-end;
+    }
+}
+
+// Vertical align.
+.ghostkit-pricing-table-align-vertical-center {
+    align-items: center;
+}
+.ghostkit-pricing-table-align-vertical-end {
+    align-items: flex-end;
+}
+
+// Gaps.
+@each $name, $size in $pricing-table-gaps {
+    .ghostkit-pricing-table-gap-#{$name} {
+        margin-top: -$size;
+        margin-right: ($size / -2);
+        margin-left: ($size / -2);
+
+        > .ghostkit-pricing-table-item-wrap {
+            padding-top: $size;
+            padding-right: ($size / 2);
+            padding-left: ($size / 2);
+        }
+    }
+}

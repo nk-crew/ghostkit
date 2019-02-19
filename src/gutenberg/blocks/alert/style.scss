@@ -1,0 +1,43 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+.ghostkit-alert {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5em;
+    background-color: #fff;
+    border: 1px solid $light-gray-200;
+    border-left-width: 2px;
+    border-radius: 4px;
+    transition: .2s border-color ease-in-out;
+
+    .ghostkit-alert-icon {
+        display: flex;
+        padding: 3px;
+        padding-right: 1.5em;
+        transition: .2s color ease-in-out;
+    }
+
+    .ghostkit-alert-content {
+        flex: 1;
+
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+
+    .ghostkit-alert-hide-button {
+        display: flex;
+        padding-left: 1.5em;
+        font-size: .8em;
+        cursor: pointer;
+        opacity: 1;
+        transition: .2s opacity;
+
+        &:hover {
+            opacity: .6;
+        }
+    }
+}

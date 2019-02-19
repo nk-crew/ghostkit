@@ -1,0 +1,70 @@
+/**
+ * Ghost Kit Frontend Styles.
+ */
+@import "./variables";
+
+.ghostkit-progress,
+.ghostkit-button-wrapper,
+.ghostkit-icon-box,
+.ghostkit-tabs,
+.ghostkit-accordion,
+.ghostkit-counter-box,
+.ghostkit-alert,
+.ghostkit-carousel,
+.ghostkit-video,
+.ghostkit-testimonial,
+.ghostkit-gist,
+.ghostkit-google-maps,
+.ghostkit-changelog,
+.ghostkit-pricing-table,
+.ghostkit-widgetized-area,
+.ghostkit-instagram,
+.ghostkit-twitter {
+    margin-bottom: 28px;
+}
+
+/**
+ * Display.
+ */
+@import "./bootstrap/functions";
+@import "./bootstrap/variables";
+@import "./bootstrap/breakpoints";
+@import "./bootstrap/display";
+
+/**
+ * Blocks Styles
+ */
+@import "./blocks/grid/style";
+@import "./blocks/divider/style";
+@import "./blocks/button/style";
+@import "./blocks/progress/style";
+@import "./blocks/icon-box/style";
+@import "./blocks/tabs/style";
+@import "./blocks/accordion/style";
+@import "./blocks/counter-box/style";
+@import "./blocks/alert/style";
+@import "./blocks/carousel/style";
+@import "./blocks/video/style";
+@import "./blocks/testimonial/style";
+@import "./blocks/gist/style";
+@import "./blocks/google-maps/style";
+@import "./blocks/changelog/style";
+@import "./blocks/pricing-table/style";
+@import "./blocks/instagram/style";
+@import "./blocks/twitter/style";
+
+/**
+ * Format Styles
+ */
+@import "./formats/badge/style";
+@import "./formats/uppercase/style";
+
+/**
+ * Additional classes.
+ */
+
+// Scroll Reveal
+[data-ghostkit-sr] {
+    pointer-events: none;
+    visibility: hidden;
+}

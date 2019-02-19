@@ -1,0 +1,15 @@
+/**
+ * Editor Styles
+ */
+@import "../../variables";
+
+// fix content block height
+.ghostkit-icon-box-content > .editor-inner-blocks > .editor-block-list__layout > .editor-block-list__block:first-child > .editor-block-list__block-edit {
+    margin-top: 0;
+}
+.ghostkit-icon-box-content > .editor-inner-blocks > .editor-block-list__layout > .editor-block-list__block:last-child > .editor-block-list__block-edit {
+    margin-bottom: 0;
+}
+.ghostkit-icon-box-content > .editor-inner-blocks > .editor-block-list__layout > :not(.editor-block-list__block):empty:last-child {
+    margin-bottom: -31px;
+}

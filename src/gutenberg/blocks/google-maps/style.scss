@@ -1,0 +1,46 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+/* Fullheight */
+.ghostkit-google-maps-fullheight {
+    height: 100vh;
+
+    body.admin-bar & {
+        height: calc(100vh - 32px);
+
+        @media screen and (max-width: 782px) {
+            height: calc(100vh - 42px);
+        }
+        @media screen and (max-width: 600px) {
+            height: 100vh;
+        }
+    }
+}
+
+.ghostkit-google-maps {
+    position: relative;
+    background-color: #e2e2e2;
+
+    &::before {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 50%;
+        width: 36px;
+        height: 36px;
+        background-image: url("../assets/images/google-maps-marker.svg");
+        opacity: .3;
+        transform: translateY(-50%) translateX(-50%);
+    }
+
+    > svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        opacity: .3;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}

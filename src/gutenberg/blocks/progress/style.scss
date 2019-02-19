@@ -1,0 +1,59 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+.ghostkit-progress {
+    .ghostkit-progress-caption {
+        display: block;
+        margin-bottom: .3em;
+    }
+    .ghostkit-progress-bar-count {
+        position: relative;
+
+        > div {
+            position: absolute;
+            right: 0;
+            bottom: 100%;
+            padding: 0 .7em;
+            margin-bottom: 3px;
+            font-size: x-small;
+            color: #fff;
+            background-color: #3c3c3c;
+            border-radius: 2px;
+            transform: translateX(50%);
+
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                top: 100%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                margin-left: -2px;
+                border-top: 2px solid #3c3c3c;
+                border-right: 2px solid transparent;
+                border-left: 2px solid transparent;
+            }
+        }
+    }
+
+    .ghostkit-progress-wrap {
+        height: 15px;
+        overflow: hidden;
+        background-color: $light-gray-200;
+        transition: .2s background-color ease-in-out;
+
+        &.ghostkit-progress-bar-striped .ghostkit-progress-bar {
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, .1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 75%, transparent 75%, transparent);
+            background-size: 15px 15px;
+        }
+
+        .ghostkit-progress-bar {
+            height: 100%;
+            background-color: $dark-gray-700;
+            transition: .2s background-color ease-in-out;
+        }
+    }
+}

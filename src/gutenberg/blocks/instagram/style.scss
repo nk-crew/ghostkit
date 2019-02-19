@@ -1,0 +1,120 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+.ghostkit-instagram {
+    // fix for negative margins.
+    &::after {
+        content: "";
+        display: block;
+        height: .01px;
+        clear: both;
+    }
+}
+
+// profile.
+.ghostkit-instagram-profile {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2.5em;
+
+    .ghostkit-instagram-profile-avatar img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0;
+        border-radius: 50%;
+    }
+
+    .ghostkit-instagram-profile-side {
+        flex: 1;
+        max-width: 100%;
+    }
+    .ghostkit-instagram-profile-avatar + .ghostkit-instagram-profile-side {
+        margin-left: 1.5em;
+    }
+
+    .ghostkit-instagram-profile-name {
+        font-size: 1.4em;
+
+        a {
+            text-decoration: none;
+            border-bottom: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .ghostkit-instagram-profile-stats {
+        display: flex;
+        flex-wrap: wrap;
+
+        > div {
+            margin-right: 1.2em;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .ghostkit-instagram-profile-bio {
+        h2 {
+            margin: 0;
+            margin-bottom: .5em;
+            font-size: inherit;
+        }
+    }
+
+    div + .ghostkit-instagram-profile-stats,
+    div + .ghostkit-instagram-profile-bio {
+        margin-top: 1.2em;
+    }
+}
+
+// items.
+.ghostkit-instagram-items {
+    display: flex;
+    flex-wrap: wrap;
+
+    .ghostkit-instagram-item {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+
+        img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            margin: 0;
+        }
+    }
+}
+
+// Columns.
+@for $i from 2 through 10 {
+    .ghostkit-instagram-columns-#{$i} .ghostkit-instagram-items .ghostkit-instagram-item {
+        width: 100% / $i;
+        min-width: 100% / $i;
+        max-width: 100% / $i;
+    }
+}
+
+// Gaps.
+@each $name, $size in $instagram-gaps {
+    .ghostkit-instagram-gap-#{$name} .ghostkit-instagram-items {
+        margin-right: ($size / -2);
+        margin-bottom: -$size;
+        margin-left: ($size / -2);
+
+        .ghostkit-instagram-item {
+            padding-right: ($size / 2);
+            padding-bottom: $size;
+            padding-left: ($size / 2);
+        }
+    }
+}
