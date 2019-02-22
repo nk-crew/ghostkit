@@ -231,6 +231,15 @@ class GhostKitClass {
             let $progressCountBadgeWrap;
             let $progressCountBadge;
 
+            // prepare mask.
+            let mask = '';
+            if ( ! isProgress ) {
+                mask = $this.text().replace( to, '${val}' );
+            }
+            if ( ! /\${val}/.test( mask ) ) {
+                mask = '${val}';
+            }
+
             $this.addClass( 'ghostkit-count-up-ready' );
 
             if ( isProgress ) {
@@ -241,7 +250,7 @@ class GhostKitClass {
                 $progressCountBadge.text( '0' );
                 $this.css( 'width', '0%' );
             } else {
-                $this.text( from );
+                $this.text( mask.replace( '${val}', from ) );
             }
 
             const item = {
@@ -255,7 +264,7 @@ class GhostKitClass {
 
                         $progressCountBadge.text( Math.ceil( num ) );
                     } else {
-                        $this.text( Math.ceil( num ) );
+                        $this.text( mask.replace( '${val}', Math.ceil( num ) ) );
                     }
                 },
             };
