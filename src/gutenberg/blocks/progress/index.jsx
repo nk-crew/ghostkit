@@ -173,7 +173,8 @@ class ProgressBlock extends Component {
                 <div className={ className }>
                     { ( ! RichText.isEmpty( caption ) || isSelected ) ? (
                         <RichText
-                            tagName="small"
+                            tagName="div"
+                            className="ghostkit-progress-caption"
                             placeholder={ __( 'Write caption…' ) }
                             value={ caption }
                             onChange={ newCaption => setAttributes( { caption: newCaption } ) }
@@ -299,8 +300,8 @@ export const settings = {
     },
     attributes: {
         caption: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-progress-caption',
             default: 'Progress Caption',
         },
@@ -378,11 +379,9 @@ export const settings = {
         return (
             <div className={ className }>
                 { ! RichText.isEmpty( caption ) ? (
-                    <RichText.Content
-                        tagName="small"
-                        className="ghostkit-progress-caption"
-                        value={ caption }
-                    />
+                    <div className="ghostkit-progress-caption">
+                        <RichText.Content value={ caption } />
+                    </div>
                 ) : '' }
                 { showCount ? (
                     <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
