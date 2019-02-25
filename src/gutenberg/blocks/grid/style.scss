@@ -114,8 +114,11 @@
 .ghostkit-grid-with-bg,
 .ghostkit-col-with-bg {
     position: relative;
+    z-index: 0;
 
-    > .nk-awb {
+    > .nk-awb,
+    > .nk-awb .nk-awb-overlay,
+    > .nk-awb .nk-awb-wrap {
         position: absolute;
         top: 0;
         right: 0;
