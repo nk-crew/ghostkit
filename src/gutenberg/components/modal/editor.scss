@@ -1,6 +1,32 @@
 @import "../../variables";
 
 .ghostkit-component-modal {
+    @media (min-width: 600px) {
+        min-width: 600px;
+        max-width: 600px;
+
+        // fix for Ace editor tooltips
+        margin-left: -300px;
+        transform: none;
+
+        // position
+        &.ghostkit-component-modal-position-top {
+            top: 112px;
+        }
+    }
+
+    // size
+    @media (min-width: 840px) {
+        &.ghostkit-component-modal-size-lg {
+            min-width: 800px;
+            max-width: 800px;
+
+            // fix for Ace editor tooltips
+            margin-left: -400px;
+            transform: none;
+        }
+    }
+
     // header
     .components-modal__header {
         .components-modal__icon-container svg {
@@ -10,24 +36,6 @@
         .components-modal__header-heading {
             font-weight: 600;
         }
-    }
-
-    // position
-    @media (min-width: 600px) {
-        &.ghostkit-component-modal-position-top {
-            top: 112px;
-            transform: translate(-50%, 0);
-        }
-    }
-
-    // size
-    &.ghostkit-component-modal-size-md {
-        min-width: 600px;
-        max-width: 600px;
-
-        // fix for Ace editor tooltips
-        margin-left: -300px;
-        transform: none;
     }
 
     // tab panel

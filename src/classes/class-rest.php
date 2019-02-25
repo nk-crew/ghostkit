@@ -94,6 +94,22 @@ class GhostKit_Rest extends WP_REST_Controller {
             )
         );
 
+        // Get Templates.
+        register_rest_route(
+            $namespace, '/get_templates/', array(
+                'methods'  => WP_REST_Server::READABLE,
+                'callback' => array( $this, 'get_templates' ),
+            )
+        );
+
+        // Get template data.
+        register_rest_route(
+            $namespace, '/get_template_data/', array(
+                'methods'  => WP_REST_Server::READABLE,
+                'callback' => array( $this, 'get_template_data' ),
+            )
+        );
+
         // Get Custom Code.
         register_rest_route(
             $namespace, '/get_custom_code/', array(
@@ -949,6 +965,78 @@ class GhostKit_Rest extends WP_REST_Controller {
             'mini' => str_replace( '_normal.png', '_mini.png', $url ),
             'original' => str_replace( '_normal.png', '.png', $url ),
         );
+    }
+
+    /**
+     * Get templates.
+     *
+     * @return mixed
+     */
+    public function get_templates() {
+        $url = 'https://library.ghostkit.io/wp-json/ghostkit-library/v1/get_library/';
+        $templates = get_transient( 'ghostkit_templates', false );
+
+        if ( ! $templates ) {
+            $requested_templates = wp_remote_get( add_query_arg( array(
+                'ghostkit_version'     => '@@plugin_version',
+                'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
+                'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
+            ), $url ) );
+
+            if ( ! is_wp_error( $requested_templates ) ) {
+                $new_templates = wp_remote_retrieve_body( $requested_templates );
+                $new_templates = json_decode( $new_templates, true );
+
+                if ( $new_templates && isset( $new_templates['response'] ) && is_array( $new_templates['response'] ) ) {
+                    $templates = $new_templates['response'];
+                    set_transient( 'ghostkit_templates', $templates, WEEK_IN_SECONDS );
+                }
+            }
+        }
+
+        if ( is_array( $templates ) ) {
+            return $this->success( $templates );
+        } else {
+            return $this->error( 'no_templates', __( 'Templates not found.', '@@text_domain' ) );
+        }
+    }
+
+    /**
+     * Get templates.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function get_template_data( WP_REST_Request $request ) {
+        $url = 'https://library.ghostkit.io/wp-json/ghostkit-library/v1/get_library_item/';
+        $id = $request->get_param( 'id' );
+        $template_data = get_transient( 'ghostkit_template_' . $id, false );
+
+        if ( ! $template_data ) {
+            $requested_template_data = wp_remote_get( add_query_arg( array(
+                'id'                   => $id,
+                'ghostkit_version'     => '@@plugin_version',
+                'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
+                'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
+            ), $url ) );
+
+            if ( ! is_wp_error( $requested_template_data ) ) {
+                $new_template_data = wp_remote_retrieve_body( $requested_template_data );
+                $new_template_data = json_decode( $new_template_data, true );
+
+                if ( $new_template_data && isset( $new_template_data['response'] ) && is_array( $new_template_data['response'] ) ) {
+                    $template_data = $new_template_data['response'];
+                    set_transient( 'ghostkit_template_' . $id, $template_data, WEEK_IN_SECONDS );
+                }
+            }
+        }
+
+        if ( is_array( $template_data ) ) {
+            return $this->success( $template_data );
+        } else {
+            return $this->error( 'no_template_data', __( 'Template data not found.', '@@text_domain' ) );
+        }
     }
 
     /**

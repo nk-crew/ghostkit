@@ -21,6 +21,7 @@ import blockVideo from '../icons/block-video.svg';
 import blockWidgetizedArea from '../icons/block-widgetized-area.svg';
 
 import pluginGhostkit from '../icons/plugin-ghostkit.svg';
+import pluginTemplates from '../icons/plugin-templates.svg';
 import pluginCustomCode from '../icons/plugin-custom-code.svg';
 import pluginCustomizer from '../icons/plugin-customizer.svg';
 
@@ -79,6 +80,7 @@ export default {
     'block-widgetized-area': blockWidgetizedArea,
 
     'plugin-ghostkit': pluginGhostkit,
+    'plugin-templates': pluginTemplates,
     'plugin-custom-code': pluginCustomCode,
     'plugin-customizer': pluginCustomizer,
 

@@ -3,6 +3,7 @@ import './editor.scss';
 
 // Internal Dependencies.
 import getIcon from '../../utils/get-icon';
+import { TemplatesModal } from '../templates';
 import { CustomCodeModal } from '../custom-code';
 import { CustomizerModal } from '../customizer';
 
@@ -52,6 +53,17 @@ class GhostKit extends Component {
                             isDefault
                             isLarge
                             onClick={ () => {
+                                this.setState( { isModalOpen: 'templates' } );
+                            } }
+                        >
+                            { getIcon( 'plugin-templates', true ) }
+                            { __( 'Templates' ) }
+                        </Button>
+                        <Button
+                            className="plugin-ghostkit-panel-button"
+                            isDefault
+                            isLarge
+                            onClick={ () => {
                                 this.setState( { isModalOpen: 'custom-code' } );
                             } }
                         >
@@ -71,6 +83,11 @@ class GhostKit extends Component {
                         </Button>
                     </PanelBody>
                 </PluginSidebar>
+                { 'templates' === isModalOpen ? (
+                    <TemplatesModal
+                        onRequestClose={ () => this.setState( { isModalOpen: false } ) }
+                    />
+                ) : '' }
                 { 'custom-code' === isModalOpen ? (
                     <CustomCodeModal
                         onRequestClose={ () => this.setState( { isModalOpen: false } ) }

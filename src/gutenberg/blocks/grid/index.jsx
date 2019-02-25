@@ -10,6 +10,8 @@ import deprecatedArray from './deprecated';
 import ApplyFilters from '../../components/apply-filters';
 import ColorPicker from '../../components/color-picker';
 
+import { TemplatesModal } from '../../plugins/templates';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -38,6 +40,7 @@ class GridBlock extends Component {
 
         this.state = {
             selectedLayout: false,
+            isTemplatesModalOpen: false,
         };
 
         this.getColumnsTemplate = this.getColumnsTemplate.bind( this );
@@ -205,6 +208,20 @@ class GridBlock extends Component {
                         );
                     } ) }
                 </div>
+                <Button
+                    isPrimary
+                    onClick={ () => {
+                        this.setState( { isTemplatesModalOpen: true } );
+                    } }
+                >
+                    { __( 'Select Template' ) }
+                </Button>
+                { this.state.isTemplatesModalOpen ? (
+                    <TemplatesModal
+                        replaceBlockId={ this.props.clientId }
+                        onRequestClose={ () => this.setState( { isTemplatesModalOpen: false } ) }
+                    />
+                ) : '' }
             </Placeholder>
         );
     }

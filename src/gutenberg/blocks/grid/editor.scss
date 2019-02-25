@@ -194,6 +194,14 @@
             }
         }
     }
+
+    // templates button.
+    .components-button.is-primary {
+        height: 35px;
+        padding: 0 15px;
+        margin-top: 10px;
+        font-size: 14px;
+    }
 }
 
 .ghostkit-col {

@@ -1,5 +1,6 @@
 import './base/images';
 
+import './plugins/templates';
 import './plugins/custom-code';
 import './plugins/customizer';
 

@@ -1,0 +1,115 @@
+/**
+ * Editor Styles
+ */
+@import "../../variables";
+
+.ghostkit-plugin-templates-modal {
+    .components-modal__header {
+        border-bottom: none;
+    }
+
+    .ghostkit-component-modal-tab-panel .components-tab-panel__tabs {
+        margin-top: -24px;
+    }
+
+    // loading while trying to insert selected template.
+    &.ghostkit-plugin-templates-modal-loading {
+        .ghostkit-control-tabs {
+            pointer-events: none;
+            opacity: .3;
+        }
+
+        .ghostkit-plugin-templates-modal-loading-spinner {
+            position: absolute;
+            top: 14px;
+            right: 50px;
+            z-index: 10;
+
+            .components-spinner {
+                float: none;
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+// missing blocks.
+.ghostkit-templates-missing-block-alert.ghostkit-alert {
+    margin-bottom: 20px;
+    border-left-color: $color-danger;
+
+    .ghostkit-templates-missing-block-additional {
+        width: 100%;
+    }
+
+    .ghostkit-templates-missing-block-additional,
+    .ghostkit-templates-missing-block-additional .components-button {
+        margin-top: 10px;
+    }
+}
+
+.ghostkit-plugin-templates-spinner .components-spinner {
+    float: none;
+    margin-left: 0;
+}
+
+.ghostkit-plugin-templates-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin-top: -15px;
+    margin-left: -15px;
+    list-style: none;
+
+    > .ghostkit-plugin-templates-list-item {
+        flex: 0 0 33.33%;
+        width: 33.33%;
+        padding-top: 15px;
+        padding-left: 15px;
+
+        @media screen and (max-width: 840px) {
+            flex: 0 0 50%;
+            width: 50%;
+        }
+
+        @media screen and (max-width: 450px) {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+
+        > button {
+            display: block;
+            width: 100%;
+            padding: 0;
+            background: none;
+            border: none;
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+                box-shadow: 0 0 0 2px $light-gray-200;
+            }
+        }
+
+        &.ghostkit-plugin-templates-list-item-no-thumb > button {
+            padding: 20px 10px;
+            text-align: center;
+            background-color: $light-gray-200;
+            border: 1px solid $light-gray-300;
+        }
+
+        &.ghostkit-plugin-templates-list-item-no-thumb > button,
+        > button > img {
+            cursor: pointer;
+            border-radius: 4px;
+            transition: .2s border-color, .2s box-shadow;
+
+            &:hover,
+            &:focus,
+            &:active {
+                box-shadow: 0 0 0 3px $blue-medium-500;
+            }
+        }
+    }
+}
