@@ -8,7 +8,7 @@ import classnames from 'classnames/dedupe';
 import getIcon from '../../utils/get-icon';
 import deprecatedArray from './deprecated';
 import ApplyFilters from '../../components/apply-filters';
-import ColorPicker from '../../components/color-picker';
+import AWBFallbackOptions from './awb-fallback-options';
 
 import { TemplatesModal } from '../../plugins/templates';
 
@@ -425,30 +425,7 @@ class GridBlock extends Component {
                                 </ButtonGroup>
                             </BaseControl>
                         </PanelBody>
-                        <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props }>
-                            <PanelBody
-                                title={ __( 'Background' ) }
-                                initialOpen={ false }
-                            >
-                                <ColorPicker
-                                    label={ __( 'Background Color' ) }
-                                    value={ awb_color } // eslint-disable-line
-                                    onChange={ ( val ) => setAttributes( { awb_color: val } ) }
-                                    alpha={ true }
-                                />
-                                <p>
-                                    { __( 'Install AWB plugin to set image, video backgrounds with parallax support.' ) }
-                                </p>
-                                <a
-                                    className="components-button is-button is-default is-small"
-                                    href="https://wordpress.org/plugins/advanced-backgrounds/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    { __( 'Install' ) }
-                                </a>
-                            </PanelBody>
-                        </ApplyFilters>
+                        <AWBFallbackOptions { ...this.props } />
                     </InspectorControls>
                 ) : '' }
                 <div className={ className }>
