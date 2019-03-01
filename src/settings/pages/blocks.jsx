@@ -253,7 +253,7 @@ export default class Blocks extends Component {
         categories.forEach( ( cat ) => {
             const disabledCurrentCount = this.getDisabledCount( this.getBlocksFromCategory( cat.slug ) );
             const categoryContent = (
-                <li key={ cat.slug }>
+                <li key={ `tab-${ cat.slug }` }>
                     <button
                         className={
                             classnames(
@@ -277,7 +277,7 @@ export default class Blocks extends Component {
 
             if ( disabledCurrentCount ) {
                 resultTabs.push(
-                    <Tooltip text={ sprintf( __( 'Disabled Blocks: %s' ), disabledCurrentCount ) }>
+                    <Tooltip text={ sprintf( __( 'Disabled Blocks: %s' ), disabledCurrentCount ) } key="tab-disabled-blocks">
                         { categoryContent }
                     </Tooltip>
                 );
