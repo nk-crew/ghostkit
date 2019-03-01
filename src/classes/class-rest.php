@@ -1102,11 +1102,12 @@ class GhostKit_Rest extends WP_REST_Controller {
      * @return mixed
      */
     public function update_disabled_blocks( WP_REST_Request $request ) {
-        $new_settings = $request->get_param( 'blocks' );
+        $new_disabled_blocks = $request->get_param( 'blocks' );
         $updated = '';
 
-        if ( is_array( $new_settings ) ) {
-            $updated = update_option( 'ghostkit_disabled_blocks', $current_settings, $new_settings );
+        if ( is_array( $new_disabled_blocks ) ) {
+            $current_disabled_blocks = get_option( 'ghostkit_disabled_blocks', array() );
+            $updated = update_option( 'ghostkit_disabled_blocks', array_merge( $current_disabled_blocks, $new_disabled_blocks ) );
         }
 
         if ( ! empty( $updated ) ) {
