@@ -57,13 +57,6 @@ export default class Blocks extends Component {
     updateDisabledBlocks( newBlocks ) {
         const allBlocks = deepAssign( {}, this.state.disabledBlocks, newBlocks );
 
-        // remove enabled blocks from list
-        Object.keys( allBlocks ).forEach( ( name ) => {
-            if ( ! allBlocks[ name ] ) {
-                delete allBlocks[ name ];
-            }
-        } );
-
         this.setState( {
             disabledBlocks: allBlocks,
         }, () => {

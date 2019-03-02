@@ -1106,8 +1106,16 @@ class GhostKit_Rest extends WP_REST_Controller {
         $updated = '';
 
         if ( is_array( $new_disabled_blocks ) ) {
-            $current_disabled_blocks = get_option( 'ghostkit_disabled_blocks', array() );
-            $updated = update_option( 'ghostkit_disabled_blocks', array_merge( $current_disabled_blocks, $new_disabled_blocks ) );
+            $disabled_blocks = array_merge( get_option( 'ghostkit_disabled_blocks', array() ), $new_disabled_blocks );
+            $result = array();
+
+            foreach ( $disabled_blocks as $k => $block_disabled ) {
+                if ( $block_disabled ) {
+                    $result[ $k ] = true;
+                }
+            }
+
+            $updated = update_option( 'ghostkit_disabled_blocks', $result );
         }
 
         if ( ! empty( $updated ) ) {
