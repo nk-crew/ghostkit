@@ -14,6 +14,8 @@ import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
 
 import IconPicker from '../../components/icon-picker';
 
+import deprecatedArray from './deprecated';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -194,22 +196,20 @@ class TestimonialBlockEdit extends Component {
                         ) : '' }
                     </div>
                     <div className="ghostkit-testimonial-meta">
-                        <div className="ghostkit-testimonial-name">
-                            <RichText
-                                tagName="div"
-                                placeholder={ __( 'Write name…' ) }
-                                value={ attributes.name }
-                                onChange={ value => setAttributes( { name: value } ) }
-                            />
-                        </div>
-                        <div className="ghostkit-testimonial-source">
-                            <RichText
-                                tagName="small"
-                                placeholder={ __( 'Write source…' ) }
-                                value={ source }
-                                onChange={ value => setAttributes( { source: value } ) }
-                            />
-                        </div>
+                        <RichText
+                            tagName="div"
+                            className="ghostkit-testimonial-name"
+                            placeholder={ __( 'Write name…' ) }
+                            value={ attributes.name }
+                            onChange={ value => setAttributes( { name: value } ) }
+                        />
+                        <RichText
+                            tagName="div"
+                            className="ghostkit-testimonial-source"
+                            placeholder={ __( 'Write source…' ) }
+                            value={ source }
+                            onChange={ value => setAttributes( { source: value } ) }
+                        />
                     </div>
                 </div>
             </Fragment>
@@ -262,21 +262,17 @@ class TestimonialBlockSave extends Component {
                         } }
                     />
                 ) : '' }
-                { ( attributes.name && attributes.name.length > 0 ) || ( source && source.length > 0 ) ? (
+                { ! RichText.isEmpty( attributes.name ) || ! RichText.isEmpty( source ) ? (
                     <div className="ghostkit-testimonial-meta">
                         { ! RichText.isEmpty( attributes.name ) ? (
-                            <RichText.Content
-                                tagName="div"
-                                className="ghostkit-testimonial-name"
-                                value={ attributes.name }
-                            />
+                            <div className="ghostkit-testimonial-name">
+                                <RichText.Content value={ attributes.name } />
+                            </div>
                         ) : '' }
                         { ! RichText.isEmpty( source ) ? (
-                            <RichText.Content
-                                tagName="small"
-                                className="ghostkit-testimonial-source"
-                                value={ source }
-                            />
+                            <div className="ghostkit-testimonial-source">
+                                <RichText.Content value={ source } />
+                            </div>
                         ) : '' }
                     </div>
                 ) : '' }
@@ -334,21 +330,14 @@ export const settings = {
             default: 'thumbnail',
         },
         name: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-testimonial-name',
-            default: [
-                {
-                    props: {
-                        children: [ 'Katrina Craft' ],
-                    },
-                    type: 'strong',
-                },
-            ],
+            default: '<strong>Katrina Craft</strong>',
         },
         source: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-testimonial-source',
             default: 'Designer',
         },
@@ -370,4 +359,6 @@ export const settings = {
     } )( TestimonialBlockEdit ),
 
     save: TestimonialBlockSave,
+
+    deprecated: deprecatedArray,
 };
