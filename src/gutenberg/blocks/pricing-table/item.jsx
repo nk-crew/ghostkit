@@ -3,6 +3,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../../utils/get-icon';
+import deprecatedArray from './deprecated-item';
 
 const {
     applyFilters,
@@ -124,7 +125,7 @@ class PricingTableItemBlock extends Component {
                             { showPriceCurrency && ( ! RichText.isEmpty( priceCurrency ) || isSelected ) ? (
                                 <div className="ghostkit-pricing-table-item-price-currency">
                                     <RichText
-                                        tagName="span"
+                                        tagName="div"
                                         onChange={ ( val ) => setAttributes( { priceCurrency: val } ) }
                                         value={ priceCurrency }
                                         placeholder={ __( '$' ) }
@@ -135,7 +136,7 @@ class PricingTableItemBlock extends Component {
                             ) : '' }
                             <div className="ghostkit-pricing-table-item-price-amount">
                                 <RichText
-                                    tagName="span"
+                                    tagName="div"
                                     onChange={ ( val ) => setAttributes( { price: val } ) }
                                     value={ price }
                                     placeholder={ __( '77' ) }
@@ -146,7 +147,7 @@ class PricingTableItemBlock extends Component {
                             { showPriceRepeat && ( ! RichText.isEmpty( priceRepeat ) || isSelected ) ? (
                                 <div className="ghostkit-pricing-table-item-price-repeat">
                                     <RichText
-                                        tagName="span"
+                                        tagName="div"
                                         onChange={ ( val ) => setAttributes( { priceRepeat: val } ) }
                                         value={ priceRepeat }
                                         placeholder={ __( '/mo' ) }
@@ -198,7 +199,7 @@ class PricingTableItemBlock extends Component {
                     { showPopular && ( ! RichText.isEmpty( popularText ) || isSelected ) ? (
                         <div className="ghostkit-pricing-table-item-popular-badge">
                             <RichText
-                                tagName="span"
+                                tagName="div"
                                 onChange={ ( val ) => setAttributes( { popularText: val } ) }
                                 value={ popularText }
                                 placeholder={ __( 'Popular' ) }
@@ -238,64 +239,44 @@ export const settings = {
     },
     attributes: {
         popularText: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-pricing-table-item-popular-badge',
             default: 'Popular',
         },
         title: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-pricing-table-item-title',
             default: 'Standard',
         },
         price: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-pricing-table-item-price-amount',
-            default: [
-                {
-                    props: {
-                        children: [ '77' ],
-                    },
-                    type: 'strong',
-                },
-            ],
+            default: '<strong>77</strong>',
         },
         priceCurrency: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-pricing-table-item-price-currency',
             default: '$',
         },
         priceRepeat: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-pricing-table-item-price-repeat',
         },
         description: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-pricing-table-item-description',
         },
         features: {
-            type: 'array',
-            source: 'children',
+            type: 'string',
+            source: 'html',
             selector: '.ghostkit-pricing-table-item-features',
-            default: [
-                {
-                    props: {
-                        children: [ 'Feature 1' ],
-                    },
-                    type: 'li',
-                },
-                {
-                    props: {
-                        children: [ 'Feature 2' ],
-                    },
-                    type: 'li',
-                },
-            ],
+            default: '<li>Feature 1</li><li>Feature 2</li>',
         },
 
         showPopular: {
@@ -424,10 +405,16 @@ export const settings = {
                     ) : '' }
 
                     { showPopular && ! RichText.isEmpty( popularText ) ? (
-                        <div className="ghostkit-pricing-table-item-popular-badge">{ popularText }</div>
+                        <RichText.Content
+                            tagName="div"
+                            className="ghostkit-pricing-table-item-popular-badge"
+                            value={ popularText }
+                        />
                     ) : '' }
                 </div>
             </div>
         );
     },
+
+    deprecated: deprecatedArray,
 };
