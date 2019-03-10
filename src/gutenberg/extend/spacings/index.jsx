@@ -8,7 +8,7 @@ import './editor.scss';
 import getIcon from '../../utils/get-icon';
 
 import InputDrag from '../../components/input-drag';
-import TabPanelScreenSizes from '../../components/tab-panel-screen-sizes';
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 
 const { __ } = wp.i18n;
 
@@ -330,7 +330,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 initialOpenPanel = ! initialOpenPanel;
                             } }
                         >
-                            <TabPanelScreenSizes iconsColor={ iconsColor }>
+                            <ResponsiveTabPanel iconsColor={ iconsColor }>
                                 {
                                     ( tabData ) => {
                                         let device = '';
@@ -425,7 +425,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         );
                                     }
                                 }
-                            </TabPanelScreenSizes>
+                            </ResponsiveTabPanel>
 
                             <p style={ { marginBottom: 20 } }></p>
                             <BaseControl help={ __( 'Spacings settings will only take effect on Ghost Kit blocks. Core blocks will have spacings only on the preview or live page, and not while you\'re in editing mode.' ) } />

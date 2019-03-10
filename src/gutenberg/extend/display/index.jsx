@@ -1,7 +1,7 @@
 // External Dependencies.
 import classnames from 'classnames/dedupe';
 
-import TabPanelScreenSizes from '../../components/tab-panel-screen-sizes';
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 
 const { __ } = wp.i18n;
 
@@ -223,7 +223,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 initialOpenPanel = ! initialOpenPanel;
                             } }
                         >
-                            <TabPanelScreenSizes iconsColor={ iconsColor }>
+                            <ResponsiveTabPanel iconsColor={ iconsColor }>
                                 {
                                     ( tabData ) => {
                                         return (
@@ -249,7 +249,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         );
                                     }
                                 }
-                            </TabPanelScreenSizes>
+                            </ResponsiveTabPanel>
                             <BaseControl help={ __( 'Display settings will only take effect once you are on the preview or live page, and not while you\'re in editing mode.' ) } />
                         </PanelBody>
                     </InspectorControls>

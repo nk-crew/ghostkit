@@ -11,7 +11,7 @@ const {
     TabPanel,
 } = wp.components;
 
-export default class TabPanelScreenSizes extends Component {
+export default class ResponsiveTabPanel extends Component {
     render() {
         const {
             iconsColor = {},
