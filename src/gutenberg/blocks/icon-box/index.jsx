@@ -198,7 +198,7 @@ export const name = 'ghostkit/icon-box';
 export const settings = {
     title: __( 'Icon Box' ),
     description: __( 'Icons are one of the best visual replacement for text descriptions.' ),
-    icon: getIcon( 'block-icon-box' ),
+    icon: getIcon( 'block-icon-box', true ),
     category: 'ghostkit',
     keywords: [
         __( 'icon' ),

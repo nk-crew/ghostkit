@@ -56,7 +56,7 @@ class GhostKit extends Component {
                                 this.setState( { isModalOpen: 'templates' } );
                             } }
                         >
-                            { getIcon( 'plugin-templates', true ) }
+                            { getIcon( 'plugin-templates' ) }
                             { __( 'Templates' ) }
                         </Button>
                         <Button
@@ -67,7 +67,7 @@ class GhostKit extends Component {
                                 this.setState( { isModalOpen: 'custom-code' } );
                             } }
                         >
-                            { getIcon( 'plugin-custom-code', true ) }
+                            { getIcon( 'plugin-custom-code' ) }
                             { __( 'Custom CSS & JS' ) }
                         </Button>
                         <Button
@@ -78,7 +78,7 @@ class GhostKit extends Component {
                                 this.setState( { isModalOpen: 'customizer' } );
                             } }
                         >
-                            { getIcon( 'plugin-customizer', true ) }
+                            { getIcon( 'plugin-customizer' ) }
                             { __( 'Customizer' ) }
                         </Button>
                     </PanelBody>
@@ -104,6 +104,6 @@ class GhostKit extends Component {
 }
 
 registerPlugin( 'ghostkit', {
-    icon: <div className="ghostkit-plugin-icon">{ getIcon( 'plugin-ghostkit', true ) }</div>,
+    icon: <div className="ghostkit-plugin-icon">{ getIcon( 'plugin-ghostkit' ) }</div>,
     render: GhostKit,
 } );

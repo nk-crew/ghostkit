@@ -380,7 +380,7 @@ class TwitterBlock extends Component {
                     ) : '' }
                     { ! APIDataReady ? (
                         <Placeholder
-                            icon={ getIcon( 'block-twitter', true ) }
+                            icon={ getIcon( 'block-twitter' ) }
                             label={ __( 'Twitter' ) }
                             instructions={ __( 'A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.' ) }
                             className={ className }
@@ -397,7 +397,7 @@ export const name = 'ghostkit/twitter';
 export const settings = {
     title: __( 'Twitter' ),
     description: __( 'Show Twitter feed and user data.' ),
-    icon: getIcon( 'block-twitter' ),
+    icon: getIcon( 'block-twitter', true ),
     category: 'ghostkit',
     keywords: [
         __( 'twitter' ),

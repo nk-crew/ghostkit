@@ -255,7 +255,7 @@ class Customizer extends Component {
                     updateMeta( { ghostkit_customizer_options: encodeURI( JSON.stringify( options ) ) } );
                     onRequestClose();
                 } }
-                icon={ getIcon( 'plugin-customizer', true ) }
+                icon={ getIcon( 'plugin-customizer' ) }
             >
                 { ! customizerOptionsSelect ? (
                     <div className="ghostkit-customizer-spinner"><Spinner /></div>

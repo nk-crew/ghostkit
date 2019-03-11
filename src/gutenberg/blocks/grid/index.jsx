@@ -181,7 +181,7 @@ class GridBlock extends Component {
 
         return (
             <Placeholder
-                icon={ getIcon( 'block-grid', true ) }
+                icon={ getIcon( 'block-grid' ) }
                 label={ __( 'Grid' ) }
                 instructions={ __( 'Select one layout to get started.' ) }
                 className="ghostkit-select-layout"
@@ -276,19 +276,19 @@ class GridBlock extends Component {
                     <BlockControls>
                         <Toolbar controls={ [
                             {
-                                icon: getIcon( 'icon-vertical-top', true ),
+                                icon: getIcon( 'icon-vertical-top' ),
                                 title: __( 'Content Vertical Start' ),
                                 onClick: () => setAttributes( { verticalAlign: '' } ),
                                 isActive: verticalAlign === '',
                             },
                             {
-                                icon: getIcon( 'icon-vertical-center', true ),
+                                icon: getIcon( 'icon-vertical-center' ),
                                 title: __( 'Content Vertical Center' ),
                                 onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                 isActive: verticalAlign === 'center',
                             },
                             {
-                                icon: getIcon( 'icon-vertical-bottom', true ),
+                                icon: getIcon( 'icon-vertical-bottom' ),
                                 title: __( 'Content Vertical End' ),
                                 onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                 isActive: verticalAlign === 'end',
@@ -316,19 +316,19 @@ class GridBlock extends Component {
                             >
                                 <Toolbar controls={ [
                                     {
-                                        icon: getIcon( 'icon-vertical-top', true ),
+                                        icon: getIcon( 'icon-vertical-top' ),
                                         title: __( 'Start' ),
                                         onClick: () => setAttributes( { verticalAlign: '' } ),
                                         isActive: verticalAlign === '',
                                     },
                                     {
-                                        icon: getIcon( 'icon-vertical-center', true ),
+                                        icon: getIcon( 'icon-vertical-center' ),
                                         title: __( 'Center' ),
                                         onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                         isActive: verticalAlign === 'center',
                                     },
                                     {
-                                        icon: getIcon( 'icon-vertical-bottom', true ),
+                                        icon: getIcon( 'icon-vertical-bottom' ),
                                         title: __( 'End' ),
                                         onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                         isActive: verticalAlign === 'end',
@@ -341,31 +341,31 @@ class GridBlock extends Component {
                             >
                                 <Toolbar controls={ [
                                     {
-                                        icon: getIcon( 'icon-horizontal-start', true ),
+                                        icon: getIcon( 'icon-horizontal-start' ),
                                         title: __( 'Start' ),
                                         onClick: () => setAttributes( { horizontalAlign: '' } ),
                                         isActive: horizontalAlign === '',
                                     },
                                     {
-                                        icon: getIcon( 'icon-horizontal-center', true ),
+                                        icon: getIcon( 'icon-horizontal-center' ),
                                         title: __( 'Center' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'center' } ),
                                         isActive: horizontalAlign === 'center',
                                     },
                                     {
-                                        icon: getIcon( 'icon-horizontal-end', true ),
+                                        icon: getIcon( 'icon-horizontal-end' ),
                                         title: __( 'End' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'end' } ),
                                         isActive: horizontalAlign === 'end',
                                     },
                                     {
-                                        icon: getIcon( 'icon-horizontal-around', true ),
+                                        icon: getIcon( 'icon-horizontal-around' ),
                                         title: __( 'Around' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'around' } ),
                                         isActive: horizontalAlign === 'around',
                                     },
                                     {
-                                        icon: getIcon( 'icon-horizontal-between', true ),
+                                        icon: getIcon( 'icon-horizontal-between' ),
                                         title: __( 'Between' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'between' } ),
                                         isActive: horizontalAlign === 'between',
@@ -426,7 +426,7 @@ class GridBlock extends Component {
                             { ! isSelected ? (
                                 <div className="ghostkit-grid-button-select">
                                     <Tooltip text={ __( 'Select Grid' ) }>
-                                        { getIcon( 'block-grid', true ) }
+                                        { getIcon( 'block-grid' ) }
                                     </Tooltip>
                                 </div>
                             ) : '' }
@@ -448,7 +448,7 @@ export const name = 'ghostkit/grid';
 export const settings = {
     title: __( 'Grid' ),
     description: __( 'Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.' ),
-    icon: getIcon( 'block-grid' ),
+    icon: getIcon( 'block-grid', true ),
     category: 'ghostkit',
     keywords: [
         __( 'grid' ),

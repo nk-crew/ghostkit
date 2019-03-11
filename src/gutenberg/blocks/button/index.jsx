@@ -281,7 +281,7 @@ export const settings = {
 
     description: __( 'Change important links to buttons to get more click rate.' ),
 
-    icon: getIcon( 'block-button' ),
+    icon: getIcon( 'block-button', true ),
 
     category: 'ghostkit',
 

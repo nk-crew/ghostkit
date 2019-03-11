@@ -169,7 +169,7 @@ export const name = 'ghostkit/tabs';
 export const settings = {
     title: __( 'Tabs (legacy)' ),
     description: __( 'Tabs.' ),
-    icon: getIcon( 'block-tabs' ),
+    icon: getIcon( 'block-tabs', true ),
     category: 'ghostkit',
     keywords: [
         __( 'tabs' ),

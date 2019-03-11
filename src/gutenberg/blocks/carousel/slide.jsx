@@ -47,7 +47,7 @@ export const settings = {
     title: __( 'Slide' ),
     parent: [ 'ghostkit/carousel' ],
     description: __( 'A single slide within a carousel block.' ),
-    icon: getIcon( 'block-carousel' ),
+    icon: getIcon( 'block-carousel', true ),
     category: 'ghostkit',
     ghostkit: {
         supports: {

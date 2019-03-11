@@ -277,7 +277,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'left' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'left' } ) }
                                                 >
-                                                    { getIcon( 'icon-arrow-right', true ) }
+                                                    { getIcon( 'icon-arrow-right' ) }
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-top">
@@ -285,7 +285,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'down' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'down' } ) }
                                                 >
-                                                    { getIcon( 'icon-arrow-down', true ) }
+                                                    { getIcon( 'icon-arrow-down' ) }
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-right">
@@ -293,7 +293,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'right' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'right' } ) }
                                                 >
-                                                    { getIcon( 'icon-arrow-left', true ) }
+                                                    { getIcon( 'icon-arrow-left' ) }
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-bottom">
@@ -301,7 +301,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ 'up' === this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: 'up' } ) }
                                                 >
-                                                    { getIcon( 'icon-arrow-up', true ) }
+                                                    { getIcon( 'icon-arrow-up' ) }
                                                 </Button>
                                             </div>
                                             <div className="ghostkit-control-sr-direction-center">
@@ -309,7 +309,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                     className={ ! this.state.direction ? 'ghostkit-control-sr-direction-active' : '' }
                                                     onClick={ () => this.updateData( { direction: '' } ) }
                                                 >
-                                                    { getIcon( 'icon-circle', true ) }
+                                                    { getIcon( 'icon-circle' ) }
                                                 </Button>
                                             </div>
                                         </div>

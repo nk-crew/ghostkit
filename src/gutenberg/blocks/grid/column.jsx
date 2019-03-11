@@ -175,7 +175,7 @@ class GridColumnBlock extends Component {
                                                 >
                                                     <Toolbar controls={ [
                                                         {
-                                                            icon: getIcon( 'icon-vertical-top', true ),
+                                                            icon: getIcon( 'icon-vertical-top' ),
                                                             title: __( 'Start' ),
                                                             onClick: () => {
                                                                 setAttributes( {
@@ -185,7 +185,7 @@ class GridColumnBlock extends Component {
                                                             isActive: attributes[ verticalAlignName ] === 'start',
                                                         },
                                                         {
-                                                            icon: getIcon( 'icon-vertical-center', true ),
+                                                            icon: getIcon( 'icon-vertical-center' ),
                                                             title: __( 'Center' ),
                                                             onClick: () => {
                                                                 setAttributes( {
@@ -195,7 +195,7 @@ class GridColumnBlock extends Component {
                                                             isActive: attributes[ verticalAlignName ] === 'center',
                                                         },
                                                         {
-                                                            icon: getIcon( 'icon-vertical-bottom', true ),
+                                                            icon: getIcon( 'icon-vertical-bottom' ),
                                                             title: __( 'End' ),
                                                             onClick: () => {
                                                                 setAttributes( {
@@ -247,7 +247,7 @@ class GridColumnBlock extends Component {
                     { ! isSelected ? (
                         <div className="ghostkit-column-button-select">
                             <Tooltip text={ __( 'Select Column' ) }>
-                                { getIcon( 'block-grid-column', true ) }
+                                { getIcon( 'block-grid-column' ) }
                             </Tooltip>
                         </div>
                     ) : '' }
@@ -264,7 +264,7 @@ export const settings = {
     title: __( 'Column' ),
     parent: [ 'ghostkit/grid' ],
     description: __( 'A single column within a grid block.' ),
-    icon: getIcon( 'block-grid-column' ),
+    icon: getIcon( 'block-grid-column', true ),
     category: 'ghostkit',
     ghostkit: {
         customSelector( selector ) {

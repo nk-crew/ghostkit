@@ -170,7 +170,7 @@ class TemplatesModal extends Component {
                 onRequestClose={ () => {
                     onRequestClose();
                 } }
-                icon={ getIcon( 'plugin-templates', true ) }
+                icon={ getIcon( 'plugin-templates' ) }
             >
                 { this.state.loading ? (
                     <div className="ghostkit-plugin-templates-modal-loading-spinner"><Spinner /></div>

@@ -62,7 +62,7 @@ export const settings = {
                         shortcutCharacter="u"
                         shortcutType="access"
                         title={ __( 'Uppercase' ) }
-                        icon={ getIcon( 'icon-text-uppercase', true ) }
+                        icon={ getIcon( 'icon-text-uppercase' ) }
                         onClick={ this.toggleUppercase }
                         isActive={ isActive }
                     />

@@ -126,7 +126,7 @@ class CustomCodeModal extends Component {
 
                     onRequestClose();
                 } }
-                icon={ getIcon( 'plugin-custom-code', true ) }
+                icon={ getIcon( 'plugin-custom-code' ) }
             >
                 <TabPanel
                     className="ghostkit-control-tabs ghostkit-component-modal-tab-panel"

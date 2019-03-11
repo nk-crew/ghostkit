@@ -86,7 +86,7 @@ export default class RemoveButton extends Component {
                         </Button>
                     </Popover>
                 ) : '' }
-                { getIcon( 'icon-trash', true ) }
+                { getIcon( 'icon-trash' ) }
             </Button>
         );
     }

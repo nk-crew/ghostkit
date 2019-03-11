@@ -38,7 +38,7 @@ export const settings = {
     title: __( 'Tab' ),
     parent: [ 'ghostkit/tabs' ],
     description: __( 'A single tab within a tabs block.' ),
-    icon: getIcon( 'block-tabs' ),
+    icon: getIcon( 'block-tabs', true ),
     category: 'ghostkit',
     ghostkit: {
         supports: {

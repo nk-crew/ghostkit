@@ -286,7 +286,7 @@ export const name = 'ghostkit/testimonial';
 export const settings = {
     title: __( 'Testimonial' ),
     description: __( 'Show how your users love your products and what saying.' ),
-    icon: getIcon( 'block-testimonial' ),
+    icon: getIcon( 'block-testimonial', true ),
     category: 'ghostkit',
     keywords: [
         __( 'testimonial' ),

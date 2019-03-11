@@ -252,7 +252,7 @@ class GoogleMapsBlock extends Component {
                 <BlockControls>
                     <Toolbar controls={ [
                         {
-                            icon: getIcon( 'icon-fullheight', true ),
+                            icon: getIcon( 'icon-fullheight' ),
                             title: __( 'Full Height' ),
                             onClick: () => setAttributes( { fullHeight: ! fullHeight } ),
                             isActive: fullHeight,
@@ -261,7 +261,7 @@ class GoogleMapsBlock extends Component {
                     <Toolbar
                         controls={ [
                             {
-                                icon: getIcon( 'icon-marker', true ),
+                                icon: getIcon( 'icon-marker' ),
                                 title: __( 'Add Marker' ),
                                 onClick: () => {
                                     setAttributes( {
@@ -281,7 +281,7 @@ class GoogleMapsBlock extends Component {
                             renderToggle={ ( { onToggle } ) => (
                                 <IconButton
                                     label={ __( 'Style' ) }
-                                    icon={ getIcon( 'icon-map', true ) }
+                                    icon={ getIcon( 'icon-map' ) }
                                     className="components-toolbar__control"
                                     onClick={ onToggle }
                                 />
@@ -577,7 +577,7 @@ export const name = 'ghostkit/google-maps';
 export const settings = {
     title: __( 'Google Maps' ),
     description: __( 'Show maps with custom styles, markers and settings.' ),
-    icon: getIcon( 'block-google-maps' ),
+    icon: getIcon( 'block-google-maps', true ),
     category: 'ghostkit',
     keywords: [
         __( 'maps' ),

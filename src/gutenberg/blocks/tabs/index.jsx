@@ -291,7 +291,7 @@ export const name = 'ghostkit/tabs-v2';
 export const settings = {
     title: __( 'Tabs' ),
     description: __( 'Separate content on the tabs with titles.' ),
-    icon: getIcon( 'block-tabs' ),
+    icon: getIcon( 'block-tabs', true ),
     category: 'ghostkit',
     keywords: [
         __( 'tabs' ),

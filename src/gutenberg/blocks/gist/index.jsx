@@ -219,7 +219,7 @@ class GistBlock extends Component {
                 <div>
                     { ! url ? (
                         <Placeholder
-                            icon={ getIcon( 'block-gist', true ) }
+                            icon={ getIcon( 'block-gist' ) }
                             label={ __( 'Gist URL' ) }
                             className={ className }
                         >
@@ -258,7 +258,7 @@ export const name = 'ghostkit/gist';
 export const settings = {
     title: __( 'GitHub Gist' ),
     description: __( 'Embed code parts form GitHub Gist to your site or documentation.' ),
-    icon: getIcon( 'block-gist' ),
+    icon: getIcon( 'block-gist', true ),
     category: 'ghostkit',
     keywords: [
         __( 'github' ),

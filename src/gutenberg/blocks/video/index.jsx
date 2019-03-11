@@ -225,15 +225,15 @@ class VideoBlockEdit extends Component {
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
-        let toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-16-9', true );
+        let toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-16-9' );
         if ( '3:2' === videoAspectRatio ) {
-            toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-3-2', true );
+            toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-3-2' );
         }
         if ( '4:3' === videoAspectRatio ) {
-            toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-4-3', true );
+            toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-4-3' );
         }
         if ( '21:9' === videoAspectRatio ) {
-            toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-21-9', true );
+            toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-21-9' );
         }
 
         return (
@@ -745,7 +745,7 @@ export const name = 'ghostkit/video';
 export const settings = {
     title: __( 'Video' ),
     description: __( 'Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.' ),
-    icon: getIcon( 'block-video' ),
+    icon: getIcon( 'block-video', true ),
     category: 'ghostkit',
     keywords: [
         __( 'video' ),

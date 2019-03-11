@@ -86,7 +86,7 @@ class AccordionItemBlock extends Component {
                 <BlockControls>
                     <Toolbar controls={ [
                         {
-                            icon: getIcon( 'icon-collapse', true ),
+                            icon: getIcon( 'icon-collapse' ),
                             title: __( 'Collapse' ),
                             onClick: () => setAttributes( { active: ! active } ),
                             isActive: active,
@@ -146,7 +146,7 @@ export const settings = {
     title: __( 'Item' ),
     parent: [ 'ghostkit/accordion' ],
     description: __( 'A single item within a accordion block.' ),
-    icon: getIcon( 'block-accordion' ),
+    icon: getIcon( 'block-accordion', true ),
     category: 'ghostkit',
     ghostkit: {
         supports: {

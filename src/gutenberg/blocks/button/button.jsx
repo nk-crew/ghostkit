@@ -300,7 +300,7 @@ export const settings = {
     title: __( 'Button' ),
     parent: [ 'ghostkit/button' ],
     description: __( 'A single button within a buttons wrapper block.' ),
-    icon: getIcon( 'block-button' ),
+    icon: getIcon( 'block-button', true ),
     category: 'ghostkit',
     ghostkit: {
         customStylesCallback( attributes ) {

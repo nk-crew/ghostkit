@@ -220,7 +220,7 @@ export const settings = {
     title: __( 'Pricing Table Item' ),
     parent: [ 'ghostkit/pricing-table' ],
     description: __( 'A single item within a pricing table block.' ),
-    icon: getIcon( 'block-pricing-table' ),
+    icon: getIcon( 'block-pricing-table', true ),
     category: 'ghostkit',
     ghostkit: {
         supports: {

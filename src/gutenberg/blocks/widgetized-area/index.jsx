@@ -37,7 +37,7 @@ class WidgetizedAreaBlock extends Component {
         return (
             <Fragment>
                 <Placeholder
-                    icon={ getIcon( 'block-widgetized-area', true ) }
+                    icon={ getIcon( 'block-widgetized-area' ) }
                     label={ __( 'Widgetized Area' ) }
                     className={ className }
                 >
@@ -73,7 +73,7 @@ export const name = 'ghostkit/widgetized-area';
 export const settings = {
     title: __( 'Widgetized Area' ),
     description: __( 'Select registered sidebars and put it in any place.' ),
-    icon: getIcon( 'block-widgetized-area' ),
+    icon: getIcon( 'block-widgetized-area', true ),
     category: 'ghostkit',
     keywords: [
         __( 'widget' ),

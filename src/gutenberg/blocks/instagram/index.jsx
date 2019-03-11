@@ -253,7 +253,7 @@ class InstagramBlock extends Component {
                     ) : '' }
                     { ! accessToken ? (
                         <Placeholder
-                            icon={ getIcon( 'block-instagram', true ) }
+                            icon={ getIcon( 'block-instagram' ) }
                             label={ __( 'Instagram' ) }
                             instructions={ __( 'A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector.' ) }
                             className={ className }
@@ -270,7 +270,7 @@ export const name = 'ghostkit/instagram';
 export const settings = {
     title: __( 'Instagram' ),
     description: __( 'Show Instagram feed and user data.' ),
-    icon: getIcon( 'block-instagram' ),
+    icon: getIcon( 'block-instagram', true ),
     category: 'ghostkit',
     keywords: [
         __( 'instagram' ),

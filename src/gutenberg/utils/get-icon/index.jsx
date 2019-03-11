@@ -1,17 +1,17 @@
 import allIcons from '../../icons/index';
 
-export default function getIcon( icon, iconOnly ) {
+export default function getIcon( icon, returnObject ) {
     if ( icon && typeof allIcons[ icon ] !== 'undefined' ) {
-        // return icon only.
-        if ( iconOnly ) {
-            return allIcons[ icon ]();
+        // return object for block registration.
+        if ( returnObject ) {
+            return {
+                foreground: '#C9586C',
+                src: allIcons[ icon ],
+            };
         }
 
-        // return object for block registration.
-        return {
-            foreground: '#C9586C',
-            src: allIcons[ icon ],
-        };
+        // return icon.
+        return allIcons[ icon ]();
     }
 
     return '';

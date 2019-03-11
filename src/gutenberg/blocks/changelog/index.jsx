@@ -89,7 +89,7 @@ export const name = 'ghostkit/changelog';
 export const settings = {
     title: __( 'Changelog' ),
     description: __( 'Show the changes log of your product.' ),
-    icon: getIcon( 'block-changelog' ),
+    icon: getIcon( 'block-changelog', true ),
     category: 'ghostkit',
     keywords: [
         __( 'changelog' ),

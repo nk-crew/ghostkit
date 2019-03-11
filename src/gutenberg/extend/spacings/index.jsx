@@ -342,7 +342,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         return (
                                             <Fragment>
                                                 <BaseControl className="ghostkit-control-spacing">
-                                                    { getIcon( 'icon-box', true ) }
+                                                    { getIcon( 'icon-box' ) }
                                                     <div className="ghostkit-control-spacing-margin">
                                                         <span>{ __( 'Margin' ) }</span>
                                                         <div className="ghostkit-control-spacing-margin-left">

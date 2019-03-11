@@ -140,19 +140,19 @@ class PricingTableBlock extends Component {
                     <BlockControls>
                         <Toolbar controls={ [
                             {
-                                icon: getIcon( 'icon-vertical-top', true ),
+                                icon: getIcon( 'icon-vertical-top' ),
                                 title: __( 'ItemsVertical Start' ),
                                 onClick: () => setAttributes( { verticalAlign: '' } ),
                                 isActive: verticalAlign === '',
                             },
                             {
-                                icon: getIcon( 'icon-vertical-center', true ),
+                                icon: getIcon( 'icon-vertical-center' ),
                                 title: __( 'ItemsVertical Center' ),
                                 onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                 isActive: verticalAlign === 'center',
                             },
                             {
-                                icon: getIcon( 'icon-vertical-bottom', true ),
+                                icon: getIcon( 'icon-vertical-bottom' ),
                                 title: __( 'ItemsVertical End' ),
                                 onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                 isActive: verticalAlign === 'end',
@@ -166,19 +166,19 @@ class PricingTableBlock extends Component {
                         <BaseControl label={ __( 'Vertical align' ) }>
                             <Toolbar controls={ [
                                 {
-                                    icon: getIcon( 'icon-vertical-top', true ),
+                                    icon: getIcon( 'icon-vertical-top' ),
                                     title: __( 'ItemsVertical Start' ),
                                     onClick: () => setAttributes( { verticalAlign: '' } ),
                                     isActive: verticalAlign === '',
                                 },
                                 {
-                                    icon: getIcon( 'icon-vertical-center', true ),
+                                    icon: getIcon( 'icon-vertical-center' ),
                                     title: __( 'ItemsVertical Center' ),
                                     onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                     isActive: verticalAlign === 'center',
                                 },
                                 {
-                                    icon: getIcon( 'icon-vertical-bottom', true ),
+                                    icon: getIcon( 'icon-vertical-bottom' ),
                                     title: __( 'ItemsVertical End' ),
                                     onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                     isActive: verticalAlign === 'end',
@@ -264,7 +264,7 @@ export const name = 'ghostkit/pricing-table';
 export const settings = {
     title: __( 'Pricing Table' ),
     description: __( 'Sell your products or services and show all features.' ),
-    icon: getIcon( 'block-pricing-table' ),
+    icon: getIcon( 'block-pricing-table', true ),
     category: 'ghostkit',
     keywords: [
         __( 'pricing' ),

@@ -191,7 +191,7 @@ export const name = 'ghostkit/alert';
 export const settings = {
     title: __( 'Alert' ),
     description: __( 'Provide contextual feedback messages for user actions.' ),
-    icon: getIcon( 'block-alert' ),
+    icon: getIcon( 'block-alert', true ),
     category: 'ghostkit',
     keywords: [
         __( 'alert' ),

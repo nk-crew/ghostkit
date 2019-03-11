@@ -26,11 +26,11 @@ export default class ResponsiveTabPanel extends Component {
 
         const tabs = [];
         const icons = [
-            getIcon( 'tabs-mobile', true ),
-            getIcon( 'tabs-tablet', true ),
-            getIcon( 'tabs-laptop', true ),
-            getIcon( 'tabs-desktop', true ),
-            getIcon( 'tabs-tv', true ),
+            getIcon( 'tabs-mobile' ),
+            getIcon( 'tabs-tablet' ),
+            getIcon( 'tabs-laptop' ),
+            getIcon( 'tabs-desktop' ),
+            getIcon( 'tabs-tv' ),
         ];
 
         Object.keys( ghostkitVariables.media_sizes ).forEach( ( mediaName, i ) => {

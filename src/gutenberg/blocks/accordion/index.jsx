@@ -149,7 +149,7 @@ export const name = 'ghostkit/accordion';
 export const settings = {
     title: __( 'Accordion' ),
     description: __( 'Toggle the visibility of content across your project.' ),
-    icon: getIcon( 'block-accordion' ),
+    icon: getIcon( 'block-accordion', true ),
     category: 'ghostkit',
     keywords: [
         __( 'accordion' ),
