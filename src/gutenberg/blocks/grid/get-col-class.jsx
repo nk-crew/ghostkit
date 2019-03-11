@@ -28,9 +28,20 @@ export default function getColClass( props ) {
                 prefix = '';
             }
 
-            if ( type && ( type === 'size' || type === 'order' ) ) {
+            if ( type && ( type === 'size' || type === 'order' || type === 'verticalAlign' ) ) {
                 prefix = prefix ? `-${ prefix }` : '';
-                type = type === 'size' ? '' : `-${ type }`;
+
+                switch ( type ) {
+                case 'size':
+                    type = '';
+                    break;
+                case 'order':
+                    type = `-${ type }`;
+                    break;
+                case 'verticalAlign':
+                    type = '-align-self';
+                    break;
+                }
 
                 result = classnames(
                     result,

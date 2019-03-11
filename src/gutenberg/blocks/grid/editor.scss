@@ -271,6 +271,23 @@
     align-self: flex-end;
 }
 
+// Vertical align column.
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-down($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col-align-self#{$infix}-start > .editor-block-list__block-edit > [data-block] {
+            align-self: flex-start;
+        }
+        .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col-align-self#{$infix}-center > .editor-block-list__block-edit > [data-block] {
+            align-self: center;
+        }
+        .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col-align-self#{$infix}-end > .editor-block-list__block-edit > [data-block] {
+            align-self: flex-end;
+        }
+    }
+}
+
 // Horizontal align.
 .ghostkit-grid-justify-content-center > .editor-inner-blocks > .editor-block-list__layout {
     justify-content: center;

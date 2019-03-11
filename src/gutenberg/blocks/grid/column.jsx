@@ -21,6 +21,7 @@ const {
     ToggleControl,
     TextControl,
     Tooltip,
+    Toolbar,
 } = wp.components;
 
 const {
@@ -112,13 +113,15 @@ class GridColumnBlock extends Component {
             Object.keys( ghostkitVariables.media_sizes ).forEach( ( media ) => {
                 let sizeName = 'size';
                 let orderName = 'order';
+                let verticalAlignName = 'verticalAlign';
 
                 if ( media !== 'all' ) {
                     sizeName = `${ media }_${ sizeName }`;
                     orderName = `${ media }_${ orderName }`;
+                    verticalAlignName = `${ media }_${ verticalAlignName }`;
                 }
 
-                if ( ! attributes[ sizeName ] && ! attributes[ orderName ] ) {
+                if ( ! attributes[ sizeName ] && ! attributes[ orderName ] && ! attributes[ verticalAlignName ] ) {
                     iconsColor[ media ] = '#cccccc';
                 }
             } );
@@ -137,10 +140,12 @@ class GridColumnBlock extends Component {
                                     ( tabData ) => {
                                         let sizeName = 'size';
                                         let orderName = 'order';
+                                        let verticalAlignName = 'verticalAlign';
 
                                         if ( tabData.name !== 'all' ) {
                                             sizeName = `${ tabData.name }_${ sizeName }`;
                                             orderName = `${ tabData.name }_${ orderName }`;
+                                            verticalAlignName = `${ tabData.name }_${ verticalAlignName }`;
                                         }
 
                                         return (
@@ -149,9 +154,9 @@ class GridColumnBlock extends Component {
                                                     label={ __( 'Size' ) }
                                                     value={ attributes[ sizeName ] }
                                                     onChange={ ( value ) => {
-                                                        const result = {};
-                                                        result[ sizeName ] = value;
-                                                        setAttributes( result );
+                                                        setAttributes( {
+                                                            [ sizeName ]: value,
+                                                        } );
                                                     } }
                                                     options={ getDefaultColumnSizes() }
                                                 />
@@ -159,12 +164,49 @@ class GridColumnBlock extends Component {
                                                     label={ __( 'Order' ) }
                                                     value={ attributes[ orderName ] }
                                                     onChange={ ( value ) => {
-                                                        const result = {};
-                                                        result[ orderName ] = value;
-                                                        setAttributes( result );
+                                                        setAttributes( {
+                                                            [ orderName ]: value,
+                                                        } );
                                                     } }
                                                     options={ getDefaultColumnOrders() }
                                                 />
+                                                <BaseControl
+                                                    label={ __( 'Vertical alignment' ) }
+                                                >
+                                                    <Toolbar controls={ [
+                                                        {
+                                                            icon: getIcon( 'icon-vertical-top', true ),
+                                                            title: __( 'Start' ),
+                                                            onClick: () => {
+                                                                setAttributes( {
+                                                                    [ verticalAlignName ]: attributes[ verticalAlignName ] === 'start' ? '' : 'start',
+                                                                } );
+                                                            },
+                                                            isActive: attributes[ verticalAlignName ] === 'start',
+                                                        },
+                                                        {
+                                                            icon: getIcon( 'icon-vertical-center', true ),
+                                                            title: __( 'Center' ),
+                                                            onClick: () => {
+                                                                setAttributes( {
+                                                                    [ verticalAlignName ]: attributes[ verticalAlignName ] === 'center' ? '' : 'center',
+                                                                } );
+                                                            },
+                                                            isActive: attributes[ verticalAlignName ] === 'center',
+                                                        },
+                                                        {
+                                                            icon: getIcon( 'icon-vertical-bottom', true ),
+                                                            title: __( 'End' ),
+                                                            onClick: () => {
+                                                                setAttributes( {
+                                                                    [ verticalAlignName ]: attributes[ verticalAlignName ] === 'end' ? '' : 'end',
+                                                                } );
+                                                            },
+                                                            isActive: attributes[ verticalAlignName ] === 'end',
+                                                        },
+                                                    ] }
+                                                    />
+                                                </BaseControl>
                                             </Fragment>
                                         );
                                     }
@@ -288,12 +330,20 @@ export const settings = {
             type: 'string',
             default: '',
         },
+        sm_verticalAlign: {
+            type: 'string',
+            default: '',
+        },
 
         md_size: {
             type: 'string',
             default: '',
         },
         md_order: {
+            type: 'string',
+            default: '',
+        },
+        md_verticalAlign: {
             type: 'string',
             default: '',
         },
@@ -306,6 +356,10 @@ export const settings = {
             type: 'string',
             default: '',
         },
+        lg_verticalAlign: {
+            type: 'string',
+            default: '',
+        },
 
         xl_size: {
             type: 'string',
@@ -315,12 +369,20 @@ export const settings = {
             type: 'string',
             default: '',
         },
+        xl_verticalAlign: {
+            type: 'string',
+            default: '',
+        },
 
         size: {
             type: 'string',
             default: 'auto',
         },
         order: {
+            type: 'string',
+            default: '',
+        },
+        verticalAlign: {
             type: 'string',
             default: '',
         },

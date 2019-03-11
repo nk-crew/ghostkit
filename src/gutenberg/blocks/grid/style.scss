@@ -83,6 +83,23 @@
     align-self: flex-end;
 }
 
+// Vertical align column.
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-down($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .ghostkit-grid > .ghostkit-col-align-self#{$infix}-start > .ghostkit-col-content {
+            align-self: flex-start;
+        }
+        .ghostkit-grid > .ghostkit-col.ghostkit-col-align-self#{$infix}-center > .ghostkit-col-content {
+            align-self: center;
+        }
+        .ghostkit-grid > .ghostkit-col.ghostkit-col-align-self#{$infix}-end > .ghostkit-col-content {
+            align-self: flex-end;
+        }
+    }
+}
+
 // Horizontal align.
 .ghostkit-grid-justify-content-center {
     justify-content: center;
