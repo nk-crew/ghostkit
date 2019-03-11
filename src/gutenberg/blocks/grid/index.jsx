@@ -297,19 +297,21 @@ class GridBlock extends Component {
                         />
                     </BlockControls>
                 ) : '' }
+                <InspectorControls>
+                    <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={ this.props }>
+                        <PanelBody>
+                            <RangeControl
+                                label={ __( 'Columns' ) }
+                                value={ columns }
+                                onChange={ ( value ) => setAttributes( { columns: value } ) }
+                                min={ 2 }
+                                max={ 12 }
+                            />
+                        </PanelBody>
+                    </ApplyFilters>
+                </InspectorControls>
                 { columns > 1 ? (
                     <InspectorControls>
-                        <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={ this.props }>
-                            <PanelBody>
-                                <RangeControl
-                                    label={ __( 'Columns' ) }
-                                    value={ columns }
-                                    onChange={ ( value ) => setAttributes( { columns: value } ) }
-                                    min={ 2 }
-                                    max={ 12 }
-                                />
-                            </PanelBody>
-                        </ApplyFilters>
                         <PanelBody>
                             <BaseControl
                                 label={ __( 'Vertical alignment' ) }
