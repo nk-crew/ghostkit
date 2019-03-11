@@ -5,7 +5,7 @@ import classnames from 'classnames/dedupe';
 import getIcon from '../../utils/get-icon';
 import getColClass from './get-col-class';
 import ApplyFilters from '../../components/apply-filters';
-import TabPanelScreenSizes from '../../components/tab-panel-screen-sizes';
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 import deprecatedArray from './deprecated-column';
 import AWBFallbackOptions from './awb-fallback-options';
 
@@ -143,7 +143,7 @@ class GridColumnBlock extends Component {
                 <InspectorControls>
                     <ApplyFilters name="ghostkit.editor.controls" attribute="columnSettings" props={ this.props }>
                         <PanelBody>
-                            <TabPanelScreenSizes iconsColor={ iconsColor }>
+                            <ResponsiveTabPanel iconsColor={ iconsColor }>
                                 {
                                     ( tabData ) => {
                                         let sizeName = 'size';
@@ -180,7 +180,7 @@ class GridColumnBlock extends Component {
                                         );
                                     }
                                 }
-                            </TabPanelScreenSizes>
+                            </ResponsiveTabPanel>
                         </PanelBody>
                     </ApplyFilters>
                     <PanelBody>
