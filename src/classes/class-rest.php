@@ -369,8 +369,27 @@ class GhostKit_Rest extends WP_REST_Controller {
         $size = $request->get_param( 'size' );
         $icon = $request->get_param( 'icon' );
         $attr = $request->get_param( 'attr' );
+        $div_tag = $request->get_param( 'div_tag' );
 
-        $image = wp_get_attachment_image( $id, $size, $icon, $attr );
+        if ( $div_tag ) {
+            $image_url = wp_get_attachment_image_url( $id, $size, $icon );
+            $attr = isset( $attr ) && $attr && is_array( $attr ) ? $attr : array();
+
+            if ( ! isset( $attr['style'] ) ) {
+                $attr['style'] = '';
+            }
+
+            $attr['style'] .= 'background-image: url("' . esc_url( $image_url ) . '");';
+
+            $attr = array_map( 'esc_attr', $attr );
+            $image = '<div';
+            foreach ( $attr as $name => $value ) {
+                $image .= " $name=" . '"' . $value . '"';
+            }
+            $image .= '></div>';
+        } else {
+            $image = wp_get_attachment_image( $id, $size, $icon, $attr );
+        }
 
         if ( $image ) {
             return $this->success( $image );

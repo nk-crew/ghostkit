@@ -301,9 +301,19 @@
         border: none;
     }
 
-    > div {
+    > .nk-awb-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    // fixed for some default themes styles
+    .editor-styles-wrapper & > .nk-awb-inner > img,
+    .editor-styles-wrapper & > .nk-awb-inner > div,
+    .editor-styles-wrapper & > div {
         width: 100%;
         height: 100%;
+        object-fit: cover;
     }
 }
 @media (min-width: 600px) {

@@ -5,10 +5,10 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
+import './awb-fallback';
 import getIcon from '../../utils/get-icon';
 import deprecatedArray from './deprecated';
 import ApplyFilters from '../../components/apply-filters';
-import AWBFallbackOptions from './awb-fallback-options';
 
 import { TemplatesModal } from '../../plugins/templates';
 
@@ -251,7 +251,6 @@ class GridBlock extends Component {
             gap,
             verticalAlign,
             horizontalAlign,
-            awb_color, // eslint-disable-line
         } = attributes;
 
         className = classnames(
@@ -263,17 +262,7 @@ class GridBlock extends Component {
         );
 
         // background
-        let background = '';
-        // eslint-disable-next-line
-        if ( awb_color ) {
-            background = (
-                <div className="awb-gutenberg-preview-block">
-                    <div className="nk-awb-overlay" style={ { 'background-color': awb_color } }></div>
-                </div>
-            );
-        }
-
-        background = applyFilters( 'ghostkit.editor.grid.background', background, this.props );
+        const background = applyFilters( 'ghostkit.editor.grid.background', '', this.props );
 
         if ( background ) {
             className = classnames( className, 'ghostkit-grid-with-bg' );
@@ -425,9 +414,11 @@ class GridBlock extends Component {
                                 </ButtonGroup>
                             </BaseControl>
                         </PanelBody>
-                        <AWBFallbackOptions { ...this.props } />
                     </InspectorControls>
                 ) : '' }
+                <InspectorControls>
+                    <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props }></ApplyFilters>
+                </InspectorControls>
                 <div className={ className }>
                     { columns > 0 || this.state.selectedLayout ? (
                         <Fragment>
@@ -500,16 +491,6 @@ export const settings = {
             type: 'object',
             default: {},
         },
-
-        // AWB support.
-        awb_type: {
-            type: 'string',
-            default: 'color',
-        },
-        awb_color: {
-            type: 'string',
-            default: '',
-        },
     },
 
     edit: GridBlock,
@@ -519,7 +500,6 @@ export const settings = {
             verticalAlign,
             horizontalAlign,
             gap,
-            awb_color, // eslint-disable-line
         } = props.attributes;
 
         let className = classnames(
@@ -530,19 +510,7 @@ export const settings = {
         );
 
         // background
-        let background = '';
-        // eslint-disable-next-line
-        if ( awb_color ) {
-            background = (
-                <div className="nk-awb">
-                    <div className="nk-awb-wrap" data-awb-type="color">
-                        <div className="nk-awb-overlay" style={ { 'background-color': awb_color } }></div>
-                    </div>
-                </div>
-            );
-        }
-
-        background = applyFilters( 'ghostkit.blocks.grid.background', background, {
+        const background = applyFilters( 'ghostkit.blocks.grid.background', background, {
             ...{
                 name,
             },

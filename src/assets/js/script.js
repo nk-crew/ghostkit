@@ -4,6 +4,7 @@ import rafl from 'rafl';
 
 const $ = window.jQuery;
 const $wnd = $( window );
+const $doc = $( document );
 const {
     ghostkitVariables,
     GHOSTKIT,
@@ -48,11 +49,14 @@ const hasScrolled = () => {
     lastST = ST;
 };
 
-$wnd.on( 'scroll ready load resize orientationchange throttlescroll.ghostkit', throttle( 200, () => {
+const hasScrolledThrottle = throttle( 200, () => {
     if ( throttleScrollList.length ) {
         rafl( hasScrolled );
     }
-} ) );
+} );
+
+$wnd.on( 'scroll load resize orientationchange throttlescroll.ghostkit', hasScrolledThrottle );
+$doc.on( 'ready', hasScrolledThrottle );
 
 function throttleScroll( callback ) {
     throttleScrollList.push( callback );
@@ -93,7 +97,12 @@ class GhostKitClass {
 
         // Enable object-fit.
         if ( typeof window.objectFitImages !== 'undefined' ) {
-            window.objectFitImages( '.ghostkit-video-poster img' );
+            const ofiImages = '.ghostkit-video-poster img, .ghostkit-grid > .nk-awb img, .ghostkit-col > .nk-awb img';
+
+            window.objectFitImages( ofiImages );
+            $doc.on( 'ready', () => {
+                window.objectFitImages( ofiImages );
+            } );
         }
 
         // Additional easing.

@@ -2,12 +2,12 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
+import './awb-fallback';
 import getIcon from '../../utils/get-icon';
 import getColClass from './get-col-class';
 import ApplyFilters from '../../components/apply-filters';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 import deprecatedArray from './deprecated-column';
-import AWBFallbackOptions from './awb-fallback-options';
 
 const { ghostkitVariables } = window;
 const { __, sprintf } = wp.i18n;
@@ -105,8 +105,6 @@ class GridColumnBlock extends Component {
             stickyContent,
             stickyContentTop,
             stickyContentBottom,
-
-            awb_color, // eslint-disable-line
         } = attributes;
 
         const iconsColor = {};
@@ -127,16 +125,7 @@ class GridColumnBlock extends Component {
         }
 
         // background
-        let background = '';
-        // eslint-disable-next-line
-        if ( awb_color ) {
-            background = (
-                <div className="awb-gutenberg-preview-block">
-                    <div className="nk-awb-overlay" style={ { 'background-color': awb_color } }></div>
-                </div>
-            );
-        }
-        background = applyFilters( 'ghostkit.editor.grid-column.background', background, this.props );
+        const background = applyFilters( 'ghostkit.editor.grid-column.background', '', this.props );
 
         return (
             <Fragment>
@@ -209,7 +198,7 @@ class GridColumnBlock extends Component {
                             ) : '' }
                         </BaseControl>
                     </PanelBody>
-                    <AWBFallbackOptions { ...this.props } />
+                    <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props } />
                 </InspectorControls>
                 { background }
                 <div className="ghostkit-col-content">
@@ -347,16 +336,6 @@ export const settings = {
             type: 'number',
             default: '',
         },
-
-        // AWB support.
-        awb_type: {
-            type: 'string',
-            default: 'color',
-        },
-        awb_color: {
-            type: 'string',
-            default: '',
-        },
     },
 
     edit: GridColumnBlock,
@@ -368,19 +347,7 @@ export const settings = {
         } = props.attributes;
 
         // background
-        let background = '';
-        // eslint-disable-next-line
-        if ( awb_color ) {
-            background = (
-                <div className="nk-awb">
-                    <div className="nk-awb-wrap" data-awb-type="color">
-                        <div className="nk-awb-overlay" style={ { 'background-color': awb_color } }></div>
-                    </div>
-                </div>
-            );
-        }
-
-        background = applyFilters( 'ghostkit.blocks.grid-column.background', background, {
+        const background = applyFilters( 'ghostkit.blocks.grid-column.background', '', {
             ...{
                 name,
             },
