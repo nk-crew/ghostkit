@@ -499,6 +499,7 @@ function addSaveBackground( background, props ) {
             awb_type: type,
             awb_imageTag: imageTag,
             awb_imageBackgroundSize: imageBackgroundSize,
+            awb_imageBackgroundPosition: imageBackgroundPosition,
         } = props.attributes;
 
         let addBackground = false;
@@ -523,7 +524,12 @@ function addSaveBackground( background, props ) {
             };
 
             if ( 'image' === type ) {
-                dataAttrs[ 'data-awb-image-background-size' ] = imageBackgroundSize;
+                if ( imageBackgroundSize ) {
+                    dataAttrs[ 'data-awb-image-background-size' ] = imageBackgroundSize;
+                }
+                if ( imageBackgroundPosition ) {
+                    dataAttrs[ 'data-awb-image-background-position' ] = imageBackgroundPosition;
+                }
             }
 
             return (
