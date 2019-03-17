@@ -1,0 +1,16 @@
+/**
+ * Admin Styles.
+ */
+@import "../../../gutenberg/variables";
+
+/*
+ * Go Pro menu link
+ */
+#adminmenu a[href="admin.php?page=ghostkit_go_pro"],
+.wp-list-table.plugins a[href="admin.php?page=ghostkit_go_pro"] {
+    color: $color-danger;
+
+    &:hover {
+        color: lighten($color-danger, 5%);
+    }
+}

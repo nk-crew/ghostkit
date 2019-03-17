@@ -128,6 +128,8 @@ class GhostKit {
         add_action( 'save_post', array( $this, 'parse_styles_from_blocks' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_css_js' ), 100 );
 
+        add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_go_pro_link_plugins_page' ) );
+
         // include blocks.
         // work only if Gutenberg available.
         if ( function_exists( 'register_block_type' ) ) {
@@ -546,6 +548,19 @@ class GhostKit {
         wp_register_script( $name, '', array(), '', $footer );
         wp_enqueue_script( $name );
         wp_add_inline_script( $name, $js );
+    }
+
+    /**
+     * Add Go Pro link to plugins page.
+     *
+     * @param Array $links - available links.
+     *
+     * @return array
+     */
+    public function add_go_pro_link_plugins_page( $links ) {
+        return array_merge( $links, array(
+            '<a target="_blank" href="admin.php?page=ghostkit_go_pro">' . esc_html__( 'Go Pro', '@@text_domain' ) . '</a>',
+        ) );
     }
 
     /**

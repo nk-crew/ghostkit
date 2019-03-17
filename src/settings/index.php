@@ -32,6 +32,9 @@ class GhostKit_Settings {
         // Load admin style sheet and JavaScript.
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
+        // Sometimes redirect is not working on page opens. Admin Init is a solution.
+        add_action( 'admin_init', array( $this, 'go_pro_redirect' ) );
+
         // Add the options page and menu item.
         add_action( 'admin_menu', array( $this, 'admin_menu' ) );
     }
@@ -43,6 +46,13 @@ class GhostKit_Settings {
         global $post;
 
         $screen = get_current_screen();
+
+        wp_enqueue_style(
+            'ghostkit-admin',
+            ghostkit()->plugin_url . 'assets/admin/css/admin.min.css',
+            array(),
+            filemtime( ghostkit()->plugin_path . 'assets/admin/css/admin.min.css' )
+        );
 
         wp_enqueue_style(
             'ghostkit-settings',
@@ -98,7 +108,7 @@ class GhostKit_Settings {
 
         if ( 'ghostkit_go_pro' === $_GET['page'] ) {
             wp_redirect( ghostkit()->go_pro_link() );
-            die;
+            exit();
         }
     }
 
