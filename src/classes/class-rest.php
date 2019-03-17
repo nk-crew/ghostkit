@@ -993,8 +993,11 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_templates() {
         $url = 'https://library.ghostkit.io/wp-json/ghostkit-library/v1/get_library/';
-        $templates = get_transient( 'ghostkit_templates', false );
+        $templates = get_transient( 'ghostkit_remote_templates', false );
 
+        /*
+         * Get remote templates.
+         */
         if ( ! $templates ) {
             $requested_templates = wp_remote_get( add_query_arg( array(
                 'ghostkit_version'     => '@@plugin_version',
@@ -1008,10 +1011,149 @@ class GhostKit_Rest extends WP_REST_Controller {
 
                 if ( $new_templates && isset( $new_templates['response'] ) && is_array( $new_templates['response'] ) ) {
                     $templates = $new_templates['response'];
-                    set_transient( 'ghostkit_templates', $templates, WEEK_IN_SECONDS );
+                    set_transient( 'ghostkit_remote_templates', $templates, WEEK_IN_SECONDS );
                 }
             }
         }
+
+        // Remove Pro templates from array, cause for now there is no way to check if pro addon is activated.
+        if ( $templates ) {
+            foreach ( $templates as $k => $template ) {
+                $is_pro = false;
+
+                if ( isset( $template['types'] ) && is_array( $template['types'] ) ) {
+                    foreach ( $template['types'] as $type ) {
+                        $is_pro = $is_pro || 'pro' === $type['slug'];
+                    }
+                }
+
+                if ( $is_pro ) {
+                    unset( $templates[ $k ] );
+                }
+            }
+        }
+
+        /*
+         * Get user templates from db.
+         */
+
+        // Stupid hack.
+        // https://core.trac.wordpress.org/ticket/18408.
+        global $post;
+        $backup_global_post = $post;
+        $local_templates = array();
+
+        $local_templates_query = new WP_Query( array(
+            'post_type'      => 'ghostkit_template',
+            // phpcs:ignore
+            'posts_per_page' => -1,
+            'showposts'      => -1,
+            'paged'          => -1,
+        ) );
+
+        while ( $local_templates_query->have_posts() ) {
+            $local_templates_query->the_post();
+            $db_template = get_post();
+
+            $categories = array();
+            $category_terms = get_the_terms( $db_template->ID, 'ghostkit_template_category' );
+
+            foreach ( $category_terms as $cat ) {
+                $categories[] = array(
+                    'slug' => $cat->slug,
+                    'name' => $cat->name,
+                );
+            }
+
+            $local_templates[] = array(
+                'id'         => $db_template->ID,
+                'title'      => $db_template->post_title,
+                'types'      => array(
+                    array(
+                        'slug' => 'local',
+                    ),
+                ),
+                'categories' => empty( $categories ) ? false : $categories,
+                'url'        => get_post_permalink( $db_template->ID ),
+                'thumbnail'  => get_the_post_thumbnail_url( $db_template->ID, 'large' ),
+            );
+        }
+
+        // Restore the global $post as it was before custom WP_Query.
+        // phpcs:ignore
+        $post = $backup_global_post;
+
+        /*
+         * Get theme templates.
+         */
+        $theme_templates = array();
+        $theme_templates_data = array();
+        foreach ( glob( get_template_directory() . '/ghostkit/templates/*/content.php' ) as $template ) {
+            $template_path = dirname( $template );
+            $template_url = get_template_directory_uri() . str_replace( get_template_directory(), '', $template_path );
+            $slug = basename( $template_path );
+
+            $theme_templates_data[ $slug ] = array(
+                'slug' => $slug,
+                'path' => $template_path,
+                'url'  => $template_url,
+            );
+        }
+
+        // get child theme templates.
+        if ( get_stylesheet_directory() !== get_template_directory() ) {
+            foreach ( glob( get_stylesheet_directory() . '/ghostkit/templates/*/content.php' ) as $template ) {
+                $template_path = dirname( $template );
+                $template_url = get_stylesheet_directory_uri() . str_replace( get_stylesheet_directory(), '', $template_path );
+                $slug = basename( $template_path );
+
+                $theme_templates_data[ $slug ] = array(
+                    'slug' => $slug,
+                    'path' => $template_path,
+                    'url'  => $template_url,
+                );
+            }
+        }
+
+        // natural sort.
+        array_multisort( array_keys( $theme_templates_data ), SORT_NATURAL, $theme_templates_data );
+
+        foreach ( $theme_templates_data as $template_data ) {
+            $file_data = get_file_data( $template_data['path'] . '/content.php', array(
+                'name'     => 'Name',
+                'category' => 'Category',
+                'source'   => 'Source',
+            ) );
+
+            $thumbnail = false;
+            if ( file_exists( $template_data['path'] . '/thumbnail.png' ) ) {
+                $thumbnail = $template_data['url'] . '/thumbnail.png';
+            }
+            if ( file_exists( $template_data['path'] . '/thumbnail.jpg' ) ) {
+                $thumbnail = $template_data['url'] . '/thumbnail.jpg';
+            }
+
+            $theme_templates[] = array(
+                'id'         => basename( $template_data['path'] ),
+                'title'      => $file_data['name'],
+                'types'      => array(
+                    array(
+                        'slug' => 'theme',
+                    ),
+                ),
+                'categories' => isset( $file_data['category'] ) && $file_data['category'] ? array(
+                    array(
+                        'slug' => $file_data['category'],
+                        'name' => $file_data['category'],
+                    ),
+                ) : false,
+                'url'        => false,
+                'thumbnail'  => $thumbnail,
+            );
+        }
+
+        // merge all available templates.
+        $templates = array_merge( $templates, $local_templates, $theme_templates );
 
         if ( is_array( $templates ) ) {
             return $this->success( $templates );
@@ -1030,25 +1172,69 @@ class GhostKit_Rest extends WP_REST_Controller {
     public function get_template_data( WP_REST_Request $request ) {
         $url = 'https://library.ghostkit.io/wp-json/ghostkit-library/v1/get_library_item/';
         $id = $request->get_param( 'id' );
-        $template_data = get_transient( 'ghostkit_template_' . $id, false );
+        $type = $request->get_param( 'type' );
+        $template_data = false;
 
-        if ( ! $template_data ) {
-            $requested_template_data = wp_remote_get( add_query_arg( array(
-                'id'                   => $id,
-                'ghostkit_version'     => '@@plugin_version',
-                'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
-                'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
-            ), $url ) );
+        switch ( $type ) {
+            case 'remote':
+                $template_data = get_transient( 'ghostkit_template_' . $type . '_' . $id, false );
 
-            if ( ! is_wp_error( $requested_template_data ) ) {
-                $new_template_data = wp_remote_retrieve_body( $requested_template_data );
-                $new_template_data = json_decode( $new_template_data, true );
+                if ( ! $template_data ) {
+                    $requested_template_data = wp_remote_get( add_query_arg( array(
+                        'id'                   => $id,
+                        'ghostkit_version'     => '@@plugin_version',
+                        'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
+                        'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
+                    ), $url ) );
 
-                if ( $new_template_data && isset( $new_template_data['response'] ) && is_array( $new_template_data['response'] ) ) {
-                    $template_data = $new_template_data['response'];
-                    set_transient( 'ghostkit_template_' . $id, $template_data, WEEK_IN_SECONDS );
+                    if ( ! is_wp_error( $requested_template_data ) ) {
+                        $new_template_data = wp_remote_retrieve_body( $requested_template_data );
+                        $new_template_data = json_decode( $new_template_data, true );
+
+                        if ( $new_template_data && isset( $new_template_data['response'] ) && is_array( $new_template_data['response'] ) ) {
+                            $template_data = $new_template_data['response'];
+                            set_transient( 'ghostkit_template_' . $type . '_' . $id, $template_data, WEEK_IN_SECONDS );
+                        }
+                    }
                 }
-            }
+                break;
+            case 'local':
+                $post = get_post( $id );
+
+                if ( $post && 'ghostkit_template' === $post->post_type ) {
+                    $template_data = array(
+                        'id'      => $post->ID,
+                        'title'   => $post->post_title,
+                        'content' => $post->post_content,
+                    );
+                }
+
+                break;
+            case 'theme':
+                $template_content_file = get_stylesheet_directory() . '/ghostkit/templates/' . $id . '/content.php';
+
+                if ( ! file_exists( $template_content_file ) ) {
+                    $template_content_file = get_template_directory() . '/ghostkit/templates/' . $id . '/content.php';
+                }
+
+                if ( file_exists( $template_content_file ) ) {
+                    ob_start();
+                    include $template_content_file;
+                    $template_content = ob_get_clean();
+
+                    if ( $template_content ) {
+                        $template_data = get_file_data( $template_content_file, array(
+                            'name' => 'Name',
+                        ) );
+
+                        $template_data = array(
+                            'id'      => $id,
+                            'title'   => $template_data['name'],
+                            'content' => $template_content,
+                        );
+                    }
+                }
+                break;
         }
 
         if ( is_array( $template_data ) ) {

@@ -114,6 +114,9 @@ class GhostKit {
 
         // icons.
         require_once( $this->plugin_path . 'classes/class-icons.php' );
+
+        // templates.
+        require_once( $this->plugin_path . 'classes/class-templates.php' );
     }
 
 
@@ -231,7 +234,11 @@ class GhostKit {
         }
         $gmaps_locale = substr( $gmaps_locale, 0, 2 );
 
+        $theme_data = wp_get_theme( get_template() );
+
         wp_localize_script( 'ghostkit-helper', 'ghostkitVariables', array(
+            'themeName'        => $theme_data->get( 'Name' ),
+
             'settings'          => get_option( 'ghostkit_settings', array() ),
 
             'disabledBlocks'    => get_option( 'ghostkit_disabled_blocks', array() ),
@@ -294,7 +301,8 @@ class GhostKit {
                 'twitter'            => array_merge( $default_variant, apply_filters( 'gkt_twitter_variants', array() ) ),
                 'video'              => array_merge( $default_variant, apply_filters( 'gkt_video_variants', array() ) ),
             ),
-            'admin_url'         => admin_url(),
+            'admin_url'           => admin_url(),
+            'admin_templates_url' => admin_url( 'edit.php?post_type=ghostkit_template' ),
         ) );
     }
 

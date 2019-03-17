@@ -13,6 +13,8 @@ function escapeRegExp( s ) {
 }
 
 window.GHOSTKIT = {
+    themeName: ghostkitVariables.themeName,
+
     settings: ghostkitVariables.settings,
 
     disabledBlocks: ghostkitVariables.disabledBlocks,
@@ -43,6 +45,7 @@ window.GHOSTKIT = {
     },
 
     adminUrl: ghostkitVariables.admin_url,
+    adminTemplatesUrl: ghostkitVariables.admin_templates_url,
 
     triggerEvent( name, ...args ) {
         $doc.trigger( `${ name }.ghostkit`, [ ...args ] );

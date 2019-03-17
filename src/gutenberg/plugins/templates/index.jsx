@@ -10,6 +10,10 @@ import getIcon from '../../utils/get-icon';
 import Modal from '../../components/modal';
 
 const {
+    GHOSTKIT,
+} = window;
+
+const {
     Fragment,
     RawHTML,
 } = wp.element;
@@ -100,10 +104,6 @@ class TemplatesModal extends Component {
                             },
                         } );
                     } }
-                    style={ {
-                        maxWidth: 170,
-                        marginBottom: 10,
-                    } }
                 />
             );
         }
@@ -123,11 +123,12 @@ class TemplatesModal extends Component {
         const result = [];
 
         categorySelected = null === categorySelected ? this.getSelectedCategory( type ) : '';
-        let allow = false;
 
         templates.forEach( ( template ) => {
+            let allow = ! type;
+
             // type check.
-            if ( template.types ) {
+            if ( ! allow && template.types ) {
                 template.types.forEach( ( typeData ) => {
                     if ( typeData.slug && type === typeData.slug ) {
                         allow = true;
@@ -161,123 +162,199 @@ class TemplatesModal extends Component {
             onRequestClose,
         } = this.props;
 
+        const allTemplates = this.getTemplates();
+        const themeTemplates = this.getTemplates( 'theme' );
+
+        const showLoadingSpinner = this.state.loading || ! allTemplates || ! allTemplates.length;
+
         return (
             <Modal
-                className={ classnames( 'ghostkit-plugin-templates-modal', this.state.loading ? 'ghostkit-plugin-templates-modal-loading' : '' ) }
+                className={ classnames( 'ghostkit-plugin-templates-modal ghostkit-plugin-templates-modal-hide-header', showLoadingSpinner ? 'ghostkit-plugin-templates-modal-loading' : '' ) }
                 position="top"
                 size="lg"
-                title={ __( 'Templates' ) }
                 onRequestClose={ () => {
                     onRequestClose();
                 } }
                 icon={ getIcon( 'plugin-templates' ) }
             >
-                { this.state.loading ? (
-                    <div className="ghostkit-plugin-templates-modal-loading-spinner"><Spinner /></div>
-                ) : '' }
-                <TabPanel
-                    className="ghostkit-control-tabs ghostkit-component-modal-tab-panel"
-                    tabs={ [
+                <div className="components-modal__header">
+                    <div className="components-modal__header-heading-container">
+                        <span className="components-modal__icon-container" aria-hidden="true">
+                            { getIcon( 'plugin-templates' ) }
+                        </span>
+                        <h1 id="components-modal-header-1" className="components-modal__header-heading">{ __( 'Templates' ) }</h1>
+                    </div>
+                    { showLoadingSpinner ? (
+                        <div className="ghostkit-plugin-templates-modal-loading-spinner"><Spinner /></div>
+                    ) : '' }
+                    <button
+                        type="button"
+                        aria-label="Close dialog"
+                        className="components-button components-icon-button"
+                        onClick={ () => {
+                            onRequestClose();
+                        } }
+                    >
+                        <svg aria-hidden="true" role="img" focusable="false" className="dashicon dashicons-no-alt" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54-1.41 1.41L10 11.42l-3.53 3.53-1.42-1.42L8.58 10 5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"></path></svg>
+                    </button>
+                </div>
+
+                { allTemplates && allTemplates.length ? (
+                    <TabPanel
+                        className="ghostkit-control-tabs ghostkit-component-modal-tab-panel"
+                        tabs={ [
+                            ...( themeTemplates && themeTemplates.length ? [
+                                {
+                                    name: 'theme',
+                                    title: (
+                                        <Tooltip text={ __( 'Templates from the theme.' ) }>
+                                            <span>
+                                                { GHOSTKIT.themeName || __( 'Theme' ) }
+                                            </span>
+                                        </Tooltip>
+                                    ),
+                                    className: 'ghostkit-control-tabs-tab',
+                                },
+                            ] : [] ),
+                            {
+                                name: 'blocks',
+                                title: (
+                                    <Tooltip text={ __( 'Simple blocks to construct your page.' ) }>
+                                        <span>
+                                            { __( 'Blocks' ) }
+                                        </span>
+                                    </Tooltip>
+                                ),
+                                className: 'ghostkit-control-tabs-tab',
+                            },
+                            {
+                                name: 'pages',
+                                title: (
+                                    <Tooltip text={ __( 'Pre-designed ready to use pages.' ) }>
+                                        <span>
+                                            { __( 'Pages' ) }
+                                        </span>
+                                    </Tooltip>
+                                ),
+                                className: 'ghostkit-control-tabs-tab',
+                            },
+                            {
+                                name: 'local',
+                                title: (
+                                    <Tooltip text={ __( 'My Templates.' ) }>
+                                        <span>
+                                            { __( 'My Templates' ) }
+                                        </span>
+                                    </Tooltip>
+                                ),
+                                className: 'ghostkit-control-tabs-tab',
+                            },
+                        ] }
+                    >
                         {
-                            name: 'blocks',
-                            title: (
-                                <Tooltip text={ __( 'Simple blocks to construct your page.' ) }>
-                                    <span>
-                                        { __( 'Blocks' ) }
-                                    </span>
-                                </Tooltip>
-                            ),
-                            className: 'ghostkit-control-tabs-tab',
-                        },
-                        {
-                            name: 'pages',
-                            title: (
-                                <Tooltip text={ __( 'Pre-designed ready to use pages.' ) }>
-                                    <span>
-                                        { __( 'Pages' ) }
-                                    </span>
-                                </Tooltip>
-                            ),
-                            className: 'ghostkit-control-tabs-tab',
-                        },
-                    ] }
-                >
-                    {
-                        ( tabData ) => {
-                            const tabType = tabData.name;
-                            const currentTemplates = this.getTemplates( tabType );
+                            ( tabData ) => {
+                                const tabType = tabData.name;
+                                const currentTemplates = this.getTemplates( tabType );
 
-                            if ( 'pages' === tabType ) {
-                                return __( 'Coming Soon...' );
-                            }
+                                if ( 'pages' === tabType ) {
+                                    return __( 'Coming Soon...' );
+                                }
 
-                            return (
-                                <Fragment>
-                                    { currentTemplates === false ? (
-                                        <div className="ghostkit-plugin-templates-spinner"><Spinner /></div>
-                                    ) : '' }
-                                    { currentTemplates && ! currentTemplates.length ? (
-                                        <div>{ __( 'No templates found.' ) }</div>
-                                    ) : '' }
-                                    { currentTemplates && currentTemplates.length ? (
-                                        <Fragment>
-                                            { this.printCategorySelect( tabType ) }
-                                            { this.state.error }
-                                            <Masonry
-                                                className="ghostkit-plugin-templates-list"
-                                                elementType="ul"
-                                                disableImagesLoaded={ false }
-                                                updateOnEachImageLoad={ true }
-                                            >
-                                                { currentTemplates.map( ( template ) => {
-                                                    const withThumb = !! template.thumbnail;
+                                return (
+                                    <Fragment>
+                                        { currentTemplates === false ? (
+                                            <div className="ghostkit-plugin-templates-spinner"><Spinner /></div>
+                                        ) : '' }
+                                        { currentTemplates && ! currentTemplates.length ? (
+                                            <div>
+                                                { 'local' === tabType ? (
+                                                    <Fragment>
+                                                        <p style={ {
+                                                            marginTop: 0,
+                                                        } }>{ __( 'No templates found.' ) }</p>
+                                                        <a className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl } target="_blank" rel="noopener noreferrer">{ __( 'Add Template' ) }</a>
+                                                    </Fragment>
+                                                ) : (
+                                                    __( 'No templates found.' )
+                                                ) }
+                                            </div>
+                                        ) : '' }
+                                        { currentTemplates && currentTemplates.length ? (
+                                            <Fragment>
+                                                <div className="ghostkit-plugin-templates-categories-row">
+                                                    <div className="ghostkit-plugin-templates-categories-select">
+                                                        { this.printCategorySelect( tabType ) }</div>
+                                                    <div className="ghostkit-plugin-templates-count">
+                                                        <RawHTML>{ sprintf( __( 'Templates: %s' ), `<strong>${ currentTemplates.length }</strong>` ) }</RawHTML>
+                                                    </div>
+                                                </div>
+                                                { this.state.error }
+                                                <Masonry
+                                                    className="ghostkit-plugin-templates-list"
+                                                    elementType="ul"
+                                                    disableImagesLoaded={ false }
+                                                    updateOnEachImageLoad={ true }
+                                                    options={ {
+                                                        transitionDuration: 0,
+                                                    } }
+                                                >
+                                                    { currentTemplates.map( ( template ) => {
+                                                        const withThumb = !! template.thumbnail;
 
-                                                    return (
-                                                        <li
-                                                            className={ classnames( 'ghostkit-plugin-templates-list-item', withThumb ? '' : 'ghostkit-plugin-templates-list-item-no-thumb' ) }
-                                                            key={ template.id }
-                                                        >
-                                                            <button
-                                                                onClick={ () => {
-                                                                    this.setState( {
-                                                                        loading: true,
-                                                                    } );
-                                                                    getTemplateData( template.id, ( data ) => {
-                                                                        if ( data && data.success && data.response && data.response.content ) {
-                                                                            insertTemplate( data.response.content, this.props.replaceBlockId, ( error ) => {
-                                                                                if ( error ) {
-                                                                                    this.setState( { error } );
-                                                                                } else {
-                                                                                    onRequestClose();
-                                                                                }
-                                                                            } );
-                                                                        }
-                                                                        this.setState( {
-                                                                            loading: false,
-                                                                        } );
-                                                                    } );
-                                                                } }
+                                                        return (
+                                                            <li
+                                                                className={ classnames( 'ghostkit-plugin-templates-list-item', withThumb ? '' : 'ghostkit-plugin-templates-list-item-no-thumb' ) }
+                                                                key={ template.id }
                                                             >
-                                                                { withThumb ? (
-                                                                    <img
-                                                                        src={ template.thumbnail }
-                                                                        alt={ template.title }
-                                                                    />
-                                                                ) : (
-                                                                    template.title
-                                                                ) }
-                                                            </button>
-                                                        </li>
-                                                    );
-                                                } ) }
-                                            </Masonry>
-                                        </Fragment>
-                                    ) : '' }
-                                </Fragment>
-                            );
+                                                                <button
+                                                                    onClick={ () => {
+                                                                        this.setState( {
+                                                                            loading: true,
+                                                                        } );
+                                                                        getTemplateData( {
+                                                                            id: template.id,
+                                                                            type: tabType,
+                                                                        }, ( data ) => {
+                                                                            if ( data && data.success && data.response && data.response.content ) {
+                                                                                insertTemplate( data.response.content, this.props.replaceBlockId, ( error ) => {
+                                                                                    if ( error ) {
+                                                                                        this.setState( { error } );
+                                                                                    } else {
+                                                                                        onRequestClose();
+                                                                                    }
+                                                                                } );
+                                                                            }
+                                                                            this.setState( {
+                                                                                loading: false,
+                                                                            } );
+                                                                        } );
+                                                                    } }
+                                                                >
+                                                                    { withThumb ? (
+                                                                        <img
+                                                                            src={ template.thumbnail }
+                                                                            alt={ template.title }
+                                                                        />
+                                                                    ) : '' }
+                                                                    <div className="ghostkit-plugin-templates-list-item-title">{ template.title }</div>
+                                                                </button>
+                                                            </li>
+                                                        );
+                                                    } ) }
+                                                </Masonry>
+                                                { 'local' === tabType ? (
+                                                    <Fragment>
+                                                        <a className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl } target="_blank" rel="noopener noreferrer">{ __( 'Add Template' ) }</a>
+                                                    </Fragment>
+                                                ) : '' }
+                                            </Fragment>
+                                        ) : '' }
+                                    </Fragment>
+                                );
+                            }
                         }
-                    }
-                </TabPanel>
+                    </TabPanel>
+                ) : '' }
             </Modal>
         );
     }
@@ -376,12 +453,17 @@ const TemplatesModalWithSelect = compose( [
 
         return {
             templates,
-            getTemplateData( id, cb ) {
+            getTemplateData( data, cb ) {
+                let type = data.type;
+                if ( type !== 'local' && type !== 'theme' ) {
+                    type = 'remote';
+                }
+
                 apiFetch( {
-                    path: `/ghostkit/v1/get_template_data/?id=${ id }`,
+                    path: `/ghostkit/v1/get_template_data/?id=${ data.id }&type=${ type }`,
                     method: 'GET',
-                } ).then( ( data ) => {
-                    cb( data );
+                } ).then( ( result ) => {
+                    cb( result );
                 } );
             },
         };

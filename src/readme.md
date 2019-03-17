@@ -182,6 +182,35 @@ Available filters:
 * **ghostkit.blocks.className**
 * **ghostkit.editor.className**
 
+### How to add templates in theme ####
+
+You can add templates in your theme, so users will be able to insert it on pages with a single click. This is a simple example of theme templates structure:
+
+- wp-content/themes/YOUR_THEME/ghostkit/templates/
+    - /first-template/
+        - /content.php
+        - /thumbnail.png
+    - /second-template/
+        - /content.php
+        - /thumbnail.png
+    - ...
+
+`content.php` file content example:
+
+    <?php
+    /**
+     * Name: Template Name
+     * Category: Category Name
+     */
+
+    ?>
+
+    <!-- wp:paragraph -->
+    <p>content</p>
+    <!-- /wp:paragraph -->
+
+`thumbnail.png` is not required, but strongly recommended, because users will see what template will look like after insertion.
+
 ### How to extend icons in icon picker list ####
 
 By default icon picker contains FontAwesome icons. You can add any icons you want. First of all you need to enqueue these icons in editor and frontend pages to see it, then extend icon picker using PHP filter:

@@ -123,7 +123,7 @@ class GhostKit_Settings {
             'ghostkit',
             array( $this, 'display_admin_page' ),
             'dashicons-admin-ghostkit',
-            105
+            56.9
         );
 
         add_submenu_page(
