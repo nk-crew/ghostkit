@@ -284,28 +284,45 @@ Available events:
 
 ## Screenshots ##
 
-1. List of all available blocks
-2. Responsive Grid
-3. Progress Bar
-4. Button
-5. Divider
-6. Accordion
-7. Tabs
-8. Carousel
-9. Alert
-10. Icon Box
-11. Counter Box
-12. Google Maps
-13. Video
-14. Testimonial
-15. Instagram
-16. Twitter
-17. GitHub Gist
-18. Changelog
-19. Pricing Table
-20. Blocks Extensions
+1. All blocks
+2. Templates
+3. Responsive Grid
+4. Progress Bar
+5. Button
+6. Divider
+7. Accordion
+8. Tabs
+9. Carousel
+10. Alert
+11. Icon Box
+12. Counter Box
+13. Google Maps
+14. Video
+15. Testimonial
+16. Instagram
+17. Twitter
+18. GitHub Gist
+19. Changelog
+20. Pricing Table
+21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.3.0 =
+
+* added Templates Library. You can now add pre-designed templates and create your own
+* added image backgrounds support on Grid and Column
+* added global CSS & JavaScript on Settings page
+* added support for prefix and suffix in Counter Box (just add texts around your count)
+* added responsive Vertical Align option on Column block
+* fixed creating new Button, Accordion and Pricing Table blocks (handles error after page updated)
+* fixed changelog badge width
+* fixed progress caption remove error
+* fixed error when disabling blocks
+* fixed Testimonials name and source remove error
+* fixed Pricing Table RichTexts remove error
+* fixed Progress Bar xml import error (aria attributes bug)
+* fixed Grid columns number control if only 1 column showed
 
 = 2.2.0 =
 
