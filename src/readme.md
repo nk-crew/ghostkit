@@ -22,6 +22,10 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 * [Demo Site](https://ghostkit.io/)
 * [GitHub](https://github.com/nk-o/ghostkit)
 
+### Templates ###
+
+Since v2.3.0 Ghost Kit has pre-made templates, so you can get started with it and build your pages quickly.
+
 ### Blocks ###
 
 * [**Grid**](https://ghostkit.io/blocks/grid/). Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change
