@@ -2,11 +2,17 @@
  * Ghost Kit Settings Page
  */
 
-import ReactDOM from 'react-dom';
+/**
+ * Store
+ */
+import '../gutenberg/store';
 
 import './style.scss';
 import Container from './containers/container.jsx';
 
 window.addEventListener( 'load', () => {
-    ReactDOM.render( <Container data={ window.ghostkitSettingsData } />, document.querySelector( '.ghostkit-admin-page' ) );
+    wp.element.render(
+        <Container data={ window.ghostkitSettingsData } />,
+        document.querySelector( '.ghostkit-admin-page' )
+    );
 } );

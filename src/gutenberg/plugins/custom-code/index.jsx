@@ -88,7 +88,7 @@ class CustomCodeModal extends Component {
                 className="ghostkit-plugin-custom-code-modal"
                 position="top"
                 size="md"
-                title={ __( 'Custom CSS & JS' ) }
+                title={ __( 'CSS & JavaScript' ) }
                 onRequestClose={ () => {
                     const local = this.props.meta || {};
                     const global = this.props.customCode || {};
@@ -161,7 +161,7 @@ class CustomCodeModal extends Component {
 
                             return (
                                 <Fragment>
-                                    <h4>{ __( 'Custom CSS' ) }</h4>
+                                    <h4>{ __( 'CSS' ) }</h4>
                                     <CodeEditor
                                         mode="css"
                                         onChange={ value => {
@@ -175,7 +175,7 @@ class CustomCodeModal extends Component {
                                         height="300px"
                                     />
 
-                                    <h4>{ __( 'Custom JavaScript' ) }</h4>
+                                    <h4>{ __( 'JavaScript' ) }</h4>
                                     <p className="ghostkit-help-text">{ __( 'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.' ) }</p>
                                     <p><code className="ghostkit-code">{ '<head>' }</code> :</p>
                                     <CodeEditor
@@ -266,7 +266,7 @@ export class CustomCodePlugin extends Component {
                         this.setState( { isModalOpen: true } );
                     } }
                 >
-                    { __( 'Custom CSS & JS' ) }
+                    { __( 'CSS & JavaScript' ) }
                 </PluginMoreMenuItem>
                 { isModalOpen ? (
                     <CustomCodeModalWithSelect

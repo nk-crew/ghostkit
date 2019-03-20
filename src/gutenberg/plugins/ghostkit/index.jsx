@@ -68,7 +68,7 @@ class GhostKit extends Component {
                             } }
                         >
                             { getIcon( 'plugin-custom-code' ) }
-                            { __( 'Custom CSS & JS' ) }
+                            { __( 'CSS & JavaScript' ) }
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
