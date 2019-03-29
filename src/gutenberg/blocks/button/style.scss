@@ -9,6 +9,9 @@
     align-items: flex-start;
     justify-content: flex-start;
 
+    // why we need this https://wordpress.org/support/topic/buttons-alignment-issues/
+    clear: both;
+
     &.ghostkit-button-wrapper-align-right {
         justify-content: flex-end;
     }
