@@ -23,6 +23,7 @@ const {
     ButtonGroup,
     TabPanel,
     ColorIndicator,
+    ToggleControl,
 } = wp.components;
 
 const {
@@ -44,6 +45,7 @@ class ButtonSingleBlock extends Component {
             text,
             icon,
             iconPosition,
+            hideText,
             url,
             target,
             rel,
@@ -71,6 +73,7 @@ class ButtonSingleBlock extends Component {
         className = classnames(
             'ghostkit-button',
             size ? `ghostkit-button-${ size }` : '',
+            hideText ? 'ghostkit-button-icon-only' : '',
             className
         );
 
@@ -160,6 +163,13 @@ class ButtonSingleBlock extends Component {
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                         { icon ? (
+                            <ToggleControl
+                                label={ __( 'Show Icon Only' ) }
+                                checked={ !! hideText }
+                                onChange={ ( val ) => setAttributes( { hideText: val } ) }
+                            />
+                        ) : '' }
+                        { icon && ! hideText ? (
                             <SelectControl
                                 label={ __( 'Icon Position' ) }
                                 value={ iconPosition }
@@ -261,15 +271,17 @@ class ButtonSingleBlock extends Component {
                                 />
                             </div>
                         ) : '' }
-                        <RichText
-                            tagName="span"
-                            placeholder={ __( 'Add text…' ) }
-                            value={ text }
-                            onChange={ ( value ) => setAttributes( { text: value } ) }
-                            formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                            isSelected={ isSelected }
-                            keepPlaceholderOnFocus
-                        />
+                        { ! hideText ? (
+                            <RichText
+                                tagName="span"
+                                placeholder={ __( 'Add text…' ) }
+                                value={ text }
+                                onChange={ ( value ) => setAttributes( { text: value } ) }
+                                formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                                isSelected={ isSelected }
+                                keepPlaceholderOnFocus
+                            />
+                        ) : '' }
                         { icon && iconPosition === 'right' ? (
                             <span className="ghostkit-button-icon ghostkit-button-icon-right">
                                 <IconPicker.Preview name={ icon } />
@@ -362,6 +374,10 @@ export const settings = {
             selector: '.ghostkit-button .ghostkit-button-text',
             default: 'Button',
         },
+        hideText: {
+            type: 'boolean',
+            default: false,
+        },
         icon: {
             type: 'string',
             default: '',
@@ -424,6 +440,7 @@ export const settings = {
             text,
             icon,
             iconPosition,
+            hideText,
             url,
             target,
             rel,
@@ -434,7 +451,8 @@ export const settings = {
 
         let className = classnames(
             'ghostkit-button',
-            size ? `ghostkit-button-${ size }` : ''
+            size ? `ghostkit-button-${ size }` : '',
+            hideText ? 'ghostkit-button-icon-only' : ''
         );
 
         // focus outline
@@ -449,9 +467,11 @@ export const settings = {
             ...props,
         } );
 
-        const result = [
-            <RichText.Content tagName="span" className="ghostkit-button-text" value={ text } key="button-text" />,
-        ];
+        const result = [];
+
+        if ( ! hideText ) {
+            result.push( <RichText.Content tagName="span" className="ghostkit-button-text" value={ text } key="button-text" /> );
+        }
 
         // add icon.
         if ( icon ) {

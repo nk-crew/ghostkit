@@ -55,6 +55,13 @@
     .ghostkit-button-icon-right {
         margin-left: 10px;
     }
+    &.ghostkit-button-icon-only {
+        padding: .75em;
+
+        .ghostkit-button-icon {
+            margin: 0;
+        }
+    }
 
     &.ghostkit-button-xs {
         font-size: .8em;
