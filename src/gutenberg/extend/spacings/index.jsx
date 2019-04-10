@@ -48,7 +48,7 @@ let initialOpenPanel = false;
  * @return {Boolean} block supported.
  */
 function addCoreBlocksSupport( name ) {
-    return name && /^core/.test( name ) && ! /^core\/block$/.test( name );
+    return name && /^core/.test( name ) && ! /^core\/block$/.test( name ) && ! /^core\/archives/.test( name );
 }
 
 /**

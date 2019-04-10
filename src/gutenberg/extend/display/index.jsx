@@ -64,7 +64,7 @@ const getDefaultDisplay = function( screen = '' ) {
  * @return {Boolean} block supported.
  */
 function addCoreBlocksSupport( name ) {
-    return name && /^core/.test( name ) && ! /^core\/block$/.test( name );
+    return name && /^core/.test( name ) && ! /^core\/block$/.test( name ) && ! /^core\/archives/.test( name );
 }
 
 /**
