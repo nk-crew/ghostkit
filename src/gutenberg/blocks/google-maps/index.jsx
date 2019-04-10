@@ -330,7 +330,7 @@ class GoogleMapsBlock extends Component {
                                         { markers.map( ( marker, index ) => (
                                             <li key={ index }>
                                                 <SearchBox
-                                                    googleMapURL={ mapsUrl + '&key=' + this.state.apiKey }
+                                                    googleMapURL={ mapsUrl + '&key=' + encodeURIComponent( this.state.apiKey ) }
                                                     placeholder={ __( 'Enter address' ) }
                                                     value={ marker.address || this.state.addresses[ marker.lat + marker.lng ] || '' }
                                                     onChange={ ( value ) => {
@@ -501,7 +501,7 @@ class GoogleMapsBlock extends Component {
                             >
                                 <MapBlock
                                     key={ this.state.mapID + markers.length }
-                                    googleMapURL={ mapsUrl + '&key=' + this.state.apiKey }
+                                    googleMapURL={ mapsUrl + '&key=' + encodeURIComponent( this.state.apiKey ) }
                                     loadingElement={ <div style={ { height: '100%' } } /> }
                                     mapElement={ <div style={ { height: '100%' } } /> }
                                     containerElement={ <div className="ghostkit-google-maps-wrap" style={ { minHeight: '100%' } } /> }
@@ -535,7 +535,7 @@ class GoogleMapsBlock extends Component {
                             { isSelected ? (
                                 <div className="ghostkit-google-maps-search">
                                     <SearchBox
-                                        googleMapURL={ mapsUrl + '&key=' + this.state.apiKey }
+                                        googleMapURL={ mapsUrl + '&key=' + encodeURIComponent( this.state.apiKey ) }
                                         label={ __( 'Center Map' ) }
                                         placeholder={ __( 'Enter search query' ) }
                                         onChange={ ( value ) => {
