@@ -256,7 +256,7 @@ class ButtonSingleBlock extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div>
-                    <span className={ className }>
+                    <div className={ className }>
                         { icon && iconPosition === 'left' ? (
                             <div className="ghostkit-button-icon ghostkit-button-icon-left">
                                 <IconPicker.Dropdown
@@ -273,7 +273,6 @@ class ButtonSingleBlock extends Component {
                         ) : '' }
                         { ! hideText ? (
                             <RichText
-                                tagName="span"
                                 placeholder={ __( 'Add text…' ) }
                                 value={ text }
                                 onChange={ ( value ) => setAttributes( { text: value } ) }
@@ -287,7 +286,7 @@ class ButtonSingleBlock extends Component {
                                 <IconPicker.Preview name={ icon } />
                             </span>
                         ) : '' }
-                    </span>
+                    </div>
                 </div>
                 { isSelected ? (
                     <URLInput
