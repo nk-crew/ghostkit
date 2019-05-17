@@ -272,7 +272,7 @@ class GridBlock extends Component {
 
         return (
             <Fragment>
-                { columns > 1 ? (
+                { columns > 0 ? (
                     <BlockControls>
                         <Toolbar controls={ [
                             {
@@ -304,13 +304,13 @@ class GridBlock extends Component {
                                 label={ __( 'Columns' ) }
                                 value={ columns }
                                 onChange={ ( value ) => setAttributes( { columns: value } ) }
-                                min={ 2 }
+                                min={ 1 }
                                 max={ 12 }
                             />
                         </PanelBody>
                     </ApplyFilters>
                 </InspectorControls>
-                { columns > 1 ? (
+                { columns > 0 ? (
                     <InspectorControls>
                         <PanelBody>
                             <BaseControl
