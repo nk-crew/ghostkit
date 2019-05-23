@@ -13,6 +13,8 @@ import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
 import ApplyFilters from '../../components/apply-filters';
 
+import transforms from './transforms';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -291,4 +293,6 @@ export const settings = {
     },
 
     deprecated: deprecatedArray,
+
+    transforms,
 };
