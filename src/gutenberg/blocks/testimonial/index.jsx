@@ -16,6 +16,8 @@ import IconPicker from '../../components/icon-picker';
 
 import deprecatedArray from './deprecated';
 
+import transforms from './transforms';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -361,4 +363,6 @@ export const settings = {
     save: TestimonialBlockSave,
 
     deprecated: deprecatedArray,
+
+    transforms,
 };
