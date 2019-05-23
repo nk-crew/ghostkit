@@ -33,6 +33,10 @@ const {
     InnerBlocks,
 } = wp.editor;
 
+const {
+    withSelect,
+} = wp.data;
+
 /**
  * Get array for Select element.
  *
@@ -100,6 +104,7 @@ class GridColumnBlock extends Component {
             attributes,
             setAttributes,
             isSelected,
+            hasChildBlocks,
         } = this.props;
 
         const {
@@ -251,12 +256,28 @@ class GridColumnBlock extends Component {
                             </Tooltip>
                         </div>
                     ) : '' }
-                    <InnerBlocks templateLock={ false } />
+                    <InnerBlocks
+                        templateLock={ false }
+                        renderAppender={ (
+                            hasChildBlocks ?
+                                undefined :
+                                () => <InnerBlocks.ButtonBlockAppender />
+                        ) }
+                    />
                 </div>
             </Fragment>
         );
     }
 }
+
+const GridColumnBlockWithSelect = withSelect( ( select, ownProps ) => {
+    const { clientId } = ownProps;
+    const { getBlockOrder } = select( 'core/block-editor' );
+
+    return {
+        hasChildBlocks: getBlockOrder( clientId ).length > 0,
+    };
+} )( GridColumnBlock );
 
 export const name = 'ghostkit/grid-column';
 
@@ -400,7 +421,7 @@ export const settings = {
         },
     },
 
-    edit: GridColumnBlock,
+    edit: GridColumnBlockWithSelect,
 
     save: function( props ) {
         let className = getColClass( props );

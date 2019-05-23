@@ -90,15 +90,20 @@ class GridBlock extends Component {
 
         const result = [];
 
+        // Appender added in Gutenberg 5.7.0, so we need to add fallback to columns.
+        const appenderExist = typeof InnerBlocks.ButtonBlockAppender !== 'undefined';
+
         // create columns from selected layout.
         if ( columns < 1 && this.state.selectedLayout ) {
             const columnsData = this.getColumnsFromLayout( this.state.selectedLayout );
             columns = columnsData.length;
 
             columnsData.forEach( ( colAttrs ) => {
-                result.push( [ 'ghostkit/grid-column', colAttrs, [
-                    [ 'core/paragraph', { content: 'Column ' + ( colAttrs.size === 'auto' ? 'Auto' : colAttrs.size ) } ],
-                ] ] );
+                result.push( [
+                    'ghostkit/grid-column',
+                    colAttrs,
+                    appenderExist ? [] : [ [ 'core/paragraph', { content: 'Column ' + ( colAttrs.size === 'auto' ? 'Auto' : colAttrs.size ) } ] ],
+                ] );
             } );
 
         // create columns template from columns count.
