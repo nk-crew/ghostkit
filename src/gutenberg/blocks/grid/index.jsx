@@ -12,6 +12,8 @@ import ApplyFilters from '../../components/apply-filters';
 
 import { TemplatesModal } from '../../plugins/templates';
 
+import transforms from './transforms';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -544,4 +546,6 @@ export const settings = {
     },
 
     deprecated: deprecatedArray,
+
+    transforms,
 };
