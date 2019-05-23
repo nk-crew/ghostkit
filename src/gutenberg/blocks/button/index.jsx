@@ -9,6 +9,8 @@ import classnames from 'classnames/dedupe';
 import getIcon from '../../utils/get-icon';
 import deprecatedArray from './deprecated';
 
+import transforms from './transforms';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -365,4 +367,6 @@ export const settings = {
     },
 
     deprecated: deprecatedArray,
+
+    transforms,
 };
