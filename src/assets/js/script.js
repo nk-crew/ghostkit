@@ -753,7 +753,7 @@ class GhostKitClass {
     prepareGist() {
         const self = this;
 
-        if ( typeof jQuery.fn.gist === 'undefined' ) {
+        if ( typeof jQuery.fn.gistsimple === 'undefined' ) {
             return;
         }
 
@@ -766,15 +766,13 @@ class GhostKitClass {
             const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( $this.attr( 'data-url' ) );
 
             if ( match && typeof match[ 1 ] !== 'undefined' ) {
-                $this.data( 'gist-id', match[ 1 ] );
-                $this.data( 'gist-file', $this.attr( 'data-file' ) );
-                $this.data( 'gist-caption', $this.attr( 'data-caption' ) );
-                $this.data( 'gist-hide-footer', $this.attr( 'data-show-footer' ) === 'false' );
-                $this.data( 'gist-hide-line-numbers', $this.attr( 'data-show-line-numbers' ) === 'false' );
-                $this.data( 'gist-show-spinner', true );
-                $this.data( 'gist-enable-cache', true );
-
-                $this.gist();
+                $this.gistsimple( {
+                    id: match[ 1 ],
+                    file: $this.attr( 'data-file' ),
+                    caption: $this.attr( 'data-caption' ),
+                    showFooter: $this.attr( 'data-show-footer' ) === 'true',
+                    showLineNumbers: $this.attr( 'data-show-line-numbers' ) === 'true',
+                } );
             }
         } );
 

@@ -88,9 +88,9 @@ class GistBlock extends Component {
             return;
         }
 
-        if ( typeof jQuery.fn.gist === 'undefined' ) {
+        if ( typeof jQuery.fn.gistsimple === 'undefined' ) {
             // eslint-disable-next-line
-            console.warn( __( 'Gist Embed plugin is not defined.' ) );
+            console.warn( __( 'Gist Simple plugin is not defined.' ) );
             return;
         }
 
@@ -104,15 +104,17 @@ class GistBlock extends Component {
         setTimeout( () => {
             const $gist = jQuery( this.gistNode );
 
-            $gist.data( 'gist-id', validUrl );
-            $gist.data( 'gist-file', file );
-            $gist.data( 'gist-caption', caption );
-            $gist.data( 'gist-hide-footer', ! showFooter );
-            $gist.data( 'gist-hide-line-numbers', ! showLineNumbers );
-            $gist.data( 'gist-show-spinner', true );
-            $gist.data( 'gist-enable-cache', true );
+            if ( $gist[ 0 ].GistSimple ) {
+                $gist.gistsimple( 'destroy' );
+            }
 
-            $gist.gist();
+            $gist.gistsimple( {
+                id: validUrl,
+                file: file,
+                caption: caption,
+                showFooter: showFooter,
+                showLineNumbers: showLineNumbers,
+            } );
         }, 0 );
     }
 

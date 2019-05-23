@@ -186,8 +186,9 @@ class GhostKit {
         }
 
         // GistEmbed.
-        if ( apply_filters( 'gkt_enqueue_plugin_gist_embed', true ) ) {
-            wp_register_script( 'gist-embed', plugins_url( 'assets/vendor/gist-embed/gist-embed.min.js', __FILE__ ), array( 'jquery' ), '2.7.1', true );
+        if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
+            wp_register_style( 'gist-simple', plugins_url( 'assets/vendor/gist-simple/gist-simple.css', __FILE__ ), array(), '1.0.1' );
+            wp_register_script( 'gist-simple', plugins_url( 'assets/vendor/gist-simple/gist-simple.min.js', __FILE__ ), array( 'jquery' ), '1.0.1', true );
         }
 
         // ScrollReveal.
@@ -319,8 +320,9 @@ class GhostKit {
         }
 
         // GistEmbed.
-        if ( apply_filters( 'gkt_enqueue_plugin_gist_embed', true ) ) {
-            $js_deps[] = 'gist-embed';
+        if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
+            $css_deps[] = 'gist-simple';
+            $js_deps[] = 'gist-simple';
         }
 
         // Ghost Kit.
@@ -362,8 +364,9 @@ class GhostKit {
         }
 
         // GistEmbed.
-        if ( apply_filters( 'gkt_enqueue_plugin_gist_embed', true ) ) {
-            $js_deps[] = 'gist-embed';
+        if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
+            $css_deps[] = 'gist-simple';
+            $js_deps[] = 'gist-simple';
         }
 
         // ScrollReveal.
