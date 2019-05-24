@@ -312,6 +312,23 @@ Available events:
 
 ## Changelog ##
 
+= 2.4.0 =
+
+* added option to hide text in button and show only icon
+* added Columns appender
+* added blocks transformations:
+  * `core/quote`, `core/pullquote` -> `ghostkit/testimonial`
+  * `core/columns` -> `ghostkit/grid`
+  * `core/button` -> `ghostkit/button`
+  * between `ghostkit/alert`, `ghostkit/counter-box`, `ghostkit/number-box`
+* added buttons wrapper clear style
+* show grid align controls if 1 column selected
+* fixed conflict with `core/archives` block
+* fixed Google Maps block error when used invalid API key
+* fixed FullHeight Google Maps block editor preview
+* fixed Buttons block label save bug
+* fixed Gist preloader
+
 = 2.3.0 =
 
 * added Templates Library. You can now add pre-designed templates and create your own
