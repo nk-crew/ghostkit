@@ -32,6 +32,7 @@ export default class CodeEditor extends Component {
                     enableLiveAutocompletion: true,
                     enableSnippets: true,
                     showLineNumbers: true,
+                    printMargin: false,
                     tabSize: 2,
                 } }
                 editorProps={ {
