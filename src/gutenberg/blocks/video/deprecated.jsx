@@ -285,7 +285,7 @@ export default [
                 default: 'full',
             },
         },
-        save: function( { attributes, className = '' } ) {
+        save: function( props ) {
             const {
                 type,
                 video,
@@ -298,17 +298,17 @@ export default [
                 iconLoading,
 
                 posterTag,
-            } = attributes;
+            } = props.attributes;
 
             const resultAttrs = {};
 
             resultAttrs.className = classnames(
                 'ghostkit-video',
                 'ghostkit-video-aspect-ratio-' + videoAspectRatio,
-                className
+                props.className
             );
 
-            resultAttrs.className = applyFilters( 'ghostkit.editor.className', resultAttrs.className, this.props );
+            resultAttrs.className = applyFilters( 'ghostkit.blocks.className', resultAttrs.className, props );
 
             resultAttrs[ 'data-video-type' ] = type;
 
