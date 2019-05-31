@@ -272,10 +272,10 @@ class GridColumnBlock extends Component {
 
 const GridColumnBlockWithSelect = withSelect( ( select, ownProps ) => {
     const { clientId } = ownProps;
-    const { getBlockOrder } = select( 'core/block-editor' );
+    const blockEditor = select( 'core/block-editor' );
 
     return {
-        hasChildBlocks: getBlockOrder( clientId ).length > 0,
+        hasChildBlocks: blockEditor ? blockEditor.getBlockOrder( clientId ).length > 0 : false,
     };
 } )( GridColumnBlock );
 
