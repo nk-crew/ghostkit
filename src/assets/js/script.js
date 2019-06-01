@@ -2,6 +2,8 @@ import { throttle } from 'throttle-debounce';
 import scriptjs from 'scriptjs';
 import rafl from 'rafl';
 
+import parseSRConfig from '../../gutenberg/extend/scroll-reveal/parseSRConfig.jsx';
+
 const $ = window.jQuery;
 const $wnd = $( window );
 const $doc = $( document );
@@ -75,7 +77,6 @@ class GhostKitClass {
         } );
 
         self.customStyles = '';
-        self.reveal = false;
 
         // Methods bind class.
         self.initBlocks = self.initBlocks.bind( self );
@@ -915,81 +916,28 @@ class GhostKitClass {
 
         if ( ! window.ScrollReveal ) {
             return;
-        } else if ( ! self.reveal ) {
-            self.reveal = window.ScrollReveal().reveal;
         }
+
+        const {
+            reveal,
+        } = window.ScrollReveal();
 
         GHOSTKIT.triggerEvent( 'beforePrepareSR', self );
 
         $( '[data-ghostkit-sr]:not(.data-ghostkit-sr-ready)' ).each( function() {
-            const $this = $( this );
+            const $element = $( this );
 
-            $this.addClass( 'data-ghostkit-sr-ready' );
+            $element.addClass( 'data-ghostkit-sr-ready' );
 
-            // parse data from string.
-            // fade-right;duration:500;delay:1000
-            const data = $this.attr( 'data-ghostkit-sr' ).split( ';' );
+            const data = $element.attr( 'data-ghostkit-sr' );
+            const config = parseSRConfig( data );
 
-            let effect = data[ 0 ];
-            let distance = '50px';
-            let scale = 1;
-            let origin = effect.split( '-' );
-            if ( 2 === origin.length ) {
-                effect = origin[ 0 ];
-                origin = origin[ 1 ];
-
-                switch ( origin ) {
-                case 'up':
-                    origin = 'bottom';
-                    break;
-                case 'down':
-                    origin = 'top';
-                    break;
-                case 'right':
-                    origin = 'right';
-                    break;
-                case 'left':
-                    origin = 'left';
-                    break;
-                }
-            } else {
-                origin = 'center';
-                distance = 0;
-            }
-
-            if ( 'zoom' === effect ) {
-                scale = 0.9;
-            }
-
-            const config = {
-                distance: distance,
-                origin: origin,
-                opacity: 0,
-                scale: scale,
-                duration: 900,
-                delay: 0,
-                reset: false,
-                afterReveal() {
-                    $this.removeAttr( 'data-ghostkit-sr' );
-                    $this.removeClass( 'data-ghostkit-sr-ready' );
-                },
+            config.afterReveal = () => {
+                $element.removeAttr( 'data-ghostkit-sr' );
+                $element.removeClass( 'data-ghostkit-sr-ready' );
             };
 
-            // replace other data config.
-            if ( data.length > 1 ) {
-                data.forEach( ( item ) => {
-                    const itemData = item.split( ':' );
-                    if ( 2 === itemData.length ) {
-                        config[ itemData[ 0 ] ] = itemData[ 1 ];
-                    }
-                } );
-            }
-
-            config.scale = parseFloat( config.scale );
-            config.duration = parseFloat( config.duration );
-            config.delay = parseFloat( config.delay );
-
-            self.reveal( this, config );
+            reveal( this, config );
         } );
 
         GHOSTKIT.triggerEvent( 'afterPrepareSR', self );

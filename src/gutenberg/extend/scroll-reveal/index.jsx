@@ -1,7 +1,13 @@
+import ScrollReveal from 'scrollreveal';
+
+import parseSRConfig from './parseSRConfig';
+
 // Import CSS
 import './editor.scss';
 
 import getIcon from '../../utils/get-icon';
+
+const $ = window.jQuery;
 
 const { __ } = wp.i18n;
 
@@ -45,6 +51,31 @@ function addCoreBlocksSupport( name ) {
 }
 
 /**
+ * Check if block SR allowed.
+ *
+ * @param {object} data - block data.
+ * @return {boolean} allowed SR.
+ */
+function allowedSR( data ) {
+    let allow = false;
+
+    if ( GHOSTKIT.hasBlockSupport( data.name, 'scrollReveal', false ) ) {
+        allow = true;
+    }
+
+    if ( ! allow ) {
+        allow = data && data.attributes && applyFilters(
+            'ghostkit.blocks.allowScrollReveal',
+            addCoreBlocksSupport( data.name ),
+            data,
+            data.name
+        );
+    }
+
+    return allow;
+}
+
+/**
  * Extend ghostkit block attributes with SR.
  *
  * @param {Object} settings Original block settings.
@@ -52,20 +83,7 @@ function addCoreBlocksSupport( name ) {
  * @return {Object} Filtered block settings.
  */
 function addAttribute( settings ) {
-    let allow = false;
-
-    if ( GHOSTKIT.hasBlockSupport( settings, 'scrollReveal', false ) ) {
-        allow = true;
-    }
-
-    if ( ! allow ) {
-        allow = settings && settings.attributes && applyFilters(
-            'ghostkit.blocks.allowScrollReveal',
-            addCoreBlocksSupport( settings.name ),
-            settings,
-            settings.name
-        );
-    }
+    const allow = allowedSR( settings );
 
     if ( allow ) {
         if ( ! settings.attributes.ghostkitSR ) {
@@ -196,20 +214,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
         render() {
             const props = this.props;
-            let allow = false;
-
-            if ( GHOSTKIT.hasBlockSupport( props.name, 'scrollReveal', false ) ) {
-                allow = true;
-            }
-
-            if ( ! allow ) {
-                allow = applyFilters(
-                    'ghostkit.blocks.allowScrollReveal',
-                    addCoreBlocksSupport( props.name ),
-                    props,
-                    props.name
-                );
-            }
+            const allow = allowedSR( props );
 
             if ( ! allow ) {
                 return <OriginalComponent { ...props } />;
@@ -364,8 +369,6 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     </div>
                                 </Fragment>
                             ) : '' }
-
-                            <BaseControl help={ __( 'Animate on Scroll settings will only take effect once you are on the preview or live page, and not while you\'re in editing mode.' ) } />
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>
@@ -395,7 +398,58 @@ function addSaveProps( extraProps, blockType, attributes ) {
     return extraProps;
 }
 
+let maybeRunSRTimeout = false;
+function maybeRunSR() {
+    clearTimeout( maybeRunSRTimeout );
+    maybeRunSRTimeout = setTimeout( () => {
+        $( '[data-ghostkit-sr]' ).each( function() {
+            const $element = $( this );
+            const newData = $element.attr( 'data-ghostkit-sr' );
+            const currentData = $element.attr( 'data-ghostkit-sr-current' );
+
+            if ( currentData !== newData ) {
+                $element.attr( 'data-ghostkit-sr-current', newData );
+
+                const data = $element.attr( 'data-ghostkit-sr' );
+                const config = parseSRConfig( data );
+
+                config.afterReveal = () => {
+                    $element.removeAttr( 'data-ghostkit-sr' );
+                    $element.removeClass( 'data-ghostkit-sr-ready' );
+                };
+
+                ScrollReveal().destroy( this );
+                ScrollReveal().reveal( this, config );
+            }
+        } );
+    }, 100 );
+}
+
+const withDataSR = createHigherOrderComponent( ( BlockListBlock ) => (
+    ( props ) => {
+        let {
+            wrapperProps,
+        } = props;
+        const {
+            attributes,
+        } = props;
+        const allow = allowedSR( props );
+
+        if ( ! allow ) {
+            return <BlockListBlock { ...props } />;
+        }
+
+        if ( attributes.ghostkitSR ) {
+            wrapperProps = { ...wrapperProps, 'data-ghostkit-sr': attributes.ghostkitSR };
+            maybeRunSR();
+        }
+
+        return <BlockListBlock { ...props } wrapperProps={ wrapperProps } />;
+    }
+), 'withDataSR' );
+
 // Init filters.
 addFilter( 'blocks.registerBlockType', 'ghostkit/sr/additional-attributes', addAttribute );
 addFilter( 'editor.BlockEdit', 'ghostkit/sr/additional-attributes', withInspectorControl );
 addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/sr/save-props', addSaveProps );
+addFilter( 'editor.BlockListBlock', 'ghostkit/sr/editor/additional-attributes', withDataSR );
