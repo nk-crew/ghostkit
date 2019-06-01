@@ -312,6 +312,12 @@ Available events:
 
 ## Changelog ##
 
+= 2.4.1 =
+
+* added "Animate on Scroll" preview in editor
+* improved styles for code editor component
+* fixed 'getBlockOrder' of undefined error
+
 = 2.4.0 =
 
 * added option to hide text in button and show only icon
