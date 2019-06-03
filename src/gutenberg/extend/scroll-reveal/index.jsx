@@ -399,55 +399,67 @@ function addSaveProps( extraProps, blockType, attributes ) {
     return extraProps;
 }
 
-let maybeRunSRTimeout = false;
-function maybeRunSR() {
-    clearTimeout( maybeRunSRTimeout );
-    maybeRunSRTimeout = setTimeout( () => {
-        $( '[data-ghostkit-sr]' ).each( function() {
-            const $element = $( this );
-            const newData = $element.attr( 'data-ghostkit-sr' );
-            const currentData = $element.attr( 'data-ghostkit-sr-current' );
+const withDataSR = createHigherOrderComponent( ( BlockListBlock ) => {
+    class GhostKitSRWrapper extends Component {
+        constructor() {
+            super( ...arguments );
 
-            if ( currentData !== newData ) {
-                $element.attr( 'data-ghostkit-sr-current', newData );
+            this.state = {
+                allowedSR: allowedSR( this.props ),
+                currentSR: '',
+            };
 
-                const data = $element.attr( 'data-ghostkit-sr' );
-                const config = parseSRConfig( data );
+            this.runSRTimeout = false;
 
-                config.afterReveal = () => {
-                    $element.removeAttr( 'data-ghostkit-sr' );
-                    $element.removeClass( 'data-ghostkit-sr-ready' );
-                };
+            this.maybeRunSR = this.maybeRunSR.bind( this );
+        }
 
-                ScrollReveal().destroy( this );
-                ScrollReveal().reveal( this, config );
+        componentDidUpdate() {
+            this.maybeRunSR();
+        }
+        componentDidMount() {
+            this.maybeRunSR();
+        }
+
+        maybeRunSR() {
+            const {
+                attributes,
+            } = this.props;
+
+            if ( ! this.state.allowedSR || this.state.currentSR === attributes.ghostkitSR ) {
+                return;
             }
-        } );
-    }, 100 );
-}
 
-const withDataSR = createHigherOrderComponent( ( BlockListBlock ) => (
-    ( props ) => {
-        let {
-            wrapperProps,
-        } = props;
-        const {
-            attributes,
-        } = props;
-        const allow = allowedSR( props );
+            if ( this.props && this.props.clientId ) {
+                this.setState( {
+                    currentSR: attributes.ghostkitSR,
+                } );
 
-        if ( ! allow ) {
-            return <BlockListBlock { ...props } />;
+                clearTimeout( this.runSRTimeout );
+
+                this.runSRTimeout = setTimeout( () => {
+                    const $element = $( `[id="block-${ this.props.clientId }"]` );
+                    const element = $element[ 0 ];
+
+                    if ( element ) {
+                        const config = parseSRConfig( attributes.ghostkitSR );
+
+                        config.container = '.edit-post-layout__content';
+
+                        ScrollReveal().clean( element );
+                        ScrollReveal().reveal( element, config );
+                    }
+                }, 150 );
+            }
         }
 
-        if ( attributes.ghostkitSR ) {
-            wrapperProps = { ...wrapperProps, 'data-ghostkit-sr': attributes.ghostkitSR };
-            maybeRunSR();
+        render() {
+            return <BlockListBlock { ...this.props } />;
         }
-
-        return <BlockListBlock { ...props } wrapperProps={ wrapperProps } />;
     }
-), 'withDataSR' );
+
+    return GhostKitSRWrapper;
+}, 'withDataSR' );
 
 // Init filters.
 addFilter( 'blocks.registerBlockType', 'ghostkit/sr/additional-attributes', addAttribute );
