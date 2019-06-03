@@ -44,6 +44,7 @@ export default function parseSRConfig( data ) {
         duration: 900,
         delay: 0,
         reset: false,
+        cleanup: true,
     };
 
     // replace other data config.
