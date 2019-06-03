@@ -58,8 +58,9 @@ function addCoreBlocksSupport( name ) {
  */
 function allowedSR( data ) {
     let allow = false;
+    const checkSupportVar = data && data.ghostkit && data.ghostkit.supports ? data : data.name;
 
-    if ( GHOSTKIT.hasBlockSupport( data.name, 'scrollReveal', false ) ) {
+    if ( GHOSTKIT.hasBlockSupport( checkSupportVar, 'scrollReveal', false ) ) {
         allow = true;
     }
 
