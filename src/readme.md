@@ -312,6 +312,11 @@ Available events:
 
 ## Changelog ##
 
+= 2.4.2 =
+
+* added cleanup to Animate On Scroll blocks (extra styles automatically removed after animation ended)
+* fixed Animate On Scroll errors in all blocks since update 2.4.1
+
 = 2.4.1 =
 
 * added "Animate on Scroll" preview in editor
