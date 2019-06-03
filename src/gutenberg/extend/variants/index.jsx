@@ -150,10 +150,12 @@ function addClassname( classname, { name, attributes } ) {
             name = 'ghostkit-tabs';
         }
 
-        classname = classnames(
-            classname,
-            `${ name.replace( '/', '-' ) }-variant-${ attributes.variant }`
-        );
+        if ( name ) {
+            classname = classnames(
+                classname,
+                `${ name.replace( '/', '-' ) }-variant-${ attributes.variant }`
+            );
+        }
     }
 
     return classname;
