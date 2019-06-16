@@ -461,6 +461,10 @@ class GhostKitClass {
             const options = {
                 speed: ( parseFloat( $carousel.attr( 'data-speed' ) ) || 0 ) * 1000,
                 effect: $carousel.attr( 'data-effect' ) || 'slide',
+                fadeEffect: {
+                    // fixed fade out for previous slider.
+                    crossFade: true,
+                },
                 spaceBetween: parseFloat( $carousel.attr( 'data-gap' ) ) || 0,
                 centeredSlides: $carousel.attr( 'data-centered-slides' ) === 'true',
                 freeMode: $carousel.attr( 'data-free-scroll' ) === 'true',
