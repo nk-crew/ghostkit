@@ -519,7 +519,7 @@ export const settings = {
         );
 
         // background
-        const background = applyFilters( 'ghostkit.blocks.grid.background', background, {
+        const background = applyFilters( 'ghostkit.blocks.grid.background', '', {
             ...{
                 name,
             },
