@@ -220,6 +220,8 @@
 
         > [data-block] {
             flex: 100%;
+            margin-top: -14px;
+            margin-bottom: -14px;
         }
 
         // fix selected column block content position.
@@ -259,6 +261,21 @@
             .ghostkit-col-order#{$infix}-#{$i} {
                 order: $i;
             }
+        }
+    }
+}
+
+// Gaps.
+@each $name, $size in $grid-gaps {
+    .ghostkit-grid-gap-#{$name} {
+        > .editor-inner-blocks {
+            margin-right: 14px + ($size / -2);
+            margin-left: 15px + ($size / -2);
+        }
+
+        [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit > [data-block] {
+            margin-right: -14px + ($size / 2);
+            margin-left: -15px + ($size / 2);
         }
     }
 }
