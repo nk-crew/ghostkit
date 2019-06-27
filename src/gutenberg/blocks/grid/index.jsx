@@ -460,9 +460,9 @@ export const settings = {
     icon: getIcon( 'block-grid', true ),
     category: 'ghostkit',
     keywords: [
-        __( 'grid' ),
         __( 'row' ),
         __( 'columns' ),
+        __( 'section' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/grid/',
