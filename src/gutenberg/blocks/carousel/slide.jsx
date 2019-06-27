@@ -14,10 +14,15 @@ const {
     InnerBlocks,
 } = wp.editor;
 
+const {
+    withSelect,
+} = wp.data;
+
 class CarouselSlideBlock extends Component {
     render() {
         const {
             attributes,
+            hasChildBlocks,
         } = this.props;
 
         let {
@@ -34,12 +39,28 @@ class CarouselSlideBlock extends Component {
         return (
             <Fragment>
                 <div className={ className }>
-                    <InnerBlocks templateLock={ false } />
+                    <InnerBlocks
+                        templateLock={ false }
+                        renderAppender={ (
+                            hasChildBlocks ?
+                                undefined :
+                                () => <InnerBlocks.ButtonBlockAppender />
+                        ) }
+                    />
                 </div>
             </Fragment>
         );
     }
 }
+
+const CarouselSlideBlockWithSelect = withSelect( ( select, ownProps ) => {
+    const { clientId } = ownProps;
+    const blockEditor = select( 'core/block-editor' );
+
+    return {
+        hasChildBlocks: blockEditor ? blockEditor.getBlockOrder( clientId ).length > 0 : false,
+    };
+} )( CarouselSlideBlock );
 
 export const name = 'ghostkit/carousel-slide';
 
@@ -67,7 +88,7 @@ export const settings = {
     attributes: {
     },
 
-    edit: CarouselSlideBlock,
+    edit: CarouselSlideBlockWithSelect,
 
     save: function( props ) {
         let className = 'ghostkit-carousel-slide';
