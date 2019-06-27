@@ -1,58 +1,55 @@
 const md5 = require( 'md5' );
 
-module.exports = function( isDev = false ) {
-    return {
-        mode: isDev ? 'development' : 'production',
-        module: {
-            rules: [
-                {
-                    test: /(\.jsx|\.esm.js)$/,
-                    loader: 'babel-loader',
-                }, {
-                    test: /\.scss$/,
-                    use: [
-                        {
-                            loader: 'style-loader', // creates style nodes from JS strings
-                        }, {
-                            loader: 'css-loader', // translates CSS into CommonJS
-                            options: {
-                                url: false,
-                            },
-                        }, {
-                            loader: 'sass-loader', // compiles Sass to CSS
-                        },
-                    ],
-                }, {
-                    test: /\.svg$/,
-                    use: ( { resource } ) => ( {
-                        loader: '@svgr/webpack',
+module.exports = {
+    module: {
+        rules: [
+            {
+                test: /(\.jsx|\.js)$/,
+                loader: 'babel-loader',
+            }, {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: 'style-loader', // creates style nodes from JS strings
+                    }, {
+                        loader: 'css-loader', // translates CSS into CommonJS
                         options: {
-                            svgoConfig: {
-                                plugins: [
-                                    {
-                                        removeViewBox: false,
-                                    },
-                                    {
-                                        cleanupIDs: {
-                                            prefix: `ghostkit-${ md5( resource ) }-`,
-                                        },
-                                    },
-                                ],
-                            },
+                            url: false,
                         },
-                    } ),
-                }, {
-                    test: /\.(gif|png|jpe?g)$/i,
-                    loader: 'base64-inline-loader',
-                },
-            ],
-        },
-        resolve: {
-            extensions: [ '.js', '.jsx', '.json' ],
-        },
-        externals: {
-            react: 'React',
-            'react-dom': 'ReactDOM',
-        },
-    };
+                    }, {
+                        loader: 'sass-loader', // compiles Sass to CSS
+                    },
+                ],
+            }, {
+                test: /\.svg$/,
+                use: ( { resource } ) => ( {
+                    loader: '@svgr/webpack',
+                    options: {
+                        svgoConfig: {
+                            plugins: [
+                                {
+                                    removeViewBox: false,
+                                },
+                                {
+                                    cleanupIDs: {
+                                        prefix: `ghostkit-${ md5( resource ) }-`,
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                } ),
+            }, {
+                test: /\.(gif|png|jpe?g)$/i,
+                loader: 'base64-inline-loader',
+            },
+        ],
+    },
+    resolve: {
+        extensions: [ '.js', '.jsx', '.json' ],
+    },
+    externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+    },
 };

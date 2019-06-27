@@ -20,7 +20,7 @@
 ### Building
 
 - `npm run build` to run build
-- `npm run watch` to run build and start files watcher
+- `npm run dev` to run build and start files watcher
 - `npm run production` to run build and prepare zip files for production
 
 ### Linting

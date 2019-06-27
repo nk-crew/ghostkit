@@ -394,9 +394,9 @@ class Customizer extends Component {
                                     { control }
                                     <div className="ghostkit-customizer-list-info">
                                         <small className="ghostkit-customizer-list-info-id">{ opt.id }</small>
-                                        { opt.default || typeof( opt.default ) === 'boolean' ? (
+                                        { opt.default || typeof opt.default === 'boolean' ? (
                                             <small className="ghostkit-customizer-list-info-default">
-                                                { __( 'Default:' ) } <span>{ ( typeof( opt.default ) === 'boolean' ? opt.default.toString() : opt.default ) }</span>
+                                                { __( 'Default:' ) } <span>{ ( typeof opt.default === 'boolean' ? opt.default.toString() : opt.default ) }</span>
                                             </small>
                                         ) : '' }
                                     </div>
