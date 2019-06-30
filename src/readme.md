@@ -312,6 +312,13 @@ Available events:
 
 ## Changelog ##
 
+= 2.4.3 =
+
+* added Grid Gap preview styles in editor
+* added Carousel item block inserter
+* fixed Carousel fade effect and visible previous slides
+* fixed pricing table editor columns styles in default themes
+
 = 2.4.2 =
 
 * added cleanup to Animate On Scroll blocks (extra styles automatically removed after animation ended)
