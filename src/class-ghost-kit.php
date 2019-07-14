@@ -169,9 +169,11 @@ class GhostKit {
      * Register scripts.
      */
     public function register_scripts() {
-        // VideoWorker.
-        if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
-            wp_register_script( 'video-worker', plugins_url( 'assets/vendor/video-worker/dist/video-worker.min.js', __FILE__ ), array(), '1.1.6' );
+        // Jarallax.
+        if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
+            wp_register_script( 'resize-observer-polyfill', plugins_url( 'assets/vendor/resize-observer-polyfill/ResizeObserver.global.min.js', __FILE__ ), array(), '1.5.0', true );
+            wp_register_script( 'jarallax', plugins_url( 'assets/vendor/jarallax/dist/jarallax.min.js', __FILE__ ), array( 'jquery', 'resize-observer-polyfill' ), '1.10.7', true );
+            wp_register_script( 'jarallax-video', plugins_url( 'assets/vendor/jarallax/dist/jarallax-video.min.js', __FILE__ ), array( 'jarallax' ), '1.10.7', true );
         }
 
         // Object Fit Images.
@@ -314,9 +316,10 @@ class GhostKit {
         $css_deps = array();
         $js_deps = array( 'ghostkit-helper', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-components', 'jquery' );
 
-        // VideoWorker.
-        if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
-            $js_deps[] = 'video-worker';
+        // Jarallax.
+        if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
+            $js_deps[] = 'jarallax';
+            $js_deps[] = 'jarallax-video';
         }
 
         // GistEmbed.
@@ -347,9 +350,10 @@ class GhostKit {
         $css_deps = array();
         $js_deps = array( 'jquery', 'ghostkit-helper' );
 
-        // VideoWorker.
-        if ( apply_filters( 'gkt_enqueue_plugin_video_worker', true ) ) {
-            $js_deps[] = 'video-worker';
+        // Jarallax.
+        if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
+            $js_deps[] = 'jarallax';
+            $js_deps[] = 'jarallax-video';
         }
 
         // Object Fit Images.

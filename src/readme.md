@@ -103,7 +103,7 @@ Available filters:
 
 * **gkt_enqueue_plugin_font_awesome**
 * **gkt_enqueue_plugin_object_fit_images**
-* **gkt_enqueue_plugin_video_worker**
+* **gkt_enqueue_plugin_jarallax**
 * **gkt_enqueue_plugin_swiper**
 * **gkt_enqueue_plugin_gist_simple**
 * **gkt_enqueue_plugin_scrollreveal**
