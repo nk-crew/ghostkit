@@ -312,6 +312,12 @@ Available events:
 
 ## Changelog ##
 
+= 2.4.4 =
+
+* fixed grid background alignfull left and right styles
+* fixed conflict with AWB video background and Video Block
+* changed video-worker script to jarallax
+
 = 2.4.3 =
 
 * added Grid Gap preview styles in editor
