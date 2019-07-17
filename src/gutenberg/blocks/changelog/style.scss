@@ -62,10 +62,8 @@
             margin-bottom: 1rem;
             list-style: none;
 
-            li {
-                display: flex;
-                align-items: flex-start;
-                margin-bottom: .5em;
+            > li {
+                list-style: none;
             }
         }
     }
