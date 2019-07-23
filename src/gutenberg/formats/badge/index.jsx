@@ -51,6 +51,8 @@ export const settings = {
                         this.setState( { currentColor } );
                     }
                 }
+            } else if ( this.state.currentColor && ! isActive ) {
+                this.setState( { currentColor: '' } );
             }
         }
 
@@ -81,6 +83,7 @@ export const settings = {
 
         render() {
             const {
+                value,
                 isActive,
             } = this.props;
 
@@ -95,7 +98,10 @@ export const settings = {
                         isActive={ isActive }
                     />
                     { isActive ? (
-                        <BadgePopover>
+                        <BadgePopover
+                            value={ value }
+                            name={ name }
+                        >
                             <ColorPalette
                                 value={ this.state.currentColor }
                                 onChange={ ( color ) => {
