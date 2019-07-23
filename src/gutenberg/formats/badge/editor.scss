@@ -13,3 +13,8 @@
         padding: 20px 18px;
     }
 }
+
+// fix badge background color on focus.
+.block-editor-rich-text__editable:focus [data-rich-text-format-boundary].ghostkit-badge:not([style]) {
+    background-color: #6a6c75;
+}
