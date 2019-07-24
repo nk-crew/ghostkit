@@ -146,10 +146,15 @@ class BackgroundControlsInspector extends Component {
     onUpdate() {
         const {
             fetchImageTag,
+            attributes,
         } = this.props;
 
+        const {
+            awb_imageTag: imageTag,
+        } = attributes;
+
         // set image tag to attribute
-        if ( fetchImageTag ) {
+        if ( fetchImageTag && fetchImageTag !== imageTag ) {
             this.updateAwbAttributes( { imageTag: fetchImageTag } );
         }
     }
