@@ -5,6 +5,7 @@ import classnames from 'classnames/dedupe';
 import './awb-fallback';
 import getIcon from '../../utils/get-icon';
 import getColClass from './get-col-class';
+import getBackgroundStyles from './get-background-styles';
 import ApplyFilters from '../../components/apply-filters';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 import deprecatedArray from './deprecated-column';
@@ -299,10 +300,12 @@ export const settings = {
                 stickyContent,
                 stickyContentTop,
                 stickyContentBottom,
+                awb_image: image,
             } = attributes;
 
-            const result = {};
+            let result = {};
 
+            // Sticky styles.
             if ( stickyContent ) {
                 result[ '& > .ghostkit-col-content' ] = {
                     position: '-webkit-sticky',
@@ -319,12 +322,24 @@ export const settings = {
                 }
             }
 
+            // Image styles.
+            if ( image ) {
+                result = {
+                    ...result,
+                    ...getBackgroundStyles( attributes ),
+                };
+            }
+
             return result;
         },
         customStylesFilter( styles, data, isEditor, attributes ) {
+            // change custom styles in Editor.
             if ( isEditor && attributes.ghostkitClassname ) {
-                // change editor custom styles class to fix columns position
-                styles = styles.replace( new RegExp( `.ghostkit-grid .${ attributes.ghostkitClassname }`, 'g' ), `.ghostkit-grid .${ attributes.ghostkitClassname } > .editor-block-list__block-edit` );
+                // vertical center.
+                styles = styles.replace( new RegExp( `.ghostkit-grid .${ attributes.ghostkitClassname }`, 'g' ), `.ghostkit-grid .${ attributes.ghostkitClassname } > .editor-block-list__block-edit > [data-block]` );
+
+                // background.
+                styles = styles.replace( new RegExp( '> .nk-awb .jarallax-img', 'g' ), '> .awb-gutenberg-preview-block .jarallax-img' );
             }
             return styles;
         },

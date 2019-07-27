@@ -367,7 +367,6 @@ const BackgroundControlsInspectorWithSelect = withSelect( ( select, props ) => {
         awb_image: image,
         awb_imageSize: imageSize,
         awb_imageBackgroundSize: imageBackgroundSize,
-        awb_imageBackgroundPosition: imageBackgroundPosition,
     } = props.attributes;
 
     if ( ! image ) {
@@ -381,36 +380,10 @@ const BackgroundControlsInspectorWithSelect = withSelect( ( select, props ) => {
             class: 'jarallax-img',
         },
     };
-    let style = '';
-
-    // <img> tag with object-fit style
-    if ( imageBackgroundSize !== 'pattern' ) {
-        if ( imageBackgroundSize ) {
-            style += `object-fit: ${ imageBackgroundSize };`;
-        }
-        if ( imageBackgroundPosition ) {
-            style += `object-position: ${ imageBackgroundPosition };`;
-        }
-
-        // ofi polyfill
-        if ( style ) {
-            style += `font-family: "${ style }";`;
-        }
 
     // background image with pattern size
-    } else {
-        if ( imageBackgroundSize ) {
-            style += 'background-repeat: repeat;';
-        }
-        if ( imageBackgroundPosition ) {
-            style += `background-position: ${ imageBackgroundPosition };`;
-        }
+    if ( imageBackgroundSize === 'pattern' ) {
         data.div_tag = true;
-    }
-
-    // add styles to query
-    if ( style ) {
-        data.attr.style = style;
     }
 
     return {

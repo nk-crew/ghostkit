@@ -6,6 +6,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import './awb-fallback';
+import getBackgroundStyles from './get-background-styles';
 import getIcon from '../../utils/get-icon';
 import deprecatedArray from './deprecated';
 import ApplyFilters from '../../components/apply-filters';
@@ -466,6 +467,31 @@ export const settings = {
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/grid/',
+        customStylesCallback( attributes ) {
+            const {
+                awb_image: image,
+            } = attributes;
+
+            let result = {};
+
+            // Image styles.
+            if ( image ) {
+                result = {
+                    ...result,
+                    ...getBackgroundStyles( attributes ),
+                };
+            }
+
+            return result;
+        },
+        customStylesFilter( styles, data, isEditor, attributes ) {
+            // change custom styles in Editor.
+            if ( isEditor && attributes.ghostkitClassname ) {
+                // background.
+                styles = styles.replace( new RegExp( `.${ attributes.ghostkitClassname } > .nk-awb .jarallax-img`, 'g' ), `.ghostkit-grid .${ attributes.ghostkitClassname } > .awb-gutenberg-preview-block .jarallax-img` );
+            }
+            return styles;
+        },
         supports: {
             styles: true,
             spacings: true,
