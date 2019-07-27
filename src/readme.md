@@ -284,6 +284,9 @@ Available events:
 * **beforePrepareGoogleMapsEnd.ghostkit**
 * **afterPrepareGoogleMaps.ghostkit**
 * **beforePrepareSR.ghostkit**
+* **beforePrepareSRStart.ghostkit**
+* **beforeInitSR.ghostkit**
+* **beforePrepareSREnd.ghostkit**
 * **afterPrepareSR.ghostkit**
 
 ## Screenshots ##

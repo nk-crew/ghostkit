@@ -931,6 +931,8 @@ class GhostKitClass {
         $( '[data-ghostkit-sr]:not(.data-ghostkit-sr-ready)' ).each( function() {
             const $element = $( this );
 
+            GHOSTKIT.triggerEvent( 'beforePrepareSRStart', self, $element );
+
             $element.addClass( 'data-ghostkit-sr-ready' );
 
             const data = $element.attr( 'data-ghostkit-sr' );
@@ -941,7 +943,11 @@ class GhostKitClass {
                 $element.removeClass( 'data-ghostkit-sr-ready' );
             };
 
+            GHOSTKIT.triggerEvent( 'beforeInitSR', self, $element, config );
+
             reveal( this, config );
+
+            GHOSTKIT.triggerEvent( 'beforePrepareSREnd', self, $element );
         } );
 
         GHOSTKIT.triggerEvent( 'afterPrepareSR', self );
