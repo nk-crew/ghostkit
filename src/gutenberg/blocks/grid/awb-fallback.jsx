@@ -475,9 +475,12 @@ function addSaveBackground( background, props ) {
         const {
             awb_color: color,
             awb_type: type,
-            awb_imageTag: imageTag,
             awb_imageBackgroundSize: imageBackgroundSize,
             awb_imageBackgroundPosition: imageBackgroundPosition,
+        } = props.attributes;
+
+        let {
+            awb_imageTag: imageTag,
         } = props.attributes;
 
         let addBackground = false;
@@ -508,6 +511,12 @@ function addSaveBackground( background, props ) {
                 if ( imageBackgroundPosition ) {
                     dataAttrs[ 'data-awb-image-background-position' ] = imageBackgroundPosition;
                 }
+            }
+
+            // Fix style tag background.
+            if ( type === 'image' && imageTag ) {
+                imageTag = imageTag.replace( 'url(&quot;', 'url(\'' );
+                imageTag = imageTag.replace( '&quot;);', '\');' );
             }
 
             return (
