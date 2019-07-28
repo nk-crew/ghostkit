@@ -1,5 +1,6 @@
 // Internal Dependencies.
 import ColorPicker from '../../components/color-picker';
+import FocalPointPicker from '../../components/focal-point-picker';
 import dashCaseToTitle from '../../utils/dash-case-to-title';
 
 const { __ } = wp.i18n;
@@ -18,9 +19,7 @@ const {
     PanelBody,
     ButtonGroup,
     Button,
-    BaseControl,
     SelectControl,
-    TextControl,
     ColorIndicator,
 } = wp.components;
 
@@ -240,38 +239,11 @@ class BackgroundControlsInspector extends Component {
 
                         { image && imageTag ? (
                             <Fragment>
-                                <MediaUpload
-                                    onSelect={ ( media ) => {
-                                        onImageSelect( media, setAttributes );
-                                    } }
-                                    allowedTypes={ [ 'image' ] }
-                                    value={ image }
-                                    render={ ( { open } ) => (
-                                        <BaseControl help={ __( 'Click the image to edit or update' ) }>
-                                            <a
-                                                href="#"
-                                                onClick={ open }
-                                                className="awb-gutenberg-media-upload"
-                                                style={ { display: 'block' } }
-                                                dangerouslySetInnerHTML={ { __html: imageTag } }
-                                            />
-                                        </BaseControl>
-                                    ) }
+                                <FocalPointPicker
+                                    value={ imageBackgroundPosition }
+                                    image={ imageTag }
+                                    onChange={ v => setAttributes( { imageBackgroundPosition: v } ) }
                                 />
-                                <a
-                                    href="#"
-                                    onClick={ ( e ) => {
-                                        setAttributes( {
-                                            image: '',
-                                            imageTag: '',
-                                            imageSizes: '',
-                                        } );
-                                        e.preventDefault();
-                                    } }
-                                >
-                                    { __( 'Remove image' ) }
-                                </a>
-                                <div style={ { marginBottom: 13 } } />
                                 { imageSizes ? (
                                     <SelectControl
                                         label={ __( 'Size' ) }
@@ -308,13 +280,19 @@ class BackgroundControlsInspector extends Component {
                                     ] }
                                     onChange={ v => setAttributes( { imageBackgroundSize: v } ) }
                                 />
-                                <TextControl
-                                    label={ __( 'Background position' ) }
-                                    type="text"
-                                    value={ imageBackgroundPosition }
-                                    onChange={ v => setAttributes( { imageBackgroundPosition: v } ) }
-                                    help={ __( 'Image position. Example: 50% 50%' ) }
-                                />
+                                <a
+                                    href="#"
+                                    onClick={ ( e ) => {
+                                        setAttributes( {
+                                            image: '',
+                                            imageTag: '',
+                                            imageSizes: '',
+                                        } );
+                                        e.preventDefault();
+                                    } }
+                                >
+                                    { __( 'Remove image' ) }
+                                </a>
                             </Fragment>
                         ) : '' }
                     </PanelBody>
