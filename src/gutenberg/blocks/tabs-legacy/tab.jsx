@@ -2,7 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../../../utils/get-icon';
+import getIcon from '../../utils/get-icon';
 
 const {
     applyFilters,

@@ -5,7 +5,7 @@ import './editor.scss';
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import getIcon from '../../../utils/get-icon';
+import getIcon from '../../utils/get-icon';
 import deprecatedArray from './deprecated';
 
 const {

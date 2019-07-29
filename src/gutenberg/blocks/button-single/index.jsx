@@ -3,7 +3,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../../utils/get-icon';
-import deprecatedArray from './deprecated-button';
+import deprecatedArray from './deprecated';
 
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';

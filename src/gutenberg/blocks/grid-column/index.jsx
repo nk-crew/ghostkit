@@ -2,13 +2,13 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
-import './awb-fallback';
+import '../grid/awb-fallback';
 import getIcon from '../../utils/get-icon';
 import getColClass from './get-col-class';
-import getBackgroundStyles from './get-background-styles';
+import getBackgroundStyles from '../grid/get-background-styles';
 import ApplyFilters from '../../components/apply-filters';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
-import deprecatedArray from './deprecated-column';
+import deprecatedArray from './deprecated';
 
 const { ghostkitVariables } = window;
 const { __, sprintf } = wp.i18n;
