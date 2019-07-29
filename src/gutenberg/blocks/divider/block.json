@@ -1,0 +1,42 @@
+{
+	"name": "ghostkit/divider",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "type": {
+            "type": "string",
+            "default": "solid"
+        },
+        "size": {
+            "type": "number",
+            "default": 2
+        },
+        "icon": {
+            "type": "string",
+            "default": ""
+        },
+        "iconSize": {
+            "type": "number",
+            "default": 10
+        },
+        "color": {
+            "type": "string",
+            "default": "#a7a9ab"
+        },
+        "iconColor": {
+            "type": "string",
+            "default": "#a7a9ab"
+        },
+        "hoverColor": {
+            "type": "string"
+        },
+        "hoverIconColor": {
+            "type": "string"
+        }
+    }
+}

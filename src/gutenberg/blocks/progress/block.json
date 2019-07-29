@@ -1,0 +1,64 @@
+{
+	"name": "ghostkit/progress",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "caption": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-progress-caption",
+            "default": "Progress Caption"
+        },
+        "height": {
+            "type": "number",
+            "default": 15
+        },
+        "percent": {
+            "type": "number",
+            "default": 75
+        },
+        "borderRadius": {
+            "type": "number",
+            "default": 2
+        },
+        "striped": {
+            "type": "boolean",
+            "default": true
+        },
+        "animateInViewport": {
+            "type": "boolean",
+            "default": false
+        },
+        "showCount": {
+            "type": "boolean",
+            "default": false
+        },
+        "countPrefix": {
+            "type": "string",
+            "default": ""
+        },
+        "countSuffix": {
+            "type": "string",
+            "default": "%"
+        },
+        "color": {
+            "type": "string",
+            "default": "#0366d6"
+        },
+        "backgroundColor": {
+            "type": "string",
+            "default": "#f3f4f5"
+        },
+        "hoverColor": {
+            "type": "string"
+        },
+        "hoverBackgroundColor": {
+            "type": "string"
+        }
+    }
+}

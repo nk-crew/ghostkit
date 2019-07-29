@@ -1,6 +1,11 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
 
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
 
 const {
@@ -23,6 +28,9 @@ const {
     SelectControl,
 } = wp.components;
 
+/**
+ * Internal dependencies
+ */
 const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;

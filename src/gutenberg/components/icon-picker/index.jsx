@@ -1,15 +1,21 @@
-import classnames from 'classnames/dedupe';
-
-// Import CSS
+/**
+ * Import CSS
+ */
 import './editor.scss';
 
+/**
+ * External dependencies
+ */
+import classnames from 'classnames/dedupe';
+
+/**
+ * WordPress dependencies
+ */
 const {
     Component,
 } = wp.element;
 
 const { __ } = wp.i18n;
-
-const { GHOSTKIT } = window;
 
 const {
     Dropdown,
@@ -18,6 +24,16 @@ const {
     TextControl,
 } = wp.components;
 
+/**
+ * Internal dependencies
+ */
+const { GHOSTKIT } = window;
+
+/**
+ * Go over each icon.
+ *
+ * @param {Function} callback callback.
+ */
 function eachIcons( callback ) {
     const {
         icons,

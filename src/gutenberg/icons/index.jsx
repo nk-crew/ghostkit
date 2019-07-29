@@ -1,4 +1,6 @@
-// export all icons.
+/**
+ * Internal dependencies
+ */
 import blockAccordion from '../icons/block-accordion.svg';
 import blockAlert from '../icons/block-alert.svg';
 import blockButton from '../icons/block-button.svg';

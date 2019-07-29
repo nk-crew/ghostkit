@@ -1,8 +1,11 @@
-// Import CSS
+/**
+ * Import CSS
+ */
 import './editor.scss';
 
-import getIcon from '../../utils/get-icon';
-
+/**
+ * WordPress dependencies
+ */
 const {
     Component,
 } = wp.element;
@@ -14,6 +17,14 @@ const {
     Popover,
 } = wp.components;
 
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+
+/**
+ * Component Class
+ */
 export default class RemoveButton extends Component {
     constructor() {
         super( ...arguments );

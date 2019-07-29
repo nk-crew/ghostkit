@@ -1,17 +1,19 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
 
+/**
+ * WordPress dependencies
+ */
 const {
     RichText,
+    InnerBlocks,
 } = wp.editor;
 
 const {
     applyFilters,
 } = wp.hooks;
-
-const {
-    InnerBlocks,
-} = wp.editor;
 
 export default [
     {

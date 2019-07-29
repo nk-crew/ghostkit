@@ -1,18 +1,17 @@
-// External Dependencies.
-import deepAssign from 'deep-assign';
-
-// Import CSS
+/**
+ * Import CSS
+ */
 import './editor.scss';
 
-// Internal Dependencies.
-import getIcon from '../../utils/get-icon';
+/**
+ * External dependencies
+ */
+import deepAssign from 'deep-assign';
 
-import InputDrag from '../../components/input-drag';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
-
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
-
-const { ghostkitVariables } = window;
 
 const {
     applyFilters,
@@ -36,7 +35,17 @@ const {
     CheckboxControl,
 } = wp.components;
 
-const { GHOSTKIT } = window;
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import InputDrag from '../../components/input-drag';
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+
+const {
+    GHOSTKIT,
+    ghostkitVariables,
+} = window;
 
 let initialOpenPanel = false;
 

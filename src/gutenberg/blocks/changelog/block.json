@@ -1,0 +1,20 @@
+{
+	"name": "ghostkit/changelog",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "version": {
+            "type": "string",
+            "default": ""
+        },
+        "date": {
+            "type": "string",
+            "default": ""
+        }
+    }
+}

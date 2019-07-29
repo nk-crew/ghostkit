@@ -1,0 +1,100 @@
+{
+	"name": "ghostkit/video",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "type": {
+            "type": "string",
+            "default": "yt_vm_video"
+        },
+        "video": {
+            "type": "string",
+            "default": ""
+        },
+        "videoPosterPreview": {
+            "type": "string",
+            "default": ""
+        },
+        "videoMp4": {
+            "type": "string",
+            "default": ""
+        },
+        "videoMp4Id": {
+            "type": "number"
+        },
+        "videoOgv": {
+            "type": "string",
+            "default": ""
+        },
+        "videoOgvId": {
+            "type": "number"
+        },
+        "videoWebm": {
+            "type": "string",
+            "default": ""
+        },
+        "videoWebmId": {
+            "type": "number"
+        },
+        "videoAspectRatio": {
+            "type": "string",
+            "default": "16:9"
+        },
+        "videoVolume": {
+            "type": "number",
+            "default": 100
+        },
+        "videoAutoplay": {
+            "type": "boolean",
+            "default": false
+        },
+        "videoAutopause": {
+            "type": "boolean",
+            "default": false
+        },
+
+        "iconPlay": {
+            "type": "string",
+            "default": "fas fa-play"
+        },
+        "iconLoading": {
+            "type": "string",
+            "default": "ghostkit-video-spinner"
+        },
+
+        "poster": {
+            "type": "number",
+            "default": ""
+        },
+        "posterTag": {
+            "type": "string",
+            "default": ""
+        },
+        "posterSizes": {
+            "type": "object",
+            "default": ""
+        },
+        "posterSize": {
+            "type": "string",
+            "default": "full"
+        },
+
+        "clickAction": {
+            "type": "string",
+            "default": "plain"
+        },
+        "fullscreenBackgroundColor": {
+            "type": "string",
+            "default": "rgba(0, 0, 0, .9)"
+        },
+        "fullscreenActionCloseIcon": {
+            "type": "string",
+            "default": "fas fa-times"
+        }
+    }
+}

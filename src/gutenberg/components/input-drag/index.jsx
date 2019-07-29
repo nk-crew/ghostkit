@@ -1,13 +1,22 @@
+/**
+ * WordPress dependencies
+ */
 const { Component } = wp.element;
 
 const {
     TextControl,
 } = wp.components;
 
+/**
+ * Internal dependencies
+ */
 const minDistanceToStart = 5;
 const units = [ 'px', '%', 'rem', 'em', 'vh', 'vw', 'vmin', 'vmax', 'ex', 'cm', 'mm', 'in', 'pt', 'pc', 'ch' ];
 const shiftKeyMultiple = 10;
 
+/**
+ * Component Class
+ */
 export default class InputDrag extends Component {
     constructor() {
         super( ...arguments );

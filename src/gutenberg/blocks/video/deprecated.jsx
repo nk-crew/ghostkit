@@ -1,12 +1,24 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
-import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
 
+/**
+ * WordPress dependencies
+ */
 const { Component } = wp.element;
 const {
     applyFilters,
 } = wp.hooks;
 
+/**
+ * Internal dependencies
+ */
+import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
+
+/**
+ * Block Save
+ */
 class VideoBlockSave extends Component {
     constructor() {
         super( ...arguments );

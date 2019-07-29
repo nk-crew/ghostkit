@@ -1,11 +1,12 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
 
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
-
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
-
-const { ghostkitVariables } = window;
 
 const {
     applyFilters,
@@ -30,7 +31,15 @@ const {
     Button,
 } = wp.components;
 
-const { GHOSTKIT } = window;
+/**
+ * Internal dependencies
+ */
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+
+const {
+    GHOSTKIT,
+    ghostkitVariables,
+} = window;
 
 let initialOpenPanel = false;
 

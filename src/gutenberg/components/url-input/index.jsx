@@ -1,13 +1,20 @@
-import classnames from 'classnames/dedupe';
-
-// Import CSS
+/**
+ * Import CSS
+ */
 import './editor.scss';
 
-// Internal Dependencies.
-import getIcon from '../../utils/get-icon';
+/**
+ * External dependencies
+ */
+import classnames from 'classnames/dedupe';
 
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
+
 const { Component } = wp.element;
+
 const {
     Dashicon,
     IconButton,
@@ -16,6 +23,14 @@ const {
 
 const WPURLInput = wp.editor.URLInput;
 
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+
+/**
+ * Component Class
+ */
 export default class URLInput extends Component {
     constructor() {
         super( ...arguments );

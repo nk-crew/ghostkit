@@ -1,0 +1,28 @@
+{
+	"name": "ghostkit/pricing-table",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "count": {
+            "type": "number",
+            "default": 2
+        },
+        "gap": {
+            "type": "string",
+            "default": "md"
+        },
+        "verticalAlign": {
+            "type": "string",
+            "default": "center"
+        },
+        "horizontalAlign": {
+            "type": "string",
+            "default": "center"
+        }
+    }
+}

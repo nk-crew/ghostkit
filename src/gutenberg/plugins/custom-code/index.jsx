@@ -1,11 +1,11 @@
-// Import CSS
+/**
+ * Import CSS
+ */
 import './editor.scss';
 
-// Internal Dependencies.
-import getIcon from '../../utils/get-icon';
-import Modal from '../../components/modal';
-import CodeEditor from '../../components/code-editor';
-
+/**
+ * WordPress dependencies
+ */
 const {
     Fragment,
 } = wp.element;
@@ -28,6 +28,13 @@ const {
     TabPanel,
     Tooltip,
 } = wp.components;
+
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import Modal from '../../components/modal';
+import CodeEditor from '../../components/code-editor';
 
 class CustomCodeModal extends Component {
     constructor() {

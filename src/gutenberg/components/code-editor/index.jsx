@@ -1,4 +1,11 @@
-// External Dependencies.
+/**
+ * Import CSS
+ */
+import './editor.scss';
+
+/**
+ * External dependencies
+ */
 import AceEditor from 'react-ace';
 import 'brace/mode/css';
 import 'brace/mode/javascript';
@@ -7,11 +14,14 @@ import 'brace/snippets/javascript';
 import 'brace/snippets/text';
 import 'brace/ext/language_tools';
 
-// Import CSS
-import './editor.scss';
-
+/**
+ * WordPress dependencies
+ */
 const { Component } = wp.element;
 
+/**
+ * Component Class
+ */
 export default class CodeEditor extends Component {
     render() {
         return (

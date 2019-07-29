@@ -1,3 +1,6 @@
+/**
+ * External dependencies
+ */
 import { compose, withProps, withHandlers } from 'recompose';
 import {
     withScriptjs,
@@ -6,9 +9,15 @@ import {
     Marker,
 } from 'react-google-maps';
 
+/**
+ * Internal dependencies
+ */
 import ApplyFilters from '../../components/apply-filters';
 
-const MapBlock = compose(
+/*
+ * Map Block Component.
+ */
+export default compose(
     withProps( {
         loadingElement: <div style={ { height: '100%' } } />,
         mapElement: <div style={ { height: '100%' } } />,
@@ -62,5 +71,3 @@ const MapBlock = compose(
         </GoogleMap>
     );
 } );
-
-export default MapBlock;

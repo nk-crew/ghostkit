@@ -1,12 +1,11 @@
-// Import CSS
+/**
+ * Import CSS
+ */
 import './editor.scss';
 
-// Internal Dependencies.
-import getIcon from '../../utils/get-icon';
-import { TemplatesModal } from '../templates';
-import { CustomCodeModal } from '../custom-code';
-import { CustomizerModal } from '../customizer';
-
+/**
+ * WordPress dependencies
+ */
 const {
     Fragment,
 } = wp.element;
@@ -21,6 +20,14 @@ const {
     Button,
     PanelBody,
 } = wp.components;
+
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import { TemplatesModal } from '../templates';
+import { CustomCodeModal } from '../custom-code';
+import { CustomizerModal } from '../customizer';
 
 class GhostKit extends Component {
     constructor() {

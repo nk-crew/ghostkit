@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 const { apiFetch } = wp;
 
 export function API_FETCH( { request } ) {

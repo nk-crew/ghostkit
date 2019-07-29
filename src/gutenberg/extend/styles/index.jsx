@@ -1,11 +1,13 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import shorthash from 'shorthash';
 import classnames from 'classnames/dedupe';
 import deepEqual from 'deep-equal';
 
-// Internal Dependencies.
-import camelCaseToDash from '../../utils/camel-case-to-dash';
-
+/**
+ * WordPress dependencies
+ */
 const {
     applyFilters,
     addFilter,
@@ -27,6 +29,11 @@ const {
 const {
     createHigherOrderComponent,
 } = wp.compose;
+
+/**
+ * Internal dependencies
+ */
+import camelCaseToDash from '../../utils/camel-case-to-dash';
 
 const { GHOSTKIT } = window;
 

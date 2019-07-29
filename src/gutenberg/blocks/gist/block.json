@@ -1,0 +1,32 @@
+{
+	"name": "ghostkit/gist",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "url": {
+            "type": "string",
+            "default": ""
+        },
+        "file": {
+            "type": "string",
+            "default": ""
+        },
+        "caption": {
+            "type": "string",
+            "default": ""
+        },
+        "showFooter": {
+            "type": "boolean",
+            "default": true
+        },
+        "showLineNumbers": {
+            "type": "boolean",
+            "default": true
+        }
+    }
+}

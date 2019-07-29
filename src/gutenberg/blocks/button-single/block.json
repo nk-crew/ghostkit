@@ -1,0 +1,95 @@
+{
+	"name": "ghostkit/button-single",
+    "parent": [ "ghostkit/button" ],
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "inserter": false,
+        "reusable": false
+    },
+    "attributes": {
+        "url": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "a.ghostkit-button",
+            "attribute": "href"
+        },
+        "target": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "a.ghostkit-button",
+            "attribute": "target"
+        },
+        "rel": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "a.ghostkit-button",
+            "attribute": "rel"
+        },
+        "text": {
+            "type": "array",
+            "source": "children",
+            "selector": ".ghostkit-button .ghostkit-button-text",
+            "default": "Button"
+        },
+        "hideText": {
+            "type": "boolean",
+            "default": false
+        },
+        "icon": {
+            "type": "string",
+            "default": ""
+        },
+        "iconPosition": {
+            "type": "string",
+            "default": "left"
+        },
+        "size": {
+            "type": "string",
+            "default": "md"
+        },
+        "color": {
+            "type": "string",
+            "default": "#0366d6"
+        },
+        "textColor": {
+            "type": "string",
+            "default": "#ffffff"
+        },
+
+        "borderRadius": {
+            "type": "number",
+            "default": 2
+        },
+        "borderWeight": {
+            "type": "number",
+            "default": 0
+        },
+        "borderColor": {
+            "type": "string",
+            "default": "#00669b"
+        },
+
+        "focusOutlineWeight": {
+            "type": "number",
+            "default": 0
+        },
+
+        "hoverColor": {
+            "type": "string"
+        },
+        "hoverTextColor": {
+            "type": "string"
+        },
+        "hoverBorderColor": {
+            "type": "string"
+        },
+
+        "focusOutlineColor": {
+            "type": "string",
+            "default": "rgba(3, 102, 214, 0.5)"
+        }
+    }
+}

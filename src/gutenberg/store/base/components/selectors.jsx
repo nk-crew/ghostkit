@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import ApplyFilters from '../../../components/apply-filters';
 import CodeEditor from '../../../components/code-editor';
 import ColorPicker from '../../../components/color-picker';

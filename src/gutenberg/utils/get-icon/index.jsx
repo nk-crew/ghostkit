@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import allIcons from '../../icons/index';
 
 export default function getIcon( icon, returnObject ) {

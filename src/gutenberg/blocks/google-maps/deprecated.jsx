@@ -1,12 +1,20 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
 
-import IconMarker from './icons/deprecated-marker.svg';
-import IconMarker2 from './icons/deprecated-marker-2.svg';
-
+/**
+ * WordPress dependencies
+ */
 const {
     applyFilters,
 } = wp.hooks;
+
+/**
+ * Internal dependencies
+ */
+import IconMarker from './icons/deprecated-marker.svg';
+import IconMarker2 from './icons/deprecated-marker-2.svg';
 
 const fixMarker = {
     ghostkit: {

@@ -1,0 +1,87 @@
+{
+	"name": "ghostkit/pricing-table-item",
+    "parent": [ "ghostkit/pricing-table" ],
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "inserter": false,
+        "reusable": false
+    },
+    "attributes": {
+        "popularText": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-pricing-table-item-popular-badge",
+            "default": "Popular"
+        },
+        "title": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-pricing-table-item-title",
+            "default": "Standard"
+        },
+        "price": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-pricing-table-item-price-amount",
+            "default": "<strong>77</strong>"
+        },
+        "priceCurrency": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-pricing-table-item-price-currency",
+            "default": "$"
+        },
+        "priceRepeat": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-pricing-table-item-price-repeat"
+        },
+        "description": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-pricing-table-item-description"
+        },
+        "features": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-pricing-table-item-features",
+            "default": "<li>Feature 1</li><li>Feature 2</li>"
+        },
+
+        "showPopular": {
+            "type": "boolean",
+            "default": false
+        },
+        "showTitle": {
+            "type": "boolean",
+            "default": true
+        },
+        "showPrice": {
+            "type": "boolean",
+            "default": true
+        },
+        "showPriceCurrency": {
+            "type": "boolean",
+            "default": true
+        },
+        "showPriceRepeat": {
+            "type": "boolean",
+            "default": true
+        },
+        "showDescription": {
+            "type": "boolean",
+            "default": false
+        },
+        "showFeatures": {
+            "type": "boolean",
+            "default": true
+        },
+        "showButton": {
+            "type": "boolean",
+            "default": true
+        }
+    }
+}

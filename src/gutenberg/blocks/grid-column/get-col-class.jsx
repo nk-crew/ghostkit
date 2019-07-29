@@ -1,6 +1,11 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
 
+/**
+ * WordPress dependencies
+ */
 const {
     applyFilters,
 } = wp.hooks;

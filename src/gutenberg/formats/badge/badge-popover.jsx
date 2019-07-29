@@ -5,6 +5,11 @@ const { Component } = wp.element;
 
 const { URLPopover } = wp.editor;
 
+/**
+ * Get selected badge element.
+ *
+ * @return {DOM} element.
+ */
 function getSelectedBadge() {
     const selection = window.getSelection();
 

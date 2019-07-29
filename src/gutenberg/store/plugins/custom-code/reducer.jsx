@@ -1,4 +1,6 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import deepAssign from 'deep-assign';
 
 function reducer( state = { data: false }, action ) {

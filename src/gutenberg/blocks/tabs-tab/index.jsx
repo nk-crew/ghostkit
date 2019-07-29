@@ -1,45 +1,25 @@
-// External Dependencies.
-import classnames from 'classnames/dedupe';
-
-// Internal Dependencies.
-import getIcon from '../../utils/get-icon';
-
-const {
-    applyFilters,
-} = wp.hooks;
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
-const { Component } = wp.element;
 
-const {
-    InnerBlocks,
-} = wp.editor;
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import metadata from './block.json';
+import edit from './edit';
+import save from './save';
 
-class TabBlock extends Component {
-    render() {
-        let {
-            className = '',
-        } = this.props;
+const { name } = metadata;
 
-        className = classnames( className, 'ghostkit-tab' );
-
-        className = applyFilters( 'ghostkit.editor.className', className, this.props );
-
-        return (
-            <div className={ className }>
-                <InnerBlocks templateLock={ false } />
-            </div>
-        );
-    }
-}
-
-export const name = 'ghostkit/tabs-tab-v2';
+export { metadata, name };
 
 export const settings = {
+    ...metadata,
     title: __( 'Tab' ),
-    parent: [ 'ghostkit/tabs-v2' ],
     description: __( 'A single tab within a tabs block.' ),
     icon: getIcon( 'block-tabs', true ),
-    category: 'ghostkit',
     ghostkit: {
         supports: {
             styles: true,
@@ -48,43 +28,9 @@ export const settings = {
             scrollReveal: true,
         },
     },
-    supports: {
-        html: false,
-        className: false,
-        anchor: true,
-        inserter: false,
-        reusable: false,
-    },
-    attributes: {
-        slug: {
-            type: 'string',
-        },
-    },
-
-    edit: TabBlock,
-
     getEditWrapperProps( attributes ) {
         return { 'data-tab': attributes.slug };
     },
-
-    save: function( props ) {
-        const {
-            slug,
-        } = props.attributes;
-
-        let className = 'ghostkit-tab';
-
-        className = applyFilters( 'ghostkit.blocks.className', className, {
-            ...{
-                name,
-            },
-            ...props,
-        } );
-
-        return (
-            <div className={ className } data-tab={ slug }>
-                <InnerBlocks.Content />
-            </div>
-        );
-    },
+    edit,
+    save,
 };

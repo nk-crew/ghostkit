@@ -1,8 +1,16 @@
+/**
+ * WordPress dependencies
+ */
 const { Component } = wp.element;
 
 const {
     FocalPointPicker,
 } = wp.components;
+
+/**
+ * Internal dependencies
+ */
+const imgCache = {};
 
 /**
  * Convert background size tp focal point object value
@@ -31,8 +39,6 @@ function sizeToPoint( size ) {
 
     return result;
 }
-
-const imgCache = {};
 
 /**
  * Parse string with image tag and retreive image src.
@@ -74,6 +80,9 @@ function parseImageUrl( image ) {
     return false;
 }
 
+/**
+ * Component Class.
+ */
 export default class CustomFocalPointPicker extends Component {
     render() {
         const {

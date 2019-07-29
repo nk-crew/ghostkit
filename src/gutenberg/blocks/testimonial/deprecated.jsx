@@ -1,6 +1,6 @@
-import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
-import IconPicker from '../../components/icon-picker';
-
+/**
+ * WordPress dependencies
+ */
 const { Component } = wp.element;
 
 const {
@@ -11,6 +11,12 @@ const {
     InnerBlocks,
     RichText,
 } = wp.editor;
+
+/**
+ * Internal dependencies
+ */
+import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
+import IconPicker from '../../components/icon-picker';
 
 export default [
     {

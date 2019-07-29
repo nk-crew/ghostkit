@@ -1,16 +1,19 @@
-// external Dependencies.
+/**
+ * Import CSS
+ */
+import './editor.scss';
+
+/**
+ * External dependencies
+ */
 if ( ! global._babelPolyfill ) {
     require( '@babel/polyfill' );
 }
 import Select from 'react-select';
 
-// Import CSS
-import './editor.scss';
-
-// Internal Dependencies.
-import getIcon from '../../utils/get-icon';
-import Modal from '../../components/modal';
-
+/**
+ * WordPress dependencies
+ */
 const {
     Fragment,
 } = wp.element;
@@ -41,6 +44,12 @@ const {
 const {
     ColorPalette,
 } = wp.editor;
+
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import Modal from '../../components/modal';
 
 class Customizer extends Component {
     constructor() {

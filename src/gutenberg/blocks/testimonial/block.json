@@ -1,0 +1,44 @@
+{
+	"name": "ghostkit/testimonial",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "icon": {
+            "type": "string",
+            "default": "fas fa-quote-left"
+        },
+        "photo": {
+            "type": "number",
+            "default": ""
+        },
+        "photoTag": {
+            "type": "string",
+            "default": ""
+        },
+        "photoSizes": {
+            "type": "object",
+            "default": ""
+        },
+        "photoSize": {
+            "type": "string",
+            "default": "thumbnail"
+        },
+        "name": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-testimonial-name",
+            "default": "<strong>Katrina Craft</strong>"
+        },
+        "source": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ghostkit-testimonial-source",
+            "default": "Designer"
+        }
+    }
+}

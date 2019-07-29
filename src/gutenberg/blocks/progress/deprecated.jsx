@@ -1,7 +1,12 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
 import deepAssign from 'deep-assign';
 
+/**
+ * WordPress dependencies
+ */
 const {
     RichText,
 } = wp.editor;

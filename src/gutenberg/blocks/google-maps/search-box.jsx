@@ -1,12 +1,21 @@
+/**
+ * External dependencies
+ */
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { withScriptjs } from 'react-google-maps';
 const { StandaloneSearchBox } = require( 'react-google-maps/lib/components/places/StandaloneSearchBox' );
 
+/**
+ * WordPress dependencies
+ */
 const {
     TextControl,
 } = wp.components;
 
-const SearchBox = compose(
+/*
+ * Search Box Component.
+ */
+export default compose(
     withState( 'value', 'setValue', props => {
         return props.value;
     } ),
@@ -57,5 +66,3 @@ const SearchBox = compose(
         </div>
     );
 } );
-
-export default SearchBox;

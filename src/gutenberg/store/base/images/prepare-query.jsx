@@ -1,3 +1,6 @@
+/**
+ * External dependencies
+ */
 import qs from 'qs';
 
 export default function prepareQuery( { id, ...data } ) {

@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 const {
     applyFilters,
 } = wp.hooks;

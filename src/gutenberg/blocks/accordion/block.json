@@ -1,0 +1,20 @@
+{
+	"name": "ghostkit/accordion",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "itemsCount": {
+            "type": "number",
+            "default": 2
+        },
+        "collapseOne": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

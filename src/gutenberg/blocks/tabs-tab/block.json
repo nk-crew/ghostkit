@@ -1,0 +1,17 @@
+{
+	"name": "ghostkit/tabs-tab-v2",
+    "parent": [ "ghostkit/tabs-v2" ],
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "inserter": false,
+        "reusable": false
+    },
+    "attributes": {
+        "slug": {
+            "type": "string"
+        }
+    }
+}

@@ -1,9 +1,12 @@
-// Import CSS
+/**
+ * Import CSS
+ */
 import './style.scss';
 import './editor.scss';
 
-import { BadgePopover, getSelectedBadge } from './badge-popover';
-
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
 
 const {
@@ -15,6 +18,11 @@ const {
     RichTextToolbarButton,
     ColorPalette,
 } = wp.editor;
+
+/**
+ * Internal dependencies
+ */
+import { BadgePopover, getSelectedBadge } from './badge-popover';
 
 export const name = 'ghostkit/badge';
 

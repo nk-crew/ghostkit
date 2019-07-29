@@ -1,8 +1,16 @@
-import classnames from 'classnames/dedupe';
-
-// Import CSS
+/**
+ * Import CSS
+ */
 import './editor.scss';
 
+/**
+ * External dependencies
+ */
+import classnames from 'classnames/dedupe';
+
+/**
+ * WordPress dependencies
+ */
 const WPColorPicker = wp.components.ColorPicker;
 
 const { Component } = wp.element;
@@ -19,6 +27,9 @@ const {
     ColorPalette,
 } = wp.editor;
 
+/**
+ * Component Class
+ */
 export default class ColorPicker extends Component {
     render() {
         const {

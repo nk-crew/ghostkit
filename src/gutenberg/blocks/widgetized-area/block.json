@@ -1,0 +1,14 @@
+{
+	"name": "ghostkit/widgetized-area",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "id": {
+            "type": "string"
+        }
+    }
+}

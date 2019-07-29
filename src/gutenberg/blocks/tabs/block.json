@@ -1,0 +1,33 @@
+{
+	"name": "ghostkit/tabs-v2",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "tabActive": {
+            "type": "string",
+            "default": "tab-1"
+        },
+        "buttonsAlign": {
+            "type": "string",
+            "default": "start"
+        },
+        "tabsData": {
+            "type": "array",
+            "default": [
+                {
+                    "slug": "tab-1",
+                    "title": "Tab 1"
+                },
+                {
+                    "slug": "tab-2",
+                    "title": "Tab 2"
+                }
+            ]
+        }
+    }
+}

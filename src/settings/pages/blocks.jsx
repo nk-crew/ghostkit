@@ -1,17 +1,30 @@
+/**
+ * Import CSS
+ */
+import './blocks.scss';
+
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
 import { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import deepAssign from 'deep-assign';
 import { debounce } from 'throttle-debounce';
 
-import './blocks.scss';
-import Info from '../components/info.jsx';
-import Tooltip from '../components/tooltip.jsx';
-import ToggleControl from '../components/toggle.jsx';
-
+/**
+ * WordPress dependencies
+ */
 const { apiFetch } = wp;
 
 const { __, sprintf } = wp.i18n;
+
+/**
+ * Internal dependencies
+ */
+import Info from '../components/info.jsx';
+import Tooltip from '../components/tooltip.jsx';
+import ToggleControl from '../components/toggle.jsx';
 
 const { GHOSTKIT } = window;
 

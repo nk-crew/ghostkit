@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 const {
     GHOSTKIT,
 } = window;

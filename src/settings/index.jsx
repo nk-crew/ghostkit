@@ -3,11 +3,14 @@
  */
 
 /**
- * Store
+ * Import CSS
+ */
+import './style.scss';
+
+/**
+ * Internal dependencies
  */
 import '../gutenberg/store';
-
-import './style.scss';
 import Container from './containers/container.jsx';
 
 window.addEventListener( 'load', () => {

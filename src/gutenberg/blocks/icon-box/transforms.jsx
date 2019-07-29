@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 const {
     createBlock,
 } = wp.blocks;

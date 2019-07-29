@@ -1,8 +1,14 @@
-import getColClass from './get-col-class';
-
+/**
+ * WordPress dependencies
+ */
 const {
     InnerBlocks,
 } = wp.editor;
+
+/**
+ * Internal dependencies
+ */
+import getColClass from './get-col-class';
 
 export default [
     {

@@ -1,18 +1,17 @@
-// External Dependencies.
+/**
+ * Import CSS
+ */
+import './editor.scss';
+
+/**
+ * External dependencies
+ */
 import Masonry from 'react-masonry-component';
 import classnames from 'classnames/dedupe';
 
-// Import CSS
-import './editor.scss';
-
-// Internal Dependencies.
-import getIcon from '../../utils/get-icon';
-import Modal from '../../components/modal';
-
-const {
-    GHOSTKIT,
-} = window;
-
+/**
+ * WordPress dependencies
+ */
 const {
     Fragment,
     RawHTML,
@@ -46,6 +45,16 @@ const {
     Spinner,
     SelectControl,
 } = wp.components;
+
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import Modal from '../../components/modal';
+
+const {
+    GHOSTKIT,
+} = window;
 
 class TemplatesModal extends Component {
     constructor() {

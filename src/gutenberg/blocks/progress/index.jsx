@@ -1,252 +1,37 @@
-// External Dependencies.
-import classnames from 'classnames/dedupe';
-import deepAssign from 'deep-assign';
-
-// Import CSS
+/**
+ * Import CSS
+ */
 import './style.scss';
 import './editor.scss';
 
-// Internal Dependencies.
-import getIcon from '../../utils/get-icon';
-import deprecatedArray from './deprecated';
+/**
+ * External dependencies
+ */
+import deepAssign from 'deep-assign';
 
-import ColorPicker from '../../components/color-picker';
-import ApplyFilters from '../../components/apply-filters';
-
-const {
-    applyFilters,
-} = wp.hooks;
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
-const { Component, Fragment } = wp.element;
-const {
-    PanelBody,
-    TextControl,
-    RangeControl,
-    ToggleControl,
-    ColorIndicator,
-    TabPanel,
-    ResizableBox,
-} = wp.components;
 
-const {
-    InspectorControls,
-    RichText,
-} = wp.editor;
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import metadata from './block.json';
+import edit from './edit';
+import save from './save';
+import deprecated from './deprecated';
 
-class ProgressBlock extends Component {
-    render() {
-        const {
-            attributes,
-            setAttributes,
-            isSelected,
-            toggleSelection,
-        } = this.props;
+const { name } = metadata;
 
-        let { className = '' } = this.props;
-
-        const {
-            caption,
-            height,
-            percent,
-            borderRadius,
-            striped,
-            animateInViewport,
-            showCount,
-            countPrefix,
-            countSuffix,
-            color,
-            backgroundColor,
-            hoverColor,
-            hoverBackgroundColor,
-        } = attributes;
-
-        className = classnames( 'ghostkit-progress', className );
-
-        className = applyFilters( 'ghostkit.editor.className', className, this.props );
-
-        return (
-            <Fragment>
-                <InspectorControls>
-                    <PanelBody>
-                        <RangeControl
-                            label={ __( 'Height' ) }
-                            value={ height || '' }
-                            onChange={ ( value ) => setAttributes( { height: value } ) }
-                            min={ 5 }
-                            max={ 30 }
-                        />
-                        <RangeControl
-                            label={ __( 'Percent' ) }
-                            value={ percent || '' }
-                            onChange={ ( value ) => setAttributes( { percent: value } ) }
-                            min={ 0 }
-                            max={ 100 }
-                        />
-                        <RangeControl
-                            label={ __( 'Corner Radius' ) }
-                            value={ borderRadius }
-                            min="0"
-                            max="10"
-                            onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
-                        />
-                    </PanelBody>
-                    <PanelBody>
-                        <ToggleControl
-                            label={ __( 'Show Count' ) }
-                            checked={ !! showCount }
-                            onChange={ ( val ) => setAttributes( { showCount: val } ) }
-                        />
-                        { showCount ? (
-                            <Fragment>
-                                <TextControl
-                                    label={ __( 'Count Prefix' ) }
-                                    value={ countPrefix }
-                                    onChange={ ( value ) => setAttributes( { countPrefix: value } ) }
-                                />
-                                <TextControl
-                                    label={ __( 'Count Suffix' ) }
-                                    value={ countSuffix }
-                                    onChange={ ( value ) => setAttributes( { countSuffix: value } ) }
-                                />
-                            </Fragment>
-                        ) : '' }
-                        <ToggleControl
-                            label={ __( 'Striped' ) }
-                            checked={ !! striped }
-                            onChange={ ( val ) => setAttributes( { striped: val } ) }
-                        />
-                        <ToggleControl
-                            label={ __( 'Animate in viewport' ) }
-                            checked={ !! animateInViewport }
-                            onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
-                        />
-                    </PanelBody>
-                    <PanelBody title={ (
-                        <Fragment>
-                            { __( 'Colors' ) }
-                            <ColorIndicator colorValue={ color } />
-                            <ColorIndicator colorValue={ backgroundColor } />
-                        </Fragment>
-                    ) } initialOpen={ false }>
-                        <TabPanel
-                            className="ghostkit-control-tabs"
-                            tabs={ [
-                                {
-                                    name: 'normal',
-                                    title: __( 'Normal' ),
-                                    className: 'ghostkit-control-tabs-tab',
-                                },
-                                {
-                                    name: 'hover',
-                                    title: __( 'Hover' ),
-                                    className: 'ghostkit-control-tabs-tab',
-                                },
-                            ] }>
-                            {
-                                ( tabData ) => {
-                                    const isHover = tabData.name === 'hover';
-                                    return (
-                                        <Fragment>
-                                            <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
-                                                <ColorPicker
-                                                    label={ __( 'Bar' ) }
-                                                    value={ isHover ? hoverColor : color }
-                                                    onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
-                                                    alpha={ true }
-                                                />
-                                            </ApplyFilters>
-                                            <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverBackgroundColor' : 'backgroundColor' } props={ this.props }>
-                                                <ColorPicker
-                                                    label={ __( 'Background' ) }
-                                                    value={ isHover ? hoverBackgroundColor : backgroundColor }
-                                                    onChange={ ( val ) => setAttributes( isHover ? { hoverBackgroundColor: val } : { backgroundColor: val } ) }
-                                                    alpha={ true }
-                                                />
-                                            </ApplyFilters>
-                                        </Fragment>
-                                    );
-                                }
-                            }
-                        </TabPanel>
-                    </PanelBody>
-                </InspectorControls>
-                <div className={ className }>
-                    { ( ! RichText.isEmpty( caption ) || isSelected ) ? (
-                        <RichText
-                            tagName="div"
-                            className="ghostkit-progress-caption"
-                            placeholder={ __( 'Write caption…' ) }
-                            value={ caption }
-                            onChange={ newCaption => setAttributes( { caption: newCaption } ) }
-                        />
-                    ) : '' }
-                    { showCount ? (
-                        <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
-                            <div>{ countPrefix }{ percent }{ countSuffix }</div>
-                        </div>
-                    ) : '' }
-                    <ResizableBox
-                        className={ classnames( { 'is-selected': isSelected } ) }
-                        size={ {
-                            width: '100%',
-                            height,
-                        } }
-                        minWidth="0%"
-                        maxWidth="100%"
-                        minHeight="5"
-                        maxHeight="30"
-                        enable={ { bottom: true } }
-                        onResizeStart={ () => {
-                            toggleSelection( false );
-                        } }
-                        onResizeStop={ ( event, direction, elt, delta ) => {
-                            setAttributes( {
-                                height: parseInt( height + delta.height, 10 ),
-                            } );
-                            toggleSelection( true );
-                        } }
-                    >
-                        <div
-                            className={ classnames( {
-                                'ghostkit-progress-wrap': true,
-                                'ghostkit-progress-bar-striped': striped,
-                            } ) }
-                        >
-                            <ResizableBox
-                                className={ classnames( 'ghostkit-progress-bar', { 'is-selected': isSelected } ) }
-                                size={ {
-                                    width: `${ percent }%`,
-                                } }
-                                minWidth="0%"
-                                maxWidth="100%"
-                                minHeight="100%"
-                                maxHeight="100%"
-                                enable={ { right: true } }
-                                onResizeStart={ () => {
-                                    toggleSelection( false );
-                                } }
-                                onResizeStop={ ( event, direction, elt, delta ) => {
-                                    setAttributes( {
-                                        percent: Math.min( 100, Math.max( 0, percent + parseInt( 100 * delta.width / jQuery( elt ).parent().width(), 10 ) ) ),
-                                    } );
-                                    toggleSelection( true );
-                                } }
-                            />
-                        </div>
-                    </ResizableBox>
-                </div>
-            </Fragment>
-        );
-    }
-}
-
-export const name = 'ghostkit/progress';
+export { metadata, name };
 
 export const settings = {
+    ...metadata,
     title: __( 'Progress' ),
     description: __( 'Show the progress of your work, skills or earnings.' ),
     icon: getIcon( 'block-progress', true ),
-    category: 'ghostkit',
     keywords: [
         __( 'progress' ),
         __( 'bar' ),
@@ -292,112 +77,7 @@ export const settings = {
             scrollReveal: true,
         },
     },
-    supports: {
-        html: false,
-        className: false,
-        anchor: true,
-        align: [ 'wide', 'full' ],
-    },
-    attributes: {
-        caption: {
-            type: 'string',
-            source: 'html',
-            selector: '.ghostkit-progress-caption',
-            default: 'Progress Caption',
-        },
-        height: {
-            type: 'number',
-            default: 15,
-        },
-        percent: {
-            type: 'number',
-            default: 75,
-        },
-        borderRadius: {
-            type: 'number',
-            default: 2,
-        },
-        striped: {
-            type: 'boolean',
-            default: true,
-        },
-        animateInViewport: {
-            type: 'boolean',
-            default: false,
-        },
-        showCount: {
-            type: 'boolean',
-            default: false,
-        },
-        countPrefix: {
-            type: 'string',
-            default: '',
-        },
-        countSuffix: {
-            type: 'string',
-            default: '%',
-        },
-        color: {
-            type: 'string',
-            default: '#0366d6',
-        },
-        backgroundColor: {
-            type: 'string',
-            default: '#f3f4f5',
-        },
-        hoverColor: {
-            type: 'string',
-        },
-        hoverBackgroundColor: {
-            type: 'string',
-        },
-    },
-
-    edit: ProgressBlock,
-
-    save: function( props ) {
-        const {
-            caption,
-            height,
-            percent,
-            striped,
-            showCount,
-            countPrefix,
-            countSuffix,
-            animateInViewport,
-        } = props.attributes;
-
-        let className = 'ghostkit-progress';
-
-        className = applyFilters( 'ghostkit.blocks.className', className, {
-            ...{
-                name,
-            },
-            ...props,
-        } );
-
-        return (
-            <div className={ className }>
-                { ! RichText.isEmpty( caption ) ? (
-                    <div className="ghostkit-progress-caption">
-                        <RichText.Content value={ caption } />
-                    </div>
-                ) : '' }
-                { showCount ? (
-                    <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
-                        <div>
-                            <span>{ countPrefix }</span>
-                            <span>{ percent }</span>
-                            <span>{ countSuffix }</span>
-                        </div>
-                    </div>
-                ) : '' }
-                <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
-                    <div className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) } role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
-                </div>
-            </div>
-        );
-    },
-
-    deprecated: deprecatedArray,
+    edit,
+    save,
+    deprecated,
 };

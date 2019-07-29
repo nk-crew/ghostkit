@@ -1,14 +1,16 @@
-import ScrollReveal from 'scrollreveal';
-
-import parseSRConfig from './parseSRConfig';
-
-// Import CSS
+/**
+ * Import CSS
+ */
 import './editor.scss';
 
-import getIcon from '../../utils/get-icon';
+/**
+ * External dependencies
+ */
+import ScrollReveal from 'scrollreveal';
 
-const $ = window.jQuery;
-
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
 
 const {
@@ -25,8 +27,6 @@ const {
     createHigherOrderComponent,
 } = wp.compose;
 
-const { GHOSTKIT } = window;
-
 const { InspectorControls } = wp.editor;
 
 const {
@@ -36,6 +36,16 @@ const {
     Button,
     ButtonGroup,
 } = wp.components;
+
+/**
+ * Internal dependencies
+ */
+import parseSRConfig from './parseSRConfig';
+import getIcon from '../../utils/get-icon';
+
+const $ = window.jQuery;
+
+const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
 

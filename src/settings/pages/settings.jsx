@@ -1,13 +1,19 @@
+/**
+ * Import CSS
+ */
+import './settings.scss';
+
+/**
+ * External dependencies
+ */
 import { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import deepAssign from 'deep-assign';
 import { debounce } from 'throttle-debounce';
 
-import './settings.scss';
-import ToggleControl from '../components/toggle.jsx';
-import Spinner from '../components/spinner.jsx';
-import CodeEditor from '../../gutenberg/components/code-editor';
-
+/**
+ * WordPress dependencies
+ */
 const { apiFetch } = wp;
 
 const { __ } = wp.i18n;
@@ -18,6 +24,13 @@ const {
     withSelect,
     withDispatch,
 } = wp.data;
+
+/**
+ * Internal dependencies
+ */
+import ToggleControl from '../components/toggle.jsx';
+import Spinner from '../components/spinner.jsx';
+import CodeEditor from '../../gutenberg/components/code-editor';
 
 const { GHOSTKIT } = window;
 

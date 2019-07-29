@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import prepareQuery from './prepare-query';
 
 export function getImageTagData( state, data ) {

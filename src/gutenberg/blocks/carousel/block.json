@@ -1,0 +1,68 @@
+{
+	"name": "ghostkit/carousel",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "slides": {
+            "type": "number",
+            "default": 3
+        },
+        "effect": {
+            "type": "string",
+            "default": "slide"
+        },
+        "speed": {
+            "type": "number",
+            "default": 0.2
+        },
+        "autoplay": {
+            "type": "number",
+            "default": 4
+        },
+        "slidesPerView": {
+            "type": "number",
+            "default": 3
+        },
+        "centeredSlides": {
+            "type": "boolean",
+            "default": true
+        },
+        "loop": {
+            "type": "boolean",
+            "default": true
+        },
+        "freeScroll": {
+            "type": "boolean",
+            "default": false
+        },
+        "showArrows": {
+            "type": "boolean",
+            "default": true
+        },
+        "arrowPrevIcon": {
+            "type": "string",
+            "default": "fas fa-angle-left"
+        },
+        "arrowNextIcon": {
+            "type": "string",
+            "default": "fas fa-angle-right"
+        },
+        "showBullets": {
+            "type": "boolean",
+            "default": true
+        },
+        "dynamicBullets": {
+            "type": "boolean",
+            "default": true
+        },
+        "gap": {
+            "type": "number",
+            "default": 15
+        }
+    }
+}

@@ -1,12 +1,19 @@
 /* eslint-disable */
+
+/**
+ * WordPress dependencies
+ */
+const { __ } = wp.i18n;
+
+/**
+ * Internal dependencies
+ */
 import ImgStyleDefault from './style-default.png';
 import ImgStyleBright from './style-bright.png';
 import ImgStyleLight from './style-light.png';
 import ImgStyleDark from './style-dark.png';
 import ImgStylePaleDawn from './style-pale-dawn.png';
 import ImgStyleCustom from './style-custom.png';
-
-const { __ } = wp.i18n;
 
 export default [
     {

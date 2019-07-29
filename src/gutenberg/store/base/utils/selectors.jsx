@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import getIcon from '../../../utils/get-icon';
 import fixXmlImportedContent from '../../../utils/fix-xml-imported-content';
 import dashCaseToTitle from '../../../utils/dash-case-to-title';

@@ -1,8 +1,6 @@
-// Internal Dependencies.
-import ColorPicker from '../../components/color-picker';
-import FocalPointPicker from '../../components/focal-point-picker';
-import dashCaseToTitle from '../../utils/dash-case-to-title';
-
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
@@ -26,6 +24,13 @@ const {
 const {
     withSelect,
 } = wp.data;
+
+/**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import FocalPointPicker from '../../components/focal-point-picker';
+import dashCaseToTitle from '../../utils/dash-case-to-title';
 
 /**
  * Filters registered block settings, extending attributes to include backgrounds.

@@ -1,0 +1,31 @@
+{
+	"name": "ghostkit/alert",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "color": {
+            "type": "string",
+            "default": "#E47F3B"
+        },
+        "hoverColor": {
+            "type": "string"
+        },
+        "icon": {
+            "type": "string",
+            "default": "fas fa-exclamation-circle"
+        },
+        "iconSize": {
+            "type": "number",
+            "default": 17
+        },
+        "hideButton": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

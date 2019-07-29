@@ -1,0 +1,54 @@
+{
+	"name": "ghostkit/instagram",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "accessToken": {
+            "type": "string"
+        },
+        "count": {
+            "type": "number",
+            "default": 8
+        },
+        "columns": {
+            "type": "number",
+            "default": 4
+        },
+        "gap": {
+            "type": "string",
+            "default": "sm"
+        },
+        "showProfile": {
+            "type": "boolean",
+            "default": true
+        },
+        "showProfileAvatar": {
+            "type": "boolean",
+            "default": true
+        },
+        "profileAvatarSize": {
+            "type": "number",
+            "default": 70
+        },
+        "showProfileName": {
+            "type": "boolean",
+            "default": true
+        },
+        "showProfileStats": {
+            "type": "boolean",
+            "default": true
+        },
+        "showProfileBio": {
+            "type": "boolean",
+            "default": true
+        },
+        "showProfileWebsite": {
+            "type": "boolean",
+            "default": true
+        }
+    }
+}

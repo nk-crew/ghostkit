@@ -1,0 +1,97 @@
+{
+	"name": "ghostkit/twitter",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "consumerKey": {
+            "type": "string"
+        },
+        "consumerSecret": {
+            "type": "string"
+        },
+        "accessToken": {
+            "type": "string"
+        },
+        "accessTokenSecret": {
+            "type": "string"
+        },
+        "userName": {
+            "type": "string",
+            "default": "nkdevv"
+        },
+        "count": {
+            "type": "number",
+            "default": 3
+        },
+
+        "showReplies": {
+            "type": "boolean",
+            "default": false
+        },
+        "showRetweets": {
+            "type": "boolean",
+            "default": true
+        },
+        "showFeedAvatar": {
+            "type": "boolean",
+            "default": true
+        },
+        "feedAvatarSize": {
+            "type": "number",
+            "default": 48
+        },
+        "showFeedName": {
+            "type": "boolean",
+            "default": true
+        },
+        "showFeedDate": {
+            "type": "boolean",
+            "default": true
+        },
+        "feedTextConvertLinks": {
+            "type": "string",
+            "default": "links_media"
+        },
+        "showFeedActions": {
+            "type": "boolean",
+            "default": true
+        },
+
+        "showProfile": {
+            "type": "boolean",
+            "default": true
+        },
+        "showProfileAvatar": {
+            "type": "boolean",
+            "default": true
+        },
+        "profileAvatarSize": {
+            "type": "number",
+            "default": 70
+        },
+        "showProfileName": {
+            "type": "boolean",
+            "default": true
+        },
+        "showProfileStats": {
+            "type": "boolean",
+            "default": true
+        },
+        "showProfileDescription": {
+            "type": "boolean",
+            "default": true
+        },
+        "showProfileWebsite": {
+            "type": "boolean",
+            "default": true
+        },
+        "showProfileLocation": {
+            "type": "boolean",
+            "default": true
+        }
+    }
+}

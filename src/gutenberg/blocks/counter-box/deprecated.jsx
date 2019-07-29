@@ -1,6 +1,11 @@
-// External Dependencies.
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
 
+/**
+ * WordPress dependencies
+ */
 const {
     applyFilters,
 } = wp.hooks;
@@ -8,6 +13,10 @@ const {
     InnerBlocks,
     RichText,
 } = wp.editor;
+
+/**
+ * Internal dependencies
+ */
 
 const name = 'ghostkit/counter-box';
 

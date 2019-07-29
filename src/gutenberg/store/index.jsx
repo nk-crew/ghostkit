@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import './base/utils';
 import './base/components';
 import './base/images';

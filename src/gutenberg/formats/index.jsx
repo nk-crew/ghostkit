@@ -1,9 +1,15 @@
-import * as uppercase from './uppercase';
-import * as badge from './badge';
-
+/**
+ * WordPress dependencies
+ */
 const {
     registerFormatType,
 } = wp.richText;
+
+/**
+ * Internal dependencies
+ */
+import * as uppercase from './uppercase';
+import * as badge from './badge';
 
 /**
  * Register formats

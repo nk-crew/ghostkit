@@ -1,0 +1,72 @@
+{
+	"name": "ghostkit/google-maps",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "lat": {
+            "type": "number",
+            "default": 40.7127753
+        },
+        "lng": {
+            "type": "number",
+            "default": -74.0059728
+        },
+        "zoom": {
+            "type": "number",
+            "default": 10
+        },
+        "height": {
+            "type": "number",
+            "default": 350
+        },
+        "showZoomButtons": {
+            "type": "boolean",
+            "default": true
+        },
+        "showMapTypeButtons": {
+            "type": "boolean",
+            "default": true
+        },
+        "showStreetViewButton": {
+            "type": "boolean",
+            "default": true
+        },
+        "showFullscreenButton": {
+            "type": "boolean",
+            "default": true
+        },
+        "optionScrollWheel": {
+            "type": "boolean",
+            "default": true
+        },
+        "gestureHandling": {
+            "type": "string",
+            "default": "greedy"
+        },
+        "optionDraggable": {
+            "type": "boolean",
+            "default": true
+        },
+        "style": {
+            "type": "string",
+            "default": "default"
+        },
+        "styleCustom": {
+            "type": "string",
+            "default": ""
+        },
+        "markers": {
+            "type": "array",
+            "default": []
+        },
+        "fullHeight": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

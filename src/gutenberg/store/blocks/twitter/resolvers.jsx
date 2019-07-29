@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import * as actions from './actions';
 import prepareQuery from './prepare-query';
 

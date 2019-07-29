@@ -1,0 +1,26 @@
+{
+	"name": "ghostkit/grid",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "columns": {
+            "type": "number",
+            "default": 0
+        },
+        "gap": {
+            "type": "string",
+            "default": "md"
+        },
+        "verticalAlign": {
+            "type": "string"
+        },
+        "horizontalAlign": {
+            "type": "string"
+        }
+    }
+}

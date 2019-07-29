@@ -1,7 +1,15 @@
+/**
+ * WordPress dependencies
+ */
 const {
     createBlock,
 } = wp.blocks;
 
+/**
+ * Internal dependencies
+ */
+
+// parse youtube ID
 function getYoutubeID( ytUrl ) {
     // eslint-disable-next-line no-useless-escape
     const regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;

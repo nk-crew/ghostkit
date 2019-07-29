@@ -1,0 +1,23 @@
+{
+	"name": "ghostkit/button",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true
+    },
+    "attributes": {
+        "align": {
+            "type": "string",
+            "default": "none"
+        },
+        "count": {
+            "type": "number",
+            "default": 1
+        },
+        "gap": {
+            "type": "string",
+            "default": "md"
+        }
+    }
+}

@@ -1,16 +1,25 @@
-import getIcon from '../../utils/get-icon';
-
+/**
+ * WordPress dependencies
+ */
 const { Component } = wp.element;
 
 const { __, sprintf } = wp.i18n;
-
-const { ghostkitVariables } = window;
 
 const {
     Tooltip,
     TabPanel,
 } = wp.components;
 
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+
+const { ghostkitVariables } = window;
+
+/**
+ * Component Class
+ */
 export default class ResponsiveTabPanel extends Component {
     render() {
         const {

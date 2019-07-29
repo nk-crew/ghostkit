@@ -1,7 +1,16 @@
-import { Component } from 'react';
-
+/**
+ * Import CSS
+ */
 import './tooltip.scss';
 
+/**
+ * External dependencies
+ */
+import { Component } from 'react';
+
+/**
+ * WordPress dependencies
+ */
 const WPTooltip = wp.components.Tooltip;
 
 export default class Tooltip extends Component {

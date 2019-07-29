@@ -1,9 +1,16 @@
-// External Dependencies.
-import classnames from 'classnames/dedupe';
-
-// Import CSS
+/**
+ * Import CSS
+ */
 import './editor.scss';
 
+/**
+ * External dependencies
+ */
+import classnames from 'classnames/dedupe';
+
+/**
+ * WordPress dependencies
+ */
 const {
     Component,
 } = wp.element;
@@ -12,6 +19,9 @@ const {
     Modal,
 } = wp.components;
 
+/**
+ * Component Class
+ */
 export default class ModalComponent extends Component {
     render() {
         let className = 'ghostkit-component-modal';

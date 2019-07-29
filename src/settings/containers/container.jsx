@@ -1,14 +1,25 @@
-// External Dependencies.
+/**
+ * Import CSS
+ */
+import './container.scss';
+
+/**
+ * External dependencies
+ */
 import classnames from 'classnames/dedupe';
 import { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-// Internal Dependencies.
-import './container.scss';
+/**
+ * WordPress dependencies
+ */
+const { __ } = wp.i18n;
+
+/**
+ * Internal dependencies
+ */
 import pages from '../pages/index.jsx';
 import Logo from '../assets/logo.svg';
-
-const { __ } = wp.i18n;
 
 const $ = window.jQuery;
 

@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import * as grid from './grid';
 import * as gridColumn from './grid-column';
 import * as divider from './divider';
@@ -26,9 +29,6 @@ import * as widgetizedArea from './widgetized-area';
 import * as instagram from './instagram';
 import * as twitter from './twitter';
 
-/**
- * Internal dependencies
- */
 const {
     registerBlockType,
 } = wp.blocks;

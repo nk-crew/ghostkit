@@ -1,8 +1,11 @@
-// Import CSS
+/**
+ * Import CSS
+ */
 import './style.scss';
 
-import getIcon from '../../utils/get-icon';
-
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
 
 const {
@@ -18,6 +21,11 @@ const {
 const {
     toggleFormat,
 } = wp.richText;
+
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
 
 export const name = 'ghostkit/uppercase';
 

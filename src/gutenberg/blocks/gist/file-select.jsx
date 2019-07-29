@@ -1,4 +1,6 @@
-const { jQuery } = window;
+/**
+ * WordPress dependencies
+ */
 const { Component } = wp.element;
 
 const { __ } = wp.i18n;
@@ -8,8 +10,16 @@ const {
     DropdownMenu,
 } = wp.components;
 
+/**
+ * Internal dependencies
+ */
+const { jQuery } = window;
+
 const cache = {};
 
+/**
+ * Component Class.
+ */
 class GistFilesSelect extends Component {
     constructor() {
         super( ...arguments );
