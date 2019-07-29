@@ -223,11 +223,6 @@
             margin-top: -14px;
             margin-bottom: -14px;
         }
-
-        // fix selected column block content position.
-        > .editor-block-contextual-toolbar + [data-block] {
-            margin-left: 30px;
-        }
     }
 }
 
@@ -276,6 +271,9 @@
         [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit > [data-block] {
             margin-right: -14px + ($size / 2);
             margin-left: -15px + ($size / 2);
+        }
+        [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit > .editor-block-contextual-toolbar + [data-block] {
+            margin-left: 15px + ($size / 2);
         }
     }
 }
