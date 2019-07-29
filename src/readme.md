@@ -315,6 +315,19 @@ Available events:
 
 ## Changelog ##
 
+= 2.5.0 =
+
+* added Focal Point picker in Grid background settings
+* added jQuery events for ScrollReveal to let users change the config
+* improved position of badges popup with color picker
+* changed Changelog badges styles
+* changed Grid background img tag output (fixes bug, when user with Editor permission save background image and block crashed)
+* updated FontAwesome to 5.9.0
+* updated Swiper to 4.5.0
+* updated Jarallax to 1.11.0
+* fixed Badge background color when adding it the first time
+* fixed selected Column content left offset
+
 = 2.4.4 =
 
 * fixed grid background alignfull left and right styles
