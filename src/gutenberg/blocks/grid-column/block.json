@@ -79,12 +79,10 @@
             "default": false
         },
         "stickyContentTop": {
-            "type": "number",
-            "default": 40
+            "type": "number"
         },
         "stickyContentBottom": {
-            "type": "number",
-            "default": ""
+            "type": "number"
         }
     }
 }

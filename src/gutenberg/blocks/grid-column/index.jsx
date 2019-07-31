@@ -57,11 +57,19 @@ export const settings = {
                     position: 'sticky',
                 };
 
-                if ( typeof stickyContentTop === 'number' ) {
-                    result[ '> .ghostkit-col-content' ].top = stickyContentTop;
-                }
                 if ( typeof stickyContentBottom === 'number' ) {
+                    result = {
+                        display: 'flex',
+                        '-webkit-box-orient': 'vertical',
+                        '-webkit-box-direction': 'normal',
+                        '-ms-flex-direction': 'column',
+                        'flex-direction': 'column',
+                        ...result,
+                    };
+                    result[ '> .ghostkit-col-content' ].marginTop = 'auto';
                     result[ '> .ghostkit-col-content' ].bottom = stickyContentBottom;
+                } else {
+                    result[ '> .ghostkit-col-content' ].top = typeof stickyContentTop === 'number' ? stickyContentTop : 0;
                 }
             }
 
