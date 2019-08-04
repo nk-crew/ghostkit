@@ -278,13 +278,6 @@ function addAttributeTransform( transformedBlock, blocks ) {
 }
 
 /**
- * List of used IDs to prevent duplicates.
- *
- * @type {Object}
- */
-const usedIds = {};
-
-/**
  * Override the default edit UI to include a new block inspector control for
  * assigning the custom styles if needed.
  *
@@ -297,32 +290,18 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
         constructor() {
             super( ...arguments );
 
-            const {
-                attributes,
-                clientId,
-            } = this.props;
-
-            // fix duplicated classes after block clone.
-            if ( clientId && attributes.ghostkitId ) {
-                if ( typeof usedIds[ attributes.ghostkitId ] === 'undefined' ) {
-                    usedIds[ attributes.ghostkitId ] = clientId;
-                } else {
-                    this.props.attributes.ghostkitId = '';
-                }
-            }
-
             this.onUpdate = this.onUpdate.bind( this );
             this.getGhostKitAtts = this.getGhostKitAtts.bind( this );
         }
 
         componentDidMount() {
-            this.onUpdate();
+            this.onUpdate( true );
         }
         componentDidUpdate() {
             this.onUpdate();
         }
 
-        onUpdate() {
+        onUpdate( checkDuplicates ) {
             const {
                 setAttributes,
                 attributes,
@@ -339,7 +318,7 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             );
 
             if ( blockCustomStyles && Object.keys( blockCustomStyles ).length ) {
-                const ghostkitAtts = this.getGhostKitAtts();
+                const ghostkitAtts = this.getGhostKitAtts( checkDuplicates );
 
                 if ( ghostkitAtts.ghostkitClassname ) {
                     let updateAttrs = false;
@@ -370,10 +349,6 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
                     }
                 }
             } else if ( attributes.ghostkitStyles ) {
-                if ( attributes.ghostkitId && typeof usedIds[ attributes.ghostkitId ] !== 'undefined' ) {
-                    delete usedIds[ attributes.ghostkitId ];
-                }
-
                 setAttributes( {
                     ghostkitClassname: '',
                     ghostkitId: '',
@@ -382,40 +357,95 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
             }
         }
 
-        getGhostKitAtts() {
-            const props = this.props;
-            let result = false;
+        /**
+         * Get recursive all blocks of the current page
+         *
+         * @param {boolean} blocks - block list
+         *
+         * @return {array} block list
+         */
+        getAllBlocks( blocks = false ) {
+            let result = [];
 
-            if ( props.attributes.ghostkitId && props.attributes.ghostkitClassname ) {
-                result = {
-                    ghostkitId: props.attributes.ghostkitId,
-                    ghostkitClassname: props.attributes.ghostkitClassname,
-                };
+            if ( ! blocks ) {
+                blocks = wp.data.select( 'core/editor' ).getBlocks();
+            }
 
-                // add new ghostkit props.
-            } else if ( props.clientId && props.attributes && typeof props.attributes.ghostkitId !== 'undefined' ) {
-                let ID = props.attributes.ghostkitId || '';
+            if ( ! blocks ) {
+                return result;
+            }
 
-                // check if ID already exist.
-                let tryCount = 10;
-                while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== props.clientId && tryCount > 0 ) ) {
-                    ID = shorthash.unique( props.clientId );
-                    tryCount--;
+            blocks.forEach( ( data ) => {
+                result.push( data );
+
+                if ( data.innerBlocks && data.innerBlocks.length ) {
+                    result = [
+                        ...result,
+                        ...this.getAllBlocks( data.innerBlocks ),
+                    ];
                 }
+            } );
 
-                if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
-                    usedIds[ ID ] = props.clientId;
-                }
+            return result;
+        }
 
-                if ( ID !== props.attributes.ghostkitId ) {
-                    result = {
-                        ghostkitId: ID,
-                        ghostkitClassname: props.name.replace( '/', '-' ) + '-' + ID,
-                    };
+        getGhostKitAtts( checkDuplicates ) {
+            const {
+                attributes,
+                clientId,
+                name,
+            } = this.props;
+
+            let {
+                ghostkitId,
+                ghostkitClassname,
+            } = attributes;
+
+            // prevent unique ID duplication after block duplicated.
+            if ( checkDuplicates ) {
+                const allBlocks = this.getAllBlocks();
+                const usedIds = {};
+
+                allBlocks.forEach( ( data ) => {
+                    if ( data.clientId && data.attributes && data.attributes.ghostkitId ) {
+                        usedIds[ data.attributes.ghostkitId ] = data.clientId;
+
+                        if ( data.clientId !== clientId && data.attributes.ghostkitId === ghostkitId ) {
+                            ghostkitId = '';
+                        }
+                    }
+                } );
+
+                // prepare new block id.
+                if ( clientId && ! ghostkitId && typeof ghostkitId !== 'undefined' ) {
+                    let ID = ghostkitId || '';
+
+                    // check if ID already exist.
+                    let tryCount = 10;
+                    while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== clientId && tryCount > 0 ) ) {
+                        ID = shorthash.unique( clientId );
+                        tryCount--;
+                    }
+
+                    if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
+                        usedIds[ ID ] = clientId;
+                    }
+
+                    if ( ID !== ghostkitId ) {
+                        ghostkitId = ID;
+                        ghostkitClassname = name.replace( '/', '-' ) + '-' + ID;
+                    }
                 }
             }
 
-            return result;
+            if ( ghostkitId && ghostkitClassname ) {
+                return {
+                    ghostkitId: ghostkitId,
+                    ghostkitClassname: ghostkitClassname,
+                };
+            }
+
+            return {};
         }
 
         render() {
