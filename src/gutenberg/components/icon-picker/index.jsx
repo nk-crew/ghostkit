@@ -11,6 +11,13 @@ import classnames from 'classnames/dedupe';
 import { List, CellMeasurer, CellMeasurerCache, AutoSizer } from 'react-virtualized';
 
 /**
+ * Internal dependencies
+ */
+import dashCaseToTitle from '../../utils/dash-case-to-title';
+
+const { GHOSTKIT } = window;
+
+/**
  * WordPress dependencies
  */
 const {
@@ -32,11 +39,6 @@ const {
 } = wp.components;
 
 /**
- * Internal dependencies
- */
-const { GHOSTKIT } = window;
-
-/**
  * Go over each icon.
  *
  * @param {Function} callback callback.
@@ -54,6 +56,23 @@ function eachIcons( callback ) {
             callback( icons[ key ] );
         }
     } );
+}
+
+/**
+ * Get Icon Tip.
+ *
+ * @param {Object} iconData icon data.
+ *
+ * @return {String} tip
+ */
+function getIconTip( iconData ) {
+    let result = '';
+
+    if ( iconData.keys ) {
+        result = dashCaseToTitle( iconData.keys.split( ',' )[ 0 ] );
+    }
+
+    return result;
 }
 
 // we need this lazy loading component to prevent a huge lags while first loading SVG icons
@@ -142,21 +161,23 @@ class IconPickerDropdown extends Component {
         eachIcons( ( iconsData ) => {
             const { hiddenCategories } = this.state;
             const showCategory = typeof hiddenCategories[ iconsData.name ] !== 'undefined' ? hiddenCategories[ iconsData.name ] : true;
+            const searchString = this.state.search.toLowerCase();
 
             // prepare all icons.
             const allIcons = iconsData.icons.filter( ( iconData ) => {
                 if (
-                    ! this.state.search ||
-                    ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
+                    ! searchString ||
+                    ( searchString && iconData.keys.indexOf( searchString.toLowerCase() ) > -1 )
                 ) {
                     return true;
                 }
 
                 return false;
             } ).map( ( iconData ) => {
-                return (
+                const iconTip = getIconTip( iconData );
+
+                const result = (
                     <Icon
-                        key={ iconData.class }
                         active={ iconData.class === value }
                         iconData={ iconData }
                         onClick={ () => {
@@ -164,6 +185,19 @@ class IconPickerDropdown extends Component {
                         } }
                     />
                 );
+
+                if ( iconTip ) {
+                    return (
+                        <Tooltip key={ iconData.class } text={ iconTip }>
+                            { /* We need this <div> just because Tooltip don't work without it */ }
+                            <div>
+                                { result }
+                            </div>
+                        </Tooltip>
+                    );
+                }
+
+                return result;
             } );
 
             if ( ! allIcons.length ) {
@@ -330,13 +364,16 @@ export default class IconPicker extends Component {
                 value={ value }
                 renderToggle={ ( { isOpen, onToggle } ) => (
                     <Tooltip text={ __( 'Icon Picker' ) }>
-                        <IconPicker.Preview
-                            className="ghostkit-component-icon-picker-button"
-                            aria-expanded={ isOpen }
-                            onClick={ onToggle }
-                            name={ value }
-                            alwaysRender={ true }
-                        />
+                        { /* We need this <div> just because Tooltip don't work without it */ }
+                        <div>
+                            <IconPicker.Preview
+                                className="ghostkit-component-icon-picker-button hover"
+                                aria-expanded={ isOpen }
+                                onClick={ onToggle }
+                                name={ value }
+                                alwaysRender={ true }
+                            />
+                        </div>
                     </Tooltip>
                 ) }
             />
