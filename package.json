@@ -60,6 +60,7 @@
     "react-google-maps": "^9.4.5",
     "react-masonry-component": "^6.2.1",
     "react-select": "^2.2.0",
+    "react-virtualized": "^9.21.1",
     "scriptjs": "^2.5.9",
     "scrollreveal": "^4.0.5",
     "shorthash": "0.0.2",

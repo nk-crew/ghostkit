@@ -2,17 +2,20 @@
  * Import CSS
  */
 import './editor.scss';
+import 'react-virtualized/styles.css';
 
 /**
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
+import { List, CellMeasurer, CellMeasurerCache, AutoSizer } from 'react-virtualized';
 
 /**
  * WordPress dependencies
  */
 const {
     Component,
+    Fragment,
 } = wp.element;
 
 const { __ } = wp.i18n;
@@ -72,6 +75,11 @@ class IconPickerDropdown extends Component {
     constructor() {
         super( ...arguments );
 
+        this.cellMCache = new CellMeasurerCache( {
+            defaultHeight: 65,
+            fixedWidth: true,
+        } );
+
         this.state = {
             search: '',
         };
@@ -86,62 +94,136 @@ class IconPickerDropdown extends Component {
             renderToggle,
         } = this.props;
 
+        const rows = [
+            {
+                key: 'form',
+                render: (
+                    <Fragment key="form">
+                        <TextControl
+                            label={ __( 'Icon class' ) }
+                            value={ value }
+                            onChange={ ( newClass ) => {
+                                onChange( newClass );
+                            } }
+                            placeholder={ __( 'Icon class' ) }
+                        />
+                        <TextControl
+                            label={ __( 'Search icon' ) }
+                            value={ this.state.search }
+                            onChange={ ( searchVal ) => (
+                                this.setState( { search: searchVal }, () => {
+                                    this.cellMCache.clearAll();
+                                } )
+                            ) }
+                            placeholder={ __( 'Type to search...' ) }
+                        />
+                    </Fragment>
+                ),
+            },
+        ];
+
+        eachIcons( ( iconsData ) => {
+            rows.push( {
+                key: `title-${ iconsData.name }`,
+                render: (
+                    <div className="ghostkit-component-icon-picker-list-title">
+                        { iconsData.name }
+                    </div>
+                ),
+            } );
+
+            const allIcons = iconsData.icons.filter( ( iconData ) => {
+                if (
+                    ! this.state.search ||
+                    ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
+                ) {
+                    return true;
+                }
+
+                return false;
+            } ).map( ( iconData ) => {
+                return (
+                    <Icon
+                        key={ iconData.class }
+                        active={ iconData.class === value }
+                        iconData={ iconData }
+                        onClick={ () => {
+                            onChange( iconData.class );
+                        } }
+                    />
+                );
+            } );
+
+            let currentIcons = [];
+            allIcons.forEach( ( icon, i ) => {
+                currentIcons.push( icon );
+
+                if ( 3 === currentIcons.length || allIcons.length === ( i + 1 ) ) {
+                    rows.push( {
+                        key: 'icons',
+                        render: (
+                            <div className="ghostkit-component-icon-picker-list">
+                                { currentIcons }
+                            </div>
+                        ),
+                    } );
+                    currentIcons = [];
+                }
+            } );
+        } );
+
         const dropdown = (
             <Dropdown
                 className={ className }
+                contentClassName="ghostkit-component-icon-picker-content"
                 renderToggle={ renderToggle }
+                focusOnMount={ false }
                 renderContent={ () => {
-                    const result = [];
+                    const result = (
+                        <AutoSizer>
+                            { ( { width, height } ) => (
+                                <List
+                                    className="ghostkit-component-icon-picker-list-wrap"
+                                    width={ width }
+                                    height={ height }
+                                    rowCount={ rows.length }
+                                    rowHeight={ this.cellMCache.rowHeight }
+                                    rowRenderer={ ( data ) => {
+                                        const {
+                                            index,
+                                            style,
+                                            parent,
+                                            key,
+                                        } = data;
 
-                    eachIcons( ( iconsData ) => {
-                        result.push( <span>{ iconsData.name }</span> );
-                        result.push(
-                            <div className="ghostkit-component-icon-picker-list">
-                                { iconsData.icons.map( ( iconData ) => {
-                                    if (
-                                        ! this.state.search ||
-                                        ( this.state.search && iconData.keys.indexOf( this.state.search ) > -1 )
-                                    ) {
                                         return (
-                                            <Icon
-                                                key={ iconData.class }
-                                                active={ iconData.class === value }
-                                                iconData={ iconData }
-                                                onClick={ () => {
-                                                    onChange( iconData.class );
-                                                } }
-                                            />
+                                            <CellMeasurer
+                                                cache={ this.cellMCache }
+                                                columnIndex={ 0 }
+                                                key={ key }
+                                                rowIndex={ index }
+                                                parent={ parent }
+                                            >
+                                                { () => (
+                                                    <div style={ style }>
+                                                        { rows[ index ].render || '' }
+                                                    </div>
+                                                ) }
+                                            </CellMeasurer>
                                         );
-                                    }
-
-                                    return '';
-                                } ) }
-                            </div>
-                        );
-                    } );
+                                    } }
+                                />
+                            ) }
+                        </AutoSizer>
+                    );
 
                     return (
-                        <div className="ghostkit-component-icon-picker">
-                            <div>
-                                <TextControl
-                                    label={ __( 'Icon class' ) }
-                                    value={ value }
-                                    onChange={ ( newClass ) => {
-                                        onChange( newClass );
-                                    } }
-                                    placeholder={ __( 'Icon class' ) }
-                                />
-                                <TextControl
-                                    label={ __( 'Search icon' ) }
-                                    value={ this.state.search }
-                                    onChange={ ( searchVal ) => this.setState( { search: searchVal } ) }
-                                    placeholder={ __( 'Type to search...' ) }
-                                />
-                            </div>
-                            <div className="ghostkit-component-icon-picker-list-wrap">
+                        <Fragment>
+                            <div className="ghostkit-component-icon-picker-sizer" />
+                            <div className="ghostkit-component-icon-picker">
                                 { result }
                             </div>
-                        </div>
+                        </Fragment>
                     );
                 } }
             />
