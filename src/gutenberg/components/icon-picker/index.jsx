@@ -106,6 +106,7 @@ class IconPickerDropdown extends Component {
                                 onChange( newClass );
                             } }
                             placeholder={ __( 'Icon class' ) }
+                            autoComplete="off"
                         />
                         <TextControl
                             label={ __( 'Search icon' ) }
@@ -116,6 +117,7 @@ class IconPickerDropdown extends Component {
                                 } )
                             ) }
                             placeholder={ __( 'Type to search...' ) }
+                            autoComplete="off"
                         />
                     </Fragment>
                 ),
