@@ -21,10 +21,14 @@ const {
 const { __ } = wp.i18n;
 
 const {
+    Button,
     Dropdown,
     Tooltip,
     BaseControl,
     TextControl,
+    G,
+    Path,
+    SVG,
 } = wp.components;
 
 /**
@@ -71,6 +75,11 @@ class Icon extends Component {
     }
 }
 
+const hiddenIconCategories = {};
+
+/**
+ * Dropdown
+ */
 class IconPickerDropdown extends Component {
     constructor() {
         super( ...arguments );
@@ -82,7 +91,15 @@ class IconPickerDropdown extends Component {
 
         this.state = {
             search: '',
+            hiddenCategories: hiddenIconCategories,
         };
+    }
+
+    componentDidUpdate() {
+        // for some reason react-virtualized recalculates fine only when use timeout.
+        setTimeout( () => {
+            this.cellMCache.clearAll();
+        }, 10 );
     }
 
     render() {
@@ -112,9 +129,7 @@ class IconPickerDropdown extends Component {
                             label={ __( 'Search icon' ) }
                             value={ this.state.search }
                             onChange={ ( searchVal ) => (
-                                this.setState( { search: searchVal }, () => {
-                                    this.cellMCache.clearAll();
-                                } )
+                                this.setState( { search: searchVal } )
                             ) }
                             placeholder={ __( 'Type to search...' ) }
                             autoComplete="off"
@@ -125,15 +140,10 @@ class IconPickerDropdown extends Component {
         ];
 
         eachIcons( ( iconsData ) => {
-            rows.push( {
-                key: `title-${ iconsData.name }`,
-                render: (
-                    <div className="ghostkit-component-icon-picker-list-title">
-                        { iconsData.name }
-                    </div>
-                ),
-            } );
+            const { hiddenCategories } = this.state;
+            const showCategory = typeof hiddenCategories[ iconsData.name ] !== 'undefined' ? hiddenCategories[ iconsData.name ] : true;
 
+            // prepare all icons.
             const allIcons = iconsData.icons.filter( ( iconData ) => {
                 if (
                     ! this.state.search ||
@@ -156,7 +166,58 @@ class IconPickerDropdown extends Component {
                 );
             } );
 
+            if ( ! allIcons.length ) {
+                return;
+            }
+
+            // prepare icons category toggle title.
+            rows.push( {
+                key: `title-${ iconsData.name }`,
+                render: (
+                    // Used PanelBody https://github.com/WordPress/gutenberg/blob/master/packages/components/src/panel/body.js.
+                    <div className={ classnames( 'components-panel__body ghostkit-component-icon-picker-list-panel-toggle', showCategory ? 'is-opened' : '' ) }>
+                        <h2 className="components-panel__body-title">
+                            <Button
+                                className="components-panel__body-toggle"
+                                onClick={ () => {
+                                    this.setState( {
+                                        hiddenCategories: {
+                                            ...hiddenCategories,
+                                            [ iconsData.name ]: ! showCategory,
+                                        },
+                                    } );
+                                } }
+                                aria-expanded={ showCategory }
+                            >
+                                { /*
+                                    Firefox + NVDA don't announce aria-expanded because the browser
+                                    repaints the whole element, so this wrapping span hides that.
+                                */ }
+                                <span aria-hidden="true">
+                                    { showCategory ?
+                                        <SVG className="components-panel__arrow" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <G><Path fill="none" d="M0,0h24v24H0V0z" /></G>
+                                            <G><Path d="M12,8l-6,6l1.41,1.41L12,10.83l4.59,4.58L18,14L12,8z" /></G>
+                                        </SVG> :
+                                        <SVG className="components-panel__arrow" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <G><Path fill="none" d="M0,0h24v24H0V0z" /></G>
+                                            <G><Path d="M7.41,8.59L12,13.17l4.59-4.58L18,10l-6,6l-6-6L7.41,8.59z" /></G>
+                                        </SVG>
+                                    }
+                                </span>
+                                { iconsData.name }
+                            </Button>
+                        </h2>
+                    </div>
+                ),
+            } );
+
+            if ( ! showCategory ) {
+                return;
+            }
+
             let currentIcons = [];
+
             allIcons.forEach( ( icon, i ) => {
                 currentIcons.push( icon );
 
@@ -169,10 +230,19 @@ class IconPickerDropdown extends Component {
                             </div>
                         ),
                     } );
+
                     currentIcons = [];
                 }
             } );
         } );
+
+        // No icons.
+        if ( rows.length === 1 ) {
+            rows.push( {
+                key: 'icons',
+                render: __( 'No icons found.' ),
+            } );
+        }
 
         const dropdown = (
             <Dropdown

@@ -58,17 +58,12 @@
             padding-bottom: 10px;
         }
     }
-    .ghostkit-component-icon-picker-list-title {
-        position: sticky;
-        display: block;
-        top: 0;
-        padding: 15px;
-        padding-top: 13px;
-        padding-bottom: 5px;
-        margin-right: -15px;
-        margin-left: -15px;
-        font-weight: 500;
-        background-color: #fff;
+    .ghostkit-component-icon-picker-list-panel-toggle {
+        border-bottom: none;
+
+        &.is-opened > .components-panel__body-title {
+            margin-bottom: -16px;
+        }
     }
     .ghostkit-component-icon-picker-list {
         display: flex;
