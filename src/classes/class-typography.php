@@ -23,7 +23,7 @@ class GhostKit_Typography {
      */
     public function enqueue_typography_assets() {
         $typography_css = $this->generate_typography_styles();
-        $css = '';
+        $css = ' ';
 
         if ( isset( $typography_css ) && ! empty( $typography_css ) && is_array( $typography_css ) ) {
             if ( ! is_admin() && isset( $typography_css['front'] ) && ! empty( $typography_css['front'] ) ) {
@@ -32,10 +32,10 @@ class GhostKit_Typography {
             if ( function_exists( 'register_block_type' ) && is_admin() && isset( $typography_css['editor'] ) && ! empty( $typography_css['editor'] ) ) {
                 $css = $typography_css['editor'];
             }
-            wp_register_style( 'ghostkit-typography', false );
-            wp_enqueue_style( 'ghostkit-typography' );
-            wp_add_inline_style( 'ghostkit-typography', $css );
         }
+        wp_register_style( 'ghostkit-typography', false );
+        wp_enqueue_style( 'ghostkit-typography' );
+        wp_add_inline_style( 'ghostkit-typography', $css );
     }
 
     /**
@@ -45,7 +45,10 @@ class GhostKit_Typography {
      */
     public function generate_typography_styles() {
         $typography_prepeare_styles = array();
-        $typography_css = array();
+        $typography_css = array(
+            'editor' => '',
+            'front' => '',
+        );
         $default_typography = apply_filters( 'gkt_custom_typography', array() );
 
         $screen = function_exists( 'get_current_screen' ) ? get_current_screen() : false;
@@ -231,11 +234,11 @@ class GhostKit_Typography {
                 'label' => esc_html__( 'Body', '@@text_domain' ),
                 'defaults' => array(
                     'font-family-category' => 'google-fonts',
-                    'font-family' => 'Abel',
-                    'font-size' => '34',
-                    'font-weight' => '400',
-                    'line-height' => '3',
-                    'letter-spacing' => '4',
+                    'font-family' => '',
+                    'font-size' => '',
+                    'font-weight' => '',
+                    'line-height' => '',
+                    'letter-spacing' => '',
                 ),
                 'output' => array(
                     array(
@@ -251,11 +254,11 @@ class GhostKit_Typography {
                 'label' => esc_html__( 'Headings', '@@text_domain' ),
                 'defaults' => array(
                     'font-family-category' => 'google-fonts',
-                    'font-family' => 'Antic',
-                    // 'font-size' => '',
+                    'font-family' => '',
+                    'font-size' => '',
                     'font-weight' => '',
-                    // 'line-height' => '',
-                    // 'letter-spacing',
+                    'line-height' => '',
+                    'letter-spacing' => '',
                 ),
                 'output' => array(
                     array(
@@ -271,9 +274,11 @@ class GhostKit_Typography {
                 'label' => esc_html__( 'Buttons', '@@text_domain' ),
                 'defaults' => array(
                     'font-family-category' => 'google-fonts',
-                    'font-family' => 'Roboto',
+                    'font-family' => '',
                     'font-size' => '',
-                    'font-weight' => '400i',
+                    'font-weight' => '',
+                    'line-height' => '',
+                    'letter-spacing' => '',
                 ),
                 'output' => array(
                     array(

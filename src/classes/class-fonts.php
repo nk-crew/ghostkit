@@ -113,9 +113,9 @@ class GhostKit_Fonts {
                 foreach( $fonts_list[ $font[ 'family' ] ][ 'fonts' ] as $find_font ) {
                     if ( $font[ 'label' ] === $find_font[ 'name' ] ) {
                         $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ] = array(
-                            'widths' => $find_font[ $font[ 'label' ] ][ 'widths' ],
-                            'category' => $find_font[ $font[ 'label' ] ][ 'category' ],
-                            'subsets' => $find_font[ $font[ 'label' ] ][ 'subsets' ],
+                            'widths' => $find_font[ 'widths' ],
+                            'category' => $find_font[ 'category' ],
+                            'subsets' => $find_font[ 'subsets' ],
                         );
                     }
                 }
