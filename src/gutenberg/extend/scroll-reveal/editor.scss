@@ -4,6 +4,7 @@
     position: relative;
     width: 100%;
     padding-top: 60%;
+    margin-top: 20px;
     border: 1px solid #e8eaec;
 
     .components-base-control,
@@ -41,7 +42,7 @@
             &.ghostkit-control-sr-direction-active,
             &.ghostkit-control-sr-direction-active:focus {
                 color: #fff;
-                background-color: $color-primary;
+                background-color: $blue-medium-700;
             }
 
             svg {
