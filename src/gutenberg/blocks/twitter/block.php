@@ -25,9 +25,11 @@ class GhostKit_Twitter_Block {
      */
     public function init() {
         if ( function_exists( 'register_block_type' ) ) {
-            register_block_type( 'ghostkit/twitter', array(
-                'render_callback' => array( $this, 'block_render' ),
-            ) );
+            register_block_type(
+                'ghostkit/twitter', array(
+                    'render_callback' => array( $this, 'block_render' ),
+                )
+            );
         }
     }
 
@@ -73,35 +75,37 @@ class GhostKit_Twitter_Block {
     public function block_render( $attributes ) {
         ob_start();
 
-        $attributes = array_merge( array(
-            'variant' => 'default',
-            'consumerKey' => '',
-            'consumerSecret' => '',
-            'accessToken' => '',
-            'accessTokenSecret' => '',
-            'userName' => 'nkdevv',
+        $attributes = array_merge(
+            array(
+                'variant' => 'default',
+                'consumerKey' => '',
+                'consumerSecret' => '',
+                'accessToken' => '',
+                'accessTokenSecret' => '',
+                'userName' => 'nkdevv',
 
-            'count' => 3,
-            'showReplies' => false,
-            'showRetweets' => true,
-            'showFeedAvatar' => true,
-            'feedAvatarSize' => 48,
-            'showFeedName' => true,
-            'showFeedDate' => true,
-            'feedTextConvertLinks' => 'links_media',
-            'showFeedActions' => true,
+                'count' => 3,
+                'showReplies' => false,
+                'showRetweets' => true,
+                'showFeedAvatar' => true,
+                'feedAvatarSize' => 48,
+                'showFeedName' => true,
+                'showFeedDate' => true,
+                'feedTextConvertLinks' => 'links_media',
+                'showFeedActions' => true,
 
-            'showProfile' => true,
-            'showProfileAvatar' => true,
-            'profileAvatarSize' => 70,
-            'showProfileName' => true,
-            'showProfileStats' => true,
-            'showProfileDescription' => true,
-            'showProfileWebsite' => true,
-            'showProfileLocation' => true,
+                'showProfile' => true,
+                'showProfileAvatar' => true,
+                'profileAvatarSize' => 70,
+                'showProfileName' => true,
+                'showProfileStats' => true,
+                'showProfileDescription' => true,
+                'showProfileWebsite' => true,
+                'showProfileLocation' => true,
 
-            'className' => '',
-        ), $attributes );
+                'className' => '',
+            ), $attributes
+        );
 
         $api_data_ready = $attributes['consumerKey'] && $attributes['consumerSecret'] && $attributes['accessToken'] && $attributes['accessTokenSecret'];
 
@@ -119,23 +123,27 @@ class GhostKit_Twitter_Block {
         }
 
         if ( $api_data_ready && $attributes['userName'] ) {
-            $profile = $this->get_profile( array(
-                'consumer_key' => $attributes['consumerKey'],
-                'consumer_secret' => $attributes['consumerSecret'],
-                'access_token' => $attributes['accessToken'],
-                'access_token_secret' => $attributes['accessTokenSecret'],
-                'screen_name' => $attributes['userName'],
-            ) );
-            $feed = $this->get_feed( array(
-                'consumer_key' => $attributes['consumerKey'],
-                'consumer_secret' => $attributes['consumerSecret'],
-                'access_token' => $attributes['accessToken'],
-                'access_token_secret' => $attributes['accessTokenSecret'],
-                'count' => $attributes['count'],
-                'exclude_replies' => $attributes['showReplies'] ? 'false' : 'true',
-                'include_rts' => $attributes['showRetweets'] ? 'true' : 'false',
-                'screen_name' => $attributes['userName'],
-            ) );
+            $profile = $this->get_profile(
+                array(
+                    'consumer_key' => $attributes['consumerKey'],
+                    'consumer_secret' => $attributes['consumerSecret'],
+                    'access_token' => $attributes['accessToken'],
+                    'access_token_secret' => $attributes['accessTokenSecret'],
+                    'screen_name' => $attributes['userName'],
+                )
+            );
+            $feed = $this->get_feed(
+                array(
+                    'consumer_key' => $attributes['consumerKey'],
+                    'consumer_secret' => $attributes['consumerSecret'],
+                    'access_token' => $attributes['accessToken'],
+                    'access_token_secret' => $attributes['accessTokenSecret'],
+                    'count' => $attributes['count'],
+                    'exclude_replies' => $attributes['showReplies'] ? 'false' : 'true',
+                    'include_rts' => $attributes['showRetweets'] ? 'true' : 'false',
+                    'screen_name' => $attributes['userName'],
+                )
+            );
 
             if ( $feed || $profile ) {
                 ?>

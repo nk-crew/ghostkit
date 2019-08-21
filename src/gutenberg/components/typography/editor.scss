@@ -1,0 +1,50 @@
+/**
+ * Typography Component CSS
+ */
+.ghostkit-control-typography {
+    display: flex;
+    flex-wrap: wrap;
+    .ghostkit-typography-font-control {
+        flex: 1;
+        min-width: 50%;
+        max-width: 66.3%;
+        padding-right: 25px;
+    }
+    .ghostkit-typography-weight-control {
+        flex: 1 0 33.3%;
+        max-width: 33.3%;
+    }
+    .ghostkit-typography-size-control,
+    .ghostkit-typography-line-control,
+    .ghostkit-typography-letter-control {
+        flex: 1;
+        min-width: 33.3%;
+        max-width: 100%;
+        margin-top: 1.33rem;
+    }
+    .ghostkit-typography-line-control,
+    .ghostkit-typography-letter-control {
+        padding-left: 25px;
+    }
+    .ghostkit-typography-font-selector__indicators,
+    .ghostkit-typography-weight-selector__indicators {
+        .ghostkit-typography-font-selector__indicator-separator,
+        .ghostkit-typography-weight-selector__indicator-separator {
+            display: none;
+        }
+        .ghostkit-typography-font-selector__indicator svg,
+        .ghostkit-typography-weight-selector__indicator svg {
+            width: 12px;
+            height: 12px;
+        }
+    }
+}
+
+.ghostkit-typography + .ghostkit-typography {
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 1.33rem;
+    margin-right: -16px;
+    margin-left: -16px;
+    border-top: 1px solid #e8eaeb;
+}

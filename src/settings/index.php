@@ -89,10 +89,12 @@ class GhostKit_Settings {
             filemtime( ghostkit()->plugin_path . 'settings/index.min.js' )
         );
 
-        wp_localize_script( 'ghostkit-settings', 'ghostkitSettingsData', array(
-            'api_nonce' => wp_create_nonce( 'wp_rest' ),
-            'api_url' => rest_url( 'ghostkit/v1/' ),
-        ) );
+        wp_localize_script(
+            'ghostkit-settings', 'ghostkitSettingsData', array(
+                'api_nonce' => wp_create_nonce( 'wp_rest' ),
+                'api_url' => rest_url( 'ghostkit/v1/' ),
+            )
+        );
 
         do_action( 'enqueue_block_editor_assets' );
     }

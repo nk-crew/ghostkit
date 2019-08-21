@@ -11,6 +11,7 @@ import Modal from '../../../components/modal';
 import RemoveButton from '../../../components/remove-button';
 import ResponsiveTabPanel from '../../../components/responsive-tab-panel';
 import UrlInput from '../../../components/url-input';
+import Typography from '../../../components/typography';
 
 export function get() {
     return {
@@ -24,5 +25,6 @@ export function get() {
         RemoveButton,
         ResponsiveTabPanel,
         UrlInput,
+        Typography,
     };
 }

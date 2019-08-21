@@ -1,4 +1,9 @@
 /**
+ * Import CSS
+ */
+import './editor.scss';
+
+/**
  * WordPress dependencies
  */
 const { Component } = wp.element;
@@ -153,19 +158,31 @@ export default class InputDrag extends Component {
         const {
             value,
             onChange,
+            icon,
         } = this.props;
 
+        let classHasIcon = 'ghostkit-component-input-drag-no-icon';
+
+        if ( icon !== undefined ) {
+            classHasIcon = 'ghostkit-component-input-drag-has-icon';
+        }
+
         return (
-            <TextControl
-                { ...this.props }
-                onMouseDown={ this.mouseDown }
-                onKeyDown={ this.keyDown }
-                value={ value }
-                onChange={ ( val ) => {
-                    onChange( val );
-                } }
-                className="ghostkit-component-input-drag"
-            />
+            <div className={ classHasIcon }>
+                {
+                    icon
+                }
+                <TextControl
+                    { ...this.props }
+                    onMouseDown={ this.mouseDown }
+                    onKeyDown={ this.keyDown }
+                    value={ value }
+                    onChange={ ( val ) => {
+                        onChange( val );
+                    } }
+                    className="ghostkit-component-input-drag"
+                />
+            </div>
         );
     }
 }

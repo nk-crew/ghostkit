@@ -24,21 +24,27 @@ class GhostKit_Custom_Code_Plugin {
      * Register meta.
      */
     public function register_meta() {
-        register_meta( 'post', 'ghostkit_custom_css', array(
-            'show_in_rest' => true,
-            'single'       => true,
-            'type'         => 'string',
-        ) );
-        register_meta( 'post', 'ghostkit_custom_js_head', array(
-            'show_in_rest' => true,
-            'single'       => true,
-            'type'         => 'string',
-        ) );
-        register_meta( 'post', 'ghostkit_custom_js_foot', array(
-            'show_in_rest' => true,
-            'single'       => true,
-            'type'         => 'string',
-        ) );
+        register_meta(
+            'post', 'ghostkit_custom_css', array(
+                'show_in_rest' => true,
+                'single'       => true,
+                'type'         => 'string',
+            )
+        );
+        register_meta(
+            'post', 'ghostkit_custom_js_head', array(
+                'show_in_rest' => true,
+                'single'       => true,
+                'type'         => 'string',
+            )
+        );
+        register_meta(
+            'post', 'ghostkit_custom_js_foot', array(
+                'show_in_rest' => true,
+                'single'       => true,
+                'type'         => 'string',
+            )
+        );
     }
 }
 new GhostKit_Custom_Code_Plugin();

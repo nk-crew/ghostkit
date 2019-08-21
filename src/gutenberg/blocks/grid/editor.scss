@@ -127,7 +127,7 @@
     outline: 1px dashed rgba(145, 151, 162, .25);
 }
 // stylelint-disable-next-line
-[data-type="ghostkit/grid"]:hover > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout >  [data-type="ghostkit/grid-column"].is-hovered > .editor-block-list__block-edit::before {
+[data-type="ghostkit/grid"]:hover > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > [data-type="ghostkit/grid-column"].is-hovered > .editor-block-list__block-edit::before {
     outline: 1px solid $blue-wordpress;
 }
 

@@ -26,6 +26,7 @@ import pluginGhostkit from '../icons/plugin-ghostkit.svg';
 import pluginTemplates from '../icons/plugin-templates.svg';
 import pluginCustomCode from '../icons/plugin-custom-code.svg';
 import pluginCustomizer from '../icons/plugin-customizer.svg';
+import pluginTypography from '../icons/plugin-typography.svg';
 
 import tabsTv from '../icons/tabs-tv.svg';
 import tabsDesktop from '../icons/tabs-desktop.svg';
@@ -58,6 +59,9 @@ import iconAspectRatio32 from '../icons/icon-aspect-ratio-3-2.svg';
 import iconAspectRatio43 from '../icons/icon-aspect-ratio-4-3.svg';
 import iconAspectRatio169 from '../icons/icon-aspect-ratio-16-9.svg';
 import iconAspectRatio219 from '../icons/icon-aspect-ratio-21-9.svg';
+import iconFontSize from '../icons/icon-font-size.svg';
+import iconLetterSpacing from '../icons/icon-letter-spacing.svg';
+import iconLineHeight from '../icons/icon-line-height.svg';
 
 export default {
     'block-accordion': blockAccordion,
@@ -85,6 +89,7 @@ export default {
     'plugin-templates': pluginTemplates,
     'plugin-custom-code': pluginCustomCode,
     'plugin-customizer': pluginCustomizer,
+    'plugin-typography': pluginTypography,
 
     'tabs-tv': tabsTv,
     'tabs-desktop': tabsDesktop,
@@ -117,4 +122,7 @@ export default {
     'icon-aspect-ratio-4-3': iconAspectRatio43,
     'icon-aspect-ratio-16-9': iconAspectRatio169,
     'icon-aspect-ratio-21-9': iconAspectRatio219,
+    'icon-font-size': iconFontSize,
+    'icon-letter-spacing': iconLetterSpacing,
+    'icon-line-height': iconLineHeight,
 };
