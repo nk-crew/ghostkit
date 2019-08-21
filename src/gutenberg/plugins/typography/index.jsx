@@ -55,7 +55,7 @@ function printFonts( typographyData ) {
                     const fontFamily = typographyData.customTypography.ghostkit_typography[ typography ].fontFamily;
                     const fontFamilyCategory = typographyData.customTypography.ghostkit_typography[ typography ].fontFamilyCategory;
                     if ( fontFamily !== undefined && fontFamily !== '' && fontFamilyCategory !== undefined && fontFamilyCategory !== '' ) {
-                        currentFonts.push( { family: fontFamilyCategory, label: fontFamily.label } );
+                        currentFonts.push( { family: fontFamilyCategory, label: fontFamily } );
                     }
                 }
             } );
@@ -68,7 +68,7 @@ function printFonts( typographyData ) {
                     const fontFamily = typographyData.meta.ghostkit_typography[ typography ].fontFamily;
                     const fontFamilyCategory = typographyData.meta.ghostkit_typography[ typography ].fontFamilyCategory;
                     if ( fontFamily !== undefined && fontFamily !== '' && fontFamilyCategory !== undefined && fontFamilyCategory !== '' ) {
-                        currentFonts.push( { family: fontFamilyCategory, label: fontFamily.label } );
+                        currentFonts.push( { family: fontFamilyCategory, label: fontFamily } );
                     }
                 }
             } );
@@ -126,8 +126,7 @@ function printFonts( typographyData ) {
         }
 
         if ( googleFamilies.length > 0 ) {
-            // eslint-disable-next-line no-undef
-            WebFont.load( {
+            window.WebFont.load( {
                 google: {
                     families: googleFamilies,
                 },
@@ -178,39 +177,27 @@ function printStyles( typographyData ) {
                             typographyData.ghostkit_typography[ key ].fontFamily !== {} &&
                             typographyData.ghostkit_typography[ key ].fontFamilyCategory !== '' &&
                             typographyData.ghostkit_typography[ key ].fontFamilyCategory !== undefined ) {
-                            if ( typographyData.ghostkit_typography[ key ].fontFamily.label !== undefined &&
-                                typographyData.ghostkit_typography[ key ].fontFamily.label !== '' &&
-                                typographyData.ghostkit_typography[ key ].fontFamily.value !== undefined &&
-                                typographyData.ghostkit_typography[ key ].fontFamily.value !== '' ) {
-                                typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-family-category' ] = typographyData.ghostkit_typography[ key ].fontFamilyCategory;
-                                typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-family' ] = typographyData.ghostkit_typography[ key ].fontFamily.label;
-                            }
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-family-category' ] = typographyData.ghostkit_typography[ key ].fontFamilyCategory;
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-family' ] = typographyData.ghostkit_typography[ key ].fontFamily;
                         }
                         if ( typographyData.ghostkit_typography[ key ].fontSize !== undefined &&
                             typographyData.ghostkit_typography[ key ].fontSize !== '' &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-size' ] !== undefined &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-size' ] !== '' ) {
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-size' ] !== undefined ) {
                             typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-size' ] = typographyData.ghostkit_typography[ key ].fontSize;
                         }
                         if ( typographyData.ghostkit_typography[ key ].fontWeight !== undefined &&
                             typographyData.ghostkit_typography[ key ].fontWeight !== '' &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] !== undefined &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] !== '' ) {
-                            if ( typographyData.ghostkit_typography[ key ].fontWeight.value !== undefined &&
-                                typographyData.ghostkit_typography[ key ].fontWeight.value !== '' ) {
-                                typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] = typographyData.ghostkit_typography[ key ].fontWeight.value;
-                            }
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] !== undefined ) {
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] = typographyData.ghostkit_typography[ key ].fontWeight;
                         }
                         if ( typographyData.ghostkit_typography[ key ].lineHeight !== undefined &&
                             typographyData.ghostkit_typography[ key ].lineHeight !== '' &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'line-height' ] !== undefined &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'line-height' ] !== '' ) {
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'line-height' ] !== undefined ) {
                             typographyPrepeareStyles[ key ][ 'style-properties' ][ 'line-height' ] = typographyData.ghostkit_typography[ key ].lineHeight;
                         }
                         if ( typographyData.ghostkit_typography[ key ].letterSpacing !== undefined &&
                             typographyData.ghostkit_typography[ key ].letterSpacing !== '' &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'letter-spacing' ] !== undefined &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'letter-spacing' ] !== '' ) {
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'letter-spacing' ] !== undefined ) {
                             typographyPrepeareStyles[ key ][ 'style-properties' ][ 'letter-spacing' ] = typographyData.ghostkit_typography[ key ].letterSpacing;
                         }
                     }
@@ -229,39 +216,27 @@ function printStyles( typographyData ) {
                             typographyData.meta.ghostkit_typography[ key ].fontFamily !== {} &&
                             typographyData.meta.ghostkit_typography[ key ].fontFamilyCategory !== '' &&
                             typographyData.meta.ghostkit_typography[ key ].fontFamilyCategory !== undefined ) {
-                            if ( typographyData.meta.ghostkit_typography[ key ].fontFamily.label !== undefined &&
-                                typographyData.meta.ghostkit_typography[ key ].fontFamily.label !== '' &&
-                                typographyData.meta.ghostkit_typography[ key ].fontFamily.value !== undefined &&
-                                typographyData.meta.ghostkit_typography[ key ].fontFamily.value !== '' ) {
-                                typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-family-category' ] = typographyData.meta.ghostkit_typography[ key ].fontFamilyCategory;
-                                typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-family' ] = typographyData.meta.ghostkit_typography[ key ].fontFamily.label;
-                            }
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-family-category' ] = typographyData.meta.ghostkit_typography[ key ].fontFamilyCategory;
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-family' ] = typographyData.meta.ghostkit_typography[ key ].fontFamily;
                         }
                         if ( typographyData.meta.ghostkit_typography[ key ].fontSize !== undefined &&
                             typographyData.meta.ghostkit_typography[ key ].fontSize !== '' &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-size' ] !== undefined &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-size' ] !== '' ) {
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-size' ] !== undefined ) {
                             typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-size' ] = typographyData.meta.ghostkit_typography[ key ].fontSize;
                         }
                         if ( typographyData.meta.ghostkit_typography[ key ].fontWeight !== undefined &&
                             typographyData.meta.ghostkit_typography[ key ].fontWeight !== '' &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] !== undefined &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] !== '' ) {
-                            if ( typographyData.meta.ghostkit_typography[ key ].fontWeight.value !== undefined &&
-                                typographyData.meta.ghostkit_typography[ key ].fontWeight.value !== '' ) {
-                                typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] = typographyData.meta.ghostkit_typography[ key ].fontWeight.value;
-                            }
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] !== undefined ) {
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'font-weight' ] = typographyData.meta.ghostkit_typography[ key ].fontWeight;
                         }
                         if ( typographyData.meta.ghostkit_typography[ key ].lineHeight !== undefined &&
                             typographyData.meta.ghostkit_typography[ key ].lineHeight !== '' &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'line-height' ] !== undefined &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'line-height' ] !== '' ) {
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'line-height' ] !== undefined ) {
                             typographyPrepeareStyles[ key ][ 'style-properties' ][ 'line-height' ] = typographyData.meta.ghostkit_typography[ key ].lineHeight;
                         }
                         if ( typographyData.meta.ghostkit_typography[ key ].letterSpacing !== undefined &&
                             typographyData.meta.ghostkit_typography[ key ].letterSpacing !== '' &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'letter-spacing' ] !== undefined &&
-                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'letter-spacing' ] !== '' ) {
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ 'letter-spacing' ] !== undefined ) {
                             typographyPrepeareStyles[ key ][ 'style-properties' ][ 'letter-spacing' ] = typographyData.meta.ghostkit_typography[ key ].letterSpacing;
                         }
                     }
@@ -408,17 +383,18 @@ class TypographyModal extends Component {
                     let fontWeight;
                     let lineHeight;
                     let letterSpacing;
+                    let fontSize;
 
-                    fontFamily = { value: '', label: __( 'Default Site Font' ), family: 'default' };
+                    fontFamily = '';
 
                     if ( fontName !== '' && fontFamilyCategory !== '' && global ) {
-                        fontFamily = { value: fontFamilyCategory + '/' + fontName, label: fontName };
+                        fontFamily = fontName;
                     }
 
-                    fontWeight = { value: '', label: '' };
+                    fontWeight = '';
 
                     if ( weight !== '' && global ) {
-                        fontWeight = { value: weight, label: weight };
+                        fontWeight = weight;
                     }
 
                     if ( customTypographyList[ key ].defaults[ 'line-height' ] === undefined ) {
@@ -433,10 +409,16 @@ class TypographyModal extends Component {
                         letterSpacing = global ? customTypographyList[ key ].defaults[ 'letter-spacing' ] : '';
                     }
 
+                    fontSize = '';
+
+                    if ( customTypographyList[ key ].defaults[ 'font-size' ] !== undefined ) {
+                        fontSize = global ? customTypographyList[ key ].defaults[ 'font-size' ] : '';
+                    }
+
                     defaultTypography[ key ] = {
                         fontFamily: fontFamily,
                         fontFamilyCategory: this.getDefaultValue( customTypographyList[ key ].defaults[ 'font-family-category' ] ),
-                        fontSize: global ? this.getDefaultValue( customTypographyList[ key ].defaults[ 'font-size' ] ) : '',
+                        fontSize: fontSize,
                         fontWeight: fontWeight,
                         lineHeight: lineHeight,
                         letterSpacing: letterSpacing,
@@ -521,28 +503,30 @@ class TypographyModal extends Component {
                         ( tabData ) => {
                             const isGlobal = tabData.name === 'global';
                             const setStateTypography = ( isGlobal ? this.state.globalCustomTypography : this.state.customTypography );
-                            const CustomTypographyList = this.getCustomTypographyList( setStateTypography, isGlobal );
 
                             return (
                                 <Fragment>
-                                    { Object.keys( CustomTypographyList ).map( ( key ) => {
+                                    { Object.keys( setStateTypography ).map( ( key ) => {
                                         // eslint-disable-next-line react/jsx-key
                                         return <Typography
                                             onChange={ ( opt ) => {
                                                 this.setState( {
                                                     [ isGlobal ? 'globalCustomTypography' : 'customTypography' ]: {
-                                                        ...CustomTypographyList,
-                                                        [ key ]: opt,
+                                                        ...setStateTypography,
+                                                        [ key ]: {
+                                                            ...setStateTypography[ key ],
+                                                            ...opt,
+                                                        },
                                                     },
                                                 } );
                                             } }
-                                            fontFamily={ CustomTypographyList[ key ].fontFamily }
-                                            fontFamilyCategory={ CustomTypographyList[ key ].fontFamilyCategory }
-                                            fontWeight={ CustomTypographyList[ key ].fontWeight }
-                                            fontSize={ CustomTypographyList[ key ].fontSize }
-                                            lineHeight={ CustomTypographyList[ key ].lineHeight }
-                                            letterSpacing={ CustomTypographyList[ key ].letterSpacing }
-                                            label={ CustomTypographyList[ key ].label }
+                                            fontFamily={ setStateTypography[ key ].fontFamily }
+                                            fontFamilyCategory={ setStateTypography[ key ].fontFamilyCategory }
+                                            fontWeight={ setStateTypography[ key ].fontWeight }
+                                            fontSize={ setStateTypography[ key ].fontSize }
+                                            lineHeight={ setStateTypography[ key ].lineHeight }
+                                            letterSpacing={ setStateTypography[ key ].letterSpacing }
+                                            label={ setStateTypography[ key ].label }
                                         >
                                         </Typography>;
                                     } ) }

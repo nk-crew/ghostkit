@@ -84,15 +84,10 @@ class GhostKit_Typography {
                         ! empty( $typography_prepeare_styles[ $global_typography_key ] ) ) {
                         if ( isset( $global_typography_value->fontFamily ) &&
                             ! empty( $global_typography_value->fontFamily ) &&
-                            is_object( $global_typography_value->fontFamily ) &&
-                            isset( $global_typography_value->fontFamily->value ) &&
-                            ! empty( $global_typography_value->fontFamily->value ) &&
-                            isset( $global_typography_value->fontFamily->label ) &&
-                            ! empty( $global_typography_value->fontFamily->label ) &&
                             isset( $global_typography_value->fontFamilyCategory ) &&
                             ! empty( $global_typography_value->fontFamilyCategory ) ) {
                             $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-family-category'] = $global_typography_value->fontFamilyCategory;
-                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-family'] = $global_typography_value->fontFamily->label;
+                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-family'] = $global_typography_value->fontFamily;
                         }
                         if ( isset( $global_typography_value->fontSize ) &&
                             ! empty( $global_typography_value->fontSize ) &&
@@ -101,10 +96,8 @@ class GhostKit_Typography {
                         }
                         if ( isset( $global_typography_value->fontWeight ) &&
                             ! empty( $global_typography_value->fontWeight ) &&
-                            isset( $global_typography_value->fontWeight->value ) &&
-                            ! empty( $global_typography_value->fontWeight->value ) &&
                             isset( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-weight'] ) ) {
-                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-weight'] = $global_typography_value->fontWeight->value;
+                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-weight'] = $global_typography_value->fontWeight;
                         }
                         if ( isset( $global_typography_value->lineHeight ) &&
                             ! empty( $global_typography_value->lineHeight ) &&
@@ -132,15 +125,10 @@ class GhostKit_Typography {
                             ! empty( $typography_prepeare_styles[ $meta_typography_key ] ) ) {
                             if ( isset( $meta_typography_value->fontFamily ) &&
                                 ! empty( $meta_typography_value->fontFamily ) &&
-                                is_object( $meta_typography_value->fontFamily ) &&
-                                isset( $meta_typography_value->fontFamily->value ) &&
-                                ! empty( $meta_typography_value->fontFamily->value ) &&
-                                isset( $meta_typography_value->fontFamily->label ) &&
-                                ! empty( $meta_typography_value->fontFamily->label ) &&
                                 isset( $meta_typography_value->fontFamilyCategory ) &&
                                 ! empty( $meta_typography_value->fontFamilyCategory ) ) {
                                 $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-family-category'] = $meta_typography_value->fontFamilyCategory;
-                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-family'] = $meta_typography_value->fontFamily->label;
+                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-family'] = $meta_typography_value->fontFamily;
                             }
                             if ( isset( $meta_typography_value->fontSize ) &&
                                 ! empty( $meta_typography_value->fontSize ) &&
@@ -149,10 +137,8 @@ class GhostKit_Typography {
                             }
                             if ( isset( $meta_typography_value->fontWeight ) &&
                                 ! empty( $meta_typography_value->fontWeight ) &&
-                                isset( $meta_typography_value->fontWeight->value ) &&
-                                ! empty( $meta_typography_value->fontWeight->value ) &&
                                 isset( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-weight'] ) ) {
-                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-weight'] = $meta_typography_value->fontWeight->value;
+                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-weight'] = $meta_typography_value->fontWeight;
                             }
                             if ( isset( $meta_typography_value->lineHeight ) &&
                                 ! empty( $meta_typography_value->lineHeight ) &&

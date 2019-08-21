@@ -1,7 +1,5 @@
-// eslint-disable-next-line no-undef
-if ( webfontList !== undefined ) {
-    // eslint-disable-next-line no-undef
-    const googleFonts = webfontList[ 'google-fonts' ];
+if ( window.webfontList !== undefined ) {
+    const googleFonts = window.webfontList[ 'google-fonts' ];
     if ( googleFonts !== undefined ) {
         const googleFamilies = [];
         for ( const key in googleFonts ) {
@@ -14,8 +12,7 @@ if ( webfontList !== undefined ) {
             }
             googleFamilies.push( key + ':' + weights );
         }
-        // eslint-disable-next-line no-undef
-        WebFont.load( {
+        window.WebFont.load( {
             google: {
                 families: googleFamilies,
             },

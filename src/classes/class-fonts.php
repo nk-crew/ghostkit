@@ -14,8 +14,8 @@ class GhostKit_Fonts {
      * GhostKit_Fonts constructor.
      */
     public function __construct() {
-        add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ), 9 );
-        add_filter( 'gkt_fonts_list', array( $this, 'add_default_site_fonts' ) );
+        add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ) );
+        add_filter( 'gkt_fonts_list', array( $this, 'add_default_site_fonts' ), 9 );
         // enqueue fonts
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all_fonts_assets' ), 12 );
         add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_all_fonts_assets' ), 12 );
@@ -30,6 +30,11 @@ class GhostKit_Fonts {
         wp_localize_script( 'webfont-loader', 'webfontList', $this->get_font_loader_list() );
     }
 
+    /**
+     * Create Font Loader List for webfont-loader.
+     *
+     * @return array - Font Loader List.
+     */
     public function get_font_loader_list() {
         $post_id = null;
         $fonts_list = apply_filters( 'gkt_fonts_list', array() );
@@ -69,14 +74,11 @@ class GhostKit_Fonts {
             foreach ( json_decode( $global_typography['ghostkit_typography'] ) as $global_typography_key => $global_typography_value ) {
                 if ( isset( $global_typography_value->fontFamily ) &&
                     ! empty( $global_typography_value->fontFamily ) &&
-                    is_object( $global_typography_value->fontFamily ) &&
-                    isset( $global_typography_value->fontFamily->label ) &&
-                    ! empty( $global_typography_value->fontFamily->label ) &&
                     isset( $global_typography_value->fontFamilyCategory ) &&
                     ! empty( $global_typography_value->fontFamilyCategory ) ) {
                     $fonts[] = array(
                         'family' => $global_typography_value->fontFamilyCategory,
-                        'label' => $global_typography_value->fontFamily->label,
+                        'label' => $global_typography_value->fontFamily,
                     );
                 }
             }
@@ -91,14 +93,11 @@ class GhostKit_Fonts {
                 foreach ( json_decode( $meta_typography ) as $meta_typography_key => $meta_typography_value ) {
                     if ( isset( $meta_typography_value->fontFamily ) &&
                         ! empty( $meta_typography_value->fontFamily ) &&
-                        is_object( $meta_typography_value->fontFamily ) &&
-                        isset( $meta_typography_value->fontFamily->label ) &&
-                        ! empty( $meta_typography_value->fontFamily->label ) &&
                         isset( $meta_typography_value->fontFamilyCategory ) &&
                         ! empty( $meta_typography_value->fontFamilyCategory ) ) {
                         $fonts[] = array(
                             'family' => $meta_typography_value->fontFamilyCategory,
-                            'label' => $meta_typography_value->fontFamily->label,
+                            'label' => $meta_typography_value->fontFamily,
                         );
                     }
                 }
@@ -125,6 +124,13 @@ class GhostKit_Fonts {
         return $webfont_list;
     }
 
+    /**
+     * Add Default fonts list.
+     *
+     * @param array $fonts - fonts list.
+     *
+     * @return array
+     */
     public function add_default_site_fonts( $fonts ) {
         $fonts['default'] = array(
             'name' => __( 'Default Fonts Site', '@@text_domain' ),
@@ -139,10 +145,10 @@ class GhostKit_Fonts {
             )
         );
         return $fonts;
-
     }
+
     /**
-     * Extend fonts list.
+     * Add Google fonts list.
      *
      * @param array $fonts - fonts list.
      *

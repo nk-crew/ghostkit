@@ -9,6 +9,7 @@ import './editor.scss';
 import InputDrag from '../input-drag';
 import Select from 'react-select';
 import getIcon from '../../utils/get-icon';
+import { List } from 'react-virtualized';
 
 /**
  * WordPress dependencies
@@ -25,6 +26,24 @@ const { __ } = wp.i18n;
 const { GHOSTKIT } = window;
 const fontFamilies = getFonts();
 
+const FontsList = props => {
+    const rows = props.children;
+    // eslint-disable-next-line no-unused-vars
+    const rowRenderer = ( { key, index, isScrolling, isVisible, style } ) => (
+        <div key={ key } style={ style } >{ rows[ index ] }</div>
+    );
+
+    return (
+        <List
+            style={ { width: '100%' } }
+            width={ 300 }
+            height={ 300 }
+            rowHeight={ 30 }
+            rowCount={ rows.length }
+            rowRenderer={ rowRenderer }
+        />
+    );
+};
 /**
  * Go over each fonts.
  *
@@ -35,21 +54,24 @@ function getFonts() {
         fonts,
     } = GHOSTKIT;
 
-    const fontList = [
-        { value: '', label: __( 'Default Site Font' ), family: 'default' },
-    ];
+    const fontList = [];
 
-    Object.keys( fonts ).forEach( ( family ) => {
-        Object.keys( fonts[ family ].fonts ).forEach( ( fontKey ) => {
+    Object.keys( fonts ).forEach( ( fontFamilyCategory ) => {
+        Object.keys( fonts[ fontFamilyCategory ].fonts ).forEach( ( fontKey ) => {
             fontList.push(
-                { value: fonts[ family ].fonts[ fontKey ].name, label: fonts[ family ].fonts[ fontKey ].name, family: family }
+                { value: fonts[ fontFamilyCategory ].fonts[ fontKey ].name, label: fonts[ fontFamilyCategory ].fonts[ fontKey ].name, fontFamilyCategory: fontFamilyCategory }
             );
         } );
     } );
-
     return fontList;
 }
 
+/**
+ * Get Weight Label.
+ *
+ * @param {string} weight - Weight Value.
+ * @return {string} - Weight Label.
+ */
 function getFontWeightLabel( weight ) {
     let label = '';
 
@@ -117,21 +139,21 @@ function getFontWeightLabel( weight ) {
  * Get all font widths.
  *
  * @param {string} font - search font.
- * @param {string} family - font family.
+ * @param {string} fontFamilyCategory - font fontFamilyCategory.
  * @return {Array} - all font widths.
  */
-function getFontWeights( font, family ) {
+function getFontWeights( font, fontFamilyCategory ) {
     const {
         fonts,
     } = GHOSTKIT;
 
     const fontWeights = [];
 
-    if ( font !== '' && family !== '' && font !== undefined && family !== undefined ) {
-        Object.keys( fonts[ family ].fonts ).forEach( ( fontKey ) => {
-            if ( fonts[ family ].fonts[ fontKey ].name === font ) {
-                Object.keys( fonts[ family ].fonts[ fontKey ].widths ).forEach( ( widthKey ) => {
-                    const width = fonts[ family ].fonts[ fontKey ].widths[ widthKey ];
+    if ( font !== '' && fontFamilyCategory !== '' && font !== undefined && fontFamilyCategory !== undefined ) {
+        Object.keys( fonts[ fontFamilyCategory ].fonts ).forEach( ( fontKey ) => {
+            if ( fonts[ fontFamilyCategory ].fonts[ fontKey ].name === font ) {
+                Object.keys( fonts[ fontFamilyCategory ].fonts[ fontKey ].widths ).forEach( ( widthKey ) => {
+                    const width = fonts[ fontFamilyCategory ].fonts[ fontKey ].widths[ widthKey ];
                     fontWeights.push(
                         { value: width, label: getFontWeightLabel( width ) }
                     );
@@ -151,8 +173,18 @@ export default class Typorgaphy extends Component {
         const {
             onChange,
             label,
-            fontWeights = getFontWeights( this.props.fontFamily === undefined || this.props.fontFamily === '' ? '' : this.props.fontFamily.label, this.props.fontFamilyCategory ),
+            fontFamily,
+            fontFamilyCategory,
+            fontWeight,
+            fontSize,
+            lineHeight,
+            letterSpacing,
+            fontWeights = getFontWeights( fontFamily, fontFamilyCategory ),
         } = this.props;
+
+        const fontFamilyValue = { value: fontFamily, label: fontFamily, fontFamilyCategory: fontFamilyCategory };
+        const fontWeightValue = { value: fontWeight, label: getFontWeightLabel( fontWeight ) };
+        const fontSizeValue = fontSize === undefined ? '' : fontSize;
 
         return (
             <div className={ 'ghostkit-typography' }>
@@ -162,26 +194,18 @@ export default class Typorgaphy extends Component {
                         <Tooltip text={ __( 'Font Family' ) }>
                             <div>
                                 <Select
-                                    value={ this.props.fontFamily }
+                                    components={ { FontsList } }
+                                    defaultValue={ fontFamilyValue }
                                     onChange={ ( opt ) => {
-                                        this.props.fontFamily = opt;
-                                        this.props.fontFamilyCategory = opt.family;
-                                        this.props.fontWeight = { value: '400', label: 'Regular' };
-                                        this.props.fontWeights = getFontWeights( opt.label, this.props.fontFamilyCategory );
                                         onChange( {
-                                            ...this.props,
+                                            fontFamily: opt.value,
+                                            fontFamilyCategory: opt.fontFamilyCategory,
+                                            fontWeight: '400',
                                         } );
                                     } }
                                     options={ fontFamilies }
-                                    formatGroupLabel={ data => (
-                                        <div>
-                                            <span>{ data.label }</span>
-                                        </div>
-                                    ) }
                                     placeholder={ __( '--- Select font ---' ) }
                                     className="ghostkit-typography-font-selector"
-                                    classNamePrefix="ghostkit-typography-font-selector"
-                                    menuPosition="fixed"
                                 />
                             </div>
                         </Tooltip>
@@ -190,11 +214,10 @@ export default class Typorgaphy extends Component {
                         <Tooltip text={ __( 'Font Weight' ) }>
                             <div>
                                 <Select
-                                    value={ this.props.fontWeight }
+                                    value={ fontWeightValue }
                                     onChange={ ( opt ) => {
-                                        this.props.fontWeight = opt;
                                         onChange( {
-                                            ...this.props,
+                                            fontWeight: opt.value,
                                         } );
                                     } }
                                     options={ fontWeights }
@@ -210,12 +233,11 @@ export default class Typorgaphy extends Component {
                         <Tooltip text={ __( 'Font Size' ) }>
                             <div>
                                 <InputDrag
-                                    value={ this.props.fontSize }
+                                    value={ fontSizeValue }
                                     placeholder="-"
                                     onChange={ value => {
-                                        this.props.fontSize = value;
                                         onChange( {
-                                            ...this.props,
+                                            fontSize: value,
                                         } );
                                     } }
                                     autoComplete="off"
@@ -225,17 +247,16 @@ export default class Typorgaphy extends Component {
                         </Tooltip>
                     </div>
                     {
-                        this.props.lineHeight !== undefined &&
+                        lineHeight !== undefined &&
                             <div className="ghostkit-typography-line-control">
                                 <Tooltip text={ __( 'Line Height' ) }>
                                     <div>
                                         <InputDrag
-                                            value={ this.props.lineHeight }
+                                            value={ lineHeight }
                                             placeholder="-"
                                             onChange={ value => {
-                                                this.props.lineHeight = value;
                                                 onChange( {
-                                                    ...this.props,
+                                                    lineHeight: value,
                                                 } );
                                             } }
                                             autoComplete="off"
@@ -246,21 +267,16 @@ export default class Typorgaphy extends Component {
                             </div>
                     }
                     {
-                        this.props.letterSpacing !== undefined &&
+                        letterSpacing !== undefined &&
                         <div className="ghostkit-typography-letter-control">
                             <Tooltip text={ __( 'Letter Spacing' ) }>
                                 <div>
                                     <InputDrag
-                                        value={ this.props.letterSpacing }
+                                        value={ letterSpacing }
                                         placeholder="-"
                                         onChange={ value => {
-                                            this.props.letterSpacing = value;
-                                            this.setState( {
+                                            onChange( {
                                                 letterSpacing: value,
-                                            }, () => {
-                                                onChange( {
-                                                    ...this.props,
-                                                } );
                                             } );
                                         } }
                                         autoComplete="off"
