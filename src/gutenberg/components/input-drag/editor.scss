@@ -1,33 +1,11 @@
 .ghostkit-component-input-drag-has-icon {
-    display: flex;
-    padding: 9px 9px;
-    font-size: 16px;
-    border: 1px solid hsl(0, 0%, 80%);
-    border-radius: 4px;
-    box-shadow: 0 0 0 transparent;
-    transition: box-shadow .1s linear;
     svg {
-        margin-top: 2px;
-        margin-right: 10px;
-        color: hsl(0, 0%, 65%);
+        position: absolute;
+        margin: 10px;
+        color: #c0c0c0;
     }
-    .components-base-control.ghostkit-component-input-drag {
-        padding: 0;
-        margin: 0;
-        .components-base-control__field {
-            margin-top: 0;
-            margin-bottom: 0;
-            .components-text-control__input {
-                width: 90%;
-                padding: 0;
-                margin: 0;
-                border: none;
-            }
-            .components-text-control__input:focus {
-                border: none;
-                outline: none;
-                box-shadow: none;
-            }
-        }
+    .ghostkit-component-input-drag .components-base-control__field .components-text-control__input {
+        padding-left: 30px;
+        border-color: hsl(0, 0%, 80%);
     }
 }

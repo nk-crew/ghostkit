@@ -71,15 +71,18 @@ class GhostKit_Fonts {
 
         // Global custom Typography.
         if ( $global_typography && isset( $global_typography['ghostkit_typography'] ) && $global_typography['ghostkit_typography'] ) {
-            foreach ( json_decode( $global_typography['ghostkit_typography'] ) as $global_typography_key => $global_typography_value ) {
-                if ( isset( $global_typography_value->fontFamily ) &&
-                    ! empty( $global_typography_value->fontFamily ) &&
-                    isset( $global_typography_value->fontFamilyCategory ) &&
-                    ! empty( $global_typography_value->fontFamilyCategory ) ) {
-                    $fonts[] = array(
-                        'family' => $global_typography_value->fontFamilyCategory,
-                        'label' => $global_typography_value->fontFamily,
-                    );
+            $object_global_typography = json_decode( $global_typography['ghostkit_typography'] );
+            if ( isset( $object_global_typography ) && ! empty( $object_global_typography ) ) {
+                foreach ( $object_global_typography as $global_typography_key => $global_typography_value ) {
+                    if ( isset( $global_typography_value->fontFamily ) &&
+                        ! empty( $global_typography_value->fontFamily ) &&
+                        isset( $global_typography_value->fontFamilyCategory ) &&
+                        ! empty( $global_typography_value->fontFamilyCategory ) ) {
+                        $fonts[] = array(
+                            'family' => $global_typography_value->fontFamilyCategory,
+                            'label' => $global_typography_value->fontFamily,
+                        );
+                    }
                 }
             }
         }
@@ -89,16 +92,18 @@ class GhostKit_Fonts {
             $meta_typography = get_post_meta( $post_id, 'ghostkit_typography', true );
 
             if ( ! empty( $meta_typography ) ) {
-                //$this->add_custom_css( 'ghostkit-custom-css', $meta_typography );
-                foreach ( json_decode( $meta_typography ) as $meta_typography_key => $meta_typography_value ) {
-                    if ( isset( $meta_typography_value->fontFamily ) &&
-                        ! empty( $meta_typography_value->fontFamily ) &&
-                        isset( $meta_typography_value->fontFamilyCategory ) &&
-                        ! empty( $meta_typography_value->fontFamilyCategory ) ) {
-                        $fonts[] = array(
-                            'family' => $meta_typography_value->fontFamilyCategory,
-                            'label' => $meta_typography_value->fontFamily,
-                        );
+                $object_meta_typography = json_decode( $meta_typography );
+                if ( isset( $object_meta_typography ) && ! empty( $object_meta_typography ) ) {
+                    foreach ( $object_meta_typography as $meta_typography_key => $meta_typography_value ) {
+                        if ( isset( $meta_typography_value->fontFamily ) &&
+                            ! empty( $meta_typography_value->fontFamily ) &&
+                            isset( $meta_typography_value->fontFamilyCategory ) &&
+                            ! empty( $meta_typography_value->fontFamilyCategory ) ) {
+                            $fonts[] = array(
+                                'family' => $meta_typography_value->fontFamilyCategory,
+                                'label' => $meta_typography_value->fontFamily,
+                            );
+                        }
                     }
                 }
             }
@@ -111,10 +116,14 @@ class GhostKit_Fonts {
             if ( isset( $font[ 'family' ] ) && ! empty( $font[ 'family' ] ) ) {
                 foreach( $fonts_list[ $font[ 'family' ] ][ 'fonts' ] as $find_font ) {
                     if ( $font[ 'label' ] === $find_font[ 'name' ] ) {
+                        $widths = ( isset( $find_font[ 'widths' ] ) && ! empty( $find_font[ 'widths' ] ) ) ? $find_font[ 'widths' ] : '';
+                        $category = ( isset( $find_font[ 'category' ] ) && ! empty( $find_font[ 'category' ] ) ) ? $find_font[ 'category' ] : '';
+                        $subsets = ( isset( $find_font[ 'subsets' ] ) && ! empty( $find_font[ 'subsets' ] ) ) ? $find_font[ 'subsets' ] : '';
+
                         $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ] = array(
-                            'widths' => $find_font[ 'widths' ],
-                            'category' => $find_font[ 'category' ],
-                            'subsets' => $find_font[ 'subsets' ],
+                            'widths' => $widths,
+                            'category' => $category,
+                            'subsets' => $subsets,
                         );
                     }
                 }

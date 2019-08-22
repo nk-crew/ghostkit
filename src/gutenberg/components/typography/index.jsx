@@ -2,14 +2,13 @@
  * Import CSS
  */
 import './editor.scss';
-
+import 'react-virtualized-select/styles.css';
 /**
  * External dependencies
  */
 import InputDrag from '../input-drag';
-import Select from 'react-select';
+import Select from 'react-virtualized-select';
 import getIcon from '../../utils/get-icon';
-import { List } from 'react-virtualized';
 
 /**
  * WordPress dependencies
@@ -26,24 +25,6 @@ const { __ } = wp.i18n;
 const { GHOSTKIT } = window;
 const fontFamilies = getFonts();
 
-const FontsList = props => {
-    const rows = props.children;
-    // eslint-disable-next-line no-unused-vars
-    const rowRenderer = ( { key, index, isScrolling, isVisible, style } ) => (
-        <div key={ key } style={ style } >{ rows[ index ] }</div>
-    );
-
-    return (
-        <List
-            style={ { width: '100%' } }
-            width={ 300 }
-            height={ 300 }
-            rowHeight={ 30 }
-            rowCount={ rows.length }
-            rowRenderer={ rowRenderer }
-        />
-    );
-};
 /**
  * Go over each fonts.
  *
@@ -194,8 +175,7 @@ export default class Typorgaphy extends Component {
                         <Tooltip text={ __( 'Font Family' ) }>
                             <div>
                                 <Select
-                                    components={ { FontsList } }
-                                    defaultValue={ fontFamilyValue }
+                                    value={ fontFamilyValue }
                                     onChange={ ( opt ) => {
                                         onChange( {
                                             fontFamily: opt.value,
@@ -241,7 +221,7 @@ export default class Typorgaphy extends Component {
                                         } );
                                     } }
                                     autoComplete="off"
-                                    icon={ getIcon( 'icon-font-size' ) }
+                                    icon={ getIcon( 'icon-typography-font-size' ) }
                                 />
                             </div>
                         </Tooltip>
@@ -260,7 +240,7 @@ export default class Typorgaphy extends Component {
                                                 } );
                                             } }
                                             autoComplete="off"
-                                            icon={ getIcon( 'icon-line-height' ) }
+                                            icon={ getIcon( 'icon-typography-line-height' ) }
                                         />
                                     </div>
                                 </Tooltip>
@@ -280,7 +260,7 @@ export default class Typorgaphy extends Component {
                                             } );
                                         } }
                                         autoComplete="off"
-                                        icon={ getIcon( 'icon-letter-spacing' ) }
+                                        icon={ getIcon( 'icon-typography-letter-spacing' ) }
                                     />
                                 </div>
                             </Tooltip>

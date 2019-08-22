@@ -59,9 +59,9 @@ import iconAspectRatio32 from '../icons/icon-aspect-ratio-3-2.svg';
 import iconAspectRatio43 from '../icons/icon-aspect-ratio-4-3.svg';
 import iconAspectRatio169 from '../icons/icon-aspect-ratio-16-9.svg';
 import iconAspectRatio219 from '../icons/icon-aspect-ratio-21-9.svg';
-import iconFontSize from '../icons/icon-font-size.svg';
-import iconLetterSpacing from '../icons/icon-letter-spacing.svg';
-import iconLineHeight from '../icons/icon-line-height.svg';
+import iconTypographyFontSize from '../icons/icon-typography-font-size.svg';
+import iconTypographyLetterSpacing from '../icons/icon-typography-letter-spacing.svg';
+import iconTypographyLineHeight from '../icons/icon-typography-line-height.svg';
 
 export default {
     'block-accordion': blockAccordion,
@@ -122,7 +122,7 @@ export default {
     'icon-aspect-ratio-4-3': iconAspectRatio43,
     'icon-aspect-ratio-16-9': iconAspectRatio169,
     'icon-aspect-ratio-21-9': iconAspectRatio219,
-    'icon-font-size': iconFontSize,
-    'icon-letter-spacing': iconLetterSpacing,
-    'icon-line-height': iconLineHeight,
+    'icon-typography-font-size': iconTypographyFontSize,
+    'icon-typography-letter-spacing': iconTypographyLetterSpacing,
+    'icon-typography-line-height': iconTypographyLineHeight,
 };

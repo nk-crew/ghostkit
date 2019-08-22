@@ -72,6 +72,17 @@ class GhostKit extends Component {
                             isDefault
                             isLarge
                             onClick={ () => {
+                                this.setState( { isModalOpen: 'typography' } );
+                            } }
+                        >
+                            { getIcon( 'plugin-typography' ) }
+                            { __( 'Typography' ) }
+                        </Button>
+                        <Button
+                            className="plugin-ghostkit-panel-button"
+                            isDefault
+                            isLarge
+                            onClick={ () => {
                                 this.setState( { isModalOpen: 'custom-code' } );
                             } }
                         >
@@ -88,17 +99,6 @@ class GhostKit extends Component {
                         >
                             { getIcon( 'plugin-customizer' ) }
                             { __( 'Customizer' ) }
-                        </Button>
-                        <Button
-                            className="plugin-ghostkit-panel-button"
-                            isDefault
-                            isLarge
-                            onClick={ () => {
-                                this.setState( { isModalOpen: 'typography' } );
-                            } }
-                        >
-                            { getIcon( 'plugin-typography' ) }
-                            { __( 'Typography' ) }
                         </Button>
                     </PanelBody>
                 </PluginSidebar>

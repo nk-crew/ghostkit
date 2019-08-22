@@ -65,10 +65,10 @@ class GhostKit_Typography {
         $is_single = is_singular() && $post_id;
         $is_admin_editor = $is_admin_editor && $post_id;
 
-        if ( isset( $default_typography ) && ! empty( $default_typography ) ) {
+        if ( $this->is_exist( $default_typography ) ) {
 
             foreach ( $default_typography as $key => $typography ) {
-                if ( isset( $typography['output'] ) && ! empty( $typography['output'] ) ) {
+                if ( $this->is_exist( $typography['output'] ) ) {
                     $typography_prepeare_styles[ $key ] = array(
                         'style-properties' => $typography['defaults'],
                         'output' => $typography['output'],
@@ -78,38 +78,40 @@ class GhostKit_Typography {
 
             // Global custom Typography.
             // @codingStandardsIgnoreStart
-            if ( $global_typography && isset( $global_typography['ghostkit_typography'] ) && $global_typography['ghostkit_typography'] ) {
-                foreach ( json_decode( $global_typography['ghostkit_typography'] ) as $global_typography_key => $global_typography_value ) {
-                    if ( isset( $typography_prepeare_styles[ $global_typography_key ] ) &&
-                        ! empty( $typography_prepeare_styles[ $global_typography_key ] ) ) {
-                        if ( isset( $global_typography_value->fontFamily ) &&
-                            ! empty( $global_typography_value->fontFamily ) &&
-                            isset( $global_typography_value->fontFamilyCategory ) &&
-                            ! empty( $global_typography_value->fontFamilyCategory ) ) {
-                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-family-category'] = $global_typography_value->fontFamilyCategory;
-                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-family'] = $global_typography_value->fontFamily;
-                        }
-                        if ( isset( $global_typography_value->fontSize ) &&
-                            ! empty( $global_typography_value->fontSize ) &&
-                            isset( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-size'] ) ) {
-                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-size'] = $global_typography_value->fontSize;
-                        }
-                        if ( isset( $global_typography_value->fontWeight ) &&
-                            ! empty( $global_typography_value->fontWeight ) &&
-                            isset( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-weight'] ) ) {
-                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-weight'] = $global_typography_value->fontWeight;
-                        }
-                        if ( isset( $global_typography_value->lineHeight ) &&
-                            ! empty( $global_typography_value->lineHeight ) &&
-                            isset( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['line-height'] ) &&
-                            ! empty( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['line-height'] ) ) {
-                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['line-height'] = $global_typography_value->lineHeight;
-                        }
-                        if ( isset( $global_typography_value->letterSpacing ) &&
-                            ! empty( $global_typography_value->letterSpacing ) &&
-                            isset( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['letter-spacing'] ) &&
-                            ! empty( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['letter-spacing'] ) ) {
-                            $typography_prepeare_styles[ $global_typography_key ]['style-properties']['letter-spacing'] = $global_typography_value->letterSpacing;
+            if ( $this->is_exist( $global_typography ) && $this->is_exist( $global_typography['ghostkit_typography'] ) ) {
+                $object_global_typography = json_decode( $global_typography['ghostkit_typography'] );
+                if ( $this->is_exist( $object_global_typography ) ) {
+                    foreach ( $object_global_typography as $global_typography_key => $global_typography_value ) {
+                        if ( $this->is_exist( $typography_prepeare_styles[ $global_typography_key ] ) ) {
+                            if ( $this->is_exist( $global_typography_value->fontFamily ) &&
+                                $this->is_exist( $global_typography_value->fontFamilyCategory ) ) {
+
+                                // Checking the default style so as not to display it in styles.
+                                $fontFamily = $global_typography_value->fontFamily === 'Default Site Font' ? '' : $global_typography_value->fontFamily;
+
+                                $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-family'] = $fontFamily;
+                                $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-family-category'] = $global_typography_value->fontFamilyCategory;
+                            }
+                            if ( $this->is_exist( $global_typography_value->fontSize ) &&
+                                isset( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-size'] ) ) {
+                                $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-size'] = $global_typography_value->fontSize;
+                            }
+                            if ( $this->is_exist( $global_typography_value->fontWeight ) &&
+                                isset( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-weight'] ) ) {
+                                $typography_prepeare_styles[ $global_typography_key ]['style-properties']['font-weight'] = $global_typography_value->fontWeight;
+                            }
+
+                            // Additional check in order not to display the style if it is not in the filter.
+                            if ( $this->is_exist( $global_typography_value->lineHeight ) &&
+                                $this->is_exist( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['line-height'] ) ) {
+                                $typography_prepeare_styles[ $global_typography_key ]['style-properties']['line-height'] = $global_typography_value->lineHeight;
+                            }
+
+                            // Additional check in order not to display the style if it is not in the filter.
+                            if ( $this->is_exist( $global_typography_value->letterSpacing ) &&
+                                $this->is_exist( $typography_prepeare_styles[ $global_typography_key ]['style-properties']['letter-spacing'] ) ) {
+                                $typography_prepeare_styles[ $global_typography_key ]['style-properties']['letter-spacing'] = $global_typography_value->letterSpacing;
+                            }
                         }
                     }
                 }
@@ -119,38 +121,32 @@ class GhostKit_Typography {
             if ( $is_single || $is_admin_editor ) {
                 $meta_typography = get_post_meta( $post_id, 'ghostkit_typography', true );
 
-                if ( ! empty( $meta_typography ) ) {
-                    foreach ( json_decode( $meta_typography ) as $meta_typography_key => $meta_typography_value ) {
-                        if ( isset( $typography_prepeare_styles[ $meta_typography_key ] ) &&
-                            ! empty( $typography_prepeare_styles[ $meta_typography_key ] ) ) {
-                            if ( isset( $meta_typography_value->fontFamily ) &&
-                                ! empty( $meta_typography_value->fontFamily ) &&
-                                isset( $meta_typography_value->fontFamilyCategory ) &&
-                                ! empty( $meta_typography_value->fontFamilyCategory ) ) {
-                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-family-category'] = $meta_typography_value->fontFamilyCategory;
-                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-family'] = $meta_typography_value->fontFamily;
-                            }
-                            if ( isset( $meta_typography_value->fontSize ) &&
-                                ! empty( $meta_typography_value->fontSize ) &&
-                                isset( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-size'] ) ) {
-                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-size'] = $meta_typography_value->fontSize;
-                            }
-                            if ( isset( $meta_typography_value->fontWeight ) &&
-                                ! empty( $meta_typography_value->fontWeight ) &&
-                                isset( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-weight'] ) ) {
-                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-weight'] = $meta_typography_value->fontWeight;
-                            }
-                            if ( isset( $meta_typography_value->lineHeight ) &&
-                                ! empty( $meta_typography_value->lineHeight ) &&
-                                isset( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['line-height'] ) &&
-                                ! empty( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['line-height'] ) ) {
-                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['line-height'] = $meta_typography_value->lineHeight;
-                            }
-                            if ( isset( $meta_typography_value->letterSpacing ) &&
-                                ! empty( $meta_typography_value->letterSpacing ) &&
-                                isset( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['letter-spacing'] ) &&
-                                ! empty( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['letter-spacing'] ) ) {
-                                $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['letter-spacing'] = $meta_typography_value->letterSpacing;
+                if ( $this->is_exist( $meta_typography ) ) {
+                    $object_meta_typography = json_decode( $meta_typography );
+                    if ( $this->is_exist( $object_meta_typography ) ) {
+                        foreach ( json_decode( $meta_typography ) as $meta_typography_key => $meta_typography_value ) {
+                            if ( $this->is_exist( $typography_prepeare_styles[ $meta_typography_key ] ) ) {
+                                if ( $this->is_exist( $meta_typography_value->fontFamily ) &&
+                                    $this->is_exist( $meta_typography_value->fontFamilyCategory ) ) {
+                                    $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-family-category'] = $meta_typography_value->fontFamilyCategory;
+                                    $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-family'] = $meta_typography_value->fontFamily === 'Default Site Font' ? '' : $meta_typography_value->fontFamily;
+                                }
+                                if ( $this->is_exist( $meta_typography_value->fontSize ) &&
+                                    isset( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-size'] ) ) {
+                                    $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-size'] = $meta_typography_value->fontSize;
+                                }
+                                if ( $this->is_exist( $meta_typography_value->fontWeight ) &&
+                                    isset( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-weight'] ) ) {
+                                    $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-weight'] = $meta_typography_value->fontWeight;
+                                }
+                                if ( $this->is_exist( $meta_typography_value->lineHeight ) &&
+                                    $this->is_exist( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['line-height'] ) ) {
+                                    $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['line-height'] = $meta_typography_value->lineHeight;
+                                }
+                                if ( $this->is_exist( $meta_typography_value->letterSpacing ) &&
+                                    $this->is_exist( $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['letter-spacing'] ) ) {
+                                    $typography_prepeare_styles[ $meta_typography_key ]['style-properties']['letter-spacing'] = $meta_typography_value->letterSpacing;
+                                }
                             }
                         }
                     }
@@ -158,27 +154,27 @@ class GhostKit_Typography {
             }
             // @codingStandardsIgnoreEnd
 
+            // Collect all the styles for further transfer to the inline file on the edit or front page.
             foreach ( $typography_prepeare_styles as $typography_prepeare_style ) {
-
-                if ( ( isset( $typography_prepeare_style['output'] ) && ! empty( $typography_prepeare_style['output'] ) && is_array( $typography_prepeare_style['output'] ) ) &&
-                     ( ( isset( $typography_prepeare_style['style-properties']['font-family'] ) && ! empty( $typography_prepeare_style['style-properties']['font-family'] ) ) ||
-                         ( isset( $typography_prepeare_style['style-properties']['font-size'] ) && ! empty( $typography_prepeare_style['style-properties']['font-size'] ) ) ||
-                         ( isset( $typography_prepeare_style['style-properties']['font-weight'] ) && ! empty( $typography_prepeare_style['style-properties']['font-weight'] ) ) ||
-                         ( isset( $typography_prepeare_style['style-properties']['line-height'] ) && ! empty( $typography_prepeare_style['style-properties']['line-height'] ) ) ||
-                         ( isset( $typography_prepeare_style['style-properties']['letter-spacing'] ) && ! empty( $typography_prepeare_style['style-properties']['letter-spacing'] ) )
+                if ( ( $this->is_exist( $typography_prepeare_style['output'] ) && is_array( $typography_prepeare_style['output'] ) ) &&
+                     ( $this->is_exist( $typography_prepeare_style['style-properties']['font-family'] ) ||
+                         $this->is_exist( $typography_prepeare_style['style-properties']['font-size'] ) ||
+                         $this->is_exist( $typography_prepeare_style['style-properties']['font-weight'] ) ||
+                         $this->is_exist( $typography_prepeare_style['style-properties']['line-height'] ) ||
+                         $this->is_exist( $typography_prepeare_style['style-properties']['letter-spacing'] )
                      ) ) {
                     foreach ( $typography_prepeare_style['output'] as $output ) {
-                        if ( isset( $output['selectors'] ) && ! empty( $output['selectors'] ) ) {
+                        if ( $this->is_exist( $output['selectors'] ) ) {
                             $typography_styles = '';
                             $typography_styles .= $output['selectors'] . '{';
 
-                            if ( isset( $typography_prepeare_style['style-properties']['font-family'] ) && ! empty( $typography_prepeare_style['style-properties']['font-family'] ) ) {
+                            if ( $this->is_exist( $typography_prepeare_style['style-properties']['font-family'] ) ) {
                                 $typography_styles .= 'font-family: ' . $typography_prepeare_style['style-properties']['font-family'] . ';';
                             }
-                            if ( isset( $typography_prepeare_style['style-properties']['font-size'] ) && ! empty( $typography_prepeare_style['style-properties']['font-size'] ) ) {
+                            if ( $this->is_exist( $typography_prepeare_style['style-properties']['font-size'] ) ) {
                                 $typography_styles .= 'font-size: ' . $typography_prepeare_style['style-properties']['font-size'] . ';';
                             }
-                            if ( isset( $typography_prepeare_style['style-properties']['font-weight'] ) && ! empty( $typography_prepeare_style['style-properties']['font-weight'] ) ) {
+                            if ( $this->is_exist( $typography_prepeare_style['style-properties']['font-weight'] ) ) {
                                 $font_weight = $typography_prepeare_style['style-properties']['font-weight'];
                                 if ( false !== strpos( $font_weight, 'i' ) ) {
                                     $font_weight = str_replace( 'i', '', $font_weight );
@@ -186,10 +182,10 @@ class GhostKit_Typography {
                                 }
                                 $typography_styles .= 'font-weight: ' . $font_weight . ';';
                             }
-                            if ( isset( $typography_prepeare_style['style-properties']['line-height'] ) && ! empty( $typography_prepeare_style['style-properties']['line-height'] ) ) {
+                            if ( $this->is_exist( $typography_prepeare_style['style-properties']['line-height'] ) ) {
                                 $typography_styles .= 'line-height: ' . $typography_prepeare_style['style-properties']['line-height'] . ';';
                             }
-                            if ( isset( $typography_prepeare_style['style-properties']['letter-spacing'] ) && ! empty( $typography_prepeare_style['style-properties']['letter-spacing'] ) ) {
+                            if ( $this->is_exist( $typography_prepeare_style['style-properties']['letter-spacing'] ) ) {
                                 $typography_styles .= 'letter-spacing: ' . $typography_prepeare_style['style-properties']['letter-spacing'] . ';';
                             }
                             $typography_styles .= '}';
@@ -208,6 +204,15 @@ class GhostKit_Typography {
         return $typography_css;
     }
 
+    /**
+     * Check value on the existence and emptiness.
+     *
+     * @param void $value - Checking value.
+     * @return bool $value - True or false.
+     */
+    public function is_exist( $value ) {
+        return ( isset( $value ) && ! empty( $value ) ) ? true : false;
+    }
     /**
      * Add Default Typography.
      *
