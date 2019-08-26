@@ -15,9 +15,6 @@ class GhostKit_Templates {
     public function __construct() {
         // Register custom post type.
         add_action( 'init', array( $this, 'add_custom_post_type' ) );
-
-        // custom post roles.
-        add_action( 'admin_init', array( $this, 'add_role_caps' ) );
     }
 
     /**
@@ -58,16 +55,7 @@ class GhostKit_Templates {
                 'taxonomies'    => array(
                     'ghostkit_template_category',
                 ),
-                'capabilities' => array(
-                    'edit_post' => 'edit_ghostkit_template',
-                    'edit_posts' => 'edit_ghostkit_templates',
-                    'edit_others_posts' => 'edit_other_ghostkit_templates',
-                    'publish_posts' => 'publish_ghostkit_templates',
-                    'read_post' => 'read_ghostkit_template',
-                    'read_private_posts' => 'read_private_ghostkit_templates',
-                    'delete_posts' => 'delete_ghostkit_templates',
-                    'delete_post' => 'delete_ghostkit_template',
-                ),
+                'capability_type' => 'post',
                 'supports' => array(
                     'title',
                     'editor',
@@ -90,33 +78,6 @@ class GhostKit_Templates {
                 'show_admin_column' => true,
             )
         );
-    }
-
-    /**
-     * Add Roles
-     */
-    public function add_role_caps() {
-        global $wp_roles;
-
-        if ( isset( $wp_roles ) ) {
-            $wp_roles->add_cap( 'administrator', 'edit_ghostkit_template' );
-            $wp_roles->add_cap( 'administrator', 'edit_ghostkit_templates' );
-            $wp_roles->add_cap( 'administrator', 'edit_other_ghostkit_templates' );
-            $wp_roles->add_cap( 'administrator', 'publish_ghostkit_templates' );
-            $wp_roles->add_cap( 'administrator', 'read_ghostkit_template' );
-            $wp_roles->add_cap( 'administrator', 'read_private_ghostkit_templates' );
-            $wp_roles->add_cap( 'administrator', 'delete_ghostkit_templates' );
-            $wp_roles->add_cap( 'administrator', 'delete_ghostkit_template' );
-
-            $wp_roles->add_cap( 'editor', 'read_ghostkit_template' );
-            $wp_roles->add_cap( 'editor', 'read_private_ghostkit_templates' );
-
-            $wp_roles->add_cap( 'author', 'read_ghostkit_template' );
-            $wp_roles->add_cap( 'author', 'read_private_ghostkit_templates' );
-
-            $wp_roles->add_cap( 'contributor', 'read_ghostkit_template' );
-            $wp_roles->add_cap( 'contributor', 'read_private_ghostkit_templates' );
-        }
     }
 }
 
