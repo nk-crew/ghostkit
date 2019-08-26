@@ -57,6 +57,9 @@ function getFontWeightLabel( weight ) {
     let label = '';
 
     switch ( weight ) {
+    case '':
+        label = __( 'Default' );
+        break;
     case '100':
         label = __( 'Thin' );
         break;
@@ -130,7 +133,7 @@ function getFontWeights( font, fontFamilyCategory ) {
 
     const fontWeights = [];
 
-    if ( font !== '' && fontFamilyCategory !== '' && font !== undefined && fontFamilyCategory !== undefined ) {
+    if ( font !== '' && fontFamilyCategory !== '' && typeof font !== 'undefined' && typeof fontFamilyCategory !== 'undefined' ) {
         Object.keys( fonts[ fontFamilyCategory ].fonts ).forEach( ( fontKey ) => {
             if ( fonts[ fontFamilyCategory ].fonts[ fontKey ].name === font ) {
                 Object.keys( fonts[ fontFamilyCategory ].fonts[ fontKey ].widths ).forEach( ( widthKey ) => {
@@ -153,6 +156,7 @@ export default class Typorgaphy extends Component {
     render() {
         const {
             onChange,
+            placeholders,
             label,
             fontFamily,
             fontFamilyCategory,
@@ -160,80 +164,92 @@ export default class Typorgaphy extends Component {
             fontSize,
             lineHeight,
             letterSpacing,
+            childOf,
             fontWeights = getFontWeights( fontFamily, fontFamilyCategory ),
         } = this.props;
 
         const fontFamilyValue = { value: fontFamily, label: fontFamily, fontFamilyCategory: fontFamilyCategory };
         const fontWeightValue = { value: fontWeight, label: getFontWeightLabel( fontWeight ) };
-        const fontSizeValue = fontSize === undefined ? '' : fontSize;
+        const fontSizeValue = typeof fontSize === 'undefined' ? '' : fontSize;
+        const childOfClass = childOf !== '' ? ' ghostkit-typography-child' + ' ghostkit-typography-child-of-' + childOf : '';
 
         return (
-            <div className={ 'ghostkit-typography' }>
+            <div className={ 'ghostkit-typography' + childOfClass }>
                 <h4>{ label }</h4>
                 <div className="ghostkit-control-typography">
-                    <div className="ghostkit-typography-font-control">
-                        <Tooltip text={ __( 'Font Family' ) }>
-                            <div>
-                                <Select
-                                    value={ fontFamilyValue }
-                                    onChange={ ( opt ) => {
-                                        onChange( {
-                                            fontFamily: opt.value,
-                                            fontFamilyCategory: opt.fontFamilyCategory,
-                                            fontWeight: '400',
-                                        } );
-                                    } }
-                                    options={ fontFamilies }
-                                    placeholder={ __( '--- Select font ---' ) }
-                                    className="ghostkit-typography-font-selector"
-                                />
-                            </div>
-                        </Tooltip>
-                    </div>
-                    <div className="ghostkit-typography-weight-control">
-                        <Tooltip text={ __( 'Font Weight' ) }>
-                            <div>
-                                <Select
-                                    value={ fontWeightValue }
-                                    onChange={ ( opt ) => {
-                                        onChange( {
-                                            fontWeight: opt.value,
-                                        } );
-                                    } }
-                                    options={ fontWeights }
-                                    placeholder={ __( '--- Select weight ---' ) }
-                                    className="ghostkit-typography-weight-selector"
-                                    classNamePrefix="ghostkit-typography-weight-selector"
-                                    menuPosition="fixed"
-                                />
-                            </div>
-                        </Tooltip>
-                    </div>
-                    <div className="ghostkit-typography-size-control">
-                        <Tooltip text={ __( 'Font Size' ) }>
-                            <div>
-                                <InputDrag
-                                    value={ fontSizeValue }
-                                    placeholder="-"
-                                    onChange={ value => {
-                                        onChange( {
-                                            fontSize: value,
-                                        } );
-                                    } }
-                                    autoComplete="off"
-                                    icon={ getIcon( 'icon-typography-font-size' ) }
-                                />
-                            </div>
-                        </Tooltip>
-                    </div>
                     {
-                        lineHeight !== undefined &&
+                        typeof fontFamily !== 'undefined' &&
+                        <div className="ghostkit-typography-font-control">
+                            <Tooltip text={ __( 'Font Family' ) }>
+                                <div>
+                                    <Select
+                                        value={ fontFamilyValue }
+                                        onChange={ ( opt ) => {
+                                            onChange( {
+                                                fontFamily: opt.value,
+                                                fontFamilyCategory: opt.fontFamilyCategory,
+                                                fontWeight: opt.value === 'Default Site Font' ? '' : '400',
+                                            } );
+                                        } }
+                                        options={ fontFamilies }
+                                        placeholder={ __( '--- Select font ---' ) }
+                                        className="ghostkit-typography-font-selector"
+                                    />
+                                </div>
+                            </Tooltip>
+                        </div>
+                    }
+                    {
+                        typeof fontWeight !== 'undefined' &&
+                        <div className="ghostkit-typography-weight-control">
+                            <Tooltip text={ __( 'Font Weight' ) }>
+                                <div>
+                                    <Select
+                                        value={ fontWeightValue }
+                                        onChange={ ( opt ) => {
+                                            onChange( {
+                                                fontWeight: opt.value,
+                                            } );
+                                        } }
+                                        options={ fontWeights }
+                                        placeholder={ __( '--- Select weight ---' ) }
+                                        className="ghostkit-typography-weight-selector"
+                                        classNamePrefix="ghostkit-typography-weight-selector"
+                                        menuPosition="fixed"
+                                    />
+                                </div>
+                            </Tooltip>
+                        </div>
+                    }
+                    {
+                        typeof fontSize !== 'undefined' &&
+                        <div className="ghostkit-typography-size-control">
+                            <Tooltip text={ __( 'Font Size' ) }>
+                                <div>
+                                    <InputDrag
+                                        value={ fontSizeValue }
+                                        placeholder={ ( placeholders[ 'font-size' ] ) }
+                                        onChange={ value => {
+                                            onChange( {
+                                                fontSize: value,
+                                            } );
+                                        } }
+                                        autoComplete="off"
+                                        icon={ getIcon( 'icon-typography-font-size' ) }
+                                        defaultUnit="px"
+                                    />
+                                </div>
+                            </Tooltip>
+                        </div>
+                    }
+                    {
+                        typeof lineHeight !== 'undefined' &&
                             <div className="ghostkit-typography-line-control">
                                 <Tooltip text={ __( 'Line Height' ) }>
                                     <div>
                                         <InputDrag
                                             value={ lineHeight }
-                                            placeholder="-"
+                                            placeholder={ ( placeholders[ 'line-height' ] ) }
                                             onChange={ value => {
                                                 onChange( {
                                                     lineHeight: value,
@@ -241,19 +257,20 @@ export default class Typorgaphy extends Component {
                                             } }
                                             autoComplete="off"
                                             icon={ getIcon( 'icon-typography-line-height' ) }
+                                            step={ 0.1 }
                                         />
                                     </div>
                                 </Tooltip>
                             </div>
                     }
                     {
-                        letterSpacing !== undefined &&
+                        typeof letterSpacing !== 'undefined' &&
                         <div className="ghostkit-typography-letter-control">
                             <Tooltip text={ __( 'Letter Spacing' ) }>
                                 <div>
                                     <InputDrag
                                         value={ letterSpacing }
-                                        placeholder="-"
+                                        placeholder={ ( placeholders[ 'letter-spacing' ] ) }
                                         onChange={ value => {
                                             onChange( {
                                                 letterSpacing: value,
@@ -261,6 +278,8 @@ export default class Typorgaphy extends Component {
                                         } }
                                         autoComplete="off"
                                         icon={ getIcon( 'icon-typography-letter-spacing' ) }
+                                        defaultUnit="em"
+                                        step={ 0.01 }
                                     />
                                 </div>
                             </Tooltip>

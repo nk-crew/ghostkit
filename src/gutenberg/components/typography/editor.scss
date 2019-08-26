@@ -7,12 +7,12 @@
     .ghostkit-typography-font-control {
         flex: 1;
         min-width: 50%;
-        max-width: 66.3%;
+        max-width: 100%;
         padding-right: 25px;
     }
     .ghostkit-typography-weight-control {
         flex: 1 0 33.3%;
-        max-width: 33.3%;
+        max-width: 33%;
     }
     .ghostkit-typography-size-control,
     .ghostkit-typography-line-control,
@@ -20,10 +20,17 @@
         flex: 1;
         min-width: 33.3%;
         max-width: 100%;
+    }
+    .ghostkit-typography-font-control ~ .ghostkit-typography-size-control,
+    .ghostkit-typography-weight-control ~ .ghostkit-typography-size-control,
+    .ghostkit-typography-font-control ~ .ghostkit-typography-line-control,
+    .ghostkit-typography-weight-control ~ .ghostkit-typography-line-control,
+    .ghostkit-typography-font-control ~ .ghostkit-typography-letter-control,
+    .ghostkit-typography-weight-control ~ .ghostkit-typography-letter-control {
         margin-top: 1.33rem;
     }
-    .ghostkit-typography-line-control,
-    .ghostkit-typography-letter-control {
+    .ghostkit-typography-size-control + .ghostkit-typography-line-control,
+    .ghostkit-typography-line-control + .ghostkit-typography-letter-control {
         padding-left: 25px;
     }
     .ghostkit-typography-font-selector__indicators,
@@ -38,15 +45,6 @@
             height: 12px;
         }
     }
-}
-
-.ghostkit-typography + .ghostkit-typography {
-    padding-right: 16px;
-    padding-left: 16px;
-    margin-top: 1.33rem;
-    margin-right: -16px;
-    margin-left: -16px;
-    border-top: 1px solid #e8eaeb;
 }
 
 

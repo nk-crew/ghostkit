@@ -147,7 +147,9 @@ class GhostKit_Fonts {
                 array(
                     'name' => 'Default Site Font',
                     'widths' => array(
-                        0 => '400',
+                        0 => '',
+                        1 => '400',
+                        2 => '700',
                     ),
                     'category' => 'sans-serif',
                 ),
