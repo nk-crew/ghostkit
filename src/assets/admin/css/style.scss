@@ -30,23 +30,20 @@
 }
 
 /**
- * Extensions badge
+ * Extensions icon in panel body
  */
-.ghostkit-ext-badge {
-    position: relative;
-    left: 8px;
-    padding: 1px 3px;
-    font-size: 8px;
-    font-weight: 700;
-    color: #a9a9a9;
-    text-transform: uppercase;
-    background-color: #f3f3f3;
-    border-radius: 2px;
-    transition: .15s background-color, .15s color;
+.components-panel__body-toggle > .ghostkit-ext-icon {
+    position: absolute;
+    display: block;
+    top: 50%;
+    transform: translateY(-50%);
 
-    .components-panel__body-toggle:hover > & {
-        color: #949494;
-        background-color: #e6e6e6;
+    svg {
+        display: block;
+    }
+
+    + span {
+        margin-left: 35px;
     }
 }
 

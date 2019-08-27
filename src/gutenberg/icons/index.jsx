@@ -28,6 +28,10 @@ import pluginCustomCode from '../icons/plugin-custom-code.svg';
 import pluginCustomizer from '../icons/plugin-customizer.svg';
 import pluginTypography from '../icons/plugin-typography.svg';
 
+import extensionDisplay from '../icons/extension-display.svg';
+import extensionSpacings from '../icons/extension-spacings.svg';
+import extensionSR from '../icons/extension-sr.svg';
+
 import tabsTv from '../icons/tabs-tv.svg';
 import tabsDesktop from '../icons/tabs-desktop.svg';
 import tabsLaptop from '../icons/tabs-laptop.svg';
@@ -90,6 +94,10 @@ export default {
     'plugin-custom-code': pluginCustomCode,
     'plugin-customizer': pluginCustomizer,
     'plugin-typography': pluginTypography,
+
+    'extension-display': extensionDisplay,
+    'extension-spacings': extensionSpacings,
+    'extension-sr': extensionSR,
 
     'tabs-tv': tabsTv,
     'tabs-desktop': tabsDesktop,

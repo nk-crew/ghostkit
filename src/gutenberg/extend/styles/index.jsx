@@ -401,20 +401,23 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
                 ghostkitClassname,
             } = attributes;
 
-            // prevent unique ID duplication after block duplicated.
-            if ( checkDuplicates ) {
-                const allBlocks = this.getAllBlocks();
+            // create block ID.
+            if ( ! ghostkitId || checkDuplicates ) {
                 const usedIds = {};
 
-                allBlocks.forEach( ( data ) => {
-                    if ( data.clientId && data.attributes && data.attributes.ghostkitId ) {
-                        usedIds[ data.attributes.ghostkitId ] = data.clientId;
+                // prevent unique ID duplication after block duplicated.
+                if ( checkDuplicates ) {
+                    const allBlocks = this.getAllBlocks();
+                    allBlocks.forEach( ( data ) => {
+                        if ( data.clientId && data.attributes && data.attributes.ghostkitId ) {
+                            usedIds[ data.attributes.ghostkitId ] = data.clientId;
 
-                        if ( data.clientId !== clientId && data.attributes.ghostkitId === ghostkitId ) {
-                            ghostkitId = '';
+                            if ( data.clientId !== clientId && data.attributes.ghostkitId === ghostkitId ) {
+                                ghostkitId = '';
+                            }
                         }
-                    }
-                } );
+                    } );
+                }
 
                 // prepare new block id.
                 if ( clientId && ! ghostkitId && typeof ghostkitId !== 'undefined' ) {

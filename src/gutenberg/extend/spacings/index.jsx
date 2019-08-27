@@ -330,8 +330,10 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         <PanelBody
                             title={ (
                                 <Fragment>
-                                    { __( 'Spacings' ) }
-                                    <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
+                                    <span className="ghostkit-ext-icon">
+                                        { getIcon( 'extension-spacings' ) }
+                                    </span>
+                                    <span>{ __( 'Spacings' ) }</span>
                                 </Fragment>
                             ) }
                             initialOpen={ initialOpenPanel }
