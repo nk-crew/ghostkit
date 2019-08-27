@@ -13,7 +13,7 @@
         flex: 1;
         min-width: 50%;
         max-width: 100%;
-        padding-right: 25px;
+        padding-right: 20px;
     }
     .ghostkit-typography-weight-control {
         flex: 1 0 33.3%;
@@ -32,10 +32,10 @@
     .ghostkit-typography-weight-control ~ .ghostkit-typography-line-control,
     .ghostkit-typography-font-control ~ .ghostkit-typography-letter-control,
     .ghostkit-typography-weight-control ~ .ghostkit-typography-letter-control {
-        margin-top: 1.33rem;
+        margin-top: 20px;
     }
     .ghostkit-typography-size-control + .ghostkit-typography-line-control,
     .ghostkit-typography-line-control + .ghostkit-typography-letter-control {
-        padding-left: 25px;
+        padding-left: 20px;
     }
 }
