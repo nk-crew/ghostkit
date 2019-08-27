@@ -1,6 +1,6 @@
-if ( window.webfontList !== undefined ) {
-    const googleFonts = window.webfontList[ 'google-fonts' ];
-    if ( googleFonts !== undefined ) {
+if ( typeof window.ghostkitWebfontList !== 'undefined' ) {
+    const googleFonts = window.ghostkitWebfontList[ 'google-fonts' ];
+    if ( typeof googleFonts !== 'undefined' ) {
         const googleFamilies = [];
         for ( const key in googleFonts ) {
             let weights = '';

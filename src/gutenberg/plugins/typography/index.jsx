@@ -147,27 +147,27 @@ function printFonts( typographyData ) {
 
     if ( isExist( webfontList ) && webfontList.length > 0 ) {
         const googleFamilies = [];
-        for ( const key in webfontList ) {
+        Object.keys( webfontList ).forEach( ( key ) => {
             if ( webfontList[ key ].family === 'google-fonts' ) {
                 let weights = '';
-                for ( const keyWeight in webfontList[ key ].weights ) {
+                Object.keys( webfontList[ key ].weights ).forEach( ( keyWeight ) => {
                     if ( keyWeight > 0 && keyWeight !== ( webfontList[ key ].weights.length - 1 ) ) {
                         weights = weights + ',';
                     }
                     weights = weights + webfontList[ key ].weights[ keyWeight ];
-                }
+                } );
                 googleFamilies.push( webfontList[ key ].name + ':' + weights );
             }
-        }
-        for ( const key in GHOSTKIT[ 'added_fonts' ] ) {
-            for ( const removeKey in GHOSTKIT[ 'added_fonts' ][ key ] ) {
-                for ( const remove in googleFamilies ) {
+        } );
+        Object.keys( GHOSTKIT[ 'added_fonts' ] ).forEach( ( key ) => {
+            Object.keys( GHOSTKIT[ 'added_fonts' ][ key ] ).forEach( ( removeKey ) => {
+                Object.keys( googleFamilies ).forEach( ( remove ) => {
                     if ( GHOSTKIT[ 'added_fonts' ][ key ][ removeKey ] === googleFamilies[ remove ] ) {
                         googleFamilies.splice( remove, 1 );
                     }
-                }
-            }
-        }
+                } );
+            } );
+        } );
         GHOSTKIT[ 'added_fonts' ].push( googleFamilies );
         if ( googleFamilies.length > 0 ) {
             window.WebFont.load( {
@@ -189,18 +189,16 @@ function printFonts( typographyData ) {
 function getCurrentTypography( typographyData, typographyPrepeareStyles ) {
     if ( isExist( typographyData ) ) {
         if ( isExist( typographyData.ghostkit_typography ) ) {
-            for ( const key in typographyData.ghostkit_typography ) {
+            Object.keys( typographyData.ghostkit_typography ).forEach( ( key ) => {
                 if ( isExist( typographyData.ghostkit_typography[ key ] ) ) {
-                    for ( const propertyKey in conformityAttributes ) {
+                    Object.keys( conformityAttributes ).forEach( ( propertyKey ) => {
                         if ( isExist( typographyData.ghostkit_typography[ key ][ conformityAttributes[ propertyKey ] ] ) &&
                             typeof typographyPrepeareStyles[ key ][ 'style-properties' ][ propertyKey ] !== 'undefined' ) {
-                            if ( typographyData.ghostkit_typography[ key ][ conformityAttributes[ propertyKey ] ] !== 'Default Site Font' ) {
-                                typographyPrepeareStyles[ key ][ 'style-properties' ][ propertyKey ] = typographyData.ghostkit_typography[ key ][ conformityAttributes[ propertyKey ] ];
-                            }
+                            typographyPrepeareStyles[ key ][ 'style-properties' ][ propertyKey ] = typographyData.ghostkit_typography[ key ][ conformityAttributes[ propertyKey ] ];
                         }
-                    }
+                    } );
                 }
-            }
+            } );
         }
     }
     return typographyPrepeareStyles;
@@ -219,10 +217,10 @@ function printStyles( typographyData ) {
     let typographyPrepeareStyles = [];
     let typographyCss = '';
     if ( isExist( customTypographyList ) ) {
-        for ( const key in customTypographyList ) {
+        Object.keys( customTypographyList ).forEach( ( key ) => {
             if ( isExist( customTypographyList[ key ] ) ) {
                 if ( isExist( customTypographyList[ key ].output ) && customTypographyList[ key ].output.length > 0 ) {
-                    for ( const outputKey in customTypographyList[ key ].output ) {
+                    Object.keys( customTypographyList[ key ].output ).forEach( ( outputKey ) => {
                         if ( customTypographyList[ key ].output[ outputKey ].editor === true &&
                             isExist( customTypographyList[ key ].output[ outputKey ].selectors ) &&
                             isExist( customTypographyList[ key ].defaults ) ) {
@@ -233,22 +231,23 @@ function printStyles( typographyData ) {
                                 output: customTypographyList[ key ].output[ outputKey ].selectors,
                             };
                         }
-                    }
+                    } );
                 }
             }
-        }
+        } );
+
         // Global custom Typography.
         typographyPrepeareStyles = getCurrentTypography( typographyData.customTypography, typographyPrepeareStyles );
         // Local custom Typography.
         typographyPrepeareStyles = getCurrentTypography( typographyData.meta, typographyPrepeareStyles );
 
         if ( isExist( typographyPrepeareStyles ) ) {
-            for ( const key in typographyPrepeareStyles ) {
+            Object.keys( typographyPrepeareStyles ).forEach( ( key ) => {
                 let typographyStyles = '';
                 if ( isExist( typographyPrepeareStyles[ key ] ) ) {
                     if ( isExist( typographyPrepeareStyles[ key ].output ) ) {
                         typographyStyles = typographyStyles + typographyPrepeareStyles[ key ].output + '{';
-                        for ( const propertyKey in conformityAttributes ) {
+                        Object.keys( conformityAttributes ).forEach( ( propertyKey ) => {
                             if ( isExist( typographyPrepeareStyles[ key ][ 'style-properties' ][ propertyKey ] ) && propertyKey !== 'font-family-category' ) {
                                 if ( propertyKey === 'font-weight' ) {
                                     let fontWeight = typographyPrepeareStyles[ key ][ 'style-properties' ][ propertyKey ];
@@ -256,16 +255,18 @@ function printStyles( typographyData ) {
                                         fontWeight = fontWeight.replace( /i/g, '' );
                                         typographyStyles = typographyStyles + 'font-style: italic;';
                                         typographyPrepeareStyles[ key ][ 'style-properties' ][ propertyKey ] = fontWeight;
+                                    } else if ( fontWeight !== '' ) {
+                                        typographyStyles = typographyStyles + 'font-style: normal;';
                                     }
                                 }
                                 typographyStyles = typographyStyles + propertyKey + ': ' + typographyPrepeareStyles[ key ][ 'style-properties' ][ propertyKey ] + ';';
                             }
-                        }
+                        } );
                         typographyStyles = typographyStyles + '}';
                     }
                 }
                 typographyCss = typographyCss + typographyStyles;
-            }
+            } );
         }
         jQuery( '#ghostkit-typography-inline-css' ).html( typographyCss );
     }
@@ -282,65 +283,40 @@ class TypographyModal extends Component {
             customTypography: this.getCustomTypographyList( meta.ghostkit_typography, false ),
 
             globalCustomTypography: false,
-            advanced: false,
-            globalAdvanced: false,
+            advanced: this.getInitialAdvancedState( this.getCustomTypographyList( meta.ghostkit_typography, false ) ),
+            globalAdvanced: {},
         };
 
         this.maybePrepareGlobalTypographyAndAdvanced = this.maybePrepareGlobalTypographyAndAdvanced.bind( this );
     }
 
     /**
-     * Function for setting a state with a list of child typographies and a button status flag
+     * Function to get the initial state state of the children. Sets the button open flag if at least one option is set in the child
      *
      * @param {object} customTypographyList - Current typography List.
-     * @param {boolean} isGlobal - Flag of global customization.
+     * @return {{}} - An object with a list of states of a advanced button of child elements.
      */
-    setAdvancedState( customTypographyList, isGlobal ) {
-        const allChild = [];
-        for ( const typography in customTypographyList ) {
+    getInitialAdvancedState( customTypographyList ) {
+        const advanced = {};
+        Object.keys( customTypographyList ).forEach( ( typography ) => {
             if ( typeof customTypographyList[ typography ].childOf !== 'undefined' && customTypographyList[ typography ].childOf !== '' ) {
-                allChild.push(
-                    {
-                        childOf: {
-                            child: typography,
-                            parent: customTypographyList[ typography ].childOf,
-                        },
-                    },
-                );
-            }
-        }
-        if ( allChild.length > 0 ) {
-            const advanced = {};
-            for ( const typography in customTypographyList ) {
-                const hasChild = [];
                 let showAdvanced = false;
-
-                for ( const child in allChild ) {
-                    if ( allChild[ child ].childOf.parent === typography ) {
-                        hasChild.push( allChild[ child ].childOf.child );
-                        for ( const attribute in conformityAttributes ) {
-                            const typographyAttribute = customTypographyList[ allChild[ child ].childOf.child ][ conformityAttributes[ attribute ] ];
-                            if ( typeof typographyAttribute !== 'undefined' &&
-                                typographyAttribute !== 'Default Site Font' &&
-                                typographyAttribute !== 'default' &&
-                                typographyAttribute !== '' ) {
-                                showAdvanced = true;
-                            }
-                        }
+                Object.keys( conformityAttributes ).forEach( ( attribute ) => {
+                    const metaTypographyAttribute = customTypographyList[ typography ][ conformityAttributes[ attribute ] ];
+                    if ( typeof metaTypographyAttribute !== 'undefined' &&
+                        metaTypographyAttribute !== 'default' &&
+                        metaTypographyAttribute !== '' ) {
+                        showAdvanced = true;
+                        advanced[ customTypographyList[ typography ].childOf ] = showAdvanced;
                     }
-                }
+                } );
 
-                if ( hasChild.length > 0 ) {
-                    advanced[ typography ] = {
-                        show: showAdvanced,
-                        childs: hasChild,
-                    };
+                if ( advanced[ customTypographyList[ typography ].childOf ] !== true && showAdvanced === false ) {
+                    advanced[ customTypographyList[ typography ].childOf ] = showAdvanced;
                 }
             }
-            this.setState( {
-                [ isGlobal ? 'globalAdvanced' : 'advanced' ]: advanced,
-            } );
-        }
+        } );
+        return advanced;
     }
 
     componentDidMount() {
@@ -353,7 +329,6 @@ class TypographyModal extends Component {
     maybePrepareGlobalTypographyAndAdvanced() {
         const {
             customTypography = {},
-            meta = {},
         } = this.props;
 
         if (
@@ -362,16 +337,8 @@ class TypographyModal extends Component {
         ) {
             this.setState( {
                 globalCustomTypography: this.getCustomTypographyList( customTypography.ghostkit_typography, true ) || '',
-                globalAdvanced: false,
+                globalAdvanced: this.getInitialAdvancedState( this.getCustomTypographyList( customTypography.ghostkit_typography, false ) ),
             } );
-            this.setAdvancedState( customTypography.ghostkit_typography, true );
-        }
-
-        if (
-            meta &&
-            false === this.state.advanced
-        ) {
-            this.setAdvancedState( meta.ghostkit_typography, false );
         }
     }
 
@@ -393,14 +360,14 @@ class TypographyModal extends Component {
             'letter-spacing': '-',
         };
 
-        for ( const placeholderKey in placeholders ) {
+        Object.keys( placeholders ).forEach( ( placeholderKey ) => {
             const defaultProperty = isExist( customTypographyList[ key ].defaults[ placeholderKey ] ) ? customTypographyList[ key ].defaults[ placeholderKey ] : placeholders[ placeholderKey ];
             if ( isGlobal ) {
                 placeholders[ placeholderKey ] = defaultProperty;
             } else if ( isExist( this.state.globalCustomTypography[ key ] ) ) {
                 placeholders[ placeholderKey ] = isExist( this.state.globalCustomTypography[ key ][ conformityAttributes[ placeholderKey ] ] ) ? this.state.globalCustomTypography[ key ][ conformityAttributes[ placeholderKey ] ] : defaultProperty;
             }
-        }
+        } );
         return placeholders;
     }
 
@@ -430,11 +397,7 @@ class TypographyModal extends Component {
             } else if ( typeof property !== 'undefined' ) {
                 defaultProperty = property;
             } else if ( typeof customTypographyPropertiesList[ propertyName ] !== 'undefined' ) {
-                let defaultValue = '';
-                if ( propertyName === 'font-family' ) {
-                    defaultValue = 'Default Site Font';
-                }
-                defaultProperty = customTypographyPropertiesList[ propertyName ] !== '' ? customTypographyPropertiesList[ propertyName ] : defaultValue;
+                defaultProperty = customTypographyPropertiesList[ propertyName ] !== '' ? customTypographyPropertiesList[ propertyName ] : '';
             }
         }
         return defaultProperty;
@@ -453,26 +416,26 @@ class TypographyModal extends Component {
         } = GHOSTKIT;
         const defaultTypography = {};
         if ( typeof customTypographyList !== 'undefined' && customTypographyList !== '' ) {
-            for ( const key in customTypographyList ) {
+            Object.keys( customTypographyList ).forEach( ( key ) => {
                 if ( this.getDefaultValue( setStateTypography ) !== '' && this.getDefaultValue( setStateTypography[ key ] ) !== '' ) {
                     defaultTypography[ key ] = setStateTypography[ key ];
 
-                    for ( const property in conformityAttributes ) {
+                    Object.keys( conformityAttributes ).forEach( ( property ) => {
                         const defaultProperty = this.setDefaultPropertyValues( setStateTypography[ key ][ conformityAttributes[ property ] ], property, customTypographyList[ key ].defaults );
 
                         if ( defaultProperty !== false ) {
                             defaultTypography[ key ][ conformityAttributes[ property ] ] = defaultProperty;
                         }
-                    }
+                    } );
 
-                    if ( typeof customTypographyList[ key ][ 'child_of' ] !== 'undefined' ) {
-                        defaultTypography[ key ].childOf = customTypographyList[ key ][ 'child_of' ];
+                    if ( typeof customTypographyList[ key ][ 'child-of' ] !== 'undefined' ) {
+                        defaultTypography[ key ].childOf = customTypographyList[ key ][ 'child-of' ];
                     }
                 } else if ( this.getDefaultValue( customTypographyList[ key ].defaults ) !== '' ) {
                     const fontName = this.getDefaultValue( customTypographyList[ key ].defaults[ 'font-family' ] );
                     const fontFamilyCategory = this.getDefaultValue( customTypographyList[ key ].defaults[ 'font-family-category' ] );
                     const weight = this.getDefaultValue( customTypographyList[ key ].defaults[ 'font-weight' ] );
-                    const childOf = this.getDefaultValue( customTypographyList[ key ][ 'child_of' ] );
+                    const childOf = this.getDefaultValue( customTypographyList[ key ][ 'child-of' ] );
 
                     let fontFamily;
                     let fontWeight;
@@ -480,7 +443,7 @@ class TypographyModal extends Component {
                     let letterSpacing;
                     let fontSize;
 
-                    fontFamily = 'Default Site Font';
+                    fontFamily = '';
 
                     if ( fontName !== '' && fontFamilyCategory !== '' && global ) {
                         fontFamily = fontName;
@@ -521,7 +484,7 @@ class TypographyModal extends Component {
                         childOf: childOf,
                     };
                 }
-            }
+            } );
         }
         return defaultTypography;
     }
@@ -529,19 +492,15 @@ class TypographyModal extends Component {
     /**
      * Function for setting the current state with a list of child typographies and a button status flag when a button is clicked.
      *
-     * @param {object} typographyList - Typography List.
      * @param {int} key - Typography identifier.
      * @param {boolean} isGlobal - Flag of global customization.
      */
-    onClickAdvanced( typographyList, key, isGlobal ) {
-        if ( isExist( this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ] ) ) {
+    onClickAdvanced( key, isGlobal ) {
+        if ( typeof this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ] !== 'undefined' ) {
             this.setState( prevState => ( {
                 [ isGlobal ? 'globalAdvanced' : 'advanced' ]: {
                     ...this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ],
-                    [ key ]: {
-                        show: ! prevState[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ].show,
-                        childs: this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ].childs,
-                    },
+                    [ key ]: ! prevState[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ],
                 },
             } ) );
         }
@@ -557,10 +516,8 @@ class TypographyModal extends Component {
     getAdvancedLabel( key, isGlobal ) {
         let advancedLabel = __( 'Show Advanced' );
 
-        if ( isExist( this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ] ) ) {
-            if ( this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ].show === true ) {
-                advancedLabel = __( 'Hide Advanced' );
-            }
+        if ( this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ] === true ) {
+            advancedLabel = __( 'Hide Advanced' );
         }
         return advancedLabel;
     }
@@ -574,14 +531,14 @@ class TypographyModal extends Component {
      * @return {Array} - Array with child typography objects.
      */
     getChildrenTypography( typographyList, key, isGlobal ) {
-        if ( typographyList[ key ].hasChild !== 'undefined' && isExist( this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ] ) ) {
-            if ( this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ].show === true ) {
-                const childTypographies = [];
-                for ( const child in this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ].childs ) {
-                    childTypographies.push( this.getTypographyComponent( typographyList, this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ].childs[ child ], isGlobal ) );
+        if ( this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ] === true ) {
+            const childTypographies = [];
+            Object.keys( typographyList ).map( ( childKey ) => {
+                if ( typographyList[ childKey ].childOf === key ) {
+                    childTypographies.push( this.getTypographyComponent( typographyList, childKey, isGlobal ) );
                 }
-                return childTypographies;
-            }
+            } );
+            return childTypographies;
         }
     }
 
@@ -704,28 +661,20 @@ class TypographyModal extends Component {
                                         return (
                                             // eslint-disable-next-line react/jsx-key
                                             <div className={ ghostkitContainerClass }>
-                                                {
-                                                    typographyList[ key ].childOf === '' &&
+                                                { typographyList[ key ].childOf === '' ? (
                                                     this.getTypographyComponent( typographyList, key, isGlobal )
-                                                }
-                                                {
-                                                    isExist( this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ] ) &&
-                                                    (
-                                                        () => {
-                                                            if ( isExist( this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ].childs ) ) {
-                                                                return <div className={ 'ghostkit-typography-advanced' }>
-                                                                    <Button
-                                                                        isDefault
-                                                                        onClick={ () => this.onClickAdvanced( typographyList, key, isGlobal ) }
-                                                                        className={ 'ghostkit-typography-advanced-button' }
-                                                                    >
-                                                                        { advancedLabel }
-                                                                    </Button>
-                                                                </div>;
-                                                            }
-                                                        }
-                                                    )()
-                                                }
+                                                ) : '' }
+                                                { typeof this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ] !== 'undefined' ? (
+                                                    <div className={ 'ghostkit-typography-advanced' }>
+                                                        <Button
+                                                            isDefault
+                                                            onClick={ () => this.onClickAdvanced( key, isGlobal ) }
+                                                            className={ 'ghostkit-typography-advanced-button' }
+                                                        >
+                                                            { advancedLabel }
+                                                        </Button>
+                                                    </div>
+                                                ) : '' }
                                                 {
                                                     this.getChildrenTypography( typographyList, key, isGlobal )
                                                 }
