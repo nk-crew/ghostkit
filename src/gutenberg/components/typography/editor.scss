@@ -4,6 +4,11 @@
 .ghostkit-control-typography {
     display: flex;
     flex-wrap: wrap;
+
+    .ghostkit-component-input-drag .components-text-control__input:not(:focus) {
+        border-color: #ccc;
+    }
+
     .ghostkit-typography-font-control {
         flex: 1;
         min-width: 50%;
