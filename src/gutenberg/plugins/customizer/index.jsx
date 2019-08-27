@@ -6,10 +6,7 @@ import './editor.scss';
 /**
  * External dependencies
  */
-if ( ! global._babelPolyfill ) {
-    require( '@babel/polyfill' );
-}
-import Select from 'react-select';
+import Select from '../../components/select';
 
 /**
  * WordPress dependencies
@@ -281,15 +278,16 @@ class Customizer extends Component {
                             } }
                             options={ customizerOptionsSelect }
                             placeholder={ __( '--- Select option ---' ) }
-                            className="ghostkit-customizer-select"
-                            classNamePrefix="ghostkit-customizer-select"
                             menuPosition="fixed"
+                            grouped
                         />
                     </Fragment>
                 ) : '' }
                 { Array.isArray( customizerOptionsSelect ) && ! customizerOptionsSelect.length ? (
                     <div className="ghostkit-customizer-info">
-                        { __( 'No customizer options found. You can manually open ' ) } { <strong>{ __( 'Appearance > Customize' ) }</strong> }{ __( ', and the list will be available here.' ) }
+                        { __( 'No customizer options found. You can manually open ' ) }
+                        <strong>{ __( 'Appearance > Customize' ) }</strong>
+                        { __( ', and the list will be available here.' ) }
                     </div>
                 ) : '' }
                 { Array.isArray( options ) && options.length ? (
