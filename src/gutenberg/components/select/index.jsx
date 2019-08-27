@@ -32,10 +32,19 @@ export default class SelectComponent extends Component {
         return (
             <Select
                 styles={ {
-                    control: ( styles ) => {
+                    control: ( styles, state ) => {
                         return {
                             ...styles,
                             minHeight: 32,
+                            ...state.isFocused && ! state.isDisabled ? {
+                                borderColor: '#00a0d2',
+                            } : {},
+                            ...state.isFocused ? {
+                                boxShadow: '0 0 0 1px #00a0d2',
+                                '&:hover': {
+                                    borderColor: '#00a0d2',
+                                },
+                            } : {},
                         };
                     },
                     input: ( styles ) => {
