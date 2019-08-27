@@ -67,11 +67,13 @@ class GhostKit_Customizer_Plugin {
      * Register meta.
      */
     public function register_meta() {
-        register_meta( 'post', 'ghostkit_customizer_options', array(
-            'show_in_rest' => true,
-            'single'       => true,
-            'type'         => 'string',
-        ) );
+        register_meta(
+            'post', 'ghostkit_customizer_options', array(
+                'show_in_rest' => true,
+                'single'       => true,
+                'type'         => 'string',
+            )
+        );
     }
 
     /**

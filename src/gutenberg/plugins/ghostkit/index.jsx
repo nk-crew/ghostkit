@@ -28,6 +28,7 @@ import getIcon from '../../utils/get-icon';
 import { TemplatesModal } from '../templates';
 import { CustomCodeModal } from '../custom-code';
 import { CustomizerModal } from '../customizer';
+import { TypographyModal } from '../typography';
 
 class GhostKit extends Component {
     constructor() {
@@ -71,6 +72,17 @@ class GhostKit extends Component {
                             isDefault
                             isLarge
                             onClick={ () => {
+                                this.setState( { isModalOpen: 'typography' } );
+                            } }
+                        >
+                            { getIcon( 'plugin-typography' ) }
+                            { __( 'Typography' ) }
+                        </Button>
+                        <Button
+                            className="plugin-ghostkit-panel-button"
+                            isDefault
+                            isLarge
+                            onClick={ () => {
                                 this.setState( { isModalOpen: 'custom-code' } );
                             } }
                         >
@@ -102,6 +114,11 @@ class GhostKit extends Component {
                 ) : '' }
                 { 'customizer' === isModalOpen ? (
                     <CustomizerModal
+                        onRequestClose={ () => this.setState( { isModalOpen: false } ) }
+                    />
+                ) : '' }
+                { 'typography' === isModalOpen ? (
+                    <TypographyModal
                         onRequestClose={ () => this.setState( { isModalOpen: false } ) }
                     />
                 ) : '' }

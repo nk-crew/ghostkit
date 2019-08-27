@@ -35,7 +35,8 @@ window.GHOSTKIT = {
     googleMapsLibrary: ghostkitVariables.googleMapsLibrary,
 
     icons: ghostkitVariables.icons,
-
+    fonts: ghostkitVariables.fonts,
+    customTypographyList: ghostkitVariables.customTypographyList,
     variants: ghostkitVariables.variants,
     getVariants( name ) {
         if ( typeof this.variants[ name ] !== 'undefined' ) {

@@ -56,9 +56,11 @@ class GhostKit_Reusable_Widget extends WP_Widget {
     public function form( $instance ) {
         $title = ! empty( $instance['title'] ) ? $instance['title'] : '';
         $selected_block = ! empty( $instance['block'] ) ? $instance['block'] : '';
-        $blocks = get_posts( array(
-            'post_type' => 'wp_block',
-        ) );
+        $blocks = get_posts(
+            array(
+                'post_type' => 'wp_block',
+            )
+        );
         ?>
 
         <p>

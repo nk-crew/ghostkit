@@ -25,9 +25,11 @@ class GhostKit_Instagram_Block {
      */
     public function init() {
         if ( function_exists( 'register_block_type' ) ) {
-            register_block_type( 'ghostkit/instagram', array(
-                'render_callback' => array( $this, 'block_render' ),
-            ) );
+            register_block_type(
+                'ghostkit/instagram', array(
+                    'render_callback' => array( $this, 'block_render' ),
+                )
+            );
         }
     }
 
@@ -75,21 +77,23 @@ class GhostKit_Instagram_Block {
     public function block_render( $attributes ) {
         ob_start();
 
-        $attributes = array_merge( array(
-            'variant' => 'default',
-            'accessToken' => '',
-            'count' => 8,
-            'columns' => 4,
-            'gap' => 'sm',
-            'showProfile' => true,
-            'showProfileAvatar' => true,
-            'profileAvatarSize' => 70,
-            'showProfileName' => true,
-            'showProfileBio' => true,
-            'showProfileWebsite' => true,
-            'showProfileStats' => true,
-            'className' => '',
-        ), $attributes );
+        $attributes = array_merge(
+            array(
+                'variant' => 'default',
+                'accessToken' => '',
+                'count' => 8,
+                'columns' => 4,
+                'gap' => 'sm',
+                'showProfile' => true,
+                'showProfileAvatar' => true,
+                'profileAvatarSize' => 70,
+                'showProfileName' => true,
+                'showProfileBio' => true,
+                'showProfileWebsite' => true,
+                'showProfileStats' => true,
+                'className' => '',
+            ), $attributes
+        );
 
         $attributes['showProfile'] = $attributes['showProfile'] && ( $attributes['showProfileAvatar'] || $attributes['showProfileName'] || $attributes['showProfileBio'] || $attributes['showProfileWebsite'] || $attributes['showProfileStats'] );
 
@@ -113,13 +117,17 @@ class GhostKit_Instagram_Block {
         }
 
         if ( $attributes['accessToken'] ) {
-            $feed = $this->get_feed( array(
-                'access_token' => $attributes['accessToken'],
-                'count' => $attributes['count'],
-            ) );
-            $profile = $this->get_profile( array(
-                'access_token' => $attributes['accessToken'],
-            ) );
+            $feed = $this->get_feed(
+                array(
+                    'access_token' => $attributes['accessToken'],
+                    'count' => $attributes['count'],
+                )
+            );
+            $profile = $this->get_profile(
+                array(
+                    'access_token' => $attributes['accessToken'],
+                )
+            );
 
             if ( $feed || $profile ) {
                 ?>

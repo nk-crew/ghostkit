@@ -15,3 +15,4 @@ require_once( ghostkit()->plugin_path . 'gutenberg/blocks/twitter/block.php' );
 
 require_once( ghostkit()->plugin_path . 'gutenberg/plugins/customizer/index.php' );
 require_once( ghostkit()->plugin_path . 'gutenberg/plugins/custom-code/index.php' );
+require_once( ghostkit()->plugin_path . 'gutenberg/plugins/typography/index.php' );

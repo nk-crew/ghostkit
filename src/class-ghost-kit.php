@@ -115,6 +115,12 @@ class GhostKit {
         // icons.
         require_once( $this->plugin_path . 'classes/class-icons.php' );
 
+        // fonts.
+        require_once( $this->plugin_path . 'classes/class-fonts.php' );
+
+        // typography.
+        require_once( $this->plugin_path . 'classes/class-typography.php' );
+
         // templates.
         require_once( $this->plugin_path . 'classes/class-templates.php' );
     }
@@ -239,74 +245,128 @@ class GhostKit {
 
         $theme_data = wp_get_theme( get_template() );
 
-        wp_localize_script( 'ghostkit-helper', 'ghostkitVariables', array(
-            'themeName'        => $theme_data->get( 'Name' ),
+        wp_localize_script(
+            'ghostkit-helper', 'ghostkitVariables', array(
+                'themeName'        => $theme_data->get( 'Name' ),
 
-            'settings'          => get_option( 'ghostkit_settings', array() ),
+                'settings'          => get_option( 'ghostkit_settings', array() ),
 
-            'disabledBlocks'    => get_option( 'ghostkit_disabled_blocks', array() ),
+                'disabledBlocks'    => get_option( 'ghostkit_disabled_blocks', array() ),
 
-            // TODO: Move this to plugin options (part 1).
-            'media_sizes'       => array(
-                'sm' => 576,
-                'md' => 768,
-                'lg' => 992,
-                'xl' => 1200,
-            ),
-            'googleMapsAPIKey'  => get_option( 'ghostkit_google_maps_api_key' ),
-            'googleMapsAPIUrl'  => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
-            'googleMapsLibrary' => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
-                'url' => plugins_url( 'assets/vendor/gmaps/gmaps.min.js', __FILE__ ) . '?ver=0.4.25',
-            ) : false,
-            'sidebars'          => $sidebars,
-            'icons'             => is_admin() ? apply_filters( 'gkt_icons_list', array(
-                /**
-                 * Example:
-                   array(
-                       'font-awesome' => array(
-                           'name' => 'FontAwesome',
-                           'icons' => array(
-                               array(
-                                    'class': 'fab fa-google',
-                                    'keys': 'google',
-                                    // optional preview for editor.
-                                    'preview': `<span class="fab fa-google"></span>`,
-                               ),
-                               ...
-                           ),
-                       ),
-                   )
-                 */
-            ) ) : array(),
-            'variants'          => array(
-                'accordion'          => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
-                'accordion_item'     => array_merge( $default_variant, apply_filters( 'gkt_accordion_item_variants', array() ) ),
-                'alert'              => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
-                'button_wrapper'     => array_merge( $default_variant, apply_filters( 'gkt_button_wrapper_variants', array() ) ),
-                'button'             => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
-                'carousel'           => array_merge( $default_variant, apply_filters( 'gkt_carousel_variants', array() ) ),
-                'carousel_slide'     => array_merge( $default_variant, apply_filters( 'gkt_carousel_slide_variants', array() ) ),
-                'changelog'          => array_merge( $default_variant, apply_filters( 'gkt_changelog_variants', array() ) ),
-                'counter_box'        => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
-                'divider'            => array_merge( $default_variant, apply_filters( 'gkt_divider_variants', array() ) ),
-                'gist'               => array_merge( $default_variant, apply_filters( 'gkt_gist_variants', array() ) ),
-                'google_maps'        => array_merge( $default_variant, apply_filters( 'gkt_google_maps_variants', array() ) ),
-                'grid'               => array_merge( $default_variant, apply_filters( 'gkt_grid_variants', array() ) ),
-                'grid_column'        => array_merge( $default_variant, apply_filters( 'gkt_grid_column_variants', array() ) ),
-                'icon_box'           => array_merge( $default_variant, apply_filters( 'gkt_icon_box_variants', array() ) ),
-                'instagram'          => array_merge( $default_variant, apply_filters( 'gkt_instagram_variants', array() ) ),
-                'pricing_table'      => array_merge( $default_variant, apply_filters( 'gkt_pricing_table_variants', array() ) ),
-                'pricing_table_item' => array_merge( $default_variant, apply_filters( 'gkt_pricing_table_item_variants', array() ) ),
-                'progress'           => array_merge( $default_variant, apply_filters( 'gkt_progress_variants', array() ) ),
-                'tabs'               => array_merge( $default_variant, apply_filters( 'gkt_tabs_variants', array() ) ),
-                'tabs_tab'           => array_merge( $default_variant, apply_filters( 'gkt_tabs_tab_variants', array() ) ),
-                'testimonial'        => array_merge( $default_variant, apply_filters( 'gkt_testimonial_variants', array() ) ),
-                'twitter'            => array_merge( $default_variant, apply_filters( 'gkt_twitter_variants', array() ) ),
-                'video'              => array_merge( $default_variant, apply_filters( 'gkt_video_variants', array() ) ),
-            ),
-            'admin_url'           => admin_url(),
-            'admin_templates_url' => admin_url( 'edit.php?post_type=ghostkit_template' ),
-        ) );
+                // TODO: Move this to plugin options (part 1).
+                'media_sizes'       => array(
+                    'sm' => 576,
+                    'md' => 768,
+                    'lg' => 992,
+                    'xl' => 1200,
+                ),
+                'googleMapsAPIKey'  => get_option( 'ghostkit_google_maps_api_key' ),
+                'googleMapsAPIUrl'  => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
+                'googleMapsLibrary' => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
+                    'url' => plugins_url( 'assets/vendor/gmaps/gmaps.min.js', __FILE__ ) . '?ver=0.4.25',
+                ) : false,
+                'sidebars'          => $sidebars,
+                'icons'             => is_admin() ? apply_filters(
+                    'gkt_icons_list', array(
+                    /**
+                    * Example:
+                      array(
+                          'font-awesome' => array(
+                              'name' => 'FontAwesome',
+                              'icons' => array(
+                                  array(
+                                       'class': 'fab fa-google',
+                                       'keys': 'google',
+                                       // optional preview for editor.
+                                       'preview': `<span class="fab fa-google"></span>`,
+                                  ),
+                                  ...
+                              ),
+                          ),
+                      )
+                    */
+                    )
+                ) : array(),
+                'fonts'             => is_admin() ? apply_filters(
+                    'gkt_fonts_list', array(
+                        /**
+                         * Example:
+                            array(
+                                'google-fonts' => array(
+                                    'name' => 'Google Fonts',
+                                        'fonts' => array(
+                                            array(
+                                                'Abhaya Libre' => array(
+                                                    '500',
+                                                    '600',
+                                                ),
+                                            ),
+                                        ...
+                                    ),
+                                ),
+                            )
+                         */
+                    )
+                ) : array(),
+                'customTypographyList' => is_admin() ? apply_filters(
+                    'gkt_custom_typography', array(
+                        /**
+                         * Example:
+                            array(
+                                'titles' => array(
+                                    'label' => esc_html__( 'Titles', '@@text_domain' ),
+                                    'defaults' => array(
+                                        'font-family-category' => 'google-fonts',
+                                        'font-family' => 'Roboto',
+                                        'font-size' => '',
+                                        'font-weight' => '',
+                                        // 'line-height',
+                                        // 'letter-spacing',
+                                    ),
+                                    'output' => array(
+                                        array(
+                                            'body',
+                                        ),
+                                        array(
+                                            '.edit-post-visual-editor.editor-styles-wrapper',
+                                            'context' => array( 'editor' ),
+                                        ),
+                                    ),
+                                ),
+                            )
+                         */
+                    )
+                ) : array(),
+                'variants'          => array(
+                    'accordion'          => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
+                    'accordion_item'     => array_merge( $default_variant, apply_filters( 'gkt_accordion_item_variants', array() ) ),
+                    'alert'              => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
+                    'button_wrapper'     => array_merge( $default_variant, apply_filters( 'gkt_button_wrapper_variants', array() ) ),
+                    'button'             => array_merge( $default_variant, apply_filters( 'gkt_button_variants', array() ) ),
+                    'carousel'           => array_merge( $default_variant, apply_filters( 'gkt_carousel_variants', array() ) ),
+                    'carousel_slide'     => array_merge( $default_variant, apply_filters( 'gkt_carousel_slide_variants', array() ) ),
+                    'changelog'          => array_merge( $default_variant, apply_filters( 'gkt_changelog_variants', array() ) ),
+                    'counter_box'        => array_merge( $default_variant, apply_filters( 'gkt_counter_box_variants', array() ) ),
+                    'divider'            => array_merge( $default_variant, apply_filters( 'gkt_divider_variants', array() ) ),
+                    'gist'               => array_merge( $default_variant, apply_filters( 'gkt_gist_variants', array() ) ),
+                    'google_maps'        => array_merge( $default_variant, apply_filters( 'gkt_google_maps_variants', array() ) ),
+                    'grid'               => array_merge( $default_variant, apply_filters( 'gkt_grid_variants', array() ) ),
+                    'grid_column'        => array_merge( $default_variant, apply_filters( 'gkt_grid_column_variants', array() ) ),
+                    'icon_box'           => array_merge( $default_variant, apply_filters( 'gkt_icon_box_variants', array() ) ),
+                    'instagram'          => array_merge( $default_variant, apply_filters( 'gkt_instagram_variants', array() ) ),
+                    'pricing_table'      => array_merge( $default_variant, apply_filters( 'gkt_pricing_table_variants', array() ) ),
+                    'pricing_table_item' => array_merge( $default_variant, apply_filters( 'gkt_pricing_table_item_variants', array() ) ),
+                    'progress'           => array_merge( $default_variant, apply_filters( 'gkt_progress_variants', array() ) ),
+                    'tabs'               => array_merge( $default_variant, apply_filters( 'gkt_tabs_variants', array() ) ),
+                    'tabs_tab'           => array_merge( $default_variant, apply_filters( 'gkt_tabs_tab_variants', array() ) ),
+                    'testimonial'        => array_merge( $default_variant, apply_filters( 'gkt_testimonial_variants', array() ) ),
+                    'twitter'            => array_merge( $default_variant, apply_filters( 'gkt_twitter_variants', array() ) ),
+                    'video'              => array_merge( $default_variant, apply_filters( 'gkt_video_variants', array() ) ),
+                ),
+                'admin_url'           => admin_url(),
+                'admin_templates_url' => admin_url( 'edit.php?post_type=ghostkit_template' ),
+            )
+        );
     }
 
     /**
@@ -410,9 +470,11 @@ class GhostKit {
      * Required by Customizer and Custom CSS blocks.
      */
     public function add_custom_fields_support() {
-        $available_post_types = get_post_types( array(
-            'show_ui' => true,
-        ), 'object' );
+        $available_post_types = get_post_types(
+            array(
+                'show_ui' => true,
+            ), 'object'
+        );
 
         foreach ( $available_post_types as $post_type ) {
             if ( 'attachment' !== $post_type->name ) {
@@ -573,9 +635,11 @@ class GhostKit {
      * @return array
      */
     public function add_go_pro_link_plugins_page( $links ) {
-        return array_merge( $links, array(
-            '<a target="_blank" href="admin.php?page=ghostkit_go_pro">' . esc_html__( 'Go Pro', '@@text_domain' ) . '</a>',
-        ) );
+        return array_merge(
+            $links, array(
+                '<a target="_blank" href="admin.php?page=ghostkit_go_pro">' . esc_html__( 'Go Pro', '@@text_domain' ) . '</a>',
+            )
+        );
     }
 
     /**

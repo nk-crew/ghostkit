@@ -26,6 +26,7 @@ import pluginGhostkit from '../icons/plugin-ghostkit.svg';
 import pluginTemplates from '../icons/plugin-templates.svg';
 import pluginCustomCode from '../icons/plugin-custom-code.svg';
 import pluginCustomizer from '../icons/plugin-customizer.svg';
+import pluginTypography from '../icons/plugin-typography.svg';
 
 import extensionDisplay from '../icons/extension-display.svg';
 import extensionSpacings from '../icons/extension-spacings.svg';
@@ -62,6 +63,9 @@ import iconAspectRatio32 from '../icons/icon-aspect-ratio-3-2.svg';
 import iconAspectRatio43 from '../icons/icon-aspect-ratio-4-3.svg';
 import iconAspectRatio169 from '../icons/icon-aspect-ratio-16-9.svg';
 import iconAspectRatio219 from '../icons/icon-aspect-ratio-21-9.svg';
+import iconTypographyFontSize from '../icons/icon-typography-font-size.svg';
+import iconTypographyLetterSpacing from '../icons/icon-typography-letter-spacing.svg';
+import iconTypographyLineHeight from '../icons/icon-typography-line-height.svg';
 
 export default {
     'block-accordion': blockAccordion,
@@ -89,6 +93,7 @@ export default {
     'plugin-templates': pluginTemplates,
     'plugin-custom-code': pluginCustomCode,
     'plugin-customizer': pluginCustomizer,
+    'plugin-typography': pluginTypography,
 
     'extension-display': extensionDisplay,
     'extension-spacings': extensionSpacings,
@@ -125,4 +130,7 @@ export default {
     'icon-aspect-ratio-4-3': iconAspectRatio43,
     'icon-aspect-ratio-16-9': iconAspectRatio169,
     'icon-aspect-ratio-21-9': iconAspectRatio219,
+    'icon-typography-font-size': iconTypographyFontSize,
+    'icon-typography-letter-spacing': iconTypographyLetterSpacing,
+    'icon-typography-line-height': iconTypographyLineHeight,
 };

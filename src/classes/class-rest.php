@@ -128,6 +128,24 @@ class GhostKit_Rest extends WP_REST_Controller {
             )
         );
 
+        // Get Typography.
+        register_rest_route(
+            $namespace, '/get_custom_typography/', array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'get_custom_typography' ),
+                'permission_callback' => array( $this, 'get_custom_typography_permission' ),
+            )
+        );
+
+        // Update Typography.
+        register_rest_route(
+            $namespace, '/update_custom_typography/', array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'update_custom_typography' ),
+                'permission_callback' => array( $this, 'update_custom_typography_permission' ),
+            )
+        );
+
         // Update Google Maps API key.
         register_rest_route(
             $namespace, '/update_google_maps_api_key/', array(
@@ -300,6 +318,30 @@ class GhostKit_Rest extends WP_REST_Controller {
      * @return bool
      */
     public function update_custom_code_permission() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
+     * Get read typography permissions.
+     *
+     * @return bool
+     */
+    public function get_custom_typography_permission() {
+        if ( ! current_user_can( 'edit_theme_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
+     * Get edit typography permissions.
+     *
+     * @return bool
+     */
+    public function update_custom_typography_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
             return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
         }
@@ -568,15 +610,17 @@ class GhostKit_Rest extends WP_REST_Controller {
         // if there is no cache available, request twitter feed.
         if ( false === $result && $api_data_ready ) {
             // request_api_twitter.
-            $profile = $this->request_api_twitter( array(
-                'url' => 'https://api.twitter.com/1.1/users/show.json',
-                'consumer_key' => $consumer_key,
-                'consumer_secret' => $consumer_secret,
-                'access_token' => $access_token,
-                'access_token_secret' => $access_token_secret,
-                'include_entities' => 'true',
-                'screen_name' => $screen_name,
-            ) );
+            $profile = $this->request_api_twitter(
+                array(
+                    'url' => 'https://api.twitter.com/1.1/users/show.json',
+                    'consumer_key' => $consumer_key,
+                    'consumer_secret' => $consumer_secret,
+                    'access_token' => $access_token,
+                    'access_token_secret' => $access_token_secret,
+                    'include_entities' => 'true',
+                    'screen_name' => $screen_name,
+                )
+            );
 
             if ( $profile && isset( $profile['screen_name'] ) ) {
                 $result = $profile;
@@ -661,17 +705,19 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( $api_data_ready ) {
             // if there is no cache available, request twitter feed.
             if ( false === $feed ) {
-                $feed = $this->request_api_twitter( array(
-                    'url' => 'https://api.twitter.com/1.1/statuses/user_timeline.json',
-                    'consumer_key' => $consumer_key,
-                    'consumer_secret' => $consumer_secret,
-                    'access_token' => $access_token,
-                    'access_token_secret' => $access_token_secret,
-                    'screen_name' => $screen_name,
-                    'exclude_replies' => 'false',
-                    'include_rts' => 'true',
-                    'count' => 200,
-                ) );
+                $feed = $this->request_api_twitter(
+                    array(
+                        'url' => 'https://api.twitter.com/1.1/statuses/user_timeline.json',
+                        'consumer_key' => $consumer_key,
+                        'consumer_secret' => $consumer_secret,
+                        'access_token' => $access_token,
+                        'access_token_secret' => $access_token_secret,
+                        'screen_name' => $screen_name,
+                        'exclude_replies' => 'false',
+                        'include_rts' => 'true',
+                        'count' => 200,
+                    )
+                );
 
                 if ( $feed && ! ( isset( $feed['errors'] ) && count( $feed['errors'] ) > 0 ) ) {
                     set_transient( $cache_name, $feed, $cache_expiration );
@@ -728,18 +774,20 @@ class GhostKit_Rest extends WP_REST_Controller {
      * @return bool|mixed
      */
     public function request_api_twitter( $data ) {
-        $data = array_merge( array(
-            'url' => 'https://api.twitter.com/1.1/statuses/user_timeline.json',
-            'consumer_key' => '',
-            'consumer_secret' => '',
-            'access_token' => '',
-            'access_token_secret' => '',
-            'screen_name' => '',
-            'exclude_replies' => '',
-            'include_rts' => '',
-            'count' => '',
-            'include_entities' => '',
-        ), $data );
+        $data = array_merge(
+            array(
+                'url' => 'https://api.twitter.com/1.1/statuses/user_timeline.json',
+                'consumer_key' => '',
+                'consumer_secret' => '',
+                'access_token' => '',
+                'access_token_secret' => '',
+                'screen_name' => '',
+                'exclude_replies' => '',
+                'include_rts' => '',
+                'count' => '',
+                'include_entities' => '',
+            ), $data
+        );
 
         $oauth = array(
             'oauth_consumer_key' => $data['consumer_key'],
@@ -1028,11 +1076,15 @@ class GhostKit_Rest extends WP_REST_Controller {
          * Get remote templates.
          */
         if ( ! $templates ) {
-            $requested_templates = wp_remote_get( add_query_arg( array(
-                'ghostkit_version'     => '@@plugin_version',
-                'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
-                'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
-            ), $url ) );
+            $requested_templates = wp_remote_get(
+                add_query_arg(
+                    array(
+                        'ghostkit_version'     => '@@plugin_version',
+                        'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
+                        'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
+                    ), $url
+                )
+            );
 
             if ( ! is_wp_error( $requested_templates ) ) {
                 $new_templates = wp_remote_retrieve_body( $requested_templates );
@@ -1072,13 +1124,15 @@ class GhostKit_Rest extends WP_REST_Controller {
         $backup_global_post = $post;
         $local_templates = array();
 
-        $local_templates_query = new WP_Query( array(
-            'post_type'      => 'ghostkit_template',
+        $local_templates_query = new WP_Query(
+            array(
+                'post_type'      => 'ghostkit_template',
             // phpcs:ignore
             'posts_per_page' => -1,
-            'showposts'      => -1,
-            'paged'          => -1,
-        ) );
+                'showposts'      => -1,
+                'paged'          => -1,
+            )
+        );
 
         while ( $local_templates_query->have_posts() ) {
             $local_templates_query->the_post();
@@ -1148,11 +1202,13 @@ class GhostKit_Rest extends WP_REST_Controller {
         array_multisort( array_keys( $theme_templates_data ), SORT_NATURAL, $theme_templates_data );
 
         foreach ( $theme_templates_data as $template_data ) {
-            $file_data = get_file_data( $template_data['path'] . '/content.php', array(
-                'name'     => 'Name',
-                'category' => 'Category',
-                'source'   => 'Source',
-            ) );
+            $file_data = get_file_data(
+                $template_data['path'] . '/content.php', array(
+                    'name'     => 'Name',
+                    'category' => 'Category',
+                    'source'   => 'Source',
+                )
+            );
 
             $thumbnail = false;
             if ( file_exists( $template_data['path'] . '/thumbnail.png' ) ) {
@@ -1209,12 +1265,16 @@ class GhostKit_Rest extends WP_REST_Controller {
                 $template_data = get_transient( 'ghostkit_template_' . $type . '_' . $id, false );
 
                 if ( ! $template_data ) {
-                    $requested_template_data = wp_remote_get( add_query_arg( array(
-                        'id'                   => $id,
-                        'ghostkit_version'     => '@@plugin_version',
-                        'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
-                        'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
-                    ), $url ) );
+                    $requested_template_data = wp_remote_get(
+                        add_query_arg(
+                            array(
+                                'id'                   => $id,
+                                'ghostkit_version'     => '@@plugin_version',
+                                'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
+                                'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
+                            ), $url
+                        )
+                    );
 
                     if ( ! is_wp_error( $requested_template_data ) ) {
                         $new_template_data = wp_remote_retrieve_body( $requested_template_data );
@@ -1252,9 +1312,11 @@ class GhostKit_Rest extends WP_REST_Controller {
                     $template_content = ob_get_clean();
 
                     if ( $template_content ) {
-                        $template_data = get_file_data( $template_content_file, array(
-                            'name' => 'Name',
-                        ) );
+                        $template_data = get_file_data(
+                            $template_content_file, array(
+                                'name' => 'Name',
+                            )
+                        );
 
                         $template_data = array(
                             'id'      => $id,
@@ -1308,6 +1370,61 @@ class GhostKit_Rest extends WP_REST_Controller {
             return $this->success( true );
         } else {
             return $this->error( 'no_code_updated', __( 'Failed to update custom code.', '@@text_domain' ) );
+        }
+    }
+
+    /**
+     * Get custom typography.
+     *
+     * @return mixed
+     */
+    public function get_custom_typography() {
+        $typography = get_option( 'ghostkit_typography', array() );
+
+        if ( is_array( $typography ) ) {
+            return $this->success( $typography );
+        } else {
+            return $this->error( 'no_typography', __( 'Typography not found.', '@@text_domain' ) );
+        }
+    }
+
+    /**
+     * Update typography.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function update_custom_typography( WP_REST_Request $request ) {
+        $new_typography = $request->get_param( 'data' );
+        $updated = '';
+        $updated_option = array();
+
+        if ( is_array( $new_typography ) ) {
+            $current_typography = get_option( 'ghostkit_typography', array() );
+            $equal_arrays = false;
+            if ( empty( $current_typography ) ) {
+                $updated_option = $new_typography;
+            } else {
+                $current_typography['ghostkit_typography'] = json_decode( $current_typography['ghostkit_typography'] );
+                $new_typography['ghostkit_typography'] = json_decode( $new_typography['ghostkit_typography'] );
+
+                $equal_arrays = (object) array_diff( (array) $new_typography['ghostkit_typography'], $current_typography['ghostkit_typography'] );
+
+                $updated_option = array_merge( $current_typography, $new_typography );
+
+                $updated_option['ghostkit_typography'] = json_encode( $updated_option['ghostkit_typography'] );
+            }
+            $updated = update_option( 'ghostkit_typography', $updated_option );
+
+            if ( empty( $updated ) && $equal_arrays ) {
+                $updated = true;
+            }
+        }
+        if ( ! empty( $updated ) ) {
+            return $this->success( true );
+        } else {
+            return $this->error( 'no_typography_updated', __( 'Failed to update typography.', '@@text_domain' ) );
         }
     }
 
