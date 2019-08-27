@@ -202,6 +202,8 @@ export default class InputDrag extends Component {
             value,
             onChange,
             icon,
+            placeholder,
+            autoComplete,
         } = this.props;
 
         let classHasIcon = 'ghostkit-component-input-drag-no-icon';
@@ -216,7 +218,6 @@ export default class InputDrag extends Component {
                     icon
                 }
                 <TextControl
-                    { ...this.props }
                     onMouseDown={ this.mouseDown }
                     onKeyDown={ this.keyDown }
                     value={ value }
@@ -224,6 +225,8 @@ export default class InputDrag extends Component {
                         onChange( val );
                     } }
                     className="ghostkit-component-input-drag"
+                    placeholder={ placeholder }
+                    autoComplete={ autoComplete }
                 />
             </div>
         );

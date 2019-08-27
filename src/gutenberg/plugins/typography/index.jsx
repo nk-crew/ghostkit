@@ -535,7 +535,7 @@ class TypographyModal extends Component {
             const childTypographies = [];
             Object.keys( typographyList ).map( ( childKey ) => {
                 if ( typographyList[ childKey ].childOf === key ) {
-                    childTypographies.push( this.getTypographyComponent( typographyList, childKey, isGlobal ) );
+                    childTypographies.push( <div key={ childKey }>{ this.getTypographyComponent( typographyList, childKey, isGlobal ) }</div> );
                 }
             } );
             return childTypographies;
@@ -657,29 +657,29 @@ class TypographyModal extends Component {
                                 <Fragment>
                                     { Object.keys( typographyList ).map( ( key ) => {
                                         const advancedLabel = this.getAdvancedLabel( key, isGlobal );
-                                        const ghostkitContainerClass = typographyList[ key ].childOf === '' ? 'ghostkit-typography-container' : 'ghostkit-typography-child-container';
-                                        return (
-                                            // eslint-disable-next-line react/jsx-key
-                                            <div className={ ghostkitContainerClass }>
-                                                { typographyList[ key ].childOf === '' ? (
-                                                    this.getTypographyComponent( typographyList, key, isGlobal )
-                                                ) : '' }
-                                                { typeof this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ] !== 'undefined' ? (
-                                                    <div className={ 'ghostkit-typography-advanced' }>
-                                                        <Button
-                                                            isDefault
-                                                            onClick={ () => this.onClickAdvanced( key, isGlobal ) }
-                                                            className={ 'ghostkit-typography-advanced-button' }
-                                                        >
-                                                            { advancedLabel }
-                                                        </Button>
-                                                    </div>
-                                                ) : '' }
-                                                {
-                                                    this.getChildrenTypography( typographyList, key, isGlobal )
-                                                }
-                                            </div>
-                                        );
+                                        if ( typographyList[ key ].childOf === '' ) {
+                                            return (
+                                                <div className={ 'ghostkit-typography-container' } key={ key }>
+                                                    {
+                                                        this.getTypographyComponent( typographyList, key, isGlobal )
+                                                    }
+                                                    { typeof this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ] !== 'undefined' ? (
+                                                        <div className={ 'ghostkit-typography-advanced' }>
+                                                            <Button
+                                                                isDefault
+                                                                onClick={ () => this.onClickAdvanced( key, isGlobal ) }
+                                                                className={ 'ghostkit-typography-advanced-button' }
+                                                            >
+                                                                { advancedLabel }
+                                                            </Button>
+                                                        </div>
+                                                    ) : '' }
+                                                    {
+                                                        this.getChildrenTypography( typographyList, key, isGlobal )
+                                                    }
+                                                </div>
+                                            );
+                                        }
                                     } ) }
                                 </Fragment>
                             );
