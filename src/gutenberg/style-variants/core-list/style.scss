@@ -1,0 +1,69 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+/**
+ * None.
+ */
+.is-style-none,
+.is-style-none li {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+/**
+ * Styled.
+ */
+.is-style-styled {
+    padding-left: 0;
+    line-height: 1.5;
+    list-style: none;
+
+    > li {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+
+        > ul,
+        > ol {
+            width: 100%;
+            padding-left: 3em;
+        }
+
+        &::before {
+            display: flex;
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+        }
+    }
+}
+
+ol.is-style-styled {
+    counter-reset: li;
+
+    > li::before {
+        content: counter(li);
+        width: 1.6em;
+        height: 1.6em;
+        margin-right: .8em;
+        font-size: .7em;
+        font-weight: 600;
+        line-height: 1;
+        counter-increment: li;
+        background-color: rgba(204, 204, 204, .2);
+        border-radius: 50%;
+    }
+}
+
+ul.is-style-styled {
+    > li::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        margin-right: .72em;
+        margin-left: .72em;
+        background-color: rgba(204, 204, 204, .5);
+    }
+}
