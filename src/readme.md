@@ -112,49 +112,6 @@ Available filters:
 
 You should use default Gutenberg hooks to extend blocks functionality. Read more here: https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations
 
-Ghost Kit also has Variants hooks, but please use default Gutenberg implementation called Styles, so you can extend not only Ghost Kit blocks but all available.
-
-Variants example:
-
-    add_filter( 'gkt_alert_variants', 'my_alert_variants' );
-
-    function my_alert_variants( $variants ) {
-        return array_merge( $variants, array(
-            'my_variant' => array(
-                'title' => esc_html__( 'My Variant', '@@text_domain' ),
-            ),
-        ) );
-    }
-
-Then, when editing block you will see the Variants select and on frontend you will see an additional classname on the block named `ghostkit-alert-variant-my_variant`
-
-Available filters:
-
-* **gkt_accordion_variants**
-* **gkt_accordion_item_variants**
-* **gkt_alert_variants**
-* **gkt_button_wrapper_variants**
-* **gkt_button_variants**
-* **gkt_carousel_variants**
-* **gkt_carousel_slide_variants**
-* **gkt_changelog_variants**
-* **gkt_counter_box_variants**
-* **gkt_divider_variants**
-* **gkt_gist_variants**
-* **gkt_google_maps_variants**
-* **gkt_grid_variants**
-* **gkt_grid_column_variants**
-* **gkt_icon_box_variants**
-* **gkt_instagram_variants**
-* **gkt_pricing_table_variants**
-* **gkt_pricing_table_item_variants**
-* **gkt_progress_variants**
-* **gkt_tabs_variants**
-* **gkt_tabs_tab_variants**
-* **gkt_testimonial_variants**
-* **gkt_twitter_variants**
-* **gkt_video_variants**
-
 ### How to extend existing blocks classnames ####
 
 You can add additional classnames to blocks using JavaScript filters:
