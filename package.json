@@ -58,6 +58,7 @@
     "rafl": "^1.2.2",
     "react-ace": "^6.3.2",
     "react-google-maps": "^9.4.5",
+    "react-lazyload": "^2.6.2",
     "react-masonry-component": "^6.2.1",
     "react-select": "^3.0.4",
     "react-select-virtualized": "^2.0.19",

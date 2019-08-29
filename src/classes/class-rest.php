@@ -478,7 +478,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_instagram_feed( WP_REST_Request $request ) {
         $cache_name = 'ghostkit_instagram_feed_cache';
-        $cache_expiration = $request->get_param( 'cache_expiration' ) ? : 60 * 60 * 24; // 1 day in seconds.
+        $cache_expiration = $request->get_param( 'cache_expiration' ) ? : DAY_IN_SECONDS;
         $count = $request->get_param( 'count' ) ? : 6;
         $access_token = $request->get_param( 'access_token' );
 
@@ -530,7 +530,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_instagram_profile( WP_REST_Request $request ) {
         $cache_name = 'ghostkit_instagram_profile_cache';
-        $cache_expiration = $request->get_param( 'cache_expiration' ) ? : 60 * 60 * 24; // 1 day in seconds.
+        $cache_expiration = $request->get_param( 'cache_expiration' ) ? : DAY_IN_SECONDS;
         $access_token = $request->get_param( 'access_token' );
 
         $hash = md5(
@@ -580,7 +580,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_twitter_profile( WP_REST_Request $request ) {
         $cache_name = 'ghostkit_twitter_profile_cache';
-        $cache_expiration = $request->get_param( 'cache_expiration' ) ? : 60 * 60 * 24; // 1 day in seconds.
+        $cache_expiration = $request->get_param( 'cache_expiration' ) ? : DAY_IN_SECONDS;
 
         $consumer_key = $request->get_param( 'consumer_key' );
         $consumer_secret = $request->get_param( 'consumer_secret' );
@@ -670,7 +670,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_twitter_feed( WP_REST_Request $request ) {
         $cache_name = 'ghostkit_twitter_feed_cache';
-        $cache_expiration = $request->get_param( 'cache_expiration' ) ? : 60 * 60 * 24; // 1 day in seconds.
+        $cache_expiration = $request->get_param( 'cache_expiration' ) ? : DAY_IN_SECONDS;
 
         $count = (int) $request->get_param( 'count' ) ? : 6;
         $consumer_key = $request->get_param( 'consumer_key' );
@@ -1092,7 +1092,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 
                 if ( $new_templates && isset( $new_templates['response'] ) && is_array( $new_templates['response'] ) ) {
                     $templates = $new_templates['response'];
-                    set_transient( 'ghostkit_remote_templates', $templates, WEEK_IN_SECONDS );
+                    set_transient( 'ghostkit_remote_templates', $templates, DAY_IN_SECONDS );
                 }
             }
         }
@@ -1141,24 +1141,31 @@ class GhostKit_Rest extends WP_REST_Controller {
             $categories = array();
             $category_terms = get_the_terms( $db_template->ID, 'ghostkit_template_category' );
 
-            foreach ( $category_terms as $cat ) {
-                $categories[] = array(
-                    'slug' => $cat->slug,
-                    'name' => $cat->name,
-                );
+            if ( $category_terms ) {
+                foreach ( $category_terms as $cat ) {
+                    $categories[] = array(
+                        'slug' => $cat->slug,
+                        'name' => $cat->name,
+                    );
+                }
             }
 
+            $image_id = get_post_thumbnail_id( $db_template->ID );
+            $image_data = wp_get_attachment_image_src( $image_id, 'large' );
+
             $local_templates[] = array(
-                'id'         => $db_template->ID,
-                'title'      => $db_template->post_title,
-                'types'      => array(
+                'id'               => $db_template->ID,
+                'title'            => $db_template->post_title,
+                'types'            => array(
                     array(
                         'slug' => 'local',
                     ),
                 ),
-                'categories' => empty( $categories ) ? false : $categories,
-                'url'        => get_post_permalink( $db_template->ID ),
-                'thumbnail'  => get_the_post_thumbnail_url( $db_template->ID, 'large' ),
+                'categories'       => empty( $categories ) ? false : $categories,
+                'url'              => get_post_permalink( $db_template->ID ),
+                'thumbnail'        => isset( $image_data[0] ) ? $image_data[0] : false,
+                'thumbnail_width'  => isset( $image_data[1] ) ? $image_data[1] : false,
+                'thumbnail_height' => isset( $image_data[2] ) ? $image_data[2] : false,
             );
         }
 
@@ -1211,29 +1218,35 @@ class GhostKit_Rest extends WP_REST_Controller {
             );
 
             $thumbnail = false;
+            $thumbnail_width = false;
+            $thumbnail_height = false;
+
             if ( file_exists( $template_data['path'] . '/thumbnail.png' ) ) {
                 $thumbnail = $template_data['url'] . '/thumbnail.png';
+                list($thumbnail_width, $thumbnail_height) = getimagesize( $thumbnail );
             }
             if ( file_exists( $template_data['path'] . '/thumbnail.jpg' ) ) {
                 $thumbnail = $template_data['url'] . '/thumbnail.jpg';
             }
 
             $theme_templates[] = array(
-                'id'         => basename( $template_data['path'] ),
-                'title'      => $file_data['name'],
-                'types'      => array(
+                'id'               => basename( $template_data['path'] ),
+                'title'            => $file_data['name'],
+                'types'            => array(
                     array(
                         'slug' => 'theme',
                     ),
                 ),
-                'categories' => isset( $file_data['category'] ) && $file_data['category'] ? array(
+                'categories'       => isset( $file_data['category'] ) && $file_data['category'] ? array(
                     array(
                         'slug' => $file_data['category'],
                         'name' => $file_data['category'],
                     ),
                 ) : false,
-                'url'        => false,
-                'thumbnail'  => $thumbnail,
+                'url'              => false,
+                'thumbnail'        => $thumbnail,
+                'thumbnail_width'  => $thumbnail_width,
+                'thumbnail_height' => $thumbnail_height,
             );
         }
 
@@ -1282,7 +1295,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 
                         if ( $new_template_data && isset( $new_template_data['response'] ) && is_array( $new_template_data['response'] ) ) {
                             $template_data = $new_template_data['response'];
-                            set_transient( 'ghostkit_template_' . $type . '_' . $id, $template_data, WEEK_IN_SECONDS );
+                            set_transient( 'ghostkit_template_' . $type . '_' . $id, $template_data, DAY_IN_SECONDS );
                         }
                     }
                 }

@@ -8,6 +8,7 @@ import './editor.scss';
  */
 import Masonry from 'react-masonry-component';
 import classnames from 'classnames/dedupe';
+import LazyLoad from 'react-lazyload';
 
 /**
  * WordPress dependencies
@@ -309,6 +310,11 @@ class TemplatesModal extends Component {
                                                 >
                                                     { currentTemplates.map( ( template ) => {
                                                         const withThumb = !! template.thumbnail;
+                                                        let thumbAspectRatio = false;
+
+                                                        if ( template.thumbnail_height && template.thumbnail_width ) {
+                                                            thumbAspectRatio = template.thumbnail_height / template.thumbnail_width;
+                                                        }
 
                                                         return (
                                                             <li
@@ -340,10 +346,20 @@ class TemplatesModal extends Component {
                                                                     } }
                                                                 >
                                                                     { withThumb ? (
-                                                                        <img
-                                                                            src={ template.thumbnail }
-                                                                            alt={ template.title }
-                                                                        />
+                                                                        <div className="ghostkit-plugin-templates-list-item-image">
+                                                                            { thumbAspectRatio ? (
+                                                                                <div
+                                                                                    className="ghostkit-plugin-templates-list-item-image-sizer"
+                                                                                    style={ { paddingTop: `${ 100 * thumbAspectRatio }%` } }
+                                                                                />
+                                                                            ) : '' }
+                                                                            <LazyLoad overflow offset={ 100 }>
+                                                                                <img
+                                                                                    src={ template.thumbnail }
+                                                                                    alt={ template.title }
+                                                                                />
+                                                                            </LazyLoad>
+                                                                        </div>
                                                                     ) : '' }
                                                                     <div className="ghostkit-plugin-templates-list-item-title">{ template.title }</div>
                                                                 </button>
