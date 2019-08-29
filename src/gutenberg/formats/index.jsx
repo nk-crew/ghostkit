@@ -9,6 +9,7 @@ const {
  * Internal dependencies
  */
 import * as uppercase from './uppercase';
+import * as mark from './mark';
 import * as badge from './badge';
 
 /**
@@ -16,6 +17,7 @@ import * as badge from './badge';
  */
 [
     uppercase,
+    mark,
     badge,
 ].forEach( ( { name, settings } ) => {
     registerFormatType( name, settings );

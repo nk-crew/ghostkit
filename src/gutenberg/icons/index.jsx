@@ -59,6 +59,7 @@ import iconMarker from '../icons/icon-marker.svg';
 import iconTextUppercase from '../icons/icon-text-uppercase.svg';
 import iconMap from '../icons/icon-map.svg';
 import iconBadge from '../icons/icon-badge.svg';
+import iconFeltPen from '../icons/icon-felt-pen.svg';
 import iconKebabMenu from '../icons/icon-kebab-menu.svg';
 import iconAspectRatio32 from '../icons/icon-aspect-ratio-3-2.svg';
 import iconAspectRatio43 from '../icons/icon-aspect-ratio-4-3.svg';
@@ -127,6 +128,7 @@ export default {
     'icon-text-uppercase': iconTextUppercase,
     'icon-map': iconMap,
     'icon-badge': iconBadge,
+    'icon-felt-pen': iconFeltPen,
     'icon-kebab-menu': iconKebabMenu,
     'icon-aspect-ratio-3-2': iconAspectRatio32,
     'icon-aspect-ratio-4-3': iconAspectRatio43,

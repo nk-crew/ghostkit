@@ -43,6 +43,12 @@ By default you can change typography for the following pages elements:
 * Headings
   * From H1 to H6
 
+### Formats ###
+
+* Uppercase
+* Highlight
+* Badge
+
 ### Blocks ###
 
 * [**Grid**](https://ghostkit.io/blocks/grid/). Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change
