@@ -6,8 +6,10 @@
 /**
  * None.
  */
-.is-style-none,
-.is-style-none li {
+ol.is-style-none,
+ul.is-style-none,
+ol.is-style-none li,
+ul.is-style-none li {
     padding-left: 0;
     list-style-type: none;
 }
@@ -15,7 +17,8 @@
 /**
  * Styled.
  */
-.is-style-styled {
+ol.is-style-styled,
+ul.is-style-styled {
     padding-left: 0;
     line-height: 1.5;
     list-style: none;
