@@ -26,6 +26,23 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 
 Since v2.3.0 Ghost Kit has pre-made templates, so you can get started with it and build your pages quickly.
 
+### Typography ###
+
+You can change typography options globally on a whole site or on specific pages only. Options available:
+
+* Font Family (supported Google Fonts)
+* Font Weight
+* Font Size
+* Line Height
+* Letter Spacing
+
+By default you can change typography for the following pages elements:
+
+* Body
+* Buttons
+* Headings
+  * From H1 to H6
+
 ### Blocks ###
 
 * [**Grid**](https://ghostkit.io/blocks/grid/). Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change
@@ -171,6 +188,56 @@ You can add templates in your theme, so users will be able to insert it on pages
     <!-- /wp:paragraph -->
 
 `thumbnail.png` is not required, but strongly recommended, because users will see what template will look like after insertion.
+
+### How to extend typography settings ####
+
+By default Typography options used for Body, Headings, and Buttons. You can add custom options by extending typography using PHP filter:
+
+    add_filter( 'gkt_custom_typography', 'my_gkt_custom_typography' );
+    function my_gkt_custom_typography( $custom_typography ) {
+
+        // Add typography options for `.my-selector`.
+        $custom_typography['my-selector'] = array(
+            'label' => esc_html__( 'My Selector', '@@text_domain' ),
+            'defaults' => array(
+                'font-family-category' => 'default',
+                'font-family' => '',
+                'font-size' => '',
+                'font-weight' => '',
+                'line-height' => '',
+                'letter-spacing' => '',
+            ),
+            'output' => array(
+                array(
+                    'selectors' => '.my-selector',
+                ),
+                array(
+                    'selectors' => '.editor-styles-wrapper .my-selector',
+                    'editor' => true,
+                ),
+            ),
+        );
+
+        // Add typography options for `.my-selector-2` with Font Size and Font Weight control only.
+        $custom_typography['my-selector-2'] = array(
+            'label' => esc_html__( 'My Selector 2', '@@text_domain' ),
+            'defaults' => array(
+                'font-size' => '10px',
+                'font-weight' => '600',
+            ),
+            'output' => array(
+                array(
+                    'selectors' => '.my-selector-2',
+                ),
+                array(
+                    'selectors' => '.editor-styles-wrapper .my-selector-2',
+                    'editor' => true,
+                ),
+            ),
+        );
+
+        return $icons;
+    }
 
 ### How to extend icons in icon picker list ####
 
