@@ -22,6 +22,7 @@ const {
 /**
  * Internal dependencies
  */
+import getIcon from '../../utils/get-icon';
 import { BadgePopover, getSelectedBadge } from './badge-popover';
 
 export const name = 'ghostkit/badge';
@@ -98,7 +99,7 @@ export const settings = {
             return (
                 <Fragment>
                     <RichTextToolbarButton
-                        icon="tag"
+                        icon={ getIcon( 'icon-badge' ) }
                         title="Badge"
                         onClick={ () => {
                             this.toggleFormat();
