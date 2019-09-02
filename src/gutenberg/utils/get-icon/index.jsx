@@ -8,7 +8,7 @@ export default function getIcon( icon, returnObject ) {
         // return object for block registration.
         if ( returnObject ) {
             return {
-                foreground: '#C9586C',
+                foreground: '#5c39a7',
                 src: allIcons[ icon ],
             };
         }

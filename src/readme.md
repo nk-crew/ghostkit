@@ -1,7 +1,7 @@
-# Ghost Kit - Gutenberg Blocks and Templates Collection #
+# Powerful Gutenberg Blocks and Templates Collection - Ghost Kit #
 
 * Contributors: nko
-* Tags: gutenberg, blocks, templates, collection, grid
+* Tags: gutenberg, blocks, templates, block, builder
 * Requires at least: 4.9.0
 * Tested up to: 5.2
 * Requires PHP: 5.4
@@ -9,11 +9,11 @@
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Ghost Kit is a blocks collection, extensions and templates for Gutenberg block editor.
+Powerful Gutenberg Blocks, Templates, and Extensions Collection - Ghost Kit.
 
 ## Description ##
 
-Ghost Kit is a blocks collection, powerful extensions and templates for Gutenberg block editor. With this collection, you will gain more control over content just like with popular page builders. Just start with responsive Grid block and you can't stop building the page ;)
+Gutenberg Blocks, Templates, and Extensions Collection for WordPress page builder - Ghost Kit. With this collection, you will gain more control over content just like with popular page builders. Just start with pre-defined templates and you can't stop building the page ;)
 
 We are using this plugin in our premium themes, so all the blocks are extensible and ready for developers.
 
@@ -24,11 +24,11 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 
 ### Templates ###
 
-Since v2.3.0 Ghost Kit has pre-made templates, so you can get started with it and build your pages quickly.
+Ghost Kit has pre-made templates, so you can get started with it and build your pages quickly.
 
 ### Typography ###
 
-You can change typography options globally on a whole site or on specific pages only. Options available:
+Change typography options globally on a whole site or on specific pages only. Options available:
 
 * Font Family (supported Google Fonts)
 * Font Weight
@@ -36,7 +36,7 @@ You can change typography options globally on a whole site or on specific pages 
 * Line Height
 * Letter Spacing
 
-By default you can change typography for the following pages elements:
+By default you can change typography for the following elements:
 
 * Body
 * Buttons
