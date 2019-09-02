@@ -28,6 +28,7 @@ const {
 
 const {
     InspectorControls,
+    RichText,
 } = wp.editor;
 
 /**
@@ -50,9 +51,11 @@ class BlockEdit extends Component {
             attributes,
             headings,
             tocHTML,
+            isSelected,
         } = this.props;
 
         const {
+            title,
             allowedHeaders,
             listStyle,
         } = attributes;
@@ -131,17 +134,30 @@ class BlockEdit extends Component {
                         className={ className }
                     />
                 ) : '' }
-                { headings && headings.length && ! tocHTML ? (
-                    <div className="ghostkit-table-of-contents-spinner"><Spinner /></div>
-                ) : '' }
-                { headings && headings.length && tocHTML ? (
-                    <Disabled>
-                        <div className={ classnames( className, 'block-library-list' ) }>
-                            <RawHTML>
-                                { tocHTML }
-                            </RawHTML>
-                        </div>
-                    </Disabled>
+                { headings && headings.length ? (
+                    <div className={ className }>
+                        { ( ! RichText.isEmpty( title ) || isSelected ) ? (
+                            <RichText
+                                tagName="h5"
+                                className="ghostkit-toc-title"
+                                placeholder={ __( 'Write title…' ) }
+                                format="string"
+                                value={ title }
+                                onChange={ val => setAttributes( { title: val } ) }
+                            />
+                        ) : '' }
+                        { ! tocHTML ? (
+                            <div className="ghostkit-toc-spinner"><Spinner /></div>
+                        ) : (
+                            <Disabled>
+                                <div className={ 'ghostkit-toc-list block-library-list' }>
+                                    <RawHTML>
+                                        { tocHTML }
+                                    </RawHTML>
+                                </div>
+                            </Disabled>
+                        ) }
+                    </div>
                 ) : '' }
             </Fragment>
         );

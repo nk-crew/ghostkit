@@ -8,6 +8,10 @@
         "multiple": false
     },
     "attributes": {
+        "title": {
+            "type": "string",
+            "default": "Table of Contents"
+        },
         "listStyle": {
             "type": "string",
             "default": "ol-styled"

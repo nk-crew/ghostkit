@@ -185,8 +185,14 @@ class GhostKit_TOC_Block {
         $toc = $this->find_toc_block( $blocks );
 
         if ( $toc ) {
+            $attrs = array_merge(
+                array(
+                    'allowedHeaders' => array( 2, 3, 4 ),
+                ), $toc['attrs']
+            );
+
             $this->is_toc_exist = true;
-            $this->toc_allowed_headers = isset( $toc['attrs']['allowedHeaders'] ) ? $toc['attrs']['allowedHeaders'] : false;
+            $this->toc_allowed_headers = $attrs['allowedHeaders'];
 
             $this->available_headings = $this->get_all_headings( $blocks, $this->toc_allowed_headers );
         }
@@ -220,6 +226,7 @@ class GhostKit_TOC_Block {
     public function block_render( $attributes ) {
         $attributes = array_merge(
             array(
+                'title' => 'Table of Contents',
                 'listStyle' => 'ol-styled',
                 'allowedHeaders' => array( 2, 3, 4 ),
                 'className' => '',
@@ -252,9 +259,16 @@ class GhostKit_TOC_Block {
 
         ?>
         <div class="<?php echo esc_attr( $class ); ?>">
-            <?php
-            echo $headings_html; // XSS Ok.
-            ?>
+            <?php if ( $attributes['title'] ) : ?>
+                <h5 class="ghostkit-toc-title">
+                    <?php echo wp_kses_post( $attributes['title'] ); ?>
+                </h5>
+            <?php endif; ?>
+            <div class="ghostkit-toc-list">
+                <?php
+                echo $headings_html; // XSS Ok.
+                ?>
+            </div>
         </div>
         <?php
 
