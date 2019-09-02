@@ -20,6 +20,7 @@ import * as carousel from './carousel';
 import * as carouselSlide from './carousel-slide';
 import * as video from './video';
 import * as testimonial from './testimonial';
+import * as toc from './table-of-contents';
 import * as gist from './gist';
 import * as changelog from './changelog';
 import * as pricingTable from './pricing-table';
@@ -59,6 +60,7 @@ jQuery( () => {
         pricingTable,
         pricingTableItem,
         testimonial,
+        toc,
         twitter,
         instagram,
         googleMaps,

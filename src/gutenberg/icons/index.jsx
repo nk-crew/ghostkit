@@ -21,6 +21,7 @@ import blockTestimonial from '../icons/block-testimonial.svg';
 import blockTwitter from '../icons/block-twitter.svg';
 import blockVideo from '../icons/block-video.svg';
 import blockWidgetizedArea from '../icons/block-widgetized-area.svg';
+import blockTableOfContents from '../icons/block-table-of-contents.svg';
 
 import pluginGhostkit from '../icons/plugin-ghostkit.svg';
 import pluginTemplates from '../icons/plugin-templates.svg';
@@ -90,6 +91,7 @@ export default {
     'block-twitter': blockTwitter,
     'block-video': blockVideo,
     'block-widgetized-area': blockWidgetizedArea,
+    'block-table-of-contents': blockTableOfContents,
 
     'plugin-ghostkit': pluginGhostkit,
     'plugin-templates': pluginTemplates,

@@ -19,7 +19,8 @@
 .ghostkit-pricing-table,
 .ghostkit-widgetized-area,
 .ghostkit-instagram,
-.ghostkit-twitter {
+.ghostkit-twitter,
+.ghostkit-toc {
     margin-bottom: 28px;
 }
 
@@ -52,6 +53,7 @@
 @import "./blocks/pricing-table/style";
 @import "./blocks/instagram/style";
 @import "./blocks/twitter/style";
+@import "./blocks/table-of-contents/style";
 
 /**
  * Format Styles

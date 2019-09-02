@@ -3,6 +3,7 @@
  */
 import classnames from 'classnames/dedupe';
 import slugify from 'slugify';
+import striptags from 'striptags';
 
 /**
  * WordPress dependencies
@@ -102,7 +103,7 @@ class BlockEdit extends Component {
             if ( newSlug ) {
                 i += 1;
             }
-            newSlug = slugify( `tab-${ newTitle }${ i ? `-${ i }` : '' }`, {
+            newSlug = slugify( `tab-${ striptags( newTitle ) }${ i ? `-${ i }` : '' }`, {
                 replacement: '-',
                 lower: true,
             } );

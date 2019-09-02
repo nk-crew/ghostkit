@@ -12,3 +12,4 @@ import './plugins/typography';
 
 import './blocks/instagram';
 import './blocks/twitter';
+import './blocks/table-of-contents';

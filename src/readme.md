@@ -69,6 +69,7 @@ By default you can change typography for the following pages elements:
 * [**Google Maps**](https://ghostkit.io/blocks/google-maps/). Show maps with custom styles, markers and settings
 * [**GitHub Gist**](https://ghostkit.io/blocks/github-gist/). Embed code parts form GitHub Gist to your site or documentation
 * [**Changelog**](https://ghostkit.io/blocks/changelog/). Show the changes log of your product
+* [**Table of Contents**](https://ghostkit.io/blocks/table-of-contents/). Automatically generate a table of contents by parsing page headers in content
 * **Widgetized Area**. Select registered sidebars and put it in any place
 
 ### Extensions ##

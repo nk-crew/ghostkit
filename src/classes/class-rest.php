@@ -94,6 +94,14 @@ class GhostKit_Rest extends WP_REST_Controller {
             )
         );
 
+        // Get TOC.
+        register_rest_route(
+            $namespace, '/get_table_of_contents/', array(
+                'methods'  => WP_REST_Server::READABLE,
+                'callback' => array( $this, 'get_table_of_contents' ),
+            )
+        );
+
         // Get Templates.
         register_rest_route(
             $namespace, '/get_templates/', array(
@@ -1061,6 +1069,115 @@ class GhostKit_Rest extends WP_REST_Controller {
             'mini' => str_replace( '_normal.png', '_mini.png', $url ),
             'original' => str_replace( '_normal.png', '.png', $url ),
         );
+    }
+
+    /**
+     * Get TOC.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function get_table_of_contents( WP_REST_Request $request ) {
+        $headings = $request->get_param( 'headings' );
+        $allowed_headers = $request->get_param( 'allowedHeaders' );
+        $list_style = $request->get_param( 'listStyle' ) ? : 'ol';
+
+        $html = '';
+
+        if ( ! $allowed_headers || empty( $allowed_headers ) ) {
+            return $this->success( $html );
+        }
+
+        $current_depth = 6;
+        $numbered_items = array();
+        $numbered_items_min = null;
+        $count = count( $headings );
+
+        // find the minimum heading to establish our baseline.
+        for ( $i = 0; $i < $count; $i++ ) {
+            if ( $current_depth > $headings[ $i ]['level'] ) {
+                $current_depth = (int) $headings[ $i ]['level'];
+            }
+        }
+
+        $numbered_items[ $current_depth ] = 0;
+        $numbered_items_min               = $current_depth;
+        for ( $i = 0; $i < $count; $i ++ ) {
+            if ( $current_depth === (int) $headings[ $i ]['level'] ) {
+                $html .= '<li>';
+            }
+
+            // start lists.
+            if ( $current_depth != (int) $headings[ $i ]['level'] ) {
+                for ( $current_depth; $current_depth < (int) $headings[ $i ]['level']; $current_depth++ ) {
+                    $numbered_items[ $current_depth + 1 ] = 0;
+
+                    if ( ! in_array( $current_depth, $allowed_headers ) ) {
+                        continue;
+                    }
+
+                    $html .= '<ul>';
+                    $html .= '<li>';
+                }
+            }
+
+            $html .= '<a href="' . esc_attr( '#' . $headings[ $i ]['anchor'] ) . '">' . wp_kses_post( $headings[ $i ]['content'] ) . '</a>';
+
+            // end lists.
+            if ( $i !== $count - 1 ) {
+                if ( $current_depth > (int) $headings[ $i + 1 ]['level'] ) {
+                    for ( $current_depth; $current_depth > (int) $headings[ $i + 1 ]['level']; $current_depth-- ) {
+                        $numbered_items[ $current_depth ] = 0;
+
+                        if ( ! in_array( $current_depth, $allowed_headers ) ) {
+                            continue;
+                        }
+
+                        $html .= '</li>';
+                        $html .= '</ul>';
+                    }
+                }
+                if ( (int) @$headings[ $i + 1 ]['level'] === $current_depth ) {
+                    $html .= '</li>';
+                }
+            } else {
+                // this is the last item, make sure we close off all tags.
+                for ( $current_depth; $current_depth >= $numbered_items_min; $current_depth-- ) {
+                    if ( ! in_array( $current_depth, $allowed_headers ) ) {
+                        continue;
+                    }
+
+                    $html .= '</li>';
+                    if ( $current_depth !== $numbered_items_min ) {
+                        $html .= '</ul>';
+                    }
+                }
+            }
+        }
+
+        // Wrapper.
+        if ( $html ) {
+            $list = 'ol';
+            $list_class_name = '';
+
+            switch ( $list_style ) {
+                case 'ul':
+                    $list = 'ul';
+                    break;
+                case 'ul-styled':
+                    $list = 'ul';
+                    $list_class_name = 'is-style-styled';
+                    break;
+                case 'ol-styled':
+                    $list_class_name = 'is-style-styled';
+                    break;
+            }
+
+            $html = '<' . $list . ( $list_class_name ? ( ' class="' . $list_class_name . '"' ) : '' ) . '>' . $html . '</' . $list . '>';
+        }
+
+        return $this->success( $html );
     }
 
     /**
