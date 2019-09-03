@@ -27,7 +27,7 @@ export function getActiveClass( className, namespace, suffixOnly ) {
         return activeClass;
     }
 
-    return false;
+    return '';
 }
 
 /**
@@ -56,4 +56,64 @@ export function replaceClass( className, namespace, newClass ) {
     }
 
     return list.value;
+}
+
+/**
+ * Add class to the className.
+ *
+ * @param {string} className  Class name.
+ * @param {string} newClass   The replacing class.
+ *
+ * @return {string} The updated newClass.
+ */
+export function addClass( className, newClass ) {
+    const list = new TokenList( className );
+
+    if ( newClass ) {
+        list.add( newClass );
+    }
+
+    return list.value;
+}
+
+/**
+ * Remove class from the className.
+ *
+ * @param {string} className  Class name.
+ * @param {string} classToRemove  Class to remove.
+ *
+ * @return {string} The updated className.
+ */
+export function removeClass( className, classToRemove ) {
+    const list = new TokenList( className );
+
+    // remove classes with the same namespace.
+    for ( const activeClass of list.values() ) {
+        if ( classToRemove === activeClass ) {
+            list.remove( activeClass );
+        }
+    }
+
+    return list.value;
+}
+
+/**
+ * Check if classname exist.
+ *
+ * @param {string} className  Class name.
+ * @param {string} checkClassName  Class to check.
+ *
+ * @return {boolean} Is class exists.
+ */
+export function isClassExist( className, checkClassName ) {
+    const list = new TokenList( className );
+
+    // remove classes with the same namespace.
+    for ( const activeClass of list.values() ) {
+        if ( checkClassName === activeClass ) {
+            return true;
+        }
+    }
+
+    return false;
 }
