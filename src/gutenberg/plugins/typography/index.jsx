@@ -190,7 +190,7 @@ function getCurrentTypography( typographyData, typographyPrepeareStyles ) {
     if ( isExist( typographyData ) ) {
         if ( isExist( typographyData.ghostkit_typography ) ) {
             Object.keys( typographyData.ghostkit_typography ).forEach( ( key ) => {
-                if ( isExist( typographyData.ghostkit_typography[ key ] ) ) {
+                if ( isExist( typographyData.ghostkit_typography[ key ] ) && isExist( typographyPrepeareStyles[ key ] ) ) {
                     Object.keys( conformityAttributes ).forEach( ( propertyKey ) => {
                         if ( isExist( typographyData.ghostkit_typography[ key ][ conformityAttributes[ propertyKey ] ] ) &&
                             typeof typographyPrepeareStyles[ key ][ 'style-properties' ][ propertyKey ] !== 'undefined' ) {
