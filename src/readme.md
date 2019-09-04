@@ -317,6 +317,31 @@ Available events:
 
 ## Changelog ##
 
+= 2.6.0 =
+
+* Warning! Changed custom styles rendering method. Recommended to go over all your posts and click on the Update button.
+* added Typography settings
+  * add Google Fonts globally site-wide
+  * add Google Fonts locally on the edited page only
+* added preview for all core blocks in editor for Spacings extension
+* added Table of Contents block
+* added Styles for core/list block
+* added Numbered Style for core/heading block
+* added Highlight format to WYSIWYG toolbar
+* added Spacings and Display extensions support for Instagram and Twitter blocks
+* improved Icon Picker
+  * improved performance
+  * added tooltips on each icon
+  * added toggle button for categories
+* improved performance of templates list loading
+* changed Progress minimum height to 1
+* changed Templates capability type to Post
+* changed all extensions to use native className attribute
+* fixed grid column bottom sticky
+* fixed blocks unique classnames regeneration every time when editor loads
+* fixed Carousels added inside Tabs
+* minor UI changes
+
 = 2.5.0 =
 
 * added Focal Point picker in Grid background settings
