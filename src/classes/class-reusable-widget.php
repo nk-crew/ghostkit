@@ -34,7 +34,20 @@ class GhostKit_Reusable_Widget extends WP_Widget {
         $block = isset( $instance['block'] ) && ! empty( $instance['block'] ) ? $instance['block'] : '';
         $post = $block ? get_post( $block ) : false;
 
-        if ( $block && $post->post_content ) {
+        if ( $block && isset( $post->post_content ) && $post->post_content ) {
+            // prepare custom styles.
+            if ( function_exists( 'has_blocks' ) && function_exists( 'parse_blocks' ) ) {
+                $blocks = parse_blocks( $post->post_content );
+
+                if ( is_array( $blocks ) && ! empty( $blocks ) ) {
+                    $blocks_css = ghostkit()->parse_blocks_css( $blocks );
+
+                    if ( ! empty( $blocks_css ) ) {
+                        ghostkit()->add_custom_css( 'ghostkit-blocks-widget-' . $args['widget_id'] . '-custom-css', ghostkit()->replace_vars( $blocks_css ) );
+                    }
+                }
+            }
+
             // phpcs:disable
             echo $args['before_widget'];
 
