@@ -132,41 +132,6 @@ Available filters:
 * **gkt_enqueue_plugin_gist_simple**
 * **gkt_enqueue_plugin_scrollreveal**
 
-### How to extend existing blocks ####
-
-You should use default Gutenberg hooks to extend blocks functionality. Read more here: https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations
-
-### How to extend existing blocks classnames ####
-
-You can add additional classnames to blocks using JavaScript filters:
-
-    /**
-    * Classnames filter.
-    *
-    * @param {String} className Classname applied to save and edit element.
-    * @param {Object} props  Block props.
-    *
-    * @return {String} Classname.
-    */
-    function customClassName( className, props ) {
-        switch ( props.name ) {
-        case 'ghostkit/button-single':
-            className += ' my-classname';
-
-            break;
-        }
-
-        return className;
-    }
-
-    wp.hooks.addFilter( 'ghostkit.blocks.className', 'ghostkit/my-new-className', customClassName );
-    wp.hooks.addFilter( 'ghostkit.editor.className', 'ghostkit/my-new-className', customClassName );
-
-Available filters:
-
-* **ghostkit.blocks.className**
-* **ghostkit.editor.className**
-
 ### How to add templates in theme ####
 
 You can add templates in your theme, so users will be able to insert it on pages with a single click. This is a simple example of theme templates structure:
@@ -278,6 +243,14 @@ By default icon picker contains FontAwesome icons. You can add any icons you wan
         wp_register_script( 'my-icons-pack', plugins_url( '/assets/my-icons-pack/script.min.js', __FILE__ ), array(), '1.0.0' );
     }
 
+### How to extend existing blocks ####
+
+You should use default Gutenberg hooks to extend blocks functionality. Read more here: https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations
+
+### How to extend existing blocks classnames ####
+
+You can extend Gutenberg blocks save attributes using core hooks. Read more here: https://developer.wordpress.org/block-editor/developers/filters/block-filters/#blocks-getsavecontent-extraprops
+
 ### jQuery frontend events ####
 
 On frontend there are a lot of jQuery events. Usage example:
@@ -296,8 +269,6 @@ Available events:
 * **afterPrepareCounters.ghostkit**
 * **beforeRunCounters.ghostkit**
 * **afterRunCounters.ghostkit**
-* **beforePrepareCustomStyles.ghostkit**
-* **afterPrepareCustomStyles.ghostkit**
 * **beforePrepareTabs.ghostkit**
 * **afterPrepareTabs.ghostkit**
 * **beforePrepareAccordions.ghostkit**
