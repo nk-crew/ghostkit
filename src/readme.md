@@ -317,6 +317,10 @@ Available events:
 
 ## Changelog ##
 
+= 2.6.1 =
+
+* fixed custom styles loading in reusable widget
+
 = 2.6.0 =
 
 * Warning! Changed custom styles rendering method. Recommended to go over all your posts and click on the Update button.
