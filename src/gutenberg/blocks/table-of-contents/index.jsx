@@ -32,6 +32,11 @@ export const settings = {
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/table-of-contents/',
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+        },
     },
     supports: {
         html: false,

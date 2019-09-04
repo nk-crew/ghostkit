@@ -31,6 +31,11 @@ export const settings = {
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/twitter/',
+        supports: {
+            styles: true,
+            spacings: true,
+            display: true,
+        },
     },
     edit,
     save,
