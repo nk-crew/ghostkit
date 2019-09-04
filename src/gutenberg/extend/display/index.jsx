@@ -33,7 +33,7 @@ const {
 /**
  * Internal dependencies
  */
-import { getActiveClass, replaceClass, addClass, removeClass, isClassExist } from '../../utils/classes-replacer';
+import { getActiveClass, replaceClass, addClass, removeClass, hasClass } from '../../utils/classes-replacer';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 import getIcon from '../../utils/get-icon';
 
@@ -145,9 +145,9 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             } = attributes;
 
             if ( ! screen || 'all' === screen ) {
-                if ( isClassExist( className, 'ghostkit-d-none' ) ) {
+                if ( hasClass( className, 'ghostkit-d-none' ) ) {
                     return 'none';
-                } else if ( isClassExist( className, 'ghostkit-d-block' ) ) {
+                } else if ( hasClass( className, 'ghostkit-d-block' ) ) {
                     return 'block';
                 }
             }

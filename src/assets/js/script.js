@@ -76,7 +76,7 @@ class GhostKitClass {
             self.screenSizes.push( ghostkitVariables.media_sizes[ k ] );
         } );
 
-        self.customStyles = '';
+        self.customStyles = $( '#ghostkit-blocks-custom-css-inline-css' ).html() || '';
 
         // Methods bind class.
         self.initBlocks = self.initBlocks.bind( self );
@@ -305,6 +305,8 @@ class GhostKitClass {
 
     /**
      * Prepare custom styles.
+     * This method used as Fallback only.
+     * Since plugin version 2.6.0 we use PHP styles render.
      */
     prepareCustomStyles() {
         const self = this;

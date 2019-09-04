@@ -105,7 +105,7 @@ export function removeClass( className, classToRemove ) {
  *
  * @return {boolean} Is class exists.
  */
-export function isClassExist( className, checkClassName ) {
+export function hasClass( className, checkClassName ) {
     const list = new TokenList( className );
 
     // remove classes with the same namespace.

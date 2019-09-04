@@ -123,6 +123,9 @@ class GhostKit {
 
         // templates.
         require_once( $this->plugin_path . 'classes/class-templates.php' );
+
+        // custom block styles class.
+        require_once( $this->plugin_path . 'gutenberg/extend/styles/get-styles.php' );
     }
 
 
@@ -134,7 +137,6 @@ class GhostKit {
 
         add_action( 'init', array( $this, 'add_custom_fields_support' ), 100 );
 
-        add_action( 'save_post', array( $this, 'parse_styles_from_blocks' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_css_js' ), 100 );
 
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_go_pro_link_plugins_page' ) );
@@ -484,53 +486,54 @@ class GhostKit {
     }
 
     /**
-     * Parse styles from blocks and save it to the post meta.
+     * Equivalent of GHOSTKIT.replaceVars method.
      *
-     * @param int $post_id - current post id.
+     * @param String $str styles string.
+     * @return String string with replaced vars.
      */
-    public function parse_styles_from_blocks( $post_id ) {
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-            return;
-        }
-        if ( ! current_user_can( 'edit_post', $post_id ) ) {
-            return;
+    public function replace_vars( $str ) {
+        // TODO: Move this to plugin options (part 2).
+        $vars = array(
+            'media_sm' => '(max-width: 576px)',
+            'media_md' => '(max-width: 768px)',
+            'media_lg' => '(max-width: 992px)',
+            'media_xl' => '(max-width: 1200px)',
+        );
+
+        foreach ( $vars as $k => $var ) {
+            $str = preg_replace( "/#{ghostkitvar:$k}/", $var, $str );
         }
 
-        $post = get_post( $post_id );
+        return $str;
+    }
 
-        if ( ! $post->post_content ) {
-            return;
-        }
+    /**
+     * Parse blocks and prepare styles
+     *
+     * @param array $blocks Blocks array with attributes.
+     * @return string
+     */
+    public function parse_blocks_css( $blocks ) {
+        $styles = '';
 
-        if ( class_exists( 'DOMDocument' ) ) {
-            $css = '';
-            $dom = new DOMDocument();
-            @$dom->loadHTML( $post->post_content );
-            foreach ( $dom->getElementsByTagName( '*' ) as $node ) {
-                $styles = $node->getAttribute( 'data-ghostkit-styles' );
-                if ( $styles ) {
-                    $css .= ' ' . $styles;
-                }
+        foreach ( $blocks as $block ) {
+            if (
+                isset( $block['attrs'] ) &&
+                isset( $block['attrs']['ghostkitClassname'] ) &&
+                $block['attrs']['ghostkitClassname'] &&
+                isset( $block['attrs']['ghostkitStyles'] ) &&
+                ! empty( $block['attrs']['ghostkitStyles'] )
+            ) {
+                $styles .= GhostKit_Block_Custom_Styles::get( $block['attrs']['ghostkitStyles'], '' );
             }
 
-            if ( empty( $css ) || ! $css ) {
-                delete_post_meta( $post_id, '_ghostkit_blocks_custom_css' );
-            } else {
-                // TODO: Move this to plugin options (part 2).
-                $vars = array(
-                    'media_sm' => '(max-width: 576px)',
-                    'media_md' => '(max-width: 768px)',
-                    'media_lg' => '(max-width: 992px)',
-                    'media_xl' => '(max-width: 1200px)',
-                );
-
-                foreach ( $vars as $k => $var ) {
-                    $css = preg_replace( "/#{ghostkitvar:$k}/", $var, $css );
-                }
-
-                update_post_meta( $post_id, '_ghostkit_blocks_custom_css', $css );
+            // Inner blocks.
+            if ( isset( $block['innerBlocks'] ) && ! empty( $block['innerBlocks'] ) && is_array( $block['innerBlocks'] ) ) {
+                $styles .= $this->parse_blocks_css( $block['innerBlocks'] );
             }
         }
+
+        return $styles;
     }
 
     /**
@@ -539,6 +542,8 @@ class GhostKit {
      * @param int $post_id - current post id.
      */
     public function add_custom_css_js( $post_id ) {
+        global $post;
+
         $global_code = get_option( 'ghostkit_custom_code', array() );
 
         if ( is_singular() && ! $post_id ) {
@@ -548,11 +553,21 @@ class GhostKit {
         $is_single = is_singular() && $post_id;
 
         // Blocks custom CSS.
-        if ( $is_single ) {
-            $blocks_css = get_post_meta( $post_id, '_ghostkit_blocks_custom_css', true );
+        if (
+            $is_single &&
+            function_exists( 'has_blocks' ) &&
+            function_exists( 'parse_blocks' ) &&
+            has_blocks( $post_id ) &&
+            is_object( $post )
+        ) {
+            $blocks = parse_blocks( $post->post_content );
 
-            if ( ! empty( $blocks_css ) ) {
-                $this->add_custom_css( 'ghostkit-blocks-custom-css', $blocks_css );
+            if ( is_array( $blocks ) && ! empty( $blocks ) ) {
+                $blocks_css = $this->parse_blocks_css( $blocks );
+
+                if ( ! empty( $blocks_css ) ) {
+                    $this->add_custom_css( 'ghostkit-blocks-custom-css', $this->replace_vars( $blocks_css ) );
+                }
             }
         }
 
