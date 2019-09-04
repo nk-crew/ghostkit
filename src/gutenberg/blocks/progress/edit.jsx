@@ -82,7 +82,7 @@ class BlockEdit extends Component {
                             label={ __( 'Height' ) }
                             value={ height || '' }
                             onChange={ ( value ) => setAttributes( { height: value } ) }
-                            min={ 5 }
+                            min={ 1 }
                             max={ 30 }
                         />
                         <RangeControl
@@ -95,8 +95,8 @@ class BlockEdit extends Component {
                         <RangeControl
                             label={ __( 'Corner Radius' ) }
                             value={ borderRadius }
-                            min="0"
-                            max="10"
+                            min={ 0 }
+                            max={ 10 }
                             onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
                         />
                     </PanelBody>

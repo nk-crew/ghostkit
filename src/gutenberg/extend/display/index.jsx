@@ -35,6 +35,7 @@ const {
  * Internal dependencies
  */
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import getIcon from '../../utils/get-icon';
 
 const {
     GHOSTKIT,
@@ -223,8 +224,10 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         <PanelBody
                             title={ (
                                 <Fragment>
-                                    { __( 'Display' ) }
-                                    <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
+                                    <span className="ghostkit-ext-icon">
+                                        { getIcon( 'extension-display' ) }
+                                    </span>
+                                    <span>{ __( 'Display' ) }</span>
                                 </Fragment>
                             ) }
                             initialOpen={ initialOpenPanel }

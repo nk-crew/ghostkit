@@ -242,8 +242,10 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         <PanelBody
                             title={ (
                                 <Fragment>
-                                    { __( 'Animate on Scroll' ) }
-                                    <span className="ghostkit-ext-badge">{ __( 'ext' ) }</span>
+                                    <span className="ghostkit-ext-icon">
+                                        { getIcon( 'extension-sr' ) }
+                                    </span>
+                                    <span>{ __( 'Animate on Scroll' ) }</span>
                                 </Fragment>
                             ) }
                             initialOpen={ initialOpenPanel }

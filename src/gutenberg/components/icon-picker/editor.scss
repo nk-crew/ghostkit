@@ -17,58 +17,91 @@
     padding: 0;
     font-size: 15px;
     text-align: center;
-    cursor: pointer;
-    background: $light-gray-200;
-    border: 1px solid $light-gray-200;
     border-radius: 4px;
-    transition: .15s background-color, .15s box-shadow, .15s border-color;
 
-    &:hover {
-        background-color: #fff;
-        border-color: $light-gray-500;
-        box-shadow: 0 2px 7px 0 $light-gray-500;
-    }
+    &.ghostkit-component-icon-picker-preview {
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: .15s background-color, .15s border-color;
 
-    &.ghostkit-component-icon-picker-button-active {
-        background-color: #fff;
-        border-color: $color-primary;
-    }
-}
-.ghostkit-component-icon-picker {
-    padding: 15px;
-
-    .components-base-control + .components-base-control {
-        margin-top: 15px;
-    }
-
-    .ghostkit-component-icon-picker-list-wrap {
-        > span {
-            position: sticky;
-            display: block;
-            top: 0;
-            padding: 15px;
-            margin-right: -15px;
-            margin-left: -15px;
-            font-weight: 500;
-            background-color: #fff;
+        &:hover,
+        &.hover {
+            background-color: $light-gray-200;
+            border-color: $light-gray-200;
         }
-    }
-    .ghostkit-component-icon-picker-list {
-        display: flex;
-        flex-wrap: wrap;
-        margin-bottom: -10px;
-        margin-left: -10px;
+        &.hover:hover {
+            background-color: $light-gray-500;
+            border-color: $light-gray-500;
+        }
 
-        .ghostkit-component-icon-picker-button {
-            width: calc(33.33% - 10px);
-            max-width: calc(33.33% - 10px);
-            height: 55px;
-            margin-bottom: 10px;
-            margin-left: 10px;
-            font-size: 20px;
+        &.ghostkit-component-icon-picker-button-active {
+            background-color: #fff;
+            border-color: $blue-medium-700;
         }
     }
 }
 .ghostkit-component-icon-picker-preview-clickable {
     cursor: pointer;
+}
+.ghostkit-component-icon-picker {
+    .components-base-control {
+        // fix hidden right part of inputs.
+        padding-right: 2px;
+
+        + .components-base-control {
+            margin-top: 15px;
+            margin-bottom: 0;
+        }
+    }
+
+    .ghostkit-component-icon-picker-list-wrap {
+        padding: 15px;
+
+        .ReactVirtualized__Grid__innerScrollContainer > div {
+            padding-bottom: 10px;
+        }
+    }
+    .ghostkit-component-icon-picker-list-panel-toggle {
+        border-bottom: none;
+
+        &.is-opened > .components-panel__body-title {
+            margin-bottom: -16px;
+        }
+    }
+    .ghostkit-component-icon-picker-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -10px;
+
+        > * {
+            width: calc(33.33% - 10px);
+            max-width: calc(33.33% - 10px);
+            margin-left: 10px;
+        }
+
+        .ghostkit-component-icon-picker-button {
+            width: 100%;
+            height: 55px;
+            font-size: 20px;
+        }
+    }
+}
+
+// add max height to popover.
+.ghostkit-component-icon-picker-content > .components-popover__content {
+    // stylelint-disable-next-line
+    overflow-y: hidden !important;
+
+    .ghostkit-component-icon-picker-sizer {
+        height: 100vh;
+    }
+
+    .ghostkit-component-icon-picker {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
 }
