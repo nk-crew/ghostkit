@@ -131,11 +131,22 @@ function printFonts( typographyData ) {
         if ( isExist( uniqueFonts[ font ].family ) ) {
             Object.keys( fonts[ uniqueFonts[ font ].family ].fonts ).forEach( ( findFont ) => {
                 if ( fonts[ uniqueFonts[ font ].family ].fonts[ findFont ].name === uniqueFonts[ font ].label ) {
+                    const widths = fonts[ uniqueFonts[ font ].family ].fonts[ findFont ].widths;
+                    const weightsArray = [];
+
+                    if ( typeof uniqueFonts[ font ].weights !== 'undefined' ) {
+                        Object.keys( uniqueFonts[ font ].weights ).forEach( ( weight ) => {
+                            if ( widths.indexOf( uniqueFonts[ font ].weights[ weight ] ) !== -1 ) {
+                                weightsArray.push( uniqueFonts[ font ].weights[ weight ] );
+                            }
+                        } );
+                    }
+
                     webfontList.push(
                         {
                             family: uniqueFonts[ font ].family,
                             name: uniqueFonts[ font ].label,
-                            weights: uniqueFonts[ font ].weights,
+                            weights: weightsArray,
                             category: fonts[ uniqueFonts[ font ].family ].fonts[ findFont ].category,
                             subsets: fonts[ uniqueFonts[ font ].family ].fonts[ findFont ].subsets,
                         }
@@ -150,13 +161,15 @@ function printFonts( typographyData ) {
         Object.keys( webfontList ).forEach( ( key ) => {
             if ( webfontList[ key ].family === 'google-fonts' ) {
                 let weights = '';
-                Object.keys( webfontList[ key ].weights ).forEach( ( keyWeight ) => {
-                    if ( keyWeight > 0 && keyWeight !== ( webfontList[ key ].weights.length - 1 ) ) {
-                        weights = weights + ',';
-                    }
-                    weights = weights + webfontList[ key ].weights[ keyWeight ];
-                } );
-                googleFamilies.push( webfontList[ key ].name + ':' + weights );
+                if ( typeof webfontList[ key ].weights !== 'undefined' ) {
+                    Object.keys( webfontList[ key ].weights ).forEach( ( keyWeight ) => {
+                        if ( keyWeight > 0 && keyWeight !== ( webfontList[ key ].weights.length - 1 ) ) {
+                            weights = weights + ',';
+                        }
+                        weights = weights + webfontList[ key ].weights[ keyWeight ];
+                    } );
+                    googleFamilies.push( webfontList[ key ].name + ':' + weights );
+                }
             }
         } );
         Object.keys( GHOSTKIT[ 'added_fonts' ] ).forEach( ( key ) => {
