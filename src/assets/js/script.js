@@ -76,7 +76,7 @@ class GhostKitClass {
             self.screenSizes.push( ghostkitVariables.media_sizes[ k ] );
         } );
 
-        self.customStyles = '';
+        self.customStyles = $( '#ghostkit-blocks-custom-css-inline-css' ).html() || '';
 
         // Methods bind class.
         self.initBlocks = self.initBlocks.bind( self );
@@ -92,6 +92,7 @@ class GhostKitClass {
         self.prepareGist = self.prepareGist.bind( self );
         self.prepareChangelog = self.prepareChangelog.bind( self );
         self.prepareGoogleMaps = self.prepareGoogleMaps.bind( self );
+        self.prepareTOC = self.prepareTOC.bind( self );
         self.prepareSR = self.prepareSR.bind( self );
 
         GHOSTKIT.triggerEvent( 'beforeInit', self );
@@ -168,6 +169,7 @@ class GhostKitClass {
         self.prepareGist();
         self.prepareChangelog();
         self.prepareGoogleMaps();
+        self.prepareTOC();
         self.prepareCounters();
         self.prepareSR();
 
@@ -303,6 +305,8 @@ class GhostKitClass {
 
     /**
      * Prepare custom styles.
+     * This method used as Fallback only.
+     * Since plugin version 2.6.0 we use PHP styles render.
      */
     prepareCustomStyles() {
         const self = this;
@@ -910,6 +914,39 @@ class GhostKitClass {
 
             GHOSTKIT.triggerEvent( 'afterPrepareGoogleMaps', self );
         }
+    }
+
+    /**
+     * Prepare Table of Contents
+     */
+    prepareTOC() {
+        $doc.on( 'click', '.ghostkit-toc a', function( e ) {
+            e.preventDefault();
+
+            if ( ! e.target || ! e.target.hash ) {
+                return;
+            }
+
+            const offset = $( e.target.hash ).offset();
+
+            if ( typeof offset === 'undefined' ) {
+                return;
+            }
+
+            let scrollTop = offset.top;
+
+            const $adminBar = $( '#wpadminbar' );
+
+            if ( $adminBar.length ) {
+                if ( 'absolute' !== $adminBar.css( 'position' ) ) {
+                    scrollTop -= $adminBar.outerHeight();
+                }
+            }
+
+            $( 'body, html' ).stop().animate( {
+                scrollTop,
+            }, 350 );
+        } );
     }
 
     /**

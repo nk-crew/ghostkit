@@ -19,6 +19,11 @@ import './formats';
 import './extend';
 
 /**
+ * Style Variants
+ */
+import './style-variants';
+
+/**
  * Plugins
  */
 import './plugins';

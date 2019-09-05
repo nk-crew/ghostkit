@@ -112,6 +112,8 @@ class IconPickerDropdown extends Component {
             search: '',
             hiddenCategories: hiddenIconCategories,
         };
+
+        this.getDropdownContent = this.getDropdownContent.bind( this );
     }
 
     componentDidUpdate() {
@@ -121,13 +123,10 @@ class IconPickerDropdown extends Component {
         }, 10 );
     }
 
-    render() {
+    getDropdownContent() {
         const {
-            label,
-            className,
             onChange,
             value,
-            renderToggle,
         } = this.props;
 
         const rows = [
@@ -278,60 +277,68 @@ class IconPickerDropdown extends Component {
             } );
         }
 
+        const result = (
+            <AutoSizer>
+                { ( { width, height } ) => (
+                    <List
+                        className="ghostkit-component-icon-picker-list-wrap"
+                        width={ width }
+                        height={ height }
+                        rowCount={ rows.length }
+                        rowHeight={ this.cellMCache.rowHeight }
+                        rowRenderer={ ( data ) => {
+                            const {
+                                index,
+                                style,
+                                parent,
+                                key,
+                            } = data;
+
+                            return (
+                                <CellMeasurer
+                                    cache={ this.cellMCache }
+                                    columnIndex={ 0 }
+                                    key={ key }
+                                    rowIndex={ index }
+                                    parent={ parent }
+                                >
+                                    { () => (
+                                        <div style={ style }>
+                                            { rows[ index ].render || '' }
+                                        </div>
+                                    ) }
+                                </CellMeasurer>
+                            );
+                        } }
+                    />
+                ) }
+            </AutoSizer>
+        );
+
+        return (
+            <Fragment>
+                <div className="ghostkit-component-icon-picker-sizer" />
+                <div className="ghostkit-component-icon-picker">
+                    { result }
+                </div>
+            </Fragment>
+        );
+    }
+
+    render() {
+        const {
+            label,
+            className,
+            renderToggle,
+        } = this.props;
+
         const dropdown = (
             <Dropdown
                 className={ className }
                 contentClassName="ghostkit-component-icon-picker-content"
                 renderToggle={ renderToggle }
                 focusOnMount={ false }
-                renderContent={ () => {
-                    const result = (
-                        <AutoSizer>
-                            { ( { width, height } ) => (
-                                <List
-                                    className="ghostkit-component-icon-picker-list-wrap"
-                                    width={ width }
-                                    height={ height }
-                                    rowCount={ rows.length }
-                                    rowHeight={ this.cellMCache.rowHeight }
-                                    rowRenderer={ ( data ) => {
-                                        const {
-                                            index,
-                                            style,
-                                            parent,
-                                            key,
-                                        } = data;
-
-                                        return (
-                                            <CellMeasurer
-                                                cache={ this.cellMCache }
-                                                columnIndex={ 0 }
-                                                key={ key }
-                                                rowIndex={ index }
-                                                parent={ parent }
-                                            >
-                                                { () => (
-                                                    <div style={ style }>
-                                                        { rows[ index ].render || '' }
-                                                    </div>
-                                                ) }
-                                            </CellMeasurer>
-                                        );
-                                    } }
-                                />
-                            ) }
-                        </AutoSizer>
-                    );
-
-                    return (
-                        <Fragment>
-                            <div className="ghostkit-component-icon-picker-sizer" />
-                            <div className="ghostkit-component-icon-picker">
-                                { result }
-                            </div>
-                        </Fragment>
-                    );
-                } }
+                renderContent={ this.getDropdownContent }
             />
         );
 

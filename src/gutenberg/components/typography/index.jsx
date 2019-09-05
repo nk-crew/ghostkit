@@ -2,13 +2,6 @@
  * Import CSS
  */
 import './editor.scss';
-/**
- * External dependencies
- */
-import 'react-virtualized-select/styles.css';
-import InputDrag from '../input-drag';
-import Select from 'react-virtualized-select';
-import getIcon from '../../utils/get-icon';
 
 /**
  * WordPress dependencies
@@ -22,6 +15,10 @@ const { __ } = wp.i18n;
 /**
  * Internal dependencies
  */
+import Select from '../select';
+import InputDrag from '../input-drag';
+import getIcon from '../../utils/get-icon';
+
 const { GHOSTKIT } = window;
 const fontFamilies = getFonts();
 
@@ -197,14 +194,15 @@ export default class Typorgaphy extends Component {
                                         value={ fontFamilyValue }
                                         onChange={ ( opt ) => {
                                             onChange( {
-                                                fontFamily: opt.value,
-                                                fontFamilyCategory: opt.fontFamilyCategory,
-                                                fontWeight: opt.value === '' ? '' : '400',
+                                                fontFamily: opt && opt.value ? opt.value : '',
+                                                fontFamilyCategory: opt && opt.fontFamilyCategory ? opt.fontFamilyCategory : '',
+                                                fontWeight: opt && opt.value ? '400' : '',
                                             } );
                                         } }
                                         options={ fontFamilies }
-                                        placeholder={ __( '--- Select font ---' ) }
+                                        placeholder={ __( '--- Select Font Family ---' ) }
                                         className="ghostkit-typography-font-selector"
+                                        menuPosition="fixed"
                                     />
                                 </div>
                             </Tooltip>
@@ -218,11 +216,11 @@ export default class Typorgaphy extends Component {
                                         value={ fontWeightValue }
                                         onChange={ ( opt ) => {
                                             onChange( {
-                                                fontWeight: opt.value,
+                                                fontWeight: opt && opt.value ? opt.value : '',
                                             } );
                                         } }
                                         options={ fontWeights }
-                                        placeholder={ __( '--- Select weight ---' ) }
+                                        placeholder={ __( '--- Select Weight ---' ) }
                                         className="ghostkit-typography-weight-selector"
                                         classNamePrefix="ghostkit-typography-weight-selector"
                                         menuPosition="fixed"

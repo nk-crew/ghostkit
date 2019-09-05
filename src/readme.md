@@ -1,7 +1,7 @@
-# Ghost Kit - Gutenberg Blocks and Templates Collection #
+# Powerful Gutenberg Blocks and Templates Collection - Ghost Kit #
 
 * Contributors: nko
-* Tags: gutenberg, blocks, templates, collection, grid
+* Tags: gutenberg, blocks, templates, block, builder
 * Requires at least: 4.9.0
 * Tested up to: 5.2
 * Requires PHP: 5.4
@@ -9,11 +9,11 @@
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Ghost Kit is a blocks collection, extensions and templates for Gutenberg block editor.
+Powerful Gutenberg Blocks, Templates, and Extensions Collection - Ghost Kit.
 
 ## Description ##
 
-Ghost Kit is a blocks collection, powerful extensions and templates for Gutenberg block editor. With this collection, you will gain more control over content just like with popular page builders. Just start with responsive Grid block and you can't stop building the page ;)
+Gutenberg Blocks, Templates, and Extensions Collection for WordPress page builder - Ghost Kit. With this collection, you will gain more control over content just like with popular page builders. Just start with pre-defined templates and you can't stop building the page ;)
 
 We are using this plugin in our premium themes, so all the blocks are extensible and ready for developers.
 
@@ -24,7 +24,30 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 
 ### Templates ###
 
-Since v2.3.0 Ghost Kit has pre-made templates, so you can get started with it and build your pages quickly.
+Ghost Kit has pre-made templates, so you can get started with it and build your pages quickly.
+
+### Typography ###
+
+Change typography options globally on a whole site or on specific pages only. Options available:
+
+* Font Family (supported Google Fonts)
+* Font Weight
+* Font Size
+* Line Height
+* Letter Spacing
+
+By default you can change typography for the following elements:
+
+* Body
+* Buttons
+* Headings
+  * From H1 to H6
+
+### Formats ###
+
+* Uppercase
+* Highlight
+* Badge
 
 ### Blocks ###
 
@@ -46,6 +69,7 @@ Since v2.3.0 Ghost Kit has pre-made templates, so you can get started with it an
 * [**Google Maps**](https://ghostkit.io/blocks/google-maps/). Show maps with custom styles, markers and settings
 * [**GitHub Gist**](https://ghostkit.io/blocks/github-gist/). Embed code parts form GitHub Gist to your site or documentation
 * [**Changelog**](https://ghostkit.io/blocks/changelog/). Show the changes log of your product
+* [**Table of Contents**](https://ghostkit.io/blocks/table-of-contents/). Automatically generate a table of contents by parsing page headers in content
 * **Widgetized Area**. Select registered sidebars and put it in any place
 
 ### Extensions ##
@@ -108,84 +132,6 @@ Available filters:
 * **gkt_enqueue_plugin_gist_simple**
 * **gkt_enqueue_plugin_scrollreveal**
 
-### How to extend existing blocks ####
-
-You should use default Gutenberg hooks to extend blocks functionality. Read more here: https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations
-
-Ghost Kit also has Variants hooks, but please use default Gutenberg implementation called Styles, so you can extend not only Ghost Kit blocks but all available.
-
-Variants example:
-
-    add_filter( 'gkt_alert_variants', 'my_alert_variants' );
-
-    function my_alert_variants( $variants ) {
-        return array_merge( $variants, array(
-            'my_variant' => array(
-                'title' => esc_html__( 'My Variant', '@@text_domain' ),
-            ),
-        ) );
-    }
-
-Then, when editing block you will see the Variants select and on frontend you will see an additional classname on the block named `ghostkit-alert-variant-my_variant`
-
-Available filters:
-
-* **gkt_accordion_variants**
-* **gkt_accordion_item_variants**
-* **gkt_alert_variants**
-* **gkt_button_wrapper_variants**
-* **gkt_button_variants**
-* **gkt_carousel_variants**
-* **gkt_carousel_slide_variants**
-* **gkt_changelog_variants**
-* **gkt_counter_box_variants**
-* **gkt_divider_variants**
-* **gkt_gist_variants**
-* **gkt_google_maps_variants**
-* **gkt_grid_variants**
-* **gkt_grid_column_variants**
-* **gkt_icon_box_variants**
-* **gkt_instagram_variants**
-* **gkt_pricing_table_variants**
-* **gkt_pricing_table_item_variants**
-* **gkt_progress_variants**
-* **gkt_tabs_variants**
-* **gkt_tabs_tab_variants**
-* **gkt_testimonial_variants**
-* **gkt_twitter_variants**
-* **gkt_video_variants**
-
-### How to extend existing blocks classnames ####
-
-You can add additional classnames to blocks using JavaScript filters:
-
-    /**
-    * Classnames filter.
-    *
-    * @param {String} className Classname applied to save and edit element.
-    * @param {Object} props  Block props.
-    *
-    * @return {String} Classname.
-    */
-    function customClassName( className, props ) {
-        switch ( props.name ) {
-        case 'ghostkit/button-single':
-            className += ' my-classname';
-
-            break;
-        }
-
-        return className;
-    }
-
-    wp.hooks.addFilter( 'ghostkit.blocks.className', 'ghostkit/my-new-className', customClassName );
-    wp.hooks.addFilter( 'ghostkit.editor.className', 'ghostkit/my-new-className', customClassName );
-
-Available filters:
-
-* **ghostkit.blocks.className**
-* **ghostkit.editor.className**
-
 ### How to add templates in theme ####
 
 You can add templates in your theme, so users will be able to insert it on pages with a single click. This is a simple example of theme templates structure:
@@ -214,6 +160,56 @@ You can add templates in your theme, so users will be able to insert it on pages
     <!-- /wp:paragraph -->
 
 `thumbnail.png` is not required, but strongly recommended, because users will see what template will look like after insertion.
+
+### How to extend typography settings ####
+
+By default Typography options used for Body, Headings, and Buttons. You can add custom options by extending typography using PHP filter:
+
+    add_filter( 'gkt_custom_typography', 'my_gkt_custom_typography' );
+    function my_gkt_custom_typography( $custom_typography ) {
+
+        // Add typography options for `.my-selector`.
+        $custom_typography['my-selector'] = array(
+            'label' => esc_html__( 'My Selector', '@@text_domain' ),
+            'defaults' => array(
+                'font-family-category' => 'default',
+                'font-family' => '',
+                'font-size' => '',
+                'font-weight' => '',
+                'line-height' => '',
+                'letter-spacing' => '',
+            ),
+            'output' => array(
+                array(
+                    'selectors' => '.my-selector',
+                ),
+                array(
+                    'selectors' => '.editor-styles-wrapper .my-selector',
+                    'editor' => true,
+                ),
+            ),
+        );
+
+        // Add typography options for `.my-selector-2` with Font Size and Font Weight control only.
+        $custom_typography['my-selector-2'] = array(
+            'label' => esc_html__( 'My Selector 2', '@@text_domain' ),
+            'defaults' => array(
+                'font-size' => '10px',
+                'font-weight' => '600',
+            ),
+            'output' => array(
+                array(
+                    'selectors' => '.my-selector-2',
+                ),
+                array(
+                    'selectors' => '.editor-styles-wrapper .my-selector-2',
+                    'editor' => true,
+                ),
+            ),
+        );
+
+        return $icons;
+    }
 
 ### How to extend icons in icon picker list ####
 
@@ -247,6 +243,14 @@ By default icon picker contains FontAwesome icons. You can add any icons you wan
         wp_register_script( 'my-icons-pack', plugins_url( '/assets/my-icons-pack/script.min.js', __FILE__ ), array(), '1.0.0' );
     }
 
+### How to extend existing blocks ####
+
+You should use default Gutenberg hooks to extend blocks functionality. Read more here: https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations
+
+### How to extend existing blocks classnames ####
+
+You can extend Gutenberg blocks save attributes using core hooks. Read more here: https://developer.wordpress.org/block-editor/developers/filters/block-filters/#blocks-getsavecontent-extraprops
+
 ### jQuery frontend events ####
 
 On frontend there are a lot of jQuery events. Usage example:
@@ -265,8 +269,6 @@ Available events:
 * **afterPrepareCounters.ghostkit**
 * **beforeRunCounters.ghostkit**
 * **afterRunCounters.ghostkit**
-* **beforePrepareCustomStyles.ghostkit**
-* **afterPrepareCustomStyles.ghostkit**
 * **beforePrepareTabs.ghostkit**
 * **afterPrepareTabs.ghostkit**
 * **beforePrepareAccordions.ghostkit**
@@ -314,6 +316,35 @@ Available events:
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.6.1 =
+
+* fixed custom styles loading in reusable widget
+
+= 2.6.0 =
+
+* Warning! Changed custom styles rendering method. Recommended to go over all your posts and click on the Update button.
+* added Typography settings
+  * add Google Fonts globally site-wide
+  * add Google Fonts locally on the edited page only
+* added preview for all core blocks in editor for Spacings extension
+* added Table of Contents block
+* added Styles for core/list block
+* added Numbered Style for core/heading block
+* added Highlight format to WYSIWYG toolbar
+* added Spacings and Display extensions support for Instagram and Twitter blocks
+* improved Icon Picker
+  * improved performance
+  * added tooltips on each icon
+  * added toggle button for categories
+* improved performance of templates list loading
+* changed Progress minimum height to 1
+* changed Templates capability type to Post
+* changed all extensions to use native className attribute
+* fixed grid column bottom sticky
+* fixed blocks unique classnames regeneration every time when editor loads
+* fixed Carousels added inside Tabs
+* minor UI changes
 
 = 2.5.0 =
 

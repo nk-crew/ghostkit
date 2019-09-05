@@ -33,44 +33,6 @@
         }
     }
 
-    // add option select.
-    .ghostkit-customizer-select {
-        width: 100%;
-        margin-right: auto;
-        margin-bottom: 20px;
-
-        .ghostkit-customizer-select__control {
-            min-height: 28px;
-            border-radius: 0;
-
-            &.ghostkit-customizer-select__control-is-focused {
-                border: 1px solid #0366d6;
-                box-shadow: 0 0 0 2px #bfe7f3;
-            }
-            .ghostkit-customizer-select__dropdown-indicator {
-                padding: 4px;
-            }
-            .ghostkit-customizer-select__value-container,
-            .ghostkit-customizer-select__placeholder + div {
-                padding-top: 0;
-                padding-bottom: 0;
-            }
-        }
-        .ghostkit-customizer-select__menu {
-            width: calc(100% - 2px);
-            margin: 0 1px;
-            border-radius: 0;
-        }
-        .ghostkit-customizer-select__option {
-            padding-top: 4px;
-            padding-bottom: 4px;
-            word-wrap: break-word;
-        }
-        .ghostkit-customizer-select__input input:focus {
-            outline: none;
-            box-shadow: none;
-        }
-    }
     .components-placeholder__fieldset {
         z-index: 21;
     }

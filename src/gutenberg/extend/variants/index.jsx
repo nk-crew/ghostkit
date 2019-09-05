@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import classnames from 'classnames/dedupe';
-
-/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
@@ -21,6 +16,10 @@ const {
     createHigherOrderComponent,
 } = wp.compose;
 
+const {
+    hasBlockSupport,
+} = wp.blocks;
+
 const { InspectorControls } = wp.editor;
 
 const {
@@ -31,38 +30,51 @@ const {
 /**
  * Internal dependencies
  */
+import { getActiveClass, replaceClass } from '../../utils/classes-replacer';
+
 const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
 
 /**
- * Extend ghostkit block attributes with display.
+ * Get variant slug.
  *
- * @param {Object} settings Original block settings.
+ * @param {String} name block name.
  *
- * @return {Object} Filtered block settings.
+ * @return {String} slug.
  */
-function addAttribute( settings ) {
-    if ( ! /^ghostkit/.test( settings.name ) ) {
-        return settings;
+function getVariantSlug( name ) {
+    let result = name.split( '/' )[ 1 ].replace( /\-/g, '_' );
+    if ( 'tabs_v2' === result ) {
+        result = 'tabs';
+    } else if ( 'button' === result ) {
+        result = 'button_wrapper';
+    } else if ( 'button_single' === result ) {
+        result = 'button';
     }
 
-    if ( ! settings.attributes.variant ) {
-        settings.attributes.variant = {
-            type: 'string',
-            default: 'default',
-        };
+    return result;
+}
 
-        // add to deprecated items.
-        if ( settings.deprecated && settings.deprecated.length ) {
-            settings.deprecated.forEach( ( item, i ) => {
-                if ( settings.deprecated[ i ].attributes ) {
-                    settings.deprecated[ i ].attributes.variant = settings.attributes.variant;
-                }
-            } );
-        }
+/**
+ * Get variant classname prefix.
+ *
+ * @param {String} name block name.
+ *
+ * @return {String} classname prefix.
+ */
+function getVariantClassNamePrefix( name ) {
+    let result = name.replace( '/', '-' );
+
+    if ( 'ghostkit-button-single' === result ) {
+        result = 'ghostkit-button';
+    } else if ( 'ghostkit-button' === result ) {
+        result = 'ghostkit-button-wrapper';
+    } else if ( 'ghostkit-tabs-v2' === result ) {
+        result = 'ghostkit-tabs';
     }
-    return settings;
+
+    return result ? `${ result }-variant` : result;
 }
 
 /**
@@ -78,7 +90,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
         render() {
             const props = this.props;
 
-            if ( ! /^ghostkit/.test( props.name ) ) {
+            if ( ! /^ghostkit/.test( props.name ) || ! hasBlockSupport( props.name, 'customClassName', true ) ) {
                 return <OriginalComponent { ...props } />;
             }
 
@@ -86,24 +98,19 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 attributes,
                 setAttributes,
             } = props;
+
             const {
-                variant,
+                className,
             } = attributes;
 
-            let variantBlockName = props.name.split( '/' )[ 1 ].replace( /\-/g, '_' );
-            if ( 'tabs_v2' === variantBlockName ) {
-                variantBlockName = 'tabs';
-            } else if ( 'button' === variantBlockName ) {
-                variantBlockName = 'button_wrapper';
-            } else if ( 'button_single' === variantBlockName ) {
-                variantBlockName = 'button';
-            }
-
-            const availableVariants = GHOSTKIT.getVariants( variantBlockName );
+            const availableVariants = GHOSTKIT.getVariants( getVariantSlug( props.name ) );
 
             if ( Object.keys( availableVariants ).length < 2 ) {
                 return <OriginalComponent { ...props } />;
             }
+
+            const variantClassNamePrefix = getVariantClassNamePrefix( props.name );
+            const variant = getActiveClass( className, variantClassNamePrefix, true );
 
             // add new display controls.
             return (
@@ -122,7 +129,13 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     value: key,
                                     label: availableVariants[ key ].title,
                                 } ) ) }
-                                onChange={ ( value ) => setAttributes( { variant: value } ) }
+                                onChange={ ( value ) => {
+                                    const newClassName = replaceClass( className, variantClassNamePrefix, value === 'default' ? '' : value );
+
+                                    setAttributes( {
+                                        className: newClassName,
+                                    } );
+                                } }
                             />
                         </PanelBody>
                     </InspectorControls>
@@ -138,39 +151,5 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
     return GhostKitVariantsWrapper;
 }, 'withInspectorControl' );
 
-/**
- * Add variant classname.
- *
- * @param {string} classname - current classname.
- * @param {object} { name, attributes } - block props.
- * @return {string} - changed classname.
- */
-function addClassname( classname, { name, attributes } ) {
-    if ( attributes && attributes.variant && 'default' !== attributes.variant ) {
-        // change some slugs
-        if ( 'ghostkit/button-single' === name ) {
-            name = 'ghostkit-button';
-        }
-        if ( 'ghostkit/button' === name ) {
-            name = 'ghostkit-button-wrapper';
-        }
-        if ( 'ghostkit/tabs-v2' === name ) {
-            name = 'ghostkit-tabs';
-        }
-
-        if ( name ) {
-            classname = classnames(
-                classname,
-                `${ name.replace( '/', '-' ) }-variant-${ attributes.variant }`
-            );
-        }
-    }
-
-    return classname;
-}
-
 // Init filters.
-addFilter( 'blocks.registerBlockType', 'ghostkit/variants/additional-attributes', addAttribute );
 addFilter( 'editor.BlockEdit', 'ghostkit/variants/additional-controls', withInspectorControl );
-addFilter( 'ghostkit.editor.className', 'ghostkit/variants/additional-classname', addClassname );
-addFilter( 'ghostkit.blocks.className', 'ghostkit/variants/additional-classname', addClassname );

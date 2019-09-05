@@ -1,0 +1,24 @@
+{
+	"name": "ghostkit/table-of-contents",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "align": [ "wide", "full" ],
+        "multiple": false
+    },
+    "attributes": {
+        "title": {
+            "type": "string",
+            "default": "Table of Contents"
+        },
+        "listStyle": {
+            "type": "string",
+            "default": "ol-styled"
+        },
+        "allowedHeaders": {
+            "type": "array",
+            "default": [2, 3, 4]
+        }
+    }
+}

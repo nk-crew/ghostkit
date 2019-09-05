@@ -1,0 +1,60 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+@mixin printHeadingNumbered($level) {
+    $selector: "";
+    $content: "";
+
+    h#{$level}.is-style-numbered {
+        @if $level + 1 <= 6 {
+            counter-reset: h#{$level + 1};
+        }
+        counter-increment: h#{$level};
+    }
+
+    @for $i from $level through 2 {
+        @if $selector != "" {
+            $selector: " ~ " + $selector;
+        }
+        @if $content != "" {
+            $content: " \".\" " + $content;
+        }
+
+        $selector: "h#{$i}.is-style-numbered" + $selector;
+        $content: "counter(h#{$i})" + $content;
+
+        #{$selector}::before {
+            content: #{$content};
+        }
+    }
+}
+
+.is-style-numbered::before {
+    margin: 0;
+    margin-right: .4em;
+}
+
+// Styled h2
+h2.is-style-numbered::before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6em;
+    height: 1.6em;
+    line-height: 1;
+    background-color: rgba(204, 204, 204, .2);
+    border-radius: 50%;
+}
+
+.entry-content {
+    counter-reset: h2;
+}
+
+// Add numbers
+@include printHeadingNumbered(2);
+@include printHeadingNumbered(3);
+@include printHeadingNumbered(4);
+@include printHeadingNumbered(5);
+@include printHeadingNumbered(6);

@@ -21,6 +21,7 @@ import blockTestimonial from '../icons/block-testimonial.svg';
 import blockTwitter from '../icons/block-twitter.svg';
 import blockVideo from '../icons/block-video.svg';
 import blockWidgetizedArea from '../icons/block-widgetized-area.svg';
+import blockTableOfContents from '../icons/block-table-of-contents.svg';
 
 import pluginGhostkit from '../icons/plugin-ghostkit.svg';
 import pluginTemplates from '../icons/plugin-templates.svg';
@@ -58,6 +59,8 @@ import iconCollapse from '../icons/icon-collapse.svg';
 import iconMarker from '../icons/icon-marker.svg';
 import iconTextUppercase from '../icons/icon-text-uppercase.svg';
 import iconMap from '../icons/icon-map.svg';
+import iconBadge from '../icons/icon-badge.svg';
+import iconFeltPen from '../icons/icon-felt-pen.svg';
 import iconKebabMenu from '../icons/icon-kebab-menu.svg';
 import iconAspectRatio32 from '../icons/icon-aspect-ratio-3-2.svg';
 import iconAspectRatio43 from '../icons/icon-aspect-ratio-4-3.svg';
@@ -88,6 +91,7 @@ export default {
     'block-twitter': blockTwitter,
     'block-video': blockVideo,
     'block-widgetized-area': blockWidgetizedArea,
+    'block-table-of-contents': blockTableOfContents,
 
     'plugin-ghostkit': pluginGhostkit,
     'plugin-templates': pluginTemplates,
@@ -125,6 +129,8 @@ export default {
     'icon-marker': iconMarker,
     'icon-text-uppercase': iconTextUppercase,
     'icon-map': iconMap,
+    'icon-badge': iconBadge,
+    'icon-felt-pen': iconFeltPen,
     'icon-kebab-menu': iconKebabMenu,
     'icon-aspect-ratio-3-2': iconAspectRatio32,
     'icon-aspect-ratio-4-3': iconAspectRatio43,

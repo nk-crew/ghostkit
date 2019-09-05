@@ -6,3 +6,4 @@ import './styles';
 import './spacings';
 import './display';
 import './scroll-reveal';
+import './toc-headings';

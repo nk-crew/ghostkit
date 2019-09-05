@@ -2,8 +2,8 @@
  * External dependencies
  */
 import shorthash from 'shorthash';
-import classnames from 'classnames/dedupe';
 import deepEqual from 'deep-equal';
+import { throttle } from 'throttle-debounce';
 
 /**
  * WordPress dependencies
@@ -33,133 +33,225 @@ const {
 /**
  * Internal dependencies
  */
-import camelCaseToDash from '../../utils/camel-case-to-dash';
+import './fallback-2-5';
+import getStyles from './get-styles';
+import { replaceClass } from '../../utils/classes-replacer';
 
 const { GHOSTKIT } = window;
 
-const cssPropsWithPixels = [ 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-width', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-radius', 'bottom', 'top', 'left', 'right', 'font-size', 'height', 'width', 'min-height', 'min-width', 'max-height', 'max-width', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', 'margin', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', 'padding', 'outline-width' ];
-
 /**
- * Get styles from object.
- *
- * @param {object} data - styles data.
- * @param {string} selector - current styles selector (useful for nested styles).
- * @param {boolean} escape - escape strings to save in database.
- * @return {string} - ready to use styles string.
+ * Custom Styles Component.
  */
-const getStyles = ( data = {}, selector = '', escape = true ) => {
-    const result = {};
-    let resultCSS = '';
+class CustomStylesComponent extends Component {
+    constructor() {
+        super( ...arguments );
 
-    // add styles.
-    Object.keys( data ).map( ( key ) => {
-        // object values.
-        if ( data[ key ] !== null && typeof data[ key ] === 'object' ) {
-            // media for different screens
-            if ( /^media_/.test( key ) ) {
-                resultCSS += ( resultCSS ? ' ' : '' ) + `@media #{ghostkitvar:${ key }} { ${ getStyles( data[ key ], selector, escape ) } }`;
-
-            // @supports css
-            } else if ( /^@supports/.test( key ) ) {
-                resultCSS += ( resultCSS ? ' ' : '' ) + `${ key } { ${ getStyles( data[ key ], selector, escape ) } }`;
-
-            // nested selectors.
-            } else {
-                let nestedSelector = selector;
-                if ( nestedSelector ) {
-                    if ( key.indexOf( '&' ) !== -1 ) {
-                        nestedSelector = key.replace( /&/g, nestedSelector );
-
-                    // inside exported xml file all & symbols converted to \u0026
-                    } else if ( key.indexOf( 'u0026' ) !== -1 ) {
-                        nestedSelector = key.replace( /u0026/g, nestedSelector );
-                    } else {
-                        nestedSelector = `${ nestedSelector } ${ key }`;
-                    }
-                } else {
-                    nestedSelector = key;
-                }
-                resultCSS += ( resultCSS ? ' ' : '' ) + getStyles( data[ key ], nestedSelector, escape );
-            }
-
-        // style properties and values.
-        } else if ( typeof data[ key ] !== 'undefined' && data[ key ] !== false ) {
-            // fix selector > and < usage.
-            if ( escape ) {
-                selector = selector.replace( />/g, '&gt;' );
-                selector = selector.replace( /</g, '&lt;' );
-            }
-
-            // inside exported xml file all > symbols converted to \u003e
-            // inside exported xml file all < symbols converted to \u003c
-            if ( selector.indexOf( 'u003e' ) !== -1 ) {
-                selector = selector.replace( /u003e/g, '&gt;' );
-                selector = selector.replace( /u003c/g, '&lt;' );
-            }
-
-            if ( ! result[ selector ] ) {
-                result[ selector ] = '';
-            }
-            const propName = camelCaseToDash( key );
-            let propValue = data[ key ];
-
-            // inside exported xml file all " symbols converted to \u0022
-            if ( typeof propValue === 'string' && propValue.indexOf( 'u0022' ) !== -1 ) {
-                propValue = propValue.replace( /u0022/g, '"' );
-            }
-            // inside exported xml file all ' symbols converted to \u0027
-            if ( typeof propValue === 'string' && propValue.indexOf( 'u0027' ) !== -1 ) {
-                propValue = propValue.replace( /u0027/g, '\'' );
-            }
-
-            const thereIsImportant = / !important$/.test( propValue );
-            if ( thereIsImportant ) {
-                propValue = propValue.replace( / !important$/, '' );
-            }
-
-            // add pixels.
-            if (
-                ( typeof propValue === 'number' && propValue !== 0 && cssPropsWithPixels.includes( propName ) ) ||
-                ( typeof propValue === 'string' && /^[0-9.\-]*$/.test( propValue ) )
-            ) {
-                propValue += 'px';
-            }
-
-            if ( thereIsImportant ) {
-                propValue += ' !important';
-            }
-
-            result[ selector ] += ` ${ propName }: ${ propValue };`;
-        }
-    } );
-
-    // add styles to selectors.
-    Object.keys( result ).map( ( key ) => {
-        resultCSS = `${ key } {${ result[ key ] } }${ resultCSS ? ` ${ resultCSS }` : '' }`;
-    } );
-
-    return resultCSS;
-};
-
-/**
- * Get styles attribute.
- *
- * @param {object} data - styles data.
- * @param {object} blockType - styles data.
- * @param {object} attributes - block attributes.
- * @return {string} - data attribute with styles.
- */
-const getCustomStylesAttr = ( data = {}, blockType, attributes ) => {
-    let styles = getStyles( data );
-
-    if ( blockType.ghostkit && blockType.ghostkit.customStylesFilter ) {
-        styles = blockType.ghostkit.customStylesFilter( styles, data, false, attributes );
+        this.onUpdate = throttle( 60, this.onUpdate.bind( this ) );
+        this.getGhostKitAtts = this.getGhostKitAtts.bind( this );
     }
 
+    componentDidMount() {
+        this.onUpdate( true );
+    }
+    componentDidUpdate() {
+        this.onUpdate();
+    }
+
+    onUpdate( checkDuplicates ) {
+        const {
+            setAttributes,
+            attributes,
+            blockSettings,
+        } = this.props;
+
+        let {
+            className,
+        } = attributes;
+
+        const newAttrs = {};
+
+        // prepare custom block styles.
+        const blockCustomStyles = applyFilters(
+            'ghostkit.blocks.customStyles',
+            blockSettings.ghostkit && blockSettings.ghostkit.customStylesCallback ? blockSettings.ghostkit.customStylesCallback( attributes, this.props ) : {},
+            this.props
+        );
+
+        if ( blockCustomStyles && Object.keys( blockCustomStyles ).length ) {
+            const ghostkitAtts = this.getGhostKitAtts( checkDuplicates );
+
+            if ( ghostkitAtts.ghostkitClassname ) {
+                let updateAttrs = false;
+
+                let customClassName = `.${ attributes.ghostkitClassname }`;
+
+                if ( blockSettings.ghostkit && blockSettings.ghostkit.customSelector ) {
+                    customClassName = blockSettings.ghostkit.customSelector( customClassName, this.props );
+                }
+
+                newAttrs.ghostkitStyles = {
+                    [ customClassName ]: blockCustomStyles,
+                };
+
+                if ( ghostkitAtts.ghostkitClassname !== attributes.ghostkitClassname ) {
+                    newAttrs.ghostkitClassname = ghostkitAtts.ghostkitClassname;
+                    updateAttrs = true;
+                }
+                if ( ghostkitAtts.ghostkitId !== attributes.ghostkitId ) {
+                    newAttrs.ghostkitId = ghostkitAtts.ghostkitId;
+                    updateAttrs = true;
+                }
+
+                // Regenerate custom classname if it was removed or changed.
+                const newClassName = replaceClass( className, 'ghostkit-custom', ghostkitAtts.ghostkitId );
+                if ( newClassName !== className ) {
+                    newAttrs.className = newClassName;
+                }
+
+                updateAttrs = updateAttrs || ! deepEqual( attributes.ghostkitStyles, newAttrs.ghostkitStyles );
+
+                if ( updateAttrs ) {
+                    setAttributes( newAttrs );
+                }
+            }
+        } else if ( attributes.ghostkitStyles ) {
+            className = replaceClass( className, 'ghostkit-custom', '' );
+
+            setAttributes( {
+                ghostkitClassname: '',
+                ghostkitId: '',
+                ghostkitStyles: '',
+                className,
+            } );
+        }
+    }
+
+    /**
+     * Get recursive all blocks of the current page
+     *
+     * @param {boolean} blocks - block list
+     *
+     * @return {array} block list
+     */
+    getAllBlocks( blocks = false ) {
+        let result = [];
+
+        if ( ! blocks ) {
+            blocks = wp.data.select( 'core/editor' ).getBlocks();
+        }
+
+        if ( ! blocks ) {
+            return result;
+        }
+
+        blocks.forEach( ( data ) => {
+            result.push( data );
+
+            if ( data.innerBlocks && data.innerBlocks.length ) {
+                result = [
+                    ...result,
+                    ...this.getAllBlocks( data.innerBlocks ),
+                ];
+            }
+        } );
+
+        return result;
+    }
+
+    getGhostKitAtts( checkDuplicates ) {
+        const {
+            attributes,
+            clientId,
+        } = this.props;
+
+        let {
+            ghostkitId,
+            ghostkitClassname,
+        } = attributes;
+
+        // create block ID.
+        if ( ! ghostkitId || checkDuplicates ) {
+            const usedIds = {};
+
+            // prevent unique ID duplication after block duplicated.
+            if ( checkDuplicates ) {
+                const allBlocks = this.getAllBlocks();
+                allBlocks.forEach( ( data ) => {
+                    if ( data.clientId && data.attributes && data.attributes.ghostkitId ) {
+                        usedIds[ data.attributes.ghostkitId ] = data.clientId;
+
+                        if ( data.clientId !== clientId && data.attributes.ghostkitId === ghostkitId ) {
+                            ghostkitId = '';
+                        }
+                    }
+                } );
+            }
+
+            // prepare new block id.
+            if ( clientId && ! ghostkitId && typeof ghostkitId !== 'undefined' ) {
+                let ID = ghostkitId || '';
+
+                // check if ID already exist.
+                let tryCount = 10;
+                while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== clientId && tryCount > 0 ) ) {
+                    ID = shorthash.unique( clientId );
+                    tryCount--;
+                }
+
+                if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
+                    usedIds[ ID ] = clientId;
+                }
+
+                if ( ID !== ghostkitId ) {
+                    ghostkitId = ID;
+                    ghostkitClassname = `ghostkit-custom-${ ID }`;
+                }
+            }
+        }
+
+        if ( ghostkitId && ghostkitClassname ) {
+            return {
+                ghostkitId: ghostkitId,
+                ghostkitClassname: ghostkitClassname,
+            };
+        }
+
+        return {};
+    }
+
+    render() {
+        const {
+            attributes,
+            blockSettings,
+        } = this.props;
+
+        if (
+            ! attributes.ghostkitClassname ||
+            ! attributes.ghostkitStyles ||
+            ! Object.keys( attributes.ghostkitStyles ).length
+        ) {
+            return '';
+        }
+
+        let styles = getStyles( attributes.ghostkitStyles, '', false );
+
+        if ( blockSettings && blockSettings.ghostkit && blockSettings.ghostkit.customStylesFilter ) {
+            styles = blockSettings.ghostkit.customStylesFilter( styles, attributes.ghostkitStyles, true, attributes );
+        }
+
+        return (
+            <style>
+                { window.GHOSTKIT.replaceVars( styles ) }
+            </style>
+        );
+    }
+}
+
+CustomStylesComponent = withSelect( ( select, ownProps ) => {
     return {
-        'data-ghostkit-styles': styles,
+        blockSettings: getBlockType( ownProps.name ),
     };
-};
+} )( CustomStylesComponent );
 
 /**
  * Extend block attributes with styles.
@@ -202,45 +294,18 @@ function addAttribute( blockSettings, name ) {
                     type: 'object',
                     default: '',
                 };
-
-                // add to deprecated items.
-                if ( settings.deprecated && settings.deprecated.length ) {
-                    settings.deprecated.forEach( ( item, i ) => {
-                        if ( settings.deprecated[ i ].attributes ) {
-                            settings.deprecated[ i ].attributes.ghostkitStyles = settings.attributes.ghostkitStyles;
-                        }
-                    } );
-                }
             }
             if ( ! settings.attributes.ghostkitClassname ) {
                 settings.attributes.ghostkitClassname = {
                     type: 'string',
                     default: '',
                 };
-
-                // add to deprecated items.
-                if ( settings.deprecated && settings.deprecated.length ) {
-                    settings.deprecated.forEach( ( item, i ) => {
-                        if ( settings.deprecated[ i ].attributes ) {
-                            settings.deprecated[ i ].attributes.ghostkitClassname = settings.attributes.ghostkitClassname;
-                        }
-                    } );
-                }
             }
             if ( ! settings.attributes.ghostkitId ) {
                 settings.attributes.ghostkitId = {
                     type: 'string',
                     default: '',
                 };
-
-                // add to deprecated items.
-                if ( settings.deprecated && settings.deprecated.length ) {
-                    settings.deprecated.forEach( ( item, i ) => {
-                        if ( settings.deprecated[ i ].attributes ) {
-                            settings.deprecated[ i ].attributes.ghostkitId = settings.attributes.ghostkitId;
-                        }
-                    } );
-                }
             }
 
             settings = applyFilters( 'ghostkit.blocks.withCustomStyles', settings, name );
@@ -286,243 +351,17 @@ function addAttributeTransform( transformedBlock, blocks ) {
  * @return {string} Wrapped component.
  */
 const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
-    class newEdit extends Component {
-        constructor() {
-            super( ...arguments );
-
-            this.onUpdate = this.onUpdate.bind( this );
-            this.getGhostKitAtts = this.getGhostKitAtts.bind( this );
-        }
-
-        componentDidMount() {
-            this.onUpdate( true );
-        }
-        componentDidUpdate() {
-            this.onUpdate();
-        }
-
-        onUpdate( checkDuplicates ) {
-            const {
-                setAttributes,
-                attributes,
-                blockSettings,
-            } = this.props;
-
-            const newAttrs = {};
-
-            // prepare custom block styles.
-            const blockCustomStyles = applyFilters(
-                'ghostkit.blocks.customStyles',
-                blockSettings.ghostkit && blockSettings.ghostkit.customStylesCallback ? blockSettings.ghostkit.customStylesCallback( attributes, this.props ) : {},
-                this.props
-            );
-
-            if ( blockCustomStyles && Object.keys( blockCustomStyles ).length ) {
-                const ghostkitAtts = this.getGhostKitAtts( checkDuplicates );
-
-                if ( ghostkitAtts.ghostkitClassname ) {
-                    let updateAttrs = false;
-
-                    let className = `.${ attributes.ghostkitClassname }`;
-
-                    if ( blockSettings.ghostkit && blockSettings.ghostkit.customSelector ) {
-                        className = blockSettings.ghostkit.customSelector( className, this.props );
-                    }
-
-                    newAttrs.ghostkitStyles = {
-                        [ className ]: blockCustomStyles,
-                    };
-
-                    if ( ghostkitAtts.ghostkitClassname !== attributes.ghostkitClassname ) {
-                        newAttrs.ghostkitClassname = ghostkitAtts.ghostkitClassname;
-                        updateAttrs = true;
-                    }
-                    if ( ghostkitAtts.ghostkitId !== attributes.ghostkitId ) {
-                        newAttrs.ghostkitId = ghostkitAtts.ghostkitId;
-                        updateAttrs = true;
-                    }
-
-                    updateAttrs = updateAttrs || ! deepEqual( attributes.ghostkitStyles, newAttrs.ghostkitStyles );
-
-                    if ( updateAttrs ) {
-                        setAttributes( newAttrs );
-                    }
-                }
-            } else if ( attributes.ghostkitStyles ) {
-                setAttributes( {
-                    ghostkitClassname: '',
-                    ghostkitId: '',
-                    ghostkitStyles: '',
-                } );
-            }
-        }
-
-        /**
-         * Get recursive all blocks of the current page
-         *
-         * @param {boolean} blocks - block list
-         *
-         * @return {array} block list
-         */
-        getAllBlocks( blocks = false ) {
-            let result = [];
-
-            if ( ! blocks ) {
-                blocks = wp.data.select( 'core/editor' ).getBlocks();
-            }
-
-            if ( ! blocks ) {
-                return result;
-            }
-
-            blocks.forEach( ( data ) => {
-                result.push( data );
-
-                if ( data.innerBlocks && data.innerBlocks.length ) {
-                    result = [
-                        ...result,
-                        ...this.getAllBlocks( data.innerBlocks ),
-                    ];
-                }
-            } );
-
-            return result;
-        }
-
-        getGhostKitAtts( checkDuplicates ) {
-            const {
-                attributes,
-                clientId,
-                name,
-            } = this.props;
-
-            let {
-                ghostkitId,
-                ghostkitClassname,
-            } = attributes;
-
-            // create block ID.
-            if ( ! ghostkitId || checkDuplicates ) {
-                const usedIds = {};
-
-                // prevent unique ID duplication after block duplicated.
-                if ( checkDuplicates ) {
-                    const allBlocks = this.getAllBlocks();
-                    allBlocks.forEach( ( data ) => {
-                        if ( data.clientId && data.attributes && data.attributes.ghostkitId ) {
-                            usedIds[ data.attributes.ghostkitId ] = data.clientId;
-
-                            if ( data.clientId !== clientId && data.attributes.ghostkitId === ghostkitId ) {
-                                ghostkitId = '';
-                            }
-                        }
-                    } );
-                }
-
-                // prepare new block id.
-                if ( clientId && ! ghostkitId && typeof ghostkitId !== 'undefined' ) {
-                    let ID = ghostkitId || '';
-
-                    // check if ID already exist.
-                    let tryCount = 10;
-                    while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== clientId && tryCount > 0 ) ) {
-                        ID = shorthash.unique( clientId );
-                        tryCount--;
-                    }
-
-                    if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
-                        usedIds[ ID ] = clientId;
-                    }
-
-                    if ( ID !== ghostkitId ) {
-                        ghostkitId = ID;
-                        ghostkitClassname = name.replace( '/', '-' ) + '-' + ID;
-                    }
-                }
-            }
-
-            if ( ghostkitId && ghostkitClassname ) {
-                return {
-                    ghostkitId: ghostkitId,
-                    ghostkitClassname: ghostkitClassname,
-                };
-            }
-
-            return {};
-        }
-
-        render() {
-            const {
-                attributes,
-                blockSettings,
-            } = this.props;
-
-            if ( attributes.ghostkitClassname && attributes.ghostkitStyles && Object.keys( attributes.ghostkitStyles ).length !== 0 ) {
-                let styles = getStyles( attributes.ghostkitStyles, '', false );
-
-                if ( blockSettings && blockSettings.ghostkit && blockSettings.ghostkit.customStylesFilter ) {
-                    styles = blockSettings.ghostkit.customStylesFilter( styles, attributes.ghostkitStyles, true, attributes );
-                }
-
-                return (
-                    <Fragment>
-                        <BlockEdit { ...this.props } />
-                        <style>{ window.GHOSTKIT.replaceVars( styles ) }</style>
-                    </Fragment>
-                );
-            }
-
-            return <BlockEdit { ...this.props } />;
-        }
-    }
-
-    return withSelect( ( select, ownProps ) => {
-        return {
-            blockSettings: getBlockType( ownProps.name ),
-        };
-    } )( newEdit );
+    return function( props ) {
+        return (
+            <Fragment>
+                <BlockEdit { ...props } />
+                <CustomStylesComponent { ...props } />
+            </Fragment>
+        );
+    };
 }, 'withNewAttrs' );
-
-/**
- * Add block custom classname.
- *
- * @param {string} className block editor/save classname
- * @param {object} { attributes } - block attributes
- * @return {string} changed classname
- */
-function blocksEditorCustomClassName( className, { attributes } ) {
-    if ( attributes.ghostkitClassname ) {
-        className = classnames( className, attributes.ghostkitClassname );
-    }
-
-    return className;
-}
-
-/**
- * Override props assigned to save component to inject custom styles.
- * This is only applied if the block's save result is an
- * element and not a markup string.
- *
- * @param {Object} extraProps Additional props applied to save element.
- * @param {Object} blockType  Block type.
- * @param {Object} attributes Current block attributes.
- *
- * @return {Object} Filtered props applied to save element.
- */
-function addSaveProps( extraProps, blockType, attributes ) {
-    const customStyles = attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false;
-
-    if ( customStyles && Object.keys( customStyles ).length !== 0 ) {
-        extraProps = Object.assign( extraProps || {}, getCustomStylesAttr( customStyles, blockType, attributes ) );
-        extraProps.className = blocksEditorCustomClassName( extraProps.className, { attributes } );
-    }
-
-    return extraProps;
-}
 
 // Init filters.
 addFilter( 'blocks.registerBlockType', 'ghostkit/styles/additional-attributes', addAttribute );
 addFilter( 'blocks.switchToBlockType.transformedBlock', 'ghostkit/styles/additional-attributes', addAttributeTransform );
 addFilter( 'editor.BlockEdit', 'ghostkit/styles/additional-attributes', withNewAttrs );
-addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/styles/save-props', addSaveProps );
-addFilter( 'ghostkit.editor.className', 'ghostkit/editor/custom-class-name', blocksEditorCustomClassName );
