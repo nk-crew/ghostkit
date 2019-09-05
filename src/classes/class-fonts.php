@@ -61,9 +61,17 @@ class GhostKit_Fonts {
                     ! empty( $typography[ 'defaults' ][ 'font-family' ] ) &&
                     isset( $typography[ 'defaults' ][ 'font-family-category' ] ) &&
                     ! empty( $typography[ 'defaults' ][ 'font-family-category' ] ) ) {
+
+                    $weight = '';
+                    if ( isset( $typography[ 'defaults' ][ 'font-weight' ] ) &&
+                        ! empty( $typography[ 'defaults' ][ 'font-weight' ] ) ) {
+                        $weight = $typography[ 'defaults' ][ 'font-weight' ];
+                    }
+
                     $fonts[] = array(
                         'family' => $typography[ 'defaults' ][ 'font-family-category' ],
                         'label' => $typography[ 'defaults' ][ 'font-family' ],
+                        'weight' => $weight,
                     );
                 }
             }
@@ -78,9 +86,17 @@ class GhostKit_Fonts {
                         ! empty( $global_typography_value->fontFamily ) &&
                         isset( $global_typography_value->fontFamilyCategory ) &&
                         ! empty( $global_typography_value->fontFamilyCategory ) ) {
+
+                        $weight = '';
+                        if ( isset( $global_typography_value->fontWeight ) &&
+                            ! empty( $global_typography_value->fontWeight ) ) {
+                            $weight = $global_typography_value->fontWeight;
+                        }
+
                         $fonts[] = array(
                             'family' => $global_typography_value->fontFamilyCategory,
                             'label' => $global_typography_value->fontFamily,
+                            'weight' => $weight,
                         );
                     }
                 }
@@ -99,9 +115,17 @@ class GhostKit_Fonts {
                             ! empty( $meta_typography_value->fontFamily ) &&
                             isset( $meta_typography_value->fontFamilyCategory ) &&
                             ! empty( $meta_typography_value->fontFamilyCategory ) ) {
+
+                            $weight = '';
+                            if ( isset( $meta_typography_value->fontWeight ) &&
+                                ! empty( $meta_typography_value->fontWeight ) ) {
+                                $weight = $meta_typography_value->fontWeight;
+                            }
+
                             $fonts[] = array(
                                 'family' => $meta_typography_value->fontFamilyCategory,
                                 'label' => $meta_typography_value->fontFamily,
+                                'weight' => $weight,
                             );
                         }
                     }
@@ -116,12 +140,61 @@ class GhostKit_Fonts {
             if ( isset( $font[ 'family' ] ) && ! empty( $font[ 'family' ] ) ) {
                 foreach( $fonts_list[ $font[ 'family' ] ][ 'fonts' ] as $find_font ) {
                     if ( $font[ 'label' ] === $find_font[ 'name' ] ) {
+                        $weights = array();
+                        $weight = ( isset( $font[ 'weight' ] ) && ! empty( $font[ 'weight' ] ) ) ? $font[ 'weight' ] : '';
                         $widths = ( isset( $find_font[ 'widths' ] ) && ! empty( $find_font[ 'widths' ] ) ) ? $find_font[ 'widths' ] : '';
                         $category = ( isset( $find_font[ 'category' ] ) && ! empty( $find_font[ 'category' ] ) ) ? $find_font[ 'category' ] : '';
                         $subsets = ( isset( $find_font[ 'subsets' ] ) && ! empty( $find_font[ 'subsets' ] ) ) ? $find_font[ 'subsets' ] : '';
 
+                        if ( $weight !== '' ) {
+                            $weight = str_replace( 'i', '', $weight);
+
+                            if ( $weight !== '600' &&
+                                $weight !== '700' &&
+                                $weight !== '800' &&
+                                $weight !== '900' ) {
+
+                                $insert_weights = array(
+                                    $weight,
+                                    $weight . 'i',
+                                    '700',
+                                    '700i',
+                                );
+
+                                foreach ( $insert_weights as $insert_weight ) {
+                                    if ( array_search( $insert_weight, $widths ) !== false ) {
+                                        $weights[] = $insert_weight;
+                                    }
+                                }
+                            } else {
+                                $insert_weights = array(
+                                    $weight,
+                                    $weight . 'i',
+                                );
+
+                                foreach ( $insert_weights as $insert_weight ) {
+                                    if ( array_search( $insert_weight, $widths ) !== false ) {
+                                        $weights[] = $insert_weight;
+                                    }
+                                }
+                            }
+                        } else {
+                            $insert_weights = array(
+                                '400',
+                                '400i',
+                                '700',
+                                '700i',
+                            );
+
+                            foreach ( $insert_weights as $insert_weight ) {
+                                if ( array_search( $insert_weight, $widths ) !== false ) {
+                                    $weights[] = $insert_weight;
+                                }
+                            }
+                        }
+
                         $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ] = array(
-                            'widths' => $widths,
+                            'widths' => $weights,
                             'category' => $category,
                             'subsets' => $subsets,
                         );
