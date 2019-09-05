@@ -192,6 +192,7 @@ class GhostKit_Fonts {
                                 }
                             }
                         }
+
                         if ( isset( $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ] ) ) {
                             if ( isset( $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ][ 'widths' ] ) &&
                                 ! empty( $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ][ 'widths' ] ) &&
@@ -199,6 +200,7 @@ class GhostKit_Fonts {
                                 $weights =  array_unique( array_merge_recursive( $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ][ 'widths' ], $weights ) );
                             }
                         }
+
                         $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ] = array(
                             'widths' => $weights,
                             'category' => $category,
