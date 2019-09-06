@@ -41,6 +41,7 @@ const {
  * Internal dependencies
  */
 import parseSRConfig from './parseSRConfig';
+import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
 
 const $ = window.jQuery;
@@ -48,17 +49,6 @@ const $ = window.jQuery;
 const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
-
-/**
- * Add support for core blocks.
- *
- * @param {String} name - block name.
- *
- * @return {Boolean} block supported.
- */
-function addCoreBlocksSupport( name ) {
-    return name && /^core/.test( name ) && ! /^core\/block$/.test( name ) && ! /^core\/archives/.test( name );
-}
 
 /**
  * Check if block SR allowed.
@@ -77,7 +67,7 @@ function allowedSR( data ) {
     if ( ! allow ) {
         allow = data && data.attributes && applyFilters(
             'ghostkit.blocks.allowScrollReveal',
-            addCoreBlocksSupport( data.name ),
+            checkCoreBlock( data.name ),
             data,
             data.name
         );

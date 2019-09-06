@@ -38,6 +38,7 @@ const {
 /**
  * Internal dependencies
  */
+import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
 import InputDrag from '../../components/input-drag';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
@@ -164,7 +165,7 @@ class SpacingsComponent extends Component {
         }
 
         if ( ! allow ) {
-            allow = addCoreBlocksSupport( props.name );
+            allow = checkCoreBlock( props.name );
             allow = applyFilters(
                 'ghostkit.blocks.allowSpacings',
                 allow,
@@ -328,17 +329,6 @@ class SpacingsComponent extends Component {
 }
 
 /**
- * Add support for core blocks.
- *
- * @param {String} name - block name.
- *
- * @return {Boolean} block supported.
- */
-function addCoreBlocksSupport( name ) {
-    return name && /^core/.test( name ) && ! /^core\/block$/.test( name ) && ! /^core\/archives/.test( name );
-}
-
-/**
  * Allow custom styles in blocks.
  *
  * @param {Boolean} allow Original block allow custom styles.
@@ -352,7 +342,7 @@ function allowCustomStyles( allow, settings ) {
     }
 
     if ( ! allow ) {
-        allow = addCoreBlocksSupport( settings.name );
+        allow = checkCoreBlock( settings.name );
         allow = applyFilters(
             'ghostkit.blocks.allowSpacings',
             allow,
@@ -384,7 +374,7 @@ function addAttribute( settings ) {
     }
 
     if ( ! allow ) {
-        allow = addCoreBlocksSupport( settings.name );
+        allow = checkCoreBlock( settings.name );
         allow = applyFilters(
             'ghostkit.blocks.allowSpacings',
             allow,

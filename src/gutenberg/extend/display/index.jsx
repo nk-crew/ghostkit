@@ -33,6 +33,7 @@ const {
 /**
  * Internal dependencies
  */
+import checkCoreBlock from '../check-core-block';
 import { getActiveClass, replaceClass, addClass, removeClass, hasClass } from '../../utils/classes-replacer';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 import getIcon from '../../utils/get-icon';
@@ -65,17 +66,6 @@ const getDefaultDisplay = function( screen = '' ) {
         },
     ];
 };
-
-/**
- * Add support for core blocks.
- *
- * @param {String} name - block name.
- *
- * @return {Boolean} block supported.
- */
-function addCoreBlocksSupport( name ) {
-    return name && /^core/.test( name ) && ! /^core\/block$/.test( name ) && ! /^core\/archives/.test( name );
-}
 
 /**
  * Override the default edit UI to include a new block inspector control for
@@ -167,7 +157,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 if ( ! allow ) {
                     allow = applyFilters(
                         'ghostkit.blocks.allowDisplay',
-                        addCoreBlocksSupport( props.name ),
+                        checkCoreBlock( props.name ),
                         props,
                         props.name
                     );
