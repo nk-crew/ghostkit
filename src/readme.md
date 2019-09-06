@@ -317,6 +317,14 @@ Available events:
 
 ## Changelog ##
 
+= 2.6.2 =
+
+* added Typography settings page
+* removed Settings page
+  * added Icons settings page
+  * added CSS & JavaScript settings page
+* better fonts loading (load only necessary weights)
+
 = 2.6.1 =
 
 * fixed custom styles loading in reusable widget
