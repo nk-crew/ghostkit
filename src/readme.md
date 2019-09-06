@@ -1,4 +1,4 @@
-# Powerful Gutenberg Blocks and Templates Collection - Ghost Kit #
+# Powerful Gutenberg Blocks and Templates - Ghost Kit #
 
 * Contributors: nko
 * Tags: gutenberg, blocks, templates, block, builder
@@ -9,7 +9,7 @@
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Powerful Gutenberg Blocks, Templates, and Extensions Collection - Ghost Kit.
+Ghost Kit is a blocks collection and templates with customization options to build pages faster with Gutenberg page builder.
 
 ## Description ##
 
