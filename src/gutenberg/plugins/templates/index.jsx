@@ -25,7 +25,6 @@ const { apiFetch } = wp;
 const { compose } = wp.compose;
 
 const { PluginMoreMenuItem } = wp.editPost;
-const { registerPlugin } = wp.plugins;
 
 const {
     withSelect,
@@ -497,7 +496,11 @@ const TemplatesModalWithSelect = compose( [
 
 export { TemplatesModalWithSelect as TemplatesModal };
 
-export class TemplatesPlugin extends Component {
+export const name = 'ghostkit-templates';
+
+export const icon = null;
+
+export class Plugin extends Component {
     constructor() {
         super( ...arguments );
 
@@ -530,8 +533,3 @@ export class TemplatesPlugin extends Component {
         );
     }
 }
-
-registerPlugin( 'ghostkit-templates', {
-    icon: null,
-    render: TemplatesPlugin,
-} );

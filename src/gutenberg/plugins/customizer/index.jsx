@@ -21,7 +21,6 @@ const { Component } = wp.element;
 const { compose } = wp.compose;
 
 const { PluginMoreMenuItem } = wp.editPost;
-const { registerPlugin } = wp.plugins;
 
 const {
     withSelect,
@@ -445,7 +444,11 @@ const CustomizerModalWithSelect = compose( [
 
 export { CustomizerModalWithSelect as CustomizerModal };
 
-export class CustomizerPlugin extends Component {
+export const name = 'ghostkit-customizer';
+
+export const icon = null;
+
+export class Plugin extends Component {
     constructor() {
         super( ...arguments );
 
@@ -478,8 +481,3 @@ export class CustomizerPlugin extends Component {
         );
     }
 }
-
-registerPlugin( 'ghostkit-customizer', {
-    icon: null,
-    render: CustomizerPlugin,
-} );

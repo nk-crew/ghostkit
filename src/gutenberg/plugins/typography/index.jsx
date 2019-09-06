@@ -757,7 +757,11 @@ const TypographyModalWithSelect = compose( [
 
 export { TypographyModalWithSelect as TypographyModal };
 
-export class TypographyPlugin extends Component {
+export const name = 'ghostkit-typography';
+
+export const icon = null;
+
+export class Plugin extends Component {
     constructor() {
         super( ...arguments );
 
@@ -790,9 +794,3 @@ export class TypographyPlugin extends Component {
         );
     }
 }
-
-registerPlugin( 'ghostkit-typography', {
-    icon: null,
-    render: TypographyPlugin,
-} );
-
