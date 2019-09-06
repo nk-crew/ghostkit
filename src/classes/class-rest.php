@@ -1489,18 +1489,13 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_custom_code( WP_REST_Request $request ) {
         $new_code = $request->get_param( 'data' );
-        $updated = '';
 
         if ( is_array( $new_code ) ) {
             $current_code = get_option( 'ghostkit_custom_code', array() );
-            $updated = update_option( 'ghostkit_custom_code', array_merge( $current_code, $new_code ) );
+            update_option( 'ghostkit_custom_code', array_merge( $current_code, $new_code ) );
         }
 
-        if ( ! empty( $updated ) ) {
-            return $this->success( true );
-        } else {
-            return $this->error( 'no_code_updated', __( 'Failed to update custom code.', '@@text_domain' ) );
-        }
+        return $this->success( true );
     }
 
     /**
@@ -1527,7 +1522,6 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_custom_typography( WP_REST_Request $request ) {
         $new_typography = $request->get_param( 'data' );
-        $updated = '';
         $updated_option = array();
 
         if ( is_array( $new_typography ) ) {
@@ -1544,14 +1538,10 @@ class GhostKit_Rest extends WP_REST_Controller {
                 $updated_option['ghostkit_typography'] = json_encode( $updated_option['ghostkit_typography'] );
             }
 
-            $updated = update_option( 'ghostkit_typography', $updated_option );
+            update_option( 'ghostkit_typography', $updated_option );
         }
 
-        if ( ! empty( $updated ) ) {
-            return $this->success( true );
-        } else {
-            return $this->error( 'no_typography_updated', __( 'Failed to update typography.', '@@text_domain' ) );
-        }
+        return $this->success( true );
     }
 
     /**
@@ -1562,13 +1552,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      * @return mixed
      */
     public function update_google_maps_api_key( WP_REST_Request $request ) {
-        $updated = update_option( 'ghostkit_google_maps_api_key', $request->get_param( 'key' ) );
+        update_option( 'ghostkit_google_maps_api_key', $request->get_param( 'key' ) );
 
-        if ( ! empty( $updated ) ) {
-            return $this->success( $updated );
-        } else {
-            return $this->error( 'no_options_found', __( 'Failed to update option.', '@@text_domain' ) );
-        }
+        return $this->success( true );
     }
 
     /**
@@ -1580,7 +1566,6 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_disabled_blocks( WP_REST_Request $request ) {
         $new_disabled_blocks = $request->get_param( 'blocks' );
-        $updated = '';
 
         if ( is_array( $new_disabled_blocks ) ) {
             $disabled_blocks = array_merge( get_option( 'ghostkit_disabled_blocks', array() ), $new_disabled_blocks );
@@ -1592,14 +1577,10 @@ class GhostKit_Rest extends WP_REST_Controller {
                 }
             }
 
-            $updated = update_option( 'ghostkit_disabled_blocks', $result );
+            update_option( 'ghostkit_disabled_blocks', $result );
         }
 
-        if ( ! empty( $updated ) ) {
-            return $this->success( true );
-        } else {
-            return $this->error( 'no_disabled_blocks_updated', __( 'Failed to update disabled blocks.', '@@text_domain' ) );
-        }
+        return $this->success( true );
     }
 
     /**
@@ -1611,18 +1592,13 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_settings( WP_REST_Request $request ) {
         $new_settings = $request->get_param( 'settings' );
-        $updated = '';
 
         if ( is_array( $new_settings ) ) {
             $current_settings = get_option( 'ghostkit_settings', array() );
-            $updated = update_option( 'ghostkit_settings', array_merge( $current_settings, $new_settings ) );
+            update_option( 'ghostkit_settings', array_merge( $current_settings, $new_settings ) );
         }
 
-        if ( ! empty( $updated ) ) {
-            return $this->success( true );
-        } else {
-            return $this->error( 'no_settings_updated', __( 'Failed to update settings.', '@@text_domain' ) );
-        }
+        return $this->success( true );
     }
 
     /**
