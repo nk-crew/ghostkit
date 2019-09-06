@@ -1532,25 +1532,21 @@ class GhostKit_Rest extends WP_REST_Controller {
 
         if ( is_array( $new_typography ) ) {
             $current_typography = get_option( 'ghostkit_typography', array() );
-            $equal_arrays = false;
+
             if ( empty( $current_typography ) ) {
                 $updated_option = $new_typography;
             } else {
-                $current_typography['ghostkit_typography'] = json_decode( $current_typography['ghostkit_typography'] );
-                $new_typography['ghostkit_typography'] = json_decode( $new_typography['ghostkit_typography'] );
-
-                $equal_arrays = (object) array_diff( (array) $new_typography['ghostkit_typography'], $current_typography['ghostkit_typography'] );
+                $current_typography['ghostkit_typography'] = json_decode( $current_typography['ghostkit_typography'], true );
+                $new_typography['ghostkit_typography'] = json_decode( $new_typography['ghostkit_typography'], true );
 
                 $updated_option = array_merge( $current_typography, $new_typography );
 
                 $updated_option['ghostkit_typography'] = json_encode( $updated_option['ghostkit_typography'] );
             }
-            $updated = update_option( 'ghostkit_typography', $updated_option );
 
-            if ( empty( $updated ) && $equal_arrays ) {
-                $updated = true;
-            }
+            $updated = update_option( 'ghostkit_typography', $updated_option );
         }
+
         if ( ! empty( $updated ) ) {
             return $this->success( true );
         } else {

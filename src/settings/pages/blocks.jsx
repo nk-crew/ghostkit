@@ -19,12 +19,15 @@ const { apiFetch } = wp;
 
 const { __, sprintf } = wp.i18n;
 
+const {
+    ToggleControl,
+    Tooltip,
+} = wp.components;
+
 /**
  * Internal dependencies
  */
 import Info from '../components/info.jsx';
-import Tooltip from '../components/tooltip.jsx';
-import ToggleControl from '../components/toggle.jsx';
 
 const { GHOSTKIT } = window;
 
