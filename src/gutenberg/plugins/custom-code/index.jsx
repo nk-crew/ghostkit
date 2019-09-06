@@ -17,7 +17,6 @@ const { apiFetch } = wp;
 const { compose } = wp.compose;
 
 const { PluginMoreMenuItem } = wp.editPost;
-const { registerPlugin } = wp.plugins;
 
 const {
     withSelect,
@@ -251,7 +250,11 @@ const CustomCodeModalWithSelect = compose( [
 
 export { CustomCodeModalWithSelect as CustomCodeModal };
 
-export class CustomCodePlugin extends Component {
+export const name = 'ghostkit-custom-code';
+
+export const icon = null;
+
+export class Plugin extends Component {
     constructor() {
         super( ...arguments );
 
@@ -284,8 +287,3 @@ export class CustomCodePlugin extends Component {
         );
     }
 }
-
-registerPlugin( 'ghostkit-custom-code', {
-    icon: null,
-    render: CustomCodePlugin,
-} );

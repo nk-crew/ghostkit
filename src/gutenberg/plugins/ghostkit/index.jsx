@@ -14,7 +14,6 @@ const { __ } = wp.i18n;
 const { Component } = wp.element;
 
 const { PluginSidebar, PluginSidebarMoreMenuItem } = wp.editPost;
-const { registerPlugin } = wp.plugins;
 
 const {
     Button,
@@ -30,7 +29,11 @@ import { CustomCodeModal } from '../custom-code';
 import { CustomizerModal } from '../customizer';
 import { TypographyModal } from '../typography';
 
-class GhostKit extends Component {
+export const name = 'ghostkit';
+
+export const icon = <div className="ghostkit-plugin-icon">{ getIcon( 'plugin-ghostkit' ) }</div>;
+
+export class Plugin extends Component {
     constructor() {
         super( ...arguments );
 
@@ -126,8 +129,3 @@ class GhostKit extends Component {
         );
     }
 }
-
-registerPlugin( 'ghostkit', {
-    icon: <div className="ghostkit-plugin-icon">{ getIcon( 'plugin-ghostkit' ) }</div>,
-    render: GhostKit,
-} );
