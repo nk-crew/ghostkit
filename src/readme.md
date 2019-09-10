@@ -317,6 +317,12 @@ Available events:
 
 ## Changelog ##
 
+= 2.6.3 =
+
+* disabled all extensions on dynamic core blocks
+* fixed Templates modal open when active PRO
+* fixed settings JS errors when no options updated
+
 = 2.6.2 =
 
 * added Typography settings page
