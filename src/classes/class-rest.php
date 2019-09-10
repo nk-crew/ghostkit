@@ -1198,7 +1198,7 @@ class GhostKit_Rest extends WP_REST_Controller {
                     array(
                         'ghostkit_version'     => '@@plugin_version',
                         'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
-                        'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
+                        'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->plugin_version : null,
                     ), $url
                 )
             );
@@ -1401,7 +1401,7 @@ class GhostKit_Rest extends WP_REST_Controller {
                                 'id'                   => $id,
                                 'ghostkit_version'     => '@@plugin_version',
                                 'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
-                                'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
+                                'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->plugin_version : null,
                             ), $url
                         )
                     );
