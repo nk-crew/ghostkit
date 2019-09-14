@@ -5,8 +5,8 @@
     "wimg/php-compatibility": "@dev"
   },
   "scripts": {
-    "phpcs": "phpcs --standard=phpcs_nk ./src",
-    "phpcbf": "phpcbf --standard=phpcs_nk ./src",
+    "phpcs": "phpcs --standard=phpcs_nk",
+    "phpcbf": "phpcbf --standard=phpcs_nk",
 
     "post-install-cmd": [
       "@configure_phpcs_paths"

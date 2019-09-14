@@ -9,8 +9,8 @@
     "build": "wpeg --build",
     "dev": "wpeg --build --watch",
     "production": "wpeg --build --zip",
-    "php-lint": "composer run-script phpcs",
-    "php-lint-fix": "composer run-script phpcbf",
+    "php-lint": "composer run-script phpcs ./src",
+    "php-lint-fix": "composer run-script phpcbf ./src",
     "css-lint": "stylelint --syntax scss \"src/**/*.scss\"",
     "css-lint-fix": "stylelint --fix --syntax scss \"src/**/*.scss\"",
     "js-lint": "eslint --ext .js --ext .jsx src/",
@@ -22,7 +22,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "lint-staged"
     }
   },
   "devDependencies": {
@@ -48,7 +48,7 @@
     "stylelint-config-standard": "^18.3.0",
     "stylelint-order": "^3.0.1",
     "stylelint-scss": "^3.9.4",
-    "wpeg": "0.0.20"
+    "wpeg": "0.0.23"
   },
   "dependencies": {
     "classnames": "^2.2.6",
