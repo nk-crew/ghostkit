@@ -42,6 +42,15 @@ export const settings = {
 
             return result;
         },
+        customStylesFilter( styles, data, isEditor, attributes ) {
+            if ( isEditor && attributes.focusOutlineWeight && attributes.focusOutlineColor ) {
+                styles = styles.replace(
+                    new RegExp( `.${ attributes.ghostkitClassname }:focus { box-shadow:`, 'g' ),
+                    `[data-type="ghostkit/button-single"].is-selected .${ attributes.ghostkitClassname } { box-shadow:`
+                );
+            }
+            return styles;
+        },
         supports: {
             styles: true,
             spacings: true,
