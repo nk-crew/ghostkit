@@ -35,6 +35,7 @@ export const settings = {
             styles: true,
             spacings: true,
             display: true,
+            customCSS: true,
         },
     },
     supports: {

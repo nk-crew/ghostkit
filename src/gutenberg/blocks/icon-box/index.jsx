@@ -55,6 +55,7 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
     },
     edit,

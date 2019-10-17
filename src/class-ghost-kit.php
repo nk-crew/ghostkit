@@ -126,6 +126,9 @@ class GhostKit {
 
         // custom block styles class.
         require_once( $this->plugin_path . 'gutenberg/extend/styles/get-styles.php' );
+
+        // block users custom CSS class.
+        require_once( $this->plugin_path . 'gutenberg/extend/custom-css/get-custom-css.php' );
     }
 
 
@@ -517,14 +520,9 @@ class GhostKit {
         $styles = '';
 
         foreach ( $blocks as $block ) {
-            if (
-                isset( $block['attrs'] ) &&
-                isset( $block['attrs']['ghostkitClassname'] ) &&
-                $block['attrs']['ghostkitClassname'] &&
-                isset( $block['attrs']['ghostkitStyles'] ) &&
-                ! empty( $block['attrs']['ghostkitStyles'] )
-            ) {
-                $styles .= GhostKit_Block_Custom_Styles::get( $block['attrs']['ghostkitStyles'], '' );
+            if ( isset( $block['attrs'] ) ) {
+                $styles .= GhostKit_Block_Custom_Styles::get( $block['attrs'] );
+                $styles .= GhostKit_Block_Custom_CSS::get( $block['attrs'] );
             }
 
             // Inner blocks.

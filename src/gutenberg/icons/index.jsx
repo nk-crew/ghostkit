@@ -32,6 +32,7 @@ import pluginTypography from '../icons/plugin-typography.svg';
 import extensionDisplay from '../icons/extension-display.svg';
 import extensionSpacings from '../icons/extension-spacings.svg';
 import extensionSR from '../icons/extension-sr.svg';
+import extensionCustomCSS from '../icons/extension-custom-css.svg';
 
 import tabsTv from '../icons/tabs-tv.svg';
 import tabsDesktop from '../icons/tabs-desktop.svg';
@@ -102,6 +103,7 @@ export default {
     'extension-display': extensionDisplay,
     'extension-spacings': extensionSpacings,
     'extension-sr': extensionSR,
+    'extension-custom-css': extensionCustomCSS,
 
     'tabs-tv': tabsTv,
     'tabs-desktop': tabsDesktop,
