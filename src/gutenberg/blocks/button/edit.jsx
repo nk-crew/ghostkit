@@ -73,7 +73,7 @@ class BlockEdit extends Component {
             setAttributes,
         } = this.props;
 
-        if ( count !== block.innerBlocks.length ) {
+        if ( block && block.innerBlocks && count !== block.innerBlocks.length ) {
             setAttributes( {
                 count: block.innerBlocks.length,
             } );

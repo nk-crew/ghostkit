@@ -39,6 +39,29 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            count: 2,
+        },
+        innerBlocks: [
+            {
+                name: 'ghostkit/pricing-table-item',
+                attributes: {
+                    title: 'Standard',
+                    price: '$49',
+                    features: '<li>Feature 1</li><li>Feature 2</li>',
+                    showPopular: true,
+                },
+            }, {
+                name: 'ghostkit/pricing-table-item',
+                attributes: {
+                    title: 'Developers',
+                    price: '$99',
+                    features: '<li>Feature 1</li><li>Feature 2</li>',
+                },
+            },
+        ],
+    },
     edit,
     save,
 };

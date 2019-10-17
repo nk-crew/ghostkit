@@ -58,6 +58,23 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            icon: 'fab fa-twitter',
+            iconColor: '#0366d6',
+            ghostkitId: 'example-icon-box',
+            ghostkitClassname: 'ghostkit-custom-example-icon-box',
+            className: 'ghostkit-custom-example-icon-box',
+        },
+        innerBlocks: [
+            {
+                name: 'core/paragraph',
+                attributes: {
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                },
+            },
+        ],
+    },
     edit,
     save,
     deprecated,

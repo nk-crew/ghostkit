@@ -46,6 +46,39 @@ export const settings = {
         },
     },
 
+    example: {
+        attributes: {
+            count: 2,
+            align: 'center',
+            gap: 'lg',
+        },
+        innerBlocks: [
+            {
+                name: 'ghostkit/button-single',
+                attributes: {
+                    text: 'Button 1',
+                    size: 'xl',
+                    color: '#0366d6',
+                    ghostkitId: 'example-button-1',
+                    ghostkitClassname: 'ghostkit-custom-example-button-1',
+                    className: 'ghostkit-custom-example-button-1',
+                },
+            }, {
+                name: 'ghostkit/button-single',
+                attributes: {
+                    text: 'Button 2',
+                    size: 'xl',
+                    color: '#5c39a7',
+                    icon: 'fab fa-twitter',
+                    borderRadius: 50,
+                    ghostkitId: 'example-button-2',
+                    ghostkitClassname: 'ghostkit-custom-example-button-2',
+                    className: 'ghostkit-custom-example-button-2',
+                },
+            },
+        ],
+    },
+
     edit,
     save,
     transforms,

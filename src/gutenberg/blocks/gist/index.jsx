@@ -41,6 +41,12 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            url: 'https://gist.github.com/nk-o/fc0422389f3baa4e66d243b6f0c0ef1a',
+            file: 'example.php',
+        },
+    },
     transforms,
     edit,
     save,

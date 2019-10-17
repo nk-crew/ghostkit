@@ -40,6 +40,33 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            version: '1.0.0',
+            date: '19 August 2077',
+        },
+        innerBlocks: [
+            {
+                name: 'core/list',
+                attributes: {
+                    values: [
+                        <li key="list-item-1">
+                            <span className="ghostkit-badge" style="background-color: #4ab866;">{ __( 'Added' ) }</span>
+                            { __( 'Something' ) }
+                        </li>,
+                        <li key="list-item-2">
+                            <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Fixed' ) }</span>
+                            { __( 'Something' ) }
+                        </li>,
+                        <li key="list-item-3">
+                            <span className="ghostkit-badge" style="background-color: #63656b;">{ __( 'Changed' ) }</span>
+                            { __( 'Something' ) }
+                        </li>,
+                    ],
+                },
+            },
+        ],
+    },
     edit,
     save,
 };

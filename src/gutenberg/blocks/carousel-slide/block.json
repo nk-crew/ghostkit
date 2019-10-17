@@ -8,15 +8,5 @@
         "anchor": true,
         "inserter": false,
         "reusable": false
-    },
-    "attributes": {
-        "itemsCount": {
-            "type": "number",
-            "default": 2
-        },
-        "collapseOne": {
-            "type": "boolean",
-            "default": false
-        }
     }
 }

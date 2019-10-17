@@ -58,6 +58,23 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            number: '77',
+            numberColor: '#0366d6',
+            ghostkitId: 'example-counter-box',
+            ghostkitClassname: 'ghostkit-custom-example-counter-box',
+            className: 'ghostkit-custom-example-counter-box',
+        },
+        innerBlocks: [
+            {
+                name: 'core/paragraph',
+                attributes: {
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                },
+            },
+        ],
+    },
     edit,
     save,
     deprecated,

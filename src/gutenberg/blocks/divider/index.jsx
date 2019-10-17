@@ -75,6 +75,18 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            size: 4,
+            icon: 'fab fa-twitter',
+            iconSize: 40,
+            color: '#a7a9ab',
+            iconColor: '#a7a9ab',
+            ghostkitId: 'example-divider',
+            ghostkitClassname: 'ghostkit-custom-example-divider',
+            className: 'ghostkit-custom-example-divider',
+        },
+    },
     edit,
     save,
     transforms,

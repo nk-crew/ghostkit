@@ -116,3 +116,8 @@
         max-width: $blocks-button__link-input-width - $icon-button-size - $icon-button-size;
     }
 }
+
+// Example.
+.block-editor-inserter__preview [data-type="ghostkit/button-single"] + [data-type="ghostkit/button-single"] {
+    margin-left: 35px;
+}

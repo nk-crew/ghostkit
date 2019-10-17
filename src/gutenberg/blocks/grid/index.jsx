@@ -69,6 +69,34 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            columns: 2,
+        },
+        innerBlocks: [
+            {
+                name: 'ghostkit/grid-column',
+                innerBlocks: [
+                    {
+                        name: 'core/paragraph',
+                        attributes: {
+                            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                        },
+                    },
+                ],
+            }, {
+                name: 'ghostkit/grid-column',
+                innerBlocks: [
+                    {
+                        name: 'core/paragraph',
+                        attributes: {
+                            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                        },
+                    },
+                ],
+            },
+        ],
+    },
     edit,
     save,
     transforms,

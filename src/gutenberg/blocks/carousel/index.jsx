@@ -40,6 +40,38 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            slides: 3,
+        },
+        innerBlocks: [
+            {
+                name: 'ghostkit/carousel-slide',
+                innerBlocks: [
+                    {
+                        name: 'core/image',
+                        attributes: {
+                            sizeSlug: 'large',
+                            url: 'https://s.w.org/images/core/5.3/MtBlanc1.jpg',
+                        },
+                    },
+                ],
+            }, {
+                name: 'ghostkit/carousel-slide',
+                innerBlocks: [
+                    {
+                        name: 'core/image',
+                        attributes: {
+                            sizeSlug: 'large',
+                            url: 'https://s.w.org/images/core/5.3/Windbuchencom.jpg',
+                        },
+                    },
+                ],
+            }, {
+                name: 'ghostkit/carousel-slide',
+            },
+        ],
+    },
     edit,
     save,
     deprecated,

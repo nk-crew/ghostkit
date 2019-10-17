@@ -62,6 +62,22 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            color: '#E47F3B',
+            ghostkitId: 'example-alert',
+            ghostkitClassname: 'ghostkit-custom-example-alert',
+            className: 'ghostkit-custom-example-alert',
+        },
+        innerBlocks: [
+            {
+                name: 'core/paragraph',
+                attributes: {
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                },
+            },
+        ],
+    },
     edit,
     save,
     deprecated,

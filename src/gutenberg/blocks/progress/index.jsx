@@ -78,6 +78,13 @@ export const settings = {
             customCSS: true,
         },
     },
+    example: {
+        attributes: {
+            ghostkitId: 'example-progress',
+            ghostkitClassname: 'ghostkit-custom-example-progress',
+            className: 'ghostkit-custom-example-progress',
+        },
+    },
     edit,
     save,
     deprecated,
