@@ -462,6 +462,8 @@ class GhostKitClass {
         $( '.ghostkit-carousel:not(.ghostkit-carousel-ready)' ).each( function() {
             const $carousel = $( this );
             const $items = $carousel.children( '.ghostkit-carousel-items' );
+            const slidesPerView = parseInt( $carousel.attr( 'data-slides-per-view' ), 10 );
+
             const options = {
                 speed: ( parseFloat( $carousel.attr( 'data-speed' ) ) || 0 ) * 1000,
                 effect: $carousel.attr( 'data-effect' ) || 'slide',
@@ -486,7 +488,7 @@ class GhostKitClass {
                     clickable: true,
                     dynamicBullets: $carousel.attr( 'data-dynamic-bullets' ) === 'true',
                 },
-                slidesPerView: parseInt( $carousel.attr( 'data-slides-per-view' ), 10 ),
+                slidesPerView: 1,
                 keyboard: true,
                 grabCursor: true,
             };
@@ -529,20 +531,26 @@ class GhostKitClass {
 
             // calculate responsive.
             const breakPoints = {};
-            if ( ! isNaN( options.slidesPerView ) ) {
-                let count = options.slidesPerView - 1;
-                let currentPoint = Math.min( self.screenSizes.length - 1, count );
+            if ( ! isNaN( slidesPerView ) ) {
+                let count = slidesPerView;
+                let currentPoint = Math.min( self.screenSizes.length - 1, count - 1 );
 
                 for ( ; currentPoint >= 0; currentPoint-- ) {
                     if ( count > 0 && typeof self.screenSizes[ currentPoint ] !== 'undefined' ) {
-                        breakPoints[ self.screenSizes[ currentPoint ] ] = {
+                        breakPoints[ self.screenSizes[ currentPoint ] + 1 ] = {
                             slidesPerView: count,
                         };
                     }
                     count -= 1;
                 }
+
+                options.slidesPerView = count || 1;
             }
             options.breakpoints = breakPoints;
+
+            // Since Swiper 5.0 this option is removed and it is `true` by default, but in older versions it was `false`.
+            // So we need to keep it as a fallback.
+            options.breakpoints.breakpointsInverse = true;
 
             // init swiper
             new window.Swiper( $carousel[ 0 ], options );

@@ -194,8 +194,8 @@ class GhostKit {
 
         // Swiper.
         if ( apply_filters( 'gkt_enqueue_plugin_swiper', true ) ) {
-            wp_register_style( 'swiper', plugins_url( 'assets/vendor/swiper/css/swiper.min.css', __FILE__ ), array(), '4.5.0' );
-            wp_register_script( 'swiper', plugins_url( 'assets/vendor/swiper/js/swiper.min.js', __FILE__ ), array(), '4.5.0', true );
+            wp_register_style( 'swiper', plugins_url( 'assets/vendor/swiper/css/swiper.min.css', __FILE__ ), array(), '5.1.0' );
+            wp_register_script( 'swiper', plugins_url( 'assets/vendor/swiper/js/swiper.min.js', __FILE__ ), array(), '5.1.0', true );
         }
 
         // GistEmbed.
