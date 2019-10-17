@@ -1,6 +1,0 @@
-{
-    "src/**/*.php": "composer run-script phpcs",
-    "src/**/*.css": "stylelint",
-    "src/**/*.scss": "stylelint --syntax scss",
-    "src/**/*.{js,jsx}": "eslint"
-}
