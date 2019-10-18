@@ -39,7 +39,7 @@ const {
     GHOSTKIT,
 } = window;
 
-const placeholder = '.selector {\n\n}';
+const placeholder = 'selector {\n\n}';
 let initialOpenPanel = false;
 
 /**
@@ -121,14 +121,14 @@ class CustomCSSComponent extends Component {
                         height="300px"
                     />
                     <p style={ { marginBottom: 20 } }></p>
-                    <p dangerouslySetInnerHTML={ { __html: __( 'Use %s rule to change block styles.' ).replace( '%s', '<code>.selector</code>' ) } } />
+                    <p dangerouslySetInnerHTML={ { __html: __( 'Use %s rule to change block styles.' ).replace( '%s', '<code>selector</code>' ) } } />
                     <p>{ __( 'Example:' ) }</p>
                     <pre className="ghostkit-control-pre-custom-css">
-                        { `.selector {
+                        { `selector {
   background-color: #5C39A7;
 }
 
-.selector p {
+selector p {
   color: #5C39A7;
 }` }
                     </pre>

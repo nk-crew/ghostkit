@@ -30,7 +30,7 @@ class GhostKit_Block_Custom_CSS {
             isset( $block_attrs['ghostkitCustomCSS'] ) &&
             $block_attrs['ghostkitCustomCSS']
         ) {
-            $result_css .= ' ' . str_replace( '.selector', '.' . $block_attrs['ghostkitClassname'], $block_attrs['ghostkitCustomCSS'] );
+            $result_css .= ' ' . str_replace( 'selector', '.' . $block_attrs['ghostkitClassname'], $block_attrs['ghostkitCustomCSS'] );
         }
 
         return $result_css;
