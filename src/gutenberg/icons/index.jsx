@@ -6,6 +6,7 @@ import blockAlert from '../icons/block-alert.svg';
 import blockButton from '../icons/block-button.svg';
 import blockCarousel from '../icons/block-carousel.svg';
 import blockChangelog from '../icons/block-changelog.svg';
+import blockCountdown from '../icons/block-countdown.svg';
 import blockCounterBox from '../icons/block-counter-box.svg';
 import blockDivider from '../icons/block-divider.svg';
 import blockGist from '../icons/block-gist.svg';
@@ -77,6 +78,7 @@ export default {
     'block-button': blockButton,
     'block-carousel': blockCarousel,
     'block-changelog': blockChangelog,
+    'block-countdown': blockCountdown,
     'block-counter-box': blockCounterBox,
     'block-divider': blockDivider,
     'block-gist': blockGist,
