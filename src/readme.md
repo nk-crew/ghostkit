@@ -82,19 +82,15 @@ By default you can change typography for the following elements:
 
 ### Try Ghost Kit PRO Addon ###
 
-[Ghost Kit PRO Addon](https://ghostkit.io/pricing/) extends Ghost Kit functionality and improve your design experience. The list of PRO features:
+Ghost Kit PRO Addon extends the capabilities of Ghost Kit and improve your design experience. List of the main features:
 
-* 3 icon packs
+* More icon packs
 * Visual Grid editor
-* Grid full height option
 * Google Maps custom markers
-* Google Maps info boxes
-* Gradient backgrounds
-* Gradient text icons
-* Features list will grow in updates
+* Gradient buttons, backgrounds, icons
+* And more
 
-If you like it or if you simply want to help us keep improving Ghost Kit plugin - [Go Pro](https://ghostkit.io/pricing/).
-
+Try out a live demo of [Ghost Kit PRO](https://demo.ghostkit.io/)
 
 = Real Usage Examples =
 
