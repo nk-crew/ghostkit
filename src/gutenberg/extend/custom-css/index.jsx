@@ -241,7 +241,7 @@ function addEditorCustomStylesOutput( customStylesOutput, props ) {
     } = props.attributes;
 
     if ( ghostkitCustomCSS && ghostkitClassname ) {
-        customStylesOutput += ' ' + ghostkitCustomCSS.replace( /\.selector/g, `.${ ghostkitClassname }` );
+        customStylesOutput += ' ' + ghostkitCustomCSS.replace( /selector/g, `.${ ghostkitClassname }` );
     }
 
     return customStylesOutput;
