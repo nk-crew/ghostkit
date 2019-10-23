@@ -427,8 +427,8 @@ class Customizer extends Component {
 
 const CustomizerModalWithSelect = compose( [
     withSelect( ( select ) => {
-        const currentMeta = select( 'core/block-editor' ).getCurrentPostAttribute( 'meta' );
-        const editedMeta = select( 'core/block-editor' ).getEditedPostAttribute( 'meta' );
+        const currentMeta = select( 'core/editor' ).getCurrentPostAttribute( 'meta' );
+        const editedMeta = select( 'core/editor' ).getEditedPostAttribute( 'meta' );
 
         return {
             meta: { ...currentMeta, ...editedMeta },
@@ -437,7 +437,7 @@ const CustomizerModalWithSelect = compose( [
     } ),
     withDispatch( ( dispatch ) => ( {
         updateMeta( value ) {
-            dispatch( 'core/block-editor' ).editPost( { meta: value } );
+            dispatch( 'core/editor' ).editPost( { meta: value } );
         },
     } ) ),
 ] )( Customizer );
