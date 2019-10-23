@@ -221,8 +221,8 @@ class CustomCodeModal extends Component {
 
 const CustomCodeModalWithSelect = compose( [
     withSelect( ( select ) => {
-        const currentMeta = select( 'core/editor' ).getCurrentPostAttribute( 'meta' );
-        const editedMeta = select( 'core/editor' ).getEditedPostAttribute( 'meta' );
+        const currentMeta = select( 'core/block-editor' ).getCurrentPostAttribute( 'meta' );
+        const editedMeta = select( 'core/block-editor' ).getEditedPostAttribute( 'meta' );
         const customCode = select( 'ghostkit/plugins/custom-code' ).getCustomCode();
 
         return {
@@ -232,7 +232,7 @@ const CustomCodeModalWithSelect = compose( [
     } ),
     withDispatch( ( dispatch ) => ( {
         updateMeta( value ) {
-            dispatch( 'core/editor' ).editPost( { meta: value } );
+            dispatch( 'core/block-editor' ).editPost( { meta: value } );
         },
         updateCustomCode( value ) {
             dispatch( 'ghostkit/plugins/custom-code' ).setCustomCode( value );

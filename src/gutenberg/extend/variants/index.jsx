@@ -20,7 +20,7 @@ const {
     hasBlockSupport,
 } = wp.blocks;
 
-const { InspectorControls } = wp.editor;
+const { InspectorControls } = wp.blockEditor;
 
 const {
     PanelBody,

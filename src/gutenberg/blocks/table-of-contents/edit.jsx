@@ -29,7 +29,7 @@ const {
 const {
     InspectorControls,
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies
@@ -167,7 +167,7 @@ class BlockEdit extends Component {
 export default withSelect( ( select, props ) => {
     const {
         getBlocks,
-    } = select( 'core/editor' );
+    } = select( 'core/block-editor' );
 
     const {
         allowedHeaders,

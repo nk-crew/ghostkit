@@ -21,7 +21,7 @@ const {
     ToggleControl,
 } = wp.components;
 
-const WPURLInput = wp.editor.URLInput;
+const WPURLInput = wp.blockEditor.URLInput;
 
 /**
  * Internal dependencies

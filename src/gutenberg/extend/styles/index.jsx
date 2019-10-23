@@ -144,7 +144,7 @@ class CustomStylesComponent extends Component {
         let result = [];
 
         if ( ! blocks ) {
-            blocks = wp.data.select( 'core/editor' ).getBlocks();
+            blocks = wp.data.select( 'core/block-editor' ).getBlocks();
         }
 
         if ( ! blocks ) {

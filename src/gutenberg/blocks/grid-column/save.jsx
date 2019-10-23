@@ -14,7 +14,7 @@ const {
 
 const {
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies

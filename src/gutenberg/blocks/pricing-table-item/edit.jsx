@@ -24,7 +24,7 @@ const {
     InspectorControls,
     RichText,
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Block Edit Class.

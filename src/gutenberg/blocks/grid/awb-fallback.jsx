@@ -9,7 +9,7 @@ const { addFilter } = wp.hooks;
 
 const {
     MediaUpload,
-} = wp.editor;
+} = wp.blockEditor;
 
 const { hasBlockSupport } = wp.blocks;
 

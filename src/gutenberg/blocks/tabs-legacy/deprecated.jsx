@@ -5,7 +5,7 @@ const { __, sprintf } = wp.i18n;
 
 const {
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     applyFilters,

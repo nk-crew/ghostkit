@@ -14,7 +14,7 @@ const { Component } = wp.element;
 
 const {
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies

@@ -17,7 +17,7 @@ const { Component, Fragment } = wp.element;
 const {
     InnerBlocks,
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Block Edit Class.

@@ -12,7 +12,7 @@ const {
 
 const {
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 export default [
     {

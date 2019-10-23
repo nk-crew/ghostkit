@@ -28,7 +28,7 @@ const {
     InnerBlocks,
     BlockControls,
     BlockAlignmentToolbar,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     createBlock,
@@ -214,7 +214,7 @@ export default compose( [
             getBlock,
             isBlockSelected,
             hasSelectedInnerBlock,
-        } = select( 'core/editor' );
+        } = select( 'core/block-editor' );
 
         const { clientId } = ownProps;
 
@@ -226,7 +226,7 @@ export default compose( [
     withDispatch( ( dispatch, ownProps ) => {
         const {
             insertBlock,
-        } = dispatch( 'core/editor' );
+        } = dispatch( 'core/block-editor' );
 
         const { clientId } = ownProps;
 

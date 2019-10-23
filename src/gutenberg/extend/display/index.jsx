@@ -21,7 +21,7 @@ const {
     createHigherOrderComponent,
 } = wp.compose;
 
-const { InspectorControls } = wp.editor;
+const { InspectorControls } = wp.blockEditor;
 
 const {
     PanelBody,

@@ -17,7 +17,7 @@ const {
 const {
     RichTextToolbarButton,
     ColorPalette,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies

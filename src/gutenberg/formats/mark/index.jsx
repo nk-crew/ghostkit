@@ -11,7 +11,7 @@ const {
 const {
     RichTextToolbarButton,
     RichTextShortcut,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     toggleFormat,

@@ -23,7 +23,7 @@ const {
     RichText,
     InspectorControls,
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Returns the layouts configuration for a given number of tabs.

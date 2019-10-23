@@ -30,7 +30,7 @@ const {
     InspectorControls,
     InnerBlocks,
     BlockControls,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     compose,
@@ -322,7 +322,7 @@ export default compose( [
         const {
             isBlockSelected,
             hasSelectedInnerBlock,
-        } = select( 'core/editor' );
+        } = select( 'core/block-editor' );
 
         const { clientId } = ownProps;
 

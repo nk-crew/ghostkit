@@ -29,7 +29,7 @@ const {
     InnerBlocks,
     RichText,
     MediaUpload,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies

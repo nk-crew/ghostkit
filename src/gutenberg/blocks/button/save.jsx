@@ -12,7 +12,7 @@ const {
 
 const {
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 const { Component } = wp.element;
 

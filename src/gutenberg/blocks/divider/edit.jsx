@@ -27,7 +27,7 @@ const {
 const {
     InspectorControls,
     BlockControls,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies

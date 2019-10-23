@@ -8,7 +8,7 @@ import classnames from 'classnames/dedupe';
  */
 const {
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     applyFilters,

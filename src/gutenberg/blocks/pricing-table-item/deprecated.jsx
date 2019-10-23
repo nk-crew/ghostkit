@@ -9,7 +9,7 @@ import classnames from 'classnames/dedupe';
 const {
     RichText,
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     applyFilters,

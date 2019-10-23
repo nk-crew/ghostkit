@@ -14,7 +14,7 @@ const { Component, Fragment } = wp.element;
 
 const {
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     withSelect,

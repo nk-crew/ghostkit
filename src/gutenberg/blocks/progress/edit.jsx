@@ -32,7 +32,7 @@ const {
 const {
     InspectorControls,
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies

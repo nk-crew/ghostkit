@@ -10,7 +10,7 @@ const { Component } = wp.element;
 
 const {
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     applyFilters,

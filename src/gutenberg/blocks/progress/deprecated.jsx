@@ -9,7 +9,7 @@ import deepAssign from 'deep-assign';
  */
 const {
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     applyFilters,

@@ -449,7 +449,7 @@ const TemplatesModalWithSelect = compose( [
         const {
             insertBlocks,
             replaceBlocks,
-        } = dispatch( 'core/editor' );
+        } = dispatch( 'core/block-editor' );
 
         return {
             insertTemplate( content, replaceBlockId, cb ) {

@@ -702,8 +702,8 @@ class TypographyModal extends Component {
 
 const TypographyModalWithSelect = compose( [
     withSelect( ( select ) => {
-        const currentMeta = select( 'core/editor' ).getCurrentPostAttribute( 'meta' );
-        const editedMeta = select( 'core/editor' ).getEditedPostAttribute( 'meta' );
+        const currentMeta = select( 'core/block-editor' ).getCurrentPostAttribute( 'meta' );
+        const editedMeta = select( 'core/block-editor' ).getEditedPostAttribute( 'meta' );
         const customTypography = select( 'ghostkit/plugins/typography' ).getCustomTypography();
 
         try {
@@ -732,7 +732,7 @@ const TypographyModalWithSelect = compose( [
                 ghostkit_typography: JSON.stringify( value.ghostkit_typography ),
             };
 
-            dispatch( 'core/editor' ).editPost( { meta: localValue } );
+            dispatch( 'core/block-editor' ).editPost( { meta: localValue } );
         },
         updateCustomTypography( value ) {
             const globalValue = {

@@ -36,7 +36,7 @@ const {
     InspectorControls,
     BlockControls,
     MediaUpload,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies

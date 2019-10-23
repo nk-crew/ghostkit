@@ -22,7 +22,7 @@ const {
     BlockControls,
     InnerBlocks,
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     compose,
@@ -160,7 +160,7 @@ export default compose( [
             getBlock,
             isBlockSelected,
             hasSelectedInnerBlock,
-        } = select( 'core/editor' );
+        } = select( 'core/block-editor' );
 
         const { clientId } = ownProps;
 
@@ -174,7 +174,7 @@ export default compose( [
         const {
             updateBlockAttributes,
             removeBlock,
-        } = dispatch( 'core/editor' );
+        } = dispatch( 'core/block-editor' );
 
         return {
             updateBlockAttributes,
