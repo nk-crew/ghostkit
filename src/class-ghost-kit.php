@@ -182,9 +182,8 @@ class GhostKit {
     public function register_scripts() {
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
-            wp_register_script( 'resize-observer-polyfill', plugins_url( 'assets/vendor/resize-observer-polyfill/ResizeObserver.global.min.js', __FILE__ ), array(), '1.5.0', true );
-            wp_register_script( 'jarallax', plugins_url( 'assets/vendor/jarallax/dist/jarallax.min.js', __FILE__ ), array( 'jquery', 'resize-observer-polyfill' ), '1.11.0', true );
-            wp_register_script( 'jarallax-video', plugins_url( 'assets/vendor/jarallax/dist/jarallax-video.min.js', __FILE__ ), array( 'jarallax' ), '1.11.0', true );
+            wp_register_script( 'jarallax', plugins_url( 'assets/vendor/jarallax/dist/jarallax.min.js', __FILE__ ), array( 'jquery' ), '1.12.0', true );
+            wp_register_script( 'jarallax-video', plugins_url( 'assets/vendor/jarallax/dist/jarallax-video.min.js', __FILE__ ), array( 'jarallax' ), '1.12.0', true );
         }
 
         // Object Fit Images.
