@@ -8,9 +8,10 @@
  */
 #adminmenu a[href="admin.php?page=ghostkit_go_pro"],
 .wp-list-table.plugins a[href="admin.php?page=ghostkit_go_pro"] {
-    color: $color-danger;
+    font-weight: 700;
+    color: $color-success;
 
     &:hover {
-        color: lighten($color-danger, 5%);
+        color: darken($color-success, 10%);
     }
 }
