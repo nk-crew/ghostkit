@@ -30,7 +30,7 @@ import getIcon from '../../utils/get-icon';
 export const name = 'ghostkit/uppercase';
 
 export const settings = {
-    title: __( 'Uppercase' ),
+    title: __( 'Uppercase', '@@text_domain' ),
     tagName: 'span',
     className: 'ghostkit-text-uppercase',
     edit: class BadgeFormat extends Component {
@@ -69,7 +69,7 @@ export const settings = {
                     <RichTextToolbarButton
                         shortcutCharacter="u"
                         shortcutType="access"
-                        title={ __( 'Uppercase' ) }
+                        title={ __( 'Uppercase', '@@text_domain' ) }
                         icon={ getIcon( 'icon-text-uppercase' ) }
                         onClick={ this.toggleUppercase }
                         isActive={ isActive }

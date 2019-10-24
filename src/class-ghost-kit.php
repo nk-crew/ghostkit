@@ -7,7 +7,7 @@
  * Author URI:   https://nkdev.info
  * License:      GPLv2 or later
  * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:  ghostkit
+ * Text Domain:  @@text_domain
  *
  * @package ghostkit
  */
@@ -97,9 +97,6 @@ class GhostKit {
         $this->plugin_path = plugin_dir_path( __FILE__ );
         $this->plugin_url = plugin_dir_url( __FILE__ );
 
-        // load textdomain.
-        load_plugin_textdomain( '@@text_domain', false, basename( dirname( __FILE__ ) ) . '/languages' );
-
         // settings.
         require_once( $this->plugin_path . 'settings/index.php' );
 
@@ -131,7 +128,6 @@ class GhostKit {
         require_once( $this->plugin_path . 'gutenberg/extend/custom-css/get-custom-css.php' );
     }
 
-
     /**
      * Init hooks
      */
@@ -143,6 +139,9 @@ class GhostKit {
         add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_css_js' ), 100 );
 
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_go_pro_link_plugins_page' ) );
+
+        $this->php_translation();
+        add_action( 'enqueue_block_editor_assets', array( $this, 'js_translation' ) );
 
         // include blocks.
         // work only if Gutenberg available.
@@ -156,6 +155,25 @@ class GhostKit {
             add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ), 9 );
             add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_block_assets' ) );
         }
+    }
+
+    /**
+     * PHP translations.
+     */
+    public function php_translation() {
+        load_plugin_textdomain( '@@text_domain', false, basename( dirname( __FILE__ ) ) . '/languages' );
+    }
+
+    /**
+     * JS translations.
+     */
+    public function js_translation() {
+        if ( ! function_exists( 'wp_set_script_translations' ) ) {
+            return;
+        }
+
+        wp_set_script_translations( 'ghostkit-editor', '@@text_domain', basename( dirname( __FILE__ ) ) . '/languages' );
+        wp_set_script_translations( 'ghostkit-settings', '@@text_domain', basename( dirname( __FILE__ ) ) . '/languages' );
     }
 
     /**

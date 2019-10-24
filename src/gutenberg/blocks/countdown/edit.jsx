@@ -183,13 +183,13 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <DateTimePicker
-                            label={ __( 'End Date' ) }
+                            label={ __( 'End Date', '@@text_domain' ) }
                             currentDate={ date }
                             onChange={ ( value ) => this.updateDate( value, units ) }
                             is12Hour={ false }
                         />
                         <SelectControl
-                            label={ __( 'Display Units' ) }
+                            label={ __( 'Display Units', '@@text_domain' ) }
                             value={ units }
                             onChange={ ( value ) => {
                                 setAttributes( { units: value } );
@@ -198,25 +198,25 @@ class BlockEdit extends Component {
                             multiple
                             options={ [
                                 {
-                                    label: __( 'Years' ),
+                                    label: __( 'Years', '@@text_domain' ),
                                     value: 'years',
                                 }, {
-                                    label: __( 'Months' ),
+                                    label: __( 'Months', '@@text_domain' ),
                                     value: 'months',
                                 }, {
-                                    label: __( 'Weeks' ),
+                                    label: __( 'Weeks', '@@text_domain' ),
                                     value: 'weeks',
                                 }, {
-                                    label: __( 'Days' ),
+                                    label: __( 'Days', '@@text_domain' ),
                                     value: 'days',
                                 }, {
-                                    label: __( 'Hours' ),
+                                    label: __( 'Hours', '@@text_domain' ),
                                     value: 'hours',
                                 }, {
-                                    label: __( 'Minutes' ),
+                                    label: __( 'Minutes', '@@text_domain' ),
                                     value: 'minutes',
                                 }, {
-                                    label: __( 'Seconds' ),
+                                    label: __( 'Seconds', '@@text_domain' ),
                                     value: 'seconds',
                                 },
                             ] }
@@ -224,27 +224,27 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <RangeControl
-                            label={ __( 'Font Size' ) }
+                            label={ __( 'Font Size', '@@text_domain' ) }
                             value={ numberFontSize }
                             onChange={ ( value ) => setAttributes( { numberFontSize: value } ) }
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
                         <RangeControl
-                            label={ __( 'Label Font Size' ) }
+                            label={ __( 'Label Font Size', '@@text_domain' ) }
                             value={ labelFontSize }
                             onChange={ ( value ) => setAttributes( { labelFontSize: value } ) }
                             beforeIcon="editor-textcolor"
                             afterIcon="editor-textcolor"
                         />
                         <ColorPicker
-                            label={ __( 'Number Color' ) }
+                            label={ __( 'Number Color', '@@text_domain' ) }
                             value={ numberColor }
                             onChange={ ( val ) => setAttributes( { numberColor: val } ) }
                             alpha={ true }
                         />
                         <ColorPicker
-                            label={ __( 'Label Color' ) }
+                            label={ __( 'Label Color', '@@text_domain' ) }
                             value={ labelColor }
                             onChange={ ( val ) => setAttributes( { labelColor: val } ) }
                             alpha={ true }
@@ -255,19 +255,19 @@ class BlockEdit extends Component {
                     <Toolbar controls={ [
                         {
                             icon: 'align-left',
-                            title: __( 'Units Align Left' ),
+                            title: __( 'Units Align Left', '@@text_domain' ),
                             onClick: () => setAttributes( { unitsAlign: 'left' } ),
                             isActive: unitsAlign === 'left',
                         },
                         {
                             icon: 'align-center',
-                            title: __( 'Units Align Center' ),
+                            title: __( 'Units Align Center', '@@text_domain' ),
                             onClick: () => setAttributes( { unitsAlign: 'center' } ),
                             isActive: unitsAlign === 'center',
                         },
                         {
                             icon: 'align-right',
-                            title: __( 'Units Align Right' ),
+                            title: __( 'Units Align Right', '@@text_domain' ),
                             onClick: () => setAttributes( { unitsAlign: 'right' } ),
                             isActive: unitsAlign === 'right',
                         },
@@ -301,12 +301,12 @@ class BlockEdit extends Component {
                 { isSelectedBlockInRoot ? (
                     <div className="ghostkit-countdown-expire-action">
                         <div className="ghostkit-countdown-expire-action-label">
-                            { __( 'Display content after expiration:' ) }
+                            { __( 'Display content after expiration:', '@@text_domain' ) }
                         </div>
 
                         <div className="ghostkit-countdown-expire-action-content">
                             <InnerBlocks
-                                template={ [ [ 'core/paragraph', { content: __( 'This countdown has been ended already!' ) } ] ] }
+                                template={ [ [ 'core/paragraph', { content: __( 'This countdown has been ended already!', '@@text_domain' ) } ] ] }
                                 templateLock={ false }
                             />
                         </div>

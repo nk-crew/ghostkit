@@ -105,7 +105,7 @@ class CssJs extends Component {
             <div className="ghostkit-settings-content-wrapper ghostkit-settings-css-js">
                 { icons && Object.keys( icons ).length ? (
                     <Fragment>
-                        <h4 style={ { marginTop: 0 } }>{ __( 'CSS' ) }</h4>
+                        <h4 style={ { marginTop: 0 } }>{ __( 'CSS', '@@text_domain' ) }</h4>
                         { false !== this.state.customCSS ? (
                             <CodeEditor
                                 mode="css"
@@ -120,10 +120,10 @@ class CssJs extends Component {
                         ) : (
                             <Spinner />
                         ) }
-                        <h4>{ __( 'JavaScript' ) }</h4>
+                        <h4>{ __( 'JavaScript', '@@text_domain' ) }</h4>
                         { false !== this.state.customJSHead && false !== this.state.customJSFoot ? (
                             <Fragment>
-                                <p className="ghostkit-help-text">{ __( 'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.' ) }</p>
+                                <p className="ghostkit-help-text">{ __( 'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.', '@@text_domain' ) }</p>
                                 <p><code className="ghostkit-code">{ '<head>' }</code> :</p>
                                 <CodeEditor
                                     mode="javascript"

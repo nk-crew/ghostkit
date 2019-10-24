@@ -45,17 +45,17 @@ const { ghostkitVariables } = window;
 const getDefaultColumnSizes = function() {
     const result = [
         {
-            label: __( 'Inherit from larger' ),
+            label: __( 'Inherit from larger', '@@text_domain' ),
             value: '',
         }, {
-            label: __( 'Auto' ),
+            label: __( 'Auto', '@@text_domain' ),
             value: 'auto',
         },
     ];
 
     for ( let k = 1; k <= 12; k++ ) {
         result.push( {
-            label: sprintf( k === 1 ? __( '%d Column (%s)' ) : __( '%d Columns (%s)' ), k, `${ Math.round( ( 100 * k / 12 ) * 100 ) / 100 }%` ),
+            label: sprintf( k === 1 ? __( '%d Column (%s)', '@@text_domain' ) : __( '%d Columns (%s)', '@@text_domain' ), k, `${ Math.round( ( 100 * k / 12 ) * 100 ) / 100 }%` ),
             value: k,
         } );
     }
@@ -72,13 +72,13 @@ const getDefaultColumnSizes = function() {
 const getDefaultColumnOrders = function( columns = 12 ) {
     const result = [
         {
-            label: __( 'Inherit from larger' ),
+            label: __( 'Inherit from larger', '@@text_domain' ),
             value: '',
         }, {
-            label: __( 'Auto' ),
+            label: __( 'Auto', '@@text_domain' ),
             value: 'auto',
         }, {
-            label: __( 'First' ),
+            label: __( 'First', '@@text_domain' ),
             value: 'first',
         },
     ];
@@ -91,7 +91,7 @@ const getDefaultColumnOrders = function( columns = 12 ) {
     }
 
     result.push( {
-        label: __( 'Last' ),
+        label: __( 'Last', '@@text_domain' ),
         value: 'last',
     } );
 
@@ -159,7 +159,7 @@ class BlockEdit extends Component {
                                         return (
                                             <Fragment>
                                                 <SelectControl
-                                                    label={ __( 'Size' ) }
+                                                    label={ __( 'Size', '@@text_domain' ) }
                                                     value={ attributes[ sizeName ] }
                                                     onChange={ ( value ) => {
                                                         setAttributes( {
@@ -169,7 +169,7 @@ class BlockEdit extends Component {
                                                     options={ getDefaultColumnSizes() }
                                                 />
                                                 <SelectControl
-                                                    label={ __( 'Order' ) }
+                                                    label={ __( 'Order', '@@text_domain' ) }
                                                     value={ attributes[ orderName ] }
                                                     onChange={ ( value ) => {
                                                         setAttributes( {
@@ -179,12 +179,12 @@ class BlockEdit extends Component {
                                                     options={ getDefaultColumnOrders() }
                                                 />
                                                 <BaseControl
-                                                    label={ __( 'Vertical alignment' ) }
+                                                    label={ __( 'Vertical alignment', '@@text_domain' ) }
                                                 >
                                                     <Toolbar controls={ [
                                                         {
                                                             icon: getIcon( 'icon-vertical-top' ),
-                                                            title: __( 'Start' ),
+                                                            title: __( 'Start', '@@text_domain' ),
                                                             onClick: () => {
                                                                 setAttributes( {
                                                                     [ verticalAlignName ]: attributes[ verticalAlignName ] === 'start' ? '' : 'start',
@@ -194,7 +194,7 @@ class BlockEdit extends Component {
                                                         },
                                                         {
                                                             icon: getIcon( 'icon-vertical-center' ),
-                                                            title: __( 'Center' ),
+                                                            title: __( 'Center', '@@text_domain' ),
                                                             onClick: () => {
                                                                 setAttributes( {
                                                                     [ verticalAlignName ]: attributes[ verticalAlignName ] === 'center' ? '' : 'center',
@@ -204,7 +204,7 @@ class BlockEdit extends Component {
                                                         },
                                                         {
                                                             icon: getIcon( 'icon-vertical-bottom' ),
-                                                            title: __( 'End' ),
+                                                            title: __( 'End', '@@text_domain' ),
                                                             onClick: () => {
                                                                 setAttributes( {
                                                                     [ verticalAlignName ]: attributes[ verticalAlignName ] === 'end' ? '' : 'end',
@@ -225,21 +225,21 @@ class BlockEdit extends Component {
                     <PanelBody>
                         <BaseControl>
                             <ToggleControl
-                                label={ __( 'Sticky content' ) }
+                                label={ __( 'Sticky content', '@@text_domain' ) }
                                 checked={ !! stickyContent }
                                 onChange={ ( value ) => setAttributes( { stickyContent: value } ) }
                             />
-                            <p><em>{ __( '`position: sticky` will be applied to column content. Don\'t forget to set top or bottom value in pixels.' ) }</em></p>
+                            <p><em>{ __( '`position: sticky` will be applied to column content. Don\'t forget to set top or bottom value in pixels.', '@@text_domain' ) }</em></p>
                             { stickyContent ? (
                                 <Fragment>
                                     <TextControl
-                                        label={ __( 'Top' ) }
+                                        label={ __( 'Top', '@@text_domain' ) }
                                         type="number"
                                         value={ stickyContentTop }
                                         onChange={ ( value ) => setAttributes( { stickyContentTop: '' !== value ? parseInt( value, 10 ) : '' } ) }
                                     />
                                     <TextControl
-                                        label={ __( 'Bottom' ) }
+                                        label={ __( 'Bottom', '@@text_domain' ) }
                                         type="number"
                                         value={ stickyContentBottom }
                                         onChange={ ( value ) => setAttributes( { stickyContentBottom: '' !== value ? parseInt( value, 10 ) : '' } ) }
@@ -254,7 +254,7 @@ class BlockEdit extends Component {
                 <div className="ghostkit-col-content">
                     { ! isSelected ? (
                         <div className="ghostkit-column-button-select">
-                            <Tooltip text={ __( 'Select Column' ) }>
+                            <Tooltip text={ __( 'Select Column', '@@text_domain' ) }>
                                 { getIcon( 'block-grid-column' ) }
                             </Tooltip>
                         </div>

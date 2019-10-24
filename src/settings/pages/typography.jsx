@@ -191,7 +191,7 @@ class TypographySettings extends Component {
                     <Fragment>
                         { Object.keys( typographyList ).map( ( key ) => {
                             const advancedData = this.state.advanced[ key ];
-                            const advancedLabel = advancedData === true ? __( 'Hide Advanced' ) : __( 'Show Advanced' );
+                            const advancedLabel = advancedData === true ? __( 'Hide Advanced', '@@text_domain' ) : __( 'Show Advanced', '@@text_domain' );
 
                             if ( typographyList[ key ].childOf === '' ) {
                                 return (

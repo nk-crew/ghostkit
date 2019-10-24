@@ -22,12 +22,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Pricing Table' ),
-    description: __( 'Sell your products or services and show all features.' ),
+    title: __( 'Pricing Table', '@@text_domain' ),
+    description: __( 'Sell your products or services and show all features.', '@@text_domain' ),
     icon: getIcon( 'block-pricing-table', true ),
     keywords: [
-        __( 'pricing' ),
-        __( 'table' ),
+        __( 'pricing', '@@text_domain' ),
+        __( 'table', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/pricing-tables/',

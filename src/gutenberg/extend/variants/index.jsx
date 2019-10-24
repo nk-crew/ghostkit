@@ -117,7 +117,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 <Fragment>
                     <InspectorControls>
                         <PanelBody
-                            title={ __( 'Variants' ) }
+                            title={ __( 'Variants', '@@text_domain' ) }
                             initialOpen={ initialOpenPanel }
                             onToggle={ () => {
                                 initialOpenPanel = ! initialOpenPanel;

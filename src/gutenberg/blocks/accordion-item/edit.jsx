@@ -100,7 +100,7 @@ class BlockEdit extends Component {
                     <Toolbar controls={ [
                         {
                             icon: getIcon( 'icon-collapse' ),
-                            title: __( 'Collapse' ),
+                            title: __( 'Collapse', '@@text_domain' ),
                             onClick: () => setAttributes( { active: ! active } ),
                             isActive: active,
                         },
@@ -111,7 +111,7 @@ class BlockEdit extends Component {
                         <RichText
                             tagName="div"
                             className="ghostkit-accordion-item-label"
-                            placeholder={ __( 'Item label…' ) }
+                            placeholder={ __( 'Item label…', '@@text_domain' ) }
                             value={ heading }
                             onChange={ ( value ) => {
                                 setAttributes( { heading: value } );
@@ -129,7 +129,7 @@ class BlockEdit extends Component {
 
                         <RemoveButton
                             show={ isSelectedBlockInRoot }
-                            tooltipText={ __( 'Remove accordion item?' ) }
+                            tooltipText={ __( 'Remove accordion item?', '@@text_domain' ) }
                             onRemove={ () => {
                                 const parentAccordion = this.findParentAccordion( this.props.rootBlock );
                                 if ( parentAccordion && parentAccordion.clientId ) {

@@ -25,12 +25,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Alert' ),
-    description: __( 'Provide contextual feedback messages for user actions.' ),
+    title: __( 'Alert', '@@text_domain' ),
+    description: __( 'Provide contextual feedback messages for user actions.', '@@text_domain' ),
     icon: getIcon( 'block-alert', true ),
     keywords: [
-        __( 'alert' ),
-        __( 'notification' ),
+        __( 'alert', '@@text_domain' ),
+        __( 'notification', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/alert/',

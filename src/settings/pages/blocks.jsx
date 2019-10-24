@@ -241,10 +241,10 @@ export default class Blocks extends Component {
                     ) : '' }
                     { block.ghostkit && block.ghostkit.previewUrl ? (
                         <div className="ghostkit-settings-blocks-item-preview-url">
-                            <a href={ block.ghostkit.previewUrl }>{ __( 'Preview' ) }</a>
+                            <a href={ block.ghostkit.previewUrl }>{ __( 'Preview', '@@text_domain' ) }</a>
                         </div>
                     ) : '' }
-                    <Tooltip text={ this.getDisabledBlock( block ) ? __( 'Enable Block' ) : __( 'Disable Block' ) }>
+                    <Tooltip text={ this.getDisabledBlock( block ) ? __( 'Enable Block', '@@text_domain' ) : __( 'Disable Block', '@@text_domain' ) }>
                         <div className="ghostkit-settings-blocks-item-check">
                             <ToggleControl
                                 checked={ ! this.getDisabledBlock( block ) }
@@ -286,7 +286,7 @@ export default class Blocks extends Component {
 
             if ( disabledCurrentCount ) {
                 resultTabs.push(
-                    <Tooltip text={ sprintf( __( 'Disabled Blocks: %s' ), disabledCurrentCount ) } key="tab-disabled-blocks">
+                    <Tooltip text={ sprintf( __( 'Disabled Blocks: %s', '@@text_domain' ), disabledCurrentCount ) } key="tab-disabled-blocks">
                         { categoryContent }
                     </Tooltip>
                 );
@@ -297,7 +297,7 @@ export default class Blocks extends Component {
 
         if ( ! count ) {
             resultBlocks.push(
-                <Info key="no-blocks">{ __( 'No blocks in selected category.' ) }</Info>
+                <Info key="no-blocks">{ __( 'No blocks in selected category.', '@@text_domain' ) }</Info>
             );
         }
 
@@ -315,9 +315,9 @@ export default class Blocks extends Component {
                             }
                         >
                             <span className="ghostkit-settings-blocks-items-head-count">
-                                { sprintf( __( 'Blocks: %s' ), count ) }
+                                { sprintf( __( 'Blocks: %s', '@@text_domain' ), count ) }
                             </span>
-                            <Tooltip text={ disabledCount !== count ? __( 'Disable All Blocks' ) : __( 'Enable All Blocks' ) }>
+                            <Tooltip text={ disabledCount !== count ? __( 'Disable All Blocks', '@@text_domain' ) : __( 'Enable All Blocks', '@@text_domain' ) }>
                                 <div
                                     className={
                                         classnames(

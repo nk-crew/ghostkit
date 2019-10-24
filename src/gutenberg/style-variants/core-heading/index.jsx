@@ -16,7 +16,7 @@ const { createHigherOrderComponent } = wp.compose;
 
 registerBlockStyle( 'core/heading', {
     name: 'numbered',
-    label: __( 'Numbered' ),
+    label: __( 'Numbered', '@@text_domain' ),
 } );
 
 const ghostkitHeadingNumbered = createHigherOrderComponent( ( BlockListBlock ) => {

@@ -140,24 +140,24 @@ class BlockEdit extends Component {
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody>
-                        <BaseControl label={ __( 'Gap' ) }>
+                        <BaseControl label={ __( 'Gap', '@@text_domain' ) }>
                             <ButtonGroup>
                                 {
                                     [
                                         {
-                                            label: __( 'none' ),
+                                            label: __( 'none', '@@text_domain' ),
                                             value: 'no',
                                         },
                                         {
-                                            label: __( 'sm' ),
+                                            label: __( 'sm', '@@text_domain' ),
                                             value: 'sm',
                                         },
                                         {
-                                            label: __( 'md' ),
+                                            label: __( 'md', '@@text_domain' ),
                                             value: 'md',
                                         },
                                         {
-                                            label: __( 'lg' ),
+                                            label: __( 'lg', '@@text_domain' ),
                                             value: 'lg',
                                         },
                                     ].map( ( val ) => {
@@ -178,7 +178,7 @@ class BlockEdit extends Component {
                                 }
                             </ButtonGroup>
                         </BaseControl>
-                        <BaseControl label={ __( 'Align' ) }>
+                        <BaseControl label={ __( 'Align', '@@text_domain' ) }>
                             <BlockAlignmentToolbar
                                 value={ align }
                                 onChange={ ( value ) => setAttributes( { align: value } ) }
@@ -193,7 +193,7 @@ class BlockEdit extends Component {
                         allowedBlocks={ [ 'ghostkit/button-single' ] }
                     />
                     { isSelectedBlockInRoot ? (
-                        <Tooltip text={ __( 'Add Button' ) }>
+                        <Tooltip text={ __( 'Add Button', '@@text_domain' ) }>
                             <IconButton
                                 icon={ 'insert' }
                                 onClick={ () => {

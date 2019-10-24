@@ -22,13 +22,13 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Accordion' ),
-    description: __( 'Toggle the visibility of content across your project.' ),
+    title: __( 'Accordion', '@@text_domain' ),
+    description: __( 'Toggle the visibility of content across your project.', '@@text_domain' ),
     icon: getIcon( 'block-accordion', true ),
     keywords: [
-        __( 'accordion' ),
-        __( 'collapsible' ),
-        __( 'collapse' ),
+        __( 'accordion', '@@text_domain' ),
+        __( 'collapsible', '@@text_domain' ),
+        __( 'collapse', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/accordion/',

@@ -23,12 +23,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Carousel' ),
-    description: __( 'Carousel for any type of content – images or other blocks.' ),
+    title: __( 'Carousel', '@@text_domain' ),
+    description: __( 'Carousel for any type of content – images or other blocks.', '@@text_domain' ),
     icon: getIcon( 'block-carousel', true ),
     keywords: [
-        __( 'carousel' ),
-        __( 'slider' ),
+        __( 'carousel', '@@text_domain' ),
+        __( 'slider', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/carousel/',

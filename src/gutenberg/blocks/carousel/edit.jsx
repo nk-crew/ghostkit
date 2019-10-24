@@ -89,7 +89,7 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <RangeControl
-                            label={ __( 'Slides' ) }
+                            label={ __( 'Slides', '@@text_domain' ) }
                             value={ slides }
                             onChange={ ( value ) => setAttributes( { slides: value } ) }
                             min={ 2 }
@@ -98,18 +98,18 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <SelectControl
-                            label={ __( 'Effect' ) }
+                            label={ __( 'Effect', '@@text_domain' ) }
                             value={ effect }
                             options={ [
                                 {
                                     value: 'slide',
-                                    label: __( 'Slide' ),
+                                    label: __( 'Slide', '@@text_domain' ),
                                 }, {
                                     value: 'coverflow',
-                                    label: __( 'Coverflow' ),
+                                    label: __( 'Coverflow', '@@text_domain' ),
                                 }, {
                                     value: 'fade',
-                                    label: __( 'Fade' ),
+                                    label: __( 'Fade', '@@text_domain' ),
                                 },
                             ] }
                             onChange={ ( value ) => setAttributes( { effect: value } ) }
@@ -117,8 +117,8 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <RangeControl
-                            label={ __( 'Speed (seconds)' ) }
-                            suffix={ __( 'sec' ) }
+                            label={ __( 'Speed (seconds)', '@@text_domain' ) }
+                            suffix={ __( 'sec', '@@text_domain' ) }
                             value={ speed }
                             onChange={ ( value ) => setAttributes( { speed: value } ) }
                             min={ 0 }
@@ -126,7 +126,7 @@ class BlockEdit extends Component {
                             step={ 0.1 }
                         />
                         <RangeControl
-                            label={ __( 'Autoplay (seconds)' ) }
+                            label={ __( 'Autoplay (seconds)', '@@text_domain' ) }
                             value={ autoplay }
                             onChange={ ( value ) => setAttributes( { autoplay: value } ) }
                             min={ 0 }
@@ -134,14 +134,14 @@ class BlockEdit extends Component {
                             step={ 0.3 }
                         />
                         <RangeControl
-                            label={ __( 'Slides per view' ) }
+                            label={ __( 'Slides per view', '@@text_domain' ) }
                             value={ slidesPerView }
                             onChange={ ( value ) => setAttributes( { slidesPerView: value } ) }
                             min={ 1 }
                             max={ 8 }
                         />
                         <RangeControl
-                            label={ __( 'Gap' ) }
+                            label={ __( 'Gap', '@@text_domain' ) }
                             value={ gap }
                             onChange={ ( value ) => setAttributes( { gap: value } ) }
                             min={ 0 }
@@ -150,47 +150,47 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <ToggleControl
-                            label={ __( 'Centered slides' ) }
+                            label={ __( 'Centered slides', '@@text_domain' ) }
                             checked={ !! centeredSlides }
                             onChange={ ( val ) => setAttributes( { centeredSlides: val } ) }
                         />
                         <ToggleControl
-                            label={ __( 'Loop' ) }
+                            label={ __( 'Loop', '@@text_domain' ) }
                             checked={ !! loop }
                             onChange={ ( val ) => setAttributes( { loop: val } ) }
                         />
                         <ToggleControl
-                            label={ __( 'Free scroll' ) }
+                            label={ __( 'Free scroll', '@@text_domain' ) }
                             checked={ !! freeScroll }
                             onChange={ ( val ) => setAttributes( { freeScroll: val } ) }
                         />
                         <ToggleControl
-                            label={ __( 'Show arrows' ) }
+                            label={ __( 'Show arrows', '@@text_domain' ) }
                             checked={ !! showArrows }
                             onChange={ ( val ) => setAttributes( { showArrows: val } ) }
                         />
                         { showArrows ? (
                             <Fragment>
                                 <IconPicker
-                                    label={ __( 'Prev arrow icon' ) }
+                                    label={ __( 'Prev arrow icon', '@@text_domain' ) }
                                     value={ arrowPrevIcon }
                                     onChange={ ( value ) => setAttributes( { arrowPrevIcon: value } ) }
                                 />
                                 <IconPicker
-                                    label={ __( 'Next arrow icon' ) }
+                                    label={ __( 'Next arrow icon', '@@text_domain' ) }
                                     value={ arrowNextIcon }
                                     onChange={ ( value ) => setAttributes( { arrowNextIcon: value } ) }
                                 />
                             </Fragment>
                         ) : '' }
                         <ToggleControl
-                            label={ __( 'Show bullets' ) }
+                            label={ __( 'Show bullets', '@@text_domain' ) }
                             checked={ !! showBullets }
                             onChange={ ( val ) => setAttributes( { showBullets: val } ) }
                         />
                         { showBullets ? (
                             <ToggleControl
-                                label={ __( 'Dynamic bullets' ) }
+                                label={ __( 'Dynamic bullets', '@@text_domain' ) }
                                 checked={ !! dynamicBullets }
                                 onChange={ ( val ) => setAttributes( { dynamicBullets: val } ) }
                             />

@@ -55,13 +55,13 @@ let initialOpenPanel = false;
 const getDefaultDisplay = function( screen = '' ) {
     return [
         {
-            label: screen === 'all' ? __( 'Default' ) : __( 'Inherit' ),
+            label: screen === 'all' ? __( 'Default', '@@text_domain' ) : __( 'Inherit', '@@text_domain' ),
             value: '',
         }, {
-            label: __( 'Show' ),
+            label: __( 'Show', '@@text_domain' ),
             value: 'block',
         }, {
-            label: __( 'Hide' ),
+            label: __( 'Hide', '@@text_domain' ),
             value: 'none',
         },
     ];
@@ -191,7 +191,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     <span className="ghostkit-ext-icon">
                                         { getIcon( 'extension-display' ) }
                                     </span>
-                                    <span>{ __( 'Display' ) }</span>
+                                    <span>{ __( 'Display', '@@text_domain' ) }</span>
                                 </Fragment>
                             ) }
                             initialOpen={ initialOpenPanel }
@@ -226,7 +226,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     }
                                 }
                             </ResponsiveTabPanel>
-                            <BaseControl help={ __( 'Display settings will only take effect once you are on the preview or live page, and not while you\'re in editing mode.' ) } />
+                            <BaseControl help={ __( 'Display settings will only take effect once you are on the preview or live page, and not while you\'re in editing mode.', '@@text_domain' ) } />
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>

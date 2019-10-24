@@ -71,7 +71,7 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <RangeControl
-                            label={ __( 'Number Size' ) }
+                            label={ __( 'Number Size', '@@text_domain' ) }
                             value={ numberSize }
                             onChange={ ( value ) => setAttributes( { numberSize: value } ) }
                             min={ 20 }
@@ -80,24 +80,24 @@ class BlockEdit extends Component {
                             afterIcon="editor-textcolor"
                         />
                         <BaseControl
-                            label={ __( 'Number Position' ) }
+                            label={ __( 'Number Position', '@@text_domain' ) }
                         >
                             <Toolbar controls={ [
                                 {
                                     icon: 'align-center',
-                                    title: __( 'Top' ),
+                                    title: __( 'Top', '@@text_domain' ),
                                     onClick: () => setAttributes( { numberPosition: 'top' } ),
                                     isActive: numberPosition === 'top',
                                 },
                                 {
                                     icon: 'align-left',
-                                    title: __( 'Left' ),
+                                    title: __( 'Left', '@@text_domain' ),
                                     onClick: () => setAttributes( { numberPosition: 'left' } ),
                                     isActive: numberPosition === 'left',
                                 },
                                 {
                                     icon: 'align-right',
-                                    title: __( 'Right' ),
+                                    title: __( 'Right', '@@text_domain' ),
                                     onClick: () => setAttributes( { numberPosition: 'right' } ),
                                     isActive: numberPosition === 'right',
                                 },
@@ -106,18 +106,18 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <ToggleControl
-                            label={ __( 'Animate in viewport' ) }
+                            label={ __( 'Animate in viewport', '@@text_domain' ) }
                             checked={ !! animateInViewport }
                             onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
                         />
                         <ToggleControl
-                            label={ __( 'Show Content' ) }
+                            label={ __( 'Show Content', '@@text_domain' ) }
                             checked={ !! showContent }
                             onChange={ ( val ) => setAttributes( { showContent: val } ) }
                         />
                         { animateInViewport ? (
                             <TextControl
-                                label={ __( 'Animate from' ) }
+                                label={ __( 'Animate from', '@@text_domain' ) }
                                 type="number"
                                 value={ animateInViewportFrom }
                                 onChange={ ( value ) => setAttributes( { animateInViewportFrom: parseInt( value, 10 ) } ) }
@@ -126,7 +126,7 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody title={ (
                         <Fragment>
-                            { __( 'Colors' ) }
+                            { __( 'Colors', '@@text_domain' ) }
                             <ColorIndicator colorValue={ numberColor } />
                         </Fragment>
                     ) } initialOpen={ false }>
@@ -135,12 +135,12 @@ class BlockEdit extends Component {
                             tabs={ [
                                 {
                                     name: 'normal',
-                                    title: __( 'Normal' ),
+                                    title: __( 'Normal', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                                 {
                                     name: 'hover',
-                                    title: __( 'Hover' ),
+                                    title: __( 'Hover', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                             ] }>
@@ -150,7 +150,7 @@ class BlockEdit extends Component {
                                     return (
                                         <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverNumberColor' : 'numberColor' } props={ this.props }>
                                             <ColorPicker
-                                                label={ __( 'Color' ) }
+                                                label={ __( 'Color', '@@text_domain' ) }
                                                 value={ isHover ? hoverNumberColor : numberColor }
                                                 onChange={ ( val ) => setAttributes( isHover ? { hoverNumberColor: val } : { numberColor: val } ) }
                                                 alpha={ true }
@@ -166,19 +166,19 @@ class BlockEdit extends Component {
                     <Toolbar controls={ [
                         {
                             icon: 'align-center',
-                            title: __( 'Number Position Top' ),
+                            title: __( 'Number Position Top', '@@text_domain' ),
                             onClick: () => setAttributes( { numberPosition: 'top' } ),
                             isActive: numberPosition === 'top',
                         },
                         {
                             icon: 'align-left',
-                            title: __( 'Number Position Left' ),
+                            title: __( 'Number Position Left', '@@text_domain' ),
                             onClick: () => setAttributes( { numberPosition: 'left' } ),
                             isActive: numberPosition === 'left',
                         },
                         {
                             icon: 'align-right',
-                            title: __( 'Number Position Right' ),
+                            title: __( 'Number Position Right', '@@text_domain' ),
                             onClick: () => setAttributes( { numberPosition: 'right' } ),
                             isActive: numberPosition === 'right',
                         },
@@ -189,7 +189,7 @@ class BlockEdit extends Component {
                         <RichText
                             tagName="div"
                             className="ghostkit-counter-box-number-wrap"
-                            placeholder={ __( 'Add number…' ) }
+                            placeholder={ __( 'Add number…', '@@text_domain' ) }
                             value={ number }
                             onChange={ ( value ) => setAttributes( { number: value } ) }
                             formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
@@ -200,7 +200,7 @@ class BlockEdit extends Component {
                     { showContent ? (
                         <div className="ghostkit-counter-box-content">
                             <InnerBlocks
-                                template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important counts, that you should know!' ) } ] ] }
+                                template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important counts, that you should know!', '@@text_domain' ) } ] ] }
                                 templateLock={ false }
                             />
                         </div>

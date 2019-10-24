@@ -28,8 +28,8 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Column' ),
-    description: __( 'A single column within a grid block.' ),
+    title: __( 'Column', '@@text_domain' ),
+    description: __( 'A single column within a grid block.', '@@text_domain' ),
     icon: getIcon( 'block-grid-column', true ),
     ghostkit: {
         customSelector( selector ) {

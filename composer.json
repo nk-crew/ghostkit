@@ -2,11 +2,13 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "3.2.x",
     "wp-coding-standards/wpcs": "^0.14.0",
-    "wimg/php-compatibility": "@dev"
+    "wimg/php-compatibility": "@dev",
+    "wp-cli/i18n-command": "^2.2.0"
   },
   "scripts": {
     "phpcs": "phpcs --standard=phpcs_nk",
     "phpcbf": "phpcbf --standard=phpcs_nk",
+    "wp": "\"vendor/wp-cli/wp-cli/bin/wp\"",
 
     "post-install-cmd": [
       "@configure_phpcs_paths"

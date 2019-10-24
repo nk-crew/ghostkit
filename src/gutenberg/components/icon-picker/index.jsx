@@ -135,21 +135,21 @@ class IconPickerDropdown extends Component {
                 render: (
                     <Fragment key="form">
                         <TextControl
-                            label={ __( 'Icon class' ) }
+                            label={ __( 'Icon Class', '@@text_domain' ) }
                             value={ value }
                             onChange={ ( newClass ) => {
                                 onChange( newClass );
                             } }
-                            placeholder={ __( 'Icon class' ) }
+                            placeholder={ __( 'Icon Class', '@@text_domain' ) }
                             autoComplete="off"
                         />
                         <TextControl
-                            label={ __( 'Search icon' ) }
+                            label={ __( 'Search Icon', '@@text_domain' ) }
                             value={ this.state.search }
                             onChange={ ( searchVal ) => (
                                 this.setState( { search: searchVal } )
                             ) }
-                            placeholder={ __( 'Type to search...' ) }
+                            placeholder={ __( 'Type to Search...', '@@text_domain' ) }
                             autoComplete="off"
                         />
                     </Fragment>
@@ -273,7 +273,7 @@ class IconPickerDropdown extends Component {
         if ( rows.length === 1 ) {
             rows.push( {
                 key: 'icons',
-                render: __( 'No icons found.' ),
+                render: __( 'No icons found.', '@@text_domain' ),
             } );
         }
 
@@ -370,7 +370,7 @@ export default class IconPicker extends Component {
                 onChange={ onChange }
                 value={ value }
                 renderToggle={ ( { isOpen, onToggle } ) => (
-                    <Tooltip text={ __( 'Icon Picker' ) }>
+                    <Tooltip text={ __( 'Icon Picker', '@@text_domain' ) }>
                         { /* We need this <div> just because Tooltip don't work without it */ }
                         <div>
                             <IconPicker.Preview

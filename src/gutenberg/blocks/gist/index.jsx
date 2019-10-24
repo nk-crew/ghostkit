@@ -24,12 +24,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'GitHub Gist' ),
-    description: __( 'Embed code parts form GitHub Gist to your site or documentation.' ),
+    title: __( 'GitHub Gist', '@@text_domain' ),
+    description: __( 'Embed code parts form GitHub Gist to your site or documentation.', '@@text_domain' ),
     icon: getIcon( 'block-gist', true ),
     keywords: [
-        __( 'github' ),
-        __( 'gist' ),
+        __( 'github', '@@text_domain' ),
+        __( 'gist', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/github-gist/',

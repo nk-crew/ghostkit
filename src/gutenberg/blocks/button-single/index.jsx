@@ -18,8 +18,8 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Button' ),
-    description: __( 'A single button within a buttons wrapper block.' ),
+    title: __( 'Button', '@@text_domain' ),
+    description: __( 'A single button within a buttons wrapper block.', '@@text_domain' ),
     icon: getIcon( 'block-button', true ),
     ghostkit: {
         customStylesCallback( attributes ) {

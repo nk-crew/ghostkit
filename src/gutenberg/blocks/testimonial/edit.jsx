@@ -117,13 +117,13 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <IconPicker
-                            label={ __( 'Icon' ) }
+                            label={ __( 'Icon', '@@text_domain' ) }
                             value={ icon }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                         { photoSizes ? (
                             <SelectControl
-                                label={ __( 'Photo Size' ) }
+                                label={ __( 'Photo Size', '@@text_domain' ) }
                                 value={ photoSize }
                                 options={ ( () => {
                                     const result = [];
@@ -157,7 +157,7 @@ class BlockEdit extends Component {
                     ) : '' }
                     <div className="ghostkit-testimonial-content">
                         <InnerBlocks
-                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important testimonial, so many delights here!' ) } ] ] }
+                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important testimonial, so many delights here!', '@@text_domain' ) } ] ] }
                             templateLock={ false }
                         />
                     </div>
@@ -202,14 +202,14 @@ class BlockEdit extends Component {
                         <RichText
                             tagName="div"
                             className="ghostkit-testimonial-name"
-                            placeholder={ __( 'Write name…' ) }
+                            placeholder={ __( 'Write name…', '@@text_domain' ) }
                             value={ attributes.name }
                             onChange={ value => setAttributes( { name: value } ) }
                         />
                         <RichText
                             tagName="div"
                             className="ghostkit-testimonial-source"
-                            placeholder={ __( 'Write source…' ) }
+                            placeholder={ __( 'Write source…', '@@text_domain' ) }
                             value={ source }
                             onChange={ value => setAttributes( { source: value } ) }
                         />

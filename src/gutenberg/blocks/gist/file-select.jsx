@@ -118,7 +118,7 @@ class GistFilesSelect extends Component {
                     icon={ 'media-default' }
                     label={ label }
                     controls={ items.map( ( item ) => ( {
-                        title: item || __( 'Show all files' ),
+                        title: item || __( 'Show all files', '@@text_domain' ),
                         isActive: item === value,
                         onClick: () => onChange( item ),
                     } ) ) }
@@ -130,7 +130,7 @@ class GistFilesSelect extends Component {
                     value={ value }
                     options={ items.map( ( item ) => ( {
                         value: item,
-                        label: item || __( 'Show all files' ),
+                        label: item || __( 'Show all files', '@@text_domain' ),
                     } ) ) }
                     onChange={ onChange }
                     className={ className }

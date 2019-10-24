@@ -24,15 +24,15 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Buttons' ),
+    title: __( 'Buttons', '@@text_domain' ),
 
-    description: __( 'Change important links to buttons to get more click rate.' ),
+    description: __( 'Change important links to buttons to get more click rate.', '@@text_domain' ),
 
     icon: getIcon( 'block-button', true ),
 
     keywords: [
-        __( 'btn' ),
-        __( 'button' ),
+        __( 'btn', '@@text_domain' ),
+        __( 'button', '@@text_domain' ),
     ],
 
     ghostkit: {

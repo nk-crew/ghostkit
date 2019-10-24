@@ -160,27 +160,27 @@ class BlockEdit extends Component {
 
         return (
             <ImagePicker
-                label={ __( 'Aspect ratio' ) }
+                label={ __( 'Aspect Ratio', '@@text_domain' ) }
                 value={ videoAspectRatio }
                 options={ [
                     {
                         value: '16:9',
-                        label: __( 'Wide' ),
+                        label: __( 'Wide', '@@text_domain' ),
                         image: ImgAspectRatio169,
                     },
                     {
                         value: '21:9',
-                        label: __( 'Ultra Wide' ),
+                        label: __( 'Ultra Wide', '@@text_domain' ),
                         image: ImgAspectRatio219,
                     },
                     {
                         value: '4:3',
-                        label: __( 'TV' ),
+                        label: __( 'TV', '@@text_domain' ),
                         image: ImgAspectRatio43,
                     },
                     {
                         value: '3:2',
-                        label: __( 'Classic Film' ),
+                        label: __( 'Classic Film', '@@text_domain' ),
                         image: ImgAspectRatio32,
                     },
                 ] }
@@ -247,7 +247,7 @@ class BlockEdit extends Component {
                         <Dropdown
                             renderToggle={ ( { onToggle } ) => (
                                 <IconButton
-                                    label={ __( 'Aspect Ratio' ) }
+                                    label={ __( 'Aspect Ratio', '@@text_domain' ) }
                                     icon={ toolbarAspectRatioIcon }
                                     className="components-toolbar__control"
                                     onClick={ onToggle }
@@ -271,7 +271,7 @@ class BlockEdit extends Component {
                             <TextControl
                                 type="url"
                                 value={ video }
-                                placeholder={ __( 'YouTube / Vimeo URL' ) }
+                                placeholder={ __( 'YouTube / Vimeo URL', '@@text_domain' ) }
                                 onChange={ ( value ) => setAttributes( { video: value } ) }
                                 className="ghostkit-video-toolbar-url"
                             />
@@ -280,14 +280,14 @@ class BlockEdit extends Component {
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody>
-                        <ButtonGroup aria-label={ __( 'Type' ) } style={ { marginBottom: 10 } }>
+                        <ButtonGroup aria-label={ __( 'Type', '@@text_domain' ) } style={ { marginBottom: 10 } }>
                             {
                                 [
                                     {
-                                        label: __( 'YouTube / Vimeo' ),
+                                        label: __( 'YouTube / Vimeo', '@@text_domain' ),
                                         value: 'yt_vm_video',
                                     }, {
-                                        label: __( 'Local Hosted' ),
+                                        label: __( 'Local Hosted', '@@text_domain' ),
                                         value: 'video',
                                     },
                                 ].map( val => (
@@ -305,7 +305,7 @@ class BlockEdit extends Component {
                         </ButtonGroup>
                         { type === 'yt_vm_video' &&
                             <TextControl
-                                label={ __( 'Video URL' ) }
+                                label={ __( 'Video URL', '@@text_domain' ) }
                                 type="url"
                                 value={ video }
                                 onChange={ ( value ) => setAttributes( { video: value } ) }
@@ -347,7 +347,7 @@ class BlockEdit extends Component {
                                 render={ ( { open } ) => (
                                     <div style={ { marginBottom: 13 } }>
                                         <Button onClick={ open } isPrimary>
-                                            { __( 'Select MP4' ) }
+                                            { __( 'Select MP4', '@@text_domain' ) }
                                         </Button>
                                     </div>
                                 ) }
@@ -366,7 +366,7 @@ class BlockEdit extends Component {
                                         e.preventDefault();
                                     } }
                                 >
-                                    { __( '(Remove)' ) }
+                                    { __( '(Remove)', '@@text_domain' ) }
                                 </a>
                                 <div style={ { marginBottom: 13 } } />
                             </div>
@@ -390,7 +390,7 @@ class BlockEdit extends Component {
                                 render={ ( { open } ) => (
                                     <div style={ { marginBottom: 13 } }>
                                         <Button onClick={ open } isPrimary>
-                                            { __( 'Select OGV' ) }
+                                            { __( 'Select OGV', '@@text_domain' ) }
                                         </Button>
                                     </div>
                                 ) }
@@ -409,7 +409,7 @@ class BlockEdit extends Component {
                                         e.preventDefault();
                                     } }
                                 >
-                                    { __( '(Remove)' ) }
+                                    { __( '(Remove)', '@@text_domain' ) }
                                 </a>
                                 <div style={ { marginBottom: 13 } } />
                             </div>
@@ -433,7 +433,7 @@ class BlockEdit extends Component {
                                 render={ ( { open } ) => (
                                     <div style={ { marginBottom: 13 } }>
                                         <Button onClick={ open } isPrimary>
-                                            { __( 'Select WEBM' ) }
+                                            { __( 'Select WEBM', '@@text_domain' ) }
                                         </Button>
                                     </div>
                                 ) }
@@ -452,7 +452,7 @@ class BlockEdit extends Component {
                                         e.preventDefault();
                                     } }
                                 >
-                                    { __( '(Remove)' ) }
+                                    { __( '(Remove)', '@@text_domain' ) }
                                 </a>
                                 <div style={ { marginBottom: 13 } } />
                             </div>
@@ -463,7 +463,7 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <RangeControl
-                            label={ __( 'Volume' ) }
+                            label={ __( 'Volume', '@@text_domain' ) }
                             value={ videoVolume }
                             min="0"
                             max="100"
@@ -472,19 +472,19 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <IconPicker
-                            label={ __( 'Play Icon' ) }
+                            label={ __( 'Play Icon', '@@text_domain' ) }
                             value={ iconPlay }
                             onChange={ ( value ) => setAttributes( { iconPlay: value } ) }
                         />
                         <IconPicker
-                            label={ __( 'Loading Icon' ) }
+                            label={ __( 'Loading Icon', '@@text_domain' ) }
                             value={ iconLoading }
                             onChange={ ( value ) => setAttributes( { iconLoading: value } ) }
                         />
                     </PanelBody>
                     <PanelBody>
                         <SelectControl
-                            label={ __( 'Click action' ) }
+                            label={ __( 'Click Action', '@@text_domain' ) }
                             value={ clickAction }
                             options={ [
                                 {
@@ -501,14 +501,14 @@ class BlockEdit extends Component {
                             <Fragment>
                                 <ApplyFilters name="ghostkit.editor.controls" attribute={ 'fullscreenBackgroundColor' } props={ this.props }>
                                     <ColorPicker
-                                        label={ __( 'Fullscreen Background' ) }
+                                        label={ __( 'Fullscreen Background', '@@text_domain' ) }
                                         value={ fullscreenBackgroundColor }
                                         onChange={ ( val ) => setAttributes( { fullscreenBackgroundColor: val } ) }
                                         alpha={ true }
                                     />
                                 </ApplyFilters>
                                 <IconPicker
-                                    label={ __( 'Fullscreen close icon' ) }
+                                    label={ __( 'Fullscreen Close Icon', '@@text_domain' ) }
                                     value={ fullscreenActionCloseIcon }
                                     onChange={ ( value ) => setAttributes( { fullscreenActionCloseIcon: value } ) }
                                 />
@@ -516,14 +516,14 @@ class BlockEdit extends Component {
                         ) : (
                             <Fragment>
                                 <ToggleControl
-                                    label={ __( 'Autoplay' ) }
-                                    help={ __( 'Automatically play video when block reaches the viewport. The video will be play muted due to browser Autoplay policy.' ) }
+                                    label={ __( 'Autoplay', '@@text_domain' ) }
+                                    help={ __( 'Automatically play video when block reaches the viewport. The video will be play muted due to browser Autoplay policy.', '@@text_domain' ) }
                                     checked={ !! videoAutoplay }
                                     onChange={ ( value ) => setAttributes( { videoAutoplay: value } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Autopause' ) }
-                                    help={ __( 'Automatically pause video when block out of the viewport.' ) }
+                                    label={ __( 'Autopause', '@@text_domain' ) }
+                                    help={ __( 'Automatically pause video when block out of the viewport.', '@@text_domain' ) }
                                     checked={ !! videoAutopause }
                                     onChange={ ( value ) => setAttributes( { videoAutopause: value } ) }
                                 />
@@ -531,7 +531,7 @@ class BlockEdit extends Component {
                         ) }
                     </PanelBody>
 
-                    <PanelBody title={ __( 'Poster Image' ) }>
+                    <PanelBody title={ __( 'Poster Image', '@@text_domain' ) }>
                         { ! poster ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
@@ -541,7 +541,7 @@ class BlockEdit extends Component {
                                 value={ poster }
                                 render={ ( { open } ) => (
                                     <Button onClick={ open } isPrimary>
-                                        { __( 'Select image' ) }
+                                        { __( 'Select Image', '@@text_domain' ) }
                                     </Button>
                                 ) }
                             />
@@ -556,7 +556,7 @@ class BlockEdit extends Component {
                                     allowedTypes={ [ 'image' ] }
                                     value={ poster }
                                     render={ ( { open } ) => (
-                                        <BaseControl help={ __( 'Click the image to edit or update' ) }>
+                                        <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
                                             <a
                                                 href="#"
                                                 onClick={ open }
@@ -579,12 +579,12 @@ class BlockEdit extends Component {
                                     } }
                                     className="button button-secondary"
                                 >
-                                    { __( 'Remove image' ) }
+                                    { __( 'Remove Image', '@@text_domain' ) }
                                 </a>
                                 <div style={ { marginBottom: 13 } } />
                                 { posterSizes ? (
                                     <SelectControl
-                                        label={ __( 'Size' ) }
+                                        label={ __( 'Size', '@@text_domain' ) }
                                         value={ posterSize }
                                         options={ ( () => {
                                             const result = [];

@@ -25,12 +25,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Number Box' ),
-    description: __( 'Show your progress and rewards using counting numbers.' ),
+    title: __( 'Number Box', '@@text_domain' ),
+    description: __( 'Show your progress and rewards using counting numbers.', '@@text_domain' ),
     icon: getIcon( 'block-counter-box', true ),
     keywords: [
-        __( 'number' ),
-        __( 'counter' ),
+        __( 'number', '@@text_domain' ),
+        __( 'counter', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/number-box/',

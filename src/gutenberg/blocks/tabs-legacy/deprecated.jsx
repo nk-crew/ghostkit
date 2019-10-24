@@ -20,7 +20,7 @@ const getTabs = ( { tabsCount, tabsSettings } ) => {
 
     for ( let k = 1; k <= tabsCount; k++ ) {
         result.push( {
-            label: tabsSettings[ 'tab_' + k ] ? tabsSettings[ 'tab_' + k ].label : sprintf( __( 'Tab %d' ), k ),
+            label: tabsSettings[ 'tab_' + k ] ? tabsSettings[ 'tab_' + k ].label : sprintf( __( 'Tab %d', '@@text_domain' ), k ),
             number: k,
         } );
     }

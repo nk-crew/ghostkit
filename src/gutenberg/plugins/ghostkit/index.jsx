@@ -52,11 +52,11 @@ export class Plugin extends Component {
                 <PluginSidebarMoreMenuItem
                     target="ghostkit"
                 >
-                    { __( 'Ghost Kit' ) }
+                    { __( 'Ghost Kit', '@@text_domain' ) }
                 </PluginSidebarMoreMenuItem>
                 <PluginSidebar
                     name="ghostkit"
-                    title={ __( 'Ghost Kit' ) }
+                    title={ __( 'Ghost Kit', '@@text_domain' ) }
                 >
                     <PanelBody className="plugin-ghostkit-panel">
                         <Button
@@ -68,7 +68,7 @@ export class Plugin extends Component {
                             } }
                         >
                             { getIcon( 'plugin-templates' ) }
-                            { __( 'Templates' ) }
+                            { __( 'Templates', '@@text_domain' ) }
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
@@ -79,7 +79,7 @@ export class Plugin extends Component {
                             } }
                         >
                             { getIcon( 'plugin-typography' ) }
-                            { __( 'Typography' ) }
+                            { __( 'Typography', '@@text_domain' ) }
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
@@ -90,7 +90,7 @@ export class Plugin extends Component {
                             } }
                         >
                             { getIcon( 'plugin-custom-code' ) }
-                            { __( 'CSS & JavaScript' ) }
+                            { __( 'CSS & JavaScript', '@@text_domain' ) }
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
@@ -101,7 +101,7 @@ export class Plugin extends Component {
                             } }
                         >
                             { getIcon( 'plugin-customizer' ) }
-                            { __( 'Customizer' ) }
+                            { __( 'Customizer', '@@text_domain' ) }
                         </Button>
                     </PanelBody>
                 </PluginSidebar>

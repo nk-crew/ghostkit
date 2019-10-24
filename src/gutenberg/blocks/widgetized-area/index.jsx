@@ -22,12 +22,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Widgetized Area' ),
-    description: __( 'Select registered sidebars and put it in any place.' ),
+    title: __( 'Widgetized Area', '@@text_domain' ),
+    description: __( 'Select registered sidebars and put it in any place.', '@@text_domain' ),
     icon: getIcon( 'block-widgetized-area', true ),
     keywords: [
-        __( 'widget' ),
-        __( 'sidebar' ),
+        __( 'widget', '@@text_domain' ),
+        __( 'sidebar', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/widgetized-area/',

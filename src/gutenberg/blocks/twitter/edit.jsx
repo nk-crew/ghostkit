@@ -97,37 +97,37 @@ class BlockEdit extends Component {
                         <Fragment>
                             <PanelBody>
                                 <TextControl
-                                    placeholder={ __( 'Username' ) }
+                                    placeholder={ __( 'Username', '@@text_domain' ) }
                                     value={ userName }
                                     onChange={ ( value ) => setAttributes( { userName: value } ) }
                                 />
                             </PanelBody>
-                            <PanelBody title={ __( 'Feed' ) }>
+                            <PanelBody title={ __( 'Feed', '@@text_domain' ) }>
                                 <RangeControl
-                                    label={ __( 'Tweets Number' ) }
+                                    label={ __( 'Tweets Number', '@@text_domain' ) }
                                     value={ count }
                                     onChange={ ( value ) => setAttributes( { count: value } ) }
                                     min={ 1 }
                                     max={ 20 }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Show Replies' ) }
+                                    label={ __( 'Show Replies', '@@text_domain' ) }
                                     checked={ !! showReplies }
                                     onChange={ ( value ) => setAttributes( { showReplies: value } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Show Retweets' ) }
+                                    label={ __( 'Show Retweets', '@@text_domain' ) }
                                     checked={ !! showRetweets }
                                     onChange={ ( value ) => setAttributes( { showRetweets: value } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Show Avatar' ) }
+                                    label={ __( 'Show Avatar', '@@text_domain' ) }
                                     checked={ !! showFeedAvatar }
                                     onChange={ ( value ) => setAttributes( { showFeedAvatar: value } ) }
                                 />
                                 { showFeedAvatar ? (
                                     <RangeControl
-                                        label={ __( 'Avatar Size' ) }
+                                        label={ __( 'Avatar Size', '@@text_domain' ) }
                                         value={ feedAvatarSize }
                                         onChange={ ( value ) => setAttributes( { feedAvatarSize: value } ) }
                                         min={ 10 }
@@ -135,54 +135,54 @@ class BlockEdit extends Component {
                                     />
                                 ) : '' }
                                 <ToggleControl
-                                    label={ __( 'Show Name' ) }
+                                    label={ __( 'Show Name', '@@text_domain' ) }
                                     checked={ !! showFeedName }
                                     onChange={ ( value ) => setAttributes( { showFeedName: value } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Show Date' ) }
+                                    label={ __( 'Show Date', '@@text_domain' ) }
                                     checked={ !! showFeedDate }
                                     onChange={ ( value ) => setAttributes( { showFeedDate: value } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Show Actions' ) }
+                                    label={ __( 'Show Actions', '@@text_domain' ) }
                                     checked={ !! showFeedActions }
                                     onChange={ ( value ) => setAttributes( { showFeedActions: value } ) }
                                 />
                                 <SelectControl
-                                    label={ __( 'Convert Text Links' ) }
+                                    label={ __( 'Convert Text Links', '@@text_domain' ) }
                                     value={ feedTextConvertLinks }
                                     options={ [
                                         {
                                             value: 'links_media',
-                                            label: __( 'Links + Media' ),
+                                            label: __( 'Links + Media', '@@text_domain' ),
                                         }, {
                                             value: 'links',
-                                            label: __( 'Links' ),
+                                            label: __( 'Links', '@@text_domain' ),
                                         }, {
                                             value: 'no',
-                                            label: __( 'No Convert' ),
+                                            label: __( 'No Convert', '@@text_domain' ),
                                         },
                                     ] }
                                     onChange={ ( value ) => setAttributes( { feedTextConvertLinks: value } ) }
                                 />
                             </PanelBody>
-                            <PanelBody title={ __( 'Profile' ) }>
+                            <PanelBody title={ __( 'Profile', '@@text_domain' ) }>
                                 <ToggleControl
-                                    label={ __( 'Show Profile' ) }
+                                    label={ __( 'Show Profile', '@@text_domain' ) }
                                     checked={ !! showProfile }
                                     onChange={ ( value ) => setAttributes( { showProfile: value } ) }
                                 />
                                 { showProfile ? (
                                     <Fragment>
                                         <ToggleControl
-                                            label={ __( 'Show Avatar' ) }
+                                            label={ __( 'Show Avatar', '@@text_domain' ) }
                                             checked={ !! showProfileAvatar }
                                             onChange={ ( value ) => setAttributes( { showProfileAvatar: value } ) }
                                         />
                                         { showProfileAvatar ? (
                                             <RangeControl
-                                                label={ __( 'Avatar Size' ) }
+                                                label={ __( 'Avatar Size', '@@text_domain' ) }
                                                 value={ profileAvatarSize }
                                                 onChange={ ( value ) => setAttributes( { profileAvatarSize: value } ) }
                                                 min={ 30 }
@@ -190,27 +190,27 @@ class BlockEdit extends Component {
                                             />
                                         ) : '' }
                                         <ToggleControl
-                                            label={ __( 'Show Name' ) }
+                                            label={ __( 'Show Name', '@@text_domain' ) }
                                             checked={ !! showProfileName }
                                             onChange={ ( value ) => setAttributes( { showProfileName: value } ) }
                                         />
                                         <ToggleControl
-                                            label={ __( 'Show Stats' ) }
+                                            label={ __( 'Show Stats', '@@text_domain' ) }
                                             checked={ !! showProfileStats }
                                             onChange={ ( value ) => setAttributes( { showProfileStats: value } ) }
                                         />
                                         <ToggleControl
-                                            label={ __( 'Show Description' ) }
+                                            label={ __( 'Show Description', '@@text_domain' ) }
                                             checked={ !! showProfileDescription }
                                             onChange={ ( value ) => setAttributes( { showProfileDescription: value } ) }
                                         />
                                         <ToggleControl
-                                            label={ __( 'Show Website' ) }
+                                            label={ __( 'Show Website', '@@text_domain' ) }
                                             checked={ !! showProfileWebsite }
                                             onChange={ ( value ) => setAttributes( { showProfileWebsite: value } ) }
                                         />
                                         <ToggleControl
-                                            label={ __( 'Show Location' ) }
+                                            label={ __( 'Show Location', '@@text_domain' ) }
                                             checked={ !! showProfileLocation }
                                             onChange={ ( value ) => setAttributes( { showProfileLocation: value } ) }
                                         />
@@ -220,28 +220,28 @@ class BlockEdit extends Component {
                         </Fragment>
                     ) : '' }
 
-                    <PanelBody title={ __( 'API Data' ) } initialOpen={ ! APIDataReady }>
+                    <PanelBody title={ __( 'API Data', '@@text_domain' ) } initialOpen={ ! APIDataReady }>
                         <TextControl
-                            placeholder={ __( 'Consumer Key' ) }
+                            placeholder={ __( 'Consumer Key', '@@text_domain' ) }
                             value={ consumerKey }
                             onChange={ ( value ) => setAttributes( { consumerKey: value } ) }
                         />
                         <TextControl
-                            placeholder={ __( 'Consumer Secret' ) }
+                            placeholder={ __( 'Consumer Secret', '@@text_domain' ) }
                             value={ consumerSecret }
                             onChange={ ( value ) => setAttributes( { consumerSecret: value } ) }
                         />
                         <TextControl
-                            placeholder={ __( 'Access Token' ) }
+                            placeholder={ __( 'Access Token', '@@text_domain' ) }
                             value={ accessToken }
                             onChange={ ( value ) => setAttributes( { accessToken: value } ) }
                         />
                         <TextControl
-                            placeholder={ __( 'Access Token Secret' ) }
+                            placeholder={ __( 'Access Token Secret', '@@text_domain' ) }
                             value={ accessTokenSecret }
                             onChange={ ( value ) => setAttributes( { accessTokenSecret: value } ) }
                         />
-                        <p><em>{ __( 'A valid API data is required to use Twitter feed. How to get it' ) } <a href="http://www.gabfirethemes.com/create-twitter-api-key/" target="_blank" rel="noopener noreferrer">http://www.gabfirethemes.com/create-twitter-api-key/</a></em></p>
+                        <p><em>{ __( 'A valid API data is required to use Twitter feed. How to get it', '@@text_domain' ) } <a href="http://www.gabfirethemes.com/create-twitter-api-key/" target="_blank" rel="noopener noreferrer">http://www.gabfirethemes.com/create-twitter-api-key/</a></em></p>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
@@ -258,7 +258,7 @@ class BlockEdit extends Component {
                                         <h2 className="ghostkit-twitter-profile-fullname">
                                             <a href={ 'https://twitter.com/' + twitterProfile.screen_name + '/' } target="_blank" rel="noopener noreferrer">{ twitterProfile.name }</a>
                                             { twitterProfile.verified ? (
-                                                <span className="ghostkit-twitter-profile-verified">{ __( 'Verified account' ) }</span>
+                                                <span className="ghostkit-twitter-profile-verified">{ __( 'Verified account', '@@text_domain' ) }</span>
                                             ) : '' }
                                         </h2>
                                         <h3 className="ghostkit-twitter-profile-username">
@@ -269,13 +269,13 @@ class BlockEdit extends Component {
                                 { showProfileStats ? (
                                     <div className="ghostkit-twitter-profile-stats">
                                         <div>
-                                            <strong>{ twitterProfile.statuses_count_short }</strong> <span>{ __( 'Tweets' ) }</span>
+                                            <strong>{ twitterProfile.statuses_count_short }</strong> <span>{ __( 'Tweets', '@@text_domain' ) }</span>
                                         </div>
                                         <div>
-                                            <strong>{ twitterProfile.friends_count_short }</strong> <span>{ __( 'Following' ) }</span>
+                                            <strong>{ twitterProfile.friends_count_short }</strong> <span>{ __( 'Following', '@@text_domain' ) }</span>
                                         </div>
                                         <div>
-                                            <strong>{ twitterProfile.followers_count_short }</strong> <span>{ __( 'Followers' ) }</span>
+                                            <strong>{ twitterProfile.followers_count_short }</strong> <span>{ __( 'Followers', '@@text_domain' ) }</span>
                                         </div>
                                     </div>
                                 ) : '' }
@@ -322,7 +322,7 @@ class BlockEdit extends Component {
                                                         <a href={ 'https://twitter.com/' + oldItem.user.screen_name + '/' } target="_blank" rel="noopener noreferrer">
                                                             <strong>{ oldItem.user.name }</strong>
                                                         </a>
-                                                        { __( 'Retweeted' ) }
+                                                        { __( 'Retweeted', '@@text_domain' ) }
                                                     </div>
                                                 ) : '' }
                                                 { showFeedName || showFeedDate ? (
@@ -333,7 +333,7 @@ class BlockEdit extends Component {
                                                                     <strong>{ item.user.name }</strong>
                                                                     { ' ' }
                                                                     { item.user.verified ? (
-                                                                        <span className="ghostkit-twitter-item-meta-name-verified">{ __( 'Verified account' ) }</span>
+                                                                        <span className="ghostkit-twitter-item-meta-name-verified">{ __( 'Verified account', '@@text_domain' ) }</span>
                                                                     ) : '' }
                                                                     { ' ' }
                                                                     <span>@{ item.user.screen_name }</span>
@@ -389,8 +389,8 @@ class BlockEdit extends Component {
                     { ! APIDataReady ? (
                         <Placeholder
                             icon={ getIcon( 'block-twitter' ) }
-                            label={ __( 'Twitter' ) }
-                            instructions={ __( 'A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.' ) }
+                            label={ __( 'Twitter', '@@text_domain' ) }
+                            instructions={ __( 'A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.', '@@text_domain' ) }
                             className={ className }
                         />
                     ) : '' }

@@ -23,13 +23,13 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Countdown' ),
-    description: __( 'Countdown timer for upcoming event.' ),
+    title: __( 'Countdown', '@@text_domain' ),
+    description: __( 'Countdown timer for upcoming event.', '@@text_domain' ),
     icon: getIcon( 'block-countdown', true ),
     keywords: [
-        __( 'timer' ),
-        __( 'count' ),
-        __( 'number' ),
+        __( 'timer', '@@text_domain' ),
+        __( 'count', '@@text_domain' ),
+        __( 'number', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/countdown/',

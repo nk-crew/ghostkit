@@ -17,8 +17,8 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Slide' ),
-    description: __( 'A single slide within a carousel block.' ),
+    title: __( 'Slide', '@@text_domain' ),
+    description: __( 'A single slide within a carousel block.', '@@text_domain' ),
     icon: getIcon( 'block-carousel', true ),
     ghostkit: {
         supports: {

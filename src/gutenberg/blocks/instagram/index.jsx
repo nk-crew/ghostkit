@@ -23,11 +23,11 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Instagram' ),
-    description: __( 'Show Instagram feed and user data.' ),
+    title: __( 'Instagram', '@@text_domain' ),
+    description: __( 'Show Instagram feed and user data.', '@@text_domain' ),
     icon: getIcon( 'block-instagram', true ),
     keywords: [
-        __( 'instagram' ),
+        __( 'instagram', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/instagram/',

@@ -30,7 +30,7 @@ export default class ResponsiveTabPanel extends Component {
         } = this.props;
 
         if ( ! ghostkitVariables || ! ghostkitVariables.media_sizes || ! Object.keys( ghostkitVariables.media_sizes ).length ) {
-            return __( 'No media sizes found.' );
+            return __( 'No media sizes found.', '@@text_domain' );
         }
 
         const tabs = [];
@@ -46,7 +46,7 @@ export default class ResponsiveTabPanel extends Component {
             tabs.unshift( {
                 name: mediaName,
                 title: (
-                    <Tooltip text={ sprintf( __( 'Devices with screen width <= %s' ), `${ ghostkitVariables.media_sizes[ mediaName ] }px` ) }>
+                    <Tooltip text={ sprintf( __( 'Devices with screen width <= %s', '@@text_domain' ), `${ ghostkitVariables.media_sizes[ mediaName ] }px` ) }>
                         <span style={ iconsColor && iconsColor[ mediaName ] ? {
                             color: iconsColor[ mediaName ],
                         } : {} }>
@@ -60,7 +60,7 @@ export default class ResponsiveTabPanel extends Component {
         tabs.unshift( {
             name: 'all',
             title: (
-                <Tooltip text={ __( 'All devices' ) }>
+                <Tooltip text={ __( 'All devices', '@@text_domain' ) }>
                     <span>
                         { icons[ icons.length - 1 ] }
                     </span>

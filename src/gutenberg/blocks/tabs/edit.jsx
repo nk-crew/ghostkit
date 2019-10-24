@@ -163,7 +163,7 @@ class BlockEdit extends Component {
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody>
-                        <BaseControl label={ __( 'Tabs Align' ) }>
+                        <BaseControl label={ __( 'Tabs Align', '@@text_domain' ) }>
                             <AlignmentToolbar
                                 value={ buttonsAlignValForControl }
                                 onChange={ ( value ) => {
@@ -196,7 +196,7 @@ class BlockEdit extends Component {
                                     >
                                         <RichText
                                             tagName="span"
-                                            placeholder={ __( 'Tab label' ) }
+                                            placeholder={ __( 'Tab label', '@@text_domain' ) }
                                             value={ title }
                                             unstableOnFocus={ () => setAttributes( { tabActive: slug } ) }
                                             onChange={ ( value ) => {
@@ -230,7 +230,7 @@ class BlockEdit extends Component {
                                         />
                                         <RemoveButton
                                             show={ isSelectedBlockInRoot }
-                                            tooltipText={ __( 'Remove tab?' ) }
+                                            tooltipText={ __( 'Remove tab?', '@@text_domain' ) }
                                             onRemove={ () => {
                                                 if ( block.innerBlocks.length <= 1 ) {
                                                     this.props.removeBlock( block.clientId );
@@ -253,7 +253,7 @@ class BlockEdit extends Component {
                             } )
                         }
                         { isSelectedBlockInRoot ? (
-                            <Tooltip text={ __( 'Add Tab' ) }>
+                            <Tooltip text={ __( 'Add Tab', '@@text_domain' ) }>
                                 <IconButton
                                     icon={ 'insert' }
                                     onClick={ () => {

@@ -94,7 +94,7 @@ export default class URLInput extends Component {
                     />
                     <IconButton
                         icon={ getIcon( 'icon-kebab-menu' ) }
-                        label={ moreOptions ? __( 'Hide More Options' ) : __( 'Show More Options' ) }
+                        label={ moreOptions ? __( 'Hide More Options', '@@text_domain' ) : __( 'Show More Options', '@@text_domain' ) }
                         onClick={ () => {
                             this.setState( {
                                 moreOptions: ! moreOptions,
@@ -105,7 +105,7 @@ export default class URLInput extends Component {
                 { moreOptions ? (
                     <div className="ghostkit-component-url-input-more-options">
                         <ToggleControl
-                            label={ __( 'Open link in a new tab' ) }
+                            label={ __( 'Open link in a new tab', '@@text_domain' ) }
                             checked={ '_blank' === target }
                             onChange={ () => {
                                 if ( '_blank' === target ) {
@@ -120,7 +120,7 @@ export default class URLInput extends Component {
                             } }
                         />
                         <ToggleControl
-                            label={ __( 'Add nofollow option to link' ) }
+                            label={ __( 'Add nofollow option to link', '@@text_domain' ) }
                             checked={ 'nofollow' === rel }
                             onChange={ () => {
                                 if ( 'nofollow' === rel ) {

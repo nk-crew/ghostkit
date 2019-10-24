@@ -29,12 +29,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Progress' ),
-    description: __( 'Show the progress of your work, skills or earnings.' ),
+    title: __( 'Progress', '@@text_domain' ),
+    description: __( 'Show the progress of your work, skills or earnings.', '@@text_domain' ),
     icon: getIcon( 'block-progress', true ),
     keywords: [
-        __( 'progress' ),
-        __( 'bar' ),
+        __( 'progress', '@@text_domain' ),
+        __( 'bar', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/progress/',

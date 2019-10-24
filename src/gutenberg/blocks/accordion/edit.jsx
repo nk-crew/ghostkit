@@ -121,7 +121,7 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <ToggleControl
-                            label={ __( 'Collapse one item only' ) }
+                            label={ __( 'Collapse one item only', '@@text_domain' ) }
                             checked={ !! collapseOne }
                             onChange={ ( val ) => setAttributes( { collapseOne: val } ) }
                         />
@@ -141,7 +141,7 @@ class BlockEdit extends Component {
                                 insertAccordionItem();
                             } }
                         >
-                            { __( 'Add Accordion Item' ) }
+                            { __( 'Add Accordion Item', '@@text_domain' ) }
                         </IconButton>
                     </div>
                 ) : '' }

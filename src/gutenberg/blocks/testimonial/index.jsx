@@ -31,13 +31,13 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Testimonial' ),
-    description: __( 'Show how your users love your products and what saying.' ),
+    title: __( 'Testimonial', '@@text_domain' ),
+    description: __( 'Show how your users love your products and what saying.', '@@text_domain' ),
     icon: getIcon( 'block-testimonial', true ),
     keywords: [
-        __( 'testimonial' ),
-        __( 'blockquote' ),
-        __( 'quote' ),
+        __( 'testimonial', '@@text_domain' ),
+        __( 'blockquote', '@@text_domain' ),
+        __( 'quote', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/testimonial/',

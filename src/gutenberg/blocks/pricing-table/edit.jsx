@@ -152,19 +152,19 @@ class BlockEdit extends Component {
                         <Toolbar controls={ [
                             {
                                 icon: getIcon( 'icon-vertical-top' ),
-                                title: __( 'ItemsVertical Start' ),
+                                title: __( 'ItemsVertical Start', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: '' } ),
                                 isActive: verticalAlign === '',
                             },
                             {
                                 icon: getIcon( 'icon-vertical-center' ),
-                                title: __( 'ItemsVertical Center' ),
+                                title: __( 'ItemsVertical Center', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                 isActive: verticalAlign === 'center',
                             },
                             {
                                 icon: getIcon( 'icon-vertical-bottom' ),
-                                title: __( 'ItemsVertical End' ),
+                                title: __( 'ItemsVertical End', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                 isActive: verticalAlign === 'end',
                             },
@@ -174,30 +174,30 @@ class BlockEdit extends Component {
                 ) : '' }
                 <InspectorControls>
                     <PanelBody>
-                        <BaseControl label={ __( 'Vertical align' ) }>
+                        <BaseControl label={ __( 'Vertical align', '@@text_domain' ) }>
                             <Toolbar controls={ [
                                 {
                                     icon: getIcon( 'icon-vertical-top' ),
-                                    title: __( 'ItemsVertical Start' ),
+                                    title: __( 'ItemsVertical Start', '@@text_domain' ),
                                     onClick: () => setAttributes( { verticalAlign: '' } ),
                                     isActive: verticalAlign === '',
                                 },
                                 {
                                     icon: getIcon( 'icon-vertical-center' ),
-                                    title: __( 'ItemsVertical Center' ),
+                                    title: __( 'ItemsVertical Center', '@@text_domain' ),
                                     onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                     isActive: verticalAlign === 'center',
                                 },
                                 {
                                     icon: getIcon( 'icon-vertical-bottom' ),
-                                    title: __( 'ItemsVertical End' ),
+                                    title: __( 'ItemsVertical End', '@@text_domain' ),
                                     onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                     isActive: verticalAlign === 'end',
                                 },
                             ] }
                             />
                         </BaseControl>
-                        <BaseControl label={ __( 'Horizontal align' ) }>
+                        <BaseControl label={ __( 'Horizontal align', '@@text_domain' ) }>
                             <AlignmentToolbar
                                 value={ horizontalAlign }
                                 onChange={ ( val ) => setAttributes( { horizontalAlign: val } ) }
@@ -205,24 +205,24 @@ class BlockEdit extends Component {
                         </BaseControl>
                     </PanelBody>
                     <PanelBody>
-                        <BaseControl label={ __( 'Gap' ) }>
+                        <BaseControl label={ __( 'Gap', '@@text_domain' ) }>
                             <ButtonGroup>
                                 {
                                     [
                                         {
-                                            label: __( 'none' ),
+                                            label: __( 'none', '@@text_domain' ),
                                             value: 'no',
                                         },
                                         {
-                                            label: __( 'sm' ),
+                                            label: __( 'sm', '@@text_domain' ),
                                             value: 'sm',
                                         },
                                         {
-                                            label: __( 'md' ),
+                                            label: __( 'md', '@@text_domain' ),
                                             value: 'md',
                                         },
                                         {
-                                            label: __( 'lg' ),
+                                            label: __( 'lg', '@@text_domain' ),
                                             value: 'lg',
                                         },
                                     ].map( ( val ) => {
@@ -261,7 +261,7 @@ class BlockEdit extends Component {
                                 insertPricingItem();
                             } }
                         >
-                            { __( 'Add Pricing Table' ) }
+                            { __( 'Add Pricing Table', '@@text_domain' ) }
                         </IconButton>
                     </div>
                 ) : '' }

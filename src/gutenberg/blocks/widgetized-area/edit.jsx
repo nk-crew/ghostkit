@@ -49,7 +49,7 @@ class BlockEdit extends Component {
             <Fragment>
                 <Placeholder
                     icon={ getIcon( 'block-widgetized-area' ) }
-                    label={ __( 'Widgetized Area' ) }
+                    label={ __( 'Widgetized Area', '@@text_domain' ) }
                     className={ className }
                 >
                     <SelectControl
@@ -57,7 +57,7 @@ class BlockEdit extends Component {
                         onChange={ ( value ) => setAttributes( { id: value } ) }
                         options={ ( () => {
                             const sidebars = [ {
-                                label: __( '--- Select sidebar ---' ),
+                                label: __( '--- Select Sidebar ---', '@@text_domain' ),
                                 value: '',
                             } ];
 

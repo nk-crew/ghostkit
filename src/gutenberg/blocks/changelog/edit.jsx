@@ -46,7 +46,7 @@ class BlockEdit extends Component {
                     <div className="ghostkit-changelog-version">
                         <RichText
                             tagName="span"
-                            placeholder={ __( '1.0.0' ) }
+                            placeholder={ __( '1.0.0', '@@text_domain' ) }
                             value={ version }
                             onChange={ value => setAttributes( { version: value } ) }
                         />
@@ -54,7 +54,7 @@ class BlockEdit extends Component {
                     <div className="ghostkit-changelog-date">
                         <RichText
                             tagName="h2"
-                            placeholder={ __( '18 September 2018' ) }
+                            placeholder={ __( '18 September 2019', '@@text_domain' ) }
                             value={ date }
                             onChange={ value => setAttributes( { date: value } ) }
                         />
@@ -65,16 +65,16 @@ class BlockEdit extends Component {
                             template={ [ [ 'core/list', {
                                 values: [
                                     <li key="list-item-1">
-                                        <span className="ghostkit-badge" style="background-color: #4ab866;">{ __( 'Added' ) }</span>
-                                        { __( 'Something' ) }
+                                        <span className="ghostkit-badge" style="background-color: #4ab866;">{ __( 'Added', '@@text_domain' ) }</span>
+                                        { __( 'Something', '@@text_domain' ) }
                                     </li>,
                                     <li key="list-item-2">
-                                        <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Fixed' ) }</span>
-                                        { __( 'Something' ) }
+                                        <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Fixed', '@@text_domain' ) }</span>
+                                        { __( 'Something', '@@text_domain' ) }
                                     </li>,
                                     <li key="list-item-3">
-                                        <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Improved' ) }</span>
-                                        { __( 'Something' ) }
+                                        <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Improved', '@@text_domain' ) }</span>
+                                        { __( 'Something', '@@text_domain' ) }
                                     </li>,
                                 ],
                             } ] ] }

@@ -86,14 +86,14 @@ class BlockEdit extends Component {
                         <Fragment>
                             <PanelBody>
                                 <RangeControl
-                                    label={ __( 'Photos Number' ) }
+                                    label={ __( 'Photos Number', '@@text_domain' ) }
                                     value={ count }
                                     onChange={ ( value ) => setAttributes( { count: value } ) }
                                     min={ 1 }
                                     max={ 20 }
                                 />
                                 <RangeControl
-                                    label={ __( 'Columns' ) }
+                                    label={ __( 'Columns', '@@text_domain' ) }
                                     value={ columns }
                                     onChange={ ( value ) => setAttributes( { columns: value } ) }
                                     min={ 1 }
@@ -101,24 +101,24 @@ class BlockEdit extends Component {
                                 />
                             </PanelBody>
                             <PanelBody>
-                                <BaseControl label={ __( 'Gap' ) }>
+                                <BaseControl label={ __( 'Gap', '@@text_domain' ) }>
                                     <ButtonGroup>
                                         {
                                             [
                                                 {
-                                                    label: __( 'none' ),
+                                                    label: __( 'none', '@@text_domain' ),
                                                     value: 'no',
                                                 },
                                                 {
-                                                    label: __( 'sm' ),
+                                                    label: __( 'sm', '@@text_domain' ),
                                                     value: 'sm',
                                                 },
                                                 {
-                                                    label: __( 'md' ),
+                                                    label: __( 'md', '@@text_domain' ),
                                                     value: 'md',
                                                 },
                                                 {
-                                                    label: __( 'lg' ),
+                                                    label: __( 'lg', '@@text_domain' ),
                                                     value: 'lg',
                                                 },
                                             ].map( ( val ) => {
@@ -140,22 +140,22 @@ class BlockEdit extends Component {
                                     </ButtonGroup>
                                 </BaseControl>
                             </PanelBody>
-                            <PanelBody title={ __( 'Profile Info' ) }>
+                            <PanelBody title={ __( 'Profile Info', '@@text_domain' ) }>
                                 <ToggleControl
-                                    label={ __( 'Show Profile Info' ) }
+                                    label={ __( 'Show Profile Info', '@@text_domain' ) }
                                     checked={ !! attributes.showProfile }
                                     onChange={ ( val ) => setAttributes( { showProfile: val } ) }
                                 />
                                 { attributes.showProfile ? (
                                     <Fragment>
                                         <ToggleControl
-                                            label={ __( 'Show Avatar' ) }
+                                            label={ __( 'Show Avatar', '@@text_domain' ) }
                                             checked={ !! showProfileAvatar }
                                             onChange={ ( val ) => setAttributes( { showProfileAvatar: val } ) }
                                         />
                                         { showProfileAvatar ? (
                                             <RangeControl
-                                                label={ __( 'Avatar Size' ) }
+                                                label={ __( 'Avatar Size', '@@text_domain' ) }
                                                 value={ profileAvatarSize }
                                                 onChange={ ( value ) => setAttributes( { profileAvatarSize: value } ) }
                                                 min={ 30 }
@@ -163,22 +163,22 @@ class BlockEdit extends Component {
                                             />
                                         ) : '' }
                                         <ToggleControl
-                                            label={ __( 'Show Name' ) }
+                                            label={ __( 'Show Name', '@@text_domain' ) }
                                             checked={ !! showProfileName }
                                             onChange={ ( val ) => setAttributes( { showProfileName: val } ) }
                                         />
                                         <ToggleControl
-                                            label={ __( 'Show Stats' ) }
+                                            label={ __( 'Show Stats', '@@text_domain' ) }
                                             checked={ !! showProfileStats }
                                             onChange={ ( val ) => setAttributes( { showProfileStats: val } ) }
                                         />
                                         <ToggleControl
-                                            label={ __( 'Show BIO' ) }
+                                            label={ __( 'Show BIO', '@@text_domain' ) }
                                             checked={ !! showProfileBio }
                                             onChange={ ( val ) => setAttributes( { showProfileBio: val } ) }
                                         />
                                         <ToggleControl
-                                            label={ __( 'Show Website' ) }
+                                            label={ __( 'Show Website', '@@text_domain' ) }
                                             checked={ !! showProfileWebsite }
                                             onChange={ ( val ) => setAttributes( { showProfileWebsite: val } ) }
                                         />
@@ -188,13 +188,13 @@ class BlockEdit extends Component {
                         </Fragment>
                     ) : '' }
 
-                    <PanelBody title={ __( 'API Data' ) } initialOpen={ ! accessToken }>
+                    <PanelBody title={ __( 'API Data', '@@text_domain' ) } initialOpen={ ! accessToken }>
                         <TextControl
-                            placeholder={ __( 'Access Token' ) }
+                            placeholder={ __( 'Access Token', '@@text_domain' ) }
                             value={ accessToken }
                             onChange={ ( value ) => setAttributes( { accessToken: value } ) }
                         />
-                        <p><em>{ __( 'A valid Access Token is required to use Instagram feed. How to get token' ) } <a href="http://instagram.pixelunion.net/" target="_blank" rel="noopener noreferrer">http://instagram.pixelunion.net/</a></em></p>
+                        <p><em>{ __( 'A valid Access Token is required to use Instagram feed. How to get token', '@@text_domain' ) } <a href="http://instagram.pixelunion.net/" target="_blank" rel="noopener noreferrer">http://instagram.pixelunion.net/</a></em></p>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
@@ -214,13 +214,13 @@ class BlockEdit extends Component {
                                 { showProfileStats && instagramProfile.data.counts ? (
                                     <div className="ghostkit-instagram-profile-stats">
                                         <div>
-                                            <strong>{ instagramProfile.data.counts.media }</strong> <span>{ __( 'Posts' ) }</span>
+                                            <strong>{ instagramProfile.data.counts.media }</strong> <span>{ __( 'Posts', '@@text_domain' ) }</span>
                                         </div>
                                         <div>
-                                            <strong>{ instagramProfile.data.counts.followed_by }</strong> <span>{ __( 'Followers' ) }</span>
+                                            <strong>{ instagramProfile.data.counts.followed_by }</strong> <span>{ __( 'Followers', '@@text_domain' ) }</span>
                                         </div>
                                         <div>
-                                            <strong>{ instagramProfile.data.counts.follows }</strong> <span>{ __( 'Following' ) }</span>
+                                            <strong>{ instagramProfile.data.counts.follows }</strong> <span>{ __( 'Following', '@@text_domain' ) }</span>
                                         </div>
                                     </div>
                                 ) : '' }
@@ -262,8 +262,8 @@ class BlockEdit extends Component {
                     { ! accessToken ? (
                         <Placeholder
                             icon={ getIcon( 'block-instagram' ) }
-                            label={ __( 'Instagram' ) }
-                            instructions={ __( 'A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector.' ) }
+                            label={ __( 'Instagram', '@@text_domain' ) }
+                            instructions={ __( 'A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector.', '@@text_domain' ) }
                             className={ className }
                         />
                     ) : '' }

@@ -79,21 +79,21 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <RangeControl
-                            label={ __( 'Height' ) }
+                            label={ __( 'Height', '@@text_domain' ) }
                             value={ height || '' }
                             onChange={ ( value ) => setAttributes( { height: value } ) }
                             min={ 1 }
                             max={ 30 }
                         />
                         <RangeControl
-                            label={ __( 'Percent' ) }
+                            label={ __( 'Percent', '@@text_domain' ) }
                             value={ percent || '' }
                             onChange={ ( value ) => setAttributes( { percent: value } ) }
                             min={ 0 }
                             max={ 100 }
                         />
                         <RangeControl
-                            label={ __( 'Corner Radius' ) }
+                            label={ __( 'Corner Radius', '@@text_domain' ) }
                             value={ borderRadius }
                             min={ 0 }
                             max={ 10 }
@@ -102,38 +102,38 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <ToggleControl
-                            label={ __( 'Show Count' ) }
+                            label={ __( 'Show Count', '@@text_domain' ) }
                             checked={ !! showCount }
                             onChange={ ( val ) => setAttributes( { showCount: val } ) }
                         />
                         { showCount ? (
                             <Fragment>
                                 <TextControl
-                                    label={ __( 'Count Prefix' ) }
+                                    label={ __( 'Count Prefix', '@@text_domain' ) }
                                     value={ countPrefix }
                                     onChange={ ( value ) => setAttributes( { countPrefix: value } ) }
                                 />
                                 <TextControl
-                                    label={ __( 'Count Suffix' ) }
+                                    label={ __( 'Count Suffix', '@@text_domain' ) }
                                     value={ countSuffix }
                                     onChange={ ( value ) => setAttributes( { countSuffix: value } ) }
                                 />
                             </Fragment>
                         ) : '' }
                         <ToggleControl
-                            label={ __( 'Striped' ) }
+                            label={ __( 'Striped', '@@text_domain' ) }
                             checked={ !! striped }
                             onChange={ ( val ) => setAttributes( { striped: val } ) }
                         />
                         <ToggleControl
-                            label={ __( 'Animate in viewport' ) }
+                            label={ __( 'Animate in viewport', '@@text_domain' ) }
                             checked={ !! animateInViewport }
                             onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
                         />
                     </PanelBody>
                     <PanelBody title={ (
                         <Fragment>
-                            { __( 'Colors' ) }
+                            { __( 'Colors', '@@text_domain' ) }
                             <ColorIndicator colorValue={ color } />
                             <ColorIndicator colorValue={ backgroundColor } />
                         </Fragment>
@@ -143,12 +143,12 @@ class BlockEdit extends Component {
                             tabs={ [
                                 {
                                     name: 'normal',
-                                    title: __( 'Normal' ),
+                                    title: __( 'Normal', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                                 {
                                     name: 'hover',
-                                    title: __( 'Hover' ),
+                                    title: __( 'Hover', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                             ] }>
@@ -159,7 +159,7 @@ class BlockEdit extends Component {
                                         <Fragment>
                                             <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
                                                 <ColorPicker
-                                                    label={ __( 'Bar' ) }
+                                                    label={ __( 'Bar', '@@text_domain' ) }
                                                     value={ isHover ? hoverColor : color }
                                                     onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
                                                     alpha={ true }
@@ -167,7 +167,7 @@ class BlockEdit extends Component {
                                             </ApplyFilters>
                                             <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverBackgroundColor' : 'backgroundColor' } props={ this.props }>
                                                 <ColorPicker
-                                                    label={ __( 'Background' ) }
+                                                    label={ __( 'Background', '@@text_domain' ) }
                                                     value={ isHover ? hoverBackgroundColor : backgroundColor }
                                                     onChange={ ( val ) => setAttributes( isHover ? { hoverBackgroundColor: val } : { backgroundColor: val } ) }
                                                     alpha={ true }
@@ -185,7 +185,7 @@ class BlockEdit extends Component {
                         <RichText
                             tagName="div"
                             className="ghostkit-progress-caption"
-                            placeholder={ __( 'Write caption…' ) }
+                            placeholder={ __( 'Write caption…', '@@text_domain' ) }
                             value={ caption }
                             onChange={ newCaption => setAttributes( { caption: newCaption } ) }
                         />

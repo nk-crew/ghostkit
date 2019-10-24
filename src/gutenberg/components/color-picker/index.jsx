@@ -48,13 +48,13 @@ export default class ColorPicker extends Component {
                     className={ classnames( 'components-color-palette__item-wrapper components-circular-option-picker__option-wrapper', value ? '' : 'components-color-palette__custom-color' ) }
                     contentClassName="components-color-palette__picker"
                     renderToggle={ ( { isOpen, onToggle } ) => (
-                        <Tooltip text={ __( 'Custom color picker' ) }>
+                        <Tooltip text={ __( 'Custom Color Picker', '@@text_domain' ) }>
                             <button
                                 type="button"
                                 aria-expanded={ isOpen }
                                 className="components-color-palette__item components-circular-option-picker__option"
                                 onClick={ onToggle }
-                                aria-label={ __( 'Custom color picker' ) }
+                                aria-label={ __( 'Custom Color Picker', '@@text_domain' ) }
                                 style={ { color: value ? value : '' } }
                             >
                                 <span className="components-color-palette__custom-color-gradient" />
@@ -80,7 +80,7 @@ export default class ColorPicker extends Component {
                                 disableAlpha={ ! alpha }
                             />
                             <BaseControl
-                                label={ __( 'Color palette' ) }
+                                label={ __( 'Color Palette', '@@text_domain' ) }
                                 className="ghostkit-component-color-picker-palette"
                             >
                                 <ColorPalette

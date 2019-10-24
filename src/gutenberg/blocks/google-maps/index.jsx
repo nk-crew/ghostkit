@@ -23,12 +23,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Google Maps' ),
-    description: __( 'Show maps with custom styles, markers and settings.' ),
+    title: __( 'Google Maps', '@@text_domain' ),
+    description: __( 'Show maps with custom styles, markers and settings.', '@@text_domain' ),
     icon: getIcon( 'block-google-maps', true ),
     keywords: [
-        __( 'maps' ),
-        __( 'google' ),
+        __( 'maps', '@@text_domain' ),
+        __( 'google', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/google-maps/',

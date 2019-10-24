@@ -67,30 +67,30 @@ class BlockEdit extends Component {
                     <Toolbar>
                         <DropdownMenu
                             icon="info"
-                            label={ __( 'Type' ) }
+                            label={ __( 'Type', '@@text_domain' ) }
                             controls={ [
                                 {
-                                    title: __( 'Primary' ),
+                                    title: __( 'Primary', '@@text_domain' ),
                                     icon: 'editor-help',
                                     onClick: () => setAttributes( { color: '#2E77C3' } ),
                                 },
                                 {
-                                    title: __( 'Success' ),
+                                    title: __( 'Success', '@@text_domain' ),
                                     icon: 'marker',
                                     onClick: () => setAttributes( { color: '#22CF6E' } ),
                                 },
                                 {
-                                    title: __( 'Danger' ),
+                                    title: __( 'Danger', '@@text_domain' ),
                                     icon: 'dismiss',
                                     onClick: () => setAttributes( { color: '#DC3232' } ),
                                 },
                                 {
-                                    title: __( 'Warning' ),
+                                    title: __( 'Warning', '@@text_domain' ),
                                     icon: 'warning',
                                     onClick: () => setAttributes( { color: '#E47F3B' } ),
                                 },
                                 {
-                                    title: __( 'Info' ),
+                                    title: __( 'Info', '@@text_domain' ),
                                     icon: 'info',
                                     onClick: () => setAttributes( { color: '#2DC7E8' } ),
                                 },
@@ -101,12 +101,12 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <IconPicker
-                            label={ __( 'Icon' ) }
+                            label={ __( 'Icon', '@@text_domain' ) }
                             value={ icon }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                         <RangeControl
-                            label={ __( 'Icon Size' ) }
+                            label={ __( 'Icon Size', '@@text_domain' ) }
                             value={ iconSize }
                             onChange={ ( value ) => setAttributes( { iconSize: value } ) }
                             min={ 20 }
@@ -117,14 +117,14 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <ToggleControl
-                            label={ __( 'Dismiss button' ) }
+                            label={ __( 'Dismiss button', '@@text_domain' ) }
                             checked={ !! hideButton }
                             onChange={ ( val ) => setAttributes( { hideButton: val } ) }
                         />
                     </PanelBody>
                     <PanelBody title={ (
                         <Fragment>
-                            { __( 'Colors' ) }
+                            { __( 'Colors', '@@text_domain' ) }
                             <ColorIndicator colorValue={ color } />
                         </Fragment>
                     ) } initialOpen={ false }>
@@ -133,12 +133,12 @@ class BlockEdit extends Component {
                             tabs={ [
                                 {
                                     name: 'normal',
-                                    title: __( 'Normal' ),
+                                    title: __( 'Normal', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                                 {
                                     name: 'hover',
-                                    title: __( 'Hover' ),
+                                    title: __( 'Hover', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                             ] }>
@@ -148,7 +148,7 @@ class BlockEdit extends Component {
                                     return (
                                         <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
                                             <ColorPicker
-                                                label={ __( 'Color' ) }
+                                                label={ __( 'Color', '@@text_domain' ) }
                                                 value={ isHover ? hoverColor : color }
                                                 onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
                                                 alpha={ true }
@@ -177,7 +177,7 @@ class BlockEdit extends Component {
                     ) : '' }
                     <div className="ghostkit-alert-content">
                         <InnerBlocks
-                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important message, that you cannot miss!' ) } ] ] }
+                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important message, that you cannot miss!', '@@text_domain' ) } ] ] }
                             templateLock={ false }
                         />
                     </div>

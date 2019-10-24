@@ -29,12 +29,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Divider' ),
-    description: __( 'Divide your long texts and blocks.' ),
+    title: __( 'Divider', '@@text_domain' ),
+    description: __( 'Divide your long texts and blocks.', '@@text_domain' ),
     icon: getIcon( 'block-divider', true ),
     keywords: [
-        __( 'divider' ),
-        __( 'spacer' ),
+        __( 'divider', '@@text_domain' ),
+        __( 'spacer', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/divider/',

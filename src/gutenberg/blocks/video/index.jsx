@@ -32,13 +32,13 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Video' ),
-    description: __( 'Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.' ),
+    title: __( 'Video', '@@text_domain' ),
+    description: __( 'Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.', '@@text_domain' ),
     icon: getIcon( 'block-video', true ),
     keywords: [
-        __( 'video' ),
-        __( 'youtube' ),
-        __( 'vimeo' ),
+        __( 'video', '@@text_domain' ),
+        __( 'youtube', '@@text_domain' ),
+        __( 'vimeo', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/video/',

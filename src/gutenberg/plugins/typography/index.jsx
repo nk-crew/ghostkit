@@ -598,7 +598,7 @@ class TypographyModal extends Component {
                 className="ghostkit-plugin-typography-modal"
                 position="top"
                 size="md"
-                title={ __( 'Typography' ) }
+                title={ __( 'Typography', '@@text_domain' ) }
                 onRequestClose={ () => {
                     const local = this.props.meta || {};
                     const global = this.props.customTypography || {};
@@ -633,9 +633,9 @@ class TypographyModal extends Component {
                         {
                             name: 'local',
                             title: (
-                                <Tooltip text={ __( 'All changes will be applied on the current page only.' ) }>
+                                <Tooltip text={ __( 'All changes will be applied on the current page only.', '@@text_domain' ) }>
                                     <span>
-                                        { __( 'Local' ) }
+                                        { __( 'Local', '@@text_domain' ) }
                                     </span>
                                 </Tooltip>
                             ),
@@ -644,9 +644,9 @@ class TypographyModal extends Component {
                         {
                             name: 'global',
                             title: (
-                                <Tooltip text={ __( 'All changes will be applied site wide.' ) }>
+                                <Tooltip text={ __( 'All changes will be applied site wide.', '@@text_domain' ) }>
                                     <span>
-                                        { __( 'Global' ) }
+                                        { __( 'Global', '@@text_domain' ) }
                                     </span>
                                 </Tooltip>
                             ),
@@ -664,7 +664,7 @@ class TypographyModal extends Component {
                                 <Fragment>
                                     { Object.keys( typographyList ).map( ( key ) => {
                                         const advancedData = this.state[ isGlobal ? 'globalAdvanced' : 'advanced' ][ key ];
-                                        const advancedLabel = advancedData === true ? __( 'Hide Advanced' ) : __( 'Show Advanced' );
+                                        const advancedLabel = advancedData === true ? __( 'Hide Advanced', '@@text_domain' ) : __( 'Show Advanced', '@@text_domain' );
 
                                         if ( typographyList[ key ].childOf === '' ) {
                                             return (
@@ -779,7 +779,7 @@ export class Plugin extends Component {
                         this.setState( { isModalOpen: true } );
                     } }
                 >
-                    { __( 'Typography' ) }
+                    { __( 'Typography', '@@text_domain' ) }
                 </PluginMoreMenuItem>
                 { isModalOpen ? (
                     <TypographyModalWithSelect

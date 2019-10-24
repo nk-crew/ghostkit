@@ -23,12 +23,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Changelog' ),
-    description: __( 'Show the changes log of your product.' ),
+    title: __( 'Changelog', '@@text_domain' ),
+    description: __( 'Show the changes log of your product.', '@@text_domain' ),
     icon: getIcon( 'block-changelog', true ),
     keywords: [
-        __( 'changelog' ),
-        __( 'log' ),
+        __( 'changelog', '@@text_domain' ),
+        __( 'log', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/changelog/',
@@ -51,16 +51,16 @@ export const settings = {
                 attributes: {
                     values: [
                         <li key="list-item-1">
-                            <span className="ghostkit-badge" style="background-color: #4ab866;">{ __( 'Added' ) }</span>
-                            { __( 'Something' ) }
+                            <span className="ghostkit-badge" style="background-color: #4ab866;">{ __( 'Added', '@@text_domain' ) }</span>
+                            { __( 'Something', '@@text_domain' ) }
                         </li>,
                         <li key="list-item-2">
-                            <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Fixed' ) }</span>
-                            { __( 'Something' ) }
+                            <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Fixed', '@@text_domain' ) }</span>
+                            { __( 'Something', '@@text_domain' ) }
                         </li>,
                         <li key="list-item-3">
-                            <span className="ghostkit-badge" style="background-color: #63656b;">{ __( 'Changed' ) }</span>
-                            { __( 'Something' ) }
+                            <span className="ghostkit-badge" style="background-color: #63656b;">{ __( 'Changed', '@@text_domain' ) }</span>
+                            { __( 'Something', '@@text_domain' ) }
                         </li>,
                     ],
                 },

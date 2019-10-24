@@ -66,12 +66,12 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <IconPicker
-                            label={ __( 'Icon' ) }
+                            label={ __( 'Icon', '@@text_domain' ) }
                             value={ icon }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                         <RangeControl
-                            label={ __( 'Icon Size' ) }
+                            label={ __( 'Icon Size', '@@text_domain' ) }
                             value={ iconSize }
                             onChange={ ( value ) => setAttributes( { iconSize: value } ) }
                             min={ 20 }
@@ -80,38 +80,38 @@ class BlockEdit extends Component {
                             afterIcon="editor-textcolor"
                         />
                         <BaseControl
-                            label={ __( 'Icon Position' ) }
+                            label={ __( 'Icon Position', '@@text_domain' ) }
                         >
                             <Toolbar controls={ [
                                 {
                                     icon: 'align-center',
-                                    title: __( 'Top' ),
+                                    title: __( 'Top', '@@text_domain' ),
                                     onClick: () => setAttributes( { iconPosition: 'top' } ),
                                     isActive: iconPosition === 'top',
                                 },
                                 {
                                     icon: 'align-left',
-                                    title: __( 'Left' ),
+                                    title: __( 'Left', '@@text_domain' ),
                                     onClick: () => setAttributes( { iconPosition: 'left' } ),
                                     isActive: iconPosition === 'left',
                                 },
                                 {
                                     icon: 'align-right',
-                                    title: __( 'Right' ),
+                                    title: __( 'Right', '@@text_domain' ),
                                     onClick: () => setAttributes( { iconPosition: 'right' } ),
                                     isActive: iconPosition === 'right',
                                 },
                             ] } />
                         </BaseControl>
                         <ToggleControl
-                            label={ __( 'Show Content' ) }
+                            label={ __( 'Show Content', '@@text_domain' ) }
                             checked={ !! showContent }
                             onChange={ ( val ) => setAttributes( { showContent: val } ) }
                         />
                     </PanelBody>
                     <PanelBody title={ (
                         <Fragment>
-                            { __( 'Colors' ) }
+                            { __( 'Colors', '@@text_domain' ) }
                             <ColorIndicator colorValue={ iconColor } />
                         </Fragment>
                     ) } initialOpen={ false }>
@@ -120,12 +120,12 @@ class BlockEdit extends Component {
                             tabs={ [
                                 {
                                     name: 'normal',
-                                    title: __( 'Normal' ),
+                                    title: __( 'Normal', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                                 {
                                     name: 'hover',
-                                    title: __( 'Hover' ),
+                                    title: __( 'Hover', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                             ] }>
@@ -135,7 +135,7 @@ class BlockEdit extends Component {
                                     return (
                                         <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverIconColor' : 'iconColor' } props={ this.props }>
                                             <ColorPicker
-                                                label={ __( 'Icon' ) }
+                                                label={ __( 'Icon', '@@text_domain' ) }
                                                 value={ isHover ? hoverIconColor : iconColor }
                                                 onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
                                                 alpha={ true }
@@ -151,19 +151,19 @@ class BlockEdit extends Component {
                     <Toolbar controls={ [
                         {
                             icon: 'align-center',
-                            title: __( 'Icon Position Top' ),
+                            title: __( 'Icon Position Top', '@@text_domain' ),
                             onClick: () => setAttributes( { iconPosition: 'top' } ),
                             isActive: iconPosition === 'top',
                         },
                         {
                             icon: 'align-left',
-                            title: __( 'Icon Position Left' ),
+                            title: __( 'Icon Position Left', '@@text_domain' ),
                             onClick: () => setAttributes( { iconPosition: 'left' } ),
                             isActive: iconPosition === 'left',
                         },
                         {
                             icon: 'align-right',
-                            title: __( 'Icon Position Right' ),
+                            title: __( 'Icon Position Right', '@@text_domain' ),
                             onClick: () => setAttributes( { iconPosition: 'right' } ),
                             isActive: iconPosition === 'right',
                         },
@@ -187,7 +187,7 @@ class BlockEdit extends Component {
                     { showContent ? (
                         <div className="ghostkit-icon-box-content">
                             <InnerBlocks
-                                template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important icons, that you should see!' ) } ] ] }
+                                template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important icons, that you should see!', '@@text_domain' ) } ] ] }
                                 templateLock={ false }
                             />
                         </div>

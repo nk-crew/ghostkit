@@ -97,7 +97,7 @@ class TemplatesModal extends Component {
         if ( selectData.length ) {
             selectData.unshift( {
                 value: '',
-                label: __( '-- Select Category --' ),
+                label: __( '-- Select Category --', '@@text_domain' ),
             } );
             return (
                 <SelectControl
@@ -191,7 +191,7 @@ class TemplatesModal extends Component {
                         <span className="components-modal__icon-container" aria-hidden="true">
                             { getIcon( 'plugin-templates' ) }
                         </span>
-                        <h1 id="components-modal-header-1" className="components-modal__header-heading">{ __( 'Templates' ) }</h1>
+                        <h1 id="components-modal-header-1" className="components-modal__header-heading">{ __( 'Templates', '@@text_domain' ) }</h1>
                     </div>
                     { showLoadingSpinner ? (
                         <div className="ghostkit-plugin-templates-modal-loading-spinner"><Spinner /></div>
@@ -216,9 +216,9 @@ class TemplatesModal extends Component {
                                 {
                                     name: 'theme',
                                     title: (
-                                        <Tooltip text={ __( 'Templates from the theme.' ) }>
+                                        <Tooltip text={ __( 'Templates from the theme.', '@@text_domain' ) }>
                                             <span>
-                                                { GHOSTKIT.themeName || __( 'Theme' ) }
+                                                { GHOSTKIT.themeName || __( 'Theme', '@@text_domain' ) }
                                             </span>
                                         </Tooltip>
                                     ),
@@ -228,9 +228,9 @@ class TemplatesModal extends Component {
                             {
                                 name: 'blocks',
                                 title: (
-                                    <Tooltip text={ __( 'Simple blocks to construct your page.' ) }>
+                                    <Tooltip text={ __( 'Simple blocks to construct your page.', '@@text_domain' ) }>
                                         <span>
-                                            { __( 'Blocks' ) }
+                                            { __( 'Blocks', '@@text_domain' ) }
                                         </span>
                                     </Tooltip>
                                 ),
@@ -239,9 +239,9 @@ class TemplatesModal extends Component {
                             {
                                 name: 'pages',
                                 title: (
-                                    <Tooltip text={ __( 'Pre-designed ready to use pages.' ) }>
+                                    <Tooltip text={ __( 'Pre-designed ready to use pages.', '@@text_domain' ) }>
                                         <span>
-                                            { __( 'Pages' ) }
+                                            { __( 'Pages', '@@text_domain' ) }
                                         </span>
                                     </Tooltip>
                                 ),
@@ -250,9 +250,9 @@ class TemplatesModal extends Component {
                             {
                                 name: 'local',
                                 title: (
-                                    <Tooltip text={ __( 'My Templates.' ) }>
+                                    <Tooltip text={ __( 'My Templates.', '@@text_domain' ) }>
                                         <span>
-                                            { __( 'My Templates' ) }
+                                            { __( 'My Templates', '@@text_domain' ) }
                                         </span>
                                     </Tooltip>
                                 ),
@@ -266,7 +266,7 @@ class TemplatesModal extends Component {
                                 const currentTemplates = this.getTemplates( tabType );
 
                                 if ( 'pages' === tabType ) {
-                                    return __( 'Coming Soon...' );
+                                    return __( 'Coming Soon...', '@@text_domain' );
                                 }
 
                                 return (
@@ -280,11 +280,11 @@ class TemplatesModal extends Component {
                                                     <Fragment>
                                                         <p style={ {
                                                             marginTop: 0,
-                                                        } }>{ __( 'No templates found.' ) }</p>
-                                                        <a className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl } target="_blank" rel="noopener noreferrer">{ __( 'Add Template' ) }</a>
+                                                        } }>{ __( 'No templates found.', '@@text_domain' ) }</p>
+                                                        <a className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl } target="_blank" rel="noopener noreferrer">{ __( 'Add Template', '@@text_domain' ) }</a>
                                                     </Fragment>
                                                 ) : (
-                                                    __( 'No templates found.' )
+                                                    __( 'No templates found.', '@@text_domain' )
                                                 ) }
                                             </div>
                                         ) : '' }
@@ -294,7 +294,7 @@ class TemplatesModal extends Component {
                                                     <div className="ghostkit-plugin-templates-categories-select">
                                                         { this.printCategorySelect( tabType ) }</div>
                                                     <div className="ghostkit-plugin-templates-count">
-                                                        <RawHTML>{ sprintf( __( 'Templates: %s' ), `<strong>${ currentTemplates.length }</strong>` ) }</RawHTML>
+                                                        <RawHTML>{ sprintf( __( 'Templates: %s', '@@text_domain' ), `<strong>${ currentTemplates.length }</strong>` ) }</RawHTML>
                                                     </div>
                                                 </div>
                                                 { this.state.error }
@@ -368,7 +368,7 @@ class TemplatesModal extends Component {
                                                 </Masonry>
                                                 { 'local' === tabType ? (
                                                     <Fragment>
-                                                        <a className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl } target="_blank" rel="noopener noreferrer">{ __( 'Add Template' ) }</a>
+                                                        <a className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl } target="_blank" rel="noopener noreferrer">{ __( 'Add Template', '@@text_domain' ) }</a>
                                                     </Fragment>
                                                 ) : '' }
                                             </Fragment>
@@ -402,11 +402,11 @@ function checkMissingBlocks( data ) {
     const missingBlocks = checkMissingBlocksRecursive( data );
     const missingBlocksInfo = applyFilters( 'ghostkit.templates.missingBlocksInfo', {
         'nk/awb': {
-            info: __( '<strong>Advanced Backgrounds</strong> plugin is required to use background image and video blocks.' ),
+            info: __( '<strong>Advanced Backgrounds</strong> plugin is required to use background image and video blocks.', '@@text_domain' ),
             pluginUrl: 'https://wordpress.org/plugins/advanced-backgrounds/',
         },
-        'wp:nk/visual-portfolio': {
-            info: __( '<strong>Visual Portfolio</strong> plugin is required to show portfolio layouts.' ),
+        'nk/visual-portfolio': {
+            info: __( '<strong>Visual Portfolio</strong> plugin is required to show portfolio layouts.', '@@text_domain' ),
             pluginUrl: 'https://wordpress.org/plugins/visual-portfolio/',
         },
     } );
@@ -418,7 +418,7 @@ function checkMissingBlocks( data ) {
                     className="ghostkit-alert ghostkit-templates-missing-block-alert"
                     key={ `missing-block-${ blockName }` }
                 >
-                    <RawHTML>{ sprintf( __( '%s block is missing.' ), `<strong>${ blockName }</strong>` ) }</RawHTML>
+                    <RawHTML>{ sprintf( __( '%s block is missing.', '@@text_domain' ), `<strong>${ blockName }</strong>` ) }</RawHTML>
                     { missingBlocksInfo[ blockName ] && missingBlocksInfo[ blockName ].info ? (
                         <div className="ghostkit-templates-missing-block-additional">
                             <RawHTML>{ missingBlocksInfo[ blockName ].info }</RawHTML>
@@ -429,7 +429,7 @@ function checkMissingBlocks( data ) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    { __( 'Install Plugin' ) }
+                                    { __( 'Install Plugin', '@@text_domain' ) }
                                 </a>
                             ) : '' }
                         </div>
@@ -522,7 +522,7 @@ export class Plugin extends Component {
                         this.setState( { isModalOpen: true } );
                     } }
                 >
-                    { __( 'Templates' ) }
+                    { __( 'Templates', '@@text_domain' ) }
                 </PluginMoreMenuItem>
                 { isModalOpen ? (
                     <TemplatesModalWithSelect

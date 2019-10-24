@@ -93,7 +93,7 @@ class CustomCSSComponent extends Component {
                             <span className="ghostkit-ext-icon">
                                 { getIcon( 'extension-custom-css' ) }
                             </span>
-                            <span>{ __( 'Custom CSS' ) }</span>
+                            <span>{ __( 'Custom CSS', '@@text_domain' ) }</span>
                         </Fragment>
                     ) }
                     initialOpen={ initialOpenPanel }
@@ -121,8 +121,8 @@ class CustomCSSComponent extends Component {
                         height="300px"
                     />
                     <p style={ { marginBottom: 20 } }></p>
-                    <p dangerouslySetInnerHTML={ { __html: __( 'Use %s rule to change block styles.' ).replace( '%s', '<code>selector</code>' ) } } />
-                    <p>{ __( 'Example:' ) }</p>
+                    <p dangerouslySetInnerHTML={ { __html: __( 'Use %s rule to change block styles.', '@@text_domain' ).replace( '%s', '<code>selector</code>' ) } } />
+                    <p>{ __( 'Example:', '@@text_domain' ) }</p>
                     <pre className="ghostkit-control-pre-custom-css">
                         { `selector {
   background-color: #5C39A7;

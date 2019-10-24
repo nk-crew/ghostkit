@@ -194,8 +194,8 @@ class BlockEdit extends Component {
         return (
             <Placeholder
                 icon={ getIcon( 'block-grid' ) }
-                label={ __( 'Grid' ) }
-                instructions={ __( 'Select one layout to get started.' ) }
+                label={ __( 'Grid', '@@text_domain' ) }
+                instructions={ __( 'Select one layout to get started.', '@@text_domain' ) }
                 className="ghostkit-select-layout"
             >
                 <div className="ghostkit-grid-layout-preview">
@@ -226,7 +226,7 @@ class BlockEdit extends Component {
                         this.setState( { isTemplatesModalOpen: true } );
                     } }
                 >
-                    { __( 'Select Template' ) }
+                    { __( 'Select Template', '@@text_domain' ) }
                 </Button>
                 { this.state.isTemplatesModalOpen ? (
                     <TemplatesModal
@@ -289,19 +289,19 @@ class BlockEdit extends Component {
                         <Toolbar controls={ [
                             {
                                 icon: getIcon( 'icon-vertical-top' ),
-                                title: __( 'Content Vertical Start' ),
+                                title: __( 'Content Vertical Start', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: '' } ),
                                 isActive: verticalAlign === '',
                             },
                             {
                                 icon: getIcon( 'icon-vertical-center' ),
-                                title: __( 'Content Vertical Center' ),
+                                title: __( 'Content Vertical Center', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                 isActive: verticalAlign === 'center',
                             },
                             {
                                 icon: getIcon( 'icon-vertical-bottom' ),
-                                title: __( 'Content Vertical End' ),
+                                title: __( 'Content Vertical End', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                 isActive: verticalAlign === 'end',
                             },
@@ -313,7 +313,7 @@ class BlockEdit extends Component {
                     <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={ this.props }>
                         <PanelBody>
                             <RangeControl
-                                label={ __( 'Columns' ) }
+                                label={ __( 'Columns', '@@text_domain' ) }
                                 value={ columns }
                                 onChange={ ( value ) => setAttributes( { columns: value } ) }
                                 min={ 1 }
@@ -326,24 +326,24 @@ class BlockEdit extends Component {
                     <InspectorControls>
                         <PanelBody>
                             <BaseControl
-                                label={ __( 'Vertical alignment' ) }
+                                label={ __( 'Vertical alignment', '@@text_domain' ) }
                             >
                                 <Toolbar controls={ [
                                     {
                                         icon: getIcon( 'icon-vertical-top' ),
-                                        title: __( 'Start' ),
+                                        title: __( 'Start', '@@text_domain' ),
                                         onClick: () => setAttributes( { verticalAlign: '' } ),
                                         isActive: verticalAlign === '',
                                     },
                                     {
                                         icon: getIcon( 'icon-vertical-center' ),
-                                        title: __( 'Center' ),
+                                        title: __( 'Center', '@@text_domain' ),
                                         onClick: () => setAttributes( { verticalAlign: 'center' } ),
                                         isActive: verticalAlign === 'center',
                                     },
                                     {
                                         icon: getIcon( 'icon-vertical-bottom' ),
-                                        title: __( 'End' ),
+                                        title: __( 'End', '@@text_domain' ),
                                         onClick: () => setAttributes( { verticalAlign: 'end' } ),
                                         isActive: verticalAlign === 'end',
                                     },
@@ -351,36 +351,36 @@ class BlockEdit extends Component {
                                 />
                             </BaseControl>
                             <BaseControl
-                                label={ __( 'Horizontal alignment' ) }
+                                label={ __( 'Horizontal alignment', '@@text_domain' ) }
                             >
                                 <Toolbar controls={ [
                                     {
                                         icon: getIcon( 'icon-horizontal-start' ),
-                                        title: __( 'Start' ),
+                                        title: __( 'Start', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: '' } ),
                                         isActive: horizontalAlign === '',
                                     },
                                     {
                                         icon: getIcon( 'icon-horizontal-center' ),
-                                        title: __( 'Center' ),
+                                        title: __( 'Center', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'center' } ),
                                         isActive: horizontalAlign === 'center',
                                     },
                                     {
                                         icon: getIcon( 'icon-horizontal-end' ),
-                                        title: __( 'End' ),
+                                        title: __( 'End', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'end' } ),
                                         isActive: horizontalAlign === 'end',
                                     },
                                     {
                                         icon: getIcon( 'icon-horizontal-around' ),
-                                        title: __( 'Around' ),
+                                        title: __( 'Around', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'around' } ),
                                         isActive: horizontalAlign === 'around',
                                     },
                                     {
                                         icon: getIcon( 'icon-horizontal-between' ),
-                                        title: __( 'Between' ),
+                                        title: __( 'Between', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'between' } ),
                                         isActive: horizontalAlign === 'between',
                                     },
@@ -389,24 +389,24 @@ class BlockEdit extends Component {
                             </BaseControl>
                         </PanelBody>
                         <PanelBody>
-                            <BaseControl label={ __( 'Gap' ) }>
+                            <BaseControl label={ __( 'Gap', '@@text_domain' ) }>
                                 <ButtonGroup>
                                     {
                                         [
                                             {
-                                                label: __( 'none' ),
+                                                label: __( 'none', '@@text_domain' ),
                                                 value: 'no',
                                             },
                                             {
-                                                label: __( 'sm' ),
+                                                label: __( 'sm', '@@text_domain' ),
                                                 value: 'sm',
                                             },
                                             {
-                                                label: __( 'md' ),
+                                                label: __( 'md', '@@text_domain' ),
                                                 value: 'md',
                                             },
                                             {
-                                                label: __( 'lg' ),
+                                                label: __( 'lg', '@@text_domain' ),
                                                 value: 'lg',
                                             },
                                         ].map( ( val ) => {
@@ -439,7 +439,7 @@ class BlockEdit extends Component {
                             { background }
                             { ! isSelected ? (
                                 <div className="ghostkit-grid-button-select">
-                                    <Tooltip text={ __( 'Select Grid' ) }>
+                                    <Tooltip text={ __( 'Select Grid', '@@text_domain' ) }>
                                         { getIcon( 'block-grid' ) }
                                     </Tooltip>
                                 </div>

@@ -215,7 +215,7 @@ class SpacingsComponent extends Component {
                             <span className="ghostkit-ext-icon">
                                 { getIcon( 'extension-spacings' ) }
                             </span>
-                            <span>{ __( 'Spacings' ) }</span>
+                            <span>{ __( 'Spacings', '@@text_domain' ) }</span>
                         </Fragment>
                     ) }
                     initialOpen={ initialOpenPanel }
@@ -237,7 +237,7 @@ class SpacingsComponent extends Component {
                                         <BaseControl className="ghostkit-control-spacing">
                                             { getIcon( 'icon-box' ) }
                                             <div className="ghostkit-control-spacing-margin">
-                                                <span>{ __( 'Margin' ) }</span>
+                                                <span>{ __( 'Margin', '@@text_domain' ) }</span>
                                                 <div className="ghostkit-control-spacing-margin-left">
                                                     <InputDrag
                                                         value={ this.getCurrentSpacing( 'marginLeft', device ) }
@@ -272,7 +272,7 @@ class SpacingsComponent extends Component {
                                                 </div>
                                             </div>
                                             <div className="ghostkit-control-spacing-padding">
-                                                <span>{ __( 'Padding' ) }</span>
+                                                <span>{ __( 'Padding', '@@text_domain' ) }</span>
                                                 <div className="ghostkit-control-spacing-padding-left">
                                                     <InputDrag
                                                         value={ this.getCurrentSpacing( 'paddingLeft', device ) }
@@ -308,7 +308,7 @@ class SpacingsComponent extends Component {
                                             </div>
                                             <div className="ghostkit-control-spacing-important">
                                                 <CheckboxControl
-                                                    label={ __( '!important' ) }
+                                                    label={ '!important' }
                                                     checked={ !! this.getCurrentSpacing( '!important', device ) }
                                                     onChange={ ( nextValue ) => this.updateSpacings( '!important', nextValue, device ) }
                                                 />
@@ -321,7 +321,7 @@ class SpacingsComponent extends Component {
                     </ResponsiveTabPanel>
 
                     <p style={ { marginBottom: 20 } }></p>
-                    <BaseControl help={ __( 'Spacings settings will only take effect on Ghost Kit blocks. Core blocks will have spacings only on the preview or live page, and not while you\'re in editing mode.' ) } />
+                    <BaseControl help={ __( 'Spacings settings will only take effect on Ghost Kit blocks. Core blocks will have spacings only on the preview or live page, and not while you\'re in editing mode.', '@@text_domain' ) } />
                 </PanelBody>
             </InspectorControls>
         );

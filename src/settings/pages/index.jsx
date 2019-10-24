@@ -13,19 +13,19 @@ import CssJs from './css-js.jsx';
 
 export default {
     blocks: {
-        label: __( 'Blocks' ),
+        label: __( 'Blocks', '@@text_domain' ),
         block: Blocks,
     },
     icons: {
-        label: __( 'Icons' ),
+        label: __( 'Icons', '@@text_domain' ),
         block: Icons,
     },
     typography: {
-        label: __( 'Typography' ),
+        label: __( 'Typography', '@@text_domain' ),
         block: Typography,
     },
     css_js: {
-        label: __( 'CSS & JavaScript' ),
+        label: __( 'CSS & JavaScript', '@@text_domain' ),
         block: CssJs,
     },
 };

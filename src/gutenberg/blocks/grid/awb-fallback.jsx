@@ -183,22 +183,22 @@ class BackgroundControlsInspector extends Component {
 
         return (
             <PanelBody
-                title={ __( 'Background' ) }
+                title={ __( 'Background', '@@text_domain' ) }
                 initialOpen={ false }
             >
-                <ButtonGroup aria-label={ __( 'Background type' ) } style={ { marginTop: 15, marginBottom: 10 } }>
+                <ButtonGroup aria-label={ __( 'Background type', '@@text_domain' ) } style={ { marginTop: 15, marginBottom: 10 } }>
                     {
                         [
                             {
-                                label: __( 'Color' ),
+                                label: __( 'Color', '@@text_domain' ),
                                 value: 'color',
                             },
                             {
-                                label: __( 'Image' ),
+                                label: __( 'Image', '@@text_domain' ),
                                 value: 'image',
                             },
                             {
-                                label: __( 'Video' ),
+                                label: __( 'Video', '@@text_domain' ),
                                 value: 'yt_vm_video',
                             },
                         ].map( ( val ) => {
@@ -225,7 +225,7 @@ class BackgroundControlsInspector extends Component {
                 </ButtonGroup>
 
                 { ( type === 'image' ) ? (
-                    <PanelBody title={ __( 'Image' ) } initialOpen={ type === 'image' }>
+                    <PanelBody title={ __( 'Image', '@@text_domain' ) } initialOpen={ type === 'image' }>
                         { /* Select Image */ }
                         { ! image || ! imageTag ? (
                             <MediaUpload
@@ -236,7 +236,7 @@ class BackgroundControlsInspector extends Component {
                                 value={ image }
                                 render={ ( { open } ) => (
                                     <Button onClick={ open } isPrimary>
-                                        { __( 'Select image' ) }
+                                        { __( 'Select image', '@@text_domain' ) }
                                     </Button>
                                 ) }
                             />
@@ -251,7 +251,7 @@ class BackgroundControlsInspector extends Component {
                                 />
                                 { imageSizes ? (
                                     <SelectControl
-                                        label={ __( 'Size' ) }
+                                        label={ __( 'Size', '@@text_domain' ) }
                                         value={ imageSize }
                                         options={ ( () => {
                                             const result = [];
@@ -267,19 +267,19 @@ class BackgroundControlsInspector extends Component {
                                     />
                                 ) : '' }
                                 <SelectControl
-                                    label={ __( 'Background size' ) }
+                                    label={ __( 'Background size', '@@text_domain' ) }
                                     value={ imageBackgroundSize }
                                     options={ [
                                         {
-                                            label: __( 'Cover' ),
+                                            label: __( 'Cover', '@@text_domain' ),
                                             value: 'cover',
                                         },
                                         {
-                                            label: __( 'Contain' ),
+                                            label: __( 'Contain', '@@text_domain' ),
                                             value: 'contain',
                                         },
                                         {
-                                            label: __( 'Pattern' ),
+                                            label: __( 'Pattern', '@@text_domain' ),
                                             value: 'pattern',
                                         },
                                     ] }
@@ -296,7 +296,7 @@ class BackgroundControlsInspector extends Component {
                                         e.preventDefault();
                                     } }
                                 >
-                                    { __( 'Remove image' ) }
+                                    { __( 'Remove image', '@@text_domain' ) }
                                 </a>
                             </Fragment>
                         ) : '' }
@@ -305,7 +305,7 @@ class BackgroundControlsInspector extends Component {
 
                 { type === 'color' ? (
                     <ColorPicker
-                        label={ __( 'Background Color' ) }
+                        label={ __( 'Background Color', '@@text_domain' ) }
                         value={ color }
                         onChange={ ( val ) => setAttributes( { color: val } ) }
                         alpha={ true }
@@ -314,14 +314,14 @@ class BackgroundControlsInspector extends Component {
                     <PanelBody
                         title={ (
                             <Fragment>
-                                { __( 'Overlay' ) }
+                                { __( 'Overlay', '@@text_domain' ) }
                                 <ColorIndicator colorValue={ color } />
                             </Fragment>
                         ) }
                         initialOpen={ type === 'color' }
                     >
                         <ColorPicker
-                            label={ __( 'Background Color' ) }
+                            label={ __( 'Background Color', '@@text_domain' ) }
                             value={ color }
                             onChange={ ( val ) => setAttributes( { color: val } ) }
                             alpha={ true }
@@ -330,7 +330,7 @@ class BackgroundControlsInspector extends Component {
                 ) }
 
                 <p>
-                    { __( 'Install AWB plugin to set video backgrounds and images with parallax support.' ) }
+                    { __( 'Install AWB plugin to set video backgrounds and images with parallax support.', '@@text_domain' ) }
                 </p>
                 <a
                     className="components-button is-button is-default is-small"
@@ -338,7 +338,7 @@ class BackgroundControlsInspector extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    { __( 'Install' ) }
+                    { __( 'Install', '@@text_domain' ) }
                 </a>
             </PanelBody>
         );

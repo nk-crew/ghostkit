@@ -235,7 +235,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     <span className="ghostkit-ext-icon">
                                         { getIcon( 'extension-sr' ) }
                                     </span>
-                                    <span>{ __( 'Animate on Scroll' ) }</span>
+                                    <span>{ __( 'Animate on Scroll', '@@text_domain' ) }</span>
                                 </Fragment>
                             ) }
                             initialOpen={ initialOpenPanel }
@@ -247,15 +247,15 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 {
                                     [
                                         {
-                                            label: __( 'none' ),
+                                            label: __( 'None', '@@text_domain' ),
                                             value: '',
                                         },
                                         {
-                                            label: __( 'Fade' ),
+                                            label: __( 'Fade', '@@text_domain' ),
                                             value: 'fade',
                                         },
                                         {
-                                            label: __( 'Zoom' ),
+                                            label: __( 'Zoom', '@@text_domain' ),
                                             value: 'zoom',
                                         },
                                     ].map( ( val ) => {
@@ -328,7 +328,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                             { this.state.direction ? (
                                                 <TextControl
                                                     type="number"
-                                                    label={ __( 'Distance' ) }
+                                                    label={ __( 'Distance', '@@text_domain' ) }
                                                     value={ this.state.distance }
                                                     onChange={ ( value ) => this.updateData( { distance: value } ) }
                                                     min={ 10 }
@@ -338,7 +338,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                             { 'zoom' === this.state.effect ? (
                                                 <TextControl
                                                     type="number"
-                                                    label={ __( 'Scale' ) }
+                                                    label={ __( 'Scale', '@@text_domain' ) }
                                                     value={ this.state.scale }
                                                     onChange={ ( value ) => this.updateData( { scale: value } ) }
                                                     min={ 0 }
@@ -355,7 +355,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     <div className="ghostkit-grid-controls">
                                         <TextControl
                                             type="number"
-                                            label={ __( 'Duration' ) }
+                                            label={ __( 'Duration', '@@text_domain' ) }
                                             value={ this.state.duration }
                                             onChange={ ( value ) => this.updateData( { duration: value } ) }
                                             min={ 100 }
@@ -363,7 +363,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         />
                                         <TextControl
                                             type="number"
-                                            label={ __( 'Delay' ) }
+                                            label={ __( 'Delay', '@@text_domain' ) }
                                             value={ this.state.delay }
                                             onChange={ ( value ) => this.updateData( { delay: value } ) }
                                             min={ 0 }

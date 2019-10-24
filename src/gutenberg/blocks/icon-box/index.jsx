@@ -25,12 +25,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Icon Box' ),
-    description: __( 'Icons are one of the best visual replacement for text descriptions.' ),
+    title: __( 'Icon Box', '@@text_domain' ),
+    description: __( 'Icons are one of the best visual replacement for text descriptions.', '@@text_domain' ),
     icon: getIcon( 'block-icon-box', true ),
     keywords: [
-        __( 'icon' ),
-        __( 'icon-box' ),
+        __( 'icon', '@@text_domain' ),
+        __( 'icon-box', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/icon-box/',
