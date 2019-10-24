@@ -45,7 +45,7 @@ const {
  *
  * @return {Object[]} Tabs layout configuration.
  */
-const getTabsTemplate = ( attributes ) => {
+const getAccordionsTemplate = ( attributes ) => {
     const {
         itemsCount,
     } = attributes;
@@ -129,7 +129,7 @@ class BlockEdit extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     <InnerBlocks
-                        template={ getTabsTemplate( attributes ) }
+                        template={ getAccordionsTemplate( attributes ) }
                         allowedBlocks={ [ 'ghostkit/accordion-item' ] }
                     />
                 </div>
