@@ -15,6 +15,7 @@ const {
 } = wp.blockEditor;
 
 export default [
+    // v1.0.0
     {
         ghostkit: {
             supports: {

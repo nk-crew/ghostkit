@@ -10,6 +10,7 @@ const {
 } = wp.blockEditor;
 
 export default [
+    // v1.6.3
     {
         ghostkit: {
             previewUrl: 'https://ghostkit.io/blocks/carousel/',

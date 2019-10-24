@@ -16,6 +16,7 @@ const {
 } = wp.hooks;
 
 export default [
+    // v2.2.0
     {
         ghostkit: {
             supports: {

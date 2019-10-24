@@ -15,6 +15,7 @@ const {
 } = wp.hooks;
 
 export default [
+    // v1.6.3
     {
         ghostkit: {
             customStylesCallback( attributes ) {

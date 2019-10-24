@@ -19,6 +19,7 @@ import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
 import IconPicker from '../../components/icon-picker';
 
 export default [
+    // v2.2.0
     {
         ghostkit: {
             supports: {

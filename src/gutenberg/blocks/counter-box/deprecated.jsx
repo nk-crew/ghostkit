@@ -21,6 +21,7 @@ const {
 const name = 'ghostkit/counter-box';
 
 export default [
+    // v1.5.1
     {
         ghostkit: {
             customStylesCallback( attributes ) {
@@ -123,6 +124,8 @@ export default [
             );
         },
     },
+
+    // v1.0.0
     {
         ghostkit: {
             supports: {

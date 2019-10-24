@@ -11,6 +11,7 @@ const {
 import getColClass from './get-col-class';
 
 export default [
+    // v1.6.3
     {
         ghostkit: {
             customStylesCallback( attributes ) {
