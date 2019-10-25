@@ -17,6 +17,7 @@ const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     BaseControl,
+    ToggleControl,
     IconButton,
     Tooltip,
 } = wp.components;
@@ -158,13 +159,15 @@ class BlockEdit extends Component {
 
         const {
             tabActive,
+            buttonsVerticalAlign,
             buttonsAlign,
             tabsData = [],
         } = attributes;
 
         className = classnames(
             className,
-            'ghostkit-tabs'
+            'ghostkit-tabs',
+            buttonsVerticalAlign ? 'ghostkit-tabs-buttons-vertical' : ''
         );
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
@@ -194,6 +197,11 @@ class BlockEdit extends Component {
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody>
+                        <ToggleControl
+                            label={ __( 'Vertical Tabs', '@@text_domain' ) }
+                            checked={ !! buttonsVerticalAlign }
+                            onChange={ ( val ) => setAttributes( { buttonsVerticalAlign: val } ) }
+                        />
                         <BaseControl label={ __( 'Tabs Align', '@@text_domain' ) }>
                             <AlignmentToolbar
                                 value={ buttonsAlignValForControl }
@@ -212,7 +220,10 @@ class BlockEdit extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className } data-tab-active={ tabActive }>
-                    <div className={ classnames( 'ghostkit-tabs-buttons', `ghostkit-tabs-buttons-align-${ buttonsAlign }` ) }>
+                    <div className={ classnames(
+                        'ghostkit-tabs-buttons',
+                        `ghostkit-tabs-buttons-align-${ buttonsAlign }`
+                    ) }>
                         {
                             tabsData.map( ( tabData, i ) => {
                                 const {

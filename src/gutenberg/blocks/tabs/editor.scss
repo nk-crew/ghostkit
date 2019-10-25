@@ -3,6 +3,12 @@
  */
 @import "../../variables";
 
+// Grid from Bootstrap 4.1
+@import "../../bootstrap/functions";
+@import "../../bootstrap/variables";
+@import "../../bootstrap/grid";
+@import "../../bootstrap/breakpoints";
+
 
 // fix top margin for tabs content
 .ghostkit-tabs-content > .editor-inner-blocks > .editor-block-list__layout > .editor-block-list__block > .editor-block-list__block-edit {
@@ -72,5 +78,46 @@
 
     .ghostkit-tabs-content [data-tab] {
         display: none;
+    }
+
+    // Vertical tabs
+    &.ghostkit-tabs-buttons-vertical {
+        @include media-breakpoint-up(md) {
+            display: flex;
+
+            .ghostkit-tabs-buttons {
+                @include make-col(3, 10);
+
+                flex-direction: column;
+                margin-right: 1em;
+                margin-bottom: 0;
+                border-right: 1px solid #dee2e6;
+                border-bottom: none;
+
+                .ghostkit-tabs-buttons-item {
+                    display: block;
+                    margin-right: -1px;
+                    margin-bottom: 0;
+                    border-top-left-radius: 3px;
+                    border-top-right-radius: 0;
+                    border-bottom-left-radius: 3px;
+
+                    &:hover {
+                        border-color: #dee2e6;
+                        opacity: 1;
+                    }
+
+                    &.ghostkit-tabs-buttons-item-active {
+                        background-color: #fff;
+                        border-color: #dee2e6;
+                        border-right-color: #fff;
+                        opacity: 1;
+                    }
+                }
+            }
+            .ghostkit-tabs-content {
+                @include make-col(10, 10);
+            }
+        }
     }
 }
