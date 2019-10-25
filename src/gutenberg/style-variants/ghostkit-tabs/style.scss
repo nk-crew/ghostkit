@@ -1,0 +1,24 @@
+/**
+ * Frontend and Editor Styles
+ */
+@import "../../variables";
+
+/**
+* Pills.
+*/
+.ghostkit-tabs.is-style-pills {
+    .ghostkit-tabs-buttons {
+        border: none;
+
+        .ghostkit-tabs-buttons-item {
+            margin-bottom: 0;
+            border: none;
+            border-radius: 3px;
+
+            &.ghostkit-tabs-buttons-item-active {
+                color: $white;
+                background-color: $dark-gray-700;
+            }
+        }
+    }
+}
