@@ -39,32 +39,13 @@ const {
 } = wp.data;
 
 /**
- * Returns the layouts configuration for a given number of items.
- *
- * @param {number} attributes items attributes.
- *
- * @return {Object[]} Tabs layout configuration.
- */
-const getAccordionsTemplate = ( attributes ) => {
-    const {
-        itemsCount,
-    } = attributes;
-    const result = [];
-
-    for ( let k = 1; k <= itemsCount; k++ ) {
-        result.push( [ 'ghostkit/accordion-item', { itemNumber: k } ] );
-    }
-
-    return result;
-};
-
-/**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
     constructor() {
         super( ...arguments );
 
+        this.getAccordionsTemplate = this.getAccordionsTemplate.bind( this );
         this.maybeUpdateItemsCount = this.maybeUpdateItemsCount.bind( this );
     }
 
@@ -73,6 +54,27 @@ class BlockEdit extends Component {
     }
     componentDidUpdate() {
         this.maybeUpdateItemsCount();
+    }
+
+    /**
+     * Returns the layouts configuration for a given number of items.
+     *
+     * @param {number} attributes items attributes.
+     *
+     * @return {Object[]} Tabs layout configuration.
+     */
+    getAccordionsTemplate() {
+        const {
+            itemsCount,
+        } = this.props.attributes;
+
+        const result = [];
+
+        for ( let k = 1; k <= itemsCount; k++ ) {
+            result.push( [ 'ghostkit/accordion-item' ] );
+        }
+
+        return result;
     }
 
     /**
@@ -129,7 +131,7 @@ class BlockEdit extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     <InnerBlocks
-                        template={ getAccordionsTemplate( attributes ) }
+                        template={ this.getAccordionsTemplate() }
                         allowedBlocks={ [ 'ghostkit/accordion-item' ] }
                     />
                 </div>

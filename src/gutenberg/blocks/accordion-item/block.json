@@ -12,17 +12,17 @@
     },
     "attributes": {
         "heading": {
-            "type": "array",
-            "source": "children",
+            "type": "string",
+            "source": "html",
             "selector": ".ghostkit-accordion-item-label",
             "default": "Accordion Item"
+        },
+        "slug": {
+            "type": "string"
         },
         "active": {
             "type": "boolean",
             "default": false
-        },
-        "itemNumber": {
-            "type": "number"
         }
     }
 }

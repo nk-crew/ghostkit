@@ -2,8 +2,6 @@
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
-import slugify from 'slugify';
-import striptags from 'striptags';
 
 /**
  * WordPress dependencies
@@ -44,6 +42,7 @@ const {
  * Internal dependencies
  */
 import RemoveButton from '../../components/remove-button';
+import getUniqueSlug from '../../utils/get-unique-slug';
 
 /**
  * Block Edit Class.
@@ -54,8 +53,8 @@ class BlockEdit extends Component {
 
         this.getTabsTemplate = this.getTabsTemplate.bind( this );
         this.getTabs = this.getTabs.bind( this );
-        this.isUniqueSlug = this.isUniqueSlug.bind( this );
-        this.getUniqueSlug = this.getUniqueSlug.bind( this );
+        this.changeLabel = this.changeLabel.bind( this );
+        this.removeTab = this.removeTab.bind( this );
     }
 
     /**
@@ -69,10 +68,9 @@ class BlockEdit extends Component {
         const {
             tabsData = [],
         } = this.props.attributes;
-        const result = [];
 
-        tabsData.forEach( ( tabData ) => {
-            result.push( [ 'ghostkit/tabs-tab-v2', tabData ] );
+        const result = tabsData.map( ( tabData ) => {
+            return [ 'ghostkit/tabs-tab-v2', tabData ];
         } );
 
         return result;
@@ -82,43 +80,78 @@ class BlockEdit extends Component {
         return this.props.block.innerBlocks;
     }
 
-    isUniqueSlug( slug, ignoreClientId ) {
+    changeLabel( value, i ) {
+        const {
+            setAttributes,
+            attributes,
+            updateBlockAttributes,
+        } = this.props;
+
+        const {
+            tabsData = [],
+        } = attributes;
+
         const tabs = this.getTabs();
-        let isUnique = true;
 
-        tabs.forEach( ( tabProps ) => {
-            if ( tabProps.clientId !== ignoreClientId && tabProps.attributes.slug === slug ) {
-                isUnique = false;
-            }
-        } );
+        if ( tabs[ i ] ) {
+            const newSlug = getUniqueSlug( `tab-${ value }`, tabs[ i ].clientId );
 
-        return isUnique;
-    }
+            const newTabsData = tabsData.map( ( oldTabData, newIndex ) => {
+                if ( i === newIndex ) {
+                    return {
+                        ...oldTabData,
+                        ...{
+                            title: value,
+                            slug: newSlug,
+                        },
+                    };
+                }
 
-    getUniqueSlug( newTitle, tabData ) {
-        let newSlug = '';
-        let i = 0;
+                return oldTabData;
+            } );
 
-        while ( ! newSlug || ! this.isUniqueSlug( newSlug, tabData.clientId ) ) {
-            if ( newSlug ) {
-                i += 1;
-            }
-            newSlug = slugify( `tab-${ striptags( newTitle ) }${ i ? `-${ i }` : '' }`, {
-                replacement: '-',
-                lower: true,
+            setAttributes( {
+                tabActive: newSlug,
+                tabsData: newTabsData,
+            } );
+            updateBlockAttributes( tabs[ i ].clientId, {
+                slug: newSlug,
             } );
         }
+    }
 
-        return newSlug;
+    removeTab( i ) {
+        const {
+            setAttributes,
+            attributes,
+            block,
+        } = this.props;
+
+        const {
+            tabsData = [],
+        } = attributes;
+
+        if ( block.innerBlocks.length <= 1 ) {
+            this.props.removeBlock( block.clientId );
+        } else if ( block.innerBlocks[ i ] ) {
+            this.props.removeBlock( block.innerBlocks[ i ].clientId );
+
+            if ( tabsData[ i ] ) {
+                const newTabsData = Object.assign( [], tabsData );
+                newTabsData.splice( i, 1 );
+
+                setAttributes( {
+                    tabsData: newTabsData,
+                } );
+            }
+        }
     }
 
     render() {
         const {
             attributes,
             setAttributes,
-            updateBlockAttributes,
             isSelectedBlockInRoot,
-            block,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -128,8 +161,6 @@ class BlockEdit extends Component {
             buttonsAlign,
             tabsData = [],
         } = attributes;
-
-        const tabs = this.getTabs();
 
         className = classnames(
             className,
@@ -200,30 +231,7 @@ class BlockEdit extends Component {
                                             value={ title }
                                             unstableOnFocus={ () => setAttributes( { tabActive: slug } ) }
                                             onChange={ ( value ) => {
-                                                if ( tabs[ i ] ) {
-                                                    const newSlug = this.getUniqueSlug( value, tabs[ i ] );
-                                                    const newTabsData = tabsData.map( ( oldTabData, newIndex ) => {
-                                                        if ( i === newIndex ) {
-                                                            return {
-                                                                ...oldTabData,
-                                                                ...{
-                                                                    title: value,
-                                                                    slug: newSlug,
-                                                                },
-                                                            };
-                                                        }
-
-                                                        return oldTabData;
-                                                    } );
-
-                                                    setAttributes( {
-                                                        tabActive: newSlug,
-                                                        tabsData: newTabsData,
-                                                    } );
-                                                    updateBlockAttributes( tabs[ i ].clientId, {
-                                                        slug: newSlug,
-                                                    } );
-                                                }
+                                                this.changeLabel( value, i );
                                             } }
                                             formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
                                             keepPlaceholderOnFocus
@@ -232,20 +240,7 @@ class BlockEdit extends Component {
                                             show={ isSelectedBlockInRoot }
                                             tooltipText={ __( 'Remove tab?', '@@text_domain' ) }
                                             onRemove={ () => {
-                                                if ( block.innerBlocks.length <= 1 ) {
-                                                    this.props.removeBlock( block.clientId );
-                                                } else if ( block.innerBlocks[ i ] ) {
-                                                    this.props.removeBlock( block.innerBlocks[ i ].clientId );
-
-                                                    if ( tabsData[ i ] ) {
-                                                        const newTabsData = Object.assign( [], tabsData );
-                                                        newTabsData.splice( i, 1 );
-
-                                                        setAttributes( {
-                                                            tabsData: newTabsData,
-                                                        } );
-                                                    }
-                                                }
+                                                this.removeTab( i );
                                             } }
                                         />
                                     </div>

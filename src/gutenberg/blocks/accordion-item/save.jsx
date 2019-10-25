@@ -32,7 +32,7 @@ class BlockSave extends Component {
         const {
             heading,
             active,
-            itemNumber,
+            slug,
         } = this.props.attributes;
 
         let className = classnames(
@@ -49,7 +49,7 @@ class BlockSave extends Component {
 
         return (
             <div className={ className }>
-                <a href={ `#accordion-${ itemNumber }` } className="ghostkit-accordion-item-heading">
+                <a href={ `#${ slug }` } className="ghostkit-accordion-item-heading">
                     <RichText.Content
                         className="ghostkit-accordion-item-label"
                         tagName="span"
