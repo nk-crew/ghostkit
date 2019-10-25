@@ -206,6 +206,7 @@ class BlockEdit extends Component {
                                     setAttributes( { buttonsAlign: value } );
                                 } }
                                 controls={ [ 'left', 'center', 'right' ] }
+                                isCollapsed={ false }
                             />
                         </BaseControl>
                     </PanelBody>

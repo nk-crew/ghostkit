@@ -183,6 +183,7 @@ class BlockEdit extends Component {
                                 value={ align }
                                 onChange={ ( value ) => setAttributes( { align: value } ) }
                                 controls={ [ 'left', 'center', 'right' ] }
+                                isCollapsed={ false }
                             />
                         </BaseControl>
                     </PanelBody>

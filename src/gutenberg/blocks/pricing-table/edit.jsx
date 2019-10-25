@@ -201,6 +201,7 @@ class BlockEdit extends Component {
                             <AlignmentToolbar
                                 value={ horizontalAlign }
                                 onChange={ ( val ) => setAttributes( { horizontalAlign: val } ) }
+                                isCollapsed={ false }
                             />
                         </BaseControl>
                     </PanelBody>
