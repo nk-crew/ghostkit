@@ -29,8 +29,8 @@
             "attribute": "rel"
         },
         "text": {
-            "type": "array",
-            "source": "children",
+            "type": "string",
+            "source": "html",
             "selector": ".ghostkit-button .ghostkit-button-text",
             "default": "Button"
         },

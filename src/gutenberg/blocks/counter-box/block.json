@@ -9,8 +9,8 @@
     },
     "attributes": {
         "number": {
-            "type": "array",
-            "source": "children",
+            "type": "string",
+            "source": "html",
             "selector": ".ghostkit-counter-box-number-wrap",
             "default": "77"
         },
