@@ -86,7 +86,6 @@
                 @include make-col(3, 10);
 
                 flex-direction: column;
-                margin-right: 1em;
                 margin-bottom: 0;
                 border-right: 1px solid #dee2e6;
                 border-bottom: none;
@@ -113,7 +112,9 @@
                 }
             }
             .ghostkit-tabs-content {
-                @include make-col(10, 10);
+                @include make-col(7, 10);
+
+                padding-left: 1em;
             }
         }
     }
