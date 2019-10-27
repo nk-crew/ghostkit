@@ -17,6 +17,7 @@ const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     SelectControl,
+    RangeControl,
     Button,
 } = wp.components;
 
@@ -106,6 +107,9 @@ class BlockEdit extends Component {
             photoTag,
             photoSizes,
             photoSize,
+
+            stars,
+            starsIcon,
         } = attributes;
 
         className = classnames( 'ghostkit-testimonial', className );
@@ -136,6 +140,23 @@ class BlockEdit extends Component {
                                     return result;
                                 } )() }
                                 onChange={ v => setAttributes( { photoSize: v } ) }
+                            />
+                        ) : '' }
+                        <RangeControl
+                            label={ __( 'Stars', '@@text_domain' ) }
+                            value={ stars }
+                            min={ 0 }
+                            max={ 5 }
+                            step={ 0.5 }
+                            beforeIcon="star-filled"
+                            allowReset={ true }
+                            onChange={ ( value ) => setAttributes( { stars: value } ) }
+                        />
+                        { typeof stars === 'number' ? (
+                            <IconPicker
+                                label={ __( 'Stars Icon', '@@text_domain' ) }
+                                value={ starsIcon }
+                                onChange={ ( value ) => setAttributes( { starsIcon: value } ) }
                             />
                         ) : '' }
                     </PanelBody>
@@ -214,6 +235,26 @@ class BlockEdit extends Component {
                             onChange={ value => setAttributes( { source: value } ) }
                         />
                     </div>
+                    { typeof stars === 'number' && starsIcon ? (
+                        <div className="ghostkit-testimonial-stars">
+                            <div className="ghostkit-testimonial-stars-wrap">
+                                <div className="ghostkit-testimonial-stars-front" style={ { width: `${ 100 * stars / 5 }%` } }>
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                </div>
+                                <div className="ghostkit-testimonial-stars-back">
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                </div>
+                            </div>
+                        </div>
+                    ) : '' }
                 </div>
             </Fragment>
         );
