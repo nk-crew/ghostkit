@@ -542,6 +542,19 @@ class GhostKit {
                 $styles .= GhostKit_Block_Custom_CSS::get( $block['attrs'] );
             }
 
+            // Reusable Blocks.
+            if ( isset( $block['blockName'] ) && 'core/block' === $block['blockName'] && isset( $block['attrs']['ref'] ) ) {
+                $reusable_block = get_post( $block['attrs']['ref'] );
+
+                if ( has_blocks( $reusable_block ) ) {
+                    $blocks = parse_blocks( $reusable_block->post_content );
+
+                    if ( is_array( $blocks ) && ! empty( $blocks ) ) {
+                        $styles .= $this->parse_blocks_css( $blocks );
+                    }
+                }
+            }
+
             // Inner blocks.
             if ( isset( $block['innerBlocks'] ) && ! empty( $block['innerBlocks'] ) && is_array( $block['innerBlocks'] ) ) {
                 $styles .= $this->parse_blocks_css( $block['innerBlocks'] );
