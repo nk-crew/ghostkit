@@ -1,4 +1,9 @@
 /**
+ * Styles
+ */
+import './editor.scss';
+
+/**
  * WordPress dependencies
  */
 const { Component } = wp.element;
@@ -13,6 +18,7 @@ const {
 /**
  * Internal dependencies
  */
+import ActiveIndicator from '../active-indicator';
 import getIcon from '../../utils/get-icon';
 
 const { ghostkitVariables } = window;
@@ -23,7 +29,7 @@ const { ghostkitVariables } = window;
 export default class ResponsiveTabPanel extends Component {
     render() {
         const {
-            iconsColor = {},
+            filledTabs = {},
             activeClass = 'is-active',
             instanceId,
             orientation = 'horizontal',
@@ -42,31 +48,30 @@ export default class ResponsiveTabPanel extends Component {
             getIcon( 'tabs-tv' ),
         ];
 
-        Object.keys( ghostkitVariables.media_sizes ).forEach( ( mediaName, i ) => {
+        [
+            ...Object.keys( ghostkitVariables.media_sizes ),
+            'all',
+        ].forEach( ( mediaName, i ) => {
             tabs.unshift( {
                 name: mediaName,
                 title: (
-                    <Tooltip text={ sprintf( __( 'Devices with screen width <= %s', '@@text_domain' ), `${ ghostkitVariables.media_sizes[ mediaName ] }px` ) }>
-                        <span style={ iconsColor && iconsColor[ mediaName ] ? {
-                            color: iconsColor[ mediaName ],
-                        } : {} }>
+                    <Tooltip
+                        text={
+                            'all' === mediaName ?
+                                __( 'All devices', '@@text_domain' ) :
+                                sprintf( __( 'Devices with screen width <= %s', '@@text_domain' ), `${ ghostkitVariables.media_sizes[ mediaName ] }px` )
+                        }
+                    >
+                        <span className="ghostkit-control-tabs-icon">
                             { icons[ i ] }
+                            { filledTabs && filledTabs[ mediaName ] ? (
+                                <ActiveIndicator />
+                            ) : '' }
                         </span>
                     </Tooltip>
                 ),
                 className: 'ghostkit-control-tabs-tab',
             } );
-        } );
-        tabs.unshift( {
-            name: 'all',
-            title: (
-                <Tooltip text={ __( 'All devices', '@@text_domain' ) }>
-                    <span>
-                        { icons[ icons.length - 1 ] }
-                    </span>
-                </Tooltip>
-            ),
-            className: 'ghostkit-control-tabs-tab',
         } );
 
         return (

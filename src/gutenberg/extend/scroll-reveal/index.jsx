@@ -43,6 +43,7 @@ const {
 import parseSRConfig from './parseSRConfig';
 import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
+import ActiveIndicator from '../../components/active-indicator';
 
 const $ = window.jQuery;
 
@@ -221,6 +222,10 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 return <OriginalComponent { ...props } />;
             }
 
+            const {
+                ghostkitSR,
+            } = props.attributes;
+
             // add new SR controls.
             return (
                 <Fragment>
@@ -236,6 +241,9 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         { getIcon( 'extension-sr' ) }
                                     </span>
                                     <span>{ __( 'Animate on Scroll', '@@text_domain' ) }</span>
+                                    { ghostkitSR ? (
+                                        <ActiveIndicator />
+                                    ) : '' }
                                 </Fragment>
                             ) }
                             initialOpen={ initialOpenPanel }

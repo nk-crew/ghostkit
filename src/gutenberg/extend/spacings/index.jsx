@@ -42,6 +42,7 @@ import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
 import InputDrag from '../../components/input-drag';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ActiveIndicator from '../../components/active-indicator';
 
 const {
     GHOSTKIT,
@@ -160,6 +161,10 @@ class SpacingsComponent extends Component {
         const props = this.props;
         let allow = false;
 
+        const {
+            ghostkitSpacings,
+        } = props.attributes;
+
         if ( GHOSTKIT.hasBlockSupport( props.name, 'spacings', false ) || GHOSTKIT.hasBlockSupport( props.name, 'indents', false ) ) {
             allow = true;
         }
@@ -184,7 +189,7 @@ class SpacingsComponent extends Component {
             return '';
         }
 
-        const iconsColor = {};
+        const filledTabs = {};
         const allSpacings = [
             'marginLeft',
             'marginTop',
@@ -196,11 +201,14 @@ class SpacingsComponent extends Component {
             'paddingBottom',
         ];
         if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
-            Object.keys( ghostkitVariables.media_sizes ).forEach( ( media ) => {
-                iconsColor[ media ] = '#cccccc';
+            [
+                'all',
+                ...Object.keys( ghostkitVariables.media_sizes ),
+            ].forEach( ( media ) => {
+                filledTabs[ media ] = false;
                 allSpacings.forEach( ( spacing ) => {
-                    if ( this.getCurrentSpacing( spacing, media !== 'all' ? `media_${ media }` : media ) ) {
-                        delete iconsColor[ media ];
+                    if ( this.getCurrentSpacing( spacing, media !== 'all' ? `media_${ media }` : '' ) ) {
+                        filledTabs[ media ] = true;
                     }
                 } );
             } );
@@ -216,6 +224,9 @@ class SpacingsComponent extends Component {
                                 { getIcon( 'extension-spacings' ) }
                             </span>
                             <span>{ __( 'Spacings', '@@text_domain' ) }</span>
+                            { Object.keys( ghostkitSpacings ).length ? (
+                                <ActiveIndicator />
+                            ) : '' }
                         </Fragment>
                     ) }
                     initialOpen={ initialOpenPanel }
@@ -223,7 +234,7 @@ class SpacingsComponent extends Component {
                         initialOpenPanel = ! initialOpenPanel;
                     } }
                 >
-                    <ResponsiveTabPanel iconsColor={ iconsColor }>
+                    <ResponsiveTabPanel filledTabs={ filledTabs }>
                         {
                             ( tabData ) => {
                                 let device = '';

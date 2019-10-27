@@ -37,6 +37,7 @@ import checkCoreBlock from '../check-core-block';
 import { getActiveClass, replaceClass, addClass, removeClass, hasClass } from '../../utils/classes-replacer';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 import getIcon from '../../utils/get-icon';
+import ActiveIndicator from '../../components/active-indicator';
 
 const {
     GHOSTKIT,
@@ -147,6 +148,10 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
         render() {
             const props = this.props;
+            const {
+                className,
+            } = props.attributes;
+
             let allow = false;
 
             if ( hasBlockSupport( props.name, 'customClassName', true ) ) {
@@ -168,12 +173,13 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 return <OriginalComponent { ...props } />;
             }
 
-            const iconsColor = {};
+            const filledTabs = {};
             if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
-                Object.keys( ghostkitVariables.media_sizes ).forEach( ( media ) => {
-                    if ( ! this.getCurrentDisplay( media ) ) {
-                        iconsColor[ media ] = '#cccccc';
-                    }
+                [
+                    'all',
+                    ...Object.keys( ghostkitVariables.media_sizes ),
+                ].forEach( ( media ) => {
+                    filledTabs[ media ] = !! this.getCurrentDisplay( media );
                 } );
             }
 
@@ -192,6 +198,9 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         { getIcon( 'extension-display' ) }
                                     </span>
                                     <span>{ __( 'Display', '@@text_domain' ) }</span>
+                                    { getActiveClass( className, 'ghostkit-d' ) ? (
+                                        <ActiveIndicator />
+                                    ) : '' }
                                 </Fragment>
                             ) }
                             initialOpen={ initialOpenPanel }
@@ -199,7 +208,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 initialOpenPanel = ! initialOpenPanel;
                             } }
                         >
-                            <ResponsiveTabPanel iconsColor={ iconsColor }>
+                            <ResponsiveTabPanel filledTabs={ filledTabs }>
                                 {
                                     ( tabData ) => {
                                         return (

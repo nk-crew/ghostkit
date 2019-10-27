@@ -116,7 +116,7 @@ class BlockEdit extends Component {
             stickyContentBottom,
         } = attributes;
 
-        const iconsColor = {};
+        const filledTabs = {};
         if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
             Object.keys( ghostkitVariables.media_sizes ).forEach( ( media ) => {
                 let sizeName = 'size';
@@ -129,9 +129,7 @@ class BlockEdit extends Component {
                     verticalAlignName = `${ media }_${ verticalAlignName }`;
                 }
 
-                if ( ! attributes[ sizeName ] && ! attributes[ orderName ] && ! attributes[ verticalAlignName ] ) {
-                    iconsColor[ media ] = '#cccccc';
-                }
+                filledTabs[ media ] = attributes[ sizeName ] || attributes[ orderName ] || attributes[ verticalAlignName ];
             } );
         }
 
@@ -143,7 +141,7 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <ApplyFilters name="ghostkit.editor.controls" attribute="columnSettings" props={ this.props }>
                         <PanelBody>
-                            <ResponsiveTabPanel iconsColor={ iconsColor }>
+                            <ResponsiveTabPanel filledTabs={ filledTabs }>
                                 {
                                     ( tabData ) => {
                                         let sizeName = 'size';

@@ -34,6 +34,7 @@ const {
 import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
 import CodeEditor from '../../components/code-editor';
+import ActiveIndicator from '../../components/active-indicator';
 
 const {
     GHOSTKIT,
@@ -94,6 +95,9 @@ class CustomCSSComponent extends Component {
                                 { getIcon( 'extension-custom-css' ) }
                             </span>
                             <span>{ __( 'Custom CSS', '@@text_domain' ) }</span>
+                            { ghostkitCustomCSS ? (
+                                <ActiveIndicator />
+                            ) : '' }
                         </Fragment>
                     ) }
                     initialOpen={ initialOpenPanel }
