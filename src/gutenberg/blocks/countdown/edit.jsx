@@ -224,7 +224,7 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <RangeControl
-                            label={ __( 'Font Size', '@@text_domain' ) }
+                            label={ __( 'Number Font Size', '@@text_domain' ) }
                             value={ numberFontSize }
                             onChange={ ( value ) => setAttributes( { numberFontSize: value } ) }
                             beforeIcon="editor-textcolor"
