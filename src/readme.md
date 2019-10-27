@@ -60,6 +60,7 @@ By default you can change typography for the following elements:
 * [**Number Box**](https://ghostkit.io/blocks/number-box/). Show your progress and rewards using counting numbers
 * [**Accordion**](https://ghostkit.io/blocks/accordion/). Toggle the visibility of content across your project
 * [**Tabs**](https://ghostkit.io/blocks/tabs/). Separate content on the tabs with titles
+* [**Countdown**](https://ghostkit.io/blocks/countdown/). Display countdown for you upcoming events
 * [**Video**](https://ghostkit.io/blocks/video/). Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos
 * [**Carousel**](https://ghostkit.io/blocks/carousel/). Carousel for any type of content – images or other blocks
 * [**Pricing Table**](https://ghostkit.io/blocks/pricing-tables/). Sell your products or services and show all features
@@ -312,6 +313,25 @@ Available events:
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.7.0 =
+
+* added Countdown block
+* added Custom CSS extension for each blocks
+* added preview in editor for buttons outline styles
+* added examples to blocks
+* added translations to js files
+* added Vertical option for Tabs block
+* added Pills style variant for Tabs block
+* added stars option for Testimonial block
+* added URL options for Icon Box and Counter Box blocks
+* added Accordion block activation based on location hash
+* added active indicators to extensions panels
+* improved Accordion block to work with unique slug, generated from label
+* improved Tabs/Accordion labels unique slug generator (no hash conflicts)
+* updated vendor plugins FontAwesome, Swiper, Jarallax
+* fixed reusable widget rendering in custom posts without Gutenberg enabled
+* fixed reusable blocks custom styles rendering
 
 = 2.6.3 =
 
