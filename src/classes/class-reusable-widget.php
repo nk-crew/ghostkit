@@ -30,24 +30,11 @@ class GhostKit_Reusable_Widget extends WP_Widget {
      * @param array $instance instance.
      */
     public function widget( $args, $instance ) {
-        $title = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : '';
-        $block = isset( $instance['block'] ) && ! empty( $instance['block'] ) ? $instance['block'] : '';
-        $post = $block ? get_post( $block ) : false;
+        $title    = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : '';
+        $block_id = isset( $instance['block'] ) && ! empty( $instance['block'] ) ? $instance['block'] : '';
+        $post     = $block_id ? get_post( $block_id ) : false;
 
-        if ( $block && isset( $post->post_content ) && $post->post_content ) {
-            // prepare custom styles.
-            if ( function_exists( 'has_blocks' ) && function_exists( 'parse_blocks' ) ) {
-                $blocks = parse_blocks( $post->post_content );
-
-                if ( is_array( $blocks ) && ! empty( $blocks ) ) {
-                    $blocks_css = ghostkit()->parse_blocks_css( $blocks );
-
-                    if ( ! empty( $blocks_css ) ) {
-                        ghostkit()->add_custom_css( 'ghostkit-blocks-widget-' . $args['widget_id'] . '-custom-css', ghostkit()->replace_vars( $blocks_css ) );
-                    }
-                }
-            }
-
+        if ( $block_id && isset( $post->post_content ) && $post->post_content && function_exists( 'has_blocks' ) && function_exists( 'parse_blocks' ) ) {
             // phpcs:disable
             echo $args['before_widget'];
 
@@ -55,7 +42,24 @@ class GhostKit_Reusable_Widget extends WP_Widget {
                 echo $args[ 'before_title' ] . $title . $args[ 'after_title' ];
             }
 
-            echo apply_filters( 'the_content', $post->post_content );
+            // Get all blocks.
+            $blocks = parse_blocks( $post->post_content );
+
+            if ( is_array( $blocks ) && ! empty( $blocks ) ) {
+                // prepare custom styles.
+                $blocks_css = ghostkit()->parse_blocks_css( $blocks );
+                if ( ! empty( $blocks_css ) ) {
+                    ghostkit()->add_custom_css( 'ghostkit-blocks-widget-' . $args['widget_id'] . '-custom-css', ghostkit()->replace_vars( $blocks_css ) );
+                }
+
+                // render blocks.
+                // we need to render blocks manually just because on custom post types
+                // filter 'the_content' may not work if gutenberg support is disabled
+                // https://github.com/nk-o/ghostkit/issues/72
+                foreach( $blocks as $block ) {
+                    echo do_shortcode( render_block( $block ) );
+                }
+            }
 
             echo $args['after_widget'];
             // phpcs:enable
