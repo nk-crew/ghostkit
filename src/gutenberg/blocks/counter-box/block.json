@@ -40,6 +40,15 @@
         },
         "hoverNumberColor": {
             "type": "string"
+        },
+        "url": {
+            "type": "string"
+        },
+        "target": {
+            "type": "string"
+        },
+        "rel": {
+            "type": "string"
         }
     }
 }

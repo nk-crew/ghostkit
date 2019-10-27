@@ -36,6 +36,7 @@ const {
  * Internal dependencies
  */
 import ColorPicker from '../../components/color-picker';
+import URLInput from '../../components/url-input';
 import ApplyFilters from '../../components/apply-filters';
 
 /**
@@ -60,6 +61,9 @@ class BlockEdit extends Component {
             showContent,
             numberColor,
             hoverNumberColor,
+            url,
+            target,
+            rel,
         } = attributes;
 
         className = classnames( 'ghostkit-counter-box', className );
@@ -123,6 +127,19 @@ class BlockEdit extends Component {
                                 onChange={ ( value ) => setAttributes( { animateInViewportFrom: parseInt( value, 10 ) } ) }
                             />
                         ) : '' }
+                    </PanelBody>
+                    <PanelBody title={ __( 'URL', '@@text_domain' ) } initialOpen={ false }>
+                        <URLInput
+                            url={ url }
+                            target={ target }
+                            rel={ rel }
+                            onChange={ ( data ) => {
+                                setAttributes( data );
+                            } }
+                            autoFocus={ false }
+                            float={ false }
+                            alwaysShowOptions
+                        />
                     </PanelBody>
                     <PanelBody title={ (
                         <Fragment>

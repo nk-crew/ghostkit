@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import classnames from 'classnames/dedupe';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -28,9 +33,15 @@ class BlockSave extends Component {
             icon,
             iconPosition,
             showContent,
+            url,
+            target,
+            rel,
         } = this.props.attributes;
 
-        let className = 'ghostkit-icon-box';
+        let className = classnames(
+            'ghostkit-icon-box',
+            url ? 'ghostkit-icon-box-with-link' : ''
+        );
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{
@@ -41,6 +52,11 @@ class BlockSave extends Component {
 
         return (
             <div className={ className }>
+                { url ? (
+                    <a className="ghostkit-icon-box-link" href={ url } target={ target || false } rel={ rel || false }>
+                        <span />
+                    </a>
+                ) : '' }
                 { icon ? (
                     <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }>
                         <IconPicker.Render name={ icon } />

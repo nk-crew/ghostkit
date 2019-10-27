@@ -307,7 +307,6 @@ class BlockEdit extends Component {
                             setAttributes( data );
                         } }
                         autoFocus={ false }
-                        className="ghostkit-component-url-input-float"
                     />
                 ) : '' }
             </Fragment>

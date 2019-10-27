@@ -34,6 +34,7 @@ const {
  */
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
+import URLInput from '../../components/url-input';
 import ApplyFilters from '../../components/apply-filters';
 
 /**
@@ -55,6 +56,9 @@ class BlockEdit extends Component {
             showContent,
             iconColor,
             hoverIconColor,
+            url,
+            target,
+            rel,
         } = attributes;
 
         className = classnames( 'ghostkit-icon-box', className );
@@ -107,6 +111,19 @@ class BlockEdit extends Component {
                             label={ __( 'Show Content', '@@text_domain' ) }
                             checked={ !! showContent }
                             onChange={ ( val ) => setAttributes( { showContent: val } ) }
+                        />
+                    </PanelBody>
+                    <PanelBody title={ __( 'URL', '@@text_domain' ) } initialOpen={ false }>
+                        <URLInput
+                            url={ url }
+                            target={ target }
+                            rel={ rel }
+                            onChange={ ( data ) => {
+                                setAttributes( data );
+                            } }
+                            autoFocus={ false }
+                            float={ false }
+                            alwaysShowOptions
                         />
                     </PanelBody>
                     <PanelBody title={ (
