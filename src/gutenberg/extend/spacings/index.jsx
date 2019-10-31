@@ -224,7 +224,7 @@ class SpacingsComponent extends Component {
                                 { getIcon( 'extension-spacings' ) }
                             </span>
                             <span>{ __( 'Spacings', '@@text_domain' ) }</span>
-                            { Object.keys( ghostkitSpacings ).length ? (
+                            { ghostkitSpacings && Object.keys( ghostkitSpacings ).length ? (
                                 <ActiveIndicator />
                             ) : '' }
                         </Fragment>

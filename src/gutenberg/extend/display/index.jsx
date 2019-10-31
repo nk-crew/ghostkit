@@ -198,7 +198,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                         { getIcon( 'extension-display' ) }
                                     </span>
                                     <span>{ __( 'Display', '@@text_domain' ) }</span>
-                                    { getActiveClass( className, 'ghostkit-d' ) ? (
+                                    { className && getActiveClass( className, 'ghostkit-d' ) ? (
                                         <ActiveIndicator />
                                     ) : '' }
                                 </Fragment>
