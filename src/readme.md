@@ -7,7 +7,7 @@
 * Requires PHP: 5.4
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
-* License URI: http://www.gnu.org/licenses/gpl-2.0.html
+* License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
 Ghost Kit is a blocks collection and templates with customization options to build pages faster with Gutenberg page builder.
 
@@ -96,7 +96,6 @@ Try out a live demo of [Ghost Kit PRO](https://demo.ghostkit.io/)
 = Real Usage Examples =
 
 * [Skylith - Multipurpose Gutenberg Theme](https://demo.nkdev.info/#skylith)
-
 
 ## Installation ##
 
@@ -242,11 +241,11 @@ By default icon picker contains FontAwesome icons. You can add any icons you wan
 
 ### How to extend existing blocks ####
 
-You should use default Gutenberg hooks to extend blocks functionality. Read more here: https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations
+You should use default Gutenberg hooks to extend blocks functionality. Read more here: <https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations>
 
 ### How to extend existing blocks classnames ####
 
-You can extend Gutenberg blocks save attributes using core hooks. Read more here: https://developer.wordpress.org/block-editor/developers/filters/block-filters/#blocks-getsavecontent-extraprops
+You can extend Gutenberg blocks save attributes using core hooks. Read more here: <https://developer.wordpress.org/block-editor/developers/filters/block-filters/#blocks-getsavecontent-extraprops>
 
 ### jQuery frontend events ####
 
@@ -313,6 +312,13 @@ Available events:
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.7.1 =
+
+* added transformations Accordion to Tabs and vice versa (issue #31)
+* fixed possible errors with reusable blocks
+* fixed width of column content in editor
+* fixed alert, icon box and number box last child paragraph margin
 
 = 2.7.0 =
 
