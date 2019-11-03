@@ -15,6 +15,7 @@ import getIcon from '../../utils/get-icon';
 import edit from './edit';
 import save from './save';
 import metadata from './block.json';
+import transforms from './transforms';
 
 const { name } = metadata;
 
@@ -69,4 +70,5 @@ export const settings = {
     },
     edit,
     save,
+    transforms,
 };
