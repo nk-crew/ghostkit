@@ -75,7 +75,9 @@ class GhostKit_Reusable_Widget extends WP_Widget {
         $selected_block = ! empty( $instance['block'] ) ? $instance['block'] : '';
         $blocks = get_posts(
             array(
-                'post_type' => 'wp_block',
+                'post_type'   => 'wp_block',
+                // phpcs:ignore
+                'numberposts' => -1,
             )
         );
         ?>
