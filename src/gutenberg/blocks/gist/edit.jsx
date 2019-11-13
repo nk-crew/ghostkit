@@ -25,7 +25,7 @@ const {
 const {
     InspectorControls,
     BlockControls,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies
@@ -95,7 +95,7 @@ class BlockEdit extends Component {
 
         if ( typeof jQuery.fn.gistsimple === 'undefined' ) {
             // eslint-disable-next-line
-            console.warn( __( 'Gist Simple plugin is not defined.' ) );
+            console.warn( __( 'Gist Simple plugin is not defined.', '@@text_domain' ) );
             return;
         }
 
@@ -161,7 +161,7 @@ class BlockEdit extends Component {
                             <TextControl
                                 type="url"
                                 value={ this.state.url }
-                                placeholder={ __( 'Gist URL' ) }
+                                placeholder={ __( 'Gist URL', '@@text_domain' ) }
                                 onChange={ this.urlOnChange }
                                 onKeyDown={ ( e ) => {
                                     if ( e.keyCode === 13 ) {
@@ -175,7 +175,7 @@ class BlockEdit extends Component {
                     { this.getValidGistUrl() ? (
                         <Toolbar>
                             <GistFilesSelect
-                                label={ __( 'File' ) }
+                                label={ __( 'File', '@@text_domain' ) }
                                 url={ url }
                                 value={ file }
                                 isToolbar={ true }
@@ -187,7 +187,7 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <TextControl
-                            label={ __( 'URL' ) }
+                            label={ __( 'URL', '@@text_domain' ) }
                             type="url"
                             value={ this.state.url }
                             onChange={ this.urlOnChange }
@@ -198,7 +198,7 @@ class BlockEdit extends Component {
                             } }
                         />
                         <GistFilesSelect
-                            label={ __( 'File' ) }
+                            label={ __( 'File', '@@text_domain' ) }
                             url={ url }
                             value={ file }
                             onChange={ ( value ) => setAttributes( { file: value } ) }
@@ -206,17 +206,17 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <TextControl
-                            label={ __( 'Caption' ) }
+                            label={ __( 'Caption', '@@text_domain' ) }
                             value={ caption }
                             onChange={ ( value ) => setAttributes( { caption: value } ) }
                         />
                         <ToggleControl
-                            label={ __( 'Show footer' ) }
+                            label={ __( 'Show footer', '@@text_domain' ) }
                             checked={ !! showFooter }
                             onChange={ ( val ) => setAttributes( { showFooter: val } ) }
                         />
                         <ToggleControl
-                            label={ __( 'Show line numbers' ) }
+                            label={ __( 'Show line numbers', '@@text_domain' ) }
                             checked={ !! showLineNumbers }
                             onChange={ ( val ) => setAttributes( { showLineNumbers: val } ) }
                         />
@@ -227,11 +227,11 @@ class BlockEdit extends Component {
                     { ! url ? (
                         <Placeholder
                             icon={ getIcon( 'block-gist' ) }
-                            label={ __( 'Gist URL' ) }
+                            label={ __( 'Gist URL', '@@text_domain' ) }
                             className={ className }
                         >
                             <TextControl
-                                placeholder={ __( 'https://gist.github.com/...' ) }
+                                placeholder={ 'https://gist.github.com/...' }
                                 value={ this.state.url }
                                 onChange={ this.urlOnChange }
                                 onKeyDown={ ( e ) => {
@@ -240,7 +240,7 @@ class BlockEdit extends Component {
                                     }
                                 } }
                             />
-                            <a href="https://gist.github.com/" target="_blank" rel="noopener noreferrer">{ __( 'Visit GitHub Gist site' ) }</a>
+                            <a href="https://gist.github.com/" target="_blank" rel="noopener noreferrer">{ __( 'Visit GitHub Gist Site', '@@text_domain' ) }</a>
                         </Placeholder>
                     ) : '' }
                     { url ? (

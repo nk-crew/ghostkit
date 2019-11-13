@@ -21,7 +21,7 @@ const {
     ToggleControl,
 } = wp.components;
 
-const WPURLInput = wp.editor.URLInput;
+const WPURLInput = wp.blockEditor.URLInput;
 
 /**
  * Internal dependencies
@@ -64,6 +64,8 @@ export default class URLInput extends Component {
             url,
             target,
             rel,
+            float = true,
+            alwaysShowOptions = false,
             className,
             autoFocus,
         } = this.props;
@@ -78,7 +80,11 @@ export default class URLInput extends Component {
 
         return (
             <form
-                className={ classnames( 'ghostkit-component-url-input', className ) }
+                className={ classnames(
+                    'ghostkit-component-url-input',
+                    float ? 'ghostkit-component-url-input-float' : '',
+                    className
+                ) }
                 onSubmit={ ( e ) => e.preventDefault() }
             >
                 <div className="ghostkit-component-url-input-flex">
@@ -92,20 +98,22 @@ export default class URLInput extends Component {
                         } }
                         autoFocus={ autoFocus }
                     />
-                    <IconButton
-                        icon={ getIcon( 'icon-kebab-menu' ) }
-                        label={ moreOptions ? __( 'Hide More Options' ) : __( 'Show More Options' ) }
-                        onClick={ () => {
-                            this.setState( {
-                                moreOptions: ! moreOptions,
-                            } );
-                        } }
-                    />
+                    { ! alwaysShowOptions ? (
+                        <IconButton
+                            icon={ getIcon( 'icon-kebab-menu' ) }
+                            label={ moreOptions ? __( 'Hide More Options', '@@text_domain' ) : __( 'Show More Options', '@@text_domain' ) }
+                            onClick={ () => {
+                                this.setState( {
+                                    moreOptions: ! moreOptions,
+                                } );
+                            } }
+                        />
+                    ) : '' }
                 </div>
-                { moreOptions ? (
+                { moreOptions || alwaysShowOptions ? (
                     <div className="ghostkit-component-url-input-more-options">
                         <ToggleControl
-                            label={ __( 'Open link in a new tab' ) }
+                            label={ __( 'Open link in a new tab', '@@text_domain' ) }
                             checked={ '_blank' === target }
                             onChange={ () => {
                                 if ( '_blank' === target ) {
@@ -120,7 +128,7 @@ export default class URLInput extends Component {
                             } }
                         />
                         <ToggleControl
-                            label={ __( 'Add nofollow option to link' ) }
+                            label={ __( 'Add nofollow option to link', '@@text_domain' ) }
                             checked={ 'nofollow' === rel }
                             onChange={ () => {
                                 if ( 'nofollow' === rel ) {

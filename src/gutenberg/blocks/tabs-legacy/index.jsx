@@ -23,7 +23,7 @@ const {
     RichText,
     InspectorControls,
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Returns the layouts configuration for a given number of tabs.
@@ -50,7 +50,7 @@ const getTabs = ( { tabsCount, tabsSettings } ) => {
 
     for ( let k = 1; k <= tabsCount; k++ ) {
         result.push( {
-            label: tabsSettings[ 'tab_' + k ] ? tabsSettings[ 'tab_' + k ].label : sprintf( __( 'Tab %d' ), k ),
+            label: tabsSettings[ 'tab_' + k ] ? tabsSettings[ 'tab_' + k ].label : sprintf( __( 'Tab %d', '@@text_domain' ), k ),
             number: k,
         } );
     }
@@ -89,31 +89,31 @@ class TabsBlock extends Component {
                     <PanelBody>
                         <div className="ghostkit-alert" style={ { borderLeftColor: '#de9116' } }>
                             <div className="ghostkit-alert-content">
-                                { __( 'This Tabs block has a legacy structure. To use new tabs, add it again from blocks inserter.' ) }
+                                { __( 'This Tabs block has a legacy structure. To use new tabs, add it again from blocks inserter.', '@@text_domain' ) }
                             </div>
                         </div>
                     </PanelBody>
                     <PanelBody>
                         <RangeControl
-                            label={ __( 'Tabs' ) }
+                            label={ __( 'Tabs', '@@text_domain' ) }
                             value={ tabsCount }
                             onChange={ ( value ) => setAttributes( { tabsCount: value } ) }
                             min={ 1 }
                             max={ 6 }
                         />
                         <SelectControl
-                            label={ __( 'Tabs align' ) }
+                            label={ __( 'Tabs align', '@@text_domain' ) }
                             value={ buttonsAlign }
                             options={ [
                                 {
                                     value: 'start',
-                                    label: __( 'Start' ),
+                                    label: __( 'Start', '@@text_domain' ),
                                 }, {
                                     value: 'center',
-                                    label: __( 'Center' ),
+                                    label: __( 'Center', '@@text_domain' ),
                                 }, {
                                     value: 'end',
-                                    label: __( 'End' ),
+                                    label: __( 'End', '@@text_domain' ),
                                 },
                             ] }
                             onChange={ ( value ) => setAttributes( { buttonsAlign: value } ) }
@@ -131,7 +131,7 @@ class TabsBlock extends Component {
                                         tagName="div"
                                         data-tab={ val.number }
                                         className={ classnames( 'ghostkit-tabs-buttons-item', selected ? 'ghostkit-tabs-buttons-item-active' : '' ) }
-                                        placeholder={ __( 'Tab label' ) }
+                                        placeholder={ __( 'Tab label', '@@text_domain' ) }
                                         value={ val.label }
                                         unstableOnFocus={ () => setAttributes( { tabActive: val.number } ) }
                                         onChange={ ( value ) => {
@@ -167,14 +167,13 @@ class TabsBlock extends Component {
 export const name = 'ghostkit/tabs';
 
 export const settings = {
-    title: __( 'Tabs (legacy)' ),
-    description: __( 'Tabs.' ),
+    title: __( 'Tabs (legacy)', '@@text_domain' ),
+    description: __( 'Tabs.', '@@text_domain' ),
     icon: getIcon( 'block-tabs', true ),
     category: 'ghostkit',
     keywords: [
-        __( 'tabs' ),
-        __( 'tab' ),
-        __( 'ghostkit' ),
+        __( 'tabs', '@@text_domain' ),
+        __( 'tab', '@@text_domain' ),
     ],
     ghostkit: {
         supports: {
@@ -182,6 +181,7 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
     },
     supports: {

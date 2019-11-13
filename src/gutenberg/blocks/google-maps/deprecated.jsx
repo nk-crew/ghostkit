@@ -91,6 +91,7 @@ const fixMarker = {
 };
 
 export default [
+    // v1.6.3
     {
         supports: fixMarker.supports,
         attributes: fixMarker.attributes,
@@ -143,7 +144,10 @@ export default [
                 />
             );
         },
-    }, {
+    },
+
+    // v1.2.0
+    {
         supports: fixMarker.supports,
         attributes: fixMarker.attributes,
         save: function( props ) {
@@ -201,7 +205,10 @@ export default [
                 </div>
             );
         },
-    }, {
+    },
+
+    // v1.2.0
+    {
         supports: fixMarker.supports,
         attributes: fixMarker.attributes,
         save: function( props ) {

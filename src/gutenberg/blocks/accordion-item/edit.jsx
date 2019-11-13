@@ -22,7 +22,7 @@ const {
     BlockControls,
     InnerBlocks,
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     compose,
@@ -40,13 +40,52 @@ import getIcon from '../../utils/get-icon';
 import RemoveButton from '../../components/remove-button';
 
 /**
+ * Internal dependencies
+ */
+import getUniqueSlug from '../../utils/get-unique-slug';
+
+/**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
     constructor() {
         super( ...arguments );
 
+        this.updateSlug = this.updateSlug.bind( this );
         this.findParentAccordion = this.findParentAccordion.bind( this );
+        this.removeItem = this.removeItem.bind( this );
+    }
+
+    componentDidUpdate( prevProps ) {
+        const {
+            attributes,
+        } = this.props;
+
+        const {
+            attributes: prevAttributes,
+        } = prevProps;
+
+        if ( attributes.heading !== prevAttributes.heading || ! attributes.slug ) {
+            this.updateSlug();
+        }
+    }
+
+    updateSlug() {
+        const {
+            attributes,
+            setAttributes,
+            clientId,
+        } = this.props;
+
+        const {
+            heading,
+        } = attributes;
+
+        const newSlug = getUniqueSlug( `accordion-${ heading }`, clientId );
+
+        setAttributes( {
+            slug: newSlug,
+        } );
     }
 
     findParentAccordion( rootBlock ) {
@@ -67,6 +106,24 @@ class BlockEdit extends Component {
         }
 
         return result;
+    }
+
+    removeItem() {
+        const {
+            rootBlock,
+            removeBlock,
+            clientId,
+        } = this.props;
+
+        const parentAccordion = this.findParentAccordion( rootBlock );
+
+        if ( parentAccordion && parentAccordion.clientId ) {
+            removeBlock( clientId );
+
+            if ( parentAccordion.innerBlocks.length <= 1 ) {
+                removeBlock( parentAccordion.clientId );
+            }
+        }
     }
 
     render() {
@@ -100,7 +157,7 @@ class BlockEdit extends Component {
                     <Toolbar controls={ [
                         {
                             icon: getIcon( 'icon-collapse' ),
-                            title: __( 'Collapse' ),
+                            title: __( 'Collapse', '@@text_domain' ),
                             onClick: () => setAttributes( { active: ! active } ),
                             isActive: active,
                         },
@@ -111,7 +168,7 @@ class BlockEdit extends Component {
                         <RichText
                             tagName="div"
                             className="ghostkit-accordion-item-label"
-                            placeholder={ __( 'Item label…' ) }
+                            placeholder={ __( 'Item label…', '@@text_domain' ) }
                             value={ heading }
                             onChange={ ( value ) => {
                                 setAttributes( { heading: value } );
@@ -129,17 +186,8 @@ class BlockEdit extends Component {
 
                         <RemoveButton
                             show={ isSelectedBlockInRoot }
-                            tooltipText={ __( 'Remove accordion item?' ) }
-                            onRemove={ () => {
-                                const parentAccordion = this.findParentAccordion( this.props.rootBlock );
-                                if ( parentAccordion && parentAccordion.clientId ) {
-                                    this.props.removeBlock( this.props.clientId );
-
-                                    if ( parentAccordion.innerBlocks.length <= 1 ) {
-                                        this.props.removeBlock( parentAccordion.clientId );
-                                    }
-                                }
-                            } }
+                            tooltipText={ __( 'Remove accordion item?', '@@text_domain' ) }
+                            onRemove={ this.removeItem }
                             style={ {
                                 top: '50%',
                                 marginTop: -11,
@@ -160,7 +208,7 @@ export default compose( [
             getBlock,
             isBlockSelected,
             hasSelectedInnerBlock,
-        } = select( 'core/editor' );
+        } = select( 'core/block-editor' );
 
         const { clientId } = ownProps;
 
@@ -174,7 +222,7 @@ export default compose( [
         const {
             updateBlockAttributes,
             removeBlock,
-        } = dispatch( 'core/editor' );
+        } = dispatch( 'core/block-editor' );
 
         return {
             updateBlockAttributes,

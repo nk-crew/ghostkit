@@ -23,12 +23,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Table of Contents' ),
-    description: __( 'Automatically generate a table of contents by parsing page headers in content.' ),
+    title: __( 'Table of Contents', '@@text_domain' ),
+    description: __( 'Automatically generate a table of contents by parsing page headers in content.', '@@text_domain' ),
     icon: getIcon( 'block-table-of-contents', true ),
     keywords: [
-        __( 'table of contents' ),
-        __( 'toc' ),
+        __( 'table of contents', '@@text_domain' ),
+        __( 'toc', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/table-of-contents/',
@@ -36,6 +36,7 @@ export const settings = {
             styles: true,
             spacings: true,
             display: true,
+            customCSS: true,
         },
     },
     supports: {

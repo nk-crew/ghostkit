@@ -10,7 +10,7 @@ const { Component } = wp.element;
 const {
     InnerBlocks,
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies
@@ -43,6 +43,8 @@ class BlockSave extends Component {
             photoTag,
             icon,
             source,
+            stars,
+            starsIcon,
         } = attributes;
 
         let className = 'ghostkit-testimonial';
@@ -83,6 +85,26 @@ class BlockSave extends Component {
                                 <RichText.Content value={ source } />
                             </div>
                         ) : '' }
+                    </div>
+                ) : '' }
+                { typeof stars === 'number' && starsIcon ? (
+                    <div className="ghostkit-testimonial-stars">
+                        <div className="ghostkit-testimonial-stars-wrap">
+                            <div className="ghostkit-testimonial-stars-front" style={ { width: `${ 100 * stars / 5 }%` } }>
+                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ starsIcon } />
+                            </div>
+                            <div className="ghostkit-testimonial-stars-back">
+                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ starsIcon } />
+                            </div>
+                        </div>
                     </div>
                 ) : '' }
             </div>

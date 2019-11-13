@@ -8,13 +8,14 @@ import classnames from 'classnames/dedupe';
  */
 const {
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     applyFilters,
 } = wp.hooks;
 
 export default [
+    // v1.6.3
     {
         ghostkit: {
             customStylesCallback( attributes ) {

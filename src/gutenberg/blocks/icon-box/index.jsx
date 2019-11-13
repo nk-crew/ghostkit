@@ -25,12 +25,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Icon Box' ),
-    description: __( 'Icons are one of the best visual replacement for text descriptions.' ),
+    title: __( 'Icon Box', '@@text_domain' ),
+    description: __( 'Icons are one of the best visual replacement for text descriptions.', '@@text_domain' ),
     icon: getIcon( 'block-icon-box', true ),
     keywords: [
-        __( 'icon' ),
-        __( 'icon-box' ),
+        __( 'icon', '@@text_domain' ),
+        __( 'icon-box', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/icon-box/',
@@ -55,7 +55,25 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
+    },
+    example: {
+        attributes: {
+            icon: 'fab fa-twitter',
+            iconColor: '#0366d6',
+            ghostkitId: 'example-icon-box',
+            ghostkitClassname: 'ghostkit-custom-example-icon-box',
+            className: 'ghostkit-custom-example-icon-box',
+        },
+        innerBlocks: [
+            {
+                name: 'core/paragraph',
+                attributes: {
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                },
+            },
+        ],
     },
     edit,
     save,

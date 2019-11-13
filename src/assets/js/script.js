@@ -1,12 +1,29 @@
+/**
+ * External dependencies
+ */
 import { throttle } from 'throttle-debounce';
 import scriptjs from 'scriptjs';
 import rafl from 'rafl';
 
-import parseSRConfig from '../../gutenberg/extend/scroll-reveal/parseSRConfig.jsx';
+/**
+ * WordPress dependencies
+ */
+const {
+    moment,
+} = window;
+
+/**
+ * Internal dependencies
+ */
+import parseSRConfig from '../../gutenberg/extend/scroll-reveal/parseSRConfig';
+import countDownApi from '../../gutenberg/blocks/countdown/api';
 
 const $ = window.jQuery;
+
 const $wnd = $( window );
+
 const $doc = $( document );
+
 const {
     ghostkitVariables,
     GHOSTKIT,
@@ -89,6 +106,7 @@ class GhostKitClass {
         self.prepareCarousels = self.prepareCarousels.bind( self );
         self.setFullscreenVideoSize = self.setFullscreenVideoSize.bind( self );
         self.prepareVideo = self.prepareVideo.bind( self );
+        self.prepareCountdown = self.prepareCountdown.bind( self );
         self.prepareGist = self.prepareGist.bind( self );
         self.prepareChangelog = self.prepareChangelog.bind( self );
         self.prepareGoogleMaps = self.prepareGoogleMaps.bind( self );
@@ -166,6 +184,7 @@ class GhostKitClass {
         self.prepareAccordions();
         self.prepareCarousels();
         self.prepareVideo();
+        self.prepareCountdown();
         self.prepareGist();
         self.prepareChangelog();
         self.prepareGoogleMaps();
@@ -371,8 +390,6 @@ class GhostKitClass {
             const $this = $( this );
             const tabsActive = $this.attr( 'data-tab-active' );
 
-            // pageHash
-
             $this.addClass( 'ghostkit-tabs-ready' );
 
             // click action
@@ -404,44 +421,61 @@ class GhostKitClass {
         GHOSTKIT.triggerEvent( 'afterPrepareTabs', self );
     }
 
+    activateAccordionItem( $heading, animationSpeed = 150 ) {
+        const $accordion = $heading.closest( '.ghostkit-accordion' );
+        const $item = $heading.closest( '.ghostkit-accordion-item' );
+        const $content = $item.find( '.ghostkit-accordion-item-content' );
+        const isActive = $item.hasClass( 'ghostkit-accordion-item-active' );
+        const collapseOne = $accordion.hasClass( 'ghostkit-accordion-collapse-one' );
+
+        if ( isActive ) {
+            $content.css( 'display', 'block' ).slideUp( animationSpeed );
+            $item.removeClass( 'ghostkit-accordion-item-active' );
+        } else {
+            $content.css( 'display', 'none' ).slideDown( animationSpeed );
+            $item.addClass( 'ghostkit-accordion-item-active' );
+        }
+
+        if ( collapseOne ) {
+            const $collapseItems = $accordion.find( '.ghostkit-accordion-item-active' ).not( $item );
+            if ( $collapseItems.length ) {
+                $collapseItems.find( '.ghostkit-accordion-item-content' ).css( 'display', 'block' ).slideUp( animationSpeed );
+                $collapseItems.removeClass( 'ghostkit-accordion-item-active' );
+            }
+        }
+
+        hasScrolled();
+    }
+
     /**
      * Prepare Accordions
      */
     prepareAccordions() {
         const self = this;
+        const pageHash = window.location.hash;
 
         GHOSTKIT.triggerEvent( 'beforePrepareAccordions', self );
 
         $( '.ghostkit-accordion:not(.ghostkit-accordion-ready)' ).each( function() {
-            $( this ).addClass( 'ghostkit-accordion-ready' )
-                .on( 'click', '.ghostkit-accordion-item .ghostkit-accordion-item-heading', function( e ) {
-                    e.preventDefault();
+            const $this = $( this );
 
-                    const $heading = $( this );
-                    const $accordion = $heading.closest( '.ghostkit-accordion' );
-                    const $item = $heading.closest( '.ghostkit-accordion-item' );
-                    const $content = $item.find( '.ghostkit-accordion-item-content' );
-                    const isActive = $item.hasClass( 'ghostkit-accordion-item-active' );
-                    const collapseOne = $accordion.hasClass( 'ghostkit-accordion-collapse-one' );
+            $this.addClass( 'ghostkit-accordion-ready' );
 
-                    if ( isActive ) {
-                        $content.css( 'display', 'block' ).slideUp( 150 );
-                        $item.removeClass( 'ghostkit-accordion-item-active' );
-                    } else {
-                        $content.css( 'display', 'none' ).slideDown( 150 );
-                        $item.addClass( 'ghostkit-accordion-item-active' );
-                    }
+            // click action
+            $this.on( 'click', '.ghostkit-accordion-item .ghostkit-accordion-item-heading', function( e ) {
+                e.preventDefault();
 
-                    if ( collapseOne ) {
-                        const $collapseItems = $accordion.find( '.ghostkit-accordion-item-active' ).not( $item );
-                        if ( $collapseItems.length ) {
-                            $collapseItems.find( '.ghostkit-accordion-item-content' ).css( 'display', 'block' ).slideUp( 150 );
-                            $collapseItems.removeClass( 'ghostkit-accordion-item-active' );
-                        }
-                    }
+                self.activateAccordionItem( $( this ) );
+            } );
 
-                    hasScrolled();
-                } );
+            // activate by page hash
+            if ( pageHash ) {
+                const $activeAccordion = $this.find( `.ghostkit-accordion-item .ghostkit-accordion-item-heading[href="${ pageHash }"]` );
+
+                if ( $activeAccordion.length ) {
+                    self.activateAccordionItem( $activeAccordion, 0 );
+                }
+            }
         } );
 
         GHOSTKIT.triggerEvent( 'afterPrepareAccordions', self );
@@ -462,6 +496,8 @@ class GhostKitClass {
         $( '.ghostkit-carousel:not(.ghostkit-carousel-ready)' ).each( function() {
             const $carousel = $( this );
             const $items = $carousel.children( '.ghostkit-carousel-items' );
+            const slidesPerView = parseInt( $carousel.attr( 'data-slides-per-view' ), 10 );
+
             const options = {
                 speed: ( parseFloat( $carousel.attr( 'data-speed' ) ) || 0 ) * 1000,
                 effect: $carousel.attr( 'data-effect' ) || 'slide',
@@ -486,7 +522,7 @@ class GhostKitClass {
                     clickable: true,
                     dynamicBullets: $carousel.attr( 'data-dynamic-bullets' ) === 'true',
                 },
-                slidesPerView: parseInt( $carousel.attr( 'data-slides-per-view' ), 10 ),
+                slidesPerView: 1,
                 keyboard: true,
                 grabCursor: true,
             };
@@ -529,20 +565,26 @@ class GhostKitClass {
 
             // calculate responsive.
             const breakPoints = {};
-            if ( ! isNaN( options.slidesPerView ) ) {
-                let count = options.slidesPerView - 1;
-                let currentPoint = Math.min( self.screenSizes.length - 1, count );
+            if ( ! isNaN( slidesPerView ) ) {
+                let count = slidesPerView;
+                let currentPoint = Math.min( self.screenSizes.length - 1, count - 1 );
 
                 for ( ; currentPoint >= 0; currentPoint-- ) {
                     if ( count > 0 && typeof self.screenSizes[ currentPoint ] !== 'undefined' ) {
-                        breakPoints[ self.screenSizes[ currentPoint ] ] = {
+                        breakPoints[ self.screenSizes[ currentPoint ] + 1 ] = {
                             slidesPerView: count,
                         };
                     }
                     count -= 1;
                 }
+
+                options.slidesPerView = count || 1;
             }
             options.breakpoints = breakPoints;
+
+            // Since Swiper 5.0 this option is removed and it is `true` by default, but in older versions it was `false`.
+            // So we need to keep it as a fallback.
+            options.breakpoints.breakpointsInverse = true;
 
             // init swiper
             new window.Swiper( $carousel[ 0 ], options );
@@ -754,6 +796,81 @@ class GhostKitClass {
         } );
 
         GHOSTKIT.triggerEvent( 'afterPrepareVideo', self );
+    }
+
+    /**
+     * Prepare Countdown
+     */
+    prepareCountdown() {
+        const self = this;
+
+        function updateUnits( momentData, units, unitsElements, $this ) {
+            const dateData = countDownApi( momentData.toDate(), moment().toDate(), units, 0 );
+            const isEnd = dateData.value >= 0;
+
+            if ( isEnd ) {
+                $this.children( '.ghostkit-countdown-unit' ).hide();
+                $this.children( '.ghostkit-countdown-expire-action' ).show();
+                return;
+            }
+
+            Object.keys( unitsElements ).forEach( ( unitName ) => {
+                let formattedUnit = false;
+
+                if ( dateData && typeof dateData[ unitName ] !== 'undefined' ) {
+                    formattedUnit = countDownApi.formatUnit( dateData[ unitName ], unitName );
+                }
+
+                const newNumber = formattedUnit ? formattedUnit.number : '00';
+                const newLabel = formattedUnit ? formattedUnit.label : unitName;
+
+                if ( unitsElements[ unitName ].$number.html() !== newNumber ) {
+                    unitsElements[ unitName ].$number.html( newNumber );
+                }
+                if ( unitsElements[ unitName ].$label.html() !== newLabel ) {
+                    unitsElements[ unitName ].$label.html( newLabel );
+                }
+            } );
+
+            setTimeout( () => {
+                updateUnits( momentData, units, unitsElements, $this );
+            }, countDownApi.getDelay( units ) );
+        }
+
+        GHOSTKIT.triggerEvent( 'beforePrepareCountdown', self );
+
+        $( '.ghostkit-countdown:not(.ghostkit-countdown-ready)' ).each( function() {
+            const $this = $( this );
+            $this.addClass( 'ghostkit-countdown-ready' );
+
+            const momentData = moment( $this.attr( 'data-date' ) );
+            const unitsElements = [];
+            const units = [
+                'years',
+                'months',
+                'weeks',
+                'days',
+                'hours',
+                'minutes',
+                'seconds',
+            ].filter( ( unitName ) => {
+                const $unit = $this.children( `.ghostkit-countdown-unit-${ unitName }` );
+
+                if ( $unit.length ) {
+                    unitsElements[ unitName ] = {
+                        $number: $unit.find( '.ghostkit-countdown-unit-number' ),
+                        $label: $unit.find( '.ghostkit-countdown-unit-label' ),
+                    };
+                    return true;
+                }
+
+                return false;
+            } );
+
+            updateUnits( momentData, units, unitsElements, $this );
+        } );
+
+        GHOSTKIT.triggerEvent( 'afterPrepareCountdown', self );
     }
 
     /**

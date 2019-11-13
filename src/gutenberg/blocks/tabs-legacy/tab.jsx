@@ -12,7 +12,7 @@ const { Component } = wp.element;
 
 const {
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 class TabBlock extends Component {
     render() {
@@ -35,9 +35,9 @@ class TabBlock extends Component {
 export const name = 'ghostkit/tabs-tab';
 
 export const settings = {
-    title: __( 'Tab' ),
+    title: __( 'Tab', '@@text_domain' ),
     parent: [ 'ghostkit/tabs' ],
-    description: __( 'A single tab within a tabs block.' ),
+    description: __( 'A single tab within a tabs block.', '@@text_domain' ),
     icon: getIcon( 'block-tabs', true ),
     category: 'ghostkit',
     ghostkit: {

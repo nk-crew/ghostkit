@@ -7,15 +7,25 @@ const { __ } = wp.i18n;
  * Internal dependencies
  */
 import Blocks from './blocks.jsx';
-import Settings from './settings.jsx';
+import Typography from './typography.jsx';
+import Icons from './icons.jsx';
+import CssJs from './css-js.jsx';
 
 export default {
     blocks: {
-        label: __( 'Blocks' ),
+        label: __( 'Blocks', '@@text_domain' ),
         block: Blocks,
     },
-    settings: {
-        label: __( 'Settings' ),
-        block: Settings,
+    icons: {
+        label: __( 'Icons', '@@text_domain' ),
+        block: Icons,
+    },
+    typography: {
+        label: __( 'Typography', '@@text_domain' ),
+        block: Typography,
+    },
+    css_js: {
+        label: __( 'CSS & JavaScript', '@@text_domain' ),
+        block: CssJs,
     },
 };

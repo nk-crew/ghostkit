@@ -14,6 +14,7 @@ import * as tabsLegacy from './tabs-legacy';
 import * as tabsLegacyTab from './tabs-legacy/tab';
 import * as accordion from './accordion';
 import * as accordionItem from './accordion-item';
+import * as countdown from './countdown';
 import * as counterBox from './counter-box';
 import * as alert from './alert';
 import * as carousel from './carousel';
@@ -47,6 +48,7 @@ jQuery( () => {
         divider,
         alert,
         iconBox,
+        countdown,
         counterBox,
         accordion,
         accordionItem,

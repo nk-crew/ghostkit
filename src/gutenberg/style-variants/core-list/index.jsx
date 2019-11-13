@@ -12,10 +12,10 @@ const { registerBlockStyle } = wp.blocks;
 
 registerBlockStyle( 'core/list', {
     name: 'styled',
-    label: __( 'Styled' ),
+    label: __( 'Styled', '@@text_domain' ),
 } );
 
 registerBlockStyle( 'core/list', {
     name: 'none',
-    label: __( 'None' ),
+    label: __( 'None', '@@text_domain' ),
 } );

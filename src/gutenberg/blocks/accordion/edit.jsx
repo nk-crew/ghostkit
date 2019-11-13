@@ -23,7 +23,7 @@ const {
 const {
     InspectorControls,
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     createBlock,
@@ -39,32 +39,13 @@ const {
 } = wp.data;
 
 /**
- * Returns the layouts configuration for a given number of items.
- *
- * @param {number} attributes items attributes.
- *
- * @return {Object[]} Tabs layout configuration.
- */
-const getTabsTemplate = ( attributes ) => {
-    const {
-        itemsCount,
-    } = attributes;
-    const result = [];
-
-    for ( let k = 1; k <= itemsCount; k++ ) {
-        result.push( [ 'ghostkit/accordion-item', { itemNumber: k } ] );
-    }
-
-    return result;
-};
-
-/**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
     constructor() {
         super( ...arguments );
 
+        this.getAccordionsTemplate = this.getAccordionsTemplate.bind( this );
         this.maybeUpdateItemsCount = this.maybeUpdateItemsCount.bind( this );
     }
 
@@ -73,6 +54,27 @@ class BlockEdit extends Component {
     }
     componentDidUpdate() {
         this.maybeUpdateItemsCount();
+    }
+
+    /**
+     * Returns the layouts configuration for a given number of items.
+     *
+     * @param {number} attributes items attributes.
+     *
+     * @return {Object[]} Tabs layout configuration.
+     */
+    getAccordionsTemplate() {
+        const {
+            itemsCount,
+        } = this.props.attributes;
+
+        const result = [];
+
+        for ( let k = 1; k <= itemsCount; k++ ) {
+            result.push( [ 'ghostkit/accordion-item' ] );
+        }
+
+        return result;
     }
 
     /**
@@ -88,7 +90,7 @@ class BlockEdit extends Component {
             setAttributes,
         } = this.props;
 
-        if ( itemsCount !== block.innerBlocks.length ) {
+        if ( block && block.innerBlocks && itemsCount !== block.innerBlocks.length ) {
             setAttributes( {
                 itemsCount: block.innerBlocks.length,
             } );
@@ -121,7 +123,7 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <ToggleControl
-                            label={ __( 'Collapse one item only' ) }
+                            label={ __( 'Collapse one item only', '@@text_domain' ) }
                             checked={ !! collapseOne }
                             onChange={ ( val ) => setAttributes( { collapseOne: val } ) }
                         />
@@ -129,7 +131,7 @@ class BlockEdit extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     <InnerBlocks
-                        template={ getTabsTemplate( attributes ) }
+                        template={ this.getAccordionsTemplate() }
                         allowedBlocks={ [ 'ghostkit/accordion-item' ] }
                     />
                 </div>
@@ -141,7 +143,7 @@ class BlockEdit extends Component {
                                 insertAccordionItem();
                             } }
                         >
-                            { __( 'Add Accordion Item' ) }
+                            { __( 'Add Accordion Item', '@@text_domain' ) }
                         </IconButton>
                     </div>
                 ) : '' }
@@ -156,7 +158,7 @@ export default compose( [
             getBlock,
             isBlockSelected,
             hasSelectedInnerBlock,
-        } = select( 'core/editor' );
+        } = select( 'core/block-editor' );
 
         const { clientId } = ownProps;
 
@@ -168,7 +170,7 @@ export default compose( [
     withDispatch( ( dispatch, ownProps ) => {
         const {
             insertBlock,
-        } = dispatch( 'core/editor' );
+        } = dispatch( 'core/block-editor' );
 
         const { clientId } = ownProps;
 

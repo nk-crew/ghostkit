@@ -78,6 +78,10 @@
 
     .ghostkit-settings-blocks-all-check {
         margin-left: auto;
+
+        .components-form-toggle {
+            margin-right: 0;
+        }
     }
 }
 
@@ -136,11 +140,10 @@
             position: absolute;
             top: 23px;
             right: 25px;
+
+            .components-form-toggle {
+                margin-right: 0;
+            }
         }
     }
-}
-
-.ghostkit-settings-blocks-check-gray .components-form-toggle.is-checked .components-form-toggle__track {
-    background-color: $light-gray-800;
-    border-color: $light-gray-800;
 }

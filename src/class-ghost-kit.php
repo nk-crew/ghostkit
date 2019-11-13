@@ -7,7 +7,7 @@
  * Author URI:   https://nkdev.info
  * License:      GPLv2 or later
  * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:  ghostkit
+ * Text Domain:  @@text_domain
  *
  * @package ghostkit
  */
@@ -97,9 +97,6 @@ class GhostKit {
         $this->plugin_path = plugin_dir_path( __FILE__ );
         $this->plugin_url = plugin_dir_url( __FILE__ );
 
-        // load textdomain.
-        load_plugin_textdomain( '@@text_domain', false, basename( dirname( __FILE__ ) ) . '/languages' );
-
         // settings.
         require_once( $this->plugin_path . 'settings/index.php' );
 
@@ -126,8 +123,10 @@ class GhostKit {
 
         // custom block styles class.
         require_once( $this->plugin_path . 'gutenberg/extend/styles/get-styles.php' );
-    }
 
+        // block users custom CSS class.
+        require_once( $this->plugin_path . 'gutenberg/extend/custom-css/get-custom-css.php' );
+    }
 
     /**
      * Init hooks
@@ -141,6 +140,9 @@ class GhostKit {
 
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_go_pro_link_plugins_page' ) );
 
+        $this->php_translation();
+        add_action( 'enqueue_block_editor_assets', array( $this, 'js_translation' ) );
+
         // include blocks.
         // work only if Gutenberg available.
         if ( function_exists( 'register_block_type' ) ) {
@@ -153,6 +155,25 @@ class GhostKit {
             add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ), 9 );
             add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_block_assets' ) );
         }
+    }
+
+    /**
+     * PHP translations.
+     */
+    public function php_translation() {
+        load_plugin_textdomain( '@@text_domain', false, basename( dirname( __FILE__ ) ) . '/languages' );
+    }
+
+    /**
+     * JS translations.
+     */
+    public function js_translation() {
+        if ( ! function_exists( 'wp_set_script_translations' ) ) {
+            return;
+        }
+
+        wp_set_script_translations( 'ghostkit-editor', '@@text_domain', basename( dirname( __FILE__ ) ) . '/languages' );
+        wp_set_script_translations( 'ghostkit-settings', '@@text_domain', basename( dirname( __FILE__ ) ) . '/languages' );
     }
 
     /**
@@ -179,9 +200,8 @@ class GhostKit {
     public function register_scripts() {
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
-            wp_register_script( 'resize-observer-polyfill', plugins_url( 'assets/vendor/resize-observer-polyfill/ResizeObserver.global.min.js', __FILE__ ), array(), '1.5.0', true );
-            wp_register_script( 'jarallax', plugins_url( 'assets/vendor/jarallax/dist/jarallax.min.js', __FILE__ ), array( 'jquery', 'resize-observer-polyfill' ), '1.11.0', true );
-            wp_register_script( 'jarallax-video', plugins_url( 'assets/vendor/jarallax/dist/jarallax-video.min.js', __FILE__ ), array( 'jarallax' ), '1.11.0', true );
+            wp_register_script( 'jarallax', plugins_url( 'assets/vendor/jarallax/dist/jarallax.min.js', __FILE__ ), array( 'jquery' ), '1.12.0', true );
+            wp_register_script( 'jarallax-video', plugins_url( 'assets/vendor/jarallax/dist/jarallax-video.min.js', __FILE__ ), array( 'jarallax' ), '1.12.0', true );
         }
 
         // Object Fit Images.
@@ -191,8 +211,8 @@ class GhostKit {
 
         // Swiper.
         if ( apply_filters( 'gkt_enqueue_plugin_swiper', true ) ) {
-            wp_register_style( 'swiper', plugins_url( 'assets/vendor/swiper/css/swiper.min.css', __FILE__ ), array(), '4.5.0' );
-            wp_register_script( 'swiper', plugins_url( 'assets/vendor/swiper/js/swiper.min.js', __FILE__ ), array(), '4.5.0', true );
+            wp_register_style( 'swiper', plugins_url( 'assets/vendor/swiper/css/swiper.min.css', __FILE__ ), array(), '5.1.0' );
+            wp_register_script( 'swiper', plugins_url( 'assets/vendor/swiper/js/swiper.min.js', __FILE__ ), array(), '5.1.0', true );
         }
 
         // GistEmbed.
@@ -376,7 +396,7 @@ class GhostKit {
      */
     public function enqueue_block_editor_assets() {
         $css_deps = array();
-        $js_deps = array( 'ghostkit-helper', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-components', 'jquery' );
+        $js_deps = array( 'ghostkit-helper', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-components', 'moment', 'jquery' );
 
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
@@ -410,7 +430,7 @@ class GhostKit {
      */
     public function enqueue_block_assets() {
         $css_deps = array();
-        $js_deps = array( 'jquery', 'ghostkit-helper' );
+        $js_deps = array( 'jquery', 'ghostkit-helper', 'moment', 'wp-i18n' );
 
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
@@ -517,14 +537,22 @@ class GhostKit {
         $styles = '';
 
         foreach ( $blocks as $block ) {
-            if (
-                isset( $block['attrs'] ) &&
-                isset( $block['attrs']['ghostkitClassname'] ) &&
-                $block['attrs']['ghostkitClassname'] &&
-                isset( $block['attrs']['ghostkitStyles'] ) &&
-                ! empty( $block['attrs']['ghostkitStyles'] )
-            ) {
-                $styles .= GhostKit_Block_Custom_Styles::get( $block['attrs']['ghostkitStyles'], '' );
+            if ( isset( $block['attrs'] ) ) {
+                $styles .= GhostKit_Block_Custom_Styles::get( $block['attrs'] );
+                $styles .= GhostKit_Block_Custom_CSS::get( $block['attrs'] );
+            }
+
+            // Reusable Blocks.
+            if ( isset( $block['blockName'] ) && 'core/block' === $block['blockName'] && isset( $block['attrs']['ref'] ) ) {
+                $reusable_block = get_post( $block['attrs']['ref'] );
+
+                if ( has_blocks( $reusable_block ) ) {
+                    $blocks = parse_blocks( $reusable_block->post_content );
+
+                    if ( is_array( $blocks ) && ! empty( $blocks ) ) {
+                        $styles .= $this->parse_blocks_css( $blocks );
+                    }
+                }
             }
 
             // Inner blocks.

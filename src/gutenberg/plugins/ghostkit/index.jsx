@@ -14,7 +14,6 @@ const { __ } = wp.i18n;
 const { Component } = wp.element;
 
 const { PluginSidebar, PluginSidebarMoreMenuItem } = wp.editPost;
-const { registerPlugin } = wp.plugins;
 
 const {
     Button,
@@ -30,7 +29,11 @@ import { CustomCodeModal } from '../custom-code';
 import { CustomizerModal } from '../customizer';
 import { TypographyModal } from '../typography';
 
-class GhostKit extends Component {
+export const name = 'ghostkit';
+
+export const icon = <div className="ghostkit-plugin-icon">{ getIcon( 'plugin-ghostkit' ) }</div>;
+
+export class Plugin extends Component {
     constructor() {
         super( ...arguments );
 
@@ -49,11 +52,11 @@ class GhostKit extends Component {
                 <PluginSidebarMoreMenuItem
                     target="ghostkit"
                 >
-                    { __( 'Ghost Kit' ) }
+                    { __( 'Ghost Kit', '@@text_domain' ) }
                 </PluginSidebarMoreMenuItem>
                 <PluginSidebar
                     name="ghostkit"
-                    title={ __( 'Ghost Kit' ) }
+                    title={ __( 'Ghost Kit', '@@text_domain' ) }
                 >
                     <PanelBody className="plugin-ghostkit-panel">
                         <Button
@@ -65,7 +68,7 @@ class GhostKit extends Component {
                             } }
                         >
                             { getIcon( 'plugin-templates' ) }
-                            { __( 'Templates' ) }
+                            { __( 'Templates', '@@text_domain' ) }
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
@@ -76,7 +79,7 @@ class GhostKit extends Component {
                             } }
                         >
                             { getIcon( 'plugin-typography' ) }
-                            { __( 'Typography' ) }
+                            { __( 'Typography', '@@text_domain' ) }
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
@@ -87,7 +90,7 @@ class GhostKit extends Component {
                             } }
                         >
                             { getIcon( 'plugin-custom-code' ) }
-                            { __( 'CSS & JavaScript' ) }
+                            { __( 'CSS & JavaScript', '@@text_domain' ) }
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
@@ -98,7 +101,7 @@ class GhostKit extends Component {
                             } }
                         >
                             { getIcon( 'plugin-customizer' ) }
-                            { __( 'Customizer' ) }
+                            { __( 'Customizer', '@@text_domain' ) }
                         </Button>
                     </PanelBody>
                 </PluginSidebar>
@@ -126,8 +129,3 @@ class GhostKit extends Component {
         );
     }
 }
-
-registerPlugin( 'ghostkit', {
-    icon: <div className="ghostkit-plugin-icon">{ getIcon( 'plugin-ghostkit' ) }</div>,
-    render: GhostKit,
-} );

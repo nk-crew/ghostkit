@@ -8,6 +8,7 @@
 .ghostkit-icon-box,
 .ghostkit-tabs,
 .ghostkit-accordion,
+.ghostkit-countdown,
 .ghostkit-counter-box,
 .ghostkit-alert,
 .ghostkit-carousel,
@@ -25,7 +26,7 @@
 }
 
 /**
- * Display.
+ * Bootstrap.
  */
 @import "./bootstrap/functions";
 @import "./bootstrap/variables";
@@ -42,6 +43,7 @@
 @import "./blocks/icon-box/style";
 @import "./blocks/tabs/style";
 @import "./blocks/accordion/style";
+@import "./blocks/countdown/style";
 @import "./blocks/counter-box/style";
 @import "./blocks/alert/style";
 @import "./blocks/carousel/style";
@@ -66,6 +68,7 @@
  */
 @import "./style-variants/core-list/style";
 @import "./style-variants/core-heading/style";
+@import "./style-variants/ghostkit-tabs/style";
 
 /**
  * Additional classes.

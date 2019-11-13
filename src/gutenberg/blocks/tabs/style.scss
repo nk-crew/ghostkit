@@ -4,6 +4,7 @@
 @import "../../variables";
 
 .ghostkit-tabs {
+    // Tabs buttons.
     .ghostkit-tabs-buttons {
         display: flex;
         flex-wrap: wrap;
@@ -20,7 +21,7 @@
             justify-content: flex-end;
         }
 
-        > .ghostkit-tabs-buttons-item {
+        .ghostkit-tabs-buttons-item {
             padding: .5em 1.5em;
             margin-bottom: -1px;
             font-weight: 500;
@@ -47,6 +48,8 @@
             }
         }
     }
+
+    // Content
     .ghostkit-tabs-content {
         position: relative;
     }
@@ -71,6 +74,48 @@
             overflow: visible;
             clip: auto;
             opacity: 1;
+        }
+    }
+
+    // Vertical tabs
+    &.ghostkit-tabs-buttons-vertical {
+        @include media-breakpoint-up(md) {
+            display: flex;
+
+            .ghostkit-tabs-buttons {
+                @include make-col(3, 10);
+
+                flex-direction: column;
+                margin-bottom: 0;
+                border-right: 1px solid #dee2e6;
+                border-bottom: none;
+
+                .ghostkit-tabs-buttons-item {
+                    display: block;
+                    margin-right: -1px;
+                    margin-bottom: 0;
+                    border-top-left-radius: 3px;
+                    border-top-right-radius: 0;
+                    border-bottom-left-radius: 3px;
+
+                    &:hover {
+                        border-color: #dee2e6;
+                        opacity: 1;
+                    }
+
+                    &.ghostkit-tabs-buttons-item-active {
+                        background-color: #fff;
+                        border-color: #dee2e6;
+                        border-right-color: #fff;
+                        opacity: 1;
+                    }
+                }
+            }
+            .ghostkit-tabs-content {
+                @include make-col(7, 10);
+
+                padding-left: 1em;
+            }
         }
     }
 }

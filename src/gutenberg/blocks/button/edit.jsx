@@ -28,7 +28,7 @@ const {
     InnerBlocks,
     BlockControls,
     BlockAlignmentToolbar,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     createBlock,
@@ -73,7 +73,7 @@ class BlockEdit extends Component {
             setAttributes,
         } = this.props;
 
-        if ( count !== block.innerBlocks.length ) {
+        if ( block && block.innerBlocks && count !== block.innerBlocks.length ) {
             setAttributes( {
                 count: block.innerBlocks.length,
             } );
@@ -140,24 +140,24 @@ class BlockEdit extends Component {
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody>
-                        <BaseControl label={ __( 'Gap' ) }>
+                        <BaseControl label={ __( 'Gap', '@@text_domain' ) }>
                             <ButtonGroup>
                                 {
                                     [
                                         {
-                                            label: __( 'none' ),
+                                            label: __( 'none', '@@text_domain' ),
                                             value: 'no',
                                         },
                                         {
-                                            label: __( 'sm' ),
+                                            label: __( 'sm', '@@text_domain' ),
                                             value: 'sm',
                                         },
                                         {
-                                            label: __( 'md' ),
+                                            label: __( 'md', '@@text_domain' ),
                                             value: 'md',
                                         },
                                         {
-                                            label: __( 'lg' ),
+                                            label: __( 'lg', '@@text_domain' ),
                                             value: 'lg',
                                         },
                                     ].map( ( val ) => {
@@ -178,11 +178,12 @@ class BlockEdit extends Component {
                                 }
                             </ButtonGroup>
                         </BaseControl>
-                        <BaseControl label={ __( 'Align' ) }>
+                        <BaseControl label={ __( 'Align', '@@text_domain' ) }>
                             <BlockAlignmentToolbar
                                 value={ align }
                                 onChange={ ( value ) => setAttributes( { align: value } ) }
                                 controls={ [ 'left', 'center', 'right' ] }
+                                isCollapsed={ false }
                             />
                         </BaseControl>
                     </PanelBody>
@@ -193,7 +194,7 @@ class BlockEdit extends Component {
                         allowedBlocks={ [ 'ghostkit/button-single' ] }
                     />
                     { isSelectedBlockInRoot ? (
-                        <Tooltip text={ __( 'Add Button' ) }>
+                        <Tooltip text={ __( 'Add Button', '@@text_domain' ) }>
                             <IconButton
                                 icon={ 'insert' }
                                 onClick={ () => {
@@ -214,7 +215,7 @@ export default compose( [
             getBlock,
             isBlockSelected,
             hasSelectedInnerBlock,
-        } = select( 'core/editor' );
+        } = select( 'core/block-editor' );
 
         const { clientId } = ownProps;
 
@@ -226,7 +227,7 @@ export default compose( [
     withDispatch( ( dispatch, ownProps ) => {
         const {
             insertBlock,
-        } = dispatch( 'core/editor' );
+        } = dispatch( 'core/block-editor' );
 
         const { clientId } = ownProps;
 

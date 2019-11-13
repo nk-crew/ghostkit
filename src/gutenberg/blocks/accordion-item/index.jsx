@@ -18,8 +18,8 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Item' ),
-    description: __( 'A single item within a accordion block.' ),
+    title: __( 'Item', '@@text_domain' ),
+    description: __( 'A single item within a accordion block.', '@@text_domain' ),
     icon: getIcon( 'block-accordion', true ),
     ghostkit: {
         supports: {
@@ -27,6 +27,7 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
     },
     edit,

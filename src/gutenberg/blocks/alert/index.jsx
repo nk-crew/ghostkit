@@ -25,12 +25,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Alert' ),
-    description: __( 'Provide contextual feedback messages for user actions.' ),
+    title: __( 'Alert', '@@text_domain' ),
+    description: __( 'Provide contextual feedback messages for user actions.', '@@text_domain' ),
     icon: getIcon( 'block-alert', true ),
     keywords: [
-        __( 'alert' ),
-        __( 'notification' ),
+        __( 'alert', '@@text_domain' ),
+        __( 'notification', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/alert/',
@@ -59,7 +59,24 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
+    },
+    example: {
+        attributes: {
+            color: '#E47F3B',
+            ghostkitId: 'example-alert',
+            ghostkitClassname: 'ghostkit-custom-example-alert',
+            className: 'ghostkit-custom-example-alert',
+        },
+        innerBlocks: [
+            {
+                name: 'core/paragraph',
+                attributes: {
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                },
+            },
+        ],
     },
     edit,
     save,

@@ -18,8 +18,8 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Button' ),
-    description: __( 'A single button within a buttons wrapper block.' ),
+    title: __( 'Button', '@@text_domain' ),
+    description: __( 'A single button within a buttons wrapper block.', '@@text_domain' ),
     icon: getIcon( 'block-button', true ),
     ghostkit: {
         customStylesCallback( attributes ) {
@@ -42,11 +42,21 @@ export const settings = {
 
             return result;
         },
+        customStylesFilter( styles, data, isEditor, attributes ) {
+            if ( isEditor && attributes.focusOutlineWeight && attributes.focusOutlineColor ) {
+                styles = styles.replace(
+                    new RegExp( `.${ attributes.ghostkitClassname }:focus { box-shadow:`, 'g' ),
+                    `[data-type="ghostkit/button-single"].is-selected .${ attributes.ghostkitClassname } { box-shadow:`
+                );
+            }
+            return styles;
+        },
         supports: {
             styles: true,
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
     },
     edit,

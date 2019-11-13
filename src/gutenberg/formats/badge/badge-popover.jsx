@@ -3,7 +3,7 @@
  */
 const { Component } = wp.element;
 
-const { URLPopover } = wp.editor;
+const { URLPopover } = wp.blockEditor;
 
 /**
  * Get selected badge element.

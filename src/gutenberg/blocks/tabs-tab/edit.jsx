@@ -14,7 +14,7 @@ const { Component } = wp.element;
 
 const {
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Block Edit Class.

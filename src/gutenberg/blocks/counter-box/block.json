@@ -9,8 +9,8 @@
     },
     "attributes": {
         "number": {
-            "type": "array",
-            "source": "children",
+            "type": "string",
+            "source": "html",
             "selector": ".ghostkit-counter-box-number-wrap",
             "default": "77"
         },
@@ -39,6 +39,15 @@
             "default": "#0366d6"
         },
         "hoverNumberColor": {
+            "type": "string"
+        },
+        "url": {
+            "type": "string"
+        },
+        "target": {
+            "type": "string"
+        },
+        "rel": {
             "type": "string"
         }
     }

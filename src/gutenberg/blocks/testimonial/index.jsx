@@ -1,6 +1,7 @@
 /**
  * Import CSS
  */
+import './style.scss';
 import './editor.scss';
 
 /**
@@ -31,13 +32,13 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Testimonial' ),
-    description: __( 'Show how your users love your products and what saying.' ),
+    title: __( 'Testimonial', '@@text_domain' ),
+    description: __( 'Show how your users love your products and what saying.', '@@text_domain' ),
     icon: getIcon( 'block-testimonial', true ),
     keywords: [
-        __( 'testimonial' ),
-        __( 'blockquote' ),
-        __( 'quote' ),
+        __( 'testimonial', '@@text_domain' ),
+        __( 'blockquote', '@@text_domain' ),
+        __( 'quote', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/testimonial/',
@@ -46,7 +47,22 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
+    },
+    example: {
+        attributes: {
+            photo: 1,
+            photoTag: '<img src="https://s.w.org/images/core/5.3/Biologia_Centrali-Americana_-_Cantorchilus_semibadius_1902.jpg">',
+        },
+        innerBlocks: [
+            {
+                name: 'core/paragraph',
+                attributes: {
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                },
+            },
+        ],
     },
     edit,
     save,

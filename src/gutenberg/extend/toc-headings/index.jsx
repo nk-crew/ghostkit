@@ -30,7 +30,7 @@ function getTOC( blocks = false ) {
     if ( ! blocks ) {
         const {
             getBlocks,
-        } = select( 'core/editor' );
+        } = select( 'core/block-editor' );
 
         blocks = getBlocks();
     }
@@ -61,7 +61,7 @@ function getHeadings( blocks = false ) {
     if ( ! blocks ) {
         const {
             getBlocks,
-        } = select( 'core/editor' );
+        } = select( 'core/block-editor' );
 
         blocks = getBlocks();
     }

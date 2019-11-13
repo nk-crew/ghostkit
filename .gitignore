@@ -3,6 +3,7 @@
 .publish
 .git
 .idea
+/src/languages/*
 /node_modules
 /vendor
 /dist

@@ -12,6 +12,10 @@
             "type": "string",
             "default": "tab-1"
         },
+        "buttonsVerticalAlign": {
+            "type": "boolean",
+            "default": false
+        },
         "buttonsAlign": {
             "type": "string",
             "default": "start"

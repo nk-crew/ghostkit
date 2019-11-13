@@ -18,8 +18,8 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Pricing Table Item' ),
-    description: __( 'A single item within a pricing table block.' ),
+    title: __( 'Pricing Table Item', '@@text_domain' ),
+    description: __( 'A single item within a pricing table block.', '@@text_domain' ),
     icon: getIcon( 'block-pricing-table', true ),
     ghostkit: {
         supports: {
@@ -27,6 +27,7 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
     },
     edit,

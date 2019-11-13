@@ -2,8 +2,6 @@
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
-import slugify from 'slugify';
-import striptags from 'striptags';
 
 /**
  * WordPress dependencies
@@ -19,6 +17,7 @@ const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     BaseControl,
+    ToggleControl,
     IconButton,
     Tooltip,
 } = wp.components;
@@ -29,7 +28,7 @@ const {
     InnerBlocks,
     BlockControls,
     AlignmentToolbar,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     compose,
@@ -44,6 +43,7 @@ const {
  * Internal dependencies
  */
 import RemoveButton from '../../components/remove-button';
+import getUniqueSlug from '../../utils/get-unique-slug';
 
 /**
  * Block Edit Class.
@@ -54,8 +54,8 @@ class BlockEdit extends Component {
 
         this.getTabsTemplate = this.getTabsTemplate.bind( this );
         this.getTabs = this.getTabs.bind( this );
-        this.isUniqueSlug = this.isUniqueSlug.bind( this );
-        this.getUniqueSlug = this.getUniqueSlug.bind( this );
+        this.changeLabel = this.changeLabel.bind( this );
+        this.removeTab = this.removeTab.bind( this );
     }
 
     /**
@@ -69,10 +69,9 @@ class BlockEdit extends Component {
         const {
             tabsData = [],
         } = this.props.attributes;
-        const result = [];
 
-        tabsData.forEach( ( tabData ) => {
-            result.push( [ 'ghostkit/tabs-tab-v2', tabData ] );
+        const result = tabsData.map( ( tabData ) => {
+            return [ 'ghostkit/tabs-tab-v2', tabData ];
         } );
 
         return result;
@@ -82,58 +81,93 @@ class BlockEdit extends Component {
         return this.props.block.innerBlocks;
     }
 
-    isUniqueSlug( slug, ignoreClientId ) {
+    changeLabel( value, i ) {
+        const {
+            setAttributes,
+            attributes,
+            updateBlockAttributes,
+        } = this.props;
+
+        const {
+            tabsData = [],
+        } = attributes;
+
         const tabs = this.getTabs();
-        let isUnique = true;
 
-        tabs.forEach( ( tabProps ) => {
-            if ( tabProps.clientId !== ignoreClientId && tabProps.attributes.slug === slug ) {
-                isUnique = false;
-            }
-        } );
+        if ( tabs[ i ] ) {
+            const newSlug = getUniqueSlug( `tab-${ value }`, tabs[ i ].clientId );
 
-        return isUnique;
-    }
+            const newTabsData = tabsData.map( ( oldTabData, newIndex ) => {
+                if ( i === newIndex ) {
+                    return {
+                        ...oldTabData,
+                        ...{
+                            title: value,
+                            slug: newSlug,
+                        },
+                    };
+                }
 
-    getUniqueSlug( newTitle, tabData ) {
-        let newSlug = '';
-        let i = 0;
+                return oldTabData;
+            } );
 
-        while ( ! newSlug || ! this.isUniqueSlug( newSlug, tabData.clientId ) ) {
-            if ( newSlug ) {
-                i += 1;
-            }
-            newSlug = slugify( `tab-${ striptags( newTitle ) }${ i ? `-${ i }` : '' }`, {
-                replacement: '-',
-                lower: true,
+            setAttributes( {
+                tabActive: newSlug,
+                tabsData: newTabsData,
+            } );
+            updateBlockAttributes( tabs[ i ].clientId, {
+                slug: newSlug,
             } );
         }
+    }
 
-        return newSlug;
+    removeTab( i ) {
+        const {
+            setAttributes,
+            attributes,
+            block,
+        } = this.props;
+
+        const {
+            tabsData = [],
+        } = attributes;
+
+        if ( block.innerBlocks.length <= 1 ) {
+            this.props.removeBlock( block.clientId );
+        } else if ( block.innerBlocks[ i ] ) {
+            this.props.removeBlock( block.innerBlocks[ i ].clientId );
+
+            if ( tabsData[ i ] ) {
+                const newTabsData = Object.assign( [], tabsData );
+                newTabsData.splice( i, 1 );
+
+                setAttributes( {
+                    tabsData: newTabsData,
+                } );
+            }
+        }
     }
 
     render() {
         const {
             attributes,
             setAttributes,
-            updateBlockAttributes,
             isSelectedBlockInRoot,
-            block,
         } = this.props;
 
         let { className = '' } = this.props;
 
         const {
             tabActive,
+            buttonsVerticalAlign,
             buttonsAlign,
             tabsData = [],
         } = attributes;
 
-        const tabs = this.getTabs();
-
         className = classnames(
             className,
-            'ghostkit-tabs'
+            'ghostkit-tabs',
+            buttonsVerticalAlign ? 'ghostkit-tabs-buttons-vertical' : ''
         );
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
@@ -163,7 +197,12 @@ class BlockEdit extends Component {
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody>
-                        <BaseControl label={ __( 'Tabs Align' ) }>
+                        <ToggleControl
+                            label={ __( 'Vertical Tabs', '@@text_domain' ) }
+                            checked={ !! buttonsVerticalAlign }
+                            onChange={ ( val ) => setAttributes( { buttonsVerticalAlign: val } ) }
+                        />
+                        <BaseControl label={ __( 'Tabs Align', '@@text_domain' ) }>
                             <AlignmentToolbar
                                 value={ buttonsAlignValForControl }
                                 onChange={ ( value ) => {
@@ -175,12 +214,16 @@ class BlockEdit extends Component {
                                     setAttributes( { buttonsAlign: value } );
                                 } }
                                 controls={ [ 'left', 'center', 'right' ] }
+                                isCollapsed={ false }
                             />
                         </BaseControl>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className } data-tab-active={ tabActive }>
-                    <div className={ classnames( 'ghostkit-tabs-buttons', `ghostkit-tabs-buttons-align-${ buttonsAlign }` ) }>
+                    <div className={ classnames(
+                        'ghostkit-tabs-buttons',
+                        `ghostkit-tabs-buttons-align-${ buttonsAlign }`
+                    ) }>
                         {
                             tabsData.map( ( tabData, i ) => {
                                 const {
@@ -196,56 +239,20 @@ class BlockEdit extends Component {
                                     >
                                         <RichText
                                             tagName="span"
-                                            placeholder={ __( 'Tab label' ) }
+                                            placeholder={ __( 'Tab label', '@@text_domain' ) }
                                             value={ title }
                                             unstableOnFocus={ () => setAttributes( { tabActive: slug } ) }
                                             onChange={ ( value ) => {
-                                                if ( tabs[ i ] ) {
-                                                    const newSlug = this.getUniqueSlug( value, tabs[ i ] );
-                                                    const newTabsData = tabsData.map( ( oldTabData, newIndex ) => {
-                                                        if ( i === newIndex ) {
-                                                            return {
-                                                                ...oldTabData,
-                                                                ...{
-                                                                    title: value,
-                                                                    slug: newSlug,
-                                                                },
-                                                            };
-                                                        }
-
-                                                        return oldTabData;
-                                                    } );
-
-                                                    setAttributes( {
-                                                        tabActive: newSlug,
-                                                        tabsData: newTabsData,
-                                                    } );
-                                                    updateBlockAttributes( tabs[ i ].clientId, {
-                                                        slug: newSlug,
-                                                    } );
-                                                }
+                                                this.changeLabel( value, i );
                                             } }
                                             formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
                                             keepPlaceholderOnFocus
                                         />
                                         <RemoveButton
                                             show={ isSelectedBlockInRoot }
-                                            tooltipText={ __( 'Remove tab?' ) }
+                                            tooltipText={ __( 'Remove tab?', '@@text_domain' ) }
                                             onRemove={ () => {
-                                                if ( block.innerBlocks.length <= 1 ) {
-                                                    this.props.removeBlock( block.clientId );
-                                                } else if ( block.innerBlocks[ i ] ) {
-                                                    this.props.removeBlock( block.innerBlocks[ i ].clientId );
-
-                                                    if ( tabsData[ i ] ) {
-                                                        const newTabsData = Object.assign( [], tabsData );
-                                                        newTabsData.splice( i, 1 );
-
-                                                        setAttributes( {
-                                                            tabsData: newTabsData,
-                                                        } );
-                                                    }
-                                                }
+                                                this.removeTab( i );
                                             } }
                                         />
                                     </div>
@@ -253,7 +260,7 @@ class BlockEdit extends Component {
                             } )
                         }
                         { isSelectedBlockInRoot ? (
-                            <Tooltip text={ __( 'Add Tab' ) }>
+                            <Tooltip text={ __( 'Add Tab', '@@text_domain' ) }>
                                 <IconButton
                                     icon={ 'insert' }
                                     onClick={ () => {
@@ -303,7 +310,7 @@ export default compose( [
             getBlock,
             isBlockSelected,
             hasSelectedInnerBlock,
-        } = select( 'core/editor' );
+        } = select( 'core/block-editor' );
 
         const { clientId } = ownProps;
 
@@ -316,7 +323,7 @@ export default compose( [
         const {
             updateBlockAttributes,
             removeBlock,
-        } = dispatch( 'core/editor' );
+        } = dispatch( 'core/block-editor' );
 
         return {
             updateBlockAttributes,

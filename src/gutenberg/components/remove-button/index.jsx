@@ -39,9 +39,9 @@ export default class RemoveButton extends Component {
             onRemove,
             show,
             style,
-            tooltipText = __( 'Remove block?' ),
-            tooltipRemoveText = __( 'Remove' ),
-            tooltipCancelText = __( 'Cancel' ),
+            tooltipText = __( 'Remove Block?', '@@text_domain' ),
+            tooltipRemoveText = __( 'Remove', '@@text_domain' ),
+            tooltipCancelText = __( 'Cancel', '@@text_domain' ),
         } = this.props;
 
         const {

@@ -39,6 +39,13 @@
             "source": "html",
             "selector": ".ghostkit-testimonial-source",
             "default": "Designer"
+        },
+        "stars": {
+            "type": "number"
+        },
+        "starsIcon": {
+            "type": "string",
+            "default": "fas fa-star"
         }
     }
 }

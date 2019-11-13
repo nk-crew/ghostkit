@@ -97,6 +97,8 @@ class GhostKit_Settings {
         );
 
         do_action( 'enqueue_block_editor_assets' );
+
+        wp_enqueue_style( 'wp-components' );
     }
 
     /**
@@ -138,9 +140,23 @@ class GhostKit_Settings {
         add_submenu_page(
             'ghostkit',
             '',
-            esc_html__( 'Settings', '@@text_domain' ),
+            esc_html__( 'Icons', '@@text_domain' ),
             'manage_options',
-            'admin.php?page=ghostkit&sub_page=settings'
+            'admin.php?page=ghostkit&sub_page=icons'
+        );
+        add_submenu_page(
+            'ghostkit',
+            '',
+            esc_html__( 'Typography', '@@text_domain' ),
+            'manage_options',
+            'admin.php?page=ghostkit&sub_page=typography'
+        );
+        add_submenu_page(
+            'ghostkit',
+            '',
+            esc_html__( 'CSS & JavaScript', '@@text_domain' ),
+            'manage_options',
+            'admin.php?page=ghostkit&sub_page=css_js'
         );
         add_submenu_page(
             'ghostkit',

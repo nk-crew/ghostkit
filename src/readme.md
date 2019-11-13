@@ -1,15 +1,15 @@
-# Powerful Gutenberg Blocks and Templates Collection - Ghost Kit #
+# Powerful Gutenberg Blocks and Templates - Ghost Kit #
 
 * Contributors: nko
 * Tags: gutenberg, blocks, templates, block, builder
 * Requires at least: 4.9.0
-* Tested up to: 5.2
+* Tested up to: 5.3
 * Requires PHP: 5.4
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
-* License URI: http://www.gnu.org/licenses/gpl-2.0.html
+* License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
-Powerful Gutenberg Blocks, Templates, and Extensions Collection - Ghost Kit.
+Ghost Kit is a blocks collection and templates with customization options to build pages faster with Gutenberg page builder.
 
 ## Description ##
 
@@ -60,6 +60,7 @@ By default you can change typography for the following elements:
 * [**Number Box**](https://ghostkit.io/blocks/number-box/). Show your progress and rewards using counting numbers
 * [**Accordion**](https://ghostkit.io/blocks/accordion/). Toggle the visibility of content across your project
 * [**Tabs**](https://ghostkit.io/blocks/tabs/). Separate content on the tabs with titles
+* [**Countdown**](https://ghostkit.io/blocks/countdown/). Display countdown for you upcoming events
 * [**Video**](https://ghostkit.io/blocks/video/). Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos
 * [**Carousel**](https://ghostkit.io/blocks/carousel/). Carousel for any type of content – images or other blocks
 * [**Pricing Table**](https://ghostkit.io/blocks/pricing-tables/). Sell your products or services and show all features
@@ -82,24 +83,19 @@ By default you can change typography for the following elements:
 
 ### Try Ghost Kit PRO Addon ###
 
-[Ghost Kit PRO Addon](https://ghostkit.io/pricing/) extends Ghost Kit functionality and improve your design experience. The list of PRO features:
+Ghost Kit PRO Addon extends the capabilities of Ghost Kit and improve your design experience. List of the main features:
 
-* 3 icon packs
+* More icon packs
 * Visual Grid editor
-* Grid full height option
 * Google Maps custom markers
-* Google Maps info boxes
-* Gradient backgrounds
-* Gradient text icons
-* Features list will grow in updates
+* Gradient buttons, backgrounds, icons
+* And more
 
-If you like it or if you simply want to help us keep improving Ghost Kit plugin - [Go Pro](https://ghostkit.io/pricing/).
-
+Try out a live demo of [Ghost Kit PRO](https://demo.ghostkit.io/)
 
 = Real Usage Examples =
 
 * [Skylith - Multipurpose Gutenberg Theme](https://demo.nkdev.info/#skylith)
-
 
 ## Installation ##
 
@@ -245,11 +241,11 @@ By default icon picker contains FontAwesome icons. You can add any icons you wan
 
 ### How to extend existing blocks ####
 
-You should use default Gutenberg hooks to extend blocks functionality. Read more here: https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations
+You should use default Gutenberg hooks to extend blocks functionality. Read more here: <https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations>
 
 ### How to extend existing blocks classnames ####
 
-You can extend Gutenberg blocks save attributes using core hooks. Read more here: https://developer.wordpress.org/block-editor/developers/filters/block-filters/#blocks-getsavecontent-extraprops
+You can extend Gutenberg blocks save attributes using core hooks. Read more here: <https://developer.wordpress.org/block-editor/developers/filters/block-filters/#blocks-getsavecontent-extraprops>
 
 ### jQuery frontend events ####
 
@@ -316,6 +312,46 @@ Available events:
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.7.1 =
+
+* added transformations Accordion to Tabs and vice versa (issue #31)
+* fixed possible errors with reusable blocks
+* fixed width of column content in editor
+* fixed alert, icon box and number box last child paragraph margin
+
+= 2.7.0 =
+
+* added Countdown block
+* added Custom CSS extension for each blocks
+* added preview in editor for buttons outline styles
+* added examples to blocks
+* added translations to js files
+* added Vertical option for Tabs block
+* added Pills style variant for Tabs block
+* added stars option for Testimonial block
+* added URL options for Icon Box and Counter Box blocks
+* added Accordion block activation based on location hash
+* added active indicators to extensions panels
+* improved Accordion block to work with unique slug, generated from label
+* improved Tabs/Accordion labels unique slug generator (no hash conflicts)
+* updated vendor plugins FontAwesome, Swiper, Jarallax
+* fixed reusable widget rendering in custom posts without Gutenberg enabled
+* fixed reusable blocks custom styles rendering
+
+= 2.6.3 =
+
+* disabled all extensions on dynamic core blocks
+* fixed Templates modal open when active PRO
+* fixed settings JS errors when no options updated
+
+= 2.6.2 =
+
+* added Typography settings page
+* removed Settings page
+  * added Icons settings page
+  * added CSS & JavaScript settings page
+* better fonts loading (load only necessary weights)
 
 = 2.6.1 =
 

@@ -3,6 +3,11 @@
  */
 @import "../../variables";
 
+// Grid from Bootstrap 4.1
+@import "../../bootstrap/functions";
+@import "../../bootstrap/variables";
+@import "../../bootstrap/breakpoints";
+
 .ghostkit-testimonial {
     position: relative;
     display: flex;
@@ -10,6 +15,7 @@
     align-items: flex-start;
     padding: 0;
 
+    // Icon.
     .ghostkit-testimonial-icon {
         position: absolute;
         top: 1em;
@@ -22,18 +28,16 @@
         }
     }
 
+    // Content.
     .ghostkit-testimonial-content {
         flex: 100%;
-        padding: 1.5em;
+        padding: 1em 1.5em;
         margin-bottom: 1.5em;
         background-color: $light-gray-100;
         border-radius: 5px;
-
-        p:last-of-type {
-            margin-bottom: 0;
-        }
     }
 
+    // Photo.
     .ghostkit-testimonial-photo {
         width: 50px;
         overflow: hidden;
@@ -45,17 +49,22 @@
             height: auto;
         }
 
-        + .ghostkit-testimonial-meta {
+        + .ghostkit-testimonial-meta,
+        + .ghostkit-testimonial-stars {
             margin-left: 1.5em;
         }
     }
 
+    // Meta.
     .ghostkit-testimonial-meta {
         display: flex;
         flex: 1;
         flex-direction: column;
-    }
 
+        + .ghostkit-testimonial-stars {
+            margin-left: 1.5em;
+        }
+    }
     .ghostkit-testimonial-name {
         line-height: 1.6;
     }
@@ -66,5 +75,44 @@
     }
     .ghostkit-testimonial-name + .ghostkit-testimonial-source {
         margin-top: .2em;
+    }
+
+    // Stars.
+    .ghostkit-testimonial-stars {
+        line-height: 1;
+
+        svg.svg-inline--fa {
+            width: 1em;
+        }
+
+        .ghostkit-testimonial-stars-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
+        .ghostkit-testimonial-stars-front,
+        .ghostkit-testimonial-stars-back {
+            height: 1em;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ghostkit-testimonial-stars-front {
+            position: absolute;
+            color: #fdcf27;
+        }
+        .ghostkit-testimonial-stars-back {
+            color: #e6e6ea;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        .ghostkit-testimonial-stars {
+            flex: 100%;
+            margin-top: 1em;
+        }
+        .ghostkit-testimonial-meta + .ghostkit-testimonial-stars,
+        .ghostkit-testimonial-photo + .ghostkit-testimonial-stars {
+            margin-left: 0;
+        }
     }
 }

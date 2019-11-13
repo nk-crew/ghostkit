@@ -52,13 +52,36 @@ class GhostKit_Block_Custom_Styles {
     /**
      * Get styles from block attribute.
      *
+     * @param array $block_attrs - block attrs.
+     *
+     * @return string - ready to use styles string.
+     */
+    public static function get( $block_attrs ) {
+        $result_css = '';
+
+        if (
+            isset( $block_attrs ) &&
+            isset( $block_attrs['ghostkitClassname'] ) &&
+            $block_attrs['ghostkitClassname'] &&
+            isset( $block_attrs['ghostkitStyles'] ) &&
+            ! empty( $block_attrs['ghostkitStyles'] )
+        ) {
+            $result_css .= self::parse( $block_attrs['ghostkitStyles'] );
+        }
+
+        return $result_css;
+    }
+
+    /**
+     * Parse styles from block attribute.
+     *
      * @param array   $data - styles data.
      * @param string  $selector - current styles selector (useful for nested styles).
      * @param boolean $escape - escape strings to save in database.
      *
      * @return string - ready to use styles string.
      */
-    public static function get( $data = array(), $selector = '', $escape = true ) {
+    public static function parse( $data = array(), $selector = '', $escape = true ) {
         $result = array();
         $result_css = '';
 
@@ -70,14 +93,14 @@ class GhostKit_Block_Custom_Styles {
                 if ( strpos( $k, 'media_' ) === 0 ) {
                     $result_css .= $result_css ? ' ' : '';
                     $result_css .= '@media #{ghostkitvar:' . $k . '} {';
-                    $result_css .= ' ' . self::get( $val, $selector, $escape );
+                    $result_css .= ' ' . self::parse( $val, $selector, $escape );
                     $result_css .= ' }';
 
                     // @supports css.
                 } elseif ( strpos( $k, '@supports' ) === 0 ) {
                     $result_css .= $result_css ? ' ' : '';
                     $result_css .= $k . ' {';
-                    $result_css .= ' ' . self::get( $val, $selector, $escape );
+                    $result_css .= ' ' . self::parse( $val, $selector, $escape );
                     $result_css .= ' }';
 
                     // nested selectors.
@@ -98,7 +121,7 @@ class GhostKit_Block_Custom_Styles {
                         $nested_selector = $k;
                     }
 
-                    $result_css .= ( $result_css ? ' ' : '' ) . self::get( $val, $nested_selector, $escape );
+                    $result_css .= ( $result_css ? ' ' : '' ) . self::parse( $val, $nested_selector, $escape );
                 }
 
                 // style properties and values.

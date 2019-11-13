@@ -17,8 +17,8 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Tab' ),
-    description: __( 'A single tab within a tabs block.' ),
+    title: __( 'Tab', '@@text_domain' ),
+    description: __( 'A single tab within a tabs block.', '@@text_domain' ),
     icon: getIcon( 'block-tabs', true ),
     ghostkit: {
         supports: {
@@ -26,6 +26,7 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
     },
     getEditWrapperProps( attributes ) {

@@ -29,12 +29,12 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Divider' ),
-    description: __( 'Divide your long texts and blocks.' ),
+    title: __( 'Divider', '@@text_domain' ),
+    description: __( 'Divide your long texts and blocks.', '@@text_domain' ),
     icon: getIcon( 'block-divider', true ),
     keywords: [
-        __( 'divider' ),
-        __( 'spacer' ),
+        __( 'divider', '@@text_domain' ),
+        __( 'spacer', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/divider/',
@@ -72,6 +72,19 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
+        },
+    },
+    example: {
+        attributes: {
+            size: 4,
+            icon: 'fab fa-twitter',
+            iconSize: 40,
+            color: '#a7a9ab',
+            iconColor: '#a7a9ab',
+            ghostkitId: 'example-divider',
+            ghostkitClassname: 'ghostkit-custom-example-divider',
+            className: 'ghostkit-custom-example-divider',
         },
     },
     edit,

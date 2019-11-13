@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import classnames from 'classnames/dedupe';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -10,7 +15,7 @@ const { Component } = wp.element;
 const {
     InnerBlocks,
     RichText,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies
@@ -29,6 +34,9 @@ class BlockSave extends Component {
             animateInViewport,
             numberPosition,
             showContent,
+            url,
+            target,
+            rel,
         } = this.props.attributes;
 
         let {
@@ -37,7 +45,10 @@ class BlockSave extends Component {
 
         animateInViewportFrom = parseFloat( animateInViewportFrom );
 
-        let className = 'ghostkit-counter-box';
+        let className = classnames(
+            'ghostkit-counter-box',
+            url ? 'ghostkit-counter-box-with-link' : ''
+        );
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{
@@ -48,6 +59,11 @@ class BlockSave extends Component {
 
         return (
             <div className={ className }>
+                { url ? (
+                    <a className="ghostkit-counter-box-link" href={ url } target={ target || false } rel={ rel || false }>
+                        <span />
+                    </a>
+                ) : '' }
                 <div
                     className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }
                 >

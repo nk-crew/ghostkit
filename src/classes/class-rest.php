@@ -1198,7 +1198,7 @@ class GhostKit_Rest extends WP_REST_Controller {
                     array(
                         'ghostkit_version'     => '@@plugin_version',
                         'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
-                        'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
+                        'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->plugin_version : null,
                     ), $url
                 )
             );
@@ -1401,7 +1401,7 @@ class GhostKit_Rest extends WP_REST_Controller {
                                 'id'                   => $id,
                                 'ghostkit_version'     => '@@plugin_version',
                                 'ghostkit_pro'         => function_exists( 'ghostkit_pro' ),
-                                'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->$plugin_version : null,
+                                'ghostkit_pro_version' => function_exists( 'ghostkit_pro' ) ? ghostkit_pro()->plugin_version : null,
                             ), $url
                         )
                     );
@@ -1489,18 +1489,13 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_custom_code( WP_REST_Request $request ) {
         $new_code = $request->get_param( 'data' );
-        $updated = '';
 
         if ( is_array( $new_code ) ) {
             $current_code = get_option( 'ghostkit_custom_code', array() );
-            $updated = update_option( 'ghostkit_custom_code', array_merge( $current_code, $new_code ) );
+            update_option( 'ghostkit_custom_code', array_merge( $current_code, $new_code ) );
         }
 
-        if ( ! empty( $updated ) ) {
-            return $this->success( true );
-        } else {
-            return $this->error( 'no_code_updated', __( 'Failed to update custom code.', '@@text_domain' ) );
-        }
+        return $this->success( true );
     }
 
     /**
@@ -1527,35 +1522,26 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_custom_typography( WP_REST_Request $request ) {
         $new_typography = $request->get_param( 'data' );
-        $updated = '';
         $updated_option = array();
 
         if ( is_array( $new_typography ) ) {
             $current_typography = get_option( 'ghostkit_typography', array() );
-            $equal_arrays = false;
+
             if ( empty( $current_typography ) ) {
                 $updated_option = $new_typography;
             } else {
-                $current_typography['ghostkit_typography'] = json_decode( $current_typography['ghostkit_typography'] );
-                $new_typography['ghostkit_typography'] = json_decode( $new_typography['ghostkit_typography'] );
-
-                $equal_arrays = (object) array_diff( (array) $new_typography['ghostkit_typography'], $current_typography['ghostkit_typography'] );
+                $current_typography['ghostkit_typography'] = json_decode( $current_typography['ghostkit_typography'], true );
+                $new_typography['ghostkit_typography'] = json_decode( $new_typography['ghostkit_typography'], true );
 
                 $updated_option = array_merge( $current_typography, $new_typography );
 
                 $updated_option['ghostkit_typography'] = json_encode( $updated_option['ghostkit_typography'] );
             }
-            $updated = update_option( 'ghostkit_typography', $updated_option );
 
-            if ( empty( $updated ) && $equal_arrays ) {
-                $updated = true;
-            }
+            update_option( 'ghostkit_typography', $updated_option );
         }
-        if ( ! empty( $updated ) ) {
-            return $this->success( true );
-        } else {
-            return $this->error( 'no_typography_updated', __( 'Failed to update typography.', '@@text_domain' ) );
-        }
+
+        return $this->success( true );
     }
 
     /**
@@ -1566,13 +1552,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      * @return mixed
      */
     public function update_google_maps_api_key( WP_REST_Request $request ) {
-        $updated = update_option( 'ghostkit_google_maps_api_key', $request->get_param( 'key' ) );
+        update_option( 'ghostkit_google_maps_api_key', $request->get_param( 'key' ) );
 
-        if ( ! empty( $updated ) ) {
-            return $this->success( $updated );
-        } else {
-            return $this->error( 'no_options_found', __( 'Failed to update option.', '@@text_domain' ) );
-        }
+        return $this->success( true );
     }
 
     /**
@@ -1584,7 +1566,6 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_disabled_blocks( WP_REST_Request $request ) {
         $new_disabled_blocks = $request->get_param( 'blocks' );
-        $updated = '';
 
         if ( is_array( $new_disabled_blocks ) ) {
             $disabled_blocks = array_merge( get_option( 'ghostkit_disabled_blocks', array() ), $new_disabled_blocks );
@@ -1596,14 +1577,10 @@ class GhostKit_Rest extends WP_REST_Controller {
                 }
             }
 
-            $updated = update_option( 'ghostkit_disabled_blocks', $result );
+            update_option( 'ghostkit_disabled_blocks', $result );
         }
 
-        if ( ! empty( $updated ) ) {
-            return $this->success( true );
-        } else {
-            return $this->error( 'no_disabled_blocks_updated', __( 'Failed to update disabled blocks.', '@@text_domain' ) );
-        }
+        return $this->success( true );
     }
 
     /**
@@ -1615,18 +1592,13 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_settings( WP_REST_Request $request ) {
         $new_settings = $request->get_param( 'settings' );
-        $updated = '';
 
         if ( is_array( $new_settings ) ) {
             $current_settings = get_option( 'ghostkit_settings', array() );
-            $updated = update_option( 'ghostkit_settings', array_merge( $current_settings, $new_settings ) );
+            update_option( 'ghostkit_settings', array_merge( $current_settings, $new_settings ) );
         }
 
-        if ( ! empty( $updated ) ) {
-            return $this->success( true );
-        } else {
-            return $this->error( 'no_settings_updated', __( 'Failed to update settings.', '@@text_domain' ) );
-        }
+        return $this->success( true );
     }
 
     /**

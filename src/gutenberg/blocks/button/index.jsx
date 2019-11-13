@@ -24,15 +24,15 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Buttons' ),
+    title: __( 'Buttons', '@@text_domain' ),
 
-    description: __( 'Change important links to buttons to get more click rate.' ),
+    description: __( 'Change important links to buttons to get more click rate.', '@@text_domain' ),
 
     icon: getIcon( 'block-button', true ),
 
     keywords: [
-        __( 'btn' ),
-        __( 'button' ),
+        __( 'btn', '@@text_domain' ),
+        __( 'button', '@@text_domain' ),
     ],
 
     ghostkit: {
@@ -42,7 +42,41 @@ export const settings = {
             spacings: true,
             display: true,
             scrollReveal: true,
+            customCSS: true,
         },
+    },
+
+    example: {
+        attributes: {
+            count: 2,
+            align: 'center',
+            gap: 'lg',
+        },
+        innerBlocks: [
+            {
+                name: 'ghostkit/button-single',
+                attributes: {
+                    text: 'Button 1',
+                    size: 'xl',
+                    color: '#0366d6',
+                    ghostkitId: 'example-button-1',
+                    ghostkitClassname: 'ghostkit-custom-example-button-1',
+                    className: 'ghostkit-custom-example-button-1',
+                },
+            }, {
+                name: 'ghostkit/button-single',
+                attributes: {
+                    text: 'Button 2',
+                    size: 'xl',
+                    color: '#5c39a7',
+                    icon: 'fab fa-twitter',
+                    borderRadius: 50,
+                    ghostkitId: 'example-button-2',
+                    ghostkitClassname: 'ghostkit-custom-example-button-2',
+                    className: 'ghostkit-custom-example-button-2',
+                },
+            },
+        ],
     },
 
     edit,

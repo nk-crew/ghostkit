@@ -1,0 +1,39 @@
+{
+	"name": "ghostkit/countdown",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+        "date": {
+            "type": "string",
+            "default": ""
+        },
+        "units": {
+            "type": "array",
+            "default": [ "days", "hours", "minutes", "seconds" ]
+        },
+        "unitsAlign": {
+            "type": "string"
+        },
+
+        "numberFontSize": {
+            "type": "number",
+            "default": 50
+        },
+        "labelFontSize": {
+            "type": "number"
+        },
+        "numberColor": {
+            "type": "string",
+            "default": "#0366d6"
+        },
+        "labelColor": {
+            "type": "string",
+            "default": ""
+        }
+    }
+}

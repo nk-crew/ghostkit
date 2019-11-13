@@ -23,11 +23,11 @@ export { metadata, name };
 
 export const settings = {
     ...metadata,
-    title: __( 'Twitter' ),
-    description: __( 'Show Twitter feed and user data.' ),
+    title: __( 'Twitter', '@@text_domain' ),
+    description: __( 'Show Twitter feed and user data.', '@@text_domain' ),
     icon: getIcon( 'block-twitter', true ),
     keywords: [
-        __( 'twitter' ),
+        __( 'twitter', '@@text_domain' ),
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/twitter/',
@@ -35,6 +35,7 @@ export const settings = {
             styles: true,
             spacings: true,
             display: true,
+            customCSS: true,
         },
     },
     edit,

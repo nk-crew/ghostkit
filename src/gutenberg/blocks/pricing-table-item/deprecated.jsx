@@ -9,13 +9,14 @@ import classnames from 'classnames/dedupe';
 const {
     RichText,
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     applyFilters,
 } = wp.hooks;
 
 export default [
+    // v2.2.0
     {
         ghostkit: {
             supports: {

@@ -124,6 +124,7 @@ class VideoBlockSave extends Component {
 }
 
 export default [
+    // v1.6.3
     {
         ghostkit: {
             previewUrl: 'https://ghostkit.io/blocks/video/',
@@ -223,6 +224,8 @@ export default [
         },
         save: VideoBlockSave,
     },
+
+    // v1.0.0
     {
         ghostkit: {
             supports: {

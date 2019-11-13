@@ -77,7 +77,10 @@ class CustomStylesComponent extends Component {
             this.props
         );
 
-        if ( blockCustomStyles && Object.keys( blockCustomStyles ).length ) {
+        const thereIsCustomStyles = blockCustomStyles && Object.keys( blockCustomStyles ).length;
+        const thereIsCustomCSS = !! attributes.ghostkitCustomCSS;
+
+        if ( thereIsCustomStyles || thereIsCustomCSS ) {
             const ghostkitAtts = this.getGhostKitAtts( checkDuplicates );
 
             if ( ghostkitAtts.ghostkitClassname ) {
@@ -89,9 +92,11 @@ class CustomStylesComponent extends Component {
                     customClassName = blockSettings.ghostkit.customSelector( customClassName, this.props );
                 }
 
-                newAttrs.ghostkitStyles = {
-                    [ customClassName ]: blockCustomStyles,
-                };
+                if ( thereIsCustomStyles ) {
+                    newAttrs.ghostkitStyles = {
+                        [ customClassName ]: blockCustomStyles,
+                    };
+                }
 
                 if ( ghostkitAtts.ghostkitClassname !== attributes.ghostkitClassname ) {
                     newAttrs.ghostkitClassname = ghostkitAtts.ghostkitClassname;
@@ -108,7 +113,9 @@ class CustomStylesComponent extends Component {
                     newAttrs.className = newClassName;
                 }
 
-                updateAttrs = updateAttrs || ! deepEqual( attributes.ghostkitStyles, newAttrs.ghostkitStyles );
+                if ( thereIsCustomStyles && ! updateAttrs ) {
+                    updateAttrs = ! deepEqual( attributes.ghostkitStyles, newAttrs.ghostkitStyles );
+                }
 
                 if ( updateAttrs ) {
                     setAttributes( newAttrs );
@@ -137,7 +144,7 @@ class CustomStylesComponent extends Component {
         let result = [];
 
         if ( ! blocks ) {
-            blocks = wp.data.select( 'core/editor' ).getBlocks();
+            blocks = wp.data.select( 'core/block-editor' ).getBlocks();
         }
 
         if ( ! blocks ) {
@@ -225,18 +232,26 @@ class CustomStylesComponent extends Component {
             blockSettings,
         } = this.props;
 
-        if (
-            ! attributes.ghostkitClassname ||
-            ! attributes.ghostkitStyles ||
-            ! Object.keys( attributes.ghostkitStyles ).length
-        ) {
-            return '';
+        let styles = '';
+
+        // generate custom styles.
+        if ( attributes.ghostkitClassname && attributes.ghostkitStyles && Object.keys( attributes.ghostkitStyles ).length ) {
+            styles = getStyles( attributes.ghostkitStyles, '', false );
+
+            if ( blockSettings && blockSettings.ghostkit && blockSettings.ghostkit.customStylesFilter ) {
+                styles = blockSettings.ghostkit.customStylesFilter( styles, attributes.ghostkitStyles, true, attributes );
+            }
         }
 
-        let styles = getStyles( attributes.ghostkitStyles, '', false );
+        // filter custom styles.
+        styles = applyFilters(
+            'ghostkit.editor.customStylesOutput',
+            styles,
+            this.props
+        );
 
-        if ( blockSettings && blockSettings.ghostkit && blockSettings.ghostkit.customStylesFilter ) {
-            styles = blockSettings.ghostkit.customStylesFilter( styles, attributes.ghostkitStyles, true, attributes );
+        if ( ! styles ) {
+            return '';
         }
 
         return (

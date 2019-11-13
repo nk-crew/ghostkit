@@ -6,6 +6,7 @@ import blockAlert from '../icons/block-alert.svg';
 import blockButton from '../icons/block-button.svg';
 import blockCarousel from '../icons/block-carousel.svg';
 import blockChangelog from '../icons/block-changelog.svg';
+import blockCountdown from '../icons/block-countdown.svg';
 import blockCounterBox from '../icons/block-counter-box.svg';
 import blockDivider from '../icons/block-divider.svg';
 import blockGist from '../icons/block-gist.svg';
@@ -32,6 +33,7 @@ import pluginTypography from '../icons/plugin-typography.svg';
 import extensionDisplay from '../icons/extension-display.svg';
 import extensionSpacings from '../icons/extension-spacings.svg';
 import extensionSR from '../icons/extension-sr.svg';
+import extensionCustomCSS from '../icons/extension-custom-css.svg';
 
 import tabsTv from '../icons/tabs-tv.svg';
 import tabsDesktop from '../icons/tabs-desktop.svg';
@@ -76,6 +78,7 @@ export default {
     'block-button': blockButton,
     'block-carousel': blockCarousel,
     'block-changelog': blockChangelog,
+    'block-countdown': blockCountdown,
     'block-counter-box': blockCounterBox,
     'block-divider': blockDivider,
     'block-gist': blockGist,
@@ -102,6 +105,7 @@ export default {
     'extension-display': extensionDisplay,
     'extension-spacings': extensionSpacings,
     'extension-sr': extensionSR,
+    'extension-custom-css': extensionCustomCSS,
 
     'tabs-tv': tabsTv,
     'tabs-desktop': tabsDesktop,

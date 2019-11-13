@@ -28,7 +28,7 @@ const fontFamilies = getFonts();
  * @return {*} - Current font or default label if font is empty.
  */
 function getDefaultFont( fontFamily ) {
-    return fontFamily === '' ? __( 'Default Site Font' ) : fontFamily;
+    return fontFamily === '' ? __( 'Default Site Font', '@@text_domain' ) : fontFamily;
 }
 /**
  * Go over each fonts.
@@ -67,61 +67,61 @@ function getFontWeightLabel( weight ) {
 
     switch ( weight ) {
     case '':
-        label = __( 'Default' );
+        label = __( 'Default', '@@text_domain' );
         break;
     case '100':
-        label = __( 'Thin' );
+        label = __( 'Thin', '@@text_domain' );
         break;
     case '100i':
-        label = __( 'Thin Italic' );
+        label = __( 'Thin Italic', '@@text_domain' );
         break;
     case '200':
-        label = __( 'ExtraLight' );
+        label = __( 'Extra Light', '@@text_domain' );
         break;
     case '200i':
-        label = __( 'ExtraLight Italic' );
+        label = __( 'Extra Light Italic', '@@text_domain' );
         break;
     case '300':
-        label = __( 'Light' );
+        label = __( 'Light', '@@text_domain' );
         break;
     case '300i':
-        label = __( 'Light Italic' );
+        label = __( 'Light Italic', '@@text_domain' );
         break;
     case '400':
-        label = __( 'Regular' );
+        label = __( 'Regular', '@@text_domain' );
         break;
     case '400i':
-        label = __( 'Regular Italic' );
+        label = __( 'Regular Italic', '@@text_domain' );
         break;
     case '500':
-        label = __( 'Medium' );
+        label = __( 'Medium', '@@text_domain' );
         break;
     case '500i':
-        label = __( 'Medium Italic' );
+        label = __( 'Medium Italic', '@@text_domain' );
         break;
     case '600':
-        label = __( 'SemiBold' );
+        label = __( 'Semi Bold', '@@text_domain' );
         break;
     case '600i':
-        label = __( 'SemiBold Italic' );
+        label = __( 'Semi Bold Italic', '@@text_domain' );
         break;
     case '700':
-        label = __( 'Bold' );
+        label = __( 'Bold', '@@text_domain' );
         break;
     case '700i':
-        label = __( 'Bold Italic' );
+        label = __( 'Bold Italic', '@@text_domain' );
         break;
     case '800':
-        label = __( 'ExtraBold' );
+        label = __( 'Extra Bold', '@@text_domain' );
         break;
     case '800i':
-        label = __( 'ExtraBold Italic' );
+        label = __( 'Extra Bold Italic', '@@text_domain' );
         break;
     case '900':
-        label = __( 'Black' );
+        label = __( 'Black', '@@text_domain' );
         break;
     case '900i':
-        label = __( 'Black Italic' );
+        label = __( 'Black Italic', '@@text_domain' );
         break;
     }
 
@@ -188,7 +188,7 @@ export default class Typorgaphy extends Component {
                 <div className="ghostkit-control-typography">
                     { typeof fontFamily !== 'undefined' ? (
                         <div className="ghostkit-typography-font-control">
-                            <Tooltip text={ __( 'Font Family' ) }>
+                            <Tooltip text={ __( 'Font Family', '@@text_domain' ) }>
                                 <div>
                                     <Select
                                         value={ fontFamilyValue }
@@ -200,7 +200,7 @@ export default class Typorgaphy extends Component {
                                             } );
                                         } }
                                         options={ fontFamilies }
-                                        placeholder={ __( '--- Select Font Family ---' ) }
+                                        placeholder={ __( '--- Select Font Family ---', '@@text_domain' ) }
                                         className="ghostkit-typography-font-selector"
                                         menuPosition="fixed"
                                     />
@@ -210,7 +210,7 @@ export default class Typorgaphy extends Component {
                     ) : '' }
                     { typeof fontWeight !== 'undefined' ? (
                         <div className="ghostkit-typography-weight-control">
-                            <Tooltip text={ __( 'Font Weight' ) }>
+                            <Tooltip text={ __( 'Font Weight', '@@text_domain' ) }>
                                 <div>
                                     <Select
                                         value={ fontWeightValue }
@@ -220,7 +220,7 @@ export default class Typorgaphy extends Component {
                                             } );
                                         } }
                                         options={ fontWeights }
-                                        placeholder={ __( '--- Select Weight ---' ) }
+                                        placeholder={ __( '--- Select Weight ---', '@@text_domain' ) }
                                         className="ghostkit-typography-weight-selector"
                                         classNamePrefix="ghostkit-typography-weight-selector"
                                         menuPosition="fixed"
@@ -231,7 +231,7 @@ export default class Typorgaphy extends Component {
                     ) : '' }
                     { typeof fontSize !== 'undefined' ? (
                         <div className="ghostkit-typography-size-control">
-                            <Tooltip text={ __( 'Font Size' ) }>
+                            <Tooltip text={ __( 'Font Size', '@@text_domain' ) }>
                                 <div>
                                     <InputDrag
                                         value={ fontSizeValue }
@@ -251,7 +251,7 @@ export default class Typorgaphy extends Component {
                     ) : '' }
                     { typeof lineHeight !== 'undefined' ? (
                         <div className="ghostkit-typography-line-control">
-                            <Tooltip text={ __( 'Line Height' ) }>
+                            <Tooltip text={ __( 'Line Height', '@@text_domain' ) }>
                                 <div>
                                     <InputDrag
                                         value={ lineHeight }
@@ -271,7 +271,7 @@ export default class Typorgaphy extends Component {
                     ) : '' }
                     { typeof letterSpacing !== 'undefined' ? (
                         <div className="ghostkit-typography-letter-control">
-                            <Tooltip text={ __( 'Letter Spacing' ) }>
+                            <Tooltip text={ __( 'Letter Spacing', '@@text_domain' ) }>
                                 <div>
                                     <InputDrag
                                         value={ letterSpacing }

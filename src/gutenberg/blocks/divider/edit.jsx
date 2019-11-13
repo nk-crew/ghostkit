@@ -27,7 +27,7 @@ const {
 const {
     InspectorControls,
     BlockControls,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies
@@ -73,22 +73,22 @@ class BlockEdit extends Component {
                     <Toolbar>
                         <DropdownMenu
                             icon="minus"
-                            label={ __( 'Type' ) }
+                            label={ __( 'Type', '@@text_domain' ) }
                             controls={ [
                                 {
-                                    title: __( 'Line' ),
+                                    title: __( 'Line', '@@text_domain' ),
                                     onClick: () => setAttributes( { type: 'solid' } ),
                                 },
                                 {
-                                    title: __( 'Dashed' ),
+                                    title: __( 'Dashed', '@@text_domain' ),
                                     onClick: () => setAttributes( { type: 'dashed' } ),
                                 },
                                 {
-                                    title: __( 'Dotted' ),
+                                    title: __( 'Dotted', '@@text_domain' ),
                                     onClick: () => setAttributes( { type: 'dotted' } ),
                                 },
                                 {
-                                    title: __( 'Double' ),
+                                    title: __( 'Double', '@@text_domain' ),
                                     onClick: () => setAttributes( { type: 'double' } ),
                                 },
                             ] }
@@ -98,27 +98,27 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <SelectControl
-                            label={ __( 'Type' ) }
+                            label={ __( 'Type', '@@text_domain' ) }
                             value={ type }
                             options={ [
                                 {
                                     value: 'solid',
-                                    label: __( 'Line' ),
+                                    label: __( 'Line', '@@text_domain' ),
                                 }, {
                                     value: 'dashed',
-                                    label: __( 'Dashed' ),
+                                    label: __( 'Dashed', '@@text_domain' ),
                                 }, {
                                     value: 'dotted',
-                                    label: __( 'Dotted' ),
+                                    label: __( 'Dotted', '@@text_domain' ),
                                 }, {
                                     value: 'double',
-                                    label: __( 'Double' ),
+                                    label: __( 'Double', '@@text_domain' ),
                                 },
                             ] }
                             onChange={ ( value ) => setAttributes( { type: value } ) }
                         />
                         <RangeControl
-                            label={ __( 'Size' ) }
+                            label={ __( 'Size', '@@text_domain' ) }
                             value={ size }
                             onChange={ ( value ) => setAttributes( { size: value } ) }
                             min={ 1 }
@@ -129,13 +129,13 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <IconPicker
-                            label={ __( 'Icon' ) }
+                            label={ __( 'Icon', '@@text_domain' ) }
                             value={ icon }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                         { icon ? (
                             <RangeControl
-                                label={ __( 'Icon Size' ) }
+                                label={ __( 'Icon Size', '@@text_domain' ) }
                                 value={ iconSize }
                                 onChange={ ( value ) => setAttributes( { iconSize: value } ) }
                                 min={ 10 }
@@ -147,7 +147,7 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody title={ (
                         <Fragment>
-                            { __( 'Colors' ) }
+                            { __( 'Colors', '@@text_domain' ) }
                             <ColorIndicator colorValue={ color } />
                             { icon ? (
                                 <ColorIndicator colorValue={ iconColor } />
@@ -159,12 +159,12 @@ class BlockEdit extends Component {
                             tabs={ [
                                 {
                                     name: 'normal',
-                                    title: __( 'Normal' ),
+                                    title: __( 'Normal', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                                 {
                                     name: 'hover',
-                                    title: __( 'Hover' ),
+                                    title: __( 'Hover', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
                             ] }>
@@ -175,7 +175,7 @@ class BlockEdit extends Component {
                                         <Fragment>
                                             <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
                                                 <ColorPicker
-                                                    label={ __( 'Divider' ) }
+                                                    label={ __( 'Divider', '@@text_domain' ) }
                                                     value={ isHover ? hoverColor : color }
                                                     onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
                                                     alpha={ true }
@@ -184,7 +184,7 @@ class BlockEdit extends Component {
                                             { icon ? (
                                                 <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverIconColor' : 'iconColor' } props={ this.props }>
                                                     <ColorPicker
-                                                        label={ __( 'Icon' ) }
+                                                        label={ __( 'Icon', '@@text_domain' ) }
                                                         value={ isHover ? hoverIconColor : iconColor }
                                                         onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
                                                         alpha={ true }

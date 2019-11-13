@@ -12,9 +12,10 @@ const {
 
 const {
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 export default [
+    // v1.0.0
     {
         ghostkit: {
             supports: {

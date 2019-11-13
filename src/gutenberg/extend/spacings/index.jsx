@@ -27,7 +27,7 @@ const {
     createHigherOrderComponent,
 } = wp.compose;
 
-const { InspectorControls } = wp.editor;
+const { InspectorControls } = wp.blockEditor;
 
 const {
     BaseControl,
@@ -38,9 +38,11 @@ const {
 /**
  * Internal dependencies
  */
+import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
 import InputDrag from '../../components/input-drag';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ActiveIndicator from '../../components/active-indicator';
 
 const {
     GHOSTKIT,
@@ -159,12 +161,16 @@ class SpacingsComponent extends Component {
         const props = this.props;
         let allow = false;
 
+        const {
+            ghostkitSpacings,
+        } = props.attributes;
+
         if ( GHOSTKIT.hasBlockSupport( props.name, 'spacings', false ) || GHOSTKIT.hasBlockSupport( props.name, 'indents', false ) ) {
             allow = true;
         }
 
         if ( ! allow ) {
-            allow = addCoreBlocksSupport( props.name );
+            allow = checkCoreBlock( props.name );
             allow = applyFilters(
                 'ghostkit.blocks.allowSpacings',
                 allow,
@@ -183,7 +189,7 @@ class SpacingsComponent extends Component {
             return '';
         }
 
-        const iconsColor = {};
+        const filledTabs = {};
         const allSpacings = [
             'marginLeft',
             'marginTop',
@@ -195,11 +201,14 @@ class SpacingsComponent extends Component {
             'paddingBottom',
         ];
         if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
-            Object.keys( ghostkitVariables.media_sizes ).forEach( ( media ) => {
-                iconsColor[ media ] = '#cccccc';
+            [
+                'all',
+                ...Object.keys( ghostkitVariables.media_sizes ),
+            ].forEach( ( media ) => {
+                filledTabs[ media ] = false;
                 allSpacings.forEach( ( spacing ) => {
-                    if ( this.getCurrentSpacing( spacing, media !== 'all' ? `media_${ media }` : media ) ) {
-                        delete iconsColor[ media ];
+                    if ( this.getCurrentSpacing( spacing, media !== 'all' ? `media_${ media }` : '' ) ) {
+                        filledTabs[ media ] = true;
                     }
                 } );
             } );
@@ -214,7 +223,10 @@ class SpacingsComponent extends Component {
                             <span className="ghostkit-ext-icon">
                                 { getIcon( 'extension-spacings' ) }
                             </span>
-                            <span>{ __( 'Spacings' ) }</span>
+                            <span>{ __( 'Spacings', '@@text_domain' ) }</span>
+                            { ghostkitSpacings && Object.keys( ghostkitSpacings ).length ? (
+                                <ActiveIndicator />
+                            ) : '' }
                         </Fragment>
                     ) }
                     initialOpen={ initialOpenPanel }
@@ -222,7 +234,7 @@ class SpacingsComponent extends Component {
                         initialOpenPanel = ! initialOpenPanel;
                     } }
                 >
-                    <ResponsiveTabPanel iconsColor={ iconsColor }>
+                    <ResponsiveTabPanel filledTabs={ filledTabs }>
                         {
                             ( tabData ) => {
                                 let device = '';
@@ -236,7 +248,7 @@ class SpacingsComponent extends Component {
                                         <BaseControl className="ghostkit-control-spacing">
                                             { getIcon( 'icon-box' ) }
                                             <div className="ghostkit-control-spacing-margin">
-                                                <span>{ __( 'Margin' ) }</span>
+                                                <span>{ __( 'Margin', '@@text_domain' ) }</span>
                                                 <div className="ghostkit-control-spacing-margin-left">
                                                     <InputDrag
                                                         value={ this.getCurrentSpacing( 'marginLeft', device ) }
@@ -271,7 +283,7 @@ class SpacingsComponent extends Component {
                                                 </div>
                                             </div>
                                             <div className="ghostkit-control-spacing-padding">
-                                                <span>{ __( 'Padding' ) }</span>
+                                                <span>{ __( 'Padding', '@@text_domain' ) }</span>
                                                 <div className="ghostkit-control-spacing-padding-left">
                                                     <InputDrag
                                                         value={ this.getCurrentSpacing( 'paddingLeft', device ) }
@@ -307,7 +319,7 @@ class SpacingsComponent extends Component {
                                             </div>
                                             <div className="ghostkit-control-spacing-important">
                                                 <CheckboxControl
-                                                    label={ __( '!important' ) }
+                                                    label={ '!important' }
                                                     checked={ !! this.getCurrentSpacing( '!important', device ) }
                                                     onChange={ ( nextValue ) => this.updateSpacings( '!important', nextValue, device ) }
                                                 />
@@ -320,22 +332,11 @@ class SpacingsComponent extends Component {
                     </ResponsiveTabPanel>
 
                     <p style={ { marginBottom: 20 } }></p>
-                    <BaseControl help={ __( 'Spacings settings will only take effect on Ghost Kit blocks. Core blocks will have spacings only on the preview or live page, and not while you\'re in editing mode.' ) } />
+                    <BaseControl help={ __( 'Spacings settings will only take effect on Ghost Kit blocks. Core blocks will have spacings only on the preview or live page, and not while you\'re in editing mode.', '@@text_domain' ) } />
                 </PanelBody>
             </InspectorControls>
         );
     }
-}
-
-/**
- * Add support for core blocks.
- *
- * @param {String} name - block name.
- *
- * @return {Boolean} block supported.
- */
-function addCoreBlocksSupport( name ) {
-    return name && /^core/.test( name ) && ! /^core\/block$/.test( name ) && ! /^core\/archives/.test( name );
 }
 
 /**
@@ -352,7 +353,7 @@ function allowCustomStyles( allow, settings ) {
     }
 
     if ( ! allow ) {
-        allow = addCoreBlocksSupport( settings.name );
+        allow = checkCoreBlock( settings.name );
         allow = applyFilters(
             'ghostkit.blocks.allowSpacings',
             allow,
@@ -384,7 +385,7 @@ function addAttribute( settings ) {
     }
 
     if ( ! allow ) {
-        allow = addCoreBlocksSupport( settings.name );
+        allow = checkCoreBlock( settings.name );
         allow = applyFilters(
             'ghostkit.blocks.allowSpacings',
             allow,

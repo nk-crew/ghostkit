@@ -21,7 +21,7 @@ const {
     createHigherOrderComponent,
 } = wp.compose;
 
-const { InspectorControls } = wp.editor;
+const { InspectorControls } = wp.blockEditor;
 
 const {
     PanelBody,
@@ -33,9 +33,11 @@ const {
 /**
  * Internal dependencies
  */
+import checkCoreBlock from '../check-core-block';
 import { getActiveClass, replaceClass, addClass, removeClass, hasClass } from '../../utils/classes-replacer';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 import getIcon from '../../utils/get-icon';
+import ActiveIndicator from '../../components/active-indicator';
 
 const {
     GHOSTKIT,
@@ -54,28 +56,17 @@ let initialOpenPanel = false;
 const getDefaultDisplay = function( screen = '' ) {
     return [
         {
-            label: screen === 'all' ? __( 'Default' ) : __( 'Inherit' ),
+            label: screen === 'all' ? __( 'Default', '@@text_domain' ) : __( 'Inherit', '@@text_domain' ),
             value: '',
         }, {
-            label: __( 'Show' ),
+            label: __( 'Show', '@@text_domain' ),
             value: 'block',
         }, {
-            label: __( 'Hide' ),
+            label: __( 'Hide', '@@text_domain' ),
             value: 'none',
         },
     ];
 };
-
-/**
- * Add support for core blocks.
- *
- * @param {String} name - block name.
- *
- * @return {Boolean} block supported.
- */
-function addCoreBlocksSupport( name ) {
-    return name && /^core/.test( name ) && ! /^core\/block$/.test( name ) && ! /^core\/archives/.test( name );
-}
 
 /**
  * Override the default edit UI to include a new block inspector control for
@@ -157,6 +148,10 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
         render() {
             const props = this.props;
+            const {
+                className,
+            } = props.attributes;
+
             let allow = false;
 
             if ( hasBlockSupport( props.name, 'customClassName', true ) ) {
@@ -167,7 +162,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 if ( ! allow ) {
                     allow = applyFilters(
                         'ghostkit.blocks.allowDisplay',
-                        addCoreBlocksSupport( props.name ),
+                        checkCoreBlock( props.name ),
                         props,
                         props.name
                     );
@@ -178,12 +173,13 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 return <OriginalComponent { ...props } />;
             }
 
-            const iconsColor = {};
+            const filledTabs = {};
             if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
-                Object.keys( ghostkitVariables.media_sizes ).forEach( ( media ) => {
-                    if ( ! this.getCurrentDisplay( media ) ) {
-                        iconsColor[ media ] = '#cccccc';
-                    }
+                [
+                    'all',
+                    ...Object.keys( ghostkitVariables.media_sizes ),
+                ].forEach( ( media ) => {
+                    filledTabs[ media ] = !! this.getCurrentDisplay( media );
                 } );
             }
 
@@ -201,7 +197,10 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     <span className="ghostkit-ext-icon">
                                         { getIcon( 'extension-display' ) }
                                     </span>
-                                    <span>{ __( 'Display' ) }</span>
+                                    <span>{ __( 'Display', '@@text_domain' ) }</span>
+                                    { className && getActiveClass( className, 'ghostkit-d' ) ? (
+                                        <ActiveIndicator />
+                                    ) : '' }
                                 </Fragment>
                             ) }
                             initialOpen={ initialOpenPanel }
@@ -209,7 +208,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 initialOpenPanel = ! initialOpenPanel;
                             } }
                         >
-                            <ResponsiveTabPanel iconsColor={ iconsColor }>
+                            <ResponsiveTabPanel filledTabs={ filledTabs }>
                                 {
                                     ( tabData ) => {
                                         return (
@@ -236,7 +235,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     }
                                 }
                             </ResponsiveTabPanel>
-                            <BaseControl help={ __( 'Display settings will only take effect once you are on the preview or live page, and not while you\'re in editing mode.' ) } />
+                            <BaseControl help={ __( 'Display settings will only take effect once you are on the preview or live page, and not while you\'re in editing mode.', '@@text_domain' ) } />
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>

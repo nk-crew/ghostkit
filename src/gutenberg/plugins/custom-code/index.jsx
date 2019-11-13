@@ -17,7 +17,6 @@ const { apiFetch } = wp;
 const { compose } = wp.compose;
 
 const { PluginMoreMenuItem } = wp.editPost;
-const { registerPlugin } = wp.plugins;
 
 const {
     withSelect,
@@ -95,7 +94,7 @@ class CustomCodeModal extends Component {
                 className="ghostkit-plugin-custom-code-modal"
                 position="top"
                 size="md"
-                title={ __( 'CSS & JavaScript' ) }
+                title={ __( 'CSS & JavaScript', '@@text_domain' ) }
                 onRequestClose={ () => {
                     const local = this.props.meta || {};
                     const global = this.props.customCode || {};
@@ -141,9 +140,9 @@ class CustomCodeModal extends Component {
                         {
                             name: 'local',
                             title: (
-                                <Tooltip text={ __( 'All changes will be applied on the current page only.' ) }>
+                                <Tooltip text={ __( 'All changes will be applied on the current page only.', '@@text_domain' ) }>
                                     <span>
-                                        { __( 'Local' ) }
+                                        { __( 'Local', '@@text_domain' ) }
                                     </span>
                                 </Tooltip>
                             ),
@@ -152,9 +151,9 @@ class CustomCodeModal extends Component {
                         {
                             name: 'global',
                             title: (
-                                <Tooltip text={ __( 'All changes will be applied site wide.' ) }>
+                                <Tooltip text={ __( 'All changes will be applied site wide.', '@@text_domain' ) }>
                                     <span>
-                                        { __( 'Global' ) }
+                                        { __( 'Global', '@@text_domain' ) }
                                     </span>
                                 </Tooltip>
                             ),
@@ -168,7 +167,7 @@ class CustomCodeModal extends Component {
 
                             return (
                                 <Fragment>
-                                    <h4>{ __( 'CSS' ) }</h4>
+                                    <h4>{ __( 'CSS', '@@text_domain' ) }</h4>
                                     <CodeEditor
                                         mode="css"
                                         onChange={ value => {
@@ -182,8 +181,8 @@ class CustomCodeModal extends Component {
                                         height="300px"
                                     />
 
-                                    <h4>{ __( 'JavaScript' ) }</h4>
-                                    <p className="ghostkit-help-text">{ __( 'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.' ) }</p>
+                                    <h4>{ __( 'JavaScript', '@@text_domain' ) }</h4>
+                                    <p className="ghostkit-help-text">{ __( 'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.', '@@text_domain' ) }</p>
                                     <p><code className="ghostkit-code">{ '<head>' }</code> :</p>
                                     <CodeEditor
                                         mode="javascript"
@@ -251,7 +250,11 @@ const CustomCodeModalWithSelect = compose( [
 
 export { CustomCodeModalWithSelect as CustomCodeModal };
 
-export class CustomCodePlugin extends Component {
+export const name = 'ghostkit-custom-code';
+
+export const icon = null;
+
+export class Plugin extends Component {
     constructor() {
         super( ...arguments );
 
@@ -273,7 +276,7 @@ export class CustomCodePlugin extends Component {
                         this.setState( { isModalOpen: true } );
                     } }
                 >
-                    { __( 'CSS & JavaScript' ) }
+                    { __( 'CSS & JavaScript', '@@text_domain' ) }
                 </PluginMoreMenuItem>
                 { isModalOpen ? (
                     <CustomCodeModalWithSelect
@@ -284,8 +287,3 @@ export class CustomCodePlugin extends Component {
         );
     }
 }
-
-registerPlugin( 'ghostkit-custom-code', {
-    icon: null,
-    render: CustomCodePlugin,
-} );

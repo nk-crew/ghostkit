@@ -31,7 +31,7 @@ const {
 const {
     InspectorControls,
     BlockControls,
-} = wp.editor;
+} = wp.blockEditor;
 
 const { apiFetch } = wp;
 
@@ -210,11 +210,11 @@ class BlockEdit extends Component {
                 { 'custom' === style ? (
                     <Fragment>
                         <TextareaControl
-                            placeholder={ __( 'Enter Style JSON' ) }
+                            placeholder={ __( 'Enter Style JSON', '@@text_domain' ) }
                             value={ styleCustom }
                             onChange={ ( value ) => setAttributes( { styleCustom: value } ) }
                         />
-                        <p><em>{ __( 'You can use custom styles presets from the' ) } <a href="https://snazzymaps.com/" target="_blank" rel="noopener noreferrer">{ __( 'Snazzy Maps' ) }</a>.</em></p>
+                        <p><em>{ __( 'You can use custom styles presets from the', '@@text_domain' ) } <a href="https://snazzymaps.com/" target="_blank" rel="noopener noreferrer">{ __( 'Snazzy Maps', '@@text_domain' ) }</a>.</em></p>
                     </Fragment>
                 ) : '' }
             </Fragment>
@@ -317,7 +317,7 @@ class BlockEdit extends Component {
                     <Toolbar controls={ [
                         {
                             icon: getIcon( 'icon-fullheight' ),
-                            title: __( 'Full Height' ),
+                            title: __( 'Full Height', '@@text_domain' ),
                             onClick: () => setAttributes( { fullHeight: ! fullHeight } ),
                             isActive: fullHeight,
                         },
@@ -326,7 +326,7 @@ class BlockEdit extends Component {
                         controls={ [
                             {
                                 icon: getIcon( 'icon-marker' ),
-                                title: __( 'Add Marker' ),
+                                title: __( 'Add Marker', '@@text_domain' ),
                                 onClick: () => {
                                     setAttributes( {
                                         markers: [
@@ -344,7 +344,7 @@ class BlockEdit extends Component {
                         <Dropdown
                             renderToggle={ ( { onToggle } ) => (
                                 <IconButton
-                                    label={ __( 'Style' ) }
+                                    label={ __( 'Style', '@@text_domain' ) }
                                     icon={ getIcon( 'icon-map' ) }
                                     className="components-toolbar__control"
                                     onClick={ onToggle }
@@ -369,33 +369,33 @@ class BlockEdit extends Component {
                         <Fragment>
                             <PanelBody>
                                 <ToggleControl
-                                    label={ __( 'Full Height' ) }
+                                    label={ __( 'Full Height', '@@text_domain' ) }
                                     checked={ !! fullHeight }
                                     onChange={ ( val ) => setAttributes( { fullHeight: val } ) }
                                 />
                                 <RangeControl
-                                    label={ fullHeight ? __( 'Minimal Height' ) : __( 'Height' ) }
+                                    label={ fullHeight ? __( 'Minimal Height', '@@text_domain' ) : __( 'Height', '@@text_domain' ) }
                                     value={ height }
                                     onChange={ ( value ) => setAttributes( { height: value } ) }
                                     min={ 100 }
                                     max={ 800 }
                                 />
                                 <RangeControl
-                                    label={ __( 'Zoom' ) }
+                                    label={ __( 'Zoom', '@@text_domain' ) }
                                     value={ zoom }
                                     onChange={ ( value ) => setAttributes( { zoom: value } ) }
                                     min={ 1 }
                                     max={ 18 }
                                 />
                             </PanelBody>
-                            <PanelBody title={ __( 'Markers' ) }>
+                            <PanelBody title={ __( 'Markers', '@@text_domain' ) }>
                                 { markers && markers.length > 0 ? (
                                     <ul className="ghostkit-google-maps-markers">
                                         { markers.map( ( marker, index ) => (
                                             <li key={ index }>
                                                 <SearchBox
                                                     googleMapURL={ mapsUrl + '&key=' + encodeURIComponent( this.state.apiKey ) }
-                                                    placeholder={ __( 'Enter address' ) }
+                                                    placeholder={ __( 'Enter address', '@@text_domain' ) }
                                                     value={ marker.address || this.state.addresses[ marker.lat + marker.lng ] || '' }
                                                     onChange={ ( value ) => {
                                                         if ( value && value[ 0 ] ) {
@@ -436,7 +436,7 @@ class BlockEdit extends Component {
                                                     } }
                                                     className="ghostkit-google-maps-marker-remove"
                                                 >
-                                                    { __( 'Remove Marker' ) }
+                                                    { __( 'Remove Marker', '@@text_domain' ) }
                                                 </Button>
                                             </li>
                                         ) ) }
@@ -456,40 +456,40 @@ class BlockEdit extends Component {
                                         } );
                                     } }
                                 >
-                                    { __( '+ Add Marker' ) }
+                                    { __( '+ Add Marker', '@@text_domain' ) }
                                 </Button>
                             </PanelBody>
-                            <PanelBody title={ __( 'Style' ) }>
+                            <PanelBody title={ __( 'Style', '@@text_domain' ) }>
                                 { this.getStylesPicker() }
                             </PanelBody>
-                            <PanelBody title={ __( 'Options' ) }>
+                            <PanelBody title={ __( 'Options', '@@text_domain' ) }>
                                 <ToggleControl
-                                    label={ __( 'Zoom Buttons' ) }
+                                    label={ __( 'Zoom Buttons', '@@text_domain' ) }
                                     checked={ !! showZoomButtons }
                                     onChange={ ( val ) => setAttributes( { showZoomButtons: val } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Map Type Buttons' ) }
+                                    label={ __( 'Map Type Buttons', '@@text_domain' ) }
                                     checked={ !! showMapTypeButtons }
                                     onChange={ ( val ) => setAttributes( { showMapTypeButtons: val } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Street View Button' ) }
+                                    label={ __( 'Street View Button', '@@text_domain' ) }
                                     checked={ !! showStreetViewButton }
                                     onChange={ ( val ) => setAttributes( { showStreetViewButton: val } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Fullscreen Button' ) }
+                                    label={ __( 'Fullscreen Button', '@@text_domain' ) }
                                     checked={ !! showFullscreenButton }
                                     onChange={ ( val ) => setAttributes( { showFullscreenButton: val } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Scroll Wheel' ) }
+                                    label={ __( 'Scroll Wheel', '@@text_domain' ) }
                                     checked={ !! optionScrollWheel }
                                     onChange={ ( val ) => setAttributes( { optionScrollWheel: val } ) }
                                 />
                                 <ToggleControl
-                                    label={ __( 'Draggable' ) }
+                                    label={ __( 'Draggable', '@@text_domain' ) }
                                     checked={ !! optionDraggable }
                                     onChange={ ( val ) => setAttributes( { optionDraggable: val } ) }
                                 />
@@ -497,24 +497,24 @@ class BlockEdit extends Component {
                                     <ToggleControl
                                         label={ ( () => {
                                             if ( optionScrollWheel && optionDraggable ) {
-                                                return __( 'Better Scroll & Draggable' );
+                                                return __( 'Better Scroll & Draggable', '@@text_domain' );
                                             }
                                             if ( optionScrollWheel ) {
-                                                return __( 'Better Scroll' );
+                                                return __( 'Better Scroll', '@@text_domain' );
                                             }
                                             if ( optionDraggable ) {
-                                                return __( 'Better Draggable' );
+                                                return __( 'Better Draggable', '@@text_domain' );
                                             }
                                         } )() }
                                         help={ ( () => {
                                             if ( optionScrollWheel && optionDraggable ) {
-                                                return __( 'Scroll with pressed Ctrl or ⌘ key to zoom. Draggable with two fingers.' );
+                                                return __( 'Scroll with pressed Ctrl or ⌘ key to zoom. Draggable with two fingers.', '@@text_domain' );
                                             }
                                             if ( optionScrollWheel ) {
-                                                return __( 'Scroll with pressed Ctrl or ⌘ key to zoom.' );
+                                                return __( 'Scroll with pressed Ctrl or ⌘ key to zoom.', '@@text_domain' );
                                             }
                                             if ( optionDraggable ) {
-                                                return __( 'Draggable with two fingers.' );
+                                                return __( 'Draggable with two fingers.', '@@text_domain' );
                                             }
                                         } )() }
                                         checked={ gestureHandling === 'cooperative' }
@@ -526,9 +526,9 @@ class BlockEdit extends Component {
                             </PanelBody>
                         </Fragment>
                     ) : '' }
-                    <PanelBody title={ __( 'API Key' ) } initialOpen={ ! this.state.apiKey }>
+                    <PanelBody title={ __( 'API Key', '@@text_domain' ) } initialOpen={ ! this.state.apiKey }>
                         <TextControl
-                            placeholder={ __( 'Enter API Key' ) }
+                            placeholder={ __( 'Enter API Key', '@@text_domain' ) }
                             value={ this.state.apiKey }
                             onChange={ ( value ) => {
                                 this.setState( { apiKey: value } );
@@ -536,8 +536,8 @@ class BlockEdit extends Component {
                                 this.saveAPIKey();
                             } }
                         />
-                        <p><em>{ __( 'A valid API key is required to use Google Maps. How to get API key' ) } <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">{ __( 'read here' ) }</a>.</em></p>
-                        <p><em>{ __( 'This key will be used in all Google Maps blocks on your site.' ) }</em></p>
+                        <p><em>{ __( 'A valid API key is required to use Google Maps. How to get API key', '@@text_domain' ) } <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">{ __( 'read here', '@@text_domain' ) }</a>.</em></p>
+                        <p><em>{ __( 'This key will be used in all Google Maps blocks on your site.', '@@text_domain' ) }</em></p>
                     </PanelBody>
                 </InspectorControls>
 
@@ -573,8 +573,8 @@ class BlockEdit extends Component {
                                 <div className="ghostkit-google-maps-search">
                                     <SearchBox
                                         googleMapURL={ mapsUrl + '&key=' + encodeURIComponent( this.state.apiKey ) }
-                                        label={ __( 'Center Map' ) }
-                                        placeholder={ __( 'Enter search query' ) }
+                                        label={ __( 'Center Map', '@@text_domain' ) }
+                                        placeholder={ __( 'Enter search query', '@@text_domain' ) }
                                         onChange={ ( value ) => {
                                             if ( value && value[ 0 ] ) {
                                                 setAttributes( {
@@ -586,7 +586,7 @@ class BlockEdit extends Component {
                                         className="ghostkit-google-maps-search-box"
                                     />
                                     <div className="ghostkit-google-maps-search-note">
-                                        <p><small>{ __( 'You can also drag the map to change the center coordinates.' ) }</small></p>
+                                        <p><small>{ __( 'You can also drag the map to change the center coordinates.', '@@text_domain' ) }</small></p>
                                     </div>
                                 </div>
                             ) : '' }
@@ -598,8 +598,8 @@ class BlockEdit extends Component {
                         >
                             <IconMarker />
                             <div className="ghostkit-google-maps-placeholder-key">
-                                <div><strong>{ __( 'Google Maps API Key Required' ) }</strong></div>
-                                <div><small>{ __( 'Add an API key in block settings.' ) }</small></div>
+                                <div><strong>{ __( 'Google Maps API Key Required', '@@text_domain' ) }</strong></div>
+                                <div><small>{ __( 'Add an API key in block settings.', '@@text_domain' ) }</small></div>
                             </div>
                         </div>
                     ) }

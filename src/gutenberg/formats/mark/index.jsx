@@ -11,7 +11,7 @@ const {
 const {
     RichTextToolbarButton,
     RichTextShortcut,
-} = wp.editor;
+} = wp.blockEditor;
 
 const {
     toggleFormat,
@@ -25,7 +25,7 @@ import getIcon from '../../utils/get-icon';
 export const name = 'ghostkit/mark';
 
 export const settings = {
-    title: __( 'Highlight' ),
+    title: __( 'Highlight', '@@text_domain' ),
     tagName: 'mark',
     className: 'ghostkit-highlight',
     edit: class HighlightFormat extends Component {
@@ -64,7 +64,7 @@ export const settings = {
                     <RichTextToolbarButton
                         shortcutCharacter="m"
                         shortcutType="access"
-                        title={ __( 'Highlight' ) }
+                        title={ __( 'Highlight', '@@text_domain' ) }
                         icon={ getIcon( 'icon-felt-pen' ) }
                         onClick={ this.toggleMark }
                         isActive={ isActive }

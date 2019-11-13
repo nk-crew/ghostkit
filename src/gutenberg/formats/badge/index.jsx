@@ -17,7 +17,7 @@ const {
 const {
     RichTextToolbarButton,
     ColorPalette,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ import { BadgePopover, getSelectedBadge } from './badge-popover';
 export const name = 'ghostkit/badge';
 
 export const settings = {
-    title: __( 'Badge' ),
+    title: __( 'Badge', '@@text_domain' ),
     tagName: 'span',
     className: 'ghostkit-badge',
     attributes: {

@@ -8,7 +8,7 @@ cfg.dist_root = './dist';
 cfg.dist = '{dist_root}/ghostkit';
 
 // Template variables that will be automatically replaced.
-cfg.template_files_src = '{src}/**/*.{md,php,js,css}';
+cfg.template_files_src = '{dist}/**/*.{md,php,js,jsx,css,pot}';
 cfg.template_files_variables = {
     text_domain: pkg.name,
     plugin_version: pkg.version,
@@ -33,14 +33,17 @@ cfg.compile_jsx_files_src = [ '{src}/*gutenberg/index.jsx', '{src}/*settings/ind
 cfg.correct_line_endings_files_src = '{dist}/**/*.{js,css}';
 
 // Translate PHP files.
-cfg.translate_php_files_src = '{dist}/**/*.php';
-cfg.translate_php_files_dist = `{dist}/languages/${ cfg.template_files_variables.plugin_name }.pot`;
-cfg.translate_php_options = {
-    domain: cfg.template_files_variables.text_domain,
-    package: cfg.template_files_variables.plugin_title,
-    lastTranslator: cfg.template_files_variables.plugin_author,
-    team: cfg.template_files_variables.plugin_author,
-};
+//
+// FOR TRANSLATIONS USED NPM SCRIPT "wp-make-pot", which supports js translations also.
+//
+// cfg.translate_php_files_src = '{dist}/**/*.php';
+// cfg.translate_php_files_dist = `{dist}/languages/${ cfg.template_files_variables.plugin_name }.pot`;
+// cfg.translate_php_options = {
+//     domain: cfg.template_files_variables.text_domain,
+//     package: cfg.template_files_variables.plugin_title,
+//     lastTranslator: cfg.template_files_variables.plugin_author,
+//     team: cfg.template_files_variables.plugin_author,
+// };
 
 // ZIP files.
 cfg.zip_files = [

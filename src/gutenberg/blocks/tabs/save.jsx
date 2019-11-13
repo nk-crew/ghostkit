@@ -15,7 +15,7 @@ const { Component } = wp.element;
 const {
     RichText,
     InnerBlocks,
-} = wp.editor;
+} = wp.blockEditor;
 
 /**
  * Internal dependencies
@@ -31,11 +31,15 @@ class BlockSave extends Component {
     render() {
         const {
             tabActive,
+            buttonsVerticalAlign,
             buttonsAlign,
             tabsData = [],
         } = this.props.attributes;
 
-        let className = 'ghostkit-tabs';
+        let className = classnames(
+            'ghostkit-tabs',
+            buttonsVerticalAlign ? 'ghostkit-tabs-buttons-vertical' : ''
+        );
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{
@@ -46,7 +50,10 @@ class BlockSave extends Component {
 
         return (
             <div className={ className } data-tab-active={ tabActive }>
-                <div className={ classnames( 'ghostkit-tabs-buttons', `ghostkit-tabs-buttons-align-${ buttonsAlign }` ) }>
+                <div className={ classnames(
+                    'ghostkit-tabs-buttons',
+                    `ghostkit-tabs-buttons-align-${ buttonsAlign }`
+                ) }>
                     {
                         tabsData.map( ( tabData ) => {
                             return (
