@@ -330,6 +330,7 @@ class GhostKit {
                          */
                     )
                 ) : array(),
+                'adobeProjectId' => is_admin() ? apply_filters( 'gkt_adobe_project_key', null ) : null,
                 'customTypographyList' => is_admin() ? apply_filters(
                     'gkt_custom_typography', array(
                         /**

@@ -158,6 +158,7 @@ function printFonts( typographyData ) {
 
     if ( isExist( webfontList ) && webfontList.length ) {
         const googleFamilies = [];
+        const adobeProjectId = GHOSTKIT.adobeProjectId;
         Object.keys( webfontList ).forEach( ( key ) => {
             if ( webfontList[ key ].family === 'google-fonts' ) {
                 let weights = '';
@@ -188,6 +189,14 @@ function printFonts( typographyData ) {
                     families: googleFamilies,
                 },
             } );
+        }
+        if ( adobeProjectId && GHOSTKIT[ 'added_adobe_fonts' ] !== adobeProjectId ) {
+            window.WebFont.load( {
+                typekit: {
+                    id: adobeProjectId,
+                },
+            } );
+            GHOSTKIT[ 'added_adobe_fonts' ] = adobeProjectId;
         }
     }
 }

@@ -37,6 +37,7 @@ window.GHOSTKIT = {
     icons: ghostkitVariables.icons,
     fonts: ghostkitVariables.fonts,
     customTypographyList: ghostkitVariables.customTypographyList,
+    adobeProjectId: ghostkitVariables.adobeProjectId,
     variants: ghostkitVariables.variants,
     getVariants( name ) {
         if ( typeof this.variants[ name ] !== 'undefined' ) {
