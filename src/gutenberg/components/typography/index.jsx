@@ -291,7 +291,7 @@ export default class Typorgaphy extends Component {
                             </Tooltip>
                         </div>
                     ) : '' }
-                    { typeof fontWeight !== 'undefined' && ( ( showFontSelectors && fontFamilyCategory === 'adobe-fonts' ) || fontFamilyCategory === 'google-fonts' || fontFamilyCategory === 'default' ) ? (
+                    { typeof fontWeight !== 'undefined' && showFontSelectors ? (
                         <div className="ghostkit-typography-weight-control">
                             <Tooltip text={ __( 'Font Weight', '@@text_domain' ) }>
                                 <div>
