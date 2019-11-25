@@ -38,4 +38,43 @@
     .ghostkit-typography-line-control + .ghostkit-typography-letter-control {
         padding-left: 20px;
     }
+    .ghostkit-typography-font-category-control {
+        .components-dropdown-menu {
+            padding: 0;
+            padding-right: 3px;
+        }
+        button.components-icon-button {
+            padding-top: 3px;
+        }
+    }
+}
+.ghostkit-typography-badge-pro-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 12px;
+    right: 20px;
+    bottom: 0;
+    width: 10%;
+    height: 14px;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 14px;
+    color: #fff;
+    text-align: center;
+    .ghostkit-typography-badge-pro {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 14px;
+        background: #1991d5;
+        border-radius: 100px;
+    }
+}
+.ghostkit-typography-information-control {
+    flex: 1 0 80%;
+    margin-bottom: 20px;
 }

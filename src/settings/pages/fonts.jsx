@@ -1,11 +1,9 @@
 /**
  * External dependencies
  */
-import { Component, Fragment } from 'react';
+import { Component } from 'react';
 
-const {
-    applyFilters,
-} = wp.hooks;
+import ApplyFilters from '../../gutenberg/components/apply-filters';
 
 /**
  * WordPress dependencies
@@ -13,17 +11,15 @@ const {
 
 const { __ } = wp.i18n;
 
-class FontsSettings extends Component {
+export default class FontsSettings extends Component {
     render() {
         return (
-            <div className="ghostkit-settings-content-wrapper ghostkit-settings-fonts">
-                <Fragment>
+            <ApplyFilters name="ghostkit.fonts.settings" props={ this.props }>
+                <div className="ghostkit-settings-content-wrapper ghostkit-settings-fonts">
                     { __( 'Adobe and Custom user fonts available for PRO users only. Read more about Ghost Kit PRO plugin here - ', '@@text_domain' ) }
-                    <a href={ 'https://ghostkit.io/pricing/' }>https://ghostkit.io/pricing/</a>
-                </Fragment>
-            </div>
+                    <a target={ '_blank' } href={ 'https://ghostkit.io/pricing/' }>https://ghostkit.io/pricing/</a>
+                </div>
+            </ApplyFilters>
         );
     }
 }
-
-export default applyFilters( 'ghostkit.settings.fonts', FontsSettings );

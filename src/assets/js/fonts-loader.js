@@ -1,7 +1,5 @@
 if ( typeof window.ghostkitWebfontList !== 'undefined' ) {
-    const adobeFonts = window.ghostkitWebfontList[ 'fonts_list' ][ 'adobe-fonts' ];
-    const googleFonts = window.ghostkitWebfontList[ 'fonts_list' ][ 'google-fonts' ];
-    const adobeProjectId = window.ghostkitWebfontList.adobeProjectId;
+    const googleFonts = window.ghostkitWebfontList[ 'google-fonts' ];
     if ( typeof googleFonts !== 'undefined' ) {
         const googleFamilies = [];
         for ( const key in googleFonts ) {
@@ -17,13 +15,6 @@ if ( typeof window.ghostkitWebfontList !== 'undefined' ) {
         window.WebFont.load( {
             google: {
                 families: googleFamilies,
-            },
-        } );
-    }
-    if ( typeof adobeFonts !== 'undefined' && typeof adobeProjectId !== 'undefined' ) {
-        window.WebFont.load( {
-            typekit: {
-                id: adobeProjectId,
             },
         } );
     }

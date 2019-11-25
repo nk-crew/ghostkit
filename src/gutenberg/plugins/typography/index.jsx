@@ -13,7 +13,9 @@ const {
 const { __ } = wp.i18n;
 const { Component } = wp.element;
 const { apiFetch } = wp;
-
+const {
+    applyFilters,
+} = wp.hooks;
 const { compose } = wp.compose;
 
 // prevent errors on Settings page, where wp.editPost is not available.
@@ -158,7 +160,6 @@ function printFonts( typographyData ) {
 
     if ( isExist( webfontList ) && webfontList.length ) {
         const googleFamilies = [];
-        const adobeProjectId = GHOSTKIT.adobeProjectId;
         Object.keys( webfontList ).forEach( ( key ) => {
             if ( webfontList[ key ].family === 'google-fonts' ) {
                 let weights = '';
@@ -190,14 +191,7 @@ function printFonts( typographyData ) {
                 },
             } );
         }
-        if ( adobeProjectId && GHOSTKIT[ 'added_adobe_fonts' ] !== adobeProjectId ) {
-            window.WebFont.load( {
-                typekit: {
-                    id: adobeProjectId,
-                },
-            } );
-            GHOSTKIT[ 'added_adobe_fonts' ] = adobeProjectId;
-        }
+        applyFilters( 'ghostkit.typography.print.fonts', webfontList );
     }
 }
 
