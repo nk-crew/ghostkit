@@ -32,7 +32,6 @@ import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 
 const { GHOSTKIT } = window;
-let fontFamilies = getFonts();
 
 /**
  * Get Default Font
@@ -206,11 +205,12 @@ export default class Typorgaphy extends Component {
         const fontWeightValue = { value: fontWeight, label: getFontWeightLabel( fontWeight ) };
         const fontSizeValue = typeof fontSize === 'undefined' ? '' : fontSize;
         const childOfClass = childOf !== '' ? ' ghostkit-typography-child' + ' ghostkit-typography-child-of-' + childOf : '';
-
-        fontFamilies = getFonts( fontFamilyCategory );
+        let fontFamilies;
 
         if ( 'default' === fontFamilyCategory ) {
             fontFamilies = getFonts( 'google-fonts' );
+        } else {
+            fontFamilies = getFonts( fontFamilyCategory );
         }
 
         return (

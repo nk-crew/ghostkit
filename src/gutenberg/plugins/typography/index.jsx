@@ -14,7 +14,7 @@ const { __ } = wp.i18n;
 const { Component } = wp.element;
 const { apiFetch } = wp;
 const {
-    applyFilters,
+    doAction,
 } = wp.hooks;
 const { compose } = wp.compose;
 
@@ -191,7 +191,7 @@ function printFonts( typographyData ) {
                 },
             } );
         }
-        applyFilters( 'ghostkit.typography.print.fonts', webfontList );
+        doAction( 'ghostkit.typography.print.fonts', webfontList );
     }
 }
 

@@ -73,7 +73,6 @@ import iconTypographyLetterSpacing from '../icons/icon-typography-letter-spacing
 import iconTypographyLineHeight from '../icons/icon-typography-line-height.svg';
 import iconTypographyGoogleFonts from '../icons/icon-google-fonts.svg';
 import iconTypographyAdobeFonts from '../icons/icon-adobe-fonts.svg';
-import iconProBadge from '../icons/icon-pro-badge.svg';
 
 export default {
     'block-accordion': blockAccordion,
@@ -148,5 +147,4 @@ export default {
     'icon-typography-line-height': iconTypographyLineHeight,
     'icon-typography-google-fonts': iconTypographyGoogleFonts,
     'icon-typography-adobe-fonts': iconTypographyAdobeFonts,
-    'icon-pro-badge': iconProBadge,
 };
