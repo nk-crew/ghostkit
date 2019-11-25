@@ -13,7 +13,9 @@ const {
 const { __ } = wp.i18n;
 const { Component } = wp.element;
 const { apiFetch } = wp;
-
+const {
+    doAction,
+} = wp.hooks;
 const { compose } = wp.compose;
 
 // prevent errors on Settings page, where wp.editPost is not available.
@@ -189,6 +191,7 @@ function printFonts( typographyData ) {
                 },
             } );
         }
+        doAction( 'ghostkit.typography.print.fonts', webfontList );
     }
 }
 

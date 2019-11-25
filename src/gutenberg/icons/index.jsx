@@ -71,6 +71,8 @@ import iconAspectRatio219 from '../icons/icon-aspect-ratio-21-9.svg';
 import iconTypographyFontSize from '../icons/icon-typography-font-size.svg';
 import iconTypographyLetterSpacing from '../icons/icon-typography-letter-spacing.svg';
 import iconTypographyLineHeight from '../icons/icon-typography-line-height.svg';
+import iconTypographyGoogleFonts from '../icons/icon-google-fonts.svg';
+import iconTypographyAdobeFonts from '../icons/icon-adobe-fonts.svg';
 
 export default {
     'block-accordion': blockAccordion,
@@ -143,4 +145,6 @@ export default {
     'icon-typography-font-size': iconTypographyFontSize,
     'icon-typography-letter-spacing': iconTypographyLetterSpacing,
     'icon-typography-line-height': iconTypographyLineHeight,
+    'icon-typography-google-fonts': iconTypographyGoogleFonts,
+    'icon-typography-adobe-fonts': iconTypographyAdobeFonts,
 };

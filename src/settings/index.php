@@ -161,6 +161,13 @@ class GhostKit_Settings {
         add_submenu_page(
             'ghostkit',
             '',
+            esc_html__( 'Fonts', '@@text_domain' ),
+            'manage_options',
+            'admin.php?page=ghostkit&sub_page=fonts'
+        );
+        add_submenu_page(
+            'ghostkit',
+            '',
             '<span class="dashicons dashicons-star-filled" style="font-size: 17px"></span> ' . esc_html__( 'Go Pro', '@@text_domain' ),
             'manage_options',
             'ghostkit_go_pro',
