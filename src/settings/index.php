@@ -154,16 +154,16 @@ class GhostKit_Settings {
         add_submenu_page(
             'ghostkit',
             '',
-            esc_html__( 'CSS & JavaScript', '@@text_domain' ),
+            esc_html__( 'Fonts', '@@text_domain' ),
             'manage_options',
-            'admin.php?page=ghostkit&sub_page=css_js'
+            'admin.php?page=ghostkit&sub_page=fonts'
         );
         add_submenu_page(
             'ghostkit',
             '',
-            esc_html__( 'Fonts', '@@text_domain' ),
+            esc_html__( 'CSS & JavaScript', '@@text_domain' ),
             'manage_options',
-            'admin.php?page=ghostkit&sub_page=fonts'
+            'admin.php?page=ghostkit&sub_page=css_js'
         );
         add_submenu_page(
             'ghostkit',

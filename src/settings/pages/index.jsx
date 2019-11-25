@@ -25,12 +25,12 @@ export default {
         label: __( 'Typography', '@@text_domain' ),
         block: Typography,
     },
-    css_js: {
-        label: __( 'CSS & JavaScript', '@@text_domain' ),
-        block: CssJs,
-    },
     fonts: {
         label: __( 'Fonts', '@@text_domain' ),
         block: Fonts,
+    },
+    css_js: {
+        label: __( 'CSS & JavaScript', '@@text_domain' ),
+        block: CssJs,
     },
 };
