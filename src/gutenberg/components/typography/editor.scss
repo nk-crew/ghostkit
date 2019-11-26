@@ -1,3 +1,5 @@
+@import "../../variables";
+
 /**
  * Typography Component CSS
  */
@@ -6,7 +8,7 @@
     flex-wrap: wrap;
 
     .ghostkit-component-input-drag .components-text-control__input:not(:focus) {
-        border-color: #ccc;
+        border-color: $light-gray-700;
     }
 
     .ghostkit-typography-font-control {
@@ -38,43 +40,59 @@
     .ghostkit-typography-line-control + .ghostkit-typography-letter-control {
         padding-left: 20px;
     }
+
+    // Information control.
+    .ghostkit-typography-information-control.ghostkit-typography-font-control {
+        flex: 1 0 80%;
+        font-style: italic;
+        color: $light-gray-900;
+    }
+
+    // Category control.
     .ghostkit-typography-font-category-control {
-        .components-dropdown-menu {
-            padding: 0;
-            padding-right: 3px;
+        padding: 0;
+        padding-right: 20px;
+
+        .ghostkit-typography-font-category-control-toggle {
+            height: 32px;
+            border: 1px solid $light-gray-700;
+
+            &:hover,
+            &:focus {
+                border-color: $light-gray-900;
+                // stylelint-disable-next-line
+                box-shadow: none !important;
+            }
+
+            svg {
+                width: 19px;
+                height: auto;
+                margin-left: 4px;
+            }
         }
-        button.components-icon-button {
-            padding-top: 3px;
+
+        .components-popover:not(.is-mobile) .components-popover__content {
+            min-width: 200px;
+        }
+        .components-menu-group {
+            padding: 0;
+
+            .components-button svg {
+                margin-right: 10px;
+                margin-left: 5px;
+            }
         }
     }
 }
-.ghostkit-typography-badge-pro-container {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    top: 12px;
-    right: 20px;
-    bottom: 0;
-    width: 10%;
+.ghostkit-typography-badge-pro {
     height: 14px;
+    padding: 0 5px;
+    margin-left: auto;
     font-size: 8px;
-    font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 14px;
     color: #fff;
     text-align: center;
-    .ghostkit-typography-badge-pro {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        height: 14px;
-        background: #1991d5;
-        border-radius: 100px;
-    }
-}
-.ghostkit-typography-information-control {
-    flex: 1 0 80%;
-    margin-bottom: 20px;
+    background-color: $blue-wordpress;
+    border-radius: 10px;
 }
