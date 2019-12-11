@@ -1,5 +1,4 @@
 <?php
-/* phpcs:ignoreFile */
 /**
  * Fonts for typography component
  *
