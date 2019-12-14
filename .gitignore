@@ -8,3 +8,5 @@
 /vendor
 /dist
 npm-debug.log
+.phpcs.xml
+phpcs.xml

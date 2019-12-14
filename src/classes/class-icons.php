@@ -1,5 +1,4 @@
 <?php
-/* phpcs:ignoreFile */
 /**
  * Icons for icon picker component
  *
