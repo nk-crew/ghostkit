@@ -189,7 +189,7 @@ class GhostKit_Instagram_Block {
                                             src="<?php echo esc_url( $item['images']['standard_resolution']['url'] ); ?>"
                                             width="<?php echo esc_attr( $item['images']['standard_resolution']['width'] ); ?>"
                                             height="<?php echo esc_attr( $item['images']['standard_resolution']['height'] ); ?>"
-                                            alt="<?php echo esc_attr( $item['caption'] ? : '' ); ?>"
+                                            alt="<?php echo esc_attr( isset( $item['caption']['text'] ) ? $item['caption']['text'] : '' ); ?>"
                                         >
                                     </a>
                                 </div>
