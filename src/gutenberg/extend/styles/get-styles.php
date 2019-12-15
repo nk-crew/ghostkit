@@ -29,7 +29,7 @@ class GhostKit_Block_Custom_Styles {
      * @return Boolean
      */
     private static function endswith( $string, $test ) {
-        $strlen = strlen( $string );
+        $strlen  = strlen( $string );
         $testlen = strlen( $test );
 
         if ( $testlen > $strlen ) {
@@ -82,7 +82,7 @@ class GhostKit_Block_Custom_Styles {
      * @return string - ready to use styles string.
      */
     public static function parse( $data = array(), $selector = '', $escape = true ) {
-        $result = array();
+        $result     = array();
         $result_css = '';
 
         // add styles.
@@ -112,7 +112,7 @@ class GhostKit_Block_Custom_Styles {
                             $nested_selector = str_replace( '&', $nested_selector, $k );
 
                             // inside exported xml file all & symbols converted to \u0026.
-                        } else if ( strpos( $k, 'u0026' ) !== false ) {
+                        } elseif ( strpos( $k, 'u0026' ) !== false ) {
                             $nested_selector = str_replace( 'u0026', $nested_selector, $k );
                         } else {
                             $nested_selector = $nested_selector . ' ' . $k;
@@ -143,7 +143,7 @@ class GhostKit_Block_Custom_Styles {
                     $result[ $selector ] = '';
                 }
 
-                $prop_name = self::camel2dash( $k );
+                $prop_name  = self::camel2dash( $k );
                 $prop_value = $val;
 
                 // inside exported xml file all " symbols converted to \u0022.
@@ -164,8 +164,15 @@ class GhostKit_Block_Custom_Styles {
 
                 // add pixels.
                 if (
-                    ( is_numeric( $prop_value ) && 0 !== $prop_value && in_array( $prop_name, self::$css_props_with_pixels ) ) ||
-                    ( is_string( $prop_value ) && preg_match( '/^[0-9.\-]*$/', $prop_value ) )
+                    (
+                        is_numeric( $prop_value ) &&
+                        0 !== $prop_value &&
+                        in_array( $prop_name, self::$css_props_with_pixels, true )
+                    ) ||
+                    (
+                        is_string( $prop_value ) &&
+                        preg_match( '/^[0-9.\-]*$/', $prop_value )
+                    )
                 ) {
                     $prop_value .= 'px';
                 }

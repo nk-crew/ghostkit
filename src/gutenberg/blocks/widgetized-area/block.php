@@ -26,7 +26,8 @@ class GhostKit_Widgetized_Area_Block {
     public function init() {
         if ( function_exists( 'register_block_type' ) ) {
             register_block_type(
-                'ghostkit/widgetized-area', array(
+                'ghostkit/widgetized-area',
+                array(
                     'render_callback' => array( $this, 'block_render' ),
                 )
             );
@@ -43,7 +44,7 @@ class GhostKit_Widgetized_Area_Block {
     public function block_render( $attributes ) {
         ob_start();
 
-        $class = isset( $attributes['className'] ) ? $attributes['className'] : '';
+        $class  = isset( $attributes['className'] ) ? $attributes['className'] : '';
         $class .= ' ghostkit-widgetized-area';
 
         if ( $attributes['id'] ) {

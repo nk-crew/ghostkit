@@ -68,7 +68,9 @@ class GhostKit_Customizer_Plugin {
      */
     public function register_meta() {
         register_meta(
-            'post', 'ghostkit_customizer_options', array(
+            'post',
+            'ghostkit_customizer_options',
+            array(
                 'show_in_rest' => true,
                 'single'       => true,
                 'type'         => 'string',
@@ -89,7 +91,8 @@ class GhostKit_Customizer_Plugin {
 
                 // get section and panel.
                 $section = false;
-                $panel = false;
+                $panel   = false;
+
                 if ( isset( $control->section ) ) {
                     $section_object = $wp_customize->get_section( $control->section );
                     if ( $section_object ) {

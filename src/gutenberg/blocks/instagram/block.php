@@ -26,7 +26,8 @@ class GhostKit_Instagram_Block {
     public function init() {
         if ( function_exists( 'register_block_type' ) ) {
             register_block_type(
-                'ghostkit/instagram', array(
+                'ghostkit/instagram',
+                array(
                     'render_callback' => array( $this, 'block_render' ),
                 )
             );
@@ -43,9 +44,9 @@ class GhostKit_Instagram_Block {
         $request = new WP_REST_Request( 'GET', '/ghostkit/v1/get_instagram_feed' );
         $request->set_query_params( $data );
         $response = rest_do_request( $request );
-        $server = rest_get_server();
-        $data = $server->response_to_data( $response, false );
-        $data = isset( $data['response'] ) ? $data['response'] : false;
+        $server   = rest_get_server();
+        $data     = $server->response_to_data( $response, false );
+        $data     = isset( $data['response'] ) ? $data['response'] : false;
 
         return isset( $data['data'] ) ? $data['data'] : false;
     }
@@ -60,9 +61,9 @@ class GhostKit_Instagram_Block {
         $request = new WP_REST_Request( 'GET', '/ghostkit/v1/get_instagram_profile' );
         $request->set_query_params( $data );
         $response = rest_do_request( $request );
-        $server = rest_get_server();
-        $data = $server->response_to_data( $response, false );
-        $data = isset( $data['response'] ) ? $data['response'] : false;
+        $server   = rest_get_server();
+        $data     = $server->response_to_data( $response, false );
+        $data     = isset( $data['response'] ) ? $data['response'] : false;
 
         return isset( $data['data'] ) ? $data['data'] : false;
     }
@@ -79,20 +80,21 @@ class GhostKit_Instagram_Block {
 
         $attributes = array_merge(
             array(
-                'variant' => 'default',
-                'accessToken' => '',
-                'count' => 8,
-                'columns' => 4,
-                'gap' => 'sm',
-                'showProfile' => true,
-                'showProfileAvatar' => true,
-                'profileAvatarSize' => 70,
-                'showProfileName' => true,
-                'showProfileBio' => true,
+                'variant'            => 'default',
+                'accessToken'        => '',
+                'count'              => 8,
+                'columns'            => 4,
+                'gap'                => 'sm',
+                'showProfile'        => true,
+                'showProfileAvatar'  => true,
+                'profileAvatarSize'  => 70,
+                'showProfileName'    => true,
+                'showProfileBio'     => true,
                 'showProfileWebsite' => true,
-                'showProfileStats' => true,
-                'className' => '',
-            ), $attributes
+                'showProfileStats'   => true,
+                'className'          => '',
+            ),
+            $attributes
         );
 
         $attributes['showProfile'] = $attributes['showProfile'] && ( $attributes['showProfileAvatar'] || $attributes['showProfileName'] || $attributes['showProfileBio'] || $attributes['showProfileWebsite'] || $attributes['showProfileStats'] );
@@ -117,10 +119,10 @@ class GhostKit_Instagram_Block {
         }
 
         if ( $attributes['accessToken'] ) {
-            $feed = $this->get_feed(
+            $feed    = $this->get_feed(
                 array(
                     'access_token' => $attributes['accessToken'],
-                    'count' => $attributes['count'],
+                    'count'        => $attributes['count'],
                 )
             );
             $profile = $this->get_profile(

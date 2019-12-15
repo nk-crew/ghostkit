@@ -17,7 +17,7 @@ class GhostKit_Reusable_Widget extends WP_Widget {
             'ghostkit_reusable_widget',
             esc_html__( 'Reusable Block', '@@text_domain' ),
             array(
-                'classname' => 'ghostkit-reusable-widget',
+                'classname'   => 'ghostkit-reusable-widget',
                 'description' => esc_html__( 'Display Gutenberg Reusable Blocks.', '@@text_domain' ),
             )
         );
@@ -55,8 +55,8 @@ class GhostKit_Reusable_Widget extends WP_Widget {
                 // render blocks.
                 // we need to render blocks manually just because on custom post types
                 // filter 'the_content' may not work if gutenberg support is disabled
-                // https://github.com/nk-o/ghostkit/issues/72
-                foreach( $blocks as $block ) {
+                // https://github.com/nk-o/ghostkit/issues/72.
+                foreach ( $blocks as $block ) {
                     echo do_shortcode( render_block( $block ) );
                 }
             }
@@ -71,12 +71,11 @@ class GhostKit_Reusable_Widget extends WP_Widget {
      * @param array $instance The widget options.
      */
     public function form( $instance ) {
-        $title = ! empty( $instance['title'] ) ? $instance['title'] : '';
+        $title          = ! empty( $instance['title'] ) ? $instance['title'] : '';
         $selected_block = ! empty( $instance['block'] ) ? $instance['block'] : '';
-        $blocks = get_posts(
+        $blocks         = get_posts(
             array(
                 'post_type'   => 'wp_block',
-                // phpcs:ignore
                 'numberposts' => -1,
             )
         );

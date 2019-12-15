@@ -90,6 +90,7 @@
         <properties>
             <property name="prefixes" type="array">
                 <element value="GhostKit"/>
+                <element value="gkt"/>
             </property>
         </properties>
     </rule>

@@ -23,7 +23,7 @@ class GhostKit_Typography {
      */
     public function enqueue_typography_assets() {
         $typography_css = $this->generate_typography_styles();
-        $css = ' ';
+        $css            = ' ';
 
         if ( isset( $typography_css ) && ! empty( $typography_css ) && is_array( $typography_css ) ) {
             if ( ! is_admin() && isset( $typography_css['front'] ) && ! empty( $typography_css['front'] ) ) {
@@ -33,7 +33,7 @@ class GhostKit_Typography {
                 $css = $typography_css['editor'];
             }
         }
-        wp_register_style( 'ghostkit-typography', false );
+        wp_register_style( 'ghostkit-typography', false, array(), '@@plugin_version' );
         wp_enqueue_style( 'ghostkit-typography' );
         wp_add_inline_style( 'ghostkit-typography', $css );
     }
@@ -45,15 +45,14 @@ class GhostKit_Typography {
      */
     public function generate_typography_styles() {
         $typography_prepeare_styles = array();
-        $typography_css = array(
+        $typography_css             = array(
             'editor' => '',
-            'front' => '',
+            'front'  => '',
         );
-        $default_typography = apply_filters( 'gkt_custom_typography', array() );
-
-        $screen = function_exists( 'get_current_screen' ) ? get_current_screen() : false;
-        $global_typography = get_option( 'ghostkit_typography', array() );
-        $is_admin_editor = is_admin() && $screen && $screen->is_block_editor;
+        $default_typography         = apply_filters( 'gkt_custom_typography', array() );
+        $screen                     = function_exists( 'get_current_screen' ) ? get_current_screen() : false;
+        $global_typography          = get_option( 'ghostkit_typography', array() );
+        $is_admin_editor            = is_admin() && $screen && $screen->is_block_editor;
 
         if ( is_singular() ) {
             $post_id = get_the_ID();
@@ -62,7 +61,7 @@ class GhostKit_Typography {
             $post_id = $post->ID;
         }
 
-        $is_single = is_singular() && $post_id;
+        $is_single       = is_singular() && $post_id;
         $is_admin_editor = $is_admin_editor && $post_id;
 
         if ( $this->is_exist( $default_typography ) ) {
@@ -71,7 +70,7 @@ class GhostKit_Typography {
                 if ( $this->is_exist( $typography['output'] ) ) {
                     $typography_prepeare_styles[ $key ] = array(
                         'style-properties' => $typography['defaults'],
-                        'output' => $typography['output'],
+                        'output'           => $typography['output'],
                     );
                 }
             }
@@ -83,46 +82,56 @@ class GhostKit_Typography {
 
             // Local custom Typography.
             if ( $is_single || $is_admin_editor ) {
-                $meta_typography = get_post_meta( $post_id, 'ghostkit_typography', true );
+                $meta_typography            = get_post_meta( $post_id, 'ghostkit_typography', true );
                 $typography_prepeare_styles = $this->get_typography_values( $meta_typography, $typography_prepeare_styles );
             }
 
             // Collect all the styles for further transfer to the inline file on the edit or front page.
             foreach ( $typography_prepeare_styles as $typography_prepeare_style ) {
-                if ( ( $this->is_exist( $typography_prepeare_style['output'] ) && is_array( $typography_prepeare_style['output'] ) ) &&
-                     ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ||
-                         $this->is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ||
-                         $this->is_exist( $typography_prepeare_style['style-properties'], 'font-weight' ) ||
-                         $this->is_exist( $typography_prepeare_style['style-properties'], 'line-height' ) ||
-                         $this->is_exist( $typography_prepeare_style['style-properties'], 'letter-spacing' )
-                     ) ) {
+                if (
+                    $this->is_exist( $typography_prepeare_style['output'] ) &&
+                    is_array( $typography_prepeare_style['output'] ) &&
+                    ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ||
+                        $this->is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ||
+                        $this->is_exist( $typography_prepeare_style['style-properties'], 'font-weight' ) ||
+                        $this->is_exist( $typography_prepeare_style['style-properties'], 'line-height' ) ||
+                        $this->is_exist( $typography_prepeare_style['style-properties'], 'letter-spacing' )
+                    )
+                ) {
                     foreach ( $typography_prepeare_style['output'] as $output ) {
                         if ( $this->is_exist( $output['selectors'] ) ) {
-                            $typography_styles = '';
+                            $typography_styles  = '';
                             $typography_styles .= $output['selectors'] . '{';
 
                             if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ) {
                                 $typography_styles .= 'font-family: ' . esc_attr( $typography_prepeare_style['style-properties']['font-family'] ) . ';';
                             }
+
                             if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ) {
                                 $typography_styles .= 'font-size: ' . esc_attr( $typography_prepeare_style['style-properties']['font-size'] ) . ';';
                             }
+
                             if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-weight' ) ) {
                                 $font_weight = $typography_prepeare_style['style-properties']['font-weight'];
+
                                 if ( false !== strpos( $font_weight, 'i' ) ) {
-                                    $font_weight = str_replace( 'i', '', $font_weight );
+                                    $font_weight        = str_replace( 'i', '', $font_weight );
                                     $typography_styles .= 'font-style: italic;';
                                 } else {
                                     $typography_styles .= 'font-style: normal;';
                                 }
+
                                 $typography_styles .= 'font-weight: ' . esc_attr( $font_weight ) . ';';
                             }
+
                             if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'line-height' ) ) {
                                 $typography_styles .= 'line-height: ' . esc_attr( $typography_prepeare_style['style-properties']['line-height'] ) . ';';
                             }
+
                             if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'letter-spacing' ) ) {
                                 $typography_styles .= 'letter-spacing: ' . esc_attr( $typography_prepeare_style['style-properties']['letter-spacing'] ) . ';';
                             }
+
                             $typography_styles .= '}';
 
                             if ( isset( $output['editor'] ) && true === $output['editor'] ) {
@@ -149,6 +158,7 @@ class GhostKit_Typography {
      */
     public function is_exist( $value, $attribute = false, $mode = 'full' ) {
         $check = false;
+
         if ( $attribute ) {
             if ( 'full' === $mode && isset( $value[ $attribute ] ) && ! empty( $value[ $attribute ] ) ) {
                 $check = true;
@@ -164,6 +174,7 @@ class GhostKit_Typography {
                 $check = ( isset( $value ) ) ? true : false;
             }
         }
+
         return $check;
     }
 
@@ -176,15 +187,16 @@ class GhostKit_Typography {
      */
     public function get_typography_values( $typography_object, $typography_prepeare_styles ) {
         $conformity_attributes = array(
-            'fontFamily' => 'font-family',
+            'fontFamily'         => 'font-family',
             'fontFamilyCategory' => 'font-family-category',
-            'fontSize' => 'font-size',
-            'fontWeight' => 'font-weight',
-            'lineHeight' => 'line-height',
-            'letterSpacing' => 'letter-spacing',
-            'label' => 'label',
-            'childOf' => 'child-of',
+            'fontSize'           => 'font-size',
+            'fontWeight'         => 'font-weight',
+            'lineHeight'         => 'line-height',
+            'letterSpacing'      => 'letter-spacing',
+            'label'              => 'label',
+            'childOf'            => 'child-of',
         );
+
         if ( $this->is_exist( $typography_object ) ) {
             foreach ( json_decode( $typography_object ) as $meta_typography_key => $meta_typography_value ) {
                 if ( $this->is_exist( $typography_prepeare_styles[ $meta_typography_key ], false, 'isset' ) ) {
@@ -199,8 +211,10 @@ class GhostKit_Typography {
                 }
             }
         }
+
         return $typography_prepeare_styles;
     }
+
     /**
      * Add Default Typography.
      *
@@ -210,169 +224,169 @@ class GhostKit_Typography {
     public function add_default_typography( $custom_typography ) {
         $custom_typography = array(
             'body' => array(
-                'label' => esc_html__( 'Body', '@@text_domain' ),
+                'label'    => esc_html__( 'Body', '@@text_domain' ),
                 'defaults' => array(
                     'font-family-category' => 'default',
-                    'font-family' => '',
-                    'font-size' => '',
-                    'font-weight' => '',
-                    'line-height' => '',
-                    'letter-spacing' => '',
+                    'font-family'          => '',
+                    'font-size'            => '',
+                    'font-weight'          => '',
+                    'line-height'          => '',
+                    'letter-spacing'       => '',
                 ),
-                'output' => array(
+                'output'   => array(
                     array(
                         'selectors' => 'body',
                     ),
                     array(
                         'selectors' => '#editor .editor-styles-wrapper, .editor-styles-wrapper p',
-                        'editor' => true,
+                        'editor'    => true,
                     ),
                 ),
             ),
             'buttons' => array(
-                'label' => esc_html__( 'Buttons', '@@text_domain' ),
+                'label'    => esc_html__( 'Buttons', '@@text_domain' ),
                 'defaults' => array(
                     'font-family-category' => 'default',
-                    'font-family' => '',
-                    'font-size' => '',
-                    'font-weight' => '',
-                    'line-height' => '',
-                    'letter-spacing' => '',
+                    'font-family'          => '',
+                    'font-size'            => '',
+                    'font-weight'          => '',
+                    'line-height'          => '',
+                    'letter-spacing'       => '',
                 ),
-                'output' => array(
+                'output'   => array(
                     array(
                         'selectors' => '.wp-block-button, .ghostkit-button, .entry .entry-content .wp-block-button .wp-block-button__link',
                     ),
                     array(
                         'selectors' => '#editor .editor-styles-wrapper .wp-block-button .wp-block-button__link, #editor .editor-styles-wrapper .ghostkit-button',
-                        'editor' => true,
+                        'editor'    => true,
                     ),
                 ),
             ),
             'headings' => array(
-                'label' => esc_html__( 'Headings', '@@text_domain' ),
+                'label'    => esc_html__( 'Headings', '@@text_domain' ),
                 'defaults' => array(
                     'font-family-category' => 'default',
-                    'font-family' => '',
-                    'font-weight' => '',
-                    'line-height' => '',
-                    'letter-spacing' => '',
+                    'font-family'          => '',
+                    'font-weight'          => '',
+                    'line-height'          => '',
+                    'letter-spacing'       => '',
                 ),
-                'output' => array(
+                'output'   => array(
                     array(
                         'selectors' => 'h1, h1.entry-title, h2, h3, h4, h5, h6',
                     ),
                     array(
                         'selectors' => '#editor .editor-styles-wrapper h1, #editor .editor-styles-wrapper h2, #editor .editor-styles-wrapper h3, #editor .editor-styles-wrapper h4, #editor .editor-styles-wrapper h5, #editor .editor-styles-wrapper h6, #editor .editor-styles-wrapper .editor-post-title__block .editor-post-title__input',
-                        'editor' => true,
+                        'editor'    => true,
                     ),
                 ),
             ),
             'h1' => array(
-                'label' => esc_html__( 'H1', '@@text_domain' ),
+                'label'    => esc_html__( 'H1', '@@text_domain' ),
                 'defaults' => array(
-                    'font-size' => '',
-                    'line-height' => '',
+                    'font-size'      => '',
+                    'line-height'    => '',
                     'letter-spacing' => '',
                 ),
                 'child-of' => 'headings',
-                'output' => array(
+                'output'   => array(
                     array(
                         'selectors' => 'h1, h1.entry-title',
                     ),
                     array(
                         'selectors' => '#editor .editor-styles-wrapper h1, #editor .editor-styles-wrapper .editor-post-title__block .editor-post-title__input',
-                        'editor' => true,
+                        'editor'    => true,
                     ),
                 ),
             ),
             'h2' => array(
-                'label' => esc_html__( 'H2', '@@text_domain' ),
+                'label'    => esc_html__( 'H2', '@@text_domain' ),
                 'defaults' => array(
-                    'font-size' => '',
-                    'line-height' => '',
+                    'font-size'      => '',
+                    'line-height'    => '',
                     'letter-spacing' => '',
                 ),
                 'child-of' => 'headings',
-                'output' => array(
+                'output'   => array(
                     array(
                         'selectors' => 'h2',
                     ),
                     array(
                         'selectors' => '#editor .editor-styles-wrapper h2',
-                        'editor' => true,
+                        'editor'    => true,
                     ),
                 ),
             ),
             'h3' => array(
-                'label' => esc_html__( 'H3', '@@text_domain' ),
+                'label'    => esc_html__( 'H3', '@@text_domain' ),
                 'defaults' => array(
-                    'font-size' => '',
-                    'line-height' => '',
+                    'font-size'      => '',
+                    'line-height'    => '',
                     'letter-spacing' => '',
                 ),
                 'child-of' => 'headings',
-                'output' => array(
+                'output'   => array(
                     array(
                         'selectors' => 'h3',
                     ),
                     array(
                         'selectors' => '#editor .editor-styles-wrapper h3',
-                        'editor' => true,
+                        'editor'    => true,
                     ),
                 ),
             ),
             'h4' => array(
-                'label' => esc_html__( 'H4', '@@text_domain' ),
+                'label'    => esc_html__( 'H4', '@@text_domain' ),
                 'defaults' => array(
-                    'font-size' => '',
-                    'line-height' => '',
+                    'font-size'      => '',
+                    'line-height'    => '',
                     'letter-spacing' => '',
                 ),
                 'child-of' => 'headings',
-                'output' => array(
+                'output'   => array(
                     array(
                         'selectors' => 'h4',
                     ),
                     array(
                         'selectors' => '#editor .editor-styles-wrapper h4',
-                        'editor' => true,
+                        'editor'    => true,
                     ),
                 ),
             ),
             'h5' => array(
-                'label' => esc_html__( 'H5', '@@text_domain' ),
+                'label'    => esc_html__( 'H5', '@@text_domain' ),
                 'defaults' => array(
-                    'font-size' => '',
-                    'line-height' => '',
+                    'font-size'      => '',
+                    'line-height'    => '',
                     'letter-spacing' => '',
                 ),
                 'child-of' => 'headings',
-                'output' => array(
+                'output'   => array(
                     array(
                         'selectors' => 'h5',
                     ),
                     array(
                         'selectors' => '#editor .editor-styles-wrapper h5',
-                        'editor' => true,
+                        'editor'    => true,
                     ),
                 ),
             ),
             'h6' => array(
-                'label' => esc_html__( 'H6', '@@text_domain' ),
+                'label'    => esc_html__( 'H6', '@@text_domain' ),
                 'defaults' => array(
-                    'font-size' => '',
-                    'line-height' => '',
+                    'font-size'      => '',
+                    'line-height'    => '',
                     'letter-spacing' => '',
                 ),
                 'child-of' => 'headings',
-                'output' => array(
+                'output'   => array(
                     array(
                         'selectors' => 'h6',
                     ),
                     array(
                         'selectors' => '#editor .editor-styles-wrapper h6',
-                        'editor' => true,
+                        'editor'    => true,
                     ),
                 ),
             ),

@@ -24,9 +24,9 @@ class GhostKit {
     /**
      * The single class instance.
      *
-     * @var $_instance
+     * @var $instance
      */
-    private static $_instance = null;
+    private static $instance = null;
 
     /**
      * Path to the plugin directory
@@ -82,12 +82,12 @@ class GhostKit {
      * Ensures only one instance of this class exists in memory at any one time.
      */
     public static function instance() {
-        if ( is_null( self::$_instance ) ) {
-            self::$_instance = new self();
-            self::$_instance->init_options();
-            self::$_instance->init_hooks();
+        if ( is_null( self::$instance ) ) {
+            self::$instance = new self();
+            self::$instance->init_options();
+            self::$instance->init_hooks();
         }
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -95,37 +95,37 @@ class GhostKit {
      */
     public function init_options() {
         $this->plugin_path = plugin_dir_path( __FILE__ );
-        $this->plugin_url = plugin_dir_url( __FILE__ );
+        $this->plugin_url  = plugin_dir_url( __FILE__ );
 
         // settings.
-        require_once( $this->plugin_path . 'settings/index.php' );
+        require_once $this->plugin_path . 'settings/index.php';
 
         // additional blocks php.
-        require_once( $this->plugin_path . 'gutenberg/index.php' );
+        require_once $this->plugin_path . 'gutenberg/index.php';
 
         // rest.
-        require_once( $this->plugin_path . 'classes/class-rest.php' );
+        require_once $this->plugin_path . 'classes/class-rest.php';
 
         // reusable widget.
-        require_once( $this->plugin_path . 'classes/class-reusable-widget.php' );
+        require_once $this->plugin_path . 'classes/class-reusable-widget.php';
 
         // icons.
-        require_once( $this->plugin_path . 'classes/class-icons.php' );
+        require_once $this->plugin_path . 'classes/class-icons.php';
 
         // fonts.
-        require_once( $this->plugin_path . 'classes/class-fonts.php' );
+        require_once $this->plugin_path . 'classes/class-fonts.php';
 
         // typography.
-        require_once( $this->plugin_path . 'classes/class-typography.php' );
+        require_once $this->plugin_path . 'classes/class-typography.php';
 
         // templates.
-        require_once( $this->plugin_path . 'classes/class-templates.php' );
+        require_once $this->plugin_path . 'classes/class-templates.php';
 
         // custom block styles class.
-        require_once( $this->plugin_path . 'gutenberg/extend/styles/get-styles.php' );
+        require_once $this->plugin_path . 'gutenberg/extend/styles/get-styles.php';
 
         // block users custom CSS class.
-        require_once( $this->plugin_path . 'gutenberg/extend/custom-css/get-custom-css.php' );
+        require_once $this->plugin_path . 'gutenberg/extend/custom-css/get-custom-css.php';
     }
 
     /**
@@ -242,7 +242,8 @@ class GhostKit {
             'ghostkit-helper',
             plugins_url( 'assets/js/helper.min.js', __FILE__ ),
             array( 'jquery' ),
-            filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/helper.min.js' )
+            filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/helper.min.js' ),
+            true
         );
         $default_variant = array(
             'default' => array(
@@ -268,49 +269,51 @@ class GhostKit {
         $theme_data = wp_get_theme( get_template() );
 
         wp_localize_script(
-            'ghostkit-helper', 'ghostkitVariables', array(
-                'themeName'        => $theme_data->get( 'Name' ),
-
-                'settings'          => get_option( 'ghostkit_settings', array() ),
-
-                'disabledBlocks'    => get_option( 'ghostkit_disabled_blocks', array() ),
+            'ghostkit-helper',
+            'ghostkitVariables',
+            array(
+                'themeName'            => $theme_data->get( 'Name' ),
+                'settings'             => get_option( 'ghostkit_settings', array() ),
+                'disabledBlocks'       => get_option( 'ghostkit_disabled_blocks', array() ),
 
                 // TODO: Move this to plugin options (part 1).
-                'media_sizes'       => array(
+                'media_sizes'          => array(
                     'sm' => 576,
                     'md' => 768,
                     'lg' => 992,
                     'xl' => 1200,
                 ),
-                'googleMapsAPIKey'  => get_option( 'ghostkit_google_maps_api_key' ),
-                'googleMapsAPIUrl'  => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
-                'googleMapsLibrary' => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
+                'googleMapsAPIKey'     => get_option( 'ghostkit_google_maps_api_key' ),
+                'googleMapsAPIUrl'     => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
+                'googleMapsLibrary'    => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
                     'url' => plugins_url( 'assets/vendor/gmaps/gmaps.min.js', __FILE__ ) . '?ver=0.4.25',
                 ) : false,
-                'sidebars'          => $sidebars,
-                'icons'             => is_admin() ? apply_filters(
-                    'gkt_icons_list', array(
+                'sidebars'             => $sidebars,
+                'icons'                => is_admin() ? apply_filters(
+                    'gkt_icons_list',
+                    array(
                     /**
                     * Example:
-                      array(
-                          'font-awesome' => array(
-                              'name' => 'FontAwesome',
-                              'icons' => array(
-                                  array(
-                                       'class': 'fab fa-google',
-                                       'keys': 'google',
-                                       // optional preview for editor.
-                                       'preview': `<span class="fab fa-google"></span>`,
-                                  ),
-                                  ...
-                              ),
-                          ),
-                      )
+                        array(
+                            'font-awesome' => array(
+                                'name' => 'FontAwesome',
+                                'icons' => array(
+                                    array(
+                                        'class': 'fab fa-google',
+                                        'keys': 'google',
+                                        // optional preview for editor.
+                                        'preview': `<span class="fab fa-google"></span>`,
+                                    ),
+                                    ...
+                                ),
+                            ),
+                        )
                     */
                     )
                 ) : array(),
-                'fonts'             => is_admin() ? apply_filters(
-                    'gkt_fonts_list', array(
+                'fonts'                => is_admin() ? apply_filters(
+                    'gkt_fonts_list',
+                    array(
                         /**
                          * Example:
                             array(
@@ -331,7 +334,8 @@ class GhostKit {
                     )
                 ) : array(),
                 'customTypographyList' => is_admin() ? apply_filters(
-                    'gkt_custom_typography', array(
+                    'gkt_custom_typography',
+                    array(
                         /**
                          * Example:
                             array(
@@ -359,7 +363,7 @@ class GhostKit {
                          */
                     )
                 ) : array(),
-                'variants'          => array(
+                'variants'             => array(
                     'accordion'          => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
                     'accordion_item'     => array_merge( $default_variant, apply_filters( 'gkt_accordion_item_variants', array() ) ),
                     'alert'              => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
@@ -385,8 +389,8 @@ class GhostKit {
                     'twitter'            => array_merge( $default_variant, apply_filters( 'gkt_twitter_variants', array() ) ),
                     'video'              => array_merge( $default_variant, apply_filters( 'gkt_video_variants', array() ) ),
                 ),
-                'admin_url'           => admin_url(),
-                'admin_templates_url' => admin_url( 'edit.php?post_type=ghostkit_template' ),
+                'admin_url'            => admin_url(),
+                'admin_templates_url'  => admin_url( 'edit.php?post_type=ghostkit_template' ),
             )
         );
     }
@@ -396,7 +400,7 @@ class GhostKit {
      */
     public function enqueue_block_editor_assets() {
         $css_deps = array();
-        $js_deps = array( 'ghostkit-helper', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-components', 'moment', 'jquery' );
+        $js_deps  = array( 'ghostkit-helper', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-components', 'moment', 'jquery' );
 
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
@@ -407,7 +411,7 @@ class GhostKit {
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
             $css_deps[] = 'gist-simple';
-            $js_deps[] = 'gist-simple';
+            $js_deps[]  = 'gist-simple';
         }
 
         // Ghost Kit.
@@ -421,7 +425,8 @@ class GhostKit {
             'ghostkit-editor',
             plugins_url( 'gutenberg/index.min.js', __FILE__ ),
             $js_deps,
-            filemtime( plugin_dir_path( __FILE__ ) . 'gutenberg/index.min.js' )
+            filemtime( plugin_dir_path( __FILE__ ) . 'gutenberg/index.min.js' ),
+            true
         );
     }
 
@@ -430,7 +435,7 @@ class GhostKit {
      */
     public function enqueue_block_assets() {
         $css_deps = array();
-        $js_deps = array( 'jquery', 'ghostkit-helper', 'moment', 'wp-i18n' );
+        $js_deps  = array( 'jquery', 'ghostkit-helper', 'moment', 'wp-i18n' );
 
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
@@ -446,13 +451,13 @@ class GhostKit {
         // Swiper.
         if ( apply_filters( 'gkt_enqueue_plugin_swiper', true ) ) {
             $css_deps[] = 'swiper';
-            $js_deps[] = 'swiper';
+            $js_deps[]  = 'swiper';
         }
 
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
             $css_deps[] = 'gist-simple';
-            $js_deps[] = 'gist-simple';
+            $js_deps[]  = 'gist-simple';
         }
 
         // ScrollReveal.
@@ -471,7 +476,8 @@ class GhostKit {
             'ghostkit',
             plugins_url( 'assets/js/script.min.js', __FILE__ ),
             $js_deps,
-            filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/script.min.js' )
+            filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/script.min.js' ),
+            true
         );
     }
 
@@ -480,10 +486,10 @@ class GhostKit {
      */
     public function admin_init() {
         // get current plugin data.
-        $data = get_plugin_data( __FILE__ );
-        $this->plugin_name = $data['Name'];
-        $this->plugin_version = $data['Version'];
-        $this->plugin_slug = plugin_basename( __FILE__, '.php' );
+        $data                        = get_plugin_data( __FILE__ );
+        $this->plugin_name           = $data['Name'];
+        $this->plugin_version        = $data['Version'];
+        $this->plugin_slug           = plugin_basename( __FILE__, '.php' );
         $this->plugin_name_sanitized = basename( __FILE__, '.php' );
     }
 
@@ -495,7 +501,8 @@ class GhostKit {
         $available_post_types = get_post_types(
             array(
                 'show_ui' => true,
-            ), 'object'
+            ),
+            'object'
         );
 
         foreach ( $available_post_types as $post_type ) {
@@ -652,7 +659,7 @@ class GhostKit {
         $css = wp_kses( $css, array( '\'', '\"' ) );
         $css = str_replace( '&gt;', '>', $css );
 
-        wp_register_style( $name, false );
+        wp_register_style( $name, false, array(), '@@plugin_version' );
         wp_enqueue_style( $name );
         wp_add_inline_style( $name, $css );
     }
@@ -665,7 +672,7 @@ class GhostKit {
      * @param Boolean $footer - print in footer.
      */
     public function add_custom_js( $name, $js, $footer = false ) {
-        wp_register_script( $name, '', array(), '', $footer );
+        wp_register_script( $name, '', array(), '@@plugin_version', $footer );
         wp_enqueue_script( $name );
         wp_add_inline_script( $name, $js );
     }
@@ -679,7 +686,8 @@ class GhostKit {
      */
     public function add_go_pro_link_plugins_page( $links ) {
         return array_merge(
-            $links, array(
+            $links,
+            array(
                 '<a target="_blank" href="admin.php?page=ghostkit_go_pro">' . esc_html__( 'Go Pro', '@@text_domain' ) . '</a>',
             )
         );

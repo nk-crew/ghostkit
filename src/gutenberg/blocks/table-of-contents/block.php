@@ -49,7 +49,8 @@ class GhostKit_TOC_Block {
     public function init() {
         if ( function_exists( 'register_block_type' ) ) {
             register_block_type(
-                'ghostkit/table-of-contents', array(
+                'ghostkit/table-of-contents',
+                array(
                     'render_callback' => array( $this, 'block_render' ),
                 )
             );
@@ -79,18 +80,18 @@ class GhostKit_TOC_Block {
     public function get_heading_data( $html ) {
         $return = array(
             'content' => '',
-            'id' => '',
+            'id'      => '',
         );
 
         preg_match_all( '/(<h([1-6]{1})[^>]*>)(.*)<\/h\2>/msuU', $html, $matches, PREG_SET_ORDER );
         preg_match( '/id=(["\'])(.*?)\1[\s>]/si', $matches[0][1], $matched_ids );
 
-        $content = isset( $matches[0][3] ) ? strip_tags( $matches[0][3] ) : '';
-        $id = isset( $matched_ids[2] ) ? $matched_ids[2] : '';
+        $content = isset( $matches[0][3] ) ? wp_strip_all_tags( $matches[0][3] ) : '';
+        $id      = isset( $matched_ids[2] ) ? $matched_ids[2] : '';
 
         if ( $content && $id ) {
             $return['content'] = $content;
-            $return['id'] = $id;
+            $return['id']      = $id;
         }
 
         return $return;
@@ -122,14 +123,14 @@ class GhostKit_TOC_Block {
 
                 $level = isset( $block['attrs']['level'] ) ? $block['attrs']['level'] : 2;
 
-                if ( in_array( $level, $allowed_headers ) ) {
+                if ( in_array( $level, $allowed_headers, true ) ) {
                     $data = isset( $block['innerHTML'] ) ? $this->get_heading_data( $block['innerHTML'] ) : '';
 
                     if ( $data['content'] && $data['id'] ) {
                         $headings[] = array(
-                            'level' => $level,
+                            'level'   => $level,
                             'content' => $data['content'],
-                            'anchor' => $data['id'],
+                            'anchor'  => $data['id'],
                         );
                     }
                 }
@@ -188,10 +189,11 @@ class GhostKit_TOC_Block {
             $attrs = array_merge(
                 array(
                     'allowedHeaders' => array( 2, 3, 4 ),
-                ), $toc['attrs']
+                ),
+                $toc['attrs']
             );
 
-            $this->is_toc_exist = true;
+            $this->is_toc_exist        = true;
             $this->toc_allowed_headers = $attrs['allowedHeaders'];
 
             $this->available_headings = $this->get_all_headings( $blocks, $this->toc_allowed_headers );
@@ -210,8 +212,8 @@ class GhostKit_TOC_Block {
         $request = new WP_REST_Request( 'GET', '/ghostkit/v1/get_table_of_contents' );
         $request->set_query_params( $data );
         $response = rest_do_request( $request );
-        $server = rest_get_server();
-        $data = $server->response_to_data( $response, false );
+        $server   = rest_get_server();
+        $data     = $server->response_to_data( $response, false );
 
         return isset( $data['response'] ) && isset( $data['success'] ) && $data['success'] ? $data['response'] : false;
     }
@@ -226,11 +228,12 @@ class GhostKit_TOC_Block {
     public function block_render( $attributes ) {
         $attributes = array_merge(
             array(
-                'title' => 'Table of Contents',
-                'listStyle' => 'ol-styled',
+                'title'          => 'Table of Contents',
+                'listStyle'      => 'ol-styled',
                 'allowedHeaders' => array( 2, 3, 4 ),
-                'className' => '',
-            ), $attributes
+                'className'      => '',
+            ),
+            $attributes
         );
 
         if ( empty( $this->available_headings ) ) {
@@ -239,9 +242,9 @@ class GhostKit_TOC_Block {
 
         $headings_html = $this->get_toc_html(
             array(
-                'headings' => $this->available_headings,
+                'headings'       => $this->available_headings,
                 'allowedHeaders' => $attributes['allowedHeaders'],
-                'listStyle' => $attributes['listStyle'],
+                'listStyle'      => $attributes['listStyle'],
             )
         );
 
@@ -266,7 +269,8 @@ class GhostKit_TOC_Block {
             <?php endif; ?>
             <div class="ghostkit-toc-list">
                 <?php
-                echo $headings_html; // XSS Ok.
+                // phpcs:ignore
+                echo $headings_html;
                 ?>
             </div>
         </div>

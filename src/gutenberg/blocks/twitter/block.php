@@ -26,7 +26,8 @@ class GhostKit_Twitter_Block {
     public function init() {
         if ( function_exists( 'register_block_type' ) ) {
             register_block_type(
-                'ghostkit/twitter', array(
+                'ghostkit/twitter',
+                array(
                     'render_callback' => array( $this, 'block_render' ),
                 )
             );
@@ -43,8 +44,8 @@ class GhostKit_Twitter_Block {
         $request = new WP_REST_Request( 'GET', '/ghostkit/v1/get_twitter_feed' );
         $request->set_query_params( $data );
         $response = rest_do_request( $request );
-        $server = rest_get_server();
-        $data = $server->response_to_data( $response, false );
+        $server   = rest_get_server();
+        $data     = $server->response_to_data( $response, false );
 
         return isset( $data['response'] ) && isset( $data['success'] ) && $data['success'] ? $data['response'] : false;
     }
@@ -59,8 +60,8 @@ class GhostKit_Twitter_Block {
         $request = new WP_REST_Request( 'GET', '/ghostkit/v1/get_twitter_profile' );
         $request->set_query_params( $data );
         $response = rest_do_request( $request );
-        $server = rest_get_server();
-        $data = $server->response_to_data( $response, false );
+        $server   = rest_get_server();
+        $data     = $server->response_to_data( $response, false );
 
         return isset( $data['response'] ) && isset( $data['success'] ) && $data['success'] ? $data['response'] : false;
     }
@@ -77,34 +78,35 @@ class GhostKit_Twitter_Block {
 
         $attributes = array_merge(
             array(
-                'variant' => 'default',
-                'consumerKey' => '',
-                'consumerSecret' => '',
-                'accessToken' => '',
-                'accessTokenSecret' => '',
-                'userName' => 'nkdevv',
+                'variant'                => 'default',
+                'consumerKey'            => '',
+                'consumerSecret'         => '',
+                'accessToken'            => '',
+                'accessTokenSecret'      => '',
+                'userName'               => 'nkdevv',
 
-                'count' => 3,
-                'showReplies' => false,
-                'showRetweets' => true,
-                'showFeedAvatar' => true,
-                'feedAvatarSize' => 48,
-                'showFeedName' => true,
-                'showFeedDate' => true,
-                'feedTextConvertLinks' => 'links_media',
-                'showFeedActions' => true,
+                'count'                  => 3,
+                'showReplies'            => false,
+                'showRetweets'           => true,
+                'showFeedAvatar'         => true,
+                'feedAvatarSize'         => 48,
+                'showFeedName'           => true,
+                'showFeedDate'           => true,
+                'feedTextConvertLinks'   => 'links_media',
+                'showFeedActions'        => true,
 
-                'showProfile' => true,
-                'showProfileAvatar' => true,
-                'profileAvatarSize' => 70,
-                'showProfileName' => true,
-                'showProfileStats' => true,
+                'showProfile'            => true,
+                'showProfileAvatar'      => true,
+                'profileAvatarSize'      => 70,
+                'showProfileName'        => true,
+                'showProfileStats'       => true,
                 'showProfileDescription' => true,
-                'showProfileWebsite' => true,
-                'showProfileLocation' => true,
+                'showProfileWebsite'     => true,
+                'showProfileLocation'    => true,
 
-                'className' => '',
-            ), $attributes
+                'className'              => '',
+            ),
+            $attributes
         );
 
         $api_data_ready = $attributes['consumerKey'] && $attributes['consumerSecret'] && $attributes['accessToken'] && $attributes['accessTokenSecret'];
@@ -125,23 +127,23 @@ class GhostKit_Twitter_Block {
         if ( $api_data_ready && $attributes['userName'] ) {
             $profile = $this->get_profile(
                 array(
-                    'consumer_key' => $attributes['consumerKey'],
-                    'consumer_secret' => $attributes['consumerSecret'],
-                    'access_token' => $attributes['accessToken'],
+                    'consumer_key'        => $attributes['consumerKey'],
+                    'consumer_secret'     => $attributes['consumerSecret'],
+                    'access_token'        => $attributes['accessToken'],
                     'access_token_secret' => $attributes['accessTokenSecret'],
-                    'screen_name' => $attributes['userName'],
+                    'screen_name'         => $attributes['userName'],
                 )
             );
-            $feed = $this->get_feed(
+            $feed    = $this->get_feed(
                 array(
-                    'consumer_key' => $attributes['consumerKey'],
-                    'consumer_secret' => $attributes['consumerSecret'],
-                    'access_token' => $attributes['accessToken'],
+                    'consumer_key'        => $attributes['consumerKey'],
+                    'consumer_secret'     => $attributes['consumerSecret'],
+                    'access_token'        => $attributes['accessToken'],
                     'access_token_secret' => $attributes['accessTokenSecret'],
-                    'count' => $attributes['count'],
-                    'exclude_replies' => $attributes['showReplies'] ? 'false' : 'true',
-                    'include_rts' => $attributes['showRetweets'] ? 'true' : 'false',
-                    'screen_name' => $attributes['userName'],
+                    'count'               => $attributes['count'],
+                    'exclude_replies'     => $attributes['showReplies'] ? 'false' : 'true',
+                    'include_rts'         => $attributes['showRetweets'] ? 'true' : 'false',
+                    'screen_name'         => $attributes['userName'],
                 )
             );
 
@@ -212,11 +214,11 @@ class GhostKit_Twitter_Block {
                         <div class="ghostkit-twitter-items">
                             <?php
                             foreach ( $feed as $item ) {
-                                $old_item = $item;
+                                $old_item   = $item;
                                 $is_retweet = false;
 
                                 if ( isset( $item['retweeted_status'] ) ) {
-                                    $item = $item['retweeted_status'];
+                                    $item       = $item['retweeted_status'];
                                     $is_retweet = true;
                                 }
 

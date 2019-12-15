@@ -25,7 +25,9 @@ class GhostKit_Typography_Plugin {
      */
     public function register_meta() {
         register_meta(
-            'post', 'ghostkit_typography', array(
+            'post',
+            'ghostkit_typography',
+            array(
                 'show_in_rest' => true,
                 'single'       => true,
                 'type'         => 'string',
