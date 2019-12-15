@@ -280,7 +280,6 @@ export default class Typorgaphy extends Component {
                                         onChange={ ( opt ) => {
                                             onChange( {
                                                 fontFamily: opt && opt.value ? opt.value : '',
-                                                fontFamilyCategory: opt && opt.fontFamilyCategory ? opt.fontFamilyCategory : '',
                                                 fontWeight: opt && opt.value ? '400' : '',
                                             } );
                                         } }
