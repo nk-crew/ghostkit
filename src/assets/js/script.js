@@ -29,6 +29,8 @@ const {
     GHOSTKIT,
 } = window;
 
+let pageHash = window.location.hash;
+
 /**
  * Throttle scroll
  */
@@ -169,6 +171,29 @@ class GhostKitClass {
                 throttledInitBlocks();
             } );
         }
+
+        // Prepare hash changes.
+        $wnd.on( 'hashchange', () => {
+            if ( window.location.hash === pageHash ) {
+                return;
+            }
+
+            pageHash = window.location.hash;
+
+            if ( ! pageHash ) {
+                return;
+            }
+
+            // Activate accordion item.
+            $( `.ghostkit-accordion-ready > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading[href="${ pageHash }"]` ).each( function() {
+                self.activateAccordionItem( $( this ) );
+            } );
+
+            // Activate tab.
+            $( '.ghostkit-tabs-ready' ).each( function() {
+                self.activateTab( $( this ), pageHash );
+            } );
+        } );
 
         GHOSTKIT.triggerEvent( 'afterInit', self );
     }
@@ -351,6 +376,14 @@ class GhostKitClass {
         GHOSTKIT.triggerEvent( 'afterPrepareCustomStyles', self );
     }
 
+    /**
+     * Activate tab
+     *
+     * @param {jQuery} $tabs - tabs block element
+     * @param {String} tabName - tab name
+     *
+     * @return {Boolean} is tab activated.
+     */
     activateTab( $tabs, tabName ) {
         const isLegacy = ! /^#/g.test( tabName );
         let $activeBtn = false;
@@ -382,7 +415,6 @@ class GhostKitClass {
      */
     prepareTabs() {
         const self = this;
-        const pageHash = window.location.hash;
 
         GHOSTKIT.triggerEvent( 'beforePrepareTabs', self );
 
@@ -421,6 +453,12 @@ class GhostKitClass {
         GHOSTKIT.triggerEvent( 'afterPrepareTabs', self );
     }
 
+    /**
+     * Activate accordion item
+     *
+     * @param {jQuery} $heading - heading element
+     * @param {Int} animationSpeed - animation speed
+     */
     activateAccordionItem( $heading, animationSpeed = 150 ) {
         const $accordion = $heading.closest( '.ghostkit-accordion' );
         const $item = $heading.closest( '.ghostkit-accordion-item' );
@@ -429,17 +467,17 @@ class GhostKitClass {
         const collapseOne = $accordion.hasClass( 'ghostkit-accordion-collapse-one' );
 
         if ( isActive ) {
-            $content.css( 'display', 'block' ).slideUp( animationSpeed );
+            $content.stop().css( 'display', 'block' ).slideUp( animationSpeed );
             $item.removeClass( 'ghostkit-accordion-item-active' );
         } else {
-            $content.css( 'display', 'none' ).slideDown( animationSpeed );
+            $content.stop().css( 'display', 'none' ).slideDown( animationSpeed );
             $item.addClass( 'ghostkit-accordion-item-active' );
         }
 
         if ( collapseOne ) {
             const $collapseItems = $accordion.find( '.ghostkit-accordion-item-active' ).not( $item );
             if ( $collapseItems.length ) {
-                $collapseItems.find( '.ghostkit-accordion-item-content' ).css( 'display', 'block' ).slideUp( animationSpeed );
+                $collapseItems.find( '.ghostkit-accordion-item-content' ).stop().css( 'display', 'block' ).slideUp( animationSpeed );
                 $collapseItems.removeClass( 'ghostkit-accordion-item-active' );
             }
         }
@@ -452,7 +490,6 @@ class GhostKitClass {
      */
     prepareAccordions() {
         const self = this;
-        const pageHash = window.location.hash;
 
         GHOSTKIT.triggerEvent( 'beforePrepareAccordions', self );
 
@@ -470,7 +507,7 @@ class GhostKitClass {
 
             // activate by page hash
             if ( pageHash ) {
-                const $activeAccordion = $this.find( `.ghostkit-accordion-item .ghostkit-accordion-item-heading[href="${ pageHash }"]` );
+                const $activeAccordion = $this.find( `> :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading[href="${ pageHash }"]` );
 
                 if ( $activeAccordion.length ) {
                     self.activateAccordionItem( $activeAccordion, 0 );
