@@ -114,6 +114,7 @@ function maybeUpdateHeadingIDs() {
         if ( content && ( ! anchor || ghostkitTocId === anchor ) ) {
             anchor = slugify( striptags( content ), {
                 replacement: '-',
+                remove: /[*_+~()'"!?\/\-:@^|&#.,;%<>{}]/g,
                 lower: true,
             } );
             block.attributes.anchor = anchor;
