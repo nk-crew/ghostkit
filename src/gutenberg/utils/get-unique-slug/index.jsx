@@ -86,7 +86,7 @@ export default function getUniqueSlug( title, excludeBlockId ) {
         }
         newSlug = slugify( `${ striptags( title ) }${ i ? `-${ i }` : '' }`, {
             replacement: '-',
-            remove: /[*_+~()'"!?\/\-:@^|&#.,;%<>{}]/g,
+            remove: /[*_+~()'"!?\/\-—–−:@^|&#.,;%<>{}]/g,
             lower: true,
         } );
     }
