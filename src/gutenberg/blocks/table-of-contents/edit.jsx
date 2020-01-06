@@ -67,6 +67,11 @@ class BlockEdit extends Component {
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
+        // Save old toc HTML.
+        if ( headings && headings.length && tocHTML && ( ! this.oldTocHTML || this.oldTocHTML !== tocHTML ) ) {
+            this.oldTocHTML = tocHTML;
+        }
+
         return (
             <Fragment>
                 <InspectorControls>
@@ -148,15 +153,16 @@ class BlockEdit extends Component {
                         ) : '' }
                         { ! tocHTML ? (
                             <div className="ghostkit-toc-spinner"><Spinner /></div>
-                        ) : (
+                        ) : '' }
+                        { tocHTML || this.oldTocHTML ? (
                             <Disabled>
                                 <div className={ 'ghostkit-toc-list block-library-list' }>
                                     <RawHTML>
-                                        { tocHTML }
+                                        { tocHTML || this.oldTocHTML }
                                     </RawHTML>
                                 </div>
                             </Disabled>
-                        ) }
+                        ) : '' }
                     </div>
                 ) : '' }
             </Fragment>
