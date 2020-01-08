@@ -78,7 +78,7 @@
 }
 
 // Gaps.
-@each $name, $size in $instagram-gaps {
+@each $name, $size in $button-gaps {
     .ghostkit-button-wrapper-gap-#{$name} {
         margin-top: -$size;
         margin-right: ($size / -2);
