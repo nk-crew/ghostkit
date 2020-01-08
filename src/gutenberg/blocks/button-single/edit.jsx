@@ -125,7 +125,7 @@ class BlockEdit extends Component {
                                     Object.keys( sizes ).map( ( key ) =>
                                         <Button
                                             key={ key }
-                                            isLarge
+                                            isDefault
                                             isPrimary={ size === sizes[ key ] }
                                             aria-pressed={ size === sizes[ key ] }
                                             onClick={ () => setAttributes( { size: sizes[ key ] } ) }
@@ -136,7 +136,7 @@ class BlockEdit extends Component {
                                 }
                             </ButtonGroup>
                             <Button
-                                isLarge
+                                isDefault
                                 onClick={ () => setAttributes( { size: 'md' } ) }
                             >
                                 { __( 'Reset', '@@text_domain' ) }
@@ -210,7 +210,7 @@ class BlockEdit extends Component {
                         </Fragment>
                     ) } initialOpen={ false }>
                         <TabPanel
-                            className="ghostkit-control-tabs"
+                            className="ghostkit-control-tabs ghostkit-control-tabs-wide"
                             tabs={ colorsTabs }>
                             {
                                 ( tabData ) => {

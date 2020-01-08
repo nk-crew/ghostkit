@@ -133,7 +133,7 @@ class BlockEdit extends Component {
                         </Fragment>
                     ) } initialOpen={ false }>
                         <TabPanel
-                            className="ghostkit-control-tabs"
+                            className="ghostkit-control-tabs ghostkit-control-tabs-wide"
                             tabs={ [
                                 {
                                     name: 'normal',

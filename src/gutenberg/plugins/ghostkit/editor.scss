@@ -64,8 +64,8 @@
         &:focus,
         &:focus:enabled {
             color: $dark-gray-900;
-            border-color: $blue-medium-700;
-            box-shadow: 0 0 0 2px $blue-medium-500;
+            border-color: $blue-wordpress-700;
+            box-shadow: 0 0 0 2px $blue-medium-focus;
         }
 
         svg {

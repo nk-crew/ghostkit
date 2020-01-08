@@ -76,7 +76,7 @@ export default class ResponsiveTabPanel extends Component {
 
         return (
             <TabPanel
-                className="ghostkit-control-tabs"
+                className="ghostkit-control-tabs ghostkit-control-tabs-wide"
                 tabs={ tabs }
                 activeClass={ activeClass }
                 instanceId={ instanceId }

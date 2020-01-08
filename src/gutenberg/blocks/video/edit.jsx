@@ -292,7 +292,7 @@ class BlockEdit extends Component {
                                     },
                                 ].map( val => (
                                     <Button
-                                        isLarge
+                                        isDefault
                                         isPrimary={ type === val.value }
                                         aria-pressed={ type === val.value }
                                         onClick={ () => setAttributes( { type: val.value } ) }

@@ -51,14 +51,14 @@
  * Tabs Control.
  */
 .ghostkit-control-tabs {
-
-    .components-tab-panel__tabs {
+    > .components-tab-panel__tabs {
         display: flex;
         flex-wrap: wrap;
         margin-bottom: 15px;
         border-bottom: 1px solid $light-gray-400;
 
-        .ghostkit-control-tabs-tab {
+        // single tab
+        > .ghostkit-control-tabs-tab {
             padding: 9px 11px;
             padding-bottom: 11px;
             margin: 0;
@@ -79,10 +79,17 @@
 
             &.is-active {
                 position: relative;
-                border-bottom: 2px solid $blue-medium-500;
+                border-bottom: 2px solid $blue-medium-focus;
                 z-index: 1;
             }
         }
+    }
+
+    // wide
+    &.ghostkit-control-tabs-wide > .components-tab-panel__tabs > .ghostkit-control-tabs-tab {
+        flex: 1;
+        justify-content: center;
+        text-align: center;
     }
 
     .ghostkit-control-tabs-separator {

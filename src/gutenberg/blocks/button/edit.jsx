@@ -165,7 +165,7 @@ class BlockEdit extends Component {
 
                                         return (
                                             <Button
-                                                isLarge
+                                                isDefault
                                                 isPrimary={ selected }
                                                 aria-pressed={ selected }
                                                 onClick={ () => setAttributes( { gap: val.value } ) }

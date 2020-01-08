@@ -271,7 +271,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
                                         return (
                                             <Button
-                                                isLarge
+                                                isDefault
                                                 isPrimary={ selected }
                                                 aria-pressed={ selected }
                                                 onClick={ () => this.updateData( { effect: val.value } ) }
