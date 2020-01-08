@@ -270,6 +270,7 @@
         }
 
         [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit > [data-block] {
+            max-width: calc(100% + #{14px + ($size / 2) + 15px + ($size / 2)});
             margin-right: -14px + ($size / 2);
             margin-left: -15px + ($size / 2);
         }
