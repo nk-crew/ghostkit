@@ -221,8 +221,13 @@
         > [data-block] {
             flex: 100%;
             max-width: 100%;
-            margin-top: -14px;
-            margin-bottom: -14px;
+            margin-top: 0;
+            margin-bottom: 0;
+
+            > .ghostkit-col-content {
+                margin-top: -14px;
+                margin-bottom: -14px;
+            }
         }
     }
 }
@@ -323,10 +328,10 @@
 .ghostkit-grid > .awb-gutenberg-preview-block,
 .ghostkit-col > .editor-block-list__block-edit > div > .awb-gutenberg-preview-block {
     position: absolute;
-    top: -15px;
-    right: -15px;
-    bottom: -15px;
-    left: -15px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     pointer-events: none;
     transition: .15s border ease-in-out;
 
