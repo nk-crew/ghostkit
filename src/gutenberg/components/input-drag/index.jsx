@@ -4,6 +4,11 @@
 import './editor.scss';
 
 /**
+ * External dependencies
+ */
+import classnames from 'classnames/dedupe';
+
+/**
  * WordPress dependencies
  */
 const { Component } = wp.element;
@@ -114,12 +119,14 @@ export default class InputDrag extends Component {
     }
 
     mouseMove( e ) {
+        const startDistance = this.props.startDistance || minDistanceToStart;
+
         switch ( this.dragState ) {
         // check for drag position
         case 1:
-            if ( Math.abs( this.initialPosition.x - e.pageX ) > minDistanceToStart ) {
+            if ( Math.abs( this.initialPosition.x - e.pageX ) > startDistance ) {
                 this.reset();
-            } else if ( Math.abs( this.initialPosition.y - e.pageY ) > minDistanceToStart ) {
+            } else if ( Math.abs( this.initialPosition.y - e.pageY ) > startDistance ) {
                 this.dragState = 2;
             }
 
@@ -204,6 +211,7 @@ export default class InputDrag extends Component {
             icon,
             placeholder,
             autoComplete,
+            className,
         } = this.props;
 
         let classHasIcon = 'ghostkit-component-input-drag-no-icon';
@@ -213,7 +221,7 @@ export default class InputDrag extends Component {
         }
 
         return (
-            <div className={ classHasIcon }>
+            <div className={ classnames( classHasIcon, className ) }>
                 {
                     icon
                 }

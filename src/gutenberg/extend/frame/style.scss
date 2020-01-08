@@ -1,0 +1,5 @@
+@import "../../variables";
+
+.ghostkit-has-frame {
+    transition: .2s border ease-in-out, .2s border-radius ease-in-out, .2s box-shadow ease-in-out;
+}

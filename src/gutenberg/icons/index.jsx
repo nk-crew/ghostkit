@@ -30,6 +30,7 @@ import pluginCustomCode from '../icons/plugin-custom-code.svg';
 import pluginCustomizer from '../icons/plugin-customizer.svg';
 import pluginTypography from '../icons/plugin-typography.svg';
 
+import extensionFrame from '../icons/extension-frame.svg';
 import extensionDisplay from '../icons/extension-display.svg';
 import extensionSpacings from '../icons/extension-spacings.svg';
 import extensionSR from '../icons/extension-sr.svg';
@@ -104,6 +105,7 @@ export default {
     'plugin-customizer': pluginCustomizer,
     'plugin-typography': pluginTypography,
 
+    'extension-frame': extensionFrame,
     'extension-display': extensionDisplay,
     'extension-spacings': extensionSpacings,
     'extension-sr': extensionSR,

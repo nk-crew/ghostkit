@@ -34,6 +34,7 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/google-maps/',
         supports: {
             styles: true,
+            frame: true,
             spacings: true,
             display: true,
             scrollReveal: true,

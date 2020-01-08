@@ -75,7 +75,7 @@ export default class ColorPicker extends Component {
                                         colorString = `rgba(${ r }, ${ g }, ${ b }, ${ a })`;
                                     }
 
-                                    onChange( colorString );
+                                    onChange( colorString || '' );
                                 } }
                                 disableAlpha={ ! alpha }
                             />
@@ -85,7 +85,7 @@ export default class ColorPicker extends Component {
                             >
                                 <ColorPalette
                                     value={ value }
-                                    onChange={ ( color ) => onChange( color ) }
+                                    onChange={ ( color ) => onChange( color || '' ) }
                                     disableCustomColors={ true }
                                 />
                             </BaseControl>

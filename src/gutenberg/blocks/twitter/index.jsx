@@ -33,6 +33,7 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/twitter/',
         supports: {
             styles: true,
+            frame: true,
             spacings: true,
             display: true,
             customCSS: true,

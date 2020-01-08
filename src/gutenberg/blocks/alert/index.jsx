@@ -56,6 +56,7 @@ export const settings = {
         },
         supports: {
             styles: true,
+            frame: true,
             spacings: true,
             display: true,
             scrollReveal: true,

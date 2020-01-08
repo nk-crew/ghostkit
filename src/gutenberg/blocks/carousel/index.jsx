@@ -34,6 +34,7 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/carousel/',
         supports: {
             styles: true,
+            frame: true,
             spacings: true,
             display: true,
             scrollReveal: true,

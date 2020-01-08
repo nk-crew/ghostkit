@@ -96,6 +96,7 @@ export const settings = {
         },
         supports: {
             styles: true,
+            frame: true,
             spacings: true,
             display: true,
             scrollReveal: true,
@@ -116,13 +117,13 @@ export const settings = {
 export const withClasses = createHigherOrderComponent( ( BlockListBlock ) => (
     ( props ) => {
         const { name: blockName } = props;
-        let className = props.className;
 
         if ( 'ghostkit/grid-column' === blockName ) {
-            className = classnames( className, getColClass( props ) );
+            const className = classnames( props.attributes.className, getColClass( props ) );
+            return <BlockListBlock { ...props } className={ className } />;
         }
 
-        return <BlockListBlock { ...props } className={ className } />;
+        return <BlockListBlock { ...props } />;
     }
 ) );
 

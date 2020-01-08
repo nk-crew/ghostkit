@@ -23,6 +23,7 @@ export const settings = {
     ghostkit: {
         supports: {
             styles: true,
+            frame: true,
             spacings: true,
             display: true,
             scrollReveal: true,
