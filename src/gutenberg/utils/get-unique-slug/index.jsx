@@ -68,12 +68,27 @@ function isUniqueSlug( slug, slugs ) {
 }
 
 /**
+ * Get slug from title.
+ *
+ * @param {String} title title string.
+ *
+ * @return {String} slug.
+ */
+export function getSlug( title ) {
+    return slugify( striptags( title ), {
+        replacement: '-',
+        remove: /[*_+~()'"!?\/\-—–−:@^|&#.,;%<>{}]/g,
+        lower: true,
+    } );
+}
+
+/**
  * Get unique slug from title.
  *
  * @param {String} title title string.
  * @param {String} excludeBlockId exclude block id to not check.
  *
- * @return {Boolean} is unique.
+ * @return {String} slug.
  */
 export default function getUniqueSlug( title, excludeBlockId ) {
     let newSlug = '';
@@ -84,11 +99,7 @@ export default function getUniqueSlug( title, excludeBlockId ) {
         if ( newSlug ) {
             i += 1;
         }
-        newSlug = slugify( `${ striptags( title ) }${ i ? `-${ i }` : '' }`, {
-            replacement: '-',
-            remove: /[*_+~()'"!?\/\-—–−:@^|&#.,;%<>{}]/g,
-            lower: true,
-        } );
+        newSlug = `${ getSlug( title ) }${ i ? `-${ i }` : '' }`;
     }
 
     return newSlug;

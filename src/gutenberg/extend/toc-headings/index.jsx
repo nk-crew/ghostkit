@@ -1,8 +1,6 @@
 /**
  * External dependencies
  */
-import slugify from 'slugify';
-import striptags from 'striptags';
 import { debounce } from 'throttle-debounce';
 
 /**
@@ -16,6 +14,11 @@ const {
     subscribe,
     select,
 } = wp.data;
+
+/**
+ * Internal dependencies
+ */
+import { getSlug } from '../../utils/get-unique-slug';
 
 /**
  * Get available TOC block.
@@ -112,11 +115,7 @@ function maybeUpdateHeadingIDs() {
 
         // create new
         if ( content && ( ! anchor || ghostkitTocId === anchor ) ) {
-            anchor = slugify( striptags( content ), {
-                replacement: '-',
-                remove: /[*_+~()'"!?\/\-—–−:@^|&#.,;%<>{}]/g,
-                lower: true,
-            } );
+            anchor = getSlug( content );
             block.attributes.anchor = anchor;
             block.attributes.ghostkitTocId = anchor;
         }
