@@ -1,0 +1,27 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+.ghostkit-shape-divider {
+    display: block;
+    overflow: hidden;
+
+    svg {
+        display: block;
+        min-width: 100%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+    // Rotate
+    &.ghostkit-shape-divider-flip-vertical svg {
+        transform: translateX(-50%) scaleY(-1);
+    }
+    &.ghostkit-shape-divider-flip-horizontal svg {
+        transform: translateX(-50%) scaleX(-1);
+    }
+    &.ghostkit-shape-divider-flip-vertical.ghostkit-shape-divider-flip-horizontal svg {
+        transform: translateX(-50%) scaleY(-1) scaleX(-1);
+    }
+}

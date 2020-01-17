@@ -54,6 +54,7 @@ By default you can change typography for the following elements:
 * [**Grid**](https://ghostkit.io/blocks/grid/). Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change
 * [**Progress**](https://ghostkit.io/blocks/progress/). Show the progress of your work, skills or earnings
 * [**Button**](https://ghostkit.io/blocks/button/). Change important links to buttons to get more click rate
+* [**Shape Divider**](https://ghostkit.io/blocks/shape-divider/). Add SVG shapes between your sections
 * [**Divider**](https://ghostkit.io/blocks/divider/). Divide your long texts and blocks
 * [**Alert**](https://ghostkit.io/blocks/alert/). Provide contextual feedback messages for user actions
 * [**Icon Box**](https://ghostkit.io/blocks/icon-box/). Icons are one of the best visual replacement for text descriptions
@@ -201,6 +202,37 @@ By default Typography options used for Body, Headings, and Buttons. You can add 
                     'selectors' => '.editor-styles-wrapper .my-selector-2',
                     'editor' => true,
                 ),
+            ),
+        );
+
+        return $icons;
+    }
+
+### How to extend shapes in Shape Divider block ####
+
+By default Shapes Divider contains 12 predefined SVG shapes. You can extend shapes list using PHP filter:
+
+    // add shapes list.
+    add_filter( 'gkt_shapes_list', 'my_gkt_shapes' );
+    function my_gkt_shapes( $shapes ) {
+        $shapes['my-shapes'] = array(
+            'name' => 'My Shapes',
+            'shapes' => array(
+                array(
+                    'label'                 => 'Wave',
+                    'name'                  => 'wave',
+                    'allow_flip_vertical'   => true,
+                    'allow_flip_horizontal' => true,
+                    'path'                  => ghostkit()->plugin_path . '/gutenberg/shapes/wave.svg',
+                ),
+                array(
+                    'label'                 => 'Waves',
+                    'name'                  => 'waves',
+                    'allow_flip_vertical'   => true,
+                    'allow_flip_horizontal' => true,
+                    'path'                  => ghostkit()->plugin_path . '/gutenberg/shapes/waves.svg',
+                ),
+                ...
             ),
         );
 

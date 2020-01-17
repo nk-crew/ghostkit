@@ -1,0 +1,78 @@
+{
+	"name": "ghostkit/shape-divider",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "align": [ "wide", "full" ]
+    },
+    "attributes": {
+		"align": {
+			"type": "string",
+			"default": "full"
+        },
+
+        "svg": {
+            "type": "string"
+        },
+        "flipVertical": {
+            "type": "boolean",
+            "default": false
+        },
+        "flipHorizontal": {
+            "type": "boolean",
+            "default": false
+        },
+
+        "sm_height": {
+            "type": "string",
+            "default": ""
+        },
+        "sm_width": {
+            "type": "string",
+            "default": ""
+        },
+
+        "md_height": {
+            "type": "string",
+            "default": ""
+        },
+        "md_width": {
+            "type": "string",
+            "default": ""
+        },
+
+        "lg_height": {
+            "type": "string",
+            "default": ""
+        },
+        "lg_width": {
+            "type": "string",
+            "default": ""
+        },
+
+        "xl_height": {
+            "type": "string",
+            "default": ""
+        },
+        "xl_width": {
+            "type": "string",
+            "default": ""
+        },
+
+        "height": {
+            "type": "string",
+            "default": "150"
+        },
+        "width": {
+            "type": "string",
+            "default": "100"
+        },
+
+        "color": {
+            "type": "string",
+            "default": "#0366d6"
+        }
+    }
+}

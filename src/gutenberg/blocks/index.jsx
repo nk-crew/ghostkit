@@ -4,6 +4,7 @@
 import * as grid from './grid';
 import * as gridColumn from './grid-column';
 import * as divider from './divider';
+import * as dividerShape from './shape-divider';
 import * as button from './button';
 import * as buttonSingle from './button-single';
 import * as progress from './progress';
@@ -46,6 +47,7 @@ jQuery( () => {
         button,
         buttonSingle,
         divider,
+        dividerShape,
         alert,
         iconBox,
         countdown,

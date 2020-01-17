@@ -9,6 +9,7 @@ import blockChangelog from '../icons/block-changelog.svg';
 import blockCountdown from '../icons/block-countdown.svg';
 import blockCounterBox from '../icons/block-counter-box.svg';
 import blockDivider from '../icons/block-divider.svg';
+import blockDividerShape from '../icons/block-shape-divider.svg';
 import blockGist from '../icons/block-gist.svg';
 import blockGoogleMaps from '../icons/block-google-maps.svg';
 import blockGrid from '../icons/block-grid.svg';
@@ -51,6 +52,8 @@ import iconHorizontalStart from '../icons/icon-horizontal-start.svg';
 import iconVerticalBottom from '../icons/icon-vertical-bottom.svg';
 import iconVerticalCenter from '../icons/icon-vertical-center.svg';
 import iconVerticalTop from '../icons/icon-vertical-top.svg';
+import iconFlipHorizontal from '../icons/icon-flip-horizontal.svg';
+import iconFlipVertical from '../icons/icon-flip-vertical.svg';
 import iconArrowDown from '../icons/icon-arrow-down.svg';
 import iconArrowLeft from '../icons/icon-arrow-left.svg';
 import iconArrowRight from '../icons/icon-arrow-right.svg';
@@ -84,6 +87,7 @@ export default {
     'block-countdown': blockCountdown,
     'block-counter-box': blockCounterBox,
     'block-divider': blockDivider,
+    'block-shape-divider': blockDividerShape,
     'block-gist': blockGist,
     'block-google-maps': blockGoogleMaps,
     'block-grid': blockGrid,
@@ -126,6 +130,8 @@ export default {
     'icon-vertical-bottom': iconVerticalBottom,
     'icon-vertical-center': iconVerticalCenter,
     'icon-vertical-top': iconVerticalTop,
+    'icon-flip-horizontal': iconFlipHorizontal,
+    'icon-flip-vertical': iconFlipVertical,
     'icon-arrow-down': iconArrowDown,
     'icon-arrow-left': iconArrowLeft,
     'icon-arrow-right': iconArrowRight,

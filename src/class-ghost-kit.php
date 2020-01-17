@@ -112,6 +112,9 @@ class GhostKit {
         // icons.
         require_once $this->plugin_path . 'classes/class-icons.php';
 
+        // shapes.
+        require_once $this->plugin_path . 'classes/class-shapes.php';
+
         // fonts.
         require_once $this->plugin_path . 'classes/class-fonts.php';
 
@@ -303,6 +306,29 @@ class GhostKit {
                                         'keys': 'google',
                                         // optional preview for editor.
                                         'preview': `<span class="fab fa-google"></span>`,
+                                    ),
+                                    ...
+                                ),
+                            ),
+                        )
+                    */
+                    )
+                ) : array(),
+                'shapes'               => is_admin() ? apply_filters(
+                    'gkt_shapes_list',
+                    array(
+                    /**
+                    * Example:
+                        array(
+                            'default' => array(
+                                'name' => 'Default',
+                                'shapes' => array(
+                                    array(
+                                        'label'                 => esc_html__( 'Wave', '@@text_domain' ),
+                                        'name'                  => 'wave',
+                                        'allow_flip_vertical'   => true,
+                                        'allow_flip_horizontal' => true,
+                                        'path'                  => ghostkit()->plugin_path . '/gutenberg/shapes/wave.svg',
                                     ),
                                     ...
                                 ),

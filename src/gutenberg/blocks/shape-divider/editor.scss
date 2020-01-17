@@ -1,0 +1,51 @@
+/**
+ * Editor Styles
+ */
+@import "../../variables";
+
+.ghostkit-shape-divider-control-styles {
+    .ghostkit-component-image-picker-item svg {
+        width: 100%;
+        height: 40px;
+    }
+
+    .ghostkit-shape-divider-control-styles-item-default-arrow svg,
+    .ghostkit-shape-divider-control-styles-item-default-arrow-curve svg {
+        width: 300%;
+        height: 9px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+// Remove top and bottom margins
+[data-type="ghostkit/shape-divider"] {
+    > .editor-block-list__insertion-point {
+        top: 0;
+    }
+    > .editor-block-list__block-edit {
+        .block-editor-block-list__layout &::before {
+            top: 0;
+            bottom: 0;
+        }
+
+        > [data-block] {
+            margin-top: -28px;
+            margin-bottom: -28px;
+        }
+
+        > .editor-block-list__breadcrumb {
+            top: 0;
+        }
+        > .editor-block-contextual-toolbar {
+            margin-top: 13px;
+            margin-bottom: -13px;
+        }
+        > .editor-block-mover {
+            margin-top: 13px;
+        }
+    }
+}
+.ghostkit-shape-divider {
+    width: 100%;
+}

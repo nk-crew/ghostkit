@@ -41,7 +41,11 @@ export default class ImagePicker extends Component {
                             onClick={ () => {
                                 onChange( option.value );
                             } }
-                            className={ classnames( 'ghostkit-component-image-picker-item', value === option.value ? 'ghostkit-component-image-picker-item-active' : '' ) }
+                            className={ classnames(
+                                'ghostkit-component-image-picker-item',
+                                value === option.value ? 'ghostkit-component-image-picker-item-active' : '',
+                                option.className
+                            ) }
                         >
                             { option.image && typeof option.image === 'string' ? (
                                 <img src={ option.image } alt={ option.label || option.value } />
