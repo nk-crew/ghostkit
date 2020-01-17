@@ -109,7 +109,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 newClassName = removeClass( newClassName, 'ghostkit-d-none' );
                 newClassName = removeClass( newClassName, 'ghostkit-d-block' );
 
-                if ( newClassName && val ) {
+                if ( val ) {
                     newClassName = addClass( newClassName, `ghostkit-d-${ val }` );
                 }
             }
