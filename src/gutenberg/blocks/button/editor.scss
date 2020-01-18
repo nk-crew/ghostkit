@@ -21,7 +21,7 @@
         margin-left: 0;
     }
 
-    > .editor-inner-blocks > .editor-block-list__layout {
+    > .block-editor-inner-blocks > .block-editor-block-list__layout {
         // we need to use inline-flex because of bug with selecting wrapper block in editor.
         display: inline-flex;
         flex-wrap: wrap;
@@ -35,14 +35,14 @@
         }
     }
 
-    &.ghostkit-button-wrapper-align-right > .editor-inner-blocks > .editor-block-list__layout {
+    &.ghostkit-button-wrapper-align-right > .block-editor-inner-blocks > .block-editor-block-list__layout {
         justify-content: flex-end;
     }
-    &.ghostkit-button-wrapper-align-center > .editor-inner-blocks > .editor-block-list__layout {
+    &.ghostkit-button-wrapper-align-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
         justify-content: center;
     }
 
-    > .editor-inner-blocks > .editor-block-list__layout > * > .editor-block-list__block-edit > [data-block] {
+    > .block-editor-inner-blocks > .block-editor-block-list__layout > * > .block-editor-block-list__block-edit > [data-block] {
         margin-bottom: 0;
     }
 
@@ -89,13 +89,13 @@
         margin-right: 0;
         margin-left: 0;
 
-        > .editor-inner-blocks {
+        > .block-editor-inner-blocks {
             margin-top: -$size;
             margin-right: $size / -2;
             margin-left: $size / -2;
         }
 
-        [data-type="ghostkit/button-single"] > .editor-block-list__block-edit > [data-block] {
+        [data-type="ghostkit/button-single"] > .block-editor-block-list__block-edit > [data-block] {
             margin-top: $size;
             margin-right: -14px + ($size / 2);
             margin-left: -15px + ($size / 2);

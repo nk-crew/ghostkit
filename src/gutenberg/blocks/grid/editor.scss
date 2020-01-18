@@ -20,7 +20,7 @@
     margin-right: 0;
     margin-left: 0;
 
-    > .editor-inner-blocks > .editor-block-list__layout {
+    > .block-editor-inner-blocks > .block-editor-block-list__layout {
         position: relative;
         display: flex;
         flex-wrap: wrap;
@@ -29,7 +29,7 @@
         margin-left: -15px;
 
         // This max-width is used to constrain the main editor column, it should not cascade into columns
-        .editor-block-list__block {
+        .block-editor-block-list__block {
             max-width: none;
             margin-right: 0;
             margin-left: 0;
@@ -40,11 +40,11 @@
     // This is not a 1:1 preview with the front-end where these margins would presumably be zero
     // @todo this could be revisited, by for example showing this margin only when the parent block was selected first
     // Then at least an unselected columns block would be an accurate preview
-    .editor-block-list__block[data-align="full"][data-type="ghostkit/grid"] > .editor-block-list__block-edit > div > & {
+    .block-editor-block-list__block[data-align="full"][data-type="ghostkit/grid"] > .block-editor-block-list__block-edit > div > & {
         > .ghostkit-grid-button-select {
             right: 1px;
         }
-        > .editor-inner-blocks > .editor-block-list__layout {
+        > .block-editor-inner-blocks > .block-editor-block-list__layout {
             margin-right: 1px;
             margin-left: 1px;
         }
@@ -64,7 +64,7 @@
 }
 
 // Fix columns overflowing.
-.ghostkit-grid > .editor-inner-blocks::before {
+.ghostkit-grid > .block-editor-inner-blocks::before {
     content: "";
     display: block;
     height: 1px;
@@ -106,8 +106,8 @@
     border-top-right-radius: 3px;
     border-bottom-left-radius: 0;
 }
-[data-type="ghostkit/grid"]:hover > .editor-block-list__block-edit > div > div > .ghostkit-grid-button-select,
-[data-type="ghostkit/grid-column"]:hover > .editor-block-list__block-edit > div > div > .ghostkit-column-button-select {
+[data-type="ghostkit/grid"]:hover > .block-editor-block-list__block-edit > div > div > .ghostkit-grid-button-select,
+[data-type="ghostkit/grid-column"]:hover > .block-editor-block-list__block-edit > div > div > .ghostkit-column-button-select {
     visibility: visible;
     opacity: 1;
 }
@@ -117,29 +117,29 @@
 }
 
 // add outlines on hover
-.editor-block-list__layout > [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit::before {
+.block-editor-block-list__layout > [data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit::before {
     left: -15px;
 }
 // stylelint-disable-next-line
-[data-type="ghostkit/grid"]:hover > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .editor-block-list__block-edit::before,
-[data-type="ghostkit/grid"].is-hovered > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .editor-block-list__block-edit::before,
-[data-type="ghostkit/grid"].is-selected > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .editor-block-list__block-edit::before {
+[data-type="ghostkit/grid"]:hover > .block-editor-block-list__block-edit > div > .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .block-editor-block-list__block-edit::before,
+[data-type="ghostkit/grid"].is-hovered > .block-editor-block-list__block-edit > div > .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .block-editor-block-list__block-edit::before,
+[data-type="ghostkit/grid"].is-selected > .block-editor-block-list__block-edit > div > .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .block-editor-block-list__block-edit::before {
     outline: 1px dashed rgba(145, 151, 162, .25);
 }
 // stylelint-disable-next-line
-[data-type="ghostkit/grid"]:hover > .editor-block-list__block-edit > div > .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > [data-type="ghostkit/grid-column"].is-hovered > .editor-block-list__block-edit::before {
+[data-type="ghostkit/grid"]:hover > .block-editor-block-list__block-edit > div > .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="ghostkit/grid-column"].is-hovered > .block-editor-block-list__block-edit::before {
     outline: 1px solid $blue-wordpress;
 }
 
 // fix background overlap outlines
-.editor-block-list__layout > [data-type="ghostkit/grid"] > .editor-block-list__block-edit::before,
-.editor-block-list__layout > [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit::before {
+.block-editor-block-list__layout > [data-type="ghostkit/grid"] > .block-editor-block-list__block-edit::before,
+.block-editor-block-list__layout > [data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit::before {
     z-index: 1;
 }
 
 // hide default grid and column breadcrumb
-[data-type="ghostkit/grid"] > .editor-block-list__block-edit > .editor-block-list__breadcrumb,
-[data-type="ghostkit/grid-column"] > .editor-block-list__block-edit > .editor-block-list__breadcrumb {
+[data-type="ghostkit/grid"] > .block-editor-block-list__block-edit > .editor-block-list__breadcrumb,
+[data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit > .editor-block-list__breadcrumb {
     display: none;
 }
 
@@ -210,7 +210,7 @@
     flex-direction: column;
     width: 0;
 
-    > .editor-block-list__block-edit {
+    > .block-editor-block-list__block-edit {
         display: flex;
         flex-basis: 100%;
         // stylelint-disable-next-line
@@ -269,27 +269,27 @@
 // Gaps.
 @each $name, $size in $grid-gaps {
     .ghostkit-grid-gap-#{$name} {
-        > .editor-inner-blocks {
+        > .block-editor-inner-blocks {
             margin-right: 14px + ($size / -2);
             margin-left: 15px + ($size / -2);
         }
 
-        [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit > [data-block] {
+        [data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit > [data-block] {
             max-width: calc(100% + #{14px + ($size / 2) + 15px + ($size / 2)});
             margin-right: -14px + ($size / 2);
             margin-left: -15px + ($size / 2);
         }
-        [data-type="ghostkit/grid-column"] > .editor-block-list__block-edit > .editor-block-contextual-toolbar + [data-block] {
+        [data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit > .editor-block-contextual-toolbar + [data-block] {
             margin-left: 15px + ($size / 2);
         }
     }
 }
 
 // Vertical align.
-.ghostkit-grid-align-items-center > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col > .editor-block-list__block-edit > [data-block] {
+.ghostkit-grid-align-items-center > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col > .block-editor-block-list__block-edit > [data-block] {
     align-self: center;
 }
-.ghostkit-grid-align-items-end > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col > .editor-block-list__block-edit > [data-block] {
+.ghostkit-grid-align-items-end > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col > .block-editor-block-list__block-edit > [data-block] {
     align-self: flex-end;
 }
 
@@ -298,35 +298,35 @@
     @include media-breakpoint-down($breakpoint) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col-align-self#{$infix}-start > .editor-block-list__block-edit > [data-block] {
+        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-start > .block-editor-block-list__block-edit > [data-block] {
             align-self: flex-start;
         }
-        .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col-align-self#{$infix}-center > .editor-block-list__block-edit > [data-block] {
+        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-center > .block-editor-block-list__block-edit > [data-block] {
             align-self: center;
         }
-        .ghostkit-grid > .editor-inner-blocks > .editor-block-list__layout > .ghostkit-col-align-self#{$infix}-end > .editor-block-list__block-edit > [data-block] {
+        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-end > .block-editor-block-list__block-edit > [data-block] {
             align-self: flex-end;
         }
     }
 }
 
 // Horizontal align.
-.ghostkit-grid-justify-content-center > .editor-inner-blocks > .editor-block-list__layout {
+.ghostkit-grid-justify-content-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
     justify-content: center;
 }
-.ghostkit-grid-justify-content-end > .editor-inner-blocks > .editor-block-list__layout {
+.ghostkit-grid-justify-content-end > .block-editor-inner-blocks > .block-editor-block-list__layout {
     justify-content: flex-end;
 }
-.ghostkit-grid-justify-content-around > .editor-inner-blocks > .editor-block-list__layout {
+.ghostkit-grid-justify-content-around > .block-editor-inner-blocks > .block-editor-block-list__layout {
     justify-content: space-around;
 }
-.ghostkit-grid-justify-content-between > .editor-inner-blocks > .editor-block-list__layout {
+.ghostkit-grid-justify-content-between > .block-editor-inner-blocks > .block-editor-block-list__layout {
     justify-content: space-between;
 }
 
 // Background AWB
 .ghostkit-grid > .awb-gutenberg-preview-block,
-.ghostkit-col > .editor-block-list__block-edit > div > .awb-gutenberg-preview-block {
+.ghostkit-col > .block-editor-block-list__block-edit > div > .awb-gutenberg-preview-block {
     position: absolute;
     top: 0;
     right: 0;
@@ -356,7 +356,7 @@
     }
 }
 @media (min-width: 600px) {
-    [data-align="full"] > .editor-block-list__block-edit > div > .ghostkit-grid {
+    [data-align="full"] > .block-editor-block-list__block-edit > div > .ghostkit-grid {
         > .awb-gutenberg-preview-block {
             right: 0;
             left: 0;

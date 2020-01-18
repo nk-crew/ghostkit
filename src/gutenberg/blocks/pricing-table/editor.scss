@@ -3,12 +3,12 @@
  */
 @import "../../variables";
 
-.ghostkit-pricing-table > .editor-inner-blocks > .editor-block-list__layout {
+.ghostkit-pricing-table > .block-editor-inner-blocks > .block-editor-block-list__layout {
     display: flex;
     flex-wrap: wrap;
 
     // fix items margin top.
-    > .editor-block-list__block > .editor-block-list__block-edit {
+    > .block-editor-block-list__block > .block-editor-block-list__block-edit {
         margin-top: 12px;
     }
 }
@@ -68,7 +68,7 @@
         align-self: flex-end;
     }
 
-    .editor-block-list__block & .ghostkit-pricing-table-item-features {
+    .block-editor-block-list__block & .ghostkit-pricing-table-item-features {
         position: relative;
         margin: 0;
         font-size: .9em;
@@ -195,9 +195,9 @@
 }
 
 // Vertical align.
-.ghostkit-pricing-table-align-vertical-center > .editor-inner-blocks > .editor-block-list__layout {
+.ghostkit-pricing-table-align-vertical-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
     align-items: center;
 }
-.ghostkit-pricing-table-align-vertical-end > .editor-inner-blocks > .editor-block-list__layout {
+.ghostkit-pricing-table-align-vertical-end > .block-editor-inner-blocks > .block-editor-block-list__layout {
     align-items: flex-end;
 }
