@@ -1,5 +1,6 @@
 @import "../../variables";
 
+// Editor controls.
 .ghostkit-control-sr-direction {
     position: relative;
     width: 100%;
@@ -87,9 +88,4 @@
             }
         }
     }
-}
-
-[data-ghostkit-sr] {
-    pointer-events: none;
-    visibility: hidden;
 }

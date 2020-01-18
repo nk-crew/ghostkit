@@ -72,6 +72,7 @@
  * Extension Styles
  */
 @import "./extend/display/style";
+@import "./extend/scroll-reveal/style";
 
 /**
  * Variant Styles
@@ -79,13 +80,3 @@
 @import "./style-variants/core-list/style";
 @import "./style-variants/core-heading/style";
 @import "./style-variants/ghostkit-tabs/style";
-
-/**
- * Additional classes.
- */
-
-// Scroll Reveal
-[data-ghostkit-sr] {
-    pointer-events: none;
-    visibility: hidden;
-}
