@@ -35,7 +35,6 @@ const { InspectorControls } = wp.blockEditor;
 
 const {
     PanelBody,
-    BaseControl,
     ButtonGroup,
     Button,
 } = wp.components;
@@ -248,7 +247,6 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     }
                                 }
                             </ResponsiveTabPanel>
-                            <BaseControl help={ __( 'Display settings will only take effect once you are on the preview or live page, and not while you\'re in editing mode.', '@@text_domain' ) } />
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>
