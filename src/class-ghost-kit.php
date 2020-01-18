@@ -115,6 +115,9 @@ class GhostKit {
         // shapes.
         require_once $this->plugin_path . 'classes/class-shapes.php';
 
+        // color palette.
+        require_once $this->plugin_path . 'classes/class-color-palette.php';
+
         // fonts.
         require_once $this->plugin_path . 'classes/class-fonts.php';
 

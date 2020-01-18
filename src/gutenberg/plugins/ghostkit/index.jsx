@@ -25,9 +25,10 @@ const {
  */
 import getIcon from '../../utils/get-icon';
 import { TemplatesModal } from '../templates';
-import { CustomCodeModal } from '../custom-code';
-import { CustomizerModal } from '../customizer';
 import { TypographyModal } from '../typography';
+import { CustomCodeModal } from '../custom-code';
+import { ColorPaletteModal } from '../color-palette';
+import { CustomizerModal } from '../customizer';
 
 export const name = 'ghostkit';
 
@@ -97,6 +98,17 @@ export class Plugin extends Component {
                             isDefault
                             isLarge
                             onClick={ () => {
+                                this.setState( { isModalOpen: 'color-palette' } );
+                            } }
+                        >
+                            { getIcon( 'plugin-color-palette' ) }
+                            { __( 'Color Palette', '@@text_domain' ) }
+                        </Button>
+                        <Button
+                            className="plugin-ghostkit-panel-button"
+                            isDefault
+                            isLarge
+                            onClick={ () => {
                                 this.setState( { isModalOpen: 'customizer' } );
                             } }
                         >
@@ -110,18 +122,23 @@ export class Plugin extends Component {
                         onRequestClose={ () => this.setState( { isModalOpen: false } ) }
                     />
                 ) : '' }
+                { 'typography' === isModalOpen ? (
+                    <TypographyModal
+                        onRequestClose={ () => this.setState( { isModalOpen: false } ) }
+                    />
+                ) : '' }
                 { 'custom-code' === isModalOpen ? (
                     <CustomCodeModal
                         onRequestClose={ () => this.setState( { isModalOpen: false } ) }
                     />
                 ) : '' }
-                { 'customizer' === isModalOpen ? (
-                    <CustomizerModal
+                { 'color-palette' === isModalOpen ? (
+                    <ColorPaletteModal
                         onRequestClose={ () => this.setState( { isModalOpen: false } ) }
                     />
                 ) : '' }
-                { 'typography' === isModalOpen ? (
-                    <TypographyModal
+                { 'customizer' === isModalOpen ? (
+                    <CustomizerModal
                         onRequestClose={ () => this.setState( { isModalOpen: false } ) }
                     />
                 ) : '' }

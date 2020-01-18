@@ -28,6 +28,7 @@ import blockTableOfContents from '../icons/block-table-of-contents.svg';
 import pluginGhostkit from '../icons/plugin-ghostkit.svg';
 import pluginTemplates from '../icons/plugin-templates.svg';
 import pluginCustomCode from '../icons/plugin-custom-code.svg';
+import pluginColorPalette from '../icons/plugin-color-palette.svg';
 import pluginCustomizer from '../icons/plugin-customizer.svg';
 import pluginTypography from '../icons/plugin-typography.svg';
 
@@ -106,6 +107,7 @@ export default {
     'plugin-ghostkit': pluginGhostkit,
     'plugin-templates': pluginTemplates,
     'plugin-custom-code': pluginCustomCode,
+    'plugin-color-palette': pluginColorPalette,
     'plugin-customizer': pluginCustomizer,
     'plugin-typography': pluginTypography,
 

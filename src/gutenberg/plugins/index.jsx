@@ -10,6 +10,7 @@ import * as ghostkit from './ghostkit';
 import * as templates from './templates';
 import * as typography from './typography';
 import * as customCode from './custom-code';
+import * as colorPalette from './color-palette';
 import * as customizer from './customizer';
 
 /**
@@ -20,6 +21,7 @@ import * as customizer from './customizer';
     templates,
     typography,
     customCode,
+    colorPalette,
     customizer,
 ].forEach( ( { name, icon, Plugin } ) => {
     registerPlugin( name, {

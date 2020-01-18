@@ -158,6 +158,17 @@ class GhostKit_Rest extends WP_REST_Controller {
             )
         );
 
+        // Update Color Palette.
+        register_rest_route(
+            $namespace,
+            '/update_color_palette/',
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'update_color_palette' ),
+                'permission_callback' => array( $this, 'update_color_palette_permission' ),
+            )
+        );
+
         // Get Typography.
         register_rest_route(
             $namespace,
@@ -358,6 +369,18 @@ class GhostKit_Rest extends WP_REST_Controller {
      * @return bool
      */
     public function update_custom_code_permission() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
+     * Get edit color palette permissions.
+     *
+     * @return bool
+     */
+    public function update_color_palette_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
             return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
         }
@@ -1542,6 +1565,23 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( is_array( $new_code ) ) {
             $current_code = get_option( 'ghostkit_custom_code', array() );
             update_option( 'ghostkit_custom_code', array_merge( $current_code, $new_code ) );
+        }
+
+        return $this->success( true );
+    }
+
+    /**
+     * Update color palette.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function update_color_palette( WP_REST_Request $request ) {
+        $colors = $request->get_param( 'data' );
+
+        if ( is_array( $colors ) ) {
+            update_option( 'ghostkit_color_palette', $colors );
         }
 
         return $this->success( true );
