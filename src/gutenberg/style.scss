@@ -36,7 +36,6 @@
 @import "./bootstrap/functions";
 @import "./bootstrap/variables";
 @import "./bootstrap/breakpoints";
-@import "./bootstrap/display";
 
 /**
  * Blocks Styles
@@ -68,6 +67,11 @@
  */
 @import "./formats/badge/style";
 @import "./formats/uppercase/style";
+
+/**
+ * Extension Styles
+ */
+@import "./extend/display/style";
 
 /**
  * Variant Styles

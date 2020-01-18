@@ -1,4 +1,14 @@
 /**
+ * Import CSS
+ */
+import './editor.scss';
+
+/**
+ * External dependencies
+ */
+import classnames from 'classnames/dedupe';
+
+/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
@@ -69,6 +79,52 @@ const getDefaultDisplay = function( screen = '' ) {
 };
 
 /**
+ * Check if block Display allowed.
+ *
+ * @param {object} data - block data.
+ * @return {boolean} allowed Display.
+ */
+function allowedDisplay( data ) {
+    let allow = false;
+    const checkSupportVar = data && data.ghostkit && data.ghostkit.supports ? data : data.name;
+
+    if ( hasBlockSupport( checkSupportVar, 'customClassName', true ) && GHOSTKIT.hasBlockSupport( checkSupportVar, 'display', false ) ) {
+        allow = true;
+    }
+
+    if ( ! allow ) {
+        allow = data && data.attributes && applyFilters(
+            'ghostkit.blocks.allowDisplay',
+            checkCoreBlock( data.name ),
+            data,
+            data.name
+        );
+    }
+
+    return allow;
+}
+
+/**
+ * Get current display for selected screen size.
+ *
+ * @param {String} className - block className.
+ * @param {String} screen - name of screen size.
+ *
+ * @returns {String} display value.
+ */
+function getCurrentDisplay( className, screen ) {
+    if ( ! screen || 'all' === screen ) {
+        if ( hasClass( className, 'ghostkit-d-none' ) ) {
+            return 'none';
+        } else if ( hasClass( className, 'ghostkit-d-block' ) ) {
+            return 'block';
+        }
+    }
+
+    return getActiveClass( className, `ghostkit-d-${ screen }`, true );
+}
+
+/**
  * Override the default edit UI to include a new block inspector control for
  * assigning the custom display if needed.
  *
@@ -82,7 +138,6 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             super( ...arguments );
 
             this.updateDisplay = this.updateDisplay.bind( this );
-            this.getCurrentDisplay = this.getCurrentDisplay.bind( this );
         }
 
         /**
@@ -119,55 +174,13 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             } );
         }
 
-        /**
-         * Get current display for selected screen size.
-         *
-         * @param {String} screen - name of screen size.
-         *
-         * @returns {String} display value.
-         */
-        getCurrentDisplay( screen ) {
-            const {
-                attributes,
-            } = this.props;
-
-            const {
-                className,
-            } = attributes;
-
-            if ( ! screen || 'all' === screen ) {
-                if ( hasClass( className, 'ghostkit-d-none' ) ) {
-                    return 'none';
-                } else if ( hasClass( className, 'ghostkit-d-block' ) ) {
-                    return 'block';
-                }
-            }
-
-            return getActiveClass( className, `ghostkit-d-${ screen }`, true );
-        }
-
         render() {
             const props = this.props;
             const {
                 className,
             } = props.attributes;
 
-            let allow = false;
-
-            if ( hasBlockSupport( props.name, 'customClassName', true ) ) {
-                if ( GHOSTKIT.hasBlockSupport( props.name, 'display', false ) ) {
-                    allow = true;
-                }
-
-                if ( ! allow ) {
-                    allow = applyFilters(
-                        'ghostkit.blocks.allowDisplay',
-                        checkCoreBlock( props.name ),
-                        props,
-                        props.name
-                    );
-                }
-            }
+            const allow = allowedDisplay( props );
 
             if ( ! allow ) {
                 return <OriginalComponent { ...props } />;
@@ -179,7 +192,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                     'all',
                     ...Object.keys( ghostkitVariables.media_sizes ),
                 ].forEach( ( media ) => {
-                    filledTabs[ media ] = !! this.getCurrentDisplay( media );
+                    filledTabs[ media ] = !! getCurrentDisplay( className, media );
                 } );
             }
 
@@ -215,7 +228,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                             <ButtonGroup>
                                                 {
                                                     getDefaultDisplay( tabData.name ).map( ( val ) => {
-                                                        const selected = this.getCurrentDisplay( tabData.name ) === val.value;
+                                                        const selected = getCurrentDisplay( className, tabData.name ) === val.value;
 
                                                         return (
                                                             <Button
@@ -223,7 +236,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                                                 isPrimary={ selected }
                                                                 aria-pressed={ selected }
                                                                 onClick={ () => this.updateDisplay( tabData.name, val.value ) }
-                                                                key={ `gap_${ val.label }` }
+                                                                key={ `display_${ val.label }` }
                                                             >
                                                                 { val.label }
                                                             </Button>
@@ -246,5 +259,86 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
     return GhostKitDisplayWrapper;
 }, 'withInspectorControl' );
 
+const withDataDisplay = createHigherOrderComponent( ( BlockListBlock ) => {
+    class GhostKitDisplayWrapper extends Component {
+        constructor() {
+            super( ...arguments );
+
+            this.state = {
+                allowedDisplay: allowedDisplay( this.props ),
+                currentClassName: '',
+                currentDisplay: '',
+            };
+
+            this.maybeRunDisplay = this.maybeRunDisplay.bind( this );
+        }
+
+        componentDidUpdate() {
+            this.maybeRunDisplay();
+        }
+        componentDidMount() {
+            this.maybeRunDisplay();
+        }
+
+        maybeRunDisplay() {
+            const {
+                attributes,
+            } = this.props;
+
+            const {
+                className = '',
+            } = attributes;
+
+            if ( ! this.state.allowedDisplay || this.state.currentClassName === className ) {
+                return;
+            }
+
+            if ( ! ghostkitVariables || ! ghostkitVariables.media_sizes ) {
+                return;
+            }
+
+            let currentDisplay = '';
+
+            [
+                'all',
+                ...Object.keys( ghostkitVariables.media_sizes ),
+            ].forEach( ( media ) => {
+                const currentVal = getCurrentDisplay( className, media );
+
+                if ( currentVal ) {
+                    currentDisplay = classnames( currentDisplay, `editor-ghostkit-d${ 'all' === media ? '' : `-${ media }` }-${ currentVal }` );
+                }
+            } );
+
+            this.setState( {
+                currentClassName: className,
+                currentDisplay,
+            } );
+        }
+
+        render() {
+            const {
+                className,
+            } = this.props;
+
+            if ( ! this.state.currentDisplay ) {
+                return (
+                    <BlockListBlock { ...this.props } />
+                );
+            }
+
+            return (
+                <BlockListBlock
+                    { ...this.props }
+                    className={ classnames( className, this.state.currentDisplay ) }
+                />
+            );
+        }
+    }
+
+    return GhostKitDisplayWrapper;
+}, 'withDataDisplay' );
+
 // Init filters.
 addFilter( 'editor.BlockEdit', 'ghostkit/display/additional-attributes', withInspectorControl );
+addFilter( 'editor.BlockListBlock', 'ghostkit/display/editor/additional-attributes', withDataDisplay );
