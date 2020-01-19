@@ -94,6 +94,7 @@ Add custom colors to Gutenberg color palette.
 Ghost Kit PRO Addon extends the capabilities of Ghost Kit and improve your design experience. List of the main features:
 
 * More icon packs
+* 30 additional shapes for Shape Divider block
 * Visual Grid editor
 * Adobe Fonts (Typekit)
 * Google Maps custom markers
