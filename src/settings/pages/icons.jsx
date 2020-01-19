@@ -7,12 +7,13 @@ import './icons.scss';
  * External dependencies
  */
 import { Component, Fragment } from 'react';
-import deepAssign from 'deep-assign';
 import { debounce } from 'throttle-debounce';
 
 /**
  * WordPress dependencies
  */
+const { merge } = window.lodash;
+
 const { apiFetch } = wp;
 
 const {
@@ -48,7 +49,7 @@ class Icons extends Component {
     }
 
     updateSetting( name, val ) {
-        const allSettings = deepAssign( {}, this.state.settings, {
+        const allSettings = merge( {}, this.state.settings, {
             [ name ]: val,
         } );
 

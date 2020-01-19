@@ -2,11 +2,12 @@
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
-import deepAssign from 'deep-assign';
 
 /**
  * WordPress dependencies
  */
+const { merge } = window.lodash;
+
 const {
     RichText,
 } = wp.blockEditor;
@@ -46,7 +47,7 @@ export default [
                     };
                 }
                 if ( attributes.hoverBackgroundColor ) {
-                    styles[ '&:hover' ] = deepAssign( styles[ '&:hover' ] || {}, {
+                    styles[ '&:hover' ] = merge( styles[ '&:hover' ] || {}, {
                         '.ghostkit-progress-wrap': {
                             backgroundColor: attributes.hoverBackgroundColor,
                         },
@@ -193,7 +194,7 @@ export default [
                     };
                 }
                 if ( attributes.hoverBackgroundColor ) {
-                    styles[ '&:hover' ] = deepAssign( styles[ '&:hover' ] || {}, {
+                    styles[ '&:hover' ] = merge( styles[ '&:hover' ] || {}, {
                         '.ghostkit-progress-wrap': {
                             backgroundColor: attributes.hoverBackgroundColor,
                         },

@@ -5,13 +5,10 @@ import './editor.scss';
 import './style.scss';
 
 /**
- * External dependencies
- */
-import deepAssign from 'deep-assign';
-
-/**
  * WordPress dependencies
  */
+const { merge, cloneDeep } = window.lodash;
+
 const { __ } = wp.i18n;
 
 const {
@@ -111,7 +108,7 @@ class FrameComponent extends Component {
         } );
 
         // add default properties to keep sorting.
-        ghostkitFrame = deepAssign( {
+        ghostkitFrame = merge( {
             media_xl: {},
             media_lg: {},
             media_md: {},
@@ -204,6 +201,7 @@ class FrameComponent extends Component {
             'hoverBorderStyle',
             'hoverBorderWidth',
             'hoverBorderColor',
+            'hoverBoxShadowColor',
             'hoverBoxShadowX',
             'hoverBoxShadowY',
             'hoverBoxShadowBlur',
@@ -687,7 +685,7 @@ function prepareStyle( key, val ) {
  * @return {Object} Additional element styles object.
  */
 function addEditorCustomStyles( customStyles, props ) {
-    let customFrame = props.attributes.ghostkitFrame && Object.keys( props.attributes.ghostkitFrame ).length !== 0 ? deepAssign( {}, props.attributes.ghostkitFrame ) : false;
+    let customFrame = props.attributes.ghostkitFrame && Object.keys( props.attributes.ghostkitFrame ).length !== 0 ? cloneDeep( props.attributes.ghostkitFrame ) : false;
 
     // prepare shadow.
     customFrame = prepareShadow( customFrame );
@@ -700,7 +698,7 @@ function addEditorCustomStyles( customStyles, props ) {
             if ( typeof customFrame[ key ] === 'object' ) {
                 Object.keys( customFrame[ key ] ).map( ( keyDevice ) => {
                     if ( customFrame[ key ][ keyDevice ] ) {
-                        result = deepAssign(
+                        result = merge(
                             result,
                             {
                                 [ key ]: prepareStyle( keyDevice, customFrame[ key ][ keyDevice ] ),
@@ -709,7 +707,7 @@ function addEditorCustomStyles( customStyles, props ) {
                     }
                 } );
             } else {
-                result = deepAssign(
+                result = merge(
                     result,
                     prepareStyle( key, customFrame[ key ] )
                 );
@@ -720,7 +718,7 @@ function addEditorCustomStyles( customStyles, props ) {
     customFrame = Object.keys( result ).length !== 0 ? result : false;
 
     if ( customStyles && customFrame ) {
-        customStyles = deepAssign( customStyles, customFrame );
+        customStyles = merge( customStyles, customFrame );
     }
 
     return customStyles;

@@ -5,13 +5,10 @@ import './style.scss';
 import './editor.scss';
 
 /**
- * External dependencies
- */
-import deepAssign from 'deep-assign';
-
-/**
  * WordPress dependencies
  */
+const { merge } = window.lodash;
+
 const { __ } = wp.i18n;
 
 /**
@@ -58,7 +55,7 @@ export const settings = {
                 };
             }
             if ( attributes.hoverIconColor ) {
-                styles[ '&:hover' ] = deepAssign( styles[ '&:hover' ] || {}, {
+                styles[ '&:hover' ] = merge( styles[ '&:hover' ] || {}, {
                     '.ghostkit-divider-icon': {
                         color: attributes.hoverIconColor,
                     },

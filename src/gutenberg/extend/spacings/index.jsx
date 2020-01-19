@@ -4,13 +4,10 @@
 import './editor.scss';
 
 /**
- * External dependencies
- */
-import deepAssign from 'deep-assign';
-
-/**
  * WordPress dependencies
  */
+const { merge, cloneDeep } = window.lodash;
+
 const { __ } = wp.i18n;
 
 const {
@@ -103,7 +100,7 @@ class SpacingsComponent extends Component {
         }
 
         // add default properties to keep sorting.
-        ghostkitSpacings = deepAssign( {
+        ghostkitSpacings = merge( {
             media_xl: {},
             media_lg: {},
             media_md: {},
@@ -460,7 +457,7 @@ const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
  * @return {Object} Additional element styles object.
  */
 function addEditorCustomStyles( customStyles, props ) {
-    let customSpacings = props.attributes.ghostkitSpacings && Object.keys( props.attributes.ghostkitSpacings ).length !== 0 ? deepAssign( {}, props.attributes.ghostkitSpacings ) : false;
+    let customSpacings = props.attributes.ghostkitSpacings && Object.keys( props.attributes.ghostkitSpacings ).length !== 0 ? cloneDeep( props.attributes.ghostkitSpacings ) : false;
 
     // prepare !important tag.
     // validate values.
@@ -486,7 +483,7 @@ function addEditorCustomStyles( customStyles, props ) {
     customSpacings = Object.keys( result ).length !== 0 ? result : false;
 
     if ( customStyles && customSpacings ) {
-        customStyles = deepAssign( customStyles, customSpacings );
+        customStyles = merge( customStyles, customSpacings );
     }
 
     return customStyles;

@@ -1,7 +1,7 @@
 /**
- * External dependencies
+ * WordPress dependencies
  */
-import deepAssign from 'deep-assign';
+const { merge } = window.lodash;
 
 function reducer( state = { data: false }, action ) {
     switch ( action.type ) {
@@ -9,7 +9,7 @@ function reducer( state = { data: false }, action ) {
         if ( action.data ) {
             if ( state.data ) {
                 return {
-                    data: deepAssign( state.data, action.data ),
+                    data: merge( state.data, action.data ),
                 };
             }
             return {

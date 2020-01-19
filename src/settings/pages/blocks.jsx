@@ -9,12 +9,13 @@ import './blocks.scss';
 import classnames from 'classnames/dedupe';
 import { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import deepAssign from 'deep-assign';
 import { debounce } from 'throttle-debounce';
 
 /**
  * WordPress dependencies
  */
+const { merge } = window.lodash;
+
 const { apiFetch } = wp;
 
 const { __, sprintf } = wp.i18n;
@@ -71,7 +72,7 @@ export default class Blocks extends Component {
     }
 
     updateDisabledBlocks( newBlocks ) {
-        const allBlocks = deepAssign( {}, this.state.disabledBlocks, newBlocks );
+        const allBlocks = merge( {}, this.state.disabledBlocks, newBlocks );
 
         this.setState( {
             disabledBlocks: allBlocks,
