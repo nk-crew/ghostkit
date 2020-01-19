@@ -30,7 +30,9 @@ Ghost Kit has pre-made templates, so you can get started with it and build your 
 
 Change typography options globally on a whole site or on specific pages only. Options available:
 
-* Font Family (supported Google Fonts)
+* Font Family
+  * Google Fonts
+  * Adobe Fonts (Typekit) in PRO version
 * Font Weight
 * Font Size
 * Line Height
@@ -42,6 +44,10 @@ By default you can change typography for the following elements:
 * Buttons
 * Headings
   * From H1 to H6
+
+### Color Palette ###
+
+Add custom colors to Gutenberg color palette.
 
 ### Formats ###
 
@@ -76,8 +82,9 @@ By default you can change typography for the following elements:
 
 ### Extensions ##
 
-* [**Spacings**](https://ghostkit.io/extensions/spacings/). Easily add spacings in Ghost Kit and Core blocks
+* [**Spacings**](https://ghostkit.io/extensions/spacings/). Easily add spacings to Ghost Kit and Core blocks
 * [**Display**](https://ghostkit.io/extensions/display/). Show and hide blocks Ghost Kit and Core blocks on different screen sizes
+* [**Frame**](https://ghostkit.io/extensions/frame/). Add borders, shadows and corner radius to Ghost Kit and Core blocks on different screen sizes
 * [**Animate on Scroll**](https://ghostkit.io/extensions/animate-on-scroll/). Show with animation Ghost Kit and Core blocks on page scrolling
 * [**Custom CSS & JavaScript**](https://ghostkit.io/extensions/custom-css-js/). This extension is available on all pages and let you add custom CSS and JavaScript for the current page and globally site wide
 * [**Customizer**](https://ghostkit.io/extensions/customizer/). This extension is available on all pages and let you change customizer options on the current page
@@ -88,6 +95,7 @@ Ghost Kit PRO Addon extends the capabilities of Ghost Kit and improve your desig
 
 * More icon packs
 * Visual Grid editor
+* Adobe Fonts (Typekit)
 * Google Maps custom markers
 * Gradient buttons, backgrounds, icons
 * And more
@@ -96,11 +104,12 @@ Try out a live demo of [Ghost Kit PRO](https://demo.ghostkit.io/)
 
 = Real Usage Examples =
 
-* [Skylith - Multipurpose Gutenberg Theme](https://demo.nkdev.info/#skylith)
+* [SquadForce Theme](https://wp.nkdev.info/squadforce/)
+* [Skylith Theme](https://wp.nkdev.info/skylith/)
 
 ## Installation ##
 
-Make sure you use WordPress 5 As alternative you need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use Ghost Kit.
+Make sure you use WordPress 5. As alternative you need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use Ghost Kit.
 
 ### Automatic installation ###
 
@@ -133,14 +142,14 @@ Available filters:
 
 You can add templates in your theme, so users will be able to insert it on pages with a single click. This is a simple example of theme templates structure:
 
-- wp-content/themes/YOUR_THEME/ghostkit/templates/
-    - /first-template/
-        - /content.php
-        - /thumbnail.png
-    - /second-template/
-        - /content.php
-        - /thumbnail.png
-    - ...
+* wp-content/themes/YOUR_THEME/ghostkit/templates/
+  * /first-template/
+    * /content.php
+    * /thumbnail.png
+  * /second-template/
+    * /content.php
+    * /thumbnail.png
+  * ...
 
 `content.php` file content example:
 
@@ -344,6 +353,23 @@ Available events:
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.8.0 =
+
+* added Adobe Fonts in PRO version
+* added Shape Divider block <https://ghostkit.io/blocks/shape-divider/>
+* added Frame extension (border, shadow, radius) <https://ghostkit.io/extensions/frame/>
+* added Color Palette plugin to extend default Gutenberg color palette <https://ghostkit.io/extensions/color-palette/>
+* added possibility to activate Tabs and Accordions on hash change
+* added visual styles in editor for hidden blocks that used Display extension
+* improved Table of Contents block reload after headings change (no jumping in the editor anymore)
+* fixed Reusable Widget number of blocks to select
+* fixed Instagram block image alt attribute
+* fixed font family reset button also resets font category
+* fixed non-working links in TOC block when used special characters
+* fixed Grid Columns, Buttons gap styles in editor
+* fixed Display extension not adding classname
+* fixed alignfull grid background margins
 
 = 2.7.1 =
 
