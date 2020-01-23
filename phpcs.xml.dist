@@ -14,6 +14,8 @@
 
     <!-- Check the /src/ directory and the directories below it. -->
     <file>./src/</file>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/vendors/*</exclude-pattern>
 
     <!-- These files are too large to be scanned. -->
     <exclude-pattern>/src/classes/class-fonts\.php</exclude-pattern>
