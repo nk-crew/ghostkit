@@ -526,5 +526,5 @@ addFilter( 'blocks.registerBlockType', 'ghostkit/grid/awb/additional-attributes'
 addFilter( 'ghostkit.editor.controls', 'ghostkit/grid/awb/addBackgroundControls', addBackgroundControls );
 addFilter( 'ghostkit.editor.grid.background', 'ghostkit/grid/awb/addEditorBackground', addEditorBackground );
 addFilter( 'ghostkit.editor.grid-column.background', 'ghostkit/grid-column/awb/addEditorBackground', addEditorBackground );
-addFilter( 'ghostkit.blocks.grid.background', 'ghostkit-pro/grid/addSaveBackground', addSaveBackground );
-addFilter( 'ghostkit.blocks.grid-column.background', 'ghostkit-pro/grid-column/addSaveBackground', addSaveBackground );
+addFilter( 'ghostkit.blocks.grid.background', 'ghostkit/grid/addSaveBackground', addSaveBackground );
+addFilter( 'ghostkit.blocks.grid-column.background', 'ghostkit/grid-column/addSaveBackground', addSaveBackground );
