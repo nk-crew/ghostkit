@@ -681,25 +681,25 @@ export default ( () => {
         // prepare label.
         switch ( label ) {
         case 'years':
-            label = _n( 'Year', 'Years', number );
+            label = _n( 'Year', 'Years', number, '@@text_domain' );
             break;
         case 'months':
-            label = _n( 'Month', 'Months', number );
+            label = _n( 'Month', 'Months', number, '@@text_domain' );
             break;
         case 'weeks':
-            label = _n( 'Week', 'Weeks', number );
+            label = _n( 'Week', 'Weeks', number, '@@text_domain' );
             break;
         case 'days':
-            label = _n( 'Day', 'Days', number );
+            label = _n( 'Day', 'Days', number, '@@text_domain' );
             break;
         case 'hours':
-            label = _n( 'Hour', 'Hours', number );
+            label = _n( 'Hour', 'Hours', number, '@@text_domain' );
             break;
         case 'minutes':
-            label = _n( 'Minute', 'Minutes', number );
+            label = _n( 'Minute', 'Minutes', number, '@@text_domain' );
             break;
         case 'seconds':
-            label = _n( 'Second', 'Seconds', number );
+            label = _n( 'Second', 'Seconds', number, '@@text_domain' );
             break;
         }
 
