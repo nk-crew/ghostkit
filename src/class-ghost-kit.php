@@ -168,7 +168,7 @@ class GhostKit {
      * PHP translations.
      */
     public function php_translation() {
-        load_plugin_textdomain( '@@text_domain', false, basename( dirname( __FILE__ ) ) . '/languages' );
+        load_plugin_textdomain( '@@text_domain', false, plugin_dir_path( __FILE__ ) . '/languages' );
     }
 
     /**
@@ -179,7 +179,7 @@ class GhostKit {
             return;
         }
 
-        wp_set_script_translations( 'ghostkit', '@@text_domain', basename( dirname( __FILE__ ) ) . '/languages' );
+        wp_set_script_translations( 'ghostkit', '@@text_domain', plugin_dir_path( __FILE__ ) . '/languages' );
     }
 
     /**
@@ -190,8 +190,8 @@ class GhostKit {
             return;
         }
 
-        wp_set_script_translations( 'ghostkit-editor', '@@text_domain', basename( dirname( __FILE__ ) ) . '/languages' );
-        wp_set_script_translations( 'ghostkit-settings', '@@text_domain', basename( dirname( __FILE__ ) ) . '/languages' );
+        wp_set_script_translations( 'ghostkit-editor', '@@text_domain', plugin_dir_path( __FILE__ ) . '/languages' );
+        wp_set_script_translations( 'ghostkit-settings', '@@text_domain', plugin_dir_path( __FILE__ ) . '/languages' );
     }
 
     /**

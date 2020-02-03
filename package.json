@@ -8,7 +8,7 @@
   "scripts": {
     "build": "wpeg --build",
     "dev": "wpeg --build --watch",
-    "production": "npm run make-pot && wpeg --build --zip",
+    "production": "npm run make-pot && npm run make-json && wpeg --build --zip",
     "php-lint": "composer phpcs",
     "php-lint-fix": "composer phpcbf",
     "css-lint": "stylelint --syntax scss \"src/**/*.scss\"",
@@ -18,6 +18,7 @@
     "lint": "npm run php-lint && npm run css-lint && npm run js-lint",
     "lint-fix": "npm run php-lint-fix && npm run css-lint-fix && npm run js-lint-fix",
     "make-pot": "composer wp -- i18n make-pot ./src ./src/languages/ghostkit.pot --skip-audit --exclude=vendor,vendors,node_modules --headers='{\"Last-Translator\":\"nK\",\"Report-Msgid-Bugs-To\":\"https://github.com/nk-o/ghostkit/issues\"}'",
+    "make-json": "po2json ./src/languages/ghostkit.pot ./src/languages/ghostkit.json --format=jed1.x --pretty --domain=@@text_domain",
     "update:packages": "npm i -g npm-check-updates && npm-check-updates -u && npm install",
     "postinstall": "composer install"
   },
@@ -45,6 +46,7 @@
     "json-file": "^0.1.0",
     "md5": "^2.2.1",
     "micromatch": "^4.0.2",
+    "po2json": "^0.4.5",
     "stylelint": "^10.1.0",
     "stylelint-config-recommended-scss": "^3.3.0",
     "stylelint-config-standard": "^18.3.0",
