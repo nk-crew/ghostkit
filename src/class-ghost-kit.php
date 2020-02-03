@@ -147,7 +147,8 @@ class GhostKit {
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_go_pro_link_plugins_page' ) );
 
         $this->php_translation();
-        add_action( 'enqueue_block_editor_assets', array( $this, 'js_translation' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'js_translation' ), 11 );
+        add_action( 'enqueue_block_editor_assets', array( $this, 'js_translation_editor' ) );
 
         // include blocks.
         // work only if Gutenberg available.
@@ -171,9 +172,20 @@ class GhostKit {
     }
 
     /**
-     * JS translations.
+     * JS translation.
      */
     public function js_translation() {
+        if ( ! function_exists( 'wp_set_script_translations' ) ) {
+            return;
+        }
+
+        wp_set_script_translations( 'ghostkit', '@@text_domain', basename( dirname( __FILE__ ) ) . '/languages' );
+    }
+
+    /**
+     * JS translation for editor.
+     */
+    public function js_translation_editor() {
         if ( ! function_exists( 'wp_set_script_translations' ) ) {
             return;
         }
