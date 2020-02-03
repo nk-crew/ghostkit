@@ -18,7 +18,7 @@ const { __ } = wp.i18n;
 /**
  * Internal dependencies
  */
-import pages from '../pages/index.jsx';
+import pages from '../pages';
 import Logo from '../assets/logo.svg';
 
 const $ = window.jQuery;

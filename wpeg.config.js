@@ -8,7 +8,7 @@ cfg.dist_root = './dist';
 cfg.dist = '{dist_root}/ghostkit';
 
 // Template variables that will be automatically replaced.
-cfg.template_files_src = '{dist}/**/*.{md,php,js,jsx,css,pot}';
+cfg.template_files_src = '{dist}/**/*.{md,php,js,css,pot}';
 cfg.template_files_variables = {
     text_domain: pkg.name,
     plugin_version: pkg.version,
@@ -18,32 +18,21 @@ cfg.template_files_variables = {
 };
 
 // Copy files.
-cfg.copy_files_src = [ '{src}/**/*', '!{src}/**/*.{js,jsx,scss}', '{src}/**/vendor/**/*.{js,jsx,scss}' ];
+cfg.copy_files_src = [ '{src}/**/*', '!{src}/**/*.{js,scss}', '{src}/**/vendor/**/*.{js,scss}' ];
 
 // Compile SCSS files.
 cfg.compile_scss_files_src = [ '{src}/*assets/**/*.scss', '{src}/*gutenberg/style.scss', '{src}/*settings/style.scss' ];
 
 // Compile JS files.
-cfg.compile_js_files_src = [ '{src}/**/*.js', '!{src}/**/vendor/**/*' ];
-
-// Compile JSX files.
-cfg.compile_jsx_files_src = [ '{src}/*gutenberg/index.jsx', '{src}/*settings/index.jsx' ];
+cfg.compile_js_files_src = [
+    '{src}/*assets/js/*.js',
+    '{src}/*gutenberg/index.js',
+    '{src}/*settings/index.js',
+    '!{src}/**/vendor/**/*',
+];
 
 // Correct line endings files.
 cfg.correct_line_endings_files_src = '{dist}/**/*.{js,css}';
-
-// Translate PHP files.
-//
-// FOR TRANSLATIONS USED NPM SCRIPT "wp-make-pot", which supports js translations also.
-//
-// cfg.translate_php_files_src = '{dist}/**/*.php';
-// cfg.translate_php_files_dist = `{dist}/languages/${ cfg.template_files_variables.plugin_name }.pot`;
-// cfg.translate_php_options = {
-//     domain: cfg.template_files_variables.text_domain,
-//     package: cfg.template_files_variables.plugin_title,
-//     lastTranslator: cfg.template_files_variables.plugin_author,
-//     team: cfg.template_files_variables.plugin_author,
-// };
 
 // ZIP files.
 cfg.zip_files = [
@@ -57,11 +46,9 @@ cfg.zip_files = [
 ];
 
 // Watch files.
-cfg.watch_files = [ '{src}/**/*', '!{src}/**/*.{jsx,js,scss}' ];
+cfg.watch_files = [ '{src}/**/*', '!{src}/**/*.{js,scss}' ];
 
 cfg.watch_js_files = [ '{src}/**/*.js', '!{src}/*vendor/**/*' ];
-
-cfg.watch_jsx_files = [ '{src}/**/*.jsx', '{src}/**/*.scss', '!{src}/*vendor/**/*' ];
 
 cfg.watch_scss_files = '{src}/**/*.scss';
 

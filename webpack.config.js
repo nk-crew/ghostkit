@@ -4,7 +4,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /(\.jsx|\.js)$/,
+                test: /(\.js)$/,
                 loader: 'babel-loader',
             }, {
                 test: /\.scss$/,
@@ -58,7 +58,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: [ '.js', '.jsx', '.json' ],
+        extensions: [ '.js', '.json' ],
     },
     externals: {
         react: 'React',

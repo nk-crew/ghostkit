@@ -11,7 +11,7 @@ import './style.scss';
  * Internal dependencies
  */
 import '../gutenberg/store';
-import Container from './containers/container.jsx';
+import Container from './containers/container';
 
 window.addEventListener( 'load', () => {
     wp.element.render(

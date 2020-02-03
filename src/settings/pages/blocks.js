@@ -28,7 +28,7 @@ const {
 /**
  * Internal dependencies
  */
-import Info from '../components/info.jsx';
+import Info from '../components/info';
 
 const { GHOSTKIT } = window;
 

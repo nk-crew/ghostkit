@@ -6,11 +6,11 @@ const { __ } = wp.i18n;
 /**
  * Internal dependencies
  */
-import Blocks from './blocks.jsx';
-import Typography from './typography.jsx';
-import Icons from './icons.jsx';
-import CssJs from './css-js.jsx';
-import Fonts from './fonts.jsx';
+import Blocks from './blocks';
+import Typography from './typography';
+import Icons from './icons';
+import CssJs from './css-js';
+import Fonts from './fonts';
 
 export default {
     blocks: {
