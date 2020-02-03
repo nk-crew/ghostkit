@@ -355,6 +355,10 @@ Available events:
 
 ## Changelog ##
 
+= 2.8.1 =
+
+* fixed JS files translation possibility (read /languages/readme.md for more info)
+
 = 2.8.0 =
 
 * added Adobe Fonts in PRO version
