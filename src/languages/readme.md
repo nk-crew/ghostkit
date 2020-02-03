@@ -2,9 +2,9 @@
 
 Available filenames for translation:
 
-* ghostkit-en_US-ghostkit.json
-* ghostkit-en_US-ghostkit-editor.json
-* ghostkit-en_US-ghostkit-settings.json
+* `ghostkit-en_US-ghostkit.json`
+* `ghostkit-en_US-ghostkit-editor.json`
+* `ghostkit-en_US-ghostkit-settings.json`
 
 JSON content example:
 
