@@ -104,7 +104,7 @@ class GhostKit_Typography {
                             $typography_styles .= $output['selectors'] . '{';
 
                             if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ) {
-                                $typography_styles .= 'font-family: ' . esc_attr( $typography_prepeare_style['style-properties']['font-family'] ) . ';';
+                                $typography_styles .= 'font-family: ' . esc_attr( $typography_prepeare_style['style-properties']['font-family'] ) . ', sans-serif;';
                             }
 
                             if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ) {

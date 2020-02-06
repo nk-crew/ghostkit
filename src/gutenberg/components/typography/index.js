@@ -57,13 +57,16 @@ function getFonts( category = 'google-fonts' ) {
 
     Object.keys( fonts ).forEach( ( fontFamilyCategory ) => {
         Object.keys( fonts[ fontFamilyCategory ].fonts ).forEach( ( fontKey ) => {
-            let fontValue = fonts[ fontFamilyCategory ].fonts[ fontKey ].name;
+            const fontData = fonts[ fontFamilyCategory ].fonts[ fontKey ];
+            let fontValue = fontData.name;
+
             if ( fontFamilyCategory === 'default' ) {
                 fontValue = '';
             }
+
             if ( category === fontFamilyCategory || fontFamilyCategory === 'default' ) {
                 fontList.push(
-                    { value: fontValue, label: fonts[ fontFamilyCategory ].fonts[ fontKey ].name, fontFamilyCategory: fontFamilyCategory }
+                    { value: fontValue, label: fontData.label || fontData.name, fontFamilyCategory: fontFamilyCategory }
                 );
             }
         } );
