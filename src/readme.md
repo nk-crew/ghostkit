@@ -355,6 +355,10 @@ Available events:
 
 ## Changelog ##
 
+= 2.8.2 =
+
+* fixed Adobe Fonts CSS output in PRO plugin
+
 = 2.8.1 =
 
 * fixed JS files translation possibility (read /languages/readme.md for more info)
