@@ -38,6 +38,7 @@ const {
 import dashCaseToTitle from '../../utils/dash-case-to-title';
 
 import IconPicker from '../../components/icon-picker';
+import URLInput from '../../components/url-input';
 
 /**
  * Select photo
@@ -110,6 +111,10 @@ class BlockEdit extends Component {
 
             stars,
             starsIcon,
+
+            url,
+            target,
+            rel,
         } = attributes;
 
         className = classnames( 'ghostkit-testimonial', className );
@@ -125,7 +130,9 @@ class BlockEdit extends Component {
                             value={ icon }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
-                        { photoSizes ? (
+                    </PanelBody>
+                    { photoSizes ? (
+                        <PanelBody>
                             <SelectControl
                                 label={ __( 'Photo Size', '@@text_domain' ) }
                                 value={ photoSize }
@@ -141,7 +148,9 @@ class BlockEdit extends Component {
                                 } )() }
                                 onChange={ v => setAttributes( { photoSize: v } ) }
                             />
-                        ) : '' }
+                        </PanelBody>
+                    ) : '' }
+                    <PanelBody>
                         <RangeControl
                             label={ __( 'Stars', '@@text_domain' ) }
                             value={ stars }
@@ -159,6 +168,19 @@ class BlockEdit extends Component {
                                 onChange={ ( value ) => setAttributes( { starsIcon: value } ) }
                             />
                         ) : '' }
+                    </PanelBody>
+                    <PanelBody title={ __( 'URL', '@@text_domain' ) } initialOpen={ false }>
+                        <URLInput
+                            url={ url }
+                            target={ target }
+                            rel={ rel }
+                            onChange={ ( data ) => {
+                                setAttributes( data );
+                            } }
+                            autoFocus={ false }
+                            float={ false }
+                            alwaysShowOptions
+                        />
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>

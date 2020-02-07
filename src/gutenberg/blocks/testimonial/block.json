@@ -46,6 +46,15 @@
         "starsIcon": {
             "type": "string",
             "default": "fas fa-star"
+        },
+        "url": {
+            "type": "string"
+        },
+        "target": {
+            "type": "string"
+        },
+        "rel": {
+            "type": "string"
         }
     }
 }
