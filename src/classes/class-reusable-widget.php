@@ -46,10 +46,13 @@ class GhostKit_Reusable_Widget extends WP_Widget {
             $blocks = parse_blocks( $post->post_content );
 
             if ( is_array( $blocks ) && ! empty( $blocks ) ) {
+                // add main assets.
+                GhostKit_Assets::enqueue( $blocks );
+
                 // prepare custom styles.
-                $blocks_css = ghostkit()->parse_blocks_css( $blocks );
+                $blocks_css = GhostKit_Assets::parse_blocks_css( $blocks );
                 if ( ! empty( $blocks_css ) ) {
-                    ghostkit()->add_custom_css( 'ghostkit-blocks-widget-' . $args['widget_id'] . '-custom-css', ghostkit()->replace_vars( $blocks_css ) );
+                    GhostKit_Assets::add_custom_css( 'ghostkit-blocks-widget-' . $args['widget_id'] . '-custom-css', ghostkit()->replace_vars( $blocks_css ) );
                 }
 
                 // render blocks.
