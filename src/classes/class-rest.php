@@ -1155,6 +1155,9 @@ class GhostKit_Rest extends WP_REST_Controller {
             return $this->success( $html );
         }
 
+        // covert string values to int.
+        $allowed_headers = array_map( 'intval', $allowed_headers );
+
         $current_depth      = 6;
         $numbered_items     = array();
         $numbered_items_min = null;
@@ -1162,7 +1165,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 
         // find the minimum heading to establish our baseline.
         for ( $i = 0; $i < $count; $i++ ) {
-            if ( $current_depth > $headings[ $i ]['level'] ) {
+            if ( $current_depth > (int) $headings[ $i ]['level'] ) {
                 $current_depth = (int) $headings[ $i ]['level'];
             }
         }

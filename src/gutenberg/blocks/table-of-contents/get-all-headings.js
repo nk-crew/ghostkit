@@ -12,7 +12,6 @@ export default function getAllHeadings( blocks, allowedHeaders ) {
         blocks.forEach( ( block ) => {
             if ( 'core/heading' === block.name && allowedHeaders.indexOf( block.attributes.level ) > -1 ) {
                 headings.push( {
-                    clientId: block.clientId,
                     level: block.attributes.level,
                     content: block.attributes.content,
                     // in preview we don't need to create proper anchors
