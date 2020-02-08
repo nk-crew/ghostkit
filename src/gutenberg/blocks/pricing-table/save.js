@@ -52,7 +52,9 @@ class BlockSave extends Component {
 
         return (
             <div className={ className }>
-                <InnerBlocks.Content />
+                <div className="ghostkit-pricing-table-inner">
+                    <InnerBlocks.Content />
+                </div>
             </div>
         );
     }

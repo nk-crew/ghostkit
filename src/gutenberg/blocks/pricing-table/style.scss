@@ -3,7 +3,7 @@
  */
 @import "../../variables";
 
-.ghostkit-pricing-table {
+.ghostkit-pricing-table-inner {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -186,7 +186,7 @@
 
 // Gaps.
 @each $name, $size in $pricing-table-gaps {
-    .ghostkit-pricing-table-gap-#{$name} {
+    .ghostkit-pricing-table-gap-#{$name} > .ghostkit-pricing-table-inner {
         margin-top: -$size;
         margin-right: ($size / -2);
         margin-left: ($size / -2);

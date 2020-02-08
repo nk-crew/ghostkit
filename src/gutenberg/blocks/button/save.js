@@ -48,7 +48,9 @@ class BlockSave extends Component {
 
         return (
             <div className={ className }>
-                <InnerBlocks.Content />
+                <div className="ghostkit-button-wrapper-inner">
+                    <InnerBlocks.Content />
+                </div>
             </div>
         );
     }

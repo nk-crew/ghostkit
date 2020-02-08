@@ -63,7 +63,9 @@ class BlockSave extends Component {
         return (
             <div className={ className }>
                 { background }
-                <InnerBlocks.Content />
+                <div className="ghostkit-grid-inner">
+                    <InnerBlocks.Content />
+                </div>
             </div>
         );
     }

@@ -12,7 +12,7 @@
 // Row
 //
 // Rows contain and clear the floats of your columns.
-.ghostkit-grid {
+.ghostkit-grid-inner {
     display: flex;
     flex-wrap: wrap;
     margin-right: ($grid-gutter-width / -2);
@@ -76,10 +76,10 @@
 .ghostkit-col > .ghostkit-col-content {
     align-self: flex-start;
 }
-.ghostkit-grid-align-items-center > .ghostkit-col > .ghostkit-col-content {
+.ghostkit-grid-align-items-center > .ghostkit-grid-inner > .ghostkit-col > .ghostkit-col-content {
     align-self: center;
 }
-.ghostkit-grid-align-items-end > .ghostkit-col > .ghostkit-col-content {
+.ghostkit-grid-align-items-end > .ghostkit-grid-inner > .ghostkit-col > .ghostkit-col-content {
     align-self: flex-end;
 }
 
@@ -88,35 +88,35 @@
     @include media-breakpoint-down($breakpoint) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        .ghostkit-grid > .ghostkit-col-align-self#{$infix}-start > .ghostkit-col-content {
+        .ghostkit-grid > .ghostkit-grid-inner > .ghostkit-col-align-self#{$infix}-start > .ghostkit-col-content {
             align-self: flex-start;
         }
-        .ghostkit-grid > .ghostkit-col.ghostkit-col-align-self#{$infix}-center > .ghostkit-col-content {
+        .ghostkit-grid > .ghostkit-grid-inner > .ghostkit-col.ghostkit-col-align-self#{$infix}-center > .ghostkit-col-content {
             align-self: center;
         }
-        .ghostkit-grid > .ghostkit-col.ghostkit-col-align-self#{$infix}-end > .ghostkit-col-content {
+        .ghostkit-grid > .ghostkit-grid-inner > .ghostkit-col.ghostkit-col-align-self#{$infix}-end > .ghostkit-col-content {
             align-self: flex-end;
         }
     }
 }
 
 // Horizontal align.
-.ghostkit-grid-justify-content-center {
+.ghostkit-grid-justify-content-center > .ghostkit-grid-inner {
     justify-content: center;
 }
-.ghostkit-grid-justify-content-end {
+.ghostkit-grid-justify-content-end > .ghostkit-grid-inner {
     justify-content: flex-end;
 }
-.ghostkit-grid-justify-content-around {
+.ghostkit-grid-justify-content-around > .ghostkit-grid-inner {
     justify-content: space-around;
 }
-.ghostkit-grid-justify-content-between {
+.ghostkit-grid-justify-content-between > .ghostkit-grid-inner {
     justify-content: space-between;
 }
 
 // Gaps.
 @each $name, $size in $grid-gaps {
-    .ghostkit-grid-gap-#{$name} {
+    .ghostkit-grid-gap-#{$name} > .ghostkit-grid-inner {
         margin-right: ($size / -2);
         margin-left: ($size / -2);
 
@@ -189,25 +189,5 @@
             /* support for plugin https://github.com/bfred-it/object-fit-images */
             font-family: "object-fit: contain;"; // stylelint-disable-line
         }
-    }
-}
-.ghostkit-grid-with-bg {
-    &.ghostkit-grid-gap-lg > .nk-awb {
-        right: 22.5px;
-        left: 22.5px;
-    }
-    &.ghostkit-grid-gap-md > .nk-awb {
-        right: 15px;
-        left: 15px;
-    }
-    &.ghostkit-grid-gap-sm > .nk-awb {
-        right: 7.5px;
-        left: 7.5px;
-    }
-
-    &.alignfull > .nk-awb,
-    > .nk-awb.alignfull {
-        right: 0;
-        left: 0;
     }
 }

@@ -3,7 +3,7 @@
  */
 @import "../../variables";
 
-.ghostkit-button-wrapper {
+.ghostkit-button-wrapper-inner {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -12,10 +12,10 @@
     // why we need this https://wordpress.org/support/topic/buttons-alignment-issues/
     clear: both;
 
-    &.ghostkit-button-wrapper-align-right {
+    .ghostkit-button-wrapper-align-right > & {
         justify-content: flex-end;
     }
-    &.ghostkit-button-wrapper-align-center {
+    .ghostkit-button-wrapper-align-center > & {
         justify-content: center;
     }
 }
@@ -79,7 +79,7 @@
 
 // Gaps.
 @each $name, $size in $button-gaps {
-    .ghostkit-button-wrapper-gap-#{$name} {
+    .ghostkit-button-wrapper-gap-#{$name} > .ghostkit-button-wrapper-inner {
         margin-top: -$size;
         margin-right: ($size / -2);
         margin-left: ($size / -2);

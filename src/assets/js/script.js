@@ -101,6 +101,7 @@ class GhostKitClass {
         self.initBlocks = self.initBlocks.bind( self );
         self.getWnd = self.getWnd.bind( self );
         self.isElementInViewport = self.isElementInViewport.bind( self );
+        self.prepareInnerColsFallback = self.prepareInnerColsFallback.bind( self );
         self.prepareCounters = self.prepareCounters.bind( self );
         self.prepareCustomStyles = self.prepareCustomStyles.bind( self );
         self.prepareTabs = self.prepareTabs.bind( self );
@@ -204,6 +205,7 @@ class GhostKitClass {
 
         GHOSTKIT.triggerEvent( 'beforeInitBlocks', self );
 
+        self.prepareInnerColsFallback();
         self.prepareCustomStyles();
         self.prepareTabs();
         self.prepareAccordions();
@@ -269,6 +271,36 @@ class GhostKitClass {
         const visiblePercent = visibleWidth * visibleHeight / ( rectW * rectH );
 
         return visiblePercent >= allowPercent;
+    }
+
+    /**
+     * Prepare Grid, Buttons, Pricing Table Fallback for v2.9 and higher.
+     * Since v2.9 added inner block inside main wrapper to prevent bugs in TwentyTwenty theme.
+     */
+    prepareInnerColsFallback() {
+        // Grid.
+        $( '.ghostkit-grid > .ghostkit-col:eq(0)' ).each( function() {
+            const $grid = $( this ).parent();
+            const $cols = $grid.children( '.ghostkit-col' );
+
+            $( '<div class="ghostkit-grid-inner">' ).append( $cols ).appendTo( $grid );
+        } );
+
+        // Buttons.
+        $( '.ghostkit-button-wrapper > .ghostkit-button:eq(0)' ).each( function() {
+            const $wrap = $( this ).parent();
+            const $buttons = $wrap.children( '.ghostkit-button' );
+
+            $( '<div class="ghostkit-button-wrapper-inner">' ).append( $buttons ).appendTo( $wrap );
+        } );
+
+        // Pricing Tables.
+        $( '.ghostkit-pricing-table > .ghostkit-pricing-table-item-wrap:eq(0)' ).each( function() {
+            const $wrap = $( this ).parent();
+            const $items = $wrap.children( '.ghostkit-pricing-table-item-wrap' );
+
+            $( '<div class="ghostkit-pricing-table-inner">' ).append( $items ).appendTo( $wrap );
+        } );
     }
 
     /**
