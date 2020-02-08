@@ -81,7 +81,7 @@ class BlockEdit extends Component {
             heading,
         } = attributes;
 
-        const newSlug = getUniqueSlug( `accordion-${ heading }`, clientId );
+        const newSlug = getUniqueSlug( `accordion ${ heading }`, clientId );
 
         setAttributes( {
             slug: newSlug,

@@ -95,7 +95,7 @@ class BlockEdit extends Component {
         const tabs = this.getTabs();
 
         if ( tabs[ i ] ) {
-            const newSlug = getUniqueSlug( `tab-${ value }`, tabs[ i ].clientId );
+            const newSlug = getUniqueSlug( `tab ${ value }`, tabs[ i ].clientId );
 
             const newTabsData = tabsData.map( ( oldTabData, newIndex ) => {
                 if ( i === newIndex ) {
