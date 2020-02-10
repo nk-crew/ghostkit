@@ -80,6 +80,7 @@ class GhostKit_Fonts {
         if ( $global_typography && isset( $global_typography['ghostkit_typography'] ) && $global_typography['ghostkit_typography'] ) {
             $object_global_typography = json_decode( $global_typography['ghostkit_typography'] );
             if ( isset( $object_global_typography ) && ! empty( $object_global_typography ) ) {
+                $fonts = array();
                 foreach ( $object_global_typography as $global_typography_key => $global_typography_value ) {
                     if ( isset( $global_typography_value->fontFamily ) &&
                         ! empty( $global_typography_value->fontFamily ) &&
