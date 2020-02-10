@@ -199,7 +199,7 @@ class GhostKit_Typography {
 
         if ( $this->is_exist( $typography_object ) ) {
             foreach ( json_decode( $typography_object ) as $meta_typography_key => $meta_typography_value ) {
-                if ( $this->is_exist( $typography_prepeare_styles[ $meta_typography_key ], false, 'isset' ) ) {
+                if ( array_key_exists( $meta_typography_key, $typography_prepeare_styles ) ) {
                     foreach ( $meta_typography_value as $typography_attribute_key => $typography_attribute ) {
                         if ( $this->is_exist( $conformity_attributes[ $typography_attribute_key ] ) &&
                             $this->is_exist( $typography_prepeare_styles[ $meta_typography_key ]['style-properties'], $conformity_attributes[ $typography_attribute_key ], 'isset' ) ) {
