@@ -141,18 +141,17 @@ Available filters:
 
 ### How to add templates in theme ####
 
-You can add templates in your theme, so users will be able to insert it on pages with a single click. This is a simple example of theme templates structure:
+You can add templates in your theme, so users will be able to insert it on pages with a single click. This is a simple example of theme templates structure, that should be placed in `/wp-content/themes/YOUR_THEME/ghostkit/templates/`:
 
-* wp-content/themes/YOUR_THEME/ghostkit/templates/
-  * /first-template/
-    * /content.php
-    * /thumbnail.png
-  * /second-template/
-    * /content.php
-    * /thumbnail.png
-  * ...
+* /first-template/
+  * /content.php
+  * /thumbnail.png
+* /second-template/
+  * /content.php
+  * /thumbnail.png
+* ...
 
-`content.php` file content example:
+Example for `content.php` file content:
 
     <?php
     /**
@@ -166,7 +165,7 @@ You can add templates in your theme, so users will be able to insert it on pages
     <p>content</p>
     <!-- /wp:paragraph -->
 
-`thumbnail.png` is not required, but strongly recommended, because users will see what template will look like after insertion.
+File `thumbnail.png` is not required, but strongly recommended, because users will see what template will look like after insertion.
 
 ### How to extend typography settings ####
 
