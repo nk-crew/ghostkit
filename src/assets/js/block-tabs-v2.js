@@ -44,6 +44,8 @@ function activateTab( $tabs, tabName, self ) {
 
     self.hasScrolled();
 
+    GHOSTKIT.triggerEvent( 'activateTab', self, $tabs, tabName );
+
     return true;
 }
 
@@ -58,16 +60,6 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
         const tabsActive = $this.attr( 'data-tab-active' );
 
         $this.addClass( 'ghostkit-tabs-ready' );
-
-        // click action
-        $this.on( 'click', '.ghostkit-tabs-buttons-item', function( evt ) {
-            evt.preventDefault();
-
-            const $thisBtn = $( this );
-            const tabName = $thisBtn.attr( 'data-tab' ) || this.hash;
-
-            activateTab( $this, tabName, self );
-        } );
 
         // activate by page hash
         let tabActivated = false;
@@ -86,6 +78,19 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
     } );
 
     GHOSTKIT.triggerEvent( 'afterPrepareTabs', self );
+} );
+
+/**
+ * Click Tabs.
+ */
+$doc.on( 'click', '.ghostkit-tabs-buttons-item', function( evt ) {
+    evt.preventDefault();
+
+    const $thisBtn = $( this );
+    const $tab = $thisBtn.closest( '.ghostkit-tabs' );
+    const tabName = $thisBtn.attr( 'data-tab' ) || this.hash;
+
+    activateTab( $tab, tabName, GHOSTKIT.classObject );
 } );
 
 /*

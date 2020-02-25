@@ -27,10 +27,14 @@ function activateAccordionItem( $heading, animationSpeed = 150, self ) {
     const collapseOne = $accordion.hasClass( 'ghostkit-accordion-collapse-one' );
 
     if ( isActive ) {
-        $content.stop().css( 'display', 'block' ).slideUp( animationSpeed );
+        $content.stop().css( 'display', 'block' ).slideUp( animationSpeed, () => {
+            GHOSTKIT.triggerEvent( 'afterActivateAccordionItem', self, $heading );
+        } );
         $item.removeClass( 'ghostkit-accordion-item-active' );
     } else {
-        $content.stop().css( 'display', 'none' ).slideDown( animationSpeed );
+        $content.stop().css( 'display', 'none' ).slideDown( animationSpeed, () => {
+            GHOSTKIT.triggerEvent( 'afterActivateAccordionItem', self, $heading );
+        } );
         $item.addClass( 'ghostkit-accordion-item-active' );
     }
 
@@ -41,6 +45,8 @@ function activateAccordionItem( $heading, animationSpeed = 150, self ) {
             $collapseItems.removeClass( 'ghostkit-accordion-item-active' );
         }
     }
+
+    GHOSTKIT.triggerEvent( 'activateAccordionItem', self, $heading );
 
     self.hasScrolled();
 }
@@ -56,13 +62,6 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
 
         $this.addClass( 'ghostkit-accordion-ready' );
 
-        // click action
-        $this.on( 'click', '.ghostkit-accordion-item .ghostkit-accordion-item-heading', function( evt ) {
-            evt.preventDefault();
-
-            activateAccordionItem( $( this ), 150, self );
-        } );
-
         // activate by page hash
         if ( pageHash ) {
             const $activeAccordion = $this.find( `> :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading[href="${ pageHash }"]` );
@@ -74,6 +73,14 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
     } );
 
     GHOSTKIT.triggerEvent( 'afterPrepareAccordions', self );
+} );
+
+/**
+ * Click Accordions.
+ */
+$doc.on( 'click', '.ghostkit-accordion-item .ghostkit-accordion-item-heading', function( evt ) {
+    evt.preventDefault();
+    activateAccordionItem( $( this ), 150, GHOSTKIT.classObject );
 } );
 
 /*
