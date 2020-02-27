@@ -14,20 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class GhostKit_Assets {
     /**
-     * All available blocks in the current post.
-     *
-     * @var array
-     */
-    private $available_blocks = array();
-
-    /**
      * List with stored assets.
      *
      * @var array
      */
     private static $stored_assets = array(
-        'script' => array(),
-        'style'  => array(),
+        'script'     => array(),
+        'style'      => array(),
+        'custom-css' => array(),
     );
 
     /**
@@ -40,8 +34,7 @@ class GhostKit_Assets {
 
         add_action( 'wp_footer', array( $this, 'wp_enqueue_foot_assets' ) );
 
-        // parse blocks from post content.
-        add_filter( 'wp', array( $this, 'maybe_parse_blocks_from_content' ), 10 );
+        add_action( 'ghostkit_parse_blocks', array( $this, 'maybe_enqueue_blocks_assets' ), 10, 2 );
 
         add_action( 'wp_enqueue_scripts', array( $this, 'add_blocks_assets' ), 100 );
     }
@@ -51,7 +44,7 @@ class GhostKit_Assets {
      *
      * @param string      $name - asset name.
      * @param bool|string $value - just enqueue flag or url to asset.
-     * @param string      $type - assets type [script|style].
+     * @param string      $type - assets type [script|style|custom-css].
      * @param int         $priority - asset enqueue priority.
      */
     public static function store_used_assets( $name, $value = true, $type = 'script', $priority = 10 ) {
@@ -60,6 +53,14 @@ class GhostKit_Assets {
         }
 
         if ( isset( self::$stored_assets[ $type ][ $name ] ) ) {
+            if ( 'custom-css' === $type ) {
+                if ( ! self::$stored_assets[ $type ][ $name ]['value'] ) {
+                    self::$stored_assets[ $type ][ $name ]['value'] = '';
+                }
+
+                self::$stored_assets[ $type ][ $name ]['value'] .= $value;
+            }
+
             return;
         }
 
@@ -72,7 +73,7 @@ class GhostKit_Assets {
     /**
      * Enqueue stored assets.
      *
-     * @param string $type - assets type [script|style].
+     * @param string $type - assets type [script|style|custom-css].
      */
     public static function enqueue_stored_assets( $type = 'script' ) {
         if ( ! isset( self::$stored_assets[ $type ] ) || empty( self::$stored_assets[ $type ] ) ) {
@@ -96,8 +97,10 @@ class GhostKit_Assets {
             if ( $val ) {
                 if ( 'script' === $type ) {
                     wp_enqueue_script( $name );
-                } else {
+                } elseif ( 'style' === $type ) {
                     wp_enqueue_style( $name );
+                } elseif ( 'custom-css' === $type ) {
+                    self::add_custom_css( $name, $val );
                 }
 
                 self::$stored_assets[ $type ]['value'] = false;
@@ -108,32 +111,15 @@ class GhostKit_Assets {
     /**
      * Enqueue assets for blocks.
      *
-     * @param array $blocks - blocks array.
+     * @param array  $blocks - blocks array.
+     * @param string $location - blocks location [content,widget].
      */
-    public static function enqueue( $blocks = array() ) {
+    public static function enqueue( $blocks = array(), $location = 'content' ) {
         self::store_used_assets( 'ghostkit', true, 'style', 9 );
         self::store_used_assets( 'ghostkit', true, 'script', 11 );
 
         // Prepare blocks assets.
         foreach ( $blocks as $block ) {
-            // Reusable Blocks.
-            if ( isset( $block['blockName'] ) && 'core/block' === $block['blockName'] && isset( $block['attrs']['ref'] ) ) {
-                $reusable_block = get_post( $block['attrs']['ref'] );
-
-                if ( has_blocks( $reusable_block ) ) {
-                    $blocks = parse_blocks( $reusable_block->post_content );
-
-                    if ( is_array( $blocks ) && ! empty( $blocks ) ) {
-                        self::enqueue( $blocks );
-                    }
-                }
-            }
-
-            // Inner blocks.
-            if ( isset( $block['innerBlocks'] ) && ! empty( $block['innerBlocks'] ) && is_array( $block['innerBlocks'] ) ) {
-                self::enqueue( $block['innerBlocks'] );
-            }
-
             // GhostKit blocks.
             if ( isset( $block['blockName'] ) && strpos( $block['blockName'], 'ghostkit/' ) === 0 ) {
                 $block_name = preg_replace( '/^ghostkit\//', '', $block['blockName'] );
@@ -141,6 +127,13 @@ class GhostKit_Assets {
                 self::store_used_assets( 'ghostkit-block-' . $block_name, true, 'style' );
                 self::store_used_assets( 'ghostkit-block-' . $block_name, true, 'script' );
             }
+        }
+
+        // Blocks custom CSS.
+        $blocks_css = self::parse_blocks_css( $blocks );
+
+        if ( ! empty( $blocks_css ) ) {
+            self::store_used_assets( 'ghostkit-blocks-' . $location . '-custom-css', ghostkit()->replace_vars( $blocks_css ), 'custom-css' );
         }
     }
 
@@ -457,6 +450,7 @@ class GhostKit_Assets {
      */
     public function wp_enqueue_head_assets() {
         self::enqueue_stored_assets( 'style' );
+        self::enqueue_stored_assets( 'custom-css' );
         self::enqueue_stored_assets( 'script' );
     }
 
@@ -465,39 +459,18 @@ class GhostKit_Assets {
      */
     public function wp_enqueue_foot_assets() {
         self::enqueue_stored_assets( 'style' );
+        self::enqueue_stored_assets( 'custom-css' );
         self::enqueue_stored_assets( 'script' );
     }
 
     /**
-     * Parse blocks from content.
+     * Enqueue blocks assets.
+     *
+     * @param array $blocks - blocks array.
+     * @param array $location - blocks location [content,widget].
      */
-    public function maybe_parse_blocks_from_content() {
-        global $wp_query;
-
-        if ( is_admin() || ! isset( $wp_query->posts ) ) {
-            return;
-        }
-
-        // parse all posts content.
-        foreach ( $wp_query->posts as $post ) {
-            if (
-                isset( $post->post_content ) &&
-                function_exists( 'has_blocks' ) &&
-                function_exists( 'parse_blocks' ) &&
-                has_blocks( $post )
-            ) {
-                $blocks = parse_blocks( $post->post_content );
-
-                if ( is_array( $blocks ) && ! empty( $blocks ) ) {
-                    $this->available_blocks = array_merge(
-                        $this->available_blocks,
-                        $blocks
-                    );
-                }
-            }
-        }
-
-        self::enqueue( $this->available_blocks );
+    public function maybe_enqueue_blocks_assets( $blocks, $location ) {
+        self::enqueue( $blocks, $location );
     }
 
     /**
@@ -513,24 +486,6 @@ class GhostKit_Assets {
             if ( isset( $block['attrs'] ) ) {
                 $styles .= GhostKit_Block_Custom_Styles::get( $block['attrs'] );
                 $styles .= GhostKit_Block_Custom_CSS::get( $block['attrs'] );
-            }
-
-            // Reusable Blocks.
-            if ( isset( $block['blockName'] ) && 'core/block' === $block['blockName'] && isset( $block['attrs']['ref'] ) ) {
-                $reusable_block = get_post( $block['attrs']['ref'] );
-
-                if ( has_blocks( $reusable_block ) ) {
-                    $blocks = parse_blocks( $reusable_block->post_content );
-
-                    if ( is_array( $blocks ) && ! empty( $blocks ) ) {
-                        $styles .= self::parse_blocks_css( $blocks );
-                    }
-                }
-            }
-
-            // Inner blocks.
-            if ( isset( $block['innerBlocks'] ) && ! empty( $block['innerBlocks'] ) && is_array( $block['innerBlocks'] ) ) {
-                $styles .= self::parse_blocks_css( $block['innerBlocks'] );
             }
         }
 
@@ -550,15 +505,6 @@ class GhostKit_Assets {
         }
 
         $is_single = is_singular() && $post_id;
-
-        // Blocks custom CSS.
-        if ( is_array( $this->available_blocks ) && ! empty( $this->available_blocks ) ) {
-            $blocks_css = self::parse_blocks_css( $this->available_blocks );
-
-            if ( ! empty( $blocks_css ) ) {
-                self::add_custom_css( 'ghostkit-blocks-custom-css', ghostkit()->replace_vars( $blocks_css ) );
-            }
-        }
 
         // Global custom CSS.
         if ( $global_code && isset( $global_code['ghostkit_custom_css'] ) && $global_code['ghostkit_custom_css'] ) {

@@ -106,6 +106,9 @@ class GhostKit {
         // rest.
         require_once $this->plugin_path . 'classes/class-rest.php';
 
+        // parse blocks.
+        require_once $this->plugin_path . 'classes/class-parse-blocks.php';
+
         // assets.
         require_once $this->plugin_path . 'classes/class-assets.php';
 
