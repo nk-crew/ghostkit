@@ -135,12 +135,12 @@ class IconPickerDropdown extends Component {
                 render: (
                     <Fragment key="form">
                         <TextControl
-                            label={ __( 'Icon Class', '@@text_domain' ) }
+                            label={ __( 'Icon Output', '@@text_domain' ) }
                             value={ value }
-                            onChange={ ( newClass ) => {
-                                onChange( newClass );
+                            onChange={ ( newData ) => {
+                                onChange( newData );
                             } }
-                            placeholder={ __( 'Icon Class', '@@text_domain' ) }
+                            placeholder={ __( 'Icon Output', '@@text_domain' ) }
                             autoComplete="off"
                         />
                         <TextControl
@@ -177,17 +177,17 @@ class IconPickerDropdown extends Component {
 
                 const result = (
                     <Icon
-                        active={ iconData.class === value }
+                        active={ iconData.svg === value }
                         iconData={ iconData }
                         onClick={ () => {
-                            onChange( iconData.class );
+                            onChange( iconData.svg );
                         } }
                     />
                 );
 
                 if ( iconTip ) {
                     return (
-                        <Tooltip key={ iconData.class } text={ iconTip }>
+                        <Tooltip key={ iconData.svg } text={ iconTip }>
                             { /* We need this <div> just because Tooltip don't work without it */ }
                             <div>
                                 { result }
@@ -407,8 +407,8 @@ IconPicker.Preview = ( props ) => {
     if ( ! data && name ) {
         eachIcons( ( iconsData ) => {
             iconsData.icons.forEach( ( iconData ) => {
-                if ( ! data && iconData.class && iconData.class === name && iconData.preview ) {
-                    if ( iconData.preview ) {
+                if ( ! data && iconData.svg && ( ( iconData.svg === name ) || ( iconData.fallback && iconData.fallback === name && iconData.svg ) ) ) {
+                    if ( iconData.svg ) {
                         data = iconData;
                     } else {
                         name = iconData.class;
@@ -420,26 +420,58 @@ IconPicker.Preview = ( props ) => {
 
     let result = '';
 
-    if ( data && data.preview ) {
-        result = <span dangerouslySetInnerHTML={ { __html: data.preview } }></span>;
+    if ( data && data.svg ) {
+        result = data.svg;
     } else if ( name || ( data && data.class ) ) {
-        result = <IconPicker.Render name={ name || data.class } />;
+        result = name || data.class;
     }
 
     return ( result || alwaysRender ? (
-        <span
+        <IconPicker.Render
+            name={ result }
+            tag="span"
             className={ classnames( className, 'ghostkit-component-icon-picker-preview', onClick ? 'ghostkit-component-icon-picker-preview-clickable' : '' ) }
             onClick={ onClick }
             onKeyPress={ () => {} }
             role="button"
             tabIndex={ 0 }
-        >
-            { result }
-        </span>
+        />
     ) : '' );
 };
 
 // render icon.
-IconPicker.Render = ( { name } ) => {
-    return <span className={ name } />;
+IconPicker.Render = ( props ) => {
+    const {
+        name,
+        tag = 'span',
+        className,
+        onClick,
+        onKeyPress,
+        role,
+        tabIndex,
+    } = props;
+
+    const Tag = tag;
+    let result = '';
+
+    if ( name && /^</g.test( name ) ) {
+        result = name;
+    } else if ( name ) {
+        result = `<span class="${ name }"></span>`;
+    }
+
+    if ( ! result ) {
+        return '';
+    }
+
+    return (
+        <Tag
+            dangerouslySetInnerHTML={ { __html: result } }
+            className={ className }
+            onClick={ onClick }
+            onKeyPress={ onKeyPress }
+            role={ role }
+            tabIndex={ tabIndex }
+        />
+    );
 };

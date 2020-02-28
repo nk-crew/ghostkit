@@ -25,6 +25,59 @@ import metadata from './block.json';
 const { name } = metadata;
 
 export default [
+    // v2.8.2
+    {
+        ghostkit: {
+            supports: {
+                styles: true,
+                frame: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+                customCSS: true,
+            },
+        },
+        supports: metadata.supports,
+        attributes: metadata.attributes,
+        save: class BlockSave extends Component {
+            render() {
+                const {
+                    heading,
+                    active,
+                    slug,
+                } = this.props.attributes;
+
+                let className = classnames(
+                    'ghostkit-accordion-item',
+                    active ? 'ghostkit-accordion-item-active' : ''
+                );
+
+                className = applyFilters( 'ghostkit.blocks.className', className, {
+                    ...{
+                        name,
+                    },
+                    ...this.props,
+                } );
+
+                return (
+                    <div className={ className }>
+                        <a href={ `#${ slug }` } className="ghostkit-accordion-item-heading">
+                            <RichText.Content
+                                className="ghostkit-accordion-item-label"
+                                tagName="span"
+                                value={ heading }
+                            />
+                            <span className="ghostkit-accordion-item-collapse">
+                                <span className="fas fa-angle-right" />
+                            </span>
+                        </a>
+                        <div className="ghostkit-accordion-item-content"><InnerBlocks.Content /></div>
+                    </div>
+                );
+            }
+        },
+    },
+
     // v2.6.3
     {
         ghostkit: {

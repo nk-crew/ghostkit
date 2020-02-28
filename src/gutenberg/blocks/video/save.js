@@ -108,19 +108,25 @@ class BlockSave extends Component {
                     />
                 ) : '' }
                 { iconPlay ? (
-                    <div className="ghostkit-video-play-icon">
-                        <IconPicker.Render name={ iconPlay } />
-                    </div>
+                    <IconPicker.Render
+                        name={ iconPlay }
+                        tag="div"
+                        className="ghostkit-video-play-icon"
+                    />
                 ) : '' }
                 { iconLoading ? (
-                    <div className="ghostkit-video-loading-icon">
-                        <IconPicker.Render name={ iconLoading } />
-                    </div>
+                    <IconPicker.Render
+                        name={ iconLoading }
+                        tag="div"
+                        className="ghostkit-video-loading-icon"
+                    />
                 ) : '' }
                 { clickAction === 'fullscreen' && fullscreenActionCloseIcon ? (
-                    <div className="ghostkit-video-fullscreen-close-icon">
-                        <IconPicker.Render name={ fullscreenActionCloseIcon } />
-                    </div>
+                    <IconPicker.Render
+                        name={ fullscreenActionCloseIcon }
+                        tag="div"
+                        className="ghostkit-video-fullscreen-close-icon"
+                    />
                 ) : '' }
             </div>
         );

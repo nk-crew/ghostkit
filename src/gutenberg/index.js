@@ -9,6 +9,11 @@ import './store';
 import './blocks';
 
 /**
+ * SVG Icons.
+ */
+import './svg-icons';
+
+/**
  * Formats
  */
 import './formats';

@@ -68,19 +68,14 @@ class BlockSave extends Component {
 
         // add icon.
         if ( icon ) {
-            if ( iconPosition === 'right' ) {
-                result.push(
-                    <span className="ghostkit-button-icon ghostkit-button-icon-right" key="button-icon">
-                        <IconPicker.Render name={ icon } />
-                    </span>
-                );
-            } else {
-                result.unshift(
-                    <span className="ghostkit-button-icon ghostkit-button-icon-left" key="button-icon">
-                        <IconPicker.Render name={ icon } />
-                    </span>
-                );
-            }
+            result.unshift(
+                <IconPicker.Render
+                    name={ icon }
+                    tag="span"
+                    className={ `ghostkit-button-icon ghostkit-button-icon-${ iconPosition === 'right' ? 'right' : 'left' }` }
+                    key="button-icon"
+                />
+            );
         }
 
         return url ? (

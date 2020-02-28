@@ -148,30 +148,6 @@
     }
 }
 
-// loading spinner
-$color: rgba(#000, .3) !default;
-$color_inner: #000 !default;
-$size: 20px !default;
-$weight: 2px !default;
-$speed: .3s !default;
-
-.ghostkit-video-spinner {
-    display: block;
-    box-sizing: border-box;
-    width: $size;
-    height: $size;
-    text-indent: -9999em;
-    border: $weight solid $color;
-    border-left: $weight solid $color_inner;
-    border-radius: 50%;
-    animation: ghostkit-video-spinner $speed infinite linear;
-}
-@keyframes ghostkit-video-spinner {
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 // Fullscreen video
 .ghostkit-video-fullscreen {
     position: fixed;

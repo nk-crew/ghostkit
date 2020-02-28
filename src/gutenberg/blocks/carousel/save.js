@@ -68,14 +68,18 @@ class BlockSave extends Component {
                     <InnerBlocks.Content />
                 </div>
                 { arrowPrevIcon ? (
-                    <div className="ghostkit-carousel-arrow-prev-icon">
-                        <IconPicker.Render name={ arrowPrevIcon } />
-                    </div>
+                    <IconPicker.Render
+                        name={ arrowPrevIcon }
+                        tag="div"
+                        className="ghostkit-carousel-arrow-prev-icon"
+                    />
                 ) : '' }
                 { arrowNextIcon ? (
-                    <div className="ghostkit-carousel-arrow-next-icon">
-                        <IconPicker.Render name={ arrowNextIcon } />
-                    </div>
+                    <IconPicker.Render
+                        name={ arrowNextIcon }
+                        tag="div"
+                        className="ghostkit-carousel-arrow-next-icon"
+                    />
                 ) : '' }
             </div>
         );

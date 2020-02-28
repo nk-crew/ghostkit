@@ -58,9 +58,11 @@ class BlockSave extends Component {
                     </a>
                 ) : '' }
                 { icon ? (
-                    <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }>
-                        <IconPicker.Render name={ icon } />
-                    </div>
+                    <IconPicker.Render
+                        name={ icon }
+                        tag="div"
+                        className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }
+                    />
                 ) : '' }
                 { showContent ? (
                     <div className="ghostkit-icon-box-content">

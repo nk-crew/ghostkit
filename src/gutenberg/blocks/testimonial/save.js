@@ -75,9 +75,11 @@ class BlockSave extends Component {
                     </a>
                 ) : '' }
                 { icon ? (
-                    <div className="ghostkit-testimonial-icon">
-                        <IconPicker.Render name={ icon } />
-                    </div>
+                    <IconPicker.Render
+                        name={ icon }
+                        tag="div"
+                        className="ghostkit-testimonial-icon"
+                    />
                 ) : '' }
                 <div className="ghostkit-testimonial-content">
                     <InnerBlocks.Content />

@@ -1,0 +1,36 @@
+/**
+ * SVG Icons.
+ */
+svg.ghostkit-svg-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    overflow: visible;
+    font-size: inherit;
+    vertical-align: -.125em;
+}
+
+// loading spinner
+$color: rgba(#000, .3) !default;
+$color_inner: #000 !default;
+$size: 20px !default;
+$weight: 2px !default;
+$speed: .3s !default;
+
+.ghostkit-icon-spinner,
+.ghostkit-video-spinner {
+    display: block;
+    box-sizing: border-box;
+    width: $size;
+    height: $size;
+    text-indent: -9999em;
+    border: $weight solid $color;
+    border-left: $weight solid $color_inner;
+    border-radius: 50%;
+    animation: ghostkit-icon-spinner $speed infinite linear;
+}
+@keyframes ghostkit-icon-spinner {
+    100% {
+        transform: rotate(360deg);
+    }
+}

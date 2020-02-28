@@ -9,7 +9,52 @@ const {
     InnerBlocks,
 } = wp.blockEditor;
 
+/**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+import save from './save';
+
 export default [
+    // v2.8.2
+    {
+        ghostkit: {
+            customStylesCallback( attributes ) {
+                const styles = {
+                    '.ghostkit-icon-box-icon': {
+                        fontSize: attributes.iconSize,
+                        color: attributes.iconColor,
+                    },
+                };
+
+                if ( attributes.hoverIconColor ) {
+                    styles[ '&:hover .ghostkit-icon-box-icon' ] = {
+                        color: attributes.hoverIconColor,
+                    };
+                }
+
+                return styles;
+            },
+            supports: {
+                styles: true,
+                frame: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+                customCSS: true,
+            },
+        },
+        supports: metadata.supports,
+        attributes: {
+            ...metadata.attributes,
+            icon: {
+                type: 'string',
+                default: 'fab fa-wordpress-simple',
+            },
+        },
+        save,
+    },
+
     // v1.0.0
     {
         ghostkit: {
