@@ -115,7 +115,8 @@ class GhostKit_Settings {
 
         // phpcs:ignore
         if ( 'ghostkit_go_pro' === $_GET['page'] ) {
-            wp_safe_redirect( ghostkit()->go_pro_link() );
+            // phpcs:ignore
+            wp_redirect( ghostkit()->go_pro_link() );
             exit();
         }
     }
