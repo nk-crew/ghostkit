@@ -128,11 +128,10 @@ The manual installation method involves downloading our Ghost Kit plugin and upl
 
 There are some plugins, enqueued with Ghost Kit on your page. If you don't like the plugin and/or want to change it to your alternate plugin, you can disable it using filters. Example:
 
-    add_filter( 'gkt_enqueue_plugin_font_awesome', '__return_false' );
+    add_filter( 'gkt_enqueue_plugin_swiper', '__return_false' );
 
 Available filters:
 
-* **gkt_enqueue_plugin_font_awesome**
 * **gkt_enqueue_plugin_object_fit_images**
 * **gkt_enqueue_plugin_jarallax**
 * **gkt_enqueue_plugin_swiper**
@@ -250,7 +249,7 @@ By default Shapes Divider contains 12 predefined SVG shapes. You can extend shap
 
 ### How to extend icons in icon picker list ####
 
-By default icon picker contains FontAwesome icons. You can add any icons you want. First of all you need to enqueue these icons in editor and frontend pages to see it, then extend icon picker using PHP filter:
+By default icon picker contains FontAwesome icons. You can add any SVG icons you want, simply extend icon picker using PHP filter:
 
     // add icons list.
     add_filter( 'gkt_icons_list', 'my_gkt_icons' );
@@ -259,25 +258,18 @@ By default icon picker contains FontAwesome icons. You can add any icons you wan
             'name' => 'My Icons',
             'icons' => array(
                 array(
-                    'class' => 'fab fa-500px',
-                    'keys' => '500px',
+                    'keys' => 'adobe,brand',
+                    'svg' => '<svg class="ghostkit-svg-icon ghostkit-svg-icon-fa" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M315.5 64h170.9v384L315.5 64zm-119 0H25.6v384L196.5 64zM256 206.1L363.5 448h-73l-30.7-76.8h-78.7L256 206.1z"></path></svg>',
                 ),
                 array(
-                    'class' => 'fab fa-500px',
-                    'keys' => '500px',
+                    'keys' => 'adobe,brand',
+                    'svg' => '<svg class="ghostkit-svg-icon ghostkit-svg-icon-fa" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M315.5 64h170.9v384L315.5 64zm-119 0H25.6v384L196.5 64zM256 206.1L363.5 448h-73l-30.7-76.8h-78.7L256 206.1z"></path></svg>',
                 ),
                 ...
             ),
         );
 
         return $icons;
-    }
-
-    // add icons assets
-    // will be automatically added in Editor and Frontend
-    add_action( 'gkt_icons_enqueue_assets__my-icons-pack', 'my_gkt_icons_enqueue_assets' );
-    function my_gkt_icons_enqueue_assets( $icons ) {
-        wp_register_script( 'my-icons-pack', plugins_url( '/assets/my-icons-pack/script.min.js', __FILE__ ), array(), '1.0.0' );
     }
 
 ### How to extend existing blocks ####
