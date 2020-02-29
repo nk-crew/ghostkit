@@ -184,6 +184,7 @@ class TemplatesModal extends Component {
                 onRequestClose={ () => {
                     onRequestClose();
                 } }
+                shouldCloseOnClickOutside={ false }
                 icon={ getIcon( 'plugin-templates' ) }
             >
                 <div className="components-modal__header">

@@ -9,6 +9,11 @@
 @import "../../bootstrap/grid";
 @import "../../bootstrap/breakpoints";
 
+// Hide Grid block if inserted for templates modal only.
+[data-ghostkit-grid-templates-modal-only] {
+    display: none;
+}
+
 // Styles from core Columns block
 // https://github.com/WordPress/gutenberg/blob/master/blocks/library/columns/editor.scss
 .ghostkit-grid {

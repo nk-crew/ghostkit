@@ -228,10 +228,20 @@ class BlockEdit extends Component {
                 >
                     { __( 'Select Template', '@@text_domain' ) }
                 </Button>
-                { this.state.isTemplatesModalOpen ? (
+                { this.state.isTemplatesModalOpen || this.props.attributes.isTemplatesModalOnly ? (
                     <TemplatesModal
                         replaceBlockId={ this.props.clientId }
-                        onRequestClose={ () => this.setState( { isTemplatesModalOpen: false } ) }
+                        onRequestClose={ () => {
+                            this.setState( { isTemplatesModalOpen: false } );
+
+                            if ( this.props.attributes.isTemplatesModalOnly ) {
+                                const {
+                                    removeBlock,
+                                } = wp.data.dispatch( 'core/block-editor' );
+
+                                removeBlock( this.props.clientId );
+                            }
+                        } }
                     />
                 ) : '' }
             </Placeholder>

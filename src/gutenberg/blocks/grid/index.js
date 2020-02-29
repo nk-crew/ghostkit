@@ -8,6 +8,10 @@ import './editor.scss';
  */
 const { __ } = wp.i18n;
 
+const { createHigherOrderComponent } = wp.compose;
+
+const { addFilter } = wp.hooks;
+
 /**
  * Internal dependencies
  */
@@ -103,3 +107,23 @@ export const settings = {
     transforms,
     deprecated,
 };
+
+/**
+ * Add data attribute to hide block from editor when inserting templates.
+ *
+ * @param  {Function} BlockListBlock Original component
+ * @return {Function}                Wrapped component
+ */
+export const withClasses = createHigherOrderComponent( ( BlockListBlock ) => (
+    ( props ) => {
+        const { name: blockName } = props;
+
+        if ( 'ghostkit/grid' === blockName && props.attributes.isTemplatesModalOnly ) {
+            return <BlockListBlock { ...props } data-ghostkit-grid-templates-modal-only="true" />;
+        }
+
+        return <BlockListBlock { ...props } />;
+    }
+) );
+
+addFilter( 'editor.BlockListBlock', 'core/editor/grid/with-classes', withClasses );

@@ -8,6 +8,9 @@
         "align": [ "wide", "full" ]
     },
     "attributes": {
+        "isTemplatesModalOnly": {
+            "type": "boolean"
+        },
         "columns": {
             "type": "number",
             "default": 0
