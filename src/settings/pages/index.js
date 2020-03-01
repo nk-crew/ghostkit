@@ -3,6 +3,10 @@
  */
 const { __ } = wp.i18n;
 
+const {
+    applyFilters,
+} = wp.hooks;
+
 /**
  * Internal dependencies
  */
@@ -12,7 +16,7 @@ import Icons from './icons';
 import CssJs from './css-js';
 import Fonts from './fonts';
 
-export default {
+export default applyFilters( 'ghostkit.settings.pages', {
     blocks: {
         label: __( 'Blocks', '@@text_domain' ),
         block: Blocks,
@@ -33,4 +37,4 @@ export default {
         label: __( 'CSS & JavaScript', '@@text_domain' ),
         block: CssJs,
     },
-};
+} );
