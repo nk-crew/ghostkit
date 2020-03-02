@@ -137,7 +137,7 @@ class GhostKit_Fonts {
         $unique_fonts = array_map( "unserialize", array_unique( array_map( "serialize", $fonts ) ) );
 
         foreach ( $unique_fonts as $font ) {
-            if ( isset( $font[ 'family' ] ) && ! empty( $font[ 'family' ] ) ) {
+            if ( isset( $font[ 'family' ] ) && ! empty( $font[ 'family' ] ) && array_key_exists( $font[ 'family' ], $fonts_list ) ) {
                 foreach( $fonts_list[ $font[ 'family' ] ][ 'fonts' ] as $find_font ) {
                     if ( $font[ 'label' ] === $find_font[ 'name' ] ) {
                         $weights = array();
