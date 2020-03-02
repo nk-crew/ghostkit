@@ -6,12 +6,13 @@ import './icons.scss';
 /**
  * External dependencies
  */
-import { Component, Fragment } from 'react';
 import { debounce } from 'throttle-debounce';
 
 /**
  * WordPress dependencies
  */
+const { Component, Fragment } = wp.element;
+
 const { merge } = window.lodash;
 
 const { apiFetch } = wp;

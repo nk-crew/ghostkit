@@ -4,9 +4,9 @@
 import './info.scss';
 
 /**
- * External dependencies
+ * WordPress dependencies
  */
-import { Component } from 'react';
+const { Component } = wp.element;
 
 export default class Info extends Component {
     render() {

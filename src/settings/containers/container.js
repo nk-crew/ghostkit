@@ -7,12 +7,13 @@ import './container.scss';
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
-import { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 /**
  * WordPress dependencies
  */
+const { Component, Fragment } = wp.element;
+
 const { __ } = wp.i18n;
 
 /**

@@ -1,13 +1,12 @@
 /**
  * External dependencies
  */
-import { Component } from 'react';
-
 import ApplyFilters from '../../gutenberg/components/apply-filters';
 
 /**
  * WordPress dependencies
  */
+const { Component } = wp.element;
 
 const { __ } = wp.i18n;
 

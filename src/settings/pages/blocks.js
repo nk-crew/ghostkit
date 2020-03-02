@@ -7,13 +7,14 @@ import './blocks.scss';
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
-import { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { debounce } from 'throttle-debounce';
 
 /**
  * WordPress dependencies
  */
+const { Component, Fragment } = wp.element;
+
 const { merge } = window.lodash;
 
 const { apiFetch } = wp;

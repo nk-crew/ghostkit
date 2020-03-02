@@ -6,12 +6,13 @@ import './typography.scss';
 /**
  * External dependencies
  */
-import { Component, Fragment } from 'react';
 import { debounce } from 'throttle-debounce';
 
 /**
  * WordPress dependencies
  */
+const { Component, Fragment } = wp.element;
+
 const { apiFetch } = wp;
 
 const { __ } = wp.i18n;
