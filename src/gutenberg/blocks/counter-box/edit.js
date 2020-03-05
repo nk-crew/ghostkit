@@ -206,7 +206,7 @@ class BlockEdit extends Component {
                         <RichText
                             tagName="div"
                             className="ghostkit-counter-box-number-wrap"
-                            placeholder={ __( 'Add number…', '@@text_domain' ) }
+                            placeholder={ __( 'Write number…', '@@text_domain' ) }
                             value={ number }
                             onChange={ ( value ) => setAttributes( { number: value } ) }
                             formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }

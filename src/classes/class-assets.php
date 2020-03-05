@@ -61,6 +61,8 @@ class GhostKit_Assets {
                 self::$stored_assets[ $type ][ $name ]['value'] .= $value;
             }
 
+            do_action( 'gkt_assets_store', $name, $value, $type, $priority );
+
             return;
         }
 
@@ -68,6 +70,8 @@ class GhostKit_Assets {
             'value'    => $value,
             'priority' => $priority,
         );
+
+        do_action( 'gkt_assets_store', $name, $value, $type, $priority );
     }
 
     /**
@@ -178,6 +182,58 @@ class GhostKit_Assets {
             wp_register_script( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/gist-simple.min.js', array( 'jquery' ), '1.0.1', true );
         }
 
+        // Google reCaptcha.
+        if ( apply_filters( 'gkt_enqueue_google_recaptcha', true ) ) {
+            $recaptcha_site_key   = get_option( 'ghostkit_google_recaptcha_api_site_key' );
+            $recaptcha_secret_key = get_option( 'ghostkit_google_recaptcha_api_secret_key' );
+
+            if ( $recaptcha_site_key && $recaptcha_secret_key ) {
+                wp_register_script( 'google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . esc_attr( $recaptcha_site_key ), array(), '3.0.0', true );
+            }
+        }
+
+        // Parsley.
+        if ( apply_filters( 'gkt_enqueue_plugin_parsley', true ) ) {
+            wp_register_script( 'parsley', ghostkit()->plugin_url . 'assets/vendor/parsley/parsley.min.js', array( 'jquery' ), '2.9.1', true );
+
+            $locale = get_locale();
+
+            // phpcs:disable
+            wp_add_inline_script(
+                'parsley',
+                'Parsley.addMessages("' . esc_attr( $locale ) . '", {
+                    defaultMessage: "' . esc_attr__( 'This value seems to be invalid.', '@@text_domain' ) . '",
+                    type: {
+                        email:        "' . esc_attr__( 'This value should be a valid email.', '@@text_domain' ) . '",
+                        url:          "' . esc_attr__( 'This value should be a valid url.', '@@text_domain' ) . '",
+                        number:       "' . esc_attr__( 'This value should be a valid number.', '@@text_domain' ) . '",
+                        integer:      "' . esc_attr__( 'This value should be a valid integer.', '@@text_domain' ) . '",
+                        digits:       "' . esc_attr__( 'This value should be digits.', '@@text_domain' ) . '",
+                        alphanum:     "' . esc_attr__( 'This value should be alphanumeric.', '@@text_domain' ) . '"
+                    },
+                    notblank:       "' . esc_attr__( 'This value should not be blank.', '@@text_domain' ) . '",
+                    required:       "' . esc_attr__( 'This value is required.', '@@text_domain' ) . '",
+                    pattern:        "' . esc_attr__( 'This value seems to be invalid.', '@@text_domain' ) . '",
+                    min:            "' . esc_attr__( 'This value should be greater than or equal to %s.', '@@text_domain' ) . '",
+                    max:            "' . esc_attr__( 'This value should be lower than or equal to %s.', '@@text_domain' ) . '",
+                    range:          "' . esc_attr__( 'This value should be between %s and %s.', '@@text_domain' ) . '",
+                    minlength:      "' . esc_attr__( 'This value is too short. It should have %s characters or more.', '@@text_domain' ) . '",
+                    maxlength:      "' . esc_attr__( 'This value is too long. It should have %s characters or fewer.', '@@text_domain' ) . '",
+                    length:         "' . esc_attr__( 'This value length is invalid. It should be between %s and %s characters long.', '@@text_domain' ) . '",
+                    mincheck:       "' . esc_attr__( 'You must select at least %s choices.', '@@text_domain' ) . '",
+                    maxcheck:       "' . esc_attr__( 'You must select %s choices or fewer.', '@@text_domain' ) . '",
+                    check:          "' . esc_attr__( 'You must select between %s and %s choices.', '@@text_domain' ) . '",
+                    equalto:        "' . esc_attr__( 'This value should be the same.', '@@text_domain' ) . '",
+                    euvatin:        "' . esc_attr__( 'It\'s not a valid VAT Identification Number.', '@@text_domain' ) . '",
+                    confirmEmail:   "' . esc_attr__( 'These emails should match.', '@@text_domain' ) . '",
+                });
+
+                Parsley.setLocale("' . esc_attr( $locale ) . '");',
+                'after'
+            );
+            // phpcs:enable
+        }
+
         // Get all sidebars.
         $sidebars = false;
         if ( ! empty( $GLOBALS['wp_registered_sidebars'] ) ) {
@@ -224,24 +280,26 @@ class GhostKit_Assets {
             'ghostkit-helper',
             'ghostkitVariables',
             array(
-                'themeName'            => $theme_data->get( 'Name' ),
-                'settings'             => get_option( 'ghostkit_settings', array() ),
-                'disabledBlocks'       => get_option( 'ghostkit_disabled_blocks', array() ),
+                'themeName'                   => $theme_data->get( 'Name' ),
+                'settings'                    => get_option( 'ghostkit_settings', array() ),
+                'disabledBlocks'              => get_option( 'ghostkit_disabled_blocks', array() ),
 
                 // TODO: Move this to plugin options (part 1).
-                'media_sizes'          => array(
+                'media_sizes'                 => array(
                     'sm' => 576,
                     'md' => 768,
                     'lg' => 992,
                     'xl' => 1200,
                 ),
-                'googleMapsAPIKey'     => get_option( 'ghostkit_google_maps_api_key' ),
-                'googleMapsAPIUrl'     => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
-                'googleMapsLibrary'    => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
+                'googleMapsAPIKey'            => get_option( 'ghostkit_google_maps_api_key' ),
+                'googleMapsAPIUrl'            => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
+                'googleMapsLibrary'           => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
                     'url' => ghostkit()->plugin_url . 'assets/vendor/gmaps/gmaps.min.js?ver=0.4.25',
                 ) : false,
-                'sidebars'             => $sidebars,
-                'icons'                => is_admin() ? apply_filters(
+                'googleReCaptchaAPISiteKey'   => get_option( 'ghostkit_google_recaptcha_api_site_key' ),
+                'googleReCaptchaAPISecretKey' => is_admin() ? get_option( 'ghostkit_google_recaptcha_api_secret_key' ) : '',
+                'sidebars'                    => $sidebars,
+                'icons'                       => is_admin() ? apply_filters(
                     'gkt_icons_list',
                     array(
                     /**
@@ -261,7 +319,7 @@ class GhostKit_Assets {
                     */
                     )
                 ) : array(),
-                'shapes'               => is_admin() ? apply_filters(
+                'shapes'                      => is_admin() ? apply_filters(
                     'gkt_shapes_list',
                     array(
                     /**
@@ -284,7 +342,7 @@ class GhostKit_Assets {
                     */
                     )
                 ) : array(),
-                'fonts'                => is_admin() ? apply_filters(
+                'fonts'                       => is_admin() ? apply_filters(
                     'gkt_fonts_list',
                     array(
                         /**
@@ -306,7 +364,7 @@ class GhostKit_Assets {
                          */
                     )
                 ) : array(),
-                'customTypographyList' => is_admin() ? apply_filters(
+                'customTypographyList'        => is_admin() ? apply_filters(
                     'gkt_custom_typography',
                     array(
                         /**
@@ -336,7 +394,7 @@ class GhostKit_Assets {
                          */
                     )
                 ) : array(),
-                'variants'             => array(
+                'variants'                    => array(
                     'accordion'          => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
                     'accordion_item'     => array_merge( $default_variant, apply_filters( 'gkt_accordion_item_variants', array() ) ),
                     'alert'              => array_merge( $default_variant, apply_filters( 'gkt_alert_variants', array() ) ),
@@ -362,8 +420,8 @@ class GhostKit_Assets {
                     'twitter'            => array_merge( $default_variant, apply_filters( 'gkt_twitter_variants', array() ) ),
                     'video'              => array_merge( $default_variant, apply_filters( 'gkt_video_variants', array() ) ),
                 ),
-                'admin_url'            => admin_url(),
-                'admin_templates_url'  => admin_url( 'edit.php?post_type=ghostkit_template' ),
+                'admin_url'                   => admin_url(),
+                'admin_templates_url'         => admin_url( 'edit.php?post_type=ghostkit_template' ),
             )
         );
 
@@ -392,20 +450,38 @@ class GhostKit_Assets {
             switch ( $block_name ) {
                 case 'grid':
                 case 'grid-column':
-                    $block_js_deps[] = 'jarallax';
-                    $block_js_deps[] = 'jarallax-video';
+                    if ( wp_script_is( 'jarallax-video' ) || wp_script_is( 'jarallax-video', 'registered' ) ) {
+                        $block_js_deps[] = 'jarallax-video';
+                    }
+                    if ( wp_script_is( 'jarallax' ) || wp_script_is( 'jarallax', 'registered' ) ) {
+                        $block_js_deps[] = 'jarallax';
+                    }
                     break;
                 case 'video':
-                    $block_js_deps[] = 'jarallax-video';
+                    if ( wp_script_is( 'jarallax-video' ) || wp_script_is( 'jarallax-video', 'registered' ) ) {
+                        $block_js_deps[] = 'jarallax-video';
+                    }
                     break;
                 case 'gist':
-                    $block_js_deps[] = 'gist-simple';
+                    if ( wp_script_is( 'gist-simple' ) || wp_script_is( 'gist-simple', 'registered' ) ) {
+                        $block_js_deps[] = 'gist-simple';
+                    }
                     break;
                 case 'carousel':
-                    $block_js_deps[] = 'swiper';
+                    if ( wp_script_is( 'swiper' ) || wp_script_is( 'swiper', 'registered' ) ) {
+                        $block_js_deps[] = 'swiper';
+                    }
                     break;
                 case 'countdown':
                     $block_js_deps[] = 'moment';
+                    break;
+                case 'form':
+                    if ( wp_script_is( 'parsley' ) || wp_script_is( 'parsley', 'registered' ) ) {
+                        $block_js_deps[] = 'parsley';
+                    }
+                    if ( wp_script_is( 'google-recaptcha' ) || wp_script_is( 'google-recaptcha', 'registered' ) ) {
+                        $block_js_deps[] = 'google-recaptcha';
+                    }
                     break;
             }
 

@@ -168,7 +168,7 @@ class BlockEdit extends Component {
                         <RichText
                             tagName="div"
                             className="ghostkit-accordion-item-label"
-                            placeholder={ __( 'Item label…', '@@text_domain' ) }
+                            placeholder={ __( 'Write label…', '@@text_domain' ) }
                             value={ heading }
                             onChange={ ( value ) => {
                                 setAttributes( { heading: value } );

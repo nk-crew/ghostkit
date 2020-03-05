@@ -34,6 +34,9 @@ window.GHOSTKIT = {
     googleMapsAPIUrl: ghostkitVariables.googleMapsAPIUrl,
     googleMapsLibrary: ghostkitVariables.googleMapsLibrary,
 
+    googleReCaptchaAPISiteKey: ghostkitVariables.googleReCaptchaAPISiteKey,
+    googleReCaptchaAPISecretKey: ghostkitVariables.googleReCaptchaAPISecretKey,
+
     icons: ghostkitVariables.icons,
     shapes: ghostkitVariables.shapes,
     fonts: ghostkitVariables.fonts,

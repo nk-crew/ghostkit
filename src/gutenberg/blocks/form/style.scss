@@ -1,0 +1,140 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+.ghostkit-form-field + .ghostkit-form-field,
+.ghostkit-form-submit-button + .ghostkit-form-field,
+.ghostkit-form-field + .ghostkit-form-submit-button {
+    margin-top: 1.1em;
+}
+
+.ghostkit-form-field-label {
+    margin-bottom: .5em;
+
+    .required {
+        margin-left: 5px;
+        color: $color-danger;
+    }
+
+    &.ghostkit-form-field-label-hidden {
+        position: absolute;
+        left: -99999px;
+    }
+}
+
+.ghostkit-form-field-description {
+    display: block;
+    margin-top: .5em;
+    line-height: 1;
+    opacity: .5;
+
+    &.ghostkit-form-field-description-hidden {
+        position: absolute;
+        left: -99999px;
+    }
+}
+
+// Row
+.ghostkit-form-field-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 30px;
+
+    @include media-breakpoint-down(md) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Field Name
+.ghostkit-form-field-name-with-middle .ghostkit-form-field-row {
+    grid-template-columns: 1.5fr 1fr 1.5fr;
+
+    @include media-breakpoint-down(md) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Field Select
+.ghostkit-form-field-select select {
+    width: 100%;
+    max-width: 100%;
+}
+
+// Field Radio
+.ghostkit-form-field-radio {
+    .ghostkit-form-field-radio-item {
+        display: block;
+    }
+
+    // inline
+    &.ghostkit-form-field-radio-inline {
+        .ghostkit-form-field-radio-item {
+            display: inline-block;
+            margin-right: 20px;
+        }
+    }
+}
+
+// Field Checkbox
+.ghostkit-form-field-checkbox {
+    .ghostkit-form-field-checkbox-item {
+        display: block;
+    }
+
+    // inline
+    &.ghostkit-form-field-checkbox-inline {
+        .ghostkit-form-field-checkbox-item {
+            display: inline-block;
+            margin-right: 20px;
+        }
+    }
+}
+
+// Alert
+.ghostkit-alert.ghostkit-alert-form-success {
+    border-left-color: $color-success;
+}
+.ghostkit-alert.ghostkit-alert-form-error {
+    border-left-color: $color-danger;
+}
+
+// Parsley validation
+.ghostkit-form {
+    input.parsley-success,
+    select.parsley-success,
+    textarea.parsley-success {
+        border-color: $color-success;
+    }
+
+    input.parsley-error,
+    select.parsley-error,
+    textarea.parsley-error {
+        border-color: $color-danger;
+    }
+
+    .parsley-errors-list {
+        padding: 0;
+        margin: 0;
+        margin-top: .5em;
+        font-family: inherit;
+        font-size: .75em;
+        line-height: .75em;
+        color: $color-danger;
+        list-style-type: none;
+        opacity: 0;
+        transition: all .2s ease-in-out;
+
+        li {
+            margin-left: 0;
+        }
+    }
+
+    .parsley-errors-list.filled {
+        opacity: 1;
+    }
+
+    .parsley-errors-list:empty {
+        display: none;
+    }
+}

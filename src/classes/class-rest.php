@@ -202,6 +202,17 @@ class GhostKit_Rest extends WP_REST_Controller {
             )
         );
 
+        // Update Google reCaptcha keys.
+        register_rest_route(
+            $namespace,
+            '/update_google_recaptcha_keys/',
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'update_google_recaptcha_keys' ),
+                'permission_callback' => array( $this, 'update_google_recaptcha_keys_permission' ),
+            )
+        );
+
         // Update Disabled Blocks.
         register_rest_route(
             $namespace,
@@ -412,11 +423,23 @@ class GhostKit_Rest extends WP_REST_Controller {
     }
 
     /**
-     * Get read google maps api key permissions.
+     * Get read Google Maps API key permissions.
      *
      * @return bool
      */
     public function update_google_maps_api_key_permission() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+        }
+        return true;
+    }
+
+    /**
+     * Get read Google reCaptcha API keys permissions.
+     *
+     * @return bool
+     */
+    public function update_google_recaptcha_keys_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
             return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
         }
@@ -1645,6 +1668,20 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_google_maps_api_key( WP_REST_Request $request ) {
         update_option( 'ghostkit_google_maps_api_key', $request->get_param( 'key' ) );
+
+        return $this->success( true );
+    }
+
+    /**
+     * Update Google reCaptcha API keys.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function update_google_recaptcha_keys( WP_REST_Request $request ) {
+        update_option( 'ghostkit_google_recaptcha_api_site_key', $request->get_param( 'site_key' ) );
+        update_option( 'ghostkit_google_recaptcha_api_secret_key', $request->get_param( 'secret_key' ) );
 
         return $this->success( true );
     }

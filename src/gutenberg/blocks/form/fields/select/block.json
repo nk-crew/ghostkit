@@ -1,0 +1,11 @@
+{
+	"name": "ghostkit/form-field-select",
+	"category": "ghostkit",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true,
+        "reusable": false
+    },
+    "parent": [ "ghostkit/form" ]
+}

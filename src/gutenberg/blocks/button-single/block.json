@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/button-single",
-    "parent": [ "ghostkit/button" ],
+    "parent": [ "ghostkit/button", "ghostkit/form" ],
 	"category": "ghostkit",
     "supports": {
         "html": false,
@@ -10,6 +10,9 @@
         "reusable": false
     },
     "attributes": {
+        "tagName": {
+            "type": "string"
+        },
         "url": {
             "type": "string",
             "source": "attribute",

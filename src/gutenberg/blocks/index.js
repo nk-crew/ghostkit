@@ -32,6 +32,21 @@ import * as widgetizedArea from './widgetized-area';
 import * as instagram from './instagram';
 import * as twitter from './twitter';
 
+import * as form from './form';
+import * as formFieldText from './form/fields/text';
+import * as formFieldEmail from './form/fields/email';
+import * as formFieldName from './form/fields/name';
+import * as formFieldUrl from './form/fields/url';
+import * as formFieldPhone from './form/fields/phone';
+import * as formFieldNumber from './form/fields/number';
+import * as formFieldDate from './form/fields/date';
+import * as formFieldTextarea from './form/fields/textarea';
+import * as formFieldSelect from './form/fields/select';
+import * as formFieldCheckbox from './form/fields/checkbox';
+import * as formFieldRadio from './form/fields/radio';
+import * as formFieldHidden from './form/fields/hidden';
+import * as formSubmitButton from './form/fields/submit';
+
 const {
     registerBlockType,
 } = wp.blocks;
@@ -71,6 +86,20 @@ jQuery( () => {
         gist,
         changelog,
         widgetizedArea,
+        form,
+        formFieldText,
+        formFieldEmail,
+        formFieldName,
+        formFieldUrl,
+        formFieldPhone,
+        formFieldNumber,
+        formFieldDate,
+        formFieldTextarea,
+        formFieldSelect,
+        formFieldCheckbox,
+        formFieldRadio,
+        formFieldHidden,
+        formSubmitButton,
     ].forEach( ( { name, settings } ) => {
         registerBlockType( name, settings );
     } );

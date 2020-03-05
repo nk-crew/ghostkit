@@ -52,6 +52,7 @@ class BlockEdit extends Component {
         let { className = '' } = this.props;
 
         const {
+            tagName,
             text,
             icon,
             iconPosition,
@@ -283,7 +284,7 @@ class BlockEdit extends Component {
                         ) : '' }
                         { ! hideText ? (
                             <RichText
-                                placeholder={ __( 'Add text…', '@@text_domain' ) }
+                                placeholder={ __( 'Write text…', '@@text_domain' ) }
                                 value={ text }
                                 onChange={ ( value ) => setAttributes( { text: value } ) }
                                 formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
@@ -298,7 +299,7 @@ class BlockEdit extends Component {
                         ) : '' }
                     </div>
                 </div>
-                { isSelected ? (
+                { isSelected && ( ! tagName || 'a' === tagName ) ? (
                     <URLInput
                         url={ url }
                         target={ target }

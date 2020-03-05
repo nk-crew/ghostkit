@@ -24,6 +24,19 @@ import blockTwitter from '../icons/block-twitter.svg';
 import blockVideo from '../icons/block-video.svg';
 import blockWidgetizedArea from '../icons/block-widgetized-area.svg';
 import blockTableOfContents from '../icons/block-table-of-contents.svg';
+import blockForm from '../icons/block-form.svg';
+import blockFormFieldCheckbox from '../icons/block-form-field-checkbox.svg';
+import blockFormFieldDate from '../icons/block-form-field-date.svg';
+import blockFormFieldEmail from '../icons/block-form-field-email.svg';
+import blockFormFieldHidden from '../icons/block-form-field-hidden.svg';
+import blockFormFieldName from '../icons/block-form-field-name.svg';
+import blockFormFieldNumber from '../icons/block-form-field-number.svg';
+import blockFormFieldPhone from '../icons/block-form-field-phone.svg';
+import blockFormFieldRadio from '../icons/block-form-field-radio.svg';
+import blockFormFieldSelect from '../icons/block-form-field-select.svg';
+import blockFormFieldText from '../icons/block-form-field-text.svg';
+import blockFormFieldTextarea from '../icons/block-form-field-textarea.svg';
+import blockFormFieldUrl from '../icons/block-form-field-url.svg';
 
 import pluginGhostkit from '../icons/plugin-ghostkit.svg';
 import pluginTemplates from '../icons/plugin-templates.svg';
@@ -103,6 +116,19 @@ export default {
     'block-video': blockVideo,
     'block-widgetized-area': blockWidgetizedArea,
     'block-table-of-contents': blockTableOfContents,
+    'block-form': blockForm,
+    'block-form-field-checkbox': blockFormFieldCheckbox,
+    'block-form-field-date': blockFormFieldDate,
+    'block-form-field-email': blockFormFieldEmail,
+    'block-form-field-hidden': blockFormFieldHidden,
+    'block-form-field-name': blockFormFieldName,
+    'block-form-field-number': blockFormFieldNumber,
+    'block-form-field-phone': blockFormFieldPhone,
+    'block-form-field-radio': blockFormFieldRadio,
+    'block-form-field-select': blockFormFieldSelect,
+    'block-form-field-text': blockFormFieldText,
+    'block-form-field-textarea': blockFormFieldTextarea,
+    'block-form-field-url': blockFormFieldUrl,
 
     'plugin-ghostkit': pluginGhostkit,
     'plugin-templates': pluginTemplates,

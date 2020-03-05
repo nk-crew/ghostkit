@@ -30,6 +30,7 @@ const { name } = metadata;
 class BlockSave extends Component {
     render() {
         const {
+            tagName,
             text,
             icon,
             iconPosition,
@@ -78,14 +79,20 @@ class BlockSave extends Component {
             );
         }
 
-        return url ? (
-            <a className={ className } href={ url } target={ target || false } rel={ rel || false }>
+        let Tag = tagName;
+
+        if ( ! Tag ) {
+            Tag = url ? 'a' : 'span';
+        }
+
+        return Tag === 'a' ? (
+            <Tag className={ className } href={ url } target={ target || false } rel={ rel || false }>
                 { result }
-            </a>
+            </Tag>
         ) : (
-            <span className={ className }>
+            <Tag className={ className }>
                 { result }
-            </span>
+            </Tag>
         );
     }
 }

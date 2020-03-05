@@ -74,6 +74,7 @@ Add custom colors to Gutenberg color palette.
 * [**Testimonial**](https://ghostkit.io/blocks/testimonial/). Show how your users love your products and what saying
 * [**Twitter**](https://ghostkit.io/blocks/twitter/). Show Twitter feed and user data
 * [**Instagram**](https://ghostkit.io/blocks/instagram/). Show Instagram feed and user data
+* [**Contact Form**](https://ghostkit.io/blocks/contact-form/). Add contact form to your page with reCaptcha
 * [**Google Maps**](https://ghostkit.io/blocks/google-maps/). Show maps with custom styles, markers and settings
 * [**GitHub Gist**](https://ghostkit.io/blocks/github-gist/). Embed code parts form GitHub Gist to your site or documentation
 * [**Changelog**](https://ghostkit.io/blocks/changelog/). Show the changes log of your product
@@ -137,6 +138,7 @@ Available filters:
 * **gkt_enqueue_plugin_swiper**
 * **gkt_enqueue_plugin_gist_simple**
 * **gkt_enqueue_plugin_scrollreveal**
+* **gkt_enqueue_plugin_parsley**
 
 ### How to add templates in theme ####
 
