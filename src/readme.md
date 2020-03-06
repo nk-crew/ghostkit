@@ -188,6 +188,22 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.9.0 =
+
+Note: there may be breaking changes. Try to re-save pages if you see issues on the frontend.
+
+* loading blocks assets conditionally only when block added on the page (better pages performance)
+* added Form block <https://ghostkit.io/blocks/contact-form/>
+* added URL options to testimonial block
+* added styled inner lists in table of contents block
+* added "Add Template" button in editor Toolbar
+* changed icons in blocks to pure SVG and removed FontAwesome scripts (better pages performance)
+* changed wp-editor dependency to wp-block-editor (possible fix conflict with 3rd-party plugins like Yoast SEO)
+* fixed left and right margin in grid, button, pricing table blocks in Twenty* themes
+* fixed accordion and tabs item hash missing dash
+* fixed js error if used missing font (for ex. when disabling PRO plugin)
+* fixed Table of Contents editor preview
+
 = 2.8.2 =
 
 * fixed Adobe Fonts CSS output in PRO plugin
