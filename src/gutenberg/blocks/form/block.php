@@ -193,7 +193,6 @@ class GhostKit_Form_Block {
 
         $form_slug = 'ghostkit_form_' . $this->form_id;
         $form_id   = 'gkt_form_' . hash( 'adler32', $form_slug );
-        $form_id   = apply_filters( 'gkt_form_id', $form_id, $attributes );
 
         $this->form_id += 1;
 
@@ -205,8 +204,6 @@ class GhostKit_Form_Block {
         }
 
         $url .= '#' . $form_id;
-
-        $url = apply_filters( 'gkt_form_action_url', $url, $attributes );
 
         // Add unique slug to id and for attributes.
         $inner_blocks = str_replace( 'id="', 'id="' . $form_id . '_', $inner_blocks );

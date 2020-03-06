@@ -20,6 +20,7 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 ### Links ###
 
 * [Demo Site](https://ghostkit.io/)
+* [Documentation](https://ghostkit.io/docs/getting-started/)
 * [GitHub](https://github.com/nk-o/ghostkit)
 
 ### Templates ###
@@ -125,154 +126,29 @@ The manual installation method involves downloading our Ghost Kit plugin and upl
 
 ## Frequently Asked Questions ##
 
+### Documentation ####
+
+<https://ghostkit.io/docs/getting-started/>
+
 ### How to disable enqueued plugins (JS, CSS) on frontend ####
 
-There are some plugins, enqueued with Ghost Kit on your page. If you don't like the plugin and/or want to change it to your alternate plugin, you can disable it using filters. Example:
-
-    add_filter( 'gkt_enqueue_plugin_swiper', '__return_false' );
-
-Available filters:
-
-* **gkt_enqueue_plugin_object_fit_images**
-* **gkt_enqueue_plugin_jarallax**
-* **gkt_enqueue_plugin_swiper**
-* **gkt_enqueue_plugin_gist_simple**
-* **gkt_enqueue_plugin_scrollreveal**
-* **gkt_enqueue_plugin_parsley**
+<https://ghostkit.io/docs/php-filters/gkt_enqueue_/>
 
 ### How to add templates in theme ####
 
-You can add templates in your theme, so users will be able to insert it on pages with a single click. This is a simple example of theme templates structure, that should be placed in `/wp-content/themes/YOUR_THEME/ghostkit/templates/`:
-
-* /first-template/
-  * /content.php
-  * /thumbnail.png
-* /second-template/
-  * /content.php
-  * /thumbnail.png
-* ...
-
-Example for `content.php` file content:
-
-    <?php
-    /**
-     * Name: Template Name
-     * Category: Category Name
-     */
-
-    ?>
-
-    <!-- wp:paragraph -->
-    <p>content</p>
-    <!-- /wp:paragraph -->
-
-File `thumbnail.png` is not required, but strongly recommended, because users will see what template will look like after insertion.
+<https://ghostkit.io/docs/templates/#add-custom-templates-in-theme>
 
 ### How to extend typography settings ####
 
-By default Typography options used for Body, Headings, and Buttons. You can add custom options by extending typography using PHP filter:
-
-    add_filter( 'gkt_custom_typography', 'my_gkt_custom_typography' );
-    function my_gkt_custom_typography( $custom_typography ) {
-
-        // Add typography options for `.my-selector`.
-        $custom_typography['my-selector'] = array(
-            'label' => esc_html__( 'My Selector', '@@text_domain' ),
-            'defaults' => array(
-                'font-family-category' => 'default',
-                'font-family' => '',
-                'font-size' => '',
-                'font-weight' => '',
-                'line-height' => '',
-                'letter-spacing' => '',
-            ),
-            'output' => array(
-                array(
-                    'selectors' => '.my-selector',
-                ),
-                array(
-                    'selectors' => '.editor-styles-wrapper .my-selector',
-                    'editor' => true,
-                ),
-            ),
-        );
-
-        // Add typography options for `.my-selector-2` with Font Size and Font Weight control only.
-        $custom_typography['my-selector-2'] = array(
-            'label' => esc_html__( 'My Selector 2', '@@text_domain' ),
-            'defaults' => array(
-                'font-size' => '10px',
-                'font-weight' => '600',
-            ),
-            'output' => array(
-                array(
-                    'selectors' => '.my-selector-2',
-                ),
-                array(
-                    'selectors' => '.editor-styles-wrapper .my-selector-2',
-                    'editor' => true,
-                ),
-            ),
-        );
-
-        return $icons;
-    }
+<https://ghostkit.io/docs/php-filters/gkt_custom_typography/>
 
 ### How to extend shapes in Shape Divider block ####
 
-By default Shapes Divider contains 12 predefined SVG shapes. You can extend shapes list using PHP filter:
-
-    // add shapes list.
-    add_filter( 'gkt_shapes_list', 'my_gkt_shapes' );
-    function my_gkt_shapes( $shapes ) {
-        $shapes['my-shapes'] = array(
-            'name' => 'My Shapes',
-            'shapes' => array(
-                array(
-                    'label'                 => 'Wave',
-                    'name'                  => 'wave',
-                    'allow_flip_vertical'   => true,
-                    'allow_flip_horizontal' => true,
-                    'path'                  => ghostkit()->plugin_path . '/gutenberg/shapes/wave.svg',
-                ),
-                array(
-                    'label'                 => 'Waves',
-                    'name'                  => 'waves',
-                    'allow_flip_vertical'   => true,
-                    'allow_flip_horizontal' => true,
-                    'path'                  => ghostkit()->plugin_path . '/gutenberg/shapes/waves.svg',
-                ),
-                ...
-            ),
-        );
-
-        return $icons;
-    }
+<https://ghostkit.io/docs/php-filters/gkt_shapes_list/>
 
 ### How to extend icons in icon picker list ####
 
-By default icon picker contains FontAwesome icons. You can add any SVG icons you want, simply extend icon picker using PHP filter:
-
-    // add icons list.
-    add_filter( 'gkt_icons_list', 'my_gkt_icons' );
-    function my_gkt_icons( $icons ) {
-        $icons['my-icons-pack'] = array(
-            'name' => 'My Icons',
-            'icons' => array(
-                array(
-                    'keys' => 'adobe,brand',
-                    'svg' => '<svg class="ghostkit-svg-icon ghostkit-svg-icon-fa" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M315.5 64h170.9v384L315.5 64zm-119 0H25.6v384L196.5 64zM256 206.1L363.5 448h-73l-30.7-76.8h-78.7L256 206.1z"></path></svg>',
-                ),
-                array(
-                    'keys' => 'adobe,brand',
-                    'svg' => '<svg class="ghostkit-svg-icon ghostkit-svg-icon-fa" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M315.5 64h170.9v384L315.5 64zm-119 0H25.6v384L196.5 64zM256 206.1L363.5 448h-73l-30.7-76.8h-78.7L256 206.1z"></path></svg>',
-                ),
-                ...
-            ),
-        );
-
-        return $icons;
-    }
+<https://ghostkit.io/docs/php-filters/gkt_icons_list/>
 
 ### How to extend existing blocks ####
 
@@ -284,43 +160,7 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ### jQuery frontend events ####
 
-On frontend there are a lot of jQuery events. Usage example:
-
-    jQuery( document ).on( 'afterInitBlocks.ghostkit', function( evt, classObject ) {
-        console.log( evt, classObject );
-    } );
-
-Available events:
-
-* **beforeInit.ghostkit**
-* **afterInit.ghostkit**
-* **beforeInitBlocks.ghostkit**
-* **afterInitBlocks.ghostkit**
-* **beforePrepareCounters.ghostkit**
-* **afterPrepareCounters.ghostkit**
-* **beforeRunCounters.ghostkit**
-* **afterRunCounters.ghostkit**
-* **beforePrepareTabs.ghostkit**
-* **afterPrepareTabs.ghostkit**
-* **beforePrepareAccordions.ghostkit**
-* **afterPrepareAccordions.ghostkit**
-* **beforePrepareCarousels.ghostkit**
-* **afterPrepareCarousels.ghostkit**
-* **beforePrepareVideo.ghostkit**
-* **afterPrepareVideo.ghostkit**
-* **beforePrepareGist.ghostkit**
-* **afterPrepareGist.ghostkit**
-* **beforePrepareChangelog.ghostkit**
-* **afterPrepareChangelog.ghostkit**
-* **beforePrepareGoogleMaps.ghostkit**
-* **beforePrepareGoogleMapsStart.ghostkit**
-* **beforePrepareGoogleMapsEnd.ghostkit**
-* **afterPrepareGoogleMaps.ghostkit**
-* **beforePrepareSR.ghostkit**
-* **beforePrepareSRStart.ghostkit**
-* **beforeInitSR.ghostkit**
-* **beforePrepareSREnd.ghostkit**
-* **afterPrepareSR.ghostkit**
+<https://ghostkit.io/docs/jquery-events/>
 
 ## Screenshots ##
 

@@ -299,101 +299,10 @@ class GhostKit_Assets {
                 'googleReCaptchaAPISiteKey'   => get_option( 'ghostkit_google_recaptcha_api_site_key' ),
                 'googleReCaptchaAPISecretKey' => is_admin() ? get_option( 'ghostkit_google_recaptcha_api_secret_key' ) : '',
                 'sidebars'                    => $sidebars,
-                'icons'                       => is_admin() ? apply_filters(
-                    'gkt_icons_list',
-                    array(
-                    /**
-                    * Example:
-                        array(
-                            'font-awesome' => array(
-                                'name' => 'FontAwesome',
-                                'icons' => array(
-                                    array(
-                                        'keys' => 'adobe,brand',
-                                        'svg' => '<svg class="ghostkit-svg-icon ghostkit-svg-icon-fa" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M315.5 64h170.9v384L315.5 64zm-119 0H25.6v384L196.5 64zM256 206.1L363.5 448h-73l-30.7-76.8h-78.7L256 206.1z"></path></svg>',
-                                    ),
-                                    ...
-                                ),
-                            ),
-                        )
-                    */
-                    )
-                ) : array(),
-                'shapes'                      => is_admin() ? apply_filters(
-                    'gkt_shapes_list',
-                    array(
-                    /**
-                    * Example:
-                        array(
-                            'default' => array(
-                                'name' => 'Default',
-                                'shapes' => array(
-                                    array(
-                                        'label'                 => esc_html__( 'Wave', '@@text_domain' ),
-                                        'name'                  => 'wave',
-                                        'allow_flip_vertical'   => true,
-                                        'allow_flip_horizontal' => true,
-                                        'path'                  => ghostkit()->plugin_path . '/gutenberg/shapes/wave.svg',
-                                    ),
-                                    ...
-                                ),
-                            ),
-                        )
-                    */
-                    )
-                ) : array(),
-                'fonts'                       => is_admin() ? apply_filters(
-                    'gkt_fonts_list',
-                    array(
-                        /**
-                         * Example:
-                            array(
-                                'google-fonts' => array(
-                                    'name' => 'Google Fonts',
-                                        'fonts' => array(
-                                            array(
-                                                'Abhaya Libre' => array(
-                                                    '500',
-                                                    '600',
-                                                ),
-                                            ),
-                                        ...
-                                    ),
-                                ),
-                            )
-                         */
-                    )
-                ) : array(),
-                'customTypographyList'        => is_admin() ? apply_filters(
-                    'gkt_custom_typography',
-                    array(
-                        /**
-                         * Example:
-                            array(
-                                'titles' => array(
-                                    'label' => esc_html__( 'Titles', '@@text_domain' ),
-                                    'defaults' => array(
-                                        'font-family-category' => 'google-fonts',
-                                        'font-family' => 'Roboto',
-                                        'font-size' => '',
-                                        'font-weight' => '',
-                                        // 'line-height',
-                                        // 'letter-spacing',
-                                    ),
-                                    'output' => array(
-                                        array(
-                                            'body',
-                                        ),
-                                        array(
-                                            '.edit-post-visual-editor.editor-styles-wrapper',
-                                            'context' => array( 'editor' ),
-                                        ),
-                                    ),
-                                ),
-                            )
-                         */
-                    )
-                ) : array(),
+                'icons'                       => is_admin() ? apply_filters( 'gkt_icons_list', array() ) : array(),
+                'shapes'                      => is_admin() ? apply_filters( 'gkt_shapes_list', array() ) : array(),
+                'fonts'                       => is_admin() ? apply_filters( 'gkt_fonts_list', array() ) : array(),
+                'customTypographyList'        => is_admin() ? apply_filters( 'gkt_custom_typography', array() ) : array(),
                 'variants'                    => array(
                     'accordion'          => array_merge( $default_variant, apply_filters( 'gkt_accordion_variants', array() ) ),
                     'accordion_item'     => array_merge( $default_variant, apply_filters( 'gkt_accordion_item_variants', array() ) ),
