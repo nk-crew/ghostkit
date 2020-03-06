@@ -435,6 +435,7 @@ IconPicker.Preview = ( props ) => {
             onKeyPress={ () => {} }
             role="button"
             tabIndex={ 0 }
+            alwaysRender={ alwaysRender }
         />
     ) : '' );
 };
@@ -449,6 +450,7 @@ IconPicker.Render = ( props ) => {
         onKeyPress,
         role,
         tabIndex,
+        alwaysRender = false,
     } = props;
 
     const Tag = tag;
@@ -460,7 +462,7 @@ IconPicker.Render = ( props ) => {
         result = `<span class="${ name }"></span>`;
     }
 
-    if ( ! result ) {
+    if ( ! result && ! alwaysRender ) {
         return '';
     }
 
