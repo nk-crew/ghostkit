@@ -74,44 +74,50 @@ class BlockEdit extends Component {
                             value={ icon }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
-                        <RangeControl
-                            label={ __( 'Icon Size', '@@text_domain' ) }
-                            value={ iconSize }
-                            onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-                            min={ 20 }
-                            max={ 100 }
-                            beforeIcon="editor-textcolor"
-                            afterIcon="editor-textcolor"
-                        />
-                        <BaseControl
-                            label={ __( 'Icon Position', '@@text_domain' ) }
-                        >
-                            <Toolbar controls={ [
-                                {
-                                    icon: 'align-center',
-                                    title: __( 'Top', '@@text_domain' ),
-                                    onClick: () => setAttributes( { iconPosition: 'top' } ),
-                                    isActive: iconPosition === 'top',
-                                },
-                                {
-                                    icon: 'align-left',
-                                    title: __( 'Left', '@@text_domain' ),
-                                    onClick: () => setAttributes( { iconPosition: 'left' } ),
-                                    isActive: iconPosition === 'left',
-                                },
-                                {
-                                    icon: 'align-right',
-                                    title: __( 'Right', '@@text_domain' ),
-                                    onClick: () => setAttributes( { iconPosition: 'right' } ),
-                                    isActive: iconPosition === 'right',
-                                },
-                            ] } />
-                        </BaseControl>
-                        <ToggleControl
-                            label={ __( 'Show Content', '@@text_domain' ) }
-                            checked={ !! showContent }
-                            onChange={ ( val ) => setAttributes( { showContent: val } ) }
-                        />
+                        { icon ? (
+                            <Fragment>
+                                <RangeControl
+                                    label={ __( 'Icon Size', '@@text_domain' ) }
+                                    value={ iconSize }
+                                    onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+                                    min={ 20 }
+                                    max={ 100 }
+                                    beforeIcon="editor-textcolor"
+                                    afterIcon="editor-textcolor"
+                                />
+                                <BaseControl
+                                    label={ __( 'Icon Position', '@@text_domain' ) }
+                                >
+                                    <Toolbar controls={ [
+                                        {
+                                            icon: 'align-center',
+                                            title: __( 'Top', '@@text_domain' ),
+                                            onClick: () => setAttributes( { iconPosition: 'top' } ),
+                                            isActive: iconPosition === 'top',
+                                        },
+                                        {
+                                            icon: 'align-left',
+                                            title: __( 'Left', '@@text_domain' ),
+                                            onClick: () => setAttributes( { iconPosition: 'left' } ),
+                                            isActive: iconPosition === 'left',
+                                        },
+                                        {
+                                            icon: 'align-right',
+                                            title: __( 'Right', '@@text_domain' ),
+                                            onClick: () => setAttributes( { iconPosition: 'right' } ),
+                                            isActive: iconPosition === 'right',
+                                        },
+                                    ] } />
+                                </BaseControl>
+                            </Fragment>
+                        ) : '' }
+                        { ! showContent || icon ? (
+                            <ToggleControl
+                                label={ __( 'Show Content', '@@text_domain' ) }
+                                checked={ !! showContent }
+                                onChange={ ( val ) => setAttributes( { showContent: val } ) }
+                            />
+                        ) : '' }
                     </PanelBody>
                     <PanelBody title={ __( 'URL', '@@text_domain' ) } initialOpen={ false }>
                         <URLInput
@@ -164,28 +170,30 @@ class BlockEdit extends Component {
                         </TabPanel>
                     </PanelBody>
                 </InspectorControls>
-                <BlockControls>
-                    <Toolbar controls={ [
-                        {
-                            icon: 'align-center',
-                            title: __( 'Icon Position Top', '@@text_domain' ),
-                            onClick: () => setAttributes( { iconPosition: 'top' } ),
-                            isActive: iconPosition === 'top',
-                        },
-                        {
-                            icon: 'align-left',
-                            title: __( 'Icon Position Left', '@@text_domain' ),
-                            onClick: () => setAttributes( { iconPosition: 'left' } ),
-                            isActive: iconPosition === 'left',
-                        },
-                        {
-                            icon: 'align-right',
-                            title: __( 'Icon Position Right', '@@text_domain' ),
-                            onClick: () => setAttributes( { iconPosition: 'right' } ),
-                            isActive: iconPosition === 'right',
-                        },
-                    ] } />
-                </BlockControls>
+                { icon ? (
+                    <BlockControls>
+                        <Toolbar controls={ [
+                            {
+                                icon: 'align-center',
+                                title: __( 'Icon Position Top', '@@text_domain' ),
+                                onClick: () => setAttributes( { iconPosition: 'top' } ),
+                                isActive: iconPosition === 'top',
+                            },
+                            {
+                                icon: 'align-left',
+                                title: __( 'Icon Position Left', '@@text_domain' ),
+                                onClick: () => setAttributes( { iconPosition: 'left' } ),
+                                isActive: iconPosition === 'left',
+                            },
+                            {
+                                icon: 'align-right',
+                                title: __( 'Icon Position Right', '@@text_domain' ),
+                                onClick: () => setAttributes( { iconPosition: 'right' } ),
+                                isActive: iconPosition === 'right',
+                            },
+                        ] } />
+                    </BlockControls>
+                ) : '' }
                 <div className={ className }>
                     { icon ? (
                         <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }>

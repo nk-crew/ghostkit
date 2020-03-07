@@ -105,15 +105,17 @@ class BlockEdit extends Component {
                             value={ icon }
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
-                        <RangeControl
-                            label={ __( 'Icon Size', '@@text_domain' ) }
-                            value={ iconSize }
-                            onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-                            min={ 20 }
-                            max={ 100 }
-                            beforeIcon="editor-textcolor"
-                            afterIcon="editor-textcolor"
-                        />
+                        { icon ? (
+                            <RangeControl
+                                label={ __( 'Icon Size', '@@text_domain' ) }
+                                value={ iconSize }
+                                onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+                                min={ 20 }
+                                max={ 100 }
+                                beforeIcon="editor-textcolor"
+                                afterIcon="editor-textcolor"
+                            />
+                        ) : '' }
                     </PanelBody>
                     <PanelBody>
                         <ToggleControl
