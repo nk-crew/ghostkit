@@ -5,7 +5,12 @@
 
 .ghostkit-button-wrapper {
     position: relative;
+    display: flex;
     margin-top: 0;
+
+    > .block-editor-inner-blocks {
+        width: 100%;
+    }
 
     .ghostkit-button {
         margin: 0 !important; // stylelint-disable-line
@@ -27,11 +32,19 @@
         flex-wrap: wrap;
         align-items: flex-start;
         justify-content: flex-start;
+        width: 100%;
         margin-right: 0;
         margin-left: 0;
 
         > div {
             width: auto;
+        }
+
+        > .block-list-appender {
+            align-self: center;
+            margin-top: 25px;
+            margin-bottom: 0;
+            z-index: 7;
         }
     }
 

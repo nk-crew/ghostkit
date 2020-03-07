@@ -192,17 +192,19 @@ class BlockEdit extends Component {
                     <InnerBlocks
                         template={ this.getInnerBlocksTemplate() }
                         allowedBlocks={ [ 'ghostkit/button-single' ] }
+                        renderAppender={ (
+                            isSelectedBlockInRoot ? ( () => (
+                                <Tooltip text={ __( 'Add Button', '@@text_domain' ) }>
+                                    <IconButton
+                                        icon={ 'insert' }
+                                        onClick={ () => {
+                                            insertButtonSingle();
+                                        } }
+                                    />
+                                </Tooltip>
+                            ) ) : undefined
+                        ) }
                     />
-                    { isSelectedBlockInRoot ? (
-                        <Tooltip text={ __( 'Add Button', '@@text_domain' ) }>
-                            <IconButton
-                                icon={ 'insert' }
-                                onClick={ () => {
-                                    insertButtonSingle();
-                                } }
-                            />
-                        </Tooltip>
-                    ) : '' }
                 </div>
             </Fragment>
         );
