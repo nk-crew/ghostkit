@@ -551,7 +551,7 @@ class GhostKit_Rest extends WP_REST_Controller {
             }
         }
 
-        if ( $image ) {
+        if ( isset( $image ) && $image ) {
             return $this->success( $image );
         } else {
             return $this->error( 'no_image_found', __( 'Image not found.', '@@text_domain' ) );
