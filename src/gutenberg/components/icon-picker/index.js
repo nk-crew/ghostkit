@@ -135,21 +135,22 @@ class IconPickerDropdown extends Component {
                 render: (
                     <Fragment key="form">
                         <TextControl
-                            label={ __( 'Icon Output', '@@text_domain' ) }
-                            value={ value }
-                            onChange={ ( newData ) => {
-                                onChange( newData );
-                            } }
-                            placeholder={ __( 'Icon Output', '@@text_domain' ) }
-                            autoComplete="off"
-                        />
-                        <TextControl
                             label={ __( 'Search Icon', '@@text_domain' ) }
                             value={ this.state.search }
                             onChange={ ( searchVal ) => (
                                 this.setState( { search: searchVal } )
                             ) }
                             placeholder={ __( 'Type to Search...', '@@text_domain' ) }
+                            autoComplete="off"
+                            autoFocus
+                        />
+                        <TextControl
+                            label={ __( 'Icon Output', '@@text_domain' ) }
+                            value={ value }
+                            onChange={ ( newData ) => {
+                                onChange( newData );
+                            } }
+                            placeholder={ __( 'Icon Output', '@@text_domain' ) }
                             autoComplete="off"
                         />
                     </Fragment>
