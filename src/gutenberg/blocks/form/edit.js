@@ -276,7 +276,7 @@ function getUniqueFieldSlug( data, uniqueIds ) {
     while ( typeof uniqueIds[ data.type ][ newSlug ] !== 'undefined' && tryCount > 0 ) {
         i += 1;
         tryCount--;
-        newSlug = `field_${ data.type }-${ i }`;
+        newSlug = `field_${ data.type }_${ i }`;
     }
 
     return newSlug;
