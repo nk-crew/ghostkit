@@ -769,6 +769,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         $screen_name         = $request->get_param( 'screen_name' );
         $exclude_replies     = 'true' === $request->get_param( 'exclude_replies' );
         $include_rts         = 'true' === $request->get_param( 'include_rts' );
+        $tweet_mode_extended = 'true' === $request->get_param( 'tweet_mode_extended' );
 
         $api_data_ready = $consumer_key && $consumer_secret && $access_token && $access_token_secret;
 
@@ -780,6 +781,7 @@ class GhostKit_Rest extends WP_REST_Controller {
                     $access_token,
                     $access_token_secret,
                     $cache_expiration,
+                    $tweet_mode_extended,
                 )
             )
         );
@@ -802,6 +804,7 @@ class GhostKit_Rest extends WP_REST_Controller {
                         'access_token'        => $access_token,
                         'access_token_secret' => $access_token_secret,
                         'screen_name'         => $screen_name,
+                        'tweet_mode_extended' => $tweet_mode_extended,
                         'exclude_replies'     => 'false',
                         'include_rts'         => 'true',
                         'count'               => 200,
@@ -832,10 +835,32 @@ class GhostKit_Rest extends WP_REST_Controller {
                         continue;
                     }
 
+                    // full text.
+                    if ( $tweet_mode_extended || ! isset( $new_item['text'] ) ) {
+                        $text = isset( $new_item['full_text'] ) ? $new_item['full_text'] : null;
+
+                        if ( null === $text ) {
+                            $text = isset( $new_item['text'] ) ? $new_item['text'] : '';
+                        }
+
+                        $new_item['text'] = $text;
+                    }
+
                     // prepare tweet content.
                     $new_item = $this->prepare_tweet_content( $new_item );
 
                     if ( isset( $new_item['retweeted_status'] ) ) {
+                        // full text.
+                        if ( $tweet_mode_extended || ! isset( $new_item['retweeted_status']['text'] ) ) {
+                            $text = isset( $new_item['retweeted_status']['full_text'] ) ? $new_item['retweeted_status']['full_text'] : null;
+
+                            if ( null === $text ) {
+                                $text = isset( $new_item['retweeted_status']['text'] ) ? $new_item['retweeted_status']['text'] : '';
+                            }
+
+                            $new_item['retweeted_status']['text'] = $text;
+                        }
+
                         $new_item['retweeted_status'] = $this->prepare_tweet_content( $new_item['retweeted_status'] );
                     }
 
@@ -875,6 +900,7 @@ class GhostKit_Rest extends WP_REST_Controller {
                 'include_rts'         => '',
                 'count'               => '',
                 'include_entities'    => '',
+                'tweet_mode_extended' => '',
             ),
             $data
         );
@@ -914,6 +940,13 @@ class GhostKit_Rest extends WP_REST_Controller {
             $data['url']              .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
             $data['url']              .= 'include_entities=' . $data['include_entities'];
             $oauth['include_entities'] = $data['include_entities'];
+        }
+
+        // Tweet Mode.
+        if ( $data['tweet_mode_extended'] ) {
+            $data['url']        .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
+            $data['url']        .= 'tweet_mode=extended';
+            $oauth['tweet_mode'] = 'extended';
         }
 
         $base_info     = $this->build_base_string( $base_info_url, 'GET', $oauth );

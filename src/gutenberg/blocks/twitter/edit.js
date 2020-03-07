@@ -68,6 +68,7 @@ class BlockEdit extends Component {
             feedAvatarSize,
             showFeedName,
             showFeedDate,
+            feedTextMode,
             feedTextConvertLinks,
             showFeedActions,
 
@@ -148,6 +149,20 @@ class BlockEdit extends Component {
                                     label={ __( 'Show Actions', '@@text_domain' ) }
                                     checked={ !! showFeedActions }
                                     onChange={ ( value ) => setAttributes( { showFeedActions: value } ) }
+                                />
+                                <SelectControl
+                                    label={ __( 'Text Mode', '@@text_domain' ) }
+                                    value={ feedTextMode }
+                                    options={ [
+                                        {
+                                            value: '',
+                                            label: __( 'Short', '@@text_domain' ),
+                                        }, {
+                                            value: 'full',
+                                            label: __( 'Full', '@@text_domain' ),
+                                        },
+                                    ] }
+                                    onChange={ ( value ) => setAttributes( { feedTextMode: value } ) }
                                 />
                                 <SelectControl
                                     label={ __( 'Convert Text Links', '@@text_domain' ) }
@@ -403,6 +418,7 @@ export default withSelect( ( select, props ) => {
         userName,
         showReplies,
         showRetweets,
+        feedTextMode,
     } = props.attributes;
 
     const APIDataReady = consumerKey && consumerSecret && accessToken && accessTokenSecret && userName;
@@ -424,6 +440,7 @@ export default withSelect( ( select, props ) => {
             count,
             exclude_replies: showReplies ? 'false' : 'true',
             include_rts: showRetweets ? 'true' : 'false',
+            tweet_mode_extended: 'full' === feedTextMode ? 'true' : 'false',
             ...apiKeys,
         } ),
         twitterProfile: select( 'ghostkit/blocks/twitter' ).getTwitterProfile( apiKeys ),

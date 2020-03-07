@@ -92,6 +92,7 @@ class GhostKit_Twitter_Block {
                 'feedAvatarSize'         => 48,
                 'showFeedName'           => true,
                 'showFeedDate'           => true,
+                'feedTextMode'           => '',
                 'feedTextConvertLinks'   => 'links_media',
                 'showFeedActions'        => true,
 
@@ -143,6 +144,7 @@ class GhostKit_Twitter_Block {
                     'count'               => $attributes['count'],
                     'exclude_replies'     => $attributes['showReplies'] ? 'false' : 'true',
                     'include_rts'         => $attributes['showRetweets'] ? 'true' : 'false',
+                    'tweet_mode_extended' => 'full' === $attributes['feedTextMode'] ? 'true' : 'false',
                     'screen_name'         => $attributes['userName'],
                 )
             );
