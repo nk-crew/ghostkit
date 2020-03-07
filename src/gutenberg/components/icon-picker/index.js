@@ -144,15 +144,25 @@ class IconPickerDropdown extends Component {
                             autoComplete="off"
                             autoFocus
                         />
-                        <TextControl
-                            label={ __( 'Icon Output', '@@text_domain' ) }
-                            value={ value }
-                            onChange={ ( newData ) => {
-                                onChange( newData );
-                            } }
-                            placeholder={ __( 'Icon Output', '@@text_domain' ) }
-                            autoComplete="off"
-                        />
+                        <div className="ghostkit-component-icon-picker-input-output">
+                            <TextControl
+                                label={ __( 'Icon Output', '@@text_domain' ) }
+                                value={ value }
+                                onChange={ ( newData ) => {
+                                    onChange( newData );
+                                } }
+                                placeholder={ __( 'Icon Output', '@@text_domain' ) }
+                                autoComplete="off"
+                            />
+                            <Button
+                                isDefault
+                                isSmall
+                                disabled={ ! value }
+                                onClick={ () => onChange( '' ) }
+                            >
+                                { __( 'Reset', '@@text_domain' ) }
+                            </Button>
+                        </div>
                     </Fragment>
                 ),
             },

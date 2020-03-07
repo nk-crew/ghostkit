@@ -54,6 +54,17 @@
         }
     }
 
+    // place Reset button.
+    .ghostkit-component-icon-picker-input-output {
+        display: flex;
+        align-items: flex-end;
+
+        > .components-button {
+            margin-bottom: 12px;
+            margin-left: 10px;
+        }
+    }
+
     .ghostkit-component-icon-picker-list-wrap {
         padding: 15px;
 
