@@ -80,7 +80,7 @@ class BlockEdit extends Component {
                             defaultCustom={ defaultCustom }
                         />
                     </PanelBody>
-                    <PanelBody title={ __( 'Вфеу Settings', '@@text_domain' ) }>
+                    <PanelBody title={ __( 'Date Settings', '@@text_domain' ) }>
                         <TextControl
                             type="date"
                             label={ __( 'Min', '@@text_domain' ) }
