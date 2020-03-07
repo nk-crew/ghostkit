@@ -216,6 +216,11 @@
         }
     }
 
+    // Display line breaks in tweet text.
+    .ghostkit-twitter-item-text {
+        white-space: pre-wrap;
+    }
+
     div + .ghostkit-twitter-item-text,
     div + .ghostkit-twitter-item-actions {
         margin-top: .5em;
