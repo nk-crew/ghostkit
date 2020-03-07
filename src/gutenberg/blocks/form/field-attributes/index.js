@@ -32,6 +32,9 @@ export function getFieldAttributes( attributes ) {
     const result = {
         // prevent input focus.
         tabIndex: -1,
+        onFocus( e ) {
+            e.target.blur();
+        },
     };
 
     Object.keys( attributes ).forEach( ( k ) => {

@@ -32,10 +32,7 @@ class FieldLabel extends Component {
         }
 
         return (
-            <label
-                className="ghostkit-form-field-label"
-                htmlFor={ attributes.slug }
-            >
+            <label className="ghostkit-form-field-label" htmlFor>
                 <RichText
                     tagName="span"
                     value={ label }
