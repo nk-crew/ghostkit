@@ -188,6 +188,21 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.9.1 =
+
+* added Twitter block Text Mode option (to display full tweet text)
+* added icon picker Search input autofocus
+* added Reset button in Icon Picker component
+* added null option to Select Field when default value is not selected
+* added option to remove photo from Testimonial block
+* improved Twitter block text formatting (line breaks)
+* improved conditional options display in the editor for Alert and Icon Box blocks
+* change unique Form Fields slug slash to underscore
+* prevent Form Fields input focus in editor
+* fixed vertical Tabs Pills active tab styles
+* fixed Buttons block align option in editor
+* fixed php error when use rest to get image by id, that is not exists
+
 = 2.9.0 =
 
 Note: there may be breaking changes. Try to re-save pages if you see issues on the frontend.
