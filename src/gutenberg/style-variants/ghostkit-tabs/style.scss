@@ -6,7 +6,8 @@
 /**
 * Pills.
 */
-.ghostkit-tabs.is-style-pills {
+.ghostkit-tabs.is-style-pills,
+.ghostkit-tabs.ghostkit-tabs-buttons-vertical.is-style-pills {
     .ghostkit-tabs-buttons {
         border: none;
 
@@ -15,6 +16,7 @@
             border: none;
             border-radius: 3px;
 
+            // stylelint-disable-next-line selector-max-class
             &.ghostkit-tabs-buttons-item-active {
                 color: $white;
                 background-color: $dark-gray-700;
