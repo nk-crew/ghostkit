@@ -16,6 +16,7 @@ const { Component, Fragment } = wp.element;
 
 const {
     PanelBody,
+    BaseControl,
     SelectControl,
     RangeControl,
     Button,
@@ -131,28 +132,79 @@ class BlockEdit extends Component {
                             onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                     </PanelBody>
-                    { photoSizes ? (
-                        <PanelBody>
-                            <SelectControl
-                                label={ __( 'Photo Size', '@@text_domain' ) }
-                                value={ photoSize }
-                                options={ ( () => {
-                                    const result = [];
-                                    Object.keys( photoSizes ).forEach( ( k ) => {
-                                        result.push( {
-                                            value: k,
-                                            label: dashCaseToTitle( k ),
-                                        } );
-                                    } );
-                                    return result;
-                                } )() }
-                                onChange={ v => setAttributes( { photoSize: v } ) }
+                    <PanelBody title={ __( 'Photo', '@@text_domain' ) }>
+                        { ! photo ? (
+                            <MediaUpload
+                                onSelect={ ( media ) => {
+                                    onPhotoSelect( media, setAttributes );
+                                } }
+                                allowedTypes={ [ 'image' ] }
+                                value={ photo }
+                                render={ ( { open } ) => (
+                                    <Button onClick={ open } isPrimary>
+                                        { __( 'Select Image', '@@text_domain' ) }
+                                    </Button>
+                                ) }
                             />
-                        </PanelBody>
-                    ) : '' }
-                    <PanelBody>
+                        ) : '' }
+
+                        { photo && photoTag ? (
+                            <Fragment>
+                                <MediaUpload
+                                    onSelect={ ( media ) => {
+                                        onPhotoSelect( media, setAttributes );
+                                    } }
+                                    allowedTypes={ [ 'image' ] }
+                                    value={ photo }
+                                    render={ ( { open } ) => (
+                                        <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
+                                            <a
+                                                href="#"
+                                                onClick={ open }
+                                                className="ghostkit-gutenberg-media-upload"
+                                                style={ { display: 'block' } }
+                                                dangerouslySetInnerHTML={ { __html: photoTag } }
+                                            />
+                                        </BaseControl>
+                                    ) }
+                                />
+                                <a
+                                    href="#"
+                                    onClick={ ( e ) => {
+                                        setAttributes( {
+                                            photo: '',
+                                            photoTag: '',
+                                            photoSizes: '',
+                                        } );
+                                        e.preventDefault();
+                                    } }
+                                    className="button button-secondary"
+                                >
+                                    { __( 'Remove Image', '@@text_domain' ) }
+                                </a>
+                                <div style={ { marginBottom: 13 } } />
+                                { photoSizes ? (
+                                    <SelectControl
+                                        label={ __( 'Size', '@@text_domain' ) }
+                                        value={ photoSize }
+                                        options={ ( () => {
+                                            const result = [];
+                                            Object.keys( photoSizes ).forEach( ( k ) => {
+                                                result.push( {
+                                                    value: k,
+                                                    label: dashCaseToTitle( k ),
+                                                } );
+                                            } );
+                                            return result;
+                                        } )() }
+                                        onChange={ v => setAttributes( { photoSize: v } ) }
+                                    />
+                                ) : '' }
+                            </Fragment>
+                        ) : '' }
+                    </PanelBody>
+                    <PanelBody title={ __( 'Stars', '@@text_domain' ) }>
                         <RangeControl
-                            label={ __( 'Stars', '@@text_domain' ) }
                             value={ stars }
                             min={ 0 }
                             max={ 5 }
@@ -163,7 +215,7 @@ class BlockEdit extends Component {
                         />
                         { typeof stars === 'number' ? (
                             <IconPicker
-                                label={ __( 'Stars Icon', '@@text_domain' ) }
+                                label={ __( 'Icon', '@@text_domain' ) }
                                 value={ starsIcon }
                                 onChange={ ( value ) => setAttributes( { starsIcon: value } ) }
                             />
