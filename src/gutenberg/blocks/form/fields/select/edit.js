@@ -136,7 +136,30 @@ class BlockEdit extends Component {
                         <SelectControl
                             { ...getFieldAttributes( attributes ) }
                             value={ selectVal }
-                            options={ options }
+                            options={ ( () => {
+                                if ( ! multiple ) {
+                                    let addNullOption = true;
+
+                                    Object.keys( options ).forEach( ( data ) => {
+                                        if ( data.selected ) {
+                                            addNullOption = false;
+                                        }
+                                    } );
+
+                                    if ( addNullOption ) {
+                                        return [
+                                            {
+                                                label: __( '--- Select ---', '@@text_domain' ),
+                                                value: '',
+                                                selected: true,
+                                            },
+                                            ...options,
+                                        ];
+                                    }
+                                }
+
+                                return options;
+                            } )() }
                         />
                     ) }
 

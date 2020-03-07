@@ -63,10 +63,38 @@ class GhostKit_Form_Field_Select_Block {
     public function block_render( $attributes ) {
         $attributes = array_merge(
             array(
-                'options' => array(),
+                'options'  => array(),
+                'multiple' => false,
             ),
             $attributes
         );
+
+        $options = $attributes['options'];
+        if ( ! is_array( $options ) ) {
+            $options = array();
+        }
+
+        // Add null option.
+        if ( ! $attributes['multiple'] ) {
+            $add_null_option = true;
+
+            foreach ( $options as $data ) {
+                if ( $data['selected'] ) {
+                    $add_null_option = false;
+                }
+            }
+
+            if ( $add_null_option ) {
+                array_unshift(
+                    $options,
+                    array(
+                        'label'    => esc_attr__( '--- Select ---', '@@text_domain' ),
+                        'value'    => '',
+                        'selected' => true,
+                    )
+                );
+            }
+        }
 
         ob_start();
 
@@ -76,17 +104,13 @@ class GhostKit_Form_Field_Select_Block {
             $class .= ' ' . $attributes['className'];
         }
 
-        if ( ! is_array( $attributes['options'] ) ) {
-            $attributes['options'] = array();
-        }
-
         ?>
 
         <div class="<?php echo esc_attr( $class ); ?>">
             <?php GhostKit_Form_Field_Label::get( $attributes ); ?>
 
             <select <?php GhostKit_Form_Field_Attributes::get( $attributes ); ?>>
-                <?php foreach ( $attributes['options'] as $option ) : ?>
+                <?php foreach ( $options as $option ) : ?>
                     <option <?php selected( $option['selected'] ); ?> value="<?php echo esc_attr( $option['value'] ); ?>">
                         <?php echo esc_html( $option['label'] ); ?>
                     </option>
