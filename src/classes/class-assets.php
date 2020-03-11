@@ -30,11 +30,11 @@ class GhostKit_Assets {
     public function __construct() {
         add_action( 'init', array( $this, 'register_scripts' ) );
 
-        add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_head_assets' ), 9 );
+        add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_head_assets' ), 11 );
 
-        add_action( 'wp_footer', array( $this, 'wp_enqueue_foot_assets' ) );
+        add_action( 'wp_footer', array( $this, 'wp_enqueue_foot_assets' ), 11 );
 
-        add_action( 'ghostkit_parse_blocks', array( $this, 'maybe_enqueue_blocks_assets' ), 10, 2 );
+        add_action( 'ghostkit_parse_blocks', array( $this, 'maybe_enqueue_blocks_assets' ), 11, 2 );
 
         add_action( 'wp_enqueue_scripts', array( $this, 'add_blocks_assets' ), 100 );
     }
