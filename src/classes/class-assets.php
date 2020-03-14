@@ -30,9 +30,7 @@ class GhostKit_Assets {
     public function __construct() {
         add_action( 'init', array( $this, 'register_scripts' ) );
 
-        add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_head_assets' ), 11 );
-
-        add_action( 'wp_footer', array( $this, 'wp_enqueue_foot_assets' ), 11 );
+        add_action( 'plugins_loaded', array( $this, 'enqueue_scripts_action' ), 11 );
 
         add_action( 'ghostkit_parse_blocks', array( $this, 'maybe_enqueue_blocks_assets' ), 11, 2 );
 
@@ -139,6 +137,19 @@ class GhostKit_Assets {
         if ( ! empty( $blocks_css ) ) {
             self::store_used_assets( 'ghostkit-blocks-' . $location . '-custom-css', ghostkit()->replace_vars( $blocks_css ), 'custom-css' );
         }
+    }
+
+    /**
+     * Enqueue scripts and styles actions.
+     * We need this to be used inside 'plugins_loaded' action to prevent conflicts with plugins and themes.
+     *
+     * 1. Enqueue plugins assets
+     * 2. Enqueue Ghost Kit assets
+     * 3. Enqueue theme assets
+     */
+    public function enqueue_scripts_action() {
+        add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_head_assets' ) );
+        add_action( 'wp_footer', array( $this, 'wp_enqueue_foot_assets' ) );
     }
 
     /**
