@@ -188,6 +188,10 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.9.3 =
+
+* fixed assets enqueue sequence (plugins -> Ghost Kit -> theme)
+
 = 2.9.2 =
 
 * added higher assets enqueue priority (fixes styles bug with AWB plugin)
