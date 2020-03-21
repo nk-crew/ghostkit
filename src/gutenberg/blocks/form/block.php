@@ -192,7 +192,7 @@ class GhostKit_Form_Block {
         }
 
         $form_slug = 'ghostkit_form_' . $this->form_id;
-        $form_id   = 'gkt_form_' . hash( 'adler32', $form_slug );
+        $form_id   = 'gkt_form_' . hash( 'crc32b', $form_slug );
 
         $this->form_id += 1;
 
