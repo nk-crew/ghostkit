@@ -21,23 +21,19 @@
         list-style: none;
     }
     .is-style-styled {
+        padding-left: 0;
         line-height: 1.5;
+        list-style: none;
+
+        li + li {
+            margin-top: .5em;
+        }
 
         > li {
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-
             > ul,
             > ol {
                 width: 100%;
-            }
-
-            &::before {
-                display: flex;
-                align-items: center;
-                align-self: center;
-                justify-content: center;
+                padding-left: 3em;
             }
         }
     }
@@ -45,26 +41,37 @@
     ol.is-style-styled {
         counter-reset: li;
 
-        > li::before {
-            content: counter(li);
-            width: 1.6em;
-            height: 1.6em;
-            margin-right: .8em;
-            font-size: .7em;
-            font-weight: 600;
-            line-height: 1;
-            counter-increment: li;
-            background-color: rgba(204, 204, 204, .2);
-            border-radius: 50%;
+        > li {
+            position: relative;
+            display: flex;
+
+            &::before {
+                content: counter(li);
+                display: flex;
+                flex: 0 0 2em;
+                align-items: center;
+                align-self: flex-start;
+                justify-content: center;
+                height: 2em;
+                margin-right: .8em;
+                font-size: .7em;
+                font-weight: 600;
+                line-height: 1;
+                counter-increment: li;
+                background-color: rgba(204, 204, 204, .2);
+                border-radius: 50%;
+            }
         }
     }
 
     ul.is-style-styled {
         > li {
+            position: relative;
             padding-left: 2em;
 
             &::before {
                 content: "";
+                position: absolute;
                 top: .65em;
                 left: .9em;
                 width: .2em;
