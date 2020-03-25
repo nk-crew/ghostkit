@@ -192,9 +192,7 @@ class GhostKit_Twitter_Block {
                                     </div>
                                 <?php endif; ?>
                                 <?php if ( $attributes['showProfileDescription'] && isset( $profile['description_entitled'] ) && $profile['description_entitled'] ) : ?>
-                                    <div class="ghostkit-twitter-profile-description">
-                                        <?php echo wp_kses_post( $profile['description_entitled'] ); ?>
-                                    </div>
+                                    <div class="ghostkit-twitter-profile-description"><?php echo wp_kses_post( $profile['description_entitled'] ); ?></div>
                                 <?php endif; ?>
                                 <?php if ( $attributes['showProfileWebsite'] && isset( $profile['url_entitled'] ) && $profile['url_entitled'] ) : ?>
                                     <div class="ghostkit-twitter-profile-website">
