@@ -60,13 +60,18 @@
     }
 
     ul.is-style-styled {
-        > li::before {
-            content: "";
-            width: 5px;
-            height: 5px;
-            margin-right: .72em;
-            margin-left: .72em;
-            background-color: rgba(204, 204, 204, .5);
+        > li {
+            padding-left: 2em;
+
+            &::before {
+                content: "";
+                top: .65em;
+                left: .9em;
+                width: .2em;
+                height: .2em;
+                margin-right: .72em;
+                background-color: rgba(204, 204, 204, .5);
+            }
         }
     }
 }
