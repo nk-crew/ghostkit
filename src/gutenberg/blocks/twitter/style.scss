@@ -95,6 +95,11 @@
     div + .ghostkit-twitter-profile-location {
         margin-top: 1.2em;
     }
+
+    // Display line breaks in profile description
+    .ghostkit-twitter-profile-description {
+        white-space: pre-wrap;
+    }
 }
 
 // items.
