@@ -361,11 +361,10 @@ class GhostKit_Assets {
         );
 
         // Blocks.
-        foreach ( glob( ghostkit()->plugin_path . 'assets/js/block-*.min.js' ) as $template ) {
-            $file_name     = basename( $template );
-            $block_name    = preg_replace( '/^block-/', '', $file_name );
-            $block_name    = preg_replace( '/.min.js/', '', $block_name );
-            $block_js_deps = array( 'ghostkit', 'jquery' );
+        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/frontend.min.js' ) as $template ) {
+            $block_name       = basename( dirname( $template ) );
+            $block_script_url = ghostkit()->plugin_url . 'gutenberg/blocks/' . $block_name . '/frontend.min.js';
+            $block_js_deps    = array( 'ghostkit', 'jquery' );
 
             switch ( $block_name ) {
                 case 'grid':
@@ -403,11 +402,14 @@ class GhostKit_Assets {
                         $block_js_deps[] = 'google-recaptcha';
                     }
                     break;
+                case 'tabs':
+                    $block_name = 'tabs-v2';
+                    break;
             }
 
             wp_register_script(
                 'ghostkit-block-' . $block_name,
-                ghostkit()->plugin_url . 'assets/js/' . $file_name,
+                $block_script_url,
                 array_unique( $block_js_deps ),
                 '@@plugin_version',
                 true

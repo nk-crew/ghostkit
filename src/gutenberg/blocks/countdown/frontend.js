@@ -9,7 +9,7 @@ const {
 
 const $doc = $( document );
 
-import countDownApi from '../../gutenberg/blocks/countdown/api';
+import countDownApi from './api';
 
 /**
  * Prepare Countdowns.
