@@ -2,7 +2,11 @@
  * Frontend Styles
  */
 @import "../../variables";
+@import "./pills";
 
+/**
+* Tabs.
+*/
 .ghostkit-tabs {
     // Tabs buttons.
     .ghostkit-tabs-buttons {
