@@ -55,7 +55,7 @@ class GhostKit_Fonts {
 
         // Default Typography.
         if ( isset( $default_typography ) && ! empty( $default_typography ) ) {
-            foreach ( $default_typography as $typography ) {
+            foreach ( $default_typography as $key => $typography ) {
                 if ( isset( $typography[ 'defaults' ][ 'font-family' ] ) &&
                     ! empty( $typography[ 'defaults' ][ 'font-family' ] ) &&
                     isset( $typography[ 'defaults' ][ 'font-family-category' ] ) &&
@@ -67,10 +67,17 @@ class GhostKit_Fonts {
                         $weight = $typography[ 'defaults' ][ 'font-weight' ];
                     }
 
+                    // TODO: add additional_font_weights option support for typography React component
+                    $additional_font_weights = array();
+                    if ( isset( $typography[ 'additional_font_weights' ] ) &&
+                        ! empty( $typography[ 'additional_font_weights' ] ) ) {
+                        $additional_font_weights[ $key ] = $typography[ 'additional_font_weights' ];
+                    }
                     $fonts[] = array(
                         'family' => $typography[ 'defaults' ][ 'font-family-category' ],
                         'label' => $typography[ 'defaults' ][ 'font-family' ],
                         'weight' => $weight,
+                        'typography' => $key,
                     );
                 }
             }
@@ -97,6 +104,7 @@ class GhostKit_Fonts {
                             'family' => $global_typography_value->fontFamilyCategory,
                             'label' => $global_typography_value->fontFamily,
                             'weight' => $weight,
+                            'typography' => $global_typography_key,
                         );
                     }
                 }
@@ -126,6 +134,7 @@ class GhostKit_Fonts {
                                 'family' => $meta_typography_value->fontFamilyCategory,
                                 'label' => $meta_typography_value->fontFamily,
                                 'weight' => $weight,
+                                'typography' => $meta_typography_key,
                             );
                         }
                     }
@@ -146,7 +155,26 @@ class GhostKit_Fonts {
                         $category = ( isset( $find_font[ 'category' ] ) && ! empty( $find_font[ 'category' ] ) ) ? $find_font[ 'category' ] : '';
                         $subsets = ( isset( $find_font[ 'subsets' ] ) && ! empty( $find_font[ 'subsets' ] ) ) ? $find_font[ 'subsets' ] : '';
 
-                        if ( $weight !== '' ) {
+                        if ( isset( $additional_font_weights ) && ! empty( $additional_font_weights ) ) {
+                            foreach ( $additional_font_weights as $key => $additional_font_weight ) {
+                                if ( $key === $font[ 'typography' ] ) {
+                                    $font_weights = $additional_font_weight;
+                                }
+                            }
+                        }
+
+                        if ( isset( $font_weights ) && ! empty( $font_weights ) && is_array( $font_weights ) ) {
+                            $insert_weights = array();
+                            if ( $weight !== '' ) {
+                                $insert_weights[] = $weight;
+                            }
+                            $insert_weights = array_merge( $insert_weights, $font_weights );
+                            foreach ( $insert_weights as $insert_weight ) {
+                                if ( array_search( $insert_weight, $widths ) !== false ) {
+                                    $weights[] = $insert_weight;
+                                }
+                            }
+                        } elseif ( $weight !== '' ) {
                             $weight = str_replace( 'i', '', $weight);
 
                             if ( $weight !== '600' &&
@@ -192,6 +220,7 @@ class GhostKit_Fonts {
                                 }
                             }
                         }
+
                         if ( isset( $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ] ) ) {
                             if ( isset( $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ][ 'widths' ] ) &&
                                 ! empty( $webfont_list[ $font[ 'family' ] ][ $font[ 'label' ] ][ 'widths' ] ) &&
