@@ -348,7 +348,7 @@ class GhostKit_Assets {
         // Ghost Kit.
         wp_register_style(
             'ghostkit',
-            ghostkit()->plugin_url . 'assets/css/main.min.css',
+            ghostkit()->plugin_url . 'gutenberg/style.min.css',
             $css_deps,
             '@@plugin_version'
         );
@@ -413,11 +413,10 @@ class GhostKit_Assets {
                 true
             );
         }
-        foreach ( glob( ghostkit()->plugin_path . 'assets/css/block-*.min.css' ) as $template ) {
-            $file_name      = basename( $template );
-            $block_name     = preg_replace( '/^block-/', '', $file_name );
-            $block_name     = preg_replace( '/.min.css$/', '', $block_name );
-            $block_css_deps = array( 'ghostkit' );
+        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/styles/style.min.css' ) as $template ) {
+            $block_name      = basename( dirname( dirname( $template ) ) );
+            $block_style_url = ghostkit()->plugin_url . 'gutenberg/blocks/' . $block_name . '/styles/style.min.css';
+            $block_css_deps  = array( 'ghostkit' );
 
             switch ( $block_name ) {
                 case 'gist':
@@ -426,11 +425,14 @@ class GhostKit_Assets {
                 case 'carousel':
                     $block_css_deps[] = 'swiper';
                     break;
+                case 'tabs':
+                    $block_name = 'tabs-v2';
+                    break;
             }
 
             wp_register_style(
                 'ghostkit-block-' . $block_name,
-                ghostkit()->plugin_url . 'assets/css/' . $file_name,
+                $block_style_url,
                 array_unique( $block_css_deps ),
                 '@@plugin_version'
             );

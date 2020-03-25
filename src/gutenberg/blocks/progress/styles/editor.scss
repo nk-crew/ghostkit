@@ -1,0 +1,10 @@
+/**
+ * Editor Styles
+ */
+@import "../../../variables";
+
+.ghostkit-progress {
+    .components-resizable-box__container.is-selected > .ghostkit-progress-wrap {
+        height: 100%;
+    }
+}

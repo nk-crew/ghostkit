@@ -41,7 +41,7 @@ const { apiFetch } = wp;
 import getIcon from '../../utils/get-icon';
 import IconMarker from './icons/marker.svg';
 
-import styles from './styles';
+import styles from './map-styles';
 
 import MapBlock from './map-block';
 import SearchBox from './search-box';

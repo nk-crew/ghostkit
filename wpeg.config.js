@@ -21,7 +21,12 @@ cfg.template_files_variables = {
 cfg.copy_files_src = [ '{src}/**/*', '!{src}/**/*.{js,scss}', '{src}/**/vendor/**/*.{js,scss}' ];
 
 // Compile SCSS files.
-cfg.compile_scss_files_src = [ '{src}/*assets/**/*.scss', '{src}/*gutenberg/style.scss', '{src}/*settings/style.scss' ];
+cfg.compile_scss_files_src = [
+    '{src}/*assets/**/*.scss',
+    '{src}/*gutenberg/style.scss',
+    '{src}/*gutenberg/blocks/*/styles/style.scss',
+    '{src}/*settings/style.scss',
+];
 
 // Compile JS files.
 cfg.compile_js_files_src = [

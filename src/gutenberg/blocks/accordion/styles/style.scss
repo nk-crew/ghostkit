@@ -1,0 +1,61 @@
+/**
+ * Frontend Styles
+ */
+@import "../../../variables";
+
+.ghostkit-accordion {
+    .ghostkit-accordion-item + .ghostkit-accordion-item .ghostkit-accordion-item-heading {
+        border-top: 1px solid #f3f4f5;
+    }
+
+    .ghostkit-accordion-item-heading {
+        position: relative;
+        display: block;
+        padding: .75em 0;
+        padding-right: 46px;
+        font-weight: 500;
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        border-bottom: none;
+        box-shadow: none;
+        transition: .15s opacity;
+        will-change: opacity;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .ghostkit-accordion-item-collapse {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        right: 0;
+        width: 46px;
+        height: 100%;
+        font-size: .7em;
+        cursor: pointer;
+        background: none;
+        border: none;
+        outline: none;
+        transition: .15s transform;
+        will-change: trasnform;
+    }
+
+    .ghostkit-accordion-item-content {
+        display: none;
+        padding: .75em 0;
+    }
+
+    .ghostkit-accordion-item-active {
+        .ghostkit-accordion-item-collapse {
+            transform: rotate(90deg);
+        }
+        .ghostkit-accordion-item-content {
+            display: block;
+        }
+    }
+}

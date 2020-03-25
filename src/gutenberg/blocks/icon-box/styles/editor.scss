@@ -1,0 +1,15 @@
+/**
+ * Editor Styles
+ */
+@import "../../../variables";
+
+// fix content block height
+.ghostkit-icon-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-editor-block-list__block:first-child > .block-editor-block-list__block-edit {
+    margin-top: 0;
+}
+.ghostkit-icon-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-editor-block-list__block:last-child > .block-editor-block-list__block-edit {
+    margin-bottom: 0;
+}
+.ghostkit-icon-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > :not(.block-editor-block-list__block):empty:last-child {
+    margin-bottom: -31px;
+}

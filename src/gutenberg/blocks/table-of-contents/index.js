@@ -1,8 +1,8 @@
 /**
  * Import CSS
  */
-import './editor.scss';
-import './style.scss';
+import './styles/editor.scss';
+import './styles/style.scss';
 
 /**
  * WordPress dependencies

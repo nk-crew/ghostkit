@@ -1,0 +1,203 @@
+/**
+ * Editor Styles
+ */
+@import "../../../variables";
+
+.ghostkit-pricing-table > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    display: flex;
+    flex-wrap: wrap;
+
+    // fix items margin top.
+    > .block-editor-block-list__block > .block-editor-block-list__block-edit {
+        margin-top: 12px;
+    }
+}
+
+// hide drag handler from single pricings
+// rotate move pricings
+[data-type="ghostkit/pricing-table-item"] > .editor-block-mover {
+    > .editor-block-mover__control-drag-handle {
+        display: none;
+    }
+    > .components-button:first-child svg,
+    > .editor-block-mover__control-drag-handle + .components-button svg {
+        transform: rotate(-90deg);
+    }
+}
+
+// Item.
+.ghostkit-pricing-table-item {
+    position: relative;
+    padding: 40px 30px;
+    background-color: #fff;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+
+    .ghostkit-pricing-table-item-popular-badge {
+        position: absolute;
+        top: 20px;
+        right: -1px;
+        padding: 2px 18px;
+        margin-top: 0;
+        font-size: .8em;
+        color: #fff;
+        background-color: $color-primary;
+    }
+
+    .ghostkit-pricing-table-item-title {
+        font-size: 1em;
+    }
+
+    .ghostkit-pricing-table-item-price {
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+    .ghostkit-pricing-table-item-price-amount {
+        font-size: 3.5em;
+        line-height: 1.3;
+
+        .editor-rich-text__tinymce.mce-content-body {
+            line-height: 1;
+        }
+    }
+    .ghostkit-pricing-table-item-price-currency {
+        align-self: flex-start;
+    }
+    .ghostkit-pricing-table-item-price-repeat {
+        align-self: flex-end;
+    }
+
+    .block-editor-block-list__block & .ghostkit-pricing-table-item-features {
+        position: relative;
+        margin: 0;
+        font-size: .9em;
+        list-style: none;
+
+        &[data-is-placeholder-visible="true"] {
+            position: absolute;
+        }
+
+        li + li {
+            margin-top: 10px;
+        }
+    }
+
+    .ghostkit-button-wrapper {
+        margin-bottom: 0;
+    }
+
+    > * + * {
+        position: relative;
+        padding-top: 40px;
+        margin-top: 40px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            display: block;
+            top: 0;
+            width: 100%;
+            border-bottom: 1px solid;
+            opacity: .05;
+        }
+    }
+
+    // placeholders.
+    .editor-rich-text__tinymce + .editor-rich-text__tinymce,
+    .editor-rich-text__tinymce + .editor-rich-text__tinymce p {
+        color: rgba(14, 28, 46, .4);
+    }
+}
+
+// Count.
+.editor-styles-wrapper {
+    [data-type="ghostkit/pricing-table-item"].wp-block {
+        width: 50%;
+    }
+    .ghostkit-pricing-table-items-1 [data-type="ghostkit/pricing-table-item"].wp-block {
+        width: 100%;
+    }
+    .ghostkit-pricing-table-items-2 [data-type="ghostkit/pricing-table-item"].wp-block {
+        width: 50%;
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 100%;
+        }
+    }
+    .ghostkit-pricing-table-items-3 [data-type="ghostkit/pricing-table-item"].wp-block {
+        width: 33.3333%;
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 100%;
+        }
+    }
+    .ghostkit-pricing-table-items-4 [data-type="ghostkit/pricing-table-item"].wp-block {
+        width: 25%;
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 50%;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            width: 100%;
+        }
+    }
+    .ghostkit-pricing-table-items-5 [data-type="ghostkit/pricing-table-item"].wp-block {
+        width: 20%;
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 50%;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            width: 100%;
+        }
+    }
+    .ghostkit-pricing-table-items-6 [data-type="ghostkit/pricing-table-item"].wp-block {
+        width: 16.6666%;
+
+        @media screen and (max-width: #{$media-md}) {
+            width: 33.3333%;
+        }
+
+        @media screen and (max-width: #{$media-sm}) {
+            width: 50%;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            width: 100%;
+        }
+    }
+}
+
+// Horizontal align.
+.ghostkit-pricing-table-align-horizontal-left {
+    text-align: left;
+
+    .ghostkit-pricing-table-item-price {
+        justify-content: flex-start;
+    }
+}
+.ghostkit-pricing-table-align-horizontal-center {
+    text-align: center;
+
+    .ghostkit-pricing-table-item-price {
+        justify-content: center;
+    }
+}
+.ghostkit-pricing-table-align-horizontal-right {
+    text-align: right;
+
+    .ghostkit-pricing-table-item-price {
+        justify-content: flex-end;
+    }
+}
+
+// Vertical align.
+.ghostkit-pricing-table-align-vertical-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    align-items: center;
+}
+.ghostkit-pricing-table-align-vertical-end > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    align-items: flex-end;
+}

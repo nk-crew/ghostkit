@@ -1,5 +1,5 @@
 // Import CSS
-import './editor.scss';
+import './styles/editor.scss';
 
 // External Dependencies.
 import classnames from 'classnames/dedupe';

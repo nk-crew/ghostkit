@@ -1,0 +1,55 @@
+/**
+ * Ghost Kit Frontend Styles.
+ */
+@import "./variables";
+
+.ghostkit-progress,
+.ghostkit-button-wrapper,
+.ghostkit-icon-box,
+.ghostkit-tabs,
+.ghostkit-accordion,
+.ghostkit-countdown,
+.ghostkit-counter-box,
+.ghostkit-alert,
+.ghostkit-carousel,
+.ghostkit-video,
+.ghostkit-testimonial,
+.ghostkit-gist,
+.ghostkit-google-maps,
+.ghostkit-changelog,
+.ghostkit-pricing-table,
+.ghostkit-widgetized-area,
+.ghostkit-instagram,
+.ghostkit-twitter,
+.ghostkit-toc,
+.ghostkit-form {
+    margin-bottom: 28px;
+}
+
+/**
+* SVG Icons.
+*/
+@import "./svg-icons/style";
+
+/**
+* Frame styles.
+*/
+@import "./extend/frame/style";
+
+/**
+* Format Styles
+*/
+@import "./formats/badge/style";
+@import "./formats/uppercase/style";
+
+/**
+* Extension Styles
+*/
+@import "./extend/display/style";
+@import "./extend/scroll-reveal/style";
+
+/**
+* Variant Styles
+*/
+@import "./style-variants/core-list/style";
+@import "./style-variants/core-heading/style";

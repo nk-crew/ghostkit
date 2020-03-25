@@ -1,0 +1,95 @@
+/**
+ * Editor Styles
+ */
+@import "../../../variables";
+
+.ghostkit-form > .block-editor-inserter {
+    display: block;
+}
+
+.ghostkit-form-field-description {
+    margin-bottom: 0;
+}
+
+.ghostkit-form-field-label > .block-editor-rich-text {
+    display: inline-block;
+}
+
+// Disable pointer events.
+.ghostkit-form-field .components-text-control__input,
+.ghostkit-form-field .components-select-control__input,
+.ghostkit-form-field .components-textarea-control__input,
+.ghostkit-form-field .ghostkit-form-field-checkbox-item,
+.ghostkit-form-field .ghostkit-form-field-radio-item {
+    pointer-events: none;
+}
+
+// Fix for Select field width.
+.ghostkit-form-field .components-select-control__input {
+    max-width: none;
+}
+
+// Options component.
+.ghostkit-field-options-item {
+    display: flex;
+    align-items: center;
+
+    > [type="radio"],
+    > [type="checkbox"] {
+        margin-bottom: 4px;
+    }
+
+    > .components-base-control {
+        flex: 1;
+    }
+
+    > .components-button {
+        margin-bottom: 8px;
+        margin-left: 4px;
+    }
+
+    .components-text-control__input {
+        pointer-events: inherit;
+    }
+}
+.ghostkit-field-options > .components-button {
+    margin-left: 20px;
+}
+
+// Additional paddings on selected block.
+.block-editor-block-list__block[data-type="ghostkit/form"] {
+    &.is-selected .ghostkit-form,
+    &.has-child-selected .ghostkit-form {
+        > .block-editor-inner-blocks > .block-editor-block-list__layout {
+            padding: 14px;
+            padding-bottom: 0;
+
+            > .wp-block {
+                // stylelint-disable-next-line
+                > .block-editor-block-list__block-edit > [data-block] {
+                    margin-bottom: 42px;
+                }
+
+                // stylelint-disable-next-line
+                &:first-child > .block-editor-block-list__block-edit > [data-block] {
+                    margin-top: 2px;
+                }
+            }
+        }
+
+        > .block-editor-inserter {
+            margin: 2px;
+            margin-top: -10px;
+        }
+    }
+}
+
+// Submit button.
+.ghostkit-form-submit-button > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    display: inline-flex;
+
+    > .wp-block {
+        margin-top: -26px;
+        margin-bottom: -26px;
+    }
+}

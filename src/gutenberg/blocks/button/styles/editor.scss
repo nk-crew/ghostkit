@@ -1,0 +1,122 @@
+/**
+ * Editor Styles
+ */
+@import "../../../variables";
+
+.ghostkit-button-wrapper {
+    position: relative;
+    display: flex;
+    margin-top: 0;
+
+    > .block-editor-inner-blocks {
+        width: 100%;
+    }
+
+    .ghostkit-button {
+        margin: 0 !important; // stylelint-disable-line
+
+        .editor-rich-text__tinymce {
+            line-height: 1em;
+        }
+    }
+
+    // fix centering when more than 2 lines of buttons
+    [data-type="ghostkit/button-single"] {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    > .block-editor-inner-blocks > .block-editor-block-list__layout {
+        // we need to use inline-flex because of bug with selecting wrapper block in editor.
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+
+        > div {
+            width: auto;
+        }
+
+        > .block-list-appender {
+            align-self: center;
+            margin-top: 25px;
+            margin-bottom: 0;
+            z-index: 7;
+        }
+    }
+
+    &.ghostkit-button-wrapper-align-right > .block-editor-inner-blocks > .block-editor-block-list__layout {
+        justify-content: flex-end;
+    }
+    &.ghostkit-button-wrapper-align-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
+        justify-content: center;
+    }
+
+    > .block-editor-inner-blocks > .block-editor-block-list__layout > * > .block-editor-block-list__block-edit > [data-block] {
+        margin-bottom: 0;
+    }
+
+    .blocks-format-toolbar__link-modal {
+        top: calc(100% + 2px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+
+    .blocks-link-url__suggestions {
+        right: -35px;
+    }
+
+    .blocks-rich-text__tinymce {
+        cursor: text;
+    }
+
+    // add new button
+    .components-icon-button {
+        align-self: center;
+
+        &:not(:disabled):not([aria-disabled="true"]):not(.is-default):hover {
+            box-shadow: none;
+        }
+    }
+}
+
+// hide drag handler from single buttons
+// rotate move buttons
+[data-type="ghostkit/button-single"] > .editor-block-mover {
+    > .editor-block-mover__control-drag-handle {
+        display: none;
+    }
+    > .components-button:first-child svg,
+    > .editor-block-mover__control-drag-handle + .components-button svg {
+        transform: rotate(-90deg);
+    }
+}
+
+// Gaps.
+@each $name, $size in $button-gaps {
+    .ghostkit-button-wrapper-gap-#{$name} {
+        margin-right: 0;
+        margin-left: 0;
+
+        > .block-editor-inner-blocks {
+            margin-top: -$size;
+            margin-right: $size / -2;
+            margin-left: $size / -2;
+        }
+
+        [data-type="ghostkit/button-single"] > .block-editor-block-list__block-edit > [data-block] {
+            margin-top: $size;
+            margin-right: -14px + ($size / 2);
+            margin-left: -15px + ($size / 2);
+        }
+    }
+}
+
+// Example.
+.block-editor-inserter__preview [data-type="ghostkit/button-single"] + [data-type="ghostkit/button-single"] {
+    margin-left: 35px;
+}
