@@ -52,6 +52,7 @@ class GhostKit_Fonts {
 
         $is_single = is_singular() && $post_id;
         $is_admin_editor = $is_admin_editor && $post_id;
+        $additional_font_weights = array();
 
         // Default Typography.
         if ( isset( $default_typography ) && ! empty( $default_typography ) ) {
@@ -68,11 +69,11 @@ class GhostKit_Fonts {
                     }
 
                     // TODO: add additional_font_weights option support for typography React component
-                    $additional_font_weights = array();
                     if ( isset( $typography[ 'additional_font_weights' ] ) &&
                         ! empty( $typography[ 'additional_font_weights' ] ) ) {
                         $additional_font_weights[ $key ] = $typography[ 'additional_font_weights' ];
                     }
+
                     $fonts[] = array(
                         'family' => $typography[ 'defaults' ][ 'font-family-category' ],
                         'label' => $typography[ 'defaults' ][ 'font-family' ],
@@ -166,7 +167,9 @@ class GhostKit_Fonts {
                         if ( isset( $font_weights ) && ! empty( $font_weights ) && is_array( $font_weights ) ) {
                             $insert_weights = array();
                             if ( $weight !== '' ) {
+                                $weight = str_replace( 'i', '', $weight );
                                 $insert_weights[] = $weight;
+                                $insert_weights[] = $weight . 'i';
                             }
                             $insert_weights = array_merge( $insert_weights, $font_weights );
                             foreach ( $insert_weights as $insert_weight ) {
@@ -175,7 +178,7 @@ class GhostKit_Fonts {
                                 }
                             }
                         } elseif ( $weight !== '' ) {
-                            $weight = str_replace( 'i', '', $weight);
+                            $weight = str_replace( 'i', '', $weight );
 
                             if ( $weight !== '600' &&
                                 $weight !== '700' &&
