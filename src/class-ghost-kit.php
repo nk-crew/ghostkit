@@ -183,7 +183,7 @@ class GhostKit {
             return;
         }
 
-        wp_set_script_translations( 'ghostkit', '@@text_domain', plugin_dir_path( __FILE__ ) . '/languages' );
+        wp_set_script_translations( 'ghostkit-block-countdown', '@@text_domain', plugin_dir_path( __FILE__ ) . '/languages' );
     }
 
     /**

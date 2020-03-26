@@ -157,7 +157,7 @@ class GhostKit_Assets {
      */
     public function register_scripts() {
         $css_deps = array();
-        $js_deps  = array( 'jquery', 'ghostkit-helper', 'wp-i18n' );
+        $js_deps  = array( 'jquery', 'ghostkit-helper' );
 
         do_action( 'gkt_before_assets_register' );
 
