@@ -57,7 +57,7 @@
     }
     .editor-block-list__empty-block-inserter,
     .editor-default-block-appender .editor-inserter {
-        right: $item-spacing;
+        right: 10px;
         left: auto;
     }
 }
@@ -112,7 +112,7 @@
 }
 .ghostkit-grid-button-select:hover,
 .ghostkit-column-button-select:hover {
-    background-color: $blue-wordpress;
+    background-color: $blue-wordpress-700;
 }
 
 // add outlines on hover
@@ -127,7 +127,7 @@
 }
 // stylelint-disable-next-line
 [data-type="ghostkit/grid"]:hover > .block-editor-block-list__block-edit > div > .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="ghostkit/grid-column"].is-hovered > .block-editor-block-list__block-edit::before {
-    outline: 1px solid $blue-wordpress;
+    outline: 1px solid $blue-wordpress-700;
 }
 
 // fix background overlap outlines
