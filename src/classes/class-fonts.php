@@ -24,9 +24,14 @@ class GhostKit_Fonts {
      * Enqueue frontend & editor assets
      */
     public function enqueue_all_fonts_assets() {
-        wp_enqueue_script( 'webfontloader', ghostkit()->plugin_url . 'assets/vendor/webfontloader/webfontloader.js', array(), '1.6.28' );
-        wp_enqueue_script( 'ghostkit-fonts-loader', ghostkit()->plugin_url . 'assets/js/fonts-loader.min.js', array( 'webfontloader' ), '@@plugin_version' );
-        wp_localize_script( 'ghostkit-fonts-loader', 'ghostkitWebfontList', $this->get_font_loader_list() );
+        $fonts = $this->get_font_loader_list();
+        $load = is_admin() || ! empty( $fonts );
+
+        if ( $load ) {
+            wp_enqueue_script( 'webfontloader', ghostkit()->plugin_url . 'assets/vendor/webfontloader/webfontloader.js', array(), '1.6.28' );
+            wp_enqueue_script( 'ghostkit-fonts-loader', ghostkit()->plugin_url . 'assets/js/fonts-loader.min.js', array( 'webfontloader' ), '@@plugin_version' );
+            wp_localize_script( 'ghostkit-fonts-loader', 'ghostkitWebfontList', $fonts );
+        }
     }
 
     /**
