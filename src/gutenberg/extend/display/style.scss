@@ -2,10 +2,6 @@
 
 @import "../../variables";
 
-@import "../../bootstrap/functions";
-@import "../../bootstrap/variables";
-@import "../../bootstrap/breakpoints";
-
 @each $breakpoint in map-keys($grid-breakpoints) {
     @include media-breakpoint-down($breakpoint) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);

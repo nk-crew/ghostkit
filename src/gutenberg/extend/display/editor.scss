@@ -1,9 +1,5 @@
 @import "../../variables";
 
-@import "../../bootstrap/functions";
-@import "../../bootstrap/variables";
-@import "../../bootstrap/breakpoints";
-
 // Classes for visual styling hidden blocks
 @each $breakpoint in map-keys($grid-breakpoints) {
     @include media-breakpoint-down($breakpoint) {
