@@ -202,6 +202,7 @@ class BlockEdit extends Component {
                         template={ getColumnsTemplate( slides ) }
                         templateLock="all"
                         allowedBlocks={ [ 'ghostkit/carousel-slide' ] }
+                        __experimentalMoverDirection="horizontal"
                     />
                 </div>
             </Fragment>
