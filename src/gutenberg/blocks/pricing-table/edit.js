@@ -207,42 +207,44 @@ class BlockEdit extends Component {
                     </PanelBody>
                     <PanelBody>
                         <BaseControl label={ __( 'Gap', '@@text_domain' ) }>
-                            <ButtonGroup>
-                                {
-                                    [
-                                        {
-                                            label: __( 'none', '@@text_domain' ),
-                                            value: 'no',
-                                        },
-                                        {
-                                            label: __( 'sm', '@@text_domain' ),
-                                            value: 'sm',
-                                        },
-                                        {
-                                            label: __( 'md', '@@text_domain' ),
-                                            value: 'md',
-                                        },
-                                        {
-                                            label: __( 'lg', '@@text_domain' ),
-                                            value: 'lg',
-                                        },
-                                    ].map( ( val ) => {
-                                        const selected = gap === val.value;
+                            <div>
+                                <ButtonGroup>
+                                    {
+                                        [
+                                            {
+                                                label: __( 'None', '@@text_domain' ),
+                                                value: 'no',
+                                            },
+                                            {
+                                                label: __( 'S', '@@text_domain' ),
+                                                value: 'sm',
+                                            },
+                                            {
+                                                label: __( 'M', '@@text_domain' ),
+                                                value: 'md',
+                                            },
+                                            {
+                                                label: __( 'L', '@@text_domain' ),
+                                                value: 'lg',
+                                            },
+                                        ].map( ( val ) => {
+                                            const selected = gap === val.value;
 
-                                        return (
-                                            <Button
-                                                isDefault
-                                                isPrimary={ selected }
-                                                aria-pressed={ selected }
-                                                onClick={ () => setAttributes( { gap: val.value } ) }
-                                                key={ `gap_${ val.label }` }
-                                            >
-                                                { val.label }
-                                            </Button>
-                                        );
-                                    } )
-                                }
-                            </ButtonGroup>
+                                            return (
+                                                <Button
+                                                    isDefault
+                                                    isPrimary={ selected }
+                                                    aria-pressed={ selected }
+                                                    onClick={ () => setAttributes( { gap: val.value } ) }
+                                                    key={ `gap_${ val.label }` }
+                                                >
+                                                    { val.label }
+                                                </Button>
+                                            );
+                                        } )
+                                    }
+                                </ButtonGroup>
+                            </div>
                         </BaseControl>
                     </PanelBody>
                 </InspectorControls>

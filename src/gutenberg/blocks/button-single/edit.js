@@ -136,12 +136,6 @@ class BlockEdit extends Component {
                                     )
                                 }
                             </ButtonGroup>
-                            <Button
-                                isDefault
-                                onClick={ () => setAttributes( { size: 'md' } ) }
-                            >
-                                { __( 'Reset', '@@text_domain' ) }
-                            </Button>
                         </div>
                     </PanelBody>
                     <PanelBody>
