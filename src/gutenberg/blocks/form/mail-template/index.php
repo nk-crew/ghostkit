@@ -164,10 +164,12 @@
     .field-row-label {
         color: #000000;
         padding-bottom: 3px;
+        word-break: break-all;
     }
     .field-row-value {
         padding-top: 3px;
         padding-bottom: 20px;
+        word-break: break-all;
     }
 
     /* -------------------------------------
