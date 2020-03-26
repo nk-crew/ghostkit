@@ -1,10 +1,4 @@
 /**
- * Import CSS
- */
-import './styles/style.scss';
-import './styles/editor.scss';
-
-/**
  * External dependencies
  */
 import classnames from 'classnames/dedupe';

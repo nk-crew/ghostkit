@@ -1,7 +1,8 @@
 /**
  * Editor Styles
  */
-@import "../../../variables";
+@import "./variables";
+@import "./style";
 
 .ghostkit-progress {
     .components-resizable-box__container.is-selected > .ghostkit-progress-wrap {

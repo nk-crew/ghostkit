@@ -1,14 +1,6 @@
 /**
- * Import CSS
- */
-import './editor.scss';
-
-/**
  * External dependencies
  */
-if ( ! global._babelPolyfill ) {
-    require( '@babel/polyfill' );
-}
 import Select from 'react-select-virtualized';
 import classnames from 'classnames/dedupe';
 

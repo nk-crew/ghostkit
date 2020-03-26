@@ -54,9 +54,9 @@ class GhostKit_Settings {
 
         wp_enqueue_style(
             'ghostkit-settings',
-            ghostkit()->plugin_url . 'assets/admin/css/settings.min.css',
+            ghostkit()->plugin_url . 'settings/style.min.css',
             array(),
-            filemtime( ghostkit()->plugin_path . 'assets/admin/css/settings.min.css' )
+            filemtime( ghostkit()->plugin_path . 'settings/style.min.css' )
         );
 
         if ( 'toplevel_page_ghostkit' !== $screen->id ) {

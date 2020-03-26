@@ -1,9 +1,4 @@
 /**
- * Import CSS
- */
-import './blocks.scss';
-
-/**
  * External dependencies
  */
 import classnames from 'classnames/dedupe';

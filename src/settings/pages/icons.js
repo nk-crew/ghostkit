@@ -1,9 +1,4 @@
 /**
- * Import CSS
- */
-import './icons.scss';
-
-/**
  * External dependencies
  */
 import { debounce } from 'throttle-debounce';

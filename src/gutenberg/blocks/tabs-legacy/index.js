@@ -1,6 +1,3 @@
-// Import CSS
-import './styles/editor.scss';
-
 // External Dependencies.
 import classnames from 'classnames/dedupe';
 

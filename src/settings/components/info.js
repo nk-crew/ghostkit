@@ -1,9 +1,4 @@
 /**
- * Import CSS
- */
-import './info.scss';
-
-/**
  * WordPress dependencies
  */
 const { Component } = wp.element;

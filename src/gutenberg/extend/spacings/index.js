@@ -1,9 +1,4 @@
 /**
- * Import CSS
- */
-import './editor.scss';
-
-/**
  * WordPress dependencies
  */
 const { merge, cloneDeep } = window.lodash;

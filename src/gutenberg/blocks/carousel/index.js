@@ -1,9 +1,4 @@
 /**
- * Import CSS
- */
-import './styles/editor.scss';
-
-/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;

@@ -120,6 +120,7 @@ class BlockEdit extends Component {
                                         <input
                                             type="radio"
                                             checked={ selectVal === data.value }
+                                            onChange={ () => {} }
                                             { ...getFieldAttributes( attributes ) }
                                         />
                                         { data.label }

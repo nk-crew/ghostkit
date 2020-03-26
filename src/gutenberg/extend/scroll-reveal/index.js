@@ -1,10 +1,4 @@
 /**
- * Import CSS
- */
-import './editor.scss';
-import './style.scss';
-
-/**
  * External dependencies
  */
 import ScrollReveal from 'scrollreveal';

@@ -1,14 +1,9 @@
 /**
- * Import CSS
- */
-import './editor.scss';
-import 'react-virtualized/styles.css';
-
-/**
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
 import { List, CellMeasurer, CellMeasurerCache, AutoSizer } from 'react-virtualized';
+import 'react-virtualized/styles.css';
 
 /**
  * Internal dependencies

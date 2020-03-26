@@ -3,11 +3,6 @@
  */
 
 /**
- * Import CSS
- */
-import './style.scss';
-
-/**
  * Internal dependencies
  */
 import '../gutenberg/store';

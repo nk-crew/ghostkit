@@ -1,17 +1,4 @@
 /**
- * Import CSS
- */
-import './styles/style.scss';
-import './styles/editor.scss';
-
-/**
- * External dependencies
- */
-if ( ! global._babelPolyfill ) {
-    require( '@babel/polyfill' );
-}
-
-/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;

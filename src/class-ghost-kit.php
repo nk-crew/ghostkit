@@ -238,9 +238,9 @@ class GhostKit {
         // Ghost Kit.
         wp_enqueue_style(
             'ghostkit-editor',
-            plugins_url( 'assets/admin/css/style.min.css', __FILE__ ),
+            plugins_url( 'gutenberg/editor.min.css', __FILE__ ),
             $css_deps,
-            filemtime( plugin_dir_path( __FILE__ ) . 'assets/admin/css/style.min.css' )
+            filemtime( plugin_dir_path( __FILE__ ) . 'gutenberg/editor.min.css' )
         );
         wp_enqueue_script(
             'ghostkit-editor',

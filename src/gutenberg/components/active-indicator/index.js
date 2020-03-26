@@ -1,9 +1,4 @@
 /**
- * Styles
- */
-import './editor.scss';
-
-/**
  * WordPress dependencies
  */
 const { Component } = wp.element;

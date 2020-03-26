@@ -1,9 +1,4 @@
 /**
- * Import CSS
- */
-import './css-js.scss';
-
-/**
  * External dependencies
  */
 import { debounce } from 'throttle-debounce';

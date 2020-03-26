@@ -24,6 +24,7 @@ cfg.copy_files_src = [ '{src}/**/*', '!{src}/**/*.{js,scss}', '{src}/**/vendor/*
 cfg.compile_scss_files_src = [
     '{src}/*assets/**/*.scss',
     '{src}/*gutenberg/style.scss',
+    '{src}/*gutenberg/editor.scss',
     '{src}/*gutenberg/blocks/*/styles/style.scss',
     '{src}/*settings/style.scss',
 ];

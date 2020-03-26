@@ -113,6 +113,7 @@ class BlockEdit extends Component {
                                         <input
                                             type="checkbox"
                                             checked={ data.selected }
+                                            onChange={ () => {} }
                                             { ...getFieldAttributes( attributes ) }
                                         />
                                         { data.label }
