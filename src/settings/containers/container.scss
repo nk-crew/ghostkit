@@ -7,7 +7,7 @@
     padding-bottom: 0;
     margin: -35px;
     margin-bottom: 35px;
-    background-color: $color-brand;
+    background-color: var(--gkt-color-brand);
     background-position: 50% 60%;
     background-size: cover;
 
@@ -57,7 +57,7 @@
         }
 
         &.ghostkit-admin-tabs-button-active {
-            color: $color-brand-3;
+            color: $dark-gray-500;
             &,
             &:hover {
                 background-color: $light-gray-100;

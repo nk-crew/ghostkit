@@ -2,3 +2,36 @@
  * Block Variables
  */
 @import "../../../variables";
+
+.ghostkit-pricing-table {
+    // Item.
+    --gkt-pricing-table--item__padding-x: 2.2em;
+    --gkt-pricing-table--item__padding-y: 1.65em;
+    --gkt-pricing-table--item__border-width: 1px;
+    --gkt-pricing-table--item__border-color: var(--gkt-color-dark-gray);
+    --gkt-pricing-table--item__border-radius: var(--gkt-border-radius);
+
+    // Elements.
+    --gkt-pricing-table--elements__gap: 2.2em;
+
+    // Popular Badge.
+    --gkt-pricing-table--popular-badge__top: 1.2em;
+    --gkt-pricing-table--popular-badge__padding-x: .15em;
+    --gkt-pricing-table--popular-badge__padding-y: 1.1em;
+    --gkt-pricing-table--popular-badge__font-size: .8em;
+    --gkt-pricing-table--popular-badge__color: #fff;
+    --gkt-pricing-table--popular-badge__background-color: var(--gkt-color-brand);
+
+    // Title.
+    --gkt-pricing-table--title__font-size: 1em;
+
+    // Price.
+    --gkt-pricing-table--price-amount__font-size: 3.5em;
+    --gkt-pricing-table--price-amount__line-height: 1.3em;
+    --gkt-pricing-table--price-repeat__font-size: .8em;
+    --gkt-pricing-table--price-repeat__opacity: .7;
+
+    // Features.
+    --gkt-pricing-table--features__font-size: .9em;
+    --gkt-pricing-table--features-items__gap: .5em;
+}

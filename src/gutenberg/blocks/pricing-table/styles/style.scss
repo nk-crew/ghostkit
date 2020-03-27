@@ -13,25 +13,24 @@
 // Item.
 .ghostkit-pricing-table-item {
     position: relative;
-    padding: 2.2em 1.65em;
-    background-color: #fff;
-    border: 1px solid #efefef;
-    border-radius: 5px;
+    padding: var(--gkt-pricing-table--item__padding-x) var(--gkt-pricing-table--item__padding-y);
+    border: var(--gkt-pricing-table--item__border-width) solid var(--gkt-pricing-table--item__border-color);
+    border-radius: var(--gkt-pricing-table--item__border-radius);
 
     .ghostkit-pricing-table-item-popular-badge {
         position: absolute;
-        top: 20px;
-        right: -1px;
-        padding: 2px 18px;
+        top: var(--gkt-pricing-table--popular-badge__top);
+        right: calc(-1 * var(--gkt-pricing-table--item__border-width));
+        padding: var(--gkt-pricing-table--popular-badge__padding-x) var(--gkt-pricing-table--popular-badge__padding-y);
         margin-top: 0;
-        font-size: .8em;
-        color: #fff;
-        background-color: $color-primary;
+        font-size: var(--gkt-pricing-table--popular-badge__font-size);
+        color: var(--gkt-pricing-table--popular-badge__color);
+        background-color: var(--gkt-pricing-table--popular-badge__background-color);
     }
 
     .ghostkit-pricing-table-item-title {
         margin: 0;
-        font-size: 1em;
+        font-size: var(--gkt-pricing-table--title__font-size);
     }
 
     .ghostkit-pricing-table-item-price {
@@ -40,31 +39,32 @@
         justify-content: center;
     }
     .ghostkit-pricing-table-item-price-amount {
-        font-size: 3.5em;
-        line-height: 1.3;
+        font-size: var(--gkt-pricing-table--price-amount__font-size);
+        line-height: var(--gkt-pricing-table--price-amount__line-height);
     }
     .ghostkit-pricing-table-item-price-currency {
         align-self: flex-start;
     }
     .ghostkit-pricing-table-item-price-repeat {
         align-self: flex-end;
-        font-size: .8em;
-        opacity: .7;
+        font-size: var(--gkt-pricing-table--price-repeat__font-size);
+        opacity: var(--gkt-pricing-table--price-repeat__opacity);
     }
 
     .ghostkit-pricing-table-item-features {
         position: relative;
         padding: 0;
         margin: 0;
-        font-size: .9em;
+        font-size: var(--gkt-pricing-table--features__font-size);
         list-style: none;
 
         li {
+            margin-left: 0;
             list-style: none;
         }
 
         li + li {
-            margin-top: 10px;
+            margin-top: var(--gkt-pricing-table--features-items__gap);
         }
     }
 
@@ -74,22 +74,7 @@
 
     > * + .ghostkit-pricing-table-item-features,
     > * + * {
-        padding-top: 2.2em;
-        margin-top: 2.2em;
-    }
-
-    > * + * {
-        position: relative;
-
-        &::before {
-            content: "";
-            position: absolute;
-            display: block;
-            top: 0;
-            width: 100%;
-            border-bottom: 1px solid;
-            opacity: .05;
-        }
+        margin-top: var(--gkt-pricing-table--elements__gap);
     }
 }
 

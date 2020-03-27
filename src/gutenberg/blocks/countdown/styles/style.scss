@@ -21,8 +21,8 @@
     // Single unit.
     .ghostkit-countdown-unit {
         flex: 0 0 auto;
-        min-width: 130px;
-        padding: .7em 1.4em;
+        min-width: var(--gkt-countdown--unit__min-width);
+        padding: var(--gkt-countdown--unit__padding-x) var(--gkt-countdown--unit__padding-y);
         text-align: center;
 
         span {
@@ -31,7 +31,7 @@
     }
 
     .ghostkit-countdown-unit-number {
-        font-weight: 700;
+        font-weight: var(--gkt-countdown--unit-number__font-weight);
     }
 
     .ghostkit-countdown-expire-action {

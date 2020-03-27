@@ -12,13 +12,13 @@
     margin-top: -10px;
     margin-right: -10px;
     color: #fff;
-    background-color: $color-brand-3;
+    background-color: $dark-gray-500;
     border-radius: 50%;
     opacity: .7;
     transition: .2s opacity, .2s background-color;
 
     &:hover {
-        background-color: $color-brand;
+        background-color: val(--gkt-color-brand);
         opacity: 1;
     }
 
@@ -47,7 +47,7 @@
     }
     .ghostkit-component-remove-button-confirm-yep,
     .ghostkit-component-remove-button-confirm-yep:focus {
-        color: $color-brand;
+        color: var(--gkt-color-brand);
     }
     .ghostkit-component-remove-button-confirm-nope,
     .ghostkit-component-remove-button-confirm-nope:focus {

@@ -7,7 +7,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding: 15px 0;
+    padding: var(--gkt-divider__padding-x) var(--gkt-divider__padding-y);
 
     &::before,
     &::after {
@@ -15,8 +15,8 @@
         display: block;
         flex: 1;
         max-width: 50%;
-        border-bottom: 1px solid $light-gray-200;
-        transition: .2s border-color ease-in-out;
+        border-bottom: var(--gkt-divider__border-width) solid var(--gkt-divider__border-color);
+        transition: var(--gkt-divider__transition-duration) border-color var(--gkt-divider__transition-easing);
     }
 
     &:not(.ghostkit-divider-with-icon) {
@@ -47,8 +47,7 @@
 
     .ghostkit-divider-icon {
         display: flex;
-        padding-right: 1em;
-        padding-left: 1em;
-        transition: .2s color ease-in-out;
+        padding: var(--gkt-divider--icon__padding-x) var(--gkt-divider--icon__padding-y);
+        transition: var(--gkt-divider__transition-duration) color var(--gkt-divider__transition-easing);
     }
 }

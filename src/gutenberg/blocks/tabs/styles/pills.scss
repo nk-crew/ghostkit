@@ -1,6 +1,6 @@
 /**
-* Pills.
-*/
+ * Pills.
+ */
 .ghostkit-tabs.is-style-pills,
 .ghostkit-tabs.ghostkit-tabs-buttons-vertical.is-style-pills {
     .ghostkit-tabs-buttons {
@@ -9,12 +9,12 @@
         .ghostkit-tabs-buttons-item {
             margin-bottom: 0;
             border: none;
-            border-radius: 3px;
+            border-radius: var(--gkt-tabs-pills--button__border-radius);
 
             // stylelint-disable-next-line selector-max-class
             &.ghostkit-tabs-buttons-item-active {
-                color: $white;
-                background-color: $dark-gray-700;
+                color: var(--gkt-tabs-pills--button-active__color);
+                background-color: var(--gkt-tabs-pills--button-active__background-color);
             }
         }
     }

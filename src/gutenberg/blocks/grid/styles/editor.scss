@@ -168,13 +168,13 @@
             overflow: hidden;
             cursor: pointer;
             background: none;
-            border: 2px solid rgba($color-brand-3, .75);
+            border: 2px solid rgba($dark-gray-500, .75);
             border-radius: 4px;
             transition: .15s border-color, .15s background-color;
 
             .ghostkit-col {
                 height: 40px;
-                border-right: 2px solid rgba($color-brand-3, .75);
+                border-right: 2px solid rgba($dark-gray-500, .75);
                 transition: .15s border-color;
 
                 &:last-of-type {
@@ -185,10 +185,10 @@
             &:hover,
             &:focus {
                 background-color: #fff;
-                border-color: $color-brand-3;
+                border-color: $dark-gray-500;
 
                 .ghostkit-col {
-                    border-color: $color-brand-3;
+                    border-color: $dark-gray-500;
                 }
             }
         }

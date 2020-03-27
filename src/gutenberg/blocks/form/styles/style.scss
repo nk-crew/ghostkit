@@ -6,15 +6,15 @@
 .ghostkit-form-field + .ghostkit-form-field,
 .ghostkit-form-submit-button + .ghostkit-form-field,
 .ghostkit-form-field + .ghostkit-form-submit-button {
-    margin-top: 1.1em;
+    margin-top: var(--gkt-form--field__gap);
 }
 
 .ghostkit-form-field-label {
-    margin-bottom: .5em;
+    margin-bottom: var(--gkt-form--field-label__margin-bottom);
 
     .required {
-        margin-left: 5px;
-        color: $color-danger;
+        margin-left: var(--gkt-form--field-label-required-mark__margin-left);
+        color: var(--gkt-form--field-label-required-mark__color);
     }
 
     &.ghostkit-form-field-label-hidden {
@@ -25,9 +25,9 @@
 
 .ghostkit-form-field-description {
     display: block;
-    margin-top: .5em;
-    line-height: 1;
-    opacity: .5;
+    margin-top: var(--gkt-form--field-description__margin-top);
+    line-height: var(--gkt-form--field-description__line-height);
+    opacity: var(--gkt-form--field-description__opacity);
 
     &.ghostkit-form-field-description-hidden {
         position: absolute;
@@ -38,8 +38,8 @@
 // Row
 .ghostkit-form-field-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 30px;
+    grid-template-columns: var(--gkt-form--field-row__template-columns);
+    grid-gap: var(--gkt-form--field-row__gap);
 
     @include media-breakpoint-down(md) {
         grid-template-columns: 1fr;
@@ -48,7 +48,7 @@
 
 // Field Name
 .ghostkit-form-field-name-with-middle .ghostkit-form-field-row {
-    grid-template-columns: 1.5fr 1fr 1.5fr;
+    grid-template-columns: var(--gkt-form--field-name-row-with-middle__template-columns);
 
     @include media-breakpoint-down(md) {
         grid-template-columns: 1fr;
@@ -71,7 +71,7 @@
     &.ghostkit-form-field-radio-inline {
         .ghostkit-form-field-radio-item {
             display: inline-block;
-            margin-right: 20px;
+            margin-right: var(--gkt-form--field-radio-inline__margin-right);
         }
     }
 }
@@ -86,17 +86,17 @@
     &.ghostkit-form-field-checkbox-inline {
         .ghostkit-form-field-checkbox-item {
             display: inline-block;
-            margin-right: 20px;
+            margin-right: var(--gkt-form--field-checkbox-inline__margin-right);
         }
     }
 }
 
 // Alert
 .ghostkit-alert.ghostkit-alert-form-success {
-    border-left-color: $color-success;
+    border-left-color: var(--gkt-form--alert-success__color);
 }
 .ghostkit-alert.ghostkit-alert-form-error {
-    border-left-color: $color-danger;
+    border-left-color: var(--gkt-form--alert-error__color);
 }
 
 // Parsley validation
@@ -104,26 +104,26 @@
     input.parsley-success,
     select.parsley-success,
     textarea.parsley-success {
-        border-color: $color-success;
+        border-color: var(--gkt-form--field-success__border-color);
     }
 
     input.parsley-error,
     select.parsley-error,
     textarea.parsley-error {
-        border-color: $color-danger;
+        border-color: var(--gkt-form--field-error__border-color);
     }
 
     .parsley-errors-list {
         padding: 0;
         margin: 0;
-        margin-top: .5em;
+        margin-top: var(--gkt-form--errors__margin-top);
         font-family: inherit;
-        font-size: .75em;
-        line-height: .75em;
-        color: $color-danger;
+        font-size: var(--gkt-form--errors__font-size);
+        line-height: var(--gkt-form--errors__line-height);
+        color: var(--gkt-form--errors__color);
         list-style-type: none;
         opacity: 0;
-        transition: all .2s ease-in-out;
+        transition: var(--gkt-form__transition-duration) all var(--gkt-form__transition-easing);
 
         li {
             margin-left: 0;

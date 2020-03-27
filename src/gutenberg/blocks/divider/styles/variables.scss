@@ -2,3 +2,18 @@
  * Block Variables
  */
 @import "../../../variables";
+
+.ghostkit-divider {
+    --gkt-divider__padding-x: .75em;
+    --gkt-divider__padding-y: 0;
+    --gkt-divider__border-width: 1px;
+    --gkt-divider__border-color: var(--gkt-color-dark-gray);
+
+    // Icon.
+    --gkt-divider--icon__padding-x: 0;
+    --gkt-divider--icon__padding-y: 1em;
+
+    // Transitions.
+    --gkt-divider__transition-duration: var(--gkt-transition-duration);
+    --gkt-divider__transition-easing: var(--gkt-transition-easing);
+}

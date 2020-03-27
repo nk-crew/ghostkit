@@ -9,6 +9,20 @@ $grid-gaps: (
 ) !default;
 
 /**
+ * Bootstrap.
+ */
+@import "./bootstrap/functions";
+@import "./bootstrap/variables";
+@import "./bootstrap/grid";
+@import "./bootstrap/breakpoints";
+
+/**
+ * WordPress.
+ */
+@import "../../node_modules/@wordpress/base-styles/colors";
+@import "../../node_modules/@wordpress/base-styles/variables";
+
+/**
  * Buttons
  */
 $button-gaps: (
@@ -43,26 +57,14 @@ $media-sm: 768px !default;
 $media-md: 992px !default;
 $media-lg: 1200px !default;
 
-// Colors
+// Main Colors
 $color-brand: #5c39a7 !default;
-$color-brand-2: #1a354e !default;
-$color-brand-3: #4f5969 !default;
+$color-dark-gray: #32373c !default;
+$color-light-gray: #f3f4f5 !default;
+
+// Additional Colors
 $color-primary: #0366d6 !default;
 $color-success: #4ab866 !default;
 $color-danger: #d94f4f !default;
 $color-warning: #f0b849 !default;
 $color-info: #2ebef5 !default;
-
-/**
- * Bootstrap.
- */
-@import "./bootstrap/functions";
-@import "./bootstrap/variables";
-@import "./bootstrap/grid";
-@import "./bootstrap/breakpoints";
-
-/**
- * WordPress.
- */
-@import "../../node_modules/@wordpress/base-styles/colors";
-@import "../../node_modules/@wordpress/base-styles/variables";

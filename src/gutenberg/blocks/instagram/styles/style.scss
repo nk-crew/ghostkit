@@ -17,14 +17,14 @@
 .ghostkit-instagram-profile {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 2.5em;
+    margin-bottom: var(--gkt-instagram--profile__margin-bottom);
 
     .ghostkit-instagram-profile-avatar img {
         display: block;
         max-width: 100%;
         height: auto;
         margin: 0;
-        border-radius: 50%;
+        border-radius: var(--gkt-instagram--profile-avatar__border-radius);
     }
 
     .ghostkit-instagram-profile-side {
@@ -32,17 +32,18 @@
         max-width: 100%;
     }
     .ghostkit-instagram-profile-avatar + .ghostkit-instagram-profile-side {
-        margin-left: 1.5em;
+        margin-left: var(--gkt-instagram--profile-avatar__offset);
     }
 
     .ghostkit-instagram-profile-name {
-        font-size: 1.4em;
+        font-size: var(--gkt-instagram--profile-name__font-size);
 
         a {
             text-decoration: none;
             border-bottom: none;
 
-            &:hover {
+            &:hover,
+            &:focus {
                 text-decoration: underline;
             }
         }
@@ -53,7 +54,7 @@
         flex-wrap: wrap;
 
         > div {
-            margin-right: 1.2em;
+            margin-right: var(--gkt-instagram--profile-stats__gap);
 
             &:last-child {
                 margin-right: 0;
@@ -64,14 +65,15 @@
     .ghostkit-instagram-profile-bio {
         h2 {
             margin: 0;
-            margin-bottom: .5em;
+            margin-bottom: var(--gkt-instagram--profile-bio-title__margin-bottom);
             font-size: inherit;
         }
     }
 
     div + .ghostkit-instagram-profile-stats,
-    div + .ghostkit-instagram-profile-bio {
-        margin-top: 1.2em;
+    div + .ghostkit-instagram-profile-bio,
+    div + .ghostkit-instagram-profile-website {
+        margin-top: var(--gkt-instagram--profile-elements__gap);
     }
 }
 

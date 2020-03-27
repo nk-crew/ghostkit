@@ -18,32 +18,24 @@
     .ghostkit-accordion-item-heading {
         position: relative;
         display: block;
-        padding: 8px 20px;
+        padding: var(--gkt-accordion--heading__padding-x) var(--gkt-accordion--heading__padding-y);
+        padding-right: var(--gkt-accordion--heading-collapse-icon__width);
         margin-bottom: -1px;
-        font-weight: 500;
-        border: 1px solid #dee2e6;
-        border-radius: 3px;
-        opacity: .6;
-        transition: .15s border-color, .15s background-color, .15s opacity;
-        will-change: border-color, background-color, opacity;
-
-        &:hover {
-            opacity: 1;
-        }
+        font-weight: var(--gkt-accordion--heading__font-weight);
     }
 
     .ghostkit-accordion-item-collapse {
         position: absolute;
         top: 0;
         right: 0;
-        width: 46px;
+        width: var(--gkt-accordion--heading-collapse-icon__width);
         height: 100%;
-        font-size: .7em;
+        font-size: var(--gkt-accordion--heading-collapse-icon__font-size);
         cursor: pointer;
         background: none;
         border: none;
         outline: none;
-        transition: .15s transform;
+        transition: var(--gkt-accordion__transition-duration) transform var(--gkt-accordion__transition-easing);
         will-change: trasnform;
     }
 
@@ -53,11 +45,10 @@
 
     .ghostkit-accordion-item-active {
         .ghostkit-accordion-item-heading {
-            border-color: #dee2e6;
             opacity: 1;
         }
         .ghostkit-accordion-item-collapse {
-            transform: rotate(90deg);
+            transform: var(--gkt-accordion--heading-collapse-icon-active__transform);
         }
         .ghostkit-accordion-item-content {
             display: block;

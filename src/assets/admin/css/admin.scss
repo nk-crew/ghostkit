@@ -11,7 +11,12 @@
     font-weight: 700;
     color: $color-success;
 
-    &:hover {
+    .dashicons {
+        transition: none;
+    }
+
+    &:hover,
+    &:focus {
         color: darken($color-success, 10%);
     }
 }

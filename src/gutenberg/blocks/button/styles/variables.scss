@@ -2,3 +2,35 @@
  * Block Variables
  */
 @import "../../../variables";
+
+.ghostkit-button {
+    --gkt-button__padding-x: .75em;
+    --gkt-button__padding-y: 1em;
+    --gkt-button__line-height: 1em;
+    --gkt-button__color: #fff;
+    --gkt-button__background-color: var(--gkt-color-dark-gray);
+
+    // Hover.
+    --gkt-button-hover__color: #fff;
+    --gkt-button-hover__background-color: var(--gkt-color-dark-gray);
+
+    // Focus.
+    --gkt-button-focus__color: #fff;
+    --gkt-button-focus__background-color: var(--gkt-color-dark-gray);
+
+    // Sizes.
+    --gkt-button-xs__font-size: .8em;
+    --gkt-button-sm__font-size: .85em;
+    --gkt-button__font-size: 1em;
+    --gkt-button-lg__font-size: 1.15em;
+    --gkt-button-xl__font-size: 1.3em;
+
+    // Icon.
+    --gkt-button-icon-only__padding-x: var(--gkt-button__padding-x);
+    --gkt-button-icon-only__padding-y: var(--gkt-button__padding-x);
+    --gkt-button--icon__offset: 10px;
+
+    // Transitions.
+    --gkt-button__transition-duration: var(--gkt-transition-duration);
+    --gkt-button__transition-easing: var(--gkt-transition-easing);
+}

@@ -262,8 +262,10 @@ class BlockEdit extends Component {
                 </InspectorControls>
                 <div>
                     <div className={ className }>
-                        { icon && iconPosition === 'left' ? (
-                            <div className="ghostkit-button-icon ghostkit-button-icon-left">
+                        { icon ? (
+                            <div
+                                className={ `ghostkit-button-icon ghostkit-button-icon-${ iconPosition === 'right' ? 'right' : 'left' }` }
+                            >
                                 <IconPicker.Dropdown
                                     onChange={ ( value ) => setAttributes( { icon: value } ) }
                                     value={ icon }
@@ -285,11 +287,6 @@ class BlockEdit extends Component {
                                 isSelected={ isSelected }
                                 keepPlaceholderOnFocus
                             />
-                        ) : '' }
-                        { icon && iconPosition === 'right' ? (
-                            <span className="ghostkit-button-icon ghostkit-button-icon-right">
-                                <IconPicker.Preview name={ icon } />
-                            </span>
                         ) : '' }
                     </div>
                 </div>

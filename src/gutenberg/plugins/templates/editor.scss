@@ -68,7 +68,7 @@
 // missing blocks.
 .ghostkit-templates-missing-block-alert.ghostkit-alert {
     margin-bottom: 20px;
-    border-left-color: $color-danger;
+    border-left-color: var(--gkt-color-danger);
 
     .ghostkit-templates-missing-block-additional {
         width: 100%;

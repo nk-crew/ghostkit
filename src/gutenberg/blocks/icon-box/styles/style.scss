@@ -6,9 +6,9 @@
 .ghostkit-icon-box {
     display: flex;
     flex-wrap: wrap;
-    padding: 1.5em;
-    border: 1px solid $light-gray-200;
-    border-radius: 4px;
+    padding: var(--gkt-icon-box__padding-x) var(--gkt-icon-box__padding-y);
+    border: var(--gkt-icon-box__border-width) solid var(--gkt-icon-box__border-color);
+    border-radius: var(--gkt-icon-box__border-radius);
 
     // With link.
     &.ghostkit-icon-box-with-link {
@@ -26,10 +26,10 @@
     // Icon.
     .ghostkit-icon-box-icon {
         display: flex;
-        transition: .2s color ease-in-out;
+        transition: var(--gkt-icon-box__transition-duration) color var(--gkt-icon-box__transition-easing);
 
         ~ .ghostkit-icon-box-content {
-            padding-left: 1.5em;
+            padding-left: var(--gkt-icon-box--icon__offset);
         }
     }
     .ghostkit-icon-box-icon-align-right {
@@ -37,7 +37,7 @@
         padding-right: 0;
 
         ~ .ghostkit-icon-box-content {
-            padding-right: 1.5em;
+            padding-right: var(--gkt-icon-box--icon__offset);
             padding-left: 0;
         }
     }
@@ -48,7 +48,7 @@
 
         ~ .ghostkit-icon-box-content {
             flex: 100%;
-            padding-top: 1.5em;
+            padding-top: var(--gkt-icon-box--icon__offset);
             padding-left: 0;
         }
     }

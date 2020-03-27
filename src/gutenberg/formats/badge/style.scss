@@ -1,58 +1,64 @@
-@import "../../variables";
+@import "./variables";
 
 .ghostkit-badge {
     display: inline-block;
-    padding: 7px 5px;
-    font-size: 75%;
-    font-weight: 600;
-    line-height: 1;
-    color: #fff;
+    padding: var(--gkt-badge__padding-x) var(--gkt-badge__padding-y);
+    font-size: var(--gkt-badge__font-size);
+    font-weight: var(--gkt-badge__font-weight);
+    line-height: var(--gkt-badge__line-height);
+    color: var(--gkt-badge__text-color);
     text-align: center;
     white-space: nowrap;
-    vertical-align: baseline;
-    background-color: #6a6c75;
-    border: 0 solid #6a6c75;
-    border-radius: 4px;
+    vertical-align: middle;
+    background-color: var(--gkt-badge-default__color);
+    border: 0 solid var(--gkt-badge-default__color);
+    border-radius: var(--gkt-badge__border-radius);
+}
+.ghostkit-badge-brand {
+    background-color: var(--gkt-badge-brand__color);
+    border-color: var(--gkt-badge-brand__color);
 }
 .ghostkit-badge-primary {
-    background-color: $color-primary;
-    border-color: $color-primary;
+    background-color: var(--gkt-badge-primary__color);
+    border-color: var(--gkt-badge-primary__color);
 }
 .ghostkit-badge-success {
-    background-color: $color-success;
-    border-color: $color-success;
+    background-color: var(--gkt-badge-success__color);
+    border-color: var(--gkt-badge-success__color);
 }
 .ghostkit-badge-danger {
-    background-color: $color-danger;
-    border-color: $color-danger;
+    background-color: var(--gkt-badge-danger__color);
+    border-color: var(--gkt-badge-danger__color);
 }
 .ghostkit-badge-warning {
-    background-color: $color-warning;
-    border-color: $color-warning;
+    background-color: var(--gkt-badge-warning__color);
+    border-color: var(--gkt-badge-warning__color);
 }
 .ghostkit-badge-info {
-    background-color: $color-info;
-    border-color: $color-info;
+    background-color: var(--gkt-badge-info__color);
+    border-color: var(--gkt-badge-info__color);
 }
 .ghostkit-badge-outline {
-    padding: 6px 5px;
-    color: #6a6c75;
-    background-color: #fff;
-    border-width: 1px;
+    color: var(--gkt-badge-outline__text-color);
+    background-color: transparent;
+    border-width: var(--gkt-badge-outline__border-width);
 
+    &.ghostkit-badge-brand {
+        color: var(--gkt-badge-brand__color);
+    }
     &.ghostkit-badge-primary {
-        color: $color-primary;
+        color: var(--gkt-badge-primary__color);
     }
     &.ghostkit-badge-success {
-        color: $color-success;
+        color: var(--gkt-badge-success__color);
     }
     &.ghostkit-badge-danger {
-        color: $color-danger;
+        color: var(--gkt-badge-danger__color);
     }
     &.ghostkit-badge-warning {
-        color: $color-warning;
+        color: var(--gkt-badge-warning__color);
     }
     &.ghostkit-badge-info {
-        color: $color-info;
+        color: var(--gkt-badge-info__color);
     }
 }

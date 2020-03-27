@@ -1,7 +1,7 @@
 /**
  * Editor Styles
  */
-@import "../../variables";
+@import "./variables";
 
 @mixin printHeadingNumbered($level) {
     $selector: "";
@@ -34,7 +34,7 @@
 .editor-styles-wrapper {
     .is-style-numbered::before {
         margin: 0;
-        margin-right: .4em;
+        margin-right: var(--gkt-numbered-headings__margin-right);
     }
 
     // Styled h2
@@ -43,11 +43,12 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 1.6em;
-        height: 1.6em;
-        line-height: 1;
-        background-color: rgba(204, 204, 204, .2);
-        border-radius: 50%;
+        width: var(--gkt-numbered-headings--h2-number__width);
+        height: var(--gkt-numbered-headings--h2-number__height);
+        line-height: var(--gkt-numbered-headings--h2-number__line-height);
+        color: var(--gkt-numbered-headings--h2-number__color);
+        background-color: var(--gkt-numbered-headings--h2-number__background-color);
+        border-radius: var(--gkt-numbered-headings--h2-number__border-radius);
     }
 
     counter-reset: h2;

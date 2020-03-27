@@ -2,3 +2,49 @@
  * Block Variables
  */
 @import "../../../variables";
+
+.ghostkit-twitter {
+    // Verified Badge.
+    --gkt-twitter--verified-badge__width: 14px;
+    --gkt-twitter--verified-badge__height: 14px;
+    --gkt-twitter--verified-badge__background-image: url("../assets/images/twitter-verified-badge.svg");
+
+    // Profile.
+    --gkt-twitter--profile__margin-bottom: 2.5em;
+    --gkt-twitter--profile-avatar__border-radius: 50%;
+    --gkt-twitter--profile-avatar__offset: 1.5em;
+    --gkt-twitter--profile-name__font-size: 1.4em;
+    --gkt-twitter--profile-username__font-size: 1em;
+    --gkt-twitter--profile-username__font-weight: 400;
+    --gkt-twitter--profile-username__font-opacity: .7;
+    --gkt-twitter--profile-stats__gap: 1.2em;
+    --gkt-twitter--profile-elements__gap: 1.2em;
+
+    // Tweet.
+    --gkt-twitter--tweet__margin-bottom: 1.5em;
+    --gkt-twitter--tweet-content-img__margin-top: 1em;
+    --gkt-twitter--tweet-content-img__border-width: 1px;
+    --gkt-twitter--tweet-content-img__border-color: rgba(0, 0, 0, .1);
+    --gkt-twitter--tweet-content-img__border-radius: var(--gkt-border-radius);
+    --gkt-twitter--tweet-avatar__margin-right: 1.2em;
+    --gkt-twitter--tweet-avatar__border-radius: 50%;
+    --gkt-twitter--tweet-retweeted__font-size: .8em;
+    --gkt-twitter--tweet-retweeted__opacity: .7;
+    --gkt-twitter--tweet-retweeted-icon__margin-right: .5em;
+    --gkt-twitter--tweet-name__text-decoration: none;
+    --gkt-twitter--tweet-name-hover__text-decoration: underline;
+    --gkt-twitter--tweet-username__opacity: .7;
+    --gkt-twitter--tweet-date-separator__content: "\00b7";
+    --gkt-twitter--tweet-date-separator__margin-x: 0;
+    --gkt-twitter--tweet-date-separator__margin-y: .5em;
+    --gkt-twitter--tweet-date-separator__font-size: .7em;
+    --gkt-twitter--tweet-date__opacity: .7;
+    --gkt-twitter--tweet-date__text-decoration: none;
+    --gkt-twitter--tweet-date-hover__text-decoration: underline;
+    --gkt-twitter--tweet-actions__font-size: .9em;
+    --gkt-twitter--tweet-actions__gap: 1.2em;
+    --gkt-twitter--tweet-actions-link__opacity: .7;
+    --gkt-twitter--tweet-actions-link-hover__opacity: 1;
+    --gkt-twitter--tweet-actions-label__offset: .3em;
+    --gkt-twitter--tweet-elements__gap: .5em;
+}

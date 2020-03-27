@@ -4,5 +4,5 @@
 @import "./variables";
 
 .ghostkit-toc-title {
-    margin-bottom: 15px;
+    margin-bottom: var(--gkt-toc-title__margin-bottom);
 }

@@ -30,7 +30,7 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/alert/',
         customStylesCallback( attributes ) {
             const styles = {
-                borderLeftColor: attributes.color,
+                borderColor: attributes.color,
                 '.ghostkit-alert-icon': {
                     fontSize: attributes.iconSize,
                     color: attributes.color,
@@ -39,7 +39,7 @@ export const settings = {
 
             if ( attributes.hoverColor ) {
                 styles[ '&:hover' ] = {
-                    borderLeftColor: attributes.hoverColor,
+                    borderColor: attributes.hoverColor,
                     '.ghostkit-alert-icon': {
                         color: attributes.hoverColor,
                     },

@@ -24,39 +24,43 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: .75em 1em;
+    padding: var(--gkt-button__padding-x) var(--gkt-button__padding-y);
     margin: 0;
-    font-size: 1em;
-    line-height: 1em;
-    color: $white;
+    font-size: var(--gkt-button__font-size);
+    line-height: var(--gkt-button__line-height);
+    color: var(--gkt-button__color);
     text-align: center;
     text-decoration: none !important; // stylelint-disable-line declaration-no-important
     white-space: nowrap;
     cursor: pointer;
-    background-color: $dark-gray-700;
+    background-color: var(--gkt-button__background-color);
     border: none;
     outline: none;
-    transition: .2s background-color ease-in-out, .2s color ease-in-out, .2s border-color ease-in-out, .2s opacity ease-in-out, .2s box-shadow ease-in-out;
+    transition: var(--gkt-button__transition-duration) background-color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) border-color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) opacity var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) box-shadow var(--gkt-button__transition-easing);
 
     &:not(.ghostkit-button-with-outline) {
         box-shadow: none !important; // stylelint-disable-line declaration-no-important
     }
 
-    &:hover,
+    &:hover {
+        color: var(--gkt-button-hover__color);
+        background-color: var(--gkt-button-hover__background-color);
+    }
     &:focus,
     &:active {
-        color: $white;
-        background-color: $dark-gray-700;
+        color: var(--gkt-button-focus__color);
+        background-color: var(--gkt-button-focus__background-color);
     }
 
     .ghostkit-button-icon-left {
-        margin-right: 10px;
+        margin-right: var(--gkt-button--icon__offset);
     }
     .ghostkit-button-icon-right {
-        margin-left: 10px;
+        order: 2;
+        margin-left: var(--gkt-button--icon__offset);
     }
     &.ghostkit-button-icon-only {
-        padding: .75em;
+        padding: var(--gkt-button-icon-only__padding-x) var(--gkt-button-icon-only__padding-y);
 
         .ghostkit-button-icon {
             margin: 0;
@@ -64,16 +68,16 @@
     }
 
     &.ghostkit-button-xs {
-        font-size: .8em;
+        font-size: var(--gkt-button-xs__font-size);
     }
     &.ghostkit-button-sm {
-        font-size: .85em;
+        font-size: var(--gkt-button-sm__font-size);
     }
     &.ghostkit-button-lg {
-        font-size: 1.15em;
+        font-size: var(--gkt-button-lg__font-size);
     }
     &.ghostkit-button-xl {
-        font-size: 1.3em;
+        font-size: var(--gkt-button-xl__font-size);
     }
 }
 
