@@ -21,6 +21,8 @@ $grid-gaps: (
  */
 @import "../../node_modules/@wordpress/base-styles/colors";
 @import "../../node_modules/@wordpress/base-styles/variables";
+@import "../../node_modules/@wordpress/base-styles/breakpoints";
+@import "../../node_modules/@wordpress/base-styles/mixins";
 
 /**
  * Buttons

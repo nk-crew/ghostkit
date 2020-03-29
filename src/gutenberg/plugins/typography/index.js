@@ -672,7 +672,7 @@ class TypographyModal extends Component {
                                                     { typeof advancedData !== 'undefined' ? (
                                                         <div className={ 'ghostkit-typography-advanced' }>
                                                             <Button
-                                                                isDefault
+                                                                isSecondary
                                                                 onClick={ () => this.onClickAdvanced( key, isGlobal ) }
                                                                 className={ 'ghostkit-typography-advanced-button' }
                                                             >

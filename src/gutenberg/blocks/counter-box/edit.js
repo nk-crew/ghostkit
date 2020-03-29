@@ -36,7 +36,7 @@ const {
  * Internal dependencies
  */
 import ColorPicker from '../../components/color-picker';
-import URLInput from '../../components/url-input';
+import URLPicker from '../../components/url-picker';
 import ApplyFilters from '../../components/apply-filters';
 
 /**
@@ -128,19 +128,6 @@ class BlockEdit extends Component {
                             />
                         ) : '' }
                     </PanelBody>
-                    <PanelBody title={ __( 'URL', '@@text_domain' ) } initialOpen={ false }>
-                        <URLInput
-                            url={ url }
-                            target={ target }
-                            rel={ rel }
-                            onChange={ ( data ) => {
-                                setAttributes( data );
-                            } }
-                            autoFocus={ false }
-                            float={ false }
-                            alwaysShowOptions
-                        />
-                    </PanelBody>
                     <PanelBody title={ (
                         <Fragment>
                             { __( 'Colors', '@@text_domain' ) }
@@ -179,6 +166,17 @@ class BlockEdit extends Component {
                         </TabPanel>
                     </PanelBody>
                 </InspectorControls>
+                <URLPicker
+                    url={ url }
+                    rel={ rel }
+                    target={ target }
+                    onChange={ ( data ) => {
+                        setAttributes( data );
+                    } }
+                    isSelected={ isSelected }
+                    toolbarSettings
+                    inspectorSettings
+                />
                 <BlockControls>
                     <Toolbar controls={ [
                         {
@@ -209,7 +207,7 @@ class BlockEdit extends Component {
                             placeholder={ __( 'Write number…', '@@text_domain' ) }
                             value={ number }
                             onChange={ ( value ) => setAttributes( { number: value } ) }
-                            formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                            allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
                             isSelected={ isSelected }
                             keepPlaceholderOnFocus
                         />

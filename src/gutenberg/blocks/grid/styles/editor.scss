@@ -24,61 +24,20 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
-        margin-right: -15px;
-        margin-left: -15px;
 
         // This max-width is used to constrain the main editor column, it should not cascade into columns
-        .block-editor-block-list__block {
+        .wp-block {
             max-width: none;
-            margin-right: 0;
-            margin-left: 0;
         }
     }
-
-    // Fullwide: show margin left/right to ensure there's room for the side UI
-    // This is not a 1:1 preview with the front-end where these margins would presumably be zero
-    // @todo this could be revisited, by for example showing this margin only when the parent block was selected first
-    // Then at least an unselected columns block would be an accurate preview
-    .block-editor-block-list__block[data-align="full"][data-type="ghostkit/grid"] > .block-editor-block-list__block-edit > div > & {
-        > .ghostkit-grid-button-select {
-            right: 1px;
-        }
-        > .block-editor-inner-blocks > .block-editor-block-list__layout {
-            margin-right: 1px;
-            margin-left: 1px;
-        }
-    }
-
-    // Hide appender shortcuts in columns
-    // @todo This essentially duplicates the mobile styles for the appender component
-    // It would be nice to be able to use element queries in that component instead https://github.com/tomhodgins/element-queries-spec
-    .editor-inserter-with-shortcuts {
-        display: none;
-    }
-    .editor-block-list__empty-block-inserter,
-    .editor-default-block-appender .editor-inserter {
-        right: 10px;
-        left: auto;
-    }
-}
-
-// Fix columns overflowing.
-.ghostkit-grid > .block-editor-inner-blocks::before {
-    content: "";
-    display: block;
-    height: 1px;
-    margin-bottom: -30px;
-}
-.wp-block.ghostkit-col {
-    margin-top: 29px;
 }
 
 // Highlight the label to easily select grid/column block by clicking on it.
 .ghostkit-grid-button-select,
 .ghostkit-column-button-select {
     position: absolute;
-    top: -15px;
-    right: -15px;
+    top: -14px;
+    right: -14px;
     padding: 2px 4px;
     font-family: $default-font;
     font-size: 17px;
@@ -86,7 +45,7 @@
     color: #fff;
     cursor: pointer;
     visibility: hidden;
-    background-color: $light-gray-700;
+    background-color: $dark-gray-100;
     border-bottom-left-radius: 3px;
     opacity: 0;
     transition: .2s opacity, .2s visibility, .2s background-color;
@@ -105,8 +64,11 @@
     border-top-right-radius: 3px;
     border-bottom-left-radius: 0;
 }
-[data-type="ghostkit/grid"]:hover > .block-editor-block-list__block-edit > div > div > .ghostkit-grid-button-select,
-[data-type="ghostkit/grid-column"]:hover > .block-editor-block-list__block-edit > div > div > .ghostkit-column-button-select {
+.ghostkit-column-button-select {
+    right: 0;
+}
+[data-type="ghostkit/grid"]:hover > .ghostkit-grid > .ghostkit-grid-button-select,
+[data-type="ghostkit/grid-column"]:hover > .ghostkit-col-content > .ghostkit-column-button-select {
     visibility: visible;
     opacity: 1;
 }
@@ -116,30 +78,10 @@
 }
 
 // add outlines on hover
-.block-editor-block-list__layout > [data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit::before {
-    left: -15px;
-}
-// stylelint-disable-next-line
-[data-type="ghostkit/grid"]:hover > .block-editor-block-list__block-edit > div > .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .block-editor-block-list__block-edit::before,
-[data-type="ghostkit/grid"].is-hovered > .block-editor-block-list__block-edit > div > .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .block-editor-block-list__block-edit::before,
-[data-type="ghostkit/grid"].is-selected > .block-editor-block-list__block-edit > div > .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="ghostkit/grid-column"]:not(.is-selected) > .block-editor-block-list__block-edit::before {
-    outline: 1px dashed rgba(145, 151, 162, .25);
-}
-// stylelint-disable-next-line
-[data-type="ghostkit/grid"]:hover > .block-editor-block-list__block-edit > div > .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="ghostkit/grid-column"].is-hovered > .block-editor-block-list__block-edit::before {
-    outline: 1px solid $blue-wordpress-700;
-}
-
-// fix background overlap outlines
-.block-editor-block-list__layout > [data-type="ghostkit/grid"] > .block-editor-block-list__block-edit::before,
-.block-editor-block-list__layout > [data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit::before {
-    z-index: 1;
-}
-
-// hide default grid and column breadcrumb
-[data-type="ghostkit/grid"] > .block-editor-block-list__block-edit > .editor-block-list__breadcrumb,
-[data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit > .editor-block-list__breadcrumb {
-    display: none;
+[data-type="ghostkit/grid"]:not(.is-selected):hover::before,
+[data-type="ghostkit/grid-column"]:not(.is-selected):hover::before {
+    border-color: $dark-gray-100;
+    border-left: 1px solid $dark-gray-100;
 }
 
 // Layouts selector.
@@ -153,7 +95,7 @@
     .ghostkit-grid-layout-preview {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        // justify-content: center;
         margin-right: -7px;
         margin-left: -7px;
 
@@ -204,30 +146,27 @@
 }
 
 .ghostkit-col {
+    position: relative;
     display: flex;
-    flex: 1;
-    flex-direction: column;
-    width: 0;
+    // Fix for previous columns implementation without .ghostkit-col-content
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 1px; // Prevent columns from collapsing when empty
 
-    > .block-editor-block-list__block-edit {
-        display: flex;
-        flex-basis: 100%;
-        // stylelint-disable-next-line
-        margin-top: 0 !important;
-        // stylelint-disable-next-line
-        margin-bottom: 0 !important;
+    &.wp-block {
+        margin: 0;
 
-        > [data-block] {
-            flex: 100%;
-            max-width: 100%;
-            margin-top: 0;
-            margin-bottom: 0;
-
-            > .ghostkit-col-content {
-                margin-top: -14px;
-                margin-bottom: -14px;
-            }
+        &::before {
+            right: 0;
+            left: 0;
         }
+    }
+
+    > .ghostkit-col-content {
+        align-self: flex-start;
+        width: 100%;
+        margin-top: -14px;
+        margin-bottom: -14px;
     }
 }
 
@@ -265,30 +204,11 @@
     }
 }
 
-// Gaps.
-@each $name, $size in $grid-gaps {
-    .ghostkit-grid-gap-#{$name} {
-        > .block-editor-inner-blocks {
-            margin-right: 14px + ($size / -2);
-            margin-left: 15px + ($size / -2);
-        }
-
-        [data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit > [data-block] {
-            max-width: calc(100% + #{14px + ($size / 2) + 15px + ($size / 2)});
-            margin-right: -14px + ($size / 2);
-            margin-left: -15px + ($size / 2);
-        }
-        [data-type="ghostkit/grid-column"] > .block-editor-block-list__block-edit > .editor-block-contextual-toolbar + [data-block] {
-            margin-left: 15px + ($size / 2);
-        }
-    }
-}
-
 // Vertical align.
-.ghostkit-grid-align-items-center > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col > .block-editor-block-list__block-edit > [data-block] {
+.ghostkit-grid-align-items-center > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col > .ghostkit-col-content {
     align-self: center;
 }
-.ghostkit-grid-align-items-end > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col > .block-editor-block-list__block-edit > [data-block] {
+.ghostkit-grid-align-items-end > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col > .ghostkit-col-content {
     align-self: flex-end;
 }
 
@@ -297,13 +217,13 @@
     @include media-breakpoint-down($breakpoint) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-start > .block-editor-block-list__block-edit > [data-block] {
+        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-start > .ghostkit-col-content {
             align-self: flex-start;
         }
-        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-center > .block-editor-block-list__block-edit > [data-block] {
+        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-center > .ghostkit-col-content {
             align-self: center;
         }
-        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-end > .block-editor-block-list__block-edit > [data-block] {
+        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-end > .ghostkit-col-content {
             align-self: flex-end;
         }
     }
@@ -323,9 +243,24 @@
     justify-content: space-between;
 }
 
+// Gaps.
+@each $name, $size in $grid-gaps {
+    .ghostkit-grid-gap-#{$name} {
+        > .block-editor-inner-blocks {
+            margin-right: $size / -2;
+            margin-left: $size / -2;
+
+            > .block-editor-block-list__layout > .ghostkit-col {
+                padding-right: $size / 2;
+                padding-left: $size / 2;
+            }
+        }
+    }
+}
+
 // Background AWB
 .ghostkit-grid > .awb-gutenberg-preview-block,
-.ghostkit-col > .block-editor-block-list__block-edit > div > .awb-gutenberg-preview-block {
+.ghostkit-col > .awb-gutenberg-preview-block {
     position: absolute;
     top: 0;
     right: 0;
@@ -352,14 +287,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-}
-@media (min-width: 600px) {
-    [data-align="full"] > .block-editor-block-list__block-edit > div > .ghostkit-grid {
-        > .awb-gutenberg-preview-block {
-            right: 0;
-            left: 0;
-        }
     }
 }
 

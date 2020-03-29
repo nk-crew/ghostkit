@@ -36,7 +36,7 @@ const {
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
 import ApplyFilters from '../../components/apply-filters';
-import URLInput from '../../components/url-input';
+import URLPicker from '../../components/url-picker';
 
 /**
  * Block Edit Class.
@@ -126,7 +126,8 @@ class BlockEdit extends Component {
                                     Object.keys( sizes ).map( ( key ) =>
                                         <Button
                                             key={ key }
-                                            isDefault
+                                            isSecondary
+                                            isSmall
                                             isPrimary={ size === sizes[ key ] }
                                             aria-pressed={ size === sizes[ key ] }
                                             onClick={ () => setAttributes( { size: sizes[ key ] } ) }
@@ -260,45 +261,45 @@ class BlockEdit extends Component {
                         </TabPanel>
                     </PanelBody>
                 </InspectorControls>
-                <div>
-                    <div className={ className }>
-                        { icon ? (
-                            <div
-                                className={ `ghostkit-button-icon ghostkit-button-icon-${ iconPosition === 'right' ? 'right' : 'left' }` }
-                            >
-                                <IconPicker.Dropdown
-                                    onChange={ ( value ) => setAttributes( { icon: value } ) }
-                                    value={ icon }
-                                    renderToggle={ ( { onToggle } ) => (
-                                        <IconPicker.Preview
-                                            onClick={ onToggle }
-                                            name={ icon }
-                                        />
-                                    ) }
-                                />
-                            </div>
-                        ) : '' }
-                        { ! hideText ? (
-                            <RichText
-                                placeholder={ __( 'Write text…', '@@text_domain' ) }
-                                value={ text }
-                                onChange={ ( value ) => setAttributes( { text: value } ) }
-                                formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
-                                isSelected={ isSelected }
-                                keepPlaceholderOnFocus
+                <div className={ className }>
+                    { icon ? (
+                        <div
+                            className={ `ghostkit-button-icon ghostkit-button-icon-${ iconPosition === 'right' ? 'right' : 'left' }` }
+                        >
+                            <IconPicker.Dropdown
+                                onChange={ ( value ) => setAttributes( { icon: value } ) }
+                                value={ icon }
+                                renderToggle={ ( { onToggle } ) => (
+                                    <IconPicker.Preview
+                                        onClick={ onToggle }
+                                        name={ icon }
+                                    />
+                                ) }
                             />
-                        ) : '' }
-                    </div>
+                        </div>
+                    ) : '' }
+                    { ! hideText ? (
+                        <RichText
+                            placeholder={ __( 'Write text…', '@@text_domain' ) }
+                            value={ text }
+                            onChange={ ( value ) => setAttributes( { text: value } ) }
+                            allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
+                            isSelected={ isSelected }
+                            keepPlaceholderOnFocus
+                        />
+                    ) : '' }
                 </div>
-                { isSelected && ( ! tagName || 'a' === tagName ) ? (
-                    <URLInput
+                { ! tagName || 'a' === tagName ? (
+                    <URLPicker
                         url={ url }
-                        target={ target }
                         rel={ rel }
+                        target={ target }
                         onChange={ ( data ) => {
                             setAttributes( data );
                         } }
-                        autoFocus={ false }
+                        isSelected={ isSelected }
+                        toolbarSettings
+                        inspectorSettings
                     />
                 ) : '' }
             </Fragment>

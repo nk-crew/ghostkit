@@ -1,6 +1,6 @@
 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M20 12C20 14.7614 17.7614 17 15 17C12.2386 17 10 14.7614 10 12C10 9.23858 12.2386 7 15 7C17.7614 7 20 9.23858 20 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path opacity="0.6" d="M8 8C6.66667 10.5455 6.66667 13.4545 8 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-<path opacity="0.3" d="M5 9C4.00357 10.9194 3.97416 13.1005 5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-<path opacity="0.1" d="M1.99999 10C1.5 11.5 1.5 12.5 1.99999 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M20 12C20 14.7614 17.7614 17 15 17C12.2386 17 10 14.7614 10 12C10 9.23858 12.2386 7 15 7C17.7614 7 20 9.23858 20 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="transparent"/>
+<path opacity="0.6" d="M8 8C6.66667 10.5455 6.66667 13.4545 8 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="transparent"/>
+<path opacity="0.3" d="M5 9C4.00357 10.9194 3.97416 13.1005 5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="transparent"/>
+<path opacity="0.1" d="M1.99999 10C1.5 11.5 1.5 12.5 1.99999 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="transparent"/>
 </svg>

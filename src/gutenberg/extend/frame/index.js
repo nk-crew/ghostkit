@@ -297,7 +297,8 @@ class FrameComponent extends Component {
                                                                                 text={ borderStyles[ key ] }
                                                                             >
                                                                                 <Button
-                                                                                    isDefault
+                                                                                    isSecondary
+                                                                                    isSmall
                                                                                     isPrimary={ currentStyleName === borderStyle }
                                                                                     aria-pressed={ currentStyleName === borderStyle }
                                                                                     onClick={ () => {

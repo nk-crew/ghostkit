@@ -18,7 +18,7 @@ const {
     PanelBody,
     BaseControl,
     ToggleControl,
-    IconButton,
+    Button,
     Tooltip,
 } = wp.components;
 
@@ -245,7 +245,7 @@ class BlockEdit extends Component {
                                             onChange={ ( value ) => {
                                                 this.changeLabel( value, i );
                                             } }
-                                            formattingControls={ [ 'bold', 'italic', 'strikethrough' ] }
+                                            allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
                                             keepPlaceholderOnFocus
                                         />
                                         <RemoveButton
@@ -261,7 +261,7 @@ class BlockEdit extends Component {
                         }
                         { isSelectedBlockInRoot ? (
                             <Tooltip text={ __( 'Add Tab', '@@text_domain' ) }>
-                                <IconButton
+                                <Button
                                     icon={ 'insert' }
                                     onClick={ () => {
                                         const newTabsData = [];

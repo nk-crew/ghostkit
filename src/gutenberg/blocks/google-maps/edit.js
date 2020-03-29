@@ -24,7 +24,6 @@ const {
     Button,
     Toolbar,
     Dropdown,
-    IconButton,
     ResizableBox,
 } = wp.components;
 
@@ -343,7 +342,7 @@ class BlockEdit extends Component {
                     >
                         <Dropdown
                             renderToggle={ ( { onToggle } ) => (
-                                <IconButton
+                                <Button
                                     label={ __( 'Style', '@@text_domain' ) }
                                     icon={ getIcon( 'icon-map' ) }
                                     className="components-toolbar__control"
@@ -443,7 +442,7 @@ class BlockEdit extends Component {
                                     </ul>
                                 ) : '' }
                                 <Button
-                                    isDefault
+                                    isSecondary
                                     onClick={ () => {
                                         setAttributes( {
                                             markers: [

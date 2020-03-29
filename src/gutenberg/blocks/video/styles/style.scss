@@ -164,12 +164,12 @@
 
     // admin bar
     #wpadminbar ~ & {
-        top: 32px;
+        top: $admin-bar-height;
 
-        @media screen and (max-width: 782px) {
-            top: 46px;
+        @include break-medium() {
+            top: $admin-bar-height-big;
         }
-        @media screen and (max-width: 600px) {
+        @include break-small() {
             top: 0;
         }
     }

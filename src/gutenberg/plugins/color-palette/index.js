@@ -161,7 +161,7 @@ class ColorPaletteModal extends Component {
                                                         updateColorPalette( newColors );
                                                     }
                                                 } }
-                                                isDefault
+                                                isSecondary
                                                 isSmall
                                             >
                                                 { __( 'Remove', '@@text_domain' ) }

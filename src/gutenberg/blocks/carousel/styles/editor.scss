@@ -13,23 +13,16 @@
         display: flex;
         margin: 0;
 
-        > .block-editor-block-list__block {
+        > .wp-block {
             flex: calc(50% - 10px);
             min-width: calc(50% - 10px);
             max-width: calc(50% - 10px);
+            margin: 0;
             margin-right: 20px;
+            background-color: rgba(126, 126, 126, .05);
 
             &:last-of-type {
                 margin-right: 0;
-            }
-
-            // fix items margin top.
-            > .block-editor-block-list__block-edit {
-                margin-top: 12px;
-            }
-
-            > .block-editor-block-list__block-edit::before {
-                background-color: rgba(126, 126, 126, .05);
             }
 
             // hide insertion button as it is bugged.
@@ -47,11 +40,4 @@
     .wp-block-image {
         margin: 0;
     }
-
-    .block-editor-block-list__block-edit::before {
-        content: none;
-    }
-}
-.block-editor-inserter__preview .block-editor-block-list__layout > .block-editor-block-list__block > .block-editor-block-list__block-edit::before {
-    content: none;
 }

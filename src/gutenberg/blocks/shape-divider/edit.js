@@ -17,7 +17,7 @@ const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     RangeControl,
-    IconButton,
+    Button,
     Toolbar,
     Dropdown,
 } = wp.components;
@@ -240,7 +240,7 @@ class BlockEdit extends Component {
                     <Toolbar controls={ toolbarButtons }>
                         <Dropdown
                             renderToggle={ ( { onToggle } ) => (
-                                <IconButton
+                                <Button
                                     label={ __( 'Shapes', '@@text_domain' ) }
                                     icon={ 'edit' }
                                     className="components-toolbar__control"

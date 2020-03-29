@@ -25,7 +25,6 @@ const {
     TextControl,
     Toolbar,
     Dropdown,
-    IconButton,
 } = wp.components;
 
 const {
@@ -246,7 +245,7 @@ class BlockEdit extends Component {
                     <Toolbar>
                         <Dropdown
                             renderToggle={ ( { onToggle } ) => (
-                                <IconButton
+                                <Button
                                     label={ __( 'Aspect Ratio', '@@text_domain' ) }
                                     icon={ toolbarAspectRatioIcon }
                                     className="components-toolbar__control"
@@ -292,7 +291,8 @@ class BlockEdit extends Component {
                                     },
                                 ].map( val => (
                                     <Button
-                                        isDefault
+                                        isSecondary
+                                        isSmall
                                         isPrimary={ type === val.value }
                                         aria-pressed={ type === val.value }
                                         onClick={ () => setAttributes( { type: val.value } ) }

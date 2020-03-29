@@ -57,7 +57,7 @@ export class Plugin extends Component {
                     <PanelBody className="plugin-ghostkit-panel">
                         <Button
                             className="plugin-ghostkit-panel-button"
-                            isDefault
+                            isSecondary
                             isLarge
                             onClick={ () => {
                                 this.setState( { isModalOpen: 'templates' } );
@@ -68,7 +68,7 @@ export class Plugin extends Component {
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
-                            isDefault
+                            isSecondary
                             isLarge
                             onClick={ () => {
                                 this.setState( { isModalOpen: 'typography' } );
@@ -79,7 +79,7 @@ export class Plugin extends Component {
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
-                            isDefault
+                            isSecondary
                             isLarge
                             onClick={ () => {
                                 this.setState( { isModalOpen: 'custom-code' } );
@@ -90,7 +90,7 @@ export class Plugin extends Component {
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
-                            isDefault
+                            isSecondary
                             isLarge
                             onClick={ () => {
                                 this.setState( { isModalOpen: 'color-palette' } );
@@ -101,7 +101,7 @@ export class Plugin extends Component {
                         </Button>
                         <Button
                             className="plugin-ghostkit-panel-button"
-                            isDefault
+                            isSecondary
                             isLarge
                             onClick={ () => {
                                 this.setState( { isModalOpen: 'customizer' } );

@@ -86,9 +86,6 @@ export const settings = {
         customStylesFilter( styles, data, isEditor, attributes ) {
             // change custom styles in Editor.
             if ( isEditor && attributes.ghostkitClassname ) {
-                // vertical center.
-                styles = styles.replace( new RegExp( `.ghostkit-grid .${ attributes.ghostkitClassname }`, 'g' ), `.ghostkit-grid .${ attributes.ghostkitClassname } > .block-editor-block-list__block-edit > [data-block]` );
-
                 // background.
                 styles = styles.replace( new RegExp( '> .nk-awb .jarallax-img', 'g' ), '> .awb-gutenberg-preview-block .jarallax-img' );
             }

@@ -17,7 +17,7 @@ const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     ToggleControl,
-    IconButton,
+    Button,
 } = wp.components;
 
 const {
@@ -137,14 +137,15 @@ class BlockEdit extends Component {
                 </div>
                 { isSelectedBlockInRoot ? (
                     <div className="ghostkit-accordion-add-item">
-                        <IconButton
+                        <Button
+                            isSecondary
                             icon={ 'insert' }
                             onClick={ () => {
                                 insertAccordionItem();
                             } }
                         >
                             { __( 'Add Accordion Item', '@@text_domain' ) }
-                        </IconButton>
+                        </Button>
                     </div>
                 ) : '' }
             </Fragment>

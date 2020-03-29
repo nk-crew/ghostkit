@@ -4,18 +4,15 @@
 @import "./variables";
 
 // Fullheight
-// 32px - wordpress top bar
-// 56px - gutenberg top bar
-// 28px - block padding
 .ghostkit-google-maps-fullheight .ghostkit-google-maps-wrap,
 .ghostkit-google-maps-fullheight .ghostkit-google-maps-placeholder {
-    height: calc(100vh - 32px - 56px - 28px);
+    height: calc(100vh - #{$admin-bar-height + $header-height + $default-block-margin});
 
-    @media screen and (max-width: 782px) {
-        height: calc(100vh - 42px - 56px - 28px);
+    @include break-medium() {
+        height: calc(100vh - #{$admin-bar-height + $header-height + $default-block-margin});
     }
-    @media screen and (max-width: 600px - 56px - 28px) {
-        height: calc(100vh - 56px - 28px);
+    @include break-small() {
+        height: calc(100vh - #{$header-height + $default-block-margin});
     }
 }
 

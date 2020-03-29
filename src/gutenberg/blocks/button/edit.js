@@ -19,7 +19,6 @@ const {
     BaseControl,
     Button,
     ButtonGroup,
-    IconButton,
     Tooltip,
 } = wp.components;
 
@@ -166,7 +165,8 @@ class BlockEdit extends Component {
 
                                             return (
                                                 <Button
-                                                    isDefault
+                                                    isSecondary
+                                                    isSmall
                                                     isPrimary={ selected }
                                                     aria-pressed={ selected }
                                                     onClick={ () => setAttributes( { gap: val.value } ) }
@@ -197,7 +197,7 @@ class BlockEdit extends Component {
                         renderAppender={ (
                             isSelectedBlockInRoot ? ( () => (
                                 <Tooltip text={ __( 'Add Button', '@@text_domain' ) }>
-                                    <IconButton
+                                    <Button
                                         icon={ 'insert' }
                                         onClick={ () => {
                                             insertButtonSingle();

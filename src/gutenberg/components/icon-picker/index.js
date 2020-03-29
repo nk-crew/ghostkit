@@ -150,7 +150,7 @@ class IconPickerDropdown extends Component {
                                 autoComplete="off"
                             />
                             <Button
-                                isDefault
+                                isSecondary
                                 isSmall
                                 disabled={ ! value }
                                 onClick={ () => onChange( '' ) }

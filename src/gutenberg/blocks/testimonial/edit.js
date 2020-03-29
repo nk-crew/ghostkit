@@ -39,7 +39,7 @@ const {
 import dashCaseToTitle from '../../utils/dash-case-to-title';
 
 import IconPicker from '../../components/icon-picker';
-import URLInput from '../../components/url-input';
+import URLPicker from '../../components/url-picker';
 
 /**
  * Select photo
@@ -97,6 +97,7 @@ class BlockEdit extends Component {
         const {
             attributes,
             setAttributes,
+            isSelected,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -221,20 +222,18 @@ class BlockEdit extends Component {
                             />
                         ) : '' }
                     </PanelBody>
-                    <PanelBody title={ __( 'URL', '@@text_domain' ) } initialOpen={ false }>
-                        <URLInput
-                            url={ url }
-                            target={ target }
-                            rel={ rel }
-                            onChange={ ( data ) => {
-                                setAttributes( data );
-                            } }
-                            autoFocus={ false }
-                            float={ false }
-                            alwaysShowOptions
-                        />
-                    </PanelBody>
                 </InspectorControls>
+                <URLPicker
+                    url={ url }
+                    rel={ rel }
+                    target={ target }
+                    onChange={ ( data ) => {
+                        setAttributes( data );
+                    } }
+                    isSelected={ isSelected }
+                    toolbarSettings
+                    inspectorSettings
+                />
                 <div className={ className }>
                     { icon ? (
                         <div className="ghostkit-testimonial-icon">

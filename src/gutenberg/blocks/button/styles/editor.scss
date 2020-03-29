@@ -14,7 +14,8 @@
     }
 
     .ghostkit-button {
-        margin: 0 !important; // stylelint-disable-line
+        // stylelint-disable-next-line
+        margin: 0 !important;
 
         .editor-rich-text__tinymce {
             line-height: 1em;
@@ -23,8 +24,7 @@
 
     // fix centering when more than 2 lines of buttons
     [data-type="ghostkit/button-single"] {
-        margin-right: 0;
-        margin-left: 0;
+        margin: 0;
     }
 
     > .block-editor-inner-blocks > .block-editor-block-list__layout {
@@ -43,7 +43,6 @@
 
         > .block-list-appender {
             align-self: center;
-            margin-top: 25px;
             margin-bottom: 0;
             z-index: 7;
         }
@@ -54,21 +53,6 @@
     }
     &.ghostkit-button-wrapper-align-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
         justify-content: center;
-    }
-
-    > .block-editor-inner-blocks > .block-editor-block-list__layout > * > .block-editor-block-list__block-edit > [data-block] {
-        margin-bottom: 0;
-    }
-
-    .blocks-format-toolbar__link-modal {
-        top: calc(100% + 2px);
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 2;
-    }
-
-    .blocks-link-url__suggestions {
-        right: -35px;
     }
 
     .blocks-rich-text__tinymce {
@@ -85,18 +69,6 @@
     }
 }
 
-// hide drag handler from single buttons
-// rotate move buttons
-[data-type="ghostkit/button-single"] > .editor-block-mover {
-    > .editor-block-mover__control-drag-handle {
-        display: none;
-    }
-    > .components-button:first-child svg,
-    > .editor-block-mover__control-drag-handle + .components-button svg {
-        transform: rotate(-90deg);
-    }
-}
-
 // Gaps.
 @each $name, $size in $button-gaps {
     .ghostkit-button-wrapper-gap-#{$name} {
@@ -104,15 +76,15 @@
         margin-left: 0;
 
         > .block-editor-inner-blocks {
-            margin-top: -$size;
+            margin-top: $size / -2;
             margin-right: $size / -2;
             margin-left: $size / -2;
-        }
 
-        [data-type="ghostkit/button-single"] > .block-editor-block-list__block-edit > [data-block] {
-            margin-top: $size;
-            margin-right: -14px + ($size / 2);
-            margin-left: -15px + ($size / 2);
+            > .block-editor-block-list__layout > div {
+                margin-top: $size / 2;
+                margin-right: $size / 2;
+                margin-left: $size / 2;
+            }
         }
     }
 }

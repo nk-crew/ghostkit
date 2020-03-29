@@ -10,7 +10,7 @@ import InputDrag from '../../../components/input-drag';
 import Modal from '../../../components/modal';
 import RemoveButton from '../../../components/remove-button';
 import ResponsiveTabPanel from '../../../components/responsive-tab-panel';
-import UrlInput from '../../../components/url-input';
+import URLPicker from '../../../components/url-picker';
 import Typography from '../../../components/typography';
 
 export function get() {
@@ -24,7 +24,7 @@ export function get() {
         Modal,
         RemoveButton,
         ResponsiveTabPanel,
-        UrlInput,
+        URLPicker,
         Typography,
     };
 }

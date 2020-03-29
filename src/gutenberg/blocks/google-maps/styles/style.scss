@@ -8,12 +8,12 @@
     height: 100vh;
 
     body.admin-bar & {
-        height: calc(100vh - 32px);
+        height: calc(100vh - #{$admin-bar-height});
 
-        @media screen and (max-width: 782px) {
-            height: calc(100vh - 42px);
+        @include break-medium() {
+            height: calc(100vh - #{$admin-bar-height-big});
         }
-        @media screen and (max-width: 600px) {
+        @include break-small() {
             height: 100vh;
         }
     }

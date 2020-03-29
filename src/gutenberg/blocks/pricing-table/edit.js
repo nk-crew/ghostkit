@@ -20,7 +20,6 @@ const {
     ButtonGroup,
     PanelBody,
     Toolbar,
-    IconButton,
 } = wp.components;
 
 const {
@@ -132,7 +131,7 @@ class BlockEdit extends Component {
             className,
             'ghostkit-pricing-table',
             `ghostkit-pricing-table-gap-${ gap }`,
-            verticalAlign ? `ghostkit-pricing-table-items-${ count }` : false,
+            count ? `ghostkit-pricing-table-items-${ count }` : false,
             verticalAlign ? `ghostkit-pricing-table-align-vertical-${ verticalAlign }` : false,
             horizontalAlign ? `ghostkit-pricing-table-align-horizontal-${ horizontalAlign }` : false
         );
@@ -232,7 +231,8 @@ class BlockEdit extends Component {
 
                                             return (
                                                 <Button
-                                                    isDefault
+                                                    isSecondary
+                                                    isSmall
                                                     isPrimary={ selected }
                                                     aria-pressed={ selected }
                                                     onClick={ () => setAttributes( { gap: val.value } ) }
@@ -258,15 +258,16 @@ class BlockEdit extends Component {
                     ) : '' }
                 </div>
                 { isSelectedBlockInRoot && count < 6 ? (
-                    <div className="ghostkit-accordion-add-item">
-                        <IconButton
+                    <div className="ghostkit-pricing-table-add-item">
+                        <Button
+                            isSecondary
                             icon={ 'insert' }
                             onClick={ () => {
                                 insertPricingItem();
                             } }
                         >
                             { __( 'Add Pricing Table', '@@text_domain' ) }
-                        </IconButton>
+                        </Button>
                     </div>
                 ) : '' }
             </Fragment>

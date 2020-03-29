@@ -58,24 +58,12 @@
 }
 
 // Additional paddings on selected block.
-.block-editor-block-list__block[data-type="ghostkit/form"] {
+.wp-block[data-type="ghostkit/form"] {
     &.is-selected .ghostkit-form,
     &.has-child-selected .ghostkit-form {
         > .block-editor-inner-blocks > .block-editor-block-list__layout {
             padding: 14px;
             padding-bottom: 0;
-
-            > .wp-block {
-                // stylelint-disable-next-line
-                > .block-editor-block-list__block-edit > [data-block] {
-                    margin-bottom: 42px;
-                }
-
-                // stylelint-disable-next-line
-                &:first-child > .block-editor-block-list__block-edit > [data-block] {
-                    margin-top: 2px;
-                }
-            }
         }
 
         > .block-editor-inserter {
