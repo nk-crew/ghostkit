@@ -158,7 +158,7 @@ class GhostKit_TOC_Block {
             if ( 'ghostkit/table-of-contents' === $block['blockName'] ) {
                 $result = $block;
                 break;
-            } elseif ( isset( $block['innerBlocks'] ) && ! empty( $block['innerBlocks'] ) ) {
+            } elseif ( ! $result && isset( $block['innerBlocks'] ) && ! empty( $block['innerBlocks'] ) ) {
                 $result = $this->find_toc_block( $block['innerBlocks'] );
             }
         }
