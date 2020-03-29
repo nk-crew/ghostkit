@@ -56,11 +56,6 @@
     }
 }
 
-// hide drag handler from accordion items
-[data-type="ghostkit/accordion-item"] > .editor-block-mover > .editor-block-mover__control-drag-handle {
-    display: none;
-}
-
 .ghostkit-accordion-add-item {
     padding-top: 20px;
     padding-bottom: 20px;
