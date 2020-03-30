@@ -205,7 +205,7 @@ class BlockEdit extends Component {
                         return (
                             <button
                                 key={ `layout-${ layout }` }
-                                className="ghostkit-grid-layout-preview-btn"
+                                className="ghostkit-grid-layout-preview-btn ghostkit-grid"
                                 onClick={ () => this.onLayoutSelect( layout ) }
                             >
                                 { columnsData.map( ( colAttrs, i ) => {
