@@ -334,7 +334,7 @@ class BackgroundControlsInspector extends Component {
                     { __( 'Install AWB plugin to set video backgrounds and images with parallax support.', '@@text_domain' ) }
                 </p>
                 <a
-                    className="components-button is-button is-default is-small"
+                    className="components-button is-button is-secondary is-small"
                     href="https://wordpress.org/plugins/advanced-backgrounds/"
                     target="_blank"
                     rel="noopener noreferrer"
