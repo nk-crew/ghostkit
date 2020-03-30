@@ -32,7 +32,7 @@
     }
 
     > .block-editor-inner-blocks {
-        width: auto;
+        width: calc(100% + var(--gkt-button__gap));
         margin-bottom: calc(-1 * var(--gkt-button__gap));
         margin-left: calc(-1 * var(--gkt-button__gap));
 
