@@ -49,6 +49,7 @@
     // Fix for previous columns implementation without .ghostkit-col-content
     flex-wrap: wrap;
     order: var(--gkt-grid--column__order);
+    width: var(--gkt-grid--column__width-calculated);
     max-width: var(--gkt-grid--column__width-calculated);
     min-height: 1px; // Prevent columns from collapsing when empty
 
