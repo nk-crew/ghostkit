@@ -183,3 +183,8 @@
         }
     }
 }
+
+// Fix background position.
+.ghostkit-grid-with-bg > .nk-awb {
+    top: var(--gkt-grid__gap);
+}
