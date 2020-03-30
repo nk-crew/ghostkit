@@ -44,17 +44,20 @@
 
         > li {
             position: relative;
-            display: flex;
+            padding-left: var(--gkt-styled-lists-numbered__padding-left);
 
             &::before {
                 content: counter(li);
+                position: absolute;
                 display: flex;
                 flex: 0 0 var(--gkt-styled-lists-numbered--decoration__width);
                 align-items: center;
                 align-self: flex-start;
                 justify-content: center;
+                top: var(--gkt-styled-lists-numbered--decoration__top);
+                left: var(--gkt-styled-lists-numbered--decoration__left);
+                width: var(--gkt-styled-lists-numbered--decoration__width);
                 height: var(--gkt-styled-lists-numbered--decoration__height);
-                margin-right: var(--gkt-styled-lists-numbered--decoration__margin-right);
                 font-size: var(--gkt-styled-lists-numbered--decoration__font-size);
                 font-weight: var(--gkt-styled-lists-numbered--decoration__font-weight);
                 line-height: var(--gkt-styled-lists-numbered--decoration__line-height);

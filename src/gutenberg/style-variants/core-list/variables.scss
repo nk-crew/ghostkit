@@ -9,12 +9,14 @@
     --gkt-styled-lists--items__gap: .5em;
 
     // Inner Lists.
-    --gkt-styled-lists--inner-lists__padding-left: 3em;
+    --gkt-styled-lists--inner-lists__padding-left: .5em;
 
     // Numbered Lists.
+    --gkt-styled-lists-numbered__padding-left: 2em;
+    --gkt-styled-lists-numbered--decoration__top: 0;
+    --gkt-styled-lists-numbered--decoration__left: 0;
     --gkt-styled-lists-numbered--decoration__width: 2em;
     --gkt-styled-lists-numbered--decoration__height: 2em;
-    --gkt-styled-lists-numbered--decoration__margin-right: .8em;
     --gkt-styled-lists-numbered--decoration__font-size: .7em;
     --gkt-styled-lists-numbered--decoration__font-weight: 600;
     --gkt-styled-lists-numbered--decoration__line-height: 1;
