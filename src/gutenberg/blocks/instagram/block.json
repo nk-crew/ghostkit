@@ -22,6 +22,9 @@
             "type": "string",
             "default": "sm"
         },
+        "gapCustom": {
+            "type": "number"
+        },
         "showProfile": {
             "type": "boolean",
             "default": true

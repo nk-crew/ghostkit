@@ -38,6 +38,8 @@ export const settings = {
         customStylesCallback( attributes ) {
             const {
                 awb_image: image,
+                gap,
+                gapCustom,
             } = attributes;
 
             let result = {};
@@ -47,6 +49,14 @@ export const settings = {
                 result = {
                     ...result,
                     ...getBackgroundStyles( attributes ),
+                };
+            }
+
+            // Custom Gap.
+            if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
+                result = {
+                    ...result,
+                    '--gkt-grid__gap': `${ gapCustom }px`,
                 };
             }
 

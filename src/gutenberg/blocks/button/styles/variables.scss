@@ -3,6 +3,12 @@
  */
 @import "../../../variables";
 
+.ghostkit-button-wrapper {
+    --gkt-button__gap: 15px;
+    --gkt-button__align-items: flex-start;
+    --gkt-button__justify-content: flex-start;
+}
+
 .ghostkit-button {
     --gkt-button__padding-x: .75em;
     --gkt-button__padding-y: 1em;

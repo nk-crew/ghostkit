@@ -81,11 +81,14 @@
 .ghostkit-instagram-items {
     display: flex;
     flex-wrap: wrap;
+    margin-top: calc(-1 * var(--gkt-instagram--photos__gap));
+    margin-left: calc(-1 * var(--gkt-instagram--photos__gap));
 
     .ghostkit-instagram-item {
-        width: 100%;
-        min-width: 100%;
-        max-width: 100%;
+        flex: 0 0 calc(100% / var(--gkt-instagram--photos__columns) - var(--gkt-instagram--photos__gap));
+        max-width: calc(100% / var(--gkt-instagram--photos__columns) - var(--gkt-instagram--photos__gap));
+        margin-top: var(--gkt-instagram--photos__gap);
+        margin-left: var(--gkt-instagram--photos__gap);
 
         img {
             display: block;
@@ -99,24 +102,14 @@
 
 // Columns.
 @for $i from 2 through 10 {
-    .ghostkit-instagram-columns-#{$i} .ghostkit-instagram-items .ghostkit-instagram-item {
-        width: 100% / $i;
-        min-width: 100% / $i;
-        max-width: 100% / $i;
+    .ghostkit-instagram-columns-#{$i} {
+        --gkt-instagram--photos__columns: #{$i};
     }
 }
 
 // Gaps.
-@each $name, $size in $instagram-gaps {
-    .ghostkit-instagram-gap-#{$name} .ghostkit-instagram-items {
-        margin-right: ($size / -2);
-        margin-bottom: -$size;
-        margin-left: ($size / -2);
-
-        .ghostkit-instagram-item {
-            padding-right: ($size / 2);
-            padding-bottom: $size;
-            padding-left: ($size / 2);
-        }
+@each $name, $size in $grid-gaps {
+    .ghostkit-instagram-gap-#{$name} {
+        --gkt-instagram--photos__gap: #{$size};
     }
 }

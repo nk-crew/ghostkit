@@ -27,6 +27,24 @@ export const settings = {
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/pricing-tables/',
+        customStylesCallback( attributes ) {
+            const {
+                gap,
+                gapCustom,
+            } = attributes;
+
+            let result = {};
+
+            // Custom Gap.
+            if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
+                result = {
+                    ...result,
+                    '--gkt-pricing-table__gap': `${ gapCustom }px`,
+                };
+            }
+
+            return result;
+        },
         supports: {
             styles: true,
             frame: true,

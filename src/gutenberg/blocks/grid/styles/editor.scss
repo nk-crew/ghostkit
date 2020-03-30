@@ -13,23 +13,177 @@
 .ghostkit-grid {
     position: relative;
     display: block;
+    padding-bottom: .01px;
     // These margins make sure that nested blocks stack/overlay with the parent block chrome
     // This is sort of an experiment at making sure the editor looks as much like the end result as possible
     // Potentially the rules here can apply to all nested blocks and enable stacking, in which case it should be moved elsewhere
     margin-right: 0;
     margin-left: 0;
 
-    > .block-editor-inner-blocks > .block-editor-block-list__layout {
-        position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
+    > .block-editor-inner-blocks {
+        > .block-editor-block-list__layout {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: var(--gkt-grid__justify-content);
+            margin-bottom: calc(-1 * var(--gkt-grid__gap));
+            margin-left: calc(-1 * var(--gkt-grid__gap));
 
-        // This max-width is used to constrain the main editor column, it should not cascade into columns
-        .wp-block {
-            max-width: none;
+            > div {
+                margin-bottom: var(--gkt-grid__gap);
+                margin-left: var(--gkt-grid__gap);
+            }
+
+            // This max-width is used to constrain the main editor column, it should not cascade into columns
+            .wp-block {
+                max-width: none;
+            }
         }
     }
+}
+
+.ghostkit-col {
+    position: relative;
+    display: flex;
+    flex: var(--gkt-grid--column__flex-calculated);
+    // Fix for previous columns implementation without .ghostkit-col-content
+    flex-wrap: wrap;
+    order: var(--gkt-grid--column__order);
+    max-width: var(--gkt-grid--column__width-calculated);
+    min-height: 1px; // Prevent columns from collapsing when empty
+
+    &.wp-block {
+        margin: 0;
+    }
+
+    > .ghostkit-col-content {
+        align-self: var(--gkt-grid--column__align-self);
+        width: 100%;
+        margin-top: -14px;
+        margin-bottom: -14px;
+    }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-down($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+        .ghostkit-col#{$infix} {
+            --gkt-grid--column__flex-calculated: 1;
+            --gkt-grid--column__width-calculated: 100%;
+        }
+
+        // col size.
+        @for $i from 1 through $grid-columns {
+            .ghostkit-col#{$infix}-#{$i} {
+                --gkt-grid--column__size: #{percentage($i / $grid-columns)};
+                --gkt-grid--column__flex-calculated: 0 0 calc(var(--gkt-grid--column__size) - var(--gkt-grid__gap));
+                --gkt-grid--column__width-calculated: calc(var(--gkt-grid--column__size) - var(--gkt-grid__gap));
+            }
+        }
+
+        // col order.
+        .ghostkit-col-order#{$infix}-first {
+            --gkt-grid--column__order: -1;
+        }
+        .ghostkit-col-order#{$infix}-last {
+            --gkt-grid--column__order: #{$grid-columns + 1};
+        }
+
+        @for $i from 0 through $grid-columns {
+            .ghostkit-col-order#{$infix}-#{$i} {
+                --gkt-grid--column__order: #{$i};
+            }
+        }
+    }
+}
+
+// Vertical align.
+.ghostkit-grid-align-items-start {
+    --gkt-grid--column__align-self: flex-start;
+}
+.ghostkit-grid-align-items-center {
+    --gkt-grid--column__align-self: center;
+}
+.ghostkit-grid-align-items-end {
+    --gkt-grid--column__align-self: flex-end;
+}
+
+// Vertical align column.
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-down($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .ghostkit-col-align-self#{$infix}-start {
+            --gkt-grid--column__align-self: flex-start;
+        }
+        .ghostkit-col-align-self#{$infix}-center {
+            --gkt-grid--column__align-self: center;
+        }
+        .ghostkit-col-align-self#{$infix}-end {
+            --gkt-grid--column__align-self: flex-end;
+        }
+    }
+}
+
+// Horizontal align.
+.ghostkit-grid-justify-content-center {
+    --gkt-grid__justify-content: center;
+}
+.ghostkit-grid-justify-content-end {
+    --gkt-grid__justify-content: flex-end;
+}
+.ghostkit-grid-justify-content-around {
+    --gkt-grid__justify-content: space-around;
+}
+.ghostkit-grid-justify-content-between {
+    --gkt-grid__justify-content: space-between;
+}
+
+// Gaps.
+@each $name, $size in $grid-gaps {
+    .ghostkit-grid-gap-#{$name} {
+        --gkt-grid__gap: #{$size};
+    }
+}
+
+// Background AWB
+.ghostkit-grid > .awb-gutenberg-preview-block,
+.ghostkit-col > .awb-gutenberg-preview-block {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    transition: .15s border ease-in-out;
+
+    // fix for AWB border style.
+    &:empty {
+        border: none;
+    }
+
+    > .nk-awb-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    // fixed for some default themes styles
+    .editor-styles-wrapper & > .nk-awb-inner > img,
+    .editor-styles-wrapper & > .nk-awb-inner > div,
+    .editor-styles-wrapper & > div {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+// Example.
+.block-editor-inserter__preview .ghostkit-col-content .block-editor-block-list__layout {
+    margin-right: 0;
+    margin-left: 0;
 }
 
 // Highlight the label to easily select grid/column block by clicking on it.
@@ -63,9 +217,6 @@
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom-left-radius: 0;
-}
-.ghostkit-column-button-select {
-    right: 0;
 }
 [data-type="ghostkit/grid"]:hover > .ghostkit-grid > .ghostkit-grid-button-select,
 [data-type="ghostkit/grid-column"]:hover > .ghostkit-col-content > .ghostkit-column-button-select {
@@ -143,155 +294,4 @@
         margin-top: 10px;
         font-size: 14px;
     }
-}
-
-.ghostkit-col {
-    position: relative;
-    display: flex;
-    // Fix for previous columns implementation without .ghostkit-col-content
-    flex-wrap: wrap;
-    width: 100%;
-    min-height: 1px; // Prevent columns from collapsing when empty
-
-    &.wp-block {
-        margin: 0;
-
-        &::before {
-            right: 0;
-            left: 0;
-        }
-    }
-
-    > .ghostkit-col-content {
-        align-self: flex-start;
-        width: 100%;
-        margin-top: -14px;
-        margin-bottom: -14px;
-    }
-}
-
-@each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-down($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-        // Provide basic `.col-{bp}` classes for equal-width flexbox columns
-        .ghostkit-col#{$infix} {
-            flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-        }
-
-        // col size.
-        @for $i from 1 through $grid-columns {
-            .ghostkit-col#{$infix}-#{$i} {
-                @include make-col($i, $grid-columns);
-            }
-        }
-
-        // col order.
-        .ghostkit-col-order#{$infix}-first {
-            order: -1;
-        }
-        .ghostkit-col-order#{$infix}-last {
-            order: $grid-columns + 1;
-        }
-
-        @for $i from 0 through $grid-columns {
-            .ghostkit-col-order#{$infix}-#{$i} {
-                order: $i;
-            }
-        }
-    }
-}
-
-// Vertical align.
-.ghostkit-grid-align-items-center > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col > .ghostkit-col-content {
-    align-self: center;
-}
-.ghostkit-grid-align-items-end > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col > .ghostkit-col-content {
-    align-self: flex-end;
-}
-
-// Vertical align column.
-@each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-down($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-start > .ghostkit-col-content {
-            align-self: flex-start;
-        }
-        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-center > .ghostkit-col-content {
-            align-self: center;
-        }
-        .ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .ghostkit-col-align-self#{$infix}-end > .ghostkit-col-content {
-            align-self: flex-end;
-        }
-    }
-}
-
-// Horizontal align.
-.ghostkit-grid-justify-content-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
-    justify-content: center;
-}
-.ghostkit-grid-justify-content-end > .block-editor-inner-blocks > .block-editor-block-list__layout {
-    justify-content: flex-end;
-}
-.ghostkit-grid-justify-content-around > .block-editor-inner-blocks > .block-editor-block-list__layout {
-    justify-content: space-around;
-}
-.ghostkit-grid-justify-content-between > .block-editor-inner-blocks > .block-editor-block-list__layout {
-    justify-content: space-between;
-}
-
-// Gaps.
-@each $name, $size in $grid-gaps {
-    .ghostkit-grid-gap-#{$name} {
-        > .block-editor-inner-blocks {
-            margin-right: $size / -2;
-            margin-left: $size / -2;
-
-            > .block-editor-block-list__layout > .ghostkit-col {
-                padding-right: $size / 2;
-                padding-left: $size / 2;
-            }
-        }
-    }
-}
-
-// Background AWB
-.ghostkit-grid > .awb-gutenberg-preview-block,
-.ghostkit-col > .awb-gutenberg-preview-block {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
-    transition: .15s border ease-in-out;
-
-    // fix for AWB border style.
-    &:empty {
-        border: none;
-    }
-
-    > .nk-awb-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    // fixed for some default themes styles
-    .editor-styles-wrapper & > .nk-awb-inner > img,
-    .editor-styles-wrapper & > .nk-awb-inner > div,
-    .editor-styles-wrapper & > div {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-}
-
-// Example.
-.block-editor-inserter__preview .ghostkit-col-content .block-editor-block-list__layout {
-    margin-right: 0;
-    margin-left: 0;
 }

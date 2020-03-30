@@ -14,3 +14,14 @@
         margin: 0;
     }
 }
+
+
+.ghostkit-instagram-items {
+    margin-top: 0;
+    margin-bottom: calc(-1 * var(--gkt-instagram--photos__gap));
+
+    .ghostkit-instagram-item {
+        margin-top: 0;
+        margin-bottom: var(--gkt-instagram--photos__gap);
+    }
+}

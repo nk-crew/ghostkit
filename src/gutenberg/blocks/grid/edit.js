@@ -17,7 +17,6 @@ const { Component, Fragment } = wp.element;
 const {
     BaseControl,
     Button,
-    ButtonGroup,
     PanelBody,
     RangeControl,
     Placeholder,
@@ -36,6 +35,7 @@ const {
  */
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
+import GapSettings from '../../components/gap-settings';
 import { TemplatesModal } from '../../plugins/templates';
 
 /**
@@ -271,6 +271,7 @@ class BlockEdit extends Component {
         const {
             columns,
             gap,
+            gapCustom,
             verticalAlign,
             horizontalAlign,
         } = attributes;
@@ -399,47 +400,13 @@ class BlockEdit extends Component {
                             </BaseControl>
                         </PanelBody>
                         <PanelBody>
-                            <BaseControl label={ __( 'Gap', '@@text_domain' ) }>
-                                <div>
-                                    <ButtonGroup>
-                                        {
-                                            [
-                                                {
-                                                    label: __( 'None', '@@text_domain' ),
-                                                    value: 'no',
-                                                },
-                                                {
-                                                    label: __( 'S', '@@text_domain' ),
-                                                    value: 'sm',
-                                                },
-                                                {
-                                                    label: __( 'M', '@@text_domain' ),
-                                                    value: 'md',
-                                                },
-                                                {
-                                                    label: __( 'L', '@@text_domain' ),
-                                                    value: 'lg',
-                                                },
-                                            ].map( ( val ) => {
-                                                const selected = gap === val.value;
-
-                                                return (
-                                                    <Button
-                                                        isSecondary
-                                                        isSmall
-                                                        isPrimary={ selected }
-                                                        aria-pressed={ selected }
-                                                        onClick={ () => setAttributes( { gap: val.value } ) }
-                                                        key={ `gap_${ val.label }` }
-                                                    >
-                                                        { val.label }
-                                                    </Button>
-                                                );
-                                            } )
-                                        }
-                                    </ButtonGroup>
-                                </div>
-                            </BaseControl>
+                            <GapSettings
+                                gap={ gap }
+                                gapCustom={ gapCustom }
+                                onChange={ ( data ) => {
+                                    setAttributes( data );
+                                } }
+                            />
                         </PanelBody>
                     </InspectorControls>
                 ) : '' }

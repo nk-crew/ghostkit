@@ -32,6 +32,24 @@ export const settings = {
 
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/button/',
+        customStylesCallback( attributes ) {
+            const {
+                gap,
+                gapCustom,
+            } = attributes;
+
+            let result = {};
+
+            // Custom Gap.
+            if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
+                result = {
+                    ...result,
+                    '--gkt-button__gap': `${ gapCustom }px`,
+                };
+            }
+
+            return result;
+        },
         supports: {
             styles: true,
             spacings: true,

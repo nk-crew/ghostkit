@@ -25,6 +25,24 @@ export const settings = {
     ],
     ghostkit: {
         previewUrl: 'https://ghostkit.io/blocks/instagram/',
+        customStylesCallback( attributes ) {
+            const {
+                gap,
+                gapCustom,
+            } = attributes;
+
+            let result = {};
+
+            // Custom Gap.
+            if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
+                result = {
+                    ...result,
+                    '--gkt-instagram--photos__gap': `${ gapCustom }px`,
+                };
+            }
+
+            return result;
+        },
         supports: {
             styles: true,
             frame: true,

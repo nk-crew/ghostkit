@@ -4,6 +4,10 @@
 @import "../../../variables";
 
 .ghostkit-pricing-table {
+    --gkt-pricing-table__gap: 15px;
+    --gkt-pricing-table__align-items: flex-start;
+    --gkt-pricing-table__columns: 1;
+
     // Item.
     --gkt-pricing-table--item__padding-x: 2.2em;
     --gkt-pricing-table--item__padding-y: 1.65em;

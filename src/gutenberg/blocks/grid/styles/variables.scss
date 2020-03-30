@@ -2,3 +2,11 @@
  * Block Variables
  */
 @import "../../../variables";
+
+.ghostkit-grid {
+    --gkt-grid__gap: 15px;
+    --gkt-grid__justify-content: flex-start;
+    --gkt-grid--column__align-self: flex-start;
+    --gkt-grid--column__size: 100%;
+    --gkt-grid--column__order: initial;
+}

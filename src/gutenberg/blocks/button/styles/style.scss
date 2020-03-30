@@ -6,17 +6,20 @@
 .ghostkit-button-wrapper-inner {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: var(--gkt-button__align-items);
+    justify-content: var(--gkt-button__justify-content);
 
     // why we need this https://wordpress.org/support/topic/buttons-alignment-issues/
     clear: both;
 
-    .ghostkit-button-wrapper-align-right > & {
-        justify-content: flex-end;
-    }
-    .ghostkit-button-wrapper-align-center > & {
-        justify-content: center;
+    .ghostkit-button-wrapper > & {
+        margin-top: calc(-1 * var(--gkt-button__gap));
+        margin-left: calc(-1 * var(--gkt-button__gap));
+
+        > .ghostkit-button {
+            margin-top: var(--gkt-button__gap);
+            margin-left: var(--gkt-button__gap);
+        }
     }
 }
 
@@ -81,17 +84,20 @@
     }
 }
 
-// Gaps.
-@each $name, $size in $button-gaps {
-    .ghostkit-button-wrapper-gap-#{$name} > .ghostkit-button-wrapper-inner {
-        margin-top: -$size;
-        margin-right: ($size / -2);
-        margin-left: ($size / -2);
+// Align.
+.ghostkit-button-wrapper-align-left {
+    --gkt-button__justify-content: flex-start;
+}
+.ghostkit-button-wrapper-align-right {
+    --gkt-button__justify-content: flex-end;
+}
+.ghostkit-button-wrapper-align-center {
+    --gkt-button__justify-content: center;
+}
 
-        .ghostkit-button {
-            margin-top: $size;
-            margin-right: ($size / 2);
-            margin-left: ($size / 2);
-        }
+// Gaps.
+@each $name, $size in $grid-gaps {
+    .ghostkit-button-wrapper-gap-#{$name} {
+        --gkt-button__gap: #{$size};
     }
 }

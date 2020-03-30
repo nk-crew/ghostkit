@@ -9,10 +9,6 @@
     display: flex;
     margin-top: 0;
 
-    > .block-editor-inner-blocks {
-        width: 100%;
-    }
-
     .ghostkit-button {
         // stylelint-disable-next-line
         margin: 0 !important;
@@ -27,32 +23,36 @@
         margin: 0;
     }
 
-    > .block-editor-inner-blocks > .block-editor-block-list__layout {
-        // we need to use inline-flex because of bug with selecting wrapper block in editor.
-        display: inline-flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: flex-start;
-        width: 100%;
-        margin-right: 0;
-        margin-left: 0;
+    > .block-editor-inner-blocks {
+        width: auto;
+        margin-bottom: calc(-1 * var(--gkt-button__gap));
+        margin-left: calc(-1 * var(--gkt-button__gap));
 
-        > div {
-            width: auto;
+        > .block-editor-block-list__layout {
+            // we need to use inline-flex because of bug with selecting wrapper block in editor.
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: var(--gkt-button__align-items);
+            justify-content: var(--gkt-button__justify-content);
+            width: 100%;
+            margin-right: 0;
+            margin-left: 0;
+
+            > div {
+                width: auto;
+                margin-bottom: var(--gkt-button__gap);
+                margin-left: var(--gkt-button__gap);
+            }
+
+            > .block-list-appender {
+                margin-top: 10px;
+                z-index: 7;
+
+                &:empty {
+                    display: none;
+                }
+            }
         }
-
-        > .block-list-appender {
-            align-self: center;
-            margin-bottom: 0;
-            z-index: 7;
-        }
-    }
-
-    &.ghostkit-button-wrapper-align-right > .block-editor-inner-blocks > .block-editor-block-list__layout {
-        justify-content: flex-end;
-    }
-    &.ghostkit-button-wrapper-align-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
-        justify-content: center;
     }
 
     .blocks-rich-text__tinymce {
@@ -65,26 +65,6 @@
 
         &:not(:disabled):not([aria-disabled="true"]):not(.is-default):hover {
             box-shadow: none;
-        }
-    }
-}
-
-// Gaps.
-@each $name, $size in $button-gaps {
-    .ghostkit-button-wrapper-gap-#{$name} {
-        margin-right: 0;
-        margin-left: 0;
-
-        > .block-editor-inner-blocks {
-            margin-top: $size / -2;
-            margin-right: $size / -2;
-            margin-left: $size / -2;
-
-            > .block-editor-block-list__layout > div {
-                margin-top: $size / 2;
-                margin-right: $size / 2;
-                margin-left: $size / 2;
-            }
         }
     }
 }

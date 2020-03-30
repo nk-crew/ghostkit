@@ -1,8 +1,9 @@
 /**
- * Grid
+ * GAPS for Grid, Buttons, Instagram, Pricing Table.
  */
 $grid-gaps: (
-    no: 0,
+    // we need to use `px` unit because of conflict with CSS variables and 0 value.
+    no: 0 * 1px,
     sm: 15px,
     md: 30px,
     lg: 45px
@@ -24,47 +25,18 @@ $grid-gaps: (
 @import "../../node_modules/@wordpress/base-styles/breakpoints";
 @import "../../node_modules/@wordpress/base-styles/mixins";
 
-/**
- * Buttons
- */
-$button-gaps: (
-    no: 0,
-    sm: 15px,
-    md: 30px,
-    lg: 45px
-) !default;
-
-/**
- * Instagram
- */
-$instagram-gaps: (
-    no: 0,
-    sm: 15px,
-    md: 30px,
-    lg: 45px
-) !default;
-
-/**
- * Pricing Table
- */
-$pricing-table-gaps: (
-    no: 0,
-    sm: 15px,
-    md: 30px,
-    lg: 45px
-) !default;
-
+// Breakpoints.
 $media-xs: 576px !default;
 $media-sm: 768px !default;
 $media-md: 992px !default;
 $media-lg: 1200px !default;
 
-// Main Colors
+// Main Colors.
 $color-brand: #5c39a7 !default;
 $color-dark-gray: #32373c !default;
 $color-light-gray: #f3f4f5 !default;
 
-// Additional Colors
+// Additional Colors.
 $color-primary: #0366d6 !default;
 $color-success: #4ab866 !default;
 $color-danger: #d94f4f !default;

@@ -19,6 +19,9 @@
             "type": "string",
             "default": "md"
         },
+        "gapCustom": {
+            "type": "number"
+        },
         "verticalAlign": {
             "type": "string"
         },
