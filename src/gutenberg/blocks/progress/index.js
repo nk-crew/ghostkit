@@ -31,31 +31,21 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/progress/',
         customStylesCallback( attributes ) {
             const styles = {
-                '.ghostkit-progress-wrap': {
-                    height: attributes.height,
-                    borderRadius: attributes.borderRadius,
-                    backgroundColor: attributes.backgroundColor,
-                    '.ghostkit-progress-bar': {
-                        width: attributes.percent + '%',
-                        backgroundColor: attributes.color,
-                    },
-                },
+                '--gkt-progress__height': attributes.height ? `${ attributes.height }px` : false,
+                '--gkt-progress__border-radius': attributes.borderRadius ? `${ attributes.borderRadius }px` : false,
+                '--gkt-progress__background-color': attributes.backgroundColor,
+                '--gkt-progress--bar__width': attributes.percent ? `${ attributes.percent }%` : false,
+                '--gkt-progress--bar__background-color': attributes.color,
             };
 
             if ( attributes.hoverColor ) {
                 styles[ '&:hover' ] = {
-                    '.ghostkit-progress-wrap': {
-                        '.ghostkit-progress-bar': {
-                            backgroundColor: attributes.hoverColor,
-                        },
-                    },
+                    '--gkt-progress--bar__background-color': attributes.hoverColor,
                 };
             }
             if ( attributes.hoverBackgroundColor ) {
                 styles[ '&:hover' ] = merge( styles[ '&:hover' ] || {}, {
-                    '.ghostkit-progress-wrap': {
-                        backgroundColor: attributes.hoverBackgroundColor,
-                    },
+                    '--gkt-progress__background-color': attributes.hoverBackgroundColor,
                 } );
             }
 

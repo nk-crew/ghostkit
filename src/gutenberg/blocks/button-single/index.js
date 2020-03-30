@@ -24,32 +24,31 @@ export const settings = {
     ghostkit: {
         customStylesCallback( attributes ) {
             const result = {
-                backgroundColor: attributes.color,
-                color: attributes.textColor,
-                borderRadius: attributes.borderRadius,
-                border: attributes.borderWeight && attributes.borderColor ? `${ attributes.borderWeight }px solid ${ attributes.borderColor }` : false,
-                '&:hover, &:focus': {
-                    backgroundColor: attributes.hoverColor,
-                    color: attributes.hoverTextColor,
-                    borderColor: attributes.borderWeight && attributes.borderColor && attributes.hoverBorderColor ? attributes.hoverBorderColor : false,
-                },
+                '--gkt-button__background-color': attributes.color,
+                '--gkt-button__color': attributes.textColor,
+                '--gkt-button__border-radius': `${ attributes.borderRadius }px`,
+                '--gkt-button-hover__background-color': attributes.hoverColor,
+                '--gkt-button-hover__color': attributes.hoverTextColor,
+                '--gkt-button-focus__background-color': attributes.hoverColor,
+                '--gkt-button-focus__color': attributes.hoverTextColor,
             };
 
+            // Border.
+            if ( attributes.borderWeight && attributes.borderColor ) {
+                result[ '--gkt-button__border-width' ] = `${ attributes.borderWeight }px`;
+                result[ '--gkt-button__border-color' ] = attributes.borderColor;
+
+                if ( attributes.hoverBorderColor ) {
+                    result[ '--gkt-button-hover__border-color' ] = attributes.hoverBorderColor;
+                }
+            }
+
+            // Box Shadow.
             if ( attributes.focusOutlineWeight && attributes.focusOutlineColor ) {
-                result[ '&:focus' ] = result[ '&:focus' ] || {};
-                result[ '&:focus' ][ 'box-shadow' ] = `0 0 0 ${ attributes.focusOutlineWeight }px ${ attributes.focusOutlineColor }`;
+                result[ '--gkt-button-focus__box-shadow' ] = `0 0 0 ${ attributes.focusOutlineWeight }px ${ attributes.focusOutlineColor }`;
             }
 
             return result;
-        },
-        customStylesFilter( styles, data, isEditor, attributes ) {
-            if ( isEditor && attributes.focusOutlineWeight && attributes.focusOutlineColor ) {
-                styles = styles.replace(
-                    new RegExp( `.${ attributes.ghostkitClassname }:focus { box-shadow:`, 'g' ),
-                    `[data-type="ghostkit/button-single"].is-selected .${ attributes.ghostkitClassname } { box-shadow:`
-                );
-            }
-            return styles;
         },
         supports: {
             styles: true,

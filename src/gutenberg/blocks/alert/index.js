@@ -30,19 +30,15 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/alert/',
         customStylesCallback( attributes ) {
             const styles = {
-                borderColor: attributes.color,
-                '.ghostkit-alert-icon': {
-                    fontSize: attributes.iconSize,
-                    color: attributes.color,
-                },
+                '--gkt-alert__border-color': attributes.color,
+                '--gkt-alert--icon__font-size': `${ attributes.iconSize }px`,
+                '--gkt-alert--icon__color': attributes.color,
             };
 
             if ( attributes.hoverColor ) {
                 styles[ '&:hover' ] = {
-                    borderColor: attributes.hoverColor,
-                    '.ghostkit-alert-icon': {
-                        color: attributes.hoverColor,
-                    },
+                    '--gkt-alert__border-color': attributes.hoverColor,
+                    '--gkt-alert--icon__color': attributes.hoverColor,
                 };
             }
 

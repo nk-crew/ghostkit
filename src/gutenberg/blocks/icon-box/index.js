@@ -30,15 +30,13 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/icon-box/',
         customStylesCallback( attributes ) {
             const styles = {
-                '.ghostkit-icon-box-icon': {
-                    fontSize: attributes.iconSize,
-                    color: attributes.iconColor,
-                },
+                '--gkt-icon-box--icon__font-size': attributes.iconSize ? `${ attributes.iconSize }px` : false,
+                '--gkt-icon-box--icon__color': attributes.iconColor,
             };
 
             if ( attributes.hoverIconColor ) {
-                styles[ '&:hover .ghostkit-icon-box-icon' ] = {
-                    color: attributes.hoverIconColor,
+                styles[ '&:hover' ] = {
+                    '--gkt-icon-box--icon__color': attributes.hoverIconColor,
                 };
             }
 

@@ -48,6 +48,8 @@
     .ghostkit-divider-icon {
         display: flex;
         padding: var(--gkt-divider--icon__padding-x) var(--gkt-divider--icon__padding-y);
+        font-size: var(--gkt-divider--icon__font-size);
+        color: var(--gkt-divider--icon__color);
         transition: var(--gkt-divider__transition-duration) color var(--gkt-divider__transition-easing);
     }
 }

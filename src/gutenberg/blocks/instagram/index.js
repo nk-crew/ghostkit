@@ -31,14 +31,11 @@ export const settings = {
                 gapCustom,
             } = attributes;
 
-            let result = {};
+            const result = {};
 
             // Custom Gap.
             if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
-                result = {
-                    ...result,
-                    '--gkt-instagram--photos__gap': `${ gapCustom }px`,
-                };
+                result[ '--gkt-instagram--photos__gap' ] = `${ gapCustom }px`;
             }
 
             return result;

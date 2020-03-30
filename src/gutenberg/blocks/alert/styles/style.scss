@@ -16,6 +16,8 @@
         display: flex;
         padding: var(--gkt-alert--icon__padding);
         padding-right: var(--gkt-alert--icon__padding-right);
+        font-size: var(--gkt-alert--icon__font-size);
+        color: var(--gkt-alert--icon__color);
         transition: var(--gkt-alert__transition-duration) color var(--gkt-alert__transition-easing);
     }
 

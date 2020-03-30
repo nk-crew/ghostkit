@@ -26,6 +26,8 @@
     // Icon.
     .ghostkit-icon-box-icon {
         display: flex;
+        font-size: var(--gkt-icon-box--icon__font-size);
+        color: var(--gkt-icon-box--icon__color);
         transition: var(--gkt-icon-box__transition-duration) color var(--gkt-icon-box__transition-easing);
 
         ~ .ghostkit-icon-box-content {

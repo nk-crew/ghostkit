@@ -31,7 +31,14 @@
     }
 
     .ghostkit-countdown-unit-number {
+        font-size: var(--gkt-countdown--unit-number__font-size);
         font-weight: var(--gkt-countdown--unit-number__font-weight);
+        color: var(--gkt-countdown--unit-number__color);
+    }
+
+    .ghostkit-countdown-unit-label {
+        font-size: var(--gkt-countdown--unit-label__font-size);
+        color: var(--gkt-countdown--unit-label__color);
     }
 
     .ghostkit-countdown-expire-action {

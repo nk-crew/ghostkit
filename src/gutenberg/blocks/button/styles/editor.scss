@@ -21,6 +21,14 @@
     // fix centering when more than 2 lines of buttons
     [data-type="ghostkit/button-single"] {
         margin: 0;
+
+        // Focus Styles.
+        &.is-selected > .ghostkit-button {
+            color: var(--gkt-button-focus__color);
+            background-color: var(--gkt-button-focus__background-color);
+            border: var(--gkt-button-focus__border-width) solid var(--gkt-button-focus__border-color);
+            box-shadow: var(--gkt-button-focus__box-shadow);
+        }
     }
 
     > .block-editor-inner-blocks {

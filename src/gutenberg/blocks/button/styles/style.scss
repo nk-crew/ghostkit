@@ -37,7 +37,8 @@
     white-space: nowrap;
     cursor: pointer;
     background-color: var(--gkt-button__background-color);
-    border: none;
+    border: var(--gkt-button__border-width) solid var(--gkt-button__border-color);
+    border-radius: var(--gkt-button__border-radius);
     outline: none;
     transition: var(--gkt-button__transition-duration) background-color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) border-color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) opacity var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) box-shadow var(--gkt-button__transition-easing);
 
@@ -48,11 +49,14 @@
     &:hover {
         color: var(--gkt-button-hover__color);
         background-color: var(--gkt-button-hover__background-color);
+        border: var(--gkt-button-hover__border-width) solid var(--gkt-button-hover__border-color);
     }
     &:focus,
     &:active {
         color: var(--gkt-button-focus__color);
         background-color: var(--gkt-button-focus__background-color);
+        border: var(--gkt-button-focus__border-width) solid var(--gkt-button-focus__border-color);
+        box-shadow: var(--gkt-button-focus__box-shadow);
     }
 
     .ghostkit-button-icon-left {

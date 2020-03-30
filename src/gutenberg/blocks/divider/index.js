@@ -32,28 +32,20 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/divider/',
         customStylesCallback( attributes ) {
             const styles = {
-                '&::before, &::after': {
-                    borderColor: attributes.color,
-                    borderWidth: attributes.size,
-                },
-                '.ghostkit-divider-icon': {
-                    fontSize: attributes.iconSize,
-                    color: attributes.iconColor,
-                },
+                '--gkt-divider__border-width': attributes.size ? `${ attributes.size }px` : false,
+                '--gkt-divider__border-color': attributes.color,
+                '--gkt-divider--icon__font-size': attributes.iconSize ? `${ attributes.iconSize }px` : false,
+                '--gkt-divider--icon__color': attributes.iconColor,
             };
 
             if ( attributes.hoverColor ) {
                 styles[ '&:hover' ] = {
-                    '&::before, &::after': {
-                        borderColor: attributes.hoverColor,
-                    },
+                    '--gkt-divider__border-color': attributes.hoverColor,
                 };
             }
             if ( attributes.hoverIconColor ) {
                 styles[ '&:hover' ] = merge( styles[ '&:hover' ] || {}, {
-                    '.ghostkit-divider-icon': {
-                        color: attributes.hoverIconColor,
-                    },
+                    '--gkt-divider--icon__color': attributes.hoverIconColor,
                 } );
             }
 

@@ -33,14 +33,11 @@ export const settings = {
                 gapCustom,
             } = attributes;
 
-            let result = {};
+            const result = {};
 
             // Custom Gap.
             if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
-                result = {
-                    ...result,
-                    '--gkt-pricing-table__gap': `${ gapCustom }px`,
-                };
+                result[ '--gkt-pricing-table__gap' ] = `${ gapCustom }px`;
             }
 
             return result;

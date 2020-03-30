@@ -26,6 +26,8 @@
     // Number.
     .ghostkit-counter-box-number {
         display: flex;
+        font-size: var(--gkt-counter-box--number__font-size);
+        color: var(--gkt-counter-box--number__color);
         transition: var(--gkt-counter-box__transition-duration) color var(--gkt-counter-box__transition-easing);
 
         ~ .ghostkit-counter-box-content {

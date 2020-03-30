@@ -29,14 +29,10 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/countdown/',
         customStylesCallback( attributes ) {
             const styles = {
-                '.ghostkit-countdown-unit-number': {
-                    fontSize: attributes.numberFontSize,
-                    color: attributes.numberColor,
-                },
-                '.ghostkit-countdown-unit-label': {
-                    fontSize: attributes.labelFontSize,
-                    color: attributes.labelColor,
-                },
+                '--gkt-countdown--unit-number__font-size': attributes.numberFontSize ? `${ attributes.numberFontSize }px` : false,
+                '--gkt-countdown--unit-number__color': attributes.numberColor,
+                '--gkt-countdown--unit-label__font-size': attributes.labelFontSize ? `${ attributes.labelFontSize }px` : false,
+                '--gkt-countdown--unit-label__color': attributes.labelColor,
             };
 
             return styles;

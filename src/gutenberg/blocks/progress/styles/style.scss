@@ -45,6 +45,7 @@
         height: var(--gkt-progress__height);
         overflow: hidden;
         background-color: var(--gkt-progress__background-color);
+        border-radius: var(--gkt-progress__border-radius);
         transition: var(--gkt-progress__transition-duration) background-color var(--gkt-progress__transition-easing);
 
         &.ghostkit-progress-bar-striped .ghostkit-progress-bar {
@@ -53,6 +54,7 @@
         }
 
         .ghostkit-progress-bar {
+            width: var(--gkt-progress--bar__width);
             height: 100%;
             background-color: var(--gkt-progress--bar__background-color);
             transition: var(--gkt-progress__transition-duration) background-color var(--gkt-progress__transition-easing);

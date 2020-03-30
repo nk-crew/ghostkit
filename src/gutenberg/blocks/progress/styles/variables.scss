@@ -5,6 +5,7 @@
 
 .ghostkit-progress {
     --gkt-progress__height: 15px;
+    --gkt-progress__border-radius: var(--gkt-border-radius);
     --gkt-progress__background-color: var(--gkt-color-light-gray);
 
     // Caption.
@@ -21,6 +22,7 @@
     --gkt-progress--count-arrow__size: .35em;
 
     // Bar.
+    --gkt-progress--bar__width: 0;
     --gkt-progress--bar__background-color: var(--gkt-color-light-gray);
     --gkt-progress--bar-striped__background-image: linear-gradient(45deg, rgba(255, 255, 255, .1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 75%, transparent 75%, transparent);
     --gkt-progress--bar-striped__background-size: 15px 15px;

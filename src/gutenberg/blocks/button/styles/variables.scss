@@ -15,14 +15,22 @@
     --gkt-button__line-height: 1em;
     --gkt-button__color: #fff;
     --gkt-button__background-color: var(--gkt-color-dark-gray);
+    --gkt-button__border-width: 0;
+    --gkt-button__border-color: transparent;
+    --gkt-button__border-radius: var(--gkt-border-radius);
 
     // Hover.
-    --gkt-button-hover__color: #fff;
-    --gkt-button-hover__background-color: var(--gkt-color-dark-gray);
+    --gkt-button-hover__color: var(--gkt-button__color);
+    --gkt-button-hover__background-color: var(--gkt-button__background-color);
+    --gkt-button-hover__border-width: var(--gkt-button__border-width);
+    --gkt-button-hover__border-color: var(--gkt-button__border-color);
 
     // Focus.
-    --gkt-button-focus__color: #fff;
-    --gkt-button-focus__background-color: var(--gkt-color-dark-gray);
+    --gkt-button-focus__color: var(--gkt-button-hover__color);
+    --gkt-button-focus__background-color: var(--gkt-button-hover__background-color);
+    --gkt-button-focus__border-width: var(--gkt-button-hover__border-width);
+    --gkt-button-focus__border-color: var(--gkt-button-hover__border-color);
+    --gkt-button-focus__box-shadow: none;
 
     // Sizes.
     --gkt-button-xs__font-size: .8em;
