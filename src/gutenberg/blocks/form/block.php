@@ -380,6 +380,8 @@ class GhostKit_Form_Block {
         if ( 'ghostkit-block-form' === $name ) {
             GhostKit_Assets::store_used_assets( 'ghostkit-block-alert', true, 'style' );
             GhostKit_Assets::store_used_assets( 'ghostkit-block-alert', true, 'script' );
+            GhostKit_Assets::store_used_assets( 'ghostkit-block-button', true, 'style' );
+            GhostKit_Assets::store_used_assets( 'ghostkit-block-button', true, 'script' );
         }
     }
 
