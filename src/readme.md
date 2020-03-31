@@ -188,6 +188,24 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.10.0 =
+
+* ! breaking change ! - all styles now uses CSS Variables. No more IE browser supported
+* added WordPress 5.4 compatibility
+* added better possibilities for extending/changing blocks styles (thanks to CSS Variables) <https://ghostkit.io/docs/css-variables/>
+* added custom gap option for Grid, Buttons, Instagram and Pricing Table blocks
+* added Grid vertical Gap by default
+* improved styles for nested styled lists
+* changed a lot of styles of blocks
+* removed wp-i18 dependency from the main script, used for Countdown script only
+* fixed Styled Lists text wrap
+* fixed TOC block inside columns
+* fixed Progress bar count tooltip size when progress bar has a small width
+* fixed Twitter block profile description pre-wrap
+* fixed Contact Form mail template long words break
+* fixed loading fonts dependencies when fonts are not selected
+* fixed color palette PHP error, when palette is empty by default
+
 = 2.9.3 =
 
 * fixed assets enqueue sequence (plugins -> Ghost Kit -> theme)
