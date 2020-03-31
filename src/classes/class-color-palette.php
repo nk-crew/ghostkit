@@ -37,7 +37,10 @@ class GhostKit_Color_Palette {
 
             if ( ! empty( $custom_palette ) ) {
                 $theme_palette = get_theme_support( 'editor-color-palette' );
-                $theme_palette = reset( $theme_palette );
+
+                if ( is_array( $theme_palette ) ) {
+                    $theme_palette = reset( $theme_palette );
+                }
 
                 if ( is_array( $theme_palette ) && ! empty( $theme_palette ) ) {
                     $custom_palette = array_merge( $theme_palette, $custom_palette );
