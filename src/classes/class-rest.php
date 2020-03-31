@@ -1242,7 +1242,7 @@ class GhostKit_Rest extends WP_REST_Controller {
                         continue;
                     }
 
-                    $html .= '<ul class="is-style-styled">';
+                    $html .= '<ul>';
                     $html .= '<li>';
                 }
             }

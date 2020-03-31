@@ -17,31 +17,30 @@
     /**
      * Styled.
      */
-    .block-library-list .is-style-styled {
-        padding-left: 0;
-        list-style: none;
-    }
-    .is-style-styled {
+    ol.is-style-styled,
+    ul.is-style-styled {
         padding-left: 0;
         line-height: var(--gkt-styled-lists__line-height);
         list-style: none;
 
-        li + li {
-            margin-top: var(--gkt-styled-lists--items__gap);
-        }
-
-        > li {
+        li {
+            margin-left: 0;
             list-style: none;
 
             > ul,
             > ol {
                 width: 100%;
-                padding-left: var(--gkt-styled-lists--inner-lists__padding-left);
+                margin: var(--gkt-styled-lists--inner-lists__padding-x) var(--gkt-styled-lists--inner-lists__padding-y);
+            }
+
+            + li {
+                margin-top: var(--gkt-styled-lists--items__gap);
             }
         }
     }
 
-    ol.is-style-styled {
+    ol.is-style-styled,
+    .is-style-styled ol {
         counter-reset: li;
 
         > li {
@@ -71,7 +70,8 @@
         }
     }
 
-    ul.is-style-styled {
+    ul.is-style-styled,
+    .is-style-styled ul {
         > li {
             position: relative;
             padding-left: var(--gkt-styled-lists-dotted__padding-left);
