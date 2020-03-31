@@ -47,7 +47,7 @@
             &.ghostkit-tabs-buttons-item-active {
                 background-color: var(--gkt-tabs--button-active__background-color);
                 border-color: var(--gkt-tabs--button__border-color);
-                border-bottom: none;
+                border-bottom-color: transparent;
                 opacity: var(--gkt-tabs--button-active__opacity);
             }
         }
@@ -110,7 +110,7 @@
                     &.ghostkit-tabs-buttons-item-active {
                         background-color: var(--gkt-tabs--button-active__background-color);
                         border-color: var(--gkt-tabs--button__border-color);
-                        border-right: none;
+                        border-right-color: transparent;
                         border-bottom: var(--gkt-tabs--button__border-width) solid var(--gkt-tabs--button__border-color);
                         opacity: var(--gkt-tabs--button-active__opacity);
                     }
