@@ -31,6 +31,8 @@
         }
 
         > li {
+            list-style: none;
+
             > ul,
             > ol {
                 width: 100%;

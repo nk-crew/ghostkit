@@ -33,6 +33,8 @@ ul.is-style-styled {
     }
 
     > li {
+        list-style: none;
+
         > ul,
         > ol {
             width: 100%;
@@ -47,6 +49,7 @@ ol.is-style-styled {
     > li {
         position: relative;
         padding-left: var(--gkt-styled-lists-numbered__padding-left);
+        list-style: none;
 
         &::before {
             content: counter(li);
