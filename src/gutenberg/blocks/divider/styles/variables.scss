@@ -5,12 +5,12 @@
 
 .ghostkit-divider {
     --gkt-divider__padding-x: .75em;
-    --gkt-divider__padding-y: 0;
+    --gkt-divider__padding-y: #{0 * 1px};
     --gkt-divider__border-width: 1px;
     --gkt-divider__border-color: var(--gkt-color-dark-gray);
 
     // Icon.
-    --gkt-divider--icon__padding-x: 0;
+    --gkt-divider--icon__padding-x: #{0 * 1px};
     --gkt-divider--icon__padding-y: 1em;
     --gkt-divider--icon__font-size: 1em;
     --gkt-divider--icon__color: inherit;

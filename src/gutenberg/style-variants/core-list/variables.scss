@@ -13,8 +13,8 @@
 
     // Numbered Lists.
     --gkt-styled-lists-numbered__padding-left: 2em;
-    --gkt-styled-lists-numbered--decoration__top: 0;
-    --gkt-styled-lists-numbered--decoration__left: 0;
+    --gkt-styled-lists-numbered--decoration__top: #{0 * 1px};
+    --gkt-styled-lists-numbered--decoration__left: #{0 * 1px};
     --gkt-styled-lists-numbered--decoration__width: 2em;
     --gkt-styled-lists-numbered--decoration__height: 2em;
     --gkt-styled-lists-numbered--decoration__font-size: .7em;
