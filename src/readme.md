@@ -188,7 +188,7 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
-= 2.10.0 =
+= 2.10.1 =
 
 * ! breaking change ! - all styles now uses CSS Variables. No more IE browser supported
 * added WordPress 5.4 compatibility
