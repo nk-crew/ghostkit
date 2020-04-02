@@ -178,7 +178,7 @@
     }
     .ghostkit-twitter-item-meta-name + .ghostkit-twitter-item-meta-date::before {
         content: var(--gkt-twitter--tweet-date-separator__content);
-        margin: var(--gkt-twitter--tweet-date-separator__margin-x) var(--gkt-twitter--tweet-date-separator__margin-y);
+        margin: var(--gkt-twitter--tweet-date-separator__margin-v) var(--gkt-twitter--tweet-date-separator__margin-h);
         font-size: var(--gkt-twitter--tweet-date-separator__font-size);
     }
     .ghostkit-twitter-item-meta-date {

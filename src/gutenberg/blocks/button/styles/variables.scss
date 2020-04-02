@@ -10,8 +10,8 @@
 }
 
 .ghostkit-button {
-    --gkt-button__padding-x: .75em;
-    --gkt-button__padding-y: 1em;
+    --gkt-button__padding-v: .75em;
+    --gkt-button__padding-h: 1em;
     --gkt-button__line-height: 1em;
     --gkt-button__color: #fff;
     --gkt-button__background-color: var(--gkt-color-dark-gray);
@@ -40,8 +40,8 @@
     --gkt-button-xl__font-size: 1.3em;
 
     // Icon.
-    --gkt-button-icon-only__padding-x: var(--gkt-button__padding-x);
-    --gkt-button-icon-only__padding-y: var(--gkt-button__padding-x);
+    --gkt-button-icon-only__padding-v: var(--gkt-button__padding-v);
+    --gkt-button-icon-only__padding-h: var(--gkt-button__padding-v);
     --gkt-button--icon__offset: 10px;
 
     // Transitions.

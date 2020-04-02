@@ -20,7 +20,7 @@
 // Item.
 .ghostkit-pricing-table-item {
     position: relative;
-    padding: var(--gkt-pricing-table--item__padding-x) var(--gkt-pricing-table--item__padding-y);
+    padding: var(--gkt-pricing-table--item__padding-v) var(--gkt-pricing-table--item__padding-h);
     border: var(--gkt-pricing-table--item__border-width) solid var(--gkt-pricing-table--item__border-color);
     border-radius: var(--gkt-pricing-table--item__border-radius);
 
@@ -28,7 +28,7 @@
         position: absolute;
         top: var(--gkt-pricing-table--popular-badge__top);
         right: calc(-1 * var(--gkt-pricing-table--item__border-width));
-        padding: var(--gkt-pricing-table--popular-badge__padding-x) var(--gkt-pricing-table--popular-badge__padding-y);
+        padding: var(--gkt-pricing-table--popular-badge__padding-v) var(--gkt-pricing-table--popular-badge__padding-h);
         margin-top: 0;
         font-size: var(--gkt-pricing-table--popular-badge__font-size);
         color: var(--gkt-pricing-table--popular-badge__color);

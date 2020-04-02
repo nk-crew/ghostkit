@@ -27,7 +27,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: var(--gkt-button__padding-x) var(--gkt-button__padding-y);
+    padding: var(--gkt-button__padding-v) var(--gkt-button__padding-h);
     margin: 0;
     font-size: var(--gkt-button__font-size);
     line-height: var(--gkt-button__line-height);
@@ -67,7 +67,7 @@
         margin-left: var(--gkt-button--icon__offset);
     }
     &.ghostkit-button-icon-only {
-        padding: var(--gkt-button-icon-only__padding-x) var(--gkt-button-icon-only__padding-y);
+        padding: var(--gkt-button-icon-only__padding-v) var(--gkt-button-icon-only__padding-h);
 
         .ghostkit-button-icon {
             margin: 0;

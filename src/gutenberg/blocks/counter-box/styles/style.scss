@@ -6,7 +6,7 @@
 .ghostkit-counter-box {
     display: flex;
     flex-wrap: wrap;
-    padding: var(--gkt-counter-box__padding-x) var(--gkt-counter-box__padding-y);
+    padding: var(--gkt-counter-box__padding-v) var(--gkt-counter-box__padding-h);
     border: var(--gkt-counter-box__border-width) solid var(--gkt-counter-box__border-color);
     border-radius: var(--gkt-counter-box__border-radius);
 

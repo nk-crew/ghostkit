@@ -22,7 +22,7 @@
     .ghostkit-countdown-unit {
         flex: 0 0 auto;
         min-width: var(--gkt-countdown--unit__min-width);
-        padding: var(--gkt-countdown--unit__padding-x) var(--gkt-countdown--unit__padding-y);
+        padding: var(--gkt-countdown--unit__padding-v) var(--gkt-countdown--unit__padding-h);
         text-align: center;
 
         span {

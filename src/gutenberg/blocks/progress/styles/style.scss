@@ -16,7 +16,7 @@
             position: absolute;
             right: 0;
             bottom: 100%;
-            padding: var(--gkt-progress--count__padding-x) var(--gkt-progress--count__padding-y);
+            padding: var(--gkt-progress--count__padding-v) var(--gkt-progress--count__padding-h);
             margin-bottom: calc(.2em + var(--gkt-progress--count-arrow__size));
             font-size: var(--gkt-progress--count__font-size);
             color: var(--gkt-progress--count__color);

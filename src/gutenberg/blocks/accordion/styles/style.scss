@@ -7,7 +7,7 @@
     .ghostkit-accordion-item-heading {
         position: relative;
         display: block;
-        padding: var(--gkt-accordion--heading__padding-x) var(--gkt-accordion--heading__padding-y);
+        padding: var(--gkt-accordion--heading__padding-v) var(--gkt-accordion--heading__padding-h);
         padding-right: var(--gkt-accordion--heading-collapse-icon__width);
         font-weight: var(--gkt-accordion--heading__font-weight);
         color: inherit;
@@ -37,7 +37,7 @@
 
     .ghostkit-accordion-item-content {
         display: none;
-        padding: var(--gkt-accordion--content__padding-x) var(--gkt-accordion--content__padding-y);
+        padding: var(--gkt-accordion--content__padding-v) var(--gkt-accordion--content__padding-h);
     }
 
     .ghostkit-accordion-item-active {

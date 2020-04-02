@@ -6,7 +6,7 @@
 .ghostkit-alert {
     display: flex;
     flex-wrap: wrap;
-    padding: var(--gkt-alert__padding-x) var(--gkt-alert__padding-y);
+    padding: var(--gkt-alert__padding-v) var(--gkt-alert__padding-h);
     border: var(--gkt-alert__border-width) solid var(--gkt-alert__border-color);
     border-left-width: var(--gkt-alert__border-left-width);
     border-radius: var(--gkt-alert__border-radius);

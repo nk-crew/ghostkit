@@ -5,8 +5,8 @@
 
 .ghostkit-accordion {
     // Heading.
-    --gkt-accordion--heading__padding-x: .75em;
-    --gkt-accordion--heading__padding-y: #{0 * 1px};
+    --gkt-accordion--heading__padding-v: .75em;
+    --gkt-accordion--heading__padding-h: #{0 * 1px};
     --gkt-accordion--heading__font-weight: 500;
 
     // Heading Collapse Icon.
@@ -15,8 +15,8 @@
     --gkt-accordion--heading-collapse-icon-active__transform: rotate(90deg);
 
     // Content.
-    --gkt-accordion--content__padding-x: .75em;
-    --gkt-accordion--content__padding-y: #{0 * 1px};
+    --gkt-accordion--content__padding-v: .75em;
+    --gkt-accordion--content__padding-h: #{0 * 1px};
 
     // Transitions.
     --gkt-accordion__transition-duration: var(--gkt-transition-duration);

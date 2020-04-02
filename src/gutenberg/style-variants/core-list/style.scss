@@ -31,7 +31,7 @@ ul.is-style-styled {
         > ul,
         > ol {
             width: 100%;
-            margin: var(--gkt-styled-lists--inner-lists__padding-x) var(--gkt-styled-lists--inner-lists__padding-y);
+            margin: var(--gkt-styled-lists--inner-lists__padding-v) var(--gkt-styled-lists--inner-lists__padding-h);
         }
 
         + li {
