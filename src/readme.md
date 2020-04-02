@@ -188,6 +188,14 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.10.2 =
+
+* changed name of CSS variables with -x and -y in name:
+  * `...margin-x` to `...margin-v`
+  * `...margin-y` to `...margin-h`
+  * `...padding-x` to `...padding-v`
+  * `...padding-y` to `...padding-h`
+
 = 2.10.1 =
 
 * ! breaking change ! - all styles now uses CSS Variables. No more IE browser supported
