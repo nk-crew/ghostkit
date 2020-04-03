@@ -32,10 +32,12 @@
             top: var(--gkt-pricing-table--popular-badge__top);
             right: calc(-1 * var(--gkt-pricing-table--item__border-width));
             padding: var(--gkt-pricing-table--popular-badge__padding-v) var(--gkt-pricing-table--popular-badge__padding-h);
-            margin-top: 0;
             font-size: var(--gkt-pricing-table--popular-badge__font-size);
             color: var(--gkt-pricing-table--popular-badge__color);
             background-color: var(--gkt-pricing-table--popular-badge__background-color);
+        }
+        & &-popular-badge {
+            margin-top: 0;
         }
 
         // Title.
