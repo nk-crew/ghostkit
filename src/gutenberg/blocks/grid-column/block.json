@@ -75,14 +75,12 @@
             "default": ""
         },
         "stickyContent": {
-            "type": "boolean",
-            "default": false
+            "type": "string",
+            "default": ""
         },
-        "stickyContentTop": {
-            "type": "number"
-        },
-        "stickyContentBottom": {
-            "type": "number"
+        "stickyContentOffset": {
+            "type": "number",
+            "default": 0
         }
     }
 }

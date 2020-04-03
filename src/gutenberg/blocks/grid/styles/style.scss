@@ -120,6 +120,22 @@
     }
 }
 
+// Columns Sticky.
+.ghostkit-col-sticky-top > .ghostkit-col-content {
+    position: sticky;
+    top: var(--gkt-grid--column-sticky__offset);
+}
+.ghostkit-col-sticky-bottom {
+    display: flex;
+    flex-direction: column;
+
+    > .ghostkit-col-content {
+        position: sticky;
+        bottom: var(--gkt-grid--column-sticky__offset);
+        margin-top: auto;
+    }
+}
+
 // AWB backgrounds
 .ghostkit-grid-with-bg,
 .ghostkit-col-with-bg {

@@ -41,36 +41,15 @@ export const settings = {
         customStylesCallback( attributes ) {
             const {
                 stickyContent,
-                stickyContentTop,
-                stickyContentBottom,
+                stickyContentOffset,
                 awb_image: image,
             } = attributes;
 
             let result = {};
 
             // Sticky styles.
-            if ( stickyContent ) {
-                result[ '& > .ghostkit-col-content' ] = {
-                    position: '-webkit-sticky',
-                };
-                result[ '> .ghostkit-col-content' ] = {
-                    position: 'sticky',
-                };
-
-                if ( typeof stickyContentBottom === 'number' ) {
-                    result = {
-                        display: 'flex',
-                        '-webkit-box-orient': 'vertical',
-                        '-webkit-box-direction': 'normal',
-                        '-ms-flex-direction': 'column',
-                        'flex-direction': 'column',
-                        ...result,
-                    };
-                    result[ '> .ghostkit-col-content' ].marginTop = 'auto';
-                    result[ '> .ghostkit-col-content' ].bottom = stickyContentBottom;
-                } else {
-                    result[ '> .ghostkit-col-content' ].top = typeof stickyContentTop === 'number' ? stickyContentTop : 0;
-                }
+            if ( stickyContent && typeof stickyContentOffset !== 'undefined' ) {
+                result[ '--gkt-grid--column-sticky__offset' ] = `${ stickyContentOffset }px`;
             }
 
             // Image styles.

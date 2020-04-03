@@ -8,9 +8,10 @@ const { Component, Fragment } = wp.element;
 const {
     BaseControl,
     PanelBody,
+    ButtonGroup,
+    Button,
     SelectControl,
-    ToggleControl,
-    TextControl,
+    RangeControl,
     Tooltip,
     Toolbar,
 } = wp.components;
@@ -112,8 +113,7 @@ class BlockEdit extends Component {
 
         const {
             stickyContent,
-            stickyContentTop,
-            stickyContentBottom,
+            stickyContentOffset,
         } = attributes;
 
         const filledTabs = {};
@@ -221,30 +221,49 @@ class BlockEdit extends Component {
                         </PanelBody>
                     </ApplyFilters>
                     <PanelBody>
-                        <BaseControl>
-                            <ToggleControl
-                                label={ __( 'Sticky content', '@@text_domain' ) }
-                                checked={ !! stickyContent }
-                                onChange={ ( value ) => setAttributes( { stickyContent: value } ) }
-                            />
-                            <p><em>{ __( '`position: sticky` will be applied to column content. Don\'t forget to set top or bottom value in pixels.', '@@text_domain' ) }</em></p>
-                            { stickyContent ? (
-                                <Fragment>
-                                    <TextControl
-                                        label={ __( 'Top', '@@text_domain' ) }
-                                        type="number"
-                                        value={ stickyContentTop }
-                                        onChange={ ( value ) => setAttributes( { stickyContentTop: '' !== value ? parseInt( value, 10 ) : '' } ) }
-                                    />
-                                    <TextControl
-                                        label={ __( 'Bottom', '@@text_domain' ) }
-                                        type="number"
-                                        value={ stickyContentBottom }
-                                        onChange={ ( value ) => setAttributes( { stickyContentBottom: '' !== value ? parseInt( value, 10 ) : '' } ) }
-                                    />
-                                </Fragment>
-                            ) : '' }
+                        <BaseControl label={ __( 'Sticky Content', '@@text_domain' ) }>
+                            <div />
+                            <ButtonGroup>
+                                {
+                                    [
+                                        {
+                                            label: __( 'No', '@@text_domain' ),
+                                            value: '',
+                                        },
+                                        {
+                                            label: __( 'Top', '@@text_domain' ),
+                                            value: 'top',
+                                        },
+                                        {
+                                            label: __( 'Bottom', '@@text_domain' ),
+                                            value: 'bottom',
+                                        },
+                                    ].map( ( val ) => {
+                                        const selected = stickyContent === val.value;
+
+                                        return (
+                                            <Button
+                                                isSecondary
+                                                isSmall
+                                                isPrimary={ selected }
+                                                aria-pressed={ selected }
+                                                onClick={ () => setAttributes( { stickyContent: val.value } ) }
+                                                key={ `stickyContent_${ val.label }` }
+                                            >
+                                                { val.label }
+                                            </Button>
+                                        );
+                                    } )
+                                }
+                            </ButtonGroup>
                         </BaseControl>
+                        { stickyContent ? (
+                            <RangeControl
+                                label={ __( 'Sticky Offset', '@@text_domain' ) }
+                                value={ stickyContentOffset }
+                                onChange={ ( value ) => setAttributes( { stickyContentOffset: value } ) }
+                            />
+                        ) : '' }
                     </PanelBody>
                     <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props } />
                 </InspectorControls>

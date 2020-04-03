@@ -23,6 +23,7 @@ export default function getColClass( props ) {
     } = props;
     let result = 'ghostkit-col';
 
+    // Responsive classes.
     Object.keys( attributes ).map( ( key ) => {
         if ( attributes[ key ] ) {
             let prefix = key.split( '_' )[ 0 ];
@@ -55,6 +56,11 @@ export default function getColClass( props ) {
             }
         }
     } );
+
+    // Sticky content.
+    if ( attributes.stickyContent && typeof attributes.stickyContentOffset !== 'undefined' ) {
+        result = classnames( result, `ghostkit-col-sticky-${ attributes.stickyContent }` );
+    }
 
     result = applyFilters( 'ghostkit.editor.className', result, props );
 
