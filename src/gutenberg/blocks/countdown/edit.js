@@ -22,7 +22,6 @@ const {
     PanelBody,
     SelectControl,
     RangeControl,
-    DateTimePicker,
     Toolbar,
 } = wp.components;
 
@@ -44,6 +43,7 @@ const {
  * Internal dependencies
  */
 import ColorPicker from '../../components/color-picker';
+import DateTimePicker from '../../components/date-time-picker';
 import countDownApi from './api';
 
 const TIMEZONELESS_FORMAT = 'YYYY-MM-DDTHH:mm:ss';
@@ -184,9 +184,8 @@ class BlockEdit extends Component {
                     <PanelBody>
                         <DateTimePicker
                             label={ __( 'End Date', '@@text_domain' ) }
-                            currentDate={ date }
+                            value={ date }
                             onChange={ ( value ) => this.updateDate( value, units ) }
-                            is12Hour={ false }
                         />
                         <SelectControl
                             label={ __( 'Display Units', '@@text_domain' ) }
