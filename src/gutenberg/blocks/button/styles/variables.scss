@@ -18,19 +18,22 @@
     --gkt-button__border-width: #{0 * 1px};
     --gkt-button__border-color: transparent;
     --gkt-button__border-radius: var(--gkt-border-radius);
+    --gkt-button__outline: none;
+    --gkt-button__box-shadow: none;
 
     // Hover.
     --gkt-button-hover__color: #fff;
     --gkt-button-hover__background-color: var(--gkt-color-dark-gray);
     --gkt-button-hover__border-width: var(--gkt-button__border-width);
     --gkt-button-hover__border-color: var(--gkt-button__border-color);
+    --gkt-button-hover__box-shadow: var(--gkt-button__box-shadow);
 
     // Focus.
     --gkt-button-focus__color: var(--gkt-button-hover__color);
     --gkt-button-focus__background-color: var(--gkt-button-hover__background-color);
     --gkt-button-focus__border-width: var(--gkt-button-hover__border-width);
     --gkt-button-focus__border-color: var(--gkt-button-hover__border-color);
-    --gkt-button-focus__box-shadow: none;
+    --gkt-button-focus__box-shadow: var(--gkt-button-hover__box-shadow);
 
     // Sizes.
     --gkt-button-xs__font-size: .8em;

@@ -33,17 +33,15 @@
     background-color: var(--gkt-button__background-color);
     border: var(--gkt-button__border-width) solid var(--gkt-button__border-color);
     border-radius: var(--gkt-button__border-radius);
-    outline: none;
+    outline: var(--gkt-button__outline);
+    box-shadow: var(--gkt-button__box-shadow);
     transition: var(--gkt-button__transition-duration) background-color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) border-color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) opacity var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) box-shadow var(--gkt-button__transition-easing);
-
-    &:not(.ghostkit-button-with-outline) {
-        box-shadow: none !important; // stylelint-disable-line declaration-no-important
-    }
 
     &:hover {
         color: var(--gkt-button-hover__color);
         background-color: var(--gkt-button-hover__background-color);
         border: var(--gkt-button-hover__border-width) solid var(--gkt-button-hover__border-color);
+        box-shadow: var(--gkt-button-hover__box-shadow);
     }
     &:focus,
     &:active {
