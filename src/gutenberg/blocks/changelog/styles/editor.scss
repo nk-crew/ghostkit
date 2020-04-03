@@ -2,10 +2,11 @@
  * Editor Styles
  */
 @import "./variables";
-@import "./style";
 
-.ghostkit-changelog {
-    .ghostkit-changelog-date h2 {
-        font-size: inherit;
-    }
+.editor-styles-wrapper {
+    @import "./style";
+}
+
+.ghostkit-changelog .ghostkit-changelog-date h2 {
+    font-size: inherit;
 }

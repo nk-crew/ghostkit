@@ -90,10 +90,10 @@
         .ghostkit-col-align-self#{$infix}-start {
             --gkt-grid--column__align-self: flex-start;
         }
-        .ghostkit-col.ghostkit-col-align-self#{$infix}-center {
+        .ghostkit-col-align-self#{$infix}-center {
             --gkt-grid--column__align-self: center;
         }
-        .ghostkit-col.ghostkit-col-align-self#{$infix}-end {
+        .ghostkit-col-align-self#{$infix}-end {
             --gkt-grid--column__align-self: flex-end;
         }
     }

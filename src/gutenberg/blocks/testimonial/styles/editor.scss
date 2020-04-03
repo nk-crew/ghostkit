@@ -6,7 +6,7 @@
 
 .ghostkit-testimonial {
     // Photo.
-    .ghostkit-testimonial-photo button {
+    &-photo button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -23,7 +23,7 @@
     }
 
     // Meta.
-    .ghostkit-testimonial-source .editor-rich-text__tinymce.mce-content-body {
+    &-source .editor-rich-text__tinymce.mce-content-body {
         line-height: 1;
     }
 }

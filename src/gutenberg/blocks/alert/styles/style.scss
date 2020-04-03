@@ -12,7 +12,7 @@
     border-radius: var(--gkt-alert__border-radius);
     transition: var(--gkt-alert__transition-duration) border-color var(--gkt-alert__transition-easing);
 
-    .ghostkit-alert-icon {
+    &-icon {
         display: flex;
         padding: var(--gkt-alert--icon__padding);
         padding-right: var(--gkt-alert--icon__padding-right);
@@ -21,7 +21,7 @@
         transition: var(--gkt-alert__transition-duration) color var(--gkt-alert__transition-easing);
     }
 
-    .ghostkit-alert-content {
+    &-content {
         flex: 1;
 
         p:last-child {
@@ -29,7 +29,7 @@
         }
     }
 
-    .ghostkit-alert-hide-button {
+    &-hide-button {
         display: flex;
         padding-left: var(--gkt-alert--hide-button__padding-left);
         font-size: var(--gkt-alert--hide-button__font-size);

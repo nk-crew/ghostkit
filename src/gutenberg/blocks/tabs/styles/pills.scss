@@ -1,21 +1,18 @@
 /**
  * Pills.
  */
-.ghostkit-tabs.is-style-pills,
-.ghostkit-tabs.ghostkit-tabs-buttons-vertical.is-style-pills {
-    .ghostkit-tabs-buttons {
+.ghostkit-tabs.is-style-pills .ghostkit-tabs-buttons {
+    border: none;
+
+    &-item {
+        margin-bottom: 0;
         border: none;
+        border-radius: var(--gkt-tabs-pills--button__border-radius);
 
-        .ghostkit-tabs-buttons-item {
-            margin-bottom: 0;
-            border: none;
-            border-radius: var(--gkt-tabs-pills--button__border-radius);
-
-            // stylelint-disable-next-line selector-max-class
-            &.ghostkit-tabs-buttons-item-active {
-                color: var(--gkt-tabs-pills--button-active__color);
-                background-color: var(--gkt-tabs-pills--button-active__background-color);
-            }
+        // stylelint-disable-next-line selector-max-class
+        &-active {
+            color: var(--gkt-tabs-pills--button-active__color);
+            background-color: var(--gkt-tabs-pills--button-active__background-color);
         }
     }
 }

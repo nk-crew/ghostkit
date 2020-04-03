@@ -8,18 +8,18 @@
     flex-wrap: wrap;
 
     // Align.
-    &.ghostkit-countdown-units-align-left {
+    &-units-align-left {
         justify-content: flex-start;
     }
-    &.ghostkit-countdown-units-align-center {
+    &-units-align-center {
         justify-content: center;
     }
-    &.ghostkit-countdown-units-align-right {
+    &-units-align-right {
         justify-content: flex-end;
     }
 
     // Single unit.
-    .ghostkit-countdown-unit {
+    &-unit {
         flex: 0 0 auto;
         min-width: var(--gkt-countdown--unit__min-width);
         padding: var(--gkt-countdown--unit__padding-v) var(--gkt-countdown--unit__padding-h);
@@ -30,18 +30,21 @@
         }
     }
 
-    .ghostkit-countdown-unit-number {
+    // Unit number.
+    &-unit-number {
         font-size: var(--gkt-countdown--unit-number__font-size);
         font-weight: var(--gkt-countdown--unit-number__font-weight);
         color: var(--gkt-countdown--unit-number__color);
     }
 
-    .ghostkit-countdown-unit-label {
+    // Unit label.
+    &-unit-label {
         font-size: var(--gkt-countdown--unit-label__font-size);
         color: var(--gkt-countdown--unit-label__color);
     }
 
-    .ghostkit-countdown-expire-action {
+    // Expire action.
+    &-expire-action {
         display: none;
         width: 100%;
     }

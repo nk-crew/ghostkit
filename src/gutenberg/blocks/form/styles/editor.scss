@@ -4,30 +4,42 @@
 @import "./variables";
 @import "./style";
 
-.ghostkit-form > .block-editor-inserter {
-    display: block;
-}
+.ghostkit-form {
+    & > .block-editor-inserter {
+        display: block;
+    }
 
-.ghostkit-form-field-description {
-    margin-bottom: 0;
-}
+    &-field-description {
+        margin-bottom: 0;
+    }
 
-.ghostkit-form-field-label > .block-editor-rich-text {
-    display: inline-block;
-}
+    &-field-label > .block-editor-rich-text {
+        display: inline-block;
+    }
 
-// Disable pointer events.
-.ghostkit-form-field .components-text-control__input,
-.ghostkit-form-field .components-select-control__input,
-.ghostkit-form-field .components-textarea-control__input,
-.ghostkit-form-field .ghostkit-form-field-checkbox-item,
-.ghostkit-form-field .ghostkit-form-field-radio-item {
-    pointer-events: none;
-}
+    // Disable pointer events.
+    &-field .components-text-control__input,
+    &-field .components-select-control__input,
+    &-field .components-textarea-control__input,
+    &-field &-field-checkbox-item,
+    &-field &-field-radio-item {
+        pointer-events: none;
+    }
 
-// Fix for Select field width.
-.ghostkit-form-field .components-select-control__input {
-    max-width: none;
+    // Fix for Select field width.
+    &-field .components-select-control__input {
+        max-width: none;
+    }
+
+    // Submit button.
+    &-submit-button > .block-editor-inner-blocks > .block-editor-block-list__layout {
+        display: inline-flex;
+
+        > .wp-block {
+            margin-top: -26px;
+            margin-bottom: -26px;
+        }
+    }
 }
 
 // Options component.
@@ -70,15 +82,5 @@
             margin: 2px;
             margin-top: -10px;
         }
-    }
-}
-
-// Submit button.
-.ghostkit-form-submit-button > .block-editor-inner-blocks > .block-editor-block-list__layout {
-    display: inline-flex;
-
-    > .wp-block {
-        margin-top: -26px;
-        margin-bottom: -26px;
     }
 }

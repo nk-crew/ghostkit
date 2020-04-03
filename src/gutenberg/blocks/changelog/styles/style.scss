@@ -24,7 +24,8 @@
         z-index: -1;
     }
 
-    .ghostkit-changelog-version {
+    // Version.
+    &-version {
         min-width: var(--gkt-changelog--version-badge__min-width);
         padding: var(--gkt-changelog--version-badge__padding-v) var(--gkt-changelog--version-badge__padding-h);
         font-weight: var(--gkt-changelog--version-badge__font-weight);
@@ -34,13 +35,15 @@
         border-radius: var(--gkt-changelog--version-badge__border-radius);
     }
 
-    .ghostkit-changelog-date {
+    // Date.
+    & .ghostkit-changelog-date {
         margin: 0;
         margin-left: var(--gkt-changelog--date__margin-left);
         font-size: var(--gkt-changelog--date__font-size);
     }
 
-    .ghostkit-changelog-more {
+    // More info.
+    &-more {
         width: 100%;
         min-width: 100%;
         padding-left: calc(var(--gkt-changelog--version-badge__min-width) + var(--gkt-changelog--date__margin-left));

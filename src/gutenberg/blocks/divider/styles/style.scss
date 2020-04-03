@@ -28,24 +28,26 @@
         }
     }
 
-    &.ghostkit-divider-type-solid::before,
-    &.ghostkit-divider-type-solid::after {
+    // Types.
+    &-type-solid::before,
+    &-type-solid::after {
         border-bottom-style: solid;
     }
-    &.ghostkit-divider-type-dashed::before,
-    &.ghostkit-divider-type-dashed::after {
+    &-type-dashed::before,
+    &-type-dashed::after {
         border-bottom-style: dashed;
     }
-    &.ghostkit-divider-type-dotted::before,
-    &.ghostkit-divider-type-dotted::after {
+    &-type-dotted::before,
+    &-type-dotted::after {
         border-bottom-style: dotted;
     }
-    &.ghostkit-divider-type-double::before,
-    &.ghostkit-divider-type-double::after {
+    &-type-double::before,
+    &-type-double::after {
         border-bottom-style: double;
     }
 
-    .ghostkit-divider-icon {
+    // Icon.
+    &-icon {
         display: flex;
         padding: var(--gkt-divider--icon__padding-v) var(--gkt-divider--icon__padding-h);
         font-size: var(--gkt-divider--icon__font-size);

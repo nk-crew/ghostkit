@@ -4,12 +4,15 @@
 @import "./variables";
 
 .ghostkit-progress {
-    .ghostkit-progress-caption {
+    // Caption.
+    &-caption {
         display: block;
         margin-bottom: var(--gkt-progress--caption__margin-bottom);
         font-size: var(--gkt-progress--caption__font-size);
     }
-    .ghostkit-progress-bar-count {
+
+    // Bar count.
+    &-bar-count {
         position: relative;
 
         > div {
@@ -41,23 +44,26 @@
         }
     }
 
-    .ghostkit-progress-wrap {
+    // Wrapper.
+    &-wrap {
         height: var(--gkt-progress__height);
         overflow: hidden;
         background-color: var(--gkt-progress__background-color);
         border-radius: var(--gkt-progress__border-radius);
         transition: var(--gkt-progress__transition-duration) background-color var(--gkt-progress__transition-easing);
+    }
 
-        &.ghostkit-progress-bar-striped .ghostkit-progress-bar {
-            background-image: var(--gkt-progress--bar-striped__background-image);
-            background-size: var(--gkt-progress--bar-striped__background-size);
-        }
+    // Bar.
+    &-bar {
+        width: var(--gkt-progress--bar__width);
+        height: 100%;
+        background-color: var(--gkt-progress--bar__background-color);
+        transition: var(--gkt-progress__transition-duration) background-color var(--gkt-progress__transition-easing);
+    }
 
-        .ghostkit-progress-bar {
-            width: var(--gkt-progress--bar__width);
-            height: 100%;
-            background-color: var(--gkt-progress--bar__background-color);
-            transition: var(--gkt-progress__transition-duration) background-color var(--gkt-progress__transition-easing);
-        }
+    // Striped.
+    &-bar-striped &-bar {
+        background-image: var(--gkt-progress--bar-striped__background-image);
+        background-size: var(--gkt-progress--bar-striped__background-size);
     }
 }

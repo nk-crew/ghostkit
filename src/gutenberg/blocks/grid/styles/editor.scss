@@ -172,9 +172,9 @@
     }
 
     // fixed for some default themes styles
-    .editor-styles-wrapper & > .nk-awb-inner > img,
-    .editor-styles-wrapper & > .nk-awb-inner > div,
-    .editor-styles-wrapper & > div {
+    > .nk-awb-inner > img,
+    > .nk-awb-inner > div,
+    > div {
         width: 100%;
         height: 100%;
         object-fit: cover;

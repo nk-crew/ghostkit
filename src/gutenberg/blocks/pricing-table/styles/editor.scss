@@ -28,187 +28,200 @@
             }
         }
     }
-}
 
-// Item.
-.ghostkit-pricing-table-item {
-    position: relative;
-    padding: var(--gkt-pricing-table--item__padding-v) var(--gkt-pricing-table--item__padding-h);
-    border: var(--gkt-pricing-table--item__border-width) solid var(--gkt-pricing-table--item__border-color);
-    border-radius: var(--gkt-pricing-table--item__border-radius);
-
-    .ghostkit-pricing-table-item-popular-badge {
-        position: absolute;
-        top: var(--gkt-pricing-table--popular-badge__top);
-        right: calc(-1 * var(--gkt-pricing-table--item__border-width));
-        padding: var(--gkt-pricing-table--popular-badge__padding-v) var(--gkt-pricing-table--popular-badge__padding-h);
-        margin-top: 0;
-        font-size: var(--gkt-pricing-table--popular-badge__font-size);
-        color: var(--gkt-pricing-table--popular-badge__color);
-        background-color: var(--gkt-pricing-table--popular-badge__background-color);
-    }
-
-    .ghostkit-pricing-table-item-title {
-        font-size: var(--gkt-pricing-table--title__font-size);
-    }
-
-    .ghostkit-pricing-table-item-price {
+    // Item.
+    &-item {
         position: relative;
-        display: flex;
-        justify-content: center;
-    }
-    .ghostkit-pricing-table-item-price-amount {
-        font-size: var(--gkt-pricing-table--price-amount__font-size);
-        line-height: var(--gkt-pricing-table--price-amount__line-height);
+        padding: var(--gkt-pricing-table--item__padding-v) var(--gkt-pricing-table--item__padding-h);
+        border: var(--gkt-pricing-table--item__border-width) solid var(--gkt-pricing-table--item__border-color);
+        border-radius: var(--gkt-pricing-table--item__border-radius);
 
-        .editor-rich-text__tinymce.mce-content-body {
-            line-height: 1;
-        }
-    }
-    .ghostkit-pricing-table-item-price-currency {
-        align-self: flex-start;
-    }
-    .ghostkit-pricing-table-item-price-repeat {
-        align-self: flex-end;
-    }
-
-    .wp-block & .ghostkit-pricing-table-item-features {
-        position: relative;
-        margin: 0;
-        font-size: var(--gkt-pricing-table--features__font-size);
-        list-style: none;
-
-        &[data-is-placeholder-visible="true"] {
+        // Popular Badge.
+        &-popular-badge {
             position: absolute;
+            top: var(--gkt-pricing-table--popular-badge__top);
+            right: calc(-1 * var(--gkt-pricing-table--item__border-width));
+            padding: var(--gkt-pricing-table--popular-badge__padding-v) var(--gkt-pricing-table--popular-badge__padding-h);
+            font-size: var(--gkt-pricing-table--popular-badge__font-size);
+            color: var(--gkt-pricing-table--popular-badge__color);
+            background-color: var(--gkt-pricing-table--popular-badge__background-color);
+        }
+        .editor-styles-wrapper & &-popular-badge {
+            margin-top: 0;
         }
 
-        li {
-            margin-left: 0;
+        // Title.
+        .editor-styles-wrapper & &-title {
+            margin: 0;
+            font-size: var(--gkt-pricing-table--title__font-size);
+        }
+
+        // Price.
+        &-price {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        &-price-amount {
+            font-size: var(--gkt-pricing-table--price-amount__font-size);
+            line-height: var(--gkt-pricing-table--price-amount__line-height);
+
+            .editor-rich-text__tinymce.mce-content-body {
+                line-height: 1;
+            }
+        }
+        &-price-currency {
+            align-self: flex-start;
+        }
+        &-price-repeat {
+            align-self: flex-end;
+        }
+
+        // Features.
+        .editor-styles-wrapper &-features {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            font-size: var(--gkt-pricing-table--features__font-size);
             list-style: none;
+
+            &[data-is-placeholder-visible="true"] {
+                position: absolute;
+            }
+
+            li {
+                margin-left: 0;
+                list-style: none;
+            }
+
+            li + li {
+                margin-top: var(--gkt-pricing-table--features-items__gap);
+            }
         }
 
-        li + li {
-            margin-top: var(--gkt-pricing-table--features-items__gap);
+        .ghostkit-button-wrapper {
+            margin-bottom: 0;
+        }
+
+        // Elements gap.
+        .editor-styles-wrapper & > * {
+            margin-top: var(--gkt-pricing-table--elements__gap);
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+
+        // placeholders.
+        .editor-rich-text__tinymce + .editor-rich-text__tinymce,
+        .editor-rich-text__tinymce + .editor-rich-text__tinymce p {
+            color: rgba(14, 28, 46, .4);
         }
     }
 
-    .ghostkit-button-wrapper {
-        margin-bottom: 0;
+    // Count.
+    [data-type="ghostkit/pricing-table-item"].wp-block {
+        flex: 0 0 calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
+        max-width: calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
+        margin: 0;
     }
-
-    > * + * {
-        margin-top: var(--gkt-pricing-table--elements__gap);
-    }
-
-    // placeholders.
-    .editor-rich-text__tinymce + .editor-rich-text__tinymce,
-    .editor-rich-text__tinymce + .editor-rich-text__tinymce p {
-        color: rgba(14, 28, 46, .4);
-    }
-}
-
-// Count.
-.editor-styles-wrapper [data-type="ghostkit/pricing-table-item"].wp-block {
-    flex: 0 0 calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
-    max-width: calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
-    margin: 0;
-}
-.ghostkit-pricing-table-items-1 {
-    --gkt-pricing-table__columns: 1;
-}
-.ghostkit-pricing-table-items-2 {
-    --gkt-pricing-table__columns: 2;
-
-    @media screen and (max-width: #{$media-sm}) {
+    &-items-1 {
         --gkt-pricing-table__columns: 1;
     }
-}
-.ghostkit-pricing-table-items-3 {
-    --gkt-pricing-table__columns: 3;
-
-    @media screen and (max-width: #{$media-sm}) {
-        --gkt-pricing-table__columns: 1;
-    }
-}
-.ghostkit-pricing-table-items-4 {
-    --gkt-pricing-table__columns: 4;
-
-    @media screen and (max-width: #{$media-sm}) {
+    &-items-2 {
         --gkt-pricing-table__columns: 2;
-    }
 
-    @media screen and (max-width: #{$media-xs}) {
-        --gkt-pricing-table__columns: 1;
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 1;
+        }
     }
-}
-.ghostkit-pricing-table-items-5 {
-    --gkt-pricing-table__columns: 5;
-
-    @media screen and (max-width: #{$media-sm}) {
-        --gkt-pricing-table__columns: 2;
-    }
-
-    @media screen and (max-width: #{$media-xs}) {
-        --gkt-pricing-table__columns: 1;
-    }
-}
-.ghostkit-pricing-table-items-6 {
-    --gkt-pricing-table__columns: 6;
-
-    @media screen and (max-width: #{$media-md}) {
+    &-items-3 {
         --gkt-pricing-table__columns: 3;
+
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 1;
+        }
+    }
+    &-items-4 {
+        --gkt-pricing-table__columns: 4;
+
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 2;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            --gkt-pricing-table__columns: 1;
+        }
+    }
+    &-items-5 {
+        --gkt-pricing-table__columns: 5;
+
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 2;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            --gkt-pricing-table__columns: 1;
+        }
+    }
+    &-items-6 {
+        --gkt-pricing-table__columns: 6;
+
+        @media screen and (max-width: #{$media-md}) {
+            --gkt-pricing-table__columns: 3;
+        }
+
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 2;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            --gkt-pricing-table__columns: 1;
+        }
     }
 
-    @media screen and (max-width: #{$media-sm}) {
-        --gkt-pricing-table__columns: 2;
+    // Gaps.
+    @each $name, $size in $grid-gaps {
+        &-gap-#{$name} {
+            --gkt-pricing-table__gap: #{$size};
+        }
     }
 
-    @media screen and (max-width: #{$media-xs}) {
-        --gkt-pricing-table__columns: 1;
+    // Horizontal align.
+    &-align-horizontal-left {
+        text-align: left;
+
+        .ghostkit-pricing-table-item-price {
+            justify-content: flex-start;
+        }
     }
-}
+    &-align-horizontal-center {
+        text-align: center;
 
-// Gaps.
-@each $name, $size in $grid-gaps {
-    .ghostkit-pricing-table-gap-#{$name} {
-        --gkt-pricing-table__gap: #{$size};
+        .ghostkit-pricing-table-item-price {
+            justify-content: center;
+        }
     }
-}
+    &-align-horizontal-right {
+        text-align: right;
 
-// Horizontal align.
-.ghostkit-pricing-table-align-horizontal-left {
-    text-align: left;
-
-    .ghostkit-pricing-table-item-price {
-        justify-content: flex-start;
+        .ghostkit-pricing-table-item-price {
+            justify-content: flex-end;
+        }
     }
-}
-.ghostkit-pricing-table-align-horizontal-center {
-    text-align: center;
 
-    .ghostkit-pricing-table-item-price {
-        justify-content: center;
+    // Vertical align.
+    &-align-vertical-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
+        align-items: center;
     }
-}
-.ghostkit-pricing-table-align-horizontal-right {
-    text-align: right;
-
-    .ghostkit-pricing-table-item-price {
-        justify-content: flex-end;
+    &-align-vertical-end > .block-editor-inner-blocks > .block-editor-block-list__layout {
+        align-items: flex-end;
     }
-}
 
-// Vertical align.
-.ghostkit-pricing-table-align-vertical-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
-    align-items: center;
-}
-.ghostkit-pricing-table-align-vertical-end > .block-editor-inner-blocks > .block-editor-block-list__layout {
-    align-items: flex-end;
-}
-
-.ghostkit-pricing-table-add-item {
-    position: relative;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    text-align: center;
+    &-add-item {
+        position: relative;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: center;
+    }
 }

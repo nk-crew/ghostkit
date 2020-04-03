@@ -3,11 +3,9 @@
  */
 @import "./variables";
 
-
-// Slider
 .ghostkit-carousel {
-    // arrows
-    .ghostkit-carousel-arrow {
+    // Arrows.
+    &-arrow {
         position: absolute;
         display: flex;
         align-items: center;
@@ -45,29 +43,27 @@
             transform: var(--gkt-carousel--arrows-hover__transform);
         }
     }
-    .ghostkit-carousel-arrow-prev {
+    &-arrow-prev {
         left: var(--gkt-carousel--arrows__offset);
     }
-    .ghostkit-carousel-arrow-next {
+    &-arrow-next {
         right: var(--gkt-carousel--arrows__offset);
     }
 
-    // arrow icons
-    .ghostkit-carousel-arrow-prev-icon,
-    .ghostkit-carousel-arrow-next-icon {
+    // Arrow icons.
+    &-arrow-prev-icon,
+    &-arrow-next-icon {
         display: none;
     }
 
-    // bullets
-    &[data-show-bullets="true"] {
-        .ghostkit-carousel-items {
-            padding-bottom: var(--gkt-carousel--bullets__margin-top);
-        }
-        .ghostkit-carousel-arrow {
-            transform: translateY(calc(var(--gkt-carousel--bullets__margin-top) / -2));
-        }
+    // Bullets.
+    [data-show-bullets="true"] &-items {
+        padding-bottom: var(--gkt-carousel--bullets__margin-top);
     }
-    .ghostkit-carousel-bullets {
+    [data-show-bullets="true"] &-arrow {
+        transform: translateY(calc(var(--gkt-carousel--bullets__margin-top) / -2));
+    }
+    &-bullets {
         position: absolute;
         display: flex;
         align-items: flex-end;

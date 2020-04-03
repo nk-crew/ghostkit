@@ -2,7 +2,10 @@
  * Editor Styles
  */
 @import "./variables";
-@import "./style";
+
+.editor-styles-wrapper {
+    @import "./style";
+}
 
 // loading spinner.
 .ghostkit-twitter-spinner {

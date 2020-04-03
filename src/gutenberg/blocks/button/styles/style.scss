@@ -8,19 +8,11 @@
     flex-wrap: wrap;
     align-items: var(--gkt-button__align-items);
     justify-content: var(--gkt-button__justify-content);
+    margin-top: calc(-1 * var(--gkt-button__gap));
+    margin-left: calc(-1 * var(--gkt-button__gap));
 
     // why we need this https://wordpress.org/support/topic/buttons-alignment-issues/
     clear: both;
-
-    .ghostkit-button-wrapper > & {
-        margin-top: calc(-1 * var(--gkt-button__gap));
-        margin-left: calc(-1 * var(--gkt-button__gap));
-
-        > .ghostkit-button {
-            margin-top: var(--gkt-button__gap);
-            margin-left: var(--gkt-button__gap);
-        }
-    }
 }
 
 .ghostkit-button {
@@ -29,6 +21,8 @@
     justify-content: center;
     padding: var(--gkt-button__padding-v) var(--gkt-button__padding-h);
     margin: 0;
+    margin-top: var(--gkt-button__gap);
+    margin-left: var(--gkt-button__gap);
     font-size: var(--gkt-button__font-size);
     line-height: var(--gkt-button__line-height);
     color: var(--gkt-button__color);
@@ -59,14 +53,15 @@
         box-shadow: var(--gkt-button-focus__box-shadow);
     }
 
-    .ghostkit-button-icon-left {
+    // Icon.
+    &-icon-left {
         margin-right: var(--gkt-button--icon__offset);
     }
-    .ghostkit-button-icon-right {
+    &-icon-right {
         order: 2;
         margin-left: var(--gkt-button--icon__offset);
     }
-    &.ghostkit-button-icon-only {
+    &-icon-only {
         padding: var(--gkt-button-icon-only__padding-v) var(--gkt-button-icon-only__padding-h);
 
         .ghostkit-button-icon {
@@ -74,34 +69,35 @@
         }
     }
 
-    &.ghostkit-button-xs {
+    // Sizes.
+    &-xs {
         font-size: var(--gkt-button-xs__font-size);
     }
-    &.ghostkit-button-sm {
+    &-sm {
         font-size: var(--gkt-button-sm__font-size);
     }
-    &.ghostkit-button-lg {
+    &-lg {
         font-size: var(--gkt-button-lg__font-size);
     }
-    &.ghostkit-button-xl {
+    &-xl {
         font-size: var(--gkt-button-xl__font-size);
     }
-}
 
-// Align.
-.ghostkit-button-wrapper-align-left {
-    --gkt-button__justify-content: flex-start;
-}
-.ghostkit-button-wrapper-align-right {
-    --gkt-button__justify-content: flex-end;
-}
-.ghostkit-button-wrapper-align-center {
-    --gkt-button__justify-content: center;
-}
+    // Align.
+    &-wrapper-align-left {
+        --gkt-button__justify-content: flex-start;
+    }
+    &-wrapper-align-right {
+        --gkt-button__justify-content: flex-end;
+    }
+    &-wrapper-align-center {
+        --gkt-button__justify-content: center;
+    }
 
-// Gaps.
-@each $name, $size in $grid-gaps {
-    .ghostkit-button-wrapper-gap-#{$name} {
-        --gkt-button__gap: #{$size};
+    // Gaps.
+    @each $name, $size in $grid-gaps {
+        &-wrapper-gap-#{$name} {
+            --gkt-button__gap: #{$size};
+        }
     }
 }

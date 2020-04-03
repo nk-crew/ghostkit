@@ -15,13 +15,13 @@
     }
 
     // Rotate
-    &.ghostkit-shape-divider-flip-vertical svg {
+    &-flip-vertical svg {
         transform: translateX(-50%) scaleY(-1);
     }
-    &.ghostkit-shape-divider-flip-horizontal svg {
+    &-flip-horizontal svg {
         transform: translateX(-50%) scaleX(-1);
     }
-    &.ghostkit-shape-divider-flip-vertical.ghostkit-shape-divider-flip-horizontal svg {
+    &-flip-vertical.ghostkit-shape-divider-flip-horizontal svg {
         transform: translateX(-50%) scaleY(-1) scaleX(-1);
     }
 }

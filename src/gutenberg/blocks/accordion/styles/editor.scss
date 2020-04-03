@@ -3,19 +3,12 @@
  */
 @import "./variables";
 
-.ghostkit-accordion {
-    .ghostkit-accordion-item {
-        display: block;
-        margin-bottom: 20px;
-    }
+.ghostkit-accordion-item {
+    display: block;
+    margin-bottom: 20px;
 
-    .edit-post-visual-editor,
-    .edit-post-visual-editor p,
-    .editor-rich-text__tinymce.mce-content-body {
-        line-height: inherit;
-    }
-
-    .ghostkit-accordion-item-heading {
+    // Heading.
+    &-heading {
         position: relative;
         display: block;
         padding: var(--gkt-accordion--heading__padding-v) var(--gkt-accordion--heading__padding-h);
@@ -24,7 +17,8 @@
         font-weight: var(--gkt-accordion--heading__font-weight);
     }
 
-    .ghostkit-accordion-item-collapse {
+    // Collapse.
+    &-collapse {
         position: absolute;
         top: 0;
         right: 0;
@@ -39,21 +33,27 @@
         will-change: trasnform;
     }
 
-    .ghostkit-accordion-item-content {
+    // Content.
+    &-content {
         display: none;
     }
 
-    .ghostkit-accordion-item-active {
-        .ghostkit-accordion-item-heading {
-            opacity: 1;
-        }
-        .ghostkit-accordion-item-collapse {
-            transform: var(--gkt-accordion--heading-collapse-icon-active__transform);
-        }
-        .ghostkit-accordion-item-content {
-            display: block;
-        }
+    // Active.
+    &-active &-heading {
+        opacity: 1;
     }
+    &-active &-collapse {
+        transform: var(--gkt-accordion--heading-collapse-icon-active__transform);
+    }
+    &-active &-content {
+        display: block;
+    }
+}
+
+.edit-post-visual-editor,
+.edit-post-visual-editor p,
+.editor-rich-text__tinymce.mce-content-body {
+    line-height: inherit;
 }
 
 .ghostkit-accordion-add-item {

@@ -3,185 +3,193 @@
  */
 @import "./variables";
 
-.ghostkit-pricing-table-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: var(--gkt-pricing-table__align-items);
-    margin-top: calc(-1 * var(--gkt-pricing-table__gap));
-    margin-left: calc(-1 * var(--gkt-pricing-table__gap));
-    text-align: center;
-
-    > .ghostkit-pricing-table-item-wrap {
+.ghostkit-pricing-table {
+    &-inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: var(--gkt-pricing-table__align-items);
+        margin-top: calc(-1 * var(--gkt-pricing-table__gap));
+        margin-left: calc(-1 * var(--gkt-pricing-table__gap));
+        text-align: center;
+    }
+    &-item-wrap {
+        flex: 0 0 calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
+        max-width: calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
         margin-top: var(--gkt-pricing-table__gap);
         margin-left: var(--gkt-pricing-table__gap);
     }
-}
 
-// Item.
-.ghostkit-pricing-table-item {
-    position: relative;
-    padding: var(--gkt-pricing-table--item__padding-v) var(--gkt-pricing-table--item__padding-h);
-    border: var(--gkt-pricing-table--item__border-width) solid var(--gkt-pricing-table--item__border-color);
-    border-radius: var(--gkt-pricing-table--item__border-radius);
-
-    .ghostkit-pricing-table-item-popular-badge {
-        position: absolute;
-        top: var(--gkt-pricing-table--popular-badge__top);
-        right: calc(-1 * var(--gkt-pricing-table--item__border-width));
-        padding: var(--gkt-pricing-table--popular-badge__padding-v) var(--gkt-pricing-table--popular-badge__padding-h);
-        margin-top: 0;
-        font-size: var(--gkt-pricing-table--popular-badge__font-size);
-        color: var(--gkt-pricing-table--popular-badge__color);
-        background-color: var(--gkt-pricing-table--popular-badge__background-color);
-    }
-
-    .ghostkit-pricing-table-item-title {
-        margin: 0;
-        font-size: var(--gkt-pricing-table--title__font-size);
-    }
-
-    .ghostkit-pricing-table-item-price {
+    // Item.
+    &-item {
         position: relative;
-        display: flex;
-        justify-content: center;
-    }
-    .ghostkit-pricing-table-item-price-amount {
-        font-size: var(--gkt-pricing-table--price-amount__font-size);
-        line-height: var(--gkt-pricing-table--price-amount__line-height);
-    }
-    .ghostkit-pricing-table-item-price-currency {
-        align-self: flex-start;
-    }
-    .ghostkit-pricing-table-item-price-repeat {
-        align-self: flex-end;
-        font-size: var(--gkt-pricing-table--price-repeat__font-size);
-        opacity: var(--gkt-pricing-table--price-repeat__opacity);
-    }
+        padding: var(--gkt-pricing-table--item__padding-v) var(--gkt-pricing-table--item__padding-h);
+        border: var(--gkt-pricing-table--item__border-width) solid var(--gkt-pricing-table--item__border-color);
+        border-radius: var(--gkt-pricing-table--item__border-radius);
 
-    .ghostkit-pricing-table-item-features {
-        position: relative;
-        padding: 0;
-        margin: 0;
-        font-size: var(--gkt-pricing-table--features__font-size);
-        list-style: none;
+        // Popular Badge.
+        &-popular-badge {
+            position: absolute;
+            top: var(--gkt-pricing-table--popular-badge__top);
+            right: calc(-1 * var(--gkt-pricing-table--item__border-width));
+            padding: var(--gkt-pricing-table--popular-badge__padding-v) var(--gkt-pricing-table--popular-badge__padding-h);
+            margin-top: 0;
+            font-size: var(--gkt-pricing-table--popular-badge__font-size);
+            color: var(--gkt-pricing-table--popular-badge__color);
+            background-color: var(--gkt-pricing-table--popular-badge__background-color);
+        }
 
-        li {
-            margin-left: 0;
+        // Title.
+        &-title {
+            margin: 0;
+            font-size: var(--gkt-pricing-table--title__font-size);
+        }
+
+        // Price.
+        &-price {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        &-price-amount {
+            font-size: var(--gkt-pricing-table--price-amount__font-size);
+            line-height: var(--gkt-pricing-table--price-amount__line-height);
+        }
+        &-price-currency {
+            align-self: flex-start;
+        }
+        &-price-repeat {
+            align-self: flex-end;
+            font-size: var(--gkt-pricing-table--price-repeat__font-size);
+            opacity: var(--gkt-pricing-table--price-repeat__opacity);
+        }
+
+        // Features.
+        &-features {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            font-size: var(--gkt-pricing-table--features__font-size);
             list-style: none;
+
+            li {
+                margin-left: 0;
+                list-style: none;
+            }
+
+            li + li {
+                margin-top: var(--gkt-pricing-table--features-items__gap);
+            }
         }
 
-        li + li {
-            margin-top: var(--gkt-pricing-table--features-items__gap);
+        // Submit.
+        .ghostkit-button-wrapper {
+            margin-bottom: 0;
+        }
+
+        // Elements gap.
+        & > * {
+            margin-top: var(--gkt-pricing-table--elements__gap);
+
+            &:first-child {
+                margin-top: 0;
+            }
         }
     }
 
-    .ghostkit-button-wrapper {
-        margin-bottom: 0;
-    }
-
-    > * + .ghostkit-pricing-table-item-features,
-    > * + * {
-        margin-top: var(--gkt-pricing-table--elements__gap);
-    }
-}
-
-// Count.
-.ghostkit-pricing-table-item-wrap {
-    flex: 0 0 calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
-    max-width: calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
-}
-.ghostkit-pricing-table-items-1 {
-    --gkt-pricing-table__columns: 1;
-}
-.ghostkit-pricing-table-items-2 {
-    --gkt-pricing-table__columns: 2;
-
-    @media screen and (max-width: #{$media-sm}) {
+    // Count.
+    &-items-1 {
         --gkt-pricing-table__columns: 1;
     }
-}
-.ghostkit-pricing-table-items-3 {
-    --gkt-pricing-table__columns: 3;
-
-    @media screen and (max-width: #{$media-sm}) {
-        --gkt-pricing-table__columns: 1;
-    }
-}
-.ghostkit-pricing-table-items-4 {
-    --gkt-pricing-table__columns: 4;
-
-    @media screen and (max-width: #{$media-sm}) {
+    &-items-2 {
         --gkt-pricing-table__columns: 2;
-    }
 
-    @media screen and (max-width: #{$media-xs}) {
-        --gkt-pricing-table__columns: 1;
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 1;
+        }
     }
-}
-.ghostkit-pricing-table-items-5 {
-    --gkt-pricing-table__columns: 5;
-
-    @media screen and (max-width: #{$media-sm}) {
-        --gkt-pricing-table__columns: 2;
-    }
-
-    @media screen and (max-width: #{$media-xs}) {
-        --gkt-pricing-table__columns: 1;
-    }
-}
-.ghostkit-pricing-table-items-6 {
-    --gkt-pricing-table__columns: 6;
-
-    @media screen and (max-width: #{$media-md}) {
+    &-items-3 {
         --gkt-pricing-table__columns: 3;
+
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 1;
+        }
+    }
+    &-items-4 {
+        --gkt-pricing-table__columns: 4;
+
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 2;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            --gkt-pricing-table__columns: 1;
+        }
+    }
+    &-items-5 {
+        --gkt-pricing-table__columns: 5;
+
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 2;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            --gkt-pricing-table__columns: 1;
+        }
+    }
+    &-items-6 {
+        --gkt-pricing-table__columns: 6;
+
+        @media screen and (max-width: #{$media-md}) {
+            --gkt-pricing-table__columns: 3;
+        }
+
+        @media screen and (max-width: #{$media-sm}) {
+            --gkt-pricing-table__columns: 2;
+        }
+
+        @media screen and (max-width: #{$media-xs}) {
+            --gkt-pricing-table__columns: 1;
+        }
     }
 
-    @media screen and (max-width: #{$media-sm}) {
-        --gkt-pricing-table__columns: 2;
+    // Horizontal align.
+    &-align-horizontal-left {
+        text-align: left;
+
+        .ghostkit-pricing-table-item-price {
+            justify-content: flex-start;
+        }
+    }
+    &-align-horizontal-center {
+        text-align: center;
+
+        .ghostkit-pricing-table-item-price {
+            justify-content: center;
+        }
+    }
+    &-align-horizontal-right {
+        text-align: right;
+
+        .ghostkit-pricing-table-item-price {
+            justify-content: flex-end;
+        }
     }
 
-    @media screen and (max-width: #{$media-xs}) {
-        --gkt-pricing-table__columns: 1;
+    // Vertical align.
+    &-align-vertical-start {
+        --gkt-pricing-table__align-items: flex-start;
     }
-}
-
-// Horizontal align.
-.ghostkit-pricing-table-align-horizontal-left {
-    text-align: left;
-
-    .ghostkit-pricing-table-item-price {
-        justify-content: flex-start;
+    &-align-vertical-center {
+        --gkt-pricing-table__align-items: center;
     }
-}
-.ghostkit-pricing-table-align-horizontal-center {
-    text-align: center;
-
-    .ghostkit-pricing-table-item-price {
-        justify-content: center;
+    &-align-vertical-end {
+        --gkt-pricing-table__align-items: flex-end;
     }
-}
-.ghostkit-pricing-table-align-horizontal-right {
-    text-align: right;
 
-    .ghostkit-pricing-table-item-price {
-        justify-content: flex-end;
-    }
-}
-
-// Vertical align.
-.ghostkit-pricing-table-align-vertical-start {
-    --gkt-pricing-table__align-items: flex-start;
-}
-.ghostkit-pricing-table-align-vertical-center {
-    --gkt-pricing-table__align-items: center;
-}
-.ghostkit-pricing-table-align-vertical-end {
-    --gkt-pricing-table__align-items: flex-end;
-}
-
-// Gaps.
-@each $name, $size in $grid-gaps {
-    .ghostkit-pricing-table-gap-#{$name} {
-        --gkt-pricing-table__gap: #{$size};
+    // Gaps.
+    @each $name, $size in $grid-gaps {
+        &-gap-#{$name} {
+            --gkt-pricing-table__gap: #{$size};
+        }
     }
 }

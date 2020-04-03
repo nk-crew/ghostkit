@@ -3,8 +3,9 @@
  */
 @import "./variables";
 
-.ghostkit-accordion {
-    .ghostkit-accordion-item-heading {
+.ghostkit-accordion-item {
+    // Heading.
+    &-heading {
         position: relative;
         display: block;
         padding: var(--gkt-accordion--heading__padding-v) var(--gkt-accordion--heading__padding-h);
@@ -17,7 +18,8 @@
         box-shadow: none;
     }
 
-    .ghostkit-accordion-item-collapse {
+    // Collapse.
+    &-collapse {
         position: absolute;
         display: flex;
         align-items: center;
@@ -35,17 +37,17 @@
         will-change: trasnform;
     }
 
-    .ghostkit-accordion-item-content {
+    // Content.
+    &-content {
         display: none;
         padding: var(--gkt-accordion--content__padding-v) var(--gkt-accordion--content__padding-h);
     }
 
-    .ghostkit-accordion-item-active {
-        .ghostkit-accordion-item-collapse {
-            transform: var(--gkt-accordion--heading-collapse-icon-active__transform);
-        }
-        .ghostkit-accordion-item-content {
-            display: block;
-        }
+    // Collapsed.
+    &-active &-collapse {
+        transform: var(--gkt-accordion--heading-collapse-icon-active__transform);
+    }
+    &-active &-content {
+        display: block;
     }
 }
