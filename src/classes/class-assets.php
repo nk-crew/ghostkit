@@ -34,7 +34,7 @@ class GhostKit_Assets {
 
         add_action( 'ghostkit_parse_blocks', array( $this, 'maybe_enqueue_blocks_assets' ), 11, 2 );
 
-        add_action( 'wp_enqueue_scripts', array( $this, 'add_blocks_assets' ), 100 );
+        add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_assets' ), 100 );
     }
 
     /**
@@ -148,10 +148,15 @@ class GhostKit_Assets {
      * 1. Enqueue plugins assets
      * 2. Enqueue Ghost Kit assets
      * 3. Enqueue theme assets
+     * 4. Enqueue Ghost Kit custom css
      */
     public function enqueue_scripts_action() {
         add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_head_assets' ) );
         add_action( 'wp_footer', array( $this, 'wp_enqueue_foot_assets' ) );
+
+        // Custom css with higher priority to overwrite theme styles.
+        add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_head_custom_assets' ), 11 );
+        add_action( 'wp_footer', array( $this, 'wp_enqueue_foot_custom_assets' ), 11 );
     }
 
     /**
@@ -450,8 +455,14 @@ class GhostKit_Assets {
      */
     public function wp_enqueue_head_assets() {
         self::enqueue_stored_assets( 'style' );
-        self::enqueue_stored_assets( 'custom-css' );
         self::enqueue_stored_assets( 'script' );
+    }
+
+    /**
+     * Enqueue custom styles in head.
+     */
+    public function wp_enqueue_head_custom_assets() {
+        self::enqueue_stored_assets( 'custom-css' );
     }
 
     /**
@@ -459,8 +470,14 @@ class GhostKit_Assets {
      */
     public function wp_enqueue_foot_assets() {
         self::enqueue_stored_assets( 'style' );
-        self::enqueue_stored_assets( 'custom-css' );
         self::enqueue_stored_assets( 'script' );
+    }
+
+    /**
+     * Enqueue custom styles in foot.
+     */
+    public function wp_enqueue_foot_custom_assets() {
+        self::enqueue_stored_assets( 'custom-css' );
     }
 
     /**
@@ -497,7 +514,7 @@ class GhostKit_Assets {
      *
      * @param int $post_id - current post id.
      */
-    public function add_blocks_assets( $post_id ) {
+    public function add_custom_assets( $post_id ) {
         $global_code = get_option( 'ghostkit_custom_code', array() );
 
         if ( is_singular() && ! $post_id ) {

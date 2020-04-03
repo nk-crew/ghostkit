@@ -36,6 +36,7 @@ const {
 import './fallback-2-5';
 import getStyles from './get-styles';
 import { replaceClass } from '../../utils/classes-replacer';
+import EditorStyles from '../../components/editor-styles';
 
 const { GHOSTKIT } = window;
 
@@ -254,10 +255,10 @@ class CustomStylesComponent extends Component {
             return '';
         }
 
+        const customStylesRender = [ { css: window.GHOSTKIT.replaceVars( styles ) } ];
+
         return (
-            <style>
-                { window.GHOSTKIT.replaceVars( styles ) }
-            </style>
+            <EditorStyles styles={ customStylesRender } />
         );
     }
 }
