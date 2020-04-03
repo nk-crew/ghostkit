@@ -171,17 +171,21 @@ class GhostKit_Block_Custom_Styles {
                     ) ||
                     (
                         is_string( $prop_value ) &&
+                        $prop_value &&
                         preg_match( '/^[0-9.\-]*$/', $prop_value )
                     )
                 ) {
                     $prop_value .= 'px';
                 }
 
-                if ( $there_id_important ) {
-                    $prop_value .= ' !important';
-                }
+                // add custom css.
+                if ( ! empty( $prop_value ) && '' !== $prop_value ) {
+                    if ( $there_id_important ) {
+                        $prop_value .= ' !important';
+                    }
 
-                $result[ $selector ] .= ' ' . $prop_name . ': ' . $prop_value . ';';
+                    $result[ $selector ] .= ' ' . $prop_name . ': ' . $prop_value . ';';
+                }
             }
         }
 

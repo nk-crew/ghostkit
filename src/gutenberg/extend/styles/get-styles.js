@@ -89,16 +89,19 @@ export default function getStyles( data = {}, selector = '', escape = true ) {
             // add pixels.
             if (
                 ( typeof propValue === 'number' && propValue !== 0 && cssPropsWithPixels.includes( propName ) ) ||
-                ( typeof propValue === 'string' && /^[0-9.\-]*$/.test( propValue ) )
+                ( typeof propValue === 'string' && propValue && /^[0-9.\-]*$/.test( propValue ) )
             ) {
                 propValue += 'px';
             }
 
-            if ( thereIsImportant ) {
-                propValue += ' !important';
-            }
+            // add custom css.
+            if ( typeof propValue !== 'undefined' && propValue !== '' ) {
+                if ( thereIsImportant ) {
+                    propValue += ' !important';
+                }
 
-            result[ selector ] += ` ${ propName }: ${ propValue };`;
+                result[ selector ] += ` ${ propName }: ${ propValue };`;
+            }
         }
     } );
 
