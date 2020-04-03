@@ -89,20 +89,22 @@ class GhostKit_Assets {
                     return 0;
                 }
 
-                return $a['priority'] < $b['priority'] ? -1 : 1;
+                if ( isset( $a['priority'] ) && isset( $b['priority'] ) ) {
+                    return $a['priority'] < $b['priority'] ? -1 : 1;
+                }
+
+                return 0;
             }
         );
 
         foreach ( self::$stored_assets[ $type ] as $name => $data ) {
-            $val = $data['value'];
-
-            if ( $val ) {
+            if ( isset( $data['value'] ) && $data['value'] ) {
                 if ( 'script' === $type ) {
                     wp_enqueue_script( $name );
                 } elseif ( 'style' === $type ) {
                     wp_enqueue_style( $name );
                 } elseif ( 'custom-css' === $type ) {
-                    self::add_custom_css( $name, $val );
+                    self::add_custom_css( $name, $data['value'] );
                 }
 
                 self::$stored_assets[ $type ]['value'] = false;
