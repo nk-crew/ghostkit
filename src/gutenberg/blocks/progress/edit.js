@@ -77,7 +77,6 @@ class BlockEdit extends Component {
                             value={ height || '' }
                             onChange={ ( value ) => setAttributes( { height: value } ) }
                             min={ 1 }
-                            max={ 30 }
                         />
                         <RangeControl
                             label={ __( 'Percent', '@@text_domain' ) }
@@ -197,8 +196,7 @@ class BlockEdit extends Component {
                         } }
                         minWidth="0%"
                         maxWidth="100%"
-                        minHeight="5"
-                        maxHeight="30"
+                        minHeight="1"
                         enable={ { bottom: true } }
                         onResizeStart={ () => {
                             toggleSelection( false );

@@ -27,16 +27,14 @@
             "default": "top"
         },
         "numberSize": {
-            "type": "number",
-            "default": 50
+            "type": "number"
         },
         "showContent": {
             "type": "boolean",
             "default": true
         },
         "numberColor": {
-            "type": "string",
-            "default": "#0366d6"
+            "type": "string"
         },
         "hoverNumberColor": {
             "type": "string"

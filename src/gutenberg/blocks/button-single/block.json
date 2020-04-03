@@ -54,25 +54,20 @@
             "default": "md"
         },
         "color": {
-            "type": "string",
-            "default": "#0366d6"
+            "type": "string"
         },
         "textColor": {
-            "type": "string",
-            "default": "#ffffff"
+            "type": "string"
         },
 
         "borderRadius": {
-            "type": "number",
-            "default": 2
+            "type": "number"
         },
         "borderWeight": {
-            "type": "number",
-            "default": 0
+            "type": "number"
         },
         "borderColor": {
-            "type": "string",
-            "default": "#00669b"
+            "type": "string"
         },
 
         "focusOutlineWeight": {

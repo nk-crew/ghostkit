@@ -17,16 +17,14 @@
             "default": "left"
         },
         "iconSize": {
-            "type": "number",
-            "default": 30
+            "type": "number"
         },
         "showContent": {
             "type": "boolean",
             "default": true
         },
         "iconColor": {
-            "type": "string",
-            "default": "#0366d6"
+            "type": "string"
         },
         "hoverIconColor": {
             "type": "string"

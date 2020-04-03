@@ -31,10 +31,10 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/progress/',
         customStylesCallback( attributes ) {
             const styles = {
-                '--gkt-progress__height': attributes.height ? `${ attributes.height }px` : false,
-                '--gkt-progress__border-radius': attributes.borderRadius ? `${ attributes.borderRadius }px` : false,
+                '--gkt-progress__height': typeof attributes.height !== 'undefined' ? `${ attributes.height }px` : undefined,
+                '--gkt-progress__border-radius': typeof attributes.borderRadius !== 'undefined' ? `${ attributes.borderRadius }px` : undefined,
                 '--gkt-progress__background-color': attributes.backgroundColor,
-                '--gkt-progress--bar__width': attributes.percent ? `${ attributes.percent }%` : false,
+                '--gkt-progress--bar__width': typeof attributes.percent !== 'undefined' ? `${ attributes.percent }%` : undefined,
                 '--gkt-progress--bar__background-color': attributes.color,
             };
 

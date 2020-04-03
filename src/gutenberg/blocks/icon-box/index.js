@@ -30,7 +30,7 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/icon-box/',
         customStylesCallback( attributes ) {
             const styles = {
-                '--gkt-icon-box--icon__font-size': attributes.iconSize ? `${ attributes.iconSize }px` : false,
+                '--gkt-icon-box--icon__font-size': typeof attributes.iconSize !== 'undefined' ? `${ attributes.iconSize }px` : undefined,
                 '--gkt-icon-box--icon__color': attributes.iconColor,
             };
 

@@ -32,9 +32,9 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/divider/',
         customStylesCallback( attributes ) {
             const styles = {
-                '--gkt-divider__border-width': attributes.size ? `${ attributes.size }px` : false,
+                '--gkt-divider__border-width': typeof attributes.size !== 'undefined' ? `${ attributes.size }px` : undefined,
                 '--gkt-divider__border-color': attributes.color,
-                '--gkt-divider--icon__font-size': attributes.iconSize ? `${ attributes.iconSize }px` : false,
+                '--gkt-divider--icon__font-size': typeof attributes.iconSize !== 'undefined' ? `${ attributes.iconSize }px` : undefined,
                 '--gkt-divider--icon__color': attributes.iconColor,
             };
 

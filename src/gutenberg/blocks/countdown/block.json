@@ -9,8 +9,7 @@
     },
     "attributes": {
         "date": {
-            "type": "string",
-            "default": ""
+            "type": "string"
         },
         "units": {
             "type": "array",
@@ -21,19 +20,16 @@
         },
 
         "numberFontSize": {
-            "type": "number",
-            "default": 50
+            "type": "number"
         },
         "labelFontSize": {
             "type": "number"
         },
         "numberColor": {
-            "type": "string",
-            "default": "#0366d6"
+            "type": "string"
         },
         "labelColor": {
-            "type": "string",
-            "default": ""
+            "type": "string"
         }
     }
 }

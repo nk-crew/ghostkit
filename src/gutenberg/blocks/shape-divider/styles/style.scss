@@ -6,6 +6,7 @@
 .ghostkit-shape-divider {
     display: block;
     overflow: hidden;
+    color: var(--gkt-shape-divider__color);
 
     svg {
         display: block;

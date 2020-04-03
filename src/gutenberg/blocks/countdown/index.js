@@ -10,6 +10,7 @@ import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
+import deprecated from './deprecated';
 
 const { name } = metadata;
 
@@ -29,9 +30,9 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/countdown/',
         customStylesCallback( attributes ) {
             const styles = {
-                '--gkt-countdown--unit-number__font-size': attributes.numberFontSize ? `${ attributes.numberFontSize }px` : false,
+                '--gkt-countdown--unit-number__font-size': typeof attributes.numberFontSize !== 'undefined' ? `${ attributes.numberFontSize }px` : undefined,
                 '--gkt-countdown--unit-number__color': attributes.numberColor,
-                '--gkt-countdown--unit-label__font-size': attributes.labelFontSize ? `${ attributes.labelFontSize }px` : false,
+                '--gkt-countdown--unit-label__font-size': typeof attributes.labelFontSize !== 'undefined' ? `${ attributes.labelFontSize }px` : undefined,
                 '--gkt-countdown--unit-label__color': attributes.labelColor,
             };
 
@@ -57,4 +58,5 @@ export const settings = {
     },
     edit,
     save,
+    deprecated,
 };

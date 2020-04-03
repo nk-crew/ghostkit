@@ -16,7 +16,104 @@ const {
     applyFilters,
 } = wp.hooks;
 
+/**
+ * Internal dependencies
+ */
+import save from './save';
+import metadata from './block.json';
+
 export default [
+    // v2.10.2
+    {
+        ...metadata,
+        ghostkit: {
+            customStylesCallback( attributes ) {
+                const styles = {
+                    '--gkt-progress__height': attributes.height ? `${ attributes.height }px` : false,
+                    '--gkt-progress__border-radius': attributes.borderRadius ? `${ attributes.borderRadius }px` : false,
+                    '--gkt-progress__background-color': attributes.backgroundColor,
+                    '--gkt-progress--bar__width': attributes.percent ? `${ attributes.percent }%` : false,
+                    '--gkt-progress--bar__background-color': attributes.color,
+                };
+
+                if ( attributes.hoverColor ) {
+                    styles[ '&:hover' ] = {
+                        '--gkt-progress--bar__background-color': attributes.hoverColor,
+                    };
+                }
+                if ( attributes.hoverBackgroundColor ) {
+                    styles[ '&:hover' ] = merge( styles[ '&:hover' ] || {}, {
+                        '--gkt-progress__background-color': attributes.hoverBackgroundColor,
+                    } );
+                }
+
+                return styles;
+            },
+            supports: {
+                styles: true,
+                spacings: true,
+                display: true,
+                scrollReveal: true,
+                customCSS: true,
+            },
+        },
+        attributes: {
+            caption: {
+                type: 'string',
+                source: 'html',
+                selector: '.ghostkit-progress-caption',
+                default: 'Progress Caption',
+            },
+            height: {
+                type: 'number',
+                default: 15,
+            },
+            percent: {
+                type: 'number',
+                default: 75,
+            },
+            borderRadius: {
+                type: 'number',
+                default: 2,
+            },
+            striped: {
+                type: 'boolean',
+                default: true,
+            },
+            animateInViewport: {
+                type: 'boolean',
+                default: false,
+            },
+            showCount: {
+                type: 'boolean',
+                default: false,
+            },
+            countPrefix: {
+                type: 'string',
+                default: '',
+            },
+            countSuffix: {
+                type: 'string',
+                default: '%',
+            },
+            color: {
+                type: 'string',
+                default: '#0366d6',
+            },
+            backgroundColor: {
+                type: 'string',
+                default: '#f3f4f5',
+            },
+            hoverColor: {
+                type: 'string',
+            },
+            hoverBackgroundColor: {
+                type: 'string',
+            },
+        },
+        save,
+    },
+
     // v2.3.0
     {
         // fixed importing demo content

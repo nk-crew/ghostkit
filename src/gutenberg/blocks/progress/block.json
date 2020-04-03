@@ -23,8 +23,7 @@
             "default": 75
         },
         "borderRadius": {
-            "type": "number",
-            "default": 2
+            "type": "number"
         },
         "striped": {
             "type": "boolean",
@@ -47,12 +46,10 @@
             "default": "%"
         },
         "color": {
-            "type": "string",
-            "default": "#0366d6"
+            "type": "string"
         },
         "backgroundColor": {
-            "type": "string",
-            "default": "#f3f4f5"
+            "type": "string"
         },
         "hoverColor": {
             "type": "string"

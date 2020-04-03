@@ -21,16 +21,13 @@
             "default": ""
         },
         "iconSize": {
-            "type": "number",
-            "default": 10
+            "type": "number"
         },
         "color": {
-            "type": "string",
-            "default": "#a7a9ab"
+            "type": "string"
         },
         "iconColor": {
-            "type": "string",
-            "default": "#a7a9ab"
+            "type": "string"
         },
         "hoverColor": {
             "type": "string"

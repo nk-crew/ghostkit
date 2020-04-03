@@ -13,7 +13,7 @@
     --gkt-divider--icon__padding-v: #{0 * 1px};
     --gkt-divider--icon__padding-h: 1em;
     --gkt-divider--icon__font-size: 1em;
-    --gkt-divider--icon__color: inherit;
+    --gkt-divider--icon__color: var(--gkt-color-dark-gray);
 
     // Transitions.
     --gkt-divider__transition-duration: var(--gkt-transition-duration);

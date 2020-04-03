@@ -89,8 +89,7 @@
             "default": "plain"
         },
         "fullscreenBackgroundColor": {
-            "type": "string",
-            "default": "rgba(0, 0, 0, .9)"
+            "type": "string"
         },
         "fullscreenActionCloseIcon": {
             "type": "string",

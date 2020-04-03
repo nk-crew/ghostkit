@@ -71,8 +71,7 @@
         },
 
         "color": {
-            "type": "string",
-            "default": "#0366d6"
+            "type": "string"
         }
     }
 }

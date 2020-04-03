@@ -6,7 +6,7 @@
 .ghostkit-alert {
     --gkt-alert__padding-v: 1.5em;
     --gkt-alert__padding-h: 1.5em;
-    --gkt-alert__border-color: var(--gkt-color-light-gray-darken);
+    --gkt-alert__border-color: var(--gkt-color-warning);
     --gkt-alert__border-width: 1px;
     --gkt-alert__border-left-width: 3px;
     --gkt-alert__border-radius: var(--gkt-border-radius);
@@ -16,7 +16,7 @@
     --gkt-alert--icon__padding: 3px;
     --gkt-alert--icon__padding-right: 1.5em;
     --gkt-alert--icon__font-size: 1em;
-    --gkt-alert--icon__color: inherit;
+    --gkt-alert--icon__color: var(--gkt-color-warning);
 
     // Hide Button.
     --gkt-alert--hide-button__padding-left: 1.5em;

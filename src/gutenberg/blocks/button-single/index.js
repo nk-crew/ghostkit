@@ -26,7 +26,7 @@ export const settings = {
             const result = {
                 '--gkt-button__background-color': attributes.color,
                 '--gkt-button__color': attributes.textColor,
-                '--gkt-button__border-radius': `${ attributes.borderRadius }px`,
+                '--gkt-button__border-radius': typeof attributes.borderRadius !== 'undefined' ? `${ attributes.borderRadius }px` : undefined,
                 '--gkt-button-hover__background-color': attributes.hoverColor,
                 '--gkt-button-hover__color': attributes.hoverTextColor,
                 '--gkt-button-focus__background-color': attributes.hoverColor,
@@ -34,17 +34,18 @@ export const settings = {
             };
 
             // Border.
-            if ( attributes.borderWeight && attributes.borderColor ) {
+            if ( typeof attributes.borderWeight !== 'undefined' ) {
                 result[ '--gkt-button__border-width' ] = `${ attributes.borderWeight }px`;
+            }
+            if ( attributes.borderColor ) {
                 result[ '--gkt-button__border-color' ] = attributes.borderColor;
-
-                if ( attributes.hoverBorderColor ) {
-                    result[ '--gkt-button-hover__border-color' ] = attributes.hoverBorderColor;
-                }
+            }
+            if ( attributes.hoverBorderColor ) {
+                result[ '--gkt-button-hover__border-color' ] = attributes.hoverBorderColor;
             }
 
             // Box Shadow.
-            if ( attributes.focusOutlineWeight && attributes.focusOutlineColor ) {
+            if ( typeof attributes.focusOutlineWeight !== 'undefined' && attributes.focusOutlineColor ) {
                 result[ '--gkt-button-focus__box-shadow' ] = `0 0 0 ${ attributes.focusOutlineWeight }px ${ attributes.focusOutlineColor }`;
             }
 

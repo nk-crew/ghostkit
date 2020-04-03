@@ -144,7 +144,13 @@ class BlockEdit extends Component {
                         shapesOptions.push( {
                             label: shape.label,
                             value: shape.svg,
-                            image: <div style={ { color } } dangerouslySetInnerHTML={ { __html: shape.svg } } />,
+                            image: (
+                                <div
+                                    className="ghostkit-shape-divider"
+                                    style={ { '--gkt-shape-divider__color': color } }
+                                    dangerouslySetInnerHTML={ { __html: shape.svg } }
+                                />
+                            ),
                             className: `ghostkit-shape-divider-control-styles-item-${ k }-${ shape.name }`,
                         } );
                     } );

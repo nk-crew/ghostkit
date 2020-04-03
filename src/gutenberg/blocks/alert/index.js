@@ -31,7 +31,7 @@ export const settings = {
         customStylesCallback( attributes ) {
             const styles = {
                 '--gkt-alert__border-color': attributes.color,
-                '--gkt-alert--icon__font-size': `${ attributes.iconSize }px`,
+                '--gkt-alert--icon__font-size': typeof attributes.iconSize !== 'undefined' ? `${ attributes.iconSize }px` : undefined,
                 '--gkt-alert--icon__color': attributes.color,
             };
 
