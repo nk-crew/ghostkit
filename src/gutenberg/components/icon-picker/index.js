@@ -28,6 +28,7 @@ const {
     Tooltip,
     BaseControl,
     TextControl,
+    TextareaControl,
     G,
     Path,
     SVG,
@@ -140,7 +141,7 @@ class IconPickerDropdown extends Component {
                             autoFocus
                         />
                         <div className="ghostkit-component-icon-picker-input-output">
-                            <TextControl
+                            <TextareaControl
                                 label={ __( 'Icon Output', '@@text_domain' ) }
                                 value={ value }
                                 onChange={ ( newData ) => {
