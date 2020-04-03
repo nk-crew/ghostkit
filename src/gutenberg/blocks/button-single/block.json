@@ -71,8 +71,7 @@
         },
 
         "focusOutlineWeight": {
-            "type": "number",
-            "default": 0
+            "type": "number"
         },
 
         "hoverColor": {
