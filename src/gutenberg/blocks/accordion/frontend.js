@@ -64,7 +64,8 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
 
         // activate by page hash
         if ( pageHash ) {
-            const $activeAccordion = $this.find( `> :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading[href="${ pageHash }"]` );
+            const pageHashEncoded = decodeURIComponent( pageHash );
+            const $activeAccordion = $this.find( `> :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading[href="${ pageHashEncoded }"]` );
 
             if ( $activeAccordion.length ) {
                 activateAccordionItem( $activeAccordion, 0, self );
@@ -97,8 +98,10 @@ $wnd.on( 'hashchange', () => {
         return;
     }
 
+    const pageHashEncoded = decodeURIComponent( pageHash );
+
     // Activate accordion item.
-    $( `.ghostkit-accordion-ready > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading[href="${ pageHash }"]` ).each( function() {
+    $( `.ghostkit-accordion-ready > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading[href="${ pageHashEncoded }"]` ).each( function() {
         activateAccordionItem( $( this ), 150, GHOSTKIT.classObject );
     } );
 } );

@@ -24,12 +24,13 @@ let pageHash = location.hash;
 function activateTab( $tabs, tabName, self ) {
     const isLegacy = ! /^#/g.test( tabName );
     let $activeBtn = false;
-    const $activeTab = $tabs.children( '.ghostkit-tabs-content' ).children( `[data-tab="${ tabName.replace( /^#/, '' ) }"]` );
+    const tabNameEncoded = decodeURIComponent( tabName );
+    const $activeTab = $tabs.children( '.ghostkit-tabs-content' ).children( `[data-tab="${ tabNameEncoded.replace( /^#/, '' ) }"]` );
 
     if ( isLegacy ) {
-        $activeBtn = $tabs.find( '.ghostkit-tabs-buttons' ).find( `[href="#tab-${ tabName }"]` );
+        $activeBtn = $tabs.find( '.ghostkit-tabs-buttons' ).find( `[href="#tab-${ tabNameEncoded }"]` );
     } else {
-        $activeBtn = $tabs.find( '.ghostkit-tabs-buttons' ).find( `[href="${ tabName }"]` );
+        $activeBtn = $tabs.find( '.ghostkit-tabs-buttons' ).find( `[href="${ tabNameEncoded }"]` );
     }
 
     if ( ! $activeBtn || ! $activeBtn.length || ! $activeTab.length ) {
@@ -44,7 +45,7 @@ function activateTab( $tabs, tabName, self ) {
 
     self.hasScrolled();
 
-    GHOSTKIT.triggerEvent( 'activateTab', self, $tabs, tabName );
+    GHOSTKIT.triggerEvent( 'activateTab', self, $tabs, tabNameEncoded );
 
     return true;
 }
