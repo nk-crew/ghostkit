@@ -188,6 +188,25 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.11.0 =
+
+* ! to changes take effect, re-save your pages
+* added button outline CSS variable
+* improved DatePicker component in Countdown block
+* simplified CSS selectors in blocks (easier to extend styles)
+* changed styles loading priority (new 4th point added):
+  1. Enqueue plugins assets
+  2. Enqueue Ghost Kit assets
+  3. Enqueue theme assets
+  4. Enqueue Ghost Kit custom CSS
+* changed Grid Column Sticky option to use the class with CSS variable
+* fixed empty custom styles
+* fixed blocks custom styles for number attributes (wrong styles when a variable is undefined or == 0)
+* fixed PHP notice - Trying to access array offset on value of type bool
+* fixed Tabs and Accordion items hash parse with Japanese/Chinese/... characters
+* removed all defaults from blocks - easily change defaults using CSS variables now - <https://ghostkit.io/docs/css-variables/>
+* removed hard-coded box-shadow from buttons, use CSS variable instead
+
 = 2.10.2 =
 
 * changed name of CSS variables with -x and -y in name:
