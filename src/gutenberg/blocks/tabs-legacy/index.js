@@ -140,7 +140,7 @@ class TabsBlock extends Component {
                                                 setAttributes( { tabsSettings: Object.assign( {}, tabsSettings ) } );
                                             }
                                         } }
-                                        allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
+                                        withoutInteractiveFormatting
                                         keepPlaceholderOnFocus
                                         key={ `tab_button_${ val.number }` }
                                     />

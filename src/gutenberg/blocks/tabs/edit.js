@@ -245,7 +245,7 @@ class BlockEdit extends Component {
                                             onChange={ ( value ) => {
                                                 this.changeLabel( value, i );
                                             } }
-                                            allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
+                                            withoutInteractiveFormatting
                                             keepPlaceholderOnFocus
                                         />
                                         <RemoveButton

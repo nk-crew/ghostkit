@@ -123,7 +123,7 @@ class BlockEdit extends Component {
                             onChange={ ( val ) => setAttributes( { title: val } ) }
                             value={ title }
                             placeholder={ __( 'Plan', '@@text_domain' ) }
-                            allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
+                            withoutInteractiveFormatting
                             keepPlaceholderOnFocus
                         />
                     ) : '' }
@@ -136,7 +136,7 @@ class BlockEdit extends Component {
                                         onChange={ ( val ) => setAttributes( { priceCurrency: val } ) }
                                         value={ priceCurrency }
                                         placeholder={ __( '$', '@@text_domain' ) }
-                                        allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
+                                        withoutInteractiveFormatting
                                         keepPlaceholderOnFocus
                                     />
                                 </div>
@@ -147,7 +147,7 @@ class BlockEdit extends Component {
                                     onChange={ ( val ) => setAttributes( { price: val } ) }
                                     value={ price }
                                     placeholder={ '77' }
-                                    allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
+                                    withoutInteractiveFormatting
                                     keepPlaceholderOnFocus
                                 />
                             </div>
@@ -158,7 +158,7 @@ class BlockEdit extends Component {
                                         onChange={ ( val ) => setAttributes( { priceRepeat: val } ) }
                                         value={ priceRepeat }
                                         placeholder={ __( '/mo', '@@text_domain' ) }
-                                        allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
+                                        withoutInteractiveFormatting
                                         keepPlaceholderOnFocus
                                     />
                                 </div>
@@ -172,7 +172,7 @@ class BlockEdit extends Component {
                             onChange={ ( val ) => setAttributes( { description: val } ) }
                             value={ description }
                             placeholder={ __( 'Description', '@@text_domain' ) }
-                            allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
+                            withoutInteractiveFormatting
                             keepPlaceholderOnFocus
                         />
                     ) : '' }
@@ -210,7 +210,7 @@ class BlockEdit extends Component {
                                 onChange={ ( val ) => setAttributes( { popularText: val } ) }
                                 value={ popularText }
                                 placeholder={ __( 'Popular', '@@text_domain' ) }
-                                allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
+                                withoutInteractiveFormatting
                                 keepPlaceholderOnFocus
                             />
                         </div>

@@ -207,8 +207,7 @@ class BlockEdit extends Component {
                             placeholder={ __( 'Write number…', '@@text_domain' ) }
                             value={ number }
                             onChange={ ( value ) => setAttributes( { number: value } ) }
-                            allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
-                            isSelected={ isSelected }
+                            withoutInteractiveFormatting
                             keepPlaceholderOnFocus
                         />
                     </div>

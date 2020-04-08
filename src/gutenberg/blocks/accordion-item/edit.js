@@ -80,7 +80,6 @@ class BlockEdit extends Component {
         const {
             attributes,
             setAttributes,
-            isSelected,
         } = this.props;
 
         let {
@@ -122,9 +121,7 @@ class BlockEdit extends Component {
                             onChange={ ( value ) => {
                                 setAttributes( { heading: value } );
                             } }
-                            allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
-                            isSelected={ isSelected }
-                            keepPlaceholderOnFocus
+                            withoutInteractiveFormatting
                         />
                         <button
                             className="ghostkit-accordion-item-collapse"

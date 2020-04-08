@@ -283,8 +283,8 @@ class BlockEdit extends Component {
                             placeholder={ __( 'Write text…', '@@text_domain' ) }
                             value={ text }
                             onChange={ ( value ) => setAttributes( { text: value } ) }
-                            allowedFormats={ [ 'bold', 'italic', 'strikethrough' ] }
                             isSelected={ isSelected }
+                            withoutInteractiveFormatting
                             keepPlaceholderOnFocus
                         />
                     ) : '' }
