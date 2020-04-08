@@ -260,6 +260,7 @@ class TemplatesModal extends Component {
                             ( tabData ) => {
                                 const tabType = tabData.name;
                                 const currentTemplates = this.getTemplates( tabType );
+                                const selectedCategory = this.getSelectedCategory( tabType );
 
                                 if ( 'pages' === tabType ) {
                                     return __( 'Coming Soon...', '@@text_domain' );
@@ -285,7 +286,7 @@ class TemplatesModal extends Component {
                                             </div>
                                         ) : '' }
                                         { currentTemplates && currentTemplates.length ? (
-                                            <Fragment>
+                                            <Fragment key={ `${ tabType }-${ selectedCategory }` }>
                                                 <div className="ghostkit-plugin-templates-categories-row">
                                                     <div className="ghostkit-plugin-templates-categories-select">
                                                         { this.printCategorySelect( tabType ) }</div>
