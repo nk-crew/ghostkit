@@ -190,7 +190,7 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 = 2.11.0 =
 
-* ! to changes take effect, re-save your pages
+* ! to changes takes effect, re-save your pages
 * added button outline CSS variable
 * improved DatePicker component in Countdown block
 * simplified CSS selectors in blocks (easier to extend styles)
