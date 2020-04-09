@@ -5,13 +5,24 @@
 
 .editor-styles-wrapper {
     /**
-     * None.
+     * Reset default offsets.
      */
-    .block-library-list .is-style-none,
-    .block-library-list .is-style-none li {
-        padding-left: 0;
-        margin-left: 0;
-        list-style: none;
+    .is-style-none,
+    .is-style-styled,
+    .is-style-icon {
+        &,
+        ol,
+        ul {
+            padding-left: 0;
+            list-style: none;
+        }
+    }
+    .is-style-styled,
+    .is-style-icon {
+        ol,
+        ul {
+            margin-left: 0;
+        }
     }
 
     /**
@@ -19,9 +30,7 @@
      */
     ol.is-style-styled,
     ul.is-style-styled {
-        padding-left: 0;
         line-height: var(--gkt-styled-lists__line-height);
-        list-style: none;
 
         li {
             margin-left: 0;
@@ -93,9 +102,7 @@
      */
     ul.is-style-icon,
     ol.is-style-icon {
-        padding-left: 0;
         line-height: var(--gkt-icon-lists--items__line-height);
-        list-style: none;
 
         li {
             position: relative;
@@ -121,9 +128,7 @@
             > ul,
             > ol {
                 width: 100%;
-                padding-left: 0;
                 margin: var(--gkt-icon-lists--inner-lists__padding-v) var(--gkt-icon-lists--inner-lists__padding-h);
-                list-style: none;
             }
 
             + li {

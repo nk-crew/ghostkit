@@ -4,15 +4,28 @@
 @import "./variables";
 
 /**
- * None + Styled.
+ * Reset default offsets.
  */
-ol.is-style-none,
-ul.is-style-none,
-ol.is-style-none li,
-ul.is-style-none li {
-    padding-left: 0;
-    margin-left: 0;
-    list-style-type: none;
+.is-style-none,
+.is-style-styled,
+.is-style-icon {
+    &,
+    ol,
+    ul {
+        padding-left: 0;
+        list-style: none;
+    }
+}
+.is-style-styled,
+.is-style-icon {
+    ol,
+    ul {
+        margin-left: 0;
+    }
+    li {
+        margin-left: 0;
+        list-style: none;
+    }
 }
 
 /**
@@ -20,14 +33,9 @@ ul.is-style-none li {
  */
 ol.is-style-styled,
 ul.is-style-styled {
-    padding-left: 0;
     line-height: var(--gkt-styled-lists__line-height);
-    list-style: none;
 
     li {
-        margin-left: 0;
-        list-style: none;
-
         > ul,
         > ol {
             width: 100%;
@@ -100,15 +108,11 @@ ul.is-style-styled,
  */
 ol.is-style-icon,
 ul.is-style-icon {
-    padding-left: 0;
     line-height: var(--gkt-icon-lists--items__line-height);
-    list-style: none;
 
     li {
         position: relative;
         padding-left: var(--gkt-icon-lists--items__padding-left);
-        margin-left: 0;
-        list-style: none;
 
         &::before {
             content: "";
