@@ -50,8 +50,13 @@ By default you can change typography for the following elements:
 
 Add custom colors to Gutenberg color palette.
 
-### Formats ###
+### Content Formatting ###
 
+See demo page with content formatting <https://ghostkit.io/content-formatting/>
+
+* Dotted Lists
+* Styled Lists
+* Custom Icon Lists
 * Uppercase
 * Highlight
 * Badge
@@ -187,6 +192,15 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.12.0 =
+
+* added Icons style for `core/lists` block
+* improved offsets for styled lists
+* fixed missing formatting buttons inside some blocks (accordion heading, button, tabs, etc...)
+* fixed Templates modal images lazy loading when switch categories
+* fixed CSS calc() conflict with 0 values
+* fixed PHP Notice: Undefined index: SERVER_NAME using WP-CLI
 
 = 2.11.0 =
 
