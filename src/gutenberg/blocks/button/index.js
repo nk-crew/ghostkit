@@ -42,9 +42,12 @@ export const settings = {
 
             // Custom Gap.
             if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
+                // we need to use `%` unit because of conflict with complex calc() and 0 value.
+                const unit = gapCustom ? 'px' : '%';
+
                 result = {
                     ...result,
-                    '--gkt-button__gap': `${ gapCustom }px`,
+                    '--gkt-button__gap': `${ gapCustom }${ unit }`,
                 };
             }
 

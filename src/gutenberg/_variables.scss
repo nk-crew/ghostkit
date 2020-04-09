@@ -2,8 +2,8 @@
  * GAPS for Grid, Buttons, Instagram, Pricing Table.
  */
 $grid-gaps: (
-    // we need to use `px` unit because of conflict with CSS variables and 0 value.
-    no: 0 * 1px,
+    // we need to use `%` unit because of conflict with complex calc() and 0 value.
+    no: 0%,
     sm: 15px,
     md: 30px,
     lg: 45px

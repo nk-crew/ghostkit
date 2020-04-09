@@ -22,7 +22,7 @@
     --gkt-progress--count-arrow__size: .35em;
 
     // Bar.
-    --gkt-progress--bar__width: #{0 * 1px};
+    --gkt-progress--bar__width: 0;
     --gkt-progress--bar__background-color: var(--gkt-color-primary);
     --gkt-progress--bar-striped__background-image: linear-gradient(45deg, rgba(255, 255, 255, .1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 75%, transparent 75%, transparent);
     --gkt-progress--bar-striped__background-size: 15px 15px;

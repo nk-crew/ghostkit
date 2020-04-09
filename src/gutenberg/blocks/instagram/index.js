@@ -35,7 +35,10 @@ export const settings = {
 
             // Custom Gap.
             if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
-                result[ '--gkt-instagram--photos__gap' ] = `${ gapCustom }px`;
+                // we need to use `%` unit because of conflict with complex calc() and 0 value.
+                const unit = gapCustom ? 'px' : '%';
+
+                result[ '--gkt-instagram--photos__gap' ] = `${ gapCustom }${ unit }`;
             }
 
             return result;
