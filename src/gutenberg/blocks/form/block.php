@@ -101,7 +101,14 @@ class GhostKit_Form_Block {
         $blogname    = get_option( 'blogname' );
 
         // phpcs:ignore
-        $sitename = strtolower( $_SERVER[ 'SERVER_NAME' ] );
+        if ( isset( $_SERVER[ 'SERVER_NAME' ] ) ) {
+            // phpcs:ignore
+            $sitename = strtolower( $_SERVER[ 'SERVER_NAME' ] );
+        } else {
+            $site_url       = site_url();
+            $site_url_parts = wp_parse_url( $site_url );
+            $sitename       = $site_url_parts['host'];
+        }
 
         if ( substr( $sitename, 0, 4 ) === 'www.' ) {
             $sitename = substr( $sitename, 4 );
