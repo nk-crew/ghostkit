@@ -18,7 +18,6 @@
     <exclude-pattern>*/vendors/*</exclude-pattern>
 
     <!-- These files are too large to be scanned. -->
-    <exclude-pattern>/src/classes/class-fonts\.php</exclude-pattern>
     <exclude-pattern>/src/classes/class-icons\.php</exclude-pattern>
 
 
