@@ -331,6 +331,9 @@ export function getCustomTypographyList( setStateTypography, global ) {
 
     if ( typeof customTypographyList !== 'undefined' && customTypographyList !== '' ) {
         Object.keys( customTypographyList ).forEach( ( key ) => {
+            const label = getDefaultValue( customTypographyList[ key ].label );
+            const childOf = getDefaultValue( customTypographyList[ key ][ 'child-of' ] );
+
             if ( getDefaultValue( setStateTypography ) !== '' && getDefaultValue( setStateTypography[ key ] ) !== '' ) {
                 defaultTypography[ key ] = setStateTypography[ key ];
 
@@ -342,14 +345,12 @@ export function getCustomTypographyList( setStateTypography, global ) {
                     }
                 } );
 
-                if ( typeof customTypographyList[ key ][ 'child-of' ] !== 'undefined' ) {
-                    defaultTypography[ key ].childOf = customTypographyList[ key ][ 'child-of' ];
-                }
+                defaultTypography[ key ].label = label;
+                defaultTypography[ key ].childOf = childOf;
             } else if ( getDefaultValue( customTypographyList[ key ].defaults ) !== '' ) {
                 const fontName = getDefaultValue( customTypographyList[ key ].defaults[ 'font-family' ] );
                 const fontFamilyCategory = getDefaultValue( customTypographyList[ key ].defaults[ 'font-family-category' ] );
                 const weight = getDefaultValue( customTypographyList[ key ].defaults[ 'font-weight' ] );
-                const childOf = getDefaultValue( customTypographyList[ key ][ 'child-of' ] );
 
                 let fontFamily;
                 let fontWeight;
@@ -394,7 +395,7 @@ export function getCustomTypographyList( setStateTypography, global ) {
                     fontWeight: fontWeight,
                     lineHeight: lineHeight,
                     letterSpacing: letterSpacing,
-                    label: getDefaultValue( customTypographyList[ key ].label ),
+                    label: label,
                     childOf: childOf,
                 };
             }

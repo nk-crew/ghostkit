@@ -202,7 +202,6 @@ export default class Typorgaphy extends Component {
         const fontFamilyValue = { value: fontFamily, label: getDefaultFont( fontFamily ), fontFamilyCategory: fontFamilyCategory };
         const fontWeightValue = { value: fontWeight, label: getFontWeightLabel( fontWeight ) };
         const fontSizeValue = typeof fontSize === 'undefined' ? '' : fontSize;
-        const childOfClass = childOf !== '' ? ' ghostkit-typography-child' + ' ghostkit-typography-child-of-' + childOf : '';
         let fontFamilies;
 
         if ( 'default' === fontFamilyCategory ) {
@@ -212,7 +211,7 @@ export default class Typorgaphy extends Component {
         }
 
         return (
-            <div className={ 'ghostkit-typography' + childOfClass }>
+            <div className={ `ghostkit-typography${ childOf ? ` ghostkit-typography-child ghostkit-typography-child-of-${ childOf }` : '' }` }>
                 <h4>{ label }</h4>
                 <div className="ghostkit-control-typography">
                     { typeof fontFamilyCategory !== 'undefined' ? (
