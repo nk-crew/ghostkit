@@ -50,7 +50,6 @@ class GhostKit_Fonts {
         $unique_fonts       = array();
         $webfont_list       = array();
         $screen             = function_exists( 'get_current_screen' ) ? get_current_screen() : false;
-        $global_typography  = get_option( 'ghostkit_typography', array() );
         $is_admin_editor    = is_admin() && $screen && $screen->is_block_editor;
 
         if ( is_singular() ) {
@@ -65,90 +64,103 @@ class GhostKit_Fonts {
         $additional_font_weights = array();
 
         // Default Typography.
-        if ( isset( $default_typography ) && ! empty( $default_typography ) ) {
+        if ( ! empty( $default_typography ) ) {
+            // Global Typography.
+            $global_typography = get_option( 'ghostkit_typography', array() );
+            if ( $global_typography && isset( $global_typography['ghostkit_typography'] ) && $global_typography['ghostkit_typography'] ) {
+                $global_typography = json_decode( $global_typography['ghostkit_typography'], true );
+            }
+            if ( ! is_array( $global_typography ) ) {
+                $global_typography = array();
+            }
+
+            // Meta post Typography.
+            $meta_typography = array();
+            if ( $is_single || $is_admin_editor ) {
+                $meta_typography = get_post_meta( $post_id, 'ghostkit_typography', true );
+
+                if ( ! empty( $meta_typography ) ) {
+                    $meta_typography = json_decode( $meta_typography, true );
+                }
+                if ( ! is_array( $meta_typography ) ) {
+                    $meta_typography = array();
+                }
+            }
+
+            // Go through all defaults and prepare full fonts list.
             foreach ( $default_typography as $key => $typography ) {
-                if ( isset( $typography['defaults']['font-family'] ) &&
+                $result = array();
+
+                // Default data.
+                if (
+                    isset( $typography['defaults']['font-family'] ) &&
                     ! empty( $typography['defaults']['font-family'] ) &&
                     isset( $typography['defaults']['font-family-category'] ) &&
-                    ! empty( $typography['defaults']['font-family-category'] ) ) {
-
+                    ! empty( $typography['defaults']['font-family-category'] )
+                ) {
                     $weight = '';
-                    if ( isset( $typography['defaults']['font-weight'] ) &&
-                        ! empty( $typography['defaults']['font-weight'] ) ) {
+                    if ( isset( $typography['defaults']['font-weight'] ) && ! empty( $typography['defaults']['font-weight'] ) ) {
                         $weight = $typography['defaults']['font-weight'];
                     }
 
                     // TODO: add additional_font_weights option support for typography React component.
-                    if ( isset( $typography['additional_font_weights'] ) &&
-                        ! empty( $typography['additional_font_weights'] ) ) {
+                    if ( isset( $typography['additional_font_weights'] ) && ! empty( $typography['additional_font_weights'] ) ) {
                         $additional_font_weights[ $key ] = $typography['additional_font_weights'];
                     }
 
-                    $fonts[] = array(
+                    $result = array(
                         'family'     => $typography['defaults']['font-family-category'],
                         'label'      => $typography['defaults']['font-family'],
                         'weight'     => $weight,
                         'typography' => $key,
                     );
                 }
-            }
-        }
 
-        // Global custom Typography.
-        if ( $global_typography && isset( $global_typography['ghostkit_typography'] ) && $global_typography['ghostkit_typography'] ) {
-            $object_global_typography = json_decode( $global_typography['ghostkit_typography'] );
-            if ( isset( $object_global_typography ) && ! empty( $object_global_typography ) ) {
-                $fonts = array();
-                foreach ( $object_global_typography as $global_typography_key => $global_typography_value ) {
-                    if ( isset( $global_typography_value->fontFamily ) &&
-                        ! empty( $global_typography_value->fontFamily ) &&
-                        isset( $global_typography_value->fontFamilyCategory ) &&
-                        ! empty( $global_typography_value->fontFamilyCategory ) ) {
-
-                        $weight = '';
-                        if ( isset( $global_typography_value->fontWeight ) &&
-                            ! empty( $global_typography_value->fontWeight ) ) {
-                            $weight = $global_typography_value->fontWeight;
-                        }
-
-                        $fonts[] = array(
-                            'family'     => $global_typography_value->fontFamilyCategory,
-                            'label'      => $global_typography_value->fontFamily,
-                            'weight'     => $weight,
-                            'typography' => $global_typography_key,
-                        );
+                // Global data.
+                if (
+                    isset( $global_typography[ $key ] ) &&
+                    isset( $global_typography[ $key ]['fontFamily'] ) &&
+                    ! empty( $global_typography[ $key ]['fontFamily'] ) &&
+                    isset( $global_typography[ $key ]['fontFamilyCategory'] ) &&
+                    ! empty( $global_typography[ $key ]['fontFamilyCategory'] )
+                ) {
+                    $weight = '';
+                    if ( isset( $global_typography[ $key ]['fontWeight'] ) && ! empty( $global_typography[ $key ]['fontWeight'] ) ) {
+                        $weight = $global_typography[ $key ]['fontWeight'];
                     }
+
+                    $result = array(
+                        'family'     => $global_typography[ $key ]['fontFamilyCategory'],
+                        'label'      => $global_typography[ $key ]['fontFamily'],
+                        'weight'     => $weight,
+                        'typography' => $key,
+                    );
                 }
-            }
-        }
 
-        // Local custom Typography.
-        if ( $is_single || $is_admin_editor ) {
-            $meta_typography = get_post_meta( $post_id, 'ghostkit_typography', true );
-
-            if ( ! empty( $meta_typography ) ) {
-                $object_meta_typography = json_decode( $meta_typography );
-                if ( isset( $object_meta_typography ) && ! empty( $object_meta_typography ) ) {
-                    foreach ( $object_meta_typography as $meta_typography_key => $meta_typography_value ) {
-                        if ( isset( $meta_typography_value->fontFamily ) &&
-                            ! empty( $meta_typography_value->fontFamily ) &&
-                            isset( $meta_typography_value->fontFamilyCategory ) &&
-                            ! empty( $meta_typography_value->fontFamilyCategory ) ) {
-
-                            $weight = '';
-                            if ( isset( $meta_typography_value->fontWeight ) &&
-                                ! empty( $meta_typography_value->fontWeight ) ) {
-                                $weight = $meta_typography_value->fontWeight;
-                            }
-
-                            $fonts[] = array(
-                                'family'     => $meta_typography_value->fontFamilyCategory,
-                                'label'      => $meta_typography_value->fontFamily,
-                                'weight'     => $weight,
-                                'typography' => $meta_typography_key,
-                            );
-                        }
+                // Meta data.
+                if (
+                    isset( $meta_typography[ $key ] ) &&
+                    isset( $meta_typography[ $key ]['fontFamily'] ) &&
+                    ! empty( $meta_typography[ $key ]['fontFamily'] ) &&
+                    isset( $meta_typography[ $key ]['fontFamilyCategory'] ) &&
+                    ! empty( $meta_typography[ $key ]['fontFamilyCategory'] )
+                ) {
+                    $weight = '';
+                    if ( isset( $meta_typography[ $key ]['fontWeight'] ) && ! empty( $meta_typography[ $key ]['fontWeight'] ) ) {
+                        $weight = $meta_typography[ $key ]['fontWeight'];
                     }
+
+                    $result = array(
+                        'family'     => $meta_typography[ $key ]['fontFamilyCategory'],
+                        'label'      => $meta_typography[ $key ]['fontFamily'],
+                        'weight'     => $weight,
+                        'typography' => $key,
+                    );
+                }
+
+                // Save result.
+                if ( isset( $result['family'] ) && $result['family'] && isset( $result['label'] ) && $result['label'] ) {
+                    $fonts[ $key ] = $result;
                 }
             }
         }
@@ -292,11 +304,11 @@ class GhostKit_Fonts {
         if ( ! $result ) {
             $result       = array();
             $fonts_json   = file_get_contents( ghostkit()->plugin_path . 'classes/google-fonts/webfonts.json' ); // phpcs:ignore
-            $fonts_object = json_decode( $fonts_json );
+            $fonts_object = json_decode( $fonts_json, true );
 
-            foreach ( $fonts_object->items as $font ) {
+            foreach ( $fonts_object['items'] as $font ) {
                 $weights = array();
-                foreach ( $font->variants as $variant ) {
+                foreach ( $font['variants'] as $variant ) {
                     $variant = str_replace( 'italic', 'i', $variant );
 
                     switch ( $variant ) {
@@ -311,10 +323,10 @@ class GhostKit_Fonts {
                     $weights[] = $variant;
                 }
                 $result[] = array(
-                    'name'     => $font->family,
+                    'name'     => $font['family'],
                     'widths'   => $weights,
-                    'category' => $font->category,
-                    'subsets'  => $font->subsets,
+                    'category' => $font['category'],
+                    'subsets'  => $font['subsets'],
                 );
             }
 
