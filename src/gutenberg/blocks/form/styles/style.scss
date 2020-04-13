@@ -84,6 +84,25 @@
         margin-right: var(--gkt-form--field-checkbox-inline__margin-right);
     }
 
+    // Submit Button
+    &-submit-button {
+        --gkt-button__gap: 0%;
+        --gkt-button__align-items: flex-start;
+        --gkt-button__justify-content: flex-start;
+
+        display: flex;
+        justify-content: var(--gkt-button__align-items);
+    }
+    &-submit-button-align-left {
+        --gkt-button__align-items: flex-start;
+    }
+    &-submit-button-align-right {
+        --gkt-button__align-items: flex-end;
+    }
+    &-submit-button-align-center {
+        --gkt-button__align-items: center;
+    }
+
     // Alert
     .ghostkit-alert-form-success {
         border-left-color: var(--gkt-form--alert-success__color);

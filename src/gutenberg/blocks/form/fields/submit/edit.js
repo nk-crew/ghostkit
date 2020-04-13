@@ -15,10 +15,18 @@ const {
     applyFilters,
 } = wp.hooks;
 
-const { Component } = wp.element;
+const { Component, Fragment } = wp.element;
 
 const {
+    PanelBody,
+    BaseControl,
+} = wp.components;
+
+const {
+    InspectorControls,
     InnerBlocks,
+    BlockControls,
+    BlockAlignmentToolbar,
 } = wp.blockEditor;
 
 const {
@@ -53,27 +61,58 @@ class BlockEdit extends Component {
     }
 
     render() {
+        const {
+            attributes,
+            setAttributes,
+        } = this.props;
+
         let { className = '' } = this.props;
+
+        const {
+            align,
+        } = attributes;
 
         className = classnames(
             'ghostkit-form-submit-button',
-            className,
+            align && align !== 'none' ? `ghostkit-form-submit-button-align-${ align }` : false,
+            className
         );
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         return (
-            <div className={ className }>
-                <InnerBlocks
-                    template={ [ [ 'ghostkit/button-single', {
-                        text: __( 'Submit', '@@text_domain' ),
-                        tagName: 'button',
-                        focusOutlineWeight: 2,
-                    } ] ] }
-                    allowedBlocks={ [ 'ghostkit/button-single' ] }
-                    templateLock="all"
-                />
-            </div>
+            <Fragment>
+                <BlockControls>
+                    <BlockAlignmentToolbar
+                        value={ align }
+                        onChange={ ( value ) => setAttributes( { align: value } ) }
+                        controls={ [ 'left', 'center', 'right' ] }
+                    />
+                </BlockControls>
+                <InspectorControls>
+                    <PanelBody>
+                        <BaseControl label={ __( 'Align', '@@text_domain' ) }>
+                            <BlockAlignmentToolbar
+                                value={ align }
+                                onChange={ ( value ) => setAttributes( { align: value } ) }
+                                controls={ [ 'left', 'center', 'right' ] }
+                                isCollapsed={ false }
+                            />
+                        </BaseControl>
+                    </PanelBody>
+                </InspectorControls>
+                <div className={ className }>
+                    <InnerBlocks
+                        template={ [ [ 'ghostkit/button-single', {
+                            text: __( 'Submit', '@@text_domain' ),
+                            tagName: 'button',
+                            focusOutlineWeight: 2,
+                        } ] ] }
+                        allowedBlocks={ [ 'ghostkit/button-single' ] }
+                        templateLock="all"
+                    />
+                </div>
+            </Fragment>
         );
     }
 }

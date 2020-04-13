@@ -33,11 +33,11 @@
 
     // Submit button.
     &-submit-button > .block-editor-inner-blocks > .block-editor-block-list__layout {
-        display: inline-flex;
+        display: flex;
+        justify-content: var(--gkt-button__align-items);
 
         > .wp-block {
-            margin-top: -26px;
-            margin-bottom: -26px;
+            margin: 0;
         }
     }
 }

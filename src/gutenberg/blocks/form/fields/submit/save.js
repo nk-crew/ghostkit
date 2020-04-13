@@ -28,8 +28,13 @@ const { name } = metadata;
  */
 class BlockSave extends Component {
     render() {
+        const {
+            align,
+        } = this.props.attributes;
+
         let className = classnames(
-            'ghostkit-form-submit-button'
+            'ghostkit-form-submit-button',
+            align && align !== 'none' ? `ghostkit-form-submit-button-align-${ align }` : false
         );
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
