@@ -1,7 +1,7 @@
 # GhostKit - Gutenberg blocks for WordPress
 
-- Site https://ghostkit.io/
-- WordPress Plugin https://wordpress.org/plugins/ghostkit/
+- Site <https://ghostkit.io/>
+- WordPress Plugin <https://wordpress.org/plugins/ghostkit/>
 
 ## Development
 
@@ -11,7 +11,7 @@
 | ------------------------- | ------------- | ----------------------------------------------- |
 | PHP >= 5.5.9              | `php -v`      | [php.net](https://php.net/manual/en/install.php) |
 | Node.js >= 6.x.x          | `node -v`     | [nodejs.org](https://nodejs.org/)                |
-| Composer >= 1.0.0	        | `composer -V` | [getcomposer.org](https://getcomposer.org)       |
+| Composer >= 1.0.0         | `composer -V` | [getcomposer.org](https://getcomposer.org)       |
 
 ### Installation
 
