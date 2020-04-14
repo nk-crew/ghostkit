@@ -193,6 +193,14 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.12.1 =
+
+* added Align option to Form Submit Button
+* updated google fonts list
+* fixed Button border CSS conflict with Ghost Kit PRO Gradients
+* fixed displaying some Typography options (rare bug)
+* fixed fonts loading based on available registered fonts, but not on the saved in DB (rare bug)
+
 = 2.12.0 =
 
 * added Icons style for `core/lists` block
