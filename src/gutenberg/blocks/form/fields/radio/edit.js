@@ -4,6 +4,17 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import FieldLabel from '../../field-label';
+import FieldDescription from '../../field-description';
+import FieldOptions from '../../field-options';
+import {
+    getFieldAttributes,
+    FieldDefaultSettings,
+} from '../../field-attributes';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -24,17 +35,6 @@ const {
 const {
     InspectorControls,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import FieldLabel from '../../field-label';
-import FieldDescription from '../../field-description';
-import FieldOptions from '../../field-options';
-import {
-    getFieldAttributes,
-    FieldDefaultSettings,
-} from '../../field-attributes';
 
 /**
  * Block Edit Class.
@@ -111,10 +111,11 @@ class BlockEdit extends Component {
                     ) : (
                         <div className="ghostkit-form-field-radio-items">
                             { options.map( ( data, i ) => {
+                                const fieldName = `${ slug }-item-${ i }`;
                                 return (
                                     <label
-                                        key={ i }
-                                        htmlFor={ `${ slug }-item-${ i }` }
+                                        key={ fieldName }
+                                        htmlFor={ fieldName }
                                         className="ghostkit-form-field-radio-item"
                                     >
                                         <input

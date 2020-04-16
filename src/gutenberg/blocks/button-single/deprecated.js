@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import save from './save';
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -13,12 +19,6 @@ const {
 const {
     applyFilters,
 } = wp.hooks;
-
-/**
- * Internal dependencies
- */
-import save from './save';
-import metadata from './block.json';
 
 export default [
     // v2.10.2
@@ -232,7 +232,7 @@ export default [
             },
         },
 
-        save: function( props ) {
+        save( props ) {
             const {
                 title,
                 text,

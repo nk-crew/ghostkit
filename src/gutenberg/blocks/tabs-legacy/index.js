@@ -3,6 +3,7 @@ import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
 import getIcon from '../../utils/get-icon';
+
 import deprecatedArray from './deprecated';
 
 const {
@@ -35,7 +36,7 @@ const getTabsTemplate = ( attributes ) => {
     } = attributes;
     const result = [];
 
-    for ( let k = 1; k <= tabsCount; k++ ) {
+    for ( let k = 1; k <= tabsCount; k += 1 ) {
         result.push( [ 'ghostkit/tabs-tab', { tabNumber: k } ] );
     }
 
@@ -45,9 +46,9 @@ const getTabsTemplate = ( attributes ) => {
 const getTabs = ( { tabsCount, tabsSettings } ) => {
     const result = [];
 
-    for ( let k = 1; k <= tabsCount; k++ ) {
+    for ( let k = 1; k <= tabsCount; k += 1 ) {
         result.push( {
-            label: tabsSettings[ 'tab_' + k ] ? tabsSettings[ 'tab_' + k ].label : sprintf( __( 'Tab %d', '@@text_domain' ), k ),
+            label: tabsSettings[ `tab_${ k }` ] ? tabsSettings[ `tab_${ k }` ].label : sprintf( __( 'Tab %d', '@@text_domain' ), k ),
             number: k,
         } );
     }
@@ -132,12 +133,12 @@ class TabsBlock extends Component {
                                         value={ val.label }
                                         unstableOnFocus={ () => setAttributes( { tabActive: val.number } ) }
                                         onChange={ ( value ) => {
-                                            if ( typeof tabs[ val.number - 1 ] !== 'undefined' ) {
-                                                if ( typeof tabsSettings[ `tab_${ val.number }` ] === 'undefined' ) {
+                                            if ( 'undefined' !== typeof tabs[ val.number - 1 ] ) {
+                                                if ( 'undefined' === typeof tabsSettings[ `tab_${ val.number }` ] ) {
                                                     tabsSettings[ `tab_${ val.number }` ] = {};
                                                 }
                                                 tabsSettings[ `tab_${ val.number }` ].label = value;
-                                                setAttributes( { tabsSettings: Object.assign( {}, tabsSettings ) } );
+                                                setAttributes( { tabsSettings: { ...tabsSettings } } );
                                             }
                                         } }
                                         withoutInteractiveFormatting
@@ -209,7 +210,7 @@ export const settings = {
 
     edit: TabsBlock,
 
-    save: function( props ) {
+    save( props ) {
         const {
             tabsCount,
             tabActive,
@@ -231,18 +232,16 @@ export const settings = {
             <div className={ className } data-tab-active={ tabActive }>
                 <div className={ classnames( 'ghostkit-tabs-buttons', `ghostkit-tabs-buttons-align-${ buttonsAlign }` ) }>
                     {
-                        tabs.map( ( val ) => {
-                            return (
-                                <RichText.Content
-                                    tagName="a"
-                                    data-tab={ val.number }
-                                    href={ `#tab-${ val.number }` }
-                                    className="ghostkit-tabs-buttons-item"
-                                    key={ `tab_button_${ val.number }` }
-                                    value={ val.label }
-                                />
-                            );
-                        } )
+                        tabs.map( ( val ) => (
+                            <RichText.Content
+                                tagName="a"
+                                data-tab={ val.number }
+                                href={ `#tab-${ val.number }` }
+                                className="ghostkit-tabs-buttons-item"
+                                key={ `tab_button_${ val.number }` }
+                                value={ val.label }
+                            />
+                        ) )
                     }
                 </div>
                 <div className="ghostkit-tabs-content">

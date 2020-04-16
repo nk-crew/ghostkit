@@ -12,7 +12,7 @@ const $doc = $( document );
 /**
  * Parsley form validation.
  */
-$doc.on( 'initBlocks.ghostkit', function() {
+$doc.on( 'initBlocks.ghostkit', () => {
     $( '.ghostkit-form:not(.ghostkit-form-ready)' ).each( function() {
         const $form = $( this );
 
@@ -51,7 +51,7 @@ window.Parsley.addValidator( 'confirmEmail', {
 /**
  * Google reCaptcha
  */
-if ( typeof grecaptcha !== 'undefined' ) {
+if ( 'undefined' !== typeof grecaptcha ) {
     grecaptcha.ready( () => {
         const recaptchaFields = $( '[name="ghostkit_form_google_recaptcha"]' );
 
@@ -62,7 +62,7 @@ if ( typeof grecaptcha !== 'undefined' ) {
         recaptchaFields.each( function() {
             const $recaptchaTokenField = $( this );
 
-            grecaptcha.execute( GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' } ).then( function( token ) {
+            grecaptcha.execute( GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' } ).then( ( token ) => {
                 $recaptchaTokenField.val( token );
             } );
         } );

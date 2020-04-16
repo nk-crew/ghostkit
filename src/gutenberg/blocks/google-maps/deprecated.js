@@ -4,17 +4,17 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import IconMarker from './icons/deprecated-marker.svg';
+import IconMarker2 from './icons/deprecated-marker-2.svg';
+
+/**
  * WordPress dependencies
  */
 const {
     applyFilters,
 } = wp.hooks;
-
-/**
- * Internal dependencies
- */
-import IconMarker from './icons/deprecated-marker.svg';
-import IconMarker2 from './icons/deprecated-marker-2.svg';
 
 const fixMarker = {
     ghostkit: {
@@ -95,7 +95,7 @@ export default [
     {
         supports: fixMarker.supports,
         attributes: fixMarker.attributes,
-        save: function( props ) {
+        save( props ) {
             const {
                 height,
                 zoom,
@@ -150,7 +150,7 @@ export default [
     {
         supports: fixMarker.supports,
         attributes: fixMarker.attributes,
-        save: function( props ) {
+        save( props ) {
             const {
                 height,
                 zoom,
@@ -211,7 +211,7 @@ export default [
     {
         supports: fixMarker.supports,
         attributes: fixMarker.attributes,
-        save: function( props ) {
+        save( props ) {
             const {
                 height,
                 zoom,

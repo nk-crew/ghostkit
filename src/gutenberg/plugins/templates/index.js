@@ -6,6 +6,12 @@ import classnames from 'classnames/dedupe';
 import LazyLoad from 'react-lazyload';
 
 /**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import Modal from '../../components/modal';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -41,19 +47,13 @@ const {
     SelectControl,
 } = wp.components;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import Modal from '../../components/modal';
-
 const {
     GHOSTKIT,
 } = window;
 
 class TemplatesModal extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             loading: false,
@@ -68,51 +68,6 @@ class TemplatesModal extends Component {
 
     getSelectedCategory( type ) {
         return this.state.activeCategory[ type ] || false;
-    }
-
-    printCategorySelect( type ) {
-        const templates = this.getTemplates( type, '' );
-        const categories = {};
-        const selectData = [];
-
-        templates.forEach( ( template ) => {
-            if ( template.categories && template.categories.length ) {
-                template.categories.forEach( ( catData ) => {
-                    if ( ! categories[ catData.slug ] ) {
-                        categories[ catData.slug ] = true;
-                        selectData.push( {
-                            value: catData.slug,
-                            label: catData.name,
-                        } );
-                    }
-                } );
-            }
-        } );
-
-        if ( selectData.length ) {
-            selectData.unshift( {
-                value: '',
-                label: __( '-- Select Category --', '@@text_domain' ),
-            } );
-            return (
-                <SelectControl
-                    value={ this.getSelectedCategory( type ) }
-                    options={ selectData }
-                    onChange={ ( value ) => {
-                        this.setState( {
-                            activeCategory: {
-                                ...this.state.activeCategory,
-                                ...{
-                                    [ type ]: value,
-                                },
-                            },
-                        } );
-                    } }
-                />
-            );
-        }
-
-        return '';
     }
 
     getTemplates( type, categorySelected = null ) {
@@ -159,6 +114,51 @@ class TemplatesModal extends Component {
         return result;
     }
 
+    printCategorySelect( type ) {
+        const templates = this.getTemplates( type, '' );
+        const categories = {};
+        const selectData = [];
+
+        templates.forEach( ( template ) => {
+            if ( template.categories && template.categories.length ) {
+                template.categories.forEach( ( catData ) => {
+                    if ( ! categories[ catData.slug ] ) {
+                        categories[ catData.slug ] = true;
+                        selectData.push( {
+                            value: catData.slug,
+                            label: catData.name,
+                        } );
+                    }
+                } );
+            }
+        } );
+
+        if ( selectData.length ) {
+            selectData.unshift( {
+                value: '',
+                label: __( '-- Select Category --', '@@text_domain' ),
+            } );
+            return (
+                <SelectControl
+                    value={ this.getSelectedCategory( type ) }
+                    options={ selectData }
+                    onChange={ ( value ) => {
+                        this.setState( ( prevState ) => ( {
+                            activeCategory: {
+                                ...prevState.activeCategory,
+                                ...{
+                                    [ type ]: value,
+                                },
+                            },
+                        } ) );
+                    } }
+                />
+            );
+        }
+
+        return '';
+    }
+
     render() {
         const {
             insertTemplate,
@@ -200,7 +200,7 @@ class TemplatesModal extends Component {
                             onRequestClose();
                         } }
                     >
-                        <svg aria-hidden="true" role="img" focusable="false" className="dashicon dashicons-no-alt" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54-1.41 1.41L10 11.42l-3.53 3.53-1.42-1.42L8.58 10 5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"></path></svg>
+                        <svg aria-hidden="true" role="img" focusable="false" className="dashicon dashicons-no-alt" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54-1.41 1.41L10 11.42l-3.53 3.53-1.42-1.42L8.58 10 5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z" /></svg>
                     </button>
                 </div>
 
@@ -268,7 +268,7 @@ class TemplatesModal extends Component {
 
                                 return (
                                     <Fragment>
-                                        { currentTemplates === false ? (
+                                        { false === currentTemplates ? (
                                             <div className="ghostkit-plugin-templates-spinner"><Spinner /></div>
                                         ) : '' }
                                         { currentTemplates && ! currentTemplates.length ? (
@@ -277,7 +277,10 @@ class TemplatesModal extends Component {
                                                     <Fragment>
                                                         <p style={ {
                                                             marginTop: 0,
-                                                        } }>{ __( 'No templates found.', '@@text_domain' ) }</p>
+                                                        } }
+                                                        >
+                                                            { __( 'No templates found.', '@@text_domain' ) }
+                                                        </p>
                                                         <a className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl } target="_blank" rel="noopener noreferrer">{ __( 'Add Template', '@@text_domain' ) }</a>
                                                     </Fragment>
                                                 ) : (
@@ -289,7 +292,8 @@ class TemplatesModal extends Component {
                                             <Fragment key={ `${ tabType }-${ selectedCategory }` }>
                                                 <div className="ghostkit-plugin-templates-categories-row">
                                                     <div className="ghostkit-plugin-templates-categories-select">
-                                                        { this.printCategorySelect( tabType ) }</div>
+                                                        { this.printCategorySelect( tabType ) }
+                                                    </div>
                                                     <div className="ghostkit-plugin-templates-count">
                                                         <RawHTML>{ sprintf( __( 'Templates: %s', '@@text_domain' ), `<strong>${ currentTemplates.length }</strong>` ) }</RawHTML>
                                                     </div>
@@ -299,7 +303,7 @@ class TemplatesModal extends Component {
                                                     className="ghostkit-plugin-templates-list"
                                                     elementType="ul"
                                                     disableImagesLoaded={ false }
-                                                    updateOnEachImageLoad={ true }
+                                                    updateOnEachImageLoad
                                                     options={ {
                                                         transitionDuration: 0,
                                                     } }
@@ -317,6 +321,7 @@ class TemplatesModal extends Component {
                                                                 className={ classnames( 'ghostkit-plugin-templates-list-item', withThumb ? '' : 'ghostkit-plugin-templates-list-item-no-thumb' ) }
                                                                 key={ template.id }
                                                             >
+                                                                { /* eslint-disable-next-line react/button-has-type */ }
                                                                 <button
                                                                     onClick={ () => {
                                                                         this.setState( {
@@ -475,8 +480,8 @@ const TemplatesModalWithSelect = compose( [
         return {
             templates,
             getTemplateData( data, cb ) {
-                let type = data.type;
-                if ( type !== 'local' && type !== 'theme' ) {
+                let { type } = data;
+                if ( 'local' !== type && 'theme' !== type ) {
                     type = 'remote';
                 }
 
@@ -498,8 +503,8 @@ export const name = 'ghostkit-templates';
 export const icon = null;
 
 export class Plugin extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             isModalOpen: false,

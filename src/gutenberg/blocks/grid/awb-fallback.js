@@ -1,6 +1,13 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import FocalPointPicker from '../../components/focal-point-picker';
+import dashCaseToTitle from '../../utils/dash-case-to-title';
+
 const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
@@ -26,13 +33,6 @@ const {
 } = wp.data;
 
 /**
- * Internal dependencies
- */
-import ColorPicker from '../../components/color-picker';
-import FocalPointPicker from '../../components/focal-point-picker';
-import dashCaseToTitle from '../../utils/dash-case-to-title';
-
-/**
  * Filters registered block settings, extending attributes to include backgrounds.
  *
  * @param  {Object} blockSettings Original block settings
@@ -40,8 +40,8 @@ import dashCaseToTitle from '../../utils/dash-case-to-title';
  */
 export function addAttribute( blockSettings ) {
     if (
-        blockSettings.name === 'ghostkit/grid' ||
-        blockSettings.name === 'ghostkit/grid-column'
+        'ghostkit/grid' === blockSettings.name
+        || 'ghostkit/grid-column' === blockSettings.name
     ) {
         blockSettings.supports.awb = true;
     }
@@ -107,7 +107,7 @@ function onImageSelect( media, setAttributes ) {
 
     wp.media.attachment( media.id ).fetch().then( ( data ) => {
         if ( data && data.sizes ) {
-            const url = ( data.sizes[ 'post-thumbnail' ] || data.sizes.medium || data.sizes.medium_large || data.sizes.full ).url;
+            const { url } = data.sizes[ 'post-thumbnail' ] || data.sizes.medium || data.sizes.medium_large || data.sizes.full;
             if ( url ) {
                 setAttributes( {
                     image: media.id,
@@ -119,8 +119,8 @@ function onImageSelect( media, setAttributes ) {
 }
 
 class BackgroundControlsInspector extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.updateAwbAttributes = this.updateAwbAttributes.bind( this );
         this.onUpdate = this.onUpdate.bind( this );
@@ -129,22 +129,9 @@ class BackgroundControlsInspector extends Component {
     componentDidMount() {
         this.onUpdate();
     }
+
     componentDidUpdate() {
         this.onUpdate();
-    }
-
-    updateAwbAttributes( attr ) {
-        const {
-            setAttributes,
-        } = this.props;
-
-        const newAttrs = {};
-
-        Object.keys( attr ).forEach( ( k ) => {
-            newAttrs[ `awb_${ k }` ] = attr[ k ];
-        } );
-
-        setAttributes( newAttrs );
     }
 
     onUpdate() {
@@ -161,6 +148,20 @@ class BackgroundControlsInspector extends Component {
         if ( fetchImageTag && fetchImageTag !== imageTag ) {
             this.updateAwbAttributes( { imageTag: fetchImageTag } );
         }
+    }
+
+    updateAwbAttributes( attr ) {
+        const {
+            setAttributes,
+        } = this.props;
+
+        const newAttrs = {};
+
+        Object.keys( attr ).forEach( ( k ) => {
+            newAttrs[ `awb_${ k }` ] = attr[ k ];
+        } );
+
+        setAttributes( newAttrs );
     }
 
     render() {
@@ -205,8 +206,8 @@ class BackgroundControlsInspector extends Component {
                             let selected = type === val.value;
 
                             // select video
-                            if ( val.value === 'yt_vm_video' ) {
-                                selected = type === 'video' || type === 'yt_vm_video';
+                            if ( 'yt_vm_video' === val.value ) {
+                                selected = 'video' === type || 'yt_vm_video' === type;
                             }
 
                             return (
@@ -225,8 +226,8 @@ class BackgroundControlsInspector extends Component {
                     }
                 </ButtonGroup>
 
-                { ( type === 'image' ) ? (
-                    <PanelBody title={ __( 'Image', '@@text_domain' ) } initialOpen={ type === 'image' }>
+                { ( 'image' === type ) ? (
+                    <PanelBody title={ __( 'Image', '@@text_domain' ) } initialOpen={ 'image' === type }>
                         { /* Select Image */ }
                         { ! image || ! imageTag ? (
                             <MediaUpload
@@ -248,7 +249,7 @@ class BackgroundControlsInspector extends Component {
                                 <FocalPointPicker
                                     value={ imageBackgroundPosition }
                                     image={ imageTag }
-                                    onChange={ v => setAttributes( { imageBackgroundPosition: v } ) }
+                                    onChange={ ( v ) => setAttributes( { imageBackgroundPosition: v } ) }
                                 />
                                 { imageSizes ? (
                                     <SelectControl
@@ -264,7 +265,7 @@ class BackgroundControlsInspector extends Component {
                                             } );
                                             return result;
                                         } )() }
-                                        onChange={ v => setAttributes( { imageSize: v } ) }
+                                        onChange={ ( v ) => setAttributes( { imageSize: v } ) }
                                     />
                                 ) : '' }
                                 <SelectControl
@@ -284,10 +285,10 @@ class BackgroundControlsInspector extends Component {
                                             value: 'pattern',
                                         },
                                     ] }
-                                    onChange={ v => setAttributes( { imageBackgroundSize: v } ) }
+                                    onChange={ ( v ) => setAttributes( { imageBackgroundSize: v } ) }
                                 />
-                                <a
-                                    href="#"
+                                <Button
+                                    isLink
                                     onClick={ ( e ) => {
                                         setAttributes( {
                                             image: '',
@@ -298,18 +299,18 @@ class BackgroundControlsInspector extends Component {
                                     } }
                                 >
                                     { __( 'Remove image', '@@text_domain' ) }
-                                </a>
+                                </Button>
                             </Fragment>
                         ) : '' }
                     </PanelBody>
                 ) : '' }
 
-                { type === 'color' ? (
+                { 'color' === type ? (
                     <ColorPicker
                         label={ __( 'Background Color', '@@text_domain' ) }
                         value={ color }
                         onChange={ ( val ) => setAttributes( { color: val } ) }
-                        alpha={ true }
+                        alpha
                     />
                 ) : (
                     <PanelBody
@@ -319,13 +320,13 @@ class BackgroundControlsInspector extends Component {
                                 <ColorIndicator colorValue={ color } />
                             </Fragment>
                         ) }
-                        initialOpen={ type === 'color' }
+                        initialOpen={ 'color' === type }
                     >
                         <ColorPicker
                             label={ __( 'Background Color', '@@text_domain' ) }
                             value={ color }
                             onChange={ ( val ) => setAttributes( { color: val } ) }
-                            alpha={ true }
+                            alpha
                         />
                     </PanelBody>
                 ) }
@@ -366,7 +367,7 @@ const BackgroundControlsInspectorWithSelect = withSelect( ( select, props ) => {
     };
 
     // background image with pattern size
-    if ( imageBackgroundSize === 'pattern' ) {
+    if ( 'pattern' === imageBackgroundSize ) {
         data.div_tag = true;
     }
 
@@ -413,15 +414,15 @@ function addEditorBackground( background, props ) {
 
         let addBackground = false;
 
-        if ( type === 'color' && color ) {
+        if ( 'color' === type && color ) {
             addBackground = true;
         }
 
         if (
-            type === 'image' &&
-            (
-                color ||
-                imageTag
+            'image' === type
+            && (
+                color
+                || imageTag
             )
         ) {
             addBackground = true;
@@ -433,7 +434,8 @@ function addEditorBackground( background, props ) {
                     { color ? (
                         <div className="nk-awb-overlay" style={ { 'background-color': color } } />
                     ) : '' }
-                    { type === 'image' && imageTag ? (
+                    { 'image' === type && imageTag ? (
+                        // eslint-disable-next-line react/no-danger
                         <div className="nk-awb-inner" dangerouslySetInnerHTML={ { __html: imageTag } } />
                     ) : '' }
                 </div>
@@ -469,15 +471,15 @@ function addSaveBackground( background, props ) {
 
         let addBackground = false;
 
-        if ( type === 'color' && color ) {
+        if ( 'color' === type && color ) {
             addBackground = true;
         }
 
         if (
-            type === 'image' &&
-            (
-                color ||
-                imageTag
+            'image' === type
+            && (
+                color
+                || imageTag
             )
         ) {
             addBackground = true;
@@ -498,7 +500,7 @@ function addSaveBackground( background, props ) {
             }
 
             // Fix style tag background.
-            if ( type === 'image' && imageTag ) {
+            if ( 'image' === type && imageTag ) {
                 imageTag = imageTag.replace( 'url(&quot;', 'url(\'' );
                 imageTag = imageTag.replace( '&quot;);', '\');' );
             }
@@ -509,7 +511,8 @@ function addSaveBackground( background, props ) {
                         { color ? (
                             <div className="nk-awb-overlay" style={ { 'background-color': color } } />
                         ) : '' }
-                        { type === 'image' && imageTag ? (
+                        { 'image' === type && imageTag ? (
+                            // eslint-disable-next-line react/no-danger
                             <div className="nk-awb-inner" dangerouslySetInnerHTML={ { __html: imageTag } } />
                         ) : '' }
                     </div>

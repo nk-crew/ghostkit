@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import GapSettings from '../../components/gap-settings';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -42,16 +47,11 @@ const {
 } = wp.data;
 
 /**
- * Internal dependencies
- */
-import GapSettings from '../../components/gap-settings';
-
-/**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.maybeUpdateItemsCount = this.maybeUpdateItemsCount.bind( this );
     }
@@ -59,8 +59,34 @@ class BlockEdit extends Component {
     componentDidMount() {
         this.maybeUpdateItemsCount();
     }
+
     componentDidUpdate() {
         this.maybeUpdateItemsCount();
+    }
+
+    /**
+     * Returns the layouts configuration for a given number of items.
+     *
+     * @return {Object[]} Items layout configuration.
+     */
+    getInnerBlocksTemplate() {
+        const {
+            attributes,
+        } = this.props;
+
+        const {
+            count,
+        } = attributes;
+
+        const result = [];
+
+        if ( 0 < count ) {
+            for ( let k = 1; k <= count; k += 1 ) {
+                result.push( [ 'ghostkit/button-single' ] );
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -83,31 +109,6 @@ class BlockEdit extends Component {
         }
     }
 
-    /**
-     * Returns the layouts configuration for a given number of items.
-     *
-     * @return {Object[]} Items layout configuration.
-     */
-    getInnerBlocksTemplate() {
-        const {
-            attributes,
-        } = this.props;
-
-        const {
-            count,
-        } = attributes;
-
-        const result = [];
-
-        if ( count > 0 ) {
-            for ( let k = 1; k <= count; k++ ) {
-                result.push( [ 'ghostkit/button-single' ] );
-            }
-        }
-
-        return result;
-    }
-
     render() {
         const {
             attributes,
@@ -127,7 +128,7 @@ class BlockEdit extends Component {
         className = classnames(
             'ghostkit-button-wrapper',
             gap ? `ghostkit-button-wrapper-gap-${ gap }` : false,
-            align && align !== 'none' ? `ghostkit-button-wrapper-align-${ align }` : false,
+            align && 'none' !== align ? `ghostkit-button-wrapper-align-${ align }` : false,
             className
         );
 
@@ -169,7 +170,7 @@ class BlockEdit extends Component {
                             isSelectedBlockInRoot ? ( () => (
                                 <Tooltip text={ __( 'Add Button', '@@text_domain' ) }>
                                     <Button
-                                        icon={ 'insert' }
+                                        icon="insert"
                                         onClick={ () => {
                                             insertButtonSingle();
                                         } }

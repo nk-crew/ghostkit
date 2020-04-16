@@ -1,8 +1,6 @@
 /**
  * WordPress dependencies
  */
-const { registerPlugin } = wp.plugins;
-
 /**
  * Internal dependencies
  */
@@ -12,6 +10,8 @@ import * as typography from './typography';
 import * as customCode from './custom-code';
 import * as colorPalette from './color-palette';
 import * as customizer from './customizer';
+
+const { registerPlugin } = wp.plugins;
 
 /**
  * Register plugins

@@ -4,6 +4,16 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import FieldLabel from '../../field-label';
+import FieldDescription from '../../field-description';
+import {
+    getFieldAttributes,
+    FieldDefaultSettings,
+} from '../../field-attributes';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -26,16 +36,6 @@ const {
     InspectorControls,
     RichText,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import FieldLabel from '../../field-label';
-import FieldDescription from '../../field-description';
-import {
-    getFieldAttributes,
-    FieldDefaultSettings,
-} from '../../field-attributes';
 
 /**
  * Block Edit Class.

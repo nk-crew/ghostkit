@@ -4,6 +4,13 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import IconPicker from '../../components/icon-picker';
+
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -11,12 +18,6 @@ const {
 } = wp.hooks;
 
 const { Component } = wp.element;
-
-/**
- * Internal dependencies
- */
-import IconPicker from '../../components/icon-picker';
-import metadata from './block.json';
 
 const { name } = metadata;
 

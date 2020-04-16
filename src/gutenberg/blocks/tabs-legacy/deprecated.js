@@ -18,9 +18,9 @@ const {
 const getTabs = ( { tabsCount, tabsSettings } ) => {
     const result = [];
 
-    for ( let k = 1; k <= tabsCount; k++ ) {
+    for ( let k = 1; k <= tabsCount; k += 1 ) {
         result.push( {
-            label: tabsSettings[ 'tab_' + k ] ? tabsSettings[ 'tab_' + k ].label : sprintf( __( 'Tab %d', '@@text_domain' ), k ),
+            label: tabsSettings[ `tab_${ k }` ] ? tabsSettings[ `tab_${ k }` ].label : sprintf( __( 'Tab %d', '@@text_domain' ), k ),
             number: k,
         } );
     }
@@ -59,9 +59,7 @@ export default [
             },
         },
         isEligible( attributes, innerBlocks ) {
-            return innerBlocks.some( function( item ) {
-                return typeof item.attributes !== 'undefined' && typeof item.attributes.layout !== 'undefined';
-            } );
+            return innerBlocks.some( ( item ) => 'undefined' !== typeof item.attributes && 'undefined' !== typeof item.attributes.layout );
         },
         migrate( attributes, innerBlocks ) {
             function withoutLayout( block ) {
@@ -79,9 +77,11 @@ export default [
 
             const tabItems = innerBlocks.reduce( ( result, innerBlock ) => {
                 const { layout } = innerBlock.attributes;
+                const columnMatch = layout.match( /^ghostkit ghostkit-tab ghostkit-tab-(\d+)$/ );
 
-                let columnIndex, columnMatch;
-                if ( layout && ( columnMatch = layout.match( /^ghostkit ghostkit-tab ghostkit-tab-(\d+)$/ ) ) ) {
+                let columnIndex;
+
+                if ( layout && columnMatch ) {
                     columnIndex = Number( columnMatch[ 1 ] ) - 1;
                 } else {
                     columnIndex = 0;
@@ -96,18 +96,16 @@ export default [
                 return result;
             }, [] );
 
-            const migratedInnerBlocks = tabItems.map( ( tabBlocks, i ) => {
-                return createBlock( 'ghostkit/tabs-tab', {
-                    tabNumber: i + 1,
-                }, tabBlocks );
-            } );
+            const migratedInnerBlocks = tabItems.map( ( tabBlocks, i ) => createBlock( 'ghostkit/tabs-tab', {
+                tabNumber: i + 1,
+            }, tabBlocks ) );
 
             return [
                 attributes,
                 migratedInnerBlocks,
             ];
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 tabsCount,
                 tabActive,
@@ -137,13 +135,11 @@ export default [
                 <div className={ className }>
                     <div className={ classnames( 'ghostkit-tabs-buttons', `ghostkit-tabs-buttons-align-${ buttonsAlign }` ) }>
                         {
-                            tabs.map( ( val ) => {
-                                return (
-                                    <a data-tab={ val.number } href={ `#tab-${ val.number }` } className="ghostkit-tabs-buttons-item" key={ `tab_button_${ val.number }` } >
-                                        { val.label }
-                                    </a>
-                                );
-                            } )
+                            tabs.map( ( val ) => (
+                                <a data-tab={ val.number } href={ `#tab-${ val.number }` } className="ghostkit-tabs-buttons-item" key={ `tab_button_${ val.number }` }>
+                                    { val.label }
+                                </a>
+                            ) )
                         }
                     </div>
                     <div className="ghostkit-tabs-content">

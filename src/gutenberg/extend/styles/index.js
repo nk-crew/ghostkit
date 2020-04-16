@@ -6,6 +6,15 @@ import deepEqual from 'deep-equal';
 import { throttle } from 'throttle-debounce';
 
 /**
+ * Internal dependencies
+ */
+import './fallback-2-5';
+import { replaceClass } from '../../utils/classes-replacer';
+import EditorStyles from '../../components/editor-styles';
+
+import getStyles from './get-styles';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -30,22 +39,14 @@ const {
     createHigherOrderComponent,
 } = wp.compose;
 
-/**
- * Internal dependencies
- */
-import './fallback-2-5';
-import getStyles from './get-styles';
-import { replaceClass } from '../../utils/classes-replacer';
-import EditorStyles from '../../components/editor-styles';
-
 const { GHOSTKIT } = window;
 
 /**
  * Custom Styles Component.
  */
 class CustomStylesComponent extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.onUpdate = throttle( 60, this.onUpdate.bind( this ) );
         this.getGhostKitAtts = this.getGhostKitAtts.bind( this );
@@ -54,6 +55,7 @@ class CustomStylesComponent extends Component {
     componentDidMount() {
         this.onUpdate( true );
     }
+
     componentDidUpdate() {
         this.onUpdate();
     }
@@ -196,17 +198,17 @@ class CustomStylesComponent extends Component {
             }
 
             // prepare new block id.
-            if ( clientId && ! ghostkitId && typeof ghostkitId !== 'undefined' ) {
+            if ( clientId && ! ghostkitId && 'undefined' !== typeof ghostkitId ) {
                 let ID = ghostkitId || '';
 
                 // check if ID already exist.
                 let tryCount = 10;
-                while ( ! ID || ( typeof usedIds[ ID ] !== 'undefined' && usedIds[ ID ] !== clientId && tryCount > 0 ) ) {
+                while ( ! ID || ( 'undefined' !== typeof usedIds[ ID ] && usedIds[ ID ] !== clientId && 0 < tryCount ) ) {
                     ID = shorthash.unique( clientId );
-                    tryCount--;
+                    tryCount -= 1;
                 }
 
-                if ( ID && typeof usedIds[ ID ] === 'undefined' ) {
+                if ( ID && 'undefined' === typeof usedIds[ ID ] ) {
                     usedIds[ ID ] = clientId;
                 }
 
@@ -219,8 +221,8 @@ class CustomStylesComponent extends Component {
 
         if ( ghostkitId && ghostkitClassname ) {
             return {
-                ghostkitId: ghostkitId,
-                ghostkitClassname: ghostkitClassname,
+                ghostkitId,
+                ghostkitClassname,
             };
         }
 
@@ -263,11 +265,9 @@ class CustomStylesComponent extends Component {
     }
 }
 
-CustomStylesComponent = withSelect( ( select, ownProps ) => {
-    return {
-        blockSettings: getBlockType( ownProps.name ),
-    };
-} )( CustomStylesComponent );
+const CustomStylesComponentWithSelect = withSelect( ( select, ownProps ) => ( {
+    blockSettings: getBlockType( ownProps.name ),
+} ) )( CustomStylesComponent );
 
 /**
  * Extend block attributes with styles.
@@ -341,12 +341,12 @@ function addAttribute( blockSettings, name ) {
  */
 function addAttributeTransform( transformedBlock, blocks ) {
     if (
-        blocks &&
-        blocks[ 0 ] &&
-        blocks[ 0 ].clientId === transformedBlock.clientId &&
-        blocks[ 0 ].attributes &&
-        blocks[ 0 ].attributes.ghostkitStyles &&
-        Object.keys( blocks[ 0 ].attributes.ghostkitStyles ).length
+        blocks
+        && blocks[ 0 ]
+        && blocks[ 0 ].clientId === transformedBlock.clientId
+        && blocks[ 0 ].attributes
+        && blocks[ 0 ].attributes.ghostkitStyles
+        && Object.keys( blocks[ 0 ].attributes.ghostkitStyles ).length
     ) {
         Object.keys( blocks[ 0 ].attributes ).forEach( ( attrName ) => {
             if ( /^ghostkit/.test( attrName ) ) {
@@ -366,15 +366,13 @@ function addAttributeTransform( transformedBlock, blocks ) {
  *
  * @return {string} Wrapped component.
  */
-const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
-    return function( props ) {
-        return (
-            <Fragment>
-                <BlockEdit { ...props } />
-                <CustomStylesComponent { ...props } />
-            </Fragment>
-        );
-    };
+const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => function( props ) {
+    return (
+        <Fragment>
+            <BlockEdit { ...props } />
+            <CustomStylesComponentWithSelect { ...props } />
+        </Fragment>
+    );
 }, 'withNewAttrs' );
 
 // Init filters.

@@ -128,7 +128,7 @@ export default [
                 default: true,
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 popularText,
                 title,

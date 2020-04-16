@@ -37,7 +37,7 @@ class Icons extends Component {
     getSetting( name, defaultVal ) {
         let result = defaultVal;
 
-        if ( typeof this.state.settings[ name ] !== 'undefined' ) {
+        if ( 'undefined' !== typeof this.state.settings[ name ] ) {
             result = this.state.settings[ name ];
         }
 
@@ -45,13 +45,11 @@ class Icons extends Component {
     }
 
     updateSetting( name, val ) {
-        const allSettings = merge( {}, this.state.settings, {
-            [ name ]: val,
-        } );
-
-        this.setState( {
-            settings: allSettings,
-        }, () => {
+        this.setState( ( prevState ) => ( {
+            settings: merge( {}, prevState.settings, {
+                [ name ]: val,
+            } ),
+        } ), () => {
             this.updateIconsDebounce();
         } );
     }
@@ -66,7 +64,7 @@ class Icons extends Component {
         } )
             .then( ( result ) => {
                 if ( ! result.success || ! result.response ) {
-                    // eslint-disable-next-line
+                    // eslint-disable-next-line no-console
                     console.log( result );
                 }
             } );

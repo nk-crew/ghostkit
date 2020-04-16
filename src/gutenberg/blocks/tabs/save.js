@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -16,11 +21,6 @@ const {
     RichText,
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -53,19 +53,18 @@ class BlockSave extends Component {
                 <div className={ classnames(
                     'ghostkit-tabs-buttons',
                     `ghostkit-tabs-buttons-align-${ buttonsAlign }`
-                ) }>
+                ) }
+                >
                     {
-                        tabsData.map( ( tabData ) => {
-                            return (
-                                <RichText.Content
-                                    tagName="a"
-                                    href={ `#${ tabData.slug }` }
-                                    className="ghostkit-tabs-buttons-item"
-                                    key={ `tab_button_${ tabData.slug }` }
-                                    value={ tabData.title }
-                                />
-                            );
-                        } )
+                        tabsData.map( ( tabData ) => (
+                            <RichText.Content
+                                tagName="a"
+                                href={ `#${ tabData.slug }` }
+                                className="ghostkit-tabs-buttons-item"
+                                key={ `tab_button_${ tabData.slug }` }
+                                value={ tabData.title }
+                            />
+                        ) )
                     }
                 </div>
                 <div className="ghostkit-tabs-content">

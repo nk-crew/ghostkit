@@ -1,17 +1,23 @@
-if ( typeof window.ghostkitWebfontList !== 'undefined' ) {
+if ( 'undefined' !== typeof window.ghostkitWebfontList ) {
     const googleFonts = window.ghostkitWebfontList[ 'google-fonts' ];
-    if ( typeof googleFonts !== 'undefined' ) {
+    if ( 'undefined' !== typeof googleFonts ) {
         const googleFamilies = [];
-        for ( const key in googleFonts ) {
+
+        Object.keys( googleFonts ).forEach( ( key ) => {
             let weights = '';
-            for ( const keyWeight in googleFonts[ key ].widths ) {
-                if ( keyWeight > 0 && keyWeight !== ( googleFonts[ key ].widths.length - 1 ) ) {
-                    weights = weights + ',';
-                }
-                weights = weights + googleFonts[ key ].widths[ keyWeight ];
+
+            if ( 'undefined' !== typeof googleFonts[ key ].widths ) {
+                googleFonts[ key ].widths.forEach( ( keyWeight ) => {
+                    if ( 0 < keyWeight && keyWeight !== ( googleFonts[ key ].widths.length - 1 ) ) {
+                        weights += ',';
+                    }
+                    weights += googleFonts[ key ].widths[ keyWeight ];
+                } );
             }
-            googleFamilies.push( key + ':' + weights );
-        }
+
+            googleFamilies.push( `${ key }:${ weights }` );
+        } );
+
         window.WebFont.load( {
             google: {
                 families: googleFamilies,

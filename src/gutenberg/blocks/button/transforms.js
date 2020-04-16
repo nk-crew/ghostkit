@@ -10,7 +10,7 @@ export default {
         {
             type: 'block',
             blocks: [ 'core/button' ],
-            transform: function( attrs ) {
+            transform( attrs ) {
                 return createBlock(
                     'ghostkit/button',
                     {

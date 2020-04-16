@@ -1,17 +1,18 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
 /**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+
 import transforms from './transforms';
 import deprecated from './deprecated';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
+
+const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -41,7 +42,7 @@ export const settings = {
             let result = {};
 
             // Custom Gap.
-            if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
+            if ( 'custom' === gap && 'undefined' !== typeof gapCustom ) {
                 // we need to use `%` unit because of conflict with complex calc() and 0 value.
                 const unit = gapCustom ? 'px' : '%';
 

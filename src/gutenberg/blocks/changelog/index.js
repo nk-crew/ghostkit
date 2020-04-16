@@ -1,15 +1,16 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
 /**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
+
+const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -46,15 +47,15 @@ export const settings = {
                 attributes: {
                     values: [
                         <li key="list-item-1">
-                            <span className="ghostkit-badge" style="background-color: #4ab866;">{ __( 'Added', '@@text_domain' ) }</span>
+                            <span className="ghostkit-badge" style={ { backgroundColor: '#4ab866' } }>{ __( 'Added', '@@text_domain' ) }</span>
                             { __( 'Something', '@@text_domain' ) }
                         </li>,
                         <li key="list-item-2">
-                            <span className="ghostkit-badge" style="background-color: #0366d6;">{ __( 'Fixed', '@@text_domain' ) }</span>
+                            <span className="ghostkit-badge" style={ { backgroundColor: '#0366d6' } }>{ __( 'Fixed', '@@text_domain' ) }</span>
                             { __( 'Something', '@@text_domain' ) }
                         </li>,
                         <li key="list-item-3">
-                            <span className="ghostkit-badge" style="background-color: #63656b;">{ __( 'Changed', '@@text_domain' ) }</span>
+                            <span className="ghostkit-badge" style={ { backgroundColor: '#63656b' } }>{ __( 'Changed', '@@text_domain' ) }</span>
                             { __( 'Something', '@@text_domain' ) }
                         </li>,
                     ],

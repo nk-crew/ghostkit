@@ -2,7 +2,12 @@
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
-import PropTypes from 'prop-types';
+
+/**
+ * Internal dependencies
+ */
+import pages from '../pages';
+import Logo from '../assets/logo.svg';
 
 /**
  * WordPress dependencies
@@ -10,12 +15,6 @@ import PropTypes from 'prop-types';
 const { Component, Fragment } = wp.element;
 
 const { __ } = wp.i18n;
-
-/**
- * Internal dependencies
- */
-import pages from '../pages';
-import Logo from '../assets/logo.svg';
 
 const $ = window.jQuery;
 
@@ -25,14 +24,13 @@ export default class Container extends Component {
 
         // get variable.
         const $_GET = [];
-        window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( a, name, value ) {
+        window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, ( a, name, value ) => {
             $_GET[ name ] = value;
         } );
 
         // Set the default states
         this.state = {
             activePage: $_GET.sub_page ? $_GET.sub_page : Object.keys( pages )[ 0 ],
-            blocks: {},
         };
 
         this.updateAdminPageActiveLink = this.updateAdminPageActiveLink.bind( this );
@@ -76,6 +74,7 @@ export default class Container extends Component {
         Object.keys( pages ).forEach( ( k ) => {
             resultTabs.push(
                 <li key={ k }>
+                    { /* eslint-disable-next-line react/button-has-type */ }
                     <button
                         className={ classnames( 'ghostkit-admin-tabs-button', activePage === k ? 'ghostkit-admin-tabs-button-active' : '' ) }
                         onClick={ () => {
@@ -107,6 +106,7 @@ export default class Container extends Component {
             <Fragment>
                 <div className="ghostkit-admin-head">
                     <div className="ghostkit-admin-head-wrap">
+                        { /* eslint-disable-next-line jsx-a11y/control-has-associated-label */ }
                         <a href="https://ghostkit.io/"><Logo /></a>
                         <h1>{ __( 'Ghost Kit' ) }</h1>
                         <ul className="ghostkit-admin-tabs">
@@ -121,7 +121,3 @@ export default class Container extends Component {
         );
     }
 }
-
-Container.propTypes = {
-    data: PropTypes.object,
-};

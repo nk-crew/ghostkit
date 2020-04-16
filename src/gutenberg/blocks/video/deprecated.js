@@ -4,19 +4,20 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
+
+import metadata from './block.json';
+import save from './save';
+
+/**
  * WordPress dependencies
  */
 const { Component } = wp.element;
 const {
     applyFilters,
 } = wp.hooks;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
-import save from './save';
-import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
 
 export default [
     // v2.10.2
@@ -255,8 +256,8 @@ export default [
             },
         },
         save: class VideoBlockSave extends Component {
-            constructor() {
-                super( ...arguments );
+            constructor( props ) {
+                super( props );
 
                 // fix xml imported string.
                 this.props.attributes.posterTag = fixXmlImportedContent( this.props.attributes.posterTag );
@@ -322,7 +323,7 @@ export default [
 
                 resultAttrs[ 'data-click-action' ] = clickAction;
 
-                if ( clickAction === 'fullscreen' ) {
+                if ( 'fullscreen' === clickAction ) {
                     resultAttrs[ 'data-fullscreen-action-close-icon' ] = fullscreenActionCloseIcon;
                     resultAttrs[ 'data-fullscreen-background-color' ] = fullscreenBackgroundColor;
                 } else {
@@ -337,7 +338,9 @@ export default [
                 return (
                     <div { ...resultAttrs }>
                         { posterTag ? (
-                            <div className="ghostkit-video-poster"
+                            <div
+                                className="ghostkit-video-poster"
+                                // eslint-disable-next-line react/no-danger
                                 dangerouslySetInnerHTML={ {
                                     __html: posterTag,
                                 } }
@@ -434,7 +437,7 @@ export default [
                 default: 'full',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 type,
                 video,
@@ -453,7 +456,7 @@ export default [
 
             resultAttrs.className = classnames(
                 'ghostkit-video',
-                'ghostkit-video-aspect-ratio-' + videoAspectRatio,
+                `ghostkit-video-aspect-ratio-${ videoAspectRatio }`,
                 props.className
             );
 
@@ -481,7 +484,9 @@ export default [
             return (
                 <div { ...resultAttrs }>
                     { posterTag ? (
-                        <div className="ghostkit-video-poster"
+                        <div
+                            className="ghostkit-video-poster"
+                            // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={ {
                                 __html: posterTag,
                             } }

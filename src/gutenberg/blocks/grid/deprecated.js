@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import getBackgroundStyles from './get-background-styles';
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -15,12 +21,6 @@ const { Component } = wp.element;
 const {
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import getBackgroundStyles from './get-background-styles';
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -139,7 +139,7 @@ export default [
             },
         },
         isEligible( attributes, innerBlocks ) {
-            return attributes.columns === 0 && innerBlocks.length;
+            return 0 === attributes.columns && innerBlocks.length;
         },
         migrate( attributes, innerBlocks ) {
             attributes.columns = innerBlocks.length;
@@ -149,7 +149,7 @@ export default [
                 innerBlocks,
             ];
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 verticalAlign,
                 horizontalAlign,

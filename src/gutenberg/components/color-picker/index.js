@@ -53,7 +53,7 @@ export default class ColorPicker extends Component {
                                 className="components-color-palette__item components-circular-option-picker__option"
                                 onClick={ onToggle }
                                 aria-label={ hint }
-                                style={ { color: value ? value : '' } }
+                                style={ { color: value || '' } }
                             >
                                 <span className="components-color-palette__custom-color-gradient" />
                             </button>
@@ -66,10 +66,12 @@ export default class ColorPicker extends Component {
                                 onChangeComplete={ ( color ) => {
                                     let colorString;
 
-                                    if ( typeof color.rgb === 'undefined' || color.rgb.a === 1 ) {
+                                    if ( 'undefined' === typeof color.rgb || 1 === color.rgb.a ) {
                                         colorString = color.hex;
                                     } else {
-                                        const { r, g, b, a } = color.rgb;
+                                        const {
+                                            r, g, b, a,
+                                        } = color.rgb;
                                         colorString = `rgba(${ r }, ${ g }, ${ b }, ${ a })`;
                                     }
 
@@ -85,11 +87,11 @@ export default class ColorPicker extends Component {
                                     <ColorPalette
                                         value={ value }
                                         onChange={ ( color ) => onChange( color || '' ) }
-                                        disableCustomColors={ true }
+                                        disableCustomColors
                                     />
                                 </BaseControl>
                             ) : '' }
-                            { afterDropdownContent ? afterDropdownContent : '' }
+                            { afterDropdownContent || '' }
                         </div>
                     ) }
                 />

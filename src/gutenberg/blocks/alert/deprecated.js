@@ -1,6 +1,14 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import IconPicker from '../../components/icon-picker';
+
+import save from './save';
+import metadata from './block.json';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -10,13 +18,6 @@ const { Component } = wp.element;
 const {
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import IconPicker from '../../components/icon-picker';
-import save from './save';
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -185,7 +186,7 @@ export default [
                 default: false,
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 icon,
                 hideButton,

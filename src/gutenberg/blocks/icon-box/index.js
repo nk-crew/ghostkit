@@ -1,17 +1,18 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
 /**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 import transforms from './transforms';
 import deprecated from './deprecated';
+
+const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -30,7 +31,7 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/icon-box/',
         customStylesCallback( attributes ) {
             const styles = {
-                '--gkt-icon-box--icon__font-size': typeof attributes.iconSize !== 'undefined' ? `${ attributes.iconSize }px` : undefined,
+                '--gkt-icon-box--icon__font-size': 'undefined' !== typeof attributes.iconSize ? `${ attributes.iconSize }px` : undefined,
                 '--gkt-icon-box--icon__color': attributes.iconColor,
             };
 

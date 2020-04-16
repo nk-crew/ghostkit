@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import getUniqueSlug from '../../utils/get-unique-slug';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -25,21 +31,11 @@ const {
 } = wp.blockEditor;
 
 /**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-
-/**
- * Internal dependencies
- */
-import getUniqueSlug from '../../utils/get-unique-slug';
-
-/**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.updateSlug = this.updateSlug.bind( this );
     }
@@ -109,7 +105,8 @@ class BlockEdit extends Component {
                             onClick: () => setAttributes( { active: ! active } ),
                             isActive: active,
                         },
-                    ] } />
+                    ] }
+                    />
                 </BlockControls>
                 <div className={ className }>
                     <div className="ghostkit-accordion-item-heading">
@@ -123,6 +120,7 @@ class BlockEdit extends Component {
                             } }
                             withoutInteractiveFormatting
                         />
+                        { /* eslint-disable-next-line react/button-has-type */ }
                         <button
                             className="ghostkit-accordion-item-collapse"
                             onClick={ () => setAttributes( { active: ! active } ) }

@@ -30,8 +30,7 @@ export default function EditorStyles( { styles } ) {
             return node;
         } );
 
-        return () =>
-            nodes.forEach( ( node ) => document.body.removeChild( node ) );
+        return () => nodes.forEach( ( node ) => document.body.removeChild( node ) );
     }, [ styles ] );
 
     return null;

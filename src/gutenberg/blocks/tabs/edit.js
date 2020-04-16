@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import RemoveButton from '../../components/remove-button';
+import getUniqueSlug from '../../utils/get-unique-slug';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -40,17 +46,11 @@ const {
 } = wp.data;
 
 /**
- * Internal dependencies
- */
-import RemoveButton from '../../components/remove-button';
-import getUniqueSlug from '../../utils/get-unique-slug';
-
-/**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.getTabsTemplate = this.getTabsTemplate.bind( this );
         this.getTabs = this.getTabs.bind( this );
@@ -70,9 +70,7 @@ class BlockEdit extends Component {
             tabsData = [],
         } = this.props.attributes;
 
-        const result = tabsData.map( ( tabData ) => {
-            return [ 'ghostkit/tabs-tab-v2', tabData ];
-        } );
+        const result = tabsData.map( ( tabData ) => [ 'ghostkit/tabs-tab-v2', tabData ] );
 
         return result;
     }
@@ -132,7 +130,7 @@ class BlockEdit extends Component {
             tabsData = [],
         } = attributes;
 
-        if ( block.innerBlocks.length <= 1 ) {
+        if ( 1 >= block.innerBlocks.length ) {
             this.props.removeBlock( block.clientId );
         } else if ( block.innerBlocks[ i ] ) {
             this.props.removeBlock( block.innerBlocks[ i ].clientId );
@@ -173,9 +171,9 @@ class BlockEdit extends Component {
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
 
         let buttonsAlignValForControl = buttonsAlign;
-        if ( buttonsAlignValForControl === 'start' ) {
+        if ( 'start' === buttonsAlignValForControl ) {
             buttonsAlignValForControl = 'left';
-        } else if ( buttonsAlignValForControl === 'end' ) {
+        } else if ( 'end' === buttonsAlignValForControl ) {
             buttonsAlignValForControl = 'right';
         }
 
@@ -185,9 +183,9 @@ class BlockEdit extends Component {
                     <AlignmentToolbar
                         value={ buttonsAlignValForControl }
                         onChange={ ( value ) => {
-                            if ( value === 'left' ) {
+                            if ( 'left' === value ) {
                                 value = 'start';
-                            } else if ( value === 'right' ) {
+                            } else if ( 'right' === value ) {
                                 value = 'end';
                             }
                             setAttributes( { buttonsAlign: value } );
@@ -206,9 +204,9 @@ class BlockEdit extends Component {
                             <AlignmentToolbar
                                 value={ buttonsAlignValForControl }
                                 onChange={ ( value ) => {
-                                    if ( value === 'left' ) {
+                                    if ( 'left' === value ) {
                                         value = 'start';
-                                    } else if ( value === 'right' ) {
+                                    } else if ( 'right' === value ) {
                                         value = 'end';
                                     }
                                     setAttributes( { buttonsAlign: value } );
@@ -223,7 +221,8 @@ class BlockEdit extends Component {
                     <div className={ classnames(
                         'ghostkit-tabs-buttons',
                         `ghostkit-tabs-buttons-align-${ buttonsAlign }`
-                    ) }>
+                    ) }
+                    >
                         {
                             tabsData.map( ( tabData, i ) => {
                                 const {
@@ -231,11 +230,12 @@ class BlockEdit extends Component {
                                     title,
                                 } = tabData;
                                 const selected = tabActive === slug;
+                                const tabName = `tab_button_${ i }`;
 
                                 return (
                                     <div
                                         className={ classnames( 'ghostkit-tabs-buttons-item', selected ? 'ghostkit-tabs-buttons-item-active' : '' ) }
-                                        key={ `tab_button_${ i }` }
+                                        key={ tabName }
                                     >
                                         <RichText
                                             tagName="span"
@@ -262,7 +262,7 @@ class BlockEdit extends Component {
                         { isSelectedBlockInRoot ? (
                             <Tooltip text={ __( 'Add Tab', '@@text_domain' ) }>
                                 <Button
-                                    icon={ 'insert' }
+                                    icon="insert"
                                     onClick={ () => {
                                         const newTabsData = [];
                                         const newDataLength = tabsData.length + 1;

@@ -4,6 +4,14 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import ApplyFilters from '../../components/apply-filters';
+import GapSettings from '../../components/gap-settings';
+import { TemplatesModal } from '../../plugins/templates';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -31,28 +39,20 @@ const {
 } = wp.blockEditor;
 
 /**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import ApplyFilters from '../../components/apply-filters';
-import GapSettings from '../../components/gap-settings';
-import { TemplatesModal } from '../../plugins/templates';
-
-/**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             selectedLayout: false,
             isTemplatesModalOpen: false,
         };
 
+        this.getColumnsFromLayout = this.getColumnsFromLayout.bind( this );
         this.getColumnsTemplate = this.getColumnsTemplate.bind( this );
         this.onLayoutSelect = this.onLayoutSelect.bind( this );
-        this.getColumnsFromLayout = this.getColumnsFromLayout.bind( this );
         this.getLayoutsSelector = this.getLayoutsSelector.bind( this );
     }
 
@@ -75,10 +75,22 @@ class BlockEdit extends Component {
                 columns,
             } );
 
+            // eslint-disable-next-line react/no-did-update-set-state
             this.setState( {
                 selectedLayout: false,
             } );
         }
+    }
+
+    /**
+     * Select predefined layout.
+     *
+     * @param {String} layout layout string.
+     */
+    onLayoutSelect( layout ) {
+        this.setState( {
+            selectedLayout: layout,
+        } );
     }
 
     /**
@@ -98,10 +110,10 @@ class BlockEdit extends Component {
         const result = [];
 
         // Appender added in Gutenberg 5.7.0, so we need to add fallback to columns.
-        const appenderExist = typeof InnerBlocks.ButtonBlockAppender !== 'undefined';
+        const appenderExist = 'undefined' !== typeof InnerBlocks.ButtonBlockAppender;
 
         // create columns from selected layout.
-        if ( columns < 1 && this.state.selectedLayout ) {
+        if ( 1 > columns && this.state.selectedLayout ) {
             const columnsData = this.getColumnsFromLayout( this.state.selectedLayout );
             columns = columnsData.length;
 
@@ -109,13 +121,13 @@ class BlockEdit extends Component {
                 result.push( [
                     'ghostkit/grid-column',
                     colAttrs,
-                    appenderExist ? [] : [ [ 'core/paragraph', { content: 'Column ' + ( colAttrs.size === 'auto' ? 'Auto' : colAttrs.size ) } ] ],
+                    appenderExist ? [] : [ [ 'core/paragraph', { content: `Column ${ 'auto' === colAttrs.size ? 'Auto' : colAttrs.size }` } ] ],
                 ] );
             } );
 
         // create columns template from columns count.
         } else {
-            for ( let k = 1; k <= columns; k++ ) {
+            for ( let k = 1; k <= columns; k += 1 ) {
                 result.push( [ 'ghostkit/grid-column' ] );
             }
         }
@@ -130,32 +142,33 @@ class BlockEdit extends Component {
      *
      * @return {array}.
      */
+    // eslint-disable-next-line class-methods-use-this
     getColumnsFromLayout( layout ) {
         const result = [];
         const columnsData = layout.split( '-' );
 
         columnsData.forEach( ( col ) => {
             const colAttrs = {
-                size: col === 'a' ? 'auto' : col,
+                size: 'a' === col ? 'auto' : col,
             };
 
             // responsive.
-            if ( columnsData.length === 2 ) {
+            if ( 2 === columnsData.length ) {
                 colAttrs.md_size = '12';
             }
-            if ( columnsData.length === 3 ) {
+            if ( 3 === columnsData.length ) {
                 colAttrs.lg_size = '12';
             }
-            if ( columnsData.length === 4 ) {
+            if ( 4 === columnsData.length ) {
                 colAttrs.md_size = '12';
                 colAttrs.lg_size = '6';
             }
-            if ( columnsData.length === 5 ) {
+            if ( 5 === columnsData.length ) {
                 colAttrs.sm_size = '12';
                 colAttrs.md_size = '5';
                 colAttrs.lg_size = '4';
             }
-            if ( columnsData.length === 6 ) {
+            if ( 6 === columnsData.length ) {
                 colAttrs.sm_size = '6';
                 colAttrs.md_size = '4';
                 colAttrs.lg_size = '3';
@@ -203,20 +216,22 @@ class BlockEdit extends Component {
                         const columnsData = this.getColumnsFromLayout( layout );
 
                         return (
-                            <button
+                            <Button
                                 key={ `layout-${ layout }` }
                                 className="ghostkit-grid-layout-preview-btn ghostkit-grid"
                                 onClick={ () => this.onLayoutSelect( layout ) }
                             >
                                 { columnsData.map( ( colAttrs, i ) => {
+                                    const colName = `layout-${ layout }-col-${ i }`;
+
                                     return (
                                         <div
-                                            key={ `layout-${ layout }-col-${ i }` }
+                                            key={ colName }
                                             className={ classnames( 'ghostkit-col', `ghostkit-col-${ colAttrs.size }` ) }
                                         />
                                     );
                                 } ) }
-                            </button>
+                            </Button>
                         );
                     } ) }
                 </div>
@@ -246,17 +261,6 @@ class BlockEdit extends Component {
                 ) : '' }
             </Placeholder>
         );
-    }
-
-    /**
-     * Select predefined layout.
-     *
-     * @param {String} layout layout string.
-     */
-    onLayoutSelect( layout ) {
-        this.setState( {
-            selectedLayout: layout,
-        } );
     }
 
     render() {
@@ -295,26 +299,26 @@ class BlockEdit extends Component {
 
         return (
             <Fragment>
-                { columns > 0 ? (
+                { 0 < columns ? (
                     <BlockControls>
                         <Toolbar controls={ [
                             {
                                 icon: getIcon( 'icon-vertical-top' ),
                                 title: __( 'Content Vertical Start', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: '' } ),
-                                isActive: verticalAlign === '',
+                                isActive: '' === verticalAlign,
                             },
                             {
                                 icon: getIcon( 'icon-vertical-center' ),
                                 title: __( 'Content Vertical Center', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: 'center' } ),
-                                isActive: verticalAlign === 'center',
+                                isActive: 'center' === verticalAlign,
                             },
                             {
                                 icon: getIcon( 'icon-vertical-bottom' ),
                                 title: __( 'Content Vertical End', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: 'end' } ),
-                                isActive: verticalAlign === 'end',
+                                isActive: 'end' === verticalAlign,
                             },
                         ] }
                         />
@@ -333,7 +337,7 @@ class BlockEdit extends Component {
                         </PanelBody>
                     </ApplyFilters>
                 </InspectorControls>
-                { columns > 0 ? (
+                { 0 < columns ? (
                     <InspectorControls>
                         <PanelBody>
                             <BaseControl
@@ -344,19 +348,19 @@ class BlockEdit extends Component {
                                         icon: getIcon( 'icon-vertical-top' ),
                                         title: __( 'Start', '@@text_domain' ),
                                         onClick: () => setAttributes( { verticalAlign: '' } ),
-                                        isActive: verticalAlign === '',
+                                        isActive: '' === verticalAlign,
                                     },
                                     {
                                         icon: getIcon( 'icon-vertical-center' ),
                                         title: __( 'Center', '@@text_domain' ),
                                         onClick: () => setAttributes( { verticalAlign: 'center' } ),
-                                        isActive: verticalAlign === 'center',
+                                        isActive: 'center' === verticalAlign,
                                     },
                                     {
                                         icon: getIcon( 'icon-vertical-bottom' ),
                                         title: __( 'End', '@@text_domain' ),
                                         onClick: () => setAttributes( { verticalAlign: 'end' } ),
-                                        isActive: verticalAlign === 'end',
+                                        isActive: 'end' === verticalAlign,
                                     },
                                 ] }
                                 />
@@ -369,31 +373,31 @@ class BlockEdit extends Component {
                                         icon: getIcon( 'icon-horizontal-start' ),
                                         title: __( 'Start', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: '' } ),
-                                        isActive: horizontalAlign === '',
+                                        isActive: '' === horizontalAlign,
                                     },
                                     {
                                         icon: getIcon( 'icon-horizontal-center' ),
                                         title: __( 'Center', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'center' } ),
-                                        isActive: horizontalAlign === 'center',
+                                        isActive: 'center' === horizontalAlign,
                                     },
                                     {
                                         icon: getIcon( 'icon-horizontal-end' ),
                                         title: __( 'End', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'end' } ),
-                                        isActive: horizontalAlign === 'end',
+                                        isActive: 'end' === horizontalAlign,
                                     },
                                     {
                                         icon: getIcon( 'icon-horizontal-around' ),
                                         title: __( 'Around', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'around' } ),
-                                        isActive: horizontalAlign === 'around',
+                                        isActive: 'around' === horizontalAlign,
                                     },
                                     {
                                         icon: getIcon( 'icon-horizontal-between' ),
                                         title: __( 'Between', '@@text_domain' ),
                                         onClick: () => setAttributes( { horizontalAlign: 'between' } ),
-                                        isActive: horizontalAlign === 'between',
+                                        isActive: 'between' === horizontalAlign,
                                     },
                                 ] }
                                 />
@@ -411,10 +415,10 @@ class BlockEdit extends Component {
                     </InspectorControls>
                 ) : '' }
                 <InspectorControls>
-                    <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props }></ApplyFilters>
+                    <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props } />
                 </InspectorControls>
                 <div className={ className }>
-                    { columns > 0 || this.state.selectedLayout ? (
+                    { 0 < columns || this.state.selectedLayout ? (
                         <Fragment>
                             { background }
                             { ! isSelected ? (

@@ -1,16 +1,17 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
 /**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 import deprecated from './deprecated';
+
+const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -34,7 +35,7 @@ export const settings = {
                 svg: {},
             };
 
-            Object.keys( attributes ).map( ( key ) => {
+            Object.keys( attributes ).forEach( ( key ) => {
                 if ( attributes[ key ] ) {
                     let prefix = key.split( '_' )[ 0 ];
                     let type = key.split( '_' )[ 1 ];
@@ -44,8 +45,8 @@ export const settings = {
                         prefix = '';
                     }
 
-                    if ( type && ( type === 'height' || type === 'width' ) ) {
-                        if ( prefix && typeof styles.svg[ `media_${ prefix }` ] === 'undefined' ) {
+                    if ( type && ( 'height' === type || 'width' === type ) ) {
+                        if ( prefix && 'undefined' === typeof styles.svg[ `media_${ prefix }` ] ) {
                             styles.svg[ `media_${ prefix }` ] = {};
                         }
 

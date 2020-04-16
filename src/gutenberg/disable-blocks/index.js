@@ -3,16 +3,18 @@
  */
 const {
     GHOSTKIT,
+    _wpLoadBlockEditor: wpLoadBlockEditor,
+    _wpLoadGutenbergEditor: wpLoadGutenbergEditor,
 } = window;
 
 let loadBlocksEditor = null;
 
-if ( typeof window._wpLoadBlockEditor !== 'undefined' ) {
+if ( 'undefined' !== typeof wpLoadBlockEditor ) {
     // Using Gutenberg plugin
-    loadBlocksEditor = window._wpLoadBlockEditor;
-} else if ( typeof window._wpLoadGutenbergEditor !== 'undefined' ) {
+    loadBlocksEditor = wpLoadBlockEditor;
+} else if ( 'undefined' !== typeof wpLoadGutenbergEditor ) {
     // Using WP core Gutenberg
-    loadBlocksEditor = window._wpLoadGutenbergEditor;
+    loadBlocksEditor = wpLoadGutenbergEditor;
 }
 
 if ( loadBlocksEditor && GHOSTKIT ) {

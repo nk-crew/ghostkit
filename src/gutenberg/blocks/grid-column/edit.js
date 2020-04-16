@@ -1,6 +1,13 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import ApplyFilters from '../../components/apply-filters';
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+
 const { __, sprintf } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
@@ -29,13 +36,6 @@ const {
     withSelect,
 } = wp.data;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import ApplyFilters from '../../components/apply-filters';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
-
 const { ghostkitVariables } = window;
 
 /**
@@ -54,9 +54,9 @@ const getDefaultColumnSizes = function() {
         },
     ];
 
-    for ( let k = 1; k <= 12; k++ ) {
+    for ( let k = 1; 12 >= k; k += 1 ) {
         result.push( {
-            label: sprintf( k === 1 ? __( '%d Column (%s)', '@@text_domain' ) : __( '%d Columns (%s)', '@@text_domain' ), k, `${ Math.round( ( 100 * k / 12 ) * 100 ) / 100 }%` ),
+            label: sprintf( 1 === k ? __( '%d Column (%s)', '@@text_domain' ) : __( '%d Columns (%s)', '@@text_domain' ), k, `${ Math.round( ( ( 100 * k ) / 12 ) * 100 ) / 100 }%` ),
             value: k,
         } );
     }
@@ -84,7 +84,7 @@ const getDefaultColumnOrders = function( columns = 12 ) {
         },
     ];
 
-    for ( let k = 1; k <= columns; k++ ) {
+    for ( let k = 1; k <= columns; k += 1 ) {
         result.push( {
             label: k,
             value: k,
@@ -123,7 +123,7 @@ class BlockEdit extends Component {
                 let orderName = 'order';
                 let verticalAlignName = 'verticalAlign';
 
-                if ( media !== 'all' ) {
+                if ( 'all' !== media ) {
                     sizeName = `${ media }_${ sizeName }`;
                     orderName = `${ media }_${ orderName }`;
                     verticalAlignName = `${ media }_${ verticalAlignName }`;
@@ -148,7 +148,7 @@ class BlockEdit extends Component {
                                         let orderName = 'order';
                                         let verticalAlignName = 'verticalAlign';
 
-                                        if ( tabData.name !== 'all' ) {
+                                        if ( 'all' !== tabData.name ) {
                                             sizeName = `${ tabData.name }_${ sizeName }`;
                                             orderName = `${ tabData.name }_${ orderName }`;
                                             verticalAlignName = `${ tabData.name }_${ verticalAlignName }`;
@@ -185,30 +185,30 @@ class BlockEdit extends Component {
                                                             title: __( 'Start', '@@text_domain' ),
                                                             onClick: () => {
                                                                 setAttributes( {
-                                                                    [ verticalAlignName ]: attributes[ verticalAlignName ] === 'start' ? '' : 'start',
+                                                                    [ verticalAlignName ]: 'start' === attributes[ verticalAlignName ] ? '' : 'start',
                                                                 } );
                                                             },
-                                                            isActive: attributes[ verticalAlignName ] === 'start',
+                                                            isActive: 'start' === attributes[ verticalAlignName ],
                                                         },
                                                         {
                                                             icon: getIcon( 'icon-vertical-center' ),
                                                             title: __( 'Center', '@@text_domain' ),
                                                             onClick: () => {
                                                                 setAttributes( {
-                                                                    [ verticalAlignName ]: attributes[ verticalAlignName ] === 'center' ? '' : 'center',
+                                                                    [ verticalAlignName ]: 'center' === attributes[ verticalAlignName ] ? '' : 'center',
                                                                 } );
                                                             },
-                                                            isActive: attributes[ verticalAlignName ] === 'center',
+                                                            isActive: 'center' === attributes[ verticalAlignName ],
                                                         },
                                                         {
                                                             icon: getIcon( 'icon-vertical-bottom' ),
                                                             title: __( 'End', '@@text_domain' ),
                                                             onClick: () => {
                                                                 setAttributes( {
-                                                                    [ verticalAlignName ]: attributes[ verticalAlignName ] === 'end' ? '' : 'end',
+                                                                    [ verticalAlignName ]: 'end' === attributes[ verticalAlignName ] ? '' : 'end',
                                                                 } );
                                                             },
-                                                            isActive: attributes[ verticalAlignName ] === 'end',
+                                                            isActive: 'end' === attributes[ verticalAlignName ],
                                                         },
                                                     ] }
                                                     />
@@ -279,9 +279,9 @@ class BlockEdit extends Component {
                     <InnerBlocks
                         templateLock={ false }
                         renderAppender={ (
-                            hasChildBlocks ?
-                                undefined :
-                                () => <InnerBlocks.ButtonBlockAppender />
+                            hasChildBlocks
+                                ? undefined
+                                : () => <InnerBlocks.ButtonBlockAppender />
                         ) }
                     />
                 </div>
@@ -295,6 +295,6 @@ export default withSelect( ( select, ownProps ) => {
     const blockEditor = select( 'core/block-editor' );
 
     return {
-        hasChildBlocks: blockEditor ? blockEditor.getBlockOrder( clientId ).length > 0 : false,
+        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
     };
 } )( BlockEdit );

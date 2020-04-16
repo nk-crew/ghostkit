@@ -12,7 +12,7 @@ const $doc = $( document );
 /**
  * Prepare Google Maps.
  */
-$doc.on( 'initBlocks.ghostkit', function( e, self ) {
+$doc.on( 'initBlocks.ghostkit', ( e, self ) => {
     if ( GHOSTKIT.googleMapsLibrary && GHOSTKIT.googleMapsAPIKey ) {
         GHOSTKIT.triggerEvent( 'beforePrepareGoogleMaps', self );
 
@@ -29,7 +29,8 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
 
                     try {
                         styles = JSON.parse( $this.attr( 'data-styles' ) );
-                    } catch ( evt ) { }
+                    // eslint-disable-next-line no-empty
+                    } catch ( evt ) {}
 
                     const $markers = $this.find( '.ghostkit-google-maps-marker' );
                     if ( $markers.length ) {
@@ -43,7 +44,8 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
                     } else if ( $this.attr( 'data-markers' ) ) {
                         try {
                             markers = JSON.parse( $this.attr( 'data-markers' ) );
-                        } catch ( evt ) { }
+                        // eslint-disable-next-line no-empty
+                        } catch ( evt ) {}
                     }
 
                     const opts = {
@@ -61,7 +63,7 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
                         fullscreenControl: 'true' === $this.attr( 'data-show-fullscreen-button' ),
                         scrollwheel: 'true' === $this.attr( 'data-option-scroll-wheel' ),
                         draggable: 'true' === $this.attr( 'data-option-draggable' ),
-                        styles: styles,
+                        styles,
                     };
 
                     const mapObject = new window.GMaps( opts );

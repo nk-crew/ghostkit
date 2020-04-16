@@ -4,6 +4,13 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import URLPicker from '../../components/url-picker';
+import ApplyFilters from '../../components/apply-filters';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -31,13 +38,6 @@ const {
     BlockControls,
     RichText,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import ColorPicker from '../../components/color-picker';
-import URLPicker from '../../components/url-picker';
-import ApplyFilters from '../../components/apply-filters';
 
 /**
  * Block Edit Class.
@@ -91,21 +91,22 @@ class BlockEdit extends Component {
                                     icon: 'align-center',
                                     title: __( 'Top', '@@text_domain' ),
                                     onClick: () => setAttributes( { numberPosition: 'top' } ),
-                                    isActive: numberPosition === 'top',
+                                    isActive: 'top' === numberPosition,
                                 },
                                 {
                                     icon: 'align-left',
                                     title: __( 'Left', '@@text_domain' ),
                                     onClick: () => setAttributes( { numberPosition: 'left' } ),
-                                    isActive: numberPosition === 'left',
+                                    isActive: 'left' === numberPosition,
                                 },
                                 {
                                     icon: 'align-right',
                                     title: __( 'Right', '@@text_domain' ),
                                     onClick: () => setAttributes( { numberPosition: 'right' } ),
-                                    isActive: numberPosition === 'right',
+                                    isActive: 'right' === numberPosition,
                                 },
-                            ] } />
+                            ] }
+                            />
                         </BaseControl>
                     </PanelBody>
                     <PanelBody>
@@ -128,12 +129,15 @@ class BlockEdit extends Component {
                             />
                         ) : '' }
                     </PanelBody>
-                    <PanelBody title={ (
-                        <Fragment>
-                            { __( 'Colors', '@@text_domain' ) }
-                            <ColorIndicator colorValue={ numberColor } />
-                        </Fragment>
-                    ) } initialOpen={ false }>
+                    <PanelBody
+                        title={ (
+                            <Fragment>
+                                { __( 'Colors', '@@text_domain' ) }
+                                <ColorIndicator colorValue={ numberColor } />
+                            </Fragment>
+                        ) }
+                        initialOpen={ false }
+                    >
                         <TabPanel
                             className="ghostkit-control-tabs ghostkit-control-tabs-wide"
                             tabs={ [
@@ -147,17 +151,18 @@ class BlockEdit extends Component {
                                     title: __( 'Hover', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
-                            ] }>
+                            ] }
+                        >
                             {
                                 ( tabData ) => {
-                                    const isHover = tabData.name === 'hover';
+                                    const isHover = 'hover' === tabData.name;
                                     return (
                                         <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverNumberColor' : 'numberColor' } props={ this.props }>
                                             <ColorPicker
                                                 label={ __( 'Color', '@@text_domain' ) }
                                                 value={ isHover ? hoverNumberColor : numberColor }
                                                 onChange={ ( val ) => setAttributes( isHover ? { hoverNumberColor: val } : { numberColor: val } ) }
-                                                alpha={ true }
+                                                alpha
                                             />
                                         </ApplyFilters>
                                     );
@@ -183,24 +188,25 @@ class BlockEdit extends Component {
                             icon: 'align-center',
                             title: __( 'Number Position Top', '@@text_domain' ),
                             onClick: () => setAttributes( { numberPosition: 'top' } ),
-                            isActive: numberPosition === 'top',
+                            isActive: 'top' === numberPosition,
                         },
                         {
                             icon: 'align-left',
                             title: __( 'Number Position Left', '@@text_domain' ),
                             onClick: () => setAttributes( { numberPosition: 'left' } ),
-                            isActive: numberPosition === 'left',
+                            isActive: 'left' === numberPosition,
                         },
                         {
                             icon: 'align-right',
                             title: __( 'Number Position Right', '@@text_domain' ),
                             onClick: () => setAttributes( { numberPosition: 'right' } ),
-                            isActive: numberPosition === 'right',
+                            isActive: 'right' === numberPosition,
                         },
-                    ] } />
+                    ] }
+                    />
                 </BlockControls>
                 <div className={ className }>
-                    <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }>
+                    <div className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition || 'left' }` }>
                         <RichText
                             tagName="div"
                             className="ghostkit-counter-box-number-wrap"

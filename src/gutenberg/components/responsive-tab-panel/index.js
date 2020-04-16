@@ -1,6 +1,12 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import ActiveIndicator from '../active-indicator';
+import getIcon from '../../utils/get-icon';
+
 const { Component } = wp.element;
 
 const { __, sprintf } = wp.i18n;
@@ -9,12 +15,6 @@ const {
     Tooltip,
     TabPanel,
 } = wp.components;
-
-/**
- * Internal dependencies
- */
-import ActiveIndicator from '../active-indicator';
-import getIcon from '../../utils/get-icon';
 
 const { ghostkitVariables } = window;
 
@@ -52,9 +52,9 @@ export default class ResponsiveTabPanel extends Component {
                 title: (
                     <Tooltip
                         text={
-                            'all' === mediaName ?
-                                __( 'All devices', '@@text_domain' ) :
-                                sprintf( __( 'Devices with screen width <= %s', '@@text_domain' ), `${ ghostkitVariables.media_sizes[ mediaName ] }px` )
+                            'all' === mediaName
+                                ? __( 'All devices', '@@text_domain' )
+                                : sprintf( __( 'Devices with screen width <= %s', '@@text_domain' ), `${ ghostkitVariables.media_sizes[ mediaName ] }px` )
                         }
                     >
                         <span className="ghostkit-control-tabs-icon">

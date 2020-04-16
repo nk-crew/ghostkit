@@ -13,15 +13,15 @@ export function API_FETCH( { request } ) {
                 iframe.parentNode.removeChild( iframe );
                 resolve();
             };
-            iframe.src = window.GHOSTKIT.adminUrl + 'customize.php';
+            iframe.src = `${ window.GHOSTKIT.adminUrl }customize.php`;
             document.body.appendChild( iframe );
         } );
 
-        return await promise;
+        return promise;
     }
 
     return apiFetch( request )
-        .catch( async function( fetchedData ) {
+        .catch( async( fetchedData ) => {
             // try to get customizer data.
             if ( fetchedData && fetchedData.error && 'no_options_found' === fetchedData.error_code ) {
                 await maybeGetCustomizerData();

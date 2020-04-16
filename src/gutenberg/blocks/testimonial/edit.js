@@ -4,6 +4,13 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import dashCaseToTitle from '../../utils/dash-case-to-title';
+import IconPicker from '../../components/icon-picker';
+import URLPicker from '../../components/url-picker';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -34,14 +41,6 @@ const {
 } = wp.blockEditor;
 
 /**
- * Internal dependencies
- */
-import dashCaseToTitle from '../../utils/dash-case-to-title';
-
-import IconPicker from '../../components/icon-picker';
-import URLPicker from '../../components/url-picker';
-
-/**
  * Select photo
  *
  * @param {array} media - media data.
@@ -55,7 +54,7 @@ function onPhotoSelect( media, setAttributes ) {
 
     wp.media.attachment( media.id ).fetch().then( ( data ) => {
         if ( data && data.sizes ) {
-            const url = ( data.sizes[ 'post-thumbnail' ] || data.sizes.medium || data.sizes.medium_large || data.sizes.full ).url;
+            const { url } = data.sizes[ 'post-thumbnail' ] || data.sizes.medium || data.sizes.medium_large || data.sizes.full;
             if ( url ) {
                 setAttributes( {
                     photo: media.id,
@@ -70,16 +69,20 @@ function onPhotoSelect( media, setAttributes ) {
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
+
         this.onUpdate = this.onUpdate.bind( this );
     }
+
     componentDidMount() {
         this.onUpdate();
     }
+
     componentDidUpdate() {
         this.onUpdate();
     }
+
     onUpdate() {
         const {
             photoData,
@@ -159,18 +162,20 @@ class BlockEdit extends Component {
                                     value={ photo }
                                     render={ ( { open } ) => (
                                         <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
+                                            { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
                                             <a
                                                 href="#"
                                                 onClick={ open }
                                                 className="ghostkit-gutenberg-media-upload"
                                                 style={ { display: 'block' } }
+                                                // eslint-disable-next-line react/no-danger
                                                 dangerouslySetInnerHTML={ { __html: photoTag } }
                                             />
                                         </BaseControl>
                                     ) }
                                 />
-                                <a
-                                    href="#"
+                                <Button
+                                    isLink
                                     onClick={ ( e ) => {
                                         setAttributes( {
                                             photo: '',
@@ -182,7 +187,7 @@ class BlockEdit extends Component {
                                     className="button button-secondary"
                                 >
                                     { __( 'Remove Image', '@@text_domain' ) }
-                                </a>
+                                </Button>
                                 <div style={ { marginBottom: 13 } } />
                                 { photoSizes ? (
                                     <SelectControl
@@ -198,7 +203,7 @@ class BlockEdit extends Component {
                                             } );
                                             return result;
                                         } )() }
-                                        onChange={ v => setAttributes( { photoSize: v } ) }
+                                        onChange={ ( v ) => setAttributes( { photoSize: v } ) }
                                     />
                                 ) : '' }
                             </Fragment>
@@ -211,10 +216,10 @@ class BlockEdit extends Component {
                             max={ 5 }
                             step={ 0.5 }
                             beforeIcon="star-filled"
-                            allowReset={ true }
+                            allowReset
                             onChange={ ( value ) => setAttributes( { stars: value } ) }
                         />
-                        { typeof stars === 'number' ? (
+                        { 'number' === typeof stars ? (
                             <IconPicker
                                 label={ __( 'Icon', '@@text_domain' ) }
                                 value={ starsIcon }
@@ -280,11 +285,13 @@ class BlockEdit extends Component {
                                     allowedTypes={ [ 'image' ] }
                                     value={ photo }
                                     render={ ( { open } ) => (
+                                        // eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid
                                         <a
                                             href="#"
                                             onClick={ open }
                                             className="ghostkit-gutenberg-media-upload"
                                             style={ { display: 'block' } }
+                                            // eslint-disable-next-line react/no-danger
                                             dangerouslySetInnerHTML={ { __html: photoTag } }
                                         />
                                     ) }
@@ -298,20 +305,20 @@ class BlockEdit extends Component {
                             className="ghostkit-testimonial-name"
                             placeholder={ __( 'Write name…', '@@text_domain' ) }
                             value={ attributes.name }
-                            onChange={ value => setAttributes( { name: value } ) }
+                            onChange={ ( value ) => setAttributes( { name: value } ) }
                         />
                         <RichText
                             tagName="div"
                             className="ghostkit-testimonial-source"
                             placeholder={ __( 'Write source…', '@@text_domain' ) }
                             value={ source }
-                            onChange={ value => setAttributes( { source: value } ) }
+                            onChange={ ( value ) => setAttributes( { source: value } ) }
                         />
                     </div>
-                    { typeof stars === 'number' && starsIcon ? (
+                    { 'number' === typeof stars && starsIcon ? (
                         <div className="ghostkit-testimonial-stars">
                             <div className="ghostkit-testimonial-stars-wrap">
-                                <div className="ghostkit-testimonial-stars-front" style={ { width: `${ 100 * stars / 5 }%` } }>
+                                <div className="ghostkit-testimonial-stars-front" style={ { width: `${ ( 100 * stars ) / 5 }%` } }>
                                     <IconPicker.Preview name={ starsIcon } />
                                     <IconPicker.Preview name={ starsIcon } />
                                     <IconPicker.Preview name={ starsIcon } />

@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import save from './save';
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const { merge } = window.lodash;
@@ -15,12 +21,6 @@ const {
 const {
     applyFilters,
 } = wp.hooks;
-
-/**
- * Internal dependencies
- */
-import save from './save';
-import metadata from './block.json';
 
 export default [
     // v2.10.2
@@ -128,7 +128,7 @@ export default [
                         borderRadius: attributes.borderRadius,
                         backgroundColor: attributes.backgroundColor,
                         '.ghostkit-progress-bar': {
-                            width: attributes.percent + '%',
+                            width: `${ attributes.percent }%`,
                             backgroundColor: attributes.color,
                         },
                     },
@@ -220,7 +220,7 @@ export default [
                 type: 'string',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 caption,
                 height,
@@ -258,7 +258,12 @@ export default [
                         </div>
                     ) : '' }
                     <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
-                        <div className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) } role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } />
+                        { /* eslint-disable-next-line jsx-a11y/control-has-associated-label */ }
+                        <div
+                            className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) }
+                            role="progressbar"
+                            style={ { width: `${ percent }%`, height: `${ height }px` } }
+                        />
                     </div>
                 </div>
             );
@@ -275,7 +280,7 @@ export default [
                         borderRadius: attributes.borderRadius,
                         backgroundColor: attributes.backgroundColor,
                         '.ghostkit-progress-bar': {
-                            width: attributes.percent + '%',
+                            width: `${ attributes.percent }%`,
                             backgroundColor: attributes.color,
                         },
                     },
@@ -367,7 +372,7 @@ export default [
                 type: 'string',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 caption,
                 height,
@@ -407,7 +412,15 @@ export default [
                         </div>
                     ) : '' }
                     <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
-                        <div className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) } role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
+                        { /* eslint-disable-next-line jsx-a11y/control-has-associated-label */ }
+                        <div
+                            className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) }
+                            role="progressbar"
+                            style={ { width: `${ percent }%`, height: `${ height }px` } }
+                            aria-valuenow={ percent }
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                        />
                     </div>
                 </div>
             );
@@ -424,7 +437,7 @@ export default [
                         borderRadius: attributes.borderRadius,
                         backgroundColor: attributes.backgroundColor,
                         '.ghostkit-progress-bar': {
-                            width: attributes.percent + '%',
+                            width: `${ attributes.percent }%`,
                             backgroundColor: attributes.color,
                         },
                     },
@@ -490,7 +503,7 @@ export default [
                 default: '#f3f4f5',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 caption,
                 height,
@@ -526,11 +539,23 @@ export default [
                     ) : '' }
                     { showCount ? (
                         <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
-                            <div>{ countPrefix }{ percent }{ countSuffix }</div>
+                            <div>
+                                { countPrefix }
+                                { percent }
+                                { countSuffix }
+                            </div>
                         </div>
                     ) : '' }
                     <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
-                        <div className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) } role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
+                        { /* eslint-disable-next-line jsx-a11y/control-has-associated-label */ }
+                        <div
+                            className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) }
+                            role="progressbar"
+                            style={ { width: `${ percent }%`, height: `${ height }px` } }
+                            aria-valuenow={ percent }
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                        />
                     </div>
                 </div>
             );
@@ -582,7 +607,7 @@ export default [
                 default: '#f3f4f5',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 caption,
                 height,
@@ -611,7 +636,15 @@ export default [
                         />
                     ) : '' }
                     <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
-                        <div className="ghostkit-progress-bar" role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
+                        { /* eslint-disable-next-line jsx-a11y/control-has-associated-label */ }
+                        <div
+                            className="ghostkit-progress-bar"
+                            role="progressbar"
+                            style={ { width: `${ percent }%`, height: `${ height }px` } }
+                            aria-valuenow={ percent }
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                        />
                     </div>
                 </div>
             );

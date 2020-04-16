@@ -10,7 +10,7 @@ export default {
         {
             type: 'block',
             blocks: [ 'core/separator' ],
-            transform: function() {
+            transform() {
                 return createBlock( 'ghostkit/divider' );
             },
         },
@@ -19,7 +19,7 @@ export default {
         {
             type: 'block',
             blocks: [ 'core/separator' ],
-            transform: function() {
+            transform() {
                 return createBlock( 'core/separator' );
             },
         },

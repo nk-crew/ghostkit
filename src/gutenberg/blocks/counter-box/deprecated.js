@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import save from './save';
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -13,12 +19,6 @@ const {
     InnerBlocks,
     RichText,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import save from './save';
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -160,7 +160,7 @@ export default [
                 type: 'string',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 number,
                 animateInViewport,
@@ -187,7 +187,7 @@ export default [
                 <div className={ className }>
                     <RichText.Content
                         tagName="div"
-                        className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }${ animateInViewport ? ' ghostkit-count-up' : '' }` }
+                        className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition || 'left' }${ animateInViewport ? ' ghostkit-count-up' : '' }` }
                         value={ number }
                         { ...{
                             'data-count-from': animateInViewport && animateInViewportFrom ? animateInViewportFrom : null,
@@ -235,7 +235,7 @@ export default [
                 default: '#016c91',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 number,
                 numberPosition,
@@ -256,7 +256,7 @@ export default [
                 <div className={ className }>
                     <RichText.Content
                         tagName="div"
-                        className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }
+                        className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition || 'left' }` }
                         value={ number }
                     />
                     <div className="ghostkit-counter-box-content">

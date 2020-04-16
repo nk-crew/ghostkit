@@ -67,7 +67,7 @@ export const settings = {
         return { 'data-tab': attributes.tabNumber };
     },
 
-    save: function( props ) {
+    save( props ) {
         const {
             tabNumber,
         } = props.attributes;

@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const { Component } = wp.element;
@@ -15,11 +20,6 @@ const {
 const {
     applyFilters,
 } = wp.hooks;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -52,17 +52,15 @@ class BlockSave extends Component {
 
         return (
             <div className={ className } data-date={ date }>
-                { units.map( ( unitName ) => {
-                    return (
-                        <div
-                            key={ unitName }
-                            className={ classnames( 'ghostkit-countdown-unit', `ghostkit-countdown-unit-${ unitName }` ) }
-                        >
-                            <span className="ghostkit-countdown-unit-number">{ '00' }</span>
-                            <span className="ghostkit-countdown-unit-label">{ unitName }</span>
-                        </div>
-                    );
-                } ) }
+                { units.map( ( unitName ) => (
+                    <div
+                        key={ unitName }
+                        className={ classnames( 'ghostkit-countdown-unit', `ghostkit-countdown-unit-${ unitName }` ) }
+                    >
+                        <span className="ghostkit-countdown-unit-number">00</span>
+                        <span className="ghostkit-countdown-unit-label">{ unitName }</span>
+                    </div>
+                ) ) }
                 <div className="ghostkit-countdown-expire-action">
                     <InnerBlocks.Content />
                 </div>

@@ -6,6 +6,13 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import { replaceClass, hasClass, removeClass } from '../../utils/classes-replacer';
+
+import getStyles from './get-styles';
+
 const {
     addFilter,
 } = wp.hooks;
@@ -25,12 +32,6 @@ const {
 const {
     createHigherOrderComponent,
 } = wp.compose;
-
-/**
- * Internal dependencies
- */
-import getStyles from './get-styles';
-import { replaceClass, hasClass, removeClass } from '../../utils/classes-replacer';
 
 /**
  * Check if classname is old.
@@ -89,11 +90,9 @@ const withNewAttrs = createHigherOrderComponent( ( BlockEdit ) => {
         }
     }
 
-    return withSelect( ( select, ownProps ) => {
-        return {
-            blockSettings: getBlockType( ownProps.name ),
-        };
-    } )( newEdit );
+    return withSelect( ( select, ownProps ) => ( {
+        blockSettings: getBlockType( ownProps.name ),
+    } ) )( newEdit );
 }, 'withNewAttrs' );
 
 /**
@@ -110,9 +109,9 @@ function addSaveProps( extraProps, blockType, attributes ) {
         return extraProps;
     }
 
-    const customStyles = attributes.ghostkitStyles ? Object.assign( {}, attributes.ghostkitStyles ) : false;
+    const customStyles = attributes.ghostkitStyles ? ( { ...attributes.ghostkitStyles } ) : false;
 
-    if ( customStyles && Object.keys( customStyles ).length !== 0 ) {
+    if ( customStyles && 0 !== Object.keys( customStyles ).length ) {
         let styles = getStyles( customStyles );
 
         if ( blockType.ghostkit && blockType.ghostkit.customStylesFilter ) {

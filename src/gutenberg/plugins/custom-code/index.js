@@ -1,6 +1,13 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import Modal from '../../components/modal';
+import CodeEditor from '../../components/code-editor';
+
 const {
     Fragment,
 } = wp.element;
@@ -23,16 +30,9 @@ const {
     Tooltip,
 } = wp.components;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import Modal from '../../components/modal';
-import CodeEditor from '../../components/code-editor';
-
 class CustomCodeModal extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         const {
             meta = {},
@@ -54,6 +54,7 @@ class CustomCodeModal extends Component {
     componentDidMount() {
         this.maybePrepareGlobalCode();
     }
+
     componentDidUpdate() {
         this.maybePrepareGlobalCode();
     }
@@ -64,10 +65,10 @@ class CustomCodeModal extends Component {
         } = this.props;
 
         if (
-            customCode &&
-            false === this.state.globalCustomCSS &&
-            false === this.state.globalCustomJSHead &&
-            false === this.state.globalCustomJSFoot
+            customCode
+            && false === this.state.globalCustomCSS
+            && false === this.state.globalCustomJSHead
+            && false === this.state.globalCustomJSFoot
         ) {
             this.setState( {
                 globalCustomCSS: customCode.ghostkit_custom_css || '',
@@ -158,14 +159,14 @@ class CustomCodeModal extends Component {
                 >
                     {
                         ( tabData ) => {
-                            const isGlobal = tabData.name === 'global';
+                            const isGlobal = 'global' === tabData.name;
 
                             return (
                                 <Fragment>
                                     <h4>{ __( 'CSS', '@@text_domain' ) }</h4>
                                     <CodeEditor
                                         mode="css"
-                                        onChange={ value => {
+                                        onChange={ ( value ) => {
                                             this.setState( {
                                                 [ isGlobal ? 'globalCustomCSS' : 'customCSS' ]: value,
                                             } );
@@ -178,10 +179,14 @@ class CustomCodeModal extends Component {
 
                                     <h4>{ __( 'JavaScript', '@@text_domain' ) }</h4>
                                     <p className="ghostkit-help-text">{ __( 'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.', '@@text_domain' ) }</p>
-                                    <p><code className="ghostkit-code">{ '<head>' }</code> :</p>
+                                    <p>
+                                        <code className="ghostkit-code">{ '<head>' }</code>
+                                        { ' ' }
+                                        :
+                                    </p>
                                     <CodeEditor
                                         mode="javascript"
-                                        onChange={ value => {
+                                        onChange={ ( value ) => {
                                             this.setState( {
                                                 [ isGlobal ? 'globalCustomJSHead' : 'customJSHead' ]: value,
                                             } );
@@ -191,10 +196,14 @@ class CustomCodeModal extends Component {
                                         minLines={ 5 }
                                         height="300px"
                                     />
-                                    <p><code className="ghostkit-code">{ '<foot>' }</code> :</p>
+                                    <p>
+                                        <code className="ghostkit-code">{ '<foot>' }</code>
+                                        { ' ' }
+                                        :
+                                    </p>
                                     <CodeEditor
                                         mode="javascript"
-                                        onChange={ value => {
+                                        onChange={ ( value ) => {
                                             this.setState( {
                                                 [ isGlobal ? 'globalCustomJSFoot' : 'customJSFoot' ]: value,
                                             } );
@@ -250,8 +259,8 @@ export const name = 'ghostkit-custom-code';
 export const icon = null;
 
 export class Plugin extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             isModalOpen: false,

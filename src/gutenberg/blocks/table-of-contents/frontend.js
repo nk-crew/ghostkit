@@ -9,7 +9,7 @@ const $doc = $( document );
 /**
  * Prepare TOCs.
  */
-$doc.on( 'click', '.ghostkit-toc a', function( evt ) {
+$doc.on( 'click', '.ghostkit-toc a', ( evt ) => {
     evt.preventDefault();
 
     if ( ! evt.target || ! evt.target.hash ) {
@@ -18,7 +18,7 @@ $doc.on( 'click', '.ghostkit-toc a', function( evt ) {
 
     const offset = $( evt.target.hash ).offset();
 
-    if ( typeof offset === 'undefined' ) {
+    if ( 'undefined' === typeof offset ) {
         return;
     }
 

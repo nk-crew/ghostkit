@@ -1,16 +1,17 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
 /**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+
 import deprecated from './deprecated';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
+
+const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -26,7 +27,7 @@ export const settings = {
             const result = {
                 '--gkt-button__background-color': attributes.color,
                 '--gkt-button__color': attributes.textColor,
-                '--gkt-button__border-radius': typeof attributes.borderRadius !== 'undefined' ? `${ attributes.borderRadius }px` : undefined,
+                '--gkt-button__border-radius': 'undefined' !== typeof attributes.borderRadius ? `${ attributes.borderRadius }px` : undefined,
                 '--gkt-button-hover__background-color': attributes.hoverColor,
                 '--gkt-button-hover__color': attributes.hoverTextColor,
                 '--gkt-button-focus__background-color': attributes.hoverColor,
@@ -34,7 +35,7 @@ export const settings = {
             };
 
             // Border.
-            if ( typeof attributes.borderWeight !== 'undefined' ) {
+            if ( 'undefined' !== typeof attributes.borderWeight ) {
                 result[ '--gkt-button__border-width' ] = `${ attributes.borderWeight }px`;
             }
             if ( attributes.borderColor ) {
@@ -45,7 +46,7 @@ export const settings = {
             }
 
             // Box Shadow.
-            if ( typeof attributes.focusOutlineWeight !== 'undefined' && attributes.focusOutlineColor ) {
+            if ( 'undefined' !== typeof attributes.focusOutlineWeight && attributes.focusOutlineColor ) {
                 result[ '--gkt-button-focus__box-shadow' ] = `0 0 0 ${ attributes.focusOutlineWeight }px ${ attributes.focusOutlineColor }`;
             }
 

@@ -32,7 +32,7 @@ class FieldLabel extends Component {
         }
 
         return (
-            // eslint-disable-next-line
+            // eslint-disable-next-line jsx-a11y/label-has-associated-control
             <label className="ghostkit-form-field-label">
                 <RichText
                     tagName="span"

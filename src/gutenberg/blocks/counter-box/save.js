@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -16,11 +21,6 @@ const {
     InnerBlocks,
     RichText,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -65,7 +65,7 @@ class BlockSave extends Component {
                     </a>
                 ) : '' }
                 <div
-                    className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition ? numberPosition : 'left' }` }
+                    className={ `ghostkit-counter-box-number ghostkit-counter-box-number-align-${ numberPosition || 'left' }` }
                 >
                     <RichText.Content
                         tagName="div"

@@ -4,6 +4,22 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import IconPicker from '../../components/icon-picker';
+import ApplyFilters from '../../components/apply-filters';
+import ImagePicker from '../../components/image-picker';
+import getIcon from '../../utils/get-icon';
+import dashCaseToTitle from '../../utils/dash-case-to-title';
+
+import ImgAspectRatio32 from './aspect-ratio/aspect-ratio-3-2.png';
+import ImgAspectRatio43 from './aspect-ratio/aspect-ratio-4-3.png';
+import ImgAspectRatio169 from './aspect-ratio/aspect-ratio-16-9.png';
+import ImgAspectRatio219 from './aspect-ratio/aspect-ratio-21-9.png';
+
+
+/**
  * WordPress dependencies
  */
 const {
@@ -38,22 +54,6 @@ const {
 } = wp.blockEditor;
 
 /**
- * Internal dependencies
- */
-import ColorPicker from '../../components/color-picker';
-import IconPicker from '../../components/icon-picker';
-import ApplyFilters from '../../components/apply-filters';
-import ImagePicker from '../../components/image-picker';
-
-import ImgAspectRatio32 from './aspect-ratio/aspect-ratio-3-2.png';
-import ImgAspectRatio43 from './aspect-ratio/aspect-ratio-4-3.png';
-import ImgAspectRatio169 from './aspect-ratio/aspect-ratio-16-9.png';
-import ImgAspectRatio219 from './aspect-ratio/aspect-ratio-21-9.png';
-
-import getIcon from '../../utils/get-icon';
-import dashCaseToTitle from '../../utils/dash-case-to-title';
-
-/**
  * Select poster
  *
  * @param {array} media - media data.
@@ -67,7 +67,7 @@ function onPosterSelect( media, setAttributes ) {
 
     wp.media.attachment( media.id ).fetch().then( ( data ) => {
         if ( data && data.sizes ) {
-            const url = ( data.sizes[ 'post-thumbnail' ] || data.sizes.medium || data.sizes.medium_large || data.sizes.full ).url;
+            const { url } = data.sizes[ 'post-thumbnail' ] || data.sizes.medium || data.sizes.medium_large || data.sizes.full;
             if ( url ) {
                 setAttributes( {
                     poster: media.id,
@@ -89,7 +89,7 @@ function getVideoPoster( url, cb ) {
         return;
     }
 
-    if ( typeof window.VideoWorker === 'undefined' ) {
+    if ( 'undefined' === typeof window.VideoWorker ) {
         cb( '' );
         return;
     }
@@ -113,18 +113,21 @@ function getVideoPoster( url, cb ) {
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.onUpdate = this.onUpdate.bind( this );
         this.getAspectRatioPicker = this.getAspectRatioPicker.bind( this );
     }
+
     componentDidMount() {
         this.onUpdate();
     }
+
     componentDidUpdate() {
         this.onUpdate();
     }
+
     onUpdate() {
         const {
             posterData,
@@ -138,7 +141,7 @@ class BlockEdit extends Component {
         }
 
         // load YouTube / Vimeo poster
-        if ( ! attributes.poster && attributes.type === 'yt_vm_video' && attributes.video ) {
+        if ( ! attributes.poster && 'yt_vm_video' === attributes.type && attributes.video ) {
             getVideoPoster( attributes.video, ( url ) => {
                 if ( url !== attributes.videoPosterPreview ) {
                     setAttributes( { videoPosterPreview: url } );
@@ -252,20 +255,19 @@ class BlockEdit extends Component {
                                     onClick={ onToggle }
                                 />
                             ) }
-                            renderContent={ () => {
-                                return (
-                                    <div style={ {
-                                        padding: 15,
-                                        paddingTop: 10,
-                                        paddingBottom: 0,
-                                    } }>
-                                        { this.getAspectRatioPicker() }
-                                    </div>
-                                );
-                            } }
+                            renderContent={ () => (
+                                <div style={ {
+                                    padding: 15,
+                                    paddingTop: 10,
+                                    paddingBottom: 0,
+                                } }
+                                >
+                                    { this.getAspectRatioPicker() }
+                                </div>
+                            ) }
                         />
                     </Toolbar>
-                    { type === 'yt_vm_video' ? (
+                    { 'yt_vm_video' === type ? (
                         <Toolbar>
                             <TextControl
                                 type="url"
@@ -289,7 +291,7 @@ class BlockEdit extends Component {
                                         label: __( 'Local Hosted', '@@text_domain' ),
                                         value: 'video',
                                     },
-                                ].map( val => (
+                                ].map( ( val ) => (
                                     <Button
                                         isSecondary
                                         isSmall
@@ -303,17 +305,19 @@ class BlockEdit extends Component {
                                 ) )
                             }
                         </ButtonGroup>
-                        { type === 'yt_vm_video' &&
-                            <TextControl
-                                label={ __( 'Video URL', '@@text_domain' ) }
-                                type="url"
-                                value={ video }
-                                onChange={ ( value ) => setAttributes( { video: value } ) }
-                            />
-                        }
+                        { 'yt_vm_video' === type
+                            && (
+                                <TextControl
+                                    label={ __( 'Video URL', '@@text_domain' ) }
+                                    type="url"
+                                    value={ video }
+                                    onChange={ ( value ) => setAttributes( { video: value } ) }
+                                />
+                            ) }
 
                         { /* Preview Video */ }
-                        { type === 'video' && ( videoMp4 || videoOgv || videoWebm ) ? (
+                        { 'video' === type && ( videoMp4 || videoOgv || videoWebm ) ? (
+                            // eslint-disable-next-line jsx-a11y/media-has-caption
                             <video controls>
                                 { videoMp4 ? (
                                     <source src={ videoMp4 } type="video/mp4" />
@@ -328,7 +332,7 @@ class BlockEdit extends Component {
                         ) : '' }
 
                         { /* Select Videos */ }
-                        { type === 'video' && ! videoMp4 ? (
+                        { 'video' === type && ! videoMp4 ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
                                     setAttributes( {
@@ -353,11 +357,14 @@ class BlockEdit extends Component {
                                 ) }
                             />
                         ) : '' }
-                        { type === 'video' && videoMp4 ? (
+                        { 'video' === type && videoMp4 ? (
                             <div>
-                                <span>{ videoMp4.substring( videoMp4.lastIndexOf( '/' ) + 1 ) } </span>
-                                <a
-                                    href="#"
+                                <span>
+                                    { videoMp4.substring( videoMp4.lastIndexOf( '/' ) + 1 ) }
+                                    { ' ' }
+                                </span>
+                                <Button
+                                    isLink
                                     onClick={ ( e ) => {
                                         setAttributes( {
                                             videoMp4: '',
@@ -367,11 +374,11 @@ class BlockEdit extends Component {
                                     } }
                                 >
                                     { __( '(Remove)', '@@text_domain' ) }
-                                </a>
+                                </Button>
                                 <div style={ { marginBottom: 13 } } />
                             </div>
                         ) : '' }
-                        { type === 'video' && ! videoOgv ? (
+                        { 'video' === type && ! videoOgv ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
                                     setAttributes( {
@@ -396,11 +403,14 @@ class BlockEdit extends Component {
                                 ) }
                             />
                         ) : '' }
-                        { type === 'video' && videoOgv ? (
+                        { 'video' === type && videoOgv ? (
                             <div>
-                                <span>{ videoOgv.substring( videoOgv.lastIndexOf( '/' ) + 1 ) } </span>
-                                <a
-                                    href="#"
+                                <span>
+                                    { videoOgv.substring( videoOgv.lastIndexOf( '/' ) + 1 ) }
+                                    { ' ' }
+                                </span>
+                                <Button
+                                    isLink
                                     onClick={ ( e ) => {
                                         setAttributes( {
                                             videoOgv: '',
@@ -410,11 +420,11 @@ class BlockEdit extends Component {
                                     } }
                                 >
                                     { __( '(Remove)', '@@text_domain' ) }
-                                </a>
+                                </Button>
                                 <div style={ { marginBottom: 13 } } />
                             </div>
                         ) : '' }
-                        { type === 'video' && ! videoWebm ? (
+                        { 'video' === type && ! videoWebm ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
                                     setAttributes( {
@@ -439,11 +449,14 @@ class BlockEdit extends Component {
                                 ) }
                             />
                         ) : '' }
-                        { type === 'video' && videoWebm ? (
+                        { 'video' === type && videoWebm ? (
                             <div>
-                                <span>{ videoWebm.substring( videoWebm.lastIndexOf( '/' ) + 1 ) } </span>
-                                <a
-                                    href="#"
+                                <span>
+                                    { videoWebm.substring( videoWebm.lastIndexOf( '/' ) + 1 ) }
+                                    { ' ' }
+                                </span>
+                                <Button
+                                    isLink
                                     onClick={ ( e ) => {
                                         setAttributes( {
                                             videoWebm: '',
@@ -453,7 +466,7 @@ class BlockEdit extends Component {
                                     } }
                                 >
                                     { __( '(Remove)', '@@text_domain' ) }
-                                </a>
+                                </Button>
                                 <div style={ { marginBottom: 13 } } />
                             </div>
                         ) : '' }
@@ -467,7 +480,7 @@ class BlockEdit extends Component {
                             value={ videoVolume }
                             min="0"
                             max="100"
-                            onChange={ v => setAttributes( { videoVolume: v } ) }
+                            onChange={ ( v ) => setAttributes( { videoVolume: v } ) }
                         />
                     </PanelBody>
                     <PanelBody>
@@ -497,14 +510,14 @@ class BlockEdit extends Component {
                             ] }
                             onChange={ ( value ) => setAttributes( { clickAction: value } ) }
                         />
-                        { clickAction === 'fullscreen' ? (
+                        { 'fullscreen' === clickAction ? (
                             <Fragment>
-                                <ApplyFilters name="ghostkit.editor.controls" attribute={ 'fullscreenBackgroundColor' } props={ this.props }>
+                                <ApplyFilters name="ghostkit.editor.controls" attribute="fullscreenBackgroundColor" props={ this.props }>
                                     <ColorPicker
                                         label={ __( 'Fullscreen Background', '@@text_domain' ) }
                                         value={ fullscreenBackgroundColor }
                                         onChange={ ( val ) => setAttributes( { fullscreenBackgroundColor: val } ) }
-                                        alpha={ true }
+                                        alpha
                                     />
                                 </ApplyFilters>
                                 <IconPicker
@@ -557,18 +570,20 @@ class BlockEdit extends Component {
                                     value={ poster }
                                     render={ ( { open } ) => (
                                         <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
+                                            { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
                                             <a
                                                 href="#"
                                                 onClick={ open }
                                                 className="ghostkit-gutenberg-media-upload"
                                                 style={ { display: 'block' } }
+                                                // eslint-disable-next-line react/no-danger
                                                 dangerouslySetInnerHTML={ { __html: posterTag } }
                                             />
                                         </BaseControl>
                                     ) }
                                 />
-                                <a
-                                    href="#"
+                                <Button
+                                    isLink
                                     onClick={ ( e ) => {
                                         setAttributes( {
                                             poster: '',
@@ -580,7 +595,7 @@ class BlockEdit extends Component {
                                     className="button button-secondary"
                                 >
                                     { __( 'Remove Image', '@@text_domain' ) }
-                                </a>
+                                </Button>
                                 <div style={ { marginBottom: 13 } } />
                                 { posterSizes ? (
                                     <SelectControl
@@ -596,7 +611,7 @@ class BlockEdit extends Component {
                                             } );
                                             return result;
                                         } )() }
-                                        onChange={ v => setAttributes( { posterSize: v } ) }
+                                        onChange={ ( v ) => setAttributes( { posterSize: v } ) }
                                     />
                                 ) : '' }
                             </Fragment>
@@ -605,13 +620,15 @@ class BlockEdit extends Component {
                 </InspectorControls>
                 <div className={ className } data-video-aspect-ratio={ videoAspectRatio }>
                     { posterTag ? (
-                        <div className="ghostkit-video-poster"
+                        <div
+                            className="ghostkit-video-poster"
+                            // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={ {
                                 __html: posterTag,
                             } }
                         />
                     ) : '' }
-                    { ! posterTag && type === 'yt_vm_video' && videoPosterPreview ? (
+                    { ! posterTag && 'yt_vm_video' === type && videoPosterPreview ? (
                         <div className="ghostkit-video-poster">
                             <img src={ videoPosterPreview } alt="" />
                         </div>

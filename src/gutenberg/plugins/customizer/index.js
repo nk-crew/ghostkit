@@ -2,6 +2,8 @@
  * External dependencies
  */
 import Select from '../../components/select';
+import getIcon from '../../utils/get-icon';
+import Modal from '../../components/modal';
 
 /**
  * WordPress dependencies
@@ -36,15 +38,9 @@ const {
     ColorPalette,
 } = wp.blockEditor;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import Modal from '../../components/modal';
-
 class Customizer extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             jsonOptions: false,
@@ -62,6 +58,7 @@ class Customizer extends Component {
      * @param {Object} opt - option data.
      * @returns {{slug: string, label: string}} - slug and label.
      */
+    // eslint-disable-next-line class-methods-use-this
     getOptionCategory( opt ) {
         let slug = '';
         let label = '';
@@ -108,7 +105,7 @@ class Customizer extends Component {
         }
 
         if ( customizerOptions ) {
-            Object.keys( customizerOptions ).map( ( k ) => {
+            Object.keys( customizerOptions ).forEach( ( k ) => {
                 const opt = customizerOptions[ k ];
                 options.forEach( ( val, n ) => {
                     if ( options[ n ] && options[ n ].id === opt.id ) {
@@ -119,7 +116,7 @@ class Customizer extends Component {
                                 value: '',
                                 label: '',
                             } );
-                            Object.keys( opt.choices ).map( ( name ) => {
+                            Object.keys( opt.choices ).forEach( ( name ) => {
                                 choices.push( {
                                     value: name,
                                     label: `${ opt.choices[ name ] } [${ name }]`,
@@ -157,18 +154,18 @@ class Customizer extends Component {
             result = [];
             const groupedList = {};
 
-            Object.keys( customizerOptions ).map( ( k ) => {
+            Object.keys( customizerOptions ).forEach( ( k ) => {
                 const val = customizerOptions[ k ];
                 let prevent = false;
 
                 // disable some options
                 if (
-                    'active_theme' === val.id ||
-                    ( val.panel && val.panel.id && 'widgets' === val.panel.id ) ||
-                    ( val.panel && val.panel.id && 'nav_menus' === val.panel.id ) ||
-                    ( ! val.panel && 'option' === val.type && /^widget_/.test( val.id ) ) ||
-                    ( ! val.panel && 'option' === val.type && /^sidebars_widgets\[/.test( val.id ) ) ||
-                    ( ! val.panel && 'option' === val.type && /^nav_menus_/.test( val.id ) )
+                    'active_theme' === val.id
+                    || ( val.panel && val.panel.id && 'widgets' === val.panel.id )
+                    || ( val.panel && val.panel.id && 'nav_menus' === val.panel.id )
+                    || ( ! val.panel && 'option' === val.type && /^widget_/.test( val.id ) )
+                    || ( ! val.panel && 'option' === val.type && /^sidebars_widgets\[/.test( val.id ) )
+                    || ( ! val.panel && 'option' === val.type && /^nav_menus_/.test( val.id ) )
                 ) {
                     prevent = true;
                 }
@@ -176,7 +173,7 @@ class Customizer extends Component {
                 if ( ! prevent ) {
                     const category = this.getOptionCategory( val );
 
-                    if ( typeof groupedList[ category.slug ] === 'undefined' ) {
+                    if ( 'undefined' === typeof groupedList[ category.slug ] ) {
                         groupedList[ category.slug ] = {
                             label: category.label,
                             options: [],
@@ -190,7 +187,7 @@ class Customizer extends Component {
                 }
             } );
 
-            Object.keys( groupedList ).map( ( k ) => {
+            Object.keys( groupedList ).forEach( ( k ) => {
                 result.push( groupedList[ k ] );
             } );
         }
@@ -208,10 +205,8 @@ class Customizer extends Component {
         let options = this.getSelectedOptions();
 
         // remove option.
-        if ( value === null ) {
-            options = options.filter( ( item ) => {
-                return item.id !== opt.id;
-            } );
+        if ( null === value ) {
+            options = options.filter( ( item ) => item.id !== opt.id );
 
         // add/update option
         } else {
@@ -264,7 +259,7 @@ class Customizer extends Component {
                     <Fragment>
                         <p className="ghostkit-help-text">{ __( 'Override Customizer options for the current post.', '@@text_domain' ) }</p>
                         <Select
-                            value={ '' }
+                            value=""
                             onChange={ ( opt ) => {
                                 this.updateOptions( '', {
                                     id: opt.value,
@@ -306,7 +301,7 @@ class Customizer extends Component {
                                     </BaseControl>
                                 );
                                 break;
-                            case 'kirki-slider':
+                            case 'kirki-slider': {
                                 const sliderAttrs = {
                                     min: '',
                                     max: '',
@@ -335,11 +330,12 @@ class Customizer extends Component {
                                     />
                                 );
                                 break;
+                            }
                             case 'kirki-toggle':
                                 control = (
                                     <ToggleControl
                                         label={ opt.label || opt.id }
-                                        checked={ opt.value === 'on' }
+                                        checked={ 'on' === opt.value }
                                         onChange={ ( value ) => {
                                             this.updateOptions( value ? 'on' : 'off', opt );
                                         } }
@@ -395,12 +391,15 @@ class Customizer extends Component {
                                     { control }
                                     <div className="ghostkit-customizer-list-info">
                                         <small className="ghostkit-customizer-list-info-id">{ opt.id }</small>
-                                        { opt.default || typeof opt.default === 'boolean' ? (
+                                        { opt.default || 'boolean' === typeof opt.default ? (
                                             <small className="ghostkit-customizer-list-info-default">
-                                                { __( 'Default:', '@@text_domain' ) } <span>{ ( typeof opt.default === 'boolean' ? opt.default.toString() : opt.default ) }</span>
+                                                { __( 'Default:', '@@text_domain' ) }
+                                                { ' ' }
+                                                <span>{ ( 'boolean' === typeof opt.default ? opt.default.toString() : opt.default ) }</span>
                                             </small>
                                         ) : '' }
                                     </div>
+                                    { /* eslint-disable-next-line react/button-has-type */ }
                                     <button
                                         className="ghostkit-customizer-list-remove"
                                         onClick={ ( e ) => {
@@ -444,8 +443,8 @@ export const name = 'ghostkit-customizer';
 export const icon = null;
 
 export class Plugin extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             isModalOpen: false,

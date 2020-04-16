@@ -1,17 +1,18 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
 /**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+
 import deprecated from './deprecated';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 import transforms from './transforms';
+
+const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -30,7 +31,7 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/number-box/',
         customStylesCallback( attributes ) {
             const styles = {
-                '--gkt-counter-box--number__font-size': typeof attributes.numberSize !== 'undefined' ? `${ attributes.numberSize }px` : undefined,
+                '--gkt-counter-box--number__font-size': 'undefined' !== typeof attributes.numberSize ? `${ attributes.numberSize }px` : undefined,
                 '--gkt-counter-box--number__color': attributes.numberColor,
             };
 

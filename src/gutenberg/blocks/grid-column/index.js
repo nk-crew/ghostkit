@@ -4,23 +4,24 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import '../grid/awb-fallback';
+import getIcon from '../../utils/get-icon';
+import getBackgroundStyles from '../grid/get-background-styles';
+
+import getColClass from './get-col-class';
+import metadata from './block.json';
+import edit from './edit';
+import save from './save';
+import deprecated from './deprecated';
+
+/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
 const { createHigherOrderComponent } = wp.compose;
 const { addFilter } = wp.hooks;
-
-/**
- * Internal dependencies
- */
-import '../grid/awb-fallback';
-import getIcon from '../../utils/get-icon';
-import getColClass from './get-col-class';
-import getBackgroundStyles from '../grid/get-background-styles';
-import metadata from './block.json';
-import edit from './edit';
-import save from './save';
-import deprecated from './deprecated';
 
 const { name } = metadata;
 
@@ -48,7 +49,7 @@ export const settings = {
             let result = {};
 
             // Sticky styles.
-            if ( stickyContent && typeof stickyContentOffset !== 'undefined' ) {
+            if ( stickyContent && 'undefined' !== typeof stickyContentOffset ) {
                 result[ '--gkt-grid--column-sticky__offset' ] = `${ stickyContentOffset }px`;
             }
 

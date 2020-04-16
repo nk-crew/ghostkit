@@ -1,6 +1,11 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+
 const {
     Component,
 } = wp.element;
@@ -13,16 +18,11 @@ const {
 } = wp.components;
 
 /**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-
-/**
  * Component Class
  */
 export default class RemoveButton extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             confirmed: -1,
@@ -51,7 +51,7 @@ export default class RemoveButton extends Component {
             <Button
                 className="ghostkit-component-remove-button"
                 onClick={ () => {
-                    if ( confirmed === -1 ) {
+                    if ( -1 === confirmed ) {
                         this.setState( {
                             confirmed: 0,
                         } );
@@ -59,7 +59,7 @@ export default class RemoveButton extends Component {
                 } }
                 style={ style }
             >
-                { confirmed === 0 ? (
+                { 0 === confirmed ? (
                     <Popover
                         className="ghostkit-component-remove-button-confirm"
                         onClose={ () => {

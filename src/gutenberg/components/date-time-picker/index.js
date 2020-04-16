@@ -25,8 +25,8 @@ const {
  * Component Class
  */
 export default class DateTimePicker extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             isPickerOpen: false,

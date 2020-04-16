@@ -12,7 +12,7 @@ export default {
         {
             type: 'block',
             blocks: [ 'ghostkit/tabs-v2' ],
-            transform: function( attrs, innerBlocks ) {
+            transform( attrs, innerBlocks ) {
                 const {
                     tabsData,
                     tabActive,
@@ -23,16 +23,14 @@ export default {
                     {
                         itemsCount: innerBlocks.length,
                     },
-                    innerBlocks.map( ( tab, i ) => {
-                        return createBlock(
-                            'ghostkit/accordion-item',
-                            {
-                                heading: tabsData[ i ] ? tabsData[ i ].title : __( 'Accordion Item', '@@text_domain' ),
-                                active: tabsData[ i ] ? tabsData[ i ].slug === tabActive : false,
-                            },
-                            tab.innerBlocks,
-                        );
-                    } ),
+                    innerBlocks.map( ( tab, i ) => createBlock(
+                        'ghostkit/accordion-item',
+                        {
+                            heading: tabsData[ i ] ? tabsData[ i ].title : __( 'Accordion Item', '@@text_domain' ),
+                            active: tabsData[ i ] ? tabsData[ i ].slug === tabActive : false,
+                        },
+                        tab.innerBlocks,
+                    ) ),
                 );
             },
         },

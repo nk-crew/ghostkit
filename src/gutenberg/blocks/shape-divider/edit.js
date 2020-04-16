@@ -4,6 +4,15 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ImagePicker from '../../components/image-picker';
+import ColorPicker from '../../components/color-picker';
+import ProNote from '../../components/pro-note';
+import getIcon from '../../utils/get-icon';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -35,24 +44,11 @@ const {
 const { shapes } = GHOSTKIT;
 
 /**
- * Internal dependencies
- */
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
-import ImagePicker from '../../components/image-picker';
-import ColorPicker from '../../components/color-picker';
-import ProNote from '../../components/pro-note';
-import getIcon from '../../utils/get-icon';
-
-/**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
-
-        this.state = {
-            styles: [],
-        };
+    constructor( props ) {
+        super( props );
 
         this.getShapeData = this.getShapeData.bind( this );
         this.getShapesPicker = this.getShapesPicker.bind( this );
@@ -96,6 +92,7 @@ class BlockEdit extends Component {
         }
     }
 
+    // eslint-disable-next-line class-methods-use-this
     getShapeData( svg ) {
         let result = {
             allow_flip_vertical: true,
@@ -148,6 +145,7 @@ class BlockEdit extends Component {
                                 <div
                                     className="ghostkit-shape-divider"
                                     style={ { '--gkt-shape-divider__color': color } }
+                                    // eslint-disable-next-line react/no-danger
                                     dangerouslySetInnerHTML={ { __html: shape.svg } }
                                 />
                             ),
@@ -224,7 +222,7 @@ class BlockEdit extends Component {
                 let heightName = 'height';
                 let widthName = 'width';
 
-                if ( media !== 'all' ) {
+                if ( 'all' !== media ) {
                     heightName = `${ media }_${ heightName }`;
                     widthName = `${ media }_${ widthName }`;
                 }
@@ -248,22 +246,21 @@ class BlockEdit extends Component {
                             renderToggle={ ( { onToggle } ) => (
                                 <Button
                                     label={ __( 'Shapes', '@@text_domain' ) }
-                                    icon={ 'edit' }
+                                    icon="edit"
                                     className="components-toolbar__control"
                                     onClick={ onToggle }
                                 />
                             ) }
-                            renderContent={ () => {
-                                return (
-                                    <div style={ {
-                                        padding: 15,
-                                        paddingTop: 10,
-                                        paddingBottom: 0,
-                                    } }>
-                                        { this.getShapesPicker() }
-                                    </div>
-                                );
-                            } }
+                            renderContent={ () => (
+                                <div style={ {
+                                    padding: 15,
+                                    paddingTop: 10,
+                                    paddingBottom: 0,
+                                } }
+                                >
+                                    { this.getShapesPicker() }
+                                </div>
+                            ) }
                         />
                     </Toolbar>
                 </BlockControls>
@@ -278,7 +275,7 @@ class BlockEdit extends Component {
                                     let heightName = 'height';
                                     let widthName = 'width';
 
-                                    if ( tabData.name !== 'all' ) {
+                                    if ( 'all' !== tabData.name ) {
                                         heightName = `${ tabData.name }_${ heightName }`;
                                         widthName = `${ tabData.name }_${ widthName }`;
                                     }
@@ -290,7 +287,7 @@ class BlockEdit extends Component {
                                                 value={ attributes[ heightName ] ? parseInt( attributes[ heightName ], 10 ) : '' }
                                                 onChange={ ( value ) => {
                                                     setAttributes( {
-                                                        [ heightName ]: `${ typeof value === 'number' ? value : '' }`,
+                                                        [ heightName ]: `${ 'number' === typeof value ? value : '' }`,
                                                     } );
                                                 } }
                                                 min={ 1 }
@@ -301,7 +298,7 @@ class BlockEdit extends Component {
                                                 value={ attributes[ widthName ] ? parseInt( attributes[ widthName ], 10 ) : '' }
                                                 onChange={ ( value ) => {
                                                     setAttributes( {
-                                                        [ widthName ]: `${ typeof value === 'number' ? value : '' }`,
+                                                        [ widthName ]: `${ 'number' === typeof value ? value : '' }`,
                                                     } );
                                                 } }
                                                 min={ 100 }
@@ -318,10 +315,11 @@ class BlockEdit extends Component {
                             label={ __( 'Color', '@@text_domain' ) }
                             value={ color }
                             onChange={ ( val ) => setAttributes( { color: val } ) }
-                            alpha={ true }
+                            alpha
                         />
                     </PanelBody>
                 </InspectorControls>
+                { /* eslint-disable-next-line react/no-danger */ }
                 <div className={ className } dangerouslySetInnerHTML={ { __html: svg } } />
             </Fragment>
         );

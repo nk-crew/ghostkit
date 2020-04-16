@@ -1,13 +1,13 @@
 /**
  * WordPress dependencies
  */
-const { merge } = window.lodash;
-
 /**
  * Internal dependencies
  */
 import metadata from './block.json';
 import save from './save';
+
+const { merge } = window.lodash;
 
 export default [
     // v2.10.2

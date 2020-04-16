@@ -10,7 +10,9 @@ export default function parseSRConfig( data ) {
     let origin = effect.split( '-' );
 
     if ( 2 === origin.length ) {
+        // eslint-disable-next-line prefer-destructuring
         effect = origin[ 0 ];
+        // eslint-disable-next-line prefer-destructuring
         origin = origin[ 1 ];
 
         switch ( origin ) {
@@ -26,6 +28,7 @@ export default function parseSRConfig( data ) {
         case 'left':
             origin = 'left';
             break;
+        // no default
         }
     } else {
         origin = 'center';
@@ -37,10 +40,10 @@ export default function parseSRConfig( data ) {
     }
 
     const config = {
-        distance: distance,
-        origin: origin,
+        distance,
+        origin,
         opacity: 0,
-        scale: scale,
+        scale,
         duration: 900,
         delay: 0,
         reset: false,
@@ -48,10 +51,11 @@ export default function parseSRConfig( data ) {
     };
 
     // replace other data config.
-    if ( data.length > 1 ) {
+    if ( 1 < data.length ) {
         data.forEach( ( item ) => {
             const itemData = item.split( ':' );
             if ( 2 === itemData.length ) {
+                // eslint-disable-next-line prefer-destructuring
                 config[ itemData[ 0 ] ] = itemData[ 1 ];
             }
         } );

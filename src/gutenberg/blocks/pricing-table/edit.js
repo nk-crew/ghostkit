@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import GapSettings from '../../components/gap-settings';
+import getIcon from '../../utils/get-icon';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -42,20 +48,22 @@ const {
 } = wp.data;
 
 /**
- * Internal dependencies
- */
-import GapSettings from '../../components/gap-settings';
-import getIcon from '../../utils/get-icon';
-
-/**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.getInnerBlocksTemplate = this.getInnerBlocksTemplate.bind( this );
         this.maybeUpdateColumnsNumber = this.maybeUpdateColumnsNumber.bind( this );
+    }
+
+    componentDidMount() {
+        this.maybeUpdateColumnsNumber();
+    }
+
+    componentDidUpdate() {
+        this.maybeUpdateColumnsNumber();
     }
 
     /**
@@ -74,20 +82,13 @@ class BlockEdit extends Component {
 
         const result = [];
 
-        if ( count > 0 ) {
-            for ( let k = 1; k <= count; k++ ) {
+        if ( 0 < count ) {
+            for ( let k = 1; k <= count; k += 1 ) {
                 result.push( [ 'ghostkit/pricing-table-item' ] );
             }
         }
 
         return result;
-    }
-
-    componentDidMount() {
-        this.maybeUpdateColumnsNumber();
-    }
-    componentDidUpdate() {
-        this.maybeUpdateColumnsNumber();
     }
 
     /**
@@ -147,26 +148,26 @@ class BlockEdit extends Component {
                         onChange={ ( val ) => setAttributes( { horizontalAlign: val } ) }
                     />
                 </BlockControls>
-                { count > 1 ? (
+                { 1 < count ? (
                     <BlockControls>
                         <Toolbar controls={ [
                             {
                                 icon: getIcon( 'icon-vertical-top' ),
                                 title: __( 'ItemsVertical Start', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: '' } ),
-                                isActive: verticalAlign === '',
+                                isActive: '' === verticalAlign,
                             },
                             {
                                 icon: getIcon( 'icon-vertical-center' ),
                                 title: __( 'ItemsVertical Center', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: 'center' } ),
-                                isActive: verticalAlign === 'center',
+                                isActive: 'center' === verticalAlign,
                             },
                             {
                                 icon: getIcon( 'icon-vertical-bottom' ),
                                 title: __( 'ItemsVertical End', '@@text_domain' ),
                                 onClick: () => setAttributes( { verticalAlign: 'end' } ),
-                                isActive: verticalAlign === 'end',
+                                isActive: 'end' === verticalAlign,
                             },
                         ] }
                         />
@@ -180,19 +181,19 @@ class BlockEdit extends Component {
                                     icon: getIcon( 'icon-vertical-top' ),
                                     title: __( 'ItemsVertical Start', '@@text_domain' ),
                                     onClick: () => setAttributes( { verticalAlign: '' } ),
-                                    isActive: verticalAlign === '',
+                                    isActive: '' === verticalAlign,
                                 },
                                 {
                                     icon: getIcon( 'icon-vertical-center' ),
                                     title: __( 'ItemsVertical Center', '@@text_domain' ),
                                     onClick: () => setAttributes( { verticalAlign: 'center' } ),
-                                    isActive: verticalAlign === 'center',
+                                    isActive: 'center' === verticalAlign,
                                 },
                                 {
                                     icon: getIcon( 'icon-vertical-bottom' ),
                                     title: __( 'ItemsVertical End', '@@text_domain' ),
                                     onClick: () => setAttributes( { verticalAlign: 'end' } ),
-                                    isActive: verticalAlign === 'end',
+                                    isActive: 'end' === verticalAlign,
                                 },
                             ] }
                             />
@@ -216,7 +217,7 @@ class BlockEdit extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
-                    { count > 0 ? (
+                    { 0 < count ? (
                         <InnerBlocks
                             template={ this.getInnerBlocksTemplate() }
                             allowedBlocks={ [ 'ghostkit/pricing-table-item' ] }
@@ -224,11 +225,11 @@ class BlockEdit extends Component {
                         />
                     ) : '' }
                 </div>
-                { isSelectedBlockInRoot && count < 6 ? (
+                { isSelectedBlockInRoot && 6 > count ? (
                     <div className="ghostkit-pricing-table-add-item">
                         <Button
                             isSecondary
-                            icon={ 'insert' }
+                            icon="insert"
                             onClick={ () => {
                                 insertPricingItem();
                             } }

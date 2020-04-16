@@ -146,7 +146,7 @@ class BlockEdit extends Component {
                                     tagName="div"
                                     onChange={ ( val ) => setAttributes( { price: val } ) }
                                     value={ price }
-                                    placeholder={ '77' }
+                                    placeholder="77"
                                     withoutInteractiveFormatting
                                     keepPlaceholderOnFocus
                                 />

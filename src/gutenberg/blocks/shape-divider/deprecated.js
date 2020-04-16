@@ -15,7 +15,7 @@ export default [
                     svg: {},
                 };
 
-                Object.keys( attributes ).map( ( key ) => {
+                Object.keys( attributes ).forEach( ( key ) => {
                     if ( attributes[ key ] ) {
                         let prefix = key.split( '_' )[ 0 ];
                         let type = key.split( '_' )[ 1 ];
@@ -25,8 +25,8 @@ export default [
                             prefix = '';
                         }
 
-                        if ( type && ( type === 'height' || type === 'width' ) ) {
-                            if ( prefix && typeof styles.svg[ `media_${ prefix }` ] === 'undefined' ) {
+                        if ( type && ( 'height' === type || 'width' === type ) ) {
+                            if ( prefix && 'undefined' === typeof styles.svg[ `media_${ prefix }` ] ) {
                                 styles.svg[ `media_${ prefix }` ] = {};
                             }
 

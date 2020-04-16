@@ -1,6 +1,12 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+import save from './save';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -8,12 +14,6 @@ const {
 const {
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
-import save from './save';
 
 export default [
     // v2.8.2
@@ -118,7 +118,7 @@ export default [
                 default: 15,
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 effect,
                 speed,

@@ -53,7 +53,7 @@ function activateTab( $tabs, tabName, self ) {
 /**
  * Prepare Tabs.
  */
-$doc.on( 'initBlocks.ghostkit', function( e, self ) {
+$doc.on( 'initBlocks.ghostkit', ( e, self ) => {
     GHOSTKIT.triggerEvent( 'beforePrepareTabs', self );
 
     $( '.ghostkit-tabs:not(.ghostkit-tabs-ready)' ).each( function() {

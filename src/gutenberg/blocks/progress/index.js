@@ -1,18 +1,19 @@
 /**
  * WordPress dependencies
  */
-const { merge } = window.lodash;
-
-const { __ } = wp.i18n;
-
 /**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 import deprecated from './deprecated';
+
+const { merge } = window.lodash;
+
+const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -31,10 +32,10 @@ export const settings = {
         previewUrl: 'https://ghostkit.io/blocks/progress/',
         customStylesCallback( attributes ) {
             const styles = {
-                '--gkt-progress__height': typeof attributes.height !== 'undefined' ? `${ attributes.height }px` : undefined,
-                '--gkt-progress__border-radius': typeof attributes.borderRadius !== 'undefined' ? `${ attributes.borderRadius }px` : undefined,
+                '--gkt-progress__height': 'undefined' !== typeof attributes.height ? `${ attributes.height }px` : undefined,
+                '--gkt-progress__border-radius': 'undefined' !== typeof attributes.borderRadius ? `${ attributes.borderRadius }px` : undefined,
                 '--gkt-progress__background-color': attributes.backgroundColor,
-                '--gkt-progress--bar__width': typeof attributes.percent !== 'undefined' ? `${ attributes.percent }%` : undefined,
+                '--gkt-progress--bar__width': 'undefined' !== typeof attributes.percent ? `${ attributes.percent }%` : undefined,
                 '--gkt-progress--bar__background-color': attributes.color,
             };
 

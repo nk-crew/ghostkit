@@ -10,7 +10,7 @@ const $doc = $( document );
 /**
  * Prepare Changelogs.
  */
-$doc.on( 'initBlocks.ghostkit', function( e, self ) {
+$doc.on( 'initBlocks.ghostkit', ( e, self ) => {
     GHOSTKIT.triggerEvent( 'beforePrepareChangelog', self );
 
     $( '.ghostkit-changelog:not(.ghostkit-changelog-ready)' ).each( function() {
@@ -42,6 +42,7 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
                 case 'removed':
                     className += ' ghostkit-badge-danger';
                     break;
+                // no default
                 }
 
                 $li.html( `<span class="${ className }">${ changeType }</span> ${ changeDescription }` );

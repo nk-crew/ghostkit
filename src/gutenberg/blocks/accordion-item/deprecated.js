@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -16,11 +21,6 @@ const {
 } = wp.blockEditor;
 
 const { Component } = wp.element;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -178,7 +178,7 @@ export default [
                 type: 'number',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 heading,
                 active,

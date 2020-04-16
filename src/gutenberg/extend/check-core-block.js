@@ -22,8 +22,8 @@ const unsupportedBlocks = [
  */
 export default function checkCoreBlock( name ) {
     return (
-        name &&
-        /^core/.test( name ) &&
-        -1 === unsupportedBlocks.indexOf( name )
+        name
+        && /^core/.test( name )
+        && -1 === unsupportedBlocks.indexOf( name )
     );
 }

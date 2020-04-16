@@ -4,6 +4,14 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import IconPicker from '../../components/icon-picker';
+import URLPicker from '../../components/url-picker';
+import ApplyFilters from '../../components/apply-filters';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -28,14 +36,6 @@ const {
     InnerBlocks,
     BlockControls,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import ColorPicker from '../../components/color-picker';
-import IconPicker from '../../components/icon-picker';
-import URLPicker from '../../components/url-picker';
-import ApplyFilters from '../../components/apply-filters';
 
 /**
  * Block Edit Class.
@@ -94,21 +94,22 @@ class BlockEdit extends Component {
                                             icon: 'align-center',
                                             title: __( 'Top', '@@text_domain' ),
                                             onClick: () => setAttributes( { iconPosition: 'top' } ),
-                                            isActive: iconPosition === 'top',
+                                            isActive: 'top' === iconPosition,
                                         },
                                         {
                                             icon: 'align-left',
                                             title: __( 'Left', '@@text_domain' ),
                                             onClick: () => setAttributes( { iconPosition: 'left' } ),
-                                            isActive: iconPosition === 'left',
+                                            isActive: 'left' === iconPosition,
                                         },
                                         {
                                             icon: 'align-right',
                                             title: __( 'Right', '@@text_domain' ),
                                             onClick: () => setAttributes( { iconPosition: 'right' } ),
-                                            isActive: iconPosition === 'right',
+                                            isActive: 'right' === iconPosition,
                                         },
-                                    ] } />
+                                    ] }
+                                    />
                                 </BaseControl>
                             </Fragment>
                         ) : '' }
@@ -120,12 +121,15 @@ class BlockEdit extends Component {
                             />
                         ) : '' }
                     </PanelBody>
-                    <PanelBody title={ (
-                        <Fragment>
-                            { __( 'Colors', '@@text_domain' ) }
-                            <ColorIndicator colorValue={ iconColor } />
-                        </Fragment>
-                    ) } initialOpen={ false }>
+                    <PanelBody
+                        title={ (
+                            <Fragment>
+                                { __( 'Colors', '@@text_domain' ) }
+                                <ColorIndicator colorValue={ iconColor } />
+                            </Fragment>
+                        ) }
+                        initialOpen={ false }
+                    >
                         <TabPanel
                             className="ghostkit-control-tabs ghostkit-control-tabs-wide"
                             tabs={ [
@@ -139,17 +143,18 @@ class BlockEdit extends Component {
                                     title: __( 'Hover', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
-                            ] }>
+                            ] }
+                        >
                             {
                                 ( tabData ) => {
-                                    const isHover = tabData.name === 'hover';
+                                    const isHover = 'hover' === tabData.name;
                                     return (
                                         <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverIconColor' : 'iconColor' } props={ this.props }>
                                             <ColorPicker
                                                 label={ __( 'Icon', '@@text_domain' ) }
                                                 value={ isHover ? hoverIconColor : iconColor }
                                                 onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
-                                                alpha={ true }
+                                                alpha
                                             />
                                         </ApplyFilters>
                                     );
@@ -176,21 +181,22 @@ class BlockEdit extends Component {
                                 icon: 'align-center',
                                 title: __( 'Icon Position Top', '@@text_domain' ),
                                 onClick: () => setAttributes( { iconPosition: 'top' } ),
-                                isActive: iconPosition === 'top',
+                                isActive: 'top' === iconPosition,
                             },
                             {
                                 icon: 'align-left',
                                 title: __( 'Icon Position Left', '@@text_domain' ),
                                 onClick: () => setAttributes( { iconPosition: 'left' } ),
-                                isActive: iconPosition === 'left',
+                                isActive: 'left' === iconPosition,
                             },
                             {
                                 icon: 'align-right',
                                 title: __( 'Icon Position Right', '@@text_domain' ),
                                 onClick: () => setAttributes( { iconPosition: 'right' } ),
-                                isActive: iconPosition === 'right',
+                                isActive: 'right' === iconPosition,
                             },
-                        ] } />
+                        ] }
+                        />
                     </BlockControls>
                 ) : '' }
                 <div className={ className }>

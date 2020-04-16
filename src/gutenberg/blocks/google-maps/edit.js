@@ -5,6 +5,19 @@ import classnames from 'classnames/dedupe';
 import { debounce } from 'throttle-debounce';
 
 /**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import ApplyFilters from '../../components/apply-filters';
+import ImagePicker from '../../components/image-picker';
+
+import IconMarker from './icons/marker.svg';
+import styles from './map-styles';
+import MapBlock from './map-block';
+import SearchBox from './search-box';
+
+
+/**
  * WordPress dependencies
  */
 const {
@@ -34,37 +47,22 @@ const {
 
 const { apiFetch } = wp;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import IconMarker from './icons/marker.svg';
-
-import styles from './map-styles';
-
-import MapBlock from './map-block';
-import SearchBox from './search-box';
-
-import ApplyFilters from '../../components/apply-filters';
-import ImagePicker from '../../components/image-picker';
-
 const { GHOSTKIT } = window;
 
-const mapsUrl = GHOSTKIT.googleMapsAPIUrl + '&libraries=geometry,drawing,places';
+const mapsUrl = `${ GHOSTKIT.googleMapsAPIUrl }&libraries=geometry,drawing,places`;
 let geocoder = false;
 
 /**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             mapID: this.props.attributes.apiKey,
             apiKey: GHOSTKIT.googleMapsAPIKey,
             apiKeySaved: GHOSTKIT.googleMapsAPIKey,
-            styles: [],
             addresses: {},
         };
 
@@ -88,7 +86,7 @@ class BlockEdit extends Component {
             geocoder = new window.google.maps.Geocoder();
         }
         if ( geocoder ) {
-            if ( markers && markers.length > 0 ) {
+            if ( markers && 0 < markers.length ) {
                 markers.forEach( ( marker ) => {
                     if ( ! marker.address ) {
                         if ( this.state.addresses[ marker.lat + marker.lng ] ) {
@@ -117,48 +115,15 @@ class BlockEdit extends Component {
         }
     }
 
-    updateMarkerAddress( latLng, address ) {
-        const {
-            attributes,
-        } = this.props;
-
-        const { markers } = attributes;
-        const { addresses } = this.state;
-
-        if ( markers && markers.length > 0 ) {
-            markers.forEach( ( marker, index ) => {
-                if ( ! marker.address && latLng.lat === marker.lat && latLng.lng === marker.lng ) {
-                    markers[ index ].address = address;
-                    addresses[ latLng.lat + latLng.lng ] = address;
-                }
-            } );
-            this.setState( { addresses } );
-        }
-    }
-
     onChangeAPIKey() {
         GHOSTKIT.googleMapsAPIKey = this.state.apiKey;
 
-        this.setState( {
-            mapID: this.state.apiKey,
-        } );
+        this.setState( ( prevState ) => ( {
+            mapID: prevState.apiKey,
+        } ) );
     }
 
-    saveAPIKey() {
-        if ( GHOSTKIT.googleMapsAPIKey !== this.state.apiKeySaved ) {
-            this.setState( {
-                apiKeySaved: GHOSTKIT.googleMapsAPIKey,
-            } );
-            apiFetch( {
-                path: '/ghostkit/v1/update_google_maps_api_key',
-                method: 'POST',
-                data: {
-                    key: GHOSTKIT.googleMapsAPIKey,
-                },
-            } );
-        }
-    }
-
+    // eslint-disable-next-line class-methods-use-this
     getStyles( string ) {
         let result = [];
 
@@ -213,7 +178,14 @@ class BlockEdit extends Component {
                             value={ styleCustom }
                             onChange={ ( value ) => setAttributes( { styleCustom: value } ) }
                         />
-                        <p><em>{ __( 'You can use custom styles presets from the', '@@text_domain' ) } <a href="https://snazzymaps.com/" target="_blank" rel="noopener noreferrer">{ __( 'Snazzy Maps', '@@text_domain' ) }</a>.</em></p>
+                        <p>
+                            <em>
+                                { __( 'You can use custom styles presets from the', '@@text_domain' ) }
+                                { ' ' }
+                                <a href="https://snazzymaps.com/" target="_blank" rel="noopener noreferrer">{ __( 'Snazzy Maps', '@@text_domain' ) }</a>
+                                .
+                            </em>
+                        </p>
                     </Fragment>
                 ) : '' }
             </Fragment>
@@ -242,13 +214,13 @@ class BlockEdit extends Component {
         return (
             <MapBlock
                 key={ this.state.mapID + markers.length }
-                googleMapURL={ mapsUrl + '&key=' + encodeURIComponent( this.state.apiKey ) }
+                googleMapURL={ `${ mapsUrl }&key=${ encodeURIComponent( this.state.apiKey ) }` }
                 loadingElement={ <div style={ { height: '100%' } } /> }
                 mapElement={ <div style={ { height: '100%' } } /> }
                 containerElement={ <div className="ghostkit-google-maps-wrap" style={ { minHeight: '100%' } } /> }
                 markers={ markers }
                 zoom={ zoom }
-                center={ { lat: lat, lng: lng } }
+                center={ { lat, lng } }
                 options={ {
                     styles: styleCustom ? this.getStyles( styleCustom ) : [],
                     zoomControl: showZoomButtons,
@@ -259,7 +231,7 @@ class BlockEdit extends Component {
                     draggable: optionDraggable,
                 } }
                 defaultZoom={ zoom }
-                defaultCenter={ { lat: lat, lng: lng } }
+                defaultCenter={ { lat, lng } }
                 defaultOptions={ {
                     styles: styleCustom ? this.getStyles( styleCustom ) : [],
                     zoomControl: showZoomButtons,
@@ -273,6 +245,40 @@ class BlockEdit extends Component {
                 onCenterChanged={ debounce( 500, ( val ) => setAttributes( { lat: val.lat(), lng: val.lng() } ) ) }
             />
         );
+    }
+
+    updateMarkerAddress( latLng, address ) {
+        const {
+            attributes,
+        } = this.props;
+
+        const { markers } = attributes;
+        const { addresses } = this.state;
+
+        if ( markers && 0 < markers.length ) {
+            markers.forEach( ( marker, index ) => {
+                if ( ! marker.address && latLng.lat === marker.lat && latLng.lng === marker.lng ) {
+                    markers[ index ].address = address;
+                    addresses[ latLng.lat + latLng.lng ] = address;
+                }
+            } );
+            this.setState( { addresses } );
+        }
+    }
+
+    saveAPIKey() {
+        if ( GHOSTKIT.googleMapsAPIKey !== this.state.apiKeySaved ) {
+            this.setState( {
+                apiKeySaved: GHOSTKIT.googleMapsAPIKey,
+            } );
+            apiFetch( {
+                path: '/ghostkit/v1/update_google_maps_api_key',
+                method: 'POST',
+                data: {
+                    key: GHOSTKIT.googleMapsAPIKey,
+                },
+            } );
+        }
     }
 
     render() {
@@ -320,7 +326,8 @@ class BlockEdit extends Component {
                             onClick: () => setAttributes( { fullHeight: ! fullHeight } ),
                             isActive: fullHeight,
                         },
-                    ] } />
+                    ] }
+                    />
                     <Toolbar
                         controls={ [
                             {
@@ -349,17 +356,16 @@ class BlockEdit extends Component {
                                     onClick={ onToggle }
                                 />
                             ) }
-                            renderContent={ () => {
-                                return (
-                                    <div style={ {
-                                        padding: 15,
-                                        paddingTop: 10,
-                                        paddingBottom: 0,
-                                    } }>
-                                        { this.getStylesPicker() }
-                                    </div>
-                                );
-                            } }
+                            renderContent={ () => (
+                                <div style={ {
+                                    padding: 15,
+                                    paddingTop: 10,
+                                    paddingBottom: 0,
+                                } }
+                                >
+                                    { this.getStylesPicker() }
+                                </div>
+                            ) }
                         />
                     </Toolbar>
                 </BlockControls>
@@ -388,12 +394,13 @@ class BlockEdit extends Component {
                                 />
                             </PanelBody>
                             <PanelBody title={ __( 'Markers', '@@text_domain' ) }>
-                                { markers && markers.length > 0 ? (
+                                { markers && 0 < markers.length ? (
                                     <ul className="ghostkit-google-maps-markers">
                                         { markers.map( ( marker, index ) => (
+                                            // eslint-disable-next-line react/no-array-index-key
                                             <li key={ index }>
                                                 <SearchBox
-                                                    googleMapURL={ mapsUrl + '&key=' + encodeURIComponent( this.state.apiKey ) }
+                                                    googleMapURL={ `${ mapsUrl }&key=${ encodeURIComponent( this.state.apiKey ) }` }
                                                     placeholder={ __( 'Enter address', '@@text_domain' ) }
                                                     value={ marker.address || this.state.addresses[ marker.lat + marker.lng ] || '' }
                                                     onChange={ ( value ) => {
@@ -504,6 +511,7 @@ class BlockEdit extends Component {
                                             if ( optionDraggable ) {
                                                 return __( 'Better Draggable', '@@text_domain' );
                                             }
+                                            return '';
                                         } )() }
                                         help={ ( () => {
                                             if ( optionScrollWheel && optionDraggable ) {
@@ -515,10 +523,11 @@ class BlockEdit extends Component {
                                             if ( optionDraggable ) {
                                                 return __( 'Draggable with two fingers.', '@@text_domain' );
                                             }
+                                            return '';
                                         } )() }
-                                        checked={ gestureHandling === 'cooperative' }
+                                        checked={ 'cooperative' === gestureHandling }
                                         onChange={ () => {
-                                            setAttributes( { gestureHandling: gestureHandling === 'greedy' ? 'cooperative' : 'greedy' } );
+                                            setAttributes( { gestureHandling: 'greedy' === gestureHandling ? 'cooperative' : 'greedy' } );
                                         } }
                                     />
                                 ) : '' }
@@ -535,7 +544,14 @@ class BlockEdit extends Component {
                                 this.saveAPIKey();
                             } }
                         />
-                        <p><em>{ __( 'A valid API key is required to use Google Maps. How to get API key', '@@text_domain' ) } <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">{ __( 'read here', '@@text_domain' ) }</a>.</em></p>
+                        <p>
+                            <em>
+                                { __( 'A valid API key is required to use Google Maps. How to get API key', '@@text_domain' ) }
+                                { ' ' }
+                                <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">{ __( 'read here', '@@text_domain' ) }</a>
+                                .
+                            </em>
+                        </p>
                         <p><em>{ __( 'This key will be used in all Google Maps blocks on your site.', '@@text_domain' ) }</em></p>
                     </PanelBody>
                 </InspectorControls>
@@ -571,7 +587,7 @@ class BlockEdit extends Component {
                             { isSelected ? (
                                 <div className="ghostkit-google-maps-search">
                                     <SearchBox
-                                        googleMapURL={ mapsUrl + '&key=' + encodeURIComponent( this.state.apiKey ) }
+                                        googleMapURL={ `${ mapsUrl }&key=${ encodeURIComponent( this.state.apiKey ) }` }
                                         label={ __( 'Center Map', '@@text_domain' ) }
                                         placeholder={ __( 'Enter search query', '@@text_domain' ) }
                                         onChange={ ( value ) => {

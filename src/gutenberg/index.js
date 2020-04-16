@@ -34,6 +34,11 @@ import './plugins';
 import GhostKitCategoryIcon from './icons/ghostkit-category.svg';
 
 /**
+ * Disable Blocks
+ */
+import './disable-blocks';
+
+/**
  * Internal dependencies
  */
 const {
@@ -44,20 +49,17 @@ const {
  * Add category icon.
  */
 if ( updateCategory ) {
-    updateCategory( 'ghostkit', { icon: (
-        <GhostKitCategoryIcon
-            style={ {
-                width: '20px',
-                height: '20px',
-                marginLeft: '7px',
-                marginTop: '-1px',
-            } }
-            className="components-panel__icon"
-        />
-    ) } );
+    updateCategory( 'ghostkit', {
+        icon: (
+            <GhostKitCategoryIcon
+                style={ {
+                    width: '20px',
+                    height: '20px',
+                    marginLeft: '7px',
+                    marginTop: '-1px',
+                } }
+                className="components-panel__icon"
+            />
+        ),
+    } );
 }
-
-/**
- * Disable Blocks
- */
-import './disable-blocks';

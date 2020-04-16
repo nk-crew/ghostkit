@@ -1,6 +1,13 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+
+import { BadgePopover, getSelectedBadge } from './badge-popover';
+
 const { __ } = wp.i18n;
 
 const {
@@ -13,12 +20,6 @@ const {
     ColorPalette,
 } = wp.blockEditor;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import { BadgePopover, getSelectedBadge } from './badge-popover';
-
 export const name = 'ghostkit/badge';
 
 export const settings = {
@@ -29,8 +30,8 @@ export const settings = {
         style: 'style',
     },
     edit: class BadgeFormat extends Component {
-        constructor() {
-            super( ...arguments );
+        constructor( props ) {
+            super( props );
 
             this.state = {
                 currentColor: '',
@@ -51,10 +52,12 @@ export const settings = {
                     const currentColor = $badge.style.getPropertyValue( 'background-color' );
 
                     if ( currentColor ) {
+                        // eslint-disable-next-line react/no-did-update-set-state
                         this.setState( { currentColor } );
                     }
                 }
             } else if ( this.state.currentColor && ! isActive ) {
+                // eslint-disable-next-line react/no-did-update-set-state
                 this.setState( { currentColor: '' } );
             }
         }
@@ -79,7 +82,7 @@ export const settings = {
                 value,
                 {
                     type: name,
-                    attributes: attributes,
+                    attributes,
                 }
             ) );
         }

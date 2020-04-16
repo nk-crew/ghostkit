@@ -1,6 +1,14 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import checkCoreBlock from '../check-core-block';
+import getIcon from '../../utils/get-icon';
+import CodeEditor from '../../components/code-editor';
+import ActiveIndicator from '../../components/active-indicator';
+
 const { __ } = wp.i18n;
 
 const {
@@ -23,14 +31,6 @@ const {
     PanelBody,
 } = wp.components;
 
-/**
- * Internal dependencies
- */
-import checkCoreBlock from '../check-core-block';
-import getIcon from '../../utils/get-icon';
-import CodeEditor from '../../components/code-editor';
-import ActiveIndicator from '../../components/active-indicator';
-
 const {
     GHOSTKIT,
 } = window;
@@ -49,8 +49,9 @@ class CustomCSSComponent extends Component {
             defaultPlaceholder: placeholder,
         };
     }
+
     render() {
-        const props = this.props;
+        const { props } = this;
         let allow = false;
 
         if ( GHOSTKIT.hasBlockSupport( props.name, 'customCSS', false ) ) {
@@ -102,7 +103,7 @@ class CustomCSSComponent extends Component {
                 >
                     <CodeEditor
                         mode="css"
-                        onChange={ value => {
+                        onChange={ ( value ) => {
                             if ( value !== placeholder ) {
                                 setAttributes( {
                                     ghostkitCustomCSS: value,
@@ -119,7 +120,8 @@ class CustomCSSComponent extends Component {
                         minLines={ 5 }
                         height="300px"
                     />
-                    <p style={ { marginBottom: 20 } }></p>
+                    <p style={ { marginBottom: 20 } } />
+                    { /* eslint-disable-next-line react/no-danger */ }
                     <p dangerouslySetInnerHTML={ { __html: __( 'Use %s rule to change block styles.', '@@text_domain' ).replace( '%s', '<code>selector</code>' ) } } />
                     <p>{ __( 'Example:', '@@text_domain' ) }</p>
                     <pre className="ghostkit-control-pre-custom-css">
@@ -214,15 +216,13 @@ function addAttribute( settings ) {
  *
  * @return {string} Wrapped component.
  */
-const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
-    return function( props ) {
-        return (
-            <Fragment>
-                <BlockEdit { ...props } />
-                <CustomCSSComponent { ...props } />
-            </Fragment>
-        );
-    };
+const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => function( props ) {
+    return (
+        <Fragment>
+            <BlockEdit { ...props } />
+            <CustomCSSComponent { ...props } />
+        </Fragment>
+    );
 }, 'withInspectorControl' );
 
 /**
@@ -240,7 +240,7 @@ function addEditorCustomStylesOutput( customStylesOutput, props ) {
     } = props.attributes;
 
     if ( ghostkitCustomCSS && ghostkitClassname ) {
-        customStylesOutput += ' ' + ghostkitCustomCSS.replace( /selector/g, `.${ ghostkitClassname }` );
+        customStylesOutput += ` ${ ghostkitCustomCSS.replace( /selector/g, `.${ ghostkitClassname }` ) }`;
     }
 
     return customStylesOutput;

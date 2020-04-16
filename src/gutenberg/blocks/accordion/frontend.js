@@ -54,7 +54,7 @@ function activateAccordionItem( $heading, animationSpeed = 150, self ) {
 /**
  * Prepare Accordions.
  */
-$doc.on( 'initBlocks.ghostkit', function( e, self ) {
+$doc.on( 'initBlocks.ghostkit', ( e, self ) => {
     GHOSTKIT.triggerEvent( 'beforePrepareAccordions', self );
 
     $( '.ghostkit-accordion:not(.ghostkit-accordion-ready)' ).each( function() {

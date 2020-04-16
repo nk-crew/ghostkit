@@ -2,7 +2,9 @@
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
-import { List, CellMeasurer, CellMeasurerCache, AutoSizer } from 'react-virtualized';
+import {
+    List, CellMeasurer, CellMeasurerCache, AutoSizer,
+} from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
 /**
@@ -46,7 +48,7 @@ function eachIcons( callback ) {
     } = GHOSTKIT;
 
     Object.keys( icons ).forEach( ( key ) => {
-        const allow = typeof settings[ `icon_pack_${ key }` ] === 'undefined' || settings[ `icon_pack_${ key }` ];
+        const allow = 'undefined' === typeof settings[ `icon_pack_${ key }` ] || settings[ `icon_pack_${ key }` ];
 
         if ( allow ) {
             callback( icons[ key ] );
@@ -96,8 +98,8 @@ const hiddenIconCategories = {};
  * Dropdown
  */
 class IconPickerDropdown extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.cellMCache = new CellMeasurerCache( {
             defaultHeight: 65,
@@ -166,14 +168,14 @@ class IconPickerDropdown extends Component {
 
         eachIcons( ( iconsData ) => {
             const { hiddenCategories } = this.state;
-            const showCategory = typeof hiddenCategories[ iconsData.name ] !== 'undefined' ? hiddenCategories[ iconsData.name ] : true;
+            const showCategory = 'undefined' !== typeof hiddenCategories[ iconsData.name ] ? hiddenCategories[ iconsData.name ] : true;
             const searchString = this.state.search.toLowerCase();
 
             // prepare all icons.
             const allIcons = iconsData.icons.filter( ( iconData ) => {
                 if (
-                    ! searchString ||
-                    ( searchString && iconData.keys.indexOf( searchString.toLowerCase() ) > -1 )
+                    ! searchString
+                    || ( searchString && -1 < iconData.keys.indexOf( searchString.toLowerCase() ) )
                 ) {
                     return true;
                 }
@@ -234,16 +236,19 @@ class IconPickerDropdown extends Component {
                                     repaints the whole element, so this wrapping span hides that.
                                 */ }
                                 <span aria-hidden="true">
-                                    { showCategory ?
-                                        <SVG className="components-panel__arrow" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <G><Path fill="none" d="M0,0h24v24H0V0z" /></G>
-                                            <G><Path d="M12,8l-6,6l1.41,1.41L12,10.83l4.59,4.58L18,14L12,8z" /></G>
-                                        </SVG> :
-                                        <SVG className="components-panel__arrow" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <G><Path fill="none" d="M0,0h24v24H0V0z" /></G>
-                                            <G><Path d="M7.41,8.59L12,13.17l4.59-4.58L18,10l-6,6l-6-6L7.41,8.59z" /></G>
-                                        </SVG>
-                                    }
+                                    { showCategory
+                                        ? (
+                                            <SVG className="components-panel__arrow" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <G><Path fill="none" d="M0,0h24v24H0V0z" /></G>
+                                                <G><Path d="M12,8l-6,6l1.41,1.41L12,10.83l4.59,4.58L18,14L12,8z" /></G>
+                                            </SVG>
+                                        )
+                                        : (
+                                            <SVG className="components-panel__arrow" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <G><Path fill="none" d="M0,0h24v24H0V0z" /></G>
+                                                <G><Path d="M7.41,8.59L12,13.17l4.59-4.58L18,10l-6,6l-6-6L7.41,8.59z" /></G>
+                                            </SVG>
+                                        ) }
                                 </span>
                                 { iconsData.name }
                             </Button>
@@ -277,7 +282,7 @@ class IconPickerDropdown extends Component {
         } );
 
         // No icons.
-        if ( rows.length === 1 ) {
+        if ( 1 === rows.length ) {
             rows.push( {
                 key: 'icons',
                 render: __( 'No icons found.', '@@text_domain' ),
@@ -385,7 +390,7 @@ export default class IconPicker extends Component {
                                 aria-expanded={ isOpen }
                                 onClick={ onToggle }
                                 name={ value }
-                                alwaysRender={ true }
+                                alwaysRender
                             />
                         </div>
                     </Tooltip>

@@ -35,8 +35,8 @@ export default ( () => {
     const DAYS_PER_WEEK = 7;
     const MONTHS_PER_YEAR = 12;
 
-    const ceil = Math.ceil;
-    const floor = Math.floor;
+    const { ceil } = Math;
+    const { floor } = Math;
 
     /**
      * @private
@@ -96,7 +96,7 @@ export default ( () => {
      * @return {Date} result date.
      */
     function addToDate( ts, date ) {
-        date = ( date instanceof Date ) || ( ( date !== null ) && isFinite( date ) ) ? new Date( +date ) : new Date();
+        date = ( date instanceof Date ) || ( ( null !== date ) && Number.isFinite( date ) ) ? new Date( +date ) : new Date();
 
         if ( ! ts ) {
             return date;
@@ -171,57 +171,58 @@ export default ( () => {
     function rippleRounded( ts, toUnit ) {
         switch ( toUnit ) {
         case 'seconds':
-            if ( ts.seconds !== SECONDS_PER_MINUTE || isNaN( ts.minutes ) ) {
+            if ( ts.seconds !== SECONDS_PER_MINUTE || Number.isNaN( ts.minutes ) ) {
                 return;
             }
             // ripple seconds up to minutes
-            ts.minutes++;
+            ts.minutes += 1;
             ts.seconds = 0;
 
             /* falls through */
         case 'minutes':
-            if ( ts.minutes !== MINUTES_PER_HOUR || isNaN( ts.hours ) ) {
+            if ( ts.minutes !== MINUTES_PER_HOUR || Number.isNaN( ts.hours ) ) {
                 return;
             }
             // ripple minutes up to hours
-            ts.hours++;
+            ts.hours += 1;
             ts.minutes = 0;
 
             /* falls through */
         case 'hours':
-            if ( ts.hours !== HOURS_PER_DAY || isNaN( ts.days ) ) {
+            if ( ts.hours !== HOURS_PER_DAY || Number.isNaN( ts.days ) ) {
                 return;
             }
             // ripple hours up to days
-            ts.days++;
+            ts.days += 1;
             ts.hours = 0;
 
             /* falls through */
         case 'days':
-            if ( ts.days !== DAYS_PER_WEEK || isNaN( ts.weeks ) ) {
+            if ( ts.days !== DAYS_PER_WEEK || Number.isNaN( ts.weeks ) ) {
                 return;
             }
             // ripple days up to weeks
-            ts.weeks++;
+            ts.weeks += 1;
             ts.days = 0;
 
             /* falls through */
         case 'weeks':
-            if ( ts.weeks !== daysPerMonth( ts.refMonth ) / DAYS_PER_WEEK || isNaN( ts.months ) ) {
+            if ( ts.weeks !== daysPerMonth( ts.refMonth ) / DAYS_PER_WEEK || Number.isNaN( ts.months ) ) {
                 return;
             }
             // ripple weeks up to months
-            ts.months++;
+            ts.months += 1;
             ts.weeks = 0;
 
             /* falls through */
         case 'months':
-            if ( ts.months !== MONTHS_PER_YEAR || isNaN( ts.years ) ) {
+            if ( ts.months !== MONTHS_PER_YEAR || Number.isNaN( ts.years ) ) {
                 return;
             }
             // ripple months up to years
-            ts.years++;
+            ts.years += 1;
             ts.months = 0;
+        // no default
         }
     }
 
@@ -238,18 +239,18 @@ export default ( () => {
      * @return {number} new fractional value
      */
     function fraction( ts, frac, fromUnit, toUnit, conversion, digits ) {
-        if ( ts[ fromUnit ] >= 0 ) {
+        if ( 0 <= ts[ fromUnit ] ) {
             frac += ts[ fromUnit ];
             delete ts[ fromUnit ];
         }
 
         frac /= conversion;
-        if ( frac + 1 <= 1 ) {
+        if ( 1 >= frac + 1 ) {
             // drop if below machine epsilon
             return 0;
         }
 
-        if ( ts[ toUnit ] >= 0 ) {
+        if ( 0 <= ts[ toUnit ] ) {
             // ensure does not have more than specified number of digits
             ts[ toUnit ] = +( ts[ toUnit ] + frac ).toFixed( digits );
             rippleRounded( ts, toUnit );
@@ -317,7 +318,7 @@ export default ( () => {
     function ripple( ts ) {
         let x;
 
-        if ( ts.milliseconds < 0 ) {
+        if ( 0 > ts.milliseconds ) {
             // ripple seconds down to milliseconds
             x = ceil( -ts.milliseconds / MILLISECONDS_PER_SECOND );
             ts.seconds -= x;
@@ -328,7 +329,7 @@ export default ( () => {
             ts.milliseconds %= MILLISECONDS_PER_SECOND;
         }
 
-        if ( ts.seconds < 0 ) {
+        if ( 0 > ts.seconds ) {
             // ripple minutes down to seconds
             x = ceil( -ts.seconds / SECONDS_PER_MINUTE );
             ts.minutes -= x;
@@ -339,7 +340,7 @@ export default ( () => {
             ts.seconds %= SECONDS_PER_MINUTE;
         }
 
-        if ( ts.minutes < 0 ) {
+        if ( 0 > ts.minutes ) {
             // ripple hours down to minutes
             x = ceil( -ts.minutes / MINUTES_PER_HOUR );
             ts.hours -= x;
@@ -350,7 +351,7 @@ export default ( () => {
             ts.minutes %= MINUTES_PER_HOUR;
         }
 
-        if ( ts.hours < 0 ) {
+        if ( 0 > ts.hours ) {
             // ripple days down to hours
             x = ceil( -ts.hours / HOURS_PER_DAY );
             ts.days -= x;
@@ -361,11 +362,11 @@ export default ( () => {
             ts.hours %= HOURS_PER_DAY;
         }
 
-        while ( ts.days < 0 ) {
+        while ( 0 > ts.days ) {
             // NOTE: never actually seen this loop more than once
 
             // ripple months down to days
-            ts.months--;
+            ts.months -= 1;
             ts.days += borrowMonths( ts.refMonth, 1 );
         }
 
@@ -377,7 +378,7 @@ export default ( () => {
             ts.days %= DAYS_PER_WEEK;
         }
 
-        if ( ts.months < 0 ) {
+        if ( 0 > ts.months ) {
             // ripple years down to months
             x = ceil( -ts.months / MONTHS_PER_YEAR );
             ts.years -= x;
@@ -407,7 +408,7 @@ export default ( () => {
             ts.months += ts.years * MONTHS_PER_YEAR;
             delete ts.years;
         } else if ( ts.years ) {
-            count++;
+            count += 1;
         }
 
         // eslint-disable-next-line no-bitwise
@@ -424,7 +425,7 @@ export default ( () => {
                 ts.days %= DAYS_PER_WEEK;
             }
         } else if ( ts.months ) {
-            count++;
+            count += 1;
         }
 
         // eslint-disable-next-line no-bitwise
@@ -433,16 +434,16 @@ export default ( () => {
             ts.days += ts.weeks * DAYS_PER_WEEK;
             delete ts.weeks;
         } else if ( ts.weeks ) {
-            count++;
+            count += 1;
         }
 
         // eslint-disable-next-line no-bitwise
         if ( ! ( units & DAYS ) || ( count >= max ) ) {
-            //ripple days down to hours
+            // ripple days down to hours
             ts.hours += ts.days * HOURS_PER_DAY;
             delete ts.days;
         } else if ( ts.days ) {
-            count++;
+            count += 1;
         }
 
         // eslint-disable-next-line no-bitwise
@@ -451,7 +452,7 @@ export default ( () => {
             ts.minutes += ts.hours * MINUTES_PER_HOUR;
             delete ts.hours;
         } else if ( ts.hours ) {
-            count++;
+            count += 1;
         }
 
         // eslint-disable-next-line no-bitwise
@@ -460,7 +461,7 @@ export default ( () => {
             ts.seconds += ts.minutes * SECONDS_PER_MINUTE;
             delete ts.minutes;
         } else if ( ts.minutes ) {
-            count++;
+            count += 1;
         }
 
         // eslint-disable-next-line no-bitwise
@@ -469,7 +470,7 @@ export default ( () => {
             ts.milliseconds += ts.seconds * MILLISECONDS_PER_SECOND;
             delete ts.seconds;
         } else if ( ts.seconds ) {
-            count++;
+            count += 1;
         }
 
         // nothing to ripple milliseconds down to
@@ -496,12 +497,15 @@ export default ( () => {
     function populate( ts, start, end, units, max, digits ) {
         const now = new Date();
 
-        ts.start = start = start || now;
-        ts.end = end = end || now;
+        start = start || now;
+        end = end || now;
+
+        ts.start = start;
+        ts.end = end;
         ts.units = units;
 
         ts.value = end.getTime() - start.getTime();
-        if ( ts.value < 0 ) {
+        if ( 0 > ts.value ) {
             // swap if reversed
             const tmp = end;
             end = start;
@@ -538,27 +542,27 @@ export default ( () => {
      * @return {number} milliseconds to delay
      */
     function getDelay( units = [] ) {
-        if ( units.indexOf( 'milliseconds' ) !== -1 ) {
+        if ( -1 !== units.indexOf( 'milliseconds' ) ) {
             // refresh very quickly
             return MILLISECONDS_PER_SECOND / 30; // 30Hz
         }
 
-        if ( units.indexOf( 'seconds' ) !== -1 ) {
+        if ( -1 !== units.indexOf( 'seconds' ) ) {
             // refresh every second
             return MILLISECONDS_PER_SECOND; // 1Hz
         }
 
-        if ( units.indexOf( 'minutes' ) !== -1 ) {
+        if ( -1 !== units.indexOf( 'minutes' ) ) {
             // refresh every minute
             return MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE;
         }
 
-        if ( units.indexOf( 'hours' ) !== -1 ) {
+        if ( -1 !== units.indexOf( 'hours' ) ) {
             // refresh hourly
             return MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOUR;
         }
 
-        if ( units.indexOf( 'days' ) !== -1 ) {
+        if ( -1 !== units.indexOf( 'days' ) ) {
             // refresh daily
             return MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOUR * HOURS_PER_DAY;
         }
@@ -579,8 +583,9 @@ export default ( () => {
         let units = ~ALL;
 
         unitsList.forEach( ( unit ) => {
+            // eslint-disable-next-line no-use-before-define
             if ( countdown[ unit.toUpperCase() ] ) {
-                // eslint-disable-next-line no-bitwise
+                // eslint-disable-next-line no-bitwise, no-use-before-define
                 units |= countdown[ unit.toUpperCase() ];
             }
         } );
@@ -606,11 +611,11 @@ export default ( () => {
         const units = unitsListToData( unitsList );
 
         // max must be positive
-        const max = ( unitsList.length > 0 ) ? unitsList.length : NaN;
+        const max = ( 0 < unitsList.length ) ? unitsList.length : NaN;
 
         // clamp digits to an integer between [0, 20]
-        if ( digits > 0 ) {
-            digits = digits < 20 ? Math.round( digits ) : 20;
+        if ( 0 < digits ) {
+            digits = 20 > digits ? Math.round( digits ) : 20;
         } else {
             digits = 0;
         }
@@ -618,7 +623,7 @@ export default ( () => {
         // ensure start date
         let startTS = null;
         if ( ! ( start instanceof Date ) ) {
-            if ( ( start !== null ) && isFinite( start ) ) {
+            if ( ( null !== start ) && Number.isFinite( start ) ) {
                 start = new Date( +start );
             } else {
                 if ( 'object' === typeof startTS ) {
@@ -631,7 +636,7 @@ export default ( () => {
         // ensure end date
         let endTS = null;
         if ( ! ( end instanceof Date ) ) {
-            if ( ( end !== null ) && isFinite( end ) ) {
+            if ( ( null !== end ) && Number.isFinite( end ) ) {
                 end = new Date( +end );
             } else {
                 if ( 'object' === typeof end ) {
@@ -701,10 +706,11 @@ export default ( () => {
         case 'seconds':
             label = _n( 'Second', 'Seconds', number, '@@text_domain' );
             break;
+        // no default
         }
 
         // additional 0 for number.
-        number = `${ number < 10 ? '0' : '' }${ number }`;
+        number = `${ 10 > number ? '0' : '' }${ number }`;
 
         return {
             number,

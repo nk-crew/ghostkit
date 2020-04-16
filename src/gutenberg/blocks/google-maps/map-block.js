@@ -28,7 +28,7 @@ export default compose(
         };
 
         return {
-            onMapMounted: () => ref => {
+            onMapMounted: () => ( ref ) => {
                 refs.map = ref;
             },
             onZoomChanged: ( props ) => () => {
@@ -41,33 +41,32 @@ export default compose(
     } ),
     withScriptjs,
     withGoogleMap
-)( ( props ) => {
-    return (
-        <GoogleMap
-            ref={ props.onMapMounted }
-            markers={ props.markers }
-            zoom={ props.zoom }
-            center={ props.center }
-            options={ props.options }
-            defaultZoom={ props.defaultZoom }
-            defaultCenter={ props.defaultCenter }
-            defaultOptions={ props.defaultOptions }
-            onZoomChanged={ props.onZoomChanged }
-            onCenterChanged={ props.onCenterChanged }
-        >
-            { props.markers.map( ( marker, index ) => (
-                <ApplyFilters
-                    key={ index }
-                    name="ghostkit.editor"
-                    attribute="mapMarker"
-                    marker={ marker }
-                    props={ props }
-                >
-                    <Marker
-                        position={ { lat: marker.lat, lng: marker.lng } }
-                    />
-                </ApplyFilters>
-            ) ) }
-        </GoogleMap>
-    );
-} );
+)( ( props ) => (
+    <GoogleMap
+        ref={ props.onMapMounted }
+        markers={ props.markers }
+        zoom={ props.zoom }
+        center={ props.center }
+        options={ props.options }
+        defaultZoom={ props.defaultZoom }
+        defaultCenter={ props.defaultCenter }
+        defaultOptions={ props.defaultOptions }
+        onZoomChanged={ props.onZoomChanged }
+        onCenterChanged={ props.onCenterChanged }
+    >
+        { props.markers.map( ( marker, index ) => (
+            <ApplyFilters
+                // eslint-disable-next-line react/no-array-index-key
+                key={ index }
+                name="ghostkit.editor"
+                attribute="mapMarker"
+                marker={ marker }
+                props={ props }
+            >
+                <Marker
+                    position={ { lat: marker.lat, lng: marker.lng } }
+                />
+            </ApplyFilters>
+        ) ) }
+    </GoogleMap>
+) );

@@ -31,7 +31,7 @@ function getAllSlugs( excludeId, blocks = 'none' ) {
             if ( block.attributes.anchor ) {
                 slugs.push( block.attributes.anchor );
             }
-            if ( ( block.name === 'ghostkit/tabs-tab-v2' || block.name === 'ghostkit/accordion-item' ) && block.attributes.slug ) {
+            if ( ( 'ghostkit/tabs-tab-v2' === block.name || 'ghostkit/accordion-item' === block.name ) && block.attributes.slug ) {
                 slugs.push( block.attributes.slug );
             }
         }
@@ -77,7 +77,7 @@ function isUniqueSlug( slug, slugs ) {
 export function getSlug( title ) {
     return slugify( striptags( title ), {
         replacement: '-',
-        remove: /[*_+~()'"!?\/\-—–−:@^|&#.,;%<>{}]/g,
+        remove: /[*_+~()'"!?/\-—–−:@^|&#.,;%<>{}]/g,
         lower: true,
     } );
 }

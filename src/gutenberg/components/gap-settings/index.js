@@ -75,10 +75,10 @@ export default class GapSettings extends Component {
 
                                             // Add current predefined gap to custom value.
                                             if (
-                                                'custom' === val.value &&
-                                                'custom' !== gap &&
-                                                typeof gapCustom === 'undefined' &&
-                                                typeof GAP_VALUES[ gap ] !== 'undefined'
+                                                'custom' === val.value
+                                                && 'custom' !== gap
+                                                && 'undefined' === typeof gapCustom
+                                                && 'undefined' !== typeof GAP_VALUES[ gap ]
                                             ) {
                                                 result.gapCustom = GAP_VALUES[ gap ];
                                             }

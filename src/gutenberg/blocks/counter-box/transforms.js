@@ -10,7 +10,7 @@ export default {
         {
             type: 'block',
             blocks: [ 'ghostkit/icon-box' ],
-            transform: function( attrs, innerBlocks ) {
+            transform( attrs, innerBlocks ) {
                 return createBlock(
                     'ghostkit/counter-box',
                     {
@@ -27,7 +27,7 @@ export default {
         {
             type: 'block',
             blocks: [ 'ghostkit/alert' ],
-            transform: function( attrs, innerBlocks ) {
+            transform( attrs, innerBlocks ) {
                 return createBlock(
                     'ghostkit/counter-box',
                     {

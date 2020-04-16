@@ -17,7 +17,7 @@ export default {
         {
             type: 'block',
             blocks: [ 'core/quote', 'core/pullquote' ],
-            transform: function( attrs ) {
+            transform( attrs ) {
                 const paragraphs = split( create( {
                     html: attrs.value,
                     multilineTag: 'p',
@@ -28,11 +28,9 @@ export default {
                     {
                         source: attrs.citation || '',
                     },
-                    paragraphs.map( ( piece ) =>
-                        createBlock( 'core/paragraph', {
-                            content: toHTMLString( { value: piece } ),
-                        } )
-                    ),
+                    paragraphs.map( ( piece ) => createBlock( 'core/paragraph', {
+                        content: toHTMLString( { value: piece } ),
+                    } ) ),
                 );
             },
         },

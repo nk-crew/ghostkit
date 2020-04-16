@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -15,11 +20,6 @@ const { Component } = wp.element;
 const {
     RichText,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -65,7 +65,15 @@ class BlockSave extends Component {
                     </div>
                 ) : '' }
                 <div className={ classnames( 'ghostkit-progress-wrap', striped ? 'ghostkit-progress-bar-striped' : '' ) }>
-                    <div className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) } role="progressbar" style={ { width: `${ percent }%`, height: `${ height }px` } } aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100" />
+                    { /* eslint-disable-next-line jsx-a11y/control-has-associated-label */ }
+                    <div
+                        className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) }
+                        role="progressbar"
+                        style={ { width: `${ percent }%`, height: `${ height }px` } }
+                        aria-valuenow={ percent }
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                    />
                 </div>
             </div>
         );

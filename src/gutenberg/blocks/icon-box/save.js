@@ -4,6 +4,13 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import IconPicker from '../../components/icon-picker';
+
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -15,12 +22,6 @@ const { Component } = wp.element;
 const {
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import IconPicker from '../../components/icon-picker';
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -61,7 +62,7 @@ class BlockSave extends Component {
                     <IconPicker.Render
                         name={ icon }
                         tag="div"
-                        className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }
+                        className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }
                     />
                 ) : '' }
                 { showContent ? (

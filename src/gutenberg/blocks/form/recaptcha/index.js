@@ -28,8 +28,8 @@ const { GHOSTKIT } = window;
  * Block Settings Class.
  */
 export default class BlockSettings extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             apiSiteKey: GHOSTKIT.googleReCaptchaAPISiteKey,
@@ -73,7 +73,7 @@ export default class BlockSettings extends Component {
         return (
             <PanelBody
                 title={ __( 'Google reCAPTCHA', 'ghostkit' ) }
-                initialOpen={ apiSiteKey && apiSecretKey ? false : true }
+                initialOpen={ ! ( apiSiteKey && apiSecretKey ) }
             >
                 <TextControl
                     label={ __( 'Site Key', 'ghostkit' ) }

@@ -4,6 +4,14 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
+import IconPicker from '../../components/icon-picker';
+
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -17,23 +25,14 @@ const {
     RichText,
 } = wp.blockEditor;
 
-/**
- * Internal dependencies
- */
-import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
-
-import IconPicker from '../../components/icon-picker';
-
-import metadata from './block.json';
-
 const { name } = metadata;
 
 /**
  * Block Save Class.
  */
 class BlockSave extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         // fix xml imported string.
         this.props.attributes.posterTag = fixXmlImportedContent( this.props.attributes.posterTag );
@@ -85,7 +84,9 @@ class BlockSave extends Component {
                     <InnerBlocks.Content />
                 </div>
                 { photoTag ? (
-                    <div className="ghostkit-testimonial-photo"
+                    <div
+                        className="ghostkit-testimonial-photo"
+                        // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={ {
                             __html: photoTag,
                         } }
@@ -105,10 +106,10 @@ class BlockSave extends Component {
                         ) : '' }
                     </div>
                 ) : '' }
-                { typeof stars === 'number' && starsIcon ? (
+                { 'number' === typeof stars && starsIcon ? (
                     <div className="ghostkit-testimonial-stars">
                         <div className="ghostkit-testimonial-stars-wrap">
-                            <div className="ghostkit-testimonial-stars-front" style={ { width: `${ 100 * stars / 5 }%` } }>
+                            <div className="ghostkit-testimonial-stars-front" style={ { width: `${ ( 100 * stars ) / 5 }%` } }>
                                 <IconPicker.Render name={ starsIcon } />
                                 <IconPicker.Render name={ starsIcon } />
                                 <IconPicker.Render name={ starsIcon } />

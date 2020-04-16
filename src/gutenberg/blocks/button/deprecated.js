@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -15,11 +20,6 @@ const { Component } = wp.element;
 const {
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -46,7 +46,7 @@ export default [
                 let className = classnames(
                     'ghostkit-button-wrapper',
                     gap ? `ghostkit-button-wrapper-gap-${ gap }` : false,
-                    align && align !== 'none' ? `ghostkit-button-wrapper-align-${ align }` : false
+                    align && 'none' !== align ? `ghostkit-button-wrapper-align-${ align }` : false
                 );
 
                 className = applyFilters( 'ghostkit.blocks.className', className, {

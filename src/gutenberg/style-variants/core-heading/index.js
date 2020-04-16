@@ -14,29 +14,27 @@ registerBlockStyle( 'core/heading', {
     label: __( 'Numbered', '@@text_domain' ),
 } );
 
-const ghostkitHeadingNumbered = createHigherOrderComponent( ( BlockListBlock ) => {
-    return ( props ) => {
-        const {
-            attributes,
-            name,
-        } = props;
+const ghostkitHeadingNumbered = createHigherOrderComponent( ( BlockListBlock ) => ( props ) => {
+    const {
+        attributes,
+        name,
+    } = props;
 
-        const {
-            level,
-            className,
-        } = attributes;
+    const {
+        level,
+        className,
+    } = attributes;
 
-        if ( 'core/heading' !== name || ! /is-style-numbered/.test( className ) ) {
-            return <BlockListBlock { ...props } />;
-        }
+    if ( 'core/heading' !== name || ! /is-style-numbered/.test( className ) ) {
+        return <BlockListBlock { ...props } />;
+    }
 
-        return (
-            <BlockListBlock
-                { ...props }
-                className={ `core-heading-level-${ level }` }
-            />
-        );
-    };
+    return (
+        <BlockListBlock
+            { ...props }
+            className={ `core-heading-level-${ level }` }
+        />
+    );
 }, 'ghostkitHeadingNumbered' );
 
 addFilter( 'editor.BlockListBlock', 'ghostkit/heading/numbered', ghostkitHeadingNumbered );

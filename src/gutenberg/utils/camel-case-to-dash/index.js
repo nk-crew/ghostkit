@@ -9,11 +9,11 @@
  * @return {string} - new dashed string.
  */
 export default function camelCaseToDash( str ) {
-    if ( typeof str !== 'string' ) {
+    if ( 'string' !== typeof str ) {
         return str;
     }
 
-    str = str.replace( /[a-z]([A-Z])+/g, m => `${ m[ 0 ] }-${ m.substring( 1 ) }` );
+    str = str.replace( /[a-z]([A-Z])+/g, ( m ) => `${ m[ 0 ] }-${ m.substring( 1 ) }` );
 
     return str && str.toLowerCase ? str.toLowerCase() : str;
 }

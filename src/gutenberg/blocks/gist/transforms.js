@@ -10,18 +10,16 @@ export default {
         type: 'raw',
         priority: 1,
         isMatch: ( node ) => {
-            const match = node.nodeName === 'P' && /^https:\/\/gist.github.com?.+\/(.+)/g.exec( node.textContent );
+            const match = 'P' === node.nodeName && /^https:\/\/gist.github.com?.+\/(.+)/g.exec( node.textContent );
 
-            if ( match && typeof match[ 1 ] !== 'undefined' ) {
+            if ( match && 'undefined' !== typeof match[ 1 ] ) {
                 return true;
             }
 
             return false;
         },
-        transform: ( node ) => {
-            return createBlock( 'ghostkit/gist', {
-                url: node.textContent.trim(),
-            } );
-        },
+        transform: ( node ) => createBlock( 'ghostkit/gist', {
+            url: node.textContent.trim(),
+        } ),
     } ],
 };

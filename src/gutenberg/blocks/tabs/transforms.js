@@ -1,21 +1,21 @@
 /**
  * WordPress dependencies
  */
-const {
-    createBlock,
-} = wp.blocks;
-
 /**
  * Internal dependencies
  */
 import getUniqueSlug from '../../utils/get-unique-slug';
+
+const {
+    createBlock,
+} = wp.blocks;
 
 export default {
     from: [
         {
             type: 'block',
             blocks: [ 'ghostkit/accordion' ],
-            transform: function( attrs, innerBlocks ) {
+            transform( attrs, innerBlocks ) {
                 const tabsData = [];
                 let tabActive = '';
 
@@ -40,17 +40,15 @@ export default {
                     'ghostkit/tabs-v2',
                     {
                         tabsData,
-                        tabActive: tabActive,
+                        tabActive,
                     },
-                    tabsData.map( ( tab, i ) => {
-                        return createBlock(
-                            'ghostkit/tabs-tab-v2',
-                            {
-                                slug: tab.slug,
-                            },
-                            innerBlocks[ i ] ? innerBlocks[ i ].innerBlocks : '',
-                        );
-                    } ),
+                    tabsData.map( ( tab, i ) => createBlock(
+                        'ghostkit/tabs-tab-v2',
+                        {
+                            slug: tab.slug,
+                        },
+                        innerBlocks[ i ] ? innerBlocks[ i ].innerBlocks : '',
+                    ) ),
                 );
             },
         },

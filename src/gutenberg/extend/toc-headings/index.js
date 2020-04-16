@@ -4,6 +4,11 @@
 import { debounce } from 'throttle-debounce';
 
 /**
+ * Internal dependencies
+ */
+import { getSlug } from '../../utils/get-unique-slug';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -14,11 +19,6 @@ const {
     subscribe,
     select,
 } = wp.data;
-
-/**
- * Internal dependencies
- */
-import { getSlug } from '../../utils/get-unique-slug';
 
 /**
  * Get available TOC block.
@@ -88,7 +88,7 @@ let prevHeadings = '';
 /**
  * Update heading ID.
  */
-function maybeUpdateHeadingIDs() {
+function updateHeadingIDs() {
     const tocBlock = getTOC();
 
     if ( ! tocBlock ) {
@@ -122,8 +122,9 @@ function maybeUpdateHeadingIDs() {
 
         // check collisions.
         if ( anchor ) {
-            if ( typeof collisionCollector[ anchor ] !== 'undefined' ) {
-                anchor += `-${ collisionCollector[ anchor ]++ }`;
+            if ( 'undefined' !== typeof collisionCollector[ anchor ] ) {
+                collisionCollector[ anchor ] += 1;
+                anchor += `-${ collisionCollector[ anchor ] }`;
                 block.attributes.anchor = anchor;
                 block.attributes.ghostkitTocId = anchor;
             } else {
@@ -134,13 +135,14 @@ function maybeUpdateHeadingIDs() {
 
     prevHeadings = JSON.stringify( headings );
 }
-maybeUpdateHeadingIDs = debounce( 300, maybeUpdateHeadingIDs );
+
+const updateHeadingIDsDebounce = debounce( 300, updateHeadingIDs );
 
 /**
  * Subscribe to all editor changes.
  */
 subscribe( () => {
-    maybeUpdateHeadingIDs();
+    updateHeadingIDsDebounce();
 } );
 
 /**

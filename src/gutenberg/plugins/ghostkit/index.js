@@ -1,6 +1,16 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import { TemplatesModal } from '../templates';
+import { TypographyModal } from '../typography';
+import { CustomCodeModal } from '../custom-code';
+import { ColorPaletteModal } from '../color-palette';
+import { CustomizerModal } from '../customizer';
+
 const {
     Fragment,
 } = wp.element;
@@ -15,23 +25,13 @@ const {
     PanelBody,
 } = wp.components;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import { TemplatesModal } from '../templates';
-import { TypographyModal } from '../typography';
-import { CustomCodeModal } from '../custom-code';
-import { ColorPaletteModal } from '../color-palette';
-import { CustomizerModal } from '../customizer';
-
 export const name = 'ghostkit';
 
 export const icon = <div className="ghostkit-plugin-icon">{ getIcon( 'plugin-ghostkit' ) }</div>;
 
 export class Plugin extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             isModalOpen: false,

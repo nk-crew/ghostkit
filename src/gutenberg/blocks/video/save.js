@@ -1,18 +1,19 @@
 /**
  * WordPress dependencies
  */
-const {
-    applyFilters,
-} = wp.hooks;
-
-const { Component } = wp.element;
-
 /**
  * Internal dependencies
  */
 import IconPicker from '../../components/icon-picker';
 import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
+
 import metadata from './block.json';
+
+const {
+    applyFilters,
+} = wp.hooks;
+
+const { Component } = wp.element;
 
 const { name } = metadata;
 
@@ -20,8 +21,8 @@ const { name } = metadata;
  * Block Save Class.
  */
 class BlockSave extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         // fix xml imported string.
         this.props.attributes.posterTag = fixXmlImportedContent( this.props.attributes.posterTag );
@@ -87,7 +88,7 @@ class BlockSave extends Component {
 
         resultAttrs[ 'data-click-action' ] = clickAction;
 
-        if ( clickAction === 'fullscreen' ) {
+        if ( 'fullscreen' === clickAction ) {
             resultAttrs[ 'data-fullscreen-background-color' ] = fullscreenBackgroundColor;
         } else {
             if ( videoAutoplay ) {
@@ -101,7 +102,9 @@ class BlockSave extends Component {
         return (
             <div { ...resultAttrs }>
                 { posterTag ? (
-                    <div className="ghostkit-video-poster"
+                    <div
+                        className="ghostkit-video-poster"
+                        // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={ {
                             __html: posterTag,
                         } }
@@ -121,7 +124,7 @@ class BlockSave extends Component {
                         className="ghostkit-video-loading-icon"
                     />
                 ) : '' }
-                { clickAction === 'fullscreen' && fullscreenActionCloseIcon ? (
+                { 'fullscreen' === clickAction && fullscreenActionCloseIcon ? (
                     <IconPicker.Render
                         name={ fullscreenActionCloseIcon }
                         tag="div"

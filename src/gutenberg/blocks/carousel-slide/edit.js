@@ -47,9 +47,9 @@ class BlockEdit extends Component {
                     <InnerBlocks
                         templateLock={ false }
                         renderAppender={ (
-                            hasChildBlocks ?
-                                undefined :
-                                () => <InnerBlocks.ButtonBlockAppender />
+                            hasChildBlocks
+                                ? undefined
+                                : () => <InnerBlocks.ButtonBlockAppender />
                         ) }
                     />
                 </div>
@@ -63,6 +63,6 @@ export default withSelect( ( select, ownProps ) => {
     const blockEditor = select( 'core/block-editor' );
 
     return {
-        hasChildBlocks: blockEditor ? blockEditor.getBlockOrder( clientId ).length > 0 : false,
+        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
     };
 } )( BlockEdit );

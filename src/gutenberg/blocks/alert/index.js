@@ -1,17 +1,18 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
 /**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 import transforms from './transforms';
 import deprecated from './deprecated';
+
+const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -31,7 +32,7 @@ export const settings = {
         customStylesCallback( attributes ) {
             const styles = {
                 '--gkt-alert__border-color': attributes.color,
-                '--gkt-alert--icon__font-size': typeof attributes.iconSize !== 'undefined' ? `${ attributes.iconSize }px` : undefined,
+                '--gkt-alert--icon__font-size': 'undefined' !== typeof attributes.iconSize ? `${ attributes.iconSize }px` : undefined,
                 '--gkt-alert--icon__color': attributes.color,
             };
 

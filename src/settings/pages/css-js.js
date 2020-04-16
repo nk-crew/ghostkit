@@ -4,6 +4,11 @@
 import { debounce } from 'throttle-debounce';
 
 /**
+ * Internal dependencies
+ */
+import CodeEditor from '../../gutenberg/components/code-editor';
+
+/**
  * WordPress dependencies
  */
 const { Component, Fragment } = wp.element;
@@ -22,11 +27,6 @@ const {
 const {
     Spinner,
 } = wp.components;
-
-/**
- * Internal dependencies
- */
-import CodeEditor from '../../gutenberg/components/code-editor';
 
 const { GHOSTKIT } = window;
 
@@ -49,6 +49,7 @@ class CssJs extends Component {
     componentDidMount() {
         this.maybePrepareCode();
     }
+
     componentDidUpdate() {
         this.maybePrepareCode();
     }
@@ -59,10 +60,10 @@ class CssJs extends Component {
         } = this.props;
 
         if (
-            customCode &&
-            false === this.state.customCSS &&
-            false === this.state.customJSHead &&
-            false === this.state.customJSFoot
+            customCode
+            && false === this.state.customCSS
+            && false === this.state.customJSHead
+            && false === this.state.customJSFoot
         ) {
             this.setState( {
                 customCSS: customCode.ghostkit_custom_css || '',
@@ -105,7 +106,7 @@ class CssJs extends Component {
                         { false !== this.state.customCSS ? (
                             <CodeEditor
                                 mode="css"
-                                onChange={ value => {
+                                onChange={ ( value ) => {
                                     this.updateCustomCode( 'customCSS', value );
                                 } }
                                 value={ this.state.customCSS || '' }
@@ -120,10 +121,14 @@ class CssJs extends Component {
                         { false !== this.state.customJSHead && false !== this.state.customJSFoot ? (
                             <Fragment>
                                 <p className="ghostkit-help-text">{ __( 'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.', '@@text_domain' ) }</p>
-                                <p><code className="ghostkit-code">{ '<head>' }</code> :</p>
+                                <p>
+                                    <code className="ghostkit-code">{ '<head>' }</code>
+                                    { ' ' }
+                                    :
+                                </p>
                                 <CodeEditor
                                     mode="javascript"
-                                    onChange={ value => {
+                                    onChange={ ( value ) => {
                                         this.updateCustomCode( 'customJSHead', value );
                                     } }
                                     value={ this.state.customJSHead }
@@ -131,10 +136,14 @@ class CssJs extends Component {
                                     minLines={ 5 }
                                     height="300px"
                                 />
-                                <p><code className="ghostkit-code">{ '<foot>' }</code> :</p>
+                                <p>
+                                    <code className="ghostkit-code">{ '<foot>' }</code>
+                                    { ' ' }
+                                    :
+                                </p>
                                 <CodeEditor
                                     mode="javascript"
-                                    onChange={ value => {
+                                    onChange={ ( value ) => {
                                         this.updateCustomCode( 'customJSFoot', value );
                                     } }
                                     value={ this.state.customJSFoot }

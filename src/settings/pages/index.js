@@ -1,12 +1,6 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
-const {
-    applyFilters,
-} = wp.hooks;
-
 /**
  * Internal dependencies
  */
@@ -15,6 +9,12 @@ import Typography from './typography';
 import Icons from './icons';
 import CssJs from './css-js';
 import Fonts from './fonts';
+
+const { __ } = wp.i18n;
+
+const {
+    applyFilters,
+} = wp.hooks;
 
 export default applyFilters( 'ghostkit.settings.pages', {
     blocks: {

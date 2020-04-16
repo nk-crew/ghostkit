@@ -4,6 +4,13 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import IconPicker from '../../components/icon-picker';
+import ApplyFilters from '../../components/apply-filters';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -28,13 +35,6 @@ const {
     InspectorControls,
     BlockControls,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import ColorPicker from '../../components/color-picker';
-import IconPicker from '../../components/icon-picker';
-import ApplyFilters from '../../components/apply-filters';
 
 /**
  * Block Edit Class.
@@ -145,15 +145,18 @@ class BlockEdit extends Component {
                             />
                         ) : '' }
                     </PanelBody>
-                    <PanelBody title={ (
-                        <Fragment>
-                            { __( 'Colors', '@@text_domain' ) }
-                            <ColorIndicator colorValue={ color } />
-                            { icon ? (
-                                <ColorIndicator colorValue={ iconColor } />
-                            ) : '' }
-                        </Fragment>
-                    ) } initialOpen={ false }>
+                    <PanelBody
+                        title={ (
+                            <Fragment>
+                                { __( 'Colors', '@@text_domain' ) }
+                                <ColorIndicator colorValue={ color } />
+                                { icon ? (
+                                    <ColorIndicator colorValue={ iconColor } />
+                                ) : '' }
+                            </Fragment>
+                        ) }
+                        initialOpen={ false }
+                    >
                         <TabPanel
                             className="ghostkit-control-tabs ghostkit-control-tabs-wide"
                             tabs={ [
@@ -167,10 +170,11 @@ class BlockEdit extends Component {
                                     title: __( 'Hover', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
-                            ] }>
+                            ] }
+                        >
                             {
                                 ( tabData ) => {
-                                    const isHover = tabData.name === 'hover';
+                                    const isHover = 'hover' === tabData.name;
                                     return (
                                         <Fragment>
                                             <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
@@ -178,7 +182,7 @@ class BlockEdit extends Component {
                                                     label={ __( 'Divider', '@@text_domain' ) }
                                                     value={ isHover ? hoverColor : color }
                                                     onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
-                                                    alpha={ true }
+                                                    alpha
                                                 />
                                             </ApplyFilters>
                                             { icon ? (
@@ -187,7 +191,7 @@ class BlockEdit extends Component {
                                                         label={ __( 'Icon', '@@text_domain' ) }
                                                         value={ isHover ? hoverIconColor : iconColor }
                                                         onChange={ ( val ) => setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } ) }
-                                                        alpha={ true }
+                                                        alpha
                                                     />
                                                 </ApplyFilters>
                                             ) : '' }

@@ -24,7 +24,7 @@ export default function getColClass( props ) {
     let result = 'ghostkit-col';
 
     // Responsive classes.
-    Object.keys( attributes ).map( ( key ) => {
+    Object.keys( attributes ).forEach( ( key ) => {
         if ( attributes[ key ] ) {
             let prefix = key.split( '_' )[ 0 ];
             let type = key.split( '_' )[ 1 ];
@@ -34,7 +34,7 @@ export default function getColClass( props ) {
                 prefix = '';
             }
 
-            if ( type && ( type === 'size' || type === 'order' || type === 'verticalAlign' ) ) {
+            if ( type && ( 'size' === type || 'order' === type || 'verticalAlign' === type ) ) {
                 prefix = prefix ? `-${ prefix }` : '';
 
                 switch ( type ) {
@@ -47,18 +47,19 @@ export default function getColClass( props ) {
                 case 'verticalAlign':
                     type = '-align-self';
                     break;
+                // no default
                 }
 
                 result = classnames(
                     result,
-                    `ghostkit-col${ type }${ prefix || '' }${ attributes[ key ] !== 'auto' ? `-${ attributes[ key ] }` : '' }`
+                    `ghostkit-col${ type }${ prefix || '' }${ 'auto' !== attributes[ key ] ? `-${ attributes[ key ] }` : '' }`
                 );
             }
         }
     } );
 
     // Sticky content.
-    if ( attributes.stickyContent && typeof attributes.stickyContentOffset !== 'undefined' ) {
+    if ( attributes.stickyContent && 'undefined' !== typeof attributes.stickyContentOffset ) {
         result = classnames( result, `ghostkit-col-sticky-${ attributes.stickyContent }` );
     }
 

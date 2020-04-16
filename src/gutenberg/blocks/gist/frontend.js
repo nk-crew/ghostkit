@@ -10,8 +10,8 @@ const $doc = $( document );
 /**
  * Prepare Gists.
  */
-$doc.on( 'initBlocks.ghostkit', function( e, self ) {
-    if ( typeof $.fn.gistsimple === 'undefined' ) {
+$doc.on( 'initBlocks.ghostkit', ( e, self ) => {
+    if ( 'undefined' === typeof $.fn.gistsimple ) {
         return;
     }
 
@@ -23,13 +23,13 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
 
         const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( $this.attr( 'data-url' ) );
 
-        if ( match && typeof match[ 1 ] !== 'undefined' ) {
+        if ( match && 'undefined' !== typeof match[ 1 ] ) {
             $this.gistsimple( {
                 id: match[ 1 ],
                 file: $this.attr( 'data-file' ),
                 caption: $this.attr( 'data-caption' ),
-                showFooter: $this.attr( 'data-show-footer' ) === 'true',
-                showLineNumbers: $this.attr( 'data-show-line-numbers' ) === 'true',
+                showFooter: 'true' === $this.attr( 'data-show-footer' ),
+                showLineNumbers: 'true' === $this.attr( 'data-show-line-numbers' ),
             } );
         }
     } );

@@ -42,8 +42,8 @@ const {
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.getAccordionsTemplate = this.getAccordionsTemplate.bind( this );
         this.maybeUpdateItemsCount = this.maybeUpdateItemsCount.bind( this );
@@ -52,6 +52,7 @@ class BlockEdit extends Component {
     componentDidMount() {
         this.maybeUpdateItemsCount();
     }
+
     componentDidUpdate() {
         this.maybeUpdateItemsCount();
     }
@@ -70,7 +71,7 @@ class BlockEdit extends Component {
 
         const result = [];
 
-        for ( let k = 1; k <= itemsCount; k++ ) {
+        for ( let k = 1; k <= itemsCount; k += 1 ) {
             result.push( [ 'ghostkit/accordion-item' ] );
         }
 
@@ -139,7 +140,7 @@ class BlockEdit extends Component {
                     <div className="ghostkit-accordion-add-item">
                         <Button
                             isSecondary
-                            icon={ 'insert' }
+                            icon="insert"
                             onClick={ () => {
                                 insertAccordionItem();
                             } }

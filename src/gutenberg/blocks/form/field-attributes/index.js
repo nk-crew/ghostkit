@@ -40,14 +40,14 @@ export function getFieldAttributes( attributes ) {
     Object.keys( attributes ).forEach( ( k ) => {
         let val = attributes[ k ];
 
-        if ( typeof val !== 'undefined' ) {
+        if ( 'undefined' !== typeof val ) {
             if ( 'slug' === k ) {
                 k = 'id';
             }
 
-            if ( allowedAttributes.indexOf( k ) !== -1 ) {
+            if ( -1 !== allowedAttributes.indexOf( k ) ) {
                 // boolean value.
-                if ( typeof val === 'boolean' ) {
+                if ( 'boolean' === typeof val ) {
                     if ( val ) {
                         val = k;
                     } else {
@@ -99,7 +99,7 @@ export class FieldDefaultSettings extends Component {
         } = attributes;
 
         const hideLabelControl = (
-            hideLabelCustom ? hideLabelCustom : (
+            hideLabelCustom || (
                 <ToggleControl
                     label={ __( 'Hide Label', '@@text_domain' ) }
                     checked={ hideLabel }
@@ -109,7 +109,7 @@ export class FieldDefaultSettings extends Component {
         );
 
         const hideDescriptionControl = (
-            hideDescriptionCustom ? hideDescriptionCustom : (
+            hideDescriptionCustom || (
                 <ToggleControl
                     label={ __( 'Hide Description', '@@text_domain' ) }
                     checked={ hideDescription }
@@ -120,7 +120,7 @@ export class FieldDefaultSettings extends Component {
 
         return (
             <Fragment>
-                { slugCustom ? slugCustom : (
+                { slugCustom || (
                     <TextControl
                         label={ __( 'Slug', '@@text_domain' ) }
                         help={ __( 'Slug is used in form field [name] attribute.', '@@text_domain' ) }
@@ -129,21 +129,21 @@ export class FieldDefaultSettings extends Component {
                         readOnly
                     />
                 ) }
-                { placeholderCustom ? placeholderCustom : (
+                { placeholderCustom || (
                     <TextControl
                         label={ __( 'Placeholder', '@@text_domain' ) }
                         value={ placeholder }
                         onChange={ ( val ) => setAttributes( { placeholder: val } ) }
                     />
                 ) }
-                { defaultCustom ? defaultCustom : (
+                { defaultCustom || (
                     <TextControl
                         label={ __( 'Default', '@@text_domain' ) }
                         value={ defaultVal }
                         onChange={ ( val ) => setAttributes( { default: val } ) }
                     />
                 ) }
-                { requiredCustom ? requiredCustom : (
+                { requiredCustom || (
                     <ToggleControl
                         label={ __( 'Required', '@@text_domain' ) }
                         checked={ required }

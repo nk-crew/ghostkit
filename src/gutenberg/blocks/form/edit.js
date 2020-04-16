@@ -5,6 +5,11 @@ import classnames from 'classnames/dedupe';
 import { throttle } from 'throttle-debounce';
 
 /**
+ * Internal dependencies
+ */
+import RecaptchaSettings from './recaptcha';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -39,11 +44,6 @@ const {
     withDispatch,
 } = wp.data;
 
-/**
- * Internal dependencies
- */
-import RecaptchaSettings from './recaptcha';
-
 const TEMPLATE = [
     [ 'ghostkit/form-field-name', { slug: 'field_name' } ],
     [ 'ghostkit/form-field-email', { slug: 'field_email', required: true } ],
@@ -63,8 +63,8 @@ const ALLOWED_BLOCKS = [
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.maybeUpdateFieldSlug = throttle( 200, this.maybeUpdateFieldSlug.bind( this ) );
     }
@@ -274,9 +274,9 @@ function getUniqueFieldSlug( data, uniqueIds ) {
     // check if slug already exist.
     let tryCount = 100;
     let i = 0;
-    while ( typeof uniqueIds[ data.type ][ newSlug ] !== 'undefined' && tryCount > 0 ) {
+    while ( 'undefined' !== typeof uniqueIds[ data.type ][ newSlug ] && 0 < tryCount ) {
         i += 1;
-        tryCount--;
+        tryCount -= 1;
         newSlug = `field_${ data.type }_${ i }`;
     }
 
@@ -318,7 +318,7 @@ export default compose( [
                     }
                     if ( data.attributes.slug ) {
                         // Slug already exist.
-                        if ( typeof uniqueIds[ data.type ][ data.attributes.slug ] !== 'undefined' ) {
+                        if ( 'undefined' !== typeof uniqueIds[ data.type ][ data.attributes.slug ] ) {
                             const newSlug = getUniqueFieldSlug( data, uniqueIds );
 
                             uniqueIds[ data.type ][ newSlug ] = true;

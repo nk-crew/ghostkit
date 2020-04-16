@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import IconPicker from '../../components/icon-picker';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -27,11 +32,6 @@ const {
 } = wp.blockEditor;
 
 /**
- * Internal dependencies
- */
-import IconPicker from '../../components/icon-picker';
-
-/**
  * Returns the layouts configuration for a given number of slides.
  *
  * @param {number} slides Number of slides.
@@ -41,7 +41,7 @@ import IconPicker from '../../components/icon-picker';
 const getColumnsTemplate = ( slides ) => {
     const result = [];
 
-    for ( let k = 1; k <= slides; k++ ) {
+    for ( let k = 1; k <= slides; k += 1 ) {
         result.push( [ 'ghostkit/carousel-slide' ] );
     }
 

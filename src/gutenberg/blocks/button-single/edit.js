@@ -4,6 +4,14 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import IconPicker from '../../components/icon-picker';
+import ApplyFilters from '../../components/apply-filters';
+import URLPicker from '../../components/url-picker';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -29,14 +37,6 @@ const {
     InspectorControls,
     RichText,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import ColorPicker from '../../components/color-picker';
-import IconPicker from '../../components/icon-picker';
-import ApplyFilters from '../../components/apply-filters';
-import URLPicker from '../../components/url-picker';
 
 /**
  * Block Edit Class.
@@ -123,7 +123,7 @@ class BlockEdit extends Component {
                         <div className="blocks-size__main">
                             <ButtonGroup aria-label={ __( 'Size', '@@text_domain' ) }>
                                 {
-                                    Object.keys( sizes ).map( ( key ) =>
+                                    Object.keys( sizes ).map( ( key ) => (
                                         <Button
                                             key={ key }
                                             isSecondary
@@ -134,7 +134,7 @@ class BlockEdit extends Component {
                                         >
                                             { key }
                                         </Button>
-                                    )
+                                    ) )
                                 }
                             </ButtonGroup>
                         </div>
@@ -192,25 +192,29 @@ class BlockEdit extends Component {
                             />
                         ) : '' }
                     </PanelBody>
-                    <PanelBody title={ (
-                        <Fragment>
-                            { __( 'Colors', '@@text_domain' ) }
-                            <ColorIndicator colorValue={ color } />
-                            <ColorIndicator colorValue={ textColor } />
-                            { borderWeight ? (
-                                <ColorIndicator colorValue={ borderColor } />
-                            ) : '' }
-                            { focusOutlineWeight && focusOutlineColor ? (
-                                <ColorIndicator colorValue={ focusOutlineColor } />
-                            ) : '' }
-                        </Fragment>
-                    ) } initialOpen={ false }>
+                    <PanelBody
+                        title={ (
+                            <Fragment>
+                                { __( 'Colors', '@@text_domain' ) }
+                                <ColorIndicator colorValue={ color } />
+                                <ColorIndicator colorValue={ textColor } />
+                                { borderWeight ? (
+                                    <ColorIndicator colorValue={ borderColor } />
+                                ) : '' }
+                                { focusOutlineWeight && focusOutlineColor ? (
+                                    <ColorIndicator colorValue={ focusOutlineColor } />
+                                ) : '' }
+                            </Fragment>
+                        ) }
+                        initialOpen={ false }
+                    >
                         <TabPanel
                             className="ghostkit-control-tabs ghostkit-control-tabs-wide"
-                            tabs={ colorsTabs }>
+                            tabs={ colorsTabs }
+                        >
                             {
                                 ( tabData ) => {
-                                    const isHover = tabData.name === 'hover';
+                                    const isHover = 'hover' === tabData.name;
 
                                     // focus tab
                                     if ( 'focus' === tabData.name ) {
@@ -220,7 +224,7 @@ class BlockEdit extends Component {
                                                     label={ __( 'Outline', '@@text_domain' ) }
                                                     value={ focusOutlineColor }
                                                     onChange={ ( val ) => setAttributes( { focusOutlineColor: val } ) }
-                                                    alpha={ true }
+                                                    alpha
                                                 />
                                             </ApplyFilters>
                                         );
@@ -233,7 +237,7 @@ class BlockEdit extends Component {
                                                     label={ __( 'Background', '@@text_domain' ) }
                                                     value={ isHover ? hoverColor : color }
                                                     onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
-                                                    alpha={ true }
+                                                    alpha
                                                 />
                                             </ApplyFilters>
                                             <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverTextColor' : 'textColor' } props={ this.props }>
@@ -241,7 +245,7 @@ class BlockEdit extends Component {
                                                     label={ __( 'Text', '@@text_domain' ) }
                                                     value={ isHover ? hoverTextColor : textColor }
                                                     onChange={ ( val ) => setAttributes( isHover ? { hoverTextColor: val } : { textColor: val } ) }
-                                                    alpha={ true }
+                                                    alpha
                                                 />
                                             </ApplyFilters>
                                             { borderWeight ? (
@@ -250,7 +254,7 @@ class BlockEdit extends Component {
                                                         label={ __( 'Border', '@@text_domain' ) }
                                                         value={ isHover ? hoverBorderColor : borderColor }
                                                         onChange={ ( val ) => setAttributes( isHover ? { hoverBorderColor: val } : { borderColor: val } ) }
-                                                        alpha={ true }
+                                                        alpha
                                                     />
                                                 </ApplyFilters>
                                             ) : '' }
@@ -264,7 +268,7 @@ class BlockEdit extends Component {
                 <div className={ className }>
                     { icon ? (
                         <div
-                            className={ `ghostkit-button-icon ghostkit-button-icon-${ iconPosition === 'right' ? 'right' : 'left' }` }
+                            className={ `ghostkit-button-icon ghostkit-button-icon-${ 'right' === iconPosition ? 'right' : 'left' }` }
                         >
                             <IconPicker.Dropdown
                                 onChange={ ( value ) => setAttributes( { icon: value } ) }

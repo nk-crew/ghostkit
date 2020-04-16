@@ -1,6 +1,12 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+import save from './save';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -8,12 +14,6 @@ const {
 const {
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
-import save from './save';
 
 export default [
     // v2.10.2
@@ -151,7 +151,7 @@ export default [
                 default: '#016c91',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 icon,
                 iconPosition,
@@ -171,7 +171,7 @@ export default [
             return (
                 <div className={ className }>
                     { icon ? (
-                        <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition ? iconPosition : 'left' }` }>
+                        <div className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }>
                             <span className={ icon } />
                         </div>
                     ) : '' }

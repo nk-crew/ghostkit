@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -11,11 +16,6 @@ const {
 } = wp.hooks;
 
 const { Component } = wp.element;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -30,10 +30,13 @@ class BlockSave extends Component {
             flipHorizontal,
         } = this.props.attributes;
 
-        let className = classnames( 'ghostkit-shape-divider', {
-            'ghostkit-shape-divider-flip-vertical': flipVertical,
-            'ghostkit-shape-divider-flip-horizontal': flipHorizontal,
-        }, className );
+        let className = classnames(
+            'ghostkit-shape-divider',
+            {
+                'ghostkit-shape-divider-flip-vertical': flipVertical,
+                'ghostkit-shape-divider-flip-horizontal': flipHorizontal,
+            }
+        );
 
         className = applyFilters( 'ghostkit.blocks.className', className, {
             ...{
@@ -43,6 +46,7 @@ class BlockSave extends Component {
         } );
 
         return (
+            // eslint-disable-next-line react/no-danger
             <div className={ className } dangerouslySetInnerHTML={ { __html: svg } } />
         );
     }

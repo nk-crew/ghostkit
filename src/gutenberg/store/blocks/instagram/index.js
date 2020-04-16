@@ -1,10 +1,6 @@
 /**
  * WordPress dependencies
  */
-const {
-    registerStore,
-} = wp.data;
-
 /**
  * Internal dependencies
  */
@@ -14,4 +10,10 @@ import * as actions from './actions';
 import * as controls from './controls';
 import * as resolvers from './resolvers';
 
-registerStore( 'ghostkit/blocks/instagram', { reducer, selectors, actions, controls, resolvers } );
+const {
+    registerStore,
+} = wp.data;
+
+registerStore( 'ghostkit/blocks/instagram', {
+    reducer, selectors, actions, controls, resolvers,
+} );

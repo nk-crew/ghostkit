@@ -1,6 +1,13 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import IconPicker from '../../components/icon-picker';
+import { hasClass } from '../../utils/classes-replacer';
+
 const { merge } = window.lodash;
 
 const { __ } = wp.i18n;
@@ -27,13 +34,6 @@ const { InspectorControls } = wp.blockEditor;
 const {
     PanelBody,
 } = wp.components;
-
-/**
- * Internal dependencies
- */
-import ColorPicker from '../../components/color-picker';
-import IconPicker from '../../components/icon-picker';
-import { hasClass } from '../../utils/classes-replacer';
 
 /**
  * Register additional list styles.
@@ -91,7 +91,7 @@ function addAttribute( blockSettings, name ) {
 const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) => {
     class GhostKitIconListWrapper extends Component {
         render() {
-            const props = this.props;
+            const { props } = this;
 
             const {
                 setAttributes,
@@ -118,7 +118,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                     <InspectorControls>
                         <PanelBody
                             title={ __( 'Icon list settings', '@@text_domain' ) }
-                            initialOpen={ true }
+                            initialOpen
                         >
                             <IconPicker
                                 label={ __( 'Icon', '@@text_domain' ) }
@@ -129,7 +129,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                 label={ __( 'Color', '@@text_domain' ) }
                                 value={ ghostkitListIconColor }
                                 onChange={ ( val ) => setAttributes( { ghostkitListIconColor: val } ) }
-                                alpha={ true }
+                                alpha
                             />
                         </PanelBody>
                     </InspectorControls>
@@ -152,7 +152,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 function addEditorCustomStyles( customStyles, props ) {
     const result = {};
 
-    if ( props.name !== 'core/list' || ! hasClass( props.attributes.className, 'is-style-icon' ) ) {
+    if ( 'core/list' !== props.name || ! hasClass( props.attributes.className, 'is-style-icon' ) ) {
         return customStyles;
     }
 

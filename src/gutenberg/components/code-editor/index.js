@@ -28,8 +28,8 @@ export default class CodeEditor extends Component {
                     editor.renderer.setPadding( 16 );
                 } }
                 fontSize={ 12 }
-                showPrintMargin={ true }
-                showGutter={ true }
+                showPrintMargin
+                showGutter
                 highlightActiveLine={ false }
                 width="100%"
                 setOptions={ {

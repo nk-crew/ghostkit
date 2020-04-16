@@ -1,6 +1,15 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import checkCoreBlock from '../check-core-block';
+import getIcon from '../../utils/get-icon';
+import InputDrag from '../../components/input-drag';
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ActiveIndicator from '../../components/active-indicator';
+
 const { merge, cloneDeep } = window.lodash;
 
 const { __ } = wp.i18n;
@@ -27,15 +36,6 @@ const {
     CheckboxControl,
 } = wp.components;
 
-/**
- * Internal dependencies
- */
-import checkCoreBlock from '../check-core-block';
-import getIcon from '../../utils/get-icon';
-import InputDrag from '../../components/input-drag';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
-import ActiveIndicator from '../../components/active-indicator';
-
 const {
     GHOSTKIT,
     ghostkitVariables,
@@ -47,8 +47,8 @@ let initialOpenPanel = false;
  * Spacings Component.
  */
 class SpacingsComponent extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.updateSpacings = this.updateSpacings.bind( this );
         this.getCurrentSpacing = this.getCurrentSpacing.bind( this );
@@ -66,12 +66,35 @@ class SpacingsComponent extends Component {
         } = attributes;
 
         // since Indents renamed to Spacings we need to migrate it.
-        if ( Object.keys( ghostkitIndents ).length > 0 && Object.keys( ghostkitSpacings ).length === 0 ) {
+        if ( 0 < Object.keys( ghostkitIndents ).length && 0 === Object.keys( ghostkitSpacings ).length ) {
             setAttributes( {
                 ghostkitIndents: {},
                 ghostkitSpacings: ghostkitIndents,
             } );
         }
+    }
+
+    /**
+     * Get current spacing for selected device type.
+     *
+     * @param {String} name - name of spacing.
+     * @param {String} device - spacing for device.
+     *
+     * @returns {String} spacing value.
+     */
+    getCurrentSpacing( name, device ) {
+        const { ghostkitSpacings = {} } = this.props.attributes;
+        let result = '';
+
+        if ( ! device ) {
+            if ( ghostkitSpacings[ name ] ) {
+                result = ghostkitSpacings[ name ];
+            }
+        } else if ( ghostkitSpacings[ device ] && ghostkitSpacings[ device ][ name ] ) {
+            result = ghostkitSpacings[ device ][ name ];
+        }
+
+        return result;
     }
 
     /**
@@ -103,11 +126,11 @@ class SpacingsComponent extends Component {
         }, ghostkitSpacings, newSpacings );
 
         // validate values.
-        Object.keys( ghostkitSpacings ).map( ( key ) => {
+        Object.keys( ghostkitSpacings ).forEach( ( key ) => {
             if ( ghostkitSpacings[ key ] ) {
                 // check if device object.
-                if ( typeof ghostkitSpacings[ key ] === 'object' ) {
-                    Object.keys( ghostkitSpacings[ key ] ).map( ( keyDevice ) => {
+                if ( 'object' === typeof ghostkitSpacings[ key ] ) {
+                    Object.keys( ghostkitSpacings[ key ] ).forEach( ( keyDevice ) => {
                         if ( ghostkitSpacings[ key ][ keyDevice ] ) {
                             if ( ! result[ key ] ) {
                                 result[ key ] = {};
@@ -126,31 +149,8 @@ class SpacingsComponent extends Component {
         } );
     }
 
-    /**
-     * Get current spacing for selected device type.
-     *
-     * @param {String} name - name of spacing.
-     * @param {String} device - spacing for device.
-     *
-     * @returns {String} spacing value.
-     */
-    getCurrentSpacing( name, device ) {
-        const { ghostkitSpacings = {} } = this.props.attributes;
-        let result = '';
-
-        if ( ! device ) {
-            if ( ghostkitSpacings[ name ] ) {
-                result = ghostkitSpacings[ name ];
-            }
-        } else if ( ghostkitSpacings[ device ] && ghostkitSpacings[ device ][ name ] ) {
-            result = ghostkitSpacings[ device ][ name ];
-        }
-
-        return result;
-    }
-
     render() {
-        const props = this.props;
+        const { props } = this;
         let allow = false;
 
         const {
@@ -199,7 +199,7 @@ class SpacingsComponent extends Component {
             ].forEach( ( media ) => {
                 filledTabs[ media ] = false;
                 allSpacings.forEach( ( spacing ) => {
-                    if ( this.getCurrentSpacing( spacing, media !== 'all' ? `media_${ media }` : '' ) ) {
+                    if ( this.getCurrentSpacing( spacing, 'all' !== media ? `media_${ media }` : '' ) ) {
                         filledTabs[ media ] = true;
                     }
                 } );
@@ -231,7 +231,7 @@ class SpacingsComponent extends Component {
                             ( tabData ) => {
                                 let device = '';
 
-                                if ( tabData.name !== 'all' ) {
+                                if ( 'all' !== tabData.name ) {
                                     device = `media_${ tabData.name }`;
                                 }
 
@@ -311,7 +311,7 @@ class SpacingsComponent extends Component {
                                             </div>
                                             <div className="ghostkit-control-spacing-important">
                                                 <CheckboxControl
-                                                    label={ '!important' }
+                                                    label="!important"
                                                     checked={ !! this.getCurrentSpacing( '!important', device ) }
                                                     onChange={ ( nextValue ) => this.updateSpacings( '!important', nextValue, device ) }
                                                 />
@@ -432,15 +432,13 @@ function addAttribute( settings ) {
  *
  * @return {string} Wrapped component.
  */
-const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
-    return function( props ) {
-        return (
-            <Fragment>
-                <BlockEdit { ...props } />
-                <SpacingsComponent { ...props } />
-            </Fragment>
-        );
-    };
+const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => function( props ) {
+    return (
+        <Fragment>
+            <BlockEdit { ...props } />
+            <SpacingsComponent { ...props } />
+        </Fragment>
+    );
 }, 'withInspectorControl' );
 
 /**
@@ -452,16 +450,16 @@ const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
  * @return {Object} Additional element styles object.
  */
 function addEditorCustomStyles( customStyles, props ) {
-    let customSpacings = props.attributes.ghostkitSpacings && Object.keys( props.attributes.ghostkitSpacings ).length !== 0 ? cloneDeep( props.attributes.ghostkitSpacings ) : false;
+    let customSpacings = props.attributes.ghostkitSpacings && 0 !== Object.keys( props.attributes.ghostkitSpacings ).length ? cloneDeep( props.attributes.ghostkitSpacings ) : false;
 
     // prepare !important tag.
     // validate values.
     const result = {};
-    Object.keys( customSpacings ).map( ( key ) => {
+    Object.keys( customSpacings ).forEach( ( key ) => {
         if ( customSpacings[ key ] && '!important' !== key ) {
             // check if device object.
-            if ( typeof customSpacings[ key ] === 'object' ) {
-                Object.keys( customSpacings[ key ] ).map( ( keyDevice ) => {
+            if ( 'object' === typeof customSpacings[ key ] ) {
+                Object.keys( customSpacings[ key ] ).forEach( ( keyDevice ) => {
                     if ( customSpacings[ key ][ keyDevice ] && '!important' !== keyDevice ) {
                         if ( ! result[ key ] ) {
                             result[ key ] = {};
@@ -475,7 +473,7 @@ function addEditorCustomStyles( customStyles, props ) {
         }
     } );
 
-    customSpacings = Object.keys( result ).length !== 0 ? result : false;
+    customSpacings = 0 !== Object.keys( result ).length ? result : false;
 
     if ( customStyles && customSpacings ) {
         customStyles = merge( customStyles, customSpacings );

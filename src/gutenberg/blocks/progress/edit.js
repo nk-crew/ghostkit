@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import ApplyFilters from '../../components/apply-filters';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -27,12 +33,6 @@ const {
     InspectorControls,
     RichText,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import ColorPicker from '../../components/color-picker';
-import ApplyFilters from '../../components/apply-filters';
 
 /**
  * Block Edit Class.
@@ -124,13 +124,16 @@ class BlockEdit extends Component {
                             onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
                         />
                     </PanelBody>
-                    <PanelBody title={ (
-                        <Fragment>
-                            { __( 'Colors', '@@text_domain' ) }
-                            <ColorIndicator colorValue={ color } />
-                            <ColorIndicator colorValue={ backgroundColor } />
-                        </Fragment>
-                    ) } initialOpen={ false }>
+                    <PanelBody
+                        title={ (
+                            <Fragment>
+                                { __( 'Colors', '@@text_domain' ) }
+                                <ColorIndicator colorValue={ color } />
+                                <ColorIndicator colorValue={ backgroundColor } />
+                            </Fragment>
+                        ) }
+                        initialOpen={ false }
+                    >
                         <TabPanel
                             className="ghostkit-control-tabs ghostkit-control-tabs-wide"
                             tabs={ [
@@ -144,10 +147,11 @@ class BlockEdit extends Component {
                                     title: __( 'Hover', '@@text_domain' ),
                                     className: 'ghostkit-control-tabs-tab',
                                 },
-                            ] }>
+                            ] }
+                        >
                             {
                                 ( tabData ) => {
-                                    const isHover = tabData.name === 'hover';
+                                    const isHover = 'hover' === tabData.name;
                                     return (
                                         <Fragment>
                                             <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverColor' : 'color' } props={ this.props }>
@@ -155,7 +159,7 @@ class BlockEdit extends Component {
                                                     label={ __( 'Bar', '@@text_domain' ) }
                                                     value={ isHover ? hoverColor : color }
                                                     onChange={ ( val ) => setAttributes( isHover ? { hoverColor: val } : { color: val } ) }
-                                                    alpha={ true }
+                                                    alpha
                                                 />
                                             </ApplyFilters>
                                             <ApplyFilters name="ghostkit.editor.controls" attribute={ isHover ? 'hoverBackgroundColor' : 'backgroundColor' } props={ this.props }>
@@ -163,7 +167,7 @@ class BlockEdit extends Component {
                                                     label={ __( 'Background', '@@text_domain' ) }
                                                     value={ isHover ? hoverBackgroundColor : backgroundColor }
                                                     onChange={ ( val ) => setAttributes( isHover ? { hoverBackgroundColor: val } : { backgroundColor: val } ) }
-                                                    alpha={ true }
+                                                    alpha
                                                 />
                                             </ApplyFilters>
                                         </Fragment>
@@ -180,12 +184,16 @@ class BlockEdit extends Component {
                             className="ghostkit-progress-caption"
                             placeholder={ __( 'Write caption…', '@@text_domain' ) }
                             value={ caption }
-                            onChange={ newCaption => setAttributes( { caption: newCaption } ) }
+                            onChange={ ( newCaption ) => setAttributes( { caption: newCaption } ) }
                         />
                     ) : '' }
                     { showCount ? (
                         <div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
-                            <div>{ countPrefix }{ percent }{ countSuffix }</div>
+                            <div>
+                                { countPrefix }
+                                { percent }
+                                { countSuffix }
+                            </div>
                         </div>
                     ) : '' }
                     <ResizableBox
@@ -229,7 +237,7 @@ class BlockEdit extends Component {
                                 } }
                                 onResizeStop={ ( event, direction, elt, delta ) => {
                                     setAttributes( {
-                                        percent: Math.min( 100, Math.max( 0, percent + parseInt( 100 * delta.width / jQuery( elt ).parent().width(), 10 ) ) ),
+                                        percent: Math.min( 100, Math.max( 0, percent + parseInt( ( 100 * delta.width ) / window.jQuery( elt ).parent().width(), 10 ) ) ),
                                     } );
                                     toggleSelection( true );
                                 } }

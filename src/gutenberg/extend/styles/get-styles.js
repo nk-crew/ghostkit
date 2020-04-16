@@ -18,27 +18,27 @@ export default function getStyles( data = {}, selector = '', escape = true ) {
     let resultCSS = '';
 
     // add styles.
-    Object.keys( data ).map( ( key ) => {
+    Object.keys( data ).forEach( ( key ) => {
         // object values.
-        if ( data[ key ] !== null && typeof data[ key ] === 'object' ) {
+        if ( null !== data[ key ] && 'object' === typeof data[ key ] ) {
             // media for different screens
             if ( /^media_/.test( key ) ) {
-                resultCSS += ( resultCSS ? ' ' : '' ) + `@media #{ghostkitvar:${ key }} { ${ getStyles( data[ key ], selector, escape ) } }`;
+                resultCSS += `${ resultCSS ? ' ' : '' }@media #{ghostkitvar:${ key }} { ${ getStyles( data[ key ], selector, escape ) } }`;
 
             // @supports css
             } else if ( /^@supports/.test( key ) ) {
-                resultCSS += ( resultCSS ? ' ' : '' ) + `${ key } { ${ getStyles( data[ key ], selector, escape ) } }`;
+                resultCSS += `${ resultCSS ? ' ' : '' }${ key } { ${ getStyles( data[ key ], selector, escape ) } }`;
 
             // nested selectors.
             } else {
                 let nestedSelector = selector;
 
                 if ( nestedSelector ) {
-                    if ( key.indexOf( '&' ) !== -1 ) {
+                    if ( -1 !== key.indexOf( '&' ) ) {
                         nestedSelector = key.replace( /&/g, nestedSelector );
 
                     // inside exported xml file all & symbols converted to \u0026
-                    } else if ( key.indexOf( 'u0026' ) !== -1 ) {
+                    } else if ( -1 !== key.indexOf( 'u0026' ) ) {
                         nestedSelector = key.replace( /u0026/g, nestedSelector );
                     } else {
                         nestedSelector = `${ nestedSelector } ${ key }`;
@@ -51,7 +51,7 @@ export default function getStyles( data = {}, selector = '', escape = true ) {
             }
 
         // style properties and values.
-        } else if ( typeof data[ key ] !== 'undefined' && data[ key ] !== false ) {
+        } else if ( 'undefined' !== typeof data[ key ] && false !== data[ key ] ) {
             // fix selector > and < usage.
             if ( escape ) {
                 selector = selector.replace( />/g, '&gt;' );
@@ -60,7 +60,7 @@ export default function getStyles( data = {}, selector = '', escape = true ) {
 
             // inside exported xml file all > symbols converted to \u003e
             // inside exported xml file all < symbols converted to \u003c
-            if ( selector.indexOf( 'u003e' ) !== -1 ) {
+            if ( -1 !== selector.indexOf( 'u003e' ) ) {
                 selector = selector.replace( /u003e/g, '&gt;' );
                 selector = selector.replace( /u003c/g, '&lt;' );
             }
@@ -73,11 +73,11 @@ export default function getStyles( data = {}, selector = '', escape = true ) {
             let propValue = data[ key ];
 
             // inside exported xml file all " symbols converted to \u0022
-            if ( typeof propValue === 'string' && propValue.indexOf( 'u0022' ) !== -1 ) {
+            if ( 'string' === typeof propValue && -1 !== propValue.indexOf( 'u0022' ) ) {
                 propValue = propValue.replace( /u0022/g, '"' );
             }
             // inside exported xml file all ' symbols converted to \u0027
-            if ( typeof propValue === 'string' && propValue.indexOf( 'u0027' ) !== -1 ) {
+            if ( 'string' === typeof propValue && -1 !== propValue.indexOf( 'u0027' ) ) {
                 propValue = propValue.replace( /u0027/g, '\'' );
             }
 
@@ -88,14 +88,14 @@ export default function getStyles( data = {}, selector = '', escape = true ) {
 
             // add pixels.
             if (
-                ( typeof propValue === 'number' && propValue !== 0 && cssPropsWithPixels.includes( propName ) ) ||
-                ( typeof propValue === 'string' && propValue && /^[0-9.\-]*$/.test( propValue ) )
+                ( 'number' === typeof propValue && 0 !== propValue && cssPropsWithPixels.includes( propName ) )
+                || ( 'string' === typeof propValue && propValue && /^[0-9.-]*$/.test( propValue ) )
             ) {
                 propValue += 'px';
             }
 
             // add custom css.
-            if ( typeof propValue !== 'undefined' && propValue !== '' ) {
+            if ( 'undefined' !== typeof propValue && '' !== propValue ) {
                 if ( thereIsImportant ) {
                     propValue += ' !important';
                 }
@@ -106,7 +106,7 @@ export default function getStyles( data = {}, selector = '', escape = true ) {
     } );
 
     // add styles to selectors.
-    Object.keys( result ).map( ( key ) => {
+    Object.keys( result ).forEach( ( key ) => {
         resultCSS = `${ key } {${ result[ key ] } }${ resultCSS ? ` ${ resultCSS }` : '' }`;
     } );
 

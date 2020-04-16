@@ -1,6 +1,14 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import { getSlug } from '../../utils/get-unique-slug';
+import ColorPicker from '../../components/color-picker';
+import Modal from '../../components/modal';
+
 const {
     Fragment,
 } = wp.element;
@@ -25,20 +33,28 @@ const {
     Button,
 } = wp.components;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import { getSlug } from '../../utils/get-unique-slug';
-import ColorPicker from '../../components/color-picker';
-import Modal from '../../components/modal';
-
 class ColorPaletteModal extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.isUniqueSlug = this.isUniqueSlug.bind( this );
         this.getUniqueSlug = this.getUniqueSlug.bind( this );
+    }
+
+    getUniqueSlug( name ) {
+        let newSlug = '';
+        let i = 0;
+
+        name = name.replace( /-/g, ' ' );
+
+        while ( ! newSlug || ! this.isUniqueSlug( newSlug ) ) {
+            if ( newSlug ) {
+                i += 1;
+            }
+            newSlug = `${ getSlug( name ) }${ i ? `-${ i }` : '' }`;
+        }
+
+        return newSlug;
     }
 
     isUniqueSlug( slug ) {
@@ -55,22 +71,6 @@ class ColorPaletteModal extends Component {
         } );
 
         return isUnique;
-    }
-
-    getUniqueSlug( name ) {
-        let newSlug = '';
-        let i = 0;
-
-        name = name.replace( /\-/g, ' ' );
-
-        while ( ! newSlug || ! this.isUniqueSlug( newSlug ) ) {
-            if ( newSlug ) {
-                i += 1;
-            }
-            newSlug = `${ getSlug( name ) }${ i ? `-${ i }` : '' }`;
-        }
-
-        return newSlug;
     }
 
     render() {
@@ -118,19 +118,19 @@ class ColorPaletteModal extends Component {
                             return '';
                         }
 
+                        const colorName = `palette-item-${ data.slug }-${ i }`;
+
                         return (
                             <ColorPicker
-                                key={ i }
+                                key={ colorName }
                                 value={ data.color }
                                 hint={ data.name }
                                 colorPalette={ false }
                                 onChange={ ( value ) => {
-                                    const newColors = colors.map( ( thisData ) => {
-                                        return {
-                                            ...thisData,
-                                            color: data.slug === thisData.slug ? value : thisData.color,
-                                        };
-                                    } );
+                                    const newColors = colors.map( ( thisData ) => ( {
+                                        ...thisData,
+                                        color: data.slug === thisData.slug ? value : thisData.color,
+                                    } ) );
                                     updateColorPalette( newColors );
                                 } }
                                 afterDropdownContent={ (
@@ -139,13 +139,11 @@ class ColorPaletteModal extends Component {
                                             label={ __( 'Name', '@@text_domain' ) }
                                             value={ data.name }
                                             onChange={ ( value ) => {
-                                                const newColors = colors.map( ( thisData ) => {
-                                                    return {
-                                                        ...thisData,
-                                                        slug: data.slug === thisData.slug ? this.getUniqueSlug( `ghostkit-color-${ value }` ) : thisData.slug,
-                                                        name: data.slug === thisData.slug ? value : thisData.name,
-                                                    };
-                                                } );
+                                                const newColors = colors.map( ( thisData ) => ( {
+                                                    ...thisData,
+                                                    slug: data.slug === thisData.slug ? this.getUniqueSlug( `ghostkit-color-${ value }` ) : thisData.slug,
+                                                    name: data.slug === thisData.slug ? value : thisData.name,
+                                                } ) );
                                                 updateColorPalette( newColors );
                                             } }
                                             style={ { marginTop: 0 } }
@@ -153,11 +151,9 @@ class ColorPaletteModal extends Component {
                                         <BaseControl>
                                             <Button
                                                 onClick={ () => {
-                                                    // eslint-disable-next-line
+                                                    // eslint-disable-next-line no-alert
                                                     if ( window.confirm( __( `Remove color "${ data.color }" with name "${ data.name }"?` ) ) ) {
-                                                        const newColors = colors.filter( ( thisData ) => {
-                                                            return data.slug !== thisData.slug;
-                                                        } );
+                                                        const newColors = colors.filter( ( thisData ) => data.slug !== thisData.slug );
                                                         updateColorPalette( newColors );
                                                     }
                                                 } }
@@ -222,9 +218,7 @@ const ColorPaletteModalWithSelect = compose( [
             updateSettings( { colors: newColors } );
 
             if ( ajaxSave ) {
-                const customColors = newColors.filter( ( data ) => {
-                    return /^ghostkit-color-/g.test( data.slug );
-                } );
+                const customColors = newColors.filter( ( data ) => /^ghostkit-color-/g.test( data.slug ) );
 
                 apiFetch( {
                     path: '/ghostkit/v1/update_color_palette',
@@ -245,8 +239,8 @@ export const name = 'ghostkit-color-palette';
 export const icon = null;
 
 export class Plugin extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.state = {
             isModalOpen: false,

@@ -24,14 +24,14 @@ const units = [ 'px', '%', 'rem', 'em', 'vh', 'vw', 'vmin', 'vmax', 'ex', 'cm', 
  * @param {number} number - Any Number.
  * @return {number} - Number of decimal places.
  */
-const numberOfDecimal = number => ( ( number.toString().includes( '.' ) ) ? ( number.toString().split( '.' ).pop().length ) : ( 0 ) );
+const numberOfDecimal = ( number ) => ( ( number.toString().includes( '.' ) ) ? ( number.toString().split( '.' ).pop().length ) : ( 0 ) );
 
 /**
  * Component Class
  */
 export default class InputDrag extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.parseValue = this.parseValue.bind( this );
         this.reset = this.reset.bind( this );
@@ -61,20 +61,21 @@ export default class InputDrag extends Component {
             const matchUnit = this.props.value.match( new RegExp( `${ valueNum }(${ units.join( '|' ) })`, 'i' ) );
 
             if ( matchUnit && matchUnit[ 1 ] ) {
+                // eslint-disable-next-line prefer-destructuring
                 unit = matchUnit[ 1 ];
             }
         }
 
-        if ( isNaN( valueNum ) ) {
+        if ( Number.isNaN( valueNum ) ) {
             valueNum = 0;
-            if ( typeof this.props.defaultUnit !== 'undefined' ) {
+            if ( 'undefined' !== typeof this.props.defaultUnit ) {
                 unit = this.props.defaultUnit;
             }
         }
 
         return {
             num: valueNum,
-            unit: unit,
+            unit,
             full: this.props.value,
         };
     }
@@ -127,34 +128,35 @@ export default class InputDrag extends Component {
 
             break;
         // change input value.
-        case 2:
+        case 2: {
             e.preventDefault();
             let step = 1;
             let shiftKeyMultiple = 10;
 
-            if ( typeof this.props.step !== 'undefined' && ! isNaN( this.props.step ) ) {
+            if ( 'undefined' !== typeof this.props.step && ! Number.isNaN( this.props.step ) ) {
                 step = this.props.step;
-                shiftKeyMultiple = ( shiftKeyMultiple * step );
+                shiftKeyMultiple *= step;
             }
 
             const numbersOfDigit = numberOfDecimal( step );
             let mouseValue = ( this.initialValue + ( ( this.initialPosition.y - e.pageY ) * ( this.initialShiftKey ? shiftKeyMultiple : step ) ) );
 
             // conversion for decimal steps
-            if ( numbersOfDigit > 0 ) {
+            if ( 0 < numbersOfDigit ) {
                 mouseValue = +mouseValue.toFixed( numbersOfDigit );
             }
 
             this.props.onChange( mouseValue + this.initialUnit );
             break;
+        }
         // no default
         }
     }
 
     keyDown( e ) {
         if (
-            this.initialPosition ||
-            ( e.keyCode !== 40 && e.keyCode !== 38 )
+            this.initialPosition
+            || ( 40 !== e.keyCode && 38 !== e.keyCode )
         ) {
             return;
         }
@@ -165,10 +167,10 @@ export default class InputDrag extends Component {
         let newVal = 1;
         let shiftVal = 10;
 
-        if ( typeof this.props.step !== 'undefined' && ! isNaN( this.props.step ) ) {
+        if ( 'undefined' !== typeof this.props.step && ! Number.isNaN( this.props.step ) ) {
             newVal = this.props.step;
             if ( e.shiftKey ) {
-                shiftVal = this.props.step * shiftVal;
+                shiftVal *= this.props.step;
             }
         }
 
@@ -182,7 +184,7 @@ export default class InputDrag extends Component {
         }
 
         // conversion for decimal steps
-        if ( numbersOfDigit > 0 ) {
+        if ( 0 < numbersOfDigit ) {
             keyDown = +keyDown.toFixed( numbersOfDigit );
             keyUp = +keyUp.toFixed( numbersOfDigit );
         }
@@ -196,6 +198,7 @@ export default class InputDrag extends Component {
         case 38:
             this.props.onChange( keyUp + valueObj.unit );
             break;
+        // no default
         }
     }
 
@@ -211,7 +214,7 @@ export default class InputDrag extends Component {
 
         let classHasIcon = 'ghostkit-component-input-drag-no-icon';
 
-        if ( typeof icon !== 'undefined' ) {
+        if ( 'undefined' !== typeof icon ) {
             classHasIcon = 'ghostkit-component-input-drag-has-icon';
         }
 

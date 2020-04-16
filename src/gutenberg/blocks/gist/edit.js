@@ -4,6 +4,13 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+
+import GistFilesSelect from './file-select';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -27,20 +34,15 @@ const {
     BlockControls,
 } = wp.blockEditor;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import GistFilesSelect from './file-select';
-
 const { jQuery } = window;
 
 /**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
+
         this.state = {
             url: '',
         };
@@ -54,24 +56,9 @@ class BlockEdit extends Component {
         this.setState( { url: this.props.attributes.url } );
         this.onUpdate();
     }
+
     componentDidUpdate() {
         this.onUpdate();
-    }
-
-    getValidGistUrl() {
-        const {
-            url,
-        } = this.props.attributes;
-
-        if ( url ) {
-            const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( url );
-
-            if ( match && typeof match[ 1 ] !== 'undefined' ) {
-                return match[ 1 ].split( '#' )[ 0 ];
-            }
-        }
-
-        return false;
     }
 
     onUpdate() {
@@ -93,8 +80,8 @@ class BlockEdit extends Component {
             return;
         }
 
-        if ( typeof jQuery.fn.gistsimple === 'undefined' ) {
-            // eslint-disable-next-line
+        if ( 'undefined' === typeof jQuery.fn.gistsimple ) {
+            // eslint-disable-next-line no-console
             console.warn( __( 'Gist Simple plugin is not defined.', '@@text_domain' ) );
             return;
         }
@@ -115,12 +102,28 @@ class BlockEdit extends Component {
 
             $gist.gistsimple( {
                 id: validUrl,
-                file: file,
-                caption: caption,
-                showFooter: showFooter,
-                showLineNumbers: showLineNumbers,
+                file,
+                caption,
+                showFooter,
+                showLineNumbers,
             } );
         }, 0 );
+    }
+
+    getValidGistUrl() {
+        const {
+            url,
+        } = this.props.attributes;
+
+        if ( url ) {
+            const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( url );
+
+            if ( match && 'undefined' !== typeof match[ 1 ] ) {
+                return match[ 1 ].split( '#' )[ 0 ];
+            }
+        }
+
+        return false;
     }
 
     urlOnChange( value, timeout = 1000 ) {
@@ -164,7 +167,7 @@ class BlockEdit extends Component {
                                 placeholder={ __( 'Gist URL', '@@text_domain' ) }
                                 onChange={ this.urlOnChange }
                                 onKeyDown={ ( e ) => {
-                                    if ( e.keyCode === 13 ) {
+                                    if ( 13 === e.keyCode ) {
                                         this.urlOnChange( this.state.url, 0 );
                                     }
                                 } }
@@ -178,7 +181,7 @@ class BlockEdit extends Component {
                                 label={ __( 'File', '@@text_domain' ) }
                                 url={ url }
                                 value={ file }
-                                isToolbar={ true }
+                                isToolbar
                                 onChange={ ( value ) => setAttributes( { file: value } ) }
                             />
                         </Toolbar>
@@ -192,7 +195,7 @@ class BlockEdit extends Component {
                             value={ this.state.url }
                             onChange={ this.urlOnChange }
                             onKeyDown={ ( e ) => {
-                                if ( e.keyCode === 13 ) {
+                                if ( 13 === e.keyCode ) {
                                     this.urlOnChange( this.state.url, 0 );
                                 }
                             } }
@@ -231,11 +234,11 @@ class BlockEdit extends Component {
                             className={ className }
                         >
                             <TextControl
-                                placeholder={ 'https://gist.github.com/...' }
+                                placeholder="https://gist.github.com/..."
                                 value={ this.state.url }
                                 onChange={ this.urlOnChange }
                                 onKeyDown={ ( e ) => {
-                                    if ( e.keyCode === 13 ) {
+                                    if ( 13 === e.keyCode ) {
                                         this.urlOnChange( this.state.url, 0 );
                                     }
                                 } }
@@ -245,7 +248,9 @@ class BlockEdit extends Component {
                     ) : '' }
                     { url ? (
                         <div
-                            ref={ gistNode => this.gistNode = gistNode }
+                            ref={ ( gistNode ) => {
+                                this.gistNode = gistNode;
+                            } }
                             className={ className }
                             data-url={ url }
                             data-file={ file }

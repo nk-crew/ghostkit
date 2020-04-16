@@ -4,6 +4,14 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import getBackgroundStyles from '../grid/get-background-styles';
+
+import metadata from './block.json';
+import getColClass from './get-col-class';
+
+/**
  * WordPress dependencies
  */
 const { Component } = wp.element;
@@ -15,13 +23,6 @@ const {
 const {
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import getBackgroundStyles from '../grid/get-background-styles';
-import metadata from './block.json';
-import getColClass from './get-col-class';
 
 const { name } = metadata;
 
@@ -55,7 +56,7 @@ export default [
                         position: 'sticky',
                     };
 
-                    if ( typeof stickyContentBottom === 'number' ) {
+                    if ( 'number' === typeof stickyContentBottom ) {
                         result = {
                             display: 'flex',
                             '-webkit-box-orient': 'vertical',
@@ -67,7 +68,7 @@ export default [
                         result[ '> .ghostkit-col-content' ].marginTop = 'auto';
                         result[ '> .ghostkit-col-content' ].bottom = stickyContentBottom;
                     } else {
-                        result[ '> .ghostkit-col-content' ].top = typeof stickyContentTop === 'number' ? stickyContentTop : 0;
+                        result[ '> .ghostkit-col-content' ].top = 'number' === typeof stickyContentTop ? stickyContentTop : 0;
                     }
                 }
 
@@ -99,7 +100,7 @@ export default [
             },
         },
         isEligible( attributes ) {
-            return typeof attributes.stickyContent === 'boolean';
+            return 'boolean' === typeof attributes.stickyContent;
         },
         migrate( attributes ) {
             const newAttributes = {
@@ -109,10 +110,10 @@ export default [
 
             // Add new attributes.
             if ( attributes.stickyContent ) {
-                if ( typeof attributes.stickyContentTop !== 'undefined' ) {
+                if ( 'undefined' !== typeof attributes.stickyContentTop ) {
                     newAttributes.stickyContent = 'top';
                     newAttributes.stickyContentOffset = attributes.stickyContentTop;
-                } else if ( typeof attributes.stickyContentBottom !== 'undefined' ) {
+                } else if ( 'undefined' !== typeof attributes.stickyContentBottom ) {
                     newAttributes.stickyContent = 'bottom';
                     newAttributes.stickyContentOffset = attributes.stickyContentBottom;
                 } else {
@@ -121,10 +122,10 @@ export default [
             }
 
             // Remove old attributes.
-            if ( typeof attributes.stickyContentTop !== 'undefined' ) {
+            if ( 'undefined' !== typeof attributes.stickyContentTop ) {
                 delete attributes.stickyContentTop;
             }
-            if ( typeof attributes.stickyContentBottom !== 'undefined' ) {
+            if ( 'undefined' !== typeof attributes.stickyContentBottom ) {
                 delete attributes.stickyContentBottom;
             }
 
@@ -257,10 +258,10 @@ export default [
                         position: 'sticky',
                     };
 
-                    if ( typeof stickyContentTop === 'number' ) {
+                    if ( 'number' === typeof stickyContentTop ) {
                         result[ '> .ghostkit-col-content' ].top = stickyContentTop;
                     }
-                    if ( typeof stickyContentBottom === 'number' ) {
+                    if ( 'number' === typeof stickyContentBottom ) {
                         result[ '> .ghostkit-col-content' ].bottom = stickyContentBottom;
                     }
                 }
@@ -339,7 +340,7 @@ export default [
                 default: '',
             },
         },
-        save: function( props ) {
+        save( props ) {
             const {
                 stickyContent,
             } = props.attributes;

@@ -4,6 +4,14 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import ColorPicker from '../../components/color-picker';
+import DateTimePicker from '../../components/date-time-picker';
+
+import countDownApi from './api';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -39,13 +47,6 @@ const {
     withSelect,
 } = wp.data;
 
-/**
- * Internal dependencies
- */
-import ColorPicker from '../../components/color-picker';
-import DateTimePicker from '../../components/date-time-picker';
-import countDownApi from './api';
-
 const TIMEZONELESS_FORMAT = 'YYYY-MM-DDTHH:mm:ss';
 
 /**
@@ -60,7 +61,6 @@ class BlockEdit extends Component {
         this.runInterval = this.runInterval.bind( this );
 
         this.state = {
-            date: props.date,
             dateData: props.date ? this.parseData( props.attributes.date, props.attributes.units ) : false,
         };
     }
@@ -83,6 +83,7 @@ class BlockEdit extends Component {
         }
     }
 
+    // eslint-disable-next-line class-methods-use-this
     parseData( date, units ) {
         const momentData = moment( date );
         const formattedDate = momentData.format( TIMEZONELESS_FORMAT );
@@ -240,13 +241,13 @@ class BlockEdit extends Component {
                             label={ __( 'Number Color', '@@text_domain' ) }
                             value={ numberColor }
                             onChange={ ( val ) => setAttributes( { numberColor: val } ) }
-                            alpha={ true }
+                            alpha
                         />
                         <ColorPicker
                             label={ __( 'Label Color', '@@text_domain' ) }
                             value={ labelColor }
                             onChange={ ( val ) => setAttributes( { labelColor: val } ) }
-                            alpha={ true }
+                            alpha
                         />
                     </PanelBody>
                 </InspectorControls>
@@ -256,28 +257,29 @@ class BlockEdit extends Component {
                             icon: 'align-left',
                             title: __( 'Units Align Left', '@@text_domain' ),
                             onClick: () => setAttributes( { unitsAlign: 'left' } ),
-                            isActive: unitsAlign === 'left',
+                            isActive: 'left' === unitsAlign,
                         },
                         {
                             icon: 'align-center',
                             title: __( 'Units Align Center', '@@text_domain' ),
                             onClick: () => setAttributes( { unitsAlign: 'center' } ),
-                            isActive: unitsAlign === 'center',
+                            isActive: 'center' === unitsAlign,
                         },
                         {
                             icon: 'align-right',
                             title: __( 'Units Align Right', '@@text_domain' ),
                             onClick: () => setAttributes( { unitsAlign: 'right' } ),
-                            isActive: unitsAlign === 'right',
+                            isActive: 'right' === unitsAlign,
                         },
-                    ] } />
+                    ] }
+                    />
                 </BlockControls>
                 <div className={ className }>
                     { units.map( ( unitName ) => {
                         let formattedUnit = false;
 
-                        if ( dateData && typeof dateData[ unitName ] !== 'undefined' ) {
-                            const isEnd = dateData.value >= 0;
+                        if ( dateData && 'undefined' !== typeof dateData[ unitName ] ) {
+                            const isEnd = 0 <= dateData.value;
 
                             formattedUnit = countDownApi.formatUnit( isEnd ? 0 : dateData[ unitName ], unitName );
                         }

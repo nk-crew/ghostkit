@@ -4,6 +4,13 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+
+import getAllHeadings from './get-all-headings';
+
+/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
@@ -30,12 +37,6 @@ const {
     InspectorControls,
     RichText,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import getAllHeadings from './get-all-headings';
 
 /**
  * Block Edit Class.
@@ -102,9 +103,7 @@ class BlockEdit extends Component {
                             ] }
                             onChange={ ( val ) => {
                                 setAttributes( {
-                                    allowedHeaders: val.map( ( level ) => {
-                                        return parseInt( level );
-                                    } ),
+                                    allowedHeaders: val.map( ( level ) => parseInt( level, 10 ) ),
                                 } );
                             } }
                             multiple
@@ -148,7 +147,7 @@ class BlockEdit extends Component {
                                 placeholder={ __( 'Write title…', '@@text_domain' ) }
                                 format="string"
                                 value={ title }
-                                onChange={ val => setAttributes( { title: val } ) }
+                                onChange={ ( val ) => setAttributes( { title: val } ) }
                             />
                         ) : '' }
                         { ! tocHTML ? (
@@ -156,7 +155,7 @@ class BlockEdit extends Component {
                         ) : '' }
                         { tocHTML || this.oldTocHTML ? (
                             <Disabled>
-                                <div className={ 'ghostkit-toc-list block-library-list' }>
+                                <div className="ghostkit-toc-list block-library-list">
                                     <RawHTML>
                                         { tocHTML || this.oldTocHTML }
                                     </RawHTML>
@@ -186,7 +185,7 @@ export default withSelect( ( select, props ) => {
     return {
         headings,
         tocHTML: select( 'ghostkit/blocks/table-of-contents' ).getTOC( {
-            headings: headings,
+            headings,
             allowedHeaders,
             listStyle,
         } ),

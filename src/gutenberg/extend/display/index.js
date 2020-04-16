@@ -4,6 +4,17 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import checkCoreBlock from '../check-core-block';
+import {
+    getActiveClass, replaceClass, addClass, removeClass, hasClass,
+} from '../../utils/classes-replacer';
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import getIcon from '../../utils/get-icon';
+import ActiveIndicator from '../../components/active-indicator';
+
+/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
@@ -34,15 +45,6 @@ const {
     Button,
 } = wp.components;
 
-/**
- * Internal dependencies
- */
-import checkCoreBlock from '../check-core-block';
-import { getActiveClass, replaceClass, addClass, removeClass, hasClass } from '../../utils/classes-replacer';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
-import getIcon from '../../utils/get-icon';
-import ActiveIndicator from '../../components/active-indicator';
-
 const {
     GHOSTKIT,
     ghostkitVariables,
@@ -60,7 +62,7 @@ let initialOpenPanel = false;
 const getDefaultDisplay = function( screen = '' ) {
     return [
         {
-            label: screen === 'all' ? __( 'Default', '@@text_domain' ) : __( 'Inherit', '@@text_domain' ),
+            label: 'all' === screen ? __( 'Default', '@@text_domain' ) : __( 'Inherit', '@@text_domain' ),
             value: '',
         }, {
             label: __( 'Show', '@@text_domain' ),
@@ -110,7 +112,7 @@ function getCurrentDisplay( className, screen ) {
     if ( ! screen || 'all' === screen ) {
         if ( hasClass( className, 'ghostkit-d-none' ) ) {
             return 'none';
-        } else if ( hasClass( className, 'ghostkit-d-block' ) ) {
+        } if ( hasClass( className, 'ghostkit-d-block' ) ) {
             return 'block';
         }
     }
@@ -128,8 +130,8 @@ function getCurrentDisplay( className, screen ) {
  */
 const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) => {
     class GhostKitDisplayWrapper extends Component {
-        constructor() {
-            super( ...arguments );
+        constructor( props ) {
+            super( props );
 
             this.updateDisplay = this.updateDisplay.bind( this );
         }
@@ -169,7 +171,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
         }
 
         render() {
-            const props = this.props;
+            const { props } = this;
             const {
                 className,
             } = props.attributes;
@@ -217,30 +219,28 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         >
                             <ResponsiveTabPanel filledTabs={ filledTabs }>
                                 {
-                                    ( tabData ) => {
-                                        return (
-                                            <ButtonGroup>
-                                                {
-                                                    getDefaultDisplay( tabData.name ).map( ( val ) => {
-                                                        const selected = getCurrentDisplay( className, tabData.name ) === val.value;
+                                    ( tabData ) => (
+                                        <ButtonGroup>
+                                            {
+                                                getDefaultDisplay( tabData.name ).map( ( val ) => {
+                                                    const selected = getCurrentDisplay( className, tabData.name ) === val.value;
 
-                                                        return (
-                                                            <Button
-                                                                isSecondary
-                                                                isSmall
-                                                                isPrimary={ selected }
-                                                                aria-pressed={ selected }
-                                                                onClick={ () => this.updateDisplay( tabData.name, val.value ) }
-                                                                key={ `display_${ val.label }` }
-                                                            >
-                                                                { val.label }
-                                                            </Button>
-                                                        );
-                                                    } )
-                                                }
-                                            </ButtonGroup>
-                                        );
-                                    }
+                                                    return (
+                                                        <Button
+                                                            isSecondary
+                                                            isSmall
+                                                            isPrimary={ selected }
+                                                            aria-pressed={ selected }
+                                                            onClick={ () => this.updateDisplay( tabData.name, val.value ) }
+                                                            key={ `display_${ val.label }` }
+                                                        >
+                                                            { val.label }
+                                                        </Button>
+                                                    );
+                                                } )
+                                            }
+                                        </ButtonGroup>
+                                    )
                                 }
                             </ResponsiveTabPanel>
                         </PanelBody>
@@ -255,8 +255,8 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
 const withDataDisplay = createHigherOrderComponent( ( BlockListBlock ) => {
     class GhostKitDisplayWrapper extends Component {
-        constructor() {
-            super( ...arguments );
+        constructor( props ) {
+            super( props );
 
             this.state = {
                 allowedDisplay: allowedDisplay( this.props ),
@@ -267,10 +267,11 @@ const withDataDisplay = createHigherOrderComponent( ( BlockListBlock ) => {
             this.maybeRunDisplay = this.maybeRunDisplay.bind( this );
         }
 
-        componentDidUpdate() {
+        componentDidMount() {
             this.maybeRunDisplay();
         }
-        componentDidMount() {
+
+        componentDidUpdate() {
             this.maybeRunDisplay();
         }
 

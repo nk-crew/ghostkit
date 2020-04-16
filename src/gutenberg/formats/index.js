@@ -1,16 +1,16 @@
 /**
  * WordPress dependencies
  */
-const {
-    registerFormatType,
-} = wp.richText;
-
 /**
  * Internal dependencies
  */
 import * as uppercase from './uppercase';
 import * as mark from './mark';
 import * as badge from './badge';
+
+const {
+    registerFormatType,
+} = wp.richText;
 
 /**
  * Register formats

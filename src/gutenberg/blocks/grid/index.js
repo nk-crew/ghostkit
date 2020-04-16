@@ -1,23 +1,24 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
-const { createHigherOrderComponent } = wp.compose;
-
-const { addFilter } = wp.hooks;
-
 /**
  * Internal dependencies
  */
 import './awb-fallback';
-import getBackgroundStyles from './get-background-styles';
 import getIcon from '../../utils/get-icon';
+
+import getBackgroundStyles from './get-background-styles';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 import transforms from './transforms';
 import deprecated from './deprecated';
+
+const { __ } = wp.i18n;
+
+const { createHigherOrderComponent } = wp.compose;
+
+const { addFilter } = wp.hooks;
 
 const { name } = metadata;
 
@@ -53,7 +54,7 @@ export const settings = {
             }
 
             // Custom Gap.
-            if ( 'custom' === gap && typeof gapCustom !== 'undefined' ) {
+            if ( 'custom' === gap && 'undefined' !== typeof gapCustom ) {
                 // we need to use `%` unit because of conflict with complex calc() and 0 value.
                 const unit = gapCustom ? 'px' : '%';
 

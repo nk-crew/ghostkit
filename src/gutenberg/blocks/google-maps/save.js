@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -11,11 +16,6 @@ const {
 } = wp.hooks;
 
 const { Component } = wp.element;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -56,7 +56,7 @@ class BlockSave extends Component {
         } );
 
         const attrs = {
-            className: className,
+            className,
             style: { minHeight: height },
             'data-lat': lat,
             'data-lng': lng,
@@ -84,9 +84,11 @@ class BlockSave extends Component {
                             'data-address': marker.address,
                         };
 
+                        const markerName = `marker-${ i }`;
+
                         return (
                             <div
-                                key={ `marker-${ i }` }
+                                key={ markerName }
                                 className="ghostkit-google-maps-marker"
                                 { ...markerData }
                             />

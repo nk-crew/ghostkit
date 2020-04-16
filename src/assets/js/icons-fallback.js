@@ -2,6 +2,7 @@
 * Fallback for old icons.
 */
 import { throttle } from 'throttle-debounce';
+
 const {
     jQuery: $,
     ghostkitIconsFallback,
@@ -19,6 +20,6 @@ const maybeReplaceIcons = throttle( 300, () => {
     } );
 } );
 
-$doc.on( 'ready initBlocks.ghostkit', function() {
+$doc.on( 'ready initBlocks.ghostkit', () => {
     maybeReplaceIcons();
 } );

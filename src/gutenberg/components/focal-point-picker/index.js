@@ -48,20 +48,21 @@ function sizeToPoint( size ) {
  * @return {string} - image src
  */
 function parseImageUrl( image ) {
-    if ( typeof imgCache[ image ] !== 'undefined' ) {
+    if ( 'undefined' !== typeof imgCache[ image ] ) {
         return imgCache[ image ];
     }
 
     // <img> tag
-    let src = /<img\s[^>]*?src\s*=\s*['\"]([^'\"]*?)['\"][^>]*?>/g.exec( image );
+    let src = /<img\s[^>]*?src\s*=\s*['"]([^'"]*?)['"][^>]*?>/g.exec( image );
 
     if ( src && src[ 1 ] ) {
+        // eslint-disable-next-line prefer-destructuring
         imgCache[ image ] = src[ 1 ];
         return src[ 1 ];
     }
 
     // <div> tag with background image style.
-    const style = /<div\s[^>]*?style\s*=\s*['\"]([^'\"]*?)['\"][^>]*?>/g.exec( image );
+    const style = /<div\s[^>]*?style\s*=\s*['"]([^'"]*?)['"][^>]*?>/g.exec( image );
 
     if ( style && style[ 1 ] ) {
         src = style[ 1 ]
@@ -111,7 +112,7 @@ export default class CustomFocalPointPicker extends Component {
                 url={ imageUrl }
                 value={ focalPointValue }
                 onChange={ ( val ) => {
-                    onChange( `${ parseInt( 100 * val.x ) }% ${ parseInt( 100 * val.y ) }%` );
+                    onChange( `${ parseInt( 100 * val.x, 10 ) }% ${ parseInt( 100 * val.y, 10 ) }%` );
                 } }
             />
         );

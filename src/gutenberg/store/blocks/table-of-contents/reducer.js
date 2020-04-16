@@ -6,6 +6,7 @@ function reducer( state = { toc: {} }, action ) {
             state.toc[ action.query ] = action.toc;
         }
         break;
+    // no default
     }
 
     return state;

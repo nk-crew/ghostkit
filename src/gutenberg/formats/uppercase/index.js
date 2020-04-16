@@ -1,6 +1,11 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+
 const { __ } = wp.i18n;
 
 const {
@@ -17,11 +22,6 @@ const {
     toggleFormat,
 } = wp.richText;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-
 export const name = 'ghostkit/uppercase';
 
 export const settings = {
@@ -29,8 +29,8 @@ export const settings = {
     tagName: 'span',
     className: 'ghostkit-text-uppercase',
     edit: class BadgeFormat extends Component {
-        constructor() {
-            super( ...arguments );
+        constructor( props ) {
+            super( props );
 
             this.toggleUppercase = this.toggleUppercase.bind( this );
         }

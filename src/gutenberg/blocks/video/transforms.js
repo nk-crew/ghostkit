@@ -14,7 +14,7 @@ function getYoutubeID( ytUrl ) {
     // eslint-disable-next-line no-useless-escape
     const regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
     const match = ytUrl.match( regExp );
-    return match && match[ 1 ].length === 11 ? match[ 1 ] : false;
+    return match && 11 === match[ 1 ].length ? match[ 1 ] : false;
 }
 
 // parse vimeo ID
@@ -50,7 +50,7 @@ function prepareAttributesForCoreEmbed( attributes ) {
 
     return {
         url: video,
-        className: className,
+        className,
     };
 }
 
@@ -59,10 +59,10 @@ export default {
         {
             type: 'block',
             blocks: [ 'core-embed/youtube', 'core-embed/vimeo' ],
-            isMatch: function( attributes ) {
-                return attributes && attributes.type && attributes.type === 'video';
+            isMatch( attributes ) {
+                return attributes && attributes.type && 'video' === attributes.type;
             },
-            transform: function( attributes ) {
+            transform( attributes ) {
                 let aspectRatio = '16:9';
                 const {
                     url,
@@ -86,10 +86,10 @@ export default {
         {
             type: 'block',
             blocks: [ 'core/video' ],
-            isMatch: function( attributes ) {
+            isMatch( attributes ) {
                 return attributes && attributes.id;
             },
-            transform: function( attributes ) {
+            transform( attributes ) {
                 const {
                     id,
                     src,
@@ -120,52 +120,52 @@ export default {
         {
             type: 'block',
             blocks: [ 'core-embed/youtube' ],
-            isMatch: function( attributes ) {
+            isMatch( attributes ) {
                 return (
-                    attributes &&
-                    attributes.type &&
-                    attributes.type === 'yt_vm_video' &&
-                    attributes.video &&
-                    getYoutubeID( attributes.video )
+                    attributes
+                    && attributes.type
+                    && 'yt_vm_video' === attributes.type
+                    && attributes.video
+                    && getYoutubeID( attributes.video )
                 );
             },
-            transform: function( attributes ) {
+            transform( attributes ) {
                 return createBlock( 'core-embed/youtube', prepareAttributesForCoreEmbed( attributes ) );
             },
         },
         {
             type: 'block',
             blocks: [ 'core-embed/vimeo' ],
-            isMatch: function( attributes ) {
+            isMatch( attributes ) {
                 return (
-                    attributes &&
-                    attributes.type &&
-                    attributes.type === 'yt_vm_video' &&
-                    attributes.video &&
-                    getVimeoID( attributes.video )
+                    attributes
+                    && attributes.type
+                    && 'yt_vm_video' === attributes.type
+                    && attributes.video
+                    && getVimeoID( attributes.video )
                 );
             },
-            transform: function( attributes ) {
+            transform( attributes ) {
                 return createBlock( 'core-embed/vimeo', prepareAttributesForCoreEmbed( attributes ) );
             },
         },
         {
             type: 'block',
             blocks: [ 'core/video' ],
-            isMatch: function( attributes ) {
+            isMatch( attributes ) {
                 return (
-                    attributes &&
-                    attributes.type &&
-                    attributes.type === 'video' &&
-                    ( attributes.videoMp4Id || attributes.videoOgvId || attributes.videoWebmId ) &&
-                    ( attributes.videoMp4 || attributes.videoOgv || attributes.videoWebm )
+                    attributes
+                    && attributes.type
+                    && 'video' === attributes.type
+                    && ( attributes.videoMp4Id || attributes.videoOgvId || attributes.videoWebmId )
+                    && ( attributes.videoMp4 || attributes.videoOgv || attributes.videoWebm )
                 );
             },
-            transform: function( attributes ) {
+            transform( attributes ) {
                 return createBlock( 'core/video', {
                     id: attributes.videoMp4Id || attributes.videoOgvId || attributes.videoWebmId,
                     src: attributes.videoMp4 || attributes.videoOgv || attributes.videoWebm,
-                    muted: attributes.videoVolume === 0,
+                    muted: 0 === attributes.videoVolume,
                 } );
             },
         },

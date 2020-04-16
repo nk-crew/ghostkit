@@ -42,8 +42,8 @@ const {
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.maybeChangeButtonTagName = throttle( 200, this.maybeChangeButtonTagName.bind( this ) );
     }
@@ -74,7 +74,7 @@ class BlockEdit extends Component {
 
         className = classnames(
             'ghostkit-form-submit-button',
-            align && align !== 'none' ? `ghostkit-form-submit-button-align-${ align }` : false,
+            align && 'none' !== align ? `ghostkit-form-submit-button-align-${ align }` : false,
             className
         );
 

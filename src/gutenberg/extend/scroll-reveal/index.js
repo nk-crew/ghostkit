@@ -4,6 +4,15 @@
 import ScrollReveal from 'scrollreveal';
 
 /**
+ * Internal dependencies
+ */
+import checkCoreBlock from '../check-core-block';
+import getIcon from '../../utils/get-icon';
+import ActiveIndicator from '../../components/active-indicator';
+
+import parseSRConfig from './parseSRConfig';
+
+/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
@@ -31,14 +40,6 @@ const {
     Button,
     ButtonGroup,
 } = wp.components;
-
-/**
- * Internal dependencies
- */
-import parseSRConfig from './parseSRConfig';
-import checkCoreBlock from '../check-core-block';
-import getIcon from '../../utils/get-icon';
-import ActiveIndicator from '../../components/active-indicator';
 
 const $ = window.jQuery;
 
@@ -112,8 +113,8 @@ function addAttribute( settings ) {
  */
 const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) => {
     class GhostKitSRWrapper extends Component {
-        constructor() {
-            super( ...arguments );
+        constructor( props ) {
+            super( props );
 
             const {
                 ghostkitSR = '',
@@ -136,7 +137,9 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             if ( effect ) {
                 let direction = effect.split( '-' );
                 if ( 2 === direction.length ) {
+                    // eslint-disable-next-line prefer-destructuring
                     effect = direction[ 0 ];
+                    // eslint-disable-next-line prefer-destructuring
                     direction = direction[ 1 ];
                 } else {
                     direction = '';
@@ -146,7 +149,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 state.direction = direction;
 
                 // replace other data config.
-                if ( data.length > 1 ) {
+                if ( 1 < data.length ) {
                     data.forEach( ( item ) => {
                         const itemData = item.split( ':' );
                         if ( 2 === itemData.length ) {
@@ -184,21 +187,21 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 newAttribute = newState.effect;
 
                 if ( newState.direction ) {
-                    newAttribute += '-' + newState.direction;
+                    newAttribute += `-${ newState.direction }`;
 
                     if ( 50 !== newState.distance ) {
-                        newAttribute += ';distance:' + newState.distance + 'px';
+                        newAttribute += `;distance:${ newState.distance }px`;
                     }
                 }
                 if ( 900 !== newState.duration ) {
-                    newAttribute += ';duration:' + newState.duration;
+                    newAttribute += `;duration:${ newState.duration }`;
                 }
                 if ( 0 !== newState.delay ) {
-                    newAttribute += ';delay:' + newState.delay;
+                    newAttribute += `;delay:${ newState.delay }`;
                 }
 
                 if ( 'zoom' === newState.effect && 0.9 !== newState.scale ) {
-                    newAttribute += ';scale:' + newState.scale;
+                    newAttribute += `;scale:${ newState.scale }`;
                 }
             }
 
@@ -210,7 +213,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
         }
 
         render() {
-            const props = this.props;
+            const { props } = this;
             const allow = allowedSR( props );
 
             if ( ! allow ) {
@@ -407,8 +410,8 @@ function addSaveProps( extraProps, blockType, attributes ) {
 
 const withDataSR = createHigherOrderComponent( ( BlockListBlock ) => {
     class GhostKitSRWrapper extends Component {
-        constructor() {
-            super( ...arguments );
+        constructor( props ) {
+            super( props );
 
             this.state = {
                 allowedSR: allowedSR( this.props ),
@@ -420,10 +423,11 @@ const withDataSR = createHigherOrderComponent( ( BlockListBlock ) => {
             this.maybeRunSR = this.maybeRunSR.bind( this );
         }
 
-        componentDidUpdate() {
+        componentDidMount() {
             this.maybeRunSR();
         }
-        componentDidMount() {
+
+        componentDidUpdate() {
             this.maybeRunSR();
         }
 

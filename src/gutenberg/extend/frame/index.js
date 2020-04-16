@@ -1,6 +1,20 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+import InputDrag from '../../components/input-drag';
+import ColorPicker from '../../components/color-picker';
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ActiveIndicator from '../../components/active-indicator';
+import {
+    hasClass,
+    removeClass,
+    addClass,
+} from '../../utils/classes-replacer';
+
 const { merge, cloneDeep } = window.lodash;
 
 const { __ } = wp.i18n;
@@ -34,20 +48,6 @@ const {
     ghostkitVariables,
 } = window;
 
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
-import InputDrag from '../../components/input-drag';
-import ColorPicker from '../../components/color-picker';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
-import ActiveIndicator from '../../components/active-indicator';
-import {
-    hasClass,
-    removeClass,
-    addClass,
-} from '../../utils/classes-replacer';
-
 let initialOpenPanel = false;
 
 // Check supported blocks.
@@ -57,8 +57,8 @@ function checkSupportedBlock( name ) {
     }
 
     return (
-        name &&
-        /^core\/group/.test( name.name || name )
+        name
+        && /^core\/group/.test( name.name || name )
     );
 }
 
@@ -66,11 +66,34 @@ function checkSupportedBlock( name ) {
  * Frame Component.
  */
 class FrameComponent extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
 
         this.updateFrame = this.updateFrame.bind( this );
         this.getCurrentFrame = this.getCurrentFrame.bind( this );
+    }
+
+    /**
+     * Get current frame setting for selected device type.
+     *
+     * @param {String} name - name of frame setting.
+     * @param {String} device - frame setting for device.
+     *
+     * @returns {String} frame setting value.
+     */
+    getCurrentFrame( name, device ) {
+        const { ghostkitFrame = {} } = this.props.attributes;
+        let result = '';
+
+        if ( ! device ) {
+            if ( ghostkitFrame[ name ] ) {
+                result = ghostkitFrame[ name ];
+            }
+        } else if ( ghostkitFrame[ device ] && ghostkitFrame[ device ][ name ] ) {
+            result = ghostkitFrame[ device ][ name ];
+        }
+
+        return result;
     }
 
     /**
@@ -110,11 +133,11 @@ class FrameComponent extends Component {
         }, ghostkitFrame, newFrame );
 
         // validate values.
-        Object.keys( ghostkitFrame ).map( ( key ) => {
+        Object.keys( ghostkitFrame ).forEach( ( key ) => {
             if ( ghostkitFrame[ key ] ) {
                 // check if device object.
-                if ( typeof ghostkitFrame[ key ] === 'object' ) {
-                    Object.keys( ghostkitFrame[ key ] ).map( ( keyDevice ) => {
+                if ( 'object' === typeof ghostkitFrame[ key ] ) {
+                    Object.keys( ghostkitFrame[ key ] ).forEach( ( keyDevice ) => {
                         if ( ghostkitFrame[ key ][ keyDevice ] ) {
                             if ( ! result[ key ] ) {
                                 result[ key ] = {};
@@ -143,31 +166,8 @@ class FrameComponent extends Component {
         setAttributes( resultAttrs );
     }
 
-    /**
-     * Get current frame setting for selected device type.
-     *
-     * @param {String} name - name of frame setting.
-     * @param {String} device - frame setting for device.
-     *
-     * @returns {String} frame setting value.
-     */
-    getCurrentFrame( name, device ) {
-        const { ghostkitFrame = {} } = this.props.attributes;
-        let result = '';
-
-        if ( ! device ) {
-            if ( ghostkitFrame[ name ] ) {
-                result = ghostkitFrame[ name ];
-            }
-        } else if ( ghostkitFrame[ device ] && ghostkitFrame[ device ][ name ] ) {
-            result = ghostkitFrame[ device ][ name ];
-        }
-
-        return result;
-    }
-
     render() {
-        const props = this.props;
+        const { props } = this;
         const allow = checkSupportedBlock( props.name );
 
         const {
@@ -212,7 +212,7 @@ class FrameComponent extends Component {
             ].forEach( ( media ) => {
                 filledTabs[ media ] = false;
                 allFrame.forEach( ( spacing ) => {
-                    if ( this.getCurrentFrame( spacing, media !== 'all' ? `media_${ media }` : '' ) ) {
+                    if ( this.getCurrentFrame( spacing, 'all' !== media ? `media_${ media }` : '' ) ) {
                         filledTabs[ media ] = true;
                     }
                 } );
@@ -265,7 +265,7 @@ class FrameComponent extends Component {
                             ( tabData ) => {
                                 let device = '';
 
-                                if ( tabData.name !== 'all' ) {
+                                if ( 'all' !== tabData.name ) {
                                     device = `media_${ tabData.name }`;
                                 }
 
@@ -276,7 +276,7 @@ class FrameComponent extends Component {
                                     >
                                         {
                                             ( stateTabData ) => {
-                                                const isHover = stateTabData.name === 'hover';
+                                                const isHover = 'hover' === stateTabData.name;
                                                 const borderPropName = `${ isHover ? 'hoverBorder' : 'border' }`;
                                                 const shadowPropName = `${ isHover ? 'hoverBoxShadow' : 'boxShadow' }`;
                                                 const borderStyle = this.getCurrentFrame( `${ borderPropName }Style`, device );
@@ -334,7 +334,7 @@ class FrameComponent extends Component {
                                                                                 onChange={ ( val ) => this.updateFrame( {
                                                                                     [ `${ borderPropName }Color` ]: val,
                                                                                 }, device ) }
-                                                                                alpha={ true }
+                                                                                alpha
                                                                             />
                                                                         </div>
                                                                     </Tooltip>
@@ -369,7 +369,7 @@ class FrameComponent extends Component {
                                                                             onChange={ ( val ) => this.updateFrame( {
                                                                                 [ `${ shadowPropName }Color` ]: val,
                                                                             }, device ) }
-                                                                            alpha={ true }
+                                                                            alpha
                                                                         />
                                                                     </div>
                                                                 </Tooltip>
@@ -573,15 +573,13 @@ function addAttribute( settings ) {
  *
  * @return {string} Wrapped component.
  */
-const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
-    return function( props ) {
-        return (
-            <Fragment>
-                <BlockEdit { ...props } />
-                <FrameComponent { ...props } />
-            </Fragment>
-        );
-    };
+const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => function( props ) {
+    return (
+        <Fragment>
+            <BlockEdit { ...props } />
+            <FrameComponent { ...props } />
+        </Fragment>
+    );
 }, 'withInspectorControl' );
 
 /**
@@ -593,7 +591,7 @@ const withInspectorControl = createHigherOrderComponent( ( BlockEdit ) => {
  */
 function addPixelsToString( str ) {
     // add pixels.
-    if ( typeof str === 'string' && str !== '0' && /^[0-9.\-]*$/.test( str ) ) {
+    if ( 'string' === typeof str && '0' !== str && /^[0-9.-]*$/.test( str ) ) {
         str += 'px';
     }
 
@@ -609,8 +607,8 @@ function addPixelsToString( str ) {
  */
 function prepareShadow( attrs ) {
     // check if device object.
-    Object.keys( attrs ).map( ( key ) => {
-        if ( attrs[ key ] && typeof attrs[ key ] === 'object' ) {
+    Object.keys( attrs ).forEach( ( key ) => {
+        if ( attrs[ key ] && 'object' === typeof attrs[ key ] ) {
             attrs[ key ] = prepareShadow( attrs[ key ] );
         }
     } );
@@ -637,7 +635,7 @@ function prepareShadow( attrs ) {
         'hoverBoxShadowSpread',
     ];
     shadowAttrs.forEach( ( shadowAttr ) => {
-        if ( typeof attrs[ shadowAttr ] !== 'undefined' ) {
+        if ( 'undefined' !== typeof attrs[ shadowAttr ] ) {
             delete attrs[ shadowAttr ];
         }
     } );
@@ -680,18 +678,18 @@ function prepareStyle( key, val ) {
  * @return {Object} Additional element styles object.
  */
 function addEditorCustomStyles( customStyles, props ) {
-    let customFrame = props.attributes.ghostkitFrame && Object.keys( props.attributes.ghostkitFrame ).length !== 0 ? cloneDeep( props.attributes.ghostkitFrame ) : false;
+    let customFrame = props.attributes.ghostkitFrame && 0 !== Object.keys( props.attributes.ghostkitFrame ).length ? cloneDeep( props.attributes.ghostkitFrame ) : false;
 
     // prepare shadow.
     customFrame = prepareShadow( customFrame );
 
     // validate values.
     let result = {};
-    Object.keys( customFrame ).map( ( key ) => {
+    Object.keys( customFrame ).forEach( ( key ) => {
         if ( customFrame[ key ] ) {
             // check if device object.
-            if ( typeof customFrame[ key ] === 'object' ) {
-                Object.keys( customFrame[ key ] ).map( ( keyDevice ) => {
+            if ( 'object' === typeof customFrame[ key ] ) {
+                Object.keys( customFrame[ key ] ).forEach( ( keyDevice ) => {
                     if ( customFrame[ key ][ keyDevice ] ) {
                         result = merge(
                             result,
@@ -710,7 +708,7 @@ function addEditorCustomStyles( customStyles, props ) {
         }
     } );
 
-    customFrame = Object.keys( result ).length !== 0 ? result : false;
+    customFrame = 0 !== Object.keys( result ).length ? result : false;
 
     if ( customStyles && customFrame ) {
         customStyles = merge( customStyles, customFrame );

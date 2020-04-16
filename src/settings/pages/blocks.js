@@ -2,8 +2,12 @@
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
-import PropTypes from 'prop-types';
 import { debounce } from 'throttle-debounce';
+
+/**
+ * Internal dependencies
+ */
+import Info from '../components/info';
 
 /**
  * WordPress dependencies
@@ -20,11 +24,6 @@ const {
     ToggleControl,
     Tooltip,
 } = wp.components;
-
-/**
- * Internal dependencies
- */
-import Info from '../components/info';
 
 const { GHOSTKIT } = window;
 
@@ -63,107 +62,18 @@ export default class Blocks extends Component {
         } );
 
         this.setState( {
-            activeCategory: activeCategory,
+            activeCategory,
         } );
-    }
-
-    updateDisabledBlocks( newBlocks ) {
-        const allBlocks = merge( {}, this.state.disabledBlocks, newBlocks );
-
-        this.setState( {
-            disabledBlocks: allBlocks,
-        }, () => {
-            this.updateDisabledBlocksDebounce();
-        } );
-    }
-
-    updateDisabledBlocksDebounce() {
-        apiFetch( {
-            path: '/ghostkit/v1/update_disabled_blocks',
-            method: 'POST',
-            data: {
-                blocks: this.state.disabledBlocks,
-            },
-        } )
-            .then( ( result ) => {
-                if ( ! result.success || ! result.response ) {
-                    // eslint-disable-next-line
-                    console.log( result );
-                }
-            } );
-    }
-
-    getBlocksCategories() {
-        const categories = wp.blocks.getCategories();
-
-        // Move Ghost Kit category to the fist place
-        categories.sort( function( x, y ) {
-            if ( x.slug === 'ghostkit' ) {
-                return -1;
-            } else if ( y.slug === 'ghostkit' ) {
-                return 1;
-            }
-            return 0;
-        } );
-
-        return categories;
-    }
-
-    getBlocksFromCategory( category ) {
-        const result = {};
-
-        if ( category ) {
-            const blocks = wp.blocks.getBlockTypes();
-            blocks.forEach( ( block ) => {
-                if (
-                    // blocks from needed category only
-                    block.category === category &&
-
-                    // prevent adding blocks with parent option (fe Grid Column).
-                    ! ( block.parent && block.parent.length ) &&
-
-                    // prevent showing blocks with disabled inserter.
-                    ! (
-                        ( block.supports && typeof block.supports.inserter !== 'undefined' && ! block.supports.inserter )
-                    )
-                ) {
-                    let icon = block.icon.src ? block.icon.src : block.icon;
-
-                    // Prepare icon.
-                    if ( typeof icon === 'function' ) {
-                        icon = wp.element.renderToString( icon() );
-                    } else if ( typeof icon === 'object' ) {
-                        icon = wp.element.renderToString( icon );
-                    } else if ( typeof icon === 'string' ) {
-                        icon = wp.element.createElement( wp.components.Dashicon, { icon: icon } );
-                        icon = wp.element.renderToString( icon );
-                    }
-
-                    result[ block.name ] = {
-                        ...block,
-                        ...{ icon },
-                    };
-                }
-            } );
-        }
-
-        return result;
     }
 
     getDisabledBlock( data ) {
         let result = false;
 
-        if ( typeof this.state.disabledBlocks[ data.name ] !== 'undefined' ) {
+        if ( 'undefined' !== typeof this.state.disabledBlocks[ data.name ] ) {
             result = this.state.disabledBlocks[ data.name ];
         }
 
         return result;
-    }
-
-    setDisabledBlock( data ) {
-        this.updateDisabledBlocks( {
-            [ data.name ]: ! this.getDisabledBlock( data ),
-        } );
     }
 
     setDisabledAllBlocks( disabled ) {
@@ -182,6 +92,12 @@ export default class Blocks extends Component {
         this.updateDisabledBlocks( disabledBlocks );
     }
 
+    setDisabledBlock( data ) {
+        this.updateDisabledBlocks( {
+            [ data.name ]: ! this.getDisabledBlock( data ),
+        } );
+    }
+
     getDisabledCount( blocks ) {
         let result = 0;
 
@@ -192,6 +108,89 @@ export default class Blocks extends Component {
         } );
 
         return result;
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    getBlocksCategories() {
+        const categories = wp.blocks.getCategories();
+
+        // Move Ghost Kit category to the fist place
+        categories.sort( ( x, y ) => {
+            if ( 'ghostkit' === x.slug ) {
+                return -1;
+            } if ( 'ghostkit' === y.slug ) {
+                return 1;
+            }
+            return 0;
+        } );
+
+        return categories;
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    getBlocksFromCategory( category ) {
+        const result = {};
+
+        if ( category ) {
+            const blocks = wp.blocks.getBlockTypes();
+            blocks.forEach( ( block ) => {
+                if (
+                    // blocks from needed category only
+                    block.category === category
+
+                    // prevent adding blocks with parent option (fe Grid Column).
+                    && ! ( block.parent && block.parent.length )
+
+                    // prevent showing blocks with disabled inserter.
+                    && ! (
+                        ( block.supports && 'undefined' !== typeof block.supports.inserter && ! block.supports.inserter )
+                    )
+                ) {
+                    let icon = block.icon.src ? block.icon.src : block.icon;
+
+                    // Prepare icon.
+                    if ( 'function' === typeof icon ) {
+                        icon = wp.element.renderToString( icon() );
+                    } else if ( 'object' === typeof icon ) {
+                        icon = wp.element.renderToString( icon );
+                    } else if ( 'string' === typeof icon ) {
+                        icon = wp.element.createElement( wp.components.Dashicon, { icon } );
+                        icon = wp.element.renderToString( icon );
+                    }
+
+                    result[ block.name ] = {
+                        ...block,
+                        ...{ icon },
+                    };
+                }
+            } );
+        }
+
+        return result;
+    }
+
+    updateDisabledBlocksDebounce() {
+        apiFetch( {
+            path: '/ghostkit/v1/update_disabled_blocks',
+            method: 'POST',
+            data: {
+                blocks: this.state.disabledBlocks,
+            },
+        } )
+            .then( ( result ) => {
+                if ( ! result.success || ! result.response ) {
+                    // eslint-disable-next-line no-console
+                    console.log( result );
+                }
+            } );
+    }
+
+    updateDisabledBlocks( newBlocks ) {
+        this.setState( ( prevState ) => ( {
+            disabledBlocks: merge( {}, prevState.disabledBlocks, newBlocks ),
+        } ), () => {
+            this.updateDisabledBlocksDebounce();
+        } );
     }
 
     render() {
@@ -227,6 +226,7 @@ export default class Blocks extends Component {
                     <h3>
                         <span
                             className="ghostkit-settings-blocks-item-icon"
+                            // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={ { __html: block.icon } }
                         />
                         { block.title }
@@ -260,6 +260,7 @@ export default class Blocks extends Component {
             const disabledCurrentCount = this.getDisabledCount( this.getBlocksFromCategory( cat.slug ) );
             const categoryContent = (
                 <li key={ `tab-${ cat.slug }` }>
+                    { /* eslint-disable-next-line react/button-has-type */ }
                     <button
                         className={
                             classnames(
@@ -319,7 +320,7 @@ export default class Blocks extends Component {
                                     className={
                                         classnames(
                                             'ghostkit-settings-blocks-all-check',
-                                            disabledCount !== 0 && disabledCount !== count ? 'ghostkit-settings-blocks-check-gray' : ''
+                                            0 !== disabledCount && disabledCount !== count ? 'ghostkit-settings-blocks-check-gray' : ''
                                         )
                                     }
                                 >
@@ -350,7 +351,3 @@ export default class Blocks extends Component {
         );
     }
 }
-
-Blocks.propTypes = {
-    data: PropTypes.object,
-};

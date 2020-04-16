@@ -1,6 +1,11 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import metadata from './block.json';
+
 const {
     applyFilters,
 } = wp.hooks;
@@ -10,11 +15,6 @@ const { Component } = wp.element;
 const {
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import metadata from './block.json';
 
 const { name } = metadata;
 

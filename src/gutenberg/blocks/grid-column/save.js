@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import getColClass from './get-col-class';
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const { Component } = wp.element;
@@ -15,12 +21,6 @@ const {
 const {
     InnerBlocks,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import getColClass from './get-col-class';
-import metadata from './block.json';
 
 const { name } = metadata;
 

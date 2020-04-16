@@ -4,6 +4,11 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import getIcon from '../../utils/get-icon';
+
+/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
@@ -14,11 +19,6 @@ const {
     Placeholder,
     SelectControl,
 } = wp.components;
-
-/**
- * Internal dependencies
- */
-import getIcon from '../../utils/get-icon';
 
 const { GHOSTKIT } = window;
 

@@ -1,12 +1,8 @@
 /**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
-/**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+
 import edit from './edit';
 import save from './save';
 import metadata from './block.json';
@@ -15,6 +11,11 @@ import transforms from './transforms';
 const { name } = metadata;
 
 export { metadata, name };
+
+/**
+ * WordPress dependencies
+ */
+const { __ } = wp.i18n;
 
 export const settings = {
     ...metadata,

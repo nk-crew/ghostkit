@@ -21,30 +21,23 @@ const cache = {};
  * Component Class.
  */
 class GistFilesSelect extends Component {
-    constructor() {
-        super( ...arguments );
+    constructor( props ) {
+        super( props );
+
         this.state = {
-            error: null,
-            isLoaded: false,
             items: [ '' ],
         };
+
         this.updateState = this.updateState.bind( this );
         this.onUpdate = this.onUpdate.bind( this );
     }
+
     componentDidMount() {
         this.onUpdate();
     }
+
     componentDidUpdate() {
         this.onUpdate();
-    }
-    updateState( data ) {
-        const {
-            items,
-        } = this.state;
-
-        if ( items.toString() !== data.items.toString() ) {
-            this.setState( data );
-        }
     }
 
     onUpdate() {
@@ -53,7 +46,7 @@ class GistFilesSelect extends Component {
 
         const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( url );
 
-        if ( match && typeof match[ 1 ] !== 'undefined' ) {
+        if ( match && 'undefined' !== typeof match[ 1 ] ) {
             url = `https://gist.github.com/${ match[ 1 ].split( '#' )[ 0 ] }.json`;
         } else {
             return;
@@ -61,14 +54,15 @@ class GistFilesSelect extends Component {
 
         // request the json version of this gist
         jQuery.ajax( {
-            url: url,
+            url,
             // data: data,
             dataType: 'jsonp',
             timeout: 20000,
+            // eslint-disable-next-line consistent-return
             beforeSend() {
                 if ( cache[ url ] ) {
                     // loading the response from cache and preventing the ajax call
-                    cache[ url ].then( function( response ) {
+                    cache[ url ].then( ( response ) => {
                         updateState( {
                             items: [ '' ].concat( response.files ),
                         } );
@@ -99,6 +93,16 @@ class GistFilesSelect extends Component {
         } );
     }
 
+    updateState( data ) {
+        const {
+            items,
+        } = this.state;
+
+        if ( items.toString() !== data.items.toString() ) {
+            this.setState( data );
+        }
+    }
+
     render() {
         const {
             label,
@@ -115,7 +119,7 @@ class GistFilesSelect extends Component {
         return (
             isToolbar ? (
                 <DropdownMenu
-                    icon={ 'media-default' }
+                    icon="media-default"
                     label={ label }
                     controls={ items.map( ( item ) => ( {
                         title: item || __( 'Show all files', '@@text_domain' ),

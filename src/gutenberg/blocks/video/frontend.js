@@ -49,8 +49,8 @@ $( window ).on( 'DOMContentLoaded load resize orientationchange', () => {
 /**
  * Prepare Videos.
  */
-$doc.on( 'initBlocks.ghostkit', function( e, self ) {
-    if ( typeof window.VideoWorker === 'undefined' ) {
+$doc.on( 'initBlocks.ghostkit', ( e, self ) => {
+    if ( 'undefined' === typeof window.VideoWorker ) {
         return;
     }
 
@@ -61,8 +61,8 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
         const url = $this.attr( 'data-video' );
         const clickAction = $this.attr( 'data-click-action' );
 
-        const videoAutoplay = $this.attr( 'data-video-autoplay' ) === 'true';
-        const videoAutopause = $this.attr( 'data-video-autopause' ) === 'true';
+        const videoAutoplay = 'true' === $this.attr( 'data-video-autoplay' );
+        const videoAutopause = 'true' === $this.attr( 'data-video-autopause' );
 
         let fullscreenCloseIcon = $this.find( '.ghostkit-video-fullscreen-close-icon' );
         if ( fullscreenCloseIcon.length ) {
@@ -100,7 +100,7 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
         const api = new window.VideoWorker( url, {
             autoplay: 0,
             loop: 0,
-            mute: mute,
+            mute,
             volume: parseFloat( $this.attr( 'data-video-volume' ) ) || 0,
             showContols: 1,
         } );
@@ -111,7 +111,7 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
             let isPlaying = false;
 
             // add play event
-            $this.on( 'click', function() {
+            $this.on( 'click', () => {
                 if ( clicked ) {
                     return;
                 }
@@ -173,7 +173,7 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
 
             // set thumb
             if ( ! $poster.length ) {
-                api.getImageURL( function( imgSrc ) {
+                api.getImageURL( ( imgSrc ) => {
                     $poster = $( `<div class="ghostkit-video-poster"><img src="${ imgSrc }" alt=""></div>` );
                     $this.append( $poster );
                 } );

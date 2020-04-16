@@ -4,6 +4,13 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import IconPicker from '../../components/icon-picker';
+
+import metadata from './block.json';
+
+/**
  * WordPress dependencies
  */
 const {
@@ -15,12 +22,6 @@ const { Component } = wp.element;
 const {
     RichText,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import IconPicker from '../../components/icon-picker';
-import metadata from './block.json';
 
 const { name } = metadata;
 
@@ -73,7 +74,7 @@ class BlockSave extends Component {
                 <IconPicker.Render
                     name={ icon }
                     tag="span"
-                    className={ `ghostkit-button-icon ghostkit-button-icon-${ iconPosition === 'right' ? 'right' : 'left' }` }
+                    className={ `ghostkit-button-icon ghostkit-button-icon-${ 'right' === iconPosition ? 'right' : 'left' }` }
                     key="button-icon"
                 />
             );
@@ -85,7 +86,7 @@ class BlockSave extends Component {
             Tag = url ? 'a' : 'span';
         }
 
-        return Tag === 'a' ? (
+        return 'a' === Tag ? (
             <Tag className={ className } href={ url } target={ target || false } rel={ rel || false }>
                 { result }
             </Tag>

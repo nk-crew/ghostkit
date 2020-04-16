@@ -1,6 +1,11 @@
 /**
  * WordPress dependencies
  */
+/**
+ * Internal dependencies
+ */
+import { getActiveClass, replaceClass } from '../../utils/classes-replacer';
+
 const { __ } = wp.i18n;
 
 const {
@@ -27,11 +32,6 @@ const {
     SelectControl,
 } = wp.components;
 
-/**
- * Internal dependencies
- */
-import { getActiveClass, replaceClass } from '../../utils/classes-replacer';
-
 const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
@@ -44,7 +44,7 @@ let initialOpenPanel = false;
  * @return {String} slug.
  */
 function getVariantSlug( name ) {
-    let result = name.split( '/' )[ 1 ].replace( /\-/g, '_' );
+    let result = name.split( '/' )[ 1 ].replace( /-/g, '_' );
     if ( 'tabs_v2' === result ) {
         result = 'tabs';
     } else if ( 'button' === result ) {
@@ -88,7 +88,7 @@ function getVariantClassNamePrefix( name ) {
 const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) => {
     class GhostKitVariantsWrapper extends Component {
         render() {
-            const props = this.props;
+            const { props } = this;
 
             if ( ! /^ghostkit/.test( props.name ) || ! hasBlockSupport( props.name, 'customClassName', true ) ) {
                 return <OriginalComponent { ...props } />;
@@ -105,7 +105,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
             const availableVariants = GHOSTKIT.getVariants( getVariantSlug( props.name ) );
 
-            if ( Object.keys( availableVariants ).length < 2 ) {
+            if ( 2 > Object.keys( availableVariants ).length ) {
                 return <OriginalComponent { ...props } />;
             }
 
@@ -130,7 +130,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                                     label: availableVariants[ key ].title,
                                 } ) ) }
                                 onChange={ ( value ) => {
-                                    const newClassName = replaceClass( className, variantClassNamePrefix, value === 'default' ? '' : value );
+                                    const newClassName = replaceClass( className, variantClassNamePrefix, 'default' === value ? '' : value );
 
                                     setAttributes( {
                                         className: newClassName,

@@ -10,8 +10,8 @@ const $doc = $( document );
 /**
  * Prepare Carousels.
  */
-$doc.on( 'initBlocks.ghostkit', function( e, self ) {
-    if ( typeof window.Swiper === 'undefined' ) {
+$doc.on( 'initBlocks.ghostkit', ( e, self ) => {
+    if ( 'undefined' === typeof window.Swiper ) {
         return;
     }
 
@@ -30,21 +30,21 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
                 crossFade: true,
             },
             spaceBetween: parseFloat( $carousel.attr( 'data-gap' ) ) || 0,
-            centeredSlides: $carousel.attr( 'data-centered-slides' ) === 'true',
-            freeMode: $carousel.attr( 'data-free-scroll' ) === 'true',
-            loop: $carousel.attr( 'data-loop' ) === 'true',
-            autoplay: parseFloat( $carousel.attr( 'data-autoplay' ) ) > 0 && {
+            centeredSlides: 'true' === $carousel.attr( 'data-centered-slides' ),
+            freeMode: 'true' === $carousel.attr( 'data-free-scroll' ),
+            loop: 'true' === $carousel.attr( 'data-loop' ),
+            autoplay: 0 < parseFloat( $carousel.attr( 'data-autoplay' ) ) && {
                 delay: parseFloat( $carousel.attr( 'data-autoplay' ) ) * 1000,
                 disableOnInteraction: false,
             },
-            navigation: $carousel.attr( 'data-show-arrows' ) === 'true' && {
+            navigation: 'true' === $carousel.attr( 'data-show-arrows' ) && {
                 nextEl: '.ghostkit-carousel-arrow-next',
                 prevEl: '.ghostkit-carousel-arrow-prev',
             },
-            pagination: $carousel.attr( 'data-show-bullets' ) === 'true' && {
+            pagination: 'true' === $carousel.attr( 'data-show-bullets' ) && {
                 el: '.ghostkit-carousel-bullets',
                 clickable: true,
-                dynamicBullets: $carousel.attr( 'data-dynamic-bullets' ) === 'true',
+                dynamicBullets: 'true' === $carousel.attr( 'data-dynamic-bullets' ),
             },
             slidesPerView: 1,
             keyboard: true,
@@ -89,12 +89,12 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
 
         // calculate responsive.
         const breakPoints = {};
-        if ( ! isNaN( slidesPerView ) ) {
+        if ( ! Number.isNaN( slidesPerView ) ) {
             let count = slidesPerView;
             let currentPoint = Math.min( self.screenSizes.length - 1, count - 1 );
 
-            for ( ; currentPoint >= 0; currentPoint-- ) {
-                if ( count > 0 && typeof self.screenSizes[ currentPoint ] !== 'undefined' ) {
+            for ( ; 0 <= currentPoint; currentPoint -= 1 ) {
+                if ( 0 < count && 'undefined' !== typeof self.screenSizes[ currentPoint ] ) {
                     breakPoints[ self.screenSizes[ currentPoint ] + 1 ] = {
                         slidesPerView: count,
                     };
@@ -111,6 +111,7 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
         options.breakpoints.breakpointsInverse = true;
 
         // init swiper
+        // eslint-disable-next-line no-new
         new window.Swiper( $carousel[ 0 ], options );
     } );
 
@@ -121,7 +122,7 @@ $doc.on( 'initBlocks.ghostkit', function( e, self ) {
  * Re-create slides duplicates.
  * https://github.com/nolimits4web/swiper/issues/2629
  */
-$doc.on( 'activateTab.ghostkit afterActivateAccordionItem.ghostkit', function( e, self, $item ) {
+$doc.on( 'activateTab.ghostkit afterActivateAccordionItem.ghostkit', ( e, self, $item ) => {
     const $carousels = $item.parents( '.ghostkit-carousel-ready' );
 
     $carousels.each( function() {

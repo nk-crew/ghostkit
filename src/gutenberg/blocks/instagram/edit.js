@@ -4,6 +4,12 @@
 import classnames from 'classnames/dedupe';
 
 /**
+ * Internal dependencies
+ */
+import GapSettings from '../../components/gap-settings';
+import getIcon from '../../utils/get-icon';
+
+/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
@@ -30,12 +36,6 @@ const {
 const {
     InspectorControls,
 } = wp.blockEditor;
-
-/**
- * Internal dependencies
- */
-import GapSettings from '../../components/gap-settings';
-import getIcon from '../../utils/get-icon';
 
 /**
  * Block Edit Class.
@@ -162,7 +162,13 @@ class BlockEdit extends Component {
                             value={ accessToken }
                             onChange={ ( value ) => setAttributes( { accessToken: value } ) }
                         />
-                        <p><em>{ __( 'A valid Access Token is required to use Instagram feed. How to get token', '@@text_domain' ) } <a href="http://instagram.pixelunion.net/" target="_blank" rel="noopener noreferrer">http://instagram.pixelunion.net/</a></em></p>
+                        <p>
+                            <em>
+                                { __( 'A valid Access Token is required to use Instagram feed. How to get token', '@@text_domain' ) }
+                                { ' ' }
+                                <a href="http://instagram.pixelunion.net/" target="_blank" rel="noopener noreferrer">http://instagram.pixelunion.net/</a>
+                            </em>
+                        </p>
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className }>
@@ -182,13 +188,19 @@ class BlockEdit extends Component {
                                 { showProfileStats && instagramProfile.data.counts ? (
                                     <div className="ghostkit-instagram-profile-stats">
                                         <div>
-                                            <strong>{ instagramProfile.data.counts.media }</strong> <span>{ __( 'Posts', '@@text_domain' ) }</span>
+                                            <strong>{ instagramProfile.data.counts.media }</strong>
+                                            { ' ' }
+                                            <span>{ __( 'Posts', '@@text_domain' ) }</span>
                                         </div>
                                         <div>
-                                            <strong>{ instagramProfile.data.counts.followed_by }</strong> <span>{ __( 'Followers', '@@text_domain' ) }</span>
+                                            <strong>{ instagramProfile.data.counts.followed_by }</strong>
+                                            { ' ' }
+                                            <span>{ __( 'Followers', '@@text_domain' ) }</span>
                                         </div>
                                         <div>
-                                            <strong>{ instagramProfile.data.counts.follows }</strong> <span>{ __( 'Following', '@@text_domain' ) }</span>
+                                            <strong>{ instagramProfile.data.counts.follows }</strong>
+                                            { ' ' }
+                                            <span>{ __( 'Following', '@@text_domain' ) }</span>
                                         </div>
                                     </div>
                                 ) : '' }
@@ -209,18 +221,22 @@ class BlockEdit extends Component {
                     { accessToken && instagramFeed && instagramFeed.data ? (
                         <div className="ghostkit-instagram-items">
                             {
-                                instagramFeed.data.map( ( item, i ) => (
-                                    <div className="ghostkit-instagram-item" key={ i }>
-                                        <span>
-                                            <img
-                                                src={ item.images.standard_resolution.url }
-                                                width={ item.images.standard_resolution.width }
-                                                height={ item.images.standard_resolution.height }
-                                                alt={ item.caption || '' }
-                                            />
-                                        </span>
-                                    </div>
-                                ) )
+                                instagramFeed.data.map( ( item, i ) => {
+                                    const itemName = `instagram-item-${ i }`;
+
+                                    return (
+                                        <div className="ghostkit-instagram-item" key={ itemName }>
+                                            <span>
+                                                <img
+                                                    src={ item.images.standard_resolution.url }
+                                                    width={ item.images.standard_resolution.width }
+                                                    height={ item.images.standard_resolution.height }
+                                                    alt={ item.caption || '' }
+                                                />
+                                            </span>
+                                        </div>
+                                    );
+                                } )
                             }
                         </div>
                     ) : '' }
