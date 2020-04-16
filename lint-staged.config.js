@@ -2,9 +2,10 @@
 const micromatch = require( 'micromatch' );
 
 function excludeVendor( lint ) {
-    return ( filenames ) => (
-        `${ lint } ${ micromatch( filenames, '!src/**/vendor/**/*' ).join( ' ' ) }`
-    );
+    return ( filenames ) => {
+        const files = micromatch( filenames, '!**/vendor/**' );
+        return files.length ? `${ lint } ${ files.join( ' ' ) }` : [];
+    };
 }
 
 module.exports = {
