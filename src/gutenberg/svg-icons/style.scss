@@ -12,24 +12,39 @@ svg.ghostkit-svg-icon {
     vertical-align: -.125em;
 }
 
-// loading spinner
-$color: rgba(#000, .3) !default;
-$color_inner: #000 !default;
-$size: 20px !default;
-$weight: 2px !default;
-$speed: .3s !default;
-
+// loading spinner.
 .ghostkit-icon-spinner,
 .ghostkit-video-spinner {
+    --gkt-icon-spinner__color: currentColor;
+    --gkt-icon-spinner__size: 20px;
+    --gkt-icon-spinner__border-size: 2px;
+    --gkt-icon-spinner__speed: .3s;
+    --gkt-icon-spinner--background__color: var(--gkt-icon-spinner__color);
+    --gkt-icon-spinner--background__opacity: .3;
+
+    position: relative;
     display: block;
     box-sizing: border-box;
-    width: $size;
-    height: $size;
+    width: var(--gkt-icon-spinner__size);
+    height: var(--gkt-icon-spinner__size);
     text-indent: -9999em;
-    border: $weight solid $color;
-    border-left: $weight solid $color_inner;
+    border: var(--gkt-icon-spinner__border-size) solid transparent;
+    border-left: var(--gkt-icon-spinner__border-size) solid var(--gkt-icon-spinner__color);
     border-radius: 50%;
-    animation: ghostkit-icon-spinner $speed infinite linear;
+    animation: ghostkit-icon-spinner var(--gkt-icon-spinner__speed) infinite linear;
+
+    &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: calc(-1 * var(--gkt-icon-spinner__border-size));
+        right: calc(-1 * var(--gkt-icon-spinner__border-size));
+        bottom: calc(-1 * var(--gkt-icon-spinner__border-size));
+        left: calc(-1 * var(--gkt-icon-spinner__border-size));
+        border: var(--gkt-icon-spinner__border-size) solid var(--gkt-icon-spinner--background__color);
+        border-radius: 50%;
+        opacity: var(--gkt-icon-spinner--background__opacity);
+    }
 }
 @keyframes ghostkit-icon-spinner {
     100% {
