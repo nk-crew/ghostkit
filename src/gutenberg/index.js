@@ -42,24 +42,33 @@ import './disable-blocks';
  * Internal dependencies
  */
 const {
+    registerBlockCollection,
     updateCategory,
 } = wp.blocks;
 
 /**
  * Add category icon.
  */
-if ( updateCategory ) {
+const categoryIcon = (
+    <GhostKitCategoryIcon
+        style={ {
+            width: '20px',
+            height: '20px',
+            marginLeft: '7px',
+            marginTop: '-1px',
+        } }
+        className="components-panel__icon"
+    />
+);
+
+// Collections.
+if ( 'undefined' !== typeof registerBlockCollection ) {
+    registerBlockCollection( 'ghostkit', {
+        title: 'Ghost Kit',
+        icon: categoryIcon,
+    } );
+} else if ( updateCategory ) {
     updateCategory( 'ghostkit', {
-        icon: (
-            <GhostKitCategoryIcon
-                style={ {
-                    width: '20px',
-                    height: '20px',
-                    marginLeft: '7px',
-                    marginTop: '-1px',
-                } }
-                className="components-panel__icon"
-            />
-        ),
+        icon: categoryIcon,
     } );
 }

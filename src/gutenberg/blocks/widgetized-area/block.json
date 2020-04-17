@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/widgetized-area",
-	"category": "ghostkit",
+	"category": "widgets",
     "supports": {
         "html": false,
         "className": false,

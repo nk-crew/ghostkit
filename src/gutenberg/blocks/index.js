@@ -47,6 +47,7 @@ import * as formFieldHidden from './form/fields/hidden';
 import * as formSubmitButton from './form/fields/submit';
 
 const {
+    registerBlockCollection,
     registerBlockType,
 } = wp.blocks;
 
@@ -100,6 +101,16 @@ window.jQuery( () => {
         formFieldHidden,
         formSubmitButton,
     ].forEach( ( { name, settings } ) => {
-        registerBlockType( name, settings );
+        let { category } = settings;
+
+        // Collections are not supported.
+        if ( 'undefined' === typeof registerBlockCollection ) {
+            category = 'ghostkit';
+        }
+
+        registerBlockType( name, {
+            category,
+            ...settings,
+        } );
     } );
 } );

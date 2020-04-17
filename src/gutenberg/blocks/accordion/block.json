@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/accordion",
-	"category": "ghostkit",
+	"category": "common",
     "supports": {
         "html": false,
         "className": false,

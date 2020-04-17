@@ -1,7 +1,7 @@
 {
 	"name": "ghostkit/carousel-slide",
     "parent": [ "ghostkit/carousel" ],
-	"category": "ghostkit",
+	"category": "layout",
     "supports": {
         "html": false,
         "className": false,

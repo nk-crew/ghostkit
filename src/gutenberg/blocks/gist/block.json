@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/gist",
-	"category": "ghostkit",
+	"category": "formatting",
     "supports": {
         "html": false,
         "className": false,

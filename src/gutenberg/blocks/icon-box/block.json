@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/icon-box",
-	"category": "ghostkit",
+	"category": "layout",
     "supports": {
         "html": false,
         "className": false,

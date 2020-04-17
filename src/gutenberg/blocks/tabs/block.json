@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/tabs-v2",
-	"category": "ghostkit",
+	"category": "common",
     "supports": {
         "html": false,
         "className": false,

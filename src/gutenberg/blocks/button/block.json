@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/button",
-	"category": "ghostkit",
+	"category": "layout",
     "supports": {
         "html": false,
         "className": false,
