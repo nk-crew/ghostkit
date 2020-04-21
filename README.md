@@ -29,8 +29,6 @@ We use `pre-commit` and `pre-push` hooks for Git to lint sources with `phpcs`, `
 
 NPM commands to work with linting:
 
-- `npm run lint` to show `all` lint errors (described below)
-- `npm run lint-fix` to automatically fix some of `all` linters errors (described below)
 - `npm run php-lint` to show `phpcs` errors
 - `npm run php-lint-fix` to automatically fix some of the `phpcs` errors
 - `npm run js-lint` to show `eslint` errors

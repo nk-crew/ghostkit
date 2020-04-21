@@ -4,9 +4,15 @@ const pkg = require( 'json-file' ).read( './package.json' ).data;
 const cfg = {};
 
 // Build Paths.
+cfg.name = 'ghostkit';
 cfg.src = './src';
 cfg.dist_root = './dist';
-cfg.dist = '{dist_root}/ghostkit';
+cfg.dist = '{dist_root}/{name}';
+
+// Browser sync.
+cfg.browser_sync = {
+    proxy: '{name}.local',
+};
 
 // Template variables that will be automatically replaced.
 cfg.template_files_src = '{dist}/**/*.{md,php,js,css,pot,json}';
@@ -19,7 +25,11 @@ cfg.template_files_variables = {
 };
 
 // Copy files.
-cfg.copy_files_src = [ '{src}/**/*', '!{src}/**/*.{js,scss}', '{src}/**/vendor/**/*.{js,scss}' ];
+cfg.copy_files_src = [
+    '{src}/**/*',
+    '!{src}/**/*.{js,scss}',
+    '{src}/**/vendor/**/*.{js,scss}',
+];
 
 // Compile SCSS files.
 cfg.compile_scss_files_src = [
@@ -49,7 +59,7 @@ cfg.zip_files = [
         src_opts: {
             base: '{dist_root}',
         },
-        dist: '{dist_root}/ghostkit.zip',
+        dist: '{dist_root}/{name}.zip',
     },
 ];
 
