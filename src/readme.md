@@ -193,6 +193,13 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.12.2 =
+
+* added Ghost Kit blocks collection (all blocks moved to separate default categories)
+* changed spinner icon to CSS variables and relative color usage
+* changed accordion collapse button color to inherit
+* fixed js error when open typography options and when font doesn't exist
+
 = 2.12.1 =
 
 * added Align option to Form Submit Button
