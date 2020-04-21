@@ -1,0 +1,29 @@
+name: Deploy to WordPress.org
+
+on:
+  push:
+    tags:
+    - "v*"
+  pull_request:
+    tags:
+    - "v*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install NPM and Composer Dependencies
+        run: npm install
+
+      - name: Run Build Task
+        run: npm run build
+
+      - name: WordPress Plugin Deploy
+        uses: nk-o/action-wordpress-plugin-deploy@master
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SOURCE_DIR: dist/ghostkit/
+          SLUG: ghostkit
