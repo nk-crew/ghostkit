@@ -126,7 +126,7 @@ function printFonts( typographyData ) {
     const webfontList = [];
 
     Object.keys( uniqueFonts ).forEach( ( font ) => {
-        if ( isExist( uniqueFonts[ font ].family ) ) {
+        if ( isExist( uniqueFonts[ font ].family ) && fonts[ uniqueFonts[ font ].family ] ) {
             Object.keys( fonts[ uniqueFonts[ font ].family ].fonts ).forEach( ( findFont ) => {
                 if ( fonts[ uniqueFonts[ font ].family ].fonts[ findFont ].name === uniqueFonts[ font ].label ) {
                     const { widths } = fonts[ uniqueFonts[ font ].family ].fonts[ findFont ];
