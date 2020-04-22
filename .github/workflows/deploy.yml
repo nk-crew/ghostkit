@@ -4,9 +4,6 @@ on:
   push:
     tags:
     - "v*"
-  pull_request:
-    tags:
-    - "v*"
 
 jobs:
   deploy:
