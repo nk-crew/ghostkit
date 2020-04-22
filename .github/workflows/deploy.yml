@@ -11,6 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: Disable xDebug - fixes PHP Fatal Error for `i18n make-pot`
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
       - name: Install NPM and Composer Dependencies
         run: npm install
 
