@@ -2,11 +2,9 @@ name: Deploy to WordPress.org
 
 on:
   push:
-    tags:
-    - "v*"
   pull_request:
     tags:
-    - "v*"
+      - "v*"
 
 jobs:
   deploy:
