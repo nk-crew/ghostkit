@@ -14,8 +14,8 @@ jobs:
       - name: Install NPM and Composer Dependencies
         run: npm install
 
-      - name: Run Build Task
-        run: npm run build
+      - name: Run Production Task
+        run: npm run production
 
       - name: WordPress Plugin Deploy
         uses: nk-o/action-wordpress-plugin-deploy@master
