@@ -193,6 +193,10 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.12.3 =
+
+* fixed translation files
+
 = 2.12.2 =
 
 * added Ghost Kit blocks collection (all blocks moved to separate default categories)
