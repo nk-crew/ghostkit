@@ -193,6 +193,10 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.12.4 =
+
+* fixed fonts loading undefined weights
+
 = 2.12.3 =
 
 * fixed translation files
