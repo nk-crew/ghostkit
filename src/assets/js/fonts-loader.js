@@ -1,27 +1,35 @@
-if ( 'undefined' !== typeof window.ghostkitWebfontList ) {
-    const googleFonts = window.ghostkitWebfontList[ 'google-fonts' ];
-    if ( 'undefined' !== typeof googleFonts ) {
-        const googleFamilies = [];
+( () => {
+    const {
+        ghostkitWebfontList,
+    } = window;
 
-        Object.keys( googleFonts ).forEach( ( key ) => {
-            let weights = '';
-
-            if ( 'undefined' !== typeof googleFonts[ key ].widths ) {
-                googleFonts[ key ].widths.forEach( ( keyWeight ) => {
-                    if ( 0 < keyWeight && keyWeight !== ( googleFonts[ key ].widths.length - 1 ) ) {
-                        weights += ',';
-                    }
-                    weights += googleFonts[ key ].widths[ keyWeight ];
-                } );
-            }
-
-            googleFamilies.push( `${ key }:${ weights }` );
-        } );
-
-        window.WebFont.load( {
-            google: {
-                families: googleFamilies,
-            },
-        } );
+    if ( 'undefined' === typeof ghostkitWebfontList || 'undefined' === typeof ghostkitWebfontList[ 'google-fonts' ] ) {
+        return;
     }
-}
+
+    const googleFonts = ghostkitWebfontList[ 'google-fonts' ];
+    const googleFamilies = [];
+
+    Object.keys( googleFonts ).forEach( ( key ) => {
+        const data = googleFonts[ key ];
+        const weights = 'undefined' !== typeof data.widths ? data.widths : false;
+        let weightsString = '';
+
+        if ( weights ) {
+            weights.forEach( ( weight ) => {
+                if ( weightsString ) {
+                    weightsString += ',';
+                }
+                weightsString += weight;
+            } );
+        }
+
+        googleFamilies.push( `${ key }:${ weightsString }` );
+    } );
+
+    window.WebFont.load( {
+        google: {
+            families: googleFamilies,
+        },
+    } );
+} )();
