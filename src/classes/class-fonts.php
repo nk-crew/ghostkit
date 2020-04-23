@@ -250,9 +250,10 @@ class GhostKit_Fonts {
                             if ( isset( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'] ) &&
                                 ! empty( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'] ) &&
                                 is_array( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'] ) ) {
-                                $weights = array_unique( array_merge_recursive( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'], $weights ) );
+                                $weights = array_values( array_unique( array_merge_recursive( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'], $weights ) ) );
                             }
                         }
+
                         $webfont_list[ $font['family'] ][ $font['label'] ] = array(
                             'widths'   => $weights,
                             'category' => $category,
