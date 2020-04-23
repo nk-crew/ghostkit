@@ -193,6 +193,10 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.12.5 =
+
+* fixed conflict with `additional_font_weights` attribute, used in custom themes
+
 = 2.12.4 =
 
 * fixed fonts loading undefined weights
