@@ -28,9 +28,8 @@ class GhostKit_Fonts {
      */
     public function enqueue_all_fonts_assets() {
         $fonts = $this->get_font_loader_list();
-        $load  = is_admin() || ! empty( $fonts );
 
-        if ( $load ) {
+        if ( is_admin() || ! empty( $fonts ) ) {
             wp_enqueue_script( 'webfontloader', ghostkit()->plugin_url . 'assets/vendor/webfontloader/webfontloader.js', array(), '1.6.28', false );
             wp_enqueue_script( 'ghostkit-fonts-loader', ghostkit()->plugin_url . 'assets/js/fonts-loader.min.js', array( 'webfontloader' ), '@@plugin_version', false );
             wp_localize_script( 'ghostkit-fonts-loader', 'ghostkitWebfontList', $fonts );
@@ -67,7 +66,7 @@ class GhostKit_Fonts {
         if ( ! empty( $default_typography ) ) {
             // Global Typography.
             $global_typography = get_option( 'ghostkit_typography', array() );
-            if ( $global_typography && isset( $global_typography['ghostkit_typography'] ) && $global_typography['ghostkit_typography'] ) {
+            if ( isset( $global_typography['ghostkit_typography'] ) && $global_typography['ghostkit_typography'] ) {
                 $global_typography = json_decode( $global_typography['ghostkit_typography'], true );
             }
             if ( ! is_array( $global_typography ) ) {
@@ -118,7 +117,6 @@ class GhostKit_Fonts {
 
                 // Global data.
                 if (
-                    isset( $global_typography[ $key ] ) &&
                     isset( $global_typography[ $key ]['fontFamily'] ) &&
                     ! empty( $global_typography[ $key ]['fontFamily'] ) &&
                     isset( $global_typography[ $key ]['fontFamilyCategory'] ) &&
@@ -139,7 +137,6 @@ class GhostKit_Fonts {
 
                 // Meta data.
                 if (
-                    isset( $meta_typography[ $key ] ) &&
                     isset( $meta_typography[ $key ]['fontFamily'] ) &&
                     ! empty( $meta_typography[ $key ]['fontFamily'] ) &&
                     isset( $meta_typography[ $key ]['fontFamilyCategory'] ) &&
@@ -246,12 +243,12 @@ class GhostKit_Fonts {
                             }
                         }
 
-                        if ( isset( $webfont_list[ $font['family'] ][ $font['label'] ] ) ) {
-                            if ( isset( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'] ) &&
-                                ! empty( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'] ) &&
-                                is_array( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'] ) ) {
-                                $weights = array_values( array_unique( array_merge_recursive( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'], $weights ) ) );
-                            }
+                        if (
+                            isset( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'] ) &&
+                            ! empty( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'] ) &&
+                            is_array( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'] )
+                        ) {
+                            $weights = array_values( array_unique( array_merge_recursive( $webfont_list[ $font['family'] ][ $font['label'] ]['widths'], $weights ) ) );
                         }
 
                         $webfont_list[ $font['family'] ][ $font['label'] ] = array(
@@ -281,9 +278,9 @@ class GhostKit_Fonts {
                 array(
                     'name'     => 'Default Site Font',
                     'widths'   => array(
-                        0 => '',
-                        1 => '400',
-                        2 => '700',
+                        '',
+                        '400',
+                        '700',
                     ),
                     'category' => 'sans-serif',
                 ),
