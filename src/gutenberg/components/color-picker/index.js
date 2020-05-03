@@ -26,6 +26,16 @@ const {
  * Component Class
  */
 export default class ColorPicker extends Component {
+    constructor( ...args ) {
+        super( ...args );
+
+        // These states used to fix components re-rendering
+        this.state = {
+            keyForPalette: this.props.value,
+            keyForPicker: this.props.value,
+        };
+    }
+
     render() {
         const {
             value,
@@ -76,8 +86,13 @@ export default class ColorPicker extends Component {
                                     }
 
                                     onChange( colorString || '' );
+
+                                    this.setState( {
+                                        keyForPalette: colorString,
+                                    } );
                                 } }
                                 disableAlpha={ ! alpha }
+                                key={ this.state.keyForPicker }
                             />
                             { colorPalette ? (
                                 <BaseControl
@@ -86,8 +101,15 @@ export default class ColorPicker extends Component {
                                 >
                                     <ColorPalette
                                         value={ value }
-                                        onChange={ ( color ) => onChange( color || '' ) }
+                                        onChange={ ( color ) => {
+                                            onChange( color || '' );
+
+                                            this.setState( {
+                                                keyForPicker: color,
+                                            } );
+                                        } }
                                         disableCustomColors
+                                        key={ this.state.keyForPalette }
                                     />
                                 </BaseControl>
                             ) : '' }
