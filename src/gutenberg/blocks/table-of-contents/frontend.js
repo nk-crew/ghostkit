@@ -22,18 +22,19 @@ $doc.on( 'click', '.ghostkit-toc a', ( evt ) => {
         return;
     }
 
-    let scrollTop = offset.top;
-
     const $adminBar = $( '#wpadminbar' );
+    let { top } = offset;
 
-    if ( $adminBar.length ) {
-        if ( 'absolute' !== $adminBar.css( 'position' ) ) {
-            scrollTop -= $adminBar.outerHeight();
-        }
+    // Admin bar offset.
+    if ( $adminBar.length && 'fixed' === $adminBar.css( 'position' ) ) {
+        top -= $adminBar.outerHeight();
     }
 
+    // Limit max offset.
+    top = Math.max( 0, top );
+
     window.scrollTo( {
-        top: scrollTop,
+        top,
         behavior: 'smooth',
     } );
 } );
