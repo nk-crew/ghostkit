@@ -32,7 +32,8 @@ $doc.on( 'click', '.ghostkit-toc a', ( evt ) => {
         }
     }
 
-    $( 'body, html' ).stop().animate( {
-        scrollTop,
-    }, 350 );
+    window.scrollTo( {
+        top: scrollTop,
+        behavior: 'smooth',
+    } );
 } );
