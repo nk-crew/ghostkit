@@ -112,7 +112,8 @@ function getCurrentDisplay( className, screen ) {
     if ( ! screen || 'all' === screen ) {
         if ( hasClass( className, 'ghostkit-d-none' ) ) {
             return 'none';
-        } if ( hasClass( className, 'ghostkit-d-block' ) ) {
+        }
+        if ( hasClass( className, 'ghostkit-d-block' ) ) {
             return 'block';
         }
     }

@@ -6,7 +6,10 @@
  */
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
-import { hasClass } from '../../utils/classes-replacer';
+import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import {
+    getActiveClass, replaceClass, addClass, removeClass, hasClass,
+} from '../../utils/classes-replacer';
 
 const { merge } = window.lodash;
 
@@ -33,7 +36,12 @@ const { InspectorControls } = wp.blockEditor;
 
 const {
     PanelBody,
+    RangeControl,
 } = wp.components;
+
+const {
+    ghostkitVariables,
+} = window;
 
 /**
  * Register additional list styles.
@@ -80,6 +88,118 @@ function addAttribute( blockSettings, name ) {
     return blockSettings;
 }
 
+const COLUMNS_COUNT_MAX = 6;
+
+/**
+ * Get current columns count for selected screen size.
+ *
+ * @param {String} className - block className.
+ * @param {String} screen - name of screen size.
+ *
+ * @returns {String} columns value.
+ */
+function getCurrentColumns( className, screen ) {
+    if ( ! screen || 'all' === screen ) {
+        for ( let k = 1; COLUMNS_COUNT_MAX >= k; k += 1 ) {
+            if ( hasClass( className, `ghostkit-list-columns-${ k }` ) ) {
+                return `${ k }`;
+            }
+        }
+    }
+
+    return getActiveClass( className, `ghostkit-list-columns-${ screen }`, true );
+}
+
+/**
+ * List Columns
+ */
+class GhostKitListColumns extends Component {
+    constructor( props ) {
+        super( props );
+
+        this.updateColumns = this.updateColumns.bind( this );
+    }
+
+    /**
+     * Update columns count class.
+     *
+     * @param {String} screen - name of screen size.
+     * @param {String} val - value for columns count.
+     */
+    updateColumns( screen, val ) {
+        const {
+            attributes,
+            setAttributes,
+        } = this.props;
+
+        const {
+            className,
+        } = attributes;
+
+        let newClassName = className;
+
+        if ( screen && 'all' !== screen ) {
+            newClassName = replaceClass( newClassName, `ghostkit-list-columns-${ screen }`, val );
+        } else {
+            for ( let k = 1; COLUMNS_COUNT_MAX >= k; k += 1 ) {
+                newClassName = removeClass( newClassName, `ghostkit-list-columns-${ k }` );
+            }
+
+            if ( val ) {
+                newClassName = addClass( newClassName, `ghostkit-list-columns-${ val }` );
+            }
+        }
+
+        setAttributes( {
+            className: newClassName,
+        } );
+    }
+
+    render() {
+        const {
+            attributes,
+        } = this.props;
+
+        const {
+            className,
+        } = attributes;
+
+        const filledTabs = {};
+        if ( ghostkitVariables && ghostkitVariables.media_sizes && Object.keys( ghostkitVariables.media_sizes ).length ) {
+            [
+                'all',
+                ...Object.keys( ghostkitVariables.media_sizes ),
+            ].forEach( ( media ) => {
+                filledTabs[ media ] = !! getCurrentColumns( className, media );
+            } );
+        }
+
+        // add new display controls.
+        return (
+            <InspectorControls>
+                <PanelBody
+                    title={ __( 'Columns Settings', '@@text_domain' ) }
+                    initialOpen
+                >
+                    <ResponsiveTabPanel filledTabs={ filledTabs }>
+                        {
+                            ( tabData ) => (
+                                <RangeControl
+                                    label={ __( 'Columns Count', '@@text_domain' ) }
+                                    value={ parseInt( getCurrentColumns( className, tabData.name ), 10 ) }
+                                    onChange={ ( value ) => this.updateColumns( tabData.name, value ) }
+                                    min={ 1 }
+                                    max={ COLUMNS_COUNT_MAX }
+                                />
+                            )
+                        }
+                    </ResponsiveTabPanel>
+                </PanelBody>
+            </InspectorControls>
+        );
+    }
+}
+
 /**
  * Override the default edit UI to include a new block inspector control for
  * assigning the custom display if needed.
@@ -105,7 +225,12 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
             } = attributes;
 
             if ( 'core/list' !== props.name || ! hasClass( className, 'is-style-icon' ) ) {
-                return <OriginalComponent { ...props } />;
+                return (
+                    <Fragment>
+                        <OriginalComponent { ...props } />
+                        <GhostKitListColumns { ...props } />
+                    </Fragment>
+                );
             }
 
             // add new display controls.
@@ -115,9 +240,10 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                         { ...props }
                         setState={ this.setState }
                     />
+                    <GhostKitListColumns { ...props } />
                     <InspectorControls>
                         <PanelBody
-                            title={ __( 'Icon list settings', '@@text_domain' ) }
+                            title={ __( 'Icon Settings', '@@text_domain' ) }
                             initialOpen
                         >
                             <IconPicker

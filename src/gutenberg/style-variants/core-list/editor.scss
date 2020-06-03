@@ -136,4 +136,20 @@
             }
         }
     }
+
+    /**
+    * Columns.
+    */
+    $list_columns_max: 6 !default;
+    @each $breakpoint in map-keys($grid-breakpoints) {
+        @include media-breakpoint-down($breakpoint) {
+            $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+            @for $i from 1 through $list_columns_max {
+                .ghostkit-list-columns#{$infix}-#{ $i } {
+                    column-count: $i;
+                }
+            }
+        }
+    }
 }
