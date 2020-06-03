@@ -224,7 +224,11 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                 className,
             } = attributes;
 
-            if ( 'core/list' !== props.name || ! hasClass( className, 'is-style-icon' ) ) {
+            if ( 'core/list' !== props.name ) {
+                return <OriginalComponent { ...props } />;
+            }
+
+            if ( ! hasClass( className, 'is-style-icon' ) ) {
                 return (
                     <Fragment>
                         <OriginalComponent { ...props } />
