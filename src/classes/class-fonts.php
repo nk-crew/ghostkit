@@ -299,6 +299,9 @@ class GhostKit_Fonts {
     public function add_google_fonts( $fonts ) {
         $result = get_transient( 'ghostkit_google_fonts_list' );
 
+        // Get new fonts:
+        // https://developers.google.com/fonts/docs/developer_api?apix_params=%7B%22alt%22%3A%22json%22%2C%22fields%22%3A%22items(family%2Ckind%2Ccategory%2Cvariants%2Csubsets%2Cversion%2ClastModified)%22%2C%22prettyPrint%22%3Afalse%7D .
+
         if ( ! $result ) {
             $result       = array();
             $fonts_json   = file_get_contents( ghostkit()->plugin_path . 'classes/google-fonts/webfonts.json' ); // phpcs:ignore
