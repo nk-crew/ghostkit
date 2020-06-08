@@ -1,0 +1,14 @@
+{
+	"name": "ghostkit/markdown",
+	"category": "formatting",
+    "supports": {
+        "html": false,
+        "className": true,
+        "anchor": false
+    },
+    "attributes": {
+        "content": {
+            "type": "string"
+        }
+    }
+}

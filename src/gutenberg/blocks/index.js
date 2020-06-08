@@ -31,6 +31,7 @@ import * as googleMaps from './google-maps';
 import * as widgetizedArea from './widgetized-area';
 import * as instagram from './instagram';
 import * as twitter from './twitter';
+import * as markdown from './markdown';
 import * as form from './form';
 import * as formFieldText from './form/fields/text';
 import * as formFieldEmail from './form/fields/email';
@@ -82,6 +83,7 @@ window.jQuery( () => {
         toc,
         twitter,
         instagram,
+        markdown,
         googleMaps,
         gist,
         changelog,
