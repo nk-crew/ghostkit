@@ -15,7 +15,7 @@ const { __ } = wp.i18n;
 
 const { Component, createRef } = wp.element;
 
-const { Toolbar, ToolbarItem, ToolbarButton } = wp.components;
+const { Toolbar } = wp.components;
 
 const { BlockControls, PlainText } = wp.blockEditor;
 

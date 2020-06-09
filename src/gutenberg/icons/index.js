@@ -17,6 +17,7 @@ import blockGridColumn from './block-grid-column.svg';
 import blockIconBox from './block-icon-box.svg';
 import blockInstagram from './block-instagram.svg';
 import blockMarkdown from './block-markdown.svg';
+import blockGif from './block-gif.svg';
 import blockPricingTable from './block-pricing.svg';
 import blockProgress from './block-progress.svg';
 import blockTabs from './block-tabs.svg';
@@ -106,6 +107,7 @@ export default {
     'block-icon-box': blockIconBox,
     'block-instagram': blockInstagram,
     'block-markdown': blockMarkdown,
+    'block-gif': blockGif,
     'block-pricing-table': blockPricingTable,
     'block-progress': blockProgress,
     'block-tabs': blockTabs,
