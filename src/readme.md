@@ -80,11 +80,13 @@ See demo page with content formatting <https://ghostkit.io/content-formatting/>
 * [**Testimonial**](https://ghostkit.io/blocks/testimonial/). Show how your users love your products and what saying
 * [**Twitter**](https://ghostkit.io/blocks/twitter/). Show Twitter feed and user data
 * [**Instagram**](https://ghostkit.io/blocks/instagram/). Show Instagram feed and user data
+* [**GIF**](https://ghostkit.io/blocks/gif/). Search for and insert an animated image from Giphy
 * [**Contact Form**](https://ghostkit.io/blocks/contact-form/). Add contact form to your page with reCaptcha
 * [**Google Maps**](https://ghostkit.io/blocks/google-maps/). Show maps with custom styles, markers and settings
 * [**GitHub Gist**](https://ghostkit.io/blocks/github-gist/). Embed code parts form GitHub Gist to your site or documentation
 * [**Changelog**](https://ghostkit.io/blocks/changelog/). Show the changes log of your product
 * [**Table of Contents**](https://ghostkit.io/blocks/table-of-contents/). Automatically generate a table of contents by parsing page headers in content
+* **Markdown**. Lightweight markup language with plain-text-formatting syntax
 * **Widgetized Area**. Select registered sidebars and put it in any place
 
 ### Extensions ##
@@ -192,6 +194,15 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.13.0 =
+
+* added GIF block
+* added Markdown block
+* added list columns settings to default `core/list` block
+* updated Google Fonts list
+* changed TOC block smooth scroll script native browser `window.scrollTo`
+* fixed color picker component correct re-rendering picker and palette
 
 = 2.12.5 =
 
