@@ -27,6 +27,7 @@ const {
     ToggleControl,
     Placeholder,
     Toolbar,
+    ExternalLink,
 } = wp.components;
 
 const {
@@ -243,7 +244,7 @@ class BlockEdit extends Component {
                                     }
                                 } }
                             />
-                            <a href="https://gist.github.com/" target="_blank" rel="noopener noreferrer">{ __( 'Visit GitHub Gist Site', '@@text_domain' ) }</a>
+                            <ExternalLink href="https://gist.github.com/">{ __( 'Visit GitHub Gist Site', '@@text_domain' ) }</ExternalLink>
                         </Placeholder>
                     ) : '' }
                     { url ? (

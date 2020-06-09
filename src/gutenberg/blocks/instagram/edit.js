@@ -23,6 +23,7 @@ const {
     RangeControl,
     ToggleControl,
     Spinner,
+    ExternalLink,
 } = wp.components;
 
 const {
@@ -166,7 +167,7 @@ class BlockEdit extends Component {
                             <em>
                                 { __( 'A valid Access Token is required to use Instagram feed. How to get token', '@@text_domain' ) }
                                 { ' ' }
-                                <a href="http://instagram.pixelunion.net/" target="_blank" rel="noopener noreferrer">http://instagram.pixelunion.net/</a>
+                                <ExternalLink href="http://instagram.pixelunion.net/">http://instagram.pixelunion.net/</ExternalLink>
                             </em>
                         </p>
                     </PanelBody>

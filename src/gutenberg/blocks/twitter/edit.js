@@ -23,6 +23,7 @@ const {
     RangeControl,
     ToggleControl,
     Spinner,
+    ExternalLink,
 } = wp.components;
 
 const {
@@ -260,7 +261,7 @@ class BlockEdit extends Component {
                             <em>
                                 { __( 'A valid API data is required to use Twitter feed. How to get it', '@@text_domain' ) }
                                 { ' ' }
-                                <a href="http://www.gabfirethemes.com/create-twitter-api-key/" target="_blank" rel="noopener noreferrer">http://www.gabfirethemes.com/create-twitter-api-key/</a>
+                                <ExternalLink href="http://www.gabfirethemes.com/create-twitter-api-key/">http://www.gabfirethemes.com/create-twitter-api-key/</ExternalLink>
                             </em>
                         </p>
                     </PanelBody>
@@ -270,23 +271,23 @@ class BlockEdit extends Component {
                         <div className="ghostkit-twitter-profile">
                             { showProfileAvatar && twitterProfile.profile_images_https ? (
                                 <div className="ghostkit-twitter-profile-avatar">
-                                    <a href={ `https://twitter.com/${ twitterProfile.screen_name }/` } target="_blank" rel="noopener noreferrer"><img src={ twitterProfile.profile_images_https.original } alt={ twitterProfile.fullName } width={ profileAvatarSize } height={ profileAvatarSize } /></a>
+                                    <ExternalLink href={ `https://twitter.com/${ twitterProfile.screen_name }/` }><img src={ twitterProfile.profile_images_https.original } alt={ twitterProfile.fullName } width={ profileAvatarSize } height={ profileAvatarSize } /></ExternalLink>
                                 </div>
                             ) : '' }
                             <div className="ghostkit-twitter-profile-side">
                                 { showProfileName && twitterProfile.name ? (
                                     <div className="ghostkit-twitter-profile-name">
                                         <h2 className="ghostkit-twitter-profile-fullname">
-                                            <a href={ `https://twitter.com/${ twitterProfile.screen_name }/` } target="_blank" rel="noopener noreferrer">{ twitterProfile.name }</a>
+                                            <ExternalLink href={ `https://twitter.com/${ twitterProfile.screen_name }/` }>{ twitterProfile.name }</ExternalLink>
                                             { twitterProfile.verified ? (
                                                 <span className="ghostkit-twitter-profile-verified">{ __( 'Verified account', '@@text_domain' ) }</span>
                                             ) : '' }
                                         </h2>
                                         <h3 className="ghostkit-twitter-profile-username">
-                                            <a href={ `https://twitter.com/${ twitterProfile.screen_name }/` } target="_blank" rel="noopener noreferrer">
+                                            <ExternalLink href={ `https://twitter.com/${ twitterProfile.screen_name }/` }>
                                                 @
                                                 { twitterProfile.screen_name }
-                                            </a>
+                                            </ExternalLink>
                                         </h3>
                                     </div>
                                 ) : '' }
@@ -343,9 +344,9 @@ class BlockEdit extends Component {
                                             { showFeedAvatar ? (
                                                 <div className="ghostkit-twitter-item-avatar">
                                                     { isRetweet ? <br /> : '' }
-                                                    <a href={ `https://twitter.com/${ item.user.screen_name }/` } target="_blank" rel="noopener noreferrer">
+                                                    <ExternalLink href={ `https://twitter.com/${ item.user.screen_name }/` }>
                                                         <img src={ item.user.profile_images_https.bigger } alt={ item.user.screen_name } width={ feedAvatarSize } height={ feedAvatarSize } />
-                                                    </a>
+                                                    </ExternalLink>
                                                 </div>
                                             ) : '' }
                                             <div className="ghostkit-twitter-item-content">
@@ -353,9 +354,9 @@ class BlockEdit extends Component {
                                                     <div className="ghostkit-twitter-item-retweeted">
                                                         { /* eslint-disable-next-line react/no-danger */ }
                                                         <span className="ghostkit-twitter-item-retweeted-icon" dangerouslySetInnerHTML={ { __html: '<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16L19 19L16 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6L15.6667 6C16.5507 6 17.3986 6.30436 18.0237 6.84614C18.6488 7.38791 19 8.12271 19 8.88889L19 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 9L5 6L8 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19L8.33333 19C7.44928 19 6.60143 18.6956 5.97631 18.1539C5.35119 17.6121 5 16.8773 5 16.1111L5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' } } />
-                                                        <a href={ `https://twitter.com/${ oldItem.user.screen_name }/` } target="_blank" rel="noopener noreferrer">
+                                                        <ExternalLink href={ `https://twitter.com/${ oldItem.user.screen_name }/` }>
                                                             <strong>{ oldItem.user.name }</strong>
-                                                        </a>
+                                                        </ExternalLink>
                                                         { __( 'Retweeted', '@@text_domain' ) }
                                                     </div>
                                                 ) : '' }
@@ -363,7 +364,7 @@ class BlockEdit extends Component {
                                                     <div className="ghostkit-twitter-item-meta">
                                                         { showFeedName ? (
                                                             <div className="ghostkit-twitter-item-meta-name">
-                                                                <a href={ `https://twitter.com/${ item.user.screen_name }/` } target="_blank" rel="noopener noreferrer">
+                                                                <ExternalLink href={ `https://twitter.com/${ item.user.screen_name }/` }>
                                                                     <strong>{ item.user.name }</strong>
                                                                     { ' ' }
                                                                     { item.user.verified ? (
@@ -374,12 +375,12 @@ class BlockEdit extends Component {
                                                                         @
                                                                         { item.user.screen_name }
                                                                     </span>
-                                                                </a>
+                                                                </ExternalLink>
                                                             </div>
                                                         ) : '' }
                                                         { showFeedDate ? (
                                                             <div className="ghostkit-twitter-item-meta-date">
-                                                                <a href={ `https://twitter.com/${ item.user.screen_name }/status/${ item.id_str }` } target="_blank" rel="noopener noreferrer">{ item.date_formatted }</a>
+                                                                <ExternalLink href={ `https://twitter.com/${ item.user.screen_name }/status/${ item.id_str }` }>{ item.date_formatted }</ExternalLink>
                                                             </div>
                                                         ) : '' }
                                                     </div>
@@ -403,12 +404,12 @@ class BlockEdit extends Component {
                                                             <a href={ `https://twitter.com/${ item.user.screen_name }/status/${ item.id_str }` } target="_blank" rel="noopener noreferrer" dangerouslySetInnerHTML={ { __html: `<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16L19 19L16 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6L15.6667 6C16.5507 6 17.3986 6.30436 18.0237 6.84614C18.6488 7.38791 19 8.12271 19 8.88889L19 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 9L5 6L8 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19L8.33333 19C7.44928 19 6.60143 18.6956 5.97631 18.1539C5.35119 17.6121 5 16.8773 5 16.1111L5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>${ item.retweet_count_short ? `<span>${ item.retweet_count_short }</span>` : '' }` } } />
                                                         </div>
                                                         <div className="ghostkit-twitter-item-actions-like">
-                                                            <a href={ `https://twitter.com/${ item.user.screen_name }/status/${ item.id_str }` } target="_blank" rel="noopener noreferrer">
+                                                            <ExternalLink href={ `https://twitter.com/${ item.user.screen_name }/status/${ item.id_str }` }>
                                                                 <svg className="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M7.25 5C5.41421 5 3.5 6.66421 3.5 9C3.5 11.7695 5.57359 14.3251 7.86118 16.2727C8.98201 17.2269 10.1066 17.9947 10.9527 18.5245C11.375 18.7889 11.726 18.9928 11.9699 19.1298C11.9801 19.1356 11.9901 19.1412 12 19.1467C12.0098 19.1412 12.0199 19.1356 12.0301 19.1298C12.274 18.9928 12.625 18.7889 13.0473 18.5245C13.8934 17.9947 15.018 17.2269 16.1388 16.2727C18.4264 14.3251 20.5 11.7695 20.5 9C20.5 6.66421 18.5858 5 16.75 5C14.8879 5 13.3816 6.22683 12.7115 8.23717C12.6094 8.54343 12.3228 8.75 12 8.75C11.6772 8.75 11.3906 8.54343 11.2885 8.23717C10.6184 6.22683 9.11212 5 7.25 5ZM12 20C11.6574 20.6672 11.6572 20.6671 11.6569 20.6669L11.6479 20.6623L11.6251 20.6504C11.6057 20.6402 11.5777 20.6254 11.5418 20.6062C11.4699 20.5676 11.3662 20.5112 11.2352 20.4376C10.9732 20.2904 10.6016 20.0744 10.1567 19.7958C9.26844 19.2397 8.08049 18.4294 6.88882 17.4148C4.5514 15.4249 2 12.4805 2 9C2 5.83579 4.58579 3.5 7.25 3.5C9.30732 3.5 10.9728 4.57857 12 6.23441C13.0272 4.57857 14.6927 3.5 16.75 3.5C19.4142 3.5 22 5.83579 22 9C22 12.4805 19.4486 15.4249 17.1112 17.4148C15.9195 18.4294 14.7316 19.2397 13.8433 19.7958C13.3984 20.0744 13.0268 20.2904 12.7648 20.4376C12.6338 20.5112 12.5301 20.5676 12.4582 20.6062C12.4223 20.6254 12.3943 20.6402 12.3749 20.6504L12.3521 20.6623L12.3431 20.6669C12.3428 20.6671 12.3426 20.6672 12 20ZM12 20L12.3426 20.6672C12.1276 20.7776 11.8724 20.7776 11.6574 20.6672L12 20Z" fill="currentColor" /></svg>
                                                                 { item.favorite_count_short ? (
                                                                     <span>{ item.favorite_count_short }</span>
                                                                 ) : '' }
-                                                            </a>
+                                                            </ExternalLink>
                                                         </div>
                                                     </div>
                                                 ) : '' }

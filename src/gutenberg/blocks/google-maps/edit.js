@@ -38,6 +38,7 @@ const {
     Toolbar,
     Dropdown,
     ResizableBox,
+    ExternalLink,
 } = wp.components;
 
 const {
@@ -182,7 +183,7 @@ class BlockEdit extends Component {
                             <em>
                                 { __( 'You can use custom styles presets from the', '@@text_domain' ) }
                                 { ' ' }
-                                <a href="https://snazzymaps.com/" target="_blank" rel="noopener noreferrer">{ __( 'Snazzy Maps', '@@text_domain' ) }</a>
+                                <ExternalLink href="https://snazzymaps.com/">{ __( 'Snazzy Maps', '@@text_domain' ) }</ExternalLink>
                                 .
                             </em>
                         </p>
@@ -548,7 +549,7 @@ class BlockEdit extends Component {
                             <em>
                                 { __( 'A valid API key is required to use Google Maps. How to get API key', '@@text_domain' ) }
                                 { ' ' }
-                                <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">{ __( 'read here', '@@text_domain' ) }</a>
+                                <ExternalLink href="https://developers.google.com/maps/documentation/javascript/get-api-key">{ __( 'read here', '@@text_domain' ) }</ExternalLink>
                                 .
                             </em>
                         </p>

@@ -18,6 +18,7 @@ const {
     DropdownMenu,
     MenuGroup,
     MenuItem,
+    ExternalLink,
 } = wp.components;
 
 const { __ } = wp.i18n;
@@ -265,7 +266,7 @@ export default class Typorgaphy extends Component {
                         { 'adobe-fonts' === fontFamilyCategory ? (
                             <div className="ghostkit-typography-information-control ghostkit-typography-font-control">
                                 { __( 'Adobe Fonts available for PRO users only. Read more about Ghost Kit PRO plugin here - ', '@@text_domain' ) }
-                                <a target="_blank" rel="noopener noreferrer" href="https://ghostkit.io/pricing/">https://ghostkit.io/pricing/</a>
+                                <ExternalLink href="https://ghostkit.io/pricing/">https://ghostkit.io/pricing/</ExternalLink>
                             </div>
                         ) : '' }
                     </ApplyFilters>

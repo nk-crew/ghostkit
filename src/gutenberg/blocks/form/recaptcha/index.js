@@ -15,6 +15,7 @@ const { Component } = wp.element;
 const {
     TextControl,
     PanelBody,
+    ExternalLink,
 } = wp.components;
 
 const { apiFetch } = wp;
@@ -95,9 +96,9 @@ export default class BlockSettings extends Component {
                 />
                 <p>{ __( 'Protect your form from spam using Google reCAPTCHA v3.', 'ghostkit' ) }</p>
                 <p>
-                    <a href="https://g.co/recaptcha/v3" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink href="https://g.co/recaptcha/v3">
                         { __( 'Generate Keys', 'ghostkit' ) }
-                    </a>
+                    </ExternalLink>
                 </p>
             </PanelBody>
         );

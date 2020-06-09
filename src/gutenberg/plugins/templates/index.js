@@ -45,6 +45,7 @@ const {
     Tooltip,
     Spinner,
     SelectControl,
+    ExternalLink,
 } = wp.components;
 
 const {
@@ -281,7 +282,7 @@ class TemplatesModal extends Component {
                                                         >
                                                             { __( 'No templates found.', '@@text_domain' ) }
                                                         </p>
-                                                        <a className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl } target="_blank" rel="noopener noreferrer">{ __( 'Add Template', '@@text_domain' ) }</a>
+                                                        <ExternalLink className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl }>{ __( 'Add Template', '@@text_domain' ) }</ExternalLink>
                                                     </Fragment>
                                                 ) : (
                                                     __( 'No templates found.', '@@text_domain' )
@@ -370,7 +371,7 @@ class TemplatesModal extends Component {
                                                 </Masonry>
                                                 { 'local' === tabType ? (
                                                     <Fragment>
-                                                        <a className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl } target="_blank" rel="noopener noreferrer">{ __( 'Add Template', '@@text_domain' ) }</a>
+                                                        <ExternalLink className="components-button is-button is-primary" href={ GHOSTKIT.adminTemplatesUrl }>{ __( 'Add Template', '@@text_domain' ) }</ExternalLink>
                                                     </Fragment>
                                                 ) : '' }
                                             </Fragment>
@@ -425,14 +426,12 @@ function checkMissingBlocks( data ) {
                         <div className="ghostkit-templates-missing-block-additional">
                             <RawHTML>{ missingBlocksInfo[ blockName ].info }</RawHTML>
                             { missingBlocksInfo[ blockName ].pluginUrl ? (
-                                <a
+                                <ExternalLink
                                     className="components-button is-button is-default is-small"
                                     href={ missingBlocksInfo[ blockName ].pluginUrl }
-                                    target="_blank"
-                                    rel="noopener noreferrer"
                                 >
                                     { __( 'Install Plugin', '@@text_domain' ) }
-                                </a>
+                                </ExternalLink>
                             ) : '' }
                         </div>
                     ) : '' }

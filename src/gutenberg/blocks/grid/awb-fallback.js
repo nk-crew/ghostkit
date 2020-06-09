@@ -26,6 +26,7 @@ const {
     Button,
     SelectControl,
     ColorIndicator,
+    ExternalLink,
 } = wp.components;
 
 const {
@@ -334,14 +335,12 @@ class BackgroundControlsInspector extends Component {
                 <p>
                     { __( 'Install AWB plugin to set video backgrounds and images with parallax support.', '@@text_domain' ) }
                 </p>
-                <a
+                <ExternalLink
                     className="components-button is-button is-secondary is-small"
                     href="https://wordpress.org/plugins/advanced-backgrounds/"
-                    target="_blank"
-                    rel="noopener noreferrer"
                 >
                     { __( 'Install', '@@text_domain' ) }
-                </a>
+                </ExternalLink>
             </PanelBody>
         );
     }
