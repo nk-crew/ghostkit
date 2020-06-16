@@ -161,15 +161,18 @@
         background-color: var(--gkt-video-fullscreen__background-color);
         z-index: 1500;
 
-        // admin bar
-        #wpadminbar ~ & {
-            top: $admin-bar-height;
+        // fixed top position when WP admin bar showed.
+        body.admin-bar & {
+            top: 32px;
+            height: calc(100% - 32px);
 
-            @include break-medium() {
-                top: $admin-bar-height-big;
+            @media screen and (max-width: 782px) {
+                top: 42px;
+                height: calc(100% - 42px);
             }
-            @include break-small() {
+            @media screen and (max-width: 600px) {
                 top: 0;
+                height: 100%;
             }
         }
 
