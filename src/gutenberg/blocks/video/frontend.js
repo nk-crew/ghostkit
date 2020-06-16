@@ -137,9 +137,13 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
 
                             $fullscreenWrapper.fadeIn( 200 );
 
-                            $fullscreenWrapper.on( 'click', '.ghostkit-video-fullscreen-close', () => {
-                                api.pause();
-                                $fullscreenWrapper.fadeOut( 200 );
+                            $fullscreenWrapper.on( 'click', ( evt ) => {
+                                const $target = $( evt.target );
+
+                                if ( $target.hasClass( 'ghostkit-video-fullscreen' ) || $target.hasClass( 'ghostkit-video-fullscreen-close' ) || $target.closest( '.ghostkit-video-fullscreen-close' ).length ) {
+                                    api.pause();
+                                    $fullscreenWrapper.fadeOut( 200 );
+                                }
                             } );
 
                             setFullscreenVideoSize();
