@@ -42,7 +42,7 @@ cfg.compile_scss_files_src = [
 
 // Compile JS files.
 cfg.compile_js_files_src = [
-    '{src}/*assets/js/*.js',
+    '{src}/*assets/**/*.js',
     '{src}/*gutenberg/index.js',
     '{src}/*gutenberg/blocks/*/frontend.js',
     '{src}/*settings/index.js',

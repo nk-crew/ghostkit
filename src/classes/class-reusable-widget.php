@@ -75,6 +75,8 @@ class GhostKit_Reusable_Widget extends WP_Widget {
                 'numberposts' => -1,
             )
         );
+
+        wp_enqueue_script( 'ghostkit-admin-reusable-widget', ghostkit()->plugin_url . 'assets/admin/js/reusable-widget.min.js', array( 'jquery' ), '@@plugin_version', false );
         ?>
 
         <p>
@@ -87,7 +89,7 @@ class GhostKit_Reusable_Widget extends WP_Widget {
             ?>
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'block' ) ); ?>"><?php echo esc_attr__( 'Select Block:', '@@text_domain' ); ?></label>
-                <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'block' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'block' ) ); ?>">
+                <select class="widefat gkt-reusable-block-select" id="<?php echo esc_attr( $this->get_field_id( 'block' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'block' ) ); ?>">
                     <option value="" disabled <?php selected( ! $selected_block ); ?>><?php echo esc_html__( '--- Select block ---', '@@text_domain' ); ?></option>
                     <?php
                     foreach ( $blocks as $block ) {
@@ -106,6 +108,15 @@ class GhostKit_Reusable_Widget extends WP_Widget {
             <p><?php echo esc_attr__( 'No reusable blocks found.', '@@text_domain' ); ?></p>
             <?php
         }
+        ?>
+        <p class="gkt-reusable-block-edit-button" style="display: none" data-admin-url="<?php echo esc_url( get_admin_url() ); ?>">
+            <label for="<?php echo esc_attr( $this->get_field_id( 'edit_button' ) ); ?>"><?php esc_attr_e( 'Edit:', '@@text_domain' ); ?></label>
+            <br>
+            <a class="button" id="<?php echo esc_attr( $this->get_field_id( 'edit_button' ) ); ?>" href="" target="_blank">
+                <?php esc_attr_e( 'Edit Reusable Block', '@@text_domain' ); ?>
+            </a>
+        </p>
+        <?php
     }
 
     /**
