@@ -195,6 +195,15 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.13.1 =
+
+* added modal to blocks custom CSS extension
+* added button on edit page in reusable block widget ui
+* added script to close fullscreen video by clicking on wrapper (not only on X button)
+* fixed fullscreen video offset depending on admin bar
+* fixed fullscreen video conflict with Safari
+* fixed pricing table align styles
+
 = 2.13.0 =
 
 * added GIF block
