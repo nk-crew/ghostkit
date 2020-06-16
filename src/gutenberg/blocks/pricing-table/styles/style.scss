@@ -10,7 +10,6 @@
         align-items: var(--gkt-pricing-table__align-items);
         margin-top: calc(-1 * var(--gkt-pricing-table__gap));
         margin-left: calc(-1 * var(--gkt-pricing-table__gap));
-        text-align: center;
     }
     &-item-wrap {
         flex: 0 0 calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
