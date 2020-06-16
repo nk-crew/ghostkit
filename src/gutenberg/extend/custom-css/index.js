@@ -8,6 +8,7 @@ import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
 import CodeEditor from '../../components/code-editor';
 import ActiveIndicator from '../../components/active-indicator';
+import Modal from '../../components/modal';
 
 const { __ } = wp.i18n;
 
@@ -29,6 +30,7 @@ const { InspectorControls } = wp.blockEditor;
 
 const {
     PanelBody,
+    Button,
 } = wp.components;
 
 const {
@@ -47,7 +49,58 @@ class CustomCSSComponent extends Component {
 
         this.state = {
             defaultPlaceholder: placeholder,
+            modalOpened: false,
         };
+
+        this.getEditor = this.getEditor.bind( this );
+    }
+
+    getEditor() {
+        const {
+            setAttributes,
+            attributes,
+        } = this.props;
+
+        const {
+            ghostkitCustomCSS = '',
+        } = attributes;
+
+        return (
+            <Fragment>
+                <CodeEditor
+                    mode="css"
+                    onChange={ ( value ) => {
+                        if ( value !== placeholder ) {
+                            setAttributes( {
+                                ghostkitCustomCSS: value,
+                            } );
+                        }
+                        if ( this.state.defaultPlaceholder ) {
+                            this.setState( {
+                                defaultPlaceholder: '',
+                            } );
+                        }
+                    } }
+                    value={ ghostkitCustomCSS || this.state.defaultPlaceholder }
+                    maxLines={ 20 }
+                    minLines={ 5 }
+                    height="300px"
+                />
+                <p style={ { marginBottom: 20 } } />
+                { /* eslint-disable-next-line react/no-danger */ }
+                <p dangerouslySetInnerHTML={ { __html: __( 'Use %s rule to change block styles.', '@@text_domain' ).replace( '%s', '<code>selector</code>' ) } } />
+                <p>{ __( 'Example:', '@@text_domain' ) }</p>
+                <pre className="ghostkit-control-pre-custom-css">
+                    { `selector {
+  background-color: #5C39A7;
+}
+
+selector p {
+  color: #5C39A7;
+}` }
+                </pre>
+            </Fragment>
+        );
     }
 
     render() {
@@ -73,9 +126,12 @@ class CustomCSSComponent extends Component {
         }
 
         const {
-            setAttributes,
             attributes,
         } = this.props;
+
+        const {
+            modalOpened,
+        } = this.state;
 
         const {
             ghostkitCustomCSS = '',
@@ -101,38 +157,24 @@ class CustomCSSComponent extends Component {
                         initialOpenPanel = ! initialOpenPanel;
                     } }
                 >
-                    <CodeEditor
-                        mode="css"
-                        onChange={ ( value ) => {
-                            if ( value !== placeholder ) {
-                                setAttributes( {
-                                    ghostkitCustomCSS: value,
-                                } );
-                            }
-                            if ( this.state.defaultPlaceholder ) {
-                                this.setState( {
-                                    defaultPlaceholder: '',
-                                } );
-                            }
-                        } }
-                        value={ ghostkitCustomCSS || this.state.defaultPlaceholder }
-                        maxLines={ 20 }
-                        minLines={ 5 }
-                        height="300px"
-                    />
-                    <p style={ { marginBottom: 20 } } />
-                    { /* eslint-disable-next-line react/no-danger */ }
-                    <p dangerouslySetInnerHTML={ { __html: __( 'Use %s rule to change block styles.', '@@text_domain' ).replace( '%s', '<code>selector</code>' ) } } />
-                    <p>{ __( 'Example:', '@@text_domain' ) }</p>
-                    <pre className="ghostkit-control-pre-custom-css">
-                        { `selector {
-  background-color: #5C39A7;
-}
+                    { this.getEditor() }
 
-selector p {
-  color: #5C39A7;
-}` }
-                    </pre>
+                    <Button
+                        isSecondary
+                        onClick={ () => this.setState( { modalOpened: ! modalOpened } ) }
+                    >
+                        { __( 'Open in Modal', '@@text_domain' ) }
+                    </Button>
+                    { modalOpened ? (
+                        <Modal
+                            title={ __( 'Custom CSS', '@@text_domain' ) }
+                            position="top"
+                            size="md"
+                            onRequestClose={ () => this.setState( { modalOpened: ! modalOpened } ) }
+                        >
+                            { this.getEditor() }
+                        </Modal>
+                    ) : '' }
                 </PanelBody>
             </InspectorControls>
         );
