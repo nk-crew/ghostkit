@@ -132,7 +132,8 @@
         height: 100%;
         opacity: 0;
         transition: var(--gkt-video__transition-duration) opacity var(--gkt-video__transition-easing), 0s var(--gkt-video__transition-duration) left;
-        will-change: opacity;
+        // we can't use will-change because of conflict with Safari fullscreen https://wordpress.org/support/topic/video-block-issue-in-safari/#post-12966010
+        // will-change: opacity;
         z-index: 4;
 
         iframe,
