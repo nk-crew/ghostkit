@@ -42,19 +42,18 @@ class GhostKit_Reusable_Widget extends WP_Widget {
                 echo $args[ 'before_title' ] . $title . $args[ 'after_title' ];
             }
 
-            // Get all blocks.
-            $blocks = parse_blocks( $post->post_content );
+            // fix for bbPress.
+            // filter 'the_content' may not work in bbPress
+            // https://github.com/nk-o/ghostkit/issues/72.
+            // https://bbpress.org/forums/topic/the_content-filter-is-removed-by-not-restored-on-custom-wp_query/
+            if ( function_exists( 'is_bbpress' ) && is_bbpress() ) {
+                bbp_restore_all_filters( 'the_content' );
+            }
 
-            if ( is_array( $blocks ) && ! empty( $blocks ) ) {
-                GhostKit_Parse_Blocks::parse_blocks( $blocks, 'widget' );
+            echo apply_filters( 'the_content', $post->post_content );
 
-                // render blocks.
-                // we need to render blocks manually just because on custom post types
-                // filter 'the_content' may not work if gutenberg support is disabled
-                // https://github.com/nk-o/ghostkit/issues/72.
-                foreach ( $blocks as $block ) {
-                    echo do_shortcode( render_block( $block ) );
-                }
+            if ( function_exists( 'is_bbpress' ) && is_bbpress() ) {
+                bbp_remove_all_filters( 'the_content' );
             }
 
             echo $args['after_widget'];
@@ -90,7 +89,7 @@ class GhostKit_Reusable_Widget extends WP_Widget {
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'block' ) ); ?>"><?php echo esc_attr__( 'Select Block:', '@@text_domain' ); ?></label>
                 <select class="widefat gkt-reusable-block-select" id="<?php echo esc_attr( $this->get_field_id( 'block' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'block' ) ); ?>">
-                    <option value="" disabled <?php selected( ! $selected_block ); ?>><?php echo esc_html__( '--- Select block ---', '@@text_domain' ); ?></option>
+                    <option value="" disabled <?php selected( '', $selected_block ); ?>><?php echo esc_html__( '--- Select block ---', '@@text_domain' ); ?></option>
                     <?php
                     foreach ( $blocks as $block ) {
                         ?>

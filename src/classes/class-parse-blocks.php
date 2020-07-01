@@ -10,11 +10,21 @@
  */
 class GhostKit_Parse_Blocks {
     /**
+     * Array of content, that already parsed.
+     *
+     * @var array
+     */
+    public static $parsed_content = array();
+
+    /**
      * Init.
      */
     public static function init() {
         // parse blocks from post content.
-        add_filter( 'wp', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_content' );
+        add_action( 'wp', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_content' );
+
+        // parse blocks from custom locations, that uses 'the_content' filter.
+        add_filter( 'the_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
     }
 
     /**
@@ -29,14 +39,55 @@ class GhostKit_Parse_Blocks {
 
         // parse all posts content.
         foreach ( $wp_query->posts as $post ) {
-            if (
-                isset( $post->post_content ) &&
-                function_exists( 'has_blocks' ) &&
-                function_exists( 'parse_blocks' ) &&
-                has_blocks( $post )
-            ) {
-                $blocks = parse_blocks( $post->post_content );
-                self::parse_blocks( $blocks, 'content' );
+            if ( isset( $post->post_content ) ) {
+                self::maybe_parse_blocks( $post->post_content, 'content' );
+            }
+        }
+    }
+
+    /**
+     * Parse blocks from custom locations.
+     *
+     * @param string $content - custom content.
+     */
+    public static function maybe_parse_blocks_from_custom_location( $content ) {
+        if ( is_admin() ) {
+            return $content;
+        }
+
+        if ( isset( $content ) ) {
+            self::maybe_parse_blocks( $content, 'content' );
+        }
+
+        return $content;
+    }
+
+    /**
+     * Maybe parse blocks.
+     *
+     * @param string $content - content.
+     * @param string $location - blocks location [content,widget].
+     */
+    public static function maybe_parse_blocks( $content, $location = 'content' ) {
+        if (
+            isset( $content ) &&
+            function_exists( 'has_blocks' ) &&
+            function_exists( 'parse_blocks' ) &&
+            $content &&
+            has_blocks( $content )
+        ) {
+            $is_parsed = false;
+
+            // check if this content is already parsed.
+            foreach ( self::$parsed_content as $parsed ) {
+                $is_parsed = $is_parsed || $parsed === $content;
+            }
+
+            if ( ! $is_parsed ) {
+                $blocks = parse_blocks( $content );
+                self::parse_blocks( $blocks, $location );
+
+                self::$parsed_content[] = $content;
             }
         }
     }
