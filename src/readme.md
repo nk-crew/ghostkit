@@ -195,6 +195,12 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.13.2 =
+
+* fixed blocks assets rendering inside custom content locations
+* fixed reusable widget usage (use 'the_content' filter)
+* changed reusable widget render in bbPress pages
+
 = 2.13.1 =
 
 * added modal to blocks custom CSS extension
