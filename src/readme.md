@@ -21,6 +21,7 @@ We are using this plugin in our premium themes, so all the blocks are extensible
 
 * [Demo Site](https://ghostkit.io/)
 * [Documentation](https://ghostkit.io/docs/getting-started/)
+* [Ghost Kit PRO](https://ghostkit.io/pricing/)
 * [GitHub](https://github.com/nk-o/ghostkit)
 
 ### Templates ###
