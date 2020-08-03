@@ -221,7 +221,7 @@ class GhostKit {
      */
     public function enqueue_css_vars_polyfill() {
         $polyfill_name    = 'ie11-custom-properties';
-        $polyfill_version = '3.0.6';
+        $polyfill_version = '4.1.0';
         $polyfill_url     = ghostkit()->plugin_url . 'assets/vendor/ie11-custom-properties/ie11-custom-properties.js?ver=' . $polyfill_version;
 
         // Already added in 3rd-party code.

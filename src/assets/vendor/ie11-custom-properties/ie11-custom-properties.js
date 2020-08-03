@@ -1,4 +1,4 @@
-/*! ie11CustomProperties.js v3.0.6 | MIT License | https://git.io/fjXMN */
+/*! ie11CustomProperties.js v4.1.0 | MIT License | https://git.io/fjXMN */
 !function () {
 	'use strict';
 
@@ -84,6 +84,9 @@
 	if (!('innerHTML' in Element.prototype)) {
 		copyProperty('innerHTML', HTMLElement.prototype, Element.prototype);
 	}
+	if (!('runtimeStyle' in Element.prototype)) { // new
+		copyProperty('runtimeStyle', HTMLElement.prototype, Element.prototype);
+	}
 	if (!('sheet' in SVGStyleElement.prototype)) {
 		Object.defineProperty(SVGStyleElement.prototype, 'sheet', {
 			get:function(){
@@ -96,39 +99,39 @@
 		});
 	}
 
-
 	// main logic
+	var styles_of_getter_properties = {};
+	var drawQueue = new Set();
+	var collecting = false;
+	var drawing = false;
 
 	// cached regexps, better performance
-	const regFindSetters = /([\s{;])(--([A-Za-z0-9-_]*)\s*:([^;!}{]+)(!important)?)(?=\s*([;}]|$))/g;
-	const regFindGetters = /([{;]\s*)([A-Za-z0-9-_]+\s*:[^;}{]*var\([^!;}{]+)(!important)?(?=\s*([;}$]|$))/g;
-	const regRuleIEGetters = /-ieVar-([^:]+):/g
-	const regRuleIESetters = /-ie-([^};]+)/g
+	var regFindSetters = /([\s{;])(--([A-Za-z0-9-_]*)\s*:([^;!}{]+)(!important)?)(?=\s*([;}]|$))/g;
+	var regFindGetters = /([{;]\s*)([A-Za-z0-9-_]+\s*:[^;}{]*var\([^!;}{]+)(!important)?(?=\s*([;}$]|$))/g;
+	var regRuleIEGetters = /-ieVar-([^:]+):/g
+	var regRuleIESetters = /-ie-([^};]+)/g
 	//const regHasVar = /var\(/;
-	const regPseudos = /:(hover|active|focus|target|:before|:after|:first-letter|:first-line)/;
-
-	onElement('link[rel="stylesheet"]', function (el) {
-		fetchCss(el.href, function (css) {
-			var newCss = rewriteCss(css);
-			if (css === newCss) return;
-			newCss = relToAbs(el.href, newCss);
-			el.disabled = true;
-			var style = document.createElement('style');
-			if (el.media) style.setAttribute('media', el.media);
-			el.parentNode.insertBefore(style, el);
-			activateStyleElement(style, newCss);
-		});
-	});
+	var regPseudos = /:(hover|active|focus|target|visited|link|:before|:after|:first-letter|:first-line)/;
 
 	function foundStyle(el){
 		if (el.ieCP_polyfilled) return;
 		if (el.ieCP_elementSheet) return;
+		if (!el.sheet) return;
+		if (el.href) {
+			return fetchCss(el.href, function (css) {
+				var newCss = rewriteCss(css);
+				if (css === newCss) return;
+				activateStyleElement(el, newCss);
+			});
+		}
+
 		var css = el.innerHTML;
 		var newCss = rewriteCss(css);
 		if (css === newCss) return;
 		activateStyleElement(el, newCss);
 	}
 	onElement('style', foundStyle);
+	onElement('link[rel="stylesheet"]', foundStyle);
 	// immediate, to pass w3c-tests, bud its a bad idea
 	// addEventListener('DOMNodeInserted',function(e){ e.target.tagName === 'STYLE' && foundStyle(e.target); });
 
@@ -141,15 +144,6 @@
 		if (found.getters) addGetterElement(el, found.getters, '%styleAttr');
 		if (found.setters) addSetterElement(el, found.setters);
 	});
-
-	function relToAbs(base, css) {
-		return css.replace(/url\(([^)]+)\)/g, function($0, $1){
-			$1 = $1.trim().replace(/(^['"]|['"]$)/g,'');
-			if ($1.match(/^([a-z]+:|\/)/)) return $0;
-			base = base.replace(/\?.*/,'');
-			return 'url('+ base + './../' + $1 +')';
-		});
-	}
 
 	// ie has a bug, where unknown properties at pseudo-selectors are computed at the element
 	// #el::after { -content:'x'; } => getComputedStyle(el)['-content'] == 'x'
@@ -180,7 +174,7 @@
 		return value;
 		return value.replace(/ /g,'␣');
 	}
-	const keywords = {initial:1,inherit:1,revert:1,unset:1};
+	var keywords = {initial:1,inherit:1,revert:1,unset:1};
 	function decodeValue(value){
 		return value;
 		if (value===undefined) return;
@@ -190,13 +184,10 @@
 		return value;
 	}
 
-	// beta
-	const styles_of_getter_properties = {};
-
 	function parseRewrittenStyle(style) { // less memory then parameter cssText?
 
-		// beta
-		style['z-index']; // ie11 can access unknown properties in stylesheets only if accessed a dashed known property
+		// ie11 can access unknown properties in stylesheets only if accessed a dashed known property
+		style['z-index'] === style && x(); // do something (compare and call) just for minifiers
 
 		const cssText = style.cssText;
 		var matchesGetters = cssText.match(regRuleIEGetters), j, match;
@@ -207,7 +198,6 @@
 				if (propName[0] === '❗') propName = propName.substr(1);
 				getters.push(propName);
 
-				// beta
 				if (!styles_of_getter_properties[propName]) styles_of_getter_properties[propName] = [];
 				styles_of_getter_properties[propName].push(style);
 			}
@@ -226,7 +216,7 @@
 		return {getters:getters, setters:setters};
 	}
 	function activateStyleElement(style, css) {
-		style.innerHTML = css;
+		style.sheet.cssText = css;
 		style.ieCP_polyfilled = true;
 		var rules = style.sheet.rules, i=0, rule; // cssRules = CSSRuleList, rules = MSCSSRuleList
 		while (rule = rules[i++]) {
@@ -243,9 +233,7 @@
 				})
 			}
 		}
-
-		// beta
-		redrawStyleSheets()
+		redrawStyleSheets();
 	}
 
 	function addGettersSelector(selector, properties) {
@@ -285,7 +273,6 @@
 		drawTree(el);
 	}
 
-	//beta
 	function redrawStyleSheets() {
 		for (var prop in styles_of_getter_properties) {
 			let styles = styles_of_getter_properties[prop];
@@ -303,7 +290,7 @@
 	}
 
 
-	const pseudos = {
+	var pseudos = {
 		hover:{
 			on:'mouseenter',
 			off:'mouseleave'
@@ -335,7 +322,8 @@
 			}
 		}
 	}
-	let CSSActive = null;
+
+	var CSSActive = null;
 	document.addEventListener('mousedown',function(e){
 		setTimeout(function(){
 			if (e.target === document.activeElement) {
@@ -359,52 +347,24 @@
 		return selector.replace(regPseudos,'').replace(':not()','');
 	}
 
+	// draw queue
+	function drawElement(el){
+		drawQueue.add(el);
+		if (collecting) return;
+		collecting = true;
+		requestAnimationFrame(function(){
+		//setImmediate(function(){
+			collecting = false;
+			drawing = true;
+			drawQueue.forEach(_drawElement);
+			drawQueue.clear();
+			setTimeout(function(){ // mutationObserver will trigger delayed, requestAnimationFrame will miss some changes
+				drawing = false;
+			})
+		})
+	}
+
 	var uniqueCounter = 0;
-
-	/* old *
-	function _drawElement(el) {
-		if (!el.ieCP_unique) { // use el.uniqueNumber? but needs class for the css-selector => test performance
-			el.ieCP_unique = ++uniqueCounter;
-			el.classList.add('iecp-u' + el.ieCP_unique);
-		}
-		var style = getComputedStyle(el);
-		if (el.ieCP_sheet) while (el.ieCP_sheet.rules[0]) el.ieCP_sheet.deleteRule(0);
-		for (var prop in el.ieCPSelectors) {
-			var important = style['-ieVar-❗' + prop];
-			let valueWithVar = important || style['-ieVar-' + prop];
-			if (!valueWithVar) continue; // todo, what if '0'
-
-			var details = {};
-			var value = styleComputeValueWidthVars(style, valueWithVar, details);
-
-			if (important) value += ' !important';
-			for (var i=0, item; item=el.ieCPSelectors[prop][i++];) { // todo: split and use requestAnimationFrame?
-				if (item.selector === '%styleAttr') {
-					el.style[prop] = value;
-				} else {
-
-					// beta
-					if (!important && details.allByRoot !== false) continue; // dont have to draw root-properties
-
-					//let selector = item.selector.replace(/>? \.[^ ]+/, ' ', item.selector); // todo: try to equalize specificity
-					let selector = item.selector;
-					elementStyleSheet(el).insertRule(selector + '.iecp-u' + el.ieCP_unique + item.pseudo + ' {' + prop + ':' + value + '}', 0);
-				}
-			}
-		}
-	}
-	function elementStyleSheet(el){
-		if (!el.ieCP_sheet) {
-			const styleEl = document.createElement('style');
-			styleEl.ieCP_elementSheet = 1;
-			//el.appendChild(styleEl); // yes! self-closing tags can have style as children, but - if i set innerHTML, the stylesheet is lost
-			document.head.appendChild(styleEl);
-			el.ieCP_sheet = styleEl.sheet;
-		}
-		return el.ieCP_sheet;
-	}
-
-	/* */
 	function _drawElement(el) {
 		if (!el.ieCP_unique) { // use el.uniqueNumber? but needs class for the css-selector => test performance
 			el.ieCP_unique = ++uniqueCounter;
@@ -412,6 +372,9 @@
 		}
 		var style = getComputedStyle(el);
 		let css = '';
+
+		el.runtimeStyle.cssText = ''; // new
+
 		for (var prop in el.ieCPSelectors) {
 			var important = style['-ieVar-❗' + prop];
 			let valueWithVar = important || style['-ieVar-' + prop];
@@ -421,16 +384,12 @@
 			//if (value==='initial') value = initials[prop];
 			if (important) value += ' !important';
 			for (var i=0, item; item=el.ieCPSelectors[prop][i++];) { // todo: split and use requestAnimationFrame?
-				if (item.selector === '%styleAttr') {
-					el.style[prop] = value;
+				if (item.selector === '%styleAttr') el.style[prop] = value; // i dont know why but i initial have to set style also (seen in demo)
+				if (!important && details.allByRoot !== false) continue; // dont have to draw root-properties
+				if (item.pseudo) {
+					css += item.selector + '.iecp-u' + el.ieCP_unique + item.pseudo + '{' + prop + ':' + value + '}\n';
 				} else {
-
-					// beta
-					if (!important && details.allByRoot !== false) continue; // dont have to draw root-properties
-
-					//let selector = item.selector.replace(/>? \.[^ ]+/, ' ', item.selector); // todo: try to equalize specificity
-					let selector = item.selector;
-					css += selector + '.iecp-u' + el.ieCP_unique + item.pseudo + '{' + prop + ':' + value + '}\n';
+					el.runtimeStyle[prop] = value;  // new
 				}
 			}
 		}
@@ -450,31 +409,13 @@
 
 	function drawTree(target) {
 		if (!target) return;
+
+		target === document.documentElement && redrawStyleSheets(); // new
+
 		var els = target.querySelectorAll('[iecp-needed]');
 		if (target.hasAttribute && target.hasAttribute('iecp-needed')) drawElement(target); // self
 		for (var i = 0, el; el = els[i++];) drawElement(el); // tree
 	}
-	// draw queue
-	let drawQueue = new Set();
-	let collecting = false;
-	let drawing = false;
-	function drawElement(el){
-		drawQueue.add(el);
-		if (collecting) return;
-		collecting = true;
-		requestAnimationFrame(function(){
-		//setImmediate(function(){
-			collecting = false;
-			drawing = true;
-			drawQueue.forEach(_drawElement);
-			drawQueue.clear();
-			setTimeout(function(){ // mutationObserver will trigger delayed, requestAnimationFrame will miss some changes
-				drawing = false;
-			})
-		})
-	}
-
-
 	function drawTreeEvent(e) {
 		drawTree(e.target)
 	}
@@ -569,9 +510,9 @@
 	}
 
 	// getPropertyValue / setProperty hooks
-	const StyleProto = CSSStyleDeclaration.prototype;
+	var StyleProto = CSSStyleDeclaration.prototype;
 
-	const oldGetP = StyleProto.getPropertyValue;
+	var oldGetP = StyleProto.getPropertyValue;
 	StyleProto.getPropertyValue = function (property) {
 		this.lastPropertyServedBy = false;
 		property = property.trim();
@@ -604,8 +545,9 @@
 					//let el = this.pseudoElt ? this.computedFor : this.computedFor.parentNode;
 					let el = this.computedFor.parentNode;
 					while (el.nodeType === 1) {
-						// how slower would it be to getComputedStyle for every element, not just with defined ieCP_setters
-						if (el.ieCP_setters && el.ieCP_setters[property]) {
+						// without, it affects performance: 1000 els inside 100 parents: 1000ms (instead of 600ms) is it acceptable?
+						// would also remove complexity, because i can remove the ieCP_setters property
+						//if (el.ieCP_setters && el.ieCP_setters[property]) {
 							// i could make
 							// value = el.nodeType ? getComputedStyle(this.computedFor.parentNode).getPropertyValue(property)
 							// but i fear performance, stupid?
@@ -618,7 +560,7 @@
 								this.lastPropertyServedBy = el;
 								break;
 							}
-						}
+						//}
 						el = el.parentNode;
 					}
 				}
@@ -630,9 +572,9 @@
 		if (value === undefined) return '';
 		return value;
 	};
-	const inheritingKeywords = {inherit:1,revert:1,unset:1};
+	var inheritingKeywords = {inherit:1,revert:1,unset:1};
 
-	const oldSetP = StyleProto.setProperty;
+	var oldSetP = StyleProto.setProperty;
 	StyleProto.setProperty = function (property, value, prio) {
 		if (property[0] !== '-' || property[1] !== '-') return oldSetP.apply(this, arguments);
 		const el = this.owningElement;
@@ -643,7 +585,7 @@
 		property = '-ie-'+(prio==='important'?'❗':'') + property.substr(2);
 		this.cssText += '; ' + property + ':' + encodeValue(value) + ';';
 		//this[property] = value;
-		el === document.documentElement && redrawStyleSheets();
+//		el === document.documentElement && redrawStyleSheets(); new in drawTree
 		el && drawTree(el); // its delayed internal
 	};
 
@@ -674,7 +616,7 @@
 
 
 	if (!window.CSS) window.CSS = {};
-	const register = {}
+	var register = {}
 	CSS.registerProperty = function(options){
 		register[options.name] = options;
 	}
