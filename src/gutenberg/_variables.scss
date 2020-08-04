@@ -20,7 +20,7 @@ $grid-gaps: (
 /**
  * WordPress.
  */
-@import "../../node_modules/@wordpress/base-styles/colors";
+@import "../../node_modules/@wordpress/base-styles/colors.native";
 @import "../../node_modules/@wordpress/base-styles/variables";
 @import "../../node_modules/@wordpress/base-styles/breakpoints";
 @import "../../node_modules/@wordpress/base-styles/mixins";
