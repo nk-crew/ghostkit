@@ -270,6 +270,9 @@ class GhostKit {
             $css_deps,
             filemtime( plugin_dir_path( __FILE__ ) . 'gutenberg/editor.min.css' )
         );
+        wp_style_add_data( 'ghostkit-editor', 'rtl', 'replace' );
+        wp_style_add_data( 'ghostkit-editor', 'suffix', '.min' );
+
         wp_enqueue_script(
             'ghostkit-editor',
             plugins_url( 'gutenberg/index.min.js', __FILE__ ),

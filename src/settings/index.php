@@ -51,6 +51,8 @@ class GhostKit_Settings {
             array(),
             filemtime( ghostkit()->plugin_path . 'assets/admin/css/admin.min.css' )
         );
+        wp_style_add_data( 'ghostkit-admin', 'rtl', 'replace' );
+        wp_style_add_data( 'ghostkit-admin', 'suffix', '.min' );
 
         wp_enqueue_style(
             'ghostkit-settings',
@@ -58,6 +60,8 @@ class GhostKit_Settings {
             array(),
             filemtime( ghostkit()->plugin_path . 'settings/style.min.css' )
         );
+        wp_style_add_data( 'ghostkit-settings', 'rtl', 'replace' );
+        wp_style_add_data( 'ghostkit-settings', 'suffix', '.min' );
 
         if ( 'toplevel_page_ghostkit' !== $screen->id ) {
             return;

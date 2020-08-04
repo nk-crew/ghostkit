@@ -359,6 +359,9 @@ class GhostKit_Assets {
             $css_deps,
             '@@plugin_version'
         );
+        wp_style_add_data( 'ghostkit', 'rtl', 'replace' );
+        wp_style_add_data( 'ghostkit', 'suffix', '.min' );
+
         wp_register_script(
             'ghostkit',
             ghostkit()->plugin_url . 'assets/js/main.min.js',
@@ -445,6 +448,8 @@ class GhostKit_Assets {
                 array_unique( $block_css_deps ),
                 '@@plugin_version'
             );
+            wp_style_add_data( 'ghostkit-block-' . $block_name, 'rtl', 'replace' );
+            wp_style_add_data( 'ghostkit-block-' . $block_name, 'suffix', '.min' );
         }
 
         do_action( 'gkt_after_assets_register' );

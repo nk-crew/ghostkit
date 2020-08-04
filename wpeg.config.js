@@ -39,6 +39,7 @@ cfg.compile_scss_files_src = [
     '{src}/*gutenberg/blocks/*/styles/style.scss',
     '{src}/*settings/style.scss',
 ];
+cfg.compile_scss_files_rtl = true;
 
 // Compile JS files.
 cfg.compile_js_files_src = [
