@@ -111,8 +111,9 @@ class GhostKit_Rest extends WP_REST_Controller {
             $namespace,
             '/get_table_of_contents/',
             array(
-                'methods'  => WP_REST_Server::READABLE,
-                'callback' => array( $this, 'get_table_of_contents' ),
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'get_table_of_contents' ),
+                'permission_callback' => '__return_true',
             )
         );
 
@@ -121,8 +122,9 @@ class GhostKit_Rest extends WP_REST_Controller {
             $namespace,
             '/get_templates/',
             array(
-                'methods'  => WP_REST_Server::READABLE,
-                'callback' => array( $this, 'get_templates' ),
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'get_templates' ),
+                'permission_callback' => '__return_true',
             )
         );
 
@@ -131,8 +133,9 @@ class GhostKit_Rest extends WP_REST_Controller {
             $namespace,
             '/get_template_data/',
             array(
-                'methods'  => WP_REST_Server::READABLE,
-                'callback' => array( $this, 'get_template_data' ),
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'get_template_data' ),
+                'permission_callback' => '__return_true',
             )
         );
 
