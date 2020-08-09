@@ -14,6 +14,13 @@
     margin-left: calc(-1 * var(--gkt-grid__gap));
 }
 
+// Fixes conflict with AWB backgrounds and gaps.
+// @thanks https://github.com/nk-o/ghostkit/issues/104
+.ghostkit-grid,
+.ghostkit-col {
+    padding-top: .02px;
+}
+
 // Columns
 //
 // Common styles for small and large grid columns
