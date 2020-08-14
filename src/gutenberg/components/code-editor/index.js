@@ -2,12 +2,12 @@
  * External dependencies
  */
 import AceEditor from 'react-ace';
-import 'brace/mode/css';
-import 'brace/mode/javascript';
-import 'brace/snippets/css';
-import 'brace/snippets/javascript';
-import 'brace/snippets/text';
-import 'brace/ext/language_tools';
+import 'ace-builds/src-noconflict/mode-css';
+import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/snippets/css';
+import 'ace-builds/src-noconflict/snippets/javascript';
+import 'ace-builds/src-noconflict/snippets/text';
+import 'ace-builds/src-noconflict/ext-language_tools';
 
 /**
  * WordPress dependencies
