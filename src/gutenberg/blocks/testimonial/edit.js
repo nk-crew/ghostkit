@@ -101,6 +101,7 @@ class BlockEdit extends Component {
             attributes,
             setAttributes,
             isSelected,
+            hasChildBlocks,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -256,8 +257,12 @@ class BlockEdit extends Component {
                     ) : '' }
                     <div className="ghostkit-testimonial-content">
                         <InnerBlocks
-                            template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important testimonial, so many delights here!', '@@text_domain' ) } ] ] }
                             templateLock={ false }
+                            renderAppender={ (
+                                hasChildBlocks
+                                    ? undefined
+                                    : () => <InnerBlocks.ButtonBlockAppender />
+                            ) }
                         />
                     </div>
                     <div className="ghostkit-testimonial-photo">
@@ -342,16 +347,15 @@ class BlockEdit extends Component {
 }
 
 export default withSelect( ( select, props ) => {
+    const { clientId } = props;
     const { photo } = props.attributes;
-
-    if ( ! photo ) {
-        return false;
-    }
+    const blockEditor = select( 'core/block-editor' );
 
     return {
-        photoData: select( 'ghostkit/base/images' ).getImageTagData( {
+        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
+        photoData: photo ? select( 'ghostkit/base/images' ).getImageTagData( {
             id: photo,
             size: props.attributes.photoSize,
-        } ),
+        } ) : false,
     };
 } )( BlockEdit );

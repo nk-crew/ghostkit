@@ -21,6 +21,10 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 
 const {
+    withSelect,
+} = wp.data;
+
+const {
     Toolbar,
 } = wp.components;
 
@@ -76,6 +80,7 @@ class BlockEdit extends Component {
         const {
             attributes,
             setAttributes,
+            hasChildBlocks,
         } = this.props;
 
         let {
@@ -128,11 +133,27 @@ class BlockEdit extends Component {
                             <svg className="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M9.21967 6.2197C9.51256 5.9268 9.98744 5.9268 10.2803 6.2197L15.5303 11.4697C15.8232 11.7626 15.8232 12.2374 15.5303 12.5303L10.2803 17.7803C9.98744 18.0732 9.51256 18.0732 9.21967 17.7803C8.92678 17.4874 8.92678 17.0126 9.21967 16.7197L13.9393 12L9.21967 7.2803C8.92678 6.9874 8.92678 6.5126 9.21967 6.2197Z" fill="currentColor" /></svg>
                         </button>
                     </div>
-                    <div className="ghostkit-accordion-item-content"><InnerBlocks templateLock={ false } /></div>
+                    <div className="ghostkit-accordion-item-content">
+                        <InnerBlocks
+                            templateLock={ false }
+                            renderAppender={ (
+                                hasChildBlocks
+                                    ? undefined
+                                    : () => <InnerBlocks.ButtonBlockAppender />
+                            ) }
+                        />
+                    </div>
                 </div>
             </Fragment>
         );
     }
 }
 
-export default BlockEdit;
+export default withSelect( ( select, props ) => {
+    const { clientId } = props;
+    const blockEditor = select( 'core/block-editor' );
+
+    return {
+        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
+    };
+} )( BlockEdit );

@@ -20,6 +20,10 @@ const { __ } = wp.i18n;
 const { Fragment } = wp.element;
 
 const {
+    withSelect,
+} = wp.data;
+
+const {
     PanelBody,
     RangeControl,
     ToggleControl,
@@ -39,7 +43,11 @@ const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
  * @return {JSX} component.
  */
 function BlockEdit( props ) {
-    const { attributes, setAttributes } = props;
+    const {
+        attributes,
+        setAttributes,
+        hasChildBlocks,
+    } = props;
 
     let { className = '' } = props;
 
@@ -178,18 +186,12 @@ function BlockEdit( props ) {
                 ) }
                 <div className="ghostkit-alert-content">
                     <InnerBlocks
-                        template={ [
-                            [
-                                'core/paragraph',
-                                {
-                                    content: __(
-                                        'Wow, this is an important message, that you cannot miss!',
-                                        '@@text_domain'
-                                    ),
-                                },
-                            ],
-                        ] }
                         templateLock={ false }
+                        renderAppender={ (
+                            hasChildBlocks
+                                ? undefined
+                                : () => <InnerBlocks.ButtonBlockAppender />
+                        ) }
                     />
                 </div>
                 { hideButton ? (
@@ -218,4 +220,11 @@ function BlockEdit( props ) {
     );
 }
 
-export default BlockEdit;
+export default withSelect( ( select, props ) => {
+    const { clientId } = props;
+    const blockEditor = select( 'core/block-editor' );
+
+    return {
+        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
+    };
+} )( BlockEdit );

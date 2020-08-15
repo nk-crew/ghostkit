@@ -22,6 +22,10 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 
 const {
+    withSelect,
+} = wp.data;
+
+const {
     BaseControl,
     PanelBody,
     TextControl,
@@ -48,6 +52,7 @@ class BlockEdit extends Component {
             attributes,
             setAttributes,
             isSelected,
+            hasChildBlocks,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -222,8 +227,12 @@ class BlockEdit extends Component {
                     { showContent ? (
                         <div className="ghostkit-counter-box-content">
                             <InnerBlocks
-                                template={ [ [ 'core/paragraph', { content: __( 'Wow, this is an important counts, that you should know!', '@@text_domain' ) } ] ] }
                                 templateLock={ false }
+                                renderAppender={ (
+                                    hasChildBlocks
+                                        ? undefined
+                                        : () => <InnerBlocks.ButtonBlockAppender />
+                                ) }
                             />
                         </div>
                     ) : '' }
@@ -233,4 +242,11 @@ class BlockEdit extends Component {
     }
 }
 
-export default BlockEdit;
+export default withSelect( ( select, props ) => {
+    const { clientId } = props;
+    const blockEditor = select( 'core/block-editor' );
+
+    return {
+        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
+    };
+} )( BlockEdit );
