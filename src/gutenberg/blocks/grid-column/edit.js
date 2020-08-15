@@ -270,7 +270,7 @@ class BlockEdit extends Component {
                 </InspectorControls>
                 { background }
                 <div className="ghostkit-col-content">
-                    { ! isSelected ? (
+                    { ! isSelected && hasChildBlocks ? (
                         <div className="ghostkit-column-button-select">
                             <Tooltip text={ __( 'Select Column', '@@text_domain' ) }>
                                 { getIcon( 'block-grid-column' ) }
