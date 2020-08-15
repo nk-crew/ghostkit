@@ -207,17 +207,19 @@
 .ghostkit-grid-button-select,
 .ghostkit-column-button-select {
     position: absolute;
-    top: -14px;
-    right: -14px;
+    top: 6px;
+    right: 6px;
+    width: 25px;
+    height: 25px;
     padding: 2px 4px;
     font-family: $default-font;
     font-size: 17px;
-    line-height: 1;
+    line-height: 25px;
     color: #fff;
     cursor: pointer;
     visibility: hidden;
-    background-color: $dark-gray-100;
-    border-bottom-left-radius: 3px;
+    background-color: $gray-900;
+    border-radius: 14px;
     opacity: 0;
     transition: .2s opacity, .2s visibility, .2s background-color;
     z-index: 21;
@@ -230,10 +232,7 @@
 .ghostkit-grid-button-select {
     top: auto;
     bottom: 100%;
-    margin-bottom: 14px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-left-radius: 0;
+    margin-bottom: 10px;
 }
 [data-type="ghostkit/grid"]:hover > .ghostkit-grid > .ghostkit-grid-button-select,
 [data-type="ghostkit/grid-column"]:hover > .ghostkit-col-content > .ghostkit-column-button-select {
