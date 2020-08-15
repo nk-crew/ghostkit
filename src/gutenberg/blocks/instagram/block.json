@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/instagram",
-	"category": "layout",
+	"category": "media",
     "supports": {
         "html": false,
         "className": false,

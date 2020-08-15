@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/video",
-	"category": "common",
+	"category": "media",
     "supports": {
         "html": false,
         "className": false,

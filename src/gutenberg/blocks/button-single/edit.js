@@ -126,10 +126,9 @@ class BlockEdit extends Component {
                                     Object.keys( sizes ).map( ( key ) => (
                                         <Button
                                             key={ key }
-                                            isSecondary
                                             isSmall
                                             isPrimary={ size === sizes[ key ] }
-                                            aria-pressed={ size === sizes[ key ] }
+                                            isPressed={ size === sizes[ key ] }
                                             onClick={ () => setAttributes( { size: sizes[ key ] } ) }
                                         >
                                             { key }

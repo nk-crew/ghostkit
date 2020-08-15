@@ -142,7 +142,8 @@
                 .ghostkit-plugin-templates-list-item-image-sizer {
                     width: 100%;
 
-                    + img {
+                    + img,
+                    + .lazyload-wrapper img {
                         position: absolute;
                         top: 0;
                         left: 0;

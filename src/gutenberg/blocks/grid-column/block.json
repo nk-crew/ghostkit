@@ -1,7 +1,7 @@
 {
 	"name": "ghostkit/grid-column",
     "parent": [ "ghostkit/grid" ],
-	"category": "layout",
+	"category": "design",
     "supports": {
         "html": false,
         "className": false,

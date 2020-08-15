@@ -213,10 +213,9 @@ class BackgroundControlsInspector extends Component {
 
                             return (
                                 <Button
-                                    isSecondary
                                     isSmall
                                     isPrimary={ selected }
-                                    aria-pressed={ selected }
+                                    isPressed={ selected }
                                     onClick={ () => setAttributes( { type: val.value } ) }
                                     key={ `type_${ val.label }` }
                                 >

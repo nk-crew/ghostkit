@@ -168,7 +168,7 @@ export const settings = {
     title: __( 'Tabs (legacy)', '@@text_domain' ),
     description: __( 'Tabs.', '@@text_domain' ),
     icon: getIcon( 'block-tabs', true ),
-    category: 'common',
+    category: 'design',
     keywords: [
         __( 'tabs', '@@text_domain' ),
         __( 'tab', '@@text_domain' ),

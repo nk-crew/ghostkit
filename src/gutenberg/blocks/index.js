@@ -112,6 +112,20 @@ window.jQuery( () => {
             category = 'ghostkit';
         }
 
+        // Fallback for WP < 5.5
+        const fallbackCategories = {
+            design: 'layout',
+            media: 'common',
+            text: 'common',
+        };
+        const allCategories = wp.blocks.getCategories();
+        Object.keys( fallbackCategories ).forEach( ( newCat ) => {
+            if ( category === newCat ) {
+                const hasCategory = allCategories.some( ( newCategory ) => newCategory.slug === category );
+                category = hasCategory ? category : fallbackCategories[ newCat ];
+            }
+        } );
+
         registerBlockType( name, {
             category,
             ...settings,

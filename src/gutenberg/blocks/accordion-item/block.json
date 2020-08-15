@@ -1,7 +1,7 @@
 {
 	"name": "ghostkit/accordion-item",
     "parent": [ "ghostkit/accordion" ],
-	"category": "common",
+	"category": "design",
     "supports": {
         "html": false,
         "className": false,

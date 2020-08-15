@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/form",
-	"category": "layout",
+	"category": "design",
     "supports": {
         "html": false,
         "className": false,

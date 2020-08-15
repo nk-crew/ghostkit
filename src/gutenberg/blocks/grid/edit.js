@@ -343,64 +343,68 @@ class BlockEdit extends Component {
                             <BaseControl
                                 label={ __( 'Vertical alignment', '@@text_domain' ) }
                             >
-                                <Toolbar controls={ [
-                                    {
-                                        icon: getIcon( 'icon-vertical-top' ),
-                                        title: __( 'Start', '@@text_domain' ),
-                                        onClick: () => setAttributes( { verticalAlign: '' } ),
-                                        isActive: '' === verticalAlign,
-                                    },
-                                    {
-                                        icon: getIcon( 'icon-vertical-center' ),
-                                        title: __( 'Center', '@@text_domain' ),
-                                        onClick: () => setAttributes( { verticalAlign: 'center' } ),
-                                        isActive: 'center' === verticalAlign,
-                                    },
-                                    {
-                                        icon: getIcon( 'icon-vertical-bottom' ),
-                                        title: __( 'End', '@@text_domain' ),
-                                        onClick: () => setAttributes( { verticalAlign: 'end' } ),
-                                        isActive: 'end' === verticalAlign,
-                                    },
-                                ] }
-                                />
+                                <div>
+                                    <Toolbar controls={ [
+                                        {
+                                            icon: getIcon( 'icon-vertical-top' ),
+                                            title: __( 'Start', '@@text_domain' ),
+                                            onClick: () => setAttributes( { verticalAlign: '' } ),
+                                            isActive: '' === verticalAlign,
+                                        },
+                                        {
+                                            icon: getIcon( 'icon-vertical-center' ),
+                                            title: __( 'Center', '@@text_domain' ),
+                                            onClick: () => setAttributes( { verticalAlign: 'center' } ),
+                                            isActive: 'center' === verticalAlign,
+                                        },
+                                        {
+                                            icon: getIcon( 'icon-vertical-bottom' ),
+                                            title: __( 'End', '@@text_domain' ),
+                                            onClick: () => setAttributes( { verticalAlign: 'end' } ),
+                                            isActive: 'end' === verticalAlign,
+                                        },
+                                    ] }
+                                    />
+                                </div>
                             </BaseControl>
                             <BaseControl
                                 label={ __( 'Horizontal alignment', '@@text_domain' ) }
                             >
-                                <Toolbar controls={ [
-                                    {
-                                        icon: getIcon( 'icon-horizontal-start' ),
-                                        title: __( 'Start', '@@text_domain' ),
-                                        onClick: () => setAttributes( { horizontalAlign: '' } ),
-                                        isActive: '' === horizontalAlign,
-                                    },
-                                    {
-                                        icon: getIcon( 'icon-horizontal-center' ),
-                                        title: __( 'Center', '@@text_domain' ),
-                                        onClick: () => setAttributes( { horizontalAlign: 'center' } ),
-                                        isActive: 'center' === horizontalAlign,
-                                    },
-                                    {
-                                        icon: getIcon( 'icon-horizontal-end' ),
-                                        title: __( 'End', '@@text_domain' ),
-                                        onClick: () => setAttributes( { horizontalAlign: 'end' } ),
-                                        isActive: 'end' === horizontalAlign,
-                                    },
-                                    {
-                                        icon: getIcon( 'icon-horizontal-around' ),
-                                        title: __( 'Around', '@@text_domain' ),
-                                        onClick: () => setAttributes( { horizontalAlign: 'around' } ),
-                                        isActive: 'around' === horizontalAlign,
-                                    },
-                                    {
-                                        icon: getIcon( 'icon-horizontal-between' ),
-                                        title: __( 'Between', '@@text_domain' ),
-                                        onClick: () => setAttributes( { horizontalAlign: 'between' } ),
-                                        isActive: 'between' === horizontalAlign,
-                                    },
-                                ] }
-                                />
+                                <div>
+                                    <Toolbar controls={ [
+                                        {
+                                            icon: getIcon( 'icon-horizontal-start' ),
+                                            title: __( 'Start', '@@text_domain' ),
+                                            onClick: () => setAttributes( { horizontalAlign: '' } ),
+                                            isActive: '' === horizontalAlign,
+                                        },
+                                        {
+                                            icon: getIcon( 'icon-horizontal-center' ),
+                                            title: __( 'Center', '@@text_domain' ),
+                                            onClick: () => setAttributes( { horizontalAlign: 'center' } ),
+                                            isActive: 'center' === horizontalAlign,
+                                        },
+                                        {
+                                            icon: getIcon( 'icon-horizontal-end' ),
+                                            title: __( 'End', '@@text_domain' ),
+                                            onClick: () => setAttributes( { horizontalAlign: 'end' } ),
+                                            isActive: 'end' === horizontalAlign,
+                                        },
+                                        {
+                                            icon: getIcon( 'icon-horizontal-around' ),
+                                            title: __( 'Around', '@@text_domain' ),
+                                            onClick: () => setAttributes( { horizontalAlign: 'around' } ),
+                                            isActive: 'around' === horizontalAlign,
+                                        },
+                                        {
+                                            icon: getIcon( 'icon-horizontal-between' ),
+                                            title: __( 'Between', '@@text_domain' ),
+                                            onClick: () => setAttributes( { horizontalAlign: 'between' } ),
+                                            isActive: 'between' === horizontalAlign,
+                                        },
+                                    ] }
+                                    />
+                                </div>
                             </BaseControl>
                         </PanelBody>
                         <PanelBody>

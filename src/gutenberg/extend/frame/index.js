@@ -297,10 +297,9 @@ class FrameComponent extends Component {
                                                                                 text={ borderStyles[ key ] }
                                                                             >
                                                                                 <Button
-                                                                                    isSecondary
                                                                                     isSmall
                                                                                     isPrimary={ currentStyleName === borderStyle }
-                                                                                    aria-pressed={ currentStyleName === borderStyle }
+                                                                                    isPressed={ currentStyleName === borderStyle }
                                                                                     onClick={ () => {
                                                                                         if ( 'none' === key ) {
                                                                                             this.updateFrame( {

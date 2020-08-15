@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/pricing-table",
-	"category": "layout",
+	"category": "design",
     "supports": {
         "html": false,
         "className": false,

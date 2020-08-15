@@ -8,7 +8,8 @@
     right: 0;
     width: 20px;
     height: 20px;
-    padding: 0;
+    // stylelint-disable-next-line
+    padding: 0 !important;
     margin-top: -10px;
     margin-right: -10px;
     color: #fff;
@@ -17,12 +18,15 @@
     opacity: .7;
     transition: .2s opacity, .2s background-color;
 
-    &:hover {
-        background-color: val(--gkt-color-brand);
+    &:hover,
+    &:focus {
+        color: #fff;
+        background-color: var(--gkt-color-brand);
         opacity: 1;
     }
 
     svg {
+        flex: 0 0 auto;
         width: auto;
         height: .8em;
     }

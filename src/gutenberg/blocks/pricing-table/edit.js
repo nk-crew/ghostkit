@@ -176,34 +176,38 @@ class BlockEdit extends Component {
                 <InspectorControls>
                     <PanelBody>
                         <BaseControl label={ __( 'Vertical align', '@@text_domain' ) }>
-                            <Toolbar controls={ [
-                                {
-                                    icon: getIcon( 'icon-vertical-top' ),
-                                    title: __( 'ItemsVertical Start', '@@text_domain' ),
-                                    onClick: () => setAttributes( { verticalAlign: '' } ),
-                                    isActive: '' === verticalAlign,
-                                },
-                                {
-                                    icon: getIcon( 'icon-vertical-center' ),
-                                    title: __( 'ItemsVertical Center', '@@text_domain' ),
-                                    onClick: () => setAttributes( { verticalAlign: 'center' } ),
-                                    isActive: 'center' === verticalAlign,
-                                },
-                                {
-                                    icon: getIcon( 'icon-vertical-bottom' ),
-                                    title: __( 'ItemsVertical End', '@@text_domain' ),
-                                    onClick: () => setAttributes( { verticalAlign: 'end' } ),
-                                    isActive: 'end' === verticalAlign,
-                                },
-                            ] }
-                            />
+                            <div>
+                                <Toolbar controls={ [
+                                    {
+                                        icon: getIcon( 'icon-vertical-top' ),
+                                        title: __( 'ItemsVertical Start', '@@text_domain' ),
+                                        onClick: () => setAttributes( { verticalAlign: '' } ),
+                                        isActive: '' === verticalAlign,
+                                    },
+                                    {
+                                        icon: getIcon( 'icon-vertical-center' ),
+                                        title: __( 'ItemsVertical Center', '@@text_domain' ),
+                                        onClick: () => setAttributes( { verticalAlign: 'center' } ),
+                                        isActive: 'center' === verticalAlign,
+                                    },
+                                    {
+                                        icon: getIcon( 'icon-vertical-bottom' ),
+                                        title: __( 'ItemsVertical End', '@@text_domain' ),
+                                        onClick: () => setAttributes( { verticalAlign: 'end' } ),
+                                        isActive: 'end' === verticalAlign,
+                                    },
+                                ] }
+                                />
+                            </div>
                         </BaseControl>
                         <BaseControl label={ __( 'Horizontal align', '@@text_domain' ) }>
-                            <AlignmentToolbar
-                                value={ horizontalAlign }
-                                onChange={ ( val ) => setAttributes( { horizontalAlign: val } ) }
-                                isCollapsed={ false }
-                            />
+                            <div>
+                                <AlignmentToolbar
+                                    value={ horizontalAlign }
+                                    onChange={ ( val ) => setAttributes( { horizontalAlign: val } ) }
+                                    isCollapsed={ false }
+                                />
+                            </div>
                         </BaseControl>
                     </PanelBody>
                     <PanelBody>

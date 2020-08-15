@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/countdown",
-	"category": "layout",
+	"category": "text",
     "supports": {
         "html": false,
         "className": false,

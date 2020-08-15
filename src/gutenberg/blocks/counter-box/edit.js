@@ -86,27 +86,29 @@ class BlockEdit extends Component {
                         <BaseControl
                             label={ __( 'Number Position', '@@text_domain' ) }
                         >
-                            <Toolbar controls={ [
-                                {
-                                    icon: 'align-center',
-                                    title: __( 'Top', '@@text_domain' ),
-                                    onClick: () => setAttributes( { numberPosition: 'top' } ),
-                                    isActive: 'top' === numberPosition,
-                                },
-                                {
-                                    icon: 'align-left',
-                                    title: __( 'Left', '@@text_domain' ),
-                                    onClick: () => setAttributes( { numberPosition: 'left' } ),
-                                    isActive: 'left' === numberPosition,
-                                },
-                                {
-                                    icon: 'align-right',
-                                    title: __( 'Right', '@@text_domain' ),
-                                    onClick: () => setAttributes( { numberPosition: 'right' } ),
-                                    isActive: 'right' === numberPosition,
-                                },
-                            ] }
-                            />
+                            <div>
+                                <Toolbar controls={ [
+                                    {
+                                        icon: 'align-center',
+                                        title: __( 'Top', '@@text_domain' ),
+                                        onClick: () => setAttributes( { numberPosition: 'top' } ),
+                                        isActive: 'top' === numberPosition,
+                                    },
+                                    {
+                                        icon: 'align-left',
+                                        title: __( 'Left', '@@text_domain' ),
+                                        onClick: () => setAttributes( { numberPosition: 'left' } ),
+                                        isActive: 'left' === numberPosition,
+                                    },
+                                    {
+                                        icon: 'align-right',
+                                        title: __( 'Right', '@@text_domain' ),
+                                        onClick: () => setAttributes( { numberPosition: 'right' } ),
+                                        isActive: 'right' === numberPosition,
+                                    },
+                                ] }
+                                />
+                            </div>
                         </BaseControl>
                     </PanelBody>
                     <PanelBody>

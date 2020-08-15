@@ -89,27 +89,29 @@ class BlockEdit extends Component {
                                 <BaseControl
                                     label={ __( 'Icon Position', '@@text_domain' ) }
                                 >
-                                    <Toolbar controls={ [
-                                        {
-                                            icon: 'align-center',
-                                            title: __( 'Top', '@@text_domain' ),
-                                            onClick: () => setAttributes( { iconPosition: 'top' } ),
-                                            isActive: 'top' === iconPosition,
-                                        },
-                                        {
-                                            icon: 'align-left',
-                                            title: __( 'Left', '@@text_domain' ),
-                                            onClick: () => setAttributes( { iconPosition: 'left' } ),
-                                            isActive: 'left' === iconPosition,
-                                        },
-                                        {
-                                            icon: 'align-right',
-                                            title: __( 'Right', '@@text_domain' ),
-                                            onClick: () => setAttributes( { iconPosition: 'right' } ),
-                                            isActive: 'right' === iconPosition,
-                                        },
-                                    ] }
-                                    />
+                                    <div>
+                                        <Toolbar controls={ [
+                                            {
+                                                icon: 'align-center',
+                                                title: __( 'Top', '@@text_domain' ),
+                                                onClick: () => setAttributes( { iconPosition: 'top' } ),
+                                                isActive: 'top' === iconPosition,
+                                            },
+                                            {
+                                                icon: 'align-left',
+                                                title: __( 'Left', '@@text_domain' ),
+                                                onClick: () => setAttributes( { iconPosition: 'left' } ),
+                                                isActive: 'left' === iconPosition,
+                                            },
+                                            {
+                                                icon: 'align-right',
+                                                title: __( 'Right', '@@text_domain' ),
+                                                onClick: () => setAttributes( { iconPosition: 'right' } ),
+                                                isActive: 'right' === iconPosition,
+                                            },
+                                        ] }
+                                        />
+                                    </div>
                                 </BaseControl>
                             </Fragment>
                         ) : '' }

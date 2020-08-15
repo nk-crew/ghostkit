@@ -37,7 +37,7 @@ $( document ).on( 'DOMContentLoaded', () => {
 
             const {
                 insertBlocks,
-            } = wp.data.dispatch( 'core/editor' );
+            } = wp.data.dispatch( 'core/block-editor' );
 
             insertBlocks( createBlock( 'ghostkit/grid', {
                 isTemplatesModalOnly: true,

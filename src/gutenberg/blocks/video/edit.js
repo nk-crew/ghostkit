@@ -18,7 +18,6 @@ import ImgAspectRatio43 from './aspect-ratio/aspect-ratio-4-3.png';
 import ImgAspectRatio169 from './aspect-ratio/aspect-ratio-16-9.png';
 import ImgAspectRatio219 from './aspect-ratio/aspect-ratio-21-9.png';
 
-
 /**
  * WordPress dependencies
  */
@@ -288,15 +287,13 @@ class BlockEdit extends Component {
                                         label: __( 'YouTube / Vimeo', '@@text_domain' ),
                                         value: 'yt_vm_video',
                                     }, {
-                                        label: __( 'Local Hosted', '@@text_domain' ),
+                                        label: __( 'Self Hosted', '@@text_domain' ),
                                         value: 'video',
                                     },
                                 ].map( ( val ) => (
                                     <Button
-                                        isSecondary
                                         isSmall
                                         isPrimary={ type === val.value }
-                                        aria-pressed={ type === val.value }
                                         onClick={ () => setAttributes( { type: val.value } ) }
                                         key={ `type_${ val.label }` }
                                     >

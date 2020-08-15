@@ -1,7 +1,7 @@
 {
 	"name": "ghostkit/pricing-table-item",
     "parent": [ "ghostkit/pricing-table" ],
-	"category": "layout",
+	"category": "design",
     "supports": {
         "html": false,
         "className": false,

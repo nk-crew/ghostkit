@@ -153,12 +153,14 @@ class BlockEdit extends Component {
                             } }
                         />
                         <BaseControl label={ __( 'Align', '@@text_domain' ) }>
-                            <BlockAlignmentToolbar
-                                value={ align }
-                                onChange={ ( value ) => setAttributes( { align: value } ) }
-                                controls={ [ 'left', 'center', 'right' ] }
-                                isCollapsed={ false }
-                            />
+                            <div>
+                                <BlockAlignmentToolbar
+                                    value={ align }
+                                    onChange={ ( value ) => setAttributes( { align: value } ) }
+                                    controls={ [ 'left', 'center', 'right' ] }
+                                    isCollapsed={ false }
+                                />
+                            </div>
                         </BaseControl>
                     </PanelBody>
                 </InspectorControls>

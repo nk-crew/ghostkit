@@ -1,7 +1,7 @@
 {
 	"name": "ghostkit/button-single",
     "parent": [ "ghostkit/button", "ghostkit/form" ],
-	"category": "layout",
+	"category": "design",
     "supports": {
         "html": false,
         "className": false,

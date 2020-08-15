@@ -64,10 +64,9 @@ export default class GapSettings extends Component {
 
                                 return (
                                     <Button
-                                        isSecondary
                                         isSmall
                                         isPrimary={ selected }
-                                        aria-pressed={ selected }
+                                        isPressed={ selected }
                                         onClick={ () => {
                                             const result = {
                                                 gap: val.value,

@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/gif",
-	"category": "common",
+	"category": "media",
     "supports": {
         "html": false,
         "className": false,

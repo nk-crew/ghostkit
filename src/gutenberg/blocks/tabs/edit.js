@@ -201,19 +201,21 @@ class BlockEdit extends Component {
                             onChange={ ( val ) => setAttributes( { buttonsVerticalAlign: val } ) }
                         />
                         <BaseControl label={ __( 'Tabs Align', '@@text_domain' ) }>
-                            <AlignmentToolbar
-                                value={ buttonsAlignValForControl }
-                                onChange={ ( value ) => {
-                                    if ( 'left' === value ) {
-                                        value = 'start';
-                                    } else if ( 'right' === value ) {
-                                        value = 'end';
-                                    }
-                                    setAttributes( { buttonsAlign: value } );
-                                } }
-                                controls={ [ 'left', 'center', 'right' ] }
-                                isCollapsed={ false }
-                            />
+                            <div>
+                                <AlignmentToolbar
+                                    value={ buttonsAlignValForControl }
+                                    onChange={ ( value ) => {
+                                        if ( 'left' === value ) {
+                                            value = 'start';
+                                        } else if ( 'right' === value ) {
+                                            value = 'end';
+                                        }
+                                        setAttributes( { buttonsAlign: value } );
+                                    } }
+                                    controls={ [ 'left', 'center', 'right' ] }
+                                    isCollapsed={ false }
+                                />
+                            </div>
                         </BaseControl>
                     </PanelBody>
                 </InspectorControls>

@@ -177,10 +177,9 @@ class BlockEdit extends Component {
 
                                         return (
                                             <Button
-                                                isSecondary
                                                 isSmall
                                                 isPrimary={ selected }
-                                                aria-pressed={ selected }
+                                                isPressed={ selected }
                                                 onClick={ () => setAttributes( { confirmationType: val.value } ) }
                                                 key={ `confirmationType_${ val.label }` }
                                             >

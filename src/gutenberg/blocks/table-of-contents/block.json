@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/table-of-contents",
-	"category": "layout",
+	"category": "text",
     "supports": {
         "html": false,
         "className": false,

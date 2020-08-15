@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/alert",
-	"category": "layout",
+	"category": "design",
     "supports": {
         "html": false,
         "className": false,

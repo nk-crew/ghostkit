@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/shape-divider",
-	"category": "layout",
+	"category": "design",
     "supports": {
         "html": false,
         "className": false,

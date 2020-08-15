@@ -228,10 +228,9 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 
                                                     return (
                                                         <Button
-                                                            isSecondary
                                                             isSmall
                                                             isPrimary={ selected }
-                                                            aria-pressed={ selected }
+                                                            isPressed={ selected }
                                                             onClick={ () => this.updateDisplay( tabData.name, val.value ) }
                                                             key={ `display_${ val.label }` }
                                                         >

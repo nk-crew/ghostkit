@@ -179,39 +179,41 @@ class BlockEdit extends Component {
                                                 <BaseControl
                                                     label={ __( 'Vertical alignment', '@@text_domain' ) }
                                                 >
-                                                    <Toolbar controls={ [
-                                                        {
-                                                            icon: getIcon( 'icon-vertical-top' ),
-                                                            title: __( 'Start', '@@text_domain' ),
-                                                            onClick: () => {
-                                                                setAttributes( {
-                                                                    [ verticalAlignName ]: 'start' === attributes[ verticalAlignName ] ? '' : 'start',
-                                                                } );
+                                                    <div>
+                                                        <Toolbar controls={ [
+                                                            {
+                                                                icon: getIcon( 'icon-vertical-top' ),
+                                                                title: __( 'Start', '@@text_domain' ),
+                                                                onClick: () => {
+                                                                    setAttributes( {
+                                                                        [ verticalAlignName ]: 'start' === attributes[ verticalAlignName ] ? '' : 'start',
+                                                                    } );
+                                                                },
+                                                                isActive: 'start' === attributes[ verticalAlignName ],
                                                             },
-                                                            isActive: 'start' === attributes[ verticalAlignName ],
-                                                        },
-                                                        {
-                                                            icon: getIcon( 'icon-vertical-center' ),
-                                                            title: __( 'Center', '@@text_domain' ),
-                                                            onClick: () => {
-                                                                setAttributes( {
-                                                                    [ verticalAlignName ]: 'center' === attributes[ verticalAlignName ] ? '' : 'center',
-                                                                } );
+                                                            {
+                                                                icon: getIcon( 'icon-vertical-center' ),
+                                                                title: __( 'Center', '@@text_domain' ),
+                                                                onClick: () => {
+                                                                    setAttributes( {
+                                                                        [ verticalAlignName ]: 'center' === attributes[ verticalAlignName ] ? '' : 'center',
+                                                                    } );
+                                                                },
+                                                                isActive: 'center' === attributes[ verticalAlignName ],
                                                             },
-                                                            isActive: 'center' === attributes[ verticalAlignName ],
-                                                        },
-                                                        {
-                                                            icon: getIcon( 'icon-vertical-bottom' ),
-                                                            title: __( 'End', '@@text_domain' ),
-                                                            onClick: () => {
-                                                                setAttributes( {
-                                                                    [ verticalAlignName ]: 'end' === attributes[ verticalAlignName ] ? '' : 'end',
-                                                                } );
+                                                            {
+                                                                icon: getIcon( 'icon-vertical-bottom' ),
+                                                                title: __( 'End', '@@text_domain' ),
+                                                                onClick: () => {
+                                                                    setAttributes( {
+                                                                        [ verticalAlignName ]: 'end' === attributes[ verticalAlignName ] ? '' : 'end',
+                                                                    } );
+                                                                },
+                                                                isActive: 'end' === attributes[ verticalAlignName ],
                                                             },
-                                                            isActive: 'end' === attributes[ verticalAlignName ],
-                                                        },
-                                                    ] }
-                                                    />
+                                                        ] }
+                                                        />
+                                                    </div>
                                                 </BaseControl>
                                             </Fragment>
                                         );
@@ -243,10 +245,9 @@ class BlockEdit extends Component {
 
                                         return (
                                             <Button
-                                                isSecondary
                                                 isSmall
                                                 isPrimary={ selected }
-                                                aria-pressed={ selected }
+                                                isPressed={ selected }
                                                 onClick={ () => setAttributes( { stickyContent: val.value } ) }
                                                 key={ `stickyContent_${ val.label }` }
                                             >

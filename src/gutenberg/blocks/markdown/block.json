@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/markdown",
-	"category": "formatting",
+	"category": "text",
     "supports": {
         "html": false,
         "className": true,

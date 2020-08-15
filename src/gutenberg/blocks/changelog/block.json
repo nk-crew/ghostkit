@@ -1,6 +1,6 @@
 {
 	"name": "ghostkit/changelog",
-	"category": "layout",
+	"category": "text",
     "supports": {
         "html": false,
         "className": false,
