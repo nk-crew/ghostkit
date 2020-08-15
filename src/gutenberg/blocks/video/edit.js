@@ -294,6 +294,7 @@ class BlockEdit extends Component {
                                     <Button
                                         isSmall
                                         isPrimary={ type === val.value }
+                                        isPressed={ type === val.value }
                                         onClick={ () => setAttributes( { type: val.value } ) }
                                         key={ `type_${ val.label }` }
                                     >
@@ -493,20 +494,33 @@ class BlockEdit extends Component {
                         />
                     </PanelBody>
                     <PanelBody>
-                        <SelectControl
-                            label={ __( 'Click Action', '@@text_domain' ) }
-                            value={ clickAction }
-                            options={ [
-                                {
-                                    value: 'plain',
-                                    label: 'Plain',
-                                }, {
-                                    value: 'fullscreen',
-                                    label: 'Fullscreen',
-                                },
-                            ] }
-                            onChange={ ( value ) => setAttributes( { clickAction: value } ) }
-                        />
+                        <BaseControl label={ __( 'Click Action', '@@text_domain' ) }>
+                            <div>
+                                <ButtonGroup aria-label={ __( 'Click Action', '@@text_domain' ) }>
+                                    {
+                                        [
+                                            {
+                                                label: __( 'Plain', '@@text_domain' ),
+                                                value: 'plain',
+                                            }, {
+                                                label: __( 'Fullscreen', '@@text_domain' ),
+                                                value: 'fullscreen',
+                                            },
+                                        ].map( ( val ) => (
+                                            <Button
+                                                isSmall
+                                                isPrimary={ clickAction === val.value }
+                                                isPressed={ clickAction === val.value }
+                                                onClick={ () => setAttributes( { clickAction: val.value } ) }
+                                                key={ `clickAction_${ val.label }` }
+                                            >
+                                                { val.label }
+                                            </Button>
+                                        ) )
+                                    }
+                                </ButtonGroup>
+                            </div>
+                        </BaseControl>
                         { 'fullscreen' === clickAction ? (
                             <Fragment>
                                 <ApplyFilters name="ghostkit.editor.controls" attribute="fullscreenBackgroundColor" props={ this.props }>

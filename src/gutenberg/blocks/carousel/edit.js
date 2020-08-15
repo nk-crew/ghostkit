@@ -22,8 +22,10 @@ const { Component, Fragment } = wp.element;
 const {
     PanelBody,
     RangeControl,
-    SelectControl,
     ToggleControl,
+    BaseControl,
+    ButtonGroup,
+    Button,
 } = wp.components;
 
 const {
@@ -97,23 +99,36 @@ class BlockEdit extends Component {
                         />
                     </PanelBody>
                     <PanelBody>
-                        <SelectControl
-                            label={ __( 'Effect', '@@text_domain' ) }
-                            value={ effect }
-                            options={ [
-                                {
-                                    value: 'slide',
-                                    label: __( 'Slide', '@@text_domain' ),
-                                }, {
-                                    value: 'coverflow',
-                                    label: __( 'Coverflow', '@@text_domain' ),
-                                }, {
-                                    value: 'fade',
-                                    label: __( 'Fade', '@@text_domain' ),
-                                },
-                            ] }
-                            onChange={ ( value ) => setAttributes( { effect: value } ) }
-                        />
+                        <BaseControl label={ __( 'Effect', '@@text_domain' ) }>
+                            <div>
+                                <ButtonGroup aria-label={ __( 'Effect', '@@text_domain' ) }>
+                                    {
+                                        [
+                                            {
+                                                value: 'slide',
+                                                label: __( 'Slide', '@@text_domain' ),
+                                            }, {
+                                                value: 'coverflow',
+                                                label: __( 'Coverflow', '@@text_domain' ),
+                                            }, {
+                                                value: 'fade',
+                                                label: __( 'Fade', '@@text_domain' ),
+                                            },
+                                        ].map( ( val ) => (
+                                            <Button
+                                                isSmall
+                                                isPrimary={ effect === val.value }
+                                                isPressed={ effect === val.value }
+                                                onClick={ () => setAttributes( { effect: val.value } ) }
+                                                key={ `effect_${ val.label }` }
+                                            >
+                                                { val.label }
+                                            </Button>
+                                        ) )
+                                    }
+                                </ButtonGroup>
+                            </div>
+                        </BaseControl>
                     </PanelBody>
                     <PanelBody>
                         <RangeControl
