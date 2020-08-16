@@ -45,12 +45,12 @@
 .ghostkit-col {
     position: relative;
     display: flex;
-    flex: var(--gkt-grid--column__flex-calculated);
+    flex: 1;
     // Fix for previous columns implementation without .ghostkit-col-content
     flex-wrap: wrap;
     order: var(--gkt-grid--column__order);
-    width: var(--gkt-grid--column__width-calculated);
-    max-width: var(--gkt-grid--column__width-calculated);
+    width: 100%;
+    max-width: 100%;
     min-height: 1px; // Prevent columns from collapsing when empty
 
     &.wp-block {
@@ -71,16 +71,21 @@
 
         // Provide basic `.col-{bp}` classes for equal-width flexbox columns
         .ghostkit-col#{$infix} {
-            --gkt-grid--column__flex-calculated: 1;
-            --gkt-grid--column__width-calculated: 100%;
+            flex: 1;
+            width: 100%;
+            max-width: 100%;
         }
 
         // col size.
         @for $i from 1 through $grid-columns {
             .ghostkit-col#{$infix}-#{$i} {
-                --gkt-grid--column__size: #{percentage($i / $grid-columns)};
-                --gkt-grid--column__flex-calculated: 0 0 calc(var(--gkt-grid--column__size) - var(--gkt-grid__gap));
-                --gkt-grid--column__width-calculated: calc(var(--gkt-grid--column__size) - var(--gkt-grid__gap));
+                // We can't use complex CSS variables here
+                // https://github.com/nk-o/ghostkit/issues/103
+                flex-basis: calc(#{percentage($i / $grid-columns)} - var(--gkt-grid__gap));
+                flex-shrink: 0;
+                flex-grow: 0;
+                width: calc(#{percentage($i / $grid-columns)} - var(--gkt-grid__gap));
+                max-width: calc(#{percentage($i / $grid-columns)} - var(--gkt-grid__gap));
             }
         }
 
