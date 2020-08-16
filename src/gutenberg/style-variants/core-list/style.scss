@@ -80,6 +80,11 @@ ol.is-style-styled,
             border-radius: var(--gkt-styled-lists-numbered--decoration__border-radius);
         }
     }
+
+    // reversed
+    &[reversed] > li::before {
+        counter-increment: li -1;
+    }
 }
 
 /**

@@ -168,6 +168,7 @@ class GhostKitClass {
         GHOSTKIT.triggerEvent( 'initBlocks', self );
 
         self.prepareFallbackCustomStyles();
+        self.prepareNumberedLists();
         self.prepareCounters();
         self.prepareSR();
 
@@ -227,6 +228,32 @@ class GhostKitClass {
         const visiblePercent = ( visibleWidth * visibleHeight ) / ( rectW * rectH );
 
         return visiblePercent >= allowPercent;
+    }
+
+    /**
+     * Prepare Numbered Lists with `start` attribute.
+     */
+    prepareNumberedLists() {
+        const self = this;
+
+        GHOSTKIT.triggerEvent( 'beforePrepareNumberedLists', self );
+
+        $( '.is-style-styled:not(.is-style-styled-ready)' ).each( function() {
+            const $this = $( this );
+            const start = parseInt( $this.attr( 'start' ), 10 );
+            const isReversed = 'undefined' !== typeof $this.attr( 'reversed' );
+            const itemsCount = $this.children().length;
+
+            $this.addClass( 'is-style-styled-ready' );
+
+            if ( isReversed ) {
+                $this.css( 'counter-reset', `li ${ ( start || itemsCount ) + 1 }` );
+            } else if ( start ) {
+                $this.css( 'counter-reset', `li ${ start - 1 }` );
+            }
+        } );
+
+        GHOSTKIT.triggerEvent( 'afterPrepareNumberedLists', self );
     }
 
     /**

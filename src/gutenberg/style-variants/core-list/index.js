@@ -1,15 +1,25 @@
 /**
- * WordPress dependencies
+ * External dependencies
  */
+import { throttle } from 'throttle-debounce';
+
 /**
  * Internal dependencies
  */
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import EditorStyles from '../../components/editor-styles';
 import {
     getActiveClass, replaceClass, addClass, removeClass, hasClass,
 } from '../../utils/classes-replacer';
+
+/**
+ * WordPress dependencies
+ */
+const {
+    jQuery: $,
+} = window;
 
 const { merge } = window.lodash;
 
@@ -201,6 +211,73 @@ class GhostKitListColumns extends Component {
 }
 
 /**
+ * Custom Styles for Start and Reversed attributes of lists.
+ */
+class GhostKitListStartAndReversedCustomStyles extends Component {
+    constructor( props ) {
+        super( props );
+
+        this.state = {
+            itemsCount: 0,
+        };
+
+        this.onUpdate = throttle( 120, this.onUpdate.bind( this ) );
+    }
+
+    componentDidMount() {
+        this.onUpdate( true );
+    }
+
+    componentDidUpdate() {
+        this.onUpdate();
+    }
+
+    onUpdate() {
+        const {
+            clientId,
+        } = this.props;
+
+        this.setState( {
+            itemsCount: $( `[data-block="${ clientId }"]` ).children().length,
+        } );
+    }
+
+    render() {
+        const {
+            attributes,
+            clientId,
+        } = this.props;
+
+        const {
+            itemsCount,
+        } = this.state;
+
+        const {
+            start,
+            reversed: isReversed,
+        } = attributes;
+
+        let styles = '';
+
+        if ( isReversed ) {
+            styles += `counter-reset: li ${ ( start || itemsCount ) + 1 }`;
+        } else if ( start ) {
+            styles += `counter-reset: li ${ start - 1 }`;
+        }
+
+        if ( ! styles ) {
+            return null;
+        }
+
+        const customStylesRender = [ { css: `[data-block="${ clientId }"].wp-block { ${ styles } }` } ];
+
+        return (
+            <EditorStyles styles={ customStylesRender } />
+        );
+    }
+}
+
+/**
  * Override the default edit UI to include a new block inspector control for
  * assigning the custom display if needed.
  *
@@ -233,6 +310,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
                     <Fragment>
                         <OriginalComponent { ...props } />
                         <GhostKitListColumns { ...props } />
+                        <GhostKitListStartAndReversedCustomStyles { ...props } />
                     </Fragment>
                 );
             }
