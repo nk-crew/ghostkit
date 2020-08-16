@@ -13,6 +13,10 @@ const {
 const { Component } = wp.element;
 
 const {
+    withSelect,
+} = wp.data;
+
+const {
     InnerBlocks,
 } = wp.blockEditor;
 
@@ -21,6 +25,10 @@ const {
  */
 class BlockEdit extends Component {
     render() {
+        const {
+            hasChildBlocks,
+        } = this.props;
+
         let {
             className = '',
         } = this.props;
@@ -31,10 +39,24 @@ class BlockEdit extends Component {
 
         return (
             <div className={ className }>
-                <InnerBlocks templateLock={ false } />
+                <InnerBlocks
+                    templateLock={ false }
+                    renderAppender={ (
+                        hasChildBlocks
+                            ? undefined
+                            : () => <InnerBlocks.ButtonBlockAppender />
+                    ) }
+                />
             </div>
         );
     }
 }
 
-export default BlockEdit;
+export default withSelect( ( select, props ) => {
+    const { clientId } = props;
+    const blockEditor = select( 'core/block-editor' );
+
+    return {
+        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
+    };
+} )( BlockEdit );
