@@ -453,7 +453,7 @@ const withDataSR = createHigherOrderComponent( ( BlockListBlock ) => {
                     if ( element ) {
                         const config = parseSRConfig( attributes.ghostkitSR );
 
-                        config.container = '.edit-post-layout__content';
+                        config.container = '.editor-styles-wrapper';
 
                         ScrollReveal().clean( element );
                         ScrollReveal().reveal( element, config );

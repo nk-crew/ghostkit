@@ -5,8 +5,8 @@
     @include media-breakpoint-down($breakpoint) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        .editor-ghostkit-d#{$infix}-none {
-            &::before {
+        .ghostkit-d#{$infix}-none {
+            &::after {
                 background-image: linear-gradient(45deg, rgba(0, 0, 0, .05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .05) 50%, rgba(0, 0, 0, .05) 75%, transparent 75%, transparent);
                 background-size: 6px 6px;
             }
@@ -15,8 +15,8 @@
                 filter: opacity(.4) saturate(0);
             }
         }
-        .editor-ghostkit-d#{$infix}-block {
-            &::before {
+        .ghostkit-d#{$infix}-block {
+            &::after {
                 background-image: none;
             }
 

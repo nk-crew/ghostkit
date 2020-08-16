@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import classnames from 'classnames/dedupe';
-
-/**
  * Internal dependencies
  */
 import checkCoreBlock from '../check-core-block';
@@ -253,87 +248,5 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
     return GhostKitDisplayWrapper;
 }, 'withInspectorControl' );
 
-const withDataDisplay = createHigherOrderComponent( ( BlockListBlock ) => {
-    class GhostKitDisplayWrapper extends Component {
-        constructor( props ) {
-            super( props );
-
-            this.state = {
-                allowedDisplay: allowedDisplay( this.props ),
-                currentClassName: '',
-                currentDisplay: '',
-            };
-
-            this.maybeRunDisplay = this.maybeRunDisplay.bind( this );
-        }
-
-        componentDidMount() {
-            this.maybeRunDisplay();
-        }
-
-        componentDidUpdate() {
-            this.maybeRunDisplay();
-        }
-
-        maybeRunDisplay() {
-            const {
-                attributes,
-            } = this.props;
-
-            const {
-                className = '',
-            } = attributes;
-
-            if ( ! this.state.allowedDisplay || this.state.currentClassName === className ) {
-                return;
-            }
-
-            if ( ! ghostkitVariables || ! ghostkitVariables.media_sizes ) {
-                return;
-            }
-
-            let currentDisplay = '';
-
-            [
-                'all',
-                ...Object.keys( ghostkitVariables.media_sizes ),
-            ].forEach( ( media ) => {
-                const currentVal = getCurrentDisplay( className, media );
-
-                if ( currentVal ) {
-                    currentDisplay = classnames( currentDisplay, `editor-ghostkit-d${ 'all' === media ? '' : `-${ media }` }-${ currentVal }` );
-                }
-            } );
-
-            this.setState( {
-                currentClassName: className,
-                currentDisplay,
-            } );
-        }
-
-        render() {
-            const {
-                className,
-            } = this.props;
-
-            if ( ! this.state.currentDisplay ) {
-                return (
-                    <BlockListBlock { ...this.props } />
-                );
-            }
-
-            return (
-                <BlockListBlock
-                    { ...this.props }
-                    className={ classnames( className, this.state.currentDisplay ) }
-                />
-            );
-        }
-    }
-
-    return GhostKitDisplayWrapper;
-}, 'withDataDisplay' );
-
 // Init filters.
 addFilter( 'editor.BlockEdit', 'ghostkit/display/additional-attributes', withInspectorControl );
-addFilter( 'editor.BlockListBlock', 'ghostkit/display/editor/additional-attributes', withDataDisplay );
