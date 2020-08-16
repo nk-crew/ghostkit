@@ -7,7 +7,7 @@
     $selector: "";
     $content: "";
 
-    .core-heading-level-#{$level} {
+    h#{$level}.is-style-numbered {
         @if $level + 1 <= 6 {
             counter-reset: h#{$level + 1};
         }
@@ -22,10 +22,10 @@
             $content: " \".\" " + $content;
         }
 
-        $selector: ".core-heading-level-#{$i}" + $selector;
+        $selector: "h#{$i}.is-style-numbered" + $selector;
         $content: "counter(h#{$i})" + $content;
 
-        #{$selector} .is-style-numbered::before {
+        #{$selector}::before {
             content: #{$content};
         }
     }
@@ -38,8 +38,7 @@
     }
 
     // Styled h2
-    .core-heading-level-2 .is-style-numbered::before,
-    .editor-block-styles__item & h2.is-style-numbered::before {
+    h2.is-style-numbered::before {
         display: inline-flex;
         align-items: center;
         justify-content: center;
