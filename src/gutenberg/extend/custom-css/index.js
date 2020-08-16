@@ -122,7 +122,7 @@ selector p {
         }
 
         if ( ! allow ) {
-            return '';
+            return null;
         }
 
         const {

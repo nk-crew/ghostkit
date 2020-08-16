@@ -175,7 +175,7 @@ class FrameComponent extends Component {
         } = props.attributes;
 
         if ( ! allow ) {
-            return '';
+            return null;
         }
 
         const filledTabs = {};

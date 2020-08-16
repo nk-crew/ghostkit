@@ -24,11 +24,11 @@ class FieldDescription extends Component {
         } = attributes;
 
         if ( ! description && ! isSelected ) {
-            return '';
+            return null;
         }
 
         if ( hideDescription && ! isSelected ) {
-            return '';
+            return null;
         }
 
         return (

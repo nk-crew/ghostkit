@@ -96,7 +96,7 @@ class ColorPaletteModal extends Component {
                 <div className="ghostkit-plugin-color-palette-list ghostkit-plugin-color-palette-list-default">
                     { colors.map( ( data ) => {
                         if ( /^ghostkit-color-/g.test( data.slug ) ) {
-                            return '';
+                            return null;
                         }
 
                         return (
@@ -115,7 +115,7 @@ class ColorPaletteModal extends Component {
                 <div className="ghostkit-plugin-color-palette-list">
                     { colors.map( ( data, i ) => {
                         if ( ! /^ghostkit-color-/g.test( data.slug ) ) {
-                            return '';
+                            return null;
                         }
 
                         const colorName = `palette-item-${ data.slug }-${ i }`;

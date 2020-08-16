@@ -157,7 +157,7 @@ class TemplatesModal extends Component {
             );
         }
 
-        return '';
+        return null;
     }
 
     render() {

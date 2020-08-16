@@ -440,7 +440,7 @@ function addEditorBackground( background, props ) {
             );
         }
 
-        return '';
+        return null;
     }
 
     return background;
@@ -518,7 +518,7 @@ function addSaveBackground( background, props ) {
             );
         }
 
-        return '';
+        return null;
     }
 
     return background;

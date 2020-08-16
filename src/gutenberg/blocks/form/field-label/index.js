@@ -24,11 +24,11 @@ class FieldLabel extends Component {
         } = attributes;
 
         if ( ! label && ! isSelected ) {
-            return '';
+            return null;
         }
 
         if ( hideLabel && ! isSelected ) {
-            return '';
+            return null;
         }
 
         return (

@@ -178,7 +178,7 @@ class SpacingsComponent extends Component {
         }
 
         if ( ! allow ) {
-            return '';
+            return null;
         }
 
         const filledTabs = {};

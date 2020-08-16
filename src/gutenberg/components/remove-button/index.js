@@ -44,7 +44,7 @@ export default class RemoveButton extends Component {
         } = this.state;
 
         if ( ! show ) {
-            return '';
+            return null;
         }
 
         return (

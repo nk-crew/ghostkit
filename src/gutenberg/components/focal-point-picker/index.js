@@ -97,13 +97,13 @@ export default class CustomFocalPointPicker extends Component {
         let imageUrl = '';
 
         if ( ! image ) {
-            return '';
+            return null;
         }
 
         imageUrl = parseImageUrl( image );
 
         if ( ! imageUrl ) {
-            return '';
+            return null;
         }
 
         return (

@@ -691,7 +691,7 @@ class TypographyModal extends Component {
                                             );
                                         }
 
-                                        return '';
+                                        return null;
                                     } ) }
                                 </Fragment>
                             );

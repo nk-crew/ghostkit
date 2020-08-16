@@ -475,7 +475,7 @@ IconPicker.Render = ( props ) => {
     }
 
     if ( ! result && ! alwaysRender ) {
-        return '';
+        return null;
     }
 
     return (
