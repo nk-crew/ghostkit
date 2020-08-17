@@ -6,7 +6,7 @@
  */
 import getIcon from '../../utils/get-icon';
 
-import { BadgePopover, getSelectedBadge } from './badge-popover';
+import { BadgePopover } from './badge-popover';
 
 const { __ } = wp.i18n;
 
@@ -16,8 +16,20 @@ const {
 } = wp.element;
 
 const {
+    Toolbar,
+    Button,
+} = wp.components;
+
+const {
+    toggleFormat,
+    applyFormat,
+    getActiveFormat,
+} = wp.richText;
+
+const {
     RichTextToolbarButton,
     ColorPalette,
+    BlockControls,
 } = wp.blockEditor;
 
 export const name = 'ghostkit/badge';
@@ -34,9 +46,10 @@ export const settings = {
             super( props );
 
             this.state = {
-                currentColor: '',
+                openedPopover: false,
             };
 
+            this.getCurrentColor = this.getCurrentColor.bind( this );
             this.toggleFormat = this.toggleFormat.bind( this );
         }
 
@@ -45,21 +58,35 @@ export const settings = {
                 isActive,
             } = this.props;
 
-            if ( ! this.state.currentColor && isActive ) {
-                const $badge = getSelectedBadge();
+            const {
+                openedPopover,
+            } = this.state;
 
-                if ( $badge ) {
-                    const currentColor = $badge.style.getPropertyValue( 'background-color' );
-
-                    if ( currentColor ) {
-                        // eslint-disable-next-line react/no-did-update-set-state
-                        this.setState( { currentColor } );
-                    }
-                }
-            } else if ( this.state.currentColor && ! isActive ) {
+            // Close popover.
+            if ( ! isActive && openedPopover ) {
                 // eslint-disable-next-line react/no-did-update-set-state
-                this.setState( { currentColor: '' } );
+                this.setState( {
+                    openedPopover: false,
+                } );
             }
+        }
+
+        getCurrentColor() {
+            const {
+                value,
+            } = this.props;
+
+            const {
+                attributes,
+            } = getActiveFormat( value, name );
+
+            let color = '';
+
+            if ( attributes && attributes.style ) {
+                color = attributes.style.replace( /^background-color:\s*/, '' ).replace( /;$/, '' );
+            }
+
+            return color;
         }
 
         toggleFormat( color, toggle = true ) {
@@ -72,13 +99,13 @@ export const settings = {
 
             if ( color ) {
                 attributes.style = `background-color: ${ color };`;
-
-                this.setState( { currentColor: color } );
+            } else {
+                this.setState( { openedPopover: true } );
             }
 
-            const toggleFormat = toggle ? wp.richText.toggleFormat : wp.richText.applyFormat;
+            const runFormat = toggle ? toggleFormat : applyFormat;
 
-            onChange( toggleFormat(
+            onChange( runFormat(
                 value,
                 {
                     type: name,
@@ -93,25 +120,57 @@ export const settings = {
                 isActive,
             } = this.props;
 
+            const {
+                openedPopover,
+            } = this.state;
+
+            let currentColor = '';
+
+            if ( isActive ) {
+                currentColor = this.getCurrentColor();
+            }
+
             return (
                 <Fragment>
-                    <RichTextToolbarButton
-                        icon={ getIcon( 'icon-badge' ) }
-                        title="Badge"
-                        onClick={ () => {
-                            this.toggleFormat();
-                        } }
-                        isActive={ isActive }
-                    />
                     { isActive ? (
+                        <BlockControls>
+                            <Toolbar>
+                                <Button
+                                    icon={ (
+                                        <Fragment>
+                                            { getIcon( 'icon-badge' ) }
+                                            { currentColor ? (
+                                                <span className="ghostkit-format-badge-button__indicator" style={ { backgroundColor: currentColor } } />
+                                            ) : '' }
+                                        </Fragment>
+                                    ) }
+                                    onClick={ () => {
+                                        this.setState( {
+                                            openedPopover: ! openedPopover,
+                                        } );
+                                    } }
+                                />
+                            </Toolbar>
+                        </BlockControls>
+                    ) : (
+                        <RichTextToolbarButton
+                            icon={ getIcon( 'icon-badge' ) }
+                            title={ __( 'Badge', '@@text_domain' ) }
+                            onClick={ () => {
+                                this.toggleFormat();
+                            } }
+                            isActive={ isActive }
+                        />
+                    ) }
+                    { isActive && openedPopover ? (
                         <BadgePopover
                             value={ value }
                             name={ name }
                         >
                             <ColorPalette
-                                value={ this.state.currentColor }
+                                value={ currentColor }
                                 onChange={ ( color ) => {
-                                    this.toggleFormat( color, false );
+                                    this.toggleFormat( color, ! color );
                                 } }
                             />
                         </BadgePopover>

@@ -75,7 +75,6 @@ class BadgePopover extends Component {
         return (
             <URLPopover
                 className="ghostkit-format-badge-popover"
-                focusOnMount={ false }
                 anchorRect={ rect }
             >
                 { children }
