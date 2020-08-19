@@ -5,6 +5,7 @@
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+import ApplyFilters from '../../components/apply-filters';
 
 import { BadgePopover } from './badge-popover';
 
@@ -83,7 +84,7 @@ export const settings = {
             let color = '';
 
             if ( attributes && attributes.style ) {
-                color = attributes.style.replace( /^background-color:\s*/, '' ).replace( /;$/, '' );
+                color = attributes.style.replace( /^background:\s*/, '' ).replace( /;$/, '' );
             }
 
             return color;
@@ -98,7 +99,7 @@ export const settings = {
             const attributes = {};
 
             if ( color ) {
-                attributes.style = `background-color: ${ color };`;
+                attributes.style = `background: ${ color };`;
             } else {
                 this.setState( { openedPopover: true } );
             }
@@ -140,7 +141,7 @@ export const settings = {
                                         <Fragment>
                                             { getIcon( 'icon-badge' ) }
                                             { currentColor ? (
-                                                <span className="ghostkit-format-badge-button__indicator" style={ { backgroundColor: currentColor } } />
+                                                <span className="ghostkit-format-badge-button__indicator" style={ { background: currentColor } } />
                                             ) : '' }
                                         </Fragment>
                                     ) }
@@ -167,12 +168,20 @@ export const settings = {
                             value={ value }
                             name={ name }
                         >
-                            <ColorPalette
+                            <ApplyFilters
+                                name="ghostkit.editor-format.controls"
+                                property="background"
                                 value={ currentColor }
-                                onChange={ ( color ) => {
-                                    this.toggleFormat( color, ! color );
-                                } }
-                            />
+                                format={ name }
+                                data={ this }
+                            >
+                                <ColorPalette
+                                    value={ currentColor }
+                                    onChange={ ( color ) => {
+                                        this.toggleFormat( color, ! color );
+                                    } }
+                                />
+                            </ApplyFilters>
                         </BadgePopover>
                     ) : '' }
                 </Fragment>
