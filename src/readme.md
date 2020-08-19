@@ -108,7 +108,9 @@ Ghost Kit PRO Addon extends the capabilities of Ghost Kit and improve your desig
 * Visual Grid editor
 * Adobe Fonts (Typekit)
 * Google Maps custom markers
-* Gradient buttons, backgrounds, icons
+* Gradient buttons, backgrounds, icons, badges
+* Animated (Typed) Text
+* Tooltips
 * And more
 
 Try out a live demo of [Ghost Kit PRO](https://demo.ghostkit.io/)
@@ -195,6 +197,17 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.14.0 =
+
+* added support for WordPress 5.5
+* added RTL support
+* added support for `Start value` and `Reverse` settings in Styled numbered lists
+* added support for Gradients for Badges in Ghost Kit PRO
+* improved some editor UI elements
+* changed components `return '';` to `return null;` (fixed possible conflicts with 3rd-party plugins)
+* fixed Grid CSS variables error in IE11
+* fixed Grid block background top position bug when use Frame extension
 
 = 2.13.2 =
 
