@@ -135,4 +135,4 @@ export const withClasses = createHigherOrderComponent( ( BlockListBlock ) => (
     }
 ) );
 
-addFilter( 'editor.BlockListBlock', 'core/editor/grid/with-classes', withClasses );
+addFilter( 'editor.BlockListBlock', 'ghostkit/grid/with-classes', withClasses );
