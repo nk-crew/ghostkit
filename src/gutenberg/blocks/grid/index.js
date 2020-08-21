@@ -70,7 +70,7 @@ export const settings = {
             // change custom styles in Editor.
             if ( isEditor && attributes.ghostkitClassname ) {
                 // background.
-                styles = styles.replace( new RegExp( `.${ attributes.ghostkitClassname } > .nk-awb .jarallax-img`, 'g' ), `.ghostkit-grid .${ attributes.ghostkitClassname } > .awb-gutenberg-preview-block .jarallax-img` );
+                styles = styles.replace( new RegExp( '> .nk-awb .jarallax-img', 'g' ), '> .awb-gutenberg-preview-block .jarallax-img' );
             }
             return styles;
         },
