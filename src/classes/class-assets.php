@@ -25,6 +25,13 @@ class GhostKit_Assets {
     );
 
     /**
+     * Already added custom assets in head.
+     *
+     * @var boolean
+     */
+    private $already_added_custom_assets = false;
+
+    /**
      * Visual_Portfolio_Extend constructor.
      */
     public function __construct() {
@@ -492,6 +499,10 @@ class GhostKit_Assets {
      * @param array $location - blocks location [content,widget].
      */
     public function maybe_enqueue_blocks_assets( $blocks, $location ) {
+        if ( $this->already_added_custom_assets ) {
+            $location = 'widget';
+        }
+
         self::enqueue( $blocks, $location );
     }
 
@@ -569,6 +580,8 @@ class GhostKit_Assets {
                 self::add_custom_js( 'ghostkit-custom-js-foot', $meta_js_foot, true );
             }
         }
+
+        $this->already_added_custom_assets = true;
     }
 
     /**
