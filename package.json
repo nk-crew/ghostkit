@@ -38,26 +38,26 @@
     "wpeg": "^1.0.14"
   },
   "dependencies": {
-    "@wordpress/base-styles": "^2.0.1",
+    "@wordpress/base-styles": "^2.1.0",
     "ace-builds": "^1.4.12",
     "classnames": "^2.2.6",
     "deep-equal": "^2.0.3",
     "markdown-it": "^11.0.0",
     "qs": "^6.9.4",
     "rafl": "^1.2.2",
-    "react-ace": "^9.1.2",
+    "react-ace": "^9.1.3",
     "react-google-maps": "^9.4.5",
     "react-lazyload": "^3.0.0",
     "react-masonry-component": "^6.2.1",
     "react-select": "^3.1.0",
-    "react-select-virtualized": "^2.5.10",
-    "react-virtualized": "^9.21.2",
+    "react-select-virtualized": "^2.5.11",
+    "react-virtualized": "^9.22.2",
     "recompose": "^0.30.0",
     "scriptjs": "^2.5.9",
     "scrollreveal": "^4.0.7",
     "shorthash": "0.0.2",
     "slugify": "^1.4.5",
     "striptags": "^3.1.1",
-    "throttle-debounce": "^2.2.1"
+    "throttle-debounce": "^2.3.0"
   }
 }
