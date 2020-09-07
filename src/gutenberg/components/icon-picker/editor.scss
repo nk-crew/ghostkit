@@ -93,7 +93,8 @@
     overflow-y: hidden !important;
 
     .ghostkit-component-icon-picker-sizer {
-        height: 100vh;
+        height: 50vh;
+        max-height: 400px;
     }
 
     .ghostkit-component-icon-picker {

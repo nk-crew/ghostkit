@@ -109,16 +109,16 @@ class IconPickerDropdown extends Component {
         this.state = {
             search: '',
             hiddenCategories: hiddenIconCategories,
+            customizeIcon: false,
         };
 
         this.getDropdownContent = this.getDropdownContent.bind( this );
     }
 
     componentDidUpdate() {
-        // for some reason react-virtualized recalculates fine only when use timeout.
-        setTimeout( () => {
+        if ( this.cellMCache ) {
             this.cellMCache.clearAll();
-        }, 10 );
+        }
     }
 
     getDropdownContent() {
@@ -126,6 +126,10 @@ class IconPickerDropdown extends Component {
             onChange,
             value,
         } = this.props;
+
+        const {
+            customizeIcon,
+        } = this.state;
 
         const rows = [
             {
@@ -143,18 +147,31 @@ class IconPickerDropdown extends Component {
                             autoFocus
                         />
                         <div className="ghostkit-component-icon-picker-input-output">
-                            <TextareaControl
-                                label={ __( 'Icon Output', '@@text_domain' ) }
-                                value={ value }
-                                onChange={ ( newData ) => {
-                                    onChange( newData );
-                                } }
-                                placeholder={ __( 'Icon Output', '@@text_domain' ) }
-                                autoComplete="off"
-                            />
+                            { customizeIcon ? (
+                                <TextareaControl
+                                    label={ __( 'Icon Output', '@@text_domain' ) }
+                                    value={ value }
+                                    onChange={ ( newData ) => {
+                                        onChange( newData );
+                                    } }
+                                    placeholder={ __( 'Icon Output', '@@text_domain' ) }
+                                    autoComplete="off"
+                                />
+                            ) : (
+                                <Button
+                                    isSmall
+                                    isSecondary
+                                    onClick={ () => this.setState( { customizeIcon: true } ) }
+                                    style={ {
+                                        marginRight: 5,
+                                    } }
+                                >
+                                    { __( 'Customize Icon', '@@text_domain' ) }
+                                </Button>
+                            ) }
                             <Button
-                                isSecondary
                                 isSmall
+                                isSecondary
                                 disabled={ ! value }
                                 onClick={ () => onChange( '' ) }
                             >
@@ -290,7 +307,9 @@ class IconPickerDropdown extends Component {
         }
 
         const result = (
-            <AutoSizer>
+            <AutoSizer
+                key={ `autosizer-${ customizeIcon ? '1' : '0' }` }
+            >
                 { ( { width, height } ) => (
                     <List
                         className="ghostkit-component-icon-picker-list-wrap"
