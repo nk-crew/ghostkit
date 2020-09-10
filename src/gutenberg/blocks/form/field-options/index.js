@@ -24,7 +24,7 @@ class FieldOptions extends Component {
         return (
             <div className="ghostkit-field-options">
                 { options.map( ( data, i ) => {
-                    const fieldName = `option-${ data.value }-${ i }`;
+                    const fieldName = `option-${ i }`;
                     return (
                         <div className="ghostkit-field-options-item" key={ fieldName }>
                             <input
