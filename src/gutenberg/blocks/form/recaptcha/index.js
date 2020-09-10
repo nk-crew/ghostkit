@@ -73,11 +73,11 @@ export default class BlockSettings extends Component {
 
         return (
             <PanelBody
-                title={ __( 'Google reCAPTCHA', 'ghostkit' ) }
+                title={ __( 'Google reCAPTCHA', '@@text_domain' ) }
                 initialOpen={ ! ( apiSiteKey && apiSecretKey ) }
             >
                 <TextControl
-                    label={ __( 'Site Key', 'ghostkit' ) }
+                    label={ __( 'Site Key', '@@text_domain' ) }
                     value={ apiSiteKey }
                     onChange={ ( value ) => {
                         this.setState( { apiSiteKey: value } );
@@ -86,7 +86,7 @@ export default class BlockSettings extends Component {
                     } }
                 />
                 <TextControl
-                    label={ __( 'Secret Key', 'ghostkit' ) }
+                    label={ __( 'Secret Key', '@@text_domain' ) }
                     value={ apiSecretKey }
                     onChange={ ( value ) => {
                         this.setState( { apiSecretKey: value } );
@@ -94,10 +94,10 @@ export default class BlockSettings extends Component {
                         this.saveAPIKeys();
                     } }
                 />
-                <p>{ __( 'Protect your form from spam using Google reCAPTCHA v3.', 'ghostkit' ) }</p>
+                <p>{ __( 'Protect your form from spam using Google reCAPTCHA v3.', '@@text_domain' ) }</p>
                 <p>
                     <ExternalLink href="https://g.co/recaptcha/v3">
-                        { __( 'Generate Keys', 'ghostkit' ) }
+                        { __( 'Generate Keys', '@@text_domain' ) }
                     </ExternalLink>
                 </p>
             </PanelBody>
