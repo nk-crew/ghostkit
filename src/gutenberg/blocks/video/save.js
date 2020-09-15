@@ -43,6 +43,7 @@ class BlockSave extends Component {
             videoVolume,
             videoAutoplay,
             videoAutopause,
+            videoLoop,
 
             iconPlay,
             iconLoading,
@@ -96,6 +97,9 @@ class BlockSave extends Component {
             }
             if ( videoAutopause ) {
                 resultAttrs[ 'data-video-autopause' ] = 'true';
+            }
+            if ( videoLoop ) {
+                resultAttrs[ 'data-video-loop' ] = 'true';
             }
         }
 

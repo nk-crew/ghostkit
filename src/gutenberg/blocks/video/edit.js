@@ -209,6 +209,7 @@ class BlockEdit extends Component {
             videoVolume,
             videoAutoplay,
             videoAutopause,
+            videoLoop,
 
             iconPlay,
             iconLoading,
@@ -550,6 +551,11 @@ class BlockEdit extends Component {
                                     help={ __( 'Automatically pause video when block out of the viewport.', '@@text_domain' ) }
                                     checked={ !! videoAutopause }
                                     onChange={ ( value ) => setAttributes( { videoAutopause: value } ) }
+                                />
+                                <ToggleControl
+                                    label={ __( 'Loop', '@@text_domain' ) }
+                                    checked={ !! videoLoop }
+                                    onChange={ ( value ) => setAttributes( { videoLoop: value } ) }
                                 />
                             </Fragment>
                         ) }

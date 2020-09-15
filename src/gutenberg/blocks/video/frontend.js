@@ -63,6 +63,7 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
 
         const videoAutoplay = 'true' === $this.attr( 'data-video-autoplay' );
         const videoAutopause = 'true' === $this.attr( 'data-video-autopause' );
+        const videoLoop = 'true' === $this.attr( 'data-video-loop' );
 
         let fullscreenCloseIcon = $this.find( '.ghostkit-video-fullscreen-close-icon' );
         if ( fullscreenCloseIcon.length ) {
@@ -99,7 +100,7 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
 
         const api = new window.VideoWorker( url, {
             autoplay: 0,
-            loop: 0,
+            loop: videoLoop,
             mute,
             volume: parseFloat( $this.attr( 'data-video-volume' ) ) || 0,
             showContols: 1,

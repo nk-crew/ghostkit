@@ -57,6 +57,10 @@
             "type": "boolean",
             "default": false
         },
+        "videoLoop": {
+            "type": "boolean",
+            "default": false
+        },
 
         "iconPlay": {
             "type": "string",
