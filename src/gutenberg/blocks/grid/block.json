@@ -11,10 +11,6 @@
         "isTemplatesModalOnly": {
             "type": "boolean"
         },
-        "columns": {
-            "type": "number",
-            "default": 0
-        },
         "gap": {
             "type": "string",
             "default": "md"

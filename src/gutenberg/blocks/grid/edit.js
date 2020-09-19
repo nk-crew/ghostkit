@@ -38,6 +38,17 @@ const {
     BlockControls,
 } = wp.blockEditor;
 
+const {
+    compose,
+} = wp.compose;
+
+const {
+    withSelect,
+    withDispatch,
+} = wp.data;
+
+const { createBlock } = wp.blocks;
+
 /**
  * Block Edit Class.
  */
@@ -46,40 +57,13 @@ class BlockEdit extends Component {
         super( props );
 
         this.state = {
-            selectedLayout: false,
             isTemplatesModalOpen: false,
         };
 
         this.getColumnsFromLayout = this.getColumnsFromLayout.bind( this );
-        this.getColumnsTemplate = this.getColumnsTemplate.bind( this );
         this.onLayoutSelect = this.onLayoutSelect.bind( this );
         this.getLayoutsSelector = this.getLayoutsSelector.bind( this );
-    }
-
-    componentDidUpdate() {
-        const {
-            attributes,
-            setAttributes,
-        } = this.props;
-
-        let {
-            columns,
-        } = attributes;
-
-        // update columns number
-        if ( this.state.selectedLayout ) {
-            const columnsData = this.getColumnsFromLayout( this.state.selectedLayout );
-            columns = columnsData.length;
-
-            setAttributes( {
-                columns,
-            } );
-
-            // eslint-disable-next-line react/no-did-update-set-state
-            this.setState( {
-                selectedLayout: false,
-            } );
-        }
+        this.updateColumns = this.updateColumns.bind( this );
     }
 
     /**
@@ -88,51 +72,19 @@ class BlockEdit extends Component {
      * @param {String} layout layout string.
      */
     onLayoutSelect( layout ) {
-        this.setState( {
-            selectedLayout: layout,
-        } );
-    }
-
-    /**
-     * Returns the layouts configuration for a given number of columns.
-     *
-     * @return {Object[]} Columns layout configuration.
-     */
-    getColumnsTemplate() {
         const {
-            attributes,
+            block,
+            replaceInnerBlocks,
         } = this.props;
 
-        let {
-            columns,
-        } = attributes;
+        const columnsData = this.getColumnsFromLayout( layout );
+        const newInnerBlocks = [];
 
-        const result = [];
+        columnsData.forEach( ( colAttrs ) => {
+            newInnerBlocks.push( createBlock( 'ghostkit/grid-column', colAttrs ) );
+        } );
 
-        // Appender added in Gutenberg 5.7.0, so we need to add fallback to columns.
-        const appenderExist = 'undefined' !== typeof InnerBlocks.ButtonBlockAppender;
-
-        // create columns from selected layout.
-        if ( 1 > columns && this.state.selectedLayout ) {
-            const columnsData = this.getColumnsFromLayout( this.state.selectedLayout );
-            columns = columnsData.length;
-
-            columnsData.forEach( ( colAttrs ) => {
-                result.push( [
-                    'ghostkit/grid-column',
-                    colAttrs,
-                    appenderExist ? [] : [ [ 'core/paragraph', { content: `Column ${ 'auto' === colAttrs.size ? 'Auto' : colAttrs.size }` } ] ],
-                ] );
-            } );
-
-        // create columns template from columns count.
-        } else {
-            for ( let k = 1; k <= columns; k += 1 ) {
-                result.push( [ 'ghostkit/grid-column' ] );
-            }
-        }
-
-        return result;
+        replaceInnerBlocks( block.clientId, newInnerBlocks, false );
     }
 
     /**
@@ -263,17 +215,54 @@ class BlockEdit extends Component {
         );
     }
 
+    /**
+     * Updates the column count
+     *
+     * @param {number} newColumns New column count.
+     */
+    updateColumns( newColumns ) {
+        const {
+            block,
+            getBlocks,
+            replaceInnerBlocks,
+            columnsCount,
+        } = this.props;
+
+        // Remove Grid block.
+        if ( 1 > newColumns ) {
+            this.props.removeBlock( block.clientId );
+
+            // Add new columns.
+        } else if ( newColumns > columnsCount ) {
+            const newCount = newColumns - columnsCount;
+            const newInnerBlocks = [ ...getBlocks( block.clientId ) ];
+
+            for ( let i = 1; i <= newCount; i += 1 ) {
+                newInnerBlocks.push( createBlock( 'ghostkit/grid-column', { size: 3 } ) );
+            }
+
+            replaceInnerBlocks( block.clientId, newInnerBlocks, false );
+
+            // Remove columns.
+        } else if ( newColumns < columnsCount ) {
+            const newInnerBlocks = [ ...getBlocks( block.clientId ) ];
+            newInnerBlocks.splice( newColumns, columnsCount - newColumns );
+
+            replaceInnerBlocks( block.clientId, newInnerBlocks, false );
+        }
+    }
+
     render() {
         const {
             attributes,
             setAttributes,
             isSelected,
+            columnsCount,
         } = this.props;
 
         let { className = '' } = this.props;
 
         const {
-            columns,
             gap,
             gapCustom,
             verticalAlign,
@@ -299,7 +288,7 @@ class BlockEdit extends Component {
 
         return (
             <Fragment>
-                { 0 < columns ? (
+                { 0 < columnsCount ? (
                     <BlockControls>
                         <Toolbar controls={ [
                             {
@@ -329,15 +318,15 @@ class BlockEdit extends Component {
                         <PanelBody>
                             <RangeControl
                                 label={ __( 'Columns', '@@text_domain' ) }
-                                value={ columns }
-                                onChange={ ( value ) => setAttributes( { columns: value } ) }
+                                value={ columnsCount }
+                                onChange={ ( value ) => this.updateColumns( value ) }
                                 min={ 1 }
                                 max={ 12 }
                             />
                         </PanelBody>
                     </ApplyFilters>
                 </InspectorControls>
-                { 0 < columns ? (
+                { 0 < columnsCount ? (
                     <InspectorControls>
                         <PanelBody>
                             <BaseControl
@@ -422,7 +411,7 @@ class BlockEdit extends Component {
                     <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ this.props } />
                 </InspectorControls>
                 <div className={ className }>
-                    { 0 < columns || this.state.selectedLayout ? (
+                    { 0 < columnsCount ? (
                         <Fragment>
                             { background }
                             { ! isSelected ? (
@@ -433,9 +422,9 @@ class BlockEdit extends Component {
                                 </div>
                             ) : '' }
                             <InnerBlocks
-                                template={ this.getColumnsTemplate() }
-                                templateLock="all"
                                 allowedBlocks={ [ 'ghostkit/grid-column' ] }
+                                orientation="horizontal"
+                                renderAppender={ false }
                             />
                         </Fragment>
                     ) : this.getLayoutsSelector() }
@@ -445,4 +434,36 @@ class BlockEdit extends Component {
     }
 }
 
-export default BlockEdit;
+export default compose( [
+    withSelect( ( select, ownProps ) => {
+        const {
+            getBlock,
+            getBlocks,
+            getBlockCount,
+            isBlockSelected,
+            hasSelectedInnerBlock,
+        } = select( 'core/block-editor' );
+
+        const { clientId } = ownProps;
+
+        return {
+            getBlocks,
+            columnsCount: getBlockCount( clientId ),
+            block: getBlock( clientId ),
+            isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
+        };
+    } ),
+    withDispatch( ( dispatch ) => {
+        const {
+            updateBlockAttributes,
+            removeBlock,
+            replaceInnerBlocks,
+        } = dispatch( 'core/block-editor' );
+
+        return {
+            updateBlockAttributes,
+            removeBlock,
+            replaceInnerBlocks,
+        };
+    } ),
+] )( BlockEdit );

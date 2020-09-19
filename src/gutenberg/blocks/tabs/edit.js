@@ -47,6 +47,7 @@ const {
 } = wp.data;
 
 const { createBlock } = wp.blocks;
+
 /**
  * Block Edit Class.
  */
