@@ -45,6 +45,7 @@ const {
     withDispatch,
 } = wp.data;
 
+const { createBlock } = wp.blocks;
 /**
  * Block Edit Class.
  */
@@ -151,6 +152,9 @@ class BlockEdit extends Component {
             attributes,
             setAttributes,
             isSelectedBlockInRoot,
+            clientId,
+            getBlocks,
+            replaceInnerBlocks
         } = this.props;
 
         let { className = '' } = this.props;
@@ -269,16 +273,21 @@ class BlockEdit extends Component {
                                         const newTabsData = [];
                                         const newDataLength = tabsData.length + 1;
 
-                                        for ( let k = 0; k < newDataLength; k += 1 ) {
-                                            if ( tabsData[ k ] ) {
-                                                newTabsData.push( tabsData[ k ] );
-                                            } else {
-                                                newTabsData.push( {
-                                                    slug: `tab-${ k + 1 }`,
-                                                    title: `Tab ${ k + 1 }`,
-                                                } );
-                                            }
-                                        }
+                                        newTabsData = [...tabsData];
+                                        newTabsData.push( {
+                                            slug: `tab-${ newDataLength }`,
+                                            title: `Tab ${ newDataLength }`,
+                                        } );
+                                        
+                                        const block = createBlock('ghostkit/tabs-tab-v2', { slug: `tab-${ newDataLength }`, title: `Tab ${ newDataLength }` });
+
+                                        let innerBlocks = getBlocks( clientId );
+                                        innerBlocks = [
+                                            ...innerBlocks,
+                                            block
+                                        ];
+
+                                        replaceInnerBlocks( clientId, innerBlocks, false );
 
                                         setAttributes( { tabsData: newTabsData } );
                                     } }
@@ -321,15 +330,20 @@ export default compose( [
             isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
         };
     } ),
-    withDispatch( ( dispatch ) => {
+    withDispatch( ( dispatch, ownProps, registry ) => {
         const {
             updateBlockAttributes,
             removeBlock,
+            replaceInnerBlocks
         } = dispatch( 'core/block-editor' );
+        
+        const { getBlocks } = registry.select( 'core/block-editor' );
 
         return {
             updateBlockAttributes,
             removeBlock,
+            getBlocks,
+            replaceInnerBlocks
         };
     } ),
 ] )( BlockEdit );
