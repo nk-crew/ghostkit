@@ -1,7 +1,7 @@
 {
   "name": "ghostkit",
   "title": "Ghost Kit",
-  "version": "2.14.0",
+  "version": "2.14.1",
   "description": "Blocks collection and extensions for Gutenberg",
   "license": "GPL-2.0",
   "author": "nK <https://nkdev.info>",

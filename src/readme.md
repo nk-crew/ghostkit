@@ -198,6 +198,19 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.14.1 =
+
+* added Loop option for Video block
+* added horizontal mover for Grid Columns and Carousel blocks
+* fixed horizontal mover for Buttons and Pricing Table blocks
+* fixed Tabs block add/remove tabs
+* fixed Grid block change columns count
+* fixed Grid background image position preview
+* fixed custom CSS output in reusable widgets, when custom CSS already added on some of the content blocks
+* fixed icons picker dropdown scroll bug
+* fixed forms options editor component loosing focus while typing
+* minor changes
+
 = 2.14.0 =
 
 * added support for WordPress 5.5
