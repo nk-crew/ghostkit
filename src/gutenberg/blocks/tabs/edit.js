@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import RemoveButton from '../../components/remove-button';
+import EditorStyles from '../../components/editor-styles';
 import getUniqueSlug from '../../utils/get-unique-slug';
 
 /**
@@ -125,6 +126,8 @@ class BlockEdit extends Component {
             setAttributes,
             attributes,
             block,
+            getBlocks,
+            replaceInnerBlocks,
         } = this.props;
 
         const {
@@ -137,8 +140,13 @@ class BlockEdit extends Component {
             this.props.removeBlock( block.innerBlocks[ i ].clientId );
 
             if ( tabsData[ i ] ) {
-                const newTabsData = Object.assign( [], tabsData );
+                const newTabsData = [ ...tabsData ];
                 newTabsData.splice( i, 1 );
+
+                const innerBlocks = [ ...getBlocks( block.clientId ) ];
+                innerBlocks.splice( i, 1 );
+
+                replaceInnerBlocks( block.clientId, innerBlocks, false );
 
                 setAttributes( {
                     tabsData: newTabsData,
@@ -154,7 +162,7 @@ class BlockEdit extends Component {
             isSelectedBlockInRoot,
             clientId,
             getBlocks,
-            replaceInnerBlocks
+            replaceInnerBlocks,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -270,21 +278,20 @@ class BlockEdit extends Component {
                                 <Button
                                     icon={ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" ariaHidden="true" focusable="false"><path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z" /></svg> }
                                     onClick={ () => {
-                                        const newTabsData = [];
+                                        const newTabsData = [ ...tabsData ];
                                         const newDataLength = tabsData.length + 1;
 
-                                        newTabsData = [...tabsData];
                                         newTabsData.push( {
                                             slug: `tab-${ newDataLength }`,
                                             title: `Tab ${ newDataLength }`,
                                         } );
-                                        
-                                        const block = createBlock('ghostkit/tabs-tab-v2', { slug: `tab-${ newDataLength }`, title: `Tab ${ newDataLength }` });
+
+                                        const block = createBlock( 'ghostkit/tabs-tab-v2', { slug: `tab-${ newDataLength }`, title: `Tab ${ newDataLength }` } );
 
                                         let innerBlocks = getBlocks( clientId );
                                         innerBlocks = [
                                             ...innerBlocks,
-                                            block
+                                            block,
                                         ];
 
                                         replaceInnerBlocks( clientId, innerBlocks, false );
@@ -303,13 +310,16 @@ class BlockEdit extends Component {
                         />
                     </div>
                 </div>
-                <style>
-                    { `
-                    [data-block="${ this.props.clientId }"] > .ghostkit-tabs > .ghostkit-tabs-content > .block-editor-inner-blocks > .block-editor-block-list__layout [data-tab="${ tabActive }"] {
-                        display: block;
-                    }
-                    ` }
-                </style>
+
+                <EditorStyles
+                    styles={ [ {
+                        css: `
+                        [data-block="${ this.props.clientId }"] > .ghostkit-tabs > .ghostkit-tabs-content > .block-editor-inner-blocks > .block-editor-block-list__layout [data-tab="${ tabActive }"] {
+                            display: block;
+                        }
+                        `,
+                    } ] }
+                />
             </Fragment>
         );
     }
@@ -319,6 +329,7 @@ export default compose( [
     withSelect( ( select, ownProps ) => {
         const {
             getBlock,
+            getBlocks,
             isBlockSelected,
             hasSelectedInnerBlock,
         } = select( 'core/block-editor' );
@@ -326,24 +337,22 @@ export default compose( [
         const { clientId } = ownProps;
 
         return {
+            getBlocks,
             block: getBlock( clientId ),
             isSelectedBlockInRoot: isBlockSelected( clientId ) || hasSelectedInnerBlock( clientId, true ),
         };
     } ),
-    withDispatch( ( dispatch, ownProps, registry ) => {
+    withDispatch( ( dispatch ) => {
         const {
             updateBlockAttributes,
             removeBlock,
-            replaceInnerBlocks
+            replaceInnerBlocks,
         } = dispatch( 'core/block-editor' );
-        
-        const { getBlocks } = registry.select( 'core/block-editor' );
 
         return {
             updateBlockAttributes,
             removeBlock,
-            getBlocks,
-            replaceInnerBlocks
+            replaceInnerBlocks,
         };
     } ),
 ] )( BlockEdit );
