@@ -215,9 +215,9 @@ class BlockEdit extends Component {
                 <div className={ className }>
                     <InnerBlocks
                         template={ getColumnsTemplate( slides ) }
-                        templateLock="all"
                         allowedBlocks={ [ 'ghostkit/carousel-slide' ] }
-                        __experimentalMoverDirection="horizontal"
+                        orientation="horizontal"
+                        renderAppender={ false }
                     />
                 </div>
             </Fragment>

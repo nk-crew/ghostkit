@@ -180,7 +180,7 @@ class BlockEdit extends Component {
                                 </Tooltip>
                             ) ) : undefined
                         ) }
-                        __experimentalMoverDirection="horizontal"
+                        orientation="horizontal"
                     />
                 </div>
             </Fragment>

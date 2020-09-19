@@ -225,7 +225,8 @@ class BlockEdit extends Component {
                         <InnerBlocks
                             template={ this.getInnerBlocksTemplate() }
                             allowedBlocks={ [ 'ghostkit/pricing-table-item' ] }
-                            __experimentalMoverDirection="horizontal"
+                            orientation="horizontal"
+                            renderAppender={ false }
                         />
                     ) : '' }
                 </div>
