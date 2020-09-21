@@ -17,10 +17,10 @@
             <xpath>//h2[@class="ghostkit-changelog-date"]</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/countdown" translate="1">
-            <xpath>//div[contains(@class,"ghostkit-countdown-unit")]/div[@class="ghostkit-countdown-unit-label"]</xpath>
+            <xpath>//div[contains(@class,"ghostkit-countdown-unit")]/span[@class="ghostkit-countdown-unit-label"]</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/counter-box" translate="1">
-            <xpath>//div[@class="ghostkit-counter-box-number"]/div[@class="ghostkit-counter-box-number-wrap"]</xpath>
+            <xpath>//div[contains(@class,"ghostkit-counter-box-number")]/div[contains(@class,"ghostkit-counter-box-number-wrap")]</xpath>
             <xpath>//a/@href</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/gif" translate="1">
@@ -44,13 +44,14 @@
         </gutenberg-block>
         <gutenberg-block type="ghostkit/progress" translate="1">
             <xpath>//div[@class="ghostkit-progress-caption"]</xpath>
-            <xpath>//div[@class="ghostkit-progress-bar-count"]/span</xpath>
+            <xpath>//div[@class="ghostkit-progress-bar-count"]/div/span</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/table-of-contents" translate="1">
             <key name="title" />
         </gutenberg-block>
         <gutenberg-block type="ghostkit/tabs-v2" translate="1">
             <xpath>//div[@class="ghostkit-tabs-buttons"]/a[@class="ghostkit-tabs-buttons-item"]</xpath>
+            <xpath>//div[@class="ghostkit-tabs-buttons"]/div[@class="ghostkit-tabs-buttons-item"]/span</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/testimonial" translate="1">
             <xpath>//div[@class="ghostkit-testimonial-meta"]/div[@class="ghostkit-testimonial-name"]</xpath>
