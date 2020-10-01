@@ -33,37 +33,75 @@ const {
     InnerBlocks,
 } = wp.blockEditor;
 
-/**
- * Returns the layouts configuration for a given number of slides.
- *
- * @param {number} slides Number of slides.
- *
- * @return {Object[]} Columns layout configuration.
- */
-const getColumnsTemplate = ( slides ) => {
-    const result = [];
+const {
+    compose,
+} = wp.compose;
 
-    for ( let k = 1; k <= slides; k += 1 ) {
-        result.push( [ 'ghostkit/carousel-slide' ] );
-    }
+const {
+    withSelect,
+    withDispatch,
+} = wp.data;
 
-    return result;
-};
+const { createBlock } = wp.blocks;
 
 /**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
+    constructor( props ) {
+        super( props );
+
+        this.updateSlidesCount = this.updateSlidesCount.bind( this );
+    }
+
+    /**
+     * Updates the slides count
+     *
+     * @param {number} newSlidesCount New slides count.
+     */
+    updateSlidesCount( newSlidesCount ) {
+        const {
+            block,
+            getBlocks,
+            replaceInnerBlocks,
+            slidesCount,
+            removeBlock,
+        } = this.props;
+
+        // Remove slider block.
+        if ( 1 > newSlidesCount ) {
+            removeBlock( block.clientId );
+
+            // Add new slides.
+        } else if ( newSlidesCount > slidesCount ) {
+            const newCount = newSlidesCount - slidesCount;
+            const newInnerBlocks = [ ...getBlocks( block.clientId ) ];
+
+            for ( let i = 1; i <= newCount; i += 1 ) {
+                newInnerBlocks.push( createBlock( 'ghostkit/carousel-slide', { size: 3 } ) );
+            }
+
+            replaceInnerBlocks( block.clientId, newInnerBlocks, false );
+
+            // Remove slides.
+        } else if ( newSlidesCount < slidesCount ) {
+            const newInnerBlocks = [ ...getBlocks( block.clientId ) ];
+            newInnerBlocks.splice( newSlidesCount, slidesCount - newSlidesCount );
+
+            replaceInnerBlocks( block.clientId, newInnerBlocks, false );
+        }
+    }
+
     render() {
         const {
             attributes,
             setAttributes,
+            slidesCount,
         } = this.props;
 
         let { className = '' } = this.props;
 
         const {
-            slides,
             effect,
             speed,
             autoplay,
@@ -92,8 +130,8 @@ class BlockEdit extends Component {
                     <PanelBody>
                         <RangeControl
                             label={ __( 'Slides', '@@text_domain' ) }
-                            value={ slides }
-                            onChange={ ( value ) => setAttributes( { slides: value } ) }
+                            value={ slidesCount }
+                            onChange={ ( value ) => this.updateSlidesCount( value ) }
                             min={ 2 }
                             max={ 20 }
                         />
@@ -214,7 +252,6 @@ class BlockEdit extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     <InnerBlocks
-                        template={ getColumnsTemplate( slides ) }
                         allowedBlocks={ [ 'ghostkit/carousel-slide' ] }
                         orientation="horizontal"
                         renderAppender={ false }
@@ -225,4 +262,31 @@ class BlockEdit extends Component {
     }
 }
 
-export default BlockEdit;
+export default compose( [
+    withSelect( ( select, ownProps ) => {
+        const {
+            getBlock,
+            getBlocks,
+            getBlockCount,
+        } = select( 'core/block-editor' );
+
+        const { clientId } = ownProps;
+
+        return {
+            getBlocks,
+            slidesCount: getBlockCount( clientId ),
+            block: getBlock( clientId ),
+        };
+    } ),
+    withDispatch( ( dispatch ) => {
+        const {
+            removeBlock,
+            replaceInnerBlocks,
+        } = dispatch( 'core/block-editor' );
+
+        return {
+            removeBlock,
+            replaceInnerBlocks,
+        };
+    } ),
+] )( BlockEdit );
