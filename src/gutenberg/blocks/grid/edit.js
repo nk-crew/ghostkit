@@ -138,6 +138,10 @@ class BlockEdit extends Component {
      * @return {jsx}.
      */
     getLayoutsSelector() {
+        const {
+            removeBlock,
+        } = this.props;
+
         let layouts = [
             '12',
             '6-6',
@@ -202,10 +206,6 @@ class BlockEdit extends Component {
                             this.setState( { isTemplatesModalOpen: false } );
 
                             if ( this.props.attributes.isTemplatesModalOnly ) {
-                                const {
-                                    removeBlock,
-                                } = wp.data.dispatch( 'core/block-editor' );
-
                                 removeBlock( this.props.clientId );
                             }
                         } }
@@ -226,11 +226,12 @@ class BlockEdit extends Component {
             getBlocks,
             replaceInnerBlocks,
             columnsCount,
+            removeBlock,
         } = this.props;
 
         // Remove Grid block.
         if ( 1 > newColumns ) {
-            this.props.removeBlock( block.clientId );
+            removeBlock( block.clientId );
 
             // Add new columns.
         } else if ( newColumns > columnsCount ) {
