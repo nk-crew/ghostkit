@@ -1,11 +1,5 @@
 <wpml-config>
     <gutenberg-blocks>
-        <gutenberg-block type="core/paragraph" translate="1">
-            <xpath>//code</xpath>
-            <xpath>//span[@class="ghostkit-pro-tooltip"]/@aria-label</xpath>
-        </gutenberg-block>
-
-
         <gutenberg-block type="ghostkit/accordion-item" translate="1">
             <xpath>//a[@class="ghostkit-accordion-item-heading"]/span[@class="ghostkit-accordion-item-label"]</xpath>
         </gutenberg-block>
@@ -50,8 +44,8 @@
             <key name="title" />
         </gutenberg-block>
         <gutenberg-block type="ghostkit/tabs-v2" translate="1">
-            <xpath>//div[@class="ghostkit-tabs-buttons"]/a[@class="ghostkit-tabs-buttons-item"]</xpath>
-            <xpath>//div[@class="ghostkit-tabs-buttons"]/div[@class="ghostkit-tabs-buttons-item"]/span</xpath>
+            <xpath>//div[contains(@class,"ghostkit-tabs-buttons")]/a[contains(@class,"ghostkit-tabs-buttons-item")]</xpath>
+            <xpath>//div[contains(@class,"ghostkit-tabs-buttons")]/div[contains(@class,"ghostkit-tabs-buttons-item")]/span</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/testimonial" translate="1">
             <xpath>//div[@class="ghostkit-testimonial-meta"]/div[@class="ghostkit-testimonial-name"]</xpath>
