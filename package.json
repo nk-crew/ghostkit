@@ -39,6 +39,7 @@
     "wpeg": "^1.0.15"
   },
   "dependencies": {
+    "@giphy/js-fetch-api": "^1.7.0",
     "@wordpress/base-styles": "^2.1.0",
     "ace-builds": "^1.4.12",
     "classnames": "^2.2.6",

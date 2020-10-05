@@ -2,6 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
+import { GiphyFetch } from '@giphy/js-fetch-api';
 
 /**
  * Internal dependencies
@@ -35,6 +36,9 @@ const {
 
 const GIPHY_API_KEY = 'Qm6AupESs2abqy7fSeHNQ892EWSS28r8';
 
+// use @giphy/js-fetch-api to fetch gifs, instantiate with your api key
+const gf = new GiphyFetch( GIPHY_API_KEY );
+
 /**
  * Block Edit Class.
  */
@@ -56,8 +60,6 @@ export default class BlockEdit extends Component {
         this.splitAndLast = this.splitAndLast.bind( this );
         this.fetch = this.fetch.bind( this );
         this.selectGiphy = this.selectGiphy.bind( this );
-        this.urlForId = this.urlForId.bind( this );
-        this.urlForSearch = this.urlForSearch.bind( this );
         this.parseSearch = this.parseSearch.bind( this );
     }
 
@@ -67,10 +69,7 @@ export default class BlockEdit extends Component {
     }
 
     onSubmit() {
-        const { attributes } = this.props;
-        const { searchText } = attributes;
-
-        this.parseSearch( searchText );
+        this.fetch();
     }
 
     setFocus() {
@@ -84,24 +83,32 @@ export default class BlockEdit extends Component {
         return split[ split.length - 1 ];
     }
 
-    fetch( url ) {
+    fetch() {
         this.setState( {
             loading: true,
         } );
 
-        const xhr = new XMLHttpRequest();
-        xhr.open( 'GET', url );
-        xhr.onload = () => {
+        const searchData = this.parseSearch();
+        let request = false;
+
+        if ( searchData.id ) {
+            request = gf.gifs( [ searchData.id ] );
+        } else {
+            request = gf.search( searchData.search || '', {
+                sort: 'relevant',
+                limit: 10,
+            } );
+        }
+
+        request.then( ( result ) => {
             this.setState( {
                 loading: false,
             } );
 
-            if ( 200 === xhr.status ) {
-                const res = JSON.parse( xhr.responseText );
-
+            if ( result.meta && result.meta.status && 200 === result.meta.status ) {
                 // If there is only one result, Giphy's API does not return an array.
                 // The following statement normalizes the data into an array with one member in this case.
-                const results = 'undefined' !== typeof res.data.images ? [ res.data ] : res.data;
+                const results = 'undefined' !== typeof result.data.images ? [ result.data ] : result.data;
                 const giphyData = results[ 0 ];
 
                 // No results
@@ -111,10 +118,9 @@ export default class BlockEdit extends Component {
 
                 this.setState( { results } );
             } else {
-                // Error handling TK
+                // Error
             }
-        };
-        xhr.send();
+        } );
     }
 
     selectGiphy( giphy ) {
@@ -138,23 +144,17 @@ export default class BlockEdit extends Component {
         setAttributes( {
             url: images.original.url,
             srcset,
+            caption: giphy.title,
             alt: giphy.title,
             width: parseInt( images.original.width, 10 ),
             height: parseInt( images.original.height, 10 ),
         } );
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    urlForId( giphyId ) {
-        return `https://api.giphy.com/v1/gifs/${ encodeURIComponent( giphyId ) }?api_key=${ encodeURIComponent( GIPHY_API_KEY ) }`;
-    }
+    parseSearch() {
+        const { attributes } = this.props;
+        const { searchText } = attributes;
 
-    // eslint-disable-next-line class-methods-use-this
-    urlForSearch( searchText ) {
-        return `https://api.giphy.com/v1/gifs/search?q=${ encodeURIComponent( searchText ) }&api_key=${ encodeURIComponent( GIPHY_API_KEY ) }&limit=10`;
-    }
-
-    parseSearch( searchText ) {
         let giphyID = null;
 
         // If search is hardcoded Giphy URL following this pattern: https://giphy.com/embed/4ZFekt94LMhNK
@@ -176,10 +176,14 @@ export default class BlockEdit extends Component {
         }
 
         if ( giphyID ) {
-            return this.fetch( this.urlForId( giphyID ) );
+            return {
+                id: giphyID,
+            };
         }
 
-        return this.fetch( this.urlForSearch( searchText ) );
+        return {
+            search: searchText,
+        };
     }
 
     render() {
