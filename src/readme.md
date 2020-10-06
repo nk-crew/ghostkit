@@ -204,6 +204,11 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.14.2 =
+
+* added WPML support for all blocks
+* fixed Carousel block slides count change
+
 = 2.14.1 =
 
 * added Loop option for Video block
