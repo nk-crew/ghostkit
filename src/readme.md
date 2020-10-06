@@ -119,8 +119,6 @@ Try out a live demo of [Ghost Kit PRO](https://demo.ghostkit.io/)
 
 Ghost Kit adds a new layer of compatibility for [WPML](https://wpml.org/). All blocks are compatible with it and ready for translation. <https://ghostkit.io/docs/multilingual/>
 
-* [**Spacings**](https://ghostkit.io/extensions/spacings/). Easily add spacings to Ghost Kit and Core blocks
-
 = Real Usage Examples =
 
 * [SquadForce Theme](https://wp.nkdev.info/squadforce/)
