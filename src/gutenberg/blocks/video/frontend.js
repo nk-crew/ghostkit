@@ -177,7 +177,7 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
             } );
 
             // set thumb
-            if ( ! $poster.length ) {
+            if ( ! $poster.length && ! $this.hasClass( 'is-style-icon-only' ) ) {
                 api.getImageURL( ( imgSrc ) => {
                     $poster = $( `<div class="ghostkit-video-poster"><img src="${ imgSrc }" alt=""></div>` );
                     $this.append( $poster );
