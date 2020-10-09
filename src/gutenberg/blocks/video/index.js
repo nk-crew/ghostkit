@@ -45,6 +45,17 @@ export const settings = {
             posterTag: '<img src="https://s.w.org/images/core/5.3/Glacial_lakes,_Bhutan.jpg">',
         },
     },
+    styles: [
+        {
+            name: 'default',
+            label: __( 'Plain', '@@text_domain' ),
+            isDefault: true,
+        },
+        {
+            name: 'icon-only',
+            label: __( 'Icon Only', '@@text_domain' ),
+        },
+    ],
     edit,
     save,
     transforms,

@@ -12,6 +12,11 @@ import ApplyFilters from '../../components/apply-filters';
 import ImagePicker from '../../components/image-picker';
 import getIcon from '../../utils/get-icon';
 import dashCaseToTitle from '../../utils/dash-case-to-title';
+import {
+    hasClass,
+    addClass,
+    removeClass,
+} from '../../utils/classes-replacer';
 
 import ImgAspectRatio32 from './aspect-ratio/aspect-ratio-3-2.png';
 import ImgAspectRatio43 from './aspect-ratio/aspect-ratio-4-3.png';
@@ -50,6 +55,7 @@ const {
     InspectorControls,
     BlockControls,
     MediaUpload,
+    BlockAlignmentToolbar,
 } = wp.blockEditor;
 
 /**
@@ -123,7 +129,37 @@ class BlockEdit extends Component {
         this.onUpdate();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate( prevProps ) {
+        const {
+            attributes,
+            setAttributes,
+        } = this.props;
+
+        // Change click action to Fullscreen when used Icon Only style.
+        if (
+            'plain' === attributes.clickAction
+            && attributes.className !== prevProps.attributes.className
+            && hasClass( attributes.className, 'is-style-icon-only' )
+        ) {
+            setAttributes( { clickAction: 'fullscreen' } );
+            return;
+        }
+
+        // Remove unused classes.
+        if (
+            attributes.className !== prevProps.attributes.className
+            && ! hasClass( attributes.className, 'is-style-icon-only' )
+        ) {
+            let newClassName = attributes.className;
+
+            newClassName = removeClass( newClassName, 'ghostkit-video-style-icon-only-align-right' );
+            newClassName = removeClass( newClassName, 'ghostkit-video-style-icon-only-align-left' );
+
+            if ( attributes.className !== newClassName ) {
+                setAttributes( { className: newClassName } );
+            }
+        }
+
         this.onUpdate();
     }
 
@@ -230,6 +266,13 @@ class BlockEdit extends Component {
         );
 
         className = applyFilters( 'ghostkit.editor.className', className, this.props );
+
+        let styleIconOnlyAlign = 'center';
+        if ( hasClass( className, 'ghostkit-video-style-icon-only-align-left' ) ) {
+            styleIconOnlyAlign = 'left';
+        } else if ( hasClass( className, 'ghostkit-video-style-icon-only-align-right' ) ) {
+            styleIconOnlyAlign = 'right';
+        }
 
         let toolbarAspectRatioIcon = getIcon( 'icon-aspect-ratio-16-9' );
         if ( '3:2' === videoAspectRatio ) {
@@ -493,6 +536,31 @@ class BlockEdit extends Component {
                             value={ iconLoading }
                             onChange={ ( value ) => setAttributes( { iconLoading: value } ) }
                         />
+                        { hasClass( attributes.className, 'is-style-icon-only' ) ? (
+                            <BaseControl label={ __( 'Icon Align', '@@text_domain' ) }>
+                                <div>
+                                    <BlockAlignmentToolbar
+                                        value={ styleIconOnlyAlign }
+                                        onChange={ ( value ) => {
+                                            let newClassName = attributes.className;
+
+                                            newClassName = removeClass( newClassName, 'ghostkit-video-style-icon-only-align-right' );
+                                            newClassName = removeClass( newClassName, 'ghostkit-video-style-icon-only-align-left' );
+
+                                            if ( 'left' === value || 'right' === value ) {
+                                                newClassName = addClass( newClassName, `ghostkit-video-style-icon-only-align-${ value }` );
+                                            }
+
+                                            if ( attributes.className !== newClassName ) {
+                                                setAttributes( { className: newClassName } );
+                                            }
+                                        } }
+                                        controls={ [ 'left', 'center', 'right' ] }
+                                        isCollapsed={ false }
+                                    />
+                                </div>
+                            </BaseControl>
+                        ) : null }
                     </PanelBody>
                     <PanelBody>
                         <BaseControl label={ __( 'Click Action', '@@text_domain' ) }>
@@ -512,6 +580,7 @@ class BlockEdit extends Component {
                                                 isSmall
                                                 isPrimary={ clickAction === val.value }
                                                 isPressed={ clickAction === val.value }
+                                                disabled={ hasClass( attributes.className, 'is-style-icon-only' ) && 'plain' === val.value }
                                                 onClick={ () => setAttributes( { clickAction: val.value } ) }
                                                 key={ `clickAction_${ val.label }` }
                                             >
@@ -636,7 +705,7 @@ class BlockEdit extends Component {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className } data-video-aspect-ratio={ videoAspectRatio }>
-                    { posterTag ? (
+                    { posterTag && ! hasClass( attributes.className, 'is-style-icon-only' ) ? (
                         <div
                             className="ghostkit-video-poster"
                             // eslint-disable-next-line react/no-danger
@@ -645,7 +714,7 @@ class BlockEdit extends Component {
                             } }
                         />
                     ) : '' }
-                    { ! posterTag && 'yt_vm_video' === type && videoPosterPreview ? (
+                    { ! posterTag && 'yt_vm_video' === type && videoPosterPreview && ! hasClass( attributes.className, 'is-style-icon-only' ) ? (
                         <div className="ghostkit-video-poster">
                             <img src={ videoPosterPreview } alt="" />
                         </div>

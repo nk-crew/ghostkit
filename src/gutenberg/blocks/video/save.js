@@ -1,14 +1,17 @@
 /**
- * WordPress dependencies
- */
-/**
  * Internal dependencies
  */
 import IconPicker from '../../components/icon-picker';
 import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
+import {
+    hasClass,
+} from '../../utils/classes-replacer';
 
 import metadata from './block.json';
 
+/**
+ * WordPress dependencies
+ */
 const {
     applyFilters,
 } = wp.hooks;
@@ -105,7 +108,7 @@ class BlockSave extends Component {
 
         return (
             <div { ...resultAttrs }>
-                { posterTag ? (
+                { posterTag && ! hasClass( resultAttrs.className, 'is-style-icon-only' ) ? (
                     <div
                         className="ghostkit-video-poster"
                         // eslint-disable-next-line react/no-danger
