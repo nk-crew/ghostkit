@@ -42,6 +42,28 @@ const {
  * Block Edit Class.
  */
 class BlockEdit extends Component {
+    constructor( props ) {
+        super( props );
+
+        this.state = {
+            selectedColorState: 'normal',
+        };
+    }
+
+    componentDidUpdate( prevProps ) {
+        const {
+            isSelected,
+        } = this.props;
+
+        // Reset selected color state when block is not selected.
+        if ( prevProps.isSelected && ! isSelected ) {
+            // eslint-disable-next-line react/no-did-update-set-state
+            this.setState( {
+                selectedColorState: 'normal',
+            } );
+        }
+    }
+
     render() {
         const {
             attributes,
@@ -80,11 +102,29 @@ class BlockEdit extends Component {
             L: 'lg',
             XL: 'xl',
         };
+        let isNormalState = false;
+        let isHoveredState = false;
+        let isFocusedState = false;
+
+        if ( isSelected ) {
+            isNormalState = true;
+
+            if ( 'hover' === this.state.selectedColorState ) {
+                isNormalState = false;
+                isHoveredState = true;
+            } else if ( 'focus' === this.state.selectedColorState ) {
+                isNormalState = false;
+                isFocusedState = true;
+            }
+        }
 
         className = classnames(
             'ghostkit-button',
             size ? `ghostkit-button-${ size }` : '',
             hideText ? 'ghostkit-button-icon-only' : '',
+            isNormalState ? 'ghostkit-button-is-normal-state' : '',
+            isHoveredState ? 'ghostkit-button-is-hover-state' : '',
+            isFocusedState ? 'ghostkit-button-is-focus-state' : '',
             className
         );
 
@@ -210,6 +250,11 @@ class BlockEdit extends Component {
                         <TabPanel
                             className="ghostkit-control-tabs ghostkit-control-tabs-wide"
                             tabs={ colorsTabs }
+                            onSelect={ ( state ) => {
+                                this.setState( {
+                                    selectedColorState: state,
+                                } );
+                            } }
                         >
                             {
                                 ( tabData ) => {
