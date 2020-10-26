@@ -20,6 +20,5 @@ const maybeReplaceIcons = throttle( 300, () => {
     } );
 } );
 
-$doc.on( 'ready initBlocks.ghostkit', () => {
-    maybeReplaceIcons();
-} );
+$doc.on( 'initBlocks.ghostkit', maybeReplaceIcons );
+$( maybeReplaceIcons );

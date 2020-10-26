@@ -13,8 +13,6 @@ const $ = window.jQuery;
 
 const $wnd = $( window );
 
-const $doc = $( document );
-
 const {
     ghostkitVariables,
     GHOSTKIT,
@@ -66,7 +64,7 @@ const hasScrolledThrottle = throttle( 200, () => {
 } );
 
 $wnd.on( 'scroll load resize orientationchange throttlescroll.ghostkit', hasScrolledThrottle );
-$doc.on( 'ready', hasScrolledThrottle );
+$( hasScrolledThrottle );
 
 function throttleScroll( callback ) {
     throttleScrollList.push( callback );
@@ -103,7 +101,7 @@ class GhostKitClass {
             const ofiImages = '.ghostkit-video-poster img, .ghostkit-grid > .nk-awb img, .ghostkit-col > .nk-awb img';
 
             window.objectFitImages( ofiImages );
-            $doc.on( 'ready', () => {
+            $( () => {
                 window.objectFitImages( ofiImages );
             } );
         }
