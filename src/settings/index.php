@@ -182,6 +182,16 @@ class GhostKit_Settings {
             'ghostkit_go_pro',
             array( $this, 'go_pro_redirect' )
         );
+
+        add_menu_page(
+            esc_html__( 'Reusable Blocks', '@@text_domain' ),
+            esc_html__( 'Reusable Blocks', '@@text_domain' ),
+            'read',
+            'edit.php?post_type=wp_block',
+            '',
+            'dashicons-grid-view',
+            57
+        );
     }
 
     /**
