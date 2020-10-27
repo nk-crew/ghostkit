@@ -180,7 +180,7 @@ function getFontWeights( font, fontFamilyCategory ) {
 /**
  * Component Class
  */
-export default class Typorgaphy extends Component {
+export default class Typography extends Component {
     render() {
         const {
             fontFamilyCategory,
