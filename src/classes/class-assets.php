@@ -177,34 +177,41 @@ class GhostKit_Assets {
 
         // Object Fit Images.
         if ( apply_filters( 'gkt_enqueue_plugin_object_fit_images', true ) ) {
-            wp_register_script( 'object-fit-images', ghostkit()->plugin_url . 'assets/vendor/object-fit-images/ofi.min.js', array(), '3.2.4', true );
+            wp_register_script( 'object-fit-images', ghostkit()->plugin_url . 'assets/vendor/object-fit-images/dist/ofi.min.js', array(), '3.2.4', true );
 
             $js_deps[] = 'object-fit-images';
         }
 
         // ScrollReveal.
         if ( apply_filters( 'gkt_enqueue_plugin_scrollreveal', true ) ) {
-            wp_register_script( 'scrollreveal', ghostkit()->plugin_url . 'assets/vendor/scrollreveal/scrollreveal.min.js', array(), '4.0.5', true );
+            wp_register_script( 'scrollreveal', ghostkit()->plugin_url . 'assets/vendor/scrollreveal/dist/scrollreveal.min.js', array(), '4.0.7', true );
 
             $js_deps[] = 'scrollreveal';
         }
 
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
-            wp_register_script( 'jarallax', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax.min.js', array( 'jquery' ), '1.12.0', true );
-            wp_register_script( 'jarallax-video', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax-video.min.js', array( 'jarallax' ), '1.12.0', true );
+            wp_register_script( 'jarallax', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax.min.js', array( 'jquery' ), '1.12.4', true );
+            wp_register_script( 'jarallax-video', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax-video.min.js', array( 'jarallax' ), '1.12.4', true );
         }
 
         // Swiper.
         if ( apply_filters( 'gkt_enqueue_plugin_swiper', true ) ) {
-            wp_register_style( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper/css/swiper.min.css', array(), '5.1.0' );
-            wp_register_script( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper/js/swiper.min.js', array(), '5.1.0', true );
+            // Add legacy swiper version in order to support Elementor plugin.
+            // https://wordpress.org/support/topic/visual-portfolio-elementor-issue/.
+            if ( class_exists( '\Elementor\Plugin' ) ) {
+                wp_register_style( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper-5-4-5/swiper.min.css', array(), '5.4.5' );
+                wp_register_script( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper-5-4-5/swiper.min.js', array(), '5.4.5', true );
+            } else {
+                wp_register_style( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper/swiper-bundle.min.css', array(), '6.3.4' );
+                wp_register_script( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper/swiper-bundle.min.js', array(), '6.3.4', true );
+            }
         }
 
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
-            wp_register_style( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/gist-simple.css', array(), '1.0.1' );
-            wp_register_script( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/gist-simple.min.js', array( 'jquery' ), '1.0.1', true );
+            wp_register_style( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.css', array(), '1.0.1' );
+            wp_register_script( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.min.js', array( 'jquery' ), '1.0.1', true );
         }
 
         // Google reCaptcha.
@@ -219,7 +226,7 @@ class GhostKit_Assets {
 
         // Parsley.
         if ( apply_filters( 'gkt_enqueue_plugin_parsley', true ) ) {
-            wp_register_script( 'parsley', ghostkit()->plugin_url . 'assets/vendor/parsley/parsley.min.js', array( 'jquery' ), '2.9.1', true );
+            wp_register_script( 'parsley', ghostkit()->plugin_url . 'assets/vendor/parsleyjs/dist/parsley.min.js', array( 'jquery' ), '2.9.2', true );
 
             $locale = get_locale();
 

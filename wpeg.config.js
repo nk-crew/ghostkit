@@ -1,4 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies */
+const path = require( 'path' );
+
 const pkg = require( 'json-file' ).read( './package.json' ).data;
 
 const cfg = {};
@@ -29,7 +31,37 @@ cfg.copy_files_src = [
     '{src}/**/*',
     '!{src}/**/*.{js,scss}',
     '{src}/**/vendor/**/*.{js,scss}',
+    './node_modules/*gist-simple/dist/gist-simple.css',
+    './node_modules/*gist-simple/dist/gist-simple.min.js',
+    './node_modules/*gist-simple/dist/gist-simple.min.js.map',
+    './node_modules/*gmaps/gmaps.min.js',
+    './node_modules/*gmaps/gmaps.min.js.map',
+    './node_modules/*ie11-custom-properties/ie11CustomProperties.js',
+    './node_modules/*jarallax/dist/jarallax-video.min.js',
+    './node_modules/*jarallax/dist/jarallax-video.min.js.map',
+    './node_modules/*jarallax/dist/jarallax.min.js',
+    './node_modules/*jarallax/dist/jarallax.min.js.map',
+    './node_modules/*jarallax/dist/jarallax.css',
+    './node_modules/*object-fit-images/dist/ofi.min.js',
+    './node_modules/*parsleyjs/dist/parsley.min.js',
+    './node_modules/*parsleyjs/dist/parsley.min.js.map',
+    './node_modules/*scrollreveal/dist/scrollreveal.min.js',
+    './node_modules/*swiper/swiper-bundle.min.js',
+    './node_modules/*swiper/swiper-bundle.min.js.map',
+    './node_modules/*swiper/swiper-bundle.min.css',
+    './node_modules/*webfontloader/webfontloader.js',
 ];
+
+cfg.copy_files_dist = ( file ) => {
+    let destPath = `${ cfg.dist_root }/${ cfg.name }`;
+    const filePath = path.relative( process.cwd(), file.path );
+
+    if ( filePath && /^node_modules/g.test( filePath ) ) {
+        destPath += '/assets/vendor';
+    }
+
+    return destPath;
+};
 
 // Compile SCSS files.
 cfg.compile_scss_files_src = [
