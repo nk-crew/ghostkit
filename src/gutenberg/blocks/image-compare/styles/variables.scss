@@ -1,0 +1,27 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-image-compare {
+    --gkt-image-compare__position: 50%;
+
+    // Divider.
+    --gkt-image-compare--divider__width: 3px;
+    --gkt-image-compare--divider__background-color: #fff;
+
+    // Divider Icon.
+    --gkt-image-compare--divider-icons__font-size: 1.3em;
+    --gkt-image-compare--divider-icons__offset: .3em;
+    --gkt-image-compare--divider-icons__color: #000;
+    --gkt-image-compare--divider-hover-icons__offset: .35em;
+
+    // Divider Button.
+    --gkt-image-compare--divider-button__width: 50px;
+    --gkt-image-compare--divider-button__height: 50px;
+    --gkt-image-compare--divider-button__background-color: #fff;
+
+    // Transitions.
+    --gkt-image-compare__transition-duration: var(--gkt-transition-duration);
+    --gkt-image-compare__transition-easing: var(--gkt-transition-easing);
+}

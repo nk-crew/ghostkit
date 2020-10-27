@@ -9,6 +9,7 @@ import * as button from './button';
 import * as buttonSingle from './button-single';
 import * as progress from './progress';
 import * as iconBox from './icon-box';
+import * as imageCompare from './image-compare';
 import * as tabs from './tabs';
 import * as tabsTab from './tabs-tab';
 import * as tabsLegacy from './tabs-legacy';
@@ -67,6 +68,7 @@ window.jQuery( () => {
         dividerShape,
         alert,
         iconBox,
+        imageCompare,
         countdown,
         counterBox,
         accordion,

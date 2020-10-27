@@ -1,0 +1,64 @@
+{
+    "name": "ghostkit/image-compare",
+    "category": "media",
+    "supports": {
+        "html": false,
+        "className": false,
+        "anchor": true
+    },
+    "attributes": {
+        "align": {
+            "type": "string"
+        },
+        "position": {
+            "type": "number",
+            "default": 50
+        },
+        "beforeUrl": {
+            "attribute": "src",
+            "selector": ".ghostkit-image-compare-image-before img",
+            "source": "attribute",
+            "type": "string"
+        },
+        "beforeAlt": {
+            "attribute": "alt",
+            "selector": ".ghostkit-image-compare-image-before img",
+            "source": "attribute",
+            "type": "string",
+            "default": ""
+        },
+        "beforeWidth": {
+            "type": "number"
+        },
+        "beforeHeight": {
+            "type": "number"
+        },
+        "afterUrl": {
+            "attribute": "src",
+            "selector": ".ghostkit-image-compare-image-after img",
+            "source": "attribute",
+            "type": "string"
+        },
+        "afterAlt": {
+            "attribute": "alt",
+            "selector": ".ghostkit-image-compare-image-after img",
+            "source": "attribute",
+            "type": "string",
+            "default": ""
+        },
+        "afterWidth": {
+            "type": "number"
+        },
+        "afterHeight": {
+            "type": "number"
+        },
+        "caption": {
+            "type": "string",
+            "source": "html",
+            "selector": "figcaption"
+        },
+        "sizeSlug": {
+            "type": "string"
+        }
+    }
+}
