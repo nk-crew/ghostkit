@@ -202,6 +202,17 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.15.0 =
+
+* added Image Compare block
+* added style "Icon Only" to Video block
+* added Reusable Blocks admin menu item
+* improved Button block states in editor. Display Hover or Focus styles, when you switch color tabs in Inspector
+* updated all vendor scripts
+* fixed `webfontloader` registration for Ghost Kit PRO
+* fixed usage of deprecated 'ready' event
+* removed outdated blocks deprecations
+
 = 2.14.2 =
 
 * added WPML support for all blocks
