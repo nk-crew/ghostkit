@@ -24,10 +24,12 @@ class BlockSave extends Component {
     render() {
         const {
             caption,
+            beforeId,
             beforeUrl,
             beforeAlt,
             beforeWidth,
             beforeHeight,
+            afterId,
             afterUrl,
             afterAlt,
             afterWidth,
@@ -54,6 +56,7 @@ class BlockSave extends Component {
                         <img
                             src={ beforeUrl }
                             alt={ beforeAlt }
+                            className={ beforeId ? `wp-image-${ beforeId }` : null }
                             width={ beforeWidth }
                             height={ beforeHeight }
                         />
@@ -62,6 +65,7 @@ class BlockSave extends Component {
                         <img
                             src={ afterUrl }
                             alt={ afterAlt }
+                            className={ afterId ? `wp-image-${ afterId }` : null }
                             width={ afterWidth }
                             height={ afterHeight }
                         />

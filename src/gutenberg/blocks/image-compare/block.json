@@ -14,6 +14,9 @@
             "type": "number",
             "default": 50
         },
+        "beforeId": {
+            "type": "number"
+        },
         "beforeUrl": {
             "attribute": "src",
             "selector": ".ghostkit-image-compare-image-before img",
@@ -31,6 +34,12 @@
             "type": "number"
         },
         "beforeHeight": {
+            "type": "number"
+        },
+        "beforeSizeSlug": {
+            "type": "string"
+        },
+        "afterId": {
             "type": "number"
         },
         "afterUrl": {
@@ -52,13 +61,13 @@
         "afterHeight": {
             "type": "number"
         },
+        "afterSizeSlug": {
+            "type": "string"
+        },
         "caption": {
             "type": "string",
             "source": "html",
             "selector": "figcaption"
-        },
-        "sizeSlug": {
-            "type": "string"
         }
     }
 }

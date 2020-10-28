@@ -19,9 +19,14 @@ const {
 } = wp.element;
 
 const {
+    withSelect,
+} = wp.data;
+
+const {
     PanelBody,
     Placeholder,
     RangeControl,
+    SelectControl,
     TextareaControl,
     ExternalLink,
 } = wp.components;
@@ -33,11 +38,12 @@ const {
 } = wp.blockEditor;
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
+const DEFAULT_SIZE_SLUG = 'large';
 
 /**
  * Block Edit Class.
  */
-export default class BlockEdit extends Component {
+class BlockEdit extends Component {
     constructor( props ) {
         super( props );
 
@@ -47,6 +53,7 @@ export default class BlockEdit extends Component {
 
         this.onUploadError = this.onUploadError.bind( this );
         this.getImgTag = this.getImgTag.bind( this );
+        this.updateImageData = this.updateImageData.bind( this );
     }
 
     onUploadError( message ) {
@@ -65,6 +72,7 @@ export default class BlockEdit extends Component {
                 <img
                     src={ attributes[ `${ type }Url` ] }
                     alt={ attributes[ `${ type }Alt` ] }
+                    className={ attributes[ `${ type }Id` ] ? `wp-image-${ attributes[ `${ type }Id` ] }` : null }
                     width={ attributes[ `${ type }Width` ] }
                     height={ attributes[ `${ type }Height` ] }
                 />
@@ -72,11 +80,57 @@ export default class BlockEdit extends Component {
         ) : false;
     }
 
+    updateImageData( type = 'before', imageData, imageSize = false ) {
+        const {
+            attributes,
+            setAttributes,
+        } = this.props;
+
+        imageSize = imageSize || attributes[ `${ type }SizeSlug` ] || DEFAULT_SIZE_SLUG;
+
+        // Prepare full image data.
+        const result = {
+            [ `${ type }SizeSlug` ]: imageSize,
+            [ `${ type }Id` ]: imageData.id,
+            [ `${ type }Url` ]: imageData.url || imageData.source_url,
+            [ `${ type }Alt` ]: imageData.alt || imageData.alt_text,
+            [ `${ type }Width` ]: imageData.width || ( imageData.media_details && imageData.media_details.width ? imageData.media_details.width : undefined ),
+            [ `${ type }Height` ]: imageData.height || ( imageData.media_details && imageData.media_details.height ? imageData.media_details.height : undefined ),
+        };
+
+        let sizes = imageData.sizes && imageData.sizes[ imageSize ];
+
+        if ( ! sizes && imageData.media_details && imageData.media_details.sizes && imageData.media_details.sizes[ imageSize ] ) {
+            sizes = imageData.media_details.sizes[ imageSize ];
+        }
+
+        // Prepare image data for selected size.
+        if ( sizes ) {
+            if ( sizes.url ) {
+                result[ `${ type }Url` ] = sizes.url;
+            }
+            if ( sizes.source_url ) {
+                result[ `${ type }Url` ] = sizes.source_url;
+            }
+            if ( sizes.width ) {
+                result[ `${ type }Width` ] = sizes.width;
+            }
+            if ( sizes.height ) {
+                result[ `${ type }Height` ] = sizes.height;
+            }
+        }
+
+        setAttributes( result );
+    }
+
     render() {
         const {
             attributes,
             isSelected,
             setAttributes,
+            editorSettings,
+            beforeImage,
+            afterImage,
         } = this.props;
 
         let {
@@ -88,8 +142,10 @@ export default class BlockEdit extends Component {
             position,
             beforeUrl,
             beforeAlt,
+            beforeSizeSlug,
             afterUrl,
             afterAlt,
+            afterSizeSlug,
         } = attributes;
 
         const {
@@ -115,36 +171,62 @@ export default class BlockEdit extends Component {
                             />
                         </PanelBody>
                     ) : null }
-                    { beforeUrl || afterUrl ? (
-                        <PanelBody title={ __( 'Image settings', '@@text_domain' ) }>
-                            { beforeUrl ? (
-                                <TextareaControl
-                                    label={ __( 'Before image Alt text (alternative text)' ) }
-                                    value={ beforeAlt }
-                                    onChange={ ( val ) => setAttributes( { beforeAlt: val } ) }
-                                    help={ (
-                                        <Fragment>
-                                            <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                                                { __( 'Describe the purpose of the image', '@@text_domain' ) }
-                                            </ExternalLink>
-                                            { __( 'Leave empty if the image is purely decorative.', '@@text_domain' ) }
-                                        </Fragment>
-                                    ) }
+                    { beforeUrl ? (
+                        <PanelBody title={ __( 'Before Image Settings', '@@text_domain' ) }>
+                            <TextareaControl
+                                label={ __( 'Alt text (alternative text)' ) }
+                                value={ beforeAlt }
+                                onChange={ ( val ) => setAttributes( { beforeAlt: val } ) }
+                                help={ (
+                                    <Fragment>
+                                        <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
+                                            { __( 'Describe the purpose of the image', '@@text_domain' ) }
+                                        </ExternalLink>
+                                        { __( 'Leave empty if the image is purely decorative.', '@@text_domain' ) }
+                                    </Fragment>
+                                ) }
+                            />
+                            { editorSettings && editorSettings.imageSizes ? (
+                                <SelectControl
+                                    label={ __( 'Image Size', '@@text_domain' ) }
+                                    value={ beforeSizeSlug || DEFAULT_SIZE_SLUG }
+                                    onChange={ ( val ) => {
+                                        this.updateImageData( 'before', beforeImage, val );
+                                    } }
+                                    options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
+                                        value: imgSize.slug,
+                                        label: imgSize.name,
+                                    } ) ) }
                                 />
                             ) : null }
-                            { afterUrl ? (
-                                <TextareaControl
-                                    label={ __( 'After image Alt text (alternative text)' ) }
-                                    value={ afterAlt }
-                                    onChange={ ( val ) => setAttributes( { afterAlt: val } ) }
-                                    help={ (
-                                        <Fragment>
-                                            <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                                                { __( 'Describe the purpose of the image', '@@text_domain' ) }
-                                            </ExternalLink>
-                                            { __( 'Leave empty if the image is purely decorative.', '@@text_domain' ) }
-                                        </Fragment>
-                                    ) }
+                        </PanelBody>
+                    ) : null }
+                    { afterUrl ? (
+                        <PanelBody title={ __( 'After Image Settings', '@@text_domain' ) }>
+                            <TextareaControl
+                                label={ __( 'Alt text (alternative text)' ) }
+                                value={ afterAlt }
+                                onChange={ ( val ) => setAttributes( { afterAlt: val } ) }
+                                help={ (
+                                    <Fragment>
+                                        <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
+                                            { __( 'Describe the purpose of the image', '@@text_domain' ) }
+                                        </ExternalLink>
+                                        { __( 'Leave empty if the image is purely decorative.', '@@text_domain' ) }
+                                    </Fragment>
+                                ) }
+                            />
+                            { editorSettings && editorSettings.imageSizes ? (
+                                <SelectControl
+                                    label={ __( 'Image Size', '@@text_domain' ) }
+                                    value={ afterSizeSlug || DEFAULT_SIZE_SLUG }
+                                    onChange={ ( val ) => {
+                                        this.updateImageData( 'after', afterImage, val );
+                                    } }
+                                    options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
+                                        value: imgSize.slug,
+                                        label: imgSize.name,
+                                    } ) ) }
                                 />
                             ) : null }
                         </PanelBody>
@@ -169,12 +251,7 @@ export default class BlockEdit extends Component {
                                     name: __( 'image', '@@text_domain' ),
                                 } }
                                 onSelect={ ( image ) => {
-                                    setAttributes( {
-                                        beforeUrl: image.url,
-                                        beforeAlt: image.alt,
-                                        beforeWidth: image.width,
-                                        beforeHeight: image.height,
-                                    } );
+                                    this.updateImageData( 'before', image );
                                 } }
                                 accept="image/*"
                                 allowedTypes={ ALLOWED_MEDIA_TYPES }
@@ -197,12 +274,7 @@ export default class BlockEdit extends Component {
                                     src: afterUrl,
                                 } : false }
                                 onSelect={ ( image ) => {
-                                    setAttributes( {
-                                        afterUrl: image.url,
-                                        afterAlt: image.alt,
-                                        afterWidth: image.width,
-                                        afterHeight: image.height,
-                                    } );
+                                    this.updateImageData( 'after', image );
                                 } }
                                 accept="image/*"
                                 allowedTypes={ ALLOWED_MEDIA_TYPES }
@@ -245,3 +317,14 @@ export default class BlockEdit extends Component {
         );
     }
 }
+
+export default withSelect( ( select, { attributes, isSelected } ) => {
+    const { getSettings } = select( 'core/block-editor' );
+    const { getMedia } = select( 'core' );
+
+    return {
+        editorSettings: getSettings(),
+        beforeImage: attributes.beforeId && isSelected ? getMedia( attributes.beforeId ) : null,
+        afterImage: attributes.afterId && isSelected ? getMedia( attributes.afterId ) : null,
+    };
+} )( BlockEdit );
