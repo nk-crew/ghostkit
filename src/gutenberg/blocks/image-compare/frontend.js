@@ -1,7 +1,7 @@
 /**
 * Image Compare Video
 */
-import { throttle } from 'throttle-debounce';
+import rafSchd from 'raf-schd';
 
 const {
     jQuery: $,
@@ -47,6 +47,6 @@ $doc.on( 'mousemove', ( e ) => {
         }
     }
 } );
-$doc.on( 'mousemove', throttle( 20, ( e ) => {
+$doc.on( 'mousemove', rafSchd( ( e ) => {
     movePosition( e );
 } ) );

@@ -2,7 +2,7 @@
 * Block Video
 */
 import { throttle } from 'throttle-debounce';
-import rafl from 'rafl';
+import rafSchd from 'raf-schd';
 
 const {
     GHOSTKIT,
@@ -37,11 +37,9 @@ function setFullscreenVideoSize() {
 }
 
 // Set FS video size.
-const throttledSetFullscreenVideoSize = throttle( 200, () => {
-    rafl( () => {
-        setFullscreenVideoSize();
-    } );
-} );
+const throttledSetFullscreenVideoSize = throttle( 200, rafSchd( () => {
+    setFullscreenVideoSize();
+} ) );
 $( window ).on( 'DOMContentLoaded load resize orientationchange', () => {
     throttledSetFullscreenVideoSize();
 } );

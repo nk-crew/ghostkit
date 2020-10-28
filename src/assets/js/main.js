@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { throttle } from 'throttle-debounce';
-import rafl from 'rafl';
+import rafSchd from 'raf-schd';
 
 /**
  * Internal dependencies
@@ -57,11 +57,11 @@ const hasScrolled = () => {
     lastST = ST;
 };
 
-const hasScrolledThrottle = throttle( 200, () => {
+const hasScrolledThrottle = throttle( 200, rafSchd( () => {
     if ( throttleScrollList.length ) {
-        rafl( hasScrolled );
+        hasScrolled();
     }
-} );
+} ) );
 
 $wnd.on( 'scroll load resize orientationchange throttlescroll.ghostkit', hasScrolledThrottle );
 $( hasScrolledThrottle );
@@ -126,11 +126,9 @@ class GhostKitClass {
         } );
 
         // Init blocks.
-        const throttledInitBlocks = throttle( 200, () => {
-            rafl( () => {
-                self.initBlocks();
-            } );
-        } );
+        const throttledInitBlocks = throttle( 200, rafSchd( () => {
+            self.initBlocks();
+        } ) );
         if ( window.MutationObserver ) {
             new window.MutationObserver( throttledInitBlocks )
                 .observe( document.documentElement, {
