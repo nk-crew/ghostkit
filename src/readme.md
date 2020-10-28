@@ -76,6 +76,7 @@ See demo page with content formatting <https://ghostkit.io/content-formatting/>
 * [**Tabs**](https://ghostkit.io/blocks/tabs/). Separate content on the tabs with titles
 * [**Countdown**](https://ghostkit.io/blocks/countdown/). Display countdown for you upcoming events
 * [**Video**](https://ghostkit.io/blocks/video/). Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos
+* [**Image Compare**](https://ghostkit.io/blocks/image-compare/). Compare two images with a slider
 * [**Carousel**](https://ghostkit.io/blocks/carousel/). Carousel for any type of content – images or other blocks
 * [**Pricing Table**](https://ghostkit.io/blocks/pricing-tables/). Sell your products or services and show all features
 * [**Testimonial**](https://ghostkit.io/blocks/testimonial/). Show how your users love your products and what saying
@@ -204,7 +205,7 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 = 2.15.0 =
 
-* added Image Compare block
+* added Image Compare block <https://ghostkit.io/blocks/image-compare/>
 * added style "Icon Only" to Video block
 * added Reusable Blocks admin menu item
 * improved Button block states in editor. Display Hover or Focus styles, when you switch color tabs in Inspector
