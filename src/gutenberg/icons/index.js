@@ -56,8 +56,6 @@ import tabsDesktop from './tabs-desktop.svg';
 import tabsLaptop from './tabs-laptop.svg';
 import tabsTablet from './tabs-tablet.svg';
 import tabsMobile from './tabs-mobile.svg';
-import iconAngleLeft from './icon-angle-left.svg';
-import iconAngleRight from './icon-angle-right.svg';
 import iconFullheight from './icon-fullheight.svg';
 import iconHorizontalAround from './icon-horizontal-around.svg';
 import iconHorizontalBetween from './icon-horizontal-between.svg';
@@ -153,8 +151,6 @@ export default {
     'tabs-tablet': tabsTablet,
     'tabs-mobile': tabsMobile,
 
-    'icon-angle-left': iconAngleLeft,
-    'icon-angle-right': iconAngleRight,
     'icon-fullheight': iconFullheight,
     'icon-horizontal-around': iconHorizontalAround,
     'icon-horizontal-between': iconHorizontalBetween,
