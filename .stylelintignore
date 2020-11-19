@@ -2,6 +2,7 @@
 **/*.jsx
 **/*.min.css
 **/*.build.css
+**/gutenberg/wordpress/**/*.scss
 node_modules
 vendor
 vendors

@@ -9,6 +9,7 @@ import Typography from './typography';
 import Icons from './icons';
 import CssJs from './css-js';
 import Fonts from './fonts';
+import Breakpoints from './breakpoints';
 
 const { __ } = wp.i18n;
 
@@ -32,6 +33,10 @@ export default applyFilters( 'ghostkit.settings.pages', {
     fonts: {
         label: __( 'Fonts', '@@text_domain' ),
         block: Fonts,
+    },
+    breakpoints: {
+        label: __( 'Breakpoints', '@@text_domain' ),
+        block: Breakpoints,
     },
     css_js: {
         label: __( 'CSS & JavaScript', '@@text_domain' ),

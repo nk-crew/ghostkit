@@ -170,6 +170,13 @@ class GhostKit_Settings {
         add_submenu_page(
             'ghostkit',
             '',
+            esc_html__( 'Breakpoints', '@@text_domain' ),
+            'manage_options',
+            'admin.php?page=ghostkit&sub_page=breakpoints'
+        );
+        add_submenu_page(
+            'ghostkit',
+            '',
             esc_html__( 'CSS & JavaScript', '@@text_domain' ),
             'manage_options',
             'admin.php?page=ghostkit&sub_page=css_js'

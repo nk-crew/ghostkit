@@ -1,0 +1,30 @@
+{
+    "name": "prestashop/rtlcss-php",
+    "type": "library",
+    "description": "Converts CSS to Right-to-Left",
+    "keywords": ["rtl", "css"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Frédéric Massart",
+            "homepage": "https://github.com/FMCorz"
+        },
+        {
+            "name": "Pablo Borowicz",
+            "email": "pablo.borowicz@prestashop.com",
+            "homepage": "https://github.com/eternoendless"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "prestashop/php-css-parser": "^8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PrestaShop\\RtlCss\\": "src/"
+        }
+    }
+}

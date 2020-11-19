@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
+    bootstrap="tests/bootstrap.php">
+    <testsuites>
+        <testsuite name="Project Test Suite">
+            <directory>tests/PrestaShop</directory>
+            <directory>tests/CSSJanus</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
+</phpunit>

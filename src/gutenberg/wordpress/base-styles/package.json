@@ -1,0 +1,56 @@
+{
+  "_from": "@wordpress/base-styles@2.1.0",
+  "_id": "@wordpress/base-styles@2.1.0",
+  "_inBundle": false,
+  "_integrity": "sha512-Ljb1xX4fYHSzvw+p8NnCF3WCNPEY6RlDrtWbJvAOeJe2LiAxiQcbgQa/WdFd21jdSgfet0Wmqk+YwwUyyeermw==",
+  "_location": "/@wordpress/base-styles",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@wordpress/base-styles@2.1.0",
+    "name": "@wordpress/base-styles",
+    "escapedName": "@wordpress%2fbase-styles",
+    "scope": "@wordpress",
+    "rawSpec": "2.1.0",
+    "saveSpec": null,
+    "fetchSpec": "2.1.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@wordpress/base-styles/-/base-styles-2.1.0.tgz",
+  "_shasum": "14858fe7b3b768068acbca29aeda065aeb6b3d95",
+  "_spec": "@wordpress/base-styles@2.1.0",
+  "_where": "C:\\projects\\ghostkit",
+  "author": {
+    "name": "The WordPress Contributors"
+  },
+  "bugs": {
+    "url": "https://github.com/WordPress/gutenberg/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Base SCSS utilities and variables for WordPress.",
+  "gitHead": "07baf5a12007d31bbd4ee22113b07952f7eacc26",
+  "homepage": "https://github.com/WordPress/gutenberg/tree/master/packages/base-styles/README.md",
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "sass",
+    "scss",
+    "css"
+  ],
+  "license": "GPL-2.0-or-later",
+  "name": "@wordpress/base-styles",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WordPress/gutenberg.git",
+    "directory": "packages/base-styles"
+  },
+  "version": "2.1.0"
+}

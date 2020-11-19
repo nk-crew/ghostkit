@@ -5,10 +5,10 @@
 
 $grid-breakpoints: (
     xs: 0,
-    xl: 1200px,
-    lg: 992px,
-    md: 768px,
-    sm: 576px,
+    xl: $media-lg,
+    lg: $media-md,
+    md: $media-sm,
+    sm: $media-xs,
 ) !default;
 
 @include _assert-descending($grid-breakpoints, "$grid-breakpoints");

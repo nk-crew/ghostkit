@@ -136,6 +136,12 @@ class GhostKit {
         // templates.
         require_once $this->plugin_path . 'classes/class-templates.php';
 
+        // scss compiler.
+        require_once $this->plugin_path . 'classes/class-scss-compiler.php';
+
+        // breakpoints.
+        require_once $this->plugin_path . 'classes/class-breakpoints.php';
+
         // custom block styles class.
         require_once $this->plugin_path . 'gutenberg/extend/styles/get-styles.php';
 
@@ -320,12 +326,13 @@ class GhostKit {
      * @return String string with replaced vars.
      */
     public function replace_vars( $str ) {
-        // TODO: Move this to plugin options (part 2).
+        $breakpoints = GhostKit_Breakpoints::get_breakpoints();
+        // TODO: Due to different formats in scss and assets there is an offset.
         $vars = array(
-            'media_sm' => '(max-width: 576px)',
-            'media_md' => '(max-width: 768px)',
-            'media_lg' => '(max-width: 992px)',
-            'media_xl' => '(max-width: 1200px)',
+            'media_sm' => '(max-width: ' . $breakpoints['xs'] . 'px)',
+            'media_md' => '(max-width: ' . $breakpoints['sm'] . 'px)',
+            'media_lg' => '(max-width: ' . $breakpoints['md'] . 'px)',
+            'media_xl' => '(max-width: ' . $breakpoints['lg'] . 'px)',
         );
 
         foreach ( $vars as $k => $var ) {

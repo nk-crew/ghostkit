@@ -29,7 +29,7 @@ cfg.template_files_variables = {
 // Copy files.
 cfg.copy_files_src = [
     '{src}/**/*',
-    '!{src}/**/*.{js,scss}',
+    '!{src}/**/*.{js}',
     '{src}/**/vendor/**/*.{js,scss}',
     './node_modules/*gist-simple/dist/gist-simple.css',
     './node_modules/*gist-simple/dist/gist-simple.min.js',
@@ -97,7 +97,7 @@ cfg.zip_files = [
 ];
 
 // Watch files.
-cfg.watch_files = [ '{src}/**/*', '!{src}/**/*.{js,scss}' ];
+cfg.watch_files = [ '{src}/**/*', '!{src}/**/*.{js}' ];
 
 cfg.watch_js_files = [ '{src}/**/*.js', '!{src}/*vendor/**/*' ];
 

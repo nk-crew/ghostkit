@@ -308,6 +308,8 @@ class GhostKit_Assets {
 
         $theme_data = wp_get_theme( get_template() );
 
+        $breakpoints = GhostKit_Breakpoints::get_breakpoints();
+
         wp_localize_script(
             'ghostkit-helper',
             'ghostkitVariables',
@@ -316,12 +318,12 @@ class GhostKit_Assets {
                 'settings'                    => get_option( 'ghostkit_settings', array() ),
                 'disabledBlocks'              => get_option( 'ghostkit_disabled_blocks', array() ),
 
-                // TODO: Move this to plugin options (part 1).
+                // TODO: Due to different formats in scss and assets there is an offset.
                 'media_sizes'                 => array(
-                    'sm' => 576,
-                    'md' => 768,
-                    'lg' => 992,
-                    'xl' => 1200,
+                    'sm' => $breakpoints['xs'],
+                    'md' => $breakpoints['sm'],
+                    'lg' => $breakpoints['md'],
+                    'xl' => $breakpoints['lg'],
                 ),
                 'googleMapsAPIKey'            => get_option( 'ghostkit_google_maps_api_key' ),
                 'googleMapsAPIUrl'            => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
