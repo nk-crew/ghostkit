@@ -49,22 +49,19 @@ class GhostKit_Breakpoints {
     );
 
     /**
+     * Compile Scss Configurations.
+     *
+     * @var array
+     */
+    private $compile_scss_configs;
+
+    /**
      * GhostKit_Breakpoints constructor.
      */
     public function __construct() {
-        if ( self::get_use_breakpoints() ) {
-            add_filter( 'style_loader_src', array( $this, 'change_style_src_to_compile' ), 10, 1 );
-            add_action( 'gkt_before_assets_register', 'GhostKit_Breakpoints::maybe_compile_scss_files' );
-        }
-    }
-
-    /**
-     * Get use Breakpoint option.
-     *
-     * @return bool
-     */
-    public static function get_use_breakpoints() {
-        return get_option( 'ghostkit_use_breakpoints', apply_filters( 'gkt_default_use_breakpoints', false ) );
+        $this->compile_scss_configs = self::get_compile_scss_configs();
+        add_filter( 'style_loader_src', array( $this, 'change_style_src_to_compile' ), 10, 1 );
+        add_action( 'gkt_before_assets_register', array( $this, 'maybe_compile_scss_files' ) );
     }
 
     /**
@@ -73,7 +70,6 @@ class GhostKit_Breakpoints {
      * @return array
      */
     private static function get_compile_scss_configs() {
-
         $upload_dir           = wp_upload_dir();
         $compile_scss_configs = array();
         $plugin_path          = ghostkit()->plugin_path;
@@ -100,21 +96,27 @@ class GhostKit_Breakpoints {
      * @return string
      */
     public function change_style_src_to_compile( $src ) {
-        $is_plugin_file = strstr( $src, ghostkit()->plugin_url );
+        $breakpoints              = self::get_breakpoints();
+        $breakpoints_hash         = self::get_breakpoints_hash( $breakpoints );
+        $default_breakpoints_hash = self::get_default_breakpoints_hash();
 
-        if ( $is_plugin_file ) {
-            $configs       = self::get_compile_scss_configs();
-            $relative_uri  = str_replace( ghostkit()->plugin_url, '', $is_plugin_file );
-            $relative_path = str_replace( '?ver=@@plugin_version', '', $relative_uri );
-            $upload_dir    = wp_upload_dir();
-            $output_file   = $upload_dir['basedir'] . '/@@plugin_name/' . $relative_path;
+        if ( $breakpoints_hash !== $default_breakpoints_hash ) {
+            $is_plugin_file = strstr( $src, ghostkit()->plugin_url );
 
-            foreach ( $configs as $config ) {
-                if (
-                    $config['output_file'] === $output_file &&
-                    file_exists( $output_file )
-                ) {
-                    $src = $upload_dir['baseurl'] . '/@@plugin_name/' . $relative_uri;
+            if ( $is_plugin_file ) {
+                $configs       = $this->compile_scss_configs;
+                $relative_uri  = str_replace( ghostkit()->plugin_url, '', $is_plugin_file );
+                $relative_path = str_replace( '?ver=@@plugin_version', '', $relative_uri );
+                $upload_dir    = wp_upload_dir();
+                $output_file   = $upload_dir['basedir'] . '/@@plugin_name/' . $relative_path;
+
+                foreach ( $configs as $config ) {
+                    if (
+                        $config['output_file'] === $output_file &&
+                        file_exists( $output_file )
+                    ) {
+                        $src = $upload_dir['baseurl'] . '/@@plugin_name/' . $relative_uri;
+                    }
                 }
             }
         }
@@ -161,14 +163,13 @@ class GhostKit_Breakpoints {
     }
 
     /**
-     * Get breakpoints Hash.
+     * Get breakpoints Hash
      *
+     * @param array $breakpoints - Breakpoints.
      * @return string
      */
-    private static function get_breakpoints_hash() {
-        $breakpoints = self::get_breakpoints();
-
-        $hash = md5(
+    private static function get_breakpoints_hash( $breakpoints ) {
+        return md5(
             wp_json_encode(
                 array_merge(
                     $breakpoints,
@@ -178,8 +179,22 @@ class GhostKit_Breakpoints {
                 )
             )
         );
+    }
 
-        return $hash;
+    /**
+     * Get default breakpoints Hash.
+     *
+     * @return string
+     */
+    private static function get_default_breakpoints_hash() {
+        return self::get_breakpoints_hash(
+            array(
+                'xs' => self::$default_xs,
+                'sm' => self::$default_sm,
+                'md' => self::$default_md,
+                'lg' => self::$default_lg,
+            )
+        );
     }
 
     /**
@@ -187,12 +202,17 @@ class GhostKit_Breakpoints {
      *
      * @return void
      */
-    public static function maybe_compile_scss_files() {
-        $breakpoints_hash       = self::get_breakpoints_hash();
-        $saved_breakpoints_hash = get_option( 'ghostkit_saved_breakpoints_hash' );
+    public function maybe_compile_scss_files() {
+        $breakpoints              = self::get_breakpoints();
+        $breakpoints_hash         = self::get_breakpoints_hash( $breakpoints );
+        $default_breakpoints_hash = self::get_default_breakpoints_hash();
+        $saved_breakpoints_hash   = get_option( 'ghostkit_saved_breakpoints_hash' );
 
-        if ( $breakpoints_hash !== $saved_breakpoints_hash ) {
-            $compile_scss_configs = self::get_compile_scss_configs();
+        if (
+            $breakpoints_hash !== $saved_breakpoints_hash &&
+            $breakpoints_hash !== $default_breakpoints_hash
+        ) {
+            $compile_scss_configs = $this->compile_scss_configs;
 
             $breakpoints = self::get_breakpoints();
 
@@ -288,24 +308,6 @@ class GhostKit_Breakpoints {
      */
     public static function get_breakpoint_lg() {
         return apply_filters( 'gkt_breakpoint_lg', self::get_default_breakpoint_lg() );
-    }
-
-    /**
-     * Get Default Large Desktop Breakpoint.
-     *
-     * @return int
-     */
-    public static function get_default_breakpoint_xl() {
-        return apply_filters( 'gkt_default_breakpoint_xl', self::$default_xl );
-    }
-
-    /**
-     * Get Large Desktop Breakpoint.
-     *
-     * @return int
-     */
-    public static function get_breakpoint_xl() {
-        return apply_filters( 'gkt_breakpoint_xl', self::get_default_breakpoint_xl() );
     }
 }
 new GhostKit_Breakpoints();
