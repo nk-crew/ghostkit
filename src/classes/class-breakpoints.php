@@ -276,10 +276,10 @@ class GhostKit_Breakpoints {
             $breakpoints = self::get_breakpoints();
 
             $variables = array(
-                'media-xs' => $breakpoints['xs'],
-                'media-sm' => $breakpoints['sm'],
-                'media-md' => $breakpoints['md'],
-                'media-lg' => $breakpoints['lg'],
+                'media-xs' => $breakpoints['xs'] . 'px',
+                'media-sm' => $breakpoints['sm'] . 'px',
+                'media-md' => $breakpoints['md'] . 'px',
+                'media-lg' => $breakpoints['lg'] . 'px',
             );
 
             foreach ( $compile_scss_configs as $compile_scss_config ) {
