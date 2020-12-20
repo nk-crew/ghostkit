@@ -6,10 +6,10 @@
 
 // fix content block height
 .ghostkit-counter-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .wp-block:first-child {
-    margin-top: -$default-block-margin;
+    margin-top: 0;
 }
 .ghostkit-counter-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .wp-block:last-child {
-    margin-bottom: -$default-block-margin;
+    margin-bottom: 0;
 }
 .ghostkit-counter-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > :not(.wp-block):empty:last-child {
     margin-bottom: -$default-block-margin;
