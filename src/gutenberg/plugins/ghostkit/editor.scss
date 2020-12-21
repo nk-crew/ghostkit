@@ -3,28 +3,11 @@
  */
 @import "../../variables";
 
-.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) .ghostkit-plugin-icon svg,
-.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-plugin-icon svg,
-.edit-post-pinned-plugins .components-icon-button:hover .ghostkit-plugin-icon svg {
+.interface-pinned-items .components-button .ghostkit-plugin-icon svg {
     display: block;
-
-    * {
-        stroke: initial !important; // stylelint-disable-line
-    }
-
-    [fill="#fff"] {
-        fill: #fff !important; // stylelint-disable-line
-    }
 }
-
-// default Gutenberg icons is 20x20, but we use 24x24
-// so, we need to compensate the padding
-.edit-post-pinned-plugins .components-icon-button .ghostkit-plugin-icon svg {
-    margin: -2px;
-}
-
-.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-plugin-icon svg [fill="#fff"] {
-    fill: #555d66 !important; // stylelint-disable-line
+.interface-pinned-items .components-button:not(.is-toggled):not(.is-pressed) .ghostkit-plugin-icon svg {
+    color: $color-brand;
 }
 
 .plugin-ghostkit-panel {

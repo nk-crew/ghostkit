@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
-import pages from '../pages';
+import getPages from '../pages';
 import Logo from '../assets/logo.svg';
 
 /**
@@ -28,8 +28,11 @@ export default class Container extends Component {
             $_GET[ name ] = value;
         } );
 
+        const pages = getPages();
+
         // Set the default states
         this.state = {
+            pages,
             activePage: $_GET.sub_page ? $_GET.sub_page : Object.keys( pages )[ 0 ],
         };
 
@@ -65,6 +68,7 @@ export default class Container extends Component {
 
     render() {
         const {
+            pages,
             activePage,
         } = this.state;
 
@@ -93,12 +97,16 @@ export default class Container extends Component {
 
         if ( activePage && pages[ activePage ] ) {
             const NewBlock = pages[ activePage ].block;
+
             resultContent = (
-                <NewBlock
-                    data={ this.props.data }
-                    settings={ this.state.settings }
-                    updateSettings={ this.updateSettings }
-                />
+                <Fragment>
+                    <h2>{ pages[ activePage ].label }</h2>
+                    <NewBlock
+                        data={ this.props.data }
+                        settings={ this.state.settings }
+                        updateSettings={ this.updateSettings }
+                    />
+                </Fragment>
             );
         }
 

@@ -53,6 +53,12 @@
         padding: 0;
         padding-right: 20px;
 
+        svg {
+            width: 19px;
+            height: auto;
+            margin: 0 4px;
+        }
+
         .ghostkit-typography-font-category-control-toggle {
             height: 32px;
             border: 1px solid $light-gray-700;
@@ -62,12 +68,6 @@
                 border-color: $light-gray-900;
                 // stylelint-disable-next-line
                 box-shadow: none !important;
-            }
-
-            svg {
-                width: 19px;
-                height: auto;
-                margin-left: 4px;
             }
         }
 
@@ -80,6 +80,13 @@
             .components-button svg {
                 margin-right: 10px;
                 margin-left: 5px;
+            }
+        }
+        .components-menu-item__button {
+            display: flex;
+
+            .components-menu-items__item-icon {
+                order: -1;
             }
         }
     }

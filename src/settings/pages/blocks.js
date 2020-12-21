@@ -53,16 +53,9 @@ export default class Blocks extends Component {
 
     componentDidMount() {
         const categories = this.getBlocksCategories();
-        let activeCategory = categories[ 0 ].slug;
-
-        categories.forEach( ( cat ) => {
-            if ( 'ghostkit' === cat.slug ) {
-                activeCategory = 'ghostkit';
-            }
-        } );
 
         this.setState( {
-            activeCategory,
+            activeCategory: categories[ 0 ].slug,
         } );
     }
 
@@ -113,16 +106,6 @@ export default class Blocks extends Component {
     // eslint-disable-next-line class-methods-use-this
     getBlocksCategories() {
         const categories = wp.blocks.getCategories();
-
-        // Move Ghost Kit category to the fist place
-        categories.sort( ( x, y ) => {
-            if ( 'ghostkit' === x.slug ) {
-                return -1;
-            } if ( 'ghostkit' === y.slug ) {
-                return 1;
-            }
-            return 0;
-        } );
 
         return categories;
     }
@@ -301,47 +284,37 @@ export default class Blocks extends Component {
 
         return (
             <Fragment>
-                <div className="ghostkit-settings-blocks">
-                    <div className="ghostkit-settings-blocks-left" />
-                    <div className="ghostkit-settings-blocks-right">
-                        <div
-                            className={
-                                classnames(
-                                    'ghostkit-settings-blocks-items-head',
-                                    ! count ? 'ghostkit-settings-blocks-items-head-hidden' : ''
-                                )
-                            }
-                        >
-                            <span className="ghostkit-settings-blocks-items-head-count">
-                                { sprintf( __( 'Blocks: %s', '@@text_domain' ), count ) }
-                            </span>
-                            <Tooltip text={ disabledCount !== count ? __( 'Disable All Blocks', '@@text_domain' ) : __( 'Enable All Blocks', '@@text_domain' ) }>
-                                <div
-                                    className={
-                                        classnames(
-                                            'ghostkit-settings-blocks-all-check',
-                                            0 !== disabledCount && disabledCount !== count ? 'ghostkit-settings-blocks-check-gray' : ''
-                                        )
-                                    }
-                                >
-                                    <ToggleControl
-                                        checked={ disabledCount !== count }
-                                        onChange={ () => {
-                                            this.setDisabledAllBlocks( ! ( disabledCount !== count ) );
-                                        } }
-                                    />
-                                </div>
-                            </Tooltip>
-                        </div>
-                    </div>
-                </div>
-                <div className="ghostkit-settings-blocks">
+                <div className="ghostkit-settings-content-wrapper ghostkit-settings-blocks">
                     <div className="ghostkit-settings-blocks-left">
                         <ul className="ghostkit-settings-blocks-categories">
                             { resultTabs }
                         </ul>
                     </div>
                     <div className="ghostkit-settings-blocks-right">
+                        { count ? (
+                            <div className="ghostkit-settings-blocks-items-head">
+                                <span className="ghostkit-settings-blocks-items-head-count">
+                                    { sprintf( __( 'Blocks: %s', '@@text_domain' ), count ) }
+                                </span>
+                                <Tooltip text={ disabledCount !== count ? __( 'Disable All Blocks', '@@text_domain' ) : __( 'Enable All Blocks', '@@text_domain' ) }>
+                                    <div
+                                        className={
+                                            classnames(
+                                                'ghostkit-settings-blocks-all-check',
+                                                0 !== disabledCount && disabledCount !== count ? 'ghostkit-settings-blocks-check-gray' : ''
+                                            )
+                                        }
+                                    >
+                                        <ToggleControl
+                                            checked={ disabledCount !== count }
+                                            onChange={ () => {
+                                                this.setDisabledAllBlocks( ! ( disabledCount !== count ) );
+                                            } }
+                                        />
+                                    </div>
+                                </Tooltip>
+                            </div>
+                        ) : null }
                         <ul className="ghostkit-settings-blocks-items">
                             { resultBlocks }
                         </ul>

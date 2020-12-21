@@ -135,7 +135,8 @@ class GhostKit_Settings {
             'manage_options',
             'ghostkit',
             array( $this, 'display_admin_page' ),
-            'dashicons-admin-ghostkit',
+            // phpcs:ignore
+            'data:image/svg+xml;base64,' . base64_encode( file_get_contents( ghostkit()->plugin_path . 'assets/images/admin-icon.svg' ) ),
             56.9
         );
 

@@ -92,11 +92,11 @@ class CustomCSSComponent extends Component {
                 <p>{ __( 'Example:', '@@text_domain' ) }</p>
                 <pre className="ghostkit-control-pre-custom-css">
                     { `selector {
-  background-color: #5C39A7;
+  background-color: #2F1747;
 }
 
 selector p {
-  color: #5C39A7;
+  color: #2F1747;
 }` }
                 </pre>
             </Fragment>

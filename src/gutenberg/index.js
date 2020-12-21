@@ -50,15 +50,7 @@ const {
  * Add category icon.
  */
 const categoryIcon = (
-    <GhostKitCategoryIcon
-        style={ {
-            width: '20px',
-            height: '20px',
-            marginLeft: '7px',
-            marginTop: '-1px',
-        } }
-        className="components-panel__icon"
-    />
+    <GhostKitCategoryIcon className="components-panel__icon" />
 );
 
 // Collections.

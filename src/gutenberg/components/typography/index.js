@@ -256,7 +256,7 @@ export default class Typography extends Component {
                                         } }
                                     >
                                         { __( 'Adobe Fonts', '@@text_domain' ) }
-                                        <span className="ghostkit-typography-badge-pro">PRO</span>
+                                        <span className="ghostkit-typography-badge-pro">{ __( 'PRO', '@@text_domain' ) }</span>
                                     </MenuItem>
                                 </MenuGroup>
                             ) }

@@ -46,7 +46,8 @@ class GhostKit_Templates {
                 'exclude_from_search' => true,
                 'show_in_nav_menus'   => false,
                 'rewrite'             => false,
-                'menu_icon'           => 'dashicons-admin-ghostkit-templates',
+                // phpcs:ignore
+                'menu_icon'           => 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( ghostkit()->plugin_path . 'assets/images/admin-icon-templates.svg' ) ),
                 'menu_position'       => 57,
                 'hierarchical'        => false,
                 'show_in_menu'        => true,
