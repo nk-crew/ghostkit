@@ -297,6 +297,8 @@ class GhostKitClass {
                 el: this,
                 from,
                 to,
+                duration: 1000,
+                easing: 'easeOutCubic',
                 cb( num ) {
                     if ( isProgress ) {
                         $this.css( 'width', `${ Math.ceil( num * 100 ) / 100 }%` );
@@ -311,13 +313,15 @@ class GhostKitClass {
             };
             let showed = false;
 
+            GHOSTKIT.triggerEvent( 'prepareCounters', self, item );
+
             // Run counter.
             throttleScroll( () => {
                 if ( ! showed && item && self.isElementInViewport( item.el ) ) {
                     showed = true;
                     $( { Counter: item.from } ).animate( { Counter: item.to }, {
-                        duration: 1000,
-                        easing: 'easeOutCubic',
+                        duration: item.duration,
+                        easing: item.easing,
                         step() {
                             item.cb( this.Counter, false );
                         },
