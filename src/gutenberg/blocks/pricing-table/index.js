@@ -68,6 +68,22 @@ export const settings = {
                     features: '<li>Feature 1</li><li>Feature 2</li>',
                     showPopular: true,
                 },
+                innerBlocks: [
+                    {
+                        name: 'ghostkit/button',
+                        attributes: {
+                            align: 'center',
+                        },
+                        innerBlocks: [
+                            {
+                                name: 'ghostkit/button-single',
+                                attributes: {
+                                    text: 'Purchase',
+                                },
+                            },
+                        ],
+                    },
+                ],
             }, {
                 name: 'ghostkit/pricing-table-item',
                 attributes: {
@@ -75,6 +91,22 @@ export const settings = {
                     price: '$99',
                     features: '<li>Feature 1</li><li>Feature 2</li>',
                 },
+                innerBlocks: [
+                    {
+                        name: 'ghostkit/button',
+                        attributes: {
+                            align: 'center',
+                        },
+                        innerBlocks: [
+                            {
+                                name: 'ghostkit/button-single',
+                                attributes: {
+                                    text: 'Purchase',
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
         ],
     },
