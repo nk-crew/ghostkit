@@ -1,40 +1,139 @@
 # Powerful Gutenberg Blocks and Templates - Ghost Kit #
 
 * Contributors: nko
-* Tags: gutenberg, blocks, templates, block, builder
+* Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
 * Requires at least: 5.5
-* Tested up to: 5.5
+* Tested up to: 5.6
 * Requires PHP: 5.5.9
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
-Ghost Kit is a blocks collection and templates with customization options to build pages faster with Gutenberg page builder.
+Ghost Kit is the powerful page building experience for WordPress.
 
 ## Description ##
 
-Gutenberg Blocks, Templates, and Extensions Collection for WordPress page builder - Ghost Kit. With this collection, you will gain more control over content just like with popular page builders. Just start with pre-defined templates and you can't stop building the page ;)
+**Gutenberg Blocks and Page Builder Plugin For WordPress**
+★★★★★<br>
 
-We are using this plugin in our premium themes, so all the blocks are extensible and ready for developers.
+**Ghost Kit is the powerful page building experience for WordPress.** Ghost Kip provides a large collection of Gutenberg Blocks, Templates, and Extensions. With this collection, you will gain more control over content just like with popular page builders. Just start with pre-defined templates and you can't stop building the page ;)
 
-### Links ###
+<a href="https://ghostkit.io/?utm_source=wporg&utm_medium=link&utm_campaign=demo" target="_blank">See Live Demo</a> | <a href="https://ghostkit.io/docs/getting-started/?utm_source=wporg&utm_medium=link&utm_campaign=docs" target="_blank">Documentation</a> | <a href="https://github.com/nk-o/ghostkit" target="_blank">GitHub</a>
 
-* [Demo Site](https://ghostkit.io/)
-* [Documentation](https://ghostkit.io/docs/getting-started/)
-* [Ghost Kit PRO](https://ghostkit.io/pricing/)
-* [GitHub](https://github.com/nk-o/ghostkit)
+We created this blocks collection for our own needs - create different multipurpose sites and themes. This is a professional collection and extensions with responsive grid system helps us and will help you as well, **Ghost Kit will boost your development speed**.
 
-### Templates ###
+### 🏆 Create Multipurpose Sites with Ghost Kit ###
+
+Gutenberg is good tool for basic websites, but when you need something advanced, Ghost Kit will give you the needed power. Enormous collection of blocks and extensions will be your magic wand:
+
+#### 🧱 Blocks ####
+
+* [**Grid Block**](https://ghostkit.io/blocks/grid/)
+Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.
+
+* [**Progress Block**](https://ghostkit.io/blocks/progress/)
+Show the progress of your work, skills or earnings.
+
+* [**Button Block**](https://ghostkit.io/blocks/button/)
+Change important links to buttons to get more click rate.
+
+* [**Shape Divider Block**](https://ghostkit.io/blocks/shape-divider/)
+Add SVG shapes between your sections.
+
+* [**Divider Block**](https://ghostkit.io/blocks/divider/)
+Divide your long texts and blocks.
+
+* [**Alert Block**](https://ghostkit.io/blocks/alert/)
+Provide contextual feedback messages for user actions.
+
+* [**Icon Box Block**](https://ghostkit.io/blocks/icon-box/)
+Icons are one of the best visual replacement for text descriptions.
+
+* [**Number Box Block**](https://ghostkit.io/blocks/number-box/)
+Show your progress and rewards using counting numbers.
+
+* [**Accordion Block**](https://ghostkit.io/blocks/accordion/)
+Toggle the visibility of content across your project.
+
+* [**Tabs Block**](https://ghostkit.io/blocks/tabs/)
+Separate content on the tabs with titles.
+
+* [**Countdown Block**](https://ghostkit.io/blocks/countdown/)
+Display countdown for you upcoming events.
+
+* [**Video Block**](https://ghostkit.io/blocks/video/)
+Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.
+
+* [**Image Compare Block**](https://ghostkit.io/blocks/image-compare/)
+Compare two images with a slider.
+
+* [**Carousel Block**](https://ghostkit.io/blocks/carousel/)
+Carousel for any type of content – images or other blocks.
+
+* [**Pricing Table Block**](https://ghostkit.io/blocks/pricing-tables/)
+Sell your products or services and show all features.
+
+* [**Testimonial Block**](https://ghostkit.io/blocks/testimonial/)
+Show how your users love your products and what saying.
+
+* [**Twitter Block**](https://ghostkit.io/blocks/twitter/)
+Show Twitter feed and user data.
+
+* [**GIF Block**](https://ghostkit.io/blocks/gif/)
+Search for and insert an animated image from Giphy.
+
+* [**Contact Form Block**](https://ghostkit.io/blocks/contact-form/)
+Add contact form to your page with reCaptcha.
+
+* [**Google Maps Block**](https://ghostkit.io/blocks/google-maps/)
+Show maps with custom styles, markers and settings.
+
+* [**GitHub Gist Block**](https://ghostkit.io/blocks/github-gist/)
+Embed code parts form GitHub Gist to your site or documentation.
+
+* [**Changelog Block**](https://ghostkit.io/blocks/changelog/)
+Show the changes log of your product.
+
+* [**Table of Contents Block**](https://ghostkit.io/blocks/table-of-contents/)
+Automatically generate a table of contents by parsing page headers in content.
+
+* **Markdown Block**
+Lightweight markup language with plain-text-formatting syntax.
+
+* **Widgetized Area Block**
+Select registered sidebars and put it in any place.
+
+#### ⚙️ Extensions ####
+
+* [**Spacings**](https://ghostkit.io/extensions/spacings/)
+Easily add spacings to Ghost Kit and Core blocks.
+
+* [**Display**](https://ghostkit.io/extensions/display/)
+Show and hide blocks Ghost Kit and Core blocks on different screen sizes.
+
+* [**Frame**](https://ghostkit.io/extensions/frame/)
+Add borders, shadows and corner radius to Ghost Kit and Core blocks on different screen sizes.
+
+* [**Animate on Scroll**](https://ghostkit.io/extensions/animate-on-scroll/)
+Show with animation Ghost Kit and Core blocks on page scrolling.
+
+* [**Custom CSS & JavaScript**](https://ghostkit.io/extensions/custom-css-js/)
+This extension is available on all pages and let you add custom CSS and JavaScript for the current page and globally site wide.
+
+* [**Customizer**](https://ghostkit.io/extensions/customizer/)
+This extension is available on all pages and let you change customizer options on the current page.
+
+### 📁 Templates ###
 
 Ghost Kit has pre-made templates, so you can get started with it and build your pages quickly.
 
-### Typography ###
+### 📄 Typography ###
 
 Change typography options globally on a whole site or on specific pages only. Options available:
 
 * Font Family
   * Google Fonts
-  * Adobe Fonts (Typekit) in PRO version
+  * Adobe Fonts (Typekit) in Pro version
 * Font Weight
 * Font Size
 * Line Height
@@ -47,11 +146,11 @@ By default you can change typography for the following elements:
 * Headings
   * From H1 to H6
 
-### Color Palette ###
+### 🎨 Color Palette ###
 
 Add custom colors to Gutenberg color palette.
 
-### Content Formatting ###
+### 📝 Content Formatting ###
 
 See demo page with content formatting <https://ghostkit.io/content-formatting/>
 
@@ -62,51 +161,14 @@ See demo page with content formatting <https://ghostkit.io/content-formatting/>
 * Highlight
 * Badge
 
-### Blocks ###
+### 🔥 Ghost Kit Pro ###
 
-* [**Grid**](https://ghostkit.io/blocks/grid/). Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change
-* [**Progress**](https://ghostkit.io/blocks/progress/). Show the progress of your work, skills or earnings
-* [**Button**](https://ghostkit.io/blocks/button/). Change important links to buttons to get more click rate
-* [**Shape Divider**](https://ghostkit.io/blocks/shape-divider/). Add SVG shapes between your sections
-* [**Divider**](https://ghostkit.io/blocks/divider/). Divide your long texts and blocks
-* [**Alert**](https://ghostkit.io/blocks/alert/). Provide contextual feedback messages for user actions
-* [**Icon Box**](https://ghostkit.io/blocks/icon-box/). Icons are one of the best visual replacement for text descriptions
-* [**Number Box**](https://ghostkit.io/blocks/number-box/). Show your progress and rewards using counting numbers
-* [**Accordion**](https://ghostkit.io/blocks/accordion/). Toggle the visibility of content across your project
-* [**Tabs**](https://ghostkit.io/blocks/tabs/). Separate content on the tabs with titles
-* [**Countdown**](https://ghostkit.io/blocks/countdown/). Display countdown for you upcoming events
-* [**Video**](https://ghostkit.io/blocks/video/). Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos
-* [**Image Compare**](https://ghostkit.io/blocks/image-compare/). Compare two images with a slider
-* [**Carousel**](https://ghostkit.io/blocks/carousel/). Carousel for any type of content – images or other blocks
-* [**Pricing Table**](https://ghostkit.io/blocks/pricing-tables/). Sell your products or services and show all features
-* [**Testimonial**](https://ghostkit.io/blocks/testimonial/). Show how your users love your products and what saying
-* [**Twitter**](https://ghostkit.io/blocks/twitter/). Show Twitter feed and user data
-* [**Instagram**](https://ghostkit.io/blocks/instagram/). Show Instagram feed and user data
-* [**GIF**](https://ghostkit.io/blocks/gif/). Search for and insert an animated image from Giphy
-* [**Contact Form**](https://ghostkit.io/blocks/contact-form/). Add contact form to your page with reCaptcha
-* [**Google Maps**](https://ghostkit.io/blocks/google-maps/). Show maps with custom styles, markers and settings
-* [**GitHub Gist**](https://ghostkit.io/blocks/github-gist/). Embed code parts form GitHub Gist to your site or documentation
-* [**Changelog**](https://ghostkit.io/blocks/changelog/). Show the changes log of your product
-* [**Table of Contents**](https://ghostkit.io/blocks/table-of-contents/). Automatically generate a table of contents by parsing page headers in content
-* **Markdown**. Lightweight markup language with plain-text-formatting syntax
-* **Widgetized Area**. Select registered sidebars and put it in any place
-
-### Extensions ##
-
-* [**Spacings**](https://ghostkit.io/extensions/spacings/). Easily add spacings to Ghost Kit and Core blocks
-* [**Display**](https://ghostkit.io/extensions/display/). Show and hide blocks Ghost Kit and Core blocks on different screen sizes
-* [**Frame**](https://ghostkit.io/extensions/frame/). Add borders, shadows and corner radius to Ghost Kit and Core blocks on different screen sizes
-* [**Animate on Scroll**](https://ghostkit.io/extensions/animate-on-scroll/). Show with animation Ghost Kit and Core blocks on page scrolling
-* [**Custom CSS & JavaScript**](https://ghostkit.io/extensions/custom-css-js/). This extension is available on all pages and let you add custom CSS and JavaScript for the current page and globally site wide
-* [**Customizer**](https://ghostkit.io/extensions/customizer/). This extension is available on all pages and let you change customizer options on the current page
-
-### Try Ghost Kit PRO Addon ###
-
-Ghost Kit PRO Addon extends the capabilities of Ghost Kit and improve your design experience. List of the main features:
+Ghost Kit Pro extends the capabilities of Ghost Kit and improve your design experience. List of the main features:
 
 * More icon packs
 * 30 additional shapes for Shape Divider block
 * Visual Grid editor
+* Custom Responsive Breakpoints
 * Adobe Fonts (Typekit)
 * Google Maps custom markers
 * Gradient buttons, backgrounds, icons, badges
@@ -114,16 +176,11 @@ Ghost Kit PRO Addon extends the capabilities of Ghost Kit and improve your desig
 * Tooltips
 * And more
 
-Try out a live demo of [Ghost Kit PRO](https://demo.ghostkit.io/)
+Try out a live demo of [Ghost Kit Pro](https://demo.ghostkit.io/)
 
-### Multilingual ##
+### 🏳️ Multilingual ##
 
 Ghost Kit adds a new layer of compatibility for [WPML](https://wpml.org/). All blocks are compatible with it and ready for translation. <https://ghostkit.io/docs/multilingual/>
-
-= Real Usage Examples =
-
-* [SquadForce Theme](https://wp.nkdev.info/squadforce/)
-* [Skylith Theme](https://wp.nkdev.info/skylith/)
 
 ## Installation ##
 
@@ -203,6 +260,16 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.16.0 =
+
+* added settings to change responsive breakpoints (Pro only)
+* added `prepareCounters` jQuery event to add possibility to change counters speed
+* improved admin UI styles
+* fixed some SVG icons w3c warnings
+* fixed `Add Template` button rendering in Gutenberg toolbar
+* fixed first and last child blocks margins in editor inside Alert, Icon Box and Number Box blocks
+* fixed Pricing Table block preview in blocks inserter
+
 = 2.15.0 =
 
 * added Image Compare block <https://ghostkit.io/blocks/image-compare/>
@@ -210,7 +277,7 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 * added Reusable Blocks admin menu item
 * improved Button block states in editor. Display Hover or Focus styles, when you switch color tabs in Inspector
 * updated all vendor scripts
-* fixed `webfontloader` registration for Ghost Kit PRO
+* fixed `webfontloader` registration for Ghost Kit Pro
 * fixed usage of deprecated 'ready' event
 * removed outdated blocks deprecations
 
@@ -237,7 +304,7 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 * added support for WordPress 5.5
 * added RTL support
 * added support for `Start value` and `Reverse` settings in Styled numbered lists
-* added support for Gradients for Badges in Ghost Kit PRO
+* added support for Gradients for Badges in Ghost Kit Pro
 * improved some editor UI elements
 * changed components `return '';` to `return null;` (fixed possible conflicts with 3rd-party plugins)
 * fixed Grid CSS variables error in IE11
@@ -290,7 +357,7 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 * added Align option to Form Submit Button
 * updated google fonts list
-* fixed Button border CSS conflict with Ghost Kit PRO Gradients
+* fixed Button border CSS conflict with Ghost Kit Pro Gradients
 * fixed displaying some Typography options (rare bug)
 * fixed fonts loading based on available registered fonts, but not on the saved in DB (rare bug)
 
@@ -384,12 +451,12 @@ Note: there may be breaking changes. Try to re-save pages if you see issues on t
 * changed wp-editor dependency to wp-block-editor (possible fix conflict with 3rd-party plugins like Yoast SEO)
 * fixed left and right margin in grid, button, pricing table blocks in Twenty* themes
 * fixed accordion and tabs item hash missing dash
-* fixed js error if used missing font (for ex. when disabling PRO plugin)
+* fixed js error if used missing font (for ex. when disabling Pro plugin)
 * fixed Table of Contents editor preview
 
 = 2.8.2 =
 
-* fixed Adobe Fonts CSS output in PRO plugin
+* fixed Adobe Fonts CSS output in Pro plugin
 
 = 2.8.1 =
 
@@ -397,7 +464,7 @@ Note: there may be breaking changes. Try to re-save pages if you see issues on t
 
 = 2.8.0 =
 
-* added Adobe Fonts in PRO version
+* added Adobe Fonts in Pro version
 * added Shape Divider block <https://ghostkit.io/blocks/shape-divider/>
 * added Frame extension (border, shadow, radius) <https://ghostkit.io/extensions/frame/>
 * added Color Palette plugin to extend default Gutenberg color palette <https://ghostkit.io/extensions/color-palette/>
@@ -441,7 +508,7 @@ Note: there may be breaking changes. Try to re-save pages if you see issues on t
 = 2.6.3 =
 
 * disabled all extensions on dynamic core blocks
-* fixed Templates modal open when active PRO
+* fixed Templates modal open when active Pro
 * fixed settings JS errors when no options updated
 
 = 2.6.2 =
@@ -632,7 +699,7 @@ Note: there may be breaking changes. Try to re-save pages if you see issues on t
 * added controls to show/hide Pricing Table price/currency/repeat items
 * added 'ghostkit' attribute with plugin parameters support for blocks (3rd-party blocks may be extended with Ghost Kit Extensions)
 * added :focus styles outline for Button block
-* added [Ghost Kit PRO](https://ghostkit.io/pricing/) addon support
+* added [Ghost Kit Pro](https://ghostkit.io/pricing/) support
 * added 'inserter' and 'reusable' attributes with 'false' value in inner blocks
 * added icon in Ghost Kit blocks category
 * improved Grid block columns and row hovering styles
