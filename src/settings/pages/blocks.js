@@ -106,8 +106,17 @@ export default class Blocks extends Component {
     // eslint-disable-next-line class-methods-use-this
     getBlocksCategories() {
         const categories = wp.blocks.getCategories();
+        const result = [];
 
-        return categories;
+        categories.forEach( ( cat ) => {
+            const blocks = this.getBlocksFromCategory( cat.slug );
+
+            if ( Object.keys( blocks ).length ) {
+                result.push( cat );
+            }
+        } );
+
+        return result;
     }
 
     // eslint-disable-next-line class-methods-use-this
