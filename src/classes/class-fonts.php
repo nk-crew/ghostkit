@@ -30,33 +30,30 @@ class GhostKit_Fonts {
         $fonts = $this->get_font_loader_list();
 
         if ( ( is_admin() || ! empty( $fonts ) ) && isset( $fonts['google-fonts'] ) && ! empty( $fonts['google-fonts'] ) ) {
-            $google_fonts_enqueue = '';
+            $families = array();
 
             foreach ( $fonts['google-fonts'] as $font => $font_data ) {
-                if ( $google_fonts_enqueue ) {
-                    $google_fonts_enqueue .= '%7C';
-                }
-
-                $google_fonts_enqueue .= $font;
+                $family = $font;
 
                 if ( isset( $font_data['widths'] ) && ! empty( $font_data['widths'] ) ) {
-                    $widths_string = '';
+                    $weights = array();
 
-                    foreach ( $font_data['widths'] as $width ) {
-                        if ( $widths_string ) {
-                            $widths_string .= ',';
-                        } else {
-                            $widths_string = ':';
-                        }
-
-                        $widths_string .= $width;
+                    foreach ( $font_data['widths'] as $weight ) {
+                        $weights[] = $weight;
                     }
 
-                    $google_fonts_enqueue .= $widths_string;
+                    $family .= ':' . implode( ',', $weights );
                 }
+
+                $families[] = $family;
             }
 
-            wp_enqueue_style( 'ghostkit-fonts-google', 'https://fonts.googleapis.com/css?family=' . $google_fonts_enqueue, array(), '@@plugin_version' );
+            $query_args = array(
+                'family'  => implode( '|', $families ),
+                'display' => 'swap',
+            );
+
+            wp_enqueue_style( 'ghostkit-fonts-google', add_query_arg( $query_args, 'https://fonts.googleapis.com/css' ), array(), '@@plugin_version' );
         }
     }
 
