@@ -213,6 +213,15 @@ export default class Typography extends Component {
             fontFamilies = getFonts( fontFamilyCategory );
         }
 
+        // Find actual label.
+        if ( fontFamilyValue.value ) {
+            fontFamilies.forEach( ( familyData ) => {
+                if ( fontFamilyValue.value === familyData.value ) {
+                    fontFamilyValue.label = familyData.label;
+                }
+            } );
+        }
+
         return (
             <div className={ `ghostkit-typography${ childOf ? ` ghostkit-typography-child ghostkit-typography-child-of-${ childOf }` : '' }` }>
                 <h4>{ label }</h4>
