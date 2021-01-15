@@ -49,7 +49,6 @@ cfg.copy_files_src = [
     './node_modules/*swiper/swiper-bundle.min.js',
     './node_modules/*swiper/swiper-bundle.min.js.map',
     './node_modules/*swiper/swiper-bundle.min.css',
-    './node_modules/*webfontloader/webfontloader.js',
 ];
 
 cfg.copy_files_dist = ( file ) => {

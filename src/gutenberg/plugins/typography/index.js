@@ -179,14 +179,27 @@ function printFonts( typographyData ) {
                 } );
             } );
         } );
+
         GHOSTKIT.added_fonts.push( googleFamilies );
+
+        // Insert CSS.
         if ( googleFamilies.length ) {
-            window.WebFont.load( {
-                google: {
-                    families: googleFamilies,
-                },
+            let googleFontsUrl = '';
+
+            googleFamilies.forEach( ( fontData ) => {
+                if ( googleFontsUrl ) {
+                    googleFontsUrl += '%7C';
+                }
+
+                googleFontsUrl += fontData;
             } );
+
+            const link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.href = `https://fonts.googleapis.com/css?family=${ googleFontsUrl }`;
+            document.head.appendChild( link );
         }
+
         doAction( 'ghostkit.typography.print.fonts', webfontList );
     }
 }

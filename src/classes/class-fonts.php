@@ -29,11 +29,34 @@ class GhostKit_Fonts {
     public function enqueue_all_fonts_assets() {
         $fonts = $this->get_font_loader_list();
 
-        wp_register_script( 'webfontloader', ghostkit()->plugin_url . 'assets/vendor/webfontloader/webfontloader.js', array(), '1.6.28', false );
+        if ( ( is_admin() || ! empty( $fonts ) ) && isset( $fonts['google-fonts'] ) && ! empty( $fonts['google-fonts'] ) ) {
+            $google_fonts_enqueue = '';
 
-        if ( is_admin() || ! empty( $fonts ) ) {
-            wp_enqueue_script( 'ghostkit-fonts-loader', ghostkit()->plugin_url . 'assets/js/fonts-loader.min.js', array( 'webfontloader' ), '@@plugin_version', false );
-            wp_localize_script( 'ghostkit-fonts-loader', 'ghostkitWebfontList', $fonts );
+            foreach ( $fonts['google-fonts'] as $font => $font_data ) {
+                if ( $google_fonts_enqueue ) {
+                    $google_fonts_enqueue .= '%7C';
+                }
+
+                $google_fonts_enqueue .= $font;
+
+                if ( isset( $font_data['widths'] ) && ! empty( $font_data['widths'] ) ) {
+                    $widths_string = '';
+
+                    foreach ( $font_data['widths'] as $width ) {
+                        if ( $widths_string ) {
+                            $widths_string .= ',';
+                        } else {
+                            $widths_string = ':';
+                        }
+
+                        $widths_string .= $width;
+                    }
+
+                    $google_fonts_enqueue .= $widths_string;
+                }
+            }
+
+            wp_enqueue_style( 'ghostkit-fonts-google', 'https://fonts.googleapis.com/css?family=' . $google_fonts_enqueue, array(), '@@plugin_version' );
         }
     }
 

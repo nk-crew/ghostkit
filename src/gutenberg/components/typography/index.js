@@ -67,6 +67,7 @@ function getFonts( category = 'google-fonts' ) {
             }
         } );
     } );
+
     return fontList;
 }
 
