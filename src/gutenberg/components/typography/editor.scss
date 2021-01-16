@@ -7,10 +7,6 @@
     display: flex;
     flex-wrap: wrap;
 
-    .ghostkit-component-input-drag .components-text-control__input:not(:focus) {
-        border-color: $light-gray-700;
-    }
-
     .ghostkit-typography-font-control {
         flex: 1;
         min-width: 50%;
@@ -61,11 +57,11 @@
 
         .ghostkit-typography-font-category-control-toggle {
             height: 32px;
-            border: 1px solid $light-gray-700;
+            border: 1px solid $dark-gray-200;
 
             &:hover,
             &:focus {
-                border-color: $light-gray-900;
+                border-color: $dark-gray-500;
                 // stylelint-disable-next-line
                 box-shadow: none !important;
             }

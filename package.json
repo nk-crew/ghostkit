@@ -47,6 +47,7 @@
     "deep-equal": "^2.0.3",
     "gist-simple": "^1.0.1",
     "gmaps": "^0.4.25",
+    "gutenberg-react-select-styles": "0.0.2",
     "ie11-custom-properties": "^4.1.0",
     "jarallax": "^1.12.4",
     "markdown-it": "^11.0.1",
