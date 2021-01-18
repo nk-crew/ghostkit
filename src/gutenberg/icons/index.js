@@ -90,6 +90,7 @@ import iconTypographyLetterSpacing from './icon-typography-letter-spacing.svg';
 import iconTypographyLineHeight from './icon-typography-line-height.svg';
 import iconTypographyGoogleFonts from './icon-typography-google-fonts.svg';
 import iconTypographyAdobeFonts from './icon-typography-adobe-fonts.svg';
+import iconTypographyCustomFonts from './icon-typography-custom-fonts.svg';
 
 export default {
     'block-accordion': blockAccordion,
@@ -185,4 +186,5 @@ export default {
     'icon-typography-line-height': iconTypographyLineHeight,
     'icon-typography-google-fonts': iconTypographyGoogleFonts,
     'icon-typography-adobe-fonts': iconTypographyAdobeFonts,
+    'icon-typography-custom-fonts': iconTypographyCustomFonts,
 };

@@ -201,7 +201,7 @@ export default class Typography extends Component {
         } = this.props;
 
         const fontsIcon = `icon-typography-${ 'default' === fontFamilyCategory ? 'google-fonts' : fontFamilyCategory }`;
-        const allowFontSelectors = applyFilters( 'ghostkit.typography.allow.fonts', 'adobe-fonts' !== fontFamilyCategory, fontFamilyCategory );
+        const allowFontSelectors = applyFilters( 'ghostkit.typography.allow.fonts', 'adobe-fonts' !== fontFamilyCategory && 'custom-fonts' !== fontFamilyCategory, fontFamilyCategory );
         const fontFamilyValue = { value: fontFamily, label: getDefaultFont( fontFamily ), fontFamilyCategory };
         const fontWeightValue = { value: fontWeight, label: getFontWeightLabel( fontWeight ) };
         const fontSizeValue = 'undefined' === typeof fontSize ? '' : fontSize;
@@ -268,6 +268,20 @@ export default class Typography extends Component {
                                         { __( 'Adobe Fonts', '@@text_domain' ) }
                                         <span className="ghostkit-typography-badge-pro">{ __( 'PRO', '@@text_domain' ) }</span>
                                     </MenuItem>
+                                    <MenuItem
+                                        icon={ getIcon( 'icon-typography-custom-fonts', false ) }
+                                        onClick={ () => {
+                                            onChange( {
+                                                fontFamilyCategory: 'custom-fonts',
+                                                fontFamily: '',
+                                                fontWeight: '',
+                                            } );
+                                            onClose();
+                                        } }
+                                    >
+                                        { __( 'Custom Fonts', '@@text_domain' ) }
+                                        <span className="ghostkit-typography-badge-pro">{ __( 'PRO', '@@text_domain' ) }</span>
+                                    </MenuItem>
                                 </MenuGroup>
                             ) }
                         </DropdownMenu>
@@ -276,6 +290,12 @@ export default class Typography extends Component {
                         { 'adobe-fonts' === fontFamilyCategory ? (
                             <div className="ghostkit-typography-information-control ghostkit-typography-font-control">
                                 { __( 'Adobe Fonts available for PRO users only. Read more about Ghost Kit PRO plugin here - ', '@@text_domain' ) }
+                                <ExternalLink href="https://ghostkit.io/pricing/">https://ghostkit.io/pricing/</ExternalLink>
+                            </div>
+                        ) : '' }
+                        { 'custom-fonts' === fontFamilyCategory ? (
+                            <div className="ghostkit-typography-information-control ghostkit-typography-font-control">
+                                { __( 'Custom Fonts available for PRO users only. Read more about Ghost Kit PRO plugin here - ', '@@text_domain' ) }
                                 <ExternalLink href="https://ghostkit.io/pricing/">https://ghostkit.io/pricing/</ExternalLink>
                             </div>
                         ) : '' }

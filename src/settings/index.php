@@ -105,6 +105,10 @@ class GhostKit_Settings {
         do_action( 'enqueue_block_editor_assets' );
 
         wp_enqueue_style( 'wp-components' );
+
+        if ( function_exists( 'wp_enqueue_media' ) ) {
+            wp_enqueue_media();
+        }
     }
 
     /**
