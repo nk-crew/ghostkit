@@ -169,7 +169,7 @@ class BlockEdit extends Component {
                                 } }
                             />
                             <ProNote title={ __( 'PRO Shapes', '@@text_domain' ) }>
-                                <p>{ __( 'Additional 30 shapes available for PRO users only', '@@text_domain' ) }</p>
+                                <p>{ __( 'Additional 30 shapes available for Pro users only', '@@text_domain' ) }</p>
                                 <ProNote.Button target="_blank" rel="noopener noreferrer" href="https://ghostkit.io/shape-divider/">
                                     { __( 'Read More', '@@text_domain' ) }
                                 </ProNote.Button>

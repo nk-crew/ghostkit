@@ -17,7 +17,7 @@ export default class BreakpointSettings extends Component {
         return (
             <ApplyFilters name="ghostkit.breakpoints.settings" props={ this.props }>
                 <div className="ghostkit-settings-content-wrapper ghostkit-settings-breakpoints">
-                    { __( 'Breakpoints available for PRO users only. Read more about Ghost Kit PRO plugin here - ', '@@text_domain' ) }
+                    { __( 'Breakpoints available for Pro users only. Read more about Ghost Kit Pro plugin here - ', '@@text_domain' ) }
                     <ExternalLink href="https://ghostkit.io/pricing/">https://ghostkit.io/pricing/</ExternalLink>
                 </div>
             </ApplyFilters>
