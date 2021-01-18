@@ -192,7 +192,7 @@ class GhostKit_Fonts {
                     if ( $font['label'] === $find_font['name'] ) {
                         $weights  = array();
                         $weight   = ( isset( $font['weight'] ) && ! empty( $font['weight'] ) ) ? $font['weight'] : '';
-                        $widths   = ( isset( $find_font['widths'] ) && ! empty( $find_font['widths'] ) ) ? $find_font['widths'] : '';
+                        $widths   = ( isset( $find_font['widths'] ) && ! empty( $find_font['widths'] ) ) ? $find_font['widths'] : array();
                         $category = ( isset( $find_font['category'] ) && ! empty( $find_font['category'] ) ) ? $find_font['category'] : '';
                         $subsets  = ( isset( $find_font['subsets'] ) && ! empty( $find_font['subsets'] ) ) ? $find_font['subsets'] : '';
 
