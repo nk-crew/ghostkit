@@ -102,8 +102,26 @@
 }
 
 /**
-* Grid for controls.
-*/
+ * Disable width limitation for inner blocks.
+ */
+.ghostkit-alert,
+.ghostkit-icon-box,
+.ghostkit-counter-box,
+.ghostkit-accordion,
+.ghostkit-tabs-content,
+.ghostkit-changelog,
+.ghostkit-form,
+.ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    .wp-block {
+        max-width: none;
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+/**
+ * Grid for controls.
+ */
 .ghostkit-grid-controls {
     display: flex;
     flex-wrap: wrap;
@@ -117,8 +135,8 @@
 }
 
 /**
-* Extensions icon in panel body
-*/
+ * Extensions icon in panel body
+ */
 .components-panel__body-toggle > .ghostkit-ext-icon {
     position: absolute;
     display: block;
@@ -135,8 +153,8 @@
 }
 
 /**
-* Tabs Control.
-*/
+ * Tabs Control.
+ */
 .ghostkit-control-tabs {
     > .components-tab-panel__tabs {
         display: flex;
@@ -192,8 +210,8 @@
 }
 
 /**
-*
-*/
+ * Input drag component cursor.
+ */
 .ghostkit-component-input-drag {
     input {
         cursor: n-resize;

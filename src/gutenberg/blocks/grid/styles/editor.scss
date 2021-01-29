@@ -33,11 +33,6 @@
                 margin-bottom: var(--gkt-grid__gap);
                 margin-left: var(--gkt-grid__gap);
             }
-
-            // This max-width is used to constrain the main editor column, it should not cascade into columns
-            .wp-block {
-                max-width: none;
-            }
         }
     }
 }
