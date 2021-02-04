@@ -163,20 +163,21 @@ See demo page with content formatting <https://ghostkit.io/content-formatting/>
 
 ### 🔥 Ghost Kit Pro ###
 
-Ghost Kit Pro extends the capabilities of Ghost Kit and improve your design experience. List of the main features:
+> Ghost Kit plugin is also available in a professional version which includes more features and blocks! [**Learn more about Ghost Kit Pro**](https://ghostkit.io/pricing/?utm_source=wporg&utm_medium=link&utm_campaign=pro)
+>
+> In order to maintain the free version of the plugin on an ongoing basis, and to provide quick and effective support for free, we offer a Pro version of the plugin. The Pro version allows you to:
 
-* More icon packs
-* 30 additional shapes for Shape Divider block
-* Visual Grid editor
+* Visual Grid Editor
 * Custom Responsive Breakpoints
+* More Icon Packs
+* 30 additional shapes for Shape Divider block
 * Adobe Fonts (Typekit)
-* Google Maps custom markers
-* Gradient buttons, backgrounds, icons, badges
+* Custom Fonts
 * Animated (Typed) Text
 * Tooltips
+* Gradient buttons, backgrounds, icons, badges
+* Google Maps custom markers and info boxes
 * And more
-
-Try out a live demo of [Ghost Kit Pro](https://demo.ghostkit.io/)
 
 ### 🏳️ Multilingual ##
 
@@ -259,6 +260,17 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.17.0 =
+
+* added support for Custom fonts (Pro only)
+* updated FontAwesome icons list
+* fixed active tab content displaying in Tabs block in editor when used Wide or Full alignment
+* fixed Adobe Fonts label in Select component
+* fixed limited width of InnerBlocks inside some of blocks
+* fixed possible PHP errors when non-valid font weight added
+* removed webfontloader script, add fonts manually using wp_enqueue_style (allows users to download fonts to their servers)
+* minor changes
 
 = 2.16.0 =
 
