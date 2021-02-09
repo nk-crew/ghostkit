@@ -3,6 +3,10 @@
  */
 @import "../../variables";
 
+.ghostkit-toolbar-templates {
+    flex: 100%;
+}
+
 .ghostkit-plugin-templates-modal {
     &.ghostkit-plugin-templates-modal-hide-header .components-modal__content > .components-modal__header:first-of-type {
         display: none;
