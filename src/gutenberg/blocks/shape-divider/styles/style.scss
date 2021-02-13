@@ -7,6 +7,7 @@
     display: block;
     overflow: hidden;
     color: var(--gkt-shape-divider__color);
+    z-index: var(--gkt-shape-divider__z-index);
 
     svg {
         display: block;
