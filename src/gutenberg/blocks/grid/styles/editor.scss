@@ -29,7 +29,7 @@
             margin-bottom: calc(-1 * var(--gkt-grid__gap));
             margin-left: calc(-1 * var(--gkt-grid__gap));
 
-            > div {
+            > div.wp-block {
                 margin-bottom: var(--gkt-grid__gap);
                 margin-left: var(--gkt-grid__gap);
             }
