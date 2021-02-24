@@ -32,16 +32,25 @@ class GhostKit_Assets {
     private $already_added_custom_assets = false;
 
     /**
+     * List with assets to skip from Autoptimize when CSS generated.
+     *
+     * @var array
+     */
+    protected static $skip_from_autoptimize = array(
+        'ghostkit-blocks-content-custom-css',
+        'ghostkit-blocks-widget-custom-css',
+    );
+
+    /**
      * Visual_Portfolio_Extend constructor.
      */
     public function __construct() {
         add_action( 'init', array( $this, 'register_scripts' ) );
-
         add_action( 'plugins_loaded', array( $this, 'enqueue_scripts_action' ), 11 );
-
         add_action( 'ghostkit_parse_blocks', array( $this, 'maybe_enqueue_blocks_assets' ), 11, 2 );
-
         add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_assets' ), 100 );
+
+        add_action( 'autoptimize_filter_css_exclude', 'GhostKit_Assets::autoptimize_filter_css_exclude' );
     }
 
     /**
@@ -594,6 +603,35 @@ class GhostKit_Assets {
     }
 
     /**
+     * Skip custom styles from Autoptimize.
+     * We need this since generated CSS with custom breakpoints are excluded
+     * from Autoptimize by default and this cause conflicts.
+     *
+     * @param string $result - allowed list.
+     * @return string
+     */
+    public static function autoptimize_filter_css_exclude( $result ) {
+        // By default in Autoptimize excluded folder `wp-content/cache/`.
+        // We need to check, if this folder is not excluded, then we
+        // don't need to use our hack.
+        if ( $result && strpos( $result, 'wp-content/uploads/' ) === false ) {
+            return $result;
+        }
+
+        foreach ( self::$skip_from_autoptimize as $name ) {
+            if ( $result ) {
+                $result .= ',';
+            } else {
+                $result = '';
+            }
+
+            $result .= $name;
+        }
+
+        return $result;
+    }
+
+    /**
      * Add custom CSS.
      *
      * @param String $name - handle name.
@@ -606,6 +644,8 @@ class GhostKit_Assets {
         wp_register_style( $name, false, array(), '@@plugin_version' );
         wp_enqueue_style( $name );
         wp_add_inline_style( $name, $css );
+
+        self::$stored_assets[] = $name;
     }
 
     /**
