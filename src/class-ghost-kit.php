@@ -147,6 +147,9 @@ class GhostKit {
 
         // block users custom CSS class.
         require_once $this->plugin_path . 'gutenberg/extend/custom-css/get-custom-css.php';
+
+        // 3rd.
+        require_once $this->plugin_path . 'classes/3rd/class-rank-math.php';
     }
 
     /**
