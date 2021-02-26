@@ -250,39 +250,41 @@ export default class Blocks extends Component {
         // categories tabs.
         categories.forEach( ( cat ) => {
             const disabledCurrentCount = this.getDisabledCount( this.getBlocksFromCategory( cat.slug ) );
-            const categoryContent = (
-                <li key={ `tab-${ cat.slug }` }>
-                    { /* eslint-disable-next-line react/button-has-type */ }
-                    <button
-                        className={
-                            classnames(
-                                'ghostkit-settings-blocks-categories-button',
-                                activeCategory === cat.slug ? 'ghostkit-settings-blocks-categories-button-active' : ''
-                            )
-                        }
-                        onClick={ () => {
-                            this.setState( {
-                                activeCategory: cat.slug,
-                            } );
-                        } }
-                    >
-                        { cat.title }
-                        { disabledCurrentCount ? (
-                            <span className="ghostkit-settings-blocks-categories-button-indicator" />
-                        ) : '' }
-                    </button>
-                </li>
+            let categoryButton = (
+                /* eslint-disable-next-line react/button-has-type */
+                <button
+                    className={
+                        classnames(
+                            'ghostkit-settings-blocks-categories-button',
+                            activeCategory === cat.slug ? 'ghostkit-settings-blocks-categories-button-active' : ''
+                        )
+                    }
+                    onClick={ () => {
+                        this.setState( {
+                            activeCategory: cat.slug,
+                        } );
+                    } }
+                >
+                    { cat.title }
+                    { disabledCurrentCount ? (
+                        <span className="ghostkit-settings-blocks-categories-button-indicator" />
+                    ) : '' }
+                </button>
             );
 
             if ( disabledCurrentCount ) {
-                resultTabs.push(
+                categoryButton = (
                     <Tooltip text={ sprintf( __( 'Disabled Blocks: %s', '@@text_domain' ), disabledCurrentCount ) } key="tab-disabled-blocks">
-                        { categoryContent }
+                        { categoryButton }
                     </Tooltip>
                 );
-            } else {
-                resultTabs.push( categoryContent );
             }
+
+            resultTabs.push( (
+                <li key={ `tab-${ cat.slug }` }>
+                    { categoryButton }
+                </li>
+            ) );
         } );
 
         if ( ! count ) {
