@@ -30,7 +30,6 @@ class BlockSave extends Component {
     render() {
         const {
             caption,
-            height,
             percent,
             striped,
             showCount,
@@ -69,7 +68,6 @@ class BlockSave extends Component {
                     <div
                         className={ classnames( 'ghostkit-progress-bar', animateInViewport ? 'ghostkit-count-up' : '' ) }
                         role="progressbar"
-                        style={ { width: `${ percent }%`, height: `${ height }px` } }
                         aria-valuenow={ percent }
                         aria-valuemin="0"
                         aria-valuemax="100"
