@@ -261,6 +261,17 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.18.0 =
+
+* added z-index to Shape Divider to keep divider always on top of other elements
+* added support for TOC to Rank Math SEO plugin
+* fixed Grid and Buttons gap in editor
+* fixed Icon Picker width in WordPress 5.7
+* fixed toolbar templates button in WordPress 5.7
+* fixed conflict with generated CSS and Custom CSS + Autoptimize plugin
+* fixed possibility to disable Ghost Kit blocks in settings
+* minor changes
+
 = 2.17.0 =
 
 * added support for Custom fonts (Pro only)
