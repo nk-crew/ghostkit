@@ -261,6 +261,11 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.18.1 =
+
+* tested with WordPress 5.7
+* plugin moved to new Github repo
+
 = 2.18.0 =
 
 * added z-index to Shape Divider to keep divider always on top of other elements
