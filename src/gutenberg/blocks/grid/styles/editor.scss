@@ -75,7 +75,7 @@
         @for $i from 1 through $grid-columns {
             .ghostkit-col#{$infix}-#{$i} {
                 // We can't use complex CSS variables here
-                // https://github.com/nk-o/ghostkit/issues/103
+                // https://github.com/nk-crew/ghostkit/issues/103
                 flex-basis: calc(#{percentage($i / $grid-columns)} - var(--gkt-grid__gap));
                 flex-shrink: 0;
                 flex-grow: 0;

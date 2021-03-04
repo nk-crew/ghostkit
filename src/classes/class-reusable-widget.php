@@ -44,7 +44,7 @@ class GhostKit_Reusable_Widget extends WP_Widget {
 
             // fix for bbPress.
             // filter 'the_content' may not work in bbPress
-            // https://github.com/nk-o/ghostkit/issues/72.
+            // https://github.com/nk-crew/ghostkit/issues/72.
             // https://bbpress.org/forums/topic/the_content-filter-is-removed-by-not-restored-on-custom-wp_query/
             if ( function_exists( 'is_bbpress' ) && is_bbpress() ) {
                 bbp_restore_all_filters( 'the_content' );
