@@ -37,7 +37,7 @@
     "path": "^0.12.7",
     "po2json": "^0.4.5",
     "stylelint-config-nk": "^0.0.10",
-    "wpeg": "^1.1.1"
+    "wpeg": "^1.2.0"
   },
   "dependencies": {
     "@giphy/js-fetch-api": "^2.1.0",

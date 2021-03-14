@@ -30,7 +30,7 @@ cfg.template_files_variables = {
 cfg.copy_files_src = [
     '{src}/**/*',
     '!{src}/**/*.{js}',
-    '{src}/**/vendor/**/*.{js,scss}',
+    '{src}/**/vendor/**/*.{js}',
     './node_modules/*gist-simple/dist/gist-simple.css',
     './node_modules/*gist-simple/dist/gist-simple.min.js',
     './node_modules/*gist-simple/dist/gist-simple.min.js.map',
@@ -61,6 +61,12 @@ cfg.copy_files_dist = ( file ) => {
 
     return destPath;
 };
+
+// Prefix SCSS files.
+cfg.prefix_scss_files_src = [
+    '{dist}/**/*.scss',
+    '!{dist}/**/vendor/**/*.{scss}',
+];
 
 // Compile SCSS files.
 cfg.compile_scss_files_src = [
