@@ -156,7 +156,7 @@ export default compose( [
         } = select( 'core/block-editor' );
 
         return {
-            allButtonBlocks: getAllButtonBlocks( getBlock( ownProps.clientId ) ),
+            blockData: getBlock( ownProps.clientId ),
         };
     } ),
     withDispatch( ( dispatch, ownProps ) => {
@@ -167,8 +167,10 @@ export default compose( [
         return {
             changeButtonTagName() {
                 const {
-                    allButtonBlocks = [],
+                    blockData,
                 } = ownProps;
+
+                const allButtonBlocks = getAllButtonBlocks( blockData ) || [];
 
                 // Generate slugs for new fields.
                 allButtonBlocks.forEach( ( data ) => {
