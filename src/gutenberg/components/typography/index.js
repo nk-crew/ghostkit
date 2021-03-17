@@ -233,10 +233,12 @@ export default class Typography extends Component {
                             popoverProps={ {
                                 position: 'bottom right',
                             } }
+                            menuProps={ {
+                                className: 'ghostkit-typography-font-category-control-menu',
+                            } }
                             toggleProps={ {
                                 className: 'ghostkit-typography-font-category-control-toggle',
                             } }
-                            className="ghostkit-typography-font-category-control"
                             hasArrowIndicator
                         >
                             { ( { onClose } ) => (

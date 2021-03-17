@@ -16,7 +16,6 @@ import styles from './map-styles';
 import MapBlock from './map-block';
 import SearchBox from './search-box';
 
-
 /**
  * WordPress dependencies
  */
@@ -359,9 +358,7 @@ class BlockEdit extends Component {
                             ) }
                             renderContent={ () => (
                                 <div style={ {
-                                    padding: 15,
-                                    paddingTop: 10,
-                                    paddingBottom: 0,
+                                    minWidth: 260,
                                 } }
                                 >
                                     { this.getStylesPicker() }
