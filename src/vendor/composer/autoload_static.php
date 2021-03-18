@@ -38,12 +38,18 @@ class ComposerStaticInitbe404e81c1e7a97a2b92ccf231fabfe8
         ),
     );
 
+    public static $classMap = array (
+        'WP_Async_Request' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-async-request.php',
+        'WP_Background_Process' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-background-process.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitbe404e81c1e7a97a2b92ccf231fabfe8::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitbe404e81c1e7a97a2b92ccf231fabfe8::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitbe404e81c1e7a97a2b92ccf231fabfe8::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitbe404e81c1e7a97a2b92ccf231fabfe8::$classMap;
 
         }, null, ClassLoader::class);
     }

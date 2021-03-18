@@ -77,10 +77,23 @@ class GhostKit_Breakpoints {
     protected $compile_scss_configs;
 
     /**
+     * Background breakpoints processing.
+     *
+     * @var object
+     */
+    protected $breakpoints_background_process;
+
+    /**
      * GhostKit_Breakpoints constructor.
      */
     public function __construct() {
-        $this->compile_scss_configs = $this->get_compile_scss_configs();
+        if ( ! class_exists( 'GhostKit_Breakpoints_Background' ) ) {
+            // breakpoints background.
+            require_once __DIR__ . '/class-breakpoints-background.php';
+        }
+
+        $this->compile_scss_configs           = $this->get_compile_scss_configs();
+        $this->breakpoints_background_process = new GhostKit_Breakpoints_Background();
 
         add_filter( 'style_loader_src', array( $this, 'change_style_src_to_compile' ), 10, 1 );
         add_action( 'gkt_before_assets_register', array( $this, 'maybe_compile_scss_files' ) );
@@ -160,8 +173,8 @@ class GhostKit_Breakpoints {
     public function change_style_src_to_compile( $src ) {
         $plugin_url               = $this->get_plugin_url();
         $breakpoints              = self::get_breakpoints();
-        $breakpoints_hash         = self::get_breakpoints_hash( $breakpoints );
-        $default_breakpoints_hash = self::get_default_breakpoints_hash();
+        $breakpoints_hash         = $this->get_breakpoints_hash( $breakpoints );
+        $default_breakpoints_hash = $this->get_default_breakpoints_hash();
 
         if ( $breakpoints_hash !== $default_breakpoints_hash ) {
             $is_plugin_file = strstr( $src, $plugin_url );
@@ -231,13 +244,13 @@ class GhostKit_Breakpoints {
      * @param array $breakpoints - Breakpoints.
      * @return string
      */
-    protected static function get_breakpoints_hash( $breakpoints ) {
+    protected function get_breakpoints_hash( $breakpoints ) {
         return md5(
             wp_json_encode(
                 array_merge(
                     $breakpoints,
                     array(
-                        '@@plugin_version',
+                        $this->plugin_version,
                     )
                 )
             )
@@ -249,8 +262,8 @@ class GhostKit_Breakpoints {
      *
      * @return string
      */
-    protected static function get_default_breakpoints_hash() {
-        return self::get_breakpoints_hash(
+    protected function get_default_breakpoints_hash() {
+        return $this->get_breakpoints_hash(
             array(
                 'xs' => self::$default_xs,
                 'sm' => self::$default_sm,
@@ -267,8 +280,8 @@ class GhostKit_Breakpoints {
      */
     public function maybe_compile_scss_files() {
         $breakpoints              = self::get_breakpoints();
-        $breakpoints_hash         = self::get_breakpoints_hash( $breakpoints );
-        $default_breakpoints_hash = self::get_default_breakpoints_hash();
+        $breakpoints_hash         = $this->get_breakpoints_hash( $breakpoints );
+        $default_breakpoints_hash = $this->get_default_breakpoints_hash();
         $saved_breakpoints_hash   = get_option( $this->database_saved_hash_option_name );
 
         if (
@@ -287,15 +300,20 @@ class GhostKit_Breakpoints {
             );
 
             foreach ( $compile_scss_configs as $compile_scss_config ) {
-                new GhostKit_Scss_Compiler(
-                    array_merge(
-                        $compile_scss_config,
-                        array(
-                            'variables'   => $variables,
-                        )
+                $scss_config_arguments = array_merge(
+                    $compile_scss_config,
+                    array(
+                        'variables'   => $variables,
                     )
                 );
+                if ( ! file_exists( $compile_scss_config['output_file'] ) ) {
+                    new GhostKit_Scss_Compiler( $scss_config_arguments );
+                } else {
+                    $this->breakpoints_background_process->push_to_queue( $scss_config_arguments );
+                }
             }
+
+            $this->breakpoints_background_process->save()->dispatch();
 
             update_option( $this->database_saved_hash_option_name, $breakpoints_hash );
         }

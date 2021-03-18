@@ -1,6 +1,7 @@
 {
     "require": {
         "scssphp/scssphp": "^1.3",
-        "prestashop/rtlcss-php": "*"
+        "prestashop/rtlcss-php": "*",
+        "deliciousbrains/wp-background-processing": "^1.0"
     }
 }
