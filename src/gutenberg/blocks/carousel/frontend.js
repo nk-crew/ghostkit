@@ -29,6 +29,8 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
                 // fixed fade out for previous slider.
                 crossFade: true,
             },
+            // fixes conflict with custom cursor movement.
+            touchStartPreventDefault: false,
             spaceBetween: parseFloat( $carousel.attr( 'data-gap' ) ) || 0,
             centeredSlides: 'true' === $carousel.attr( 'data-centered-slides' ),
             freeMode: 'true' === $carousel.attr( 'data-free-scroll' ),
