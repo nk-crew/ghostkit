@@ -29,8 +29,6 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
                 // fixed fade out for previous slider.
                 crossFade: true,
             },
-            // fixes conflict with custom cursor movement.
-            touchStartPreventDefault: false,
             spaceBetween: parseFloat( $carousel.attr( 'data-gap' ) ) || 0,
             centeredSlides: 'true' === $carousel.attr( 'data-centered-slides' ),
             freeMode: 'true' === $carousel.attr( 'data-free-scroll' ),
@@ -111,6 +109,21 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
         // Since Swiper 5.0 this option is removed and it is `true` by default, but in older versions it was `false`.
         // So we need to keep it as a fallback.
         options.breakpoints.breakpointsInverse = true;
+
+        // Events.
+        options.on = {
+            // These events used to add fixes for
+            // conflict with custom cursor movement.
+            touchStart( swiper, evt ) {
+                GHOSTKIT.triggerEvent( 'swiperTouchStart', self, swiper, evt );
+            },
+            touchMove( swiper, evt ) {
+                GHOSTKIT.triggerEvent( 'swiperTouchMove', self, swiper, evt );
+            },
+            touchEnd( swiper, evt ) {
+                GHOSTKIT.triggerEvent( 'swiperTouchEnd', self, swiper, evt );
+            },
+        };
 
         // init swiper
         // eslint-disable-next-line no-new
