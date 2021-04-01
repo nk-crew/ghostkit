@@ -261,6 +261,16 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.19.0 =
+
+* added vendor prefixes to scss files (fixes unprefixed styles generated for custom breakpoints)
+* added dynamic styles for breakpoints generation in background (using CRON)
+* improved custom styles output in `<body>` - use JS to prevent w3c error
+* changed Twitter and Google Maps blocks usage of svg images as backgrounds (we need this to prevent possible errors in generated dynamic styles)
+* fixed some editor settings dropdown wrong widths
+* fixed block error when selecting Form Submit block
+* fixed dynamic styles for breakpoints generation if change plugin version
+
 = 2.18.1 =
 
 * tested with WordPress 5.7
