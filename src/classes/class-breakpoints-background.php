@@ -74,4 +74,33 @@ class GhostKit_Breakpoints_Background extends WP_Background_Process {
         // Schedule the cron healthcheck.
         $this->schedule_event();
     }
+
+    /**
+     * Schedule cron healthcheck
+     *
+     * @access public
+     *
+     * @param mixed $schedules Schedules.
+     *
+     * @return mixed
+     */
+    public function schedule_cron_healthcheck( $schedules ) {
+        // phpcs:ignore
+        $interval = apply_filters( $this->identifier . '_cron_interval', 5 );
+
+        if ( property_exists( $this, 'cron_interval' ) ) {
+            // phpcs:ignore
+            $interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval );
+        }
+
+        // Adds every 5 minutes to the existing schedules.
+        $schedules[ $this->identifier . '_cron_interval' ] = array(
+            'interval' => (int) MINUTE_IN_SECONDS * $interval,
+            // translators: %d - Interval.
+            'display'  => sprintf( __( 'Every %d Minutes', '@@text_domain' ), $interval ),
+        );
+
+        return $schedules;
+    }
+
 }
