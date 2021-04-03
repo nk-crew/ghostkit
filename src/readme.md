@@ -261,6 +261,10 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.19.1 =
+
+* fixed warning a non-numeric value encountered conflict with Give plugin
+
 = 2.19.0 =
 
 * added vendor prefixes to scss files (fixes unprefixed styles generated for custom breakpoints)
