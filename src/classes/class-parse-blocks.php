@@ -17,6 +17,13 @@ class GhostKit_Parse_Blocks {
     public static $parsed_content = array();
 
     /**
+     * Array of reusable block IDs, that already parsed.
+     *
+     * @var array
+     */
+    public static $parsed_reusable_blocks = array();
+
+    /**
      * Init.
      */
     public static function init() {
@@ -110,11 +117,17 @@ class GhostKit_Parse_Blocks {
         foreach ( $blocks as $block ) {
             // Reusable Blocks.
             if ( isset( $block['blockName'] ) && 'core/block' === $block['blockName'] && isset( $block['attrs']['ref'] ) ) {
-                $reusable_block = get_post( $block['attrs']['ref'] );
+                // Check if this reusable block already parsed.
+                // Fixes possible error with nested reusable blocks.
+                if ( ! in_array( $block['attrs']['ref'], self::$parsed_reusable_blocks, true ) ) {
+                    self::$parsed_reusable_blocks[] = $block['attrs']['ref'];
 
-                if ( has_blocks( $reusable_block ) ) {
-                    $post_blocks = parse_blocks( $reusable_block->post_content );
-                    self::parse_blocks( $post_blocks, $location, true );
+                    $reusable_block = get_post( $block['attrs']['ref'] );
+
+                    if ( has_blocks( $reusable_block ) ) {
+                        $post_blocks = parse_blocks( $reusable_block->post_content );
+                        self::parse_blocks( $post_blocks, $location, true );
+                    }
                 }
             }
 
