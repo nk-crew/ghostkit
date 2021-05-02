@@ -252,6 +252,10 @@ class BlockEdit extends Component {
                 </InspectorControls>
                 <div className={ className }>
                     <InnerBlocks
+                        template={ [
+                            [ 'ghostkit/carousel-slide' ],
+                            [ 'ghostkit/carousel-slide' ],
+                        ] }
                         allowedBlocks={ [ 'ghostkit/carousel-slide' ] }
                         orientation="horizontal"
                         renderAppender={ false }
