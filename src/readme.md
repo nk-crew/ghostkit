@@ -261,6 +261,11 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.19.2 =
+
+* fixed carousel block initial slides count in editor
+* fixed possible error with nested reusable blocks while parse page blocks
+
 = 2.19.1 =
 
 * fixed warning a non-numeric value encountered conflict with Give plugin
