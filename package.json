@@ -17,7 +17,8 @@
     "js-lint-fix": "eslint --ext .js --fix src/",
     "make-pot": "composer wp -- i18n make-pot ./src ./src/languages/ghostkit.pot --skip-audit --exclude=vendor,vendors,node_modules --headers='{\"Last-Translator\":\"nK\",\"Report-Msgid-Bugs-To\":\"https://github.com/nk-o/ghostkit/issues\"}'",
     "make-json": "po2json ./src/languages/ghostkit.pot ./src/languages/ghostkit.json --format=jed1.x --pretty --domain=@@text_domain",
-    "postinstall": "npx simple-git-hooks && composer install"
+    "update-git-hooks": "npx simple-git-hooks",
+    "postinstall": "composer install"
   },
   "devDependencies": {
     "@babel/node": "^7.13.13",
