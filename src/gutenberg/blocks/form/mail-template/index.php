@@ -168,7 +168,7 @@
     }
     .field-row-value {
         padding-top: 3px;
-        padding-bottom: 20px;
+        padding-bottom: 5px;
         word-break: break-all;
     }
 

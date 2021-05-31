@@ -467,18 +467,18 @@ class GhostKit_Form_Block {
 
                 if ( is_array( $val['value'] ) ) {
                     foreach ( $val['value'] as $val ) {
-                        $sanitized_val .= '<li>' . sanitize_text_field( wp_unslash( $val ) ) . '</li>';
+                        $sanitized_val .= '<li>' . sanitize_textarea_field( wp_unslash( $val ) ) . '</li>';
                     }
                     $sanitized_val = '<ul>' . $sanitized_val . '</ul>';
                 } else {
-                    $sanitized_val = sanitize_text_field( wp_unslash( $val['value'] ) );
+                    $sanitized_val = sanitize_textarea_field( wp_unslash( $val['value'] ) );
 
                     // Name field support.
                     if ( isset( $val['middle'] ) ) {
-                        $sanitized_val .= ' ' . sanitize_text_field( wp_unslash( $val['middle'] ) );
+                        $sanitized_val .= ' ' . sanitize_textarea_field( wp_unslash( $val['middle'] ) );
                     }
                     if ( isset( $val['last'] ) ) {
-                        $sanitized_val .= ' ' . sanitize_text_field( wp_unslash( $val['last'] ) );
+                        $sanitized_val .= ' ' . sanitize_textarea_field( wp_unslash( $val['last'] ) );
                     }
                 }
 
@@ -487,7 +487,7 @@ class GhostKit_Form_Block {
                 $all_fields .= '
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="field-row"><tbody>
                         <tr><td class="field-row-label">' . ( $sanitized_label ? ( '<strong>' . $sanitized_label . '</strong>' ) : '' ) . '</td></tr>
-                        <tr><td class="field-row-value">' . $sanitized_val . '</td></tr>
+                        <tr><td class="field-row-value">' . wpautop( $sanitized_val ) . '</td></tr>
                     </tbody></table>
                 ';
             }
