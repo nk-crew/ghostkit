@@ -124,7 +124,7 @@ class GhostKit_Parse_Blocks {
 
                     $reusable_block = get_post( $block['attrs']['ref'] );
 
-                    if ( has_blocks( $reusable_block ) ) {
+                    if ( has_blocks( $reusable_block ) && isset( $reusable_block->post_content ) ) {
                         $post_blocks = parse_blocks( $reusable_block->post_content );
                         self::parse_blocks( $post_blocks, $location, true );
                     }
