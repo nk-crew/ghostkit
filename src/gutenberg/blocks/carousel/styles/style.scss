@@ -4,6 +4,23 @@
 @import "./variables";
 
 .ghostkit-carousel {
+    // Display better styles before JS init.
+    &:not(.ghostkit-carousel-ready) {
+        &[data-effect="slide"] {
+            .ghostkit-carousel-items {
+                display: flex;
+            }
+            @for $i from 1 through 10 {
+                &[data-slides-per-view="#{$i}"] .ghostkit-carousel-slide:nth-child(#{$i}) ~ div {
+                    display: none;
+                }
+            }
+        }
+        &[data-effect="fade"] .ghostkit-carousel-slide:not(:first-child) {
+            display: none;
+        }
+    }
+
     // Arrows.
     &-arrow {
         position: absolute;
