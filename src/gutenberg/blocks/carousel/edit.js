@@ -186,20 +186,24 @@ class BlockEdit extends Component {
                             max={ 20 }
                             step={ 0.3 }
                         />
-                        <RangeControl
-                            label={ __( 'Slides per view', '@@text_domain' ) }
-                            value={ slidesPerView }
-                            onChange={ ( value ) => setAttributes( { slidesPerView: value } ) }
-                            min={ 1 }
-                            max={ 8 }
-                        />
-                        <RangeControl
-                            label={ __( 'Gap', '@@text_domain' ) }
-                            value={ gap }
-                            onChange={ ( value ) => setAttributes( { gap: value } ) }
-                            min={ 0 }
-                            max={ 60 }
-                        />
+                        { 'fade' !== effect ? (
+                            <Fragment>
+                                <RangeControl
+                                    label={ __( 'Slides per view', '@@text_domain' ) }
+                                    value={ slidesPerView }
+                                    onChange={ ( value ) => setAttributes( { slidesPerView: value } ) }
+                                    min={ 1 }
+                                    max={ 8 }
+                                />
+                                <RangeControl
+                                    label={ __( 'Gap', '@@text_domain' ) }
+                                    value={ gap }
+                                    onChange={ ( value ) => setAttributes( { gap: value } ) }
+                                    min={ 0 }
+                                    max={ 60 }
+                                />
+                            </Fragment>
+                        ) : '' }
                     </PanelBody>
                     <PanelBody>
                         <ToggleControl

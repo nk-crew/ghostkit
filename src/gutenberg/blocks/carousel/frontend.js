@@ -20,11 +20,12 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
     $( '.ghostkit-carousel:not(.ghostkit-carousel-ready)' ).each( function() {
         const $carousel = $( this );
         const $items = $carousel.children( '.ghostkit-carousel-items' );
+        const effect = $carousel.attr( 'data-effect' ) || 'slide';
         const slidesPerView = parseInt( $carousel.attr( 'data-slides-per-view' ), 10 );
 
         const options = {
             speed: ( parseFloat( $carousel.attr( 'data-speed' ) ) || 0 ) * 1000,
-            effect: $carousel.attr( 'data-effect' ) || 'slide',
+            effect,
             fadeEffect: {
                 // fixed fade out for previous slider.
                 crossFade: true,
@@ -89,7 +90,7 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
 
         // calculate responsive.
         const breakPoints = {};
-        if ( ! Number.isNaN( slidesPerView ) ) {
+        if ( 'fade' !== effect && ! Number.isNaN( slidesPerView ) ) {
             let count = slidesPerView;
             let currentPoint = Math.min( self.screenSizes.length - 1, count - 1 );
 
