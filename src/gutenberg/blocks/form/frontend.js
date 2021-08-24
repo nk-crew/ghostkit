@@ -70,7 +70,7 @@ if ( 'undefined' !== typeof grecaptcha ) {
                 grecaptcha.execute( GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' } ).then( ( token ) => {
                     $recaptchaTokenField.val( token );
 
-                    form.submit();
+                    form.parsley().validate();
                 } );
             } );
         } );
