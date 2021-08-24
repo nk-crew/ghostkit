@@ -53,10 +53,10 @@ window.Parsley.addValidator( 'confirmEmail', {
  */
 if ( 'undefined' !== typeof grecaptcha ) {
     $doc.on( 'click', '.ghostkit-form-submit-button .ghostkit-button', function( evt ) {
+        const form = $( this ).parents( 'form' )[ 0 ];
+
         evt.preventDefault();
-        
-        var form = $( this ).parents('form')[ 0 ];
-        
+
         grecaptcha.ready( () => {
             const recaptchaFields = $( '[name="ghostkit_form_google_recaptcha"]' );
 
