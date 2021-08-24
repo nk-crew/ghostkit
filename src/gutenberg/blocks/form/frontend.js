@@ -52,19 +52,24 @@ window.Parsley.addValidator( 'confirmEmail', {
  * Google reCaptcha
  */
 if ( 'undefined' !== typeof grecaptcha ) {
-    grecaptcha.ready( () => {
-        const recaptchaFields = $( '[name="ghostkit_form_google_recaptcha"]' );
+    $doc.on( 'click', '.ghostkit-form-submit-button .ghostkit-button', function( evt ) {
+        evt.preventDefault();
+        grecaptcha.ready( () => {
+            const recaptchaFields = $( '[name="ghostkit_form_google_recaptcha"]' );
 
-        if ( ! recaptchaFields.length ) {
-            return;
-        }
+            if ( ! recaptchaFields.length ) {
+                return;
+            }
 
-        recaptchaFields.each( function() {
-            const $recaptchaTokenField = $( this );
+            recaptchaFields.each( function() {
+                const $recaptchaTokenField = $( this );
 
-            grecaptcha.execute( GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' } ).then( ( token ) => {
-                $recaptchaTokenField.val( token );
+                grecaptcha.execute( GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' } ).then( ( token ) => {
+                    $recaptchaTokenField.val( token );
+                } );
             } );
         } );
+        
+        $( this ).parents('form')[0].submit();
     } );
 }
