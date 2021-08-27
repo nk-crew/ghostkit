@@ -57,6 +57,7 @@ if ( 'undefined' !== typeof grecaptcha ) {
 
         evt.preventDefault();
 
+        // Ensure Recaptcha is loaded
         grecaptcha.ready( () => {
             const recaptchaFields = $( '[name="ghostkit_form_google_recaptcha"]' );
 
@@ -64,13 +65,17 @@ if ( 'undefined' !== typeof grecaptcha ) {
                 return;
             }
 
+            // Fetch a recaptcha token
             recaptchaFields.each( function() {
                 const $recaptchaTokenField = $( this );
 
                 grecaptcha.execute( GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' } ).then( ( token ) => {
                     $recaptchaTokenField.val( token );
 
-                    $(form).parsley().validate();
+                    // After the token is fetched, validate the form, and if valid, submit it
+                    $(form).parsley().whenValidate().then( function () {
+						form.submit();
+					} );
                 } );
             } );
         } );
