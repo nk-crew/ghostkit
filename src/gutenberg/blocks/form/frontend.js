@@ -73,9 +73,9 @@ if ( 'undefined' !== typeof grecaptcha ) {
                     $recaptchaTokenField.val( token );
 
                     // After the token is fetched, validate the form, and if valid, submit it
-                    $(form).parsley().whenValidate().then( function () {
-						form.submit();
-					} );
+                    $( form ).parsley().whenValidate().then( () => {
+                        form.submit();
+                    } );
                 } );
             } );
         } );
