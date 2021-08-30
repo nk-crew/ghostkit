@@ -170,7 +170,7 @@ class GhostKit {
         add_action( 'enqueue_block_editor_assets', array( $this, 'js_translation_editor' ) );
 
         // add Ghost Kit blocks category.
-        add_filter( 'block_categories', array( $this, 'block_categories' ), 9 );
+        add_filter( 'block_categories_all', array( $this, 'block_categories_all' ), 9 );
 
         // CSS Vars Polyfill.
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_css_vars_polyfill' ) );
@@ -216,7 +216,7 @@ class GhostKit {
      * @param array $categories - available categories.
      * @return array
      */
-    public function block_categories( $categories ) {
+    public function block_categories_all( $categories ) {
         return array_merge(
             array(
                 array(
