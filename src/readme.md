@@ -3,7 +3,7 @@
 * Contributors: nko
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
 * Requires at least: 5.5
-* Tested up to: 5.7
+* Tested up to: 5.8
 * Requires PHP: 5.5.9
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
@@ -260,6 +260,14 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.19.3 =
+
+* added line breaks for form email texts
+* added support for WP 5.8
+* fixed rare conflict with reusable blocks while parsing
+* hidden Slides per view and Gap carousel options when selected Fade effect
+* hidden Carousel slides before JS init to prevent content jumping
 
 = 2.19.2 =
 
