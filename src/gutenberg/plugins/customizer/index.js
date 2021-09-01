@@ -17,7 +17,7 @@ const { Component } = wp.element;
 
 const { compose } = wp.compose;
 
-const { PluginMoreMenuItem } = wp.editPost;
+const { PluginMoreMenuItem } = wp.editPost || {};
 
 const {
     withSelect,
@@ -458,14 +458,16 @@ export class Plugin extends Component {
 
         return (
             <Fragment>
-                <PluginMoreMenuItem
-                    icon={ null }
-                    onClick={ () => {
-                        this.setState( { isModalOpen: true } );
-                    } }
-                >
-                    { __( 'Customizer', '@@text_domain' ) }
-                </PluginMoreMenuItem>
+                { PluginMoreMenuItem ? (
+                    <PluginMoreMenuItem
+                        icon={ null }
+                        onClick={ () => {
+                            this.setState( { isModalOpen: true } );
+                        } }
+                    >
+                        { __( 'Customizer', '@@text_domain' ) }
+                    </PluginMoreMenuItem>
+                ) : null }
                 { isModalOpen ? (
                     <CustomizerModalWithSelect
                         onRequestClose={ () => this.setState( { isModalOpen: false } ) }

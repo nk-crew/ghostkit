@@ -17,8 +17,7 @@ const {
 } = wp.hooks;
 const { compose } = wp.compose;
 
-// prevent errors on Settings page, where wp.editPost is not available.
-const PluginMoreMenuItem = wp.editPost ? wp.editPost.PluginMoreMenuItem : '';
+const { PluginMoreMenuItem } = wp.editPost || {};
 
 const {
     withSelect,
@@ -794,14 +793,16 @@ export class Plugin extends Component {
 
         return (
             <Fragment>
-                <PluginMoreMenuItem
-                    icon={ null }
-                    onClick={ () => {
-                        this.setState( { isModalOpen: true } );
-                    } }
-                >
-                    { __( 'Typography', '@@text_domain' ) }
-                </PluginMoreMenuItem>
+                { PluginMoreMenuItem ? (
+                    <PluginMoreMenuItem
+                        icon={ null }
+                        onClick={ () => {
+                            this.setState( { isModalOpen: true } );
+                        } }
+                    >
+                        { __( 'Typography', '@@text_domain' ) }
+                    </PluginMoreMenuItem>
+                ) : null }
                 { isModalOpen ? (
                     <TypographyModalWithSelect
                         onRequestClose={ () => this.setState( { isModalOpen: false } ) }

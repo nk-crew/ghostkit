@@ -260,8 +260,19 @@ class GhostKit {
      * Enqueue editor assets
      */
     public function enqueue_block_editor_assets() {
+        global $current_screen;
+
         $css_deps = array();
         $js_deps  = array( 'ghostkit-helper', 'wp-block-editor', 'wp-blocks', 'wp-date', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-hooks', 'wp-components', 'wp-keycodes', 'moment', 'jquery' );
+
+        // Fix for Widgets screen.
+        if ( isset( $current_screen->id ) && 'widgets' === $current_screen->id ) {
+            $key = array_search( 'wp-edit-post', $js_deps, true );
+
+            if ( false !== $key ) {
+                unset( $js_deps[ $key ] );
+            }
+        }
 
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
