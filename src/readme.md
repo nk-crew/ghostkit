@@ -261,6 +261,10 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.19.4 =
+
+* fixed errors in new Widgets editor
+
 = 2.19.3 =
 
 * added line breaks for form email texts
