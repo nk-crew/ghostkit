@@ -109,7 +109,7 @@ export default [
                                 className="ghostkit-testimonial-photo"
                                 // eslint-disable-next-line react/no-danger
                                 dangerouslySetInnerHTML={ {
-                                    __html: photoTag,
+                                    __html: decodeURIComponent( photoTag ),
                                 } }
                             />
                         ) : '' }

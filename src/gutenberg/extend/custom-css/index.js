@@ -72,7 +72,7 @@ class CustomCSSComponent extends Component {
                     onChange={ ( value ) => {
                         if ( value !== placeholder ) {
                             setAttributes( {
-                                ghostkitCustomCSS: value,
+                                ghostkitCustomCSS: encodeURIComponent( value ),
                             } );
                         }
                         if ( this.state.defaultPlaceholder ) {
@@ -81,7 +81,7 @@ class CustomCSSComponent extends Component {
                             } );
                         }
                     } }
-                    value={ ghostkitCustomCSS || this.state.defaultPlaceholder }
+                    value={ decodeURIComponent( ghostkitCustomCSS || this.state.defaultPlaceholder ) }
                     maxLines={ 20 }
                     minLines={ 5 }
                     height="300px"
@@ -241,7 +241,7 @@ function addAttribute( settings ) {
             if ( settings.deprecated && settings.deprecated.length ) {
                 settings.deprecated.forEach( ( item, i ) => {
                     if ( settings.deprecated[ i ].attributes ) {
-                        settings.deprecated[ i ].attributes.ghostkitCustomCSS = settings.attributes.ghostkitCustomCSS;
+                        settings.deprecated[ i ].attributes.ghostkitCustomCSS = decodeURIComponent( settings.attributes.ghostkitCustomCSS );
                     }
                 } );
             }
@@ -281,8 +281,10 @@ function addEditorCustomStylesOutput( customStylesOutput, props ) {
         ghostkitCustomCSS,
     } = props.attributes;
 
-    if ( ghostkitCustomCSS && ghostkitClassname ) {
-        customStylesOutput += ` ${ ghostkitCustomCSS.replace( /selector/g, `.${ ghostkitClassname }` ) }`;
+    const ghostkitCustomCSSDecode = decodeURIComponent( ghostkitCustomCSS );
+
+    if ( ghostkitCustomCSSDecode && ghostkitClassname ) {
+        customStylesOutput += ` ${ ghostkitCustomCSSDecode.replace( /selector/g, `.${ ghostkitClassname }` ) }`;
     }
 
     return customStylesOutput;

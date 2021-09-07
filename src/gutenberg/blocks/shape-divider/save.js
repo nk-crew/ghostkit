@@ -47,7 +47,7 @@ class BlockSave extends Component {
 
         return (
             // eslint-disable-next-line react/no-danger
-            <div className={ className } dangerouslySetInnerHTML={ { __html: svg } } />
+            <div className={ className } dangerouslySetInnerHTML={ { __html: decodeURIComponent( svg ) } } />
         );
     }
 }

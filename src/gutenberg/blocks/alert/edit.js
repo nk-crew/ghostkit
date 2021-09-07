@@ -100,8 +100,8 @@ function BlockEdit( props ) {
                 <PanelBody>
                     <IconPicker
                         label={ __( 'Icon', '@@text_domain' ) }
-                        value={ icon }
-                        onChange={ ( value ) => setAttributes( { icon: value } ) }
+                        value={ decodeURIComponent( icon ) }
+                        onChange={ ( value ) => setAttributes( { icon: encodeURIComponent( value ) } ) }
                     />
                     { icon ? (
                         <RangeControl
@@ -174,10 +174,10 @@ function BlockEdit( props ) {
                 { icon ? (
                     <div className="ghostkit-alert-icon">
                         <IconPicker.Dropdown
-                            onChange={ ( value ) => setAttributes( { icon: value } ) }
-                            value={ icon }
+                            onChange={ ( value ) => setAttributes( { icon: encodeURIComponent( value ) } ) }
+                            value={ decodeURIComponent( icon ) }
                             renderToggle={ ( { onToggle } ) => (
-                                <IconPicker.Preview onClick={ onToggle } name={ icon } />
+                                <IconPicker.Preview onClick={ onToggle } name={ decodeURIComponent( icon ) } />
                             ) }
                         />
                     </div>

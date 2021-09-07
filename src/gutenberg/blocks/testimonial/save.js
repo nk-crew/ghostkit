@@ -75,7 +75,7 @@ class BlockSave extends Component {
                 ) : '' }
                 { icon ? (
                     <IconPicker.Render
-                        name={ icon }
+                        name={ decodeURIComponent( icon ) }
                         tag="div"
                         className="ghostkit-testimonial-icon"
                     />
@@ -88,7 +88,7 @@ class BlockSave extends Component {
                         className="ghostkit-testimonial-photo"
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={ {
-                            __html: photoTag,
+                            __html: decodeURIComponent( photoTag ),
                         } }
                     />
                 ) : '' }
@@ -110,18 +110,18 @@ class BlockSave extends Component {
                     <div className="ghostkit-testimonial-stars">
                         <div className="ghostkit-testimonial-stars-wrap">
                             <div className="ghostkit-testimonial-stars-front" style={ { width: `${ ( 100 * stars ) / 5 }%` } }>
-                                <IconPicker.Render name={ starsIcon } />
-                                <IconPicker.Render name={ starsIcon } />
-                                <IconPicker.Render name={ starsIcon } />
-                                <IconPicker.Render name={ starsIcon } />
-                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
                             </div>
                             <div className="ghostkit-testimonial-stars-back">
-                                <IconPicker.Render name={ starsIcon } />
-                                <IconPicker.Render name={ starsIcon } />
-                                <IconPicker.Render name={ starsIcon } />
-                                <IconPicker.Render name={ starsIcon } />
-                                <IconPicker.Render name={ starsIcon } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
+                                <IconPicker.Render name={ decodeURIComponent( starsIcon ) } />
                             </div>
                         </div>
                     </div>

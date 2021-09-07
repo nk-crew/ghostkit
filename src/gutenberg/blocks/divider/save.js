@@ -48,7 +48,7 @@ class BlockSave extends Component {
             <div className={ className }>
                 { icon ? (
                     <IconPicker.Render
-                        name={ icon }
+                        name={ decodeURIComponent( icon ) }
                         tag="div"
                         className="ghostkit-divider-icon"
                     />

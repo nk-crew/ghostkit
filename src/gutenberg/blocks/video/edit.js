@@ -526,13 +526,13 @@ class BlockEdit extends Component {
                     <PanelBody>
                         <IconPicker
                             label={ __( 'Play Icon', '@@text_domain' ) }
-                            value={ iconPlay }
-                            onChange={ ( value ) => setAttributes( { iconPlay: value } ) }
+                            value={ decodeURIComponent( iconPlay ) }
+                            onChange={ ( value ) => setAttributes( { iconPlay: encodeURIComponent( value ) } ) }
                         />
                         <IconPicker
                             label={ __( 'Loading Icon', '@@text_domain' ) }
-                            value={ iconLoading }
-                            onChange={ ( value ) => setAttributes( { iconLoading: value } ) }
+                            value={ decodeURIComponent( iconLoading ) }
+                            onChange={ ( value ) => setAttributes( { iconLoading: encodeURIComponent( value ) } ) }
                         />
                         { hasClass( attributes.className, 'is-style-icon-only' ) ? (
                             <BaseControl label={ __( 'Icon Align', '@@text_domain' ) }>
@@ -601,8 +601,8 @@ class BlockEdit extends Component {
                                 </ApplyFilters>
                                 <IconPicker
                                     label={ __( 'Fullscreen Close Icon', '@@text_domain' ) }
-                                    value={ fullscreenActionCloseIcon }
-                                    onChange={ ( value ) => setAttributes( { fullscreenActionCloseIcon: value } ) }
+                                    value={ decodeURIComponent( fullscreenActionCloseIcon ) }
+                                    onChange={ ( value ) => setAttributes( { fullscreenActionCloseIcon: encodeURIComponent( value ) } ) }
                                 />
                             </Fragment>
                         ) : (
@@ -720,12 +720,12 @@ class BlockEdit extends Component {
                     { iconPlay ? (
                         <div className="ghostkit-video-play-icon">
                             <IconPicker.Dropdown
-                                onChange={ ( value ) => setAttributes( { iconPlay: value } ) }
-                                value={ iconPlay }
+                                onChange={ ( value ) => setAttributes( { iconPlay: encodeURIComponent( value ) } ) }
+                                value={ decodeURIComponent( iconPlay ) }
                                 renderToggle={ ( { onToggle } ) => (
                                     <IconPicker.Preview
                                         onClick={ onToggle }
-                                        name={ iconPlay }
+                                        name={ decodeURIComponent( iconPlay ) }
                                     />
                                 ) }
                             />

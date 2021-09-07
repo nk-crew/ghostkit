@@ -106,7 +106,7 @@ class BlockEdit extends Component {
             Object.keys( data.shapes ).forEach( ( i ) => {
                 const shape = data.shapes[ i ];
 
-                if ( shape.svg && shape.svg === svg && ! ready ) {
+                if ( shape.svg && shape.svg === decodeURIComponent( svg ) && ! ready ) {
                     result = shape;
                     ready = true;
                 }
@@ -157,12 +157,12 @@ class BlockEdit extends Component {
                         <div key={ k }>
                             <h3>{ data.name }</h3>
                             <ImagePicker
-                                value={ svg }
+                                value={ decodeURIComponent( svg ) }
                                 options={ shapesOptions }
                                 onChange={ ( value ) => {
                                     const shapeData = this.getShapeData( value );
                                     setAttributes( {
-                                        svg: value,
+                                        svg: encodeURIComponent( value ),
                                         flipVertical: shapeData.allow_flip_vertical ? flipVertical : false,
                                         flipHorizontal: shapeData.allow_flip_horizontal ? flipHorizontal : false,
                                     } );
@@ -318,7 +318,7 @@ class BlockEdit extends Component {
                     </PanelBody>
                 </InspectorControls>
                 { /* eslint-disable-next-line react/no-danger */ }
-                <div className={ className } dangerouslySetInnerHTML={ { __html: svg } } />
+                <div className={ className } dangerouslySetInnerHTML={ { __html: decodeURIComponent( svg ) } } />
             </Fragment>
         );
     }

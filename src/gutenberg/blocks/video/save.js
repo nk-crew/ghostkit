@@ -119,21 +119,21 @@ class BlockSave extends Component {
                 ) : '' }
                 { iconPlay ? (
                     <IconPicker.Render
-                        name={ iconPlay }
+                        name={ decodeURIComponent( iconPlay ) }
                         tag="div"
                         className="ghostkit-video-play-icon"
                     />
                 ) : '' }
                 { iconLoading ? (
                     <IconPicker.Render
-                        name={ iconLoading }
+                        name={ decodeURIComponent( iconLoading ) }
                         tag="div"
                         className="ghostkit-video-loading-icon"
                     />
                 ) : '' }
                 { 'fullscreen' === clickAction && fullscreenActionCloseIcon ? (
                     <IconPicker.Render
-                        name={ fullscreenActionCloseIcon }
+                        name={ decodeURIComponent( fullscreenActionCloseIcon ) }
                         tag="div"
                         className="ghostkit-video-fullscreen-close-icon"
                     />

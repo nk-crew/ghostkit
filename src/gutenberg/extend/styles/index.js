@@ -81,7 +81,7 @@ class CustomStylesComponent extends Component {
         );
 
         const thereIsCustomStyles = blockCustomStyles && Object.keys( blockCustomStyles ).length;
-        const thereIsCustomCSS = !! attributes.ghostkitCustomCSS;
+        const thereIsCustomCSS = !! decodeURIComponent( attributes.ghostkitCustomCSS );
 
         if ( thereIsCustomStyles || thereIsCustomCSS ) {
             const ghostkitAtts = this.getGhostKitAtts( checkDuplicates );

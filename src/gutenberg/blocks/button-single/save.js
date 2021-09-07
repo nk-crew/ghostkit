@@ -72,7 +72,7 @@ class BlockSave extends Component {
         if ( icon ) {
             result.unshift(
                 <IconPicker.Render
-                    name={ icon }
+                    name={ decodeURIComponent( icon ) }
                     tag="span"
                     className={ `ghostkit-button-icon ghostkit-button-icon-${ 'right' === iconPosition ? 'right' : 'left' }` }
                     key="button-icon"
