@@ -7,6 +7,10 @@ module.exports = function() {
                 {
                     test: /(\.js)$/,
                     loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true,
+                        cacheCompression: false,
+                    },
                 }, {
                     test: /\.scss$/,
                     use: [

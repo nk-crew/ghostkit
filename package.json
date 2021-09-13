@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@babel/node": "^7.13.13",
-    "@babel/plugin-proposal-object-rest-spread": "^7.13.8",
+    "@babel/plugin-proposal-object-rest-spread": "^7.15.6",
     "@babel/plugin-transform-react-jsx": "^7.13.12",
     "@babel/preset-env": "^7.14.1",
     "@babel/register": "^7.13.16",
@@ -37,7 +37,7 @@
     "po2json": "^0.4.5",
     "simple-git-hooks": "^2.4.1",
     "stylelint-config-nk": "^0.0.12",
-    "wpeg": "^1.2.0"
+    "wpeg": "^1.2.5"
   },
   "dependencies": {
     "@giphy/js-fetch-api": "^3.0.0",
@@ -49,7 +49,7 @@
     "gmaps": "^0.4.25",
     "gutenberg-react-select-styles": "0.0.2",
     "ie11-custom-properties": "^4.1.0",
-    "jarallax": "^1.12.5",
+    "jarallax": "^1.12.7",
     "markdown-it": "^12.0.6",
     "object-fit-images": "^3.2.4",
     "parsleyjs": "^2.9.2",
@@ -58,7 +58,7 @@
     "react-ace": "^9.4.0",
     "react-google-maps": "^9.4.5",
     "react-lazyload": "^3.2.0",
-    "react-masonry-component": "^6.2.1",
+    "react-masonry-component": "^6.3.0",
     "react-select": "^4.3.0",
     "react-select-virtualized": "^3.0.0",
     "react-virtualized": "^9.22.3",
@@ -67,7 +67,7 @@
     "scrollreveal": "^4.0.9",
     "shorthash": "0.0.2",
     "slugify": "^1.5.1",
-    "striptags": "^3.1.1",
+    "striptags": "^3.2.0",
     "swiper": "^6.5.9",
     "throttle-debounce": "^3.0.1"
   }
