@@ -60,7 +60,7 @@ class BlockSave extends Component {
                 ) : '' }
                 { icon ? (
                     <IconPicker.Render
-                        name={ decodeURIComponent( icon ) }
+                        name={ icon }
                         tag="div"
                         className={ `ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${ iconPosition || 'left' }` }
                     />

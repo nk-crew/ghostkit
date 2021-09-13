@@ -138,9 +138,9 @@ class IconPickerDropdown extends Component {
                     <Fragment key="form">
                         <TextControl
                             label={ __( 'Search Icon', '@@text_domain' ) }
-                            value={ this.state.search }
+                            value={ decodeURIComponent( this.state.search ) }
                             onChange={ ( searchVal ) => (
-                                this.setState( { search: searchVal } )
+                                this.setState( { search: encodeURIComponent( searchVal ) } )
                             ) }
                             placeholder={ __( 'Type to Search...', '@@text_domain' ) }
                             autoComplete="off"
@@ -203,17 +203,17 @@ class IconPickerDropdown extends Component {
 
                 const result = (
                     <Icon
-                        active={ iconData.svg === value }
+                        active={ decodeURIComponent( iconData.svg ) === decodeURIComponent( value ) }
                         iconData={ iconData }
                         onClick={ () => {
-                            onChange( iconData.svg );
+                            onChange( decodeURIComponent( iconData.svg ) );
                         } }
                     />
                 );
 
                 if ( iconTip ) {
                     return (
-                        <Tooltip key={ iconData.svg } text={ iconTip }>
+                        <Tooltip key={ decodeURIComponent( iconData.svg ) } text={ iconTip }>
                             { /* We need this <div> just because Tooltip don't work without it */ }
                             <div>
                                 { result }
@@ -387,10 +387,21 @@ class IconPickerDropdown extends Component {
 }
 
 export default class IconPicker extends Component {
+    constructor( props ) {
+        super( props );
+        this.handleChange = this.handleChange.bind( this );
+    }
+
+    handleChange( value ) {
+        const {
+            onChange,
+        } = this.props;
+        onChange( encodeURIComponent( value ) );
+    }
+
     render() {
         const {
             value,
-            onChange,
             label,
         } = this.props;
 
@@ -398,8 +409,8 @@ export default class IconPicker extends Component {
             <IconPicker.Dropdown
                 label={ label }
                 className="ghostkit-component-icon-picker-wrapper"
-                onChange={ onChange }
-                value={ value }
+                onChange={ this.handleChange }
+                value={ decodeURIComponent( value ) }
                 renderToggle={ ( { isOpen, onToggle } ) => (
                     <Tooltip text={ __( 'Icon Picker', '@@text_domain' ) }>
                         { /* We need this <div> just because Tooltip don't work without it */ }
@@ -408,7 +419,7 @@ export default class IconPicker extends Component {
                                 className="ghostkit-component-icon-picker-button hover"
                                 aria-expanded={ isOpen }
                                 onClick={ onToggle }
-                                name={ value }
+                                name={ decodeURIComponent( value ) }
                                 alwaysRender
                             />
                         </div>
@@ -459,7 +470,7 @@ IconPicker.Preview = ( props ) => {
 
     return ( result || alwaysRender ? (
         <IconPicker.Render
-            name={ result }
+            name={ decodeURIComponent( result ) }
             tag="span"
             className={ classnames( className, 'ghostkit-component-icon-picker-preview', onClick ? 'ghostkit-component-icon-picker-preview-clickable' : '' ) }
             onClick={ onClick }
@@ -474,7 +485,6 @@ IconPicker.Preview = ( props ) => {
 // render icon.
 IconPicker.Render = ( props ) => {
     const {
-        name,
         tag = 'span',
         className,
         onClick,
@@ -484,8 +494,14 @@ IconPicker.Render = ( props ) => {
         alwaysRender = false,
     } = props;
 
+    let {
+        name,
+    } = props;
+
     const Tag = tag;
     let result = '';
+
+    name = decodeURIComponent( name );
 
     if ( name && /^</g.test( name ) ) {
         result = name;

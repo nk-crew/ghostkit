@@ -130,8 +130,8 @@ class BlockEdit extends Component {
                     <PanelBody>
                         <IconPicker
                             label={ __( 'Icon', '@@text_domain' ) }
-                            value={ decodeURIComponent( icon ) }
-                            onChange={ ( value ) => setAttributes( { icon: encodeURIComponent( value ) } ) }
+                            value={ icon }
+                            onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                         { icon ? (
                             <RangeControl
@@ -206,12 +206,12 @@ class BlockEdit extends Component {
                     { icon ? (
                         <div className="ghostkit-divider-icon">
                             <IconPicker.Dropdown
-                                onChange={ ( value ) => setAttributes( { icon: encodeURIComponent( value ) } ) }
-                                value={ decodeURIComponent( icon ) }
+                                onChange={ ( value ) => setAttributes( { icon: value } ) }
+                                value={ icon }
                                 renderToggle={ ( { onToggle } ) => (
                                     <IconPicker.Preview
                                         onClick={ onToggle }
-                                        name={ decodeURIComponent( icon ) }
+                                        name={ icon }
                                     />
                                 ) }
                             />

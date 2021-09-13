@@ -133,8 +133,8 @@ class BlockEdit extends Component {
                     <PanelBody>
                         <IconPicker
                             label={ __( 'Icon', '@@text_domain' ) }
-                            value={ decodeURIComponent( icon ) }
-                            onChange={ ( value ) => setAttributes( { icon: encodeURIComponent( value ) } ) }
+                            value={ icon }
+                            onChange={ ( value ) => setAttributes( { icon: value } ) }
                         />
                     </PanelBody>
                     <PanelBody title={ __( 'Photo', '@@text_domain' ) }>
@@ -223,8 +223,8 @@ class BlockEdit extends Component {
                         { 'number' === typeof stars ? (
                             <IconPicker
                                 label={ __( 'Icon', '@@text_domain' ) }
-                                value={ decodeURIComponent( starsIcon ) }
-                                onChange={ ( value ) => setAttributes( { starsIcon: encodeURIComponent( value ) } ) }
+                                value={ starsIcon }
+                                onChange={ ( value ) => setAttributes( { starsIcon: value } ) }
                             />
                         ) : '' }
                     </PanelBody>
@@ -244,12 +244,12 @@ class BlockEdit extends Component {
                     { icon ? (
                         <div className="ghostkit-testimonial-icon">
                             <IconPicker.Dropdown
-                                onChange={ ( value ) => setAttributes( { icon: encodeURIComponent( value ) } ) }
-                                value={ decodeURIComponent( icon ) }
+                                onChange={ ( value ) => setAttributes( { icon: value } ) }
+                                value={ icon }
                                 renderToggle={ ( { onToggle } ) => (
                                     <IconPicker.Preview
                                         onClick={ onToggle }
-                                        name={ decodeURIComponent( icon ) }
+                                        name={ icon }
                                     />
                                 ) }
                             />
@@ -324,18 +324,18 @@ class BlockEdit extends Component {
                         <div className="ghostkit-testimonial-stars">
                             <div className="ghostkit-testimonial-stars-wrap">
                                 <div className="ghostkit-testimonial-stars-front" style={ { width: `${ ( 100 * stars ) / 5 }%` } }>
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
                                 </div>
                                 <div className="ghostkit-testimonial-stars-back">
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
-                                    <IconPicker.Preview name={ decodeURIComponent( starsIcon ) } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
+                                    <IconPicker.Preview name={ starsIcon } />
                                 </div>
                             </div>
                         </div>
