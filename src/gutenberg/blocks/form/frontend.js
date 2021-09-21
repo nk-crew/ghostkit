@@ -52,31 +52,34 @@ window.Parsley.addValidator( 'confirmEmail', {
  * Google reCaptcha
  */
 if ( 'undefined' !== typeof grecaptcha ) {
-    $doc.on( 'click', '.ghostkit-form-submit-button .ghostkit-button', function( evt ) {
-        const form = $( this ).parents( 'form' )[ 0 ];
+    $doc.on( 'submit', '.ghostkit-form form:not(.ghostkit-form-processed)', function( e ) {
+        const $form = $( this );
+        const $recaptchaTokenField = $form.find( '[name="ghostkit_form_google_recaptcha"]' );
 
-        evt.preventDefault();
+        if ( ! $recaptchaTokenField.length ) {
+            return;
+        }
 
-        // Ensure Recaptcha is loaded
+        e.preventDefault();
+
+        if ( $form.hasClass( 'ghostkit-form-processing' ) ) {
+            return;
+        }
+
+        $form.addClass( 'ghostkit-form-processing' );
+
+        // Ensure Recaptcha is loaded.
         grecaptcha.ready( () => {
-            const recaptchaFields = $( '[name="ghostkit_form_google_recaptcha"]' );
+            grecaptcha.execute( GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' } ).then( ( token ) => {
+                $recaptchaTokenField.val( token );
 
-            if ( ! recaptchaFields.length ) {
-                return;
-            }
+                $form.addClass( 'ghostkit-form-processed' );
 
-            // Fetch a recaptcha token
-            recaptchaFields.each( function() {
-                const $recaptchaTokenField = $( this );
+                // After the token is fetched, submit the form.
+                $form[ 0 ].submit();
 
-                grecaptcha.execute( GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' } ).then( ( token ) => {
-                    $recaptchaTokenField.val( token );
-
-                    // After the token is fetched, validate the form, and if valid, submit it
-                    $( form ).parsley().whenValidate().then( () => {
-                        form.submit();
-                    } );
-                } );
+                $form.removeClass( 'ghostkit-form-processing' );
+                $form.removeClass( 'ghostkit-form-processed' );
             } );
         } );
     } );
