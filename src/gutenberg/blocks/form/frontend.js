@@ -52,18 +52,34 @@ window.Parsley.addValidator( 'confirmEmail', {
  * Google reCaptcha
  */
 if ( 'undefined' !== typeof grecaptcha ) {
-    grecaptcha.ready( () => {
-        const recaptchaFields = $( '[name="ghostkit_form_google_recaptcha"]' );
+    $doc.on( 'submit', '.ghostkit-form form:not(.ghostkit-form-processed)', function( e ) {
+        const $form = $( this );
+        const $recaptchaTokenField = $form.find( '[name="ghostkit_form_google_recaptcha"]' );
 
-        if ( ! recaptchaFields.length ) {
+        if ( ! $recaptchaTokenField.length ) {
             return;
         }
 
-        recaptchaFields.each( function() {
-            const $recaptchaTokenField = $( this );
+        e.preventDefault();
 
+        if ( $form.hasClass( 'ghostkit-form-processing' ) ) {
+            return;
+        }
+
+        $form.addClass( 'ghostkit-form-processing' );
+
+        // Ensure Recaptcha is loaded.
+        grecaptcha.ready( () => {
             grecaptcha.execute( GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' } ).then( ( token ) => {
                 $recaptchaTokenField.val( token );
+
+                $form.addClass( 'ghostkit-form-processed' );
+
+                // After the token is fetched, submit the form.
+                $form[ 0 ].submit();
+
+                $form.removeClass( 'ghostkit-form-processing' );
+                $form.removeClass( 'ghostkit-form-processed' );
             } );
         } );
     } );
