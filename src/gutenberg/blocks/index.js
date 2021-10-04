@@ -57,7 +57,9 @@ const {
 /**
  * Register blocks
  */
-window.jQuery( () => {
+
+// Previously we used the jQuery's 'ready' event, but it was conflicting with PublishPress Blocks plugin.
+document.addEventListener( 'DOMContentLoaded', () => {
     [
         grid,
         gridColumn,
