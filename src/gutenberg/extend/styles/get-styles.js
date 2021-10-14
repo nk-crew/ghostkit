@@ -36,10 +36,6 @@ export default function getStyles( data = {}, selector = '', escape = true ) {
                 if ( nestedSelector ) {
                     if ( -1 !== key.indexOf( '&' ) ) {
                         nestedSelector = key.replace( /&/g, nestedSelector );
-
-                    // inside exported xml file all & symbols converted to \u0026
-                    } else if ( -1 !== key.indexOf( 'u0026' ) ) {
-                        nestedSelector = key.replace( /u0026/g, nestedSelector );
                     } else {
                         nestedSelector = `${ nestedSelector } ${ key }`;
                     }
@@ -58,28 +54,12 @@ export default function getStyles( data = {}, selector = '', escape = true ) {
                 selector = selector.replace( /</g, '&lt;' );
             }
 
-            // inside exported xml file all > symbols converted to \u003e
-            // inside exported xml file all < symbols converted to \u003c
-            if ( -1 !== selector.indexOf( 'u003e' ) ) {
-                selector = selector.replace( /u003e/g, '&gt;' );
-                selector = selector.replace( /u003c/g, '&lt;' );
-            }
-
             if ( ! result[ selector ] ) {
                 result[ selector ] = '';
             }
 
             const propName = camelCaseToDash( key );
             let propValue = data[ key ];
-
-            // inside exported xml file all " symbols converted to \u0022
-            if ( 'string' === typeof propValue && -1 !== propValue.indexOf( 'u0022' ) ) {
-                propValue = propValue.replace( /u0022/g, '"' );
-            }
-            // inside exported xml file all ' symbols converted to \u0027
-            if ( 'string' === typeof propValue && -1 !== propValue.indexOf( 'u0027' ) ) {
-                propValue = propValue.replace( /u0027/g, '\'' );
-            }
 
             const thereIsImportant = / !important$/.test( propValue );
             if ( thereIsImportant ) {

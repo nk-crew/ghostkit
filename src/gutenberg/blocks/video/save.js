@@ -2,7 +2,6 @@
  * Internal dependencies
  */
 import IconPicker from '../../components/icon-picker';
-import fixXmlImportedContent from '../../utils/fix-xml-imported-content';
 import {
     hasClass,
 } from '../../utils/classes-replacer';
@@ -24,13 +23,6 @@ const { name } = metadata;
  * Block Save Class.
  */
 class BlockSave extends Component {
-    constructor( props ) {
-        super( props );
-
-        // fix xml imported string.
-        this.props.attributes.posterTag = fixXmlImportedContent( this.props.attributes.posterTag );
-    }
-
     render() {
         const {
             attributes,

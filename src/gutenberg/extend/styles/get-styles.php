@@ -110,10 +110,6 @@ class GhostKit_Block_Custom_Styles {
                     if ( $nested_selector ) {
                         if ( strpos( $k, '&' ) !== false ) {
                             $nested_selector = str_replace( '&', $nested_selector, $k );
-
-                            // inside exported xml file all & symbols converted to \u0026.
-                        } elseif ( strpos( $k, 'u0026' ) !== false ) {
-                            $nested_selector = str_replace( 'u0026', $nested_selector, $k );
                         } else {
                             $nested_selector = $nested_selector . ' ' . $k;
                         }
@@ -132,29 +128,12 @@ class GhostKit_Block_Custom_Styles {
                     $selector = str_replace( '<', '&lt;', $selector );
                 }
 
-                // inside exported xml file all > symbols converted to \u003e
-                // inside exported xml file all < symbols converted to \u003c.
-                if ( strpos( $selector, 'u0026' ) !== false ) {
-                    $selector = str_replace( 'u003e', '&gt;', $selector );
-                    $selector = str_replace( 'u003c', '&lt;', $selector );
-                }
-
                 if ( ! isset( $result[ $selector ] ) || ! $result[ $selector ] ) {
                     $result[ $selector ] = '';
                 }
 
                 $prop_name  = self::camel2dash( $k );
                 $prop_value = $val;
-
-                // inside exported xml file all " symbols converted to \u0022.
-                if ( is_string( $prop_value ) && strpos( $prop_value, 'u0022' ) !== false ) {
-                    $prop_value = str_replace( 'u0022', '"', $prop_value );
-                }
-
-                // inside exported xml file all ' symbols converted to \u0027.
-                if ( is_string( $prop_value ) && strpos( $prop_value, 'u0027' ) !== false ) {
-                    $prop_value = str_replace( 'u0027', '\'', $prop_value );
-                }
 
                 $there_id_important = self::endswith( $prop_value, ' !important' );
 
