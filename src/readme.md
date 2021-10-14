@@ -261,6 +261,15 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.20.0 =
+
+* added escaping for SVG icons (fixes conflict with XML content import)
+* added support for WordPress's excerpt in some blocks
+* improved form reCaptcha code to work only when submit button clicked
+* changed minimum PHP to 7.2
+* fixed block assets loading when block used in new block widgets screen
+* fixed conflict with PublishPress Blocks plugin
+
 = 2.19.4 =
 
 * fixed errors in new Widgets editor
