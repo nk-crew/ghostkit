@@ -178,6 +178,9 @@ class GhostKit {
 
         // we need to enqueue the main script earlier to let 3rd-party plugins add custom styles support.
         add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ), 9 );
+
+        // add support for excerpts to some blocks.
+        add_filter( 'excerpt_allowed_blocks', array( $this, 'excerpt_allowed_blocks' ) );
     }
 
     /**
@@ -302,6 +305,36 @@ class GhostKit {
             $js_deps,
             filemtime( plugin_dir_path( __FILE__ ) . 'gutenberg/index.min.js' ),
             true
+        );
+    }
+
+    /**
+     * Excerpt allowed wrapper blocks.
+     *
+     * @param array $blocks - allowed blocks.
+     * @return array
+     */
+    public function excerpt_allowed_blocks( $blocks ) {
+        return array_merge(
+            $blocks,
+            array(
+                'ghostkit/accordion',
+                'ghostkit/accordion-item',
+                'ghostkit/alert',
+                'ghostkit/button',
+                'ghostkit/carousel',
+                'ghostkit/carousel-single',
+                'ghostkit/changelog',
+                'ghostkit/counter-box',
+                'ghostkit/grid',
+                'ghostkit/grid-column',
+                'ghostkit/icon-box',
+                'ghostkit/pricing-table',
+                'ghostkit/pricing-table-item',
+                'ghostkit/tabs-v2',
+                'ghostkit/tabs-tab-v2',
+                'ghostkit/testimonial',
+            )
         );
     }
 
