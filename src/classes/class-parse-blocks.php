@@ -32,6 +32,7 @@ class GhostKit_Parse_Blocks {
 
         // parse blocks from custom locations, that uses 'the_content' filter.
         add_filter( 'the_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
+        add_filter( 'widget_block_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
     }
 
     /**
