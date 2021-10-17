@@ -261,6 +261,10 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.20.1 =
+
+* fixed icon wrong escaping in the Icon List style
+
 = 2.20.0 =
 
 * added escaping for SVG icons (fixes conflict with XML content import)
