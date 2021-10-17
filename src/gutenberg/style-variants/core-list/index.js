@@ -365,7 +365,7 @@ function addEditorCustomStyles( customStyles, props ) {
     }
 
     if ( props.attributes.ghostkitListIcon ) {
-        result[ '--gkt-icon-lists--decoration' ] = `url('data:image/svg+xml;utf8,${ encodeURI( props.attributes.ghostkitListIcon ) }')`;
+        result[ '--gkt-icon-lists--decoration' ] = `url('data:image/svg+xml;utf8,${ props.attributes.ghostkitListIcon }')`;
     }
     if ( props.attributes.ghostkitListIconColor ) {
         result[ '--gkt-icon-lists--decoration__color' ] = props.attributes.ghostkitListIconColor;
