@@ -5,11 +5,6 @@
  * @package @@plugin_name
  */
 
-use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\OutputStyle;
-use Sabberworm\CSS\Parser;
-use PrestaShop\RtlCss\RtlCss;
-
 /**
  * GhostKit_Scss_Compiler
  */
@@ -68,22 +63,54 @@ class GhostKit_Scss_Compiler {
     private function scss() {
         require_once ghostkit()->plugin_path . 'vendor/autoload.php';
 
-        $scss = new Compiler();
-
-        $scss->setOutputStyle( OutputStyle::COMPRESSED );
-
+        $scss = new ScssPhp\ScssPhp\Compiler();
+        $scss->setOutputStyle( ScssPhp\ScssPhp\OutputStyle::COMPRESSED );
         $scss->addImportPath( $this->input_file_info['dirname'] );
-
         $scss->setVariables( $this->args['variables'] );
 
+        // Find all SCSS files and remove unsupported math.div module.
+        $scss_files = array();
+        $di         = new RecursiveDirectoryIterator( trailingslashit( $this->input_file_info['dirname'] ), RecursiveDirectoryIterator::SKIP_DOTS );
+        $it         = new RecursiveIteratorIterator( $di );
+
+        foreach ( $it as $file ) {
+            if ( pathinfo( $file, PATHINFO_EXTENSION ) === 'scss' ) {
+                $scss_files[] = $file->getPathname();
+            }
+        }
+
+        foreach ( $scss_files as $scss_file_path ) {
+            // phpcs:ignore
+            $file_contents = file_get_contents( $scss_file_path );
+
+            if ( $file_contents ) {
+                // find module include.
+                $file_contents = str_replace( '@use "sass:math";', '', $file_contents );
+
+                // find math.div calls.
+                preg_match_all( '/math\.div(?=\()(?:(?=.*?\((?!.*?\1)(.*\)(?!.*\2).*))(?=.*?\)(?!.*?\2)(.*)).)+?.*?(?=\1)[^(]*(?=\2$)/ms', $file_contents, $file_contents_calls );
+                if ( ! empty( $file_contents_calls[0] ) ) {
+                    foreach ( $file_contents_calls[0] as $content ) {
+                        $new_file_contents = $content;
+                        $new_file_contents = str_replace( 'math.div', '', $new_file_contents );
+                        $new_file_contents = preg_replace( '/\,/', ' /', $new_file_contents, 1 );
+
+                        $file_contents = str_replace( $content, $new_file_contents, $file_contents );
+                    }
+                }
+
+                // phpcs:ignore
+                file_put_contents( $scss_file_path, $file_contents );
+            }
+        }
+
+        // Compile scss.
         $result = $scss->compile( $this->scss_in );
 
-        $parser = new Parser( $result );
-
-        $tree = $parser->parse();
-
-        $rtlcss = new RtlCss( $tree );
-
+        // Prepare RTL.
+        $parser = new Sabberworm\CSS\Parser( $result );
+        $tree   = $parser->parse();
+        $rtlcss = new PrestaShop\RtlCss\RtlCss( $tree );
         $rtlcss->flip();
 
         // phpcs:ignore
