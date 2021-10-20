@@ -16,7 +16,7 @@ $doc.on( 'click', '.ghostkit-toc a', ( evt ) => {
         return;
     }
 
-    const offset = $( evt.target.hash ).offset();
+    const offset = $( decodeURIComponent( evt.target.hash ) ).offset();
 
     if ( 'undefined' === typeof offset ) {
         return;
