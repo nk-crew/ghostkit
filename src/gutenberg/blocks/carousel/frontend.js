@@ -129,6 +129,16 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
         // init swiper
         // eslint-disable-next-line no-new
         new window.Swiper( $carousel[ 0 ], options );
+
+        // autoplay hover pause.
+        if ( 'true' === $carousel.attr( 'data-autoplay-hover-pause' ) && options.autoplay ) {
+            $carousel.on( 'mouseenter', () => {
+                $carousel[ 0 ].swiper.autoplay.stop();
+            } );
+            $carousel.on( 'mouseleave', () => {
+                $carousel[ 0 ].swiper.autoplay.start();
+            } );
+        }
     } );
 
     GHOSTKIT.triggerEvent( 'afterPrepareCarousels', self );

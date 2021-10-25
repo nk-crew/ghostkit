@@ -105,6 +105,7 @@ class BlockEdit extends Component {
             effect,
             speed,
             autoplay,
+            autoplayHoverPause,
             slidesPerView,
             centeredSlides,
             loop,
@@ -186,6 +187,13 @@ class BlockEdit extends Component {
                             max={ 20 }
                             step={ 0.3 }
                         />
+                        { autoplay ? (
+                            <ToggleControl
+                                label={ __( 'Pause autoplay on mouse over', '@@text_domain' ) }
+                                checked={ !! autoplayHoverPause }
+                                onChange={ ( val ) => setAttributes( { autoplayHoverPause: val } ) }
+                            />
+                        ) : null }
                         { 'fade' !== effect ? (
                             <Fragment>
                                 <RangeControl

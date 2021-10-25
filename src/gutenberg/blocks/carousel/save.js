@@ -29,6 +29,7 @@ class BlockSave extends Component {
             effect,
             speed,
             autoplay,
+            autoplayHoverPause,
             slidesPerView,
             centeredSlides,
             loop,
@@ -56,6 +57,7 @@ class BlockSave extends Component {
                 data-effect={ effect }
                 data-speed={ speed }
                 data-autoplay={ autoplay }
+                data-autoplay-hover-pause={ autoplay && autoplayHoverPause ? 'true' : null }
                 data-slides-per-view={ slidesPerView }
                 data-centered-slides={ centeredSlides ? 'true' : 'false' }
                 data-loop={ loop ? 'true' : 'false' }
