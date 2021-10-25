@@ -261,6 +261,12 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.20.2 =
+
+* added option "Pause autoplay on mouse over" to carousel block
+* fixed custom CSS compiler error
+* fixed Table of Contents block scroll to anchor JS error when using Chinese headings
+
 = 2.20.1 =
 
 * fixed icon wrong escaping in the Icon List style
