@@ -11,6 +11,8 @@ import 'react-virtualized/styles.css';
  * Internal dependencies
  */
 import dashCaseToTitle from '../../utils/dash-case-to-title';
+import encodeURI from '../../utils/encode-uri';
+import decodeURI from '../../utils/decode-uri';
 
 const { GHOSTKIT } = window;
 
@@ -138,9 +140,9 @@ class IconPickerDropdown extends Component {
                     <Fragment key="form">
                         <TextControl
                             label={ __( 'Search Icon', '@@text_domain' ) }
-                            value={ decodeURIComponent( this.state.search ) }
+                            value={ decodeURI( this.state.search ) }
                             onChange={ ( searchVal ) => (
-                                this.setState( { search: encodeURIComponent( searchVal ) } )
+                                this.setState( { search: encodeURI( searchVal ) } )
                             ) }
                             placeholder={ __( 'Type to Search...', '@@text_domain' ) }
                             autoComplete="off"
@@ -203,17 +205,17 @@ class IconPickerDropdown extends Component {
 
                 const result = (
                     <Icon
-                        active={ decodeURIComponent( iconData.svg ) === decodeURIComponent( value ) }
+                        active={ decodeURI( iconData.svg ) === decodeURI( value ) }
                         iconData={ iconData }
                         onClick={ () => {
-                            onChange( decodeURIComponent( iconData.svg ) );
+                            onChange( decodeURI( iconData.svg ) );
                         } }
                     />
                 );
 
                 if ( iconTip ) {
                     return (
-                        <Tooltip key={ decodeURIComponent( iconData.svg ) } text={ iconTip }>
+                        <Tooltip key={ decodeURI( iconData.svg ) } text={ iconTip }>
                             { /* We need this <div> just because Tooltip don't work without it */ }
                             <div>
                                 { result }
@@ -396,7 +398,7 @@ export default class IconPicker extends Component {
         const {
             onChange,
         } = this.props;
-        onChange( encodeURIComponent( value ) );
+        onChange( encodeURI( value ) );
     }
 
     render() {
@@ -410,7 +412,7 @@ export default class IconPicker extends Component {
                 label={ label }
                 className="ghostkit-component-icon-picker-wrapper"
                 onChange={ this.handleChange }
-                value={ decodeURIComponent( value ) }
+                value={ decodeURI( value ) }
                 renderToggle={ ( { isOpen, onToggle } ) => (
                     <Tooltip text={ __( 'Icon Picker', '@@text_domain' ) }>
                         { /* We need this <div> just because Tooltip don't work without it */ }
@@ -419,7 +421,7 @@ export default class IconPicker extends Component {
                                 className="ghostkit-component-icon-picker-button hover"
                                 aria-expanded={ isOpen }
                                 onClick={ onToggle }
-                                name={ decodeURIComponent( value ) }
+                                name={ decodeURI( value ) }
                                 alwaysRender
                             />
                         </div>
@@ -470,7 +472,7 @@ IconPicker.Preview = ( props ) => {
 
     return ( result || alwaysRender ? (
         <IconPicker.Render
-            name={ decodeURIComponent( result ) }
+            name={ decodeURI( result ) }
             tag="span"
             className={ classnames( className, 'ghostkit-component-icon-picker-preview', onClick ? 'ghostkit-component-icon-picker-preview-clickable' : '' ) }
             onClick={ onClick }
@@ -501,7 +503,7 @@ IconPicker.Render = ( props ) => {
     const Tag = tag;
     let result = '';
 
-    name = decodeURIComponent( name );
+    name = decodeURI( name );
 
     if ( name && /^</g.test( name ) ) {
         result = name;

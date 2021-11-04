@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import IconPicker from '../../components/icon-picker';
+import decodeURI from '../../utils/decode-uri';
 
 import metadata from './block.json';
 
@@ -80,7 +81,7 @@ class BlockSave extends Component {
                         className="ghostkit-testimonial-photo"
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={ {
-                            __html: decodeURIComponent( photoTag ),
+                            __html: decodeURI( photoTag ),
                         } }
                     />
                 ) : '' }

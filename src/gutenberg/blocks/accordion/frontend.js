@@ -1,4 +1,9 @@
 /**
+ * Internal dependencies
+ */
+import decodeURI from '../../utils/decode-uri';
+
+/**
 * Block Accordion
 */
 const {
@@ -64,7 +69,7 @@ $doc.on( 'initBlocks.ghostkit', ( e, self ) => {
 
         // activate by page hash
         if ( pageHash ) {
-            const pageHashEncoded = decodeURIComponent( pageHash );
+            const pageHashEncoded = decodeURI( pageHash );
             const $activeAccordion = $this.find( `> :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading[href="${ pageHashEncoded }"]` );
 
             if ( $activeAccordion.length ) {
@@ -98,7 +103,7 @@ $wnd.on( 'hashchange', () => {
         return;
     }
 
-    const pageHashEncoded = decodeURIComponent( pageHash );
+    const pageHashEncoded = decodeURI( pageHash );
 
     // Activate accordion item.
     $( `.ghostkit-accordion-ready > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading[href="${ pageHashEncoded }"]` ).each( function() {

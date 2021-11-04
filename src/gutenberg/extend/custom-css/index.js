@@ -9,6 +9,8 @@ import getIcon from '../../utils/get-icon';
 import CodeEditor from '../../components/code-editor';
 import ActiveIndicator from '../../components/active-indicator';
 import Modal from '../../components/modal';
+import encodeURI from '../../utils/encode-uri';
+import decodeURI from '../../utils/decode-uri';
 
 const { __ } = wp.i18n;
 
@@ -72,7 +74,7 @@ class CustomCSSComponent extends Component {
                     onChange={ ( value ) => {
                         if ( value !== placeholder ) {
                             setAttributes( {
-                                ghostkitCustomCSS: encodeURIComponent( value ),
+                                ghostkitCustomCSS: encodeURI( value ),
                             } );
                         }
                         if ( this.state.defaultPlaceholder ) {
@@ -81,7 +83,7 @@ class CustomCSSComponent extends Component {
                             } );
                         }
                     } }
-                    value={ decodeURIComponent( ghostkitCustomCSS || this.state.defaultPlaceholder ) }
+                    value={ decodeURI( ghostkitCustomCSS || this.state.defaultPlaceholder ) }
                     maxLines={ 20 }
                     minLines={ 5 }
                     height="300px"
@@ -241,7 +243,7 @@ function addAttribute( settings ) {
             if ( settings.deprecated && settings.deprecated.length ) {
                 settings.deprecated.forEach( ( item, i ) => {
                     if ( settings.deprecated[ i ].attributes ) {
-                        settings.deprecated[ i ].attributes.ghostkitCustomCSS = decodeURIComponent( settings.attributes.ghostkitCustomCSS );
+                        settings.deprecated[ i ].attributes.ghostkitCustomCSS = decodeURI( settings.attributes.ghostkitCustomCSS );
                     }
                 } );
             }
@@ -281,7 +283,7 @@ function addEditorCustomStylesOutput( customStylesOutput, props ) {
         ghostkitCustomCSS,
     } = props.attributes;
 
-    const ghostkitCustomCSSDecode = decodeURIComponent( ghostkitCustomCSS );
+    const ghostkitCustomCSSDecode = decodeURI( ghostkitCustomCSS );
 
     if ( ghostkitCustomCSSDecode && ghostkitClassname ) {
         customStylesOutput += ` ${ ghostkitCustomCSSDecode.replace( /selector/g, `.${ ghostkitClassname }` ) }`;

@@ -10,6 +10,7 @@ import { throttle } from 'throttle-debounce';
  */
 import './fallback-2-5';
 import { replaceClass } from '../../utils/classes-replacer';
+import decodeURI from '../../utils/decode-uri';
 import EditorStyles from '../../components/editor-styles';
 
 import getStyles from './get-styles';
@@ -81,7 +82,7 @@ class CustomStylesComponent extends Component {
         );
 
         const thereIsCustomStyles = blockCustomStyles && Object.keys( blockCustomStyles ).length;
-        const thereIsCustomCSS = !! decodeURIComponent( attributes.ghostkitCustomCSS );
+        const thereIsCustomCSS = !! decodeURI( attributes.ghostkitCustomCSS );
 
         if ( thereIsCustomStyles || thereIsCustomCSS ) {
             const ghostkitAtts = this.getGhostKitAtts( checkDuplicates );

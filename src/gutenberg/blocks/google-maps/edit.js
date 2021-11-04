@@ -10,6 +10,7 @@ import { debounce } from 'throttle-debounce';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 import ImagePicker from '../../components/image-picker';
+import encodeURI from '../../utils/encode-uri';
 
 import IconMarker from './icons/marker.svg';
 import styles from './map-styles';
@@ -214,7 +215,7 @@ class BlockEdit extends Component {
         return (
             <MapBlock
                 key={ this.state.mapID + markers.length }
-                googleMapURL={ `${ mapsUrl }&key=${ encodeURIComponent( this.state.apiKey ) }` }
+                googleMapURL={ `${ mapsUrl }&key=${ encodeURI( this.state.apiKey ) }` }
                 loadingElement={ <div style={ { height: '100%' } } /> }
                 mapElement={ <div style={ { height: '100%' } } /> }
                 containerElement={ <div className="ghostkit-google-maps-wrap" style={ { minHeight: '100%' } } /> }
@@ -398,7 +399,7 @@ class BlockEdit extends Component {
                                             // eslint-disable-next-line react/no-array-index-key
                                             <li key={ index }>
                                                 <SearchBox
-                                                    googleMapURL={ `${ mapsUrl }&key=${ encodeURIComponent( this.state.apiKey ) }` }
+                                                    googleMapURL={ `${ mapsUrl }&key=${ encodeURI( this.state.apiKey ) }` }
                                                     placeholder={ __( 'Enter address', '@@text_domain' ) }
                                                     value={ marker.address || this.state.addresses[ marker.lat + marker.lng ] || '' }
                                                     onChange={ ( value ) => {
@@ -585,7 +586,7 @@ class BlockEdit extends Component {
                             { isSelected ? (
                                 <div className="ghostkit-google-maps-search">
                                     <SearchBox
-                                        googleMapURL={ `${ mapsUrl }&key=${ encodeURIComponent( this.state.apiKey ) }` }
+                                        googleMapURL={ `${ mapsUrl }&key=${ encodeURI( this.state.apiKey ) }` }
                                         label={ __( 'Center Map', '@@text_domain' ) }
                                         placeholder={ __( 'Enter search query', '@@text_domain' ) }
                                         onChange={ ( value ) => {
