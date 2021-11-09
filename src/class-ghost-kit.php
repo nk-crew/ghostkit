@@ -403,7 +403,7 @@ class GhostKit {
         return array_merge(
             $links,
             array(
-                '<a target="_blank" href="admin.php?page=ghostkit_go_pro">' . esc_html__( 'Go Pro', '@@text_domain' ) . '</a>',
+                '<a target="_blank" href="admin.php?page=ghostkit_go_pro&utm_medium=plugins_list">' . esc_html__( 'Go Pro', '@@text_domain' ) . '</a>',
             )
         );
     }

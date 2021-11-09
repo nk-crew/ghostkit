@@ -292,13 +292,13 @@ export default class Typography extends Component {
                         { 'adobe-fonts' === fontFamilyCategory ? (
                             <div className="ghostkit-typography-information-control ghostkit-typography-font-control">
                                 { __( 'Adobe Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ', '@@text_domain' ) }
-                                <ExternalLink href="https://ghostkit.io/pricing/">https://ghostkit.io/pricing/</ExternalLink>
+                                <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=adobe_fonts&utm_content=@@plugin_version">https://ghostkit.io/pricing/</ExternalLink>
                             </div>
                         ) : '' }
                         { 'custom-fonts' === fontFamilyCategory ? (
                             <div className="ghostkit-typography-information-control ghostkit-typography-font-control">
                                 { __( 'Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ', '@@text_domain' ) }
-                                <ExternalLink href="https://ghostkit.io/pricing/">https://ghostkit.io/pricing/</ExternalLink>
+                                <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=custom_fonts&utm_content=@@plugin_version">https://ghostkit.io/pricing/</ExternalLink>
                             </div>
                         ) : '' }
                     </ApplyFilters>

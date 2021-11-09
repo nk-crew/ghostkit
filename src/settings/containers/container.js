@@ -115,7 +115,7 @@ export default class Container extends Component {
                 <div className="ghostkit-admin-head">
                     <div className="ghostkit-admin-head-wrap">
                         { /* eslint-disable-next-line jsx-a11y/control-has-associated-label */ }
-                        <a href="https://ghostkit.io/"><Logo /></a>
+                        <a href="https://ghostkit.io/?utm_source=plugin&utm_medium=settings&utm_campaign=logo&utm_content=@@plugin_version"><Logo /></a>
                         <h1>{ __( 'Ghost Kit' ) }</h1>
                         <ul className="ghostkit-admin-tabs">
                             { resultTabs }
