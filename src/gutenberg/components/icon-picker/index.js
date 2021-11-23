@@ -11,8 +11,7 @@ import 'react-virtualized/styles.css';
  * Internal dependencies
  */
 import dashCaseToTitle from '../../utils/dash-case-to-title';
-import encodeURI from '../../utils/encode-uri';
-import decodeURI from '../../utils/decode-uri';
+import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 
 const { GHOSTKIT } = window;
 
@@ -140,9 +139,9 @@ class IconPickerDropdown extends Component {
                     <Fragment key="form">
                         <TextControl
                             label={ __( 'Search Icon', '@@text_domain' ) }
-                            value={ decodeURI( this.state.search ) }
+                            value={ maybeDecode( this.state.search ) }
                             onChange={ ( searchVal ) => (
-                                this.setState( { search: encodeURI( searchVal ) } )
+                                this.setState( { search: maybeEncode( searchVal ) } )
                             ) }
                             placeholder={ __( 'Type to Search...', '@@text_domain' ) }
                             autoComplete="off"
@@ -205,17 +204,17 @@ class IconPickerDropdown extends Component {
 
                 const result = (
                     <Icon
-                        active={ decodeURI( iconData.svg ) === decodeURI( value ) }
+                        active={ maybeDecode( iconData.svg ) === maybeDecode( value ) }
                         iconData={ iconData }
                         onClick={ () => {
-                            onChange( decodeURI( iconData.svg ) );
+                            onChange( maybeDecode( iconData.svg ) );
                         } }
                     />
                 );
 
                 if ( iconTip ) {
                     return (
-                        <Tooltip key={ decodeURI( iconData.svg ) } text={ iconTip }>
+                        <Tooltip key={ maybeDecode( iconData.svg ) } text={ iconTip }>
                             { /* We need this <div> just because Tooltip don't work without it */ }
                             <div>
                                 { result }
@@ -398,7 +397,7 @@ export default class IconPicker extends Component {
         const {
             onChange,
         } = this.props;
-        onChange( encodeURI( value ) );
+        onChange( maybeEncode( value ) );
     }
 
     render() {
@@ -412,7 +411,7 @@ export default class IconPicker extends Component {
                 label={ label }
                 className="ghostkit-component-icon-picker-wrapper"
                 onChange={ this.handleChange }
-                value={ decodeURI( value ) }
+                value={ maybeDecode( value ) }
                 renderToggle={ ( { isOpen, onToggle } ) => (
                     <Tooltip text={ __( 'Icon Picker', '@@text_domain' ) }>
                         { /* We need this <div> just because Tooltip don't work without it */ }
@@ -421,7 +420,7 @@ export default class IconPicker extends Component {
                                 className="ghostkit-component-icon-picker-button hover"
                                 aria-expanded={ isOpen }
                                 onClick={ onToggle }
-                                name={ decodeURI( value ) }
+                                name={ maybeDecode( value ) }
                                 alwaysRender
                             />
                         </div>
@@ -472,7 +471,7 @@ IconPicker.Preview = ( props ) => {
 
     return ( result || alwaysRender ? (
         <IconPicker.Render
-            name={ decodeURI( result ) }
+            name={ maybeDecode( result ) }
             tag="span"
             className={ classnames( className, 'ghostkit-component-icon-picker-preview', onClick ? 'ghostkit-component-icon-picker-preview-clickable' : '' ) }
             onClick={ onClick }
@@ -503,7 +502,7 @@ IconPicker.Render = ( props ) => {
     const Tag = tag;
     let result = '';
 
-    name = decodeURI( name );
+    name = maybeDecode( name );
 
     if ( name && /^</g.test( name ) ) {
         result = name;

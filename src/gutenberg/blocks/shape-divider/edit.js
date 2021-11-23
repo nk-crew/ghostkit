@@ -11,8 +11,7 @@ import ImagePicker from '../../components/image-picker';
 import ColorPicker from '../../components/color-picker';
 import ProNote from '../../components/pro-note';
 import getIcon from '../../utils/get-icon';
-import encodeURI from '../../utils/encode-uri';
-import decodeURI from '../../utils/decode-uri';
+import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 
 /**
  * WordPress dependencies
@@ -108,7 +107,7 @@ class BlockEdit extends Component {
             Object.keys( data.shapes ).forEach( ( i ) => {
                 const shape = data.shapes[ i ];
 
-                if ( shape.svg && shape.svg === decodeURI( svg ) && ! ready ) {
+                if ( shape.svg && shape.svg === maybeDecode( svg ) && ! ready ) {
                     result = shape;
                     ready = true;
                 }
@@ -159,12 +158,12 @@ class BlockEdit extends Component {
                         <div key={ k }>
                             <h3>{ data.name }</h3>
                             <ImagePicker
-                                value={ decodeURI( svg ) }
+                                value={ maybeDecode( svg ) }
                                 options={ shapesOptions }
                                 onChange={ ( value ) => {
                                     const shapeData = this.getShapeData( value );
                                     setAttributes( {
-                                        svg: encodeURI( value ),
+                                        svg: maybeEncode( value ),
                                         flipVertical: shapeData.allow_flip_vertical ? flipVertical : false,
                                         flipHorizontal: shapeData.allow_flip_horizontal ? flipHorizontal : false,
                                     } );
@@ -320,7 +319,7 @@ class BlockEdit extends Component {
                     </PanelBody>
                 </InspectorControls>
                 { /* eslint-disable-next-line react/no-danger */ }
-                <div className={ className } dangerouslySetInnerHTML={ { __html: decodeURI( svg ) } } />
+                <div className={ className } dangerouslySetInnerHTML={ { __html: maybeDecode( svg ) } } />
             </Fragment>
         );
     }

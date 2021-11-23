@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import decodeURI from '../../utils/decode-uri';
+import { maybeDecode } from '../../utils/encode-decode';
 
 /**
 * Block TOC
@@ -21,7 +21,7 @@ $doc.on( 'click', '.ghostkit-toc a', ( evt ) => {
         return;
     }
 
-    const offset = $( decodeURI( evt.target.hash ) ).offset();
+    const offset = $( maybeDecode( evt.target.hash ) ).offset();
 
     if ( 'undefined' === typeof offset ) {
         return;

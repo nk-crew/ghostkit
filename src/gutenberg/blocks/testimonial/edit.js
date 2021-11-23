@@ -9,8 +9,7 @@ import classnames from 'classnames/dedupe';
 import dashCaseToTitle from '../../utils/dash-case-to-title';
 import IconPicker from '../../components/icon-picker';
 import URLPicker from '../../components/url-picker';
-import encodeURI from '../../utils/encode-uri';
-import decodeURI from '../../utils/decode-uri';
+import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 
 /**
  * WordPress dependencies
@@ -94,7 +93,7 @@ class BlockEdit extends Component {
 
         // set photo tag to attribute
         if ( attributes.photo && photoData ) {
-            setAttributes( { photoTag: encodeURI( photoData ) } );
+            setAttributes( { photoTag: maybeEncode( photoData ) } );
         }
     }
 
@@ -172,7 +171,7 @@ class BlockEdit extends Component {
                                                 className="ghostkit-gutenberg-media-upload"
                                                 style={ { display: 'block' } }
                                                 // eslint-disable-next-line react/no-danger
-                                                dangerouslySetInnerHTML={ { __html: decodeURI( photoTag ) } }
+                                                dangerouslySetInnerHTML={ { __html: maybeDecode( photoTag ) } }
                                             />
                                         </BaseControl>
                                     ) }
@@ -299,7 +298,7 @@ class BlockEdit extends Component {
                                             className="ghostkit-gutenberg-media-upload"
                                             style={ { display: 'block' } }
                                             // eslint-disable-next-line react/no-danger
-                                            dangerouslySetInnerHTML={ { __html: decodeURI( photoTag ) } }
+                                            dangerouslySetInnerHTML={ { __html: maybeDecode( photoTag ) } }
                                         />
                                     ) }
                                 />

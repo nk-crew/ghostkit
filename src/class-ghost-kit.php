@@ -145,6 +145,9 @@ class GhostKit {
         // breakpoints.
         require_once $this->plugin_path . 'classes/class-breakpoints.php';
 
+        // utils encode/decode.
+        require_once $this->plugin_path . 'gutenberg/utils/encode-decode/index.php';
+
         // custom block styles class.
         require_once $this->plugin_path . 'gutenberg/extend/styles/get-styles.php';
 

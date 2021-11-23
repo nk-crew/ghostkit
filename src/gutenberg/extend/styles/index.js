@@ -10,7 +10,7 @@ import { throttle } from 'throttle-debounce';
  */
 import './fallback-2-5';
 import { replaceClass } from '../../utils/classes-replacer';
-import decodeURI from '../../utils/decode-uri';
+import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 import EditorStyles from '../../components/editor-styles';
 
 import getStyles from './get-styles';
@@ -82,7 +82,7 @@ class CustomStylesComponent extends Component {
         );
 
         const thereIsCustomStyles = blockCustomStyles && Object.keys( blockCustomStyles ).length;
-        const thereIsCustomCSS = !! decodeURI( attributes.ghostkitCustomCSS );
+        const thereIsCustomCSS = !! maybeDecode( attributes.ghostkitCustomCSS );
 
         if ( thereIsCustomStyles || thereIsCustomCSS ) {
             const ghostkitAtts = this.getGhostKitAtts( checkDuplicates );
@@ -97,9 +97,9 @@ class CustomStylesComponent extends Component {
                 }
 
                 if ( thereIsCustomStyles ) {
-                    newAttrs.ghostkitStyles = {
+                    newAttrs.ghostkitStyles = maybeEncode( {
                         [ customClassName ]: blockCustomStyles,
-                    };
+                    } );
                 }
 
                 if ( ghostkitAtts.ghostkitClassname !== attributes.ghostkitClassname ) {
@@ -240,10 +240,10 @@ class CustomStylesComponent extends Component {
 
         // generate custom styles.
         if ( attributes.ghostkitClassname && attributes.ghostkitStyles && Object.keys( attributes.ghostkitStyles ).length ) {
-            styles = getStyles( attributes.ghostkitStyles, '', false );
+            styles = getStyles( maybeDecode( attributes.ghostkitStyles ), '', false );
 
             if ( blockSettings && blockSettings.ghostkit && blockSettings.ghostkit.customStylesFilter ) {
-                styles = blockSettings.ghostkit.customStylesFilter( styles, attributes.ghostkitStyles, true, attributes );
+                styles = blockSettings.ghostkit.customStylesFilter( styles, maybeDecode( attributes.ghostkitStyles ), true, attributes );
             }
         }
 

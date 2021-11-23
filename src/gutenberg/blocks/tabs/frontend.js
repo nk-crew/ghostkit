@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import decodeURI from '../../utils/decode-uri';
+import { maybeDecode } from '../../utils/encode-decode';
 
 /**
 * Block Tabs
@@ -29,7 +29,7 @@ let pageHash = location.hash;
 function activateTab( $tabs, tabName, self ) {
     const isLegacy = ! /^#/g.test( tabName );
     let $activeBtn = false;
-    const tabNameEncoded = decodeURI( tabName );
+    const tabNameEncoded = maybeDecode( tabName );
     const $activeTab = $tabs.children( '.ghostkit-tabs-content' ).children( `[data-tab="${ tabNameEncoded.replace( /^#/, '' ) }"]` );
 
     if ( isLegacy ) {

@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
-import decodeURI from '../../utils/decode-uri';
+import { maybeDecode } from '../../utils/encode-decode';
 
 import metadata from './block.json';
 
@@ -49,7 +49,7 @@ class BlockSave extends Component {
 
         return (
             // eslint-disable-next-line react/no-danger
-            <div className={ className } dangerouslySetInnerHTML={ { __html: decodeURI( svg ) } } />
+            <div className={ className } dangerouslySetInnerHTML={ { __html: maybeDecode( svg ) } } />
         );
     }
 }

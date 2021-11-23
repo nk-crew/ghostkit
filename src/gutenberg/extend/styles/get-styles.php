@@ -66,7 +66,7 @@ class GhostKit_Block_Custom_Styles {
             isset( $block_attrs['ghostkitStyles'] ) &&
             ! empty( $block_attrs['ghostkitStyles'] )
         ) {
-            $result_css .= self::parse( $block_attrs['ghostkitStyles'] );
+            $result_css .= self::parse( ghostkit_decode( $block_attrs['ghostkitStyles'] ) );
         }
 
         return $result_css;
