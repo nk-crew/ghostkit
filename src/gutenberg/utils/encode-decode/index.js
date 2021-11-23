@@ -27,15 +27,17 @@ export function maybeEncode( str ) {
     // String
     result = str;
 
-    try {
-        // Because of these replacements, some attributes can't be exported to XML without being broken. So, we need to replace it manually with something safe.
-        // https://github.com/WordPress/gutenberg/blob/88645e4b268acf5746e914159e3ce790dcb1665a/packages/blocks/src/api/serializer.js#L246-L271
-        result = result.replace( /--/gm, '_u002d__u002d_' );
+    if ( 'string' === typeof result ) {
+        try {
+            // Because of these replacements, some attributes can't be exported to XML without being broken. So, we need to replace it manually with something safe.
+            // https://github.com/WordPress/gutenberg/blob/88645e4b268acf5746e914159e3ce790dcb1665a/packages/blocks/src/api/serializer.js#L246-L271
+            result = result.replace( /--/gm, '_u002d__u002d_' );
 
-        result = encodeURIComponent( result );
-    } catch ( e ) {
-        // eslint-disable-next-line
-        console.warn(e);
+            result = encodeURIComponent( result );
+        } catch ( e ) {
+            // eslint-disable-next-line
+            console.warn(e);
+        }
     }
 
     // save to cache.
@@ -70,15 +72,17 @@ export function maybeDecode( str ) {
     // String
     result = str;
 
-    try {
-        result = decodeURIComponent( result );
+    if ( 'string' === typeof result ) {
+        try {
+            result = decodeURIComponent( result );
 
-        // Because of these replacements, some attributes can't be exported to XML without being broken. So, we need to replace it manually with something safe.
-        // https://github.com/WordPress/gutenberg/blob/88645e4b268acf5746e914159e3ce790dcb1665a/packages/blocks/src/api/serializer.js#L246-L271
-        result = result.replace( /_u002d__u002d_/gm, '--' );
-    } catch ( e ) {
-        // eslint-disable-next-line
-        console.warn(e);
+            // Because of these replacements, some attributes can't be exported to XML without being broken. So, we need to replace it manually with something safe.
+            // https://github.com/WordPress/gutenberg/blob/88645e4b268acf5746e914159e3ce790dcb1665a/packages/blocks/src/api/serializer.js#L246-L271
+            result = result.replace( /_u002d__u002d_/gm, '--' );
+        } catch ( e ) {
+            // eslint-disable-next-line
+            console.warn(e);
+        }
     }
 
     // save to cache.
