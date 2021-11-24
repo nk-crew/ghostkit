@@ -12,21 +12,30 @@
             "type": "string",
             "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M13.5954%2010.708C15.7931%205.55696%2021.1071%205%2021.1071%205L21.3565%205.16714C18.945%206.72641%2019.0559%208.98169%2019.0559%208.98169C19.0559%208.98169%2022.1211%209.70495%2022.7979%2012.2673C23.5186%2014.996%2022.2158%2017.2944%2020.4141%2018.3373C18.1801%2019.6305%2015.4248%2018.9499%2014.0389%2017.0008C12.6134%2014.996%2012.8469%2012.4623%2013.5954%2010.708Z%22%20fill%3D%22currentColor%22%2F%3E%3Cpath%20d%3D%22M1.59537%2010.708C3.79305%205.55696%209.10709%205%209.10709%205L9.35651%205.16714C6.945%206.72641%207.05592%208.98169%207.05592%208.98169C7.05592%208.98169%2010.1211%209.70495%2010.7979%2012.2673C11.5186%2014.996%2010.2158%2017.2944%208.41413%2018.3373C6.18005%2019.6305%203.42475%2018.9499%202.03887%2017.0008C0.61344%2014.996%200.846929%2012.4623%201.59537%2010.708Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E"
         },
-        "photo": {
-            "type": "number",
-            "default": ""
+        "photoId": {
+            "type": "number"
         },
-        "photoTag": {
+        "photoUrl": {
+            "attribute": "src",
+            "selector": ".ghostkit-testimonial-photo img",
+            "source": "attribute",
+            "type": "string"
+        },
+        "photoAlt": {
+            "attribute": "alt",
+            "selector": ".ghostkit-testimonial-photo img",
+            "source": "attribute",
             "type": "string",
             "default": ""
         },
-        "photoSizes": {
-            "type": "object",
-            "default": ""
+        "photoWidth": {
+            "type": "number"
         },
-        "photoSize": {
-            "type": "string",
-            "default": "thumbnail"
+        "photoHeight": {
+            "type": "number"
+        },
+        "photoSizeSlug": {
+            "type": "string"
         },
         "name": {
             "type": "string",

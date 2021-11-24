@@ -11,7 +11,6 @@ import IconPicker from '../../components/icon-picker';
 import ApplyFilters from '../../components/apply-filters';
 import ImagePicker from '../../components/image-picker';
 import getIcon from '../../utils/get-icon';
-import dashCaseToTitle from '../../utils/dash-case-to-title';
 import {
     hasClass,
     addClass,
@@ -58,30 +57,7 @@ const {
     BlockAlignmentToolbar,
 } = wp.blockEditor;
 
-/**
- * Select poster
- *
- * @param {array} media - media data.
- * @param {function} setAttributes - set attributes function.
- */
-function onPosterSelect( media, setAttributes ) {
-    setAttributes( {
-        poster: '',
-        posterSizes: '',
-    } );
-
-    wp.media.attachment( media.id ).fetch().then( ( data ) => {
-        if ( data && data.sizes ) {
-            const { url } = data.sizes[ 'post-thumbnail' ] || data.sizes.medium || data.sizes.medium_large || data.sizes.full;
-            if ( url ) {
-                setAttributes( {
-                    poster: media.id,
-                    posterSizes: data.sizes,
-                } );
-            }
-        }
-    } );
-}
+const DEFAULT_SIZE_SLUG = 'full';
 
 /**
  * Load YouTube / Vimeo poster image
@@ -122,6 +98,7 @@ class BlockEdit extends Component {
         super( props );
 
         this.onUpdate = this.onUpdate.bind( this );
+        this.onPosterSelect = this.onPosterSelect.bind( this );
         this.getAspectRatioPicker = this.getAspectRatioPicker.bind( this );
     }
 
@@ -165,24 +142,60 @@ class BlockEdit extends Component {
 
     onUpdate() {
         const {
-            posterData,
             setAttributes,
             attributes,
         } = this.props;
 
-        // set poster tag to attribute
-        if ( attributes.poster && posterData ) {
-            setAttributes( { posterTag: posterData } );
-        }
-
         // load YouTube / Vimeo poster
-        if ( ! attributes.poster && 'yt_vm_video' === attributes.type && attributes.video ) {
+        if ( ! attributes.posterId && 'yt_vm_video' === attributes.type && attributes.video ) {
             getVideoPoster( attributes.video, ( url ) => {
                 if ( url !== attributes.videoPosterPreview ) {
                     setAttributes( { videoPosterPreview: url } );
                 }
             } );
         }
+    }
+
+    onPosterSelect( imageData, imageSize = false ) {
+        const {
+            attributes,
+            setAttributes,
+        } = this.props;
+
+        imageSize = imageSize || attributes.posterSizeSlug || DEFAULT_SIZE_SLUG;
+
+        const result = {
+            posterId: imageData.id,
+            posterUrl: imageData.url || imageData.source_url,
+            posterAlt: imageData.alt || imageData.alt_text,
+            posterWidth: imageData.width || ( imageData.media_details && imageData.media_details.width ? imageData.media_details.width : undefined ),
+            posterHeight: imageData.height || ( imageData.media_details && imageData.media_details.height ? imageData.media_details.height : undefined ),
+            posterSizeSlug: imageSize,
+        };
+
+        let sizes = imageData.sizes && imageData.sizes[ imageSize ];
+
+        if ( ! sizes && imageData.media_details && imageData.media_details.sizes && imageData.media_details.sizes[ imageSize ] ) {
+            sizes = imageData.media_details.sizes[ imageSize ];
+        }
+
+        // Prepare image data for selected size.
+        if ( sizes ) {
+            if ( sizes.url ) {
+                result.posterUrl = sizes.url;
+            }
+            if ( sizes.source_url ) {
+                result.posterUrl = sizes.source_url;
+            }
+            if ( sizes.width ) {
+                result.posterWidth = sizes.width;
+            }
+            if ( sizes.height ) {
+                result.posterHeight = sizes.height;
+            }
+        }
+
+        setAttributes( result );
     }
 
     getAspectRatioPicker() {
@@ -230,6 +243,8 @@ class BlockEdit extends Component {
         const {
             attributes,
             setAttributes,
+            editorSettings,
+            posterImage,
         } = this.props;
 
         let { className = '' } = this.props;
@@ -250,10 +265,12 @@ class BlockEdit extends Component {
             iconPlay,
             iconLoading,
 
-            poster,
-            posterTag,
-            posterSizes,
-            posterSize,
+            posterId,
+            posterUrl,
+            posterAlt,
+            posterWidth,
+            posterHeight,
+            posterSizeSlug,
 
             clickAction,
             fullscreenBackgroundColor,
@@ -629,13 +646,13 @@ class BlockEdit extends Component {
                     </PanelBody>
 
                     <PanelBody title={ __( 'Poster Image', '@@text_domain' ) }>
-                        { ! poster ? (
+                        { ! posterId ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
-                                    onPosterSelect( media, setAttributes );
+                                    this.onPosterSelect( media );
                                 } }
                                 allowedTypes={ [ 'image' ] }
-                                value={ poster }
+                                value={ posterId }
                                 render={ ( { open } ) => (
                                     <Button onClick={ open } isPrimary>
                                         { __( 'Select Image', '@@text_domain' ) }
@@ -644,14 +661,14 @@ class BlockEdit extends Component {
                             />
                         ) : '' }
 
-                        { poster && posterTag ? (
+                        { posterId && posterUrl ? (
                             <Fragment>
                                 <MediaUpload
                                     onSelect={ ( media ) => {
-                                        onPosterSelect( media, setAttributes );
+                                        this.onPosterSelect( media );
                                     } }
                                     allowedTypes={ [ 'image' ] }
-                                    value={ poster }
+                                    value={ posterId }
                                     render={ ( { open } ) => (
                                         <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
                                             { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
@@ -660,9 +677,9 @@ class BlockEdit extends Component {
                                                 onClick={ open }
                                                 className="ghostkit-gutenberg-media-upload"
                                                 style={ { display: 'block' } }
-                                                // eslint-disable-next-line react/no-danger
-                                                dangerouslySetInnerHTML={ { __html: posterTag } }
-                                            />
+                                            >
+                                                <img src={ posterUrl } alt={ posterAlt } width={ posterWidth } height={ posterHeight } />
+                                            </a>
                                         </BaseControl>
                                     ) }
                                 />
@@ -670,9 +687,11 @@ class BlockEdit extends Component {
                                     isLink
                                     onClick={ ( e ) => {
                                         setAttributes( {
-                                            poster: '',
-                                            posterTag: '',
-                                            posterSizes: '',
+                                            posterId: '',
+                                            posterUrl: '',
+                                            posterAlt: '',
+                                            posterWidth: '',
+                                            posterHeight: '',
                                         } );
                                         e.preventDefault();
                                     } }
@@ -681,38 +700,30 @@ class BlockEdit extends Component {
                                     { __( 'Remove Image', '@@text_domain' ) }
                                 </Button>
                                 <div style={ { marginBottom: 13 } } />
-                                { posterSizes ? (
+                                { editorSettings && editorSettings.imageSizes ? (
                                     <SelectControl
-                                        label={ __( 'Size', '@@text_domain' ) }
-                                        value={ posterSize }
-                                        options={ ( () => {
-                                            const result = [];
-                                            Object.keys( posterSizes ).forEach( ( k ) => {
-                                                result.push( {
-                                                    value: k,
-                                                    label: dashCaseToTitle( k ),
-                                                } );
-                                            } );
-                                            return result;
-                                        } )() }
-                                        onChange={ ( v ) => setAttributes( { posterSize: v } ) }
+                                        label={ __( 'Image Size', '@@text_domain' ) }
+                                        value={ posterSizeSlug || DEFAULT_SIZE_SLUG }
+                                        onChange={ ( val ) => {
+                                            this.onPosterSelect( posterImage, val );
+                                        } }
+                                        options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
+                                            value: imgSize.slug,
+                                            label: imgSize.name,
+                                        } ) ) }
                                     />
-                                ) : '' }
+                                ) : null }
                             </Fragment>
                         ) : '' }
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className } data-video-aspect-ratio={ videoAspectRatio }>
-                    { posterTag && ! hasClass( attributes.className, 'is-style-icon-only' ) ? (
-                        <div
-                            className="ghostkit-video-poster"
-                            // eslint-disable-next-line react/no-danger
-                            dangerouslySetInnerHTML={ {
-                                __html: posterTag,
-                            } }
-                        />
+                    { posterUrl && ! hasClass( attributes.className, 'is-style-icon-only' ) ? (
+                        <div className="ghostkit-video-poster">
+                            <img src={ posterUrl } alt={ posterAlt } width={ posterWidth } height={ posterHeight } />
+                        </div>
                     ) : '' }
-                    { ! posterTag && 'yt_vm_video' === type && videoPosterPreview && ! hasClass( attributes.className, 'is-style-icon-only' ) ? (
+                    { ! posterUrl && 'yt_vm_video' === type && videoPosterPreview && ! hasClass( attributes.className, 'is-style-icon-only' ) ? (
                         <div className="ghostkit-video-poster">
                             <img src={ videoPosterPreview } alt="" />
                         </div>
@@ -737,17 +748,12 @@ class BlockEdit extends Component {
     }
 }
 
-export default withSelect( ( select, props ) => {
-    const { poster } = props.attributes;
-
-    if ( ! poster ) {
-        return {};
-    }
+export default withSelect( ( select, { attributes, isSelected } ) => {
+    const { getSettings } = select( 'core/block-editor' );
+    const { getMedia } = select( 'core' );
 
     return {
-        posterData: select( 'ghostkit/base/images' ).getImageTagData( {
-            id: poster,
-            size: props.attributes.posterSize,
-        } ),
+        editorSettings: getSettings(),
+        posterImage: attributes.posterId && isSelected ? getMedia( attributes.posterId ) : null,
     };
 } )( BlockEdit );

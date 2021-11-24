@@ -40,7 +40,7 @@ export const settings = {
     example: {
         attributes: {
             photo: 1,
-            photoTag: '<img src="https://s.w.org/images/core/5.3/Biologia_Centrali-Americana_-_Cantorchilus_semibadius_1902.jpg">',
+            photoUrl: 'https://s.w.org/images/core/5.3/Biologia_Centrali-Americana_-_Cantorchilus_semibadius_1902.jpg',
         },
         innerBlocks: [
             {

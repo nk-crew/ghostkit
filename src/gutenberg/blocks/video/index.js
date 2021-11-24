@@ -42,7 +42,7 @@ export const settings = {
     example: {
         attributes: {
             poster: 1,
-            posterTag: '<img src="https://s.w.org/images/core/5.3/Glacial_lakes,_Bhutan.jpg">',
+            posterUrl: 'https://s.w.org/images/core/5.3/Glacial_lakes,_Bhutan.jpg',
         },
     },
     styles: [

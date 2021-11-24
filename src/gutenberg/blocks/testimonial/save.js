@@ -7,7 +7,6 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import IconPicker from '../../components/icon-picker';
-import { maybeDecode } from '../../utils/encode-decode';
 
 import metadata from './block.json';
 
@@ -37,7 +36,12 @@ class BlockSave extends Component {
         } = this.props;
 
         const {
-            photoTag,
+            photoId,
+            photoUrl,
+            photoAlt,
+            photoWidth,
+            photoHeight,
+
             icon,
             source,
             stars,
@@ -76,14 +80,16 @@ class BlockSave extends Component {
                 <div className="ghostkit-testimonial-content">
                     <InnerBlocks.Content />
                 </div>
-                { photoTag ? (
-                    <div
-                        className="ghostkit-testimonial-photo"
-                        // eslint-disable-next-line react/no-danger
-                        dangerouslySetInnerHTML={ {
-                            __html: maybeDecode( photoTag ),
-                        } }
-                    />
+                { photoUrl ? (
+                    <div className="ghostkit-testimonial-photo">
+                        <img
+                            src={ photoUrl }
+                            alt={ photoAlt }
+                            className={ photoId ? `wp-image-${ photoId }` : null }
+                            width={ photoWidth }
+                            height={ photoHeight }
+                        />
+                    </div>
                 ) : '' }
                 { ! RichText.isEmpty( attributes.name ) || ! RichText.isEmpty( source ) ? (
                     <div className="ghostkit-testimonial-meta">

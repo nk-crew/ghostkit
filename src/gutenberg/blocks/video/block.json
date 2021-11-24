@@ -71,21 +71,31 @@
             "default": "%3Cspan%20class%3D%22ghostkit-svg-icon%20ghostkit-icon-spinner%22%3E%3C%2Fspan%3E"
         },
 
-        "poster": {
+        "posterId": {
             "type": "number",
             "default": ""
         },
-        "posterTag": {
+        "posterUrl": {
+            "attribute": "src",
+            "selector": ".ghostkit-video-poster img",
+            "source": "attribute",
+            "type": "string"
+        },
+        "posterAlt": {
+            "attribute": "alt",
+            "selector": ".ghostkit-video-poster img",
+            "source": "attribute",
             "type": "string",
             "default": ""
         },
-        "posterSizes": {
-            "type": "object",
-            "default": ""
+        "posterWidth": {
+            "type": "number"
         },
-        "posterSize": {
-            "type": "string",
-            "default": "full"
+        "posterHeight": {
+            "type": "number"
+        },
+        "posterSizeSlug": {
+            "type": "string"
         },
 
         "clickAction": {

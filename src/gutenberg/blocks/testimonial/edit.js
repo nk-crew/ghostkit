@@ -6,10 +6,8 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
-import dashCaseToTitle from '../../utils/dash-case-to-title';
 import IconPicker from '../../components/icon-picker';
 import URLPicker from '../../components/url-picker';
-import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 
 /**
  * WordPress dependencies
@@ -41,30 +39,7 @@ const {
     MediaUpload,
 } = wp.blockEditor;
 
-/**
- * Select photo
- *
- * @param {array} media - media data.
- * @param {function} setAttributes - set attributes function.
- */
-function onPhotoSelect( media, setAttributes ) {
-    setAttributes( {
-        photo: '',
-        photoSizes: '',
-    } );
-
-    wp.media.attachment( media.id ).fetch().then( ( data ) => {
-        if ( data && data.sizes ) {
-            const { url } = data.sizes[ 'post-thumbnail' ] || data.sizes.medium || data.sizes.medium_large || data.sizes.full;
-            if ( url ) {
-                setAttributes( {
-                    photo: media.id,
-                    photoSizes: data.sizes,
-                } );
-            }
-        }
-    } );
-}
+const DEFAULT_SIZE_SLUG = 'thumbnail';
 
 /**
  * Block Edit Class.
@@ -73,34 +48,57 @@ class BlockEdit extends Component {
     constructor( props ) {
         super( props );
 
-        this.onUpdate = this.onUpdate.bind( this );
+        this.onPhotoSelect = this.onPhotoSelect.bind( this );
     }
 
-    componentDidMount() {
-        this.onUpdate();
-    }
-
-    componentDidUpdate() {
-        this.onUpdate();
-    }
-
-    onUpdate() {
+    onPhotoSelect( imageData, imageSize = false ) {
         const {
-            photoData,
-            setAttributes,
             attributes,
+            setAttributes,
         } = this.props;
 
-        // set photo tag to attribute
-        if ( attributes.photo && photoData ) {
-            setAttributes( { photoTag: maybeEncode( photoData ) } );
+        imageSize = imageSize || attributes.photoSizeSlug || DEFAULT_SIZE_SLUG;
+
+        const result = {
+            photoId: imageData.id,
+            photoUrl: imageData.url || imageData.source_url,
+            photoAlt: imageData.alt || imageData.alt_text,
+            photoWidth: imageData.width || ( imageData.media_details && imageData.media_details.width ? imageData.media_details.width : undefined ),
+            photoHeight: imageData.height || ( imageData.media_details && imageData.media_details.height ? imageData.media_details.height : undefined ),
+            photoSizeSlug: imageSize,
+        };
+
+        let sizes = imageData.sizes && imageData.sizes[ imageSize ];
+
+        if ( ! sizes && imageData.media_details && imageData.media_details.sizes && imageData.media_details.sizes[ imageSize ] ) {
+            sizes = imageData.media_details.sizes[ imageSize ];
         }
+
+        // Prepare image data for selected size.
+        if ( sizes ) {
+            if ( sizes.url ) {
+                result.photoUrl = sizes.url;
+            }
+            if ( sizes.source_url ) {
+                result.photoUrl = sizes.source_url;
+            }
+            if ( sizes.width ) {
+                result.photoWidth = sizes.width;
+            }
+            if ( sizes.height ) {
+                result.photoHeight = sizes.height;
+            }
+        }
+
+        setAttributes( result );
     }
 
     render() {
         const {
             attributes,
             setAttributes,
+            editorSettings,
+            photoImage,
             isSelected,
             hasChildBlocks,
         } = this.props;
@@ -111,10 +109,12 @@ class BlockEdit extends Component {
             icon,
             source,
 
-            photo,
-            photoTag,
-            photoSizes,
-            photoSize,
+            photoId,
+            photoUrl,
+            photoAlt,
+            photoWidth,
+            photoHeight,
+            photoSizeSlug,
 
             stars,
             starsIcon,
@@ -139,29 +139,29 @@ class BlockEdit extends Component {
                         />
                     </PanelBody>
                     <PanelBody title={ __( 'Photo', '@@text_domain' ) }>
-                        { ! photo ? (
+                        { ! photoId ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
-                                    onPhotoSelect( media, setAttributes );
+                                    this.onPhotoSelect( media );
                                 } }
                                 allowedTypes={ [ 'image' ] }
-                                value={ photo }
+                                value={ photoId }
                                 render={ ( { open } ) => (
                                     <Button onClick={ open } isPrimary>
                                         { __( 'Select Image', '@@text_domain' ) }
                                     </Button>
                                 ) }
                             />
-                        ) : '' }
+                        ) : null }
 
-                        { photo && photoTag ? (
+                        { photoId && photoUrl ? (
                             <Fragment>
                                 <MediaUpload
                                     onSelect={ ( media ) => {
-                                        onPhotoSelect( media, setAttributes );
+                                        this.onPhotoSelect( media );
                                     } }
                                     allowedTypes={ [ 'image' ] }
-                                    value={ photo }
+                                    value={ photoId }
                                     render={ ( { open } ) => (
                                         <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
                                             { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
@@ -170,9 +170,9 @@ class BlockEdit extends Component {
                                                 onClick={ open }
                                                 className="ghostkit-gutenberg-media-upload"
                                                 style={ { display: 'block' } }
-                                                // eslint-disable-next-line react/no-danger
-                                                dangerouslySetInnerHTML={ { __html: maybeDecode( photoTag ) } }
-                                            />
+                                            >
+                                                <img src={ photoUrl } alt={ photoAlt } width={ photoWidth } height={ photoHeight } />
+                                            </a>
                                         </BaseControl>
                                     ) }
                                 />
@@ -180,9 +180,11 @@ class BlockEdit extends Component {
                                     isLink
                                     onClick={ ( e ) => {
                                         setAttributes( {
-                                            photo: '',
-                                            photoTag: '',
-                                            photoSizes: '',
+                                            photoId: '',
+                                            photoUrl: '',
+                                            photoAlt: '',
+                                            photoWidth: '',
+                                            photoHeight: '',
                                         } );
                                         e.preventDefault();
                                     } }
@@ -191,25 +193,21 @@ class BlockEdit extends Component {
                                     { __( 'Remove Image', '@@text_domain' ) }
                                 </Button>
                                 <div style={ { marginBottom: 13 } } />
-                                { photoSizes ? (
+                                { editorSettings && editorSettings.imageSizes ? (
                                     <SelectControl
-                                        label={ __( 'Size', '@@text_domain' ) }
-                                        value={ photoSize }
-                                        options={ ( () => {
-                                            const result = [];
-                                            Object.keys( photoSizes ).forEach( ( k ) => {
-                                                result.push( {
-                                                    value: k,
-                                                    label: dashCaseToTitle( k ),
-                                                } );
-                                            } );
-                                            return result;
-                                        } )() }
-                                        onChange={ ( v ) => setAttributes( { photoSize: v } ) }
+                                        label={ __( 'Image Size', '@@text_domain' ) }
+                                        value={ photoSizeSlug || DEFAULT_SIZE_SLUG }
+                                        onChange={ ( val ) => {
+                                            this.onPhotoSelect( photoImage, val );
+                                        } }
+                                        options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
+                                            value: imgSize.slug,
+                                            label: imgSize.name,
+                                        } ) ) }
                                     />
-                                ) : '' }
+                                ) : null }
                             </Fragment>
-                        ) : '' }
+                        ) : null }
                     </PanelBody>
                     <PanelBody title={ __( 'Stars', '@@text_domain' ) }>
                         <RangeControl
@@ -267,13 +265,13 @@ class BlockEdit extends Component {
                         />
                     </div>
                     <div className="ghostkit-testimonial-photo">
-                        { ! photo ? (
+                        { ! photoId ? (
                             <MediaUpload
                                 onSelect={ ( media ) => {
-                                    onPhotoSelect( media, setAttributes );
+                                    this.onPhotoSelect( media );
                                 } }
                                 allowedTypes={ [ 'image' ] }
-                                value={ photo }
+                                value={ photoId }
                                 render={ ( { open } ) => (
                                     <Button onClick={ open }>
                                         <span className="dashicons dashicons-format-image" />
@@ -282,14 +280,14 @@ class BlockEdit extends Component {
                             />
                         ) : '' }
 
-                        { photo && photoTag ? (
+                        { photoId && photoUrl ? (
                             <Fragment>
                                 <MediaUpload
                                     onSelect={ ( media ) => {
-                                        onPhotoSelect( media, setAttributes );
+                                        this.onPhotoSelect( media );
                                     } }
                                     allowedTypes={ [ 'image' ] }
-                                    value={ photo }
+                                    value={ photoId }
                                     render={ ( { open } ) => (
                                         // eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid
                                         <a
@@ -297,9 +295,9 @@ class BlockEdit extends Component {
                                             onClick={ open }
                                             className="ghostkit-gutenberg-media-upload"
                                             style={ { display: 'block' } }
-                                            // eslint-disable-next-line react/no-danger
-                                            dangerouslySetInnerHTML={ { __html: maybeDecode( photoTag ) } }
-                                        />
+                                        >
+                                            <img src={ photoUrl } alt={ photoAlt } width={ photoWidth } height={ photoHeight } />
+                                        </a>
                                     ) }
                                 />
                             </Fragment>
@@ -347,16 +345,13 @@ class BlockEdit extends Component {
     }
 }
 
-export default withSelect( ( select, props ) => {
-    const { clientId } = props;
-    const { photo } = props.attributes;
+export default withSelect( ( select, { attributes, isSelected, clientId } ) => {
     const blockEditor = select( 'core/block-editor' );
+    const { getMedia } = select( 'core' );
 
     return {
         hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
-        photoData: photo ? select( 'ghostkit/base/images' ).getImageTagData( {
-            id: photo,
-            size: props.attributes.photoSize,
-        } ) : false,
+        editorSettings: blockEditor.getSettings(),
+        photoImage: attributes.photoId && isSelected ? getMedia( attributes.photoId ) : null,
     };
 } )( BlockEdit );

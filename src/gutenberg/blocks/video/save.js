@@ -43,7 +43,11 @@ class BlockSave extends Component {
             iconPlay,
             iconLoading,
 
-            posterTag,
+            posterId,
+            posterUrl,
+            posterAlt,
+            posterWidth,
+            posterHeight,
 
             clickAction,
             fullscreenActionCloseIcon,
@@ -100,14 +104,16 @@ class BlockSave extends Component {
 
         return (
             <div { ...resultAttrs }>
-                { posterTag && ! hasClass( resultAttrs.className, 'is-style-icon-only' ) ? (
-                    <div
-                        className="ghostkit-video-poster"
-                        // eslint-disable-next-line react/no-danger
-                        dangerouslySetInnerHTML={ {
-                            __html: posterTag,
-                        } }
-                    />
+                { posterUrl && ! hasClass( resultAttrs.className, 'is-style-icon-only' ) ? (
+                    <div className="ghostkit-video-poster">
+                        <img
+                            src={ posterUrl }
+                            alt={ posterAlt }
+                            className={ posterId ? `wp-image-${ posterId }` : null }
+                            width={ posterWidth }
+                            height={ posterHeight }
+                        />
+                    </div>
                 ) : '' }
                 { iconPlay ? (
                     <IconPicker.Render
