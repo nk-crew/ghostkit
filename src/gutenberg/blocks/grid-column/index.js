@@ -14,7 +14,6 @@ import getColClass from './get-col-class';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
-import deprecated from './deprecated';
 
 /**
  * WordPress dependencies
@@ -82,7 +81,6 @@ export const settings = {
     },
     edit,
     save,
-    deprecated,
 };
 
 /**

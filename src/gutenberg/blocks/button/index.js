@@ -7,7 +7,6 @@
 import getIcon from '../../utils/get-icon';
 
 import transforms from './transforms';
-import deprecated from './deprecated';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
@@ -99,5 +98,4 @@ export const settings = {
     edit,
     save,
     transforms,
-    deprecated,
 };
