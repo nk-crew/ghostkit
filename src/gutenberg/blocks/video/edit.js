@@ -662,7 +662,7 @@ class BlockEdit extends Component {
                                 />
                             ) : '' }
 
-                            { posterId && posterUrl ? (
+                            { posterId ? (
                                 <Fragment>
                                     <MediaUpload
                                         onSelect={ ( media ) => {
