@@ -645,24 +645,9 @@ class BlockEdit extends Component {
                         ) }
                     </PanelBody>
 
-                    <PanelBody title={ __( 'Poster Image', '@@text_domain' ) }>
-                        { ! posterId ? (
-                            <MediaUpload
-                                onSelect={ ( media ) => {
-                                    this.onPosterSelect( media );
-                                } }
-                                allowedTypes={ [ 'image' ] }
-                                value={ posterId }
-                                render={ ( { open } ) => (
-                                    <Button onClick={ open } isPrimary>
-                                        { __( 'Select Image', '@@text_domain' ) }
-                                    </Button>
-                                ) }
-                            />
-                        ) : '' }
-
-                        { posterId && posterUrl ? (
-                            <Fragment>
+                    { ! hasClass( attributes.className, 'is-style-icon-only' ) ? (
+                        <PanelBody title={ __( 'Poster Image', '@@text_domain' ) }>
+                            { ! posterId ? (
                                 <MediaUpload
                                     onSelect={ ( media ) => {
                                         this.onPosterSelect( media );
@@ -670,52 +655,69 @@ class BlockEdit extends Component {
                                     allowedTypes={ [ 'image' ] }
                                     value={ posterId }
                                     render={ ( { open } ) => (
-                                        <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
-                                            { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
-                                            <a
-                                                href="#"
-                                                onClick={ open }
-                                                className="ghostkit-gutenberg-media-upload"
-                                                style={ { display: 'block' } }
-                                            >
-                                                <img src={ posterUrl } alt={ posterAlt } width={ posterWidth } height={ posterHeight } />
-                                            </a>
-                                        </BaseControl>
+                                        <Button onClick={ open } isPrimary>
+                                            { __( 'Select Image', '@@text_domain' ) }
+                                        </Button>
                                     ) }
                                 />
-                                <Button
-                                    isLink
-                                    onClick={ ( e ) => {
-                                        setAttributes( {
-                                            posterId: '',
-                                            posterUrl: '',
-                                            posterAlt: '',
-                                            posterWidth: '',
-                                            posterHeight: '',
-                                        } );
-                                        e.preventDefault();
-                                    } }
-                                    className="button button-secondary"
-                                >
-                                    { __( 'Remove Image', '@@text_domain' ) }
-                                </Button>
-                                <div style={ { marginBottom: 13 } } />
-                                { editorSettings && editorSettings.imageSizes ? (
-                                    <SelectControl
-                                        label={ __( 'Image Size', '@@text_domain' ) }
-                                        value={ posterSizeSlug || DEFAULT_SIZE_SLUG }
-                                        onChange={ ( val ) => {
-                                            this.onPosterSelect( posterImage, val );
+                            ) : '' }
+
+                            { posterId && posterUrl ? (
+                                <Fragment>
+                                    <MediaUpload
+                                        onSelect={ ( media ) => {
+                                            this.onPosterSelect( media );
                                         } }
-                                        options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
-                                            value: imgSize.slug,
-                                            label: imgSize.name,
-                                        } ) ) }
+                                        allowedTypes={ [ 'image' ] }
+                                        value={ posterId }
+                                        render={ ( { open } ) => (
+                                            <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
+                                                { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
+                                                <a
+                                                    href="#"
+                                                    onClick={ open }
+                                                    className="ghostkit-gutenberg-media-upload"
+                                                    style={ { display: 'block' } }
+                                                >
+                                                    <img src={ posterUrl } alt={ posterAlt } width={ posterWidth } height={ posterHeight } />
+                                                </a>
+                                            </BaseControl>
+                                        ) }
                                     />
-                                ) : null }
-                            </Fragment>
-                        ) : '' }
-                    </PanelBody>
+                                    <Button
+                                        isLink
+                                        onClick={ ( e ) => {
+                                            setAttributes( {
+                                                posterId: '',
+                                                posterUrl: '',
+                                                posterAlt: '',
+                                                posterWidth: '',
+                                                posterHeight: '',
+                                            } );
+                                            e.preventDefault();
+                                        } }
+                                        className="button button-secondary"
+                                    >
+                                        { __( 'Remove Image', '@@text_domain' ) }
+                                    </Button>
+                                    <div style={ { marginBottom: 13 } } />
+                                    { editorSettings && editorSettings.imageSizes ? (
+                                        <SelectControl
+                                            label={ __( 'Image Size', '@@text_domain' ) }
+                                            value={ posterSizeSlug || DEFAULT_SIZE_SLUG }
+                                            onChange={ ( val ) => {
+                                                this.onPosterSelect( posterImage, val );
+                                            } }
+                                            options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
+                                                value: imgSize.slug,
+                                                label: imgSize.name,
+                                            } ) ) }
+                                        />
+                                    ) : null }
+                                </Fragment>
+                            ) : '' }
+                        </PanelBody>
+                    ) : null }
                 </InspectorControls>
                 <div className={ className } data-video-aspect-ratio={ videoAspectRatio }>
                     { posterUrl && ! hasClass( attributes.className, 'is-style-icon-only' ) ? (

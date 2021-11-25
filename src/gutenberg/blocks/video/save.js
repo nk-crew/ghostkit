@@ -52,6 +52,8 @@ class BlockSave extends Component {
             clickAction,
             fullscreenActionCloseIcon,
             fullscreenBackgroundColor,
+
+            className,
         } = attributes;
 
         const resultAttrs = {};
@@ -104,7 +106,7 @@ class BlockSave extends Component {
 
         return (
             <div { ...resultAttrs }>
-                { posterUrl && ! hasClass( resultAttrs.className, 'is-style-icon-only' ) ? (
+                { posterUrl && ! hasClass( className, 'is-style-icon-only' ) ? (
                     <div className="ghostkit-video-poster">
                         <img
                             src={ posterUrl }
