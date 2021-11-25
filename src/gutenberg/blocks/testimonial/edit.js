@@ -25,6 +25,8 @@ const {
     BaseControl,
     SelectControl,
     RangeControl,
+    TextareaControl,
+    ExternalLink,
     Button,
 } = wp.components;
 
@@ -176,6 +178,7 @@ class BlockEdit extends Component {
                                         </BaseControl>
                                     ) }
                                 />
+                                <div style={ { marginTop: -20 } } />
                                 <Button
                                     isLink
                                     onClick={ ( e ) => {
@@ -206,6 +209,19 @@ class BlockEdit extends Component {
                                         } ) ) }
                                     />
                                 ) : null }
+                                <TextareaControl
+                                    label={ __( 'Alt text (alternative text)' ) }
+                                    value={ photoAlt }
+                                    onChange={ ( val ) => setAttributes( { photoAlt: val } ) }
+                                    help={ (
+                                        <Fragment>
+                                            <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
+                                                { __( 'Describe the purpose of the image', '@@text_domain' ) }
+                                            </ExternalLink>
+                                            { __( 'Leave empty if the image is purely decorative.', '@@text_domain' ) }
+                                        </Fragment>
+                                    ) }
+                                />
                             </Fragment>
                         ) : null }
                     </PanelBody>
