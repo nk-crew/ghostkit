@@ -64,7 +64,7 @@
 
         "iconPlay": {
             "type": "string",
-            "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%204.83167C5%204.0405%205.87525%203.56266%206.54076%203.99049L17.6915%2011.1588C18.3038%2011.5525%2018.3038%2012.4475%2017.6915%2012.8412L6.54076%2020.0095C5.87525%2020.4373%205%2019.9595%205%2019.1683V4.83167Z%22%20stroke%3D%22currentColor%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E"
+            "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%204.83167C5%204.0405%205.87525%203.56266%206.54076%203.99049L17.6915%2011.1588C18.3038%2011.5525%2018.3038%2012.4475%2017.6915%2012.8412L6.54076%2020.0095C5.87525%2020.4373%205%2019.9595%205%2019.1683V4.83167Z%22%20fill%3D%22currentColor%22%20stroke%3D%22currentColor%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E"
         },
         "iconLoading": {
             "type": "string",
