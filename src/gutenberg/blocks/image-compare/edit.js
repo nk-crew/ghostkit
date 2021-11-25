@@ -182,9 +182,24 @@ class BlockEdit extends Component {
                             />
                         </PanelBody>
                     ) : null }
-                    { beforeUrl ? (
-                        <PanelBody title={ __( 'Before Image Settings', '@@text_domain' ) }>
-                            { ! beforeId ? (
+                    <PanelBody title={ __( 'Before Image Settings', '@@text_domain' ) }>
+                        { ! beforeId ? (
+                            <MediaUpload
+                                onSelect={ ( media ) => {
+                                    this.updateImageData( 'before', media );
+                                } }
+                                allowedTypes={ [ 'image' ] }
+                                value={ beforeId }
+                                render={ ( { open } ) => (
+                                    <Button onClick={ open } isPrimary>
+                                        { __( 'Select Image', '@@text_domain' ) }
+                                    </Button>
+                                ) }
+                            />
+                        ) : '' }
+
+                        { beforeId ? (
+                            <Fragment>
                                 <MediaUpload
                                     onSelect={ ( media ) => {
                                         this.updateImageData( 'before', media );
@@ -192,86 +207,84 @@ class BlockEdit extends Component {
                                     allowedTypes={ [ 'image' ] }
                                     value={ beforeId }
                                     render={ ( { open } ) => (
-                                        <Button onClick={ open } isPrimary>
-                                            { __( 'Select Image', '@@text_domain' ) }
-                                        </Button>
+                                        <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
+                                            { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
+                                            <a
+                                                href="#"
+                                                onClick={ open }
+                                                className="ghostkit-gutenberg-media-upload"
+                                                style={ { display: 'block' } }
+                                            >
+                                                <img src={ beforeUrl } alt={ beforeAlt } width={ beforeWidth } height={ beforeHeight } />
+                                            </a>
+                                        </BaseControl>
                                     ) }
                                 />
-                            ) : '' }
-
-                            { beforeId ? (
-                                <Fragment>
-                                    <MediaUpload
-                                        onSelect={ ( media ) => {
-                                            this.updateImageData( 'before', media );
-                                        } }
-                                        allowedTypes={ [ 'image' ] }
-                                        value={ beforeId }
-                                        render={ ( { open } ) => (
-                                            <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
-                                                { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
-                                                <a
-                                                    href="#"
-                                                    onClick={ open }
-                                                    className="ghostkit-gutenberg-media-upload"
-                                                    style={ { display: 'block' } }
-                                                >
-                                                    <img src={ beforeUrl } alt={ beforeAlt } width={ beforeWidth } height={ beforeHeight } />
-                                                </a>
-                                            </BaseControl>
-                                        ) }
-                                    />
-                                    <div style={ { marginTop: -20 } } />
-                                    <Button
-                                        isLink
-                                        onClick={ ( e ) => {
-                                            setAttributes( {
-                                                beforeId: '',
-                                                beforeUrl: '',
-                                                beforeAlt: '',
-                                                beforeWidth: '',
-                                                beforeHeight: '',
-                                            } );
-                                            e.preventDefault();
-                                        } }
-                                        className="button button-secondary"
-                                    >
-                                        { __( 'Remove Image', '@@text_domain' ) }
-                                    </Button>
-                                    <div style={ { marginBottom: 13 } } />
-                                </Fragment>
-                            ) : '' }
-                            { editorSettings && editorSettings.imageSizes ? (
-                                <SelectControl
-                                    label={ __( 'Image Size', '@@text_domain' ) }
-                                    value={ beforeSizeSlug || DEFAULT_SIZE_SLUG }
-                                    onChange={ ( val ) => {
-                                        this.updateImageData( 'before', beforeImage, val );
+                                <div style={ { marginTop: -20 } } />
+                                <Button
+                                    isLink
+                                    onClick={ ( e ) => {
+                                        setAttributes( {
+                                            beforeId: '',
+                                            beforeUrl: '',
+                                            beforeAlt: '',
+                                            beforeWidth: '',
+                                            beforeHeight: '',
+                                        } );
+                                        e.preventDefault();
                                     } }
-                                    options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
-                                        value: imgSize.slug,
-                                        label: imgSize.name,
-                                    } ) ) }
+                                    className="button button-secondary"
+                                >
+                                    { __( 'Remove Image', '@@text_domain' ) }
+                                </Button>
+                                <div style={ { marginBottom: 13 } } />
+                                { editorSettings && editorSettings.imageSizes ? (
+                                    <SelectControl
+                                        label={ __( 'Image Size', '@@text_domain' ) }
+                                        value={ beforeSizeSlug || DEFAULT_SIZE_SLUG }
+                                        onChange={ ( val ) => {
+                                            this.updateImageData( 'before', beforeImage, val );
+                                        } }
+                                        options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
+                                            value: imgSize.slug,
+                                            label: imgSize.name,
+                                        } ) ) }
+                                    />
+                                ) : null }
+                                <TextareaControl
+                                    label={ __( 'Alt text (alternative text)' ) }
+                                    value={ beforeAlt }
+                                    onChange={ ( val ) => setAttributes( { beforeAlt: val } ) }
+                                    help={ (
+                                        <Fragment>
+                                            <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
+                                                { __( 'Describe the purpose of the image', '@@text_domain' ) }
+                                            </ExternalLink>
+                                            { __( 'Leave empty if the image is purely decorative.', '@@text_domain' ) }
+                                        </Fragment>
+                                    ) }
                                 />
-                            ) : null }
-                            <TextareaControl
-                                label={ __( 'Alt text (alternative text)' ) }
-                                value={ beforeAlt }
-                                onChange={ ( val ) => setAttributes( { beforeAlt: val } ) }
-                                help={ (
-                                    <Fragment>
-                                        <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                                            { __( 'Describe the purpose of the image', '@@text_domain' ) }
-                                        </ExternalLink>
-                                        { __( 'Leave empty if the image is purely decorative.', '@@text_domain' ) }
-                                    </Fragment>
+                            </Fragment>
+                        ) : '' }
+                    </PanelBody>
+                    <PanelBody title={ __( 'After Image Settings', '@@text_domain' ) }>
+                        { ! afterId ? (
+                            <MediaUpload
+                                onSelect={ ( media ) => {
+                                    this.updateImageData( 'after', media );
+                                } }
+                                allowedTypes={ [ 'image' ] }
+                                value={ afterId }
+                                render={ ( { open } ) => (
+                                    <Button onClick={ open } isPrimary>
+                                        { __( 'Select Image', '@@text_domain' ) }
+                                    </Button>
                                 ) }
                             />
-                        </PanelBody>
-                    ) : null }
-                    { afterUrl ? (
-                        <PanelBody title={ __( 'After Image Settings', '@@text_domain' ) }>
-                            { ! afterId ? (
+                        ) : '' }
+
+                        { afterId ? (
+                            <Fragment>
                                 <MediaUpload
                                     onSelect={ ( media ) => {
                                         this.updateImageData( 'after', media );
@@ -279,83 +292,66 @@ class BlockEdit extends Component {
                                     allowedTypes={ [ 'image' ] }
                                     value={ afterId }
                                     render={ ( { open } ) => (
-                                        <Button onClick={ open } isPrimary>
-                                            { __( 'Select Image', '@@text_domain' ) }
-                                        </Button>
+                                        <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
+                                            { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
+                                            <a
+                                                href="#"
+                                                onClick={ open }
+                                                className="ghostkit-gutenberg-media-upload"
+                                                style={ { display: 'block' } }
+                                            >
+                                                <img src={ afterUrl } alt={ afterAlt } width={ afterWidth } height={ afterHeight } />
+                                            </a>
+                                        </BaseControl>
                                     ) }
                                 />
-                            ) : '' }
-
-                            { afterId ? (
-                                <Fragment>
-                                    <MediaUpload
-                                        onSelect={ ( media ) => {
-                                            this.updateImageData( 'after', media );
-                                        } }
-                                        allowedTypes={ [ 'image' ] }
-                                        value={ afterId }
-                                        render={ ( { open } ) => (
-                                            <BaseControl help={ __( 'Click the image to edit or update', '@@text_domain' ) }>
-                                                { /* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */ }
-                                                <a
-                                                    href="#"
-                                                    onClick={ open }
-                                                    className="ghostkit-gutenberg-media-upload"
-                                                    style={ { display: 'block' } }
-                                                >
-                                                    <img src={ afterUrl } alt={ afterAlt } width={ afterWidth } height={ afterHeight } />
-                                                </a>
-                                            </BaseControl>
-                                        ) }
-                                    />
-                                    <div style={ { marginTop: -20 } } />
-                                    <Button
-                                        isLink
-                                        onClick={ ( e ) => {
-                                            setAttributes( {
-                                                afterId: '',
-                                                afterUrl: '',
-                                                afterAlt: '',
-                                                afterWidth: '',
-                                                afterHeight: '',
-                                            } );
-                                            e.preventDefault();
-                                        } }
-                                        className="button button-secondary"
-                                    >
-                                        { __( 'Remove Image', '@@text_domain' ) }
-                                    </Button>
-                                    <div style={ { marginBottom: 13 } } />
-                                </Fragment>
-                            ) : '' }
-                            { editorSettings && editorSettings.imageSizes ? (
-                                <SelectControl
-                                    label={ __( 'Image Size', '@@text_domain' ) }
-                                    value={ afterSizeSlug || DEFAULT_SIZE_SLUG }
-                                    onChange={ ( val ) => {
-                                        this.updateImageData( 'after', afterImage, val );
+                                <div style={ { marginTop: -20 } } />
+                                <Button
+                                    isLink
+                                    onClick={ ( e ) => {
+                                        setAttributes( {
+                                            afterId: '',
+                                            afterUrl: '',
+                                            afterAlt: '',
+                                            afterWidth: '',
+                                            afterHeight: '',
+                                        } );
+                                        e.preventDefault();
                                     } }
-                                    options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
-                                        value: imgSize.slug,
-                                        label: imgSize.name,
-                                    } ) ) }
+                                    className="button button-secondary"
+                                >
+                                    { __( 'Remove Image', '@@text_domain' ) }
+                                </Button>
+                                <div style={ { marginBottom: 13 } } />
+                                { editorSettings && editorSettings.imageSizes ? (
+                                    <SelectControl
+                                        label={ __( 'Image Size', '@@text_domain' ) }
+                                        value={ afterSizeSlug || DEFAULT_SIZE_SLUG }
+                                        onChange={ ( val ) => {
+                                            this.updateImageData( 'after', afterImage, val );
+                                        } }
+                                        options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
+                                            value: imgSize.slug,
+                                            label: imgSize.name,
+                                        } ) ) }
+                                    />
+                                ) : null }
+                                <TextareaControl
+                                    label={ __( 'Alt text (alternative text)' ) }
+                                    value={ afterAlt }
+                                    onChange={ ( val ) => setAttributes( { afterAlt: val } ) }
+                                    help={ (
+                                        <Fragment>
+                                            <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
+                                                { __( 'Describe the purpose of the image', '@@text_domain' ) }
+                                            </ExternalLink>
+                                            { __( 'Leave empty if the image is purely decorative.', '@@text_domain' ) }
+                                        </Fragment>
+                                    ) }
                                 />
-                            ) : null }
-                            <TextareaControl
-                                label={ __( 'Alt text (alternative text)' ) }
-                                value={ afterAlt }
-                                onChange={ ( val ) => setAttributes( { afterAlt: val } ) }
-                                help={ (
-                                    <Fragment>
-                                        <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                                            { __( 'Describe the purpose of the image', '@@text_domain' ) }
-                                        </ExternalLink>
-                                        { __( 'Leave empty if the image is purely decorative.', '@@text_domain' ) }
-                                    </Fragment>
-                                ) }
-                            />
-                        </PanelBody>
-                    ) : null }
+                            </Fragment>
+                        ) : '' }
+                    </PanelBody>
                 </InspectorControls>
                 { ! beforeUrl || ! afterUrl ? (
                     <Placeholder
