@@ -156,7 +156,7 @@ class BlockEdit extends Component {
                             />
                         ) : null }
 
-                        { photoId && photoUrl ? (
+                        { photoId ? (
                             <Fragment>
                                 <MediaUpload
                                     onSelect={ ( media ) => {
@@ -296,7 +296,7 @@ class BlockEdit extends Component {
                             />
                         ) : '' }
 
-                        { photoId && photoUrl ? (
+                        { photoId ? (
                             <Fragment>
                                 <MediaUpload
                                     onSelect={ ( media ) => {
