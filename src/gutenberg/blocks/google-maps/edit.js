@@ -10,7 +10,7 @@ import { debounce } from 'throttle-debounce';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 import ImagePicker from '../../components/image-picker';
-import { maybeEncode } from '../../utils/encode-decode';
+import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 
 import IconMarker from './icons/marker.svg';
 import styles from './map-styles';
@@ -129,7 +129,7 @@ class BlockEdit extends Component {
         let result = [];
 
         try {
-            result = JSON.parse( string );
+            result = JSON.parse( maybeDecode( string ) );
         } catch ( e ) {
             return [];
         }
@@ -151,7 +151,7 @@ class BlockEdit extends Component {
         return (
             <Fragment>
                 <ImagePicker
-                    value={ style }
+                    value={ maybeDecode( style ) }
                     options={ styles }
                     onChange={ ( value ) => {
                         let customString = styleCustom;
@@ -168,7 +168,7 @@ class BlockEdit extends Component {
 
                         setAttributes( {
                             style: value,
-                            styleCustom: customString,
+                            styleCustom: maybeEncode( customString ),
                         } );
                     } }
                 />
@@ -176,8 +176,8 @@ class BlockEdit extends Component {
                     <Fragment>
                         <TextareaControl
                             placeholder={ __( 'Enter Style JSON', '@@text_domain' ) }
-                            value={ styleCustom }
-                            onChange={ ( value ) => setAttributes( { styleCustom: value } ) }
+                            value={ maybeDecode( styleCustom ) }
+                            onChange={ ( value ) => setAttributes( { styleCustom: maybeEncode( value ) } ) }
                         />
                         <p>
                             <em>

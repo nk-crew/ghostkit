@@ -6,6 +6,8 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
+import { maybeDecode } from '../../utils/encode-decode';
+
 import metadata from './block.json';
 
 /**
@@ -67,7 +69,7 @@ class BlockSave extends Component {
             'data-show-fullscreen-button': showFullscreenButton ? 'true' : 'false',
             'data-option-scroll-wheel': optionScrollWheel ? 'true' : 'false',
             'data-option-draggable': optionDraggable ? 'true' : 'false',
-            'data-styles': styleCustom,
+            'data-styles': maybeDecode( styleCustom ),
         };
 
         if ( 'greedy' !== gestureHandling ) {

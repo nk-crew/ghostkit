@@ -7,6 +7,7 @@
 import ColorPicker from '../../components/color-picker';
 import FocalPointPicker from '../../components/focal-point-picker';
 import dashCaseToTitle from '../../utils/dash-case-to-title';
+import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 
 const { __ } = wp.i18n;
 
@@ -147,7 +148,7 @@ class BackgroundControlsInspector extends Component {
 
         // set image tag to attribute
         if ( fetchImageTag && fetchImageTag !== imageTag ) {
-            this.updateAwbAttributes( { imageTag: fetchImageTag } );
+            this.updateAwbAttributes( { imageTag: maybeEncode( fetchImageTag ) } );
         }
     }
 
@@ -248,7 +249,7 @@ class BackgroundControlsInspector extends Component {
                             <Fragment>
                                 <FocalPointPicker
                                     value={ imageBackgroundPosition }
-                                    image={ imageTag }
+                                    image={ maybeDecode( imageTag ) }
                                     onChange={ ( v ) => setAttributes( { imageBackgroundPosition: v } ) }
                                 />
                                 { imageSizes ? (
@@ -434,7 +435,7 @@ function addEditorBackground( background, props ) {
                     ) : '' }
                     { 'image' === type && imageTag ? (
                         // eslint-disable-next-line react/no-danger
-                        <div className="nk-awb-inner" dangerouslySetInnerHTML={ { __html: imageTag } } />
+                        <div className="nk-awb-inner" dangerouslySetInnerHTML={ { __html: maybeDecode( imageTag ) } } />
                     ) : '' }
                 </div>
             );
@@ -499,6 +500,8 @@ function addSaveBackground( background, props ) {
 
             // Fix style tag background.
             if ( 'image' === type && imageTag ) {
+                imageTag = maybeDecode( imageTag );
+
                 imageTag = imageTag.replace( 'url(&quot;', 'url(\'' );
                 imageTag = imageTag.replace( '&quot;);', '\');' );
             }
