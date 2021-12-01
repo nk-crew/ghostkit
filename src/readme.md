@@ -261,6 +261,17 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.21.0 =
+
+* !important - removed support for deprecated blocks older than Ghost Kit v2.12. Make sure you re-saved all pages with old blocks versions.
+* added possibility to remove image in Image Compare block
+* added possibility to change Alt text in the Testimonial photo and Video poster
+* added encodes for Google Maps styles and AWB background images attributes
+* fixed usage of image tag in Video and Testimonial block (no more tag string in the attribute)
+* fixed encode/decode functions fails when no string given
+* fixed XML export problem when block styles use `--` characters
+* removed poster images from the Video block with "Icon Only" style selected
+
 = 2.20.3 =
 
 * fixed crashing block with Custom CSS
