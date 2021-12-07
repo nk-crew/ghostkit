@@ -514,10 +514,12 @@ class GhostKit_Form_Block {
         }
 
         // Prepare headers.
-        $headers = "Content-Type: text/html; charset=utf-8\n";
-        $headers = "From: {$attributes['mailFrom']}\n";
-        $headers = "Return-Path: {$attributes['mailTo']}\n";
-        $headers = "Reply-To: {$attributes['mailReplyTo']}\n";
+        $headers = array(
+            'Content-Type: text/html; charset=utf-8',
+            "From: {$attributes['mailFrom']}",
+            "Return-Path: {$attributes['mailTo']}",
+            "Reply-To: {$attributes['mailReplyTo']}",
+        );
 
         // Prepare message.
         $message = $this->get_mail_html( $attributes );
