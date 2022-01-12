@@ -50,7 +50,7 @@
     "gutenberg-react-select-styles": "0.0.2",
     "ie11-custom-properties": "^4.1.0",
     "jarallax": "^1.12.8",
-    "markdown-it": "^12.2.0",
+    "markdown-it": "^12.3.2",
     "object-fit-images": "^3.2.4",
     "parsleyjs": "^2.9.2",
     "qs": "^6.10.1",
