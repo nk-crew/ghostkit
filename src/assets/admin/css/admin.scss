@@ -22,13 +22,3 @@
     color: color.adjust($color-success, $lightness: -10%);
   }
 }
-
-// TODO: remove this fix when Gutenberg fixes this.
-.components-select-control select[multiple] {
-  height: auto;
-  padding-right: 8px;
-
-  ~ .components-input-control__suffix {
-    display: none;
-  }
-}

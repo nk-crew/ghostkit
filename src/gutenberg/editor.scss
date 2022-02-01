@@ -216,3 +216,13 @@
     cursor: n-resize;
   }
 }
+
+// TODO: remove this fix when Gutenberg fixes this.
+.components-select-control select[multiple].components-select-control__input {
+  height: auto;
+  padding-right: 8px;
+
+  ~ .components-input-control__suffix {
+    display: none;
+  }
+}
