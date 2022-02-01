@@ -6,8 +6,8 @@
   "license": "GPL-2.0",
   "author": "nK <https://nkdev.info>",
   "scripts": {
-    "build": "wpeg --build",
     "dev": "wpeg --build --watch",
+    "build": "wpeg --build",
     "production": "npm run make-pot && npm run make-json && wpeg --build --zip",
     "php-lint": "composer phpcs",
     "php-lint-fix": "composer phpcbf",
@@ -17,7 +17,7 @@
     "js-lint-fix": "eslint --ext .js --fix src/",
     "make-pot": "composer wp -- i18n make-pot ./src ./src/languages/ghostkit.pot --skip-audit --exclude=vendor,vendors,node_modules --headers='{\"Last-Translator\":\"nK\",\"Report-Msgid-Bugs-To\":\"https://github.com/nk-o/ghostkit/issues\"}'",
     "make-json": "po2json ./src/languages/ghostkit.pot ./src/languages/ghostkit.json --format=jed1.x --pretty --domain=@@text_domain",
-    "update-git-hooks": "npx simple-git-hooks",
+    "prepare": "husky install",
     "postinstall": "composer install"
   },
   "devDependencies": {
@@ -29,13 +29,13 @@
     "@svgr/webpack": "^5.5.0",
     "base64-inline-loader": "^2.0.1",
     "eslint-config-nk": "^0.0.19",
+    "husky": "^7.0.4",
     "json-file": "^0.1.0",
     "lint-staged": "^12.1.2",
     "md5": "^2.3.0",
     "micromatch": "^4.0.4",
     "path": "^0.12.7",
     "po2json": "^0.4.5",
-    "simple-git-hooks": "^2.7.0",
     "stylelint-config-nk": "^0.0.12",
     "wpeg": "^1.2.6"
   },
