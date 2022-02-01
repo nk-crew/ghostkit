@@ -5,15 +5,15 @@
 @import "./style";
 
 .ghostkit-countdown-expire-action {
-    padding: 15px;
-    margin-top: 15px;
-    background-color: #f9f9f9;
-    border: 1px solid #efefef;
-    border-radius: 3px;
+  padding: 15px;
+  margin-top: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #efefef;
+  border-radius: 3px;
 
-    &-label {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-        font-size: 14px;
-        font-weight: 600;
-    }
+  &-label {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+  }
 }

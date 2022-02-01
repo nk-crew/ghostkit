@@ -2,16 +2,16 @@
  * Control Select Component CSS
  */
 .ghostkit-control-select {
-    .fast-option-selected {
-        color: #fff;
-    }
+  .fast-option-selected {
+    color: #fff;
+  }
 
-    input[type="text"] {
-        height: 20px;
-        min-height: 20px;
+  input[type="text"] {
+    height: 20px;
+    min-height: 20px;
 
-        &:focus {
-            box-shadow: none;
-        }
+    &:focus {
+      box-shadow: none;
     }
+  }
 }

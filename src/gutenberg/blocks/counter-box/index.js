@@ -18,57 +18,56 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-    ...metadata,
-    title: __( 'Number Box', '@@text_domain' ),
-    description: __( 'Show your progress and rewards using counting numbers.', '@@text_domain' ),
-    icon: getIcon( 'block-counter-box', true ),
-    keywords: [
-        __( 'number', '@@text_domain' ),
-        __( 'counter', '@@text_domain' ),
-    ],
-    ghostkit: {
-        previewUrl: 'https://ghostkit.io/blocks/number-box/',
-        customStylesCallback( attributes ) {
-            const styles = {
-                '--gkt-counter-box--number__font-size': 'undefined' !== typeof attributes.numberSize ? `${ attributes.numberSize }px` : undefined,
-                '--gkt-counter-box--number__color': attributes.numberColor,
-            };
+  ...metadata,
+  title: __('Number Box', '@@text_domain'),
+  description: __('Show your progress and rewards using counting numbers.', '@@text_domain'),
+  icon: getIcon('block-counter-box', true),
+  keywords: [__('number', '@@text_domain'), __('counter', '@@text_domain')],
+  ghostkit: {
+    previewUrl: 'https://ghostkit.io/blocks/number-box/',
+    customStylesCallback(attributes) {
+      const styles = {
+        '--gkt-counter-box--number__font-size':
+          typeof attributes.numberSize !== 'undefined' ? `${attributes.numberSize}px` : undefined,
+        '--gkt-counter-box--number__color': attributes.numberColor,
+      };
 
-            if ( attributes.hoverNumberColor ) {
-                styles[ '&:hover' ] = {
-                    '--gkt-counter-box--number__color': attributes.hoverNumberColor,
-                };
-            }
+      if (attributes.hoverNumberColor) {
+        styles['&:hover'] = {
+          '--gkt-counter-box--number__color': attributes.hoverNumberColor,
+        };
+      }
 
-            return styles;
-        },
-        supports: {
-            styles: true,
-            frame: true,
-            spacings: true,
-            display: true,
-            scrollReveal: true,
-            customCSS: true,
-        },
+      return styles;
     },
-    example: {
+    supports: {
+      styles: true,
+      frame: true,
+      spacings: true,
+      display: true,
+      scrollReveal: true,
+      customCSS: true,
+    },
+  },
+  example: {
+    attributes: {
+      number: '77',
+      numberColor: '#0366d6',
+      ghostkitId: 'example-counter-box',
+      ghostkitClassname: 'ghostkit-custom-example-counter-box',
+      className: 'ghostkit-custom-example-counter-box',
+    },
+    innerBlocks: [
+      {
+        name: 'core/paragraph',
         attributes: {
-            number: '77',
-            numberColor: '#0366d6',
-            ghostkitId: 'example-counter-box',
-            ghostkitClassname: 'ghostkit-custom-example-counter-box',
-            className: 'ghostkit-custom-example-counter-box',
+          content:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
         },
-        innerBlocks: [
-            {
-                name: 'core/paragraph',
-                attributes: {
-                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
-                },
-            },
-        ],
-    },
-    edit,
-    save,
-    transforms,
+      },
+    ],
+  },
+  edit,
+  save,
+  transforms,
 };

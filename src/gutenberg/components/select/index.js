@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /**
  * External dependencies
  */
@@ -15,20 +16,22 @@ const { Component } = wp.element;
  * Component Class
  */
 export default class SelectComponent extends Component {
-    render() {
-        const props = {
-            ...this.props.grouped ? {
-                groupHeaderHeight: 50,
-            } : {},
-            ...this.props,
-        };
+  render() {
+    const props = {
+      ...(this.props.grouped
+        ? {
+            groupHeaderHeight: 50,
+          }
+        : {}),
+      ...this.props,
+    };
 
-        return (
-            <Select
-                styles={ selectStyles }
-                { ...props }
-                className={ classnames( props.className, 'ghostkit-control-select' ) }
-            />
-        );
-    }
+    return (
+      <Select
+        styles={selectStyles}
+        {...props}
+        className={classnames(props.className, 'ghostkit-control-select')}
+      />
+    );
+  }
 }

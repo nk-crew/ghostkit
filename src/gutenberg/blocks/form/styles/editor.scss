@@ -5,82 +5,83 @@
 @import "./style";
 
 .ghostkit-form {
-    & > .block-editor-inserter {
-        display: block;
-    }
+  & > .block-editor-inserter {
+    display: block;
+  }
 
-    &-field-description {
-        margin-bottom: 0;
-    }
+  &-field-description {
+    margin-bottom: 0;
+  }
 
-    &-field-label > .block-editor-rich-text {
-        display: inline-block;
-    }
+  &-field-label > .block-editor-rich-text {
+    display: inline-block;
+  }
 
-    // Disable pointer events.
-    &-field .components-text-control__input,
-    &-field .components-select-control__input,
-    &-field .components-textarea-control__input,
-    &-field &-field-checkbox-item,
-    &-field &-field-radio-item {
-        pointer-events: none;
-    }
+  // Disable pointer events.
+  &-field .components-text-control__input,
+  &-field .components-select-control__input,
+  &-field .components-textarea-control__input,
+  &-field &-field-checkbox-item,
+  &-field &-field-radio-item {
+    pointer-events: none;
+  }
 
-    // Fix for Select field width.
-    &-field .components-select-control__input {
-        max-width: none;
-    }
+  // Fix for Select field width.
+  &-field .components-select-control__input {
+    max-width: none;
+  }
 
-    // Submit button.
-    &-submit-button > .block-editor-inner-blocks > .block-editor-block-list__layout {
-        display: flex;
-        justify-content: var(--gkt-button__align-items);
+  // Submit button.
+  &-submit-button > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    display: flex;
+    justify-content: var(--gkt-button__align-items);
 
-        > .wp-block {
-            margin: 0;
-        }
+    > .wp-block {
+      margin: 0;
     }
+  }
 }
 
 // Options component.
 .ghostkit-field-options-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    > [type="radio"],
-    > [type="checkbox"] {
-        margin-bottom: 4px;
-    }
+  > [type="radio"],
+  > [type="checkbox"] {
+    margin-bottom: 4px;
+  }
 
-    > .components-base-control {
-        flex: 1;
-    }
+  > .components-base-control {
+    flex: 1;
+  }
 
-    > .components-button {
-        margin-bottom: 8px;
-        margin-left: 4px;
-    }
+  > .components-button {
+    margin-bottom: 8px;
+    margin-left: 4px;
+  }
 
-    .components-text-control__input {
-        pointer-events: inherit;
-    }
+  .components-text-control__input {
+    pointer-events: inherit;
+  }
 }
+
 .ghostkit-field-options > .components-button {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 // Additional paddings on selected block.
 .wp-block[data-type="ghostkit/form"] {
-    &.is-selected .ghostkit-form,
-    &.has-child-selected .ghostkit-form {
-        > .block-editor-inner-blocks > .block-editor-block-list__layout {
-            padding: 14px;
-            padding-bottom: 0;
-        }
-
-        > .block-editor-inserter {
-            margin: 2px;
-            margin-top: -10px;
-        }
+  &.is-selected .ghostkit-form,
+  &.has-child-selected .ghostkit-form {
+    > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      padding: 14px;
+      padding-bottom: 0;
     }
+
+    > .block-editor-inserter {
+      margin: 2px;
+      margin-top: -10px;
+    }
+  }
 }

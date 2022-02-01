@@ -17,31 +17,34 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-    ...metadata,
-    title: __( 'Markdown', '@@text_domain' ),
-    description: __( 'Lightweight markup language with plain-text-formatting syntax.', '@@text_domain' ),
-    icon: getIcon( 'block-markdown', true ),
-    keywords: [
-        __( 'formatting', '@@text_domain' ),
-        __( 'markup', '@@text_domain' ),
-        __( 'md', '@@text_domain' ),
-    ],
-    ghostkit: {
-        previewUrl: 'https://ghostkit.io/blocks/markdown/',
-        supports: {
-            styles: true,
-            frame: true,
-            spacings: true,
-            display: true,
-            scrollReveal: true,
-            customCSS: true,
-        },
+  ...metadata,
+  title: __('Markdown', '@@text_domain'),
+  description: __(
+    'Lightweight markup language with plain-text-formatting syntax.',
+    '@@text_domain'
+  ),
+  icon: getIcon('block-markdown', true),
+  keywords: [
+    __('formatting', '@@text_domain'),
+    __('markup', '@@text_domain'),
+    __('md', '@@text_domain'),
+  ],
+  ghostkit: {
+    previewUrl: 'https://ghostkit.io/blocks/markdown/',
+    supports: {
+      styles: true,
+      frame: true,
+      spacings: true,
+      display: true,
+      scrollReveal: true,
+      customCSS: true,
     },
-    example: {
-        attributes: {
-            content: 'test **bold**',
-        },
+  },
+  example: {
+    attributes: {
+      content: 'test **bold**',
     },
-    edit,
-    save,
+  },
+  edit,
+  save,
 };

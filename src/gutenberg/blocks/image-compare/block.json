@@ -1,73 +1,73 @@
 {
-    "name": "ghostkit/image-compare",
-    "category": "media",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": true
+  "name": "ghostkit/image-compare",
+  "category": "media",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string"
     },
-    "attributes": {
-        "align": {
-            "type": "string"
-        },
-        "position": {
-            "type": "number",
-            "default": 50
-        },
-        "beforeId": {
-            "type": "number"
-        },
-        "beforeUrl": {
-            "attribute": "src",
-            "selector": ".ghostkit-image-compare-image-before img",
-            "source": "attribute",
-            "type": "string"
-        },
-        "beforeAlt": {
-            "attribute": "alt",
-            "selector": ".ghostkit-image-compare-image-before img",
-            "source": "attribute",
-            "type": "string",
-            "default": ""
-        },
-        "beforeWidth": {
-            "type": "number"
-        },
-        "beforeHeight": {
-            "type": "number"
-        },
-        "beforeSizeSlug": {
-            "type": "string"
-        },
-        "afterId": {
-            "type": "number"
-        },
-        "afterUrl": {
-            "attribute": "src",
-            "selector": ".ghostkit-image-compare-image-after img",
-            "source": "attribute",
-            "type": "string"
-        },
-        "afterAlt": {
-            "attribute": "alt",
-            "selector": ".ghostkit-image-compare-image-after img",
-            "source": "attribute",
-            "type": "string",
-            "default": ""
-        },
-        "afterWidth": {
-            "type": "number"
-        },
-        "afterHeight": {
-            "type": "number"
-        },
-        "afterSizeSlug": {
-            "type": "string"
-        },
-        "caption": {
-            "type": "string",
-            "source": "html",
-            "selector": "figcaption"
-        }
+    "position": {
+      "type": "number",
+      "default": 50
+    },
+    "beforeId": {
+      "type": "number"
+    },
+    "beforeUrl": {
+      "attribute": "src",
+      "selector": ".ghostkit-image-compare-image-before img",
+      "source": "attribute",
+      "type": "string"
+    },
+    "beforeAlt": {
+      "attribute": "alt",
+      "selector": ".ghostkit-image-compare-image-before img",
+      "source": "attribute",
+      "type": "string",
+      "default": ""
+    },
+    "beforeWidth": {
+      "type": "number"
+    },
+    "beforeHeight": {
+      "type": "number"
+    },
+    "beforeSizeSlug": {
+      "type": "string"
+    },
+    "afterId": {
+      "type": "number"
+    },
+    "afterUrl": {
+      "attribute": "src",
+      "selector": ".ghostkit-image-compare-image-after img",
+      "source": "attribute",
+      "type": "string"
+    },
+    "afterAlt": {
+      "attribute": "alt",
+      "selector": ".ghostkit-image-compare-image-after img",
+      "source": "attribute",
+      "type": "string",
+      "default": ""
+    },
+    "afterWidth": {
+      "type": "number"
+    },
+    "afterHeight": {
+      "type": "number"
+    },
+    "afterSizeSlug": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "source": "html",
+      "selector": "figcaption"
     }
+  }
 }

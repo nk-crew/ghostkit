@@ -1,28 +1,28 @@
 {
-	"name": "ghostkit/accordion-item",
-    "parent": [ "ghostkit/accordion" ],
-	"category": "design",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": true,
-        "align": [ "wide", "full" ],
-        "inserter": false,
-        "reusable": false
+  "name": "ghostkit/accordion-item",
+  "parent": ["ghostkit/accordion"],
+  "category": "design",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "inserter": false,
+    "reusable": false
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "source": "html",
+      "selector": ".ghostkit-accordion-item-label",
+      "default": "Accordion Item"
     },
-    "attributes": {
-        "heading": {
-            "type": "string",
-            "source": "html",
-            "selector": ".ghostkit-accordion-item-label",
-            "default": "Accordion Item"
-        },
-        "slug": {
-            "type": "string"
-        },
-        "active": {
-            "type": "boolean",
-            "default": false
-        }
+    "slug": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": false
     }
+  }
 }

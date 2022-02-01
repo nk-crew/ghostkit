@@ -15,23 +15,20 @@ const { transformStyles } = wp.blockEditor;
  *
  * @returns {Null} nothing.
  */
-export default function EditorStyles( { styles } ) {
-    useEffect( () => {
-        const updatedStyles = transformStyles(
-            styles,
-            '.editor-styles-wrapper'
-        );
+export default function EditorStyles({ styles }) {
+  useEffect(() => {
+    const updatedStyles = transformStyles(styles, '.editor-styles-wrapper');
 
-        const nodes = map( compact( updatedStyles ), ( updatedCSS ) => {
-            const node = document.createElement( 'style' );
-            node.innerHTML = updatedCSS;
-            document.body.appendChild( node );
+    const nodes = map(compact(updatedStyles), (updatedCSS) => {
+      const node = document.createElement('style');
+      node.innerHTML = updatedCSS;
+      document.body.appendChild(node);
 
-            return node;
-        } );
+      return node;
+    });
 
-        return () => nodes.forEach( ( node ) => document.body.removeChild( node ) );
-    }, [ styles ] );
+    return () => nodes.forEach((node) => document.body.removeChild(node));
+  }, [styles]);
 
-    return null;
+  return null;
 }

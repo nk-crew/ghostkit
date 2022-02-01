@@ -1,17 +1,17 @@
 {
-	"name": "ghostkit/form-submit-button",
-	"category": "ghostkit",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": true,
-        "reusable": false
-    },
-    "attributes": {
-        "align": {
-            "type": "string",
-            "default": "none"
-        }
-    },
-    "parent": [ "ghostkit/form" ]
+  "name": "ghostkit/form-submit-button",
+  "category": "ghostkit",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": true,
+    "reusable": false
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "none"
+    }
+  },
+  "parent": ["ghostkit/form"]
 }

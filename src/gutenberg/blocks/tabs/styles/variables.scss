@@ -4,24 +4,24 @@
 @import "../../../variables";
 
 .ghostkit-tabs {
-    // Buttons.
-    --gkt-tabs--buttons__offset: 1em;
-    --gkt-tabs--button__padding-v: .5em;
-    --gkt-tabs--button__padding-h: 1.2em;
-    --gkt-tabs--button__font-weight: 500;
-    --gkt-tabs--button__border-width: 1px;
-    --gkt-tabs--button__border-color: var(--gkt-color-light-gray-darken);
-    --gkt-tabs--button__border-radius: var(--gkt-border-radius);
-    --gkt-tabs--button__opacity: .6;
-    --gkt-tabs--button-active__background-color: #fff;
-    --gkt-tabs--button-active__opacity: 1;
+  // Buttons.
+  --gkt-tabs--buttons__offset: 1em;
+  --gkt-tabs--button__padding-v: 0.5em;
+  --gkt-tabs--button__padding-h: 1.2em;
+  --gkt-tabs--button__font-weight: 500;
+  --gkt-tabs--button__border-width: 1px;
+  --gkt-tabs--button__border-color: var(--gkt-color-light-gray-darken);
+  --gkt-tabs--button__border-radius: var(--gkt-border-radius);
+  --gkt-tabs--button__opacity: 0.6;
+  --gkt-tabs--button-active__background-color: #fff;
+  --gkt-tabs--button-active__opacity: 1;
 
-    // Pills Style.
-    --gkt-tabs-pills--button__border-radius: var(--gkt-border-radius);
-    --gkt-tabs-pills--button-active__color: #fff;
-    --gkt-tabs-pills--button-active__background-color: var(--gkt-color-dark-gray);
+  // Pills Style.
+  --gkt-tabs-pills--button__border-radius: var(--gkt-border-radius);
+  --gkt-tabs-pills--button-active__color: #fff;
+  --gkt-tabs-pills--button-active__background-color: var(--gkt-color-dark-gray);
 
-    // Transitions.
-    --gkt-tabs__transition-duration: var(--gkt-transition-duration);
-    --gkt-tabs__transition-easing: var(--gkt-transition-easing);
+  // Transitions.
+  --gkt-tabs__transition-duration: var(--gkt-transition-duration);
+  --gkt-tabs__transition-easing: var(--gkt-transition-easing);
 }

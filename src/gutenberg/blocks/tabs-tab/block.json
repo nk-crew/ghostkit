@@ -1,17 +1,17 @@
 {
-	"name": "ghostkit/tabs-tab-v2",
-    "parent": [ "ghostkit/tabs-v2" ],
-	"category": "design",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": true,
-        "inserter": false,
-        "reusable": false
-    },
-    "attributes": {
-        "slug": {
-            "type": "string"
-        }
+  "name": "ghostkit/tabs-tab-v2",
+  "parent": ["ghostkit/tabs-v2"],
+  "category": "design",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": true,
+    "inserter": false,
+    "reusable": false
+  },
+  "attributes": {
+    "slug": {
+      "type": "string"
     }
+  }
 }

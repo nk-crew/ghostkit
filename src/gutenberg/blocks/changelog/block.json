@@ -1,20 +1,20 @@
 {
-	"name": "ghostkit/changelog",
-	"category": "text",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": true,
-        "align": [ "wide", "full" ]
+  "name": "ghostkit/changelog",
+  "category": "text",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": true,
+    "align": ["wide", "full"]
+  },
+  "attributes": {
+    "version": {
+      "type": "string",
+      "default": ""
     },
-    "attributes": {
-        "version": {
-            "type": "string",
-            "default": ""
-        },
-        "date": {
-            "type": "string",
-            "default": ""
-        }
+    "date": {
+      "type": "string",
+      "default": ""
     }
+  }
 }

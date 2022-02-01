@@ -17,21 +17,15 @@ const { Component } = wp.element;
  * Block Save Class.
  */
 class BlockSave extends Component {
-    render() {
-        const {
-            content,
-        } = this.props.attributes;
+  render() {
+    const { content } = this.props.attributes;
 
-        let {
-            className,
-        } = this.props.attributes;
+    let { className } = this.props.attributes;
 
-        className = classnames( 'ghostkit-markdown', className );
+    className = classnames('ghostkit-markdown', className);
 
-        return (
-            <MDRender className={ className } content={ content } />
-        );
-    }
+    return <MDRender className={className} content={content} />;
+  }
 }
 
 export default BlockSave;

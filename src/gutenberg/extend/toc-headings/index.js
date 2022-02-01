@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -11,14 +12,9 @@ import { getSlug } from '../../utils/get-unique-slug';
 /**
  * WordPress dependencies
  */
-const {
-    addFilter,
-} = wp.hooks;
+const { addFilter } = wp.hooks;
 
-const {
-    subscribe,
-    select,
-} = wp.data;
+const { subscribe, select } = wp.data;
 
 /**
  * Get available TOC block.
@@ -27,28 +23,26 @@ const {
  *
  * @return {Array} toc block data.
  */
-function getTOC( blocks = false ) {
-    let result = false;
+function getTOC(blocks = false) {
+  let result = false;
 
-    if ( ! blocks ) {
-        const {
-            getBlocks,
-        } = select( 'core/block-editor' );
+  if (!blocks) {
+    const { getBlocks } = select('core/block-editor');
 
-        blocks = getBlocks();
+    blocks = getBlocks();
+  }
+
+  blocks.forEach((block) => {
+    if (!result) {
+      if (block.name === 'ghostkit/table-of-contents') {
+        result = block;
+      } else if (block.innerBlocks && block.innerBlocks.length) {
+        result = getTOC(block.innerBlocks);
+      }
     }
+  });
 
-    blocks.forEach( ( block ) => {
-        if ( ! result ) {
-            if ( 'ghostkit/table-of-contents' === block.name ) {
-                result = block;
-            } else if ( block.innerBlocks && block.innerBlocks.length ) {
-                result = getTOC( block.innerBlocks );
-            }
-        }
-    } );
-
-    return result;
+  return result;
 }
 
 /**
@@ -58,29 +52,24 @@ function getTOC( blocks = false ) {
  *
  * @return {Array} toc block data.
  */
-function getHeadings( blocks = false ) {
-    let result = [];
+function getHeadings(blocks = false) {
+  let result = [];
 
-    if ( ! blocks ) {
-        const {
-            getBlocks,
-        } = select( 'core/block-editor' );
+  if (!blocks) {
+    const { getBlocks } = select('core/block-editor');
 
-        blocks = getBlocks();
+    blocks = getBlocks();
+  }
+
+  blocks.forEach((block) => {
+    if (block.name === 'core/heading') {
+      result.push(block);
+    } else if (block.innerBlocks && block.innerBlocks.length) {
+      result = [...result, ...getHeadings(block.innerBlocks)];
     }
+  });
 
-    blocks.forEach( ( block ) => {
-        if ( 'core/heading' === block.name ) {
-            result.push( block );
-        } else if ( block.innerBlocks && block.innerBlocks.length ) {
-            result = [
-                ...result,
-                ...getHeadings( block.innerBlocks ),
-            ];
-        }
-    } );
-
-    return result;
+  return result;
 }
 
 let prevHeadings = '';
@@ -89,61 +78,56 @@ let prevHeadings = '';
  * Update heading ID.
  */
 function updateHeadingIDs() {
-    const tocBlock = getTOC();
+  const tocBlock = getTOC();
 
-    if ( ! tocBlock ) {
-        return;
+  if (!tocBlock) {
+    return;
+  }
+
+  const headings = getHeadings();
+
+  if (prevHeadings && prevHeadings === JSON.stringify(headings)) {
+    return;
+  }
+
+  const collisionCollector = {};
+
+  headings.forEach((block) => {
+    let { anchor } = block.attributes;
+
+    const { content, ghostkitTocId } = block.attributes;
+
+    // create new
+    if (content && (!anchor || ghostkitTocId === anchor)) {
+      anchor = getSlug(content);
+      block.attributes.anchor = anchor;
+      block.attributes.ghostkitTocId = anchor;
     }
 
-    const headings = getHeadings();
-
-    if ( prevHeadings && prevHeadings === JSON.stringify( headings ) ) {
-        return;
+    // check collisions.
+    if (anchor) {
+      if (typeof collisionCollector[anchor] !== 'undefined') {
+        collisionCollector[anchor] += 1;
+        anchor += `-${collisionCollector[anchor]}`;
+        block.attributes.anchor = anchor;
+        block.attributes.ghostkitTocId = anchor;
+      } else {
+        collisionCollector[anchor] = 1;
+      }
     }
+  });
 
-    const collisionCollector = {};
-
-    headings.forEach( ( block ) => {
-        let {
-            anchor,
-        } = block.attributes;
-
-        const {
-            content,
-            ghostkitTocId,
-        } = block.attributes;
-
-        // create new
-        if ( content && ( ! anchor || ghostkitTocId === anchor ) ) {
-            anchor = getSlug( content );
-            block.attributes.anchor = anchor;
-            block.attributes.ghostkitTocId = anchor;
-        }
-
-        // check collisions.
-        if ( anchor ) {
-            if ( 'undefined' !== typeof collisionCollector[ anchor ] ) {
-                collisionCollector[ anchor ] += 1;
-                anchor += `-${ collisionCollector[ anchor ] }`;
-                block.attributes.anchor = anchor;
-                block.attributes.ghostkitTocId = anchor;
-            } else {
-                collisionCollector[ anchor ] = 1;
-            }
-        }
-    } );
-
-    prevHeadings = JSON.stringify( headings );
+  prevHeadings = JSON.stringify(headings);
 }
 
-const updateHeadingIDsDebounce = debounce( 300, updateHeadingIDs );
+const updateHeadingIDsDebounce = debounce(300, updateHeadingIDs);
 
 /**
  * Subscribe to all editor changes.
  */
-subscribe( () => {
-    updateHeadingIDsDebounce();
-} );
+subscribe(() => {
+  updateHeadingIDsDebounce();
+});
 
 /**
  * Filters registered block settings, extending attributes with anchor using ID
@@ -153,14 +137,14 @@ subscribe( () => {
  *
  * @return {Object} Filtered block settings.
  */
-function addAttribute( settings ) {
-    if ( settings.name && 'core/heading' === settings.name ) {
-        settings.attributes.ghostkitTocId = {
-            type: 'string',
-        };
-    }
+function addAttribute(settings) {
+  if (settings.name && settings.name === 'core/heading') {
+    settings.attributes.ghostkitTocId = {
+      type: 'string',
+    };
+  }
 
-    return settings;
+  return settings;
 }
 
-addFilter( 'blocks.registerBlockType', 'ghostkit/toc/heading/id/attribute', addAttribute );
+addFilter('blocks.registerBlockType', 'ghostkit/toc/heading/id/attribute', addAttribute);

@@ -12,24 +12,24 @@ const TokenList = wp.tokenList;
  *
  * @return {string} The active style.
  */
-export function getActiveClass( className, namespace, suffixOnly ) {
-    const list = new TokenList( className );
+export function getActiveClass(className, namespace, suffixOnly) {
+  const list = new TokenList(className);
 
-    // eslint-disable-next-line no-restricted-syntax
-    for ( const activeClass of list.values() ) {
-        if ( -1 === activeClass.indexOf( `${ namespace }-` ) ) {
-            // eslint-disable-next-line no-continue
-            continue;
-        }
-
-        if ( suffixOnly ) {
-            return activeClass.replace( `${ namespace }-`, '' );
-        }
-
-        return activeClass;
+  // eslint-disable-next-line no-restricted-syntax
+  for (const activeClass of list.values()) {
+    if (activeClass.indexOf(`${namespace}-`) === -1) {
+      // eslint-disable-next-line no-continue
+      continue;
     }
 
-    return '';
+    if (suffixOnly) {
+      return activeClass.replace(`${namespace}-`, '');
+    }
+
+    return activeClass;
+  }
+
+  return '';
 }
 
 /**
@@ -41,24 +41,24 @@ export function getActiveClass( className, namespace, suffixOnly ) {
  *
  * @return {string} The updated className.
  */
-export function replaceClass( className, namespace, newClass ) {
-    const list = new TokenList( className );
-    const namespaceRegExp = new RegExp( `${ namespace }-` );
+export function replaceClass(className, namespace, newClass) {
+  const list = new TokenList(className);
+  const namespaceRegExp = new RegExp(`${namespace}-`);
 
-    // remove classes with the same namespace.
-    // eslint-disable-next-line no-restricted-syntax
-    for ( const activeClass of list.values() ) {
-        if ( namespaceRegExp.test( activeClass ) ) {
-            list.remove( activeClass );
-        }
+  // remove classes with the same namespace.
+  // eslint-disable-next-line no-restricted-syntax
+  for (const activeClass of list.values()) {
+    if (namespaceRegExp.test(activeClass)) {
+      list.remove(activeClass);
     }
+  }
 
-    // add new class.
-    if ( newClass ) {
-        list.add( `${ namespace }-${ newClass }` );
-    }
+  // add new class.
+  if (newClass) {
+    list.add(`${namespace}-${newClass}`);
+  }
 
-    return list.value;
+  return list.value;
 }
 
 /**
@@ -69,14 +69,14 @@ export function replaceClass( className, namespace, newClass ) {
  *
  * @return {string} The updated newClass.
  */
-export function addClass( className, newClass ) {
-    const list = new TokenList( className );
+export function addClass(className, newClass) {
+  const list = new TokenList(className);
 
-    if ( newClass ) {
-        list.add( newClass );
-    }
+  if (newClass) {
+    list.add(newClass);
+  }
 
-    return list.value;
+  return list.value;
 }
 
 /**
@@ -87,18 +87,18 @@ export function addClass( className, newClass ) {
  *
  * @return {string} The updated className.
  */
-export function removeClass( className, classToRemove ) {
-    const list = new TokenList( className );
+export function removeClass(className, classToRemove) {
+  const list = new TokenList(className);
 
-    // remove classes with the same namespace.
-    // eslint-disable-next-line no-restricted-syntax
-    for ( const activeClass of list.values() ) {
-        if ( classToRemove === activeClass ) {
-            list.remove( activeClass );
-        }
+  // remove classes with the same namespace.
+  // eslint-disable-next-line no-restricted-syntax
+  for (const activeClass of list.values()) {
+    if (classToRemove === activeClass) {
+      list.remove(activeClass);
     }
+  }
 
-    return list.value;
+  return list.value;
 }
 
 /**
@@ -109,16 +109,16 @@ export function removeClass( className, classToRemove ) {
  *
  * @return {boolean} Is class exists.
  */
-export function hasClass( className, checkClassName ) {
-    const list = new TokenList( className );
+export function hasClass(className, checkClassName) {
+  const list = new TokenList(className);
 
-    // remove classes with the same namespace.
-    // eslint-disable-next-line no-restricted-syntax
-    for ( const activeClass of list.values() ) {
-        if ( checkClassName === activeClass ) {
-            return true;
-        }
+  // remove classes with the same namespace.
+  // eslint-disable-next-line no-restricted-syntax
+  for (const activeClass of list.values()) {
+    if (checkClassName === activeClass) {
+      return true;
     }
+  }
 
-    return false;
+  return false;
 }

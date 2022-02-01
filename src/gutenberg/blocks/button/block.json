@@ -1,26 +1,26 @@
 {
-	"name": "ghostkit/button",
-	"category": "design",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": true
+  "name": "ghostkit/button",
+  "category": "design",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "none"
     },
-    "attributes": {
-        "align": {
-            "type": "string",
-            "default": "none"
-        },
-        "count": {
-            "type": "number",
-            "default": 1
-        },
-        "gap": {
-            "type": "string",
-            "default": "md"
-        },
-        "gapCustom": {
-            "type": "number"
-        }
+    "count": {
+      "type": "number",
+      "default": 1
+    },
+    "gap": {
+      "type": "string",
+      "default": "md"
+    },
+    "gapCustom": {
+      "type": "number"
     }
+  }
 }

@@ -1,16 +1,14 @@
-// stylelint-disable declaration-no-important
-
 @import "../../variables";
 
 @each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-down($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  @include media-breakpoint-down($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        .ghostkit-d#{$infix}-none {
-            display: none !important;
-        }
-        .ghostkit-d#{$infix}-block {
-            display: block !important;
-        }
+    .ghostkit-d#{$infix}-none {
+      display: none !important;
     }
+    .ghostkit-d#{$infix}-block {
+      display: block !important;
+    }
+  }
 }

@@ -1,14 +1,14 @@
 {
-	"name": "ghostkit/markdown",
-	"category": "text",
-    "supports": {
-        "html": false,
-        "className": true,
-        "anchor": false
-    },
-    "attributes": {
-        "content": {
-            "type": "string"
-        }
+  "name": "ghostkit/markdown",
+  "category": "text",
+  "supports": {
+    "html": false,
+    "className": true,
+    "anchor": false
+  },
+  "attributes": {
+    "content": {
+      "type": "string"
     }
+  }
 }

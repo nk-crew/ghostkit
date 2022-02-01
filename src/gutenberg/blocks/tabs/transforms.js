@@ -1,56 +1,57 @@
-/**
- * WordPress dependencies
- */
+/* eslint-disable function-paren-newline */
 /**
  * Internal dependencies
  */
 import getUniqueSlug from '../../utils/get-unique-slug';
 
-const {
-    createBlock,
-} = wp.blocks;
+/**
+ * WordPress dependencies
+ */
+const { createBlock } = wp.blocks;
 
 export default {
-    from: [
-        {
-            type: 'block',
-            blocks: [ 'ghostkit/accordion' ],
-            transform( attrs, innerBlocks ) {
-                const tabsData = [];
-                let tabActive = '';
+  from: [
+    {
+      type: 'block',
+      blocks: ['ghostkit/accordion'],
+      transform(attrs, innerBlocks) {
+        const tabsData = [];
+        let tabActive = '';
 
-                innerBlocks.forEach( ( item ) => {
-                    const slug = getUniqueSlug( `tab-${ item.attributes.heading }`, item.clientId );
+        innerBlocks.forEach((item) => {
+          const slug = getUniqueSlug(`tab-${item.attributes.heading}`, item.clientId);
 
-                    if ( ! tabActive && item.attributes.active ) {
-                        tabActive = slug;
-                    }
+          if (!tabActive && item.attributes.active) {
+            tabActive = slug;
+          }
 
-                    tabsData.push( {
-                        slug,
-                        title: item.attributes.heading,
-                    } );
-                } );
+          tabsData.push({
+            slug,
+            title: item.attributes.heading,
+          });
+        });
 
-                if ( ! tabActive ) {
-                    tabActive = tabsData[ 0 ].slug;
-                }
+        if (!tabActive) {
+          tabActive = tabsData[0].slug;
+        }
 
-                return createBlock(
-                    'ghostkit/tabs-v2',
-                    {
-                        tabsData,
-                        tabActive,
-                    },
-                    tabsData.map( ( tab, i ) => createBlock(
-                        'ghostkit/tabs-tab-v2',
-                        {
-                            slug: tab.slug,
-                        },
-                        innerBlocks[ i ] ? innerBlocks[ i ].innerBlocks : '',
-                    ) ),
-                );
-            },
-        },
-    ],
+        return createBlock(
+          'ghostkit/tabs-v2',
+          {
+            tabsData,
+            tabActive,
+          },
+          tabsData.map((tab, i) =>
+            createBlock(
+              'ghostkit/tabs-tab-v2',
+              {
+                slug: tab.slug,
+              },
+              innerBlocks[i] ? innerBlocks[i].innerBlocks : ''
+            )
+          )
+        );
+      },
+    },
+  ],
 };

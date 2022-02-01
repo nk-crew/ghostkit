@@ -5,115 +5,118 @@
 @import "./pills";
 
 .ghostkit-tabs-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: var(--gkt-tabs--buttons__offset);
-    border-bottom: var(--gkt-tabs--button__border-width) solid var(--gkt-tabs--button__border-color);
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: var(--gkt-tabs--buttons__offset);
+  border-bottom: var(--gkt-tabs--button__border-width) solid var(--gkt-tabs--button__border-color);
 
-    // Align.
-    &-align-start {
-        justify-content: flex-start;
-    }
-    &-align-center {
-        justify-content: center;
-    }
-    &-align-end {
-        justify-content: flex-end;
-    }
+  // Align.
+  &-align-start {
+    justify-content: flex-start;
+  }
 
-    .edit-post-visual-editor,
-    .edit-post-visual-editor p,
-    .editor-rich-text__tinymce.mce-content-body {
-        line-height: inherit;
-    }
+  &-align-center {
+    justify-content: center;
+  }
 
-    // Item.
-    &-item {
-        position: relative;
-        display: block;
-        padding: var(--gkt-tabs--button__padding-v) var(--gkt-tabs--button__padding-h);
-        margin-bottom: calc(-1 * var(--gkt-tabs--button__border-width));
-        font-weight: var(--gkt-tabs--button__font-weight);
-        color: inherit;
-        text-decoration: none;
-        cursor: pointer;
-        background-color: transparent;
-        border: var(--gkt-tabs--button__border-width) solid transparent;
-        border-top-left-radius: var(--gkt-tabs--button__border-radius);
-        border-top-right-radius: var(--gkt-tabs--button__border-radius);
-        box-shadow: none;
-        opacity: var(--gkt-tabs--button__opacity);
-        transition: var(--gkt-tabs__transition-duration) border-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) background-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) opacity var(--gkt-tabs__transition-easing);
-        will-change: border-color, background-color, opacity;
+  &-align-end {
+    justify-content: flex-end;
+  }
 
-        &:hover,
-        &:focus {
-            opacity: var(--gkt-tabs--button-active__opacity);
-        }
+  .edit-post-visual-editor,
+  .edit-post-visual-editor p,
+  .editor-rich-text__tinymce.mce-content-body {
+    line-height: inherit;
+  }
 
-        // apply on first tab only to prevent placeholder color change.
-        &-active {
-            background-color: var(--gkt-tabs--button-active__background-color);
-            border-color: var(--gkt-tabs--button__border-color);
-            border-bottom-color: var(--gkt-tabs--button-active__background-color);
-            opacity: var(--gkt-tabs--button-active__opacity);
-        }
+  // Item.
+  &-item {
+    position: relative;
+    display: block;
+    padding: var(--gkt-tabs--button__padding-v) var(--gkt-tabs--button__padding-h);
+    margin-bottom: calc(-1 * var(--gkt-tabs--button__border-width));
+    font-weight: var(--gkt-tabs--button__font-weight);
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: var(--gkt-tabs--button__border-width) solid transparent;
+    border-top-left-radius: var(--gkt-tabs--button__border-radius);
+    border-top-right-radius: var(--gkt-tabs--button__border-radius);
+    box-shadow: none;
+    opacity: var(--gkt-tabs--button__opacity);
+    transition: var(--gkt-tabs__transition-duration) border-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) background-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) opacity var(--gkt-tabs__transition-easing);
+    will-change: border-color, background-color, opacity;
 
-        // show remove button on hover.
-        &:not(:hover) > .ghostkit-component-remove-button {
-            opacity: 0;
-        }
+    &:hover,
+    &:focus {
+      opacity: var(--gkt-tabs--button-active__opacity);
     }
 
-    // Add new tab button.
-    > .components-button {
-        height: auto;
-        padding: var(--gkt-tabs--button__padding-v) var(--gkt-tabs--button__padding-h);
+    // apply on first tab only to prevent placeholder color change.
+    &-active {
+      background-color: var(--gkt-tabs--button-active__background-color);
+      border-color: var(--gkt-tabs--button__border-color);
+      border-bottom-color: var(--gkt-tabs--button-active__background-color);
+      opacity: var(--gkt-tabs--button-active__opacity);
     }
+
+    // show remove button on hover.
+    &:not(:hover) > .ghostkit-component-remove-button {
+      opacity: 0;
+    }
+  }
+
+  // Add new tab button.
+  > .components-button {
+    height: auto;
+    padding: var(--gkt-tabs--button__padding-v) var(--gkt-tabs--button__padding-h);
+  }
 }
 
 .ghostkit-tabs-content [data-tab] {
-    display: none;
+  display: none;
 }
 
 // Vertical tabs.
 @include media-breakpoint-up(md) {
-    .ghostkit-tabs-buttons-vertical {
-        display: flex;
+  .ghostkit-tabs-buttons-vertical {
+    display: flex;
 
-        .ghostkit-tabs-buttons {
-            @include make-col(3, 10);
+    .ghostkit-tabs-buttons {
+      @include make-col(3, 10);
 
-            flex-direction: column;
-            margin-bottom: 0;
-            border-right: var(--gkt-tabs--button__border-width) solid var(--gkt-tabs--button__border-color);
-            border-bottom: none;
+      flex-direction: column;
+      margin-bottom: 0;
+      border-right: var(--gkt-tabs--button__border-width) solid var(--gkt-tabs--button__border-color);
+      border-bottom: none;
 
-            &-item {
-                display: block;
-                margin-right: calc(-1 * var(--gkt-tabs--button__border-width));
-                margin-bottom: 0;
-                border-top-left-radius: var(--gkt-tabs--button__border-radius);
-                border-top-right-radius: 0;
-                border-bottom-left-radius: var(--gkt-tabs--button__border-radius);
+      &-item {
+        display: block;
+        margin-right: calc(-1 * var(--gkt-tabs--button__border-width));
+        margin-bottom: 0;
+        border-top-left-radius: var(--gkt-tabs--button__border-radius);
+        border-top-right-radius: 0;
+        border-bottom-left-radius: var(--gkt-tabs--button__border-radius);
 
-                &:hover,
-                &:focus {
-                    opacity: var(--gkt-tabs--button-active__opacity);
-                }
-
-                &-active {
-                    background-color: var(--gkt-tabs--button-active__background-color);
-                    border-color: var(--gkt-tabs--button__border-color);
-                    border-right-color: var(--gkt-tabs--button-active__background-color);
-                    opacity: var(--gkt-tabs--button-active__opacity);
-                }
-            }
+        &:hover,
+        &:focus {
+          opacity: var(--gkt-tabs--button-active__opacity);
         }
-        .ghostkit-tabs-content {
-            @include make-col(7, 10);
 
-            padding-left: var(--gkt-tabs--buttons__offset);
+        &-active {
+          background-color: var(--gkt-tabs--button-active__background-color);
+          border-color: var(--gkt-tabs--button__border-color);
+          border-right-color: var(--gkt-tabs--button-active__background-color);
+          opacity: var(--gkt-tabs--button-active__opacity);
         }
+      }
     }
+
+    .ghostkit-tabs-content {
+      @include make-col(7, 10);
+
+      padding-left: var(--gkt-tabs--buttons__offset);
+    }
+  }
 }

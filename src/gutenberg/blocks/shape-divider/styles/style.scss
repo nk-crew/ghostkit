@@ -4,26 +4,28 @@
 @import "./variables";
 
 .ghostkit-shape-divider {
+  z-index: var(--gkt-shape-divider__z-index);
+  display: block;
+  overflow: hidden;
+  color: var(--gkt-shape-divider__color);
+
+  svg {
     display: block;
-    overflow: hidden;
-    color: var(--gkt-shape-divider__color);
-    z-index: var(--gkt-shape-divider__z-index);
+    min-width: 100%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
 
-    svg {
-        display: block;
-        min-width: 100%;
-        margin-left: 50%;
-        transform: translateX(-50%);
-    }
+  // Rotate
+  &-flip-vertical svg {
+    transform: translateX(-50%) scaleY(-1);
+  }
 
-    // Rotate
-    &-flip-vertical svg {
-        transform: translateX(-50%) scaleY(-1);
-    }
-    &-flip-horizontal svg {
-        transform: translateX(-50%) scaleX(-1);
-    }
-    &-flip-vertical.ghostkit-shape-divider-flip-horizontal svg {
-        transform: translateX(-50%) scaleY(-1) scaleX(-1);
-    }
+  &-flip-horizontal svg {
+    transform: translateX(-50%) scaleX(-1);
+  }
+
+  &-flip-vertical.ghostkit-shape-divider-flip-horizontal svg {
+    transform: translateX(-50%) scaleY(-1) scaleX(-1);
+  }
 }

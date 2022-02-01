@@ -5,24 +5,25 @@
 @import "./style";
 
 .ghostkit-instagram {
-    // Loading spinner.
-    &-spinner {
-        width: 100%;
-        margin-bottom: 13px;
+  // Loading spinner.
+  &-spinner {
+    width: 100%;
+    margin-bottom: 13px;
 
-        > span {
-            float: left;
-            margin: 0;
-        }
+    > span {
+      float: left;
+      margin: 0;
     }
+  }
 
-    // Fix Items Gap.
-    &-items {
-        margin-top: 0;
-        margin-bottom: calc(-1 * var(--gkt-instagram--photos__gap));
-    }
-    &-item {
-        margin-top: 0;
-        margin-bottom: var(--gkt-instagram--photos__gap);
-    }
+  // Fix Items Gap.
+  &-items {
+    margin-top: 0;
+    margin-bottom: calc(-1 * var(--gkt-instagram--photos__gap));
+  }
+
+  &-item {
+    margin-top: 0;
+    margin-bottom: var(--gkt-instagram--photos__gap);
+  }
 }

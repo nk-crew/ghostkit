@@ -1,28 +1,28 @@
 {
-	"name": "ghostkit/grid",
-	"category": "design",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": true,
-        "align": [ "wide", "full" ]
+  "name": "ghostkit/grid",
+  "category": "design",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": true,
+    "align": ["wide", "full"]
+  },
+  "attributes": {
+    "isTemplatesModalOnly": {
+      "type": "boolean"
     },
-    "attributes": {
-        "isTemplatesModalOnly": {
-            "type": "boolean"
-        },
-        "gap": {
-            "type": "string",
-            "default": "md"
-        },
-        "gapCustom": {
-            "type": "number"
-        },
-        "verticalAlign": {
-            "type": "string"
-        },
-        "horizontalAlign": {
-            "type": "string"
-        }
+    "gap": {
+      "type": "string",
+      "default": "md"
+    },
+    "gapCustom": {
+      "type": "number"
+    },
+    "verticalAlign": {
+      "type": "string"
+    },
+    "horizontalAlign": {
+      "type": "string"
     }
+  }
 }

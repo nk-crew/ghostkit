@@ -1,16 +1,16 @@
 const unsupportedBlocks = [
-    'core/shortcode',
-    'core/block',
-    'core/legacy-widget',
-    'core/tag-cloud',
-    'core/calendar',
-    'core/navigation-menu',
-    'core/search',
-    'core/categories',
-    'core/archives',
-    'core/rss',
-    'core/latest-posts',
-    'core/latest-comments',
+  'core/shortcode',
+  'core/block',
+  'core/legacy-widget',
+  'core/tag-cloud',
+  'core/calendar',
+  'core/navigation-menu',
+  'core/search',
+  'core/categories',
+  'core/archives',
+  'core/rss',
+  'core/latest-posts',
+  'core/latest-comments',
 ];
 
 /**
@@ -20,10 +20,6 @@ const unsupportedBlocks = [
  *
  * @return {Boolean} block supported.
  */
-export default function checkCoreBlock( name ) {
-    return (
-        name
-        && /^core/.test( name )
-        && -1 === unsupportedBlocks.indexOf( name )
-    );
+export default function checkCoreBlock(name) {
+  return name && /^core/.test(name) && unsupportedBlocks.indexOf(name) === -1;
 }

@@ -6,57 +6,43 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const {
-    applyFilters,
-} = wp.hooks;
+const { applyFilters } = wp.hooks;
 
 const { Component } = wp.element;
 
-const {
-    withSelect,
-} = wp.data;
+const { withSelect } = wp.data;
 
-const {
-    InnerBlocks,
-} = wp.blockEditor;
+const { InnerBlocks } = wp.blockEditor;
 
 /**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    render() {
-        const {
-            hasChildBlocks,
-        } = this.props;
+  render() {
+    const { hasChildBlocks } = this.props;
 
-        let {
-            className = '',
-        } = this.props;
+    let { className = '' } = this.props;
 
-        className = classnames( className, 'ghostkit-tab' );
+    className = classnames(className, 'ghostkit-tab');
 
-        className = applyFilters( 'ghostkit.editor.className', className, this.props );
+    className = applyFilters('ghostkit.editor.className', className, this.props);
 
-        return (
-            <div className={ className }>
-                <InnerBlocks
-                    templateLock={ false }
-                    renderAppender={ (
-                        hasChildBlocks
-                            ? undefined
-                            : () => <InnerBlocks.ButtonBlockAppender />
-                    ) }
-                />
-            </div>
-        );
-    }
+    return (
+      <div className={className}>
+        <InnerBlocks
+          templateLock={false}
+          renderAppender={hasChildBlocks ? undefined : () => <InnerBlocks.ButtonBlockAppender />}
+        />
+      </div>
+    );
+  }
 }
 
-export default withSelect( ( select, props ) => {
-    const { clientId } = props;
-    const blockEditor = select( 'core/block-editor' );
+export default withSelect((select, props) => {
+  const { clientId } = props;
+  const blockEditor = select('core/block-editor');
 
-    return {
-        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
-    };
-} )( BlockEdit );
+  return {
+    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
+  };
+})(BlockEdit);

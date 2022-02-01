@@ -4,21 +4,21 @@
 @import "../../../variables";
 
 .ghostkit-accordion {
-    // Heading.
-    --gkt-accordion--heading__padding-v: .75em;
-    --gkt-accordion--heading__padding-h: 0;
-    --gkt-accordion--heading__font-weight: 500;
+  // Heading.
+  --gkt-accordion--heading__padding-v: 0.75em;
+  --gkt-accordion--heading__padding-h: 0;
+  --gkt-accordion--heading__font-weight: 500;
 
-    // Heading Collapse Icon.
-    --gkt-accordion--heading-collapse-icon__width: 3em;
-    --gkt-accordion--heading-collapse-icon__font-size: .7em;
-    --gkt-accordion--heading-collapse-icon-active__transform: rotate(90deg);
+  // Heading Collapse Icon.
+  --gkt-accordion--heading-collapse-icon__width: 3em;
+  --gkt-accordion--heading-collapse-icon__font-size: 0.7em;
+  --gkt-accordion--heading-collapse-icon-active__transform: rotate(90deg);
 
-    // Content.
-    --gkt-accordion--content__padding-v: .75em;
-    --gkt-accordion--content__padding-h: 0;
+  // Content.
+  --gkt-accordion--content__padding-v: 0.75em;
+  --gkt-accordion--content__padding-h: 0;
 
-    // Transitions.
-    --gkt-accordion__transition-duration: var(--gkt-transition-duration);
-    --gkt-accordion__transition-easing: var(--gkt-transition-easing);
+  // Transitions.
+  --gkt-accordion__transition-duration: var(--gkt-transition-duration);
+  --gkt-accordion__transition-easing: var(--gkt-transition-easing);
 }

@@ -9,15 +9,15 @@
 .edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-custom-code-plugin-icon svg *,
 .edit-post-pinned-plugins .components-icon-button:hover .ghostkit-custom-code-plugin-icon svg,
 .edit-post-pinned-plugins .components-icon-button:hover .ghostkit-custom-code-plugin-icon svg * {
-    stroke: initial !important; // stylelint-disable-line
+  stroke: initial !important;
 }
 
 .ghostkit-plugin-custom-code-modal {
-    .components-modal__header {
-        border-bottom: none;
-    }
+  .components-modal__header {
+    border-bottom: none;
+  }
 
-    .ghostkit-component-modal-tab-panel .components-tab-panel__tabs {
-        margin-top: -24px;
-    }
+  .ghostkit-component-modal-tab-panel .components-tab-panel__tabs {
+    margin-top: -24px;
+  }
 }

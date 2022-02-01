@@ -7,10 +7,10 @@ import camelCaseToDash from '../../../utils/camel-case-to-dash';
 import * as classesReplacer from '../../../utils/classes-replacer';
 
 export function get() {
-    return {
-        getIcon,
-        dashCaseToTitle,
-        camelCaseToDash,
-        classesReplacer,
-    };
+  return {
+    getIcon,
+    dashCaseToTitle,
+    camelCaseToDash,
+    classesReplacer,
+  };
 }

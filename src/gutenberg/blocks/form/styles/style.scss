@@ -4,148 +4,152 @@
 @import "./variables";
 
 .ghostkit-form {
-    &-field + &-field,
-    &-submit-button + &-field,
-    &-field + &-submit-button {
-        margin-top: var(--gkt-form--field__gap);
+  &-field + &-field,
+  &-submit-button + &-field,
+  &-field + &-submit-button {
+    margin-top: var(--gkt-form--field__gap);
+  }
+
+  &-field-label {
+    margin-bottom: var(--gkt-form--field-label__margin-bottom);
+
+    .required {
+      margin-left: var(--gkt-form--field-label-required-mark__margin-left);
+      color: var(--gkt-form--field-label-required-mark__color);
     }
 
-    &-field-label {
-        margin-bottom: var(--gkt-form--field-label__margin-bottom);
-
-        .required {
-            margin-left: var(--gkt-form--field-label-required-mark__margin-left);
-            color: var(--gkt-form--field-label-required-mark__color);
-        }
-
-        &-hidden {
-            position: absolute;
-            left: -99999px;
-        }
+    &-hidden {
+      position: absolute;
+      left: -99999px;
     }
+  }
 
-    &-field-description {
-        display: block;
-        margin-top: var(--gkt-form--field-description__margin-top);
-        line-height: var(--gkt-form--field-description__line-height);
-        opacity: var(--gkt-form--field-description__opacity);
+  &-field-description {
+    display: block;
+    margin-top: var(--gkt-form--field-description__margin-top);
+    line-height: var(--gkt-form--field-description__line-height);
+    opacity: var(--gkt-form--field-description__opacity);
 
-        &-hidden {
-            position: absolute;
-            left: -99999px;
-        }
+    &-hidden {
+      position: absolute;
+      left: -99999px;
     }
+  }
 
-    // Row
-    &-field-row {
-        display: grid;
-        grid-template-columns: var(--gkt-form--field-row__template-columns);
-        grid-gap: var(--gkt-form--field-row__gap);
+  // Row
+  &-field-row {
+    display: grid;
+    grid-template-columns: var(--gkt-form--field-row__template-columns);
+    grid-gap: var(--gkt-form--field-row__gap);
 
-        @include media-breakpoint-down(md) {
-            grid-template-columns: 1fr;
-        }
+    @include media-breakpoint-down(md) {
+      grid-template-columns: 1fr;
     }
+  }
 
-    // Field Name
-    &-field-name-with-middle &-field-row {
-        grid-template-columns: var(--gkt-form--field-name-row-with-middle__template-columns);
+  // Field Name
+  &-field-name-with-middle &-field-row {
+    grid-template-columns: var(--gkt-form--field-name-row-with-middle__template-columns);
 
-        @include media-breakpoint-down(md) {
-            grid-template-columns: 1fr;
-        }
+    @include media-breakpoint-down(md) {
+      grid-template-columns: 1fr;
     }
+  }
 
-    // Field Select
-    &-field-select select {
-        width: 100%;
-        max-width: 100%;
-    }
+  // Field Select
+  &-field-select select {
+    width: 100%;
+    max-width: 100%;
+  }
 
-    // Field Radio
-    &-field-radio &-field-radio-item {
-        display: block;
-    }
+  // Field Radio
+  &-field-radio &-field-radio-item {
+    display: block;
+  }
 
-    // Field Radio Inline
-    &-field-radio-inline &-field-radio-item {
-        display: inline-block;
-        margin-right: var(--gkt-form--field-radio-inline__margin-right);
-    }
+  // Field Radio Inline
+  &-field-radio-inline &-field-radio-item {
+    display: inline-block;
+    margin-right: var(--gkt-form--field-radio-inline__margin-right);
+  }
 
-    // Field Checkbox
-    &-field-checkbox &-field-checkbox-item {
-        display: block;
-    }
+  // Field Checkbox
+  &-field-checkbox &-field-checkbox-item {
+    display: block;
+  }
 
-    // Field Checkbox Inline
-    &-field-checkbox-inline &-field-checkbox-item {
-        display: inline-block;
-        margin-right: var(--gkt-form--field-checkbox-inline__margin-right);
-    }
+  // Field Checkbox Inline
+  &-field-checkbox-inline &-field-checkbox-item {
+    display: inline-block;
+    margin-right: var(--gkt-form--field-checkbox-inline__margin-right);
+  }
 
-    // Submit Button
-    &-submit-button {
-        --gkt-button__gap: 0%;
-        --gkt-button__align-items: flex-start;
-        --gkt-button__justify-content: flex-start;
+  // Submit Button
+  &-submit-button {
+    --gkt-button__gap: 0%;
+    --gkt-button__align-items: flex-start;
+    --gkt-button__justify-content: flex-start;
 
-        display: flex;
-        justify-content: var(--gkt-button__align-items);
-    }
-    &-submit-button-align-left {
-        --gkt-button__align-items: flex-start;
-    }
-    &-submit-button-align-right {
-        --gkt-button__align-items: flex-end;
-    }
-    &-submit-button-align-center {
-        --gkt-button__align-items: center;
-    }
+    display: flex;
+    justify-content: var(--gkt-button__align-items);
+  }
 
-    // Alert
-    .ghostkit-alert-form-success {
-        border-left-color: var(--gkt-form--alert-success__color);
-    }
-    .ghostkit-alert-form-error {
-        border-left-color: var(--gkt-form--alert-error__color);
-    }
+  &-submit-button-align-left {
+    --gkt-button__align-items: flex-start;
+  }
 
-    // Parsley validation.
-    input.parsley-success,
-    select.parsley-success,
-    textarea.parsley-success {
-        border-color: var(--gkt-form--field-success__border-color);
-    }
+  &-submit-button-align-right {
+    --gkt-button__align-items: flex-end;
+  }
 
-    input.parsley-error,
-    select.parsley-error,
-    textarea.parsley-error {
-        border-color: var(--gkt-form--field-error__border-color);
-    }
+  &-submit-button-align-center {
+    --gkt-button__align-items: center;
+  }
 
-    .parsley-errors-list {
-        padding: 0;
-        margin: 0;
-        margin-top: var(--gkt-form--errors__margin-top);
-        font-family: inherit;
-        font-size: var(--gkt-form--errors__font-size);
-        line-height: var(--gkt-form--errors__line-height);
-        color: var(--gkt-form--errors__color);
-        list-style-type: none;
-        opacity: 0;
-        transition: var(--gkt-form__transition-duration) all var(--gkt-form__transition-easing);
+  // Alert
+  .ghostkit-alert-form-success {
+    border-left-color: var(--gkt-form--alert-success__color);
+  }
 
-        li {
-            margin-left: 0;
-        }
-    }
+  .ghostkit-alert-form-error {
+    border-left-color: var(--gkt-form--alert-error__color);
+  }
 
-    .parsley-errors-list.filled {
-        opacity: 1;
-    }
+  // Parsley validation.
+  input.parsley-success,
+  select.parsley-success,
+  textarea.parsley-success {
+    border-color: var(--gkt-form--field-success__border-color);
+  }
 
-    .parsley-errors-list:empty {
-        display: none;
+  input.parsley-error,
+  select.parsley-error,
+  textarea.parsley-error {
+    border-color: var(--gkt-form--field-error__border-color);
+  }
+
+  .parsley-errors-list {
+    padding: 0;
+    margin: 0;
+    margin-top: var(--gkt-form--errors__margin-top);
+    font-family: inherit;
+    font-size: var(--gkt-form--errors__font-size);
+    line-height: var(--gkt-form--errors__line-height);
+    color: var(--gkt-form--errors__color);
+    list-style-type: none;
+    opacity: 0;
+    transition: var(--gkt-form__transition-duration) all var(--gkt-form__transition-easing);
+
+    li {
+      margin-left: 0;
     }
+  }
+
+  .parsley-errors-list.filled {
+    opacity: 1;
+  }
+
+  .parsley-errors-list:empty {
+    display: none;
+  }
 }

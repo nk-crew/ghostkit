@@ -6,63 +6,43 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const {
-    applyFilters,
-} = wp.hooks;
+const { applyFilters } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Component } = wp.element;
 
-const {
-    InnerBlocks,
-} = wp.blockEditor;
+const { InnerBlocks } = wp.blockEditor;
 
-const {
-    withSelect,
-} = wp.data;
+const { withSelect } = wp.data;
 
 /**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    render() {
-        const {
-            attributes,
-            hasChildBlocks,
-        } = this.props;
+  render() {
+    const { attributes, hasChildBlocks } = this.props;
 
-        let {
-            className,
-        } = attributes;
+    let { className } = attributes;
 
-        className = classnames(
-            className,
-            'ghostkit-carousel-slide'
-        );
+    className = classnames(className, 'ghostkit-carousel-slide');
 
-        className = applyFilters( 'ghostkit.editor.className', className, this.props );
+    className = applyFilters('ghostkit.editor.className', className, this.props);
 
-        return (
-            <Fragment>
-                <div className={ className }>
-                    <InnerBlocks
-                        templateLock={ false }
-                        renderAppender={ (
-                            hasChildBlocks
-                                ? undefined
-                                : () => <InnerBlocks.ButtonBlockAppender />
-                        ) }
-                    />
-                </div>
-            </Fragment>
-        );
-    }
+    return (
+      <div className={className}>
+        <InnerBlocks
+          templateLock={false}
+          renderAppender={hasChildBlocks ? undefined : () => <InnerBlocks.ButtonBlockAppender />}
+        />
+      </div>
+    );
+  }
 }
 
-export default withSelect( ( select, ownProps ) => {
-    const { clientId } = ownProps;
-    const blockEditor = select( 'core/block-editor' );
+export default withSelect((select, ownProps) => {
+  const { clientId } = ownProps;
+  const blockEditor = select('core/block-editor');
 
-    return {
-        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder( clientId ).length : false,
-    };
-} )( BlockEdit );
+  return {
+    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
+  };
+})(BlockEdit);

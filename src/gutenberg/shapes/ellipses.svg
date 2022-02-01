@@ -1,5 +1,8 @@
-<svg width="200" height="20" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-<path opacity="0.25" d="M200 20H0C12.5 10.4167 55.5 4.76837e-07 100 4.76837e-07C144.5 4.76837e-07 185.5 10.4167 200 20Z" fill="currentColor"/>
-<path opacity="0.5" d="M200 20H0C12.5 12.3333 55.5 4 100 4C144.5 4 185.5 12.3333 200 20Z" fill="currentColor"/>
-<path d="M200 20H0C12.5 14.25 55.5 8 100 8C144.5 8 185.5 14.25 200 20Z" fill="currentColor"/>
+<svg width="200" height="20" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+  preserveAspectRatio="none">
+  <path opacity="0.25"
+    d="M200 20H0C12.5 10.4167 55.5 4.76837e-07 100 4.76837e-07C144.5 4.76837e-07 185.5 10.4167 200 20Z"
+    fill="currentColor" />
+  <path opacity="0.5" d="M200 20H0C12.5 12.3333 55.5 4 100 4C144.5 4 185.5 12.3333 200 20Z" fill="currentColor" />
+  <path d="M200 20H0C12.5 14.25 55.5 8 100 8C144.5 8 185.5 14.25 200 20Z" fill="currentColor" />
 </svg>

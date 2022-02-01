@@ -41,26 +41,21 @@ import './disable-blocks';
 /**
  * Internal dependencies
  */
-const {
-    registerBlockCollection,
-    updateCategory,
-} = wp.blocks;
+const { registerBlockCollection, updateCategory } = wp.blocks;
 
 /**
  * Add category icon.
  */
-const categoryIcon = (
-    <GhostKitCategoryIcon className="components-panel__icon" />
-);
+const categoryIcon = <GhostKitCategoryIcon className="components-panel__icon" />;
 
 // Collections.
-if ( 'undefined' !== typeof registerBlockCollection ) {
-    registerBlockCollection( 'ghostkit', {
-        title: 'Ghost Kit',
-        icon: categoryIcon,
-    } );
-} else if ( updateCategory ) {
-    updateCategory( 'ghostkit', {
-        icon: categoryIcon,
-    } );
+if (typeof registerBlockCollection !== 'undefined') {
+  registerBlockCollection('ghostkit', {
+    title: 'Ghost Kit',
+    icon: categoryIcon,
+  });
+} else if (updateCategory) {
+  updateCategory('ghostkit', {
+    icon: categoryIcon,
+  });
 }

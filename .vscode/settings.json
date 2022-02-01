@@ -22,5 +22,8 @@
   "stylelint.snippet": [
     "css",
     "scss"
-  ]
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

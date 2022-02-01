@@ -1,10 +1,11 @@
 .ghostkit-component-input-drag-has-icon {
-    svg {
-        position: absolute;
-        margin: 10px;
-        color: #c0c0c0;
-    }
-    .ghostkit-component-input-drag .components-base-control__field .components-text-control__input {
-        padding-left: 30px;
-    }
+  svg {
+    position: absolute;
+    margin: 10px;
+    color: #c0c0c0;
+  }
+
+  .ghostkit-component-input-drag .components-base-control__field .components-text-control__input {
+    padding-left: 30px;
+  }
 }

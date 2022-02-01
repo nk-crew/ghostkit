@@ -17,52 +17,55 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-    ...metadata,
-    title: __( 'Changelog', '@@text_domain' ),
-    description: __( 'Show the changes log of your product.', '@@text_domain' ),
-    icon: getIcon( 'block-changelog', true ),
-    keywords: [
-        __( 'changelog', '@@text_domain' ),
-        __( 'log', '@@text_domain' ),
-    ],
-    ghostkit: {
-        previewUrl: 'https://ghostkit.io/blocks/changelog/',
-        supports: {
-            styles: true,
-            frame: true,
-            spacings: true,
-            display: true,
-            scrollReveal: true,
-            customCSS: true,
-        },
+  ...metadata,
+  title: __('Changelog', '@@text_domain'),
+  description: __('Show the changes log of your product.', '@@text_domain'),
+  icon: getIcon('block-changelog', true),
+  keywords: [__('changelog', '@@text_domain'), __('log', '@@text_domain')],
+  ghostkit: {
+    previewUrl: 'https://ghostkit.io/blocks/changelog/',
+    supports: {
+      styles: true,
+      frame: true,
+      spacings: true,
+      display: true,
+      scrollReveal: true,
+      customCSS: true,
     },
-    example: {
+  },
+  example: {
+    attributes: {
+      version: '1.0.0',
+      date: '19 August 2077',
+    },
+    innerBlocks: [
+      {
+        name: 'core/list',
         attributes: {
-            version: '1.0.0',
-            date: '19 August 2077',
+          values: [
+            <li key="list-item-1">
+              <span className="ghostkit-badge" style={{ backgroundColor: '#4ab866' }}>
+                {__('Added', '@@text_domain')}
+              </span>
+              {__('Something', '@@text_domain')}
+            </li>,
+            <li key="list-item-2">
+              <span className="ghostkit-badge" style={{ backgroundColor: '#0366d6' }}>
+                {__('Fixed', '@@text_domain')}
+              </span>
+              {__('Something', '@@text_domain')}
+            </li>,
+            <li key="list-item-3">
+              <span className="ghostkit-badge" style={{ backgroundColor: '#63656b' }}>
+                {__('Changed', '@@text_domain')}
+              </span>
+              {__('Something', '@@text_domain')}
+            </li>,
+          ],
         },
-        innerBlocks: [
-            {
-                name: 'core/list',
-                attributes: {
-                    values: [
-                        <li key="list-item-1">
-                            <span className="ghostkit-badge" style={ { backgroundColor: '#4ab866' } }>{ __( 'Added', '@@text_domain' ) }</span>
-                            { __( 'Something', '@@text_domain' ) }
-                        </li>,
-                        <li key="list-item-2">
-                            <span className="ghostkit-badge" style={ { backgroundColor: '#0366d6' } }>{ __( 'Fixed', '@@text_domain' ) }</span>
-                            { __( 'Something', '@@text_domain' ) }
-                        </li>,
-                        <li key="list-item-3">
-                            <span className="ghostkit-badge" style={ { backgroundColor: '#63656b' } }>{ __( 'Changed', '@@text_domain' ) }</span>
-                            { __( 'Something', '@@text_domain' ) }
-                        </li>,
-                    ],
-                },
-            },
-        ],
-    },
-    edit,
-    save,
+      },
+    ],
+  },
+  edit,
+  save,
 };

@@ -4,42 +4,40 @@
 import { maybeDecode } from '../../utils/encode-decode';
 
 /**
-* Block TOC
-*/
-const {
-    jQuery: $,
-} = window;
-const $doc = $( document );
+ * Block TOC
+ */
+const { jQuery: $ } = window;
+const $doc = $(document);
 
 /**
  * Prepare TOCs.
  */
-$doc.on( 'click', '.ghostkit-toc a', ( evt ) => {
-    evt.preventDefault();
+$doc.on('click', '.ghostkit-toc a', (evt) => {
+  evt.preventDefault();
 
-    if ( ! evt.target || ! evt.target.hash ) {
-        return;
-    }
+  if (!evt.target || !evt.target.hash) {
+    return;
+  }
 
-    const offset = $( maybeDecode( evt.target.hash ) ).offset();
+  const offset = $(maybeDecode(evt.target.hash)).offset();
 
-    if ( 'undefined' === typeof offset ) {
-        return;
-    }
+  if (typeof offset === 'undefined') {
+    return;
+  }
 
-    const $adminBar = $( '#wpadminbar' );
-    let { top } = offset;
+  const $adminBar = $('#wpadminbar');
+  let { top } = offset;
 
-    // Admin bar offset.
-    if ( $adminBar.length && 'fixed' === $adminBar.css( 'position' ) ) {
-        top -= $adminBar.outerHeight();
-    }
+  // Admin bar offset.
+  if ($adminBar.length && $adminBar.css('position') === 'fixed') {
+    top -= $adminBar.outerHeight();
+  }
 
-    // Limit max offset.
-    top = Math.max( 0, top );
+  // Limit max offset.
+  top = Math.max(0, top);
 
-    window.scrollTo( {
-        top,
-        behavior: 'smooth',
-    } );
-} );
+  window.scrollTo({
+    top,
+    behavior: 'smooth',
+  });
+});

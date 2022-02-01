@@ -4,17 +4,18 @@
 @import "../../variables";
 
 .ghostkit-typography-container {
-    padding-right: 16px;
-    padding-left: 16px;
-    margin-right: -16px;
-    margin-left: -16px;
+  padding-right: 16px;
+  padding-left: 16px;
+  margin-right: -16px;
+  margin-left: -16px;
 
-    + .ghostkit-typography-container {
-        margin-top: 16px;
-        border-top: 1px solid #e8eaeb;
-    }
+  + .ghostkit-typography-container {
+    margin-top: 16px;
+    border-top: 1px solid #e8eaeb;
+  }
 }
+
 .ghostkit-typography-advanced {
-    margin-top: 10px;
-    text-align: right;
+  margin-top: 10px;
+  text-align: right;
 }

@@ -1,7 +1,4 @@
 /**
- * WordPress dependencies
- */
-/**
  * Internal dependencies
  */
 import reducer from './reducer';
@@ -10,10 +7,15 @@ import * as actions from './actions';
 import * as controls from './controls';
 import * as resolvers from './resolvers';
 
-const {
-    registerStore,
-} = wp.data;
+/**
+ * WordPress dependencies
+ */
+const { registerStore } = wp.data;
 
-registerStore( 'ghostkit/plugins/customizer', {
-    reducer, selectors, actions, controls, resolvers,
-} );
+registerStore('ghostkit/plugins/customizer', {
+  reducer,
+  selectors,
+  actions,
+  controls,
+  resolvers,
+});

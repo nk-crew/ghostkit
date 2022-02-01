@@ -11,28 +11,28 @@ const { URLPopover } = wp.blockEditor;
  * @return {DOM} element.
  */
 function getSelectedBadge() {
-    const selection = window.getSelection();
+  const selection = window.getSelection();
 
-    // Unlikely, but in the case there is no selection, return empty styles so
-    // as to avoid a thrown error by `Selection#getRangeAt` on invalid index.
-    if ( 0 === selection.rangeCount ) {
-        return false;
-    }
+  // Unlikely, but in the case there is no selection, return empty styles so
+  // as to avoid a thrown error by `Selection#getRangeAt` on invalid index.
+  if (selection.rangeCount === 0) {
+    return false;
+  }
 
-    const range = selection.getRangeAt( 0 );
+  const range = selection.getRangeAt(0);
 
-    let $selectedNode = range.startContainer;
+  let $selectedNode = range.startContainer;
 
-    // If the caret is right before the element, select the next element.
-    $selectedNode = $selectedNode.nextElementSibling || $selectedNode;
+  // If the caret is right before the element, select the next element.
+  $selectedNode = $selectedNode.nextElementSibling || $selectedNode;
 
-    while ( $selectedNode.nodeType !== window.Node.ELEMENT_NODE ) {
-        $selectedNode = $selectedNode.parentNode;
-    }
+  while ($selectedNode.nodeType !== window.Node.ELEMENT_NODE) {
+    $selectedNode = $selectedNode.parentNode;
+  }
 
-    const $badge = $selectedNode.closest( '.ghostkit-badge' );
+  const $badge = $selectedNode.closest('.ghostkit-badge');
 
-    return $badge;
+  return $badge;
 }
 
 /**
@@ -43,13 +43,13 @@ function getSelectedBadge() {
  * @return {Object} Style object.
  */
 function getCurrentCaretPositionStyle() {
-    const $badge = getSelectedBadge();
+  const $badge = getSelectedBadge();
 
-    if ( ! $badge ) {
-        return {};
-    }
+  if (!$badge) {
+    return {};
+  }
 
-    return $badge.getBoundingClientRect();
+  return $badge.getBoundingClientRect();
 }
 
 /**
@@ -60,27 +60,24 @@ function getCurrentCaretPositionStyle() {
  * @type {WPComponent}
  */
 class BadgePopover extends Component {
-    constructor( props ) {
-        super( props );
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            rect: getCurrentCaretPositionStyle(),
-        };
-    }
+    this.state = {
+      rect: getCurrentCaretPositionStyle(),
+    };
+  }
 
-    render() {
-        const { children } = this.props;
-        const { rect } = this.state;
+  render() {
+    const { children } = this.props;
+    const { rect } = this.state;
 
-        return (
-            <URLPopover
-                className="ghostkit-format-badge-popover"
-                anchorRect={ rect }
-            >
-                { children }
-            </URLPopover>
-        );
-    }
+    return (
+      <URLPopover className="ghostkit-format-badge-popover" anchorRect={rect}>
+        {children}
+      </URLPopover>
+    );
+  }
 }
 
 export { BadgePopover, getSelectedBadge };

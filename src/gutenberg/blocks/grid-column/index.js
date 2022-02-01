@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -27,60 +28,60 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-    ...metadata,
-    title: __( 'Column', '@@text_domain' ),
-    description: __( 'A single column within a grid block.', '@@text_domain' ),
-    icon: getIcon( 'block-grid-column', true ),
-    ghostkit: {
-        customSelector( selector ) {
-            // extend selector to add possibility to override default column spacings without !important
-            selector = `.ghostkit-grid ${ selector }`;
+  ...metadata,
+  title: __('Column', '@@text_domain'),
+  description: __('A single column within a grid block.', '@@text_domain'),
+  icon: getIcon('block-grid-column', true),
+  ghostkit: {
+    customSelector(selector) {
+      // extend selector to add possibility to override default column spacings without !important
+      selector = `.ghostkit-grid ${selector}`;
 
-            return selector;
-        },
-        customStylesCallback( attributes ) {
-            const {
-                stickyContent,
-                stickyContentOffset,
-                awb_image: image,
-            } = attributes;
-
-            let result = {};
-
-            // Sticky styles.
-            if ( stickyContent && 'undefined' !== typeof stickyContentOffset ) {
-                result[ '--gkt-grid--column-sticky__offset' ] = `${ stickyContentOffset }px`;
-            }
-
-            // Image styles.
-            if ( image ) {
-                result = {
-                    ...result,
-                    ...getBackgroundStyles( attributes ),
-                };
-            }
-
-            return result;
-        },
-        customStylesFilter( styles, data, isEditor, attributes ) {
-            // change custom styles in Editor.
-            if ( isEditor && attributes.ghostkitClassname ) {
-                // background.
-                styles = styles.replace( new RegExp( '> .nk-awb .jarallax-img', 'g' ), '> .awb-gutenberg-preview-block .jarallax-img' );
-            }
-            return styles;
-        },
-        supports: {
-            styles: true,
-            frame: true,
-            spacings: true,
-            display: true,
-            scrollReveal: true,
-            customCSS: true,
-        },
+      return selector;
     },
-    edit,
-    save,
+    customStylesCallback(attributes) {
+      const { stickyContent, stickyContentOffset, awb_image: image } = attributes;
+
+      let result = {};
+
+      // Sticky styles.
+      if (stickyContent && typeof stickyContentOffset !== 'undefined') {
+        result['--gkt-grid--column-sticky__offset'] = `${stickyContentOffset}px`;
+      }
+
+      // Image styles.
+      if (image) {
+        result = {
+          ...result,
+          ...getBackgroundStyles(attributes),
+        };
+      }
+
+      return result;
+    },
+    customStylesFilter(styles, data, isEditor, attributes) {
+      // change custom styles in Editor.
+      if (isEditor && attributes.ghostkitClassname) {
+        // background.
+        styles = styles.replace(
+          // eslint-disable-next-line prefer-regex-literals
+          new RegExp('> .nk-awb .jarallax-img', 'g'),
+          '> .awb-gutenberg-preview-block .jarallax-img'
+        );
+      }
+      return styles;
+    },
+    supports: {
+      styles: true,
+      frame: true,
+      spacings: true,
+      display: true,
+      scrollReveal: true,
+      customCSS: true,
+    },
+  },
+  edit,
+  save,
 };
 
 /**
@@ -89,17 +90,18 @@ export const settings = {
  * @param  {Function} BlockListBlock Original component
  * @return {Function}                Wrapped component
  */
-export const withClasses = createHigherOrderComponent( ( BlockListBlock ) => (
-    ( props ) => {
-        const { name: blockName } = props;
+export const withClasses = createHigherOrderComponent(
+  (BlockListBlock) =>
+    function (props) {
+      const { name: blockName } = props;
 
-        if ( 'ghostkit/grid-column' === blockName ) {
-            const className = classnames( props.attributes.className, getColClass( props ) );
-            return <BlockListBlock { ...props } className={ className } />;
-        }
+      if (blockName === 'ghostkit/grid-column') {
+        const className = classnames(props.attributes.className, getColClass(props));
+        return <BlockListBlock {...props} className={className} />;
+      }
 
-        return <BlockListBlock { ...props } />;
+      return <BlockListBlock {...props} />;
     }
-) );
+);
 
-addFilter( 'editor.BlockListBlock', 'ghostkit/grid-column/with-classes', withClasses );
+addFilter('editor.BlockListBlock', 'ghostkit/grid-column/with-classes', withClasses);

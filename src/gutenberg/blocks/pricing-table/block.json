@@ -1,31 +1,31 @@
 {
-	"name": "ghostkit/pricing-table",
-	"category": "design",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": true,
-        "align": [ "wide", "full" ]
+  "name": "ghostkit/pricing-table",
+  "category": "design",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": true,
+    "align": ["wide", "full"]
+  },
+  "attributes": {
+    "count": {
+      "type": "number",
+      "default": 2
     },
-    "attributes": {
-        "count": {
-            "type": "number",
-            "default": 2
-        },
-        "gap": {
-            "type": "string",
-            "default": "md"
-        },
-        "gapCustom": {
-            "type": "number"
-        },
-        "verticalAlign": {
-            "type": "string",
-            "default": "center"
-        },
-        "horizontalAlign": {
-            "type": "string",
-            "default": "center"
-        }
+    "gap": {
+      "type": "string",
+      "default": "md"
+    },
+    "gapCustom": {
+      "type": "number"
+    },
+    "verticalAlign": {
+      "type": "string",
+      "default": "center"
+    },
+    "horizontalAlign": {
+      "type": "string",
+      "default": "center"
     }
+  }
 }

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /**
  * Admin Styles.
  */
@@ -8,25 +10,25 @@
  */
 #adminmenu a[href="admin.php?page=ghostkit_go_pro"],
 .wp-list-table.plugins a[href="admin.php?page=ghostkit_go_pro"] {
-    font-weight: 700;
-    color: $color-success;
+  font-weight: 700;
+  color: $color-success;
 
-    .dashicons {
-        transition: none;
-    }
+  .dashicons {
+    transition: none;
+  }
 
-    &:hover,
-    &:focus {
-        color: darken($color-success, 10%);
-    }
+  &:hover,
+  &:focus {
+    color: color.adjust($color-success, $lightness: -10%);
+  }
 }
 
 // TODO: remove this fix when Gutenberg fixes this.
 .components-select-control select[multiple] {
-    height: auto;
-    padding-right: 8px;
+  height: auto;
+  padding-right: 8px;
 
-    ~ .components-input-control__suffix {
-        display: none;
-    }
+  ~ .components-input-control__suffix {
+    display: none;
+  }
 }

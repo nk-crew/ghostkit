@@ -1,5 +1,6 @@
-<svg width="200" height="20" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-<path opacity="0.25" d="M149.5 0L200 20H0L149.5 0Z" fill="currentColor"/>
-<path opacity="0.5" d="M149.5 5L200 20H0L149.5 5Z" fill="currentColor"/>
-<path d="M149.5 10L200 20H0L149.5 10Z" fill="currentColor"/>
+<svg width="200" height="20" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+  preserveAspectRatio="none">
+  <path opacity="0.25" d="M149.5 0L200 20H0L149.5 0Z" fill="currentColor" />
+  <path opacity="0.5" d="M149.5 5L200 20H0L149.5 5Z" fill="currentColor" />
+  <path d="M149.5 10L200 20H0L149.5 10Z" fill="currentColor" />
 </svg>

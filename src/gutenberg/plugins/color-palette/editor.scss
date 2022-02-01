@@ -9,54 +9,55 @@
 .edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-color-palette-plugin-icon svg *,
 .edit-post-pinned-plugins .components-icon-button:hover .ghostkit-color-palette-plugin-icon svg,
 .edit-post-pinned-plugins .components-icon-button:hover .ghostkit-color-palette-plugin-icon svg * {
-    stroke: initial !important; // stylelint-disable-line
+  stroke: initial !important;
 }
 
 .ghostkit-plugin-color-palette-modal {
-    .components-modal__header {
-        margin-bottom: -10px;
-        border-bottom: none;
+  .components-modal__header {
+    margin-bottom: -10px;
+    border-bottom: none;
+  }
+
+  .ghostkit-plugin-color-palette-list-default {
+    .components-base-control__field {
+      cursor: not-allowed;
     }
 
-    .ghostkit-plugin-color-palette-list-default {
-        .components-base-control__field {
-            cursor: not-allowed;
-        }
-        .components-circular-option-picker__option-wrapper {
-            pointer-events: none;
-        }
+    .components-circular-option-picker__option-wrapper {
+      pointer-events: none;
     }
+  }
 
-    h4 {
-        margin-top: 24px;
+  h4 {
+    margin-top: 24px;
+  }
+
+  // palette.
+  .ghostkit-plugin-color-palette-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    > .ghostkit-component-color-picker-wrapper {
+      margin-right: 10px;
+      margin-bottom: 0;
+
+      > .components-base-control__field {
+        margin: 0;
+      }
     }
+  }
 
-    // palette.
-    .ghostkit-plugin-color-palette-list {
-        display: flex;
-        flex-wrap: wrap;
+  // add button.
+  .ghostkit-plugin-color-palette-list-add-new {
+    .components-circular-option-picker__option {
+      font-family: sans-serif;
+      font-size: 20px;
+      line-height: 20px;
+      color: #fff;
 
-        > .ghostkit-component-color-picker-wrapper {
-            margin-right: 10px;
-            margin-bottom: 0;
-
-            > .components-base-control__field {
-                margin: 0;
-            }
-        }
+      .components-color-palette__custom-color-gradient {
+        color: #525252;
+      }
     }
-
-    // add button.
-    .ghostkit-plugin-color-palette-list-add-new {
-        .components-circular-option-picker__option {
-            font-family: sans-serif;
-            font-size: 20px;
-            line-height: 20px;
-            color: #fff;
-
-            .components-color-palette__custom-color-gradient {
-                color: #525252;
-            }
-        }
-    }
+  }
 }

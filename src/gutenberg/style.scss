@@ -1,3 +1,5 @@
+/* stylelint-disable no-invalid-position-at-import-rule */
+
 /**
  * Ghost Kit Frontend Styles.
  */
@@ -25,7 +27,7 @@
 .ghostkit-twitter,
 .ghostkit-toc,
 .ghostkit-form {
-    margin-bottom: var(--gkt-blocks-margin-bottom);
+  margin-bottom: var(--gkt-blocks-margin-bottom);
 }
 
 /**

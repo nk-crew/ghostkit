@@ -4,44 +4,44 @@
 @import "./variables";
 
 .ghostkit-carousel {
-    position: relative;
-    padding-bottom: 10px;
-    overflow-x: auto;
-    overflow-y: hidden;
+  position: relative;
+  padding-bottom: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
 
-    > .block-editor-inner-blocks > .block-editor-block-list__layout {
-        display: flex;
-        margin: 0;
+  > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    display: flex;
+    margin: 0;
 
-        > .wp-block {
-            // We can't use flex + calc
-            // https://github.com/nk-crew/ghostkit/issues/103
-            flex-basis: calc(50% - 10px);
-            flex-shrink: 0;
-            flex-grow: 0;
-            min-width: calc(50% - 10px);
-            max-width: calc(50% - 10px);
-            margin: 0;
-            margin-right: 20px;
-            background-color: rgba(126, 126, 126, .05);
+    > .wp-block {
+      // We can't use flex + calc
+      // https://github.com/nk-crew/ghostkit/issues/103
+      flex-basis: calc(50% - 10px);
+      flex-grow: 0;
+      flex-shrink: 0;
+      min-width: calc(50% - 10px);
+      max-width: calc(50% - 10px);
+      margin: 0;
+      margin-right: 20px;
+      background-color: rgba(126, 126, 126, 5%);
 
-            &:last-of-type {
-                margin-right: 0;
-            }
+      &:last-of-type {
+        margin-right: 0;
+      }
 
-            // hide insertion button as it is bugged.
-            > .editor-block-list__insertion-point {
-                display: none;
-            }
-        }
+      // hide insertion button as it is bugged.
+      > .editor-block-list__insertion-point {
+        display: none;
+      }
     }
+  }
 }
 
 // Example.
 .block-editor-inserter__preview .ghostkit-carousel-slide .block-editor-block-list__layout {
-    margin: 0;
+  margin: 0;
 
-    .wp-block-image {
-        margin: 0;
-    }
+  .wp-block-image {
+    margin: 0;
+  }
 }

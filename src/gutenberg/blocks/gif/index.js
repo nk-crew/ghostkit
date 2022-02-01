@@ -17,26 +17,26 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-    ...metadata,
-    title: __( 'GIF', '@@text_domain' ),
-    description: __( 'Search for and insert an animated image.', '@@text_domain' ),
-    icon: getIcon( 'block-gif', true ),
-    keywords: [
-        __( 'animated', '@@text_domain' ),
-        __( 'giphy', '@@text_domain' ),
-        __( 'image', '@@text_domain' ),
-    ],
-    ghostkit: {
-        previewUrl: 'https://ghostkit.io/blocks/gif/',
-        supports: {
-            styles: true,
-            frame: true,
-            spacings: true,
-            display: true,
-            scrollReveal: true,
-            customCSS: true,
-        },
+  ...metadata,
+  title: __('GIF', '@@text_domain'),
+  description: __('Search for and insert an animated image.', '@@text_domain'),
+  icon: getIcon('block-gif', true),
+  keywords: [
+    __('animated', '@@text_domain'),
+    __('giphy', '@@text_domain'),
+    __('image', '@@text_domain'),
+  ],
+  ghostkit: {
+    previewUrl: 'https://ghostkit.io/blocks/gif/',
+    supports: {
+      styles: true,
+      frame: true,
+      spacings: true,
+      display: true,
+      scrollReveal: true,
+      customCSS: true,
     },
-    edit,
-    save,
+  },
+  edit,
+  save,
 };

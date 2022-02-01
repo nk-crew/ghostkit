@@ -2,11 +2,10 @@
  * GAPS for Grid, Buttons, Instagram, Pricing Table.
  */
 $grid-gaps: (
-    // we need to use `%` unit because of conflict with complex calc() and 0 value.
-    no: 0%,
-    sm: 15px,
-    md: 30px,
-    lg: 45px
+  no: 0%,
+  sm: 15px,
+  md: 30px,
+  lg: 45px
 ) !default;
 
 // Breakpoints.
@@ -26,11 +25,11 @@ $media-lg: 1200px !default;
 /**
  * WordPress.
  */
+/* stylelint-disable-next-line scss/at-import-partial-extension */
 @import "./wordpress/base-styles/colors.native";
 @import "./wordpress/base-styles/variables";
 @import "./wordpress/base-styles/breakpoints";
 @import "./wordpress/base-styles/mixins";
-
 
 // Main Colors.
 $color-brand: #2e1645 !default;

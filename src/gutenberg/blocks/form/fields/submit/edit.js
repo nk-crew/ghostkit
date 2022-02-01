@@ -7,116 +7,99 @@ import { throttle } from 'throttle-debounce';
 /**
  * WordPress dependencies
  */
-const {
-    __,
-} = wp.i18n;
+const { __ } = wp.i18n;
 
-const {
-    applyFilters,
-} = wp.hooks;
+const { applyFilters } = wp.hooks;
 
 const { Component, Fragment } = wp.element;
 
-const {
-    PanelBody,
-    BaseControl,
-} = wp.components;
+const { PanelBody, BaseControl } = wp.components;
 
-const {
-    InspectorControls,
-    InnerBlocks,
-    BlockControls,
-    BlockAlignmentToolbar,
-} = wp.blockEditor;
+const { InspectorControls, InnerBlocks, BlockControls, BlockAlignmentToolbar } = wp.blockEditor;
 
-const {
-    compose,
-} = wp.compose;
+const { compose } = wp.compose;
 
-const {
-    withSelect,
-    withDispatch,
-} = wp.data;
+const { withSelect, withDispatch } = wp.data;
 
 /**
  * Block Edit Class.
  */
 class BlockEdit extends Component {
-    constructor( props ) {
-        super( props );
+  constructor(props) {
+    super(props);
 
-        this.maybeChangeButtonTagName = throttle( 200, this.maybeChangeButtonTagName.bind( this ) );
-    }
+    this.maybeChangeButtonTagName = throttle(200, this.maybeChangeButtonTagName.bind(this));
+  }
 
-    componentDidMount() {
-        this.maybeChangeButtonTagName();
-    }
+  componentDidMount() {
+    this.maybeChangeButtonTagName();
+  }
 
-    componentDidUpdate() {
-        this.maybeChangeButtonTagName();
-    }
+  componentDidUpdate() {
+    this.maybeChangeButtonTagName();
+  }
 
-    maybeChangeButtonTagName() {
-        this.props.changeButtonTagName();
-    }
+  maybeChangeButtonTagName() {
+    this.props.changeButtonTagName();
+  }
 
-    render() {
-        const {
-            attributes,
-            setAttributes,
-        } = this.props;
+  render() {
+    const { attributes, setAttributes } = this.props;
 
-        let { className = '' } = this.props;
+    let { className = '' } = this.props;
 
-        const {
-            align,
-        } = attributes;
+    const { align } = attributes;
 
-        className = classnames(
-            'ghostkit-form-submit-button',
-            align && 'none' !== align ? `ghostkit-form-submit-button-align-${ align }` : false,
-            className
-        );
+    className = classnames(
+      'ghostkit-form-submit-button',
+      align && align !== 'none' ? `ghostkit-form-submit-button-align-${align}` : false,
+      className
+    );
 
-        className = applyFilters( 'ghostkit.editor.className', className, this.props );
+    className = applyFilters('ghostkit.editor.className', className, this.props);
 
-        return (
-            <Fragment>
-                <BlockControls>
-                    <BlockAlignmentToolbar
-                        value={ align }
-                        onChange={ ( value ) => setAttributes( { align: value } ) }
-                        controls={ [ 'left', 'center', 'right' ] }
-                    />
-                </BlockControls>
-                <InspectorControls>
-                    <PanelBody>
-                        <BaseControl label={ __( 'Align', '@@text_domain' ) }>
-                            <div>
-                                <BlockAlignmentToolbar
-                                    value={ align }
-                                    onChange={ ( value ) => setAttributes( { align: value } ) }
-                                    controls={ [ 'left', 'center', 'right' ] }
-                                    isCollapsed={ false }
-                                />
-                            </div>
-                        </BaseControl>
-                    </PanelBody>
-                </InspectorControls>
-                <div className={ className }>
-                    <InnerBlocks
-                        template={ [ [ 'ghostkit/button-single', {
-                            text: __( 'Submit', '@@text_domain' ),
-                            tagName: 'button',
-                            focusOutlineWeight: 2,
-                        } ] ] }
-                        allowedBlocks={ [ 'ghostkit/button-single' ] }
-                        templateLock="all"
-                    />
-                </div>
-            </Fragment>
-        );
-    }
+    return (
+      <Fragment>
+        <BlockControls>
+          <BlockAlignmentToolbar
+            value={align}
+            onChange={(value) => setAttributes({ align: value })}
+            controls={['left', 'center', 'right']}
+          />
+        </BlockControls>
+        <InspectorControls>
+          <PanelBody>
+            <BaseControl label={__('Align', '@@text_domain')}>
+              <div>
+                <BlockAlignmentToolbar
+                  value={align}
+                  onChange={(value) => setAttributes({ align: value })}
+                  controls={['left', 'center', 'right']}
+                  isCollapsed={false}
+                />
+              </div>
+            </BaseControl>
+          </PanelBody>
+        </InspectorControls>
+        <div className={className}>
+          <InnerBlocks
+            template={[
+              [
+                'ghostkit/button-single',
+                {
+                  text: __('Submit', '@@text_domain'),
+                  tagName: 'button',
+                  focusOutlineWeight: 2,
+                },
+              ],
+            ]}
+            allowedBlocks={['ghostkit/button-single']}
+            templateLock="all"
+          />
+        </div>
+      </Fragment>
+    );
+  }
 }
 
 /**
@@ -126,61 +109,52 @@ class BlockEdit extends Component {
  *
  * @return {Array} - fields list.
  */
-function getAllButtonBlocks( submitData ) {
-    let result = [];
+function getAllButtonBlocks(submitData) {
+  let result = [];
 
-    if ( submitData.innerBlocks && submitData.innerBlocks.length ) {
-        submitData.innerBlocks.forEach( ( block ) => {
-            // field data.
-            if ( block.name && 'ghostkit/button-single' === block.name ) {
-                result.push( block );
-            }
+  if (submitData.innerBlocks && submitData.innerBlocks.length) {
+    submitData.innerBlocks.forEach((block) => {
+      // field data.
+      if (block.name && block.name === 'ghostkit/button-single') {
+        result.push(block);
+      }
 
-            // inner blocks.
-            if ( block.innerBlocks && block.innerBlocks.length ) {
-                result = [
-                    ...result,
-                    ...getAllButtonBlocks( block ),
-                ];
-            }
-        } );
-    }
+      // inner blocks.
+      if (block.innerBlocks && block.innerBlocks.length) {
+        result = [...result, ...getAllButtonBlocks(block)];
+      }
+    });
+  }
 
-    return result;
+  return result;
 }
 
-export default compose( [
-    withSelect( ( select, ownProps ) => {
-        const {
-            getBlock,
-        } = select( 'core/block-editor' );
+export default compose([
+  withSelect((select, ownProps) => {
+    const { getBlock } = select('core/block-editor');
 
-        return {
-            blockData: getBlock( ownProps.clientId ),
-        };
-    } ),
-    withDispatch( ( dispatch, ownProps ) => {
-        const {
-            updateBlockAttributes,
-        } = dispatch( 'core/block-editor' );
+    return {
+      blockData: getBlock(ownProps.clientId),
+    };
+  }),
+  withDispatch((dispatch, ownProps) => {
+    const { updateBlockAttributes } = dispatch('core/block-editor');
 
-        return {
-            changeButtonTagName() {
-                const {
-                    blockData,
-                } = ownProps;
+    return {
+      changeButtonTagName() {
+        const { blockData } = ownProps;
 
-                const allButtonBlocks = getAllButtonBlocks( blockData ) || [];
+        const allButtonBlocks = getAllButtonBlocks(blockData) || [];
 
-                // Generate slugs for new fields.
-                allButtonBlocks.forEach( ( data ) => {
-                    if ( ! data.attributes.tagName || 'button' !== data.attributes.tagName ) {
-                        updateBlockAttributes( data.clientId, {
-                            tagName: 'button',
-                        } );
-                    }
-                } );
-            },
-        };
-    } ),
-] )( BlockEdit );
+        // Generate slugs for new fields.
+        allButtonBlocks.forEach((data) => {
+          if (!data.attributes.tagName || data.attributes.tagName !== 'button') {
+            updateBlockAttributes(data.clientId, {
+              tagName: 'button',
+            });
+          }
+        });
+      },
+    };
+  }),
+])(BlockEdit);

@@ -1,113 +1,113 @@
 {
-	"name": "ghostkit/video",
-	"category": "media",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": true,
-        "align": [ "wide", "full" ]
+  "name": "ghostkit/video",
+  "category": "media",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": true,
+    "align": ["wide", "full"]
+  },
+  "attributes": {
+    "type": {
+      "type": "string",
+      "default": "yt_vm_video"
     },
-    "attributes": {
-        "type": {
-            "type": "string",
-            "default": "yt_vm_video"
-        },
-        "video": {
-            "type": "string",
-            "default": ""
-        },
-        "videoPosterPreview": {
-            "type": "string",
-            "default": ""
-        },
-        "videoMp4": {
-            "type": "string",
-            "default": ""
-        },
-        "videoMp4Id": {
-            "type": "number"
-        },
-        "videoOgv": {
-            "type": "string",
-            "default": ""
-        },
-        "videoOgvId": {
-            "type": "number"
-        },
-        "videoWebm": {
-            "type": "string",
-            "default": ""
-        },
-        "videoWebmId": {
-            "type": "number"
-        },
-        "videoAspectRatio": {
-            "type": "string",
-            "default": "16:9"
-        },
-        "videoVolume": {
-            "type": "number",
-            "default": 100
-        },
-        "videoAutoplay": {
-            "type": "boolean",
-            "default": false
-        },
-        "videoAutopause": {
-            "type": "boolean",
-            "default": false
-        },
-        "videoLoop": {
-            "type": "boolean",
-            "default": false
-        },
+    "video": {
+      "type": "string",
+      "default": ""
+    },
+    "videoPosterPreview": {
+      "type": "string",
+      "default": ""
+    },
+    "videoMp4": {
+      "type": "string",
+      "default": ""
+    },
+    "videoMp4Id": {
+      "type": "number"
+    },
+    "videoOgv": {
+      "type": "string",
+      "default": ""
+    },
+    "videoOgvId": {
+      "type": "number"
+    },
+    "videoWebm": {
+      "type": "string",
+      "default": ""
+    },
+    "videoWebmId": {
+      "type": "number"
+    },
+    "videoAspectRatio": {
+      "type": "string",
+      "default": "16:9"
+    },
+    "videoVolume": {
+      "type": "number",
+      "default": 100
+    },
+    "videoAutoplay": {
+      "type": "boolean",
+      "default": false
+    },
+    "videoAutopause": {
+      "type": "boolean",
+      "default": false
+    },
+    "videoLoop": {
+      "type": "boolean",
+      "default": false
+    },
 
-        "iconPlay": {
-            "type": "string",
-            "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%204.83167C5%204.0405%205.87525%203.56266%206.54076%203.99049L17.6915%2011.1588C18.3038%2011.5525%2018.3038%2012.4475%2017.6915%2012.8412L6.54076%2020.0095C5.87525%2020.4373%205%2019.9595%205%2019.1683V4.83167Z%22%20fill%3D%22currentColor%22%20stroke%3D%22currentColor%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E"
-        },
-        "iconLoading": {
-            "type": "string",
-            "default": "%3Cspan%20class%3D%22ghostkit-svg-icon%20ghostkit-icon-spinner%22%3E%3C%2Fspan%3E"
-        },
+    "iconPlay": {
+      "type": "string",
+      "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%204.83167C5%204.0405%205.87525%203.56266%206.54076%203.99049L17.6915%2011.1588C18.3038%2011.5525%2018.3038%2012.4475%2017.6915%2012.8412L6.54076%2020.0095C5.87525%2020.4373%205%2019.9595%205%2019.1683V4.83167Z%22%20fill%3D%22currentColor%22%20stroke%3D%22currentColor%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E"
+    },
+    "iconLoading": {
+      "type": "string",
+      "default": "%3Cspan%20class%3D%22ghostkit-svg-icon%20ghostkit-icon-spinner%22%3E%3C%2Fspan%3E"
+    },
 
-        "posterId": {
-            "type": "number",
-            "default": ""
-        },
-        "posterUrl": {
-            "attribute": "src",
-            "selector": ".ghostkit-video-poster img",
-            "source": "attribute",
-            "type": "string"
-        },
-        "posterAlt": {
-            "attribute": "alt",
-            "selector": ".ghostkit-video-poster img",
-            "source": "attribute",
-            "type": "string",
-            "default": ""
-        },
-        "posterWidth": {
-            "type": "number"
-        },
-        "posterHeight": {
-            "type": "number"
-        },
-        "posterSizeSlug": {
-            "type": "string"
-        },
+    "posterId": {
+      "type": "number",
+      "default": ""
+    },
+    "posterUrl": {
+      "attribute": "src",
+      "selector": ".ghostkit-video-poster img",
+      "source": "attribute",
+      "type": "string"
+    },
+    "posterAlt": {
+      "attribute": "alt",
+      "selector": ".ghostkit-video-poster img",
+      "source": "attribute",
+      "type": "string",
+      "default": ""
+    },
+    "posterWidth": {
+      "type": "number"
+    },
+    "posterHeight": {
+      "type": "number"
+    },
+    "posterSizeSlug": {
+      "type": "string"
+    },
 
-        "clickAction": {
-            "type": "string",
-            "default": "plain"
-        },
-        "fullscreenBackgroundColor": {
-            "type": "string"
-        },
-        "fullscreenActionCloseIcon": {
-            "type": "string",
-            "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M6.21967%206.21967C6.51256%205.92678%206.98744%205.92678%207.28033%206.21967L12%2010.9393L16.7197%206.21967C17.0126%205.92678%2017.4874%205.92678%2017.7803%206.21967C18.0732%206.51256%2018.0732%206.98744%2017.7803%207.28033L13.0607%2012L17.7803%2016.7197C18.0732%2017.0126%2018.0732%2017.4874%2017.7803%2017.7803C17.4874%2018.0732%2017.0126%2018.0732%2016.7197%2017.7803L12%2013.0607L7.28033%2017.7803C6.98744%2018.0732%206.51256%2018.0732%206.21967%2017.7803C5.92678%2017.4874%205.92678%2017.0126%206.21967%2016.7197L10.9393%2012L6.21967%207.28033C5.92678%206.98744%205.92678%206.51256%206.21967%206.21967Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E"
-        }
+    "clickAction": {
+      "type": "string",
+      "default": "plain"
+    },
+    "fullscreenBackgroundColor": {
+      "type": "string"
+    },
+    "fullscreenActionCloseIcon": {
+      "type": "string",
+      "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M6.21967%206.21967C6.51256%205.92678%206.98744%205.92678%207.28033%206.21967L12%2010.9393L16.7197%206.21967C17.0126%205.92678%2017.4874%205.92678%2017.7803%206.21967C18.0732%206.51256%2018.0732%206.98744%2017.7803%207.28033L13.0607%2012L17.7803%2016.7197C18.0732%2017.0126%2018.0732%2017.4874%2017.7803%2017.7803C17.4874%2018.0732%2017.0126%2018.0732%2016.7197%2017.7803L12%2013.0607L7.28033%2017.7803C6.98744%2018.0732%206.51256%2018.0732%206.21967%2017.7803C5.92678%2017.4874%205.92678%2017.0126%206.21967%2016.7197L10.9393%2012L6.21967%207.28033C5.92678%206.98744%205.92678%206.51256%206.21967%206.21967Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E"
     }
+  }
 }

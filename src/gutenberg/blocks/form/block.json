@@ -1,10 +1,10 @@
 {
-	"name": "ghostkit/form",
-	"category": "design",
-    "supports": {
-        "html": false,
-        "className": false,
-        "anchor": false,
-        "align": [ "wide", "full" ]
-    }
+  "name": "ghostkit/form",
+  "category": "design",
+  "supports": {
+    "html": false,
+    "className": false,
+    "anchor": false,
+    "align": ["wide", "full"]
+  }
 }

@@ -4,14 +4,14 @@
 @import "../../../variables";
 
 .ghostkit-grid {
-    --gkt-grid__gap: 15px;
-    --gkt-grid__justify-content: flex-start;
+  --gkt-grid__gap: 15px;
+  --gkt-grid__justify-content: flex-start;
 
-    // Column.
-    --gkt-grid--column__align-self: flex-start;
-    --gkt-grid--column__size: 100%;
-    --gkt-grid--column__order: initial;
+  // Column.
+  --gkt-grid--column__align-self: flex-start;
+  --gkt-grid--column__size: 100%;
+  --gkt-grid--column__order: initial;
 
-    // Columns Sticky.
-    --gkt-grid--column-sticky__offset: 0;
+  // Columns Sticky.
+  --gkt-grid--column-sticky__offset: 0;
 }
