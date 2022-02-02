@@ -1,5 +1,6 @@
 @import "../../variables";
 
+// Prepare better styles for Inspector.
 .ghostkit-components-url-picker-inspector .block-editor-link-control {
   min-width: 0;
 
@@ -10,7 +11,7 @@
   }
 
   // Additional Settings.
-  .block-editor-link-control__settings {
+  .block-editor-link-control__tools {
     padding: 0;
     padding-top: 16px;
     padding-bottom: 10px;
@@ -18,6 +19,7 @@
 
   // Search Input.
   .block-editor-link-control__search-input {
+    margin: 0;
     margin-bottom: 16px;
 
     .components-base-control__field {
