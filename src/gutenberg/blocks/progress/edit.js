@@ -8,6 +8,7 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import ColorPicker from '../../components/color-picker';
+import ColorIndicator from '../../components/color-indicator';
 import ApplyFilters from '../../components/apply-filters';
 
 /**
@@ -18,15 +19,8 @@ const { applyFilters } = wp.hooks;
 const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
-const {
-  PanelBody,
-  TextControl,
-  RangeControl,
-  ToggleControl,
-  ColorIndicator,
-  TabPanel,
-  ResizableBox,
-} = wp.components;
+const { PanelBody, TextControl, RangeControl, ToggleControl, TabPanel, ResizableBox } =
+  wp.components;
 
 const { InspectorControls, RichText } = wp.blockEditor;
 

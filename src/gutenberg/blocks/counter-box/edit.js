@@ -9,6 +9,7 @@ import classnames from 'classnames/dedupe';
  */
 import ColorPicker from '../../components/color-picker';
 import URLPicker from '../../components/url-picker';
+import ColorIndicator from '../../components/color-indicator';
 import ApplyFilters from '../../components/apply-filters';
 
 /**
@@ -22,16 +23,8 @@ const { Component, Fragment } = wp.element;
 
 const { withSelect } = wp.data;
 
-const {
-  BaseControl,
-  PanelBody,
-  TextControl,
-  RangeControl,
-  ToggleControl,
-  TabPanel,
-  Toolbar,
-  ColorIndicator,
-} = wp.components;
+const { BaseControl, PanelBody, TextControl, RangeControl, ToggleControl, TabPanel, Toolbar } =
+  wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls, RichText } = wp.blockEditor;
 

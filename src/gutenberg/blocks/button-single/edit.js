@@ -9,6 +9,7 @@ import classnames from 'classnames/dedupe';
  */
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
+import ColorIndicator from '../../components/color-indicator';
 import ApplyFilters from '../../components/apply-filters';
 import URLPicker from '../../components/url-picker';
 
@@ -28,7 +29,6 @@ const {
   Button,
   ButtonGroup,
   TabPanel,
-  ColorIndicator,
   ToggleControl,
 } = wp.components;
 
