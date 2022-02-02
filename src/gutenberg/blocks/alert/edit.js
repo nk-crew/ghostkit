@@ -23,7 +23,8 @@ const { Fragment } = wp.element;
 
 const { withSelect } = wp.data;
 
-const { PanelBody, RangeControl, ToggleControl, Toolbar, DropdownMenu, TabPanel } = wp.components;
+const { PanelBody, RangeControl, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, TabPanel } =
+  wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
 
@@ -48,8 +49,8 @@ function BlockEdit(props) {
   return (
     <Fragment>
       <BlockControls>
-        <Toolbar>
-          <DropdownMenu
+        <ToolbarGroup>
+          <ToolbarDropdownMenu
             icon="info"
             label={__('Type', '@@text_domain')}
             controls={[
@@ -80,7 +81,7 @@ function BlockEdit(props) {
               },
             ]}
           />
-        </Toolbar>
+        </ToolbarGroup>
       </BlockControls>
       <InspectorControls>
         <PanelBody>

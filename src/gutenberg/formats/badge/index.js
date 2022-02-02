@@ -14,7 +14,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { Toolbar, Button } = wp.components;
+const { ToolbarGroup, Button } = wp.components;
 
 const { toggleFormat, applyFormat, getActiveFormat } = wp.richText;
 
@@ -105,7 +105,7 @@ export const settings = {
         <Fragment>
           {isActive ? (
             <BlockControls>
-              <Toolbar>
+              <ToolbarGroup>
                 <Button
                   icon={
                     <Fragment>
@@ -126,7 +126,7 @@ export const settings = {
                     });
                   }}
                 />
-              </Toolbar>
+              </ToolbarGroup>
             </BlockControls>
           ) : (
             <RichTextToolbarButton

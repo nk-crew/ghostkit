@@ -22,7 +22,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, SelectControl, RangeControl, Toolbar } = wp.components;
+const { PanelBody, SelectControl, RangeControl, ToolbarGroup, ToolbarButton } = wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
 
@@ -220,28 +220,26 @@ class BlockEdit extends Component {
           </PanelBody>
         </InspectorControls>
         <BlockControls>
-          <Toolbar
-            controls={[
-              {
-                icon: 'align-left',
-                title: __('Units Align Left', '@@text_domain'),
-                onClick: () => setAttributes({ unitsAlign: 'left' }),
-                isActive: unitsAlign === 'left',
-              },
-              {
-                icon: 'align-center',
-                title: __('Units Align Center', '@@text_domain'),
-                onClick: () => setAttributes({ unitsAlign: 'center' }),
-                isActive: unitsAlign === 'center',
-              },
-              {
-                icon: 'align-right',
-                title: __('Units Align Right', '@@text_domain'),
-                onClick: () => setAttributes({ unitsAlign: 'right' }),
-                isActive: unitsAlign === 'right',
-              },
-            ]}
-          />
+          <ToolbarGroup>
+            <ToolbarButton
+              icon="align-left"
+              title={__('Units Align Left', '@@text_domain')}
+              onClick={() => setAttributes({ unitsAlign: 'left' })}
+              isActive={unitsAlign === 'left'}
+            />
+            <ToolbarButton
+              icon="align-center"
+              title={__('Units Align Center', '@@text_domain')}
+              onClick={() => setAttributes({ unitsAlign: 'center' })}
+              isActive={unitsAlign === 'center'}
+            />
+            <ToolbarButton
+              icon="align-right"
+              title={__('Units Align Right', '@@text_domain')}
+              onClick={() => setAttributes({ unitsAlign: 'right' })}
+              isActive={unitsAlign === 'right'}
+            />
+          </ToolbarGroup>
         </BlockControls>
         <div className={className}>
           {units.map((unitName) => {

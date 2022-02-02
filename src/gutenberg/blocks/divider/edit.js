@@ -21,7 +21,8 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, RangeControl, SelectControl, Toolbar, DropdownMenu, TabPanel } = wp.components;
+const { PanelBody, RangeControl, SelectControl, ToolbarGroup, ToolbarDropdownMenu, TabPanel } =
+  wp.components;
 
 const { InspectorControls, BlockControls } = wp.blockEditor;
 
@@ -47,8 +48,8 @@ class BlockEdit extends Component {
     return (
       <Fragment>
         <BlockControls>
-          <Toolbar>
-            <DropdownMenu
+          <ToolbarGroup>
+            <ToolbarDropdownMenu
               icon="minus"
               label={__('Type', '@@text_domain')}
               controls={[
@@ -70,7 +71,7 @@ class BlockEdit extends Component {
                 },
               ]}
             />
-          </Toolbar>
+          </ToolbarGroup>
         </BlockControls>
         <InspectorControls>
           <PanelBody>

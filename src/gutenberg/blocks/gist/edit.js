@@ -19,7 +19,8 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, TextControl, ToggleControl, Placeholder, Toolbar, ExternalLink } = wp.components;
+const { PanelBody, TextControl, ToggleControl, Placeholder, ToolbarGroup, ExternalLink } =
+  wp.components;
 
 const { InspectorControls, BlockControls } = wp.blockEditor;
 
@@ -133,7 +134,7 @@ class BlockEdit extends Component {
       <Fragment>
         <BlockControls>
           {url ? (
-            <Toolbar>
+            <ToolbarGroup>
               <TextControl
                 type="url"
                 value={this.state.url}
@@ -146,12 +147,12 @@ class BlockEdit extends Component {
                 }}
                 className="ghostkit-gist-toolbar-url"
               />
-            </Toolbar>
+            </ToolbarGroup>
           ) : (
             ''
           )}
           {this.getValidGistUrl() ? (
-            <Toolbar>
+            <ToolbarGroup>
               <GistFilesSelect
                 label={__('File', '@@text_domain')}
                 url={url}
@@ -159,7 +160,7 @@ class BlockEdit extends Component {
                 isToolbar
                 onChange={(value) => setAttributes({ file: value })}
               />
-            </Toolbar>
+            </ToolbarGroup>
           ) : (
             ''
           )}

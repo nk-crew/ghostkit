@@ -20,7 +20,7 @@ const { Component, Fragment } = wp.element;
 
 const { withSelect } = wp.data;
 
-const { Toolbar } = wp.components;
+const { ToolbarButton } = wp.components;
 
 const { BlockControls, InnerBlocks, RichText } = wp.blockEditor;
 
@@ -74,15 +74,11 @@ class BlockEdit extends Component {
     return (
       <Fragment>
         <BlockControls>
-          <Toolbar
-            controls={[
-              {
-                icon: getIcon('icon-collapse'),
-                title: __('Collapse', '@@text_domain'),
-                onClick: () => setAttributes({ active: !active }),
-                isActive: active,
-              },
-            ]}
+          <ToolbarButton
+            icon={getIcon('icon-collapse')}
+            label={__('Collapse', '@@text_domain')}
+            onClick={() => setAttributes({ active: !active })}
+            isActive={active}
           />
         </BlockControls>
         <div className={className}>

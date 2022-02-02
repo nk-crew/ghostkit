@@ -15,7 +15,7 @@ const { __ } = wp.i18n;
 
 const { Component, createRef } = wp.element;
 
-const { Toolbar } = wp.components;
+const { ToolbarGroup } = wp.components;
 
 const { BlockControls, PlainText } = wp.blockEditor;
 
@@ -71,7 +71,7 @@ class BlockEdit extends Component {
     return (
       <div>
         <BlockControls>
-          <Toolbar>
+          <ToolbarGroup>
             {/* eslint-disable-next-line react/button-has-type */}
             <button
               className={classnames(
@@ -92,7 +92,7 @@ class BlockEdit extends Component {
             >
               <span>{__('Preview', '@@text_domain')}</span>
             </button>
-          </Toolbar>
+          </ToolbarGroup>
         </BlockControls>
 
         {activeTab === 'preview' || !isSelected ? (

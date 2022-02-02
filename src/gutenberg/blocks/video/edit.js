@@ -41,7 +41,7 @@ const {
   TextControl,
   TextareaControl,
   ExternalLink,
-  Toolbar,
+  ToolbarGroup,
   Dropdown,
 } = wp.components;
 
@@ -288,7 +288,7 @@ class BlockEdit extends Component {
     return (
       <Fragment>
         <BlockControls>
-          <Toolbar>
+          <ToolbarGroup>
             <Dropdown
               renderToggle={({ onToggle }) => (
                 <Button
@@ -308,9 +308,9 @@ class BlockEdit extends Component {
                 </div>
               )}
             />
-          </Toolbar>
+          </ToolbarGroup>
           {type === 'yt_vm_video' ? (
-            <Toolbar>
+            <ToolbarGroup>
               <TextControl
                 type="url"
                 value={video}
@@ -318,7 +318,7 @@ class BlockEdit extends Component {
                 onChange={(value) => setAttributes({ video: value })}
                 className="ghostkit-video-toolbar-url"
               />
-            </Toolbar>
+            </ToolbarGroup>
           ) : (
             ''
           )}

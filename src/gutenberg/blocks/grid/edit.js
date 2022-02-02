@@ -21,7 +21,8 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { Button, PanelBody, RangeControl, Placeholder, Toolbar, Tooltip } = wp.components;
+const { Button, PanelBody, RangeControl, Placeholder, ToolbarGroup, ToolbarButton, Tooltip } =
+  wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
 
@@ -254,28 +255,26 @@ class BlockEdit extends Component {
       <Fragment>
         {columnsCount > 0 ? (
           <BlockControls>
-            <Toolbar
-              controls={[
-                {
-                  icon: getIcon('icon-vertical-top'),
-                  title: __('Content Vertical Start', '@@text_domain'),
-                  onClick: () => setAttributes({ verticalAlign: '' }),
-                  isActive: verticalAlign === '',
-                },
-                {
-                  icon: getIcon('icon-vertical-center'),
-                  title: __('Content Vertical Center', '@@text_domain'),
-                  onClick: () => setAttributes({ verticalAlign: 'center' }),
-                  isActive: verticalAlign === 'center',
-                },
-                {
-                  icon: getIcon('icon-vertical-bottom'),
-                  title: __('Content Vertical End', '@@text_domain'),
-                  onClick: () => setAttributes({ verticalAlign: 'end' }),
-                  isActive: verticalAlign === 'end',
-                },
-              ]}
-            />
+            <ToolbarGroup>
+              <ToolbarButton
+                icon={getIcon('icon-vertical-top')}
+                title={__('Content Vertical Start', '@@text_domain')}
+                onClick={() => setAttributes({ verticalAlign: '' })}
+                isActive={verticalAlign === ''}
+              />
+              <ToolbarButton
+                icon={getIcon('icon-vertical-center')}
+                title={__('Content Vertical Center', '@@text_domain')}
+                onClick={() => setAttributes({ verticalAlign: 'center' })}
+                isActive={verticalAlign === 'center'}
+              />
+              <ToolbarButton
+                icon={getIcon('icon-vertical-bottom')}
+                title={__('Content Vertical End', '@@text_domain')}
+                onClick={() => setAttributes({ verticalAlign: 'end' })}
+                isActive={verticalAlign === 'end'}
+              />
+            </ToolbarGroup>
           </BlockControls>
         ) : (
           ''

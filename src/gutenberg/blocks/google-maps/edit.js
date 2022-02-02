@@ -34,7 +34,8 @@ const {
   RangeControl,
   ToggleControl,
   Button,
-  Toolbar,
+  ToolbarGroup,
+  ToolbarButton,
   Dropdown,
   ResizableBox,
   ExternalLink,
@@ -312,37 +313,32 @@ class BlockEdit extends Component {
     return (
       <Fragment>
         <BlockControls>
-          <Toolbar
-            controls={[
-              {
-                icon: getIcon('icon-fullheight'),
-                title: __('Full Height', '@@text_domain'),
-                onClick: () => setAttributes({ fullHeight: !fullHeight }),
-                isActive: fullHeight,
-              },
-            ]}
-          />
-          <Toolbar
-            controls={[
-              {
-                icon: getIcon('icon-marker'),
-                title: __('Add Marker', '@@text_domain'),
-                onClick: () => {
-                  setAttributes({
-                    markers: [
-                      ...markers,
-                      ...[
-                        {
-                          lat,
-                          lng,
-                        },
-                      ],
+          <ToolbarGroup>
+            <ToolbarButton
+              icon={getIcon('icon-fullheight')}
+              title={__('Full Height', '@@text_domain')}
+              onClick={() => setAttributes({ fullHeight: !fullHeight })}
+              isActive={fullHeight}
+            />
+          </ToolbarGroup>
+          <ToolbarGroup>
+            <ToolbarButton
+              icon={getIcon('icon-marker')}
+              title={__('Add Marker', '@@text_domain')}
+              onClick={() => () => {
+                setAttributes({
+                  markers: [
+                    ...markers,
+                    ...[
+                      {
+                        lat,
+                        lng,
+                      },
                     ],
-                  });
-                },
-              },
-            ]}
-          >
+                  ],
+                });
+              }}
+            />
             <Dropdown
               renderToggle={({ onToggle }) => (
                 <Button
@@ -362,7 +358,7 @@ class BlockEdit extends Component {
                 </div>
               )}
             />
-          </Toolbar>
+          </ToolbarGroup>
         </BlockControls>
         <InspectorControls>
           {this.state.apiKey ? (

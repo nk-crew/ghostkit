@@ -22,7 +22,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, RangeControl, Button, Toolbar, Dropdown } = wp.components;
+const { PanelBody, RangeControl, Button, ToolbarGroup, ToolbarButton, Dropdown } = wp.components;
 
 const { InspectorControls, BlockControls } = wp.blockEditor;
 
@@ -166,25 +166,7 @@ class BlockEdit extends Component {
 
     const { svg, flipVertical, flipHorizontal, color } = attributes;
 
-    const toolbarButtons = [];
     const shapeData = this.getShapeData(svg);
-
-    if (shapeData.allow_flip_vertical) {
-      toolbarButtons.push({
-        icon: getIcon('icon-flip-vertical'),
-        title: __('Vertical Flip', '@@text_domain'),
-        onClick: () => setAttributes({ flipVertical: !flipVertical }),
-        isActive: flipVertical,
-      });
-    }
-    if (shapeData.allow_flip_horizontal) {
-      toolbarButtons.push({
-        icon: getIcon('icon-flip-horizontal'),
-        title: __('Horizontal Flip', '@@text_domain'),
-        onClick: () => setAttributes({ flipHorizontal: !flipHorizontal }),
-        isActive: flipHorizontal,
-      });
-    }
 
     const filledTabs = {};
     if (
@@ -219,7 +201,25 @@ class BlockEdit extends Component {
     return (
       <Fragment>
         <BlockControls>
-          <Toolbar controls={toolbarButtons}>
+          <ToolbarGroup>
+            {shapeData.allow_flip_vertical ? (
+              <ToolbarButton
+                icon={getIcon('icon-flip-vertical')}
+                title={__('Vertical Flip', '@@text_domain')}
+                onClick={() => setAttributes({ flipVertical: !flipVertical })}
+                isActive={flipVertical}
+              />
+            ) : null}
+
+            {shapeData.allow_flip_horizontal ? (
+              <ToolbarButton
+                icon={getIcon('icon-flip-horizontal')}
+                title={__('Horizontal Flip', '@@text_domain')}
+                onClick={() => setAttributes({ flipHorizontal: !flipHorizontal })}
+                isActive={flipHorizontal}
+              />
+            ) : null}
+
             <Dropdown
               renderToggle={({ onToggle }) => (
                 <Button
@@ -239,7 +239,7 @@ class BlockEdit extends Component {
                 </div>
               )}
             />
-          </Toolbar>
+          </ToolbarGroup>
         </BlockControls>
         <InspectorControls>
           <PanelBody title={__('Style', '@@text_domain')}>{this.getShapesPicker()}</PanelBody>

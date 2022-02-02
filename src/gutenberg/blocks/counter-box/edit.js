@@ -23,8 +23,17 @@ const { Component, Fragment } = wp.element;
 
 const { withSelect } = wp.data;
 
-const { BaseControl, PanelBody, TextControl, RangeControl, ToggleControl, TabPanel, Toolbar } =
-  wp.components;
+const {
+  BaseControl,
+  PanelBody,
+  TextControl,
+  RangeControl,
+  ToggleControl,
+  TabPanel,
+  Toolbar,
+  ToolbarGroup,
+  ToolbarButton,
+} = wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls, RichText } = wp.blockEditor;
 
@@ -70,28 +79,26 @@ class BlockEdit extends Component {
             />
             <BaseControl label={__('Number Position', '@@text_domain')}>
               <div>
-                <Toolbar
-                  controls={[
-                    {
-                      icon: 'align-center',
-                      title: __('Top', '@@text_domain'),
-                      onClick: () => setAttributes({ numberPosition: 'top' }),
-                      isActive: numberPosition === 'top',
-                    },
-                    {
-                      icon: 'align-left',
-                      title: __('Left', '@@text_domain'),
-                      onClick: () => setAttributes({ numberPosition: 'left' }),
-                      isActive: numberPosition === 'left',
-                    },
-                    {
-                      icon: 'align-right',
-                      title: __('Right', '@@text_domain'),
-                      onClick: () => setAttributes({ numberPosition: 'right' }),
-                      isActive: numberPosition === 'right',
-                    },
-                  ]}
-                />
+                <Toolbar label={__('Number Position', '@@text_domain')}>
+                  <ToolbarButton
+                    icon="align-center"
+                    title={__('Top', '@@text_domain')}
+                    onClick={() => setAttributes({ numberPosition: 'top' })}
+                    isActive={numberPosition === 'top'}
+                  />
+                  <ToolbarButton
+                    icon="align-left"
+                    title={__('Left', '@@text_domain')}
+                    onClick={() => setAttributes({ numberPosition: 'left' })}
+                    isActive={numberPosition === 'left'}
+                  />
+                  <ToolbarButton
+                    icon="align-right"
+                    title={__('Right', '@@text_domain')}
+                    onClick={() => setAttributes({ numberPosition: 'right' })}
+                    isActive={numberPosition === 'right'}
+                  />
+                </Toolbar>
               </div>
             </BaseControl>
           </PanelBody>
@@ -176,28 +183,26 @@ class BlockEdit extends Component {
           inspectorSettings
         />
         <BlockControls>
-          <Toolbar
-            controls={[
-              {
-                icon: 'align-center',
-                title: __('Number Position Top', '@@text_domain'),
-                onClick: () => setAttributes({ numberPosition: 'top' }),
-                isActive: numberPosition === 'top',
-              },
-              {
-                icon: 'align-left',
-                title: __('Number Position Left', '@@text_domain'),
-                onClick: () => setAttributes({ numberPosition: 'left' }),
-                isActive: numberPosition === 'left',
-              },
-              {
-                icon: 'align-right',
-                title: __('Number Position Right', '@@text_domain'),
-                onClick: () => setAttributes({ numberPosition: 'right' }),
-                isActive: numberPosition === 'right',
-              },
-            ]}
-          />
+          <ToolbarGroup>
+            <ToolbarButton
+              icon="align-center"
+              title={__('Top', '@@text_domain')}
+              onClick={() => setAttributes({ numberPosition: 'top' })}
+              isActive={numberPosition === 'top'}
+            />
+            <ToolbarButton
+              icon="align-left"
+              title={__('Left', '@@text_domain')}
+              onClick={() => setAttributes({ numberPosition: 'left' })}
+              isActive={numberPosition === 'left'}
+            />
+            <ToolbarButton
+              icon="align-right"
+              title={__('Right', '@@text_domain')}
+              onClick={() => setAttributes({ numberPosition: 'right' })}
+              isActive={numberPosition === 'right'}
+            />
+          </ToolbarGroup>
         </BlockControls>
         <div className={className}>
           <div

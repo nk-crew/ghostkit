@@ -24,7 +24,16 @@ const { Component, Fragment } = wp.element;
 
 const { withSelect } = wp.data;
 
-const { BaseControl, PanelBody, RangeControl, ToggleControl, TabPanel, Toolbar } = wp.components;
+const {
+  BaseControl,
+  PanelBody,
+  RangeControl,
+  ToggleControl,
+  TabPanel,
+  Toolbar,
+  ToolbarGroup,
+  ToolbarButton,
+} = wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
 
@@ -75,28 +84,26 @@ class BlockEdit extends Component {
                 />
                 <BaseControl label={__('Icon Position', '@@text_domain')}>
                   <div>
-                    <Toolbar
-                      controls={[
-                        {
-                          icon: 'align-center',
-                          title: __('Top', '@@text_domain'),
-                          onClick: () => setAttributes({ iconPosition: 'top' }),
-                          isActive: iconPosition === 'top',
-                        },
-                        {
-                          icon: 'align-left',
-                          title: __('Left', '@@text_domain'),
-                          onClick: () => setAttributes({ iconPosition: 'left' }),
-                          isActive: iconPosition === 'left',
-                        },
-                        {
-                          icon: 'align-right',
-                          title: __('Right', '@@text_domain'),
-                          onClick: () => setAttributes({ iconPosition: 'right' }),
-                          isActive: iconPosition === 'right',
-                        },
-                      ]}
-                    />
+                    <Toolbar label={__('Icon Position', '@@text_domain')}>
+                      <ToolbarButton
+                        icon="align-center"
+                        title={__('Top', '@@text_domain')}
+                        onClick={() => setAttributes({ iconPosition: 'top' })}
+                        isActive={iconPosition === 'top'}
+                      />
+                      <ToolbarButton
+                        icon="align-left"
+                        title={__('Left', '@@text_domain')}
+                        onClick={() => setAttributes({ iconPosition: 'left' })}
+                        isActive={iconPosition === 'left'}
+                      />
+                      <ToolbarButton
+                        icon="align-right"
+                        title={__('Right', '@@text_domain')}
+                        onClick={() => setAttributes({ iconPosition: 'right' })}
+                        isActive={iconPosition === 'right'}
+                      />
+                    </Toolbar>
                   </div>
                 </BaseControl>
               </Fragment>
@@ -173,28 +180,26 @@ class BlockEdit extends Component {
         />
         {icon ? (
           <BlockControls>
-            <Toolbar
-              controls={[
-                {
-                  icon: 'align-center',
-                  title: __('Icon Position Top', '@@text_domain'),
-                  onClick: () => setAttributes({ iconPosition: 'top' }),
-                  isActive: iconPosition === 'top',
-                },
-                {
-                  icon: 'align-left',
-                  title: __('Icon Position Left', '@@text_domain'),
-                  onClick: () => setAttributes({ iconPosition: 'left' }),
-                  isActive: iconPosition === 'left',
-                },
-                {
-                  icon: 'align-right',
-                  title: __('Icon Position Right', '@@text_domain'),
-                  onClick: () => setAttributes({ iconPosition: 'right' }),
-                  isActive: iconPosition === 'right',
-                },
-              ]}
-            />
+            <ToolbarGroup>
+              <ToolbarButton
+                icon="align-center"
+                title={__('Top', '@@text_domain')}
+                onClick={() => setAttributes({ iconPosition: 'top' })}
+                isActive={iconPosition === 'top'}
+              />
+              <ToolbarButton
+                icon="align-left"
+                title={__('Left', '@@text_domain')}
+                onClick={() => setAttributes({ iconPosition: 'left' })}
+                isActive={iconPosition === 'left'}
+              />
+              <ToolbarButton
+                icon="align-right"
+                title={__('Right', '@@text_domain')}
+                onClick={() => setAttributes({ iconPosition: 'right' })}
+                isActive={iconPosition === 'right'}
+              />
+            </ToolbarGroup>
           </BlockControls>
         ) : (
           ''
