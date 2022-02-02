@@ -13,6 +13,7 @@ import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
 import ApplyFilters from '../../components/apply-filters';
 import ImagePicker from '../../components/image-picker';
+import ToggleGroup from '../../components/toggle-group';
 import getIcon from '../../utils/get-icon';
 import { hasClass, addClass, removeClass } from '../../utils/classes-replacer';
 
@@ -35,7 +36,6 @@ const {
   PanelBody,
   SelectControl,
   Button,
-  ButtonGroup,
   ToggleControl,
   RangeControl,
   TextControl,
@@ -325,8 +325,9 @@ class BlockEdit extends Component {
         </BlockControls>
         <InspectorControls>
           <PanelBody>
-            <ButtonGroup aria-label={__('Type', '@@text_domain')} style={{ marginBottom: 10 }}>
-              {[
+            <ToggleGroup
+              value={type}
+              options={[
                 {
                   label: __('YouTube / Vimeo', '@@text_domain'),
                   value: 'yt_vm_video',
@@ -335,18 +336,12 @@ class BlockEdit extends Component {
                   label: __('Self Hosted', '@@text_domain'),
                   value: 'video',
                 },
-              ].map((val) => (
-                <Button
-                  isSmall
-                  isPrimary={type === val.value}
-                  isPressed={type === val.value}
-                  onClick={() => setAttributes({ type: val.value })}
-                  key={`type_${val.label}`}
-                >
-                  {val.label}
-                </Button>
-              ))}
-            </ButtonGroup>
+              ]}
+              onChange={(value) => {
+                setAttributes({ type: value });
+              }}
+              isBlock
+            />
             {type === 'yt_vm_video' && (
               <TextControl
                 label={__('Video URL', '@@text_domain')}
@@ -577,36 +572,25 @@ class BlockEdit extends Component {
             ) : null}
           </PanelBody>
           <PanelBody>
-            <BaseControl label={__('Click Action', '@@text_domain')}>
-              <div>
-                <ButtonGroup aria-label={__('Click Action', '@@text_domain')}>
-                  {[
-                    {
-                      label: __('Plain', '@@text_domain'),
-                      value: 'plain',
-                    },
-                    {
-                      label: __('Fullscreen', '@@text_domain'),
-                      value: 'fullscreen',
-                    },
-                  ].map((val) => (
-                    <Button
-                      isSmall
-                      isPrimary={clickAction === val.value}
-                      isPressed={clickAction === val.value}
-                      disabled={
-                        hasClass(attributes.className, 'is-style-icon-only') &&
-                        val.value === 'plain'
-                      }
-                      onClick={() => setAttributes({ clickAction: val.value })}
-                      key={`clickAction_${val.label}`}
-                    >
-                      {val.label}
-                    </Button>
-                  ))}
-                </ButtonGroup>
-              </div>
-            </BaseControl>
+            <ToggleGroup
+              label={__('Click Action', '@@text_domain')}
+              value={clickAction}
+              options={[
+                {
+                  label: __('Plain', '@@text_domain'),
+                  value: 'plain',
+                  disabled: hasClass(attributes.className, 'is-style-icon-only'),
+                },
+                {
+                  label: __('Fullscreen', '@@text_domain'),
+                  value: 'fullscreen',
+                },
+              ]}
+              onChange={(value) => {
+                setAttributes({ clickAction: value });
+              }}
+              isAdaptiveWidth
+            />
             {clickAction === 'fullscreen' ? (
               <Fragment>
                 <ApplyFilters

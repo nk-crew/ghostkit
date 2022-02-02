@@ -12,6 +12,7 @@ import {
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 import getIcon from '../../utils/get-icon';
 import ActiveIndicator from '../../components/active-indicator';
+import ToggleGroup from '../../components/toggle-group';
 
 /**
  * WordPress dependencies
@@ -28,7 +29,7 @@ const { createHigherOrderComponent } = wp.compose;
 
 const { InspectorControls } = wp.blockEditor;
 
-const { PanelBody, ButtonGroup, Button } = wp.components;
+const { PanelBody } = wp.components;
 
 const { GHOSTKIT, ghostkitVariables } = window;
 
@@ -193,23 +194,16 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
             >
               <ResponsiveTabPanel filledTabs={filledTabs}>
                 {(tabData) => (
-                  <ButtonGroup>
-                    {getDefaultDisplay(tabData.name).map((val) => {
-                      const selected = getCurrentDisplay(className, tabData.name) === val.value;
-
-                      return (
-                        <Button
-                          isSmall
-                          isPrimary={selected}
-                          isPressed={selected}
-                          onClick={() => this.updateDisplay(tabData.name, val.value)}
-                          key={`display_${val.label}`}
-                        >
-                          {val.label}
-                        </Button>
-                      );
-                    })}
-                  </ButtonGroup>
+                  <ToggleGroup
+                    value={getCurrentDisplay(className, tabData.name)}
+                    options={getDefaultDisplay(tabData.name).map((val) => ({
+                      value: val.value,
+                      label: val.label,
+                    }))}
+                    onChange={(value) => {
+                      this.updateDisplay(tabData.name, value);
+                    }}
+                  />
                 )}
               </ResponsiveTabPanel>
             </PanelBody>

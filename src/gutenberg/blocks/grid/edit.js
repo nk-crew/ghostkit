@@ -9,6 +9,7 @@ import classnames from 'classnames/dedupe';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 import GapSettings from '../../components/gap-settings';
+import ToggleGroup from '../../components/toggle-group';
 import { TemplatesModal } from '../../plugins/templates';
 
 /**
@@ -20,8 +21,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { BaseControl, Button, PanelBody, RangeControl, Placeholder, Toolbar, Tooltip } =
-  wp.components;
+const { Button, PanelBody, RangeControl, Placeholder, Toolbar, Tooltip } = wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
 
@@ -296,70 +296,56 @@ class BlockEdit extends Component {
         {columnsCount > 0 ? (
           <InspectorControls>
             <PanelBody>
-              <BaseControl label={__('Vertical alignment', '@@text_domain')}>
-                <div>
-                  <Toolbar
-                    controls={[
-                      {
-                        icon: getIcon('icon-vertical-top'),
-                        title: __('Start', '@@text_domain'),
-                        onClick: () => setAttributes({ verticalAlign: '' }),
-                        isActive: verticalAlign === '',
-                      },
-                      {
-                        icon: getIcon('icon-vertical-center'),
-                        title: __('Center', '@@text_domain'),
-                        onClick: () => setAttributes({ verticalAlign: 'center' }),
-                        isActive: verticalAlign === 'center',
-                      },
-                      {
-                        icon: getIcon('icon-vertical-bottom'),
-                        title: __('End', '@@text_domain'),
-                        onClick: () => setAttributes({ verticalAlign: 'end' }),
-                        isActive: verticalAlign === 'end',
-                      },
-                    ]}
-                  />
-                </div>
-              </BaseControl>
-              <BaseControl label={__('Horizontal alignment', '@@text_domain')}>
-                <div>
-                  <Toolbar
-                    controls={[
-                      {
-                        icon: getIcon('icon-horizontal-start'),
-                        title: __('Start', '@@text_domain'),
-                        onClick: () => setAttributes({ horizontalAlign: '' }),
-                        isActive: horizontalAlign === '',
-                      },
-                      {
-                        icon: getIcon('icon-horizontal-center'),
-                        title: __('Center', '@@text_domain'),
-                        onClick: () => setAttributes({ horizontalAlign: 'center' }),
-                        isActive: horizontalAlign === 'center',
-                      },
-                      {
-                        icon: getIcon('icon-horizontal-end'),
-                        title: __('End', '@@text_domain'),
-                        onClick: () => setAttributes({ horizontalAlign: 'end' }),
-                        isActive: horizontalAlign === 'end',
-                      },
-                      {
-                        icon: getIcon('icon-horizontal-around'),
-                        title: __('Around', '@@text_domain'),
-                        onClick: () => setAttributes({ horizontalAlign: 'around' }),
-                        isActive: horizontalAlign === 'around',
-                      },
-                      {
-                        icon: getIcon('icon-horizontal-between'),
-                        title: __('Between', '@@text_domain'),
-                        onClick: () => setAttributes({ horizontalAlign: 'between' }),
-                        isActive: horizontalAlign === 'between',
-                      },
-                    ]}
-                  />
-                </div>
-              </BaseControl>
+              <ToggleGroup
+                label={__('Vertical alignment', '@@text_domain')}
+                value={verticalAlign}
+                options={[
+                  {
+                    label: getIcon('icon-vertical-top'),
+                    value: '',
+                  },
+                  {
+                    label: getIcon('icon-vertical-center'),
+                    value: 'center',
+                  },
+                  {
+                    label: getIcon('icon-vertical-bottom'),
+                    value: 'end',
+                  },
+                ]}
+                onChange={(value) => {
+                  setAttributes({ verticalAlign: value });
+                }}
+              />
+              <ToggleGroup
+                label={__('Horizontal alignment', '@@text_domain')}
+                value={horizontalAlign}
+                options={[
+                  {
+                    label: getIcon('icon-horizontal-start'),
+                    value: '',
+                  },
+                  {
+                    label: getIcon('icon-horizontal-center'),
+                    value: 'center',
+                  },
+                  {
+                    label: getIcon('icon-horizontal-end'),
+                    value: 'end',
+                  },
+                  {
+                    label: getIcon('icon-horizontal-around'),
+                    value: 'around',
+                  },
+                  {
+                    label: getIcon('icon-horizontal-between'),
+                    value: 'between',
+                  },
+                ]}
+                onChange={(value) => {
+                  setAttributes({ horizontalAlign: value });
+                }}
+              />
             </PanelBody>
             <PanelBody>
               <GapSettings

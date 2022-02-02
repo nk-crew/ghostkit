@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import IconPicker from '../../components/icon-picker';
+import ToggleGroup from '../../components/toggle-group';
 
 /**
  * WordPress dependencies
@@ -17,7 +18,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, RangeControl, ToggleControl, BaseControl, ButtonGroup, Button } = wp.components;
+const { PanelBody, RangeControl, ToggleControl } = wp.components;
 
 const { InspectorControls, InnerBlocks } = wp.blockEditor;
 
@@ -108,36 +109,28 @@ class BlockEdit extends Component {
             />
           </PanelBody>
           <PanelBody>
-            <BaseControl label={__('Effect', '@@text_domain')}>
-              <div>
-                <ButtonGroup aria-label={__('Effect', '@@text_domain')}>
-                  {[
-                    {
-                      value: 'slide',
-                      label: __('Slide', '@@text_domain'),
-                    },
-                    {
-                      value: 'coverflow',
-                      label: __('Coverflow', '@@text_domain'),
-                    },
-                    {
-                      value: 'fade',
-                      label: __('Fade', '@@text_domain'),
-                    },
-                  ].map((val) => (
-                    <Button
-                      isSmall
-                      isPrimary={effect === val.value}
-                      isPressed={effect === val.value}
-                      onClick={() => setAttributes({ effect: val.value })}
-                      key={`effect_${val.label}`}
-                    >
-                      {val.label}
-                    </Button>
-                  ))}
-                </ButtonGroup>
-              </div>
-            </BaseControl>
+            <ToggleGroup
+              label={__('Effect', '@@text_domain')}
+              value={effect}
+              options={[
+                {
+                  value: 'slide',
+                  label: __('Slide', '@@text_domain'),
+                },
+                {
+                  value: 'coverflow',
+                  label: __('Coverflow', '@@text_domain'),
+                },
+                {
+                  value: 'fade',
+                  label: __('Fade', '@@text_domain'),
+                },
+              ]}
+              onChange={(value) => {
+                setAttributes({ effect: value });
+              }}
+              isAdaptiveWidth
+            />
           </PanelBody>
           <PanelBody>
             <RangeControl

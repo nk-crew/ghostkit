@@ -2,163 +2,118 @@
 @import "./style";
 
 .ghostkit-extension-frame-tabs {
-    margin-top: -10px;
-}
-
-// Border Style.
-.ghostkit-control-border-style {
-    display: flex;
-    flex-wrap: wrap;
-
-    button {
-        flex: 1;
-        justify-content: center;
-    }
-
-    .ghostkit-control-border-style-item-inner {
-        width: 15px;
-        margin-top: 2px;
-        border-bottom-color: currentColor;
-        border-bottom-style: solid;
-        border-bottom-width: 3px;
-    }
-
-    .ghostkit-control-border-style-item-none .ghostkit-control-border-style-item-inner {
-        position: relative;
-        border-bottom-width: 2px;
-        transform: rotate(45deg);
-
-        &::after {
-            content: "";
-            position: absolute;
-            display: block;
-            width: 100%;
-            border: inherit;
-            transform: rotate(-90deg);
-        }
-    }
-    .ghostkit-control-border-style-item-solid .ghostkit-control-border-style-item-inner {
-        border-bottom-style: solid;
-    }
-    .ghostkit-control-border-style-item-dashed .ghostkit-control-border-style-item-inner {
-        border-bottom-style: dashed;
-    }
-    .ghostkit-control-border-style-item-dotted .ghostkit-control-border-style-item-inner {
-        border-bottom-style: dotted;
-    }
-    .ghostkit-control-border-style-item-double .ghostkit-control-border-style-item-inner {
-        border-bottom-style: double;
-        border-bottom-width: 6px;
-    }
+  margin-top: -10px;
 }
 
 // Border additional options.
 .ghostkit-control-border-additional {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: -20px;
+  margin-bottom: 24px;
 
-    > div:first-child {
-        margin-right: auto;
+  > div:first-child {
+    margin-right: auto;
+  }
+
+  .ghostkit-component-color-picker-wrapper {
+    margin-bottom: 0 !important;
+
+    .components-base-control__field {
+      margin-top: 0;
+      margin-bottom: 0;
     }
+  }
 
-    .ghostkit-component-color-picker-wrapper {
-        // stylelint-disable-next-line
-        margin-bottom: 0 !important;
+  .ghostkit-component-input-drag {
+    margin-bottom: 0 !important;
 
-        .components-base-control__field {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
+    .components-base-control__field {
+      margin-bottom: 0;
     }
-    .ghostkit-component-input-drag {
-        // stylelint-disable-next-line
-        margin-bottom: 0 !important;
-
-        .components-base-control__field {
-            margin-bottom: 0;
-        }
-    }
+  }
 }
 
 // Shadow
 .ghostkit-control-box-shadow {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    > div:first-child {
-        margin-right: auto;
-    }
+  > div:first-child {
+    margin-right: auto;
+  }
 
-    .ghostkit-component-color-picker-wrapper {
-        // stylelint-disable-next-line
-        margin-bottom: 0 !important;
+  .ghostkit-component-color-picker-wrapper {
+    margin-bottom: 0 !important;
 
-        .components-base-control__field {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
+    .components-base-control__field {
+      margin-top: 0;
+      margin-bottom: 0;
     }
-    .ghostkit-component-input-drag {
-        max-width: 45px;
-        // stylelint-disable-next-line
-        margin-bottom: 0 !important;
+  }
 
-        .components-base-control__field {
-            margin-bottom: 0;
-        }
-    }
+  .ghostkit-component-input-drag {
+    max-width: 45px;
+    margin-bottom: 0 !important;
 
-    > div + div {
-        margin-left: -1px;
+    .components-base-control__field {
+      margin-bottom: 0;
     }
+  }
 
-    > div:focus-within {
-        z-index: 1;
-    }
+  > div + div {
+    margin-left: -1px;
+  }
 
-    .ghostkit-control-box-shadow-x input {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-    .ghostkit-control-box-shadow-y input,
-    .ghostkit-control-box-shadow-blur input {
-        border-radius: 0;
-    }
-    .ghostkit-control-box-shadow-spread input {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
+  > div:focus-within {
+    z-index: 1;
+  }
+
+  .ghostkit-control-box-shadow-x input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .ghostkit-control-box-shadow-y input,
+  .ghostkit-control-box-shadow-blur input {
+    border-radius: 0;
+  }
+
+  .ghostkit-control-box-shadow-spread input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
 
 // Corner radius.
 .ghostkit-control-radius {
-    display: flex;
+  display: flex;
 
-    > div + div {
-        margin-left: -1px;
-    }
+  > div + div {
+    margin-left: -1px;
+  }
 
-    > div:focus-within {
-        z-index: 1;
-    }
+  > div:focus-within {
+    z-index: 1;
+  }
 
-    .ghostkit-control-radius-tl input {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-    .ghostkit-control-radius-tr input,
-    .ghostkit-control-radius-br input {
-        border-radius: 0;
-    }
-    .ghostkit-control-radius-bl input {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
+  .ghostkit-control-radius-tl input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
-    .components-base-control,
-    .components-base-control__field {
-        // stylelint-disable-next-line
-        margin-bottom: 0 !important;
-    }
+  .ghostkit-control-radius-tr input,
+  .ghostkit-control-radius-br input {
+    border-radius: 0;
+  }
+
+  .ghostkit-control-radius-bl input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .components-base-control,
+  .components-base-control__field {
+    margin-bottom: 0 !important;
+  }
 }

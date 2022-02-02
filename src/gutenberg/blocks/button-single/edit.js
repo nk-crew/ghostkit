@@ -12,6 +12,7 @@ import IconPicker from '../../components/icon-picker';
 import ColorIndicator from '../../components/color-indicator';
 import ApplyFilters from '../../components/apply-filters';
 import URLPicker from '../../components/url-picker';
+import ToggleGroup from '../../components/toggle-group';
 
 /**
  * WordPress dependencies
@@ -22,15 +23,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const {
-  SelectControl,
-  PanelBody,
-  RangeControl,
-  Button,
-  ButtonGroup,
-  TabPanel,
-  ToggleControl,
-} = wp.components;
+const { SelectControl, PanelBody, RangeControl, TabPanel, ToggleControl } = wp.components;
 
 const { InspectorControls, RichText } = wp.blockEditor;
 
@@ -85,13 +78,28 @@ class BlockEdit extends Component {
       hoverBorderColor,
     } = attributes;
 
-    const sizes = {
-      XS: 'xs',
-      S: 'sm',
-      M: 'md',
-      L: 'lg',
-      XL: 'xl',
-    };
+    const sizes = [
+      {
+        label: 'XS',
+        value: 'xs',
+      },
+      {
+        label: 'S',
+        value: 'sm',
+      },
+      {
+        label: 'M',
+        value: 'md',
+      },
+      {
+        label: 'L',
+        value: 'lg',
+      },
+      {
+        label: 'XL',
+        value: 'xl',
+      },
+    ];
     let isNormalState = false;
     let isHoveredState = false;
     let isFocusedState = false;
@@ -151,19 +159,13 @@ class BlockEdit extends Component {
         <InspectorControls>
           <PanelBody>
             <div className="blocks-size__main">
-              <ButtonGroup aria-label={__('Size', '@@text_domain')}>
-                {Object.keys(sizes).map((key) => (
-                  <Button
-                    key={key}
-                    isSmall
-                    isPrimary={size === sizes[key]}
-                    isPressed={size === sizes[key]}
-                    onClick={() => setAttributes({ size: sizes[key] })}
-                  >
-                    {key}
-                  </Button>
-                ))}
-              </ButtonGroup>
+              <ToggleGroup
+                value={size}
+                options={sizes}
+                onChange={(value) => {
+                  setAttributes({ size: value });
+                }}
+              />
             </div>
           </PanelBody>
           <PanelBody>

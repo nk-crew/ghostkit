@@ -1,5 +1,5 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="2.75" y="2.75" width="18.5" height="18.5" rx="3.25" stroke="currentColor" fill="transparent"
-    stroke-width="1.5" />
-  <line x1="6.5" y1="6.5" x2="17.5" y2="6.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+  <path fill-rule="evenodd" clip-rule="evenodd"
+    d="M12.4855 7.30439L12 6.81019L11.5145 7.30439L7.40022 11.5044L8.37119 12.4956L11.3143 9.48979V20.4H12.6857V9.48979L15.6288 12.4956L16.5998 11.5044L12.4855 7.30439V7.30439ZM21.6 4.99999V3.59999H2.39999V4.99999H21.6Z"
+    fill="currentColor" />
 </svg>

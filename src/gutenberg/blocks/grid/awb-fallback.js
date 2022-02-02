@@ -5,6 +5,8 @@
  */
 import ColorPicker from '../../components/color-picker';
 import FocalPointPicker from '../../components/focal-point-picker';
+import ToggleGroup from '../../components/toggle-group';
+import ColorIndicator from '../../components/color-indicator';
 import dashCaseToTitle from '../../utils/dash-case-to-title';
 import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 
@@ -21,8 +23,7 @@ const { MediaUpload } = wp.blockEditor;
 
 const { hasBlockSupport } = wp.blocks;
 
-const { PanelBody, ButtonGroup, Button, SelectControl, ColorIndicator, ExternalLink } =
-  wp.components;
+const { PanelBody, Button, SelectControl, ExternalLink } = wp.components;
 
 const { withSelect } = wp.data;
 
@@ -173,11 +174,9 @@ class BackgroundControlsInspector extends Component {
 
     return (
       <PanelBody title={__('Background', '@@text_domain')} initialOpen={false}>
-        <ButtonGroup
-          aria-label={__('Background type', '@@text_domain')}
-          style={{ marginTop: 15, marginBottom: 10 }}
-        >
-          {[
+        <ToggleGroup
+          value={type === 'video' || type === 'yt_vm_video' ? 'yt_vm_video' : type}
+          options={[
             {
               label: __('Color', '@@text_domain'),
               value: 'color',
@@ -190,27 +189,11 @@ class BackgroundControlsInspector extends Component {
               label: __('Video', '@@text_domain'),
               value: 'yt_vm_video',
             },
-          ].map((val) => {
-            let selected = type === val.value;
-
-            // select video
-            if (val.value === 'yt_vm_video') {
-              selected = type === 'video' || type === 'yt_vm_video';
-            }
-
-            return (
-              <Button
-                isSmall
-                isPrimary={selected}
-                isPressed={selected}
-                onClick={() => setAttributes({ type: val.value })}
-                key={`type_${val.label}`}
-              >
-                {val.label}
-              </Button>
-            );
-          })}
-        </ButtonGroup>
+          ]}
+          onChange={(value) => {
+            setAttributes({ type: value });
+          }}
+        />
 
         {type === 'image' ? (
           <PanelBody title={__('Image', '@@text_domain')} initialOpen={type === 'image'}>

@@ -7,6 +7,8 @@ import { throttle } from 'throttle-debounce';
 /**
  * Internal dependencies
  */
+import ToggleGroup from '../../components/toggle-group';
+
 import RecaptchaSettings from './recaptcha';
 
 /**
@@ -18,8 +20,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { BaseControl, Button, ButtonGroup, PanelBody, TextControl, TextareaControl, ToggleControl } =
-  wp.components;
+const { BaseControl, PanelBody, TextControl, TextareaControl, ToggleControl } = wp.components;
 
 const { InspectorControls, InnerBlocks } = wp.blockEditor;
 
@@ -141,39 +142,25 @@ class BlockEdit extends Component {
             </BaseControl>
           </PanelBody>
           <PanelBody title={__('Confirmation', '@@text_domain')}>
-            <BaseControl label={__('Type', '@@text_domain')}>
-              <br />
-              <ButtonGroup>
-                {[
-                  {
-                    label: __('Message', '@@text_domain'),
-                    value: 'message',
-                  },
-                  {
-                    label: __('Redirect', '@@text_domain'),
-                    value: 'redirect',
-                  },
-                ].map((val) => {
-                  let selected = confirmationType === val.value;
+            <ToggleGroup
+              label={__('Type', '@@text_domain')}
+              value={confirmationType}
+              options={[
+                {
+                  label: __('Message', '@@text_domain'),
+                  value: 'message',
+                },
+                {
+                  label: __('Redirect', '@@text_domain'),
+                  value: 'redirect',
+                },
+              ]}
+              onChange={(value) => {
+                setAttributes({ confirmationType: value });
+              }}
+              allowReset
+            />
 
-                  if (!confirmationType && val.value === 'message') {
-                    selected = true;
-                  }
-
-                  return (
-                    <Button
-                      isSmall
-                      isPrimary={selected}
-                      isPressed={selected}
-                      onClick={() => setAttributes({ confirmationType: val.value })}
-                      key={`confirmationType_${val.label}`}
-                    >
-                      {val.label}
-                    </Button>
-                  );
-                })}
-              </ButtonGroup>
-            </BaseControl>
             {!confirmationType || confirmationType === 'message' ? (
               <TextareaControl
                 label={__('Message', '@@text_domain')}

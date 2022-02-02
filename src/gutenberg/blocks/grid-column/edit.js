@@ -7,21 +7,13 @@
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ToggleGroup from '../../components/toggle-group';
 
 const { __, sprintf } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const {
-  BaseControl,
-  PanelBody,
-  ButtonGroup,
-  Button,
-  SelectControl,
-  RangeControl,
-  Tooltip,
-  Toolbar,
-} = wp.components;
+const { PanelBody, SelectControl, RangeControl, Tooltip } = wp.components;
 
 const { applyFilters } = wp.hooks;
 
@@ -176,47 +168,28 @@ class BlockEdit extends Component {
                         }}
                         options={getDefaultColumnOrders()}
                       />
-                      <BaseControl label={__('Vertical alignment', '@@text_domain')}>
-                        <div>
-                          <Toolbar
-                            controls={[
-                              {
-                                icon: getIcon('icon-vertical-top'),
-                                title: __('Start', '@@text_domain'),
-                                onClick: () => {
-                                  setAttributes({
-                                    [verticalAlignName]:
-                                      attributes[verticalAlignName] === 'start' ? '' : 'start',
-                                  });
-                                },
-                                isActive: attributes[verticalAlignName] === 'start',
-                              },
-                              {
-                                icon: getIcon('icon-vertical-center'),
-                                title: __('Center', '@@text_domain'),
-                                onClick: () => {
-                                  setAttributes({
-                                    [verticalAlignName]:
-                                      attributes[verticalAlignName] === 'center' ? '' : 'center',
-                                  });
-                                },
-                                isActive: attributes[verticalAlignName] === 'center',
-                              },
-                              {
-                                icon: getIcon('icon-vertical-bottom'),
-                                title: __('End', '@@text_domain'),
-                                onClick: () => {
-                                  setAttributes({
-                                    [verticalAlignName]:
-                                      attributes[verticalAlignName] === 'end' ? '' : 'end',
-                                  });
-                                },
-                                isActive: attributes[verticalAlignName] === 'end',
-                              },
-                            ]}
-                          />
-                        </div>
-                      </BaseControl>
+                      <ToggleGroup
+                        label={__('Vertical alignment', '@@text_domain')}
+                        value={attributes[verticalAlignName]}
+                        options={[
+                          {
+                            label: getIcon('icon-vertical-top'),
+                            value: '',
+                          },
+                          {
+                            label: getIcon('icon-vertical-center'),
+                            value: 'center',
+                          },
+                          {
+                            label: getIcon('icon-vertical-bottom'),
+                            value: 'end',
+                          },
+                        ]}
+                        onChange={(value) => {
+                          setAttributes({ [verticalAlignName]: value });
+                        }}
+                        allowReset
+                      />
                     </Fragment>
                   );
                 }}
@@ -224,39 +197,24 @@ class BlockEdit extends Component {
             </PanelBody>
           </ApplyFilters>
           <PanelBody>
-            <BaseControl label={__('Sticky Content', '@@text_domain')}>
-              <div />
-              <ButtonGroup>
-                {[
-                  {
-                    label: __('No', '@@text_domain'),
-                    value: '',
-                  },
-                  {
-                    label: __('Top', '@@text_domain'),
-                    value: 'top',
-                  },
-                  {
-                    label: __('Bottom', '@@text_domain'),
-                    value: 'bottom',
-                  },
-                ].map((val) => {
-                  const selected = stickyContent === val.value;
-
-                  return (
-                    <Button
-                      isSmall
-                      isPrimary={selected}
-                      isPressed={selected}
-                      onClick={() => setAttributes({ stickyContent: val.value })}
-                      key={`stickyContent_${val.label}`}
-                    >
-                      {val.label}
-                    </Button>
-                  );
-                })}
-              </ButtonGroup>
-            </BaseControl>
+            <ToggleGroup
+              label={__('Sticky Content', '@@text_domain')}
+              value={stickyContent}
+              options={[
+                {
+                  label: __('Top', '@@text_domain'),
+                  value: 'top',
+                },
+                {
+                  label: __('Bottom', '@@text_domain'),
+                  value: 'bottom',
+                },
+              ]}
+              onChange={(value) => {
+                setAttributes({ stickyContent: value });
+              }}
+              allowReset
+            />
             {stickyContent ? (
               <RangeControl
                 label={__('Sticky Offset', '@@text_domain')}

@@ -11,6 +11,7 @@ import ScrollReveal from 'scrollreveal';
 import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
 import ActiveIndicator from '../../components/active-indicator';
+import ToggleGroup from '../../components/toggle-group';
 
 import parseSRConfig from './parseSRConfig';
 
@@ -27,7 +28,7 @@ const { createHigherOrderComponent } = wp.compose;
 
 const { InspectorControls } = wp.blockEditor;
 
-const { BaseControl, PanelBody, TextControl, Button, ButtonGroup } = wp.components;
+const { BaseControl, PanelBody, TextControl, Button } = wp.components;
 
 const $ = window.jQuery;
 
@@ -221,8 +222,9 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                 initialOpenPanel = !initialOpenPanel;
               }}
             >
-              <ButtonGroup>
-                {[
+              <ToggleGroup
+                value={this.state.effect}
+                options={[
                   {
                     label: __('None', '@@text_domain'),
                     value: '',
@@ -235,22 +237,11 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                     label: __('Zoom', '@@text_domain'),
                     value: 'zoom',
                   },
-                ].map((val) => {
-                  const selected = this.state.effect === val.value;
-
-                  return (
-                    <Button
-                      isSmall
-                      isPrimary={selected}
-                      isPressed={selected}
-                      onClick={() => this.updateData({ effect: val.value })}
-                      key={`effect_${val.label}`}
-                    >
-                      {val.label}
-                    </Button>
-                  );
-                })}
-              </ButtonGroup>
+                ]}
+                onChange={(value) => {
+                  this.updateData({ effect: value });
+                }}
+              />
 
               {this.state.effect ? (
                 <Fragment>
