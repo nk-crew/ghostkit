@@ -43,9 +43,8 @@
 }
 
 .ghostkit-gist-toolbar-url .components-base-control__field {
+  display: flex;
+  align-items: center;
   width: 300px;
-  margin-top: 1px;
-  margin-right: 3px;
-  margin-bottom: 0;
-  margin-left: 1px;
+  margin: 7px;
 }
