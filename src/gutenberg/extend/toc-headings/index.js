@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /**
  * External dependencies
@@ -12,8 +13,6 @@ import { getSlug } from '../../utils/get-unique-slug';
 /**
  * WordPress dependencies
  */
-const { addFilter } = wp.hooks;
-
 const { subscribe, select } = wp.data;
 
 /**
@@ -95,13 +94,12 @@ function updateHeadingIDs() {
   headings.forEach((block) => {
     let { anchor } = block.attributes;
 
-    const { content, ghostkitTocId } = block.attributes;
+    const { content } = block.attributes;
 
     // create new
-    if (content && (!anchor || ghostkitTocId === anchor)) {
+    if (content && !anchor) {
       anchor = getSlug(content);
       block.attributes.anchor = anchor;
-      block.attributes.ghostkitTocId = anchor;
     }
 
     // check collisions.
@@ -110,7 +108,6 @@ function updateHeadingIDs() {
         collisionCollector[anchor] += 1;
         anchor += `-${collisionCollector[anchor]}`;
         block.attributes.anchor = anchor;
-        block.attributes.ghostkitTocId = anchor;
       } else {
         collisionCollector[anchor] = 1;
       }
@@ -124,27 +121,14 @@ const updateHeadingIDsDebounce = debounce(300, updateHeadingIDs);
 
 /**
  * Subscribe to all editor changes.
+ * We don't need to run this code in WordPress >= 5.9, as anchors already adds automatically.
  */
-subscribe(() => {
-  updateHeadingIDsDebounce();
-});
-
-/**
- * Filters registered block settings, extending attributes with anchor using ID
- * of the first node.
- *
- * @param {Object} settings Original block settings.
- *
- * @return {Object} Filtered block settings.
- */
-function addAttribute(settings) {
-  if (settings.name && settings.name === 'core/heading') {
-    settings.attributes.ghostkitTocId = {
-      type: 'string',
-    };
-  }
-
-  return settings;
+if (
+  !wp.blockEditor.__experimentalBlockPatternSetup &&
+  !wp.blockEditor.BlockPatternSetup &&
+  !wp.blockEditor.blockPatternSetup
+) {
+  subscribe(() => {
+    updateHeadingIDsDebounce();
+  });
 }
-
-addFilter('blocks.registerBlockType', 'ghostkit/toc/heading/id/attribute', addAttribute);
