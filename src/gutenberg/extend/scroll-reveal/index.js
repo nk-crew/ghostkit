@@ -4,6 +4,7 @@
  * External dependencies
  */
 import ScrollReveal from 'scrollreveal';
+import classnames from 'classnames';
 
 /**
  * Internal dependencies
@@ -26,9 +27,18 @@ const { Component, Fragment } = wp.element;
 
 const { createHigherOrderComponent } = wp.compose;
 
-const { InspectorControls } = wp.blockEditor;
+const { InspectorControls, BlockControls } = wp.blockEditor;
 
-const { BaseControl, PanelBody, TextControl, Button } = wp.components;
+const {
+  BaseControl,
+  PanelBody,
+  TextControl,
+  Button,
+  ToolbarGroup,
+  DropdownMenu,
+  MenuGroup,
+  MenuItem,
+} = wp.components;
 
 const $ = window.jQuery;
 
@@ -203,10 +213,96 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 
       const { ghostkitSR } = props.attributes;
 
+      const presetAnimations = [
+        {
+          label: __('Fade in', '@@text_domain'),
+          icon: getIcon('sr-fade'),
+          value: 'fade',
+          onClick: () => this.updateData({ effect: 'fade', direction: '' }),
+        },
+        {
+          label: __('Zoom in', '@@text_domain'),
+          icon: getIcon('sr-zoom'),
+          value: 'zoom',
+          onClick: () => this.updateData({ effect: 'zoom', direction: '' }),
+        },
+        {
+          label: __('Zoom in from Bottom', '@@text_domain'),
+          icon: getIcon('sr-zoom-from-bottom'),
+          value: 'zoom-up',
+          onClick: () => this.updateData({ effect: 'zoom', direction: 'up' }),
+        },
+        {
+          label: __('Zoom in from Left', '@@text_domain'),
+          icon: getIcon('sr-zoom-from-left'),
+          value: 'zoom-left',
+          onClick: () => this.updateData({ effect: 'zoom', direction: 'left' }),
+        },
+        {
+          label: __('Zoom in from Right', '@@text_domain'),
+          icon: getIcon('sr-zoom-from-right'),
+          value: 'zoom-right',
+          onClick: () => this.updateData({ effect: 'zoom', direction: 'right' }),
+        },
+      ];
+
       // add new SR controls.
       return (
         <Fragment>
           <OriginalComponent {...props} setState={this.setState} />
+          <BlockControls group="other">
+            <ToolbarGroup>
+              <DropdownMenu
+                icon={getIcon('extension-sr')}
+                label={__('Animate on Scroll', '@@text_domain')}
+                menuProps={{
+                  className: 'ghostkit-control-sr-presets-menu',
+                }}
+                toggleProps={{
+                  className: classnames(
+                    'ghostkit-control-sr-presets-toggle',
+                    ghostkitSR ? 'ghostkit-control-sr-presets-toggle-active' : ''
+                  ),
+                }}
+              >
+                {() => (
+                  <Fragment>
+                    <MenuGroup>
+                      {presetAnimations.map((animationItem) => (
+                        <MenuItem
+                          icon={animationItem.icon}
+                          isSelected={ghostkitSR === animationItem.value}
+                          key={`animation-${animationItem.value}`}
+                          label={animationItem.label}
+                          onClick={() => animationItem.onClick()}
+                          role="menuitemradio"
+                        >
+                          {animationItem.label}
+                        </MenuItem>
+                      ))}
+                    </MenuGroup>
+                    {ghostkitSR && (
+                      <MenuGroup>
+                        <MenuItem
+                          isSelected={false}
+                          label={__('Remove animation', '@@text_domain')}
+                          onClick={() => this.updateData({ effect: '' })}
+                        >
+                          {__('Remove animation', '@@text_domain')}
+                        </MenuItem>
+                      </MenuGroup>
+                    )}
+                    <MenuGroup>
+                      {__(
+                        'Advanced options are placed in the block settings panel.',
+                        '@@text_domain'
+                      )}
+                    </MenuGroup>
+                  </Fragment>
+                )}
+              </DropdownMenu>
+            </ToolbarGroup>
+          </BlockControls>
           <InspectorControls>
             <PanelBody
               title={
@@ -226,10 +322,6 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                 value={this.state.effect}
                 options={[
                   {
-                    label: __('None', '@@text_domain'),
-                    value: '',
-                  },
-                  {
                     label: __('Fade', '@@text_domain'),
                     value: 'fade',
                   },
@@ -241,6 +333,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                 onChange={(value) => {
                   this.updateData({ effect: value });
                 }}
+                allowReset
               />
 
               {this.state.effect ? (

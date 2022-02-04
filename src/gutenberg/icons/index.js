@@ -46,6 +46,11 @@ import pluginCustomCode from './plugin-custom-code.svg';
 import pluginColorPalette from './plugin-color-palette.svg';
 import pluginCustomizer from './plugin-customizer.svg';
 import pluginTypography from './plugin-typography.svg';
+import srFade from './sr-fade.svg';
+import srZoomFromBottom from './sr-zoom-from-bottom.svg';
+import srZoomFromLeft from './sr-zoom-from-left.svg';
+import srZoomFromRight from './sr-zoom-from-right.svg';
+import srZoom from './sr-zoom.svg';
 import extensionFrame from './extension-frame.svg';
 import extensionDisplay from './extension-display.svg';
 import extensionSpacings from './extension-spacings.svg';
@@ -139,6 +144,12 @@ export default {
   'plugin-color-palette': pluginColorPalette,
   'plugin-customizer': pluginCustomizer,
   'plugin-typography': pluginTypography,
+
+  'sr-fade': srFade,
+  'sr-zoom-from-bottom': srZoomFromBottom,
+  'sr-zoom-from-left': srZoomFromLeft,
+  'sr-zoom-from-right': srZoomFromRight,
+  'sr-zoom': srZoom,
 
   'extension-frame': extensionFrame,
   'extension-display': extensionDisplay,

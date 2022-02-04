@@ -1,0 +1,8 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="19.4" y="17.4" width="14.8" height="14.8" rx="2.4" transform="rotate(180 19.4 17.4)" stroke="currentColor"
+    stroke-width="1.2" fill="transparent" />
+  <line opacity="0.7" x1="17.4" y1="19.8" x2="6.59997" y2="19.8" stroke="currentColor" stroke-width="1.2"
+    stroke-linecap="round" fill="transparent" />
+  <line opacity="0.4" x1="15.4" y1="22.1" x2="8.59997" y2="22.1" stroke="currentColor" stroke-width="1.2"
+    stroke-linecap="round" fill="transparent" />
+</svg>

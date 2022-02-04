@@ -44,7 +44,7 @@
       &.ghostkit-control-sr-direction-active,
       &.ghostkit-control-sr-direction-active:focus {
         color: #fff;
-        background-color: $blue-medium-focus;
+        background-color: #000;
       }
 
       svg {
@@ -92,5 +92,22 @@
         font-size: 5px;
       }
     }
+  }
+}
+
+.ghostkit-control-sr-presets-menu {
+  .components-button[aria-checked="true"] {
+    color: #fff;
+    background-color: #000;
+  }
+}
+
+.ghostkit-control-sr-presets-toggle-active {
+  &::before {
+    background-color: #000;
+  }
+
+  svg {
+    color: #fff;
   }
 }
