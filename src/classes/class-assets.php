@@ -193,7 +193,8 @@ class GhostKit_Assets {
 
         // ScrollReveal.
         if ( apply_filters( 'gkt_enqueue_plugin_scrollreveal', true ) ) {
-            wp_register_script( 'scrollreveal', ghostkit()->plugin_url . 'assets/vendor/scrollreveal/dist/scrollreveal.min.js', array(), '4.0.7', true );
+            // We need to use previous version, as in 4.0.9 `cleanup` is not working at all.
+            wp_register_script( 'scrollreveal', ghostkit()->plugin_url . 'assets/vendor/scrollreveal-4-0-7/scrollreveal.min.js', array(), '4.0.7', true );
 
             $js_deps[] = 'scrollreveal';
         }

@@ -286,6 +286,11 @@ class GhostKit {
             $js_deps[] = 'jarallax-video';
         }
 
+        // ScrollReveal.
+        if ( apply_filters( 'gkt_enqueue_plugin_scrollreveal', true ) ) {
+            $js_deps[] = 'scrollreveal';
+        }
+
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
             $css_deps[] = 'gist-simple';

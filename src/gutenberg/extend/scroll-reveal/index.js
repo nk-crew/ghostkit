@@ -3,7 +3,6 @@
 /**
  * External dependencies
  */
-import ScrollReveal from 'scrollreveal';
 import classnames from 'classnames';
 
 /**
@@ -42,7 +41,7 @@ const {
 
 const $ = window.jQuery;
 
-const { GHOSTKIT } = window;
+const { GHOSTKIT, ScrollReveal } = window;
 
 let initialOpenPanel = false;
 
