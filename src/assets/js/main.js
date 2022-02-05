@@ -104,17 +104,6 @@ class GhostKitClass {
 
     GHOSTKIT.triggerEvent('beforeInit', self);
 
-    // Enable object-fit.
-    if (typeof window.objectFitImages !== 'undefined') {
-      const ofiImages =
-        '.ghostkit-video-poster img, .ghostkit-grid > .nk-awb img, .ghostkit-col > .nk-awb img';
-
-      window.objectFitImages(ofiImages);
-      $(() => {
-        window.objectFitImages(ofiImages);
-      });
-    }
-
     // Additional easing.
     $.extend($.easing, {
       easeOutCubic(x, t, b, c, d) {

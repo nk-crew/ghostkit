@@ -184,13 +184,6 @@ class GhostKit_Assets {
 
         do_action( 'gkt_before_assets_register' );
 
-        // Object Fit Images.
-        if ( apply_filters( 'gkt_enqueue_plugin_object_fit_images', true ) ) {
-            wp_register_script( 'object-fit-images', ghostkit()->plugin_url . 'assets/vendor/object-fit-images/dist/ofi.min.js', array(), '3.2.4', true );
-
-            $js_deps[] = 'object-fit-images';
-        }
-
         // ScrollReveal.
         if ( apply_filters( 'gkt_enqueue_plugin_scrollreveal', true ) ) {
             // We need to use previous version, as in 4.0.9 `cleanup` is not working at all.

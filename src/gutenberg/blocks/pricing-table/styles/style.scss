@@ -13,11 +13,7 @@
   }
 
   &-item-wrap {
-    // We can't use flex + calc
-    // https://github.com/nk-crew/ghostkit/issues/103
-    flex-basis: calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
-    flex-grow: 0;
-    flex-shrink: 0;
+    flex: 0 0 calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
     max-width: calc(100% / var(--gkt-pricing-table__columns) - var(--gkt-pricing-table__gap));
     margin-top: var(--gkt-pricing-table__gap);
     margin-left: var(--gkt-pricing-table__gap);

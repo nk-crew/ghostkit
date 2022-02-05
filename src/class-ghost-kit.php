@@ -175,10 +175,6 @@ class GhostKit {
         // add Ghost Kit blocks category.
         add_filter( 'block_categories_all', array( $this, 'block_categories_all' ), 9 );
 
-        // CSS Vars Polyfill.
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_css_vars_polyfill' ) );
-        add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_css_vars_polyfill' ) );
-
         // we need to enqueue the main script earlier to let 3rd-party plugins add custom styles support.
         add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ), 9 );
 
@@ -231,34 +227,6 @@ class GhostKit {
                 ),
             ),
             $categories
-        );
-    }
-
-    /**
-     * Enqueue CSS Vars polyfill.
-     */
-    public function enqueue_css_vars_polyfill() {
-        $polyfill_name    = 'ie11-custom-properties';
-        $polyfill_version = '4.1.0';
-        $polyfill_url     = ghostkit()->plugin_url . 'assets/vendor/ie11-custom-properties/ie11CustomProperties.js?ver=' . $polyfill_version;
-
-        // Already added in 3rd-party code.
-        if ( wp_script_is( $polyfill_name ) || wp_script_is( $polyfill_name, 'registered' ) ) {
-            return;
-        }
-
-        wp_register_script( $polyfill_name, '', array(), $polyfill_version, true );
-        wp_enqueue_script( $polyfill_name );
-        wp_add_inline_script(
-            $polyfill_name,
-            '!function( d ) {
-                // For IE11 only.
-                if( window.MSInputMethodContext && document.documentMode ) {
-                    var s = d.createElement( \'script\' );
-                    s.src = \'' . esc_url( $polyfill_url ) . '\';
-                    d.head.appendChild( s );
-                }
-            }(document)'
         );
     }
 

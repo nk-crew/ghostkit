@@ -1,5 +1,3 @@
-@use "sass:math";
-
 /**
  * Editor Styles
  */
@@ -76,13 +74,9 @@
     // col size.
     @for $i from 1 through $grid-columns {
       .ghostkit-col#{$infix}-#{$i} {
-        // We can't use complex CSS variables here
-        // https://github.com/nk-crew/ghostkit/issues/103
-        flex-basis: calc(#{math.percentage(math.div($i, $grid-columns))} - var(--gkt-grid__gap));
-        flex-grow: 0;
-        flex-shrink: 0;
-        width: calc(#{math.percentage(math.div($i, $grid-columns))} - var(--gkt-grid__gap));
-        max-width: calc(#{math.percentage(math.div($i, $grid-columns))} - var(--gkt-grid__gap));
+        flex: 0 0 calc(100% * (#{$i} / #{$grid-columns}) - var(--gkt-grid__gap));
+        width: calc(100% * (#{$i} / #{$grid-columns}) - var(--gkt-grid__gap));
+        max-width: calc(100% * (#{$i} / #{$grid-columns}) - var(--gkt-grid__gap));
       }
     }
 
