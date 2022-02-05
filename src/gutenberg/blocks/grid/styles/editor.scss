@@ -218,6 +218,8 @@
   top: 6px;
   right: 6px;
   z-index: 21;
+  // We should add it manually, since not all themes use box-sizing.
+  box-sizing: border-box;
   width: 25px;
   height: 25px;
   padding: 2px 4px;
