@@ -86,6 +86,9 @@ class GhostKit_Scss_Compiler {
             if ( $file_contents ) {
                 // find module include.
                 $file_contents = str_replace( '@use "sass:math";', '', $file_contents );
+                $file_contents = str_replace( '@use "sass:map";', '', $file_contents );
+                $file_contents = str_replace( '@use "sass:list";', '', $file_contents );
+                $file_contents = str_replace( '@use "sass:string";', '', $file_contents );
 
                 // find math.div calls.
                 preg_match_all( '/math\.div(?=\()(?:(?=.*?\((?!.*?\1)(.*\)(?!.*\2).*))(?=.*?\)(?!.*?\2)(.*)).)+?.*?(?=\1)[^(]*(?=\2$)/ms', $file_contents, $file_contents_calls );
@@ -98,6 +101,17 @@ class GhostKit_Scss_Compiler {
                         $file_contents = str_replace( $content, $new_file_contents, $file_contents );
                     }
                 }
+
+                // find map calls.
+                $file_contents = str_replace( 'map.get(', 'map-get(', $file_contents );
+                $file_contents = str_replace( 'map.values(', 'map-values(', $file_contents );
+
+                // find list calls.
+                $file_contents = str_replace( 'list.index(', 'index(', $file_contents );
+                $file_contents = str_replace( 'list.nth(', 'nth(', $file_contents );
+
+                // find string calls.
+                $file_contents = str_replace( 'string.index(', 'str-index(', $file_contents );
 
                 // phpcs:ignore
                 file_put_contents( $scss_file_path, $file_contents );
