@@ -209,7 +209,7 @@ class GhostKit_Settings {
             'read',
             'edit.php?post_type=wp_block',
             '',
-            'dashicons-grid-view',
+            'dashicons-editor-table',
             57
         );
     }
