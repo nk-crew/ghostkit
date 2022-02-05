@@ -152,15 +152,16 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
                 ) {
                   api.pause();
                   $fullscreenWrapper.fadeOut(200);
+                  $this.addClass('ghostkit-video-fullscreen-closed');
                 }
               });
 
               setFullscreenVideoSize();
-              api.play();
             });
 
             loaded = 1;
           } else if ($fullscreenWrapper) {
+            $this.removeClass('ghostkit-video-fullscreen-closed');
             $fullscreenWrapper.fadeIn(200);
             api.play();
           }
@@ -175,7 +176,6 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
             const $parent = $iframe.parent();
             $('<div class="ghostkit-video-frame">').appendTo($this).append($iframe);
             $parent.remove();
-            api.play();
           });
 
           loaded = 1;
@@ -196,10 +196,15 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 
       api.on('ready', () => {
         $this.removeClass('ghostkit-video-loading');
-        if (clickAction !== 'fullscreen') {
+
+        if (clickAction === 'fullscreen') {
+          if (!$this.hasClass('ghostkit-video-fullscreen-closed')) {
+            api.play();
+          }
+        } else {
           $this.addClass('ghostkit-video-playing');
+          api.play();
         }
-        api.play();
       });
       api.on('play', () => {
         isPlaying = true;
