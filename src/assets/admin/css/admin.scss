@@ -1,5 +1,3 @@
-@use "sass:color";
-
 /**
  * Admin Styles.
  */
@@ -8,8 +6,8 @@
 /*
  * Go Pro menu link
  */
-#adminmenu a[href="admin.php?page=ghostkit_go_pro"],
-.wp-list-table.plugins a[href="admin.php?page=ghostkit_go_pro"] {
+#adminmenu a[href*="admin.php?page=ghostkit_go_pro"],
+.wp-list-table.plugins a[href*="admin.php?page=ghostkit_go_pro"] {
   font-weight: 700;
   color: $color-success;
 
@@ -19,6 +17,7 @@
 
   &:hover,
   &:focus {
-    color: color.adjust($color-success, $lightness: -10%);
+    color: $color-success;
+    filter: contrast(1.1) brightness(1.2);
   }
 }
