@@ -261,6 +261,20 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.22.0 =
+
+* !important - dropped IE support
+* added support for WordPress 5.9
+* added Animate on Scroll presets in Toolbar block settings
+* added possibility to remove link in URLPicker component (for example, in Button block)
+* added support for scrollBehavior in TOC links (used in modern themes)
+* added ToggleGroup control to use it instead of ButtonGroup (better UI)
+* disabled automatic heading anchor generation code in WordPress 5.9 and higher (as it is already generates by the Gutenberg)
+* rolled back ScrollReveal to older version, since latest one is not working properly when cleaning styles
+* fixed mail send headers
+* fixed Video block autoplay after loading when fullscreen already closed
+* a lot of minor changes
+
 = 2.21.0 =
 
 * !important - removed support for deprecated blocks older than Ghost Kit v2.12. Make sure you re-saved all pages with old blocks versions.
