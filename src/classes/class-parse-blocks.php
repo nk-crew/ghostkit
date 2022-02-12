@@ -27,12 +27,42 @@ class GhostKit_Parse_Blocks {
      * Init.
      */
     public static function init() {
-        // parse blocks from post content.
-        add_action( 'wp', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_content' );
+        add_action(
+            'wp',
+            function() {
+                // Simple use `render_block` in FSE themes to enqueue assets.
+                if ( current_theme_supports( 'block-templates' ) ) {
+                    // Parse all blocks.
+                    add_action( 'render_block', 'GhostKit_Parse_Blocks::render_block', 11, 2 );
 
-        // parse blocks from custom locations, that uses 'the_content' filter.
-        add_filter( 'the_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
-        add_filter( 'widget_block_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
+                    // Parse blocks manually from content and custom locations in Classic themes.
+                } else {
+                    // parse blocks from post content.
+                    add_action( 'wp', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_content' );
+
+                    // parse blocks from custom locations, that uses 'the_content' filter.
+                    add_filter( 'the_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
+                    add_filter( 'widget_block_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
+                }
+            }
+        );
+    }
+
+    /**
+     * Standard callback to parse blocks (mostly solves problem with FSE themes and blocks inside templates).
+     *
+     * @param string $block_content - block content.
+     * @param array  $block - block data.
+     *
+     * @return string
+     */
+    public static function render_block( $block_content, $block ) {
+        // We don't need to parse inner blocks manually, because `render_block` filter will make it for us.
+        $block['innerBlocks'] = false;
+
+        self::parse_blocks( array( $block ), 'general' );
+
+        return $block_content;
     }
 
     /**
