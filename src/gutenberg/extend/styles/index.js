@@ -58,13 +58,16 @@ class CustomStylesComponent extends Component {
     const newAttrs = {};
 
     // prepare custom block styles.
-    const blockCustomStyles = applyFilters(
+    let blockCustomStyles = applyFilters(
       'ghostkit.blocks.customStyles',
       blockSettings.ghostkit && blockSettings.ghostkit.customStylesCallback
         ? blockSettings.ghostkit.customStylesCallback(attributes, this.props)
         : {},
       this.props
     );
+
+    // We need to clean undefined and empty statements from custom styles list.
+    blockCustomStyles = this.cleanBlockCustomStyles(blockCustomStyles);
 
     const thereIsCustomStyles = blockCustomStyles && Object.keys(blockCustomStyles).length;
     const thereIsCustomCSS = !!maybeDecode(attributes.ghostkitCustomCSS);
@@ -207,6 +210,31 @@ class CustomStylesComponent extends Component {
     }
 
     return {};
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  cleanBlockCustomStyles(styles) {
+    const newStyles = {};
+
+    Object.keys(styles).forEach((key) => {
+      if (typeof styles[key] !== 'undefined') {
+        if (
+          typeof styles[key] === 'object' &&
+          !Array.isArray(styles[key]) &&
+          styles[key] !== null
+        ) {
+          const innerStyles = this.cleanBlockCustomStyles(styles[key]);
+
+          if (innerStyles && Object.keys(innerStyles).length) {
+            newStyles[key] = innerStyles;
+          }
+        } else {
+          newStyles[key] = styles[key];
+        }
+      }
+    });
+
+    return newStyles;
   }
 
   render() {
