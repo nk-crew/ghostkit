@@ -289,18 +289,16 @@ class BlockEdit extends Component {
         </div>
 
         <EditorStyles
-          styles={[
-            {
-              // We need to add styles for `> .wp-block` because this wrapper added by Gutenberg when used Wide or Full alignment.
-              // Thanks to https://github.com/nk-crew/ghostkit/issues/123.
-              css: `
-                        [data-block="${this.props.clientId}"] > .ghostkit-tabs > .ghostkit-tabs-content > .block-editor-inner-blocks > .block-editor-block-list__layout [data-tab="${tabActive}"],
-                        [data-block="${this.props.clientId}"] > .wp-block > .ghostkit-tabs > .ghostkit-tabs-content > .block-editor-inner-blocks > .block-editor-block-list__layout [data-tab="${tabActive}"] {
-                            display: block;
-                        }
-                        `,
-            },
-          ]}
+          styles={
+            // We need to add styles for `> .wp-block` because this wrapper added by Gutenberg when used Wide or Full alignment.
+            // Thanks to https://github.com/nk-crew/ghostkit/issues/123.
+            `
+            [data-block="${this.props.clientId}"] > .ghostkit-tabs > .ghostkit-tabs-content > .block-editor-inner-blocks > .block-editor-block-list__layout [data-tab="${tabActive}"],
+            [data-block="${this.props.clientId}"] > .wp-block > .ghostkit-tabs > .ghostkit-tabs-content > .block-editor-inner-blocks > .block-editor-block-list__layout [data-tab="${tabActive}"] {
+                display: block;
+            }
+          `
+          }
         />
       </Fragment>
     );

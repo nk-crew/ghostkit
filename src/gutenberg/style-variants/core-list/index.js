@@ -236,9 +236,7 @@ class GhostKitListStartAndReversedCustomStyles extends Component {
       return null;
     }
 
-    const customStylesRender = [{ css: `[data-block="${clientId}"].wp-block { ${styles} }` }];
-
-    return <EditorStyles styles={customStylesRender} />;
+    return <EditorStyles styles={`[data-block="${clientId}"].wp-block { ${styles} }`} />;
   }
 }
 

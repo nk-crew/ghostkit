@@ -239,9 +239,7 @@ class CustomStylesComponent extends Component {
       return null;
     }
 
-    const customStylesRender = [{ css: window.GHOSTKIT.replaceVars(styles) }];
-
-    return <EditorStyles styles={customStylesRender} />;
+    return <EditorStyles styles={window.GHOSTKIT.replaceVars(styles)} />;
   }
 }
 
