@@ -319,3 +319,10 @@
     font-size: 14px;
   }
 }
+
+// Background controls.
+.ghostkit-background-controls {
+  > .components-panel__body > .components-panel__body {
+    border: 1px solid #e0e0e0;
+  }
+}

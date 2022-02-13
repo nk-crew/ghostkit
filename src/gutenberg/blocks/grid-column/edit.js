@@ -225,7 +225,13 @@ class BlockEdit extends Component {
               ''
             )}
           </PanelBody>
-          <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={this.props} />
+          <div className="ghostkit-background-controls">
+            <ApplyFilters
+              name="ghostkit.editor.controls"
+              attribute="background"
+              props={this.props}
+            />
+          </div>
         </InspectorControls>
         {background}
         <div className="ghostkit-col-content">
