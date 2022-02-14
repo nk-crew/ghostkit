@@ -261,6 +261,15 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.22.1 =
+
+* improved method to enqueue block assets and custom styles in block themes (we no more need to parse content of the posts, we can make everything inside block render)
+* improved styles for nested panels in grid background settings
+* disable Plugin Customizer settings in block themes, as Customizer no more used there
+* fixed custom styles render in block themes Site Editor
+* fixed custom styles re-rendering in editor when interacting with editor elements (better performance)
+* fixed updating custom styles attributes on editor load
+
 = 2.22.0 =
 
 * !important - dropped IE support
