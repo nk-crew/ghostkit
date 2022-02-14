@@ -651,7 +651,7 @@ class GhostKit_Assets {
                     '(function(){
                         var styleTag = document.createElement("style");
                         styleTag.id = "' . esc_attr( $name ) . '-inline-css";
-                        styleTag.innerHTML = "' . preg_replace( "/[\r\n]+/", ' ', $css ) . '";
+                        styleTag.innerHTML = ' . wp_json_encode( $css ) . ';
                         document.body.appendChild(styleTag);
                     }());'
                 );
