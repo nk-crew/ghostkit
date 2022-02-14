@@ -20,6 +20,8 @@ window.GHOSTKIT = {
 
   disabledBlocks: ghostkitVariables.disabledBlocks,
 
+  allowPluginCustomizer: ghostkitVariables.allowPluginCustomizer,
+
   vars,
   replaceVars(str) {
     Object.keys(this.vars).forEach((key) => {

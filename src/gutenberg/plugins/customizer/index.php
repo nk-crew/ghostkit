@@ -26,7 +26,20 @@ class GhostKit_Customizer_Plugin {
     public function __construct() {
         add_action( 'template_redirect', array( $this, 'maybe_find_options' ) );
         add_action( 'init', array( $this, 'register_meta' ) );
-        add_action( 'customize_register', array( $this, 'parse_customizer_controls' ), 99999 );
+
+        add_action(
+            'wp_loaded',
+            function() {
+                // Don't parse customizer controls if a block theme is activated and no plugins use the customizer.
+                if ( ( function_exists( 'wp_is_block_theme' ) && ! wp_is_block_theme() ) || has_action( 'customize_register' ) ) {
+                    add_action( 'customize_register', array( $this, 'parse_customizer_controls' ), 99999 );
+                } else {
+                    // Disable customizer settings from GhostKit.
+                    wp_add_inline_script( 'ghostkit-helper', 'if (ghostkitVariables) { ghostkitVariables.allowPluginCustomizer = false; }', 'before' );
+                }
+            },
+            9
+        );
     }
 
     /**

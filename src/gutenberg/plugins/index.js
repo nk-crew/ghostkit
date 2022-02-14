@@ -13,11 +13,17 @@ import * as customizer from './customizer';
  */
 const { registerPlugin } = wp.plugins;
 
+const { GHOSTKIT } = window;
+
 /**
  * Register plugins
  */
 [ghostkit, templates, typography, customCode, colorPalette, customizer].forEach(
   ({ name, icon, Plugin }) => {
+    if (name === 'ghostkit-customizer' && !GHOSTKIT.allowPluginCustomizer) {
+      return;
+    }
+
     registerPlugin(name, {
       icon,
       render: Plugin,

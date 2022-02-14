@@ -20,6 +20,8 @@ const { PluginSidebar, PluginSidebarMoreMenuItem } = wp.editPost || {};
 
 const { Button, PanelBody } = wp.components;
 
+const { GHOSTKIT } = window;
+
 export const name = 'ghostkit';
 
 export const icon = <div className="ghostkit-plugin-icon">{getIcon('plugin-ghostkit')}</div>;
@@ -90,17 +92,19 @@ export class Plugin extends Component {
                 {getIcon('plugin-color-palette')}
                 {__('Color Palette', '@@text_domain')}
               </Button>
-              <Button
-                className="plugin-ghostkit-panel-button"
-                isSecondary
-                isLarge
-                onClick={() => {
-                  this.setState({ isModalOpen: 'customizer' });
-                }}
-              >
-                {getIcon('plugin-customizer')}
-                {__('Customizer', '@@text_domain')}
-              </Button>
+              {GHOSTKIT.allowPluginCustomizer ? (
+                <Button
+                  className="plugin-ghostkit-panel-button"
+                  isSecondary
+                  isLarge
+                  onClick={() => {
+                    this.setState({ isModalOpen: 'customizer' });
+                  }}
+                >
+                  {getIcon('plugin-customizer')}
+                  {__('Customizer', '@@text_domain')}
+                </Button>
+              ) : null}
             </PanelBody>
           </PluginSidebar>
         ) : null}
