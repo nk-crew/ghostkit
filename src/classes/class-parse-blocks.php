@@ -38,7 +38,7 @@ class GhostKit_Parse_Blocks {
                     // Parse blocks manually from content and custom locations in Classic themes.
                 } else {
                     // parse blocks from post content.
-                    add_action( 'wp', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_content' );
+                    GhostKit_Parse_Blocks::maybe_parse_blocks_from_content();
 
                     // parse blocks from custom locations, that uses 'the_content' filter.
                     add_filter( 'the_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
