@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 // parse data from Scroll Reveal string.
 // fade-right;duration:500;delay:1000
 export default function parseSRConfig(data) {
@@ -9,7 +8,7 @@ export default function parseSRConfig(data) {
   let scale = 1;
   let origin = effect.split('-');
 
-  if (origin.length === 2) {
+  if (2 === origin.length) {
     // eslint-disable-next-line prefer-destructuring
     effect = origin[0];
     // eslint-disable-next-line prefer-destructuring
@@ -35,7 +34,7 @@ export default function parseSRConfig(data) {
     distance = 0;
   }
 
-  if (effect === 'zoom') {
+  if ('zoom' === effect) {
     scale = 0.9;
   }
 
@@ -51,10 +50,10 @@ export default function parseSRConfig(data) {
   };
 
   // replace other data config.
-  if (data.length > 1) {
+  if (1 < data.length) {
     data.forEach((item) => {
       const itemData = item.split(':');
-      if (itemData.length === 2) {
+      if (2 === itemData.length) {
         // eslint-disable-next-line prefer-destructuring
         config[itemData[0]] = itemData[1];
       }

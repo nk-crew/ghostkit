@@ -44,18 +44,18 @@ export const settings = {
             prefix = '';
           }
 
-          if (type && (type === 'height' || type === 'width')) {
-            if (prefix && typeof styles.svg[`media_${prefix}`] === 'undefined') {
+          if (type && ('height' === type || 'width' === type)) {
+            if (prefix && 'undefined' === typeof styles.svg[`media_${prefix}`]) {
               styles.svg[`media_${prefix}`] = {};
             }
 
-            if (type === 'height' && prefix) {
+            if ('height' === type && prefix) {
               styles.svg[`media_${prefix}`].height = `${attributes[key]}px`;
-            } else if (type === 'height') {
+            } else if ('height' === type) {
               styles.svg.height = `${attributes[key]}px`;
-            } else if (type === 'width' && prefix) {
+            } else if ('width' === type && prefix) {
               styles.svg[`media_${prefix}`].width = `${attributes[key]}%`;
-            } else if (type === 'width') {
+            } else if ('width' === type) {
               styles.svg.width = `${attributes[key]}%`;
             }
           }

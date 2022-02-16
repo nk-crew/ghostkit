@@ -45,7 +45,7 @@ let initialOpenPanel = false;
 const getDefaultDisplay = function (screen = '') {
   return [
     {
-      label: screen === 'all' ? __('Default', '@@text_domain') : __('Inherit', '@@text_domain'),
+      label: 'all' === screen ? __('Default', '@@text_domain') : __('Inherit', '@@text_domain'),
       value: '',
     },
     {
@@ -95,7 +95,7 @@ function allowedDisplay(data) {
  * @returns {String} display value.
  */
 function getCurrentDisplay(className, screen) {
-  if (!screen || screen === 'all') {
+  if (!screen || 'all' === screen) {
     if (hasClass(className, 'ghostkit-d-none')) {
       return 'none';
     }
@@ -136,7 +136,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 
       let newClassName = className;
 
-      if (screen && screen !== 'all') {
+      if (screen && 'all' !== screen) {
         newClassName = replaceClass(newClassName, `ghostkit-d-${screen}`, val);
       } else {
         newClassName = removeClass(newClassName, 'ghostkit-d-none');
@@ -180,7 +180,6 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
           <InspectorControls>
             <PanelBody
               title={
-                // eslint-disable-next-line react/jsx-wrap-multilines
                 <Fragment>
                   <span className="ghostkit-ext-icon">{getIcon('extension-display')}</span>
                   <span>{__('Display', '@@text_domain')}</span>

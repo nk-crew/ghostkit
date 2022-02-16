@@ -64,7 +64,7 @@ class BlockEdit extends Component {
       return;
     }
 
-    if (typeof jQuery.fn.gistsimple === 'undefined') {
+    if ('undefined' === typeof jQuery.fn.gistsimple) {
       // eslint-disable-next-line no-console
       console.warn(__('Gist Simple plugin is not defined.', '@@text_domain'));
       return;
@@ -101,7 +101,7 @@ class BlockEdit extends Component {
     if (url) {
       const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec(url);
 
-      if (match && typeof match[1] !== 'undefined') {
+      if (match && 'undefined' !== typeof match[1]) {
         return match[1].split('#')[0];
       }
     }
@@ -141,7 +141,7 @@ class BlockEdit extends Component {
                 placeholder={__('Gist URL', '@@text_domain')}
                 onChange={this.urlOnChange}
                 onKeyDown={(e) => {
-                  if (e.keyCode === 13) {
+                  if (13 === e.keyCode) {
                     this.urlOnChange(this.state.url, 0);
                   }
                 }}
@@ -173,7 +173,7 @@ class BlockEdit extends Component {
               value={this.state.url}
               onChange={this.urlOnChange}
               onKeyDown={(e) => {
-                if (e.keyCode === 13) {
+                if (13 === e.keyCode) {
                   this.urlOnChange(this.state.url, 0);
                 }
               }}
@@ -216,7 +216,7 @@ class BlockEdit extends Component {
                 value={this.state.url}
                 onChange={this.urlOnChange}
                 onKeyDown={(e) => {
-                  if (e.keyCode === 13) {
+                  if (13 === e.keyCode) {
                     this.urlOnChange(this.state.url, 0);
                   }
                 }}

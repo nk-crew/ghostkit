@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-wrap-multilines */
 /**
  * Internal dependencies
  */

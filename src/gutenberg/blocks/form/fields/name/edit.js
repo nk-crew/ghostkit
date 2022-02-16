@@ -45,10 +45,10 @@ class BlockEdit extends Component {
 
     className = classnames(
       'ghostkit-form-field ghostkit-form-field-name',
-      nameFields === 'first-middle-last' || nameFields === 'first-last'
+      'first-middle-last' === nameFields || 'first-last' === nameFields
         ? 'ghostkit-form-field-name-with-last'
         : '',
-      nameFields === 'first-middle-last' ? 'ghostkit-form-field-name-with-middle' : '',
+      'first-middle-last' === nameFields ? 'ghostkit-form-field-name-with-middle' : '',
       className
     );
 
@@ -78,13 +78,13 @@ class BlockEdit extends Component {
               ]}
               value={nameFields}
               onChange={(val) => {
-                if (val === 'first-last') {
+                if ('first-last' === val) {
                   setAttributes({
                     nameFields: val,
                     description: description || __('First', '@@text_domain'),
                     descriptionLast: descriptionLast || __('Last', '@@text_domain'),
                   });
-                } else if (val === 'first-middle-last') {
+                } else if ('first-middle-last' === val) {
                   setAttributes({
                     nameFields: val,
                     description: description || __('First', '@@text_domain'),
@@ -96,7 +96,7 @@ class BlockEdit extends Component {
                 }
               }}
             />
-            {nameFields === 'first-middle-last' ? (
+            {'first-middle-last' === nameFields ? (
               <Fragment>
                 <TextControl
                   label={__('Middle Placeholder', '@@text_domain')}
@@ -112,7 +112,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {nameFields === 'first-middle-last' || nameFields === 'first-last' ? (
+            {'first-middle-last' === nameFields || 'first-last' === nameFields ? (
               <Fragment>
                 <TextControl
                   label={__('Last Placeholder', '@@text_domain')}
@@ -133,13 +133,13 @@ class BlockEdit extends Component {
         <div className={className}>
           <FieldLabel {...this.props} />
 
-          {nameFields === 'first-middle-last' || nameFields === 'first-last' ? (
+          {'first-middle-last' === nameFields || 'first-last' === nameFields ? (
             <div className="ghostkit-form-field-row">
               <div className="ghostkit-form-field-name-first">
                 <TextControl type="email" {...getFieldAttributes(attributes)} />
                 <FieldDescription {...this.props} />
               </div>
-              {nameFields === 'first-middle-last' ? (
+              {'first-middle-last' === nameFields ? (
                 <div className="ghostkit-form-field-name-middle">
                   <TextControl
                     type="email"
@@ -162,7 +162,7 @@ class BlockEdit extends Component {
               ) : (
                 ''
               )}
-              {nameFields === 'first-middle-last' || nameFields === 'first-last' ? (
+              {'first-middle-last' === nameFields || 'first-last' === nameFields ? (
                 <div className="ghostkit-form-field-name-last">
                   <TextControl
                     type="email"

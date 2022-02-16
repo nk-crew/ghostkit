@@ -49,7 +49,7 @@ const { registerBlockCollection, updateCategory } = wp.blocks;
 const categoryIcon = <GhostKitCategoryIcon className="components-panel__icon" />;
 
 // Collections.
-if (typeof registerBlockCollection !== 'undefined') {
+if ('undefined' !== typeof registerBlockCollection) {
   registerBlockCollection('ghostkit', {
     title: 'Ghost Kit',
     icon: categoryIcon,

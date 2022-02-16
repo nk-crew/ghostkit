@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-curly-newline */
 /**
  * External dependencies
  */
@@ -89,19 +88,19 @@ class BlockEdit extends Component {
                         icon="align-center"
                         title={__('Top', '@@text_domain')}
                         onClick={() => setAttributes({ iconPosition: 'top' })}
-                        isActive={iconPosition === 'top'}
+                        isActive={'top' === iconPosition}
                       />
                       <ToolbarButton
                         icon="align-left"
                         title={__('Left', '@@text_domain')}
                         onClick={() => setAttributes({ iconPosition: 'left' })}
-                        isActive={iconPosition === 'left'}
+                        isActive={'left' === iconPosition}
                       />
                       <ToolbarButton
                         icon="align-right"
                         title={__('Right', '@@text_domain')}
                         onClick={() => setAttributes({ iconPosition: 'right' })}
-                        isActive={iconPosition === 'right'}
+                        isActive={'right' === iconPosition}
                       />
                     </Toolbar>
                   </div>
@@ -122,7 +121,6 @@ class BlockEdit extends Component {
           </PanelBody>
           <PanelBody
             title={
-              // eslint-disable-next-line react/jsx-wrap-multilines
               <Fragment>
                 {__('Colors', '@@text_domain')}
                 <ColorIndicator colorValue={iconColor} />
@@ -146,7 +144,7 @@ class BlockEdit extends Component {
               ]}
             >
               {(tabData) => {
-                const isHover = tabData.name === 'hover';
+                const isHover = 'hover' === tabData.name;
                 return (
                   <ApplyFilters
                     name="ghostkit.editor.controls"
@@ -185,19 +183,19 @@ class BlockEdit extends Component {
                 icon="align-center"
                 title={__('Top', '@@text_domain')}
                 onClick={() => setAttributes({ iconPosition: 'top' })}
-                isActive={iconPosition === 'top'}
+                isActive={'top' === iconPosition}
               />
               <ToolbarButton
                 icon="align-left"
                 title={__('Left', '@@text_domain')}
                 onClick={() => setAttributes({ iconPosition: 'left' })}
-                isActive={iconPosition === 'left'}
+                isActive={'left' === iconPosition}
               />
               <ToolbarButton
                 icon="align-right"
                 title={__('Right', '@@text_domain')}
                 onClick={() => setAttributes({ iconPosition: 'right' })}
-                isActive={iconPosition === 'right'}
+                isActive={'right' === iconPosition}
               />
             </ToolbarGroup>
           </BlockControls>
@@ -245,6 +243,6 @@ export default withSelect((select, props) => {
   const blockEditor = select('core/block-editor');
 
   return {
-    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
+    hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
   };
 })(BlockEdit);

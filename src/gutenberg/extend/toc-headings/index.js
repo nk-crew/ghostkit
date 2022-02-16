@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -33,7 +31,7 @@ function getTOC(blocks = false) {
 
   blocks.forEach((block) => {
     if (!result) {
-      if (block.name === 'ghostkit/table-of-contents') {
+      if ('ghostkit/table-of-contents' === block.name) {
         result = block;
       } else if (block.innerBlocks && block.innerBlocks.length) {
         result = getTOC(block.innerBlocks);
@@ -61,7 +59,7 @@ function getHeadings(blocks = false) {
   }
 
   blocks.forEach((block) => {
-    if (block.name === 'core/heading') {
+    if ('core/heading' === block.name) {
       result.push(block);
     } else if (block.innerBlocks && block.innerBlocks.length) {
       result = [...result, ...getHeadings(block.innerBlocks)];
@@ -104,7 +102,7 @@ function updateHeadingIDs() {
 
     // check collisions.
     if (anchor) {
-      if (typeof collisionCollector[anchor] !== 'undefined') {
+      if ('undefined' !== typeof collisionCollector[anchor]) {
         collisionCollector[anchor] += 1;
         anchor += `-${collisionCollector[anchor]}`;
         block.attributes.anchor = anchor;
@@ -124,6 +122,7 @@ const updateHeadingIDsDebounce = debounce(300, updateHeadingIDs);
  * We don't need to run this code in WordPress >= 5.9, as anchors already adds automatically.
  */
 if (
+  // eslint-disable-next-line no-underscore-dangle
   !wp.blockEditor.__experimentalBlockPatternSetup &&
   !wp.blockEditor.BlockPatternSetup &&
   !wp.blockEditor.blockPatternSetup

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-curly-newline */
 /**
  * External dependencies
  */
@@ -84,19 +83,19 @@ class BlockEdit extends Component {
                     icon="align-center"
                     title={__('Top', '@@text_domain')}
                     onClick={() => setAttributes({ numberPosition: 'top' })}
-                    isActive={numberPosition === 'top'}
+                    isActive={'top' === numberPosition}
                   />
                   <ToolbarButton
                     icon="align-left"
                     title={__('Left', '@@text_domain')}
                     onClick={() => setAttributes({ numberPosition: 'left' })}
-                    isActive={numberPosition === 'left'}
+                    isActive={'left' === numberPosition}
                   />
                   <ToolbarButton
                     icon="align-right"
                     title={__('Right', '@@text_domain')}
                     onClick={() => setAttributes({ numberPosition: 'right' })}
-                    isActive={numberPosition === 'right'}
+                    isActive={'right' === numberPosition}
                   />
                 </Toolbar>
               </div>
@@ -126,7 +125,6 @@ class BlockEdit extends Component {
           </PanelBody>
           <PanelBody
             title={
-              // eslint-disable-next-line react/jsx-wrap-multilines
               <Fragment>
                 {__('Colors', '@@text_domain')}
                 <ColorIndicator colorValue={numberColor} />
@@ -150,7 +148,7 @@ class BlockEdit extends Component {
               ]}
             >
               {(tabData) => {
-                const isHover = tabData.name === 'hover';
+                const isHover = 'hover' === tabData.name;
                 return (
                   <ApplyFilters
                     name="ghostkit.editor.controls"
@@ -188,19 +186,19 @@ class BlockEdit extends Component {
               icon="align-center"
               title={__('Top', '@@text_domain')}
               onClick={() => setAttributes({ numberPosition: 'top' })}
-              isActive={numberPosition === 'top'}
+              isActive={'top' === numberPosition}
             />
             <ToolbarButton
               icon="align-left"
               title={__('Left', '@@text_domain')}
               onClick={() => setAttributes({ numberPosition: 'left' })}
-              isActive={numberPosition === 'left'}
+              isActive={'left' === numberPosition}
             />
             <ToolbarButton
               icon="align-right"
               title={__('Right', '@@text_domain')}
               onClick={() => setAttributes({ numberPosition: 'right' })}
-              isActive={numberPosition === 'right'}
+              isActive={'right' === numberPosition}
             />
           </ToolbarGroup>
         </BlockControls>
@@ -243,6 +241,6 @@ export default withSelect((select, props) => {
   const blockEditor = select('core/block-editor');
 
   return {
-    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
+    hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
   };
 })(BlockEdit);

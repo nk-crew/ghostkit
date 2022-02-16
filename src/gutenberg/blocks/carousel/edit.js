@@ -47,7 +47,7 @@ class BlockEdit extends Component {
     const { block, getBlocks, replaceInnerBlocks, slidesCount, removeBlock } = this.props;
 
     // Remove slider block.
-    if (newSlidesCount < 1) {
+    if (1 > newSlidesCount) {
       removeBlock(block.clientId);
 
       // Add new slides.
@@ -157,7 +157,7 @@ class BlockEdit extends Component {
                 onChange={(val) => setAttributes({ autoplayHoverPause: val })}
               />
             ) : null}
-            {effect !== 'fade' ? (
+            {'fade' !== effect ? (
               <Fragment>
                 <RangeControl
                   label={__('Slides per view', '@@text_domain')}

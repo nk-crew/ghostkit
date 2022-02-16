@@ -225,19 +225,19 @@ class BlockEdit extends Component {
               icon="align-left"
               title={__('Units Align Left', '@@text_domain')}
               onClick={() => setAttributes({ unitsAlign: 'left' })}
-              isActive={unitsAlign === 'left'}
+              isActive={'left' === unitsAlign}
             />
             <ToolbarButton
               icon="align-center"
               title={__('Units Align Center', '@@text_domain')}
               onClick={() => setAttributes({ unitsAlign: 'center' })}
-              isActive={unitsAlign === 'center'}
+              isActive={'center' === unitsAlign}
             />
             <ToolbarButton
               icon="align-right"
               title={__('Units Align Right', '@@text_domain')}
               onClick={() => setAttributes({ unitsAlign: 'right' })}
-              isActive={unitsAlign === 'right'}
+              isActive={'right' === unitsAlign}
             />
           </ToolbarGroup>
         </BlockControls>
@@ -245,8 +245,8 @@ class BlockEdit extends Component {
           {units.map((unitName) => {
             let formattedUnit = false;
 
-            if (dateData && typeof dateData[unitName] !== 'undefined') {
-              const isEnd = dateData.value >= 0;
+            if (dateData && 'undefined' !== typeof dateData[unitName]) {
+              const isEnd = 0 <= dateData.value;
 
               formattedUnit = countDownApi.formatUnit(isEnd ? 0 : dateData[unitName], unitName);
             }

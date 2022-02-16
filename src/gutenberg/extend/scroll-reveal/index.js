@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable max-classes-per-file */
 /**
  * External dependencies
@@ -130,7 +129,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
       let effect = data[0];
       if (effect) {
         let direction = effect.split('-');
-        if (direction.length === 2) {
+        if (2 === direction.length) {
           // eslint-disable-next-line prefer-destructuring
           effect = direction[0];
           // eslint-disable-next-line prefer-destructuring
@@ -143,10 +142,10 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
         state.direction = direction;
 
         // replace other data config.
-        if (data.length > 1) {
+        if (1 < data.length) {
           data.forEach((item) => {
             const itemData = item.split(':');
-            if (itemData.length === 2) {
+            if (2 === itemData.length) {
               const name = itemData[0];
               const val = itemData[1];
               state[name] = val;
@@ -179,18 +178,18 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
         if (newState.direction) {
           newAttribute += `-${newState.direction}`;
 
-          if (newState.distance !== 50) {
+          if (50 !== newState.distance) {
             newAttribute += `;distance:${newState.distance}px`;
           }
         }
-        if (newState.duration !== 900) {
+        if (900 !== newState.duration) {
           newAttribute += `;duration:${newState.duration}`;
         }
-        if (newState.delay !== 0) {
+        if (0 !== newState.delay) {
           newAttribute += `;delay:${newState.delay}`;
         }
 
-        if (newState.effect === 'zoom' && newState.scale !== 0.9) {
+        if ('zoom' === newState.effect && 0.9 !== newState.scale) {
           newAttribute += `;scale:${newState.scale}`;
         }
       }
@@ -305,7 +304,6 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
           <InspectorControls>
             <PanelBody
               title={
-                // eslint-disable-next-line react/jsx-wrap-multilines
                 <Fragment>
                   <span className="ghostkit-ext-icon">{getIcon('extension-sr')}</span>
                   <span>{__('Animate on Scroll', '@@text_domain')}</span>
@@ -342,7 +340,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                       <div className="ghostkit-control-sr-direction-left">
                         <Button
                           className={
-                            this.state.direction === 'left'
+                            'left' === this.state.direction
                               ? 'ghostkit-control-sr-direction-active'
                               : ''
                           }
@@ -354,7 +352,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                       <div className="ghostkit-control-sr-direction-top">
                         <Button
                           className={
-                            this.state.direction === 'down'
+                            'down' === this.state.direction
                               ? 'ghostkit-control-sr-direction-active'
                               : ''
                           }
@@ -366,7 +364,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                       <div className="ghostkit-control-sr-direction-right">
                         <Button
                           className={
-                            this.state.direction === 'right'
+                            'right' === this.state.direction
                               ? 'ghostkit-control-sr-direction-active'
                               : ''
                           }
@@ -378,7 +376,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                       <div className="ghostkit-control-sr-direction-bottom">
                         <Button
                           className={
-                            this.state.direction === 'up'
+                            'up' === this.state.direction
                               ? 'ghostkit-control-sr-direction-active'
                               : ''
                           }
@@ -400,7 +398,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                     </div>
                   </BaseControl>
 
-                  {this.state.direction || this.state.effect === 'zoom' ? (
+                  {this.state.direction || 'zoom' === this.state.effect ? (
                     <div className="ghostkit-grid-controls">
                       {this.state.direction ? (
                         <TextControl
@@ -414,7 +412,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                       ) : (
                         ''
                       )}
-                      {this.state.effect === 'zoom' ? (
+                      {'zoom' === this.state.effect ? (
                         <TextControl
                           type="number"
                           label={__('Scale', '@@text_domain')}
@@ -427,7 +425,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                       ) : (
                         ''
                       )}
-                      {!this.state.direction || this.state.effect !== 'zoom' ? <div /> : ''}
+                      {!this.state.direction || 'zoom' !== this.state.effect ? <div /> : ''}
                     </div>
                   ) : (
                     ''

@@ -30,7 +30,7 @@ export default function getColClass(props) {
         prefix = '';
       }
 
-      if (type && (type === 'size' || type === 'order' || type === 'verticalAlign')) {
+      if (type && ('size' === type || 'order' === type || 'verticalAlign' === type)) {
         prefix = prefix ? `-${prefix}` : '';
 
         switch (type) {
@@ -49,7 +49,7 @@ export default function getColClass(props) {
         result = classnames(
           result,
           `ghostkit-col${type}${prefix || ''}${
-            attributes[key] !== 'auto' ? `-${attributes[key]}` : ''
+            'auto' !== attributes[key] ? `-${attributes[key]}` : ''
           }`
         );
       }
@@ -57,7 +57,7 @@ export default function getColClass(props) {
   });
 
   // Sticky content.
-  if (attributes.stickyContent && typeof attributes.stickyContentOffset !== 'undefined') {
+  if (attributes.stickyContent && 'undefined' !== typeof attributes.stickyContentOffset) {
     result = classnames(result, `ghostkit-col-sticky-${attributes.stickyContent}`);
   }
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -45,7 +44,7 @@ export const settings = {
       let result = {};
 
       // Sticky styles.
-      if (stickyContent && typeof stickyContentOffset !== 'undefined') {
+      if (stickyContent && 'undefined' !== typeof stickyContentOffset) {
         result['--gkt-grid--column-sticky__offset'] = `${stickyContentOffset}px`;
       }
 
@@ -95,7 +94,7 @@ export const withClasses = createHigherOrderComponent(
     function (props) {
       const { name: blockName } = props;
 
-      if (blockName === 'ghostkit/grid-column') {
+      if ('ghostkit/grid-column' === blockName) {
         const className = classnames(props.attributes.className, getColClass(props));
         return <BlockListBlock {...props} className={className} />;
       }

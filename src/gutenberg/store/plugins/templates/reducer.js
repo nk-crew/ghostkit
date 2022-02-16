@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 function reducer(state = { templates: false, templatesData: {} }, action = {}) {
   switch (action.type) {
     case 'SET_TEMPLATES':

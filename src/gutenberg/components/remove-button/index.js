@@ -44,7 +44,7 @@ export default class RemoveButton extends Component {
       <Button
         className="ghostkit-component-remove-button"
         onClick={() => {
-          if (confirmed === -1) {
+          if (-1 === confirmed) {
             this.setState({
               confirmed: 0,
             });
@@ -52,7 +52,7 @@ export default class RemoveButton extends Component {
         }}
         style={style}
       >
-        {confirmed === 0 ? (
+        {0 === confirmed ? (
           <Popover
             className="ghostkit-component-remove-button-confirm"
             onClose={() => {

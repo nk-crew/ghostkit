@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 /**
  * External dependencies
  */
@@ -71,7 +70,7 @@ class BlockSave extends Component {
       'data-styles': maybeDecode(styleCustom),
     };
 
-    if (gestureHandling !== 'greedy') {
+    if ('greedy' !== gestureHandling) {
       attrs['data-gesture-handling'] = gestureHandling;
     }
 

@@ -108,27 +108,27 @@ export class Plugin extends Component {
             </PanelBody>
           </PluginSidebar>
         ) : null}
-        {isModalOpen === 'templates' ? (
+        {'templates' === isModalOpen ? (
           <TemplatesModal onRequestClose={() => this.setState({ isModalOpen: false })} />
         ) : (
           ''
         )}
-        {isModalOpen === 'typography' ? (
+        {'typography' === isModalOpen ? (
           <TypographyModal onRequestClose={() => this.setState({ isModalOpen: false })} />
         ) : (
           ''
         )}
-        {isModalOpen === 'custom-code' ? (
+        {'custom-code' === isModalOpen ? (
           <CustomCodeModal onRequestClose={() => this.setState({ isModalOpen: false })} />
         ) : (
           ''
         )}
-        {isModalOpen === 'color-palette' ? (
+        {'color-palette' === isModalOpen ? (
           <ColorPaletteModal onRequestClose={() => this.setState({ isModalOpen: false })} />
         ) : (
           ''
         )}
-        {isModalOpen === 'customizer' ? (
+        {'customizer' === isModalOpen ? (
           <CustomizerModal onRequestClose={() => this.setState({ isModalOpen: false })} />
         ) : (
           ''

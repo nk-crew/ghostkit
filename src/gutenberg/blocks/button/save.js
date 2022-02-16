@@ -29,7 +29,7 @@ class BlockSave extends Component {
     let className = classnames(
       'ghostkit-button-wrapper',
       gap ? `ghostkit-button-wrapper-gap-${gap}` : false,
-      align && align !== 'none' ? `ghostkit-button-wrapper-align-${align}` : false
+      align && 'none' !== align ? `ghostkit-button-wrapper-align-${align}` : false
     );
 
     className = applyFilters('ghostkit.blocks.className', className, {

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * WordPress dependencies
  */
@@ -38,14 +37,14 @@ export function getFieldAttributes(attributes) {
   Object.keys(attributes).forEach((k) => {
     let val = attributes[k];
 
-    if (typeof val !== 'undefined') {
-      if (k === 'slug') {
+    if ('undefined' !== typeof val) {
+      if ('slug' === k) {
         k = 'id';
       }
 
-      if (allowedAttributes.indexOf(k) !== -1) {
+      if (-1 !== allowedAttributes.indexOf(k)) {
         // boolean value.
-        if (typeof val === 'boolean') {
+        if ('boolean' === typeof val) {
           if (val) {
             val = k;
           } else {
@@ -54,11 +53,11 @@ export function getFieldAttributes(attributes) {
         }
 
         // default attribute.
-        if (k === 'default') {
+        if ('default' === k) {
           k = 'value';
         }
 
-        if (val !== false) {
+        if (false !== val) {
           result[k] = val;
         }
       }

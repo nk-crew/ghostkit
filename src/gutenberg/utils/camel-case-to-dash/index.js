@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * camelCaseToDash('userId') => "user-id"
  * camelCaseToDash('waitAMoment') => "wait-a-moment"
@@ -10,7 +9,7 @@
  * @return {string} - new dashed string.
  */
 export default function camelCaseToDash(str) {
-  if (typeof str !== 'string') {
+  if ('string' !== typeof str) {
     return str;
   }
 

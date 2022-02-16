@@ -1,7 +1,4 @@
-/* eslint-disable indent */
-/* eslint-disable no-param-reassign */
 /* eslint-disable react/no-danger */
-/* eslint-disable react/jsx-one-expression-per-line */
 /**
  * External dependencies
  */
@@ -448,7 +445,7 @@ class BlockEdit extends Component {
                       ) : (
                         ''
                       )}
-                      {feedTextConvertLinks === 'links_media' ? (
+                      {'links_media' === feedTextConvertLinks ? (
                         // eslint-disable-next-line react/no-danger
                         <div
                           className="ghostkit-twitter-item-text"
@@ -457,7 +454,7 @@ class BlockEdit extends Component {
                       ) : (
                         ''
                       )}
-                      {feedTextConvertLinks === 'links' ? (
+                      {'links' === feedTextConvertLinks ? (
                         // eslint-disable-next-line react/no-danger
                         <div
                           className="ghostkit-twitter-item-text"
@@ -466,8 +463,8 @@ class BlockEdit extends Component {
                       ) : (
                         ''
                       )}
-                      {feedTextConvertLinks !== 'links_media' &&
-                      feedTextConvertLinks !== 'links' ? (
+                      {'links_media' !== feedTextConvertLinks &&
+                      'links' !== feedTextConvertLinks ? (
                         // eslint-disable-next-line react/no-danger
                         <div
                           className="ghostkit-twitter-item-text"
@@ -588,7 +585,7 @@ export default withSelect((select, props) => {
       count,
       exclude_replies: showReplies ? 'false' : 'true',
       include_rts: showRetweets ? 'true' : 'false',
-      tweet_mode_extended: feedTextMode === 'full' ? 'true' : 'false',
+      tweet_mode_extended: 'full' === feedTextMode ? 'true' : 'false',
       ...apiKeys,
     }),
     twitterProfile: select('ghostkit/blocks/twitter').getTwitterProfile(apiKeys),

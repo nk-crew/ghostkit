@@ -17,7 +17,7 @@ export function getActiveClass(className, namespace, suffixOnly) {
 
   // eslint-disable-next-line no-restricted-syntax
   for (const activeClass of list.values()) {
-    if (activeClass.indexOf(`${namespace}-`) === -1) {
+    if (-1 === activeClass.indexOf(`${namespace}-`)) {
       // eslint-disable-next-line no-continue
       continue;
     }

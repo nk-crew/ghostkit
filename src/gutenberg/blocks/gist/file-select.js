@@ -43,7 +43,7 @@ class GistFilesSelect extends Component {
 
     const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec(url);
 
-    if (match && typeof match[1] !== 'undefined') {
+    if (match && 'undefined' !== typeof match[1]) {
       url = `https://gist.github.com/${match[1].split('#')[0]}.json`;
     } else {
       return;

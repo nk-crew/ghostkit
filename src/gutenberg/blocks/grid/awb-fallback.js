@@ -1,5 +1,4 @@
 /* eslint-disable react/no-danger */
-/* eslint-disable no-param-reassign */
 /**
  * Internal dependencies
  */
@@ -34,7 +33,7 @@ const { withSelect } = wp.data;
  * @return {Object}               Filtered block settings
  */
 export function addAttribute(blockSettings) {
-  if (blockSettings.name === 'ghostkit/grid' || blockSettings.name === 'ghostkit/grid-column') {
+  if ('ghostkit/grid' === blockSettings.name || 'ghostkit/grid-column' === blockSettings.name) {
     blockSettings.supports.awb = true;
   }
 
@@ -175,7 +174,7 @@ class BackgroundControlsInspector extends Component {
     return (
       <PanelBody title={__('Background', '@@text_domain')} initialOpen={false}>
         <ToggleGroup
-          value={type === 'video' || type === 'yt_vm_video' ? 'yt_vm_video' : type}
+          value={'video' === type || 'yt_vm_video' === type ? 'yt_vm_video' : type}
           options={[
             {
               label: __('Color', '@@text_domain'),
@@ -195,8 +194,8 @@ class BackgroundControlsInspector extends Component {
           }}
         />
 
-        {type === 'image' ? (
-          <PanelBody title={__('Image', '@@text_domain')} initialOpen={type === 'image'}>
+        {'image' === type ? (
+          <PanelBody title={__('Image', '@@text_domain')} initialOpen={'image' === type}>
             {/* Select Image */}
             {!image || !imageTag ? (
               <MediaUpload
@@ -282,7 +281,7 @@ class BackgroundControlsInspector extends Component {
           ''
         )}
 
-        {type === 'color' ? (
+        {'color' === type ? (
           <ColorPicker
             label={__('Background Color', '@@text_domain')}
             value={color}
@@ -292,13 +291,12 @@ class BackgroundControlsInspector extends Component {
         ) : (
           <PanelBody
             title={
-              // eslint-disable-next-line react/jsx-wrap-multilines
               <Fragment>
                 {__('Overlay', '@@text_domain')}
                 <ColorIndicator colorValue={color} />
               </Fragment>
             }
-            initialOpen={type === 'color'}
+            initialOpen={'color' === type}
           >
             <ColorPicker
               label={__('Background Color', '@@text_domain')}
@@ -346,7 +344,7 @@ const BackgroundControlsInspectorWithSelect = withSelect((select, props) => {
   };
 
   // background image with pattern size
-  if (imageBackgroundSize === 'pattern') {
+  if ('pattern' === imageBackgroundSize) {
     data.div_tag = true;
   }
 
@@ -364,7 +362,7 @@ const BackgroundControlsInspectorWithSelect = withSelect((select, props) => {
  * @return {Object} Control.
  */
 function addBackgroundControls(Control, props) {
-  if (props.attribute === 'background' && hasBlockSupport(props.props.name, 'awb', false)) {
+  if ('background' === props.attribute && hasBlockSupport(props.props.name, 'awb', false)) {
     return <BackgroundControlsInspectorWithSelect {...props.props} />;
   }
 
@@ -385,11 +383,11 @@ function addEditorBackground(background, props) {
 
     let addBackground = false;
 
-    if (type === 'color' && color) {
+    if ('color' === type && color) {
       addBackground = true;
     }
 
-    if (type === 'image' && (color || imageTag)) {
+    if ('image' === type && (color || imageTag)) {
       addBackground = true;
     }
 
@@ -397,8 +395,7 @@ function addEditorBackground(background, props) {
       return (
         <div className="awb-gutenberg-preview-block">
           {color ? <div className="nk-awb-overlay" style={{ 'background-color': color }} /> : ''}
-          {type === 'image' && imageTag ? (
-            // eslint-disable-next-line react/no-danger
+          {'image' === type && imageTag ? (
             <div
               className="nk-awb-inner"
               dangerouslySetInnerHTML={{ __html: maybeDecode(imageTag) }}
@@ -437,11 +434,11 @@ function addSaveBackground(background, props) {
 
     let addBackground = false;
 
-    if (type === 'color' && color) {
+    if ('color' === type && color) {
       addBackground = true;
     }
 
-    if (type === 'image' && (color || imageTag)) {
+    if ('image' === type && (color || imageTag)) {
       addBackground = true;
     }
 
@@ -450,7 +447,7 @@ function addSaveBackground(background, props) {
         'data-awb-type': type,
       };
 
-      if (type === 'image') {
+      if ('image' === type) {
         if (imageBackgroundSize) {
           dataAttrs['data-awb-image-background-size'] = imageBackgroundSize;
         }
@@ -460,7 +457,7 @@ function addSaveBackground(background, props) {
       }
 
       // Fix style tag background.
-      if (type === 'image' && imageTag) {
+      if ('image' === type && imageTag) {
         imageTag = maybeDecode(imageTag);
 
         imageTag = imageTag.replace('url(&quot;', "url('");
@@ -471,8 +468,7 @@ function addSaveBackground(background, props) {
         <div className="nk-awb">
           <div className="nk-awb-wrap" {...dataAttrs}>
             {color ? <div className="nk-awb-overlay" style={{ 'background-color': color }} /> : ''}
-            {type === 'image' && imageTag ? (
-              // eslint-disable-next-line react/no-danger
+            {'image' === type && imageTag ? (
               <div className="nk-awb-inner" dangerouslySetInnerHTML={{ __html: imageTag }} />
             ) : (
               ''

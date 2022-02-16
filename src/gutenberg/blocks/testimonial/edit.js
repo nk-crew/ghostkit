@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -215,7 +214,6 @@ class BlockEdit extends Component {
                   value={photoAlt}
                   onChange={(val) => setAttributes({ photoAlt: val })}
                   help={
-                    // eslint-disable-next-line react/jsx-wrap-multilines
                     <Fragment>
                       <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
                         {__('Describe the purpose of the image', '@@text_domain')}
@@ -237,7 +235,7 @@ class BlockEdit extends Component {
               allowReset
               onChange={(value) => setAttributes({ stars: value })}
             />
-            {typeof stars === 'number' ? (
+            {'number' === typeof stars ? (
               <IconPicker
                 label={__('Icon', '@@text_domain')}
                 value={starsIcon}
@@ -300,27 +298,24 @@ class BlockEdit extends Component {
             )}
 
             {photoId ? (
-              // eslint-disable-next-line react/jsx-no-useless-fragment
-              <Fragment>
-                <MediaUpload
-                  onSelect={(media) => {
-                    this.onPhotoSelect(media);
-                  }}
-                  allowedTypes={['image']}
-                  value={photoId}
-                  render={({ open }) => (
-                    // eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid
-                    <a
-                      href="#"
-                      onClick={open}
-                      className="ghostkit-gutenberg-media-upload"
-                      style={{ display: 'block' }}
-                    >
-                      <img src={photoUrl} alt={photoAlt} width={photoWidth} height={photoHeight} />
-                    </a>
-                  )}
-                />
-              </Fragment>
+              <MediaUpload
+                onSelect={(media) => {
+                  this.onPhotoSelect(media);
+                }}
+                allowedTypes={['image']}
+                value={photoId}
+                render={({ open }) => (
+                  // eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid
+                  <a
+                    href="#"
+                    onClick={open}
+                    className="ghostkit-gutenberg-media-upload"
+                    style={{ display: 'block' }}
+                  >
+                    <img src={photoUrl} alt={photoAlt} width={photoWidth} height={photoHeight} />
+                  </a>
+                )}
+              />
             ) : (
               ''
             )}
@@ -341,7 +336,7 @@ class BlockEdit extends Component {
               onChange={(value) => setAttributes({ source: value })}
             />
           </div>
-          {typeof stars === 'number' && starsIcon ? (
+          {'number' === typeof stars && starsIcon ? (
             <div className="ghostkit-testimonial-stars">
               <div className="ghostkit-testimonial-stars-wrap">
                 <div
@@ -377,7 +372,7 @@ export default withSelect((select, { attributes, isSelected, clientId }) => {
   const { getMedia } = select('core');
 
   return {
-    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
+    hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
     editorSettings: blockEditor.getSettings(),
     photoImage: attributes.photoId && isSelected ? getMedia(attributes.photoId) : null,
   };

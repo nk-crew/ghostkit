@@ -33,11 +33,11 @@ let initialOpenPanel = false;
  */
 function getVariantSlug(name) {
   let result = name.split('/')[1].replace(/-/g, '_');
-  if (result === 'tabs_v2') {
+  if ('tabs_v2' === result) {
     result = 'tabs';
-  } else if (result === 'button') {
+  } else if ('button' === result) {
     result = 'button_wrapper';
-  } else if (result === 'button_single') {
+  } else if ('button_single' === result) {
     result = 'button';
   }
 
@@ -54,11 +54,11 @@ function getVariantSlug(name) {
 function getVariantClassNamePrefix(name) {
   let result = name.replace('/', '-');
 
-  if (result === 'ghostkit-button-single') {
+  if ('ghostkit-button-single' === result) {
     result = 'ghostkit-button';
-  } else if (result === 'ghostkit-button') {
+  } else if ('ghostkit-button' === result) {
     result = 'ghostkit-button-wrapper';
-  } else if (result === 'ghostkit-tabs-v2') {
+  } else if ('ghostkit-tabs-v2' === result) {
     result = 'ghostkit-tabs';
   }
 
@@ -88,7 +88,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 
       const availableVariants = GHOSTKIT.getVariants(getVariantSlug(props.name));
 
-      if (Object.keys(availableVariants).length < 2) {
+      if (2 > Object.keys(availableVariants).length) {
         return <OriginalComponent {...props} />;
       }
 
@@ -116,7 +116,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                   const newClassName = replaceClass(
                     className,
                     variantClassNamePrefix,
-                    value === 'default' ? '' : value
+                    'default' === value ? '' : value
                   );
 
                   setAttributes({

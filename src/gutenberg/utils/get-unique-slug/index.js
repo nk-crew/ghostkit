@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -21,7 +20,7 @@ const { getBlocks } = wp.data.select('core/block-editor');
 function getAllSlugs(excludeId, blocks = 'none') {
   let slugs = [];
 
-  if (blocks === 'none') {
+  if ('none' === blocks) {
     blocks = getBlocks();
   }
 
@@ -31,7 +30,7 @@ function getAllSlugs(excludeId, blocks = 'none') {
         slugs.push(block.attributes.anchor);
       }
       if (
-        (block.name === 'ghostkit/tabs-tab-v2' || block.name === 'ghostkit/accordion-item') &&
+        ('ghostkit/tabs-tab-v2' === block.name || 'ghostkit/accordion-item' === block.name) &&
         block.attributes.slug
       ) {
         slugs.push(block.attributes.slug);

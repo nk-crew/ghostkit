@@ -30,10 +30,10 @@ export const settings = {
     customStylesCallback(attributes) {
       const styles = {
         '--gkt-divider__border-width':
-          typeof attributes.size !== 'undefined' ? `${attributes.size}px` : undefined,
+          'undefined' !== typeof attributes.size ? `${attributes.size}px` : undefined,
         '--gkt-divider__border-color': attributes.color,
         '--gkt-divider--icon__font-size':
-          typeof attributes.iconSize !== 'undefined' ? `${attributes.iconSize}px` : undefined,
+          'undefined' !== typeof attributes.iconSize ? `${attributes.iconSize}px` : undefined,
         '--gkt-divider--icon__color': attributes.iconColor,
       };
 

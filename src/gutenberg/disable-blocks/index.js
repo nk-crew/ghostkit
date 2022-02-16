@@ -10,10 +10,10 @@ const {
 
 let loadBlocksEditor = null;
 
-if (typeof wpLoadBlockEditor !== 'undefined') {
+if ('undefined' !== typeof wpLoadBlockEditor) {
   // Using Gutenberg plugin
   loadBlocksEditor = wpLoadBlockEditor;
-} else if (typeof wpLoadGutenbergEditor !== 'undefined') {
+} else if ('undefined' !== typeof wpLoadGutenbergEditor) {
   // Using WP core Gutenberg
   loadBlocksEditor = wpLoadGutenbergEditor;
 }

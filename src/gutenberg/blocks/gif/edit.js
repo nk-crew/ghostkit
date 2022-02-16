@@ -91,10 +91,10 @@ export default class BlockEdit extends Component {
         loading: false,
       });
 
-      if (result.meta && result.meta.status && result.meta.status === 200) {
+      if (result.meta && result.meta.status && 200 === result.meta.status) {
         // If there is only one result, Giphy's API does not return an array.
         // The following statement normalizes the data into an array with one member in this case.
-        const results = typeof result.data.images !== 'undefined' ? [result.data] : result.data;
+        const results = 'undefined' !== typeof result.data.images ? [result.data] : result.data;
         const giphyData = results[0];
 
         // No results
@@ -150,12 +150,12 @@ export default class BlockEdit extends Component {
     let giphyID = null;
 
     // If search is hardcoded Giphy URL following this pattern: https://giphy.com/embed/4ZFekt94LMhNK
-    if (searchText.indexOf('//giphy.com/gifs') !== -1) {
+    if (-1 !== searchText.indexOf('//giphy.com/gifs')) {
       giphyID = this.splitAndLast(this.splitAndLast(searchText, '/'), '-');
     }
 
     // If search is hardcoded Giphy URL following this patterh: http://i.giphy.com/4ZFekt94LMhNK.gif
-    if (searchText.indexOf('//i.giphy.com') !== -1) {
+    if (-1 !== searchText.indexOf('//i.giphy.com')) {
       giphyID = this.splitAndLast(searchText, '/').replace('.gif', '');
     }
 
@@ -208,7 +208,7 @@ export default class BlockEdit extends Component {
           </Button>
         </form>
         {loading ? <Spinner /> : ''}
-        {!loading && results && results.length > 1 && (
+        {!loading && results && 1 < results.length && (
           <div className="ghostkit-gif-thumbnails-container">
             {results.map((thumbnail) => {
               const thumbnailStyle = {
@@ -253,7 +253,6 @@ export default class BlockEdit extends Component {
                 value={alt}
                 onChange={(val) => setAttributes({ alt: val })}
                 help={
-                  // eslint-disable-next-line react/jsx-wrap-multilines
                   <Fragment>
                     <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
                       {__('Describe the purpose of the image', '@@text_domain')}

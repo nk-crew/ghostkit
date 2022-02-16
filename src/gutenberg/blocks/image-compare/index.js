@@ -28,7 +28,7 @@ export const settings = {
     customStylesCallback(attributes) {
       return {
         '--gkt-image-compare__position':
-          typeof attributes.position !== 'undefined' ? `${attributes.position}%` : undefined,
+          'undefined' !== typeof attributes.position ? `${attributes.position}%` : undefined,
       };
     },
     supports: {

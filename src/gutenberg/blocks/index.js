@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let { category } = settings;
 
     // Collections are not supported.
-    if (typeof registerBlockCollection === 'undefined') {
+    if ('undefined' === typeof registerBlockCollection) {
       category = 'ghostkit';
     }
 

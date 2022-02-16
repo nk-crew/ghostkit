@@ -1,6 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -62,7 +59,7 @@ function getVideoPoster(url, cb) {
     return;
   }
 
-  if (typeof window.VideoWorker === 'undefined') {
+  if ('undefined' === typeof window.VideoWorker) {
     cb('');
     return;
   }
@@ -103,7 +100,7 @@ class BlockEdit extends Component {
 
     // Change click action to Fullscreen when used Icon Only style.
     if (
-      attributes.clickAction === 'plain' &&
+      'plain' === attributes.clickAction &&
       attributes.className !== prevProps.attributes.className &&
       hasClass(attributes.className, 'is-style-icon-only')
     ) {
@@ -133,7 +130,7 @@ class BlockEdit extends Component {
     const { setAttributes, attributes } = this.props;
 
     // load YouTube / Vimeo poster
-    if (!attributes.posterId && attributes.type === 'yt_vm_video' && attributes.video) {
+    if (!attributes.posterId && 'yt_vm_video' === attributes.type && attributes.video) {
       getVideoPoster(attributes.video, (url) => {
         if (url !== attributes.videoPosterPreview) {
           setAttributes({ videoPosterPreview: url });
@@ -275,13 +272,13 @@ class BlockEdit extends Component {
     }
 
     let toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-16-9');
-    if (videoAspectRatio === '3:2') {
+    if ('3:2' === videoAspectRatio) {
       toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-3-2');
     }
-    if (videoAspectRatio === '4:3') {
+    if ('4:3' === videoAspectRatio) {
       toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-4-3');
     }
-    if (videoAspectRatio === '21:9') {
+    if ('21:9' === videoAspectRatio) {
       toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-21-9');
     }
 
@@ -309,7 +306,7 @@ class BlockEdit extends Component {
               )}
             />
           </ToolbarGroup>
-          {type === 'yt_vm_video' ? (
+          {'yt_vm_video' === type ? (
             <ToolbarGroup>
               <TextControl
                 type="url"
@@ -342,7 +339,7 @@ class BlockEdit extends Component {
               }}
               isBlock
             />
-            {type === 'yt_vm_video' && (
+            {'yt_vm_video' === type && (
               <TextControl
                 label={__('Video URL', '@@text_domain')}
                 type="url"
@@ -352,7 +349,7 @@ class BlockEdit extends Component {
             )}
 
             {/* Preview Video */}
-            {type === 'video' && (videoMp4 || videoOgv || videoWebm) ? (
+            {'video' === type && (videoMp4 || videoOgv || videoWebm) ? (
               // eslint-disable-next-line jsx-a11y/media-has-caption
               <video controls>
                 {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : ''}
@@ -364,7 +361,7 @@ class BlockEdit extends Component {
             )}
 
             {/* Select Videos */}
-            {type === 'video' && !videoMp4 ? (
+            {'video' === type && !videoMp4 ? (
               <MediaUpload
                 onSelect={(media) => {
                   setAttributes({
@@ -394,7 +391,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {type === 'video' && videoMp4 ? (
+            {'video' === type && videoMp4 ? (
               <div>
                 <span>{videoMp4.substring(videoMp4.lastIndexOf('/') + 1)} </span>
                 <Button
@@ -414,7 +411,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {type === 'video' && !videoOgv ? (
+            {'video' === type && !videoOgv ? (
               <MediaUpload
                 onSelect={(media) => {
                   setAttributes({
@@ -444,7 +441,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {type === 'video' && videoOgv ? (
+            {'video' === type && videoOgv ? (
               <div>
                 <span>{videoOgv.substring(videoOgv.lastIndexOf('/') + 1)} </span>
                 <Button
@@ -464,7 +461,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {type === 'video' && !videoWebm ? (
+            {'video' === type && !videoWebm ? (
               <MediaUpload
                 onSelect={(media) => {
                   setAttributes({
@@ -494,7 +491,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {type === 'video' && videoWebm ? (
+            {'video' === type && videoWebm ? (
               <div>
                 <span>{videoWebm.substring(videoWebm.lastIndexOf('/') + 1)} </span>
                 <Button
@@ -553,7 +550,7 @@ class BlockEdit extends Component {
                         'ghostkit-video-style-icon-only-align-left'
                       );
 
-                      if (value === 'left' || value === 'right') {
+                      if ('left' === value || 'right' === value) {
                         newClassName = addClass(
                           newClassName,
                           `ghostkit-video-style-icon-only-align-${value}`
@@ -591,7 +588,7 @@ class BlockEdit extends Component {
               }}
               isAdaptiveWidth
             />
-            {clickAction === 'fullscreen' ? (
+            {'fullscreen' === clickAction ? (
               <Fragment>
                 <ApplyFilters
                   name="ghostkit.editor.controls"
@@ -722,7 +719,6 @@ class BlockEdit extends Component {
                     value={posterAlt}
                     onChange={(val) => setAttributes({ posterAlt: val })}
                     help={
-                      // eslint-disable-next-line react/jsx-wrap-multilines
                       <Fragment>
                         <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
                           {__('Describe the purpose of the image', '@@text_domain')}
@@ -747,7 +743,7 @@ class BlockEdit extends Component {
             ''
           )}
           {!posterUrl &&
-          type === 'yt_vm_video' &&
+          'yt_vm_video' === type &&
           videoPosterPreview &&
           !hasClass(attributes.className, 'is-style-icon-only') ? (
             <div className="ghostkit-video-poster">

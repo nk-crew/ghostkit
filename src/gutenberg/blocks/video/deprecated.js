@@ -25,13 +25,13 @@ export default [
         ...attributes,
       };
 
-      if (typeof attributes.poster !== 'undefined') {
+      if ('undefined' !== typeof attributes.poster) {
         newAttributes.posterId = attributes.poster;
       }
-      if (typeof attributes.posterSize !== 'undefined') {
+      if ('undefined' !== typeof attributes.posterSize) {
         newAttributes.posterSizeSlug = attributes.posterSize;
       }
-      if (typeof attributes.posterTag !== 'undefined' && attributes.posterTag) {
+      if ('undefined' !== typeof attributes.posterTag && attributes.posterTag) {
         const imgSrc = attributes.posterTag.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/);
         const imgAlt = attributes.posterTag.match(/<img.+alt=(?:"|')(.+?)(?:"|')(?:.+?)>/);
         const imgWidth = attributes.posterTag.match(/<img.+width=(?:"|')(.+?)(?:"|')(?:.+?)>/);
@@ -197,7 +197,7 @@ export default [
         resultAttrs['data-video-type'] = type;
 
         resultAttrs['data-video'] = '';
-        if (type === 'video') {
+        if ('video' === type) {
           if (videoMp4) {
             resultAttrs['data-video'] += `mp4:${videoMp4}`;
           }
@@ -221,7 +221,7 @@ export default [
 
         resultAttrs['data-click-action'] = clickAction;
 
-        if (clickAction === 'fullscreen') {
+        if ('fullscreen' === clickAction) {
           resultAttrs['data-fullscreen-background-color'] = fullscreenBackgroundColor;
         } else {
           if (videoAutoplay) {
@@ -262,7 +262,7 @@ export default [
             ) : (
               ''
             )}
-            {clickAction === 'fullscreen' && fullscreenActionCloseIcon ? (
+            {'fullscreen' === clickAction && fullscreenActionCloseIcon ? (
               <IconPicker.Render
                 name={fullscreenActionCloseIcon}
                 tag="div"

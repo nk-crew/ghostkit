@@ -32,13 +32,13 @@ export default [
         ...attributes,
       };
 
-      if (typeof attributes.photo !== 'undefined') {
+      if ('undefined' !== typeof attributes.photo) {
         newAttributes.photoId = attributes.photo;
       }
-      if (typeof attributes.photoSize !== 'undefined') {
+      if ('undefined' !== typeof attributes.photoSize) {
         newAttributes.photoSizeSlug = attributes.photoSize;
       }
-      if (typeof attributes.photoTag !== 'undefined' && attributes.photoTag) {
+      if ('undefined' !== typeof attributes.photoTag && attributes.photoTag) {
         const imgSrc = attributes.photoTag.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/);
         const imgAlt = attributes.photoTag.match(/<img.+alt=(?:"|')(.+?)(?:"|')(?:.+?)>/);
         const imgWidth = attributes.photoTag.match(/<img.+width=(?:"|')(.+?)(?:"|')(?:.+?)>/);
@@ -192,7 +192,7 @@ export default [
             ) : (
               ''
             )}
-            {typeof stars === 'number' && starsIcon ? (
+            {'number' === typeof stars && starsIcon ? (
               <div className="ghostkit-testimonial-stars">
                 <div className="ghostkit-testimonial-stars-wrap">
                   <div

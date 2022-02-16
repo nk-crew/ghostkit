@@ -78,7 +78,7 @@ class BlockSave extends Component {
           name={icon}
           tag="span"
           className={`ghostkit-button-icon ghostkit-button-icon-${
-            iconPosition === 'right' ? 'right' : 'left'
+            'right' === iconPosition ? 'right' : 'left'
           }`}
           key="button-icon"
         />
@@ -91,7 +91,7 @@ class BlockSave extends Component {
       Tag = url ? 'a' : 'span';
     }
 
-    return Tag === 'a' ? (
+    return 'a' === Tag ? (
       <Tag className={className} href={url} target={target || false} rel={rel || false}>
         {result}
       </Tag>

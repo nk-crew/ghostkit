@@ -81,26 +81,26 @@ class BlockEdit extends Component {
 
     columnsData.forEach((col) => {
       const colAttrs = {
-        size: col === 'a' ? 'auto' : col,
+        size: 'a' === col ? 'auto' : col,
       };
 
       // responsive.
-      if (columnsData.length === 2) {
+      if (2 === columnsData.length) {
         colAttrs.md_size = '12';
       }
-      if (columnsData.length === 3) {
+      if (3 === columnsData.length) {
         colAttrs.lg_size = '12';
       }
-      if (columnsData.length === 4) {
+      if (4 === columnsData.length) {
         colAttrs.md_size = '12';
         colAttrs.lg_size = '6';
       }
-      if (columnsData.length === 5) {
+      if (5 === columnsData.length) {
         colAttrs.sm_size = '12';
         colAttrs.md_size = '5';
         colAttrs.lg_size = '4';
       }
-      if (columnsData.length === 6) {
+      if (6 === columnsData.length) {
         colAttrs.sm_size = '6';
         colAttrs.md_size = '4';
         colAttrs.lg_size = '3';
@@ -204,7 +204,7 @@ class BlockEdit extends Component {
     const { block, getBlocks, replaceInnerBlocks, columnsCount, removeBlock } = this.props;
 
     // Remove Grid block.
-    if (newColumns < 1) {
+    if (1 > newColumns) {
       removeBlock(block.clientId);
 
       // Add new columns.
@@ -253,26 +253,26 @@ class BlockEdit extends Component {
 
     return (
       <Fragment>
-        {columnsCount > 0 ? (
+        {0 < columnsCount ? (
           <BlockControls>
             <ToolbarGroup>
               <ToolbarButton
                 icon={getIcon('icon-vertical-top')}
                 title={__('Content Vertical Start', '@@text_domain')}
                 onClick={() => setAttributes({ verticalAlign: '' })}
-                isActive={verticalAlign === ''}
+                isActive={'' === verticalAlign}
               />
               <ToolbarButton
                 icon={getIcon('icon-vertical-center')}
                 title={__('Content Vertical Center', '@@text_domain')}
                 onClick={() => setAttributes({ verticalAlign: 'center' })}
-                isActive={verticalAlign === 'center'}
+                isActive={'center' === verticalAlign}
               />
               <ToolbarButton
                 icon={getIcon('icon-vertical-bottom')}
                 title={__('Content Vertical End', '@@text_domain')}
                 onClick={() => setAttributes({ verticalAlign: 'end' })}
-                isActive={verticalAlign === 'end'}
+                isActive={'end' === verticalAlign}
               />
             </ToolbarGroup>
           </BlockControls>
@@ -292,7 +292,7 @@ class BlockEdit extends Component {
             </PanelBody>
           </ApplyFilters>
         </InspectorControls>
-        {columnsCount > 0 ? (
+        {0 < columnsCount ? (
           <InspectorControls>
             <PanelBody>
               <ToggleGroup
@@ -369,7 +369,7 @@ class BlockEdit extends Component {
           </div>
         </InspectorControls>
         <div className={className}>
-          {columnsCount > 0 ? (
+          {0 < columnsCount ? (
             <Fragment>
               {background}
               {!isSelected ? (

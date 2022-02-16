@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 function reducer(state = { images: {} }, action = {}) {
   switch (action.type) {
     case 'SET_IMAGE_TAG_DATA':

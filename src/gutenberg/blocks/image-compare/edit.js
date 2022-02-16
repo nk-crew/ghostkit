@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -252,7 +250,6 @@ class BlockEdit extends Component {
                   value={beforeAlt}
                   onChange={(val) => setAttributes({ beforeAlt: val })}
                   help={
-                    // eslint-disable-next-line react/jsx-wrap-multilines
                     <Fragment>
                       <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
                         {__('Describe the purpose of the image', '@@text_domain')}
@@ -347,7 +344,6 @@ class BlockEdit extends Component {
                   value={afterAlt}
                   onChange={(val) => setAttributes({ afterAlt: val })}
                   help={
-                    // eslint-disable-next-line react/jsx-wrap-multilines
                     <Fragment>
                       <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
                         {__('Describe the purpose of the image', '@@text_domain')}

@@ -25,7 +25,7 @@ const { GHOSTKIT } = window;
  * @return {*} - Current font or default label if font is empty.
  */
 function getDefaultFont(fontFamily) {
-  return fontFamily === '' ? __('Default Site Font', '@@text_domain') : fontFamily;
+  return '' === fontFamily ? __('Default Site Font', '@@text_domain') : fontFamily;
 }
 
 /**
@@ -44,11 +44,11 @@ function getFonts(category = 'google-fonts') {
       const fontData = fonts[fontFamilyCategory].fonts[fontKey];
       let fontValue = fontData.name;
 
-      if (fontFamilyCategory === 'default') {
+      if ('default' === fontFamilyCategory) {
         fontValue = '';
       }
 
-      if (category === fontFamilyCategory || fontFamilyCategory === 'default') {
+      if (category === fontFamilyCategory || 'default' === fontFamilyCategory) {
         fontList.push({
           value: fontValue,
           label: fontData.label || fontData.name,
@@ -147,11 +147,11 @@ function getFontWeights(font, fontFamilyCategory) {
   const fontWeights = [];
 
   if (
-    font !== '' &&
-    fontFamilyCategory !== '' &&
-    typeof font !== 'undefined' &&
-    typeof fontFamilyCategory !== 'undefined' &&
-    typeof fonts[fontFamilyCategory] !== 'undefined'
+    '' !== font &&
+    '' !== fontFamilyCategory &&
+    'undefined' !== typeof font &&
+    'undefined' !== typeof fontFamilyCategory &&
+    'undefined' !== typeof fonts[fontFamilyCategory]
   ) {
     Object.keys(fonts[fontFamilyCategory].fonts).forEach((fontKey) => {
       if (fonts[fontFamilyCategory].fonts[fontKey].name === font) {
@@ -187,11 +187,11 @@ export default class Typography extends Component {
     } = this.props;
 
     const fontsIcon = `icon-typography-${
-      fontFamilyCategory === 'default' ? 'google-fonts' : fontFamilyCategory
+      'default' === fontFamilyCategory ? 'google-fonts' : fontFamilyCategory
     }`;
     const allowFontSelectors = applyFilters(
       'ghostkit.typography.allow.fonts',
-      fontFamilyCategory !== 'adobe-fonts' && fontFamilyCategory !== 'custom-fonts',
+      'adobe-fonts' !== fontFamilyCategory && 'custom-fonts' !== fontFamilyCategory,
       fontFamilyCategory
     );
     const fontFamilyValue = {
@@ -200,10 +200,10 @@ export default class Typography extends Component {
       fontFamilyCategory,
     };
     const fontWeightValue = { value: fontWeight, label: getFontWeightLabel(fontWeight) };
-    const fontSizeValue = typeof fontSize === 'undefined' ? '' : fontSize;
+    const fontSizeValue = 'undefined' === typeof fontSize ? '' : fontSize;
     let fontFamilies;
 
-    if (fontFamilyCategory === 'default') {
+    if ('default' === fontFamilyCategory) {
       fontFamilies = getFonts('google-fonts');
     } else {
       fontFamilies = getFonts(fontFamilyCategory);
@@ -226,7 +226,7 @@ export default class Typography extends Component {
       >
         <h4>{label}</h4>
         <div className="ghostkit-control-typography">
-          {typeof fontFamilyCategory !== 'undefined' ? (
+          {'undefined' !== typeof fontFamilyCategory ? (
             <DropdownMenu
               icon={getIcon(fontsIcon, false)}
               label={__('Font Family Category', '@@text_domain')}
@@ -295,7 +295,7 @@ export default class Typography extends Component {
             ''
           )}
           <ApplyFilters name="ghostkit.typography.fontFamilySelector.info" props={this.props}>
-            {fontFamilyCategory === 'adobe-fonts' ? (
+            {'adobe-fonts' === fontFamilyCategory ? (
               <div className="ghostkit-typography-information-control ghostkit-typography-font-control">
                 {__(
                   'Adobe Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
@@ -308,7 +308,7 @@ export default class Typography extends Component {
             ) : (
               ''
             )}
-            {fontFamilyCategory === 'custom-fonts' ? (
+            {'custom-fonts' === fontFamilyCategory ? (
               <div className="ghostkit-typography-information-control ghostkit-typography-font-control">
                 {__(
                   'Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
@@ -322,7 +322,7 @@ export default class Typography extends Component {
               ''
             )}
           </ApplyFilters>
-          {typeof fontFamily !== 'undefined' && allowFontSelectors ? (
+          {'undefined' !== typeof fontFamily && allowFontSelectors ? (
             <div className="ghostkit-typography-font-control">
               <Tooltip text={__('Font Family', '@@text_domain')}>
                 <div>
@@ -345,7 +345,7 @@ export default class Typography extends Component {
           ) : (
             ''
           )}
-          {typeof fontWeight !== 'undefined' && allowFontSelectors ? (
+          {'undefined' !== typeof fontWeight && allowFontSelectors ? (
             <div className="ghostkit-typography-weight-control">
               <Tooltip text={__('Font Weight', '@@text_domain')}>
                 <div>
@@ -368,7 +368,7 @@ export default class Typography extends Component {
           ) : (
             ''
           )}
-          {typeof fontSize !== 'undefined' ? (
+          {'undefined' !== typeof fontSize ? (
             <div className="ghostkit-typography-size-control">
               <Tooltip text={__('Font Size', '@@text_domain')}>
                 <div>
@@ -390,7 +390,7 @@ export default class Typography extends Component {
           ) : (
             ''
           )}
-          {typeof lineHeight !== 'undefined' ? (
+          {'undefined' !== typeof lineHeight ? (
             <div className="ghostkit-typography-line-control">
               <Tooltip text={__('Line Height', '@@text_domain')}>
                 <div>
@@ -412,7 +412,7 @@ export default class Typography extends Component {
           ) : (
             ''
           )}
-          {typeof letterSpacing !== 'undefined' ? (
+          {'undefined' !== typeof letterSpacing ? (
             <div className="ghostkit-typography-letter-control">
               <Tooltip text={__('Letter Spacing', '@@text_domain')}>
                 <div>

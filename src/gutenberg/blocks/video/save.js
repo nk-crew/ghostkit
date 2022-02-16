@@ -64,7 +64,7 @@ class BlockSave extends Component {
     resultAttrs['data-video-type'] = type;
 
     resultAttrs['data-video'] = '';
-    if (type === 'video') {
+    if ('video' === type) {
       if (videoMp4) {
         resultAttrs['data-video'] += `mp4:${videoMp4}`;
       }
@@ -88,7 +88,7 @@ class BlockSave extends Component {
 
     resultAttrs['data-click-action'] = clickAction;
 
-    if (clickAction === 'fullscreen') {
+    if ('fullscreen' === clickAction) {
       resultAttrs['data-fullscreen-background-color'] = fullscreenBackgroundColor;
     } else {
       if (videoAutoplay) {
@@ -127,7 +127,7 @@ class BlockSave extends Component {
         ) : (
           ''
         )}
-        {clickAction === 'fullscreen' && fullscreenActionCloseIcon ? (
+        {'fullscreen' === clickAction && fullscreenActionCloseIcon ? (
           <IconPicker.Render
             name={fullscreenActionCloseIcon}
             tag="div"

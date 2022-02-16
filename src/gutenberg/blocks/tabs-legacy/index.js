@@ -124,8 +124,8 @@ class TabsBlock extends Component {
                   value={val.label}
                   unstableOnFocus={() => setAttributes({ tabActive: val.number })}
                   onChange={(value) => {
-                    if (typeof tabs[val.number - 1] !== 'undefined') {
-                      if (typeof tabsSettings[`tab_${val.number}`] === 'undefined') {
+                    if ('undefined' !== typeof tabs[val.number - 1]) {
+                      if ('undefined' === typeof tabsSettings[`tab_${val.number}`]) {
                         tabsSettings[`tab_${val.number}`] = {};
                       }
                       tabsSettings[`tab_${val.number}`].label = value;

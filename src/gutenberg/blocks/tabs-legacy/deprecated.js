@@ -1,5 +1,3 @@
-/* eslint-disable function-paren-newline */
-/* eslint-disable no-param-reassign */
 // External Dependencies.
 import classnames from 'classnames/dedupe';
 
@@ -59,7 +57,7 @@ export default [
     isEligible(attributes, innerBlocks) {
       return innerBlocks.some(
         (item) =>
-          typeof item.attributes !== 'undefined' && typeof item.attributes.layout !== 'undefined'
+          'undefined' !== typeof item.attributes && 'undefined' !== typeof item.attributes.layout
       );
     },
     migrate(attributes, innerBlocks) {

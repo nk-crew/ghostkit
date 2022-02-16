@@ -46,7 +46,7 @@ function sizeToPoint(size) {
  * @return {string} - image src
  */
 function parseImageUrl(image) {
-  if (typeof imgCache[image] !== 'undefined') {
+  if ('undefined' !== typeof imgCache[image]) {
     return imgCache[image];
   }
 

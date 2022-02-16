@@ -13,7 +13,7 @@ import getIcon from '../../utils/get-icon';
  */
 const { __ } = wp.i18n;
 
-const { Component, Fragment } = wp.element;
+const { Component } = wp.element;
 
 const { Placeholder, SelectControl } = wp.components;
 
@@ -33,38 +33,35 @@ class BlockEdit extends Component {
     className = classnames('ghostkit-widgetized-area', className);
 
     return (
-      // eslint-disable-next-line react/jsx-no-useless-fragment
-      <Fragment>
-        <Placeholder
-          icon={getIcon('block-widgetized-area')}
-          label={__('Widgetized Area', '@@text_domain')}
-          className={className}
-        >
-          <SelectControl
-            value={id}
-            onChange={(value) => setAttributes({ id: value })}
-            options={(() => {
-              const sidebars = [
-                {
-                  label: __('--- Select Sidebar ---', '@@text_domain'),
-                  value: '',
-                },
-              ];
+      <Placeholder
+        icon={getIcon('block-widgetized-area')}
+        label={__('Widgetized Area', '@@text_domain')}
+        className={className}
+      >
+        <SelectControl
+          value={id}
+          onChange={(value) => setAttributes({ id: value })}
+          options={(() => {
+            const sidebars = [
+              {
+                label: __('--- Select Sidebar ---', '@@text_domain'),
+                value: '',
+              },
+            ];
 
-              if (GHOSTKIT.sidebars) {
-                Object.keys(GHOSTKIT.sidebars).forEach((k) => {
-                  sidebars.push({
-                    label: GHOSTKIT.sidebars[k].name,
-                    value: GHOSTKIT.sidebars[k].id,
-                  });
+            if (GHOSTKIT.sidebars) {
+              Object.keys(GHOSTKIT.sidebars).forEach((k) => {
+                sidebars.push({
+                  label: GHOSTKIT.sidebars[k].name,
+                  value: GHOSTKIT.sidebars[k].id,
                 });
-              }
+              });
+            }
 
-              return sidebars;
-            })()}
-          />
-        </Placeholder>
-      </Fragment>
+            return sidebars;
+          })()}
+        />
+      </Placeholder>
     );
   }
 }

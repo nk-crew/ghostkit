@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable max-classes-per-file */
 /**
  * Internal dependencies
@@ -56,9 +55,9 @@ class CustomCodeModal extends Component {
 
     if (
       customCode &&
-      this.state.globalCustomCSS === false &&
-      this.state.globalCustomJSHead === false &&
-      this.state.globalCustomJSFoot === false
+      false === this.state.globalCustomCSS &&
+      false === this.state.globalCustomJSHead &&
+      false === this.state.globalCustomJSFoot
     ) {
       this.setState({
         globalCustomCSS: customCode.ghostkit_custom_css || '',
@@ -145,7 +144,7 @@ class CustomCodeModal extends Component {
           ]}
         >
           {(tabData) => {
-            const isGlobal = tabData.name === 'global';
+            const isGlobal = 'global' === tabData.name;
 
             return (
               <Fragment>

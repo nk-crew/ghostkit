@@ -49,7 +49,7 @@ window.Parsley.addValidator('confirmEmail', {
 /**
  * Google reCaptcha
  */
-if (typeof grecaptcha !== 'undefined') {
+if ('undefined' !== typeof grecaptcha) {
   $doc.on('submit', '.ghostkit-form form:not(.ghostkit-form-processed)', function (e) {
     const $form = $(this);
     const $recaptchaTokenField = $form.find('[name="ghostkit_form_google_recaptcha"]');

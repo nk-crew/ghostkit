@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -102,7 +101,7 @@ class BlockEdit extends Component {
 
     const { tabsData = [] } = attributes;
 
-    if (block.innerBlocks.length <= 1) {
+    if (1 >= block.innerBlocks.length) {
       this.props.removeBlock(block.clientId);
     } else if (block.innerBlocks[i]) {
       this.props.removeBlock(block.innerBlocks[i].clientId);
@@ -146,9 +145,9 @@ class BlockEdit extends Component {
     className = applyFilters('ghostkit.editor.className', className, this.props);
 
     let buttonsAlignValForControl = buttonsAlign;
-    if (buttonsAlignValForControl === 'start') {
+    if ('start' === buttonsAlignValForControl) {
       buttonsAlignValForControl = 'left';
-    } else if (buttonsAlignValForControl === 'end') {
+    } else if ('end' === buttonsAlignValForControl) {
       buttonsAlignValForControl = 'right';
     }
 
@@ -158,9 +157,9 @@ class BlockEdit extends Component {
           <AlignmentToolbar
             value={buttonsAlignValForControl}
             onChange={(value) => {
-              if (value === 'left') {
+              if ('left' === value) {
                 value = 'start';
-              } else if (value === 'right') {
+              } else if ('right' === value) {
                 value = 'end';
               }
               setAttributes({ buttonsAlign: value });
@@ -180,9 +179,9 @@ class BlockEdit extends Component {
                 <AlignmentToolbar
                   value={buttonsAlignValForControl}
                   onChange={(value) => {
-                    if (value === 'left') {
+                    if ('left' === value) {
                       value = 'start';
-                    } else if (value === 'right') {
+                    } else if ('right' === value) {
                       value = 'end';
                     }
                     setAttributes({ buttonsAlign: value });
@@ -239,7 +238,6 @@ class BlockEdit extends Component {
               <Tooltip text={__('Add Tab', '@@text_domain')}>
                 <Button
                   icon={
-                    // eslint-disable-next-line react/jsx-wrap-multilines
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"

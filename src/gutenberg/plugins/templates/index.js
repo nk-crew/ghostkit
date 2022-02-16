@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable no-param-reassign */
 /* eslint-disable max-classes-per-file */
 /**
  * External dependencies
@@ -65,7 +63,7 @@ class TemplatesModal extends Component {
 
     const result = [];
 
-    categorySelected = categorySelected === null ? this.getSelectedCategory(type) : '';
+    categorySelected = null === categorySelected ? this.getSelectedCategory(type) : '';
 
     templates.forEach((template) => {
       let allow = !type;
@@ -255,13 +253,13 @@ class TemplatesModal extends Component {
               const currentTemplates = this.getTemplates(tabType);
               const selectedCategory = this.getSelectedCategory(tabType);
 
-              if (tabType === 'pages') {
+              if ('pages' === tabType) {
                 return __('Coming Soon...', '@@text_domain');
               }
 
               return (
                 <Fragment>
-                  {currentTemplates === false ? (
+                  {false === currentTemplates ? (
                     <div className="ghostkit-plugin-templates-spinner">
                       <Spinner />
                     </div>
@@ -270,7 +268,7 @@ class TemplatesModal extends Component {
                   )}
                   {currentTemplates && !currentTemplates.length ? (
                     <div>
-                      {tabType === 'local' ? (
+                      {'local' === tabType ? (
                         <Fragment>
                           <p
                             style={{
@@ -396,7 +394,7 @@ class TemplatesModal extends Component {
                           );
                         })}
                       </Masonry>
-                      {tabType === 'local' ? (
+                      {'local' === tabType ? (
                         <ExternalLink
                           className="components-button is-button is-primary"
                           href={GHOSTKIT.adminTemplatesUrl}
@@ -424,7 +422,7 @@ class TemplatesModal extends Component {
 
 function checkMissingBlocksRecursive(blocks, result = {}) {
   blocks.forEach((item) => {
-    if (item.name === 'core/missing') {
+    if ('core/missing' === item.name) {
       result[item.attributes.originalName] = true;
     }
     if (item.innerBlocks) {
@@ -524,7 +522,7 @@ const TemplatesModalWithSelect = compose([
       templates,
       getTemplateData(data, cb) {
         let { type } = data;
-        if (type !== 'local' && type !== 'theme') {
+        if ('local' !== type && 'theme' !== type) {
           type = 'remote';
         }
 

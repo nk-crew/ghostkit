@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 /**
  * External dependencies
  */

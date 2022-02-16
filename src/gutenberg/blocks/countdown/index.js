@@ -31,12 +31,12 @@ export const settings = {
     customStylesCallback(attributes) {
       const styles = {
         '--gkt-countdown--unit-number__font-size':
-          typeof attributes.numberFontSize !== 'undefined'
+          'undefined' !== typeof attributes.numberFontSize
             ? `${attributes.numberFontSize}px`
             : undefined,
         '--gkt-countdown--unit-number__color': attributes.numberColor,
         '--gkt-countdown--unit-label__font-size':
-          typeof attributes.labelFontSize !== 'undefined'
+          'undefined' !== typeof attributes.labelFontSize
             ? `${attributes.labelFontSize}px`
             : undefined,
         '--gkt-countdown--unit-label__color': attributes.labelColor,

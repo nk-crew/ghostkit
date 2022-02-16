@@ -99,7 +99,7 @@ export default (() => {
    */
   function addToDate(ts, date) {
     date =
-      date instanceof Date || (date !== null && Number.isFinite(date))
+      date instanceof Date || (null !== date && Number.isFinite(date))
         ? new Date(+date)
         : new Date();
 
@@ -244,18 +244,18 @@ export default (() => {
    * @return {number} new fractional value
    */
   function fraction(ts, frac, fromUnit, toUnit, conversion, digits) {
-    if (ts[fromUnit] >= 0) {
+    if (0 <= ts[fromUnit]) {
       frac += ts[fromUnit];
       delete ts[fromUnit];
     }
 
     frac /= conversion;
-    if (frac + 1 <= 1) {
+    if (1 >= frac + 1) {
       // drop if below machine epsilon
       return 0;
     }
 
-    if (ts[toUnit] >= 0) {
+    if (0 <= ts[toUnit]) {
       // ensure does not have more than specified number of digits
       ts[toUnit] = +(ts[toUnit] + frac).toFixed(digits);
       rippleRounded(ts, toUnit);
@@ -330,7 +330,7 @@ export default (() => {
   function ripple(ts) {
     let x;
 
-    if (ts.milliseconds < 0) {
+    if (0 > ts.milliseconds) {
       // ripple seconds down to milliseconds
       x = ceil(-ts.milliseconds / MILLISECONDS_PER_SECOND);
       ts.seconds -= x;
@@ -341,7 +341,7 @@ export default (() => {
       ts.milliseconds %= MILLISECONDS_PER_SECOND;
     }
 
-    if (ts.seconds < 0) {
+    if (0 > ts.seconds) {
       // ripple minutes down to seconds
       x = ceil(-ts.seconds / SECONDS_PER_MINUTE);
       ts.minutes -= x;
@@ -352,7 +352,7 @@ export default (() => {
       ts.seconds %= SECONDS_PER_MINUTE;
     }
 
-    if (ts.minutes < 0) {
+    if (0 > ts.minutes) {
       // ripple hours down to minutes
       x = ceil(-ts.minutes / MINUTES_PER_HOUR);
       ts.hours -= x;
@@ -363,7 +363,7 @@ export default (() => {
       ts.minutes %= MINUTES_PER_HOUR;
     }
 
-    if (ts.hours < 0) {
+    if (0 > ts.hours) {
       // ripple days down to hours
       x = ceil(-ts.hours / HOURS_PER_DAY);
       ts.days -= x;
@@ -374,7 +374,7 @@ export default (() => {
       ts.hours %= HOURS_PER_DAY;
     }
 
-    while (ts.days < 0) {
+    while (0 > ts.days) {
       // NOTE: never actually seen this loop more than once
 
       // ripple months down to days
@@ -390,7 +390,7 @@ export default (() => {
       ts.days %= DAYS_PER_WEEK;
     }
 
-    if (ts.months < 0) {
+    if (0 > ts.months) {
       // ripple years down to months
       x = ceil(-ts.months / MONTHS_PER_YEAR);
       ts.years -= x;
@@ -517,7 +517,7 @@ export default (() => {
     ts.units = units;
 
     ts.value = end.getTime() - start.getTime();
-    if (ts.value < 0) {
+    if (0 > ts.value) {
       // swap if reversed
       const tmp = end;
       end = start;
@@ -554,27 +554,27 @@ export default (() => {
    * @return {number} milliseconds to delay
    */
   function getDelay(units = []) {
-    if (units.indexOf('milliseconds') !== -1) {
+    if (-1 !== units.indexOf('milliseconds')) {
       // refresh very quickly
       return MILLISECONDS_PER_SECOND / 30; // 30Hz
     }
 
-    if (units.indexOf('seconds') !== -1) {
+    if (-1 !== units.indexOf('seconds')) {
       // refresh every second
       return MILLISECONDS_PER_SECOND; // 1Hz
     }
 
-    if (units.indexOf('minutes') !== -1) {
+    if (-1 !== units.indexOf('minutes')) {
       // refresh every minute
       return MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE;
     }
 
-    if (units.indexOf('hours') !== -1) {
+    if (-1 !== units.indexOf('hours')) {
       // refresh hourly
       return MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOUR;
     }
 
-    if (units.indexOf('days') !== -1) {
+    if (-1 !== units.indexOf('days')) {
       // refresh daily
       return MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOUR * HOURS_PER_DAY;
     }
@@ -629,11 +629,11 @@ export default (() => {
     const units = unitsListToData(unitsList);
 
     // max must be positive
-    const max = unitsList.length > 0 ? unitsList.length : NaN;
+    const max = 0 < unitsList.length ? unitsList.length : NaN;
 
     // clamp digits to an integer between [0, 20]
-    if (digits > 0) {
-      digits = digits < 20 ? Math.round(digits) : 20;
+    if (0 < digits) {
+      digits = 20 > digits ? Math.round(digits) : 20;
     } else {
       digits = 0;
     }
@@ -641,10 +641,10 @@ export default (() => {
     // ensure start date
     let startTS = null;
     if (!(start instanceof Date)) {
-      if (start !== null && Number.isFinite(start)) {
+      if (null !== start && Number.isFinite(start)) {
         start = new Date(+start);
       } else {
-        if (typeof startTS === 'object') {
+        if ('object' === typeof startTS) {
           startTS = start;
         }
         start = null;
@@ -654,10 +654,10 @@ export default (() => {
     // ensure end date
     let endTS = null;
     if (!(end instanceof Date)) {
-      if (end !== null && Number.isFinite(end)) {
+      if (null !== end && Number.isFinite(end)) {
         end = new Date(+end);
       } else {
-        if (typeof end === 'object') {
+        if ('object' === typeof end) {
           endTS = end;
         }
         end = null;
@@ -721,7 +721,7 @@ export default (() => {
     }
 
     // additional 0 for number.
-    number = `${number < 10 ? '0' : ''}${number}`;
+    number = `${10 > number ? '0' : ''}${number}`;
 
     return {
       number,

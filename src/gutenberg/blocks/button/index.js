@@ -35,7 +35,7 @@ export const settings = {
       let result = {};
 
       // Custom Gap.
-      if (gap === 'custom' && typeof gapCustom !== 'undefined') {
+      if ('custom' === gap && 'undefined' !== typeof gapCustom) {
         // we need to use `%` unit because of conflict with complex calc() and 0 value.
         const unit = gapCustom ? 'px' : '%';
 

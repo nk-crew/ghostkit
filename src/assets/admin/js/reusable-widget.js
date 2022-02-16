@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const { jQuery: $ } = window;
 
 function updateReusableBlockLinks($widgets) {

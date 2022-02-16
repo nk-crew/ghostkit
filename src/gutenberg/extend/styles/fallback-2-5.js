@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * Fallback for plugin version <= 2.5.
  * We changed styles output in 2.6 update.
@@ -95,7 +94,7 @@ function addSaveProps(extraProps, blockType, attributes) {
 
   const customStyles = attributes.ghostkitStyles ? { ...attributes.ghostkitStyles } : false;
 
-  if (customStyles && Object.keys(customStyles).length !== 0) {
+  if (customStyles && 0 !== Object.keys(customStyles).length) {
     let styles = getStyles(customStyles);
 
     if (blockType.ghostkit && blockType.ghostkit.customStylesFilter) {

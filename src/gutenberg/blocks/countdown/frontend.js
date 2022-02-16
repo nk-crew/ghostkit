@@ -13,7 +13,7 @@ const $doc = $(document);
 $doc.on('initBlocks.ghostkit', (e, self) => {
   function updateUnits(momentData, units, unitsElements, $this) {
     const dateData = countDownApi(momentData.toDate(), moment().toDate(), units, 0);
-    const isEnd = dateData.value >= 0;
+    const isEnd = 0 <= dateData.value;
 
     if (isEnd) {
       $this.children('.ghostkit-countdown-unit').hide();
@@ -24,7 +24,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     Object.keys(unitsElements).forEach((unitName) => {
       let formattedUnit = false;
 
-      if (dateData && typeof dateData[unitName] !== 'undefined') {
+      if (dateData && 'undefined' !== typeof dateData[unitName]) {
         formattedUnit = countDownApi.formatUnit(dateData[unitName], unitName);
       }
 

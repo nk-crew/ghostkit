@@ -47,7 +47,7 @@ class ToolbarTemplates extends Component {
     );
 
     const checkElement = async (selector) => {
-      while (document.querySelector(selector) === null) {
+      while (null === document.querySelector(selector)) {
         // eslint-disable-next-line no-promise-executor-return, no-await-in-loop
         await new Promise((resolve) => requestAnimationFrame(resolve));
       }

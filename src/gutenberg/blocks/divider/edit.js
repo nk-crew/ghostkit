@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-curly-newline */
 /**
  * External dependencies
  */
@@ -130,7 +129,6 @@ class BlockEdit extends Component {
           </PanelBody>
           <PanelBody
             title={
-              // eslint-disable-next-line react/jsx-wrap-multilines
               <Fragment>
                 {__('Colors', '@@text_domain')}
                 <ColorIndicator colorValue={color} />
@@ -155,7 +153,7 @@ class BlockEdit extends Component {
               ]}
             >
               {(tabData) => {
-                const isHover = tabData.name === 'hover';
+                const isHover = 'hover' === tabData.name;
                 return (
                   <Fragment>
                     <ApplyFilters

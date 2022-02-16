@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable max-classes-per-file */
 /**
  * External dependencies
@@ -72,7 +71,7 @@ registerBlockStyle('core/list', {
  * @return {Object} Filtered block settings.
  */
 function addAttribute(blockSettings, name) {
-  if (name === 'core/list') {
+  if ('core/list' === name) {
     if (!blockSettings.attributes.ghostkitListIcon) {
       blockSettings.attributes.ghostkitListIcon = {
         type: 'string',
@@ -99,7 +98,7 @@ const COLUMNS_COUNT_MAX = 6;
  * @returns {String} columns value.
  */
 function getCurrentColumns(className, screen) {
-  if (!screen || screen === 'all') {
+  if (!screen || 'all' === screen) {
     for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
       if (hasClass(className, `ghostkit-list-columns-${k}`)) {
         return `${k}`;
@@ -133,7 +132,7 @@ class GhostKitListColumns extends Component {
 
     let newClassName = className;
 
-    if (screen && screen !== 'all') {
+    if (screen && 'all' !== screen) {
       newClassName = replaceClass(newClassName, `ghostkit-list-columns-${screen}`, val);
     } else {
       for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
@@ -257,7 +256,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 
       const { ghostkitListIcon, ghostkitListIconColor, className } = attributes;
 
-      if (props.name !== 'core/list') {
+      if ('core/list' !== props.name) {
         return <OriginalComponent {...props} />;
       }
 
@@ -310,7 +309,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 function addEditorCustomStyles(customStyles, props) {
   const result = {};
 
-  if (props.name !== 'core/list' || !hasClass(props.attributes.className, 'is-style-icon')) {
+  if ('core/list' !== props.name || !hasClass(props.attributes.className, 'is-style-icon')) {
     return customStyles;
   }
 

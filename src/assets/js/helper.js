@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const { ghostkitVariables } = window;
 const $ = window.jQuery;
 const $doc = $(document);
@@ -49,7 +48,7 @@ window.GHOSTKIT = {
   customTypographyList: ghostkitVariables.customTypographyList,
   variants: ghostkitVariables.variants,
   getVariants(name) {
-    if (typeof this.variants[name] !== 'undefined') {
+    if ('undefined' !== typeof this.variants[name]) {
       return this.variants[name];
     }
     return false;
@@ -72,7 +71,7 @@ window.GHOSTKIT = {
    * @return {Mixed} - supports flag
    */
   hasBlockSupport(block, featureName, defaultVal = false) {
-    if (typeof block === 'string' && wp && wp.blocks) {
+    if ('string' === typeof block && wp && wp.blocks) {
       const { getBlockType } = wp.blocks;
 
       if (getBlockType) {
@@ -84,7 +83,7 @@ window.GHOSTKIT = {
       block &&
       block.ghostkit &&
       block.ghostkit.supports &&
-      typeof block.ghostkit.supports[featureName] !== 'undefined'
+      'undefined' !== typeof block.ghostkit.supports[featureName]
     ) {
       return block.ghostkit.supports[featureName];
     }

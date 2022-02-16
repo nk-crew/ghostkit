@@ -59,7 +59,7 @@ class BlockEdit extends Component {
 
     const result = [];
 
-    if (count > 0) {
+    if (0 < count) {
       for (let k = 1; k <= count; k += 1) {
         result.push(['ghostkit/pricing-table-item']);
       }
@@ -109,26 +109,26 @@ class BlockEdit extends Component {
             onChange={(val) => setAttributes({ horizontalAlign: val })}
           />
         </BlockControls>
-        {count > 1 ? (
+        {1 < count ? (
           <BlockControls>
             <ToolbarGroup>
               <ToolbarButton
                 icon={getIcon('icon-vertical-top')}
                 title={__('ItemsVertical Start', '@@text_domain')}
                 onClick={() => setAttributes({ verticalAlign: '' })}
-                isActive={verticalAlign === ''}
+                isActive={'' === verticalAlign}
               />
               <ToolbarButton
                 icon={getIcon('icon-vertical-center')}
                 title={__('ItemsVertical Center', '@@text_domain')}
                 onClick={() => setAttributes({ verticalAlign: 'center' })}
-                isActive={verticalAlign === 'center'}
+                isActive={'center' === verticalAlign}
               />
               <ToolbarButton
                 icon={getIcon('icon-vertical-bottom')}
                 title={__('ItemsVertical End', '@@text_domain')}
                 onClick={() => setAttributes({ verticalAlign: 'end' })}
-                isActive={verticalAlign === 'end'}
+                isActive={'end' === verticalAlign}
               />
             </ToolbarGroup>
           </BlockControls>
@@ -144,19 +144,19 @@ class BlockEdit extends Component {
                     icon={getIcon('icon-vertical-top')}
                     title={__('ItemsVertical Start', '@@text_domain')}
                     onClick={() => setAttributes({ verticalAlign: '' })}
-                    isActive={verticalAlign === ''}
+                    isActive={'' === verticalAlign}
                   />
                   <ToolbarButton
                     icon={getIcon('icon-vertical-center')}
                     title={__('ItemsVertical Center', '@@text_domain')}
                     onClick={() => setAttributes({ verticalAlign: 'center' })}
-                    isActive={verticalAlign === 'center'}
+                    isActive={'center' === verticalAlign}
                   />
                   <ToolbarButton
                     icon={getIcon('icon-vertical-bottom')}
                     title={__('ItemsVertical End', '@@text_domain')}
                     onClick={() => setAttributes({ verticalAlign: 'end' })}
-                    isActive={verticalAlign === 'end'}
+                    isActive={'end' === verticalAlign}
                   />
                 </Toolbar>
               </div>
@@ -182,7 +182,7 @@ class BlockEdit extends Component {
           </PanelBody>
         </InspectorControls>
         <div className={className}>
-          {count > 0 ? (
+          {0 < count ? (
             <InnerBlocks
               template={this.getInnerBlocksTemplate()}
               allowedBlocks={['ghostkit/pricing-table-item']}
@@ -193,12 +193,11 @@ class BlockEdit extends Component {
             ''
           )}
         </div>
-        {isSelectedBlockInRoot && count < 6 ? (
+        {isSelectedBlockInRoot && 6 > count ? (
           <div className="ghostkit-pricing-table-add-item">
             <Button
               isSecondary
               icon={
-                // eslint-disable-next-line react/jsx-wrap-multilines
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"

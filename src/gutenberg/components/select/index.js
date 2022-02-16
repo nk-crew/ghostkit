@@ -1,8 +1,6 @@
-/* eslint-disable indent */
 /**
  * External dependencies
  */
-// eslint-disable-next-line import/no-unresolved
 import Select from 'react-select-virtualized';
 import selectStyles from 'gutenberg-react-select-styles';
 import classnames from 'classnames/dedupe';

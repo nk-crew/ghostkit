@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * Internal dependencies
  */
@@ -54,7 +53,7 @@ export default function getStyles(data = {}, selector = '', escape = true) {
   // add styles.
   Object.keys(data).forEach((key) => {
     // object values.
-    if (data[key] !== null && typeof data[key] === 'object') {
+    if (null !== data[key] && 'object' === typeof data[key]) {
       // media for different screens
       if (/^media_/.test(key)) {
         resultCSS += `${resultCSS ? ' ' : ''}@media #{ghostkitvar:${key}} { ${getStyles(
@@ -72,7 +71,7 @@ export default function getStyles(data = {}, selector = '', escape = true) {
         let nestedSelector = selector;
 
         if (nestedSelector) {
-          if (key.indexOf('&') !== -1) {
+          if (-1 !== key.indexOf('&')) {
             nestedSelector = key.replace(/&/g, nestedSelector);
           } else {
             nestedSelector = `${nestedSelector} ${key}`;
@@ -85,7 +84,7 @@ export default function getStyles(data = {}, selector = '', escape = true) {
       }
 
       // style properties and values.
-    } else if (typeof data[key] !== 'undefined' && data[key] !== false) {
+    } else if ('undefined' !== typeof data[key] && false !== data[key]) {
       // fix selector > and < usage.
       if (escape) {
         selector = selector.replace(/>/g, '&gt;');
@@ -106,16 +105,16 @@ export default function getStyles(data = {}, selector = '', escape = true) {
 
       // add pixels.
       if (
-        (typeof propValue === 'number' &&
-          propValue !== 0 &&
+        ('number' === typeof propValue &&
+          0 !== propValue &&
           cssPropsWithPixels.includes(propName)) ||
-        (typeof propValue === 'string' && propValue && /^[0-9.-]*$/.test(propValue))
+        ('string' === typeof propValue && propValue && /^[0-9.-]*$/.test(propValue))
       ) {
         propValue += 'px';
       }
 
       // add custom css.
-      if (typeof propValue !== 'undefined' && propValue !== '') {
+      if ('undefined' !== typeof propValue && '' !== propValue) {
         if (thereIsImportant) {
           propValue += ' !important';
         }

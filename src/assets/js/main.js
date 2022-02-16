@@ -45,14 +45,14 @@ const hasScrolled = () => {
   );
   const wndH = window.innerHeight || html.clientHeight || body.clientHeight;
 
-  if (ST === 0) {
+  if (0 === ST) {
     type = 'start';
   } else if (ST >= docH - wndH) {
     type = 'end';
   }
 
   throttleScrollList.forEach((value) => {
-    if (typeof value === 'function') {
+    if ('function' === typeof value) {
       value(type, ST, lastST);
     }
   });
@@ -107,7 +107,6 @@ class GhostKitClass {
     // Additional easing.
     $.extend($.easing, {
       easeOutCubic(x, t, b, c, d) {
-        // eslint-disable-next-line no-return-assign, no-param-reassign
         return c * ((t = t / d - 1) * t * t + 1) + b;
       },
     });
@@ -205,20 +204,20 @@ class GhostKitClass {
     let visibleWidth = 0;
 
     // on top of viewport
-    if (rect.top < 0 && rectH + rect.top > 0) {
+    if (0 > rect.top && 0 < rectH + rect.top) {
       visibleHeight = rectH + rect.top;
 
       // on bot of viewport.
-    } else if (rect.top > 0 && rect.top < window.innerHeight) {
+    } else if (0 < rect.top && rect.top < window.innerHeight) {
       visibleHeight = window.innerHeight - rect.top;
     }
 
     // on left of viewport
-    if (rect.left < 0 && rectW + rect.left > 0) {
+    if (0 > rect.left && 0 < rectW + rect.left) {
       visibleWidth = rectW + rect.left;
 
       // on bot of viewport.
-    } else if (window.innerWidth - rect.left > 0) {
+    } else if (0 < window.innerWidth - rect.left) {
       visibleWidth = window.innerWidth - rect.left;
     }
 
@@ -241,7 +240,7 @@ class GhostKitClass {
     $('.is-style-styled:not(.is-style-styled-ready)').each(function () {
       const $this = $(this);
       const start = parseInt($this.attr('start'), 10);
-      const isReversed = typeof $this.attr('reversed') !== 'undefined';
+      const isReversed = 'undefined' !== typeof $this.attr('reversed');
       const itemsCount = $this.children().length;
 
       $this.addClass('is-style-styled-ready');

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 function reducer(state = { feeds: {}, profiles: {} }, action = {}) {
   switch (action.type) {
     case 'SET_TWITTER_FEED':

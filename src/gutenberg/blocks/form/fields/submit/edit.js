@@ -52,7 +52,7 @@ class BlockEdit extends Component {
 
     className = classnames(
       'ghostkit-form-submit-button',
-      align && align !== 'none' ? `ghostkit-form-submit-button-align-${align}` : false,
+      align && 'none' !== align ? `ghostkit-form-submit-button-align-${align}` : false,
       className
     );
 
@@ -115,7 +115,7 @@ function getAllButtonBlocks(submitData) {
   if (submitData.innerBlocks && submitData.innerBlocks.length) {
     submitData.innerBlocks.forEach((block) => {
       // field data.
-      if (block.name && block.name === 'ghostkit/button-single') {
+      if (block.name && 'ghostkit/button-single' === block.name) {
         result.push(block);
       }
 
@@ -148,7 +148,7 @@ export default compose([
 
         // Generate slugs for new fields.
         allButtonBlocks.forEach((data) => {
-          if (!data.attributes.tagName || data.attributes.tagName !== 'button') {
+          if (!data.attributes.tagName || 'button' !== data.attributes.tagName) {
             updateBlockAttributes(data.clientId, {
               tagName: 'button',
             });

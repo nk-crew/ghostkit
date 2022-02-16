@@ -57,7 +57,7 @@ class BlockEdit extends Component {
 
     const result = [];
 
-    if (count > 0) {
+    if (0 < count) {
       for (let k = 1; k <= count; k += 1) {
         result.push(['ghostkit/button-single']);
       }
@@ -91,7 +91,7 @@ class BlockEdit extends Component {
     className = classnames(
       'ghostkit-button-wrapper',
       gap ? `ghostkit-button-wrapper-gap-${gap}` : false,
-      align && align !== 'none' ? `ghostkit-button-wrapper-align-${align}` : false,
+      align && 'none' !== align ? `ghostkit-button-wrapper-align-${align}` : false,
       className
     );
 
@@ -134,11 +134,9 @@ class BlockEdit extends Component {
             renderAppender={
               isSelectedBlockInRoot
                 ? () => (
-                    // eslint-disable-next-line react/jsx-indent
                     <Tooltip text={__('Add Button', '@@text_domain')}>
                       <Button
                         icon={
-                          // eslint-disable-next-line react/jsx-wrap-multilines
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -156,7 +154,6 @@ class BlockEdit extends Component {
                         }}
                       />
                     </Tooltip>
-                    // eslint-disable-next-line indent
                   )
                 : undefined
             }

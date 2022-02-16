@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-curly-newline */
 /**
  * External dependencies
  */
@@ -107,10 +106,10 @@ class BlockEdit extends Component {
     if (isSelected) {
       isNormalState = true;
 
-      if (this.state.selectedColorState === 'hover') {
+      if ('hover' === this.state.selectedColorState) {
         isNormalState = false;
         isHoveredState = true;
-      } else if (this.state.selectedColorState === 'focus') {
+      } else if ('focus' === this.state.selectedColorState) {
         isNormalState = false;
         isFocusedState = true;
       }
@@ -228,7 +227,6 @@ class BlockEdit extends Component {
           </PanelBody>
           <PanelBody
             title={
-              // eslint-disable-next-line react/jsx-wrap-multilines
               <Fragment>
                 {__('Colors', '@@text_domain')}
                 <ColorIndicator colorValue={color} />
@@ -253,10 +251,10 @@ class BlockEdit extends Component {
               }}
             >
               {(tabData) => {
-                const isHover = tabData.name === 'hover';
+                const isHover = 'hover' === tabData.name;
 
                 // focus tab
-                if (tabData.name === 'focus') {
+                if ('focus' === tabData.name) {
                   return (
                     <ApplyFilters
                       name="ghostkit.editor.controls"
@@ -333,7 +331,7 @@ class BlockEdit extends Component {
           {icon ? (
             <div
               className={`ghostkit-button-icon ghostkit-button-icon-${
-                iconPosition === 'right' ? 'right' : 'left'
+                'right' === iconPosition ? 'right' : 'left'
               }`}
             >
               <IconPicker.Dropdown
@@ -360,7 +358,7 @@ class BlockEdit extends Component {
             ''
           )}
         </div>
-        {!tagName || tagName === 'a' ? (
+        {!tagName || 'a' === tagName ? (
           <URLPicker
             url={url}
             rel={rel}

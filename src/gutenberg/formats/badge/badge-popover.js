@@ -15,7 +15,7 @@ function getSelectedBadge() {
 
   // Unlikely, but in the case there is no selection, return empty styles so
   // as to avoid a thrown error by `Selection#getRangeAt` on invalid index.
-  if (selection.rangeCount === 0) {
+  if (0 === selection.rangeCount) {
     return false;
   }
 

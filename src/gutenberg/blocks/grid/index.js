@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * Internal dependencies
  */
@@ -53,7 +52,7 @@ export const settings = {
       }
 
       // Custom Gap.
-      if (gap === 'custom' && typeof gapCustom !== 'undefined') {
+      if ('custom' === gap && 'undefined' !== typeof gapCustom) {
         // we need to use `%` unit because of conflict with complex calc() and 0 value.
         const unit = gapCustom ? 'px' : '%';
 
@@ -133,7 +132,7 @@ export const withClasses = createHigherOrderComponent(
     function (props) {
       const { name: blockName } = props;
 
-      if (blockName === 'ghostkit/grid' && props.attributes.isTemplatesModalOnly) {
+      if ('ghostkit/grid' === blockName && props.attributes.isTemplatesModalOnly) {
         return <BlockListBlock {...props} data-ghostkit-grid-templates-modal-only="true" />;
       }
 

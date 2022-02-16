@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
  * External dependencies
  */
@@ -48,11 +47,11 @@ function CustomStylesComponent(props) {
     const newStyles = {};
 
     Object.keys(styles).forEach((key) => {
-      if (typeof styles[key] !== 'undefined') {
+      if ('undefined' !== typeof styles[key]) {
         if (
-          typeof styles[key] === 'object' &&
+          'object' === typeof styles[key] &&
           !Array.isArray(styles[key]) &&
-          styles[key] !== null
+          null !== styles[key]
         ) {
           const innerStyles = cleanBlockCustomStyles(styles[key]);
 
@@ -119,20 +118,20 @@ function CustomStylesComponent(props) {
       }
 
       // prepare new block id.
-      if (clientId && !ghostkitId && typeof ghostkitId !== 'undefined') {
+      if (clientId && !ghostkitId && 'undefined' !== typeof ghostkitId) {
         let ID = ghostkitId || '';
 
         // check if ID already exist.
         let tryCount = 10;
         while (
           !ID ||
-          (typeof usedIds[ID] !== 'undefined' && usedIds[ID] !== clientId && tryCount > 0)
+          ('undefined' !== typeof usedIds[ID] && usedIds[ID] !== clientId && 0 < tryCount)
         ) {
           ID = shorthash.unique(clientId);
           tryCount -= 1;
         }
 
-        if (ID && typeof usedIds[ID] === 'undefined') {
+        if (ID && 'undefined' === typeof usedIds[ID]) {
           usedIds[ID] = clientId;
         }
 

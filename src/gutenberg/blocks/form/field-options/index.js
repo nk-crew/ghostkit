@@ -53,7 +53,7 @@ class FieldOptions extends Component {
               />
               <Button
                 onClick={() => {
-                  if (options.length > 1) {
+                  if (1 < options.length) {
                     const newOpts = [...options];
                     newOpts.splice(i, 1);
 

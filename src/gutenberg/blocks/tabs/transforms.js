@@ -1,4 +1,3 @@
-/* eslint-disable function-paren-newline */
 /**
  * Internal dependencies
  */

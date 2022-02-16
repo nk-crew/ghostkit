@@ -77,10 +77,10 @@ export default class GapSettings extends Component {
 
             // Add current predefined gap to custom value.
             if (
-              value === 'custom' &&
-              gap !== 'custom' &&
-              typeof gapCustom === 'undefined' &&
-              typeof GAP_VALUES[gap] !== 'undefined'
+              'custom' === value &&
+              'custom' !== gap &&
+              'undefined' === typeof gapCustom &&
+              'undefined' !== typeof GAP_VALUES[gap]
             ) {
               result.gapCustom = GAP_VALUES[gap];
             }
@@ -89,7 +89,7 @@ export default class GapSettings extends Component {
           }}
           isAdaptiveWidth
         />
-        {gap === 'custom' ? (
+        {'custom' === gap ? (
           <Fragment>
             <p />
             <RangeControl

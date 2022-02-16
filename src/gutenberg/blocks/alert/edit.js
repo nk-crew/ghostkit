@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-curly-newline */
 /**
  * External dependencies
  */
@@ -113,7 +112,6 @@ function BlockEdit(props) {
         </PanelBody>
         <PanelBody
           title={
-            // eslint-disable-next-line react/jsx-wrap-multilines
             <Fragment>
               {__('Colors', '@@text_domain')}
               <ColorIndicator colorValue={color} />
@@ -137,7 +135,7 @@ function BlockEdit(props) {
             ]}
           >
             {(tabData) => {
-              const isHover = tabData.name === 'hover';
+              const isHover = 'hover' === tabData.name;
               return (
                 <ApplyFilters
                   name="ghostkit.editor.controls"
@@ -205,6 +203,6 @@ export default withSelect((select, props) => {
   const blockEditor = select('core/block-editor');
 
   return {
-    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
+    hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
   };
 })(BlockEdit);

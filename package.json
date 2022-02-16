@@ -28,7 +28,8 @@
     "@babel/register": "^7.16.0",
     "@svgr/webpack": "^5.5.0",
     "base64-inline-loader": "^2.0.1",
-    "eslint-config-nk": "^1.0.8",
+    "browserslist-config-nk": "^1.0.0",
+    "eslint-config-nk": "^1.1.0-beta.3",
     "husky": "^7.0.4",
     "json-file": "^0.1.0",
     "lint-staged": "^12.1.2",
@@ -36,8 +37,8 @@
     "micromatch": "^4.0.4",
     "path": "^0.12.7",
     "po2json": "^0.4.5",
-    "prettier-config-nk": "^1.0.2",
-    "stylelint-config-nk": "^1.0.8",
+    "prettier-config-nk": "^1.1.0",
+    "stylelint-config-nk": "^1.1.0",
     "wpeg": "^1.2.6"
   },
   "dependencies": {

@@ -4,7 +4,7 @@
 import allIcons from '../../icons/index';
 
 export default function getIcon(icon, returnObject) {
-  if (icon && typeof allIcons[icon] !== 'undefined') {
+  if (icon && 'undefined' !== typeof allIcons[icon]) {
     // return object for block registration.
     if (returnObject) {
       return {

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable react/no-danger */
 /**
  * Internal dependencies
@@ -122,7 +121,6 @@ selector p {
       <InspectorControls>
         <PanelBody
           title={
-            // eslint-disable-next-line react/jsx-wrap-multilines
             <Fragment>
               <span className="ghostkit-ext-icon">{getIcon('extension-custom-css')}</span>
               <span>{__('Custom CSS', '@@text_domain')}</span>

@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 /**
  * Internal dependencies
  */
@@ -51,7 +50,7 @@ export default class ResponsiveTabPanel extends Component {
         title: (
           <Tooltip
             text={
-              mediaName === 'all'
+              'all' === mediaName
                 ? __('All devices', '@@text_domain')
                 : sprintf(
                     __('Devices with screen width <= %s', '@@text_domain'),

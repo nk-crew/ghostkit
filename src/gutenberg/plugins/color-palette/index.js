@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-wrap-multilines */
-/* eslint-disable no-param-reassign */
 /* eslint-disable max-classes-per-file */
 /**
  * Internal dependencies

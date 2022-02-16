@@ -40,10 +40,10 @@ const getDefaultColumnSizes = function () {
     },
   ];
 
-  for (let k = 1; k <= 12; k += 1) {
+  for (let k = 1; 12 >= k; k += 1) {
     result.push({
       label: sprintf(
-        k === 1 ? __('%d Column (%s)', '@@text_domain') : __('%d Columns (%s)', '@@text_domain'),
+        1 === k ? __('%d Column (%s)', '@@text_domain') : __('%d Columns (%s)', '@@text_domain'),
         k,
         `${Math.round(((100 * k) / 12) * 100) / 100}%`
       ),
@@ -111,7 +111,7 @@ class BlockEdit extends Component {
         let orderName = 'order';
         let verticalAlignName = 'verticalAlign';
 
-        if (media !== 'all') {
+        if ('all' !== media) {
           sizeName = `${media}_${sizeName}`;
           orderName = `${media}_${orderName}`;
           verticalAlignName = `${media}_${verticalAlignName}`;
@@ -140,7 +140,7 @@ class BlockEdit extends Component {
                   let orderName = 'order';
                   let verticalAlignName = 'verticalAlign';
 
-                  if (tabData.name !== 'all') {
+                  if ('all' !== tabData.name) {
                     sizeName = `${tabData.name}_${sizeName}`;
                     orderName = `${tabData.name}_${orderName}`;
                     verticalAlignName = `${tabData.name}_${verticalAlignName}`;
@@ -259,6 +259,6 @@ export default withSelect((select, ownProps) => {
   const blockEditor = select('core/block-editor');
 
   return {
-    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
+    hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
   };
 })(BlockEdit);
