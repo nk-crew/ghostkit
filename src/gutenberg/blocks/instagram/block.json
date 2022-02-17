@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/instagram",
   "category": "media",
+  "title": "Instagram",
+  "description": "Show Instagram feed and user data.",
+  "keywords": ["instagram"],
   "supports": {
     "html": false,
     "className": false,

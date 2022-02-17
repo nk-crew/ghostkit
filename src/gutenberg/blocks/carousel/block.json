@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/carousel",
   "category": "design",
+  "title": "Carousel",
+  "description": "Carousel for any type of content - images or other blocks.",
+  "keywords": ["carousel", "slider"],
   "supports": {
     "html": false,
     "className": false,

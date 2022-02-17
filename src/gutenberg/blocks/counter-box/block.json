@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/counter-box",
   "category": "design",
+  "title": "Number Box",
+  "description": "Show your progress and rewards using counting numbers.",
+  "keywords": ["number", "counter"],
   "supports": {
     "html": false,
     "className": false,

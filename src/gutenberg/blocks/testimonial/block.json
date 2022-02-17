@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/testimonial",
   "category": "text",
+  "title": "Testimonial",
+  "description": "Show how your users love your products and what saying.",
+  "keywords": ["testimonial", "blockquote", "quote"],
   "supports": {
     "html": false,
     "className": false,

@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/divider",
   "category": "design",
+  "title": "Divider",
+  "description": "Divide your long texts and blocks.",
+  "keywords": ["divider", "spacer"],
   "supports": {
     "html": false,
     "className": false,

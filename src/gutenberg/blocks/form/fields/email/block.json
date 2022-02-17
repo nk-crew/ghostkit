@@ -1,11 +1,13 @@
 {
   "name": "ghostkit/form-field-email",
+  "parent": ["ghostkit/form"],
   "category": "ghostkit",
+  "title": "Email",
+  "description": "Form field email.",
   "supports": {
     "html": false,
     "className": false,
     "anchor": true,
     "reusable": false
-  },
-  "parent": ["ghostkit/form"]
+  }
 }

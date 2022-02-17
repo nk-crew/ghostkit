@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/icon-box",
   "category": "design",
+  "title": "Icon Box",
+  "description": "Icons are one of the best visual replacement for text descriptions.",
+  "keywords": ["icon", "icon-box"],
   "supports": {
     "html": false,
     "className": false,

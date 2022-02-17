@@ -7,25 +7,13 @@ import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Shape Divider', '@@text_domain'),
-  description: __('Decorations for section shapes.', '@@text_domain'),
   icon: getIcon('block-shape-divider', true),
-  keywords: [
-    __('shape', '@@text_domain'),
-    __('svg', '@@text_domain'),
-    __('spacer', '@@text_domain'),
-  ],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/shape-divider/',
     customStylesCallback(attributes) {

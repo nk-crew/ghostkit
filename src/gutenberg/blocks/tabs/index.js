@@ -19,10 +19,7 @@ export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Tabs', '@@text_domain'),
-  description: __('Separate content on the tabs with titles.', '@@text_domain'),
   icon: getIcon('block-tabs', true),
-  keywords: [__('tabs', '@@text_domain'), __('tab', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/tabs/',
     supports: {

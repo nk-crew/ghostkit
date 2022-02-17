@@ -13,8 +13,6 @@ import transforms from './transforms';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-
 const { createHigherOrderComponent } = wp.compose;
 
 const { addFilter } = wp.hooks;
@@ -25,17 +23,7 @@ export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Grid', '@@text_domain'),
-  description: __(
-    'Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.',
-    '@@text_domain'
-  ),
   icon: getIcon('block-grid', true),
-  keywords: [
-    __('row', '@@text_domain'),
-    __('columns', '@@text_domain'),
-    __('section', '@@text_domain'),
-  ],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/grid/',
     customStylesCallback(attributes) {

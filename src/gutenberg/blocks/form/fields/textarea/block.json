@@ -1,11 +1,13 @@
 {
   "name": "ghostkit/form-field-textarea",
+  "parent": ["ghostkit/form"],
   "category": "ghostkit",
+  "title": "Textarea",
+  "description": "Form field textarea.",
   "supports": {
     "html": false,
     "className": false,
     "anchor": true,
     "reusable": false
-  },
-  "parent": ["ghostkit/form"]
+  }
 }

@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/pricing-table",
   "category": "design",
+  "title": "Pricing Table",
+  "description": "Sell your products or services and show all features.",
+  "keywords": ["pricing", "table"],
   "supports": {
     "html": false,
     "className": false,

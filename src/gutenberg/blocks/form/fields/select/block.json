@@ -1,11 +1,13 @@
 {
   "name": "ghostkit/form-field-select",
+  "parent": ["ghostkit/form"],
   "category": "ghostkit",
+  "title": "Select",
+  "description": "Form field select.",
   "supports": {
     "html": false,
     "className": false,
     "anchor": true,
     "reusable": false
-  },
-  "parent": ["ghostkit/form"]
+  }
 }

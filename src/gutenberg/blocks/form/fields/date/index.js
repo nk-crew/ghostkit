@@ -7,19 +7,12 @@ import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Date', '@@text_domain'),
-  description: __('Form field date.', '@@text_domain'),
   icon: getIcon('block-form-field-date', true),
   ghostkit: {
     supports: {

@@ -2,6 +2,8 @@
   "name": "ghostkit/grid-column",
   "parent": ["ghostkit/grid"],
   "category": "design",
+  "title": "Column",
+  "description": "A single column within a grid block.",
   "supports": {
     "html": false,
     "className": false,

@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/video",
   "category": "media",
+  "title": "Video",
+  "description": "Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.",
+  "keywords": ["video", "youtube", "vimeo"],
   "supports": {
     "html": false,
     "className": false,

@@ -9,21 +9,13 @@ import save from './save';
 import transforms from './transforms';
 import deprecated from './deprecated';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Alert', '@@text_domain'),
-  description: __('Provide contextual feedback messages for user actions.', '@@text_domain'),
   icon: getIcon('block-alert', true),
-  keywords: [__('alert', '@@text_domain'), __('notification', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/alert/',
     customStylesCallback(attributes) {

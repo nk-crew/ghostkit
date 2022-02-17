@@ -2,6 +2,8 @@
   "name": "ghostkit/accordion-item",
   "parent": ["ghostkit/accordion"],
   "category": "design",
+  "title": "Item",
+  "description": "A single item within a accordion block.",
   "supports": {
     "html": false,
     "className": false,

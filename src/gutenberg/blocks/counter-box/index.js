@@ -1,7 +1,4 @@
 /**
- * WordPress dependencies
- */
-/**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
@@ -11,18 +8,13 @@ import edit from './edit';
 import save from './save';
 import transforms from './transforms';
 
-const { __ } = wp.i18n;
-
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Number Box', '@@text_domain'),
-  description: __('Show your progress and rewards using counting numbers.', '@@text_domain'),
   icon: getIcon('block-counter-box', true),
-  keywords: [__('number', '@@text_domain'), __('counter', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/number-box/',
     customStylesCallback(attributes) {

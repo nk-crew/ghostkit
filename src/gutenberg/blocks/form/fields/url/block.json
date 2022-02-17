@@ -1,11 +1,13 @@
 {
   "name": "ghostkit/form-field-url",
+  "parent": ["ghostkit/form"],
   "category": "ghostkit",
+  "title": "URL",
+  "description": "Form field url.",
   "supports": {
     "html": false,
     "className": false,
     "anchor": true,
     "reusable": false
-  },
-  "parent": ["ghostkit/form"]
+  }
 }

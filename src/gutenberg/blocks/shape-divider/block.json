@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/shape-divider",
   "category": "design",
+  "title": "Shape Divider",
+  "description": "Decorations for section shapes.",
+  "keywords": ["shape", "svg", "spacer"],
   "supports": {
     "html": false,
     "className": false,

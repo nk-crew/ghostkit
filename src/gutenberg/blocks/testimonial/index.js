@@ -9,25 +9,13 @@ import save from './save';
 import transforms from './transforms';
 import deprecated from './deprecated';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Testimonial', '@@text_domain'),
-  description: __('Show how your users love your products and what saying.', '@@text_domain'),
   icon: getIcon('block-testimonial', true),
-  keywords: [
-    __('testimonial', '@@text_domain'),
-    __('blockquote', '@@text_domain'),
-    __('quote', '@@text_domain'),
-  ],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/testimonial/',
     supports: {

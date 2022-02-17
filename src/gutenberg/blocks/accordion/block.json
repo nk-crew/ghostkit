@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/accordion",
   "category": "design",
+  "title": "Accordion",
+  "description": "Toggle the visibility of content across your project.",
+  "keywords": ["accordion", "collapsible", "collapse"],
   "supports": {
     "html": false,
     "className": false,

@@ -2,6 +2,8 @@
   "name": "ghostkit/pricing-table-item",
   "parent": ["ghostkit/pricing-table"],
   "category": "design",
+  "title": "Pricing Table Item",
+  "description": "A single item within a pricing table block.",
   "supports": {
     "html": false,
     "className": false,

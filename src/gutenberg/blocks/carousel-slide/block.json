@@ -2,6 +2,8 @@
   "name": "ghostkit/carousel-slide",
   "parent": ["ghostkit/carousel"],
   "category": "design",
+  "title": "Slide",
+  "description": "A single slide within a carousel block.",
   "supports": {
     "html": false,
     "className": false,

@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/grid",
   "category": "design",
+  "title": "Grid",
+  "description": "Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.",
+  "keywords": ["row", "columns", "section"],
   "supports": {
     "html": false,
     "className": false,

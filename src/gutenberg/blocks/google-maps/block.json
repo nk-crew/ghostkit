@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/google-maps",
   "category": "media",
+  "title": "Google Maps",
+  "description": "Show maps with custom styles, markers and settings.",
+  "keywords": ["maps", "google"],
   "supports": {
     "html": false,
     "className": false,

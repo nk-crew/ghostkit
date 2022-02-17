@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/changelog",
   "category": "text",
+  "title": "Changelog",
+  "description": "Show the changes log of your product.",
+  "keywords": ["changelog", "log"],
   "supports": {
     "html": false,
     "className": false,

@@ -7,21 +7,13 @@ import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Instagram', '@@text_domain'),
-  description: __('Show Instagram feed and user data.', '@@text_domain'),
   icon: getIcon('block-instagram', true),
-  keywords: [__('instagram', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/instagram/',
     customStylesCallback(attributes) {

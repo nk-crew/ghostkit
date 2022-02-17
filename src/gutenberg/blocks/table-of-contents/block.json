@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/table-of-contents",
   "category": "text",
+  "title": "Table of Contents",
+  "description": "Automatically generate a table of contents by parsing page headers in content.",
+  "keywords": ["table of contents", "toc"],
   "supports": {
     "html": false,
     "className": false,

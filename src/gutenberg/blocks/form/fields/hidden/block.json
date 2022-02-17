@@ -1,11 +1,13 @@
 {
   "name": "ghostkit/form-field-hidden",
+  "parent": ["ghostkit/form"],
   "category": "ghostkit",
+  "title": "Hidden",
+  "description": "Form field hidden.",
   "supports": {
     "html": false,
     "className": false,
     "anchor": true,
     "reusable": false
-  },
-  "parent": ["ghostkit/form"]
+  }
 }

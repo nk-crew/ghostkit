@@ -18,7 +18,6 @@ import save from './save';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
 const { createHigherOrderComponent } = wp.compose;
 const { addFilter } = wp.hooks;
 
@@ -28,8 +27,6 @@ export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Column', '@@text_domain'),
-  description: __('A single column within a grid block.', '@@text_domain'),
   icon: getIcon('block-grid-column', true),
   ghostkit: {
     customSelector(selector) {

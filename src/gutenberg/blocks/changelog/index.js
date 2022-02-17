@@ -1,7 +1,4 @@
 /**
- * WordPress dependencies
- */
-/**
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
@@ -10,6 +7,9 @@ import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 
+/**
+ * WordPress dependencies
+ */
 const { __ } = wp.i18n;
 
 const { name } = metadata;
@@ -18,10 +18,7 @@ export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Changelog', '@@text_domain'),
-  description: __('Show the changes log of your product.', '@@text_domain'),
   icon: getIcon('block-changelog', true),
-  keywords: [__('changelog', '@@text_domain'), __('log', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/changelog/',
     supports: {

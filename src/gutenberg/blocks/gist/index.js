@@ -8,24 +8,13 @@ import edit from './edit';
 import save from './save';
 import transforms from './transforms';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('GitHub Gist', '@@text_domain'),
-  description: __(
-    'Embed code parts form GitHub Gist to your site or documentation.',
-    '@@text_domain'
-  ),
   icon: getIcon('block-gist', true),
-  keywords: [__('github', '@@text_domain'), __('gist', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/github-gist/',
     supports: {

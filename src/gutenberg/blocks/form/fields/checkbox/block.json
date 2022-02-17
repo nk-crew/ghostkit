@@ -1,11 +1,13 @@
 {
   "name": "ghostkit/form-field-checkbox",
+  "parent": ["ghostkit/form"],
   "category": "ghostkit",
+  "title": "Checkbox",
+  "description": "Form field checkbox.",
   "supports": {
     "html": false,
     "className": false,
     "anchor": true,
     "reusable": false
-  },
-  "parent": ["ghostkit/form"]
+  }
 }

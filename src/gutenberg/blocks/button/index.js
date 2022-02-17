@@ -8,25 +8,13 @@ import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Buttons', '@@text_domain'),
-
-  description: __('Change important links to buttons to get more click rate.', '@@text_domain'),
-
   icon: getIcon('block-button', true),
-
-  keywords: [__('btn', '@@text_domain'), __('button', '@@text_domain')],
-
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/button/',
     customStylesCallback(attributes) {
@@ -55,7 +43,6 @@ export const settings = {
       customCSS: true,
     },
   },
-
   example: {
     attributes: {
       count: 2,
@@ -89,7 +76,6 @@ export const settings = {
       },
     ],
   },
-
   edit,
   save,
   transforms,

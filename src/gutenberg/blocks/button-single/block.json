@@ -2,6 +2,8 @@
   "name": "ghostkit/button-single",
   "parent": ["ghostkit/button", "ghostkit/form", "ghostkit/form-submit-button"],
   "category": "design",
+  "title": "Button",
+  "description": "A single button within a buttons wrapper block.",
   "supports": {
     "html": false,
     "className": false,

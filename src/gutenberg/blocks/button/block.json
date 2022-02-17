@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/button",
   "category": "design",
+  "title": "Buttons",
+  "description": "Change important links to buttons to get more click rate.",
+  "keywords": ["btn", "button"],
   "supports": {
     "html": false,
     "className": false,

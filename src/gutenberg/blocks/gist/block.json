@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/gist",
   "category": "text",
+  "title": "GitHub Gist",
+  "description": "Embed code parts form GitHub Gist to your site or documentation.",
+  "keywords": ["github", "gist"],
   "supports": {
     "html": false,
     "className": false,

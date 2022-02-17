@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/progress",
   "category": "design",
+  "title": "Progress",
+  "description": "Show the progress of your work, skills or earnings.",
+  "keywords": ["progress", "bar"],
   "supports": {
     "html": false,
     "className": false,

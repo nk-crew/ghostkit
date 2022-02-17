@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/markdown",
   "category": "text",
+  "title": "Markdown",
+  "description": "Lightweight markup language with plain-text-formatting syntax.",
+  "keywords": ["formatting", "markup", "md"],
   "supports": {
     "html": false,
     "className": true,

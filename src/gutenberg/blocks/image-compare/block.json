@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/image-compare",
   "category": "media",
+  "title": "Image Compare",
+  "description": "Compare two images with a slider.",
+  "keywords": ["image", "compare"],
   "supports": {
     "html": false,
     "className": false,

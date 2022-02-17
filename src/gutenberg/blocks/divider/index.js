@@ -9,11 +9,9 @@ import edit from './edit';
 import save from './save';
 
 /**
- * WordPress dependencies
+ * External dependencies
  */
 const { merge } = window.lodash;
-
-const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -21,10 +19,7 @@ export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Divider', '@@text_domain'),
-  description: __('Divide your long texts and blocks.', '@@text_domain'),
   icon: getIcon('block-divider', true),
-  keywords: [__('divider', '@@text_domain'), __('spacer', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/divider/',
     customStylesCallback(attributes) {

@@ -12,21 +12,9 @@ const { name } = metadata;
 
 export { metadata, name };
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 export const settings = {
   ...metadata,
-  title: __('Accordion', '@@text_domain'),
-  description: __('Toggle the visibility of content across your project.', '@@text_domain'),
   icon: getIcon('block-accordion', true),
-  keywords: [
-    __('accordion', '@@text_domain'),
-    __('collapsible', '@@text_domain'),
-    __('collapse', '@@text_domain'),
-  ],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/accordion/',
     supports: {

@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/twitter",
   "category": "media",
+  "title": "Twitter",
+  "description": "Show Twitter feed and user data.",
+  "keywords": ["twitter"],
   "supports": {
     "html": false,
     "className": false,

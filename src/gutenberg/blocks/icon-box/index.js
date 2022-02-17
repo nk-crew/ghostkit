@@ -8,24 +8,13 @@ import edit from './edit';
 import save from './save';
 import transforms from './transforms';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Icon Box', '@@text_domain'),
-  description: __(
-    'Icons are one of the best visual replacement for text descriptions.',
-    '@@text_domain'
-  ),
   icon: getIcon('block-icon-box', true),
-  keywords: [__('icon', '@@text_domain'), __('icon-box', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/icon-box/',
     customStylesCallback(attributes) {

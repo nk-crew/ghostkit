@@ -9,11 +9,9 @@ import save from './save';
 import deprecated from './deprecated';
 
 /**
- * WordPress dependencies
+ * External dependencies
  */
 const { merge } = window.lodash;
-
-const { __ } = wp.i18n;
 
 const { name } = metadata;
 
@@ -21,10 +19,7 @@ export { metadata, name };
 
 export const settings = {
   ...metadata,
-  title: __('Progress', '@@text_domain'),
-  description: __('Show the progress of your work, skills or earnings.', '@@text_domain'),
   icon: getIcon('block-progress', true),
-  keywords: [__('progress', '@@text_domain'), __('bar', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/progress/',
     customStylesCallback(attributes) {

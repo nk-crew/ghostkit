@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/alert",
   "category": "design",
+  "title": "Alert",
+  "description": "Provide contextual feedback messages for user actions.",
+  "keywords": ["alert", "notification"],
   "supports": {
     "html": false,
     "className": false,

@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/countdown",
   "category": "text",
+  "title": "Countdown",
+  "description": "Countdown timer for upcoming event.",
+  "keywords": ["timer", "count", "number"],
   "supports": {
     "html": false,
     "className": false,

@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/gif",
   "category": "media",
+  "title": "GIF",
+  "description": "Search for and insert an animated image.",
+  "keywords": ["animated", "giphy", "image"],
   "supports": {
     "html": false,
     "className": false,

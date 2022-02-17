@@ -1,6 +1,9 @@
 {
   "name": "ghostkit/tabs-v2",
   "category": "design",
+  "title": "Tabs",
+  "description": "Separate content on the tabs with titles.",
+  "keywords": ["tabs", "tab"],
   "supports": {
     "html": false,
     "className": false,
