@@ -261,6 +261,12 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.22.3 =
+
+* fixes Video block play action
+* removed blocks categories fallback used for WP < 5.5
+* minor changes
+
 = 2.22.2 =
 
 * improved method to enqueue block assets and custom styles in block themes (we no more need to parse content of the posts, we can make everything inside block render)
