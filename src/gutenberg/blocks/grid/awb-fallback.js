@@ -138,7 +138,7 @@ class BackgroundControlsInspector extends Component {
     const { awb_imageTag: imageTag } = attributes;
 
     // set image tag to attribute
-    if (fetchImageTag && fetchImageTag !== imageTag) {
+    if (fetchImageTag && maybeEncode(fetchImageTag) !== imageTag) {
       this.updateAwbAttributes({ imageTag: maybeEncode(fetchImageTag) });
     }
   }
