@@ -1,7 +1,7 @@
 {
   "name": "ghostkit/form-field-date",
   "parent": ["ghostkit/form"],
-  "category": "ghostkit",
+  "category": "design",
   "title": "Date",
   "description": "Form field date.",
   "supports": {

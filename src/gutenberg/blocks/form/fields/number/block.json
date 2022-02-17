@@ -1,7 +1,7 @@
 {
   "name": "ghostkit/form-field-number",
   "parent": ["ghostkit/form"],
-  "category": "ghostkit",
+  "category": "design",
   "title": "Number",
   "description": "Form field number.",
   "supports": {

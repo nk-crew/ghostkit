@@ -1,7 +1,7 @@
 {
   "name": "ghostkit/form-field-phone",
   "parent": ["ghostkit/form"],
-  "category": "ghostkit",
+  "category": "design",
   "title": "Phone",
   "description": "Form field phone.",
   "supports": {

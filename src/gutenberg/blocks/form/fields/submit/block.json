@@ -1,7 +1,7 @@
 {
   "name": "ghostkit/form-submit-button",
   "parent": ["ghostkit/form"],
-  "category": "ghostkit",
+  "category": "design",
   "title": "Submit Button",
   "description": "Form submit button.",
   "supports": {
