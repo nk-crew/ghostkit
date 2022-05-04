@@ -16,7 +16,7 @@ Ghost Kit is the powerful page building experience for WordPress.
 **Gutenberg Blocks and Page Builder Plugin For WordPress**
 ★★★★★<br>
 
-**Ghost Kit is the powerful page building experience for WordPress.** Ghost Kip provides a large collection of Gutenberg Blocks, Templates, and Extensions. With this collection, you will gain more control over content just like with popular page builders. Just start with pre-defined templates and you can't stop building the page ;)
+**Ghost Kit is the powerful page building experience for WordPress.** Ghost Kit provides a large collection of Gutenberg Blocks, Templates, and Extensions. With this collection, you will gain more control over content just like with popular page builders. Just start with pre-defined templates and you can't stop building the page ;)
 
 [See Live Demo](https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [Documentation](https://ghostkit.io/docs/getting-started/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [GitHub](https://github.com/nk-crew/ghostkit/)
 
