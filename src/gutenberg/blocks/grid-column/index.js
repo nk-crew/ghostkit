@@ -1,16 +1,10 @@
 /**
- * External dependencies
- */
-import classnames from 'classnames/dedupe';
-
-/**
  * Internal dependencies
  */
 import '../grid/awb-fallback';
 import getIcon from '../../utils/get-icon';
 import getBackgroundStyles from '../grid/get-background-styles';
 
-import getColClass from './get-col-class';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
@@ -18,9 +12,6 @@ import save from './save';
 /**
  * WordPress dependencies
  */
-const { createHigherOrderComponent } = wp.compose;
-const { addFilter } = wp.hooks;
-
 const { name } = metadata;
 
 export { metadata, name };
@@ -79,25 +70,3 @@ export const settings = {
   edit,
   save,
 };
-
-/**
- * Override the default block element to add column classes on wrapper.
- *
- * @param  {Function} BlockListBlock Original component
- * @return {Function}                Wrapped component
- */
-export const withClasses = createHigherOrderComponent(
-  (BlockListBlock) =>
-    function (props) {
-      const { name: blockName } = props;
-
-      if ('ghostkit/grid-column' === blockName) {
-        const className = classnames(props.attributes.className, getColClass(props));
-        return <BlockListBlock {...props} className={className} />;
-      }
-
-      return <BlockListBlock {...props} />;
-    }
-);
-
-addFilter('editor.BlockListBlock', 'ghostkit/grid-column/with-classes', withClasses);

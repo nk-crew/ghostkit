@@ -26,12 +26,12 @@
 .ghostkit-col {
   position: relative;
   display: flex;
-  flex: 1;
+  flex: var(--gkt-grid--column__flex);
   // Fix for previous columns implementation without .ghostkit-col-content
   flex-wrap: wrap;
   order: var(--gkt-grid--column__order);
-  width: 100%;
-  max-width: 100%;
+  width: var(--gkt-grid--column__width);
+  max-width: var(--gkt-grid--column__max-width);
   min-height: 1px; // Prevent columns from collapsing when empty
   margin-top: var(--gkt-grid__gap);
   margin-left: var(--gkt-grid__gap);
@@ -44,21 +44,31 @@
 
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-down($breakpoint) {
+    /* stylelint-disable-next-line function-no-unknown */
     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-    // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+    // Auto flexbox columns
     .ghostkit-col#{$infix} {
-      flex: 1;
-      width: 100%;
-      max-width: 100%;
+      --gkt-grid--column__flex: 0 0 auto;
+      --gkt-grid--column__width: auto;
+      --gkt-grid--column__max-width: 100%;
+    }
+
+    // Grow flexbox columns
+    .ghostkit-col#{$infix}-grow {
+      --gkt-grid--column__flex: 1 0 0;
+      --gkt-grid--column__width: 100%;
+      --gkt-grid--column__max-width: none;
     }
 
     // col size.
     @for $i from 1 through $grid-columns {
       .ghostkit-col#{$infix}-#{$i} {
-        flex: 0 0 calc(100% * (#{$i} / #{$grid-columns}) - var(--gkt-grid__gap));
-        width: calc(100% * (#{$i} / #{$grid-columns}) - var(--gkt-grid__gap));
-        max-width: calc(100% * (#{$i} / #{$grid-columns}) - var(--gkt-grid__gap));
+        --gkt-grid--column__size: calc(100% * (#{$i} / #{$grid-columns}));
+        --gkt-grid--column__size-with-gap: calc(var(--gkt-grid--column__size) - var(--gkt-grid__gap));
+        --gkt-grid--column__flex: 0 0 var(--gkt-grid--column__size-with-gap);
+        --gkt-grid--column__width: var(--gkt-grid--column__size-with-gap);
+        --gkt-grid--column__max-width: var(--gkt-grid--column__size-with-gap);
       }
     }
 
@@ -94,6 +104,7 @@
 // Vertical align column.
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-down($breakpoint) {
+    /* stylelint-disable-next-line function-no-unknown */
     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
     .ghostkit-col-align-self#{$infix}-start {

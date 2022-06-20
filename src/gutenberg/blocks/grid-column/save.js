@@ -12,42 +12,45 @@ import metadata from './block.json';
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
-
 const { applyFilters } = wp.hooks;
 
-const { InnerBlocks } = wp.blockEditor;
+const {
+  useBlockProps,
+  useInnerBlocksProps: __stableUseInnerBlocksProps,
+  __experimentalUseInnerBlocksProps,
+} = wp.blockEditor;
 
 const { name } = metadata;
+
+const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
 
 /**
  * Block Save Class.
  */
-class BlockSave extends Component {
-  render() {
-    let className = getColClass(this.props);
+export default function BlockSave(props) {
+  let className = getColClass(props);
 
-    // background
-    const background = applyFilters('ghostkit.blocks.grid-column.background', '', {
-      ...{
-        name,
-      },
-      ...this.props,
-    });
+  // background
+  const background = applyFilters('ghostkit.blocks.grid-column.background', '', {
+    ...{
+      name,
+    },
+    ...props,
+  });
 
-    if (background) {
-      className = classnames(className, 'ghostkit-col-with-bg');
-    }
-
-    return (
-      <div className={className}>
-        {background}
-        <div className="ghostkit-col-content">
-          <InnerBlocks.Content />
-        </div>
-      </div>
-    );
+  if (background) {
+    className = classnames(className, 'ghostkit-col-with-bg');
   }
-}
 
-export default BlockSave;
+  const blockProps = useBlockProps.save({
+    className,
+  });
+  const { children, ...innerBlocksProps } = useInnerBlocksProps.save(blockProps);
+
+  return (
+    <div {...innerBlocksProps}>
+      {background}
+      <div className="ghostkit-col-content">{children}</div>
+    </div>
+  );
+}
