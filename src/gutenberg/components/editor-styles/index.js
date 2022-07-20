@@ -65,10 +65,10 @@ export default class EditorStyles extends Component {
     }
 
     const { ownerDocument } = this.styleRef.current;
-    const { body } = ownerDocument;
+    const $body = ownerDocument.querySelector(EDITOR_WRAPPER);
 
-    if (this.$styleTag) {
-      body.removeChild(this.$styleTag);
+    if ($body && this.$styleTag) {
+      $body.removeChild(this.$styleTag);
     }
   }
 
