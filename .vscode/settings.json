@@ -4,7 +4,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[php]": {
-    "editor.defaultFormatter": null
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
   },
   "editor.formatOnSave": true,
 
