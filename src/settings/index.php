@@ -14,13 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class GhostKit_Settings {
     /**
-     * Slug of the plugin screen.
-     *
-     * @var $plugin_screen_hook_suffix
-     */
-    protected $plugin_screen_hook_suffix = null;
-
-    /**
      * GhostKit_Settings constructor.
      */
     public function __construct() {
