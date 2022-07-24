@@ -121,6 +121,7 @@
   }
 
   .ghostkit-grid-layout-preview {
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     // justify-content: center;
@@ -130,6 +131,7 @@
     .ghostkit-grid-layout-preview-btn {
       --gkt-grid__gap: 0%;
 
+      box-sizing: border-box;
       display: flex;
       width: 85px;
       padding: 0;
@@ -144,6 +146,7 @@
       transition: 0.15s border-color, 0.15s background-color;
 
       .ghostkit-col {
+        box-sizing: border-box;
         height: 40px;
         border-right: 2px solid rgba($dark-gray-500, 0.75);
         transition: 0.15s border-color;
