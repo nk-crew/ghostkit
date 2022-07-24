@@ -119,7 +119,10 @@ class BlockEdit extends Component {
           <Placeholder
             icon={getIcon('block-table-of-contents')}
             label={__('Table of Contents', '@@text_domain')}
-            instructions={__('No headings found.', '@@text_domain')}
+            instructions={__(
+              'Start adding Heading blocks to create a table of contents. Headings with HTML anchors will be linked here.',
+              '@@text_domain'
+            )}
             className={className}
           />
         ) : (
