@@ -78,7 +78,6 @@
     box-shadow: var(--gkt-video--play-icon__box-shadow);
     opacity: 1;
     transition: var(--gkt-video__transition-duration) transform var(--gkt-video__transition-easing), var(--gkt-video__transition-duration) box-shadow var(--gkt-video__transition-easing), var(--gkt-video__transition-duration) opacity var(--gkt-video__transition-easing);
-    will-change: box-shadow, transform, opacity;
   }
 
   &:hover &-play-icon,
@@ -112,7 +111,6 @@
     box-shadow: var(--gkt-video--loading-icon__box-shadow);
     opacity: 0;
     transition: var(--gkt-video__transition-duration) opacity var(--gkt-video__transition-easing);
-    will-change: opacity;
   }
 
   &-loading &-loading-icon {
@@ -133,8 +131,6 @@
     position: absolute;
     top: 0;
     left: 100%;
-    // we can't use will-change because of conflict with Safari fullscreen https://wordpress.org/support/topic/video-block-issue-in-safari/#post-12966010
-    // will-change: opacity;
     z-index: 4;
     width: 100%;
     height: 100%;

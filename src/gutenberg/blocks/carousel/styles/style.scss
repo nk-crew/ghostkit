@@ -41,7 +41,6 @@
     box-shadow: var(--gkt-carousel--arrows__box-shadow);
     opacity: var(--gkt-carousel--arrows__opacity);
     transition: var(--gkt-carousel__transition-duration) opacity var(--gkt-carousel__transition-easing), var(--gkt-carousel__transition-duration) box-shadow var(--gkt-carousel__transition-easing), var(--gkt-carousel__transition-duration) transform var(--gkt-carousel__transition-easing);
-    will-change: opacity, box-shadow, transform;
 
     // additional element to make the buttons clickable also in outside.
     &::after {
@@ -108,7 +107,6 @@
       border-radius: var(--gkt-carousel--bullets__border-radius);
       opacity: var(--gkt-carousel--bullets__opacity);
       transition: var(--gkt-carousel__transition-duration) opacity var(--gkt-carousel__transition-easing);
-      will-change: opacity;
 
       &:hover,
       &:focus {

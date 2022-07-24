@@ -35,7 +35,6 @@ body.toplevel_page_ghostkit {
     border-radius: 4px;
     box-shadow: 0 0 0 1px $light-gray-400;
     transition: 0.2s opacity;
-    will-change: opacity;
 
     > .components-base-control:last-child,
     > .components-base-control:last-child > .components-base-control__field {

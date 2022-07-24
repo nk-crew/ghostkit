@@ -37,7 +37,6 @@
     border-top-right-radius: var(--gkt-tabs--button__border-radius);
     opacity: var(--gkt-tabs--button__opacity);
     transition: var(--gkt-tabs__transition-duration) border-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) background-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) opacity var(--gkt-tabs__transition-easing);
-    will-change: border-color, background-color, opacity;
 
     &:hover,
     &:focus {
@@ -70,7 +69,6 @@
   border: 0;
   opacity: 0;
   transition: var(--gkt-tabs__transition-duration) opacity var(--gkt-tabs__transition-easing);
-  will-change: opacity;
 
   &-active {
     position: static;

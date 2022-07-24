@@ -35,7 +35,6 @@
     border: none;
     outline: none;
     transition: var(--gkt-accordion__transition-duration) transform var(--gkt-accordion__transition-easing);
-    will-change: trasnform;
   }
 
   // Content.

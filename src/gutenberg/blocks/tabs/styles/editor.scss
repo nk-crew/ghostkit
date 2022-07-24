@@ -46,7 +46,6 @@
     box-shadow: none;
     opacity: var(--gkt-tabs--button__opacity);
     transition: var(--gkt-tabs__transition-duration) border-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) background-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) opacity var(--gkt-tabs__transition-easing);
-    will-change: border-color, background-color, opacity;
 
     &:hover,
     &:focus {
