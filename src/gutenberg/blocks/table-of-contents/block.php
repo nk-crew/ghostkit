@@ -20,6 +20,17 @@ class GhostKit_TOC_Block {
         add_action( 'init', array( $this, 'init' ) );
 
         add_filter( 'the_content', array( $this, 'parse_toc_headings' ), 8 );
+
+        // Enable possibility to automatically generate heading anchors,
+        // because our TOC block works with anchors.
+        add_filter(
+            'block_editor_settings_all',
+            function( $settings ) {
+                $settings['__experimentalGenerateAnchors'] = true;
+                $settings['generateAnchors']               = true;
+                return $settings;
+            }
+        );
     }
 
     /**
