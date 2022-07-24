@@ -72,8 +72,14 @@ export default function BlockEdit(props) {
 
     columnsData.forEach((col) => {
       const colAttrs = {
-        size: 'a' === col ? 'auto' : col,
+        size: col,
       };
+
+      if ('a' === col) {
+        colAttrs.size = 'auto';
+      } else if ('g' === col) {
+        colAttrs.size = 'grow';
+      }
 
       // responsive.
       if (2 === columnsData.length) {
@@ -138,7 +144,7 @@ export default function BlockEdit(props) {
 
       '6-3-3',
       '2-8-2',
-      'a-a-a-a-a',
+      'g-g-g-g-g',
       '2-2-2-2-2-2',
     ];
     layouts = applyFilters('ghostkit.editor.grid.layouts', layouts, props);
