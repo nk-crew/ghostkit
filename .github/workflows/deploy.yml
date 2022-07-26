@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-    - "v*"
+      - 'v*'
 
 jobs:
   deploy:
@@ -19,7 +19,7 @@ jobs:
           coverage: none
 
       - name: Install NPM and Composer Dependencies
-        run: npm install
+        run: npm install --force
 
       - name: Run Production Task
         run: npm run production
