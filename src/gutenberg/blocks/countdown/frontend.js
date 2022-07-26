@@ -2,8 +2,9 @@
  * Block Countdown
  */
 import countDownApi from './api';
+import { TIMEZONELESS_FORMAT } from './constants';
 
-const { GHOSTKIT, jQuery: $, moment } = window;
+const { GHOSTKIT, jQuery: $, luxon } = window;
 
 const $doc = $(document);
 
@@ -11,8 +12,12 @@ const $doc = $(document);
  * Prepare Countdowns.
  */
 $doc.on('initBlocks.ghostkit', (e, self) => {
-  function updateUnits(momentData, units, unitsElements, $this) {
-    const dateData = countDownApi(momentData.toDate(), moment().toDate(), units, 0);
+  function updateUnits(date, units, unitsElements, $this) {
+    const currentDate = new Date(
+      luxon.DateTime.now().setZone(GHOSTKIT.timezone).toFormat(TIMEZONELESS_FORMAT)
+    );
+
+    const dateData = countDownApi(date, currentDate, units, 0);
     const isEnd = 0 <= dateData.value;
 
     if (isEnd) {
@@ -40,7 +45,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     });
 
     setTimeout(() => {
-      updateUnits(momentData, units, unitsElements, $this);
+      updateUnits(date, units, unitsElements, $this);
     }, countDownApi.getDelay(units));
   }
 
@@ -50,7 +55,8 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     const $this = $(this);
     $this.addClass('ghostkit-countdown-ready');
 
-    const momentData = moment($this.attr('data-date'));
+    const date = new Date($this.attr('data-date'));
+
     const unitsElements = [];
     const units = ['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds'].filter(
       (unitName) => {
@@ -68,7 +74,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       }
     );
 
-    updateUnits(momentData, units, unitsElements, $this);
+    updateUnits(date, units, unitsElements, $this);
   });
 
   GHOSTKIT.triggerEvent('afterPrepareCountdown', self);

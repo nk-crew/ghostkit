@@ -33,7 +33,11 @@ export default class DateTimePicker extends Component {
       <BaseControl label={label} className="ghostkit-components-date-time-picker">
         <div>
           <Button isLink onClick={() => this.setState({ isPickerOpen: !isPickerOpen })}>
-            {value ? dateI18n(resolvedFormat, value) : __('Select Date', '@@text_domain')}
+            {value
+              ? `${dateI18n(resolvedFormat, value)} ${
+                  settings.timezone.abbr || settings.timezone.string
+                }`
+              : __('Select Date', '@@text_domain')}
           </Button>
           {isPickerOpen ? (
             <Popover onClose={() => this.setState({ isPickerOpen: false })}>

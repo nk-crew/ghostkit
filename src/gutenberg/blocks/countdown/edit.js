@@ -10,11 +10,12 @@ import ColorPicker from '../../components/color-picker';
 import DateTimePicker from '../../components/date-time-picker';
 
 import countDownApi from './api';
+import { TIMEZONELESS_FORMAT } from './constants';
 
 /**
  * WordPress dependencies
  */
-const { moment } = window;
+const { GHOSTKIT, luxon } = window;
 
 const { applyFilters } = wp.hooks;
 
@@ -29,8 +30,6 @@ const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
 const { compose } = wp.compose;
 
 const { withSelect } = wp.data;
-
-const TIMEZONELESS_FORMAT = 'YYYY-MM-DDTHH:mm:ss';
 
 /**
  * Block Edit Class.
@@ -65,13 +64,14 @@ class BlockEdit extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   parseData(date, units) {
-    const momentData = moment(date);
-    const formattedDate = momentData.format(TIMEZONELESS_FORMAT);
+    const formattedDate = luxon.DateTime.fromISO(date).toFormat(TIMEZONELESS_FORMAT);
+    const currentDate = new Date(
+      luxon.DateTime.now().setZone(GHOSTKIT.timezone).toFormat(TIMEZONELESS_FORMAT)
+    );
 
-    const apiData = countDownApi(momentData.toDate(), moment().toDate(), units, 0);
+    const apiData = countDownApi(new Date(formattedDate), currentDate, units, 0);
 
     return {
-      momentData,
       formattedDate,
       delay: countDownApi.getDelay(units),
       ...apiData,

@@ -52,6 +52,7 @@
     "gutenberg-react-select-styles": "0.0.2",
     "jarallax": "^2.0.2",
     "markdown-it": "^12.3.2",
+    "luxon": "^3.0.1",
     "parsleyjs": "^2.9.2",
     "qs": "^6.10.3",
     "raf-schd": "^4.0.3",

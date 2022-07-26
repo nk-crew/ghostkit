@@ -211,6 +211,11 @@ class GhostKit_Assets {
             }
         }
 
+        // Luxon.
+        if ( apply_filters( 'gkt_enqueue_plugin_luxon', true ) ) {
+            wp_register_script( 'luxon', ghostkit()->plugin_url . 'assets/vendor/luxon/build/global/luxon.min.js', array(), '3.0.1', true );
+        }
+
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
             wp_register_style( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.css', array(), '1.0.1' );
@@ -328,6 +333,7 @@ class GhostKit_Assets {
                     'lg' => $breakpoints['md'],
                     'xl' => $breakpoints['lg'],
                 ),
+                'timezone'                    => wp_timezone_string(),
                 'googleMapsAPIKey'            => get_option( 'ghostkit_google_maps_api_key' ),
                 'googleMapsAPIUrl'            => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
                 'googleMapsLibrary'           => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
@@ -421,7 +427,7 @@ class GhostKit_Assets {
                     }
                     break;
                 case 'countdown':
-                    $block_js_deps[] = 'moment';
+                    $block_js_deps[] = 'luxon';
                     break;
                 case 'form':
                     if ( wp_script_is( 'parsley' ) || wp_script_is( 'parsley', 'registered' ) ) {

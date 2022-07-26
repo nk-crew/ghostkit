@@ -35,6 +35,8 @@ window.GHOSTKIT = {
 
   sidebars: ghostkitVariables.sidebars,
 
+  timezone: ghostkitVariables.timezone,
+
   googleMapsAPIKey: ghostkitVariables.googleMapsAPIKey,
   googleMapsAPIUrl: ghostkitVariables.googleMapsAPIUrl,
   googleMapsLibrary: ghostkitVariables.googleMapsLibrary,

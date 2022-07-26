@@ -47,6 +47,8 @@ cfg.copy_files_src = [
   './node_modules/*swiper/swiper-bundle.min.js',
   './node_modules/*swiper/swiper-bundle.min.js.map',
   './node_modules/*swiper/swiper-bundle.min.css',
+  './node_modules/*luxon/build/global/luxon.min.js',
+  './node_modules/*luxon/build/global/luxon.min.js.map',
 ];
 
 cfg.copy_files_dist = (file) => {

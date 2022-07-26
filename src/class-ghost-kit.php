@@ -237,7 +237,7 @@ class GhostKit {
         global $current_screen;
 
         $css_deps = array();
-        $js_deps  = array( 'ghostkit-helper', 'wp-block-editor', 'wp-blocks', 'wp-date', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-hooks', 'wp-components', 'wp-keycodes', 'moment', 'jquery' );
+        $js_deps  = array( 'ghostkit-helper', 'wp-block-editor', 'wp-blocks', 'wp-date', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-hooks', 'wp-components', 'wp-keycodes', 'jquery' );
 
         // Fix for Widgets screen.
         if ( isset( $current_screen->id ) && 'widgets' === $current_screen->id ) {
@@ -257,6 +257,11 @@ class GhostKit {
         // ScrollReveal.
         if ( apply_filters( 'gkt_enqueue_plugin_scrollreveal', true ) ) {
             $js_deps[] = 'scrollreveal';
+        }
+
+        // Luxon.
+        if ( apply_filters( 'gkt_enqueue_plugin_luxon', true ) ) {
+            $js_deps[] = 'luxon';
         }
 
         // GistEmbed.
