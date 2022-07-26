@@ -261,9 +261,20 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.23.0 =
+
+* ! Important - breaking change - changed `Auto` Grid Column to flex Auto width (depends on the content width). To restore previous behavior use `Grow` column size
+* added Grow size for Grid Columns
+* updated Google Fonts list
+* fixed custom styles rendering in FSE templates editor
+* fixed automatic heading anchor generation, as we needed it for Table of Contents block. Enabled standard `generateAnchors` setting in the editor by default
+* fixed Table of Contents preview in editor if some of headings does not contain anchors
+* fixed Countdown block dependency of the user's time zone. Now used timezone setting from the WordPress site
+* removed `will-change` styles usage
+
 = 2.22.3 =
 
-* fixes Video block play action
+* fixed Video block play action
 * removed blocks categories fallback used for WP < 5.5
 * minor changes
 
