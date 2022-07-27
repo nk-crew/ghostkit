@@ -261,6 +261,10 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.23.1 =
+
+* fixed Countdown block wrong date with UTC timezone settings
+
 = 2.23.0 =
 
 * ! Important - breaking change - changed `Auto` Grid Column to flex Auto width (depends on the content width). To restore previous behavior use `Grow` column size
