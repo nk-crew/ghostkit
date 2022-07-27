@@ -318,6 +318,12 @@ class GhostKit_Assets {
 
         $breakpoints = GhostKit_Breakpoints::get_breakpoints();
 
+        $timezone = wp_timezone_string();
+
+        if ( substr( $timezone, 0, 1 ) === '+' || substr( $timezone, 0, 1 ) === '-' ) {
+            $timezone = 'UTC' . $timezone;
+        }
+
         wp_localize_script(
             'ghostkit-helper',
             'ghostkitVariables',
@@ -333,7 +339,7 @@ class GhostKit_Assets {
                     'lg' => $breakpoints['md'],
                     'xl' => $breakpoints['lg'],
                 ),
-                'timezone'                    => wp_timezone_string(),
+                'timezone'                    => $timezone,
                 'googleMapsAPIKey'            => get_option( 'ghostkit_google_maps_api_key' ),
                 'googleMapsAPIUrl'            => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
                 'googleMapsLibrary'           => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(

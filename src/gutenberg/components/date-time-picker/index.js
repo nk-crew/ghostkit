@@ -35,7 +35,9 @@ export default class DateTimePicker extends Component {
           <Button isLink onClick={() => this.setState({ isPickerOpen: !isPickerOpen })}>
             {value
               ? `${dateI18n(resolvedFormat, value)} ${
-                  settings.timezone.abbr || settings.timezone.string
+                  settings.timezone.abbr ||
+                  settings.timezone.string ||
+                  `UTC${settings.timezone.offset}`
                 }`
               : __('Select Date', '@@text_domain')}
           </Button>
