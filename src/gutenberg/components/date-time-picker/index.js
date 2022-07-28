@@ -9,6 +9,8 @@ const { __experimentalGetSettings: getSettings, dateI18n } = wp.date;
 
 const { BaseControl, Popover, Button, DateTimePicker: WPDateTimePicker } = wp.components;
 
+const { luxon } = window;
+
 /**
  * Component Class
  */
@@ -45,7 +47,7 @@ export default class DateTimePicker extends Component {
             <Popover onClose={() => this.setState({ isPickerOpen: false })}>
               <WPDateTimePicker
                 label={label}
-                currentDate={value}
+                currentDate={luxon.DateTime.fromISO(value).isValid ? value : ''}
                 onChange={onChange}
                 is12Hour={is12Hour}
               />
