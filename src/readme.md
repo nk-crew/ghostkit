@@ -261,9 +261,10 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
-= 2.23.1 =
+= 2.23.2 =
 
 * fixed Countdown block wrong date with UTC timezone settings
+* fixed Countdown block possible DatePicker error, when invalid date specified
 
 = 2.23.0 =
 
