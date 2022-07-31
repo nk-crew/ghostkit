@@ -246,7 +246,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_customizer_permission() {
         if ( ! current_user_can( 'edit_theme_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change Customizer options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change Customizer options.', '@@text_domain' ), true );
         }
         return true;
     }
@@ -254,114 +254,45 @@ class GhostKit_Rest extends WP_REST_Controller {
     /**
      * Get attachment image <img> tag permissions.
      *
-     * @param WP_REST_Request $request  request object.
-     *
      * @return bool
      */
-    public function get_attachment_image_permission( WP_REST_Request $request ) {
-        $id = $request->get_param( 'id' );
-
-        if ( ! $id ) {
-            return $this->error( 'no_id_found', __( 'Provide image ID.', '@@text_domain' ) );
-        }
+    public function get_attachment_image_permission() {
         return true;
     }
 
     /**
      * Get Instagram feed permissions.
      *
-     * @param WP_REST_Request $request  request object.
-     *
      * @return bool
      */
-    public function get_instagram_feed_permission( WP_REST_Request $request ) {
-        $access_token = $request->get_param( 'access_token' );
-
-        if ( ! $access_token ) {
-            return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', '@@text_domain' ) );
-        }
+    public function get_instagram_feed_permission() {
         return true;
     }
 
     /**
      * Get Instagram profile permissions.
      *
-     * @param WP_REST_Request $request  request object.
-     *
      * @return bool
      */
-    public function get_instagram_profile_permission( WP_REST_Request $request ) {
-        $access_token = $request->get_param( 'access_token' );
-
-        if ( ! $access_token ) {
-            return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', '@@text_domain' ) );
-        }
+    public function get_instagram_profile_permission() {
         return true;
     }
 
     /**
      * Get Twitter feed permissions.
      *
-     * @param WP_REST_Request $request  request object.
-     *
      * @return bool
      */
-    public function get_twitter_feed_permission( WP_REST_Request $request ) {
-        $consumer_key        = $request->get_param( 'consumer_key' );
-        $consumer_secret     = $request->get_param( 'consumer_secret' );
-        $access_token        = $request->get_param( 'access_token' );
-        $access_token_secret = $request->get_param( 'access_token_secret' );
-        $screen_name         = $request->get_param( 'screen_name' );
-
-        if ( ! $consumer_key ) {
-            return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', '@@text_domain' ) );
-        }
-        if ( ! $consumer_secret ) {
-            return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', '@@text_domain' ) );
-        }
-        if ( ! $access_token ) {
-            return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', '@@text_domain' ) );
-        }
-        if ( ! $access_token_secret ) {
-            return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', '@@text_domain' ) );
-        }
-        if ( ! $screen_name ) {
-            return $this->error( 'no_screen_name_found', __( 'Provide Username.', '@@text_domain' ) );
-        }
-
+    public function get_twitter_feed_permission() {
         return true;
     }
 
     /**
      * Get Twitter profile permissions.
      *
-     * @param WP_REST_Request $request  request object.
-     *
      * @return bool
      */
-    public function get_twitter_profile_permission( WP_REST_Request $request ) {
-        $consumer_key        = $request->get_param( 'consumer_key' );
-        $consumer_secret     = $request->get_param( 'consumer_secret' );
-        $access_token        = $request->get_param( 'access_token' );
-        $access_token_secret = $request->get_param( 'access_token_secret' );
-        $screen_name         = $request->get_param( 'screen_name' );
-
-        if ( ! $consumer_key ) {
-            return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', '@@text_domain' ) );
-        }
-        if ( ! $consumer_secret ) {
-            return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', '@@text_domain' ) );
-        }
-        if ( ! $access_token ) {
-            return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', '@@text_domain' ) );
-        }
-        if ( ! $access_token_secret ) {
-            return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', '@@text_domain' ) );
-        }
-        if ( ! $screen_name ) {
-            return $this->error( 'no_screen_name_found', __( 'Provide Username.', '@@text_domain' ) );
-        }
-
+    public function get_twitter_profile_permission() {
         return true;
     }
 
@@ -372,8 +303,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_custom_code_permission() {
         if ( ! current_user_can( 'edit_theme_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
         }
+
         return true;
     }
 
@@ -384,8 +316,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_custom_code_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
         }
+
         return true;
     }
 
@@ -396,8 +329,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_color_palette_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
         }
+
         return true;
     }
 
@@ -408,8 +342,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_custom_typography_permission() {
         if ( ! current_user_can( 'edit_theme_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
         }
+
         return true;
     }
 
@@ -420,8 +355,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_custom_typography_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
         }
+
         return true;
     }
 
@@ -432,8 +368,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_google_maps_api_key_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
         }
+
         return true;
     }
 
@@ -444,8 +381,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_google_recaptcha_keys_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
         }
+
         return true;
     }
 
@@ -456,8 +394,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_disabled_blocks_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
         }
+
         return true;
     }
 
@@ -468,8 +407,9 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_settings_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ) );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
         }
+
         return true;
     }
 
@@ -501,6 +441,10 @@ class GhostKit_Rest extends WP_REST_Controller {
         $icon    = $request->get_param( 'icon' );
         $attr    = $request->get_param( 'attr' );
         $div_tag = $request->get_param( 'div_tag' );
+
+        if ( ! $id ) {
+            return $this->error( 'no_id_found', __( 'Provide image ID.', '@@text_domain' ) );
+        }
 
         $attr = isset( $attr ) && $attr && is_array( $attr ) ? $attr : array();
 
@@ -574,6 +518,10 @@ class GhostKit_Rest extends WP_REST_Controller {
         $count            = $request->get_param( 'count' ) ? $request->get_param( 'count' ) : 6;
         $access_token     = $request->get_param( 'access_token' );
 
+        if ( ! $access_token ) {
+            return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', '@@text_domain' ) );
+        }
+
         $hash = md5(
             wp_json_encode(
                 array(
@@ -624,6 +572,10 @@ class GhostKit_Rest extends WP_REST_Controller {
         $cache_name       = 'ghostkit_instagram_profile_cache';
         $cache_expiration = $request->get_param( 'cache_expiration' ) ? $request->get_param( 'cache_expiration' ) : DAY_IN_SECONDS;
         $access_token     = $request->get_param( 'access_token' );
+
+        if ( ! $access_token ) {
+            return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', '@@text_domain' ) );
+        }
 
         $hash = md5(
             wp_json_encode(
@@ -679,6 +631,22 @@ class GhostKit_Rest extends WP_REST_Controller {
         $access_token        = $request->get_param( 'access_token' );
         $access_token_secret = $request->get_param( 'access_token_secret' );
         $screen_name         = $request->get_param( 'screen_name' );
+
+        if ( ! $consumer_key ) {
+            return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', '@@text_domain' ) );
+        }
+        if ( ! $consumer_secret ) {
+            return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', '@@text_domain' ) );
+        }
+        if ( ! $access_token ) {
+            return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', '@@text_domain' ) );
+        }
+        if ( ! $access_token_secret ) {
+            return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', '@@text_domain' ) );
+        }
+        if ( ! $screen_name ) {
+            return $this->error( 'no_screen_name_found', __( 'Provide Username.', '@@text_domain' ) );
+        }
 
         $api_data_ready = $consumer_key && $consumer_secret && $access_token && $access_token_secret;
 
@@ -775,6 +743,22 @@ class GhostKit_Rest extends WP_REST_Controller {
         $tweet_mode_extended = 'true' === $request->get_param( 'tweet_mode_extended' );
 
         $api_data_ready = $consumer_key && $consumer_secret && $access_token && $access_token_secret;
+
+        if ( ! $consumer_key ) {
+            return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', '@@text_domain' ) );
+        }
+        if ( ! $consumer_secret ) {
+            return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', '@@text_domain' ) );
+        }
+        if ( ! $access_token ) {
+            return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', '@@text_domain' ) );
+        }
+        if ( ! $access_token_secret ) {
+            return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', '@@text_domain' ) );
+        }
+        if ( ! $screen_name ) {
+            return $this->error( 'no_screen_name_found', __( 'Provide Username.', '@@text_domain' ) );
+        }
 
         $hash = md5(
             wp_json_encode(
@@ -1785,11 +1769,16 @@ class GhostKit_Rest extends WP_REST_Controller {
     /**
      * Error rest.
      *
-     * @param mixed $code     error code.
-     * @param mixed $response response data.
+     * @param mixed   $code       error code.
+     * @param mixed   $response   response data.
+     * @param boolean $true_error use true error response to stop the code processing.
      * @return mixed
      */
-    public function error( $code, $response ) {
+    public function error( $code, $response, $true_error = false ) {
+        if ( $true_error ) {
+            return new WP_Error( $code, $response, array( 'status' => 401 ) );
+        }
+
         return new WP_REST_Response(
             array(
                 'error'      => true,
