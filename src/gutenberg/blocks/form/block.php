@@ -228,7 +228,8 @@ class GhostKit_Form_Block {
                 // phpcs:ignore
                 echo do_blocks( $inner_blocks );
 
-                wp_nonce_field( 'ghostkit_form', $form_id );
+                // Add `__` prefix to prevent conflict with form id attribute duplicate.
+                wp_nonce_field( 'ghostkit_form', '__' . $form_id );
                 ?>
                 <input type="hidden" name="ghostkit_form_id" value="<?php echo esc_attr( $form_id ); ?>">
                 <?php
@@ -288,7 +289,7 @@ class GhostKit_Form_Block {
 
         // Form send.
         if ( isset( $this->form_post_data[ $form_id ] ) ) {
-            $nonce = sanitize_text_field( wp_unslash( $this->form_post_data[ $form_id ] ) );
+            $nonce = sanitize_text_field( wp_unslash( $this->form_post_data[ '__' . $form_id ] ) );
 
             if ( wp_verify_nonce( $nonce, 'ghostkit_form' ) ) {
                 // validate Google reCaptcha.
