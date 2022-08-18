@@ -3,8 +3,8 @@
  * Plugin Name:  Ghost Kit
  * Description:  Blocks collection and extensions for Gutenberg
  * Version:      @@plugin_version
- * Author:       nK
- * Author URI:   https://nkdev.info
+ * Author:       Ghost Kit Team
+ * Author URI:   https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
  * License:      GPLv2 or later
  * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:  @@text_domain
