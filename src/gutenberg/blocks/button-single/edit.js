@@ -62,6 +62,7 @@ class BlockEdit extends Component {
       iconPosition,
       hideText,
       url,
+      ariaLabel,
       target,
       rel,
       size,
@@ -362,6 +363,7 @@ class BlockEdit extends Component {
           <URLPicker
             url={url}
             rel={rel}
+            ariaLabel={ariaLabel}
             target={target}
             onChange={(data) => {
               setAttributes(data);

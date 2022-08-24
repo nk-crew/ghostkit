@@ -59,6 +59,7 @@ class BlockSave extends Component {
           <a
             className="ghostkit-testimonial-link"
             href={url}
+            aria-label={ariaLabel || ''}
             target={target || false}
             rel={rel || false}
           >

@@ -62,6 +62,10 @@
     "url": {
       "type": "string"
     },
+    "ariaLabel": {
+      "type": "string",
+      "default": ""
+    },
     "target": {
       "type": "string"
     },

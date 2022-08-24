@@ -21,6 +21,12 @@
       "selector": "a.ghostkit-button",
       "attribute": "href"
     },
+    "ariaLabel": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a.ghostkit-button",
+      "attribute": "aria-label"
+    },
     "target": {
       "type": "string",
       "source": "attribute",

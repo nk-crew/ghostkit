@@ -26,7 +26,7 @@ const { name } = metadata;
  */
 class BlockSave extends Component {
   render() {
-    const { icon, iconPosition, showContent, url, target, rel } = this.props.attributes;
+    const { icon, iconPosition, showContent, url, target, rel, ariaLabel } = this.props.attributes;
 
     let className = classnames('ghostkit-icon-box', url ? 'ghostkit-icon-box-with-link' : '');
 
@@ -45,6 +45,7 @@ class BlockSave extends Component {
             href={url}
             target={target || false}
             rel={rel || false}
+            aria-label={ariaLabel || ''}
           >
             <span />
           </a>

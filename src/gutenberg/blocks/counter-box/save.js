@@ -24,7 +24,7 @@ const { name } = metadata;
  */
 class BlockSave extends Component {
   render() {
-    const { number, animateInViewport, numberPosition, showContent, url, target, rel } =
+    const { number, animateInViewport, numberPosition, showContent, url, ariaLabel, target, rel } =
       this.props.attributes;
 
     let { animateInViewportFrom } = this.props.attributes;
@@ -48,6 +48,7 @@ class BlockSave extends Component {
             href={url}
             target={target || false}
             rel={rel || false}
+            aria-label={ariaLabel || ''}
           >
             <span />
           </a>

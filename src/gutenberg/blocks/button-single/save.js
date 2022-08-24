@@ -33,6 +33,7 @@ class BlockSave extends Component {
       iconPosition,
       hideText,
       url,
+      ariaLabel,
       target,
       rel,
       size,
@@ -92,7 +93,7 @@ class BlockSave extends Component {
     }
 
     return 'a' === Tag ? (
-      <Tag className={className} href={url} target={target || false} rel={rel || false}>
+      <Tag className={className} href={url} aria-label={ariaLabel || ''} target={target || false} rel={rel || false}>
         {result}
       </Tag>
     ) : (
