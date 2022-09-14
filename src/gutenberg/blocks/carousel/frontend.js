@@ -193,7 +193,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
  * https://github.com/nolimits4web/swiper/issues/2629
  */
 $doc.on('activateTab.ghostkit afterActivateAccordionItem.ghostkit', (e, self, $item) => {
-  const $carousels = $item.parents('.ghostkit-carousel-ready');
+  const $carousels = $item.parents('[data-loop="true"].ghostkit-carousel-ready');
 
   $carousels.each(function () {
     if (this.swiper) {
