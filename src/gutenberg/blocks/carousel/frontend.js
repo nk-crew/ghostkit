@@ -4,6 +4,27 @@
 const { GHOSTKIT, jQuery: $ } = window;
 const $doc = $(document);
 
+function getSwiperVersion(Swiper) {
+  let ver = 8;
+
+  // in version 8 added new parameter `maxBackfaceHiddenSlides`.
+  if ('undefined' === typeof Swiper.defaults.maxBackfaceHiddenSlides) {
+    ver = 7;
+  }
+
+  // in version 7 added new parameter `rewind`.
+  if ('undefined' === typeof Swiper.defaults.rewind) {
+    ver = 6;
+  }
+
+  // in version 6 added new parameter `loopPreventsSlide`.
+  if ('undefined' === typeof Swiper.defaults.loopPreventsSlide) {
+    ver = 5;
+  }
+
+  return ver;
+}
+
 /**
  * Prepare Carousels.
  */
@@ -29,8 +50,14 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       },
       spaceBetween: parseFloat($carousel.attr('data-gap')) || 0,
       centeredSlides: 'true' === $carousel.attr('data-centered-slides'),
-      freeMode: 'true' === $carousel.attr('data-free-scroll'),
+      freeMode: {
+        enabled: 'true' === $carousel.attr('data-free-scroll'),
+      },
       loop: 'true' === $carousel.attr('data-loop'),
+      // This feature is cool, but not working properly when loop enabled
+      // and fast clicking on previous button is not working properly
+      // https://github.com/nolimits4web/swiper/issues/5945
+      // loopPreventsSlide: false,
       autoplay: 0 < parseFloat($carousel.attr('data-autoplay')) && {
         delay: parseFloat($carousel.attr('data-autoplay')) * 1000,
         disableOnInteraction: false,
@@ -47,9 +74,13 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       slidesPerView: 1,
       keyboard: true,
       grabCursor: true,
+      preloadImages: false,
+
+      // fixes text selection when swipe in the items gap.
+      touchEventsTarget: 'container',
     };
 
-    $carousel.addClass('ghostkit-carousel-ready swiper-container');
+    $carousel.addClass('ghostkit-carousel-ready swiper');
     $items.addClass('swiper-wrapper');
     $items.children().addClass('swiper-slide');
 
@@ -104,10 +135,6 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     }
     options.breakpoints = breakPoints;
 
-    // Since Swiper 5.0 this option is removed and it is `true` by default, but in older versions it was `false`.
-    // So we need to keep it as a fallback.
-    options.breakpoints.breakpointsInverse = true;
-
     // Events.
     options.on = {
       // These events used to add fixes for
@@ -122,6 +149,26 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
         GHOSTKIT.triggerEvent('swiperTouchEnd', self, swiper, evt);
       },
     };
+
+    // Fallbacks for old Swiper versions.
+    (() => {
+      const swiperVersion = getSwiperVersion(window.Swiper);
+
+      // Since v7 used container class `swiper`, we should also add old `swiper-container` class.
+      if (7 > swiperVersion) {
+        $carousel.addClass('swiper-container');
+      }
+
+      // Since v7 freeMode options moved under `freeMode` object.
+      if (7 > swiperVersion) {
+        options.freeMode = options.freeMode.enabled;
+      }
+
+      // Since v5 `breakpointsInverse` option is removed and it is now `true` by default, but in older versions it was `false`.
+      if (5 <= swiperVersion) {
+        options.breakpointsInverse = true;
+      }
+    })();
 
     // init swiper
     // eslint-disable-next-line no-new
