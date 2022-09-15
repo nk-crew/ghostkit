@@ -47,8 +47,6 @@ function activateTab($tabs, tabName, self) {
 
   $activeTab.addClass('ghostkit-tab-active').siblings().removeClass('ghostkit-tab-active');
 
-  self.hasScrolled();
-
   GHOSTKIT.triggerEvent('activateTab', self, $tabs, tabNameEncoded);
 
   return true;

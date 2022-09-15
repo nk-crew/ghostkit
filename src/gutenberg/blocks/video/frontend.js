@@ -218,26 +218,36 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       });
 
       if ('fullscreen' !== clickAction && (videoAutoplay || videoAutopause)) {
-        self.throttleScroll(() => {
-          // autoplay
-          if (
-            !autoplayOnce &&
-            !isPlaying &&
-            videoAutoplay &&
-            self.isElementInViewport($this[0], 0.6)
-          ) {
-            if (clicked) {
-              api.play();
-            } else {
-              $this.click();
-            }
-          }
+        if (!('IntersectionObserver' in window)) {
+          return;
+        }
 
-          // autopause
-          if (isPlaying && videoAutopause && !self.isElementInViewport($this[0], 0.6)) {
-            api.pause();
-          }
-        });
+        const counterObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if ($this[0] !== entry.target) {
+                return;
+              }
+
+              // autoplay
+              if (!autoplayOnce && !isPlaying && videoAutoplay && entry.isIntersecting) {
+                if (clicked) {
+                  api.play();
+                } else {
+                  $this.click();
+                }
+              }
+
+              // autopause
+              if (isPlaying && videoAutopause && !entry.isIntersecting) {
+                api.pause();
+              }
+            });
+          },
+          { threshold: 0.6 }
+        );
+
+        counterObserver.observe($this[0]);
       }
     }
   });
