@@ -106,8 +106,8 @@ class GhostKitClass {
 
     // Additional easing.
     $.extend($.easing, {
-      easeOutCubic(x, t, b, c, d) {
-        return c * ((t = t / d - 1) * t * t + 1) + b;
+      easeOutCubic(x) {
+        return 1 - (1 - x) ** 3;
       },
     });
 
