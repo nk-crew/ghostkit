@@ -176,6 +176,7 @@ class GhostKitClass {
       }
 
       const item = {
+        $el: $this,
         el: this,
         from,
         to,
@@ -217,6 +218,7 @@ class GhostKitClass {
                 },
                 complete() {
                   item.cb(item.to, true);
+                  GHOSTKIT.triggerEvent('animatedCounters', self, item);
                 },
               }
             );

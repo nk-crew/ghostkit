@@ -192,13 +192,23 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
  * Re-create slides duplicates.
  * https://github.com/nolimits4web/swiper/issues/2629
  */
-$doc.on('activateTab.ghostkit afterActivateAccordionItem.ghostkit', (e, self, $item) => {
+function reinitDuplicates($item) {
   const $carousels = $item.parents('[data-loop="true"].ghostkit-carousel-ready');
 
   $carousels.each(function () {
-    if (this.swiper) {
+    // Don't recreate loop when changed content inside duplicated slide,
+    // because it will just restore the original slide here.
+    if (this.swiper && $item.closest('.swiper-slide:not(.swiper-slide-duplicate)').length) {
       this.swiper.loopDestroy();
       this.swiper.loopCreate();
     }
   });
+}
+
+$doc.on('activateTab.ghostkit afterActivateAccordionItem.ghostkit', (e, self, $item) => {
+  reinitDuplicates($item);
+});
+
+$doc.on('animatedCounters.ghostkit', (e, self, item) => {
+  reinitDuplicates(item.$el);
 });
