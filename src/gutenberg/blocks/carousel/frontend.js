@@ -78,6 +78,9 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 
       // fixes text selection when swipe in the items gap.
       touchEventsTarget: 'container',
+
+      // disable swiping on some elements.
+      noSwipingSelector: 'input, textarea, .ghostkit-image-compare',
     };
 
     $carousel.addClass('ghostkit-carousel-ready swiper');
