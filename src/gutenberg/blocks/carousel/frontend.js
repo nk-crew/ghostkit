@@ -199,18 +199,34 @@ function reinitDuplicates($item) {
   const $carousels = $item.parents('[data-loop="true"].ghostkit-carousel-ready');
 
   $carousels.each(function () {
-    // Don't recreate loop when changed content inside duplicated slide,
-    // because it will just restore the original slide here.
-    if (this.swiper && $item.closest('.swiper-slide:not(.swiper-slide-duplicate)').length) {
-      this.swiper.loopDestroy();
-      this.swiper.loopCreate();
+    if (this.swiper) {
+      const $slide = $item.closest('.swiper-slide');
+
+      // Copy the content of duplicated slide to original when changed content inside duplicated slide.
+      if ($slide.length && $slide.hasClass('swiper-slide-duplicate')) {
+        const $originalSlide = $slide.siblings(
+          `[data-swiper-slide-index="${$slide.attr(
+            'data-swiper-slide-index'
+          )}"]:not(.swiper-slide-duplicate):eq(0)`
+        );
+
+        $originalSlide.html($slide.html());
+
+        // Recreate loop when changed content inside original slide.
+      } else if ($slide.length) {
+        this.swiper.loopDestroy();
+        this.swiper.loopCreate();
+      }
     }
   });
 }
 
-$doc.on('activateTab.ghostkit afterActivateAccordionItem.ghostkit', (e, self, $item) => {
-  reinitDuplicates($item);
-});
+$doc.on(
+  'activateTab.ghostkit afterActivateAccordionItem.ghostkit movedImageCompare.ghostkit dismissedAlert.ghostkit',
+  (e, self, $item) => {
+    reinitDuplicates($item);
+  }
+);
 
 $doc.on('animatedCounters.ghostkit', (e, self, item) => {
   reinitDuplicates(item.$el);

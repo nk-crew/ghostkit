@@ -1,9 +1,9 @@
 /**
- * Image Compare Video
+ * Block Image Compare
  */
 import rafSchd from 'raf-schd';
 
-const { jQuery: $ } = window;
+const { jQuery: $, GHOSTKIT } = window;
 
 const $doc = $(document);
 
@@ -16,6 +16,8 @@ function movePosition(e) {
     const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
 
     $currentImageCompare[0].style.setProperty('--gkt-image-compare__position', `${100 * x}%`);
+
+    GHOSTKIT.triggerEvent('movedImageCompare', GHOSTKIT.classObject, $currentImageCompare, e);
   }
 }
 
@@ -24,6 +26,7 @@ $doc.on('mousedown', '.ghostkit-image-compare', function (e) {
 
   $currentImageCompare = $(this);
 });
+
 $doc.on('mouseup', (e) => {
   if ($currentImageCompare) {
     movePosition(e);
@@ -34,6 +37,7 @@ $doc.on('mouseup', (e) => {
     disabledTransition = false;
   }
 });
+
 $doc.on('mousemove', (e) => {
   if ($currentImageCompare) {
     e.preventDefault();
@@ -45,6 +49,7 @@ $doc.on('mousemove', (e) => {
     }
   }
 });
+
 $doc.on(
   'mousemove',
   rafSchd((e) => {

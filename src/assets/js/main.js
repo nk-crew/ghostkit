@@ -45,16 +45,6 @@ class GhostKitClass {
       },
     });
 
-    // Alerts dismiss button.
-    $(document).on('click', '.ghostkit-alert-hide-button', function (e) {
-      e.preventDefault();
-      $(this)
-        .parent()
-        .animate({ opacity: 0 }, 150, function () {
-          $(this).slideUp(200);
-        });
-    });
-
     // Init blocks.
     const throttledInitBlocks = throttle(
       200,
