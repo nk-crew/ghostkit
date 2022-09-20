@@ -8,8 +8,8 @@
 .ghostkit-grid-inner {
   display: flex;
   flex-wrap: wrap;
+  row-gap: var(--gkt-grid__gap);
   justify-content: var(--gkt-grid__justify-content);
-  margin-top: calc(-1 * var(--gkt-grid__gap));
   margin-left: calc(-1 * var(--gkt-grid__gap));
 }
 
@@ -33,7 +33,6 @@
   width: var(--gkt-grid--column__width);
   max-width: var(--gkt-grid--column__max-width);
   min-height: 1px; // Prevent columns from collapsing when empty
-  margin-top: var(--gkt-grid__gap);
   margin-left: var(--gkt-grid__gap);
 }
 
