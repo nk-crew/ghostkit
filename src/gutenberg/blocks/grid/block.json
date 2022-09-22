@@ -22,6 +22,9 @@
     "gapCustom": {
       "type": "number"
     },
+    "gapVerticalCustom": {
+      "type": "number"
+    },
     "verticalAlign": {
       "type": "string"
     },

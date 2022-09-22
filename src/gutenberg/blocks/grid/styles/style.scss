@@ -8,7 +8,7 @@
 .ghostkit-grid-inner {
   display: flex;
   flex-wrap: wrap;
-  row-gap: var(--gkt-grid__gap);
+  row-gap: var(--gkt-grid__gap-vertical);
   justify-content: var(--gkt-grid__justify-content);
   margin-left: calc(-1 * var(--gkt-grid__gap));
 }

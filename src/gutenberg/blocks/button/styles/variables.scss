@@ -5,6 +5,7 @@
 
 .ghostkit-button-wrapper {
   --gkt-button__gap: 15px;
+  --gkt-button__gap-vertical: var(--gkt-button__gap);
   --gkt-button__align-items: flex-start;
   --gkt-button__justify-content: flex-start;
 }

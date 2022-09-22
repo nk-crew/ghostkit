@@ -24,6 +24,9 @@
     },
     "gapCustom": {
       "type": "number"
+    },
+    "gapCustomVertical": {
+      "type": "number"
     }
   }
 }

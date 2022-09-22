@@ -12,7 +12,7 @@
   > .block-editor-inner-blocks {
     width: calc(100% + var(--gkt-button__gap));
     margin-top: 0;
-    margin-bottom: calc(-1 * var(--gkt-button__gap));
+    margin-bottom: calc(-1 * var(--gkt-button__gap-vertical));
     margin-left: calc(-1 * var(--gkt-button__gap));
 
     > .block-editor-block-list__layout {
@@ -28,7 +28,7 @@
       > div.wp-block {
         width: auto;
         margin: 0;
-        margin-bottom: var(--gkt-button__gap);
+        margin-bottom: var(--gkt-button__gap-vertical);
         margin-left: var(--gkt-button__gap);
       }
 

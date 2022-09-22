@@ -44,7 +44,7 @@ const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInne
 export default function BlockEdit(props) {
   const { clientId, attributes, setAttributes, isSelected } = props;
 
-  const { gap, gapCustom, verticalAlign, horizontalAlign } = attributes;
+  const { gap, gapCustom, gapVerticalCustom, verticalAlign, horizontalAlign } = attributes;
 
   const [isTemplatesModalOpen, setIsTemplatesModalOpen] = useState(false);
 
@@ -361,9 +361,11 @@ export default function BlockEdit(props) {
             <GapSettings
               gap={gap}
               gapCustom={gapCustom}
+              gapVerticalCustom={gapVerticalCustom}
               onChange={(data) => {
                 setAttributes(data);
               }}
+              allowVerticalGap
             />
           </PanelBody>
         </InspectorControls>

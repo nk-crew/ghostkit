@@ -86,7 +86,7 @@ class BlockEdit extends Component {
 
     let { className = '' } = this.props;
 
-    const { align, gap, gapCustom } = attributes;
+    const { align, gap, gapCustom, gapVerticalCustom } = attributes;
 
     className = classnames(
       'ghostkit-button-wrapper',
@@ -111,9 +111,11 @@ class BlockEdit extends Component {
             <GapSettings
               gap={gap}
               gapCustom={gapCustom}
+              gapVerticalCustom={gapVerticalCustom}
               onChange={(data) => {
                 setAttributes(data);
               }}
+              allowVerticalGap
             />
             <BaseControl label={__('Align', '@@text_domain')}>
               <div>

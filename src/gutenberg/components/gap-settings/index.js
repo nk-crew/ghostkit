@@ -8,9 +8,9 @@ import ToggleGroup from '../toggle-group';
  */
 const { __ } = wp.i18n;
 
-const { Component, Fragment } = wp.element;
+const { Component } = wp.element;
 
-const { BaseControl, RangeControl } = wp.components;
+const { BaseControl, TextControl } = wp.components;
 
 /**
  * Internal dependencies
@@ -27,10 +27,10 @@ const GAP_VALUES = {
  */
 export default class GapSettings extends Component {
   render() {
-    const { gap, gapCustom, onChange } = this.props;
+    const { gap, gapCustom, gapVerticalCustom, allowVerticalGap, onChange } = this.props;
 
     return (
-      <BaseControl label={__('Gap', '@@text_domain')}>
+      <BaseControl label={__('Gap', '@@text_domain')} className="ghostkit-components-gap-settings">
         <ToggleGroup
           value={gap}
           options={[
@@ -76,31 +76,42 @@ export default class GapSettings extends Component {
             };
 
             // Add current predefined gap to custom value.
-            if (
-              'custom' === value &&
-              'custom' !== gap &&
-              'undefined' === typeof gapCustom &&
-              'undefined' !== typeof GAP_VALUES[gap]
-            ) {
+            if ('custom' === value && 'custom' !== gap && 'undefined' !== typeof GAP_VALUES[gap]) {
               result.gapCustom = GAP_VALUES[gap];
+            }
+
+            // Reset vertical gap when use predefined value.
+            if ('custom' !== value) {
+              result.gapVerticalCustom = undefined;
             }
 
             onChange(result);
           }}
-          isAdaptiveWidth
+          isBlock
         />
         {'custom' === gap ? (
-          <Fragment>
-            <p />
-            <RangeControl
+          <div className="ghostkit-components-gap-settings-custom">
+            <TextControl
+              type="number"
+              help={allowVerticalGap ? __('Horizontal', '@@text_domain') : ''}
               value={gapCustom}
               onChange={(value) => onChange({ gapCustom: value })}
               min={0}
             />
-          </Fragment>
-        ) : (
-          ''
-        )}
+            {allowVerticalGap ? (
+              <TextControl
+                type="number"
+                help={__('Vertical', '@@text_domain')}
+                placeholder={gapCustom}
+                value={gapVerticalCustom}
+                onChange={(value) =>
+                  onChange({ gapVerticalCustom: '' === value ? undefined : value })
+                }
+                min={0}
+              />
+            ) : null}
+          </div>
+        ) : null}
       </BaseControl>
     );
   }
