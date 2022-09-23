@@ -40,6 +40,7 @@ class BlockSave extends Component {
       stars,
       starsIcon,
       url,
+      ariaLabel,
       target,
       rel,
     } = attributes;
@@ -59,9 +60,9 @@ class BlockSave extends Component {
           <a
             className="ghostkit-testimonial-link"
             href={url}
-            aria-label={ariaLabel || ''}
-            target={target || false}
-            rel={rel || false}
+            target={target || null}
+            rel={rel || null}
+            aria-label={ariaLabel || null}
           >
             <span />
           </a>
