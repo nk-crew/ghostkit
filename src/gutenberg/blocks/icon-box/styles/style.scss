@@ -15,17 +15,12 @@
     position: relative;
   }
 
-  &-link {
+  &-link span {
     position: absolute;
-    inset: 0;
-    
-    span {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
   // Icon.
