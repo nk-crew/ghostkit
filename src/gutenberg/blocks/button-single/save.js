@@ -90,9 +90,9 @@ export default function BlockSave(props) {
     ...('a' === Tag
       ? {
           href: url,
-          target: target || false,
-          rel: rel || false,
-          'aria-label': ariaLabel || false,
+          target: target || null,
+          rel: rel || null,
+          'aria-label': ariaLabel || null,
         }
       : {}),
   });

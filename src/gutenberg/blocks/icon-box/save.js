@@ -49,9 +49,9 @@ class BlockSave extends Component {
           <a
             className="ghostkit-icon-box-link"
             href={url}
-            target={target || false}
-            rel={rel || false}
-            aria-label={ariaLabel || false}
+            target={target || null}
+            rel={rel || null}
+            aria-label={ariaLabel || null}
           >
             <span />
           </a>
