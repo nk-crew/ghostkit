@@ -34,12 +34,13 @@ export default class URLPicker extends Component {
   }
 
   onChange(data) {
-    const { rel, target, url } = this.props;
+    const { rel, target, url, ariaLabel } = this.props;
 
     const newData = {
       rel,
       target,
       url,
+      ariaLabel,
       ...data,
     };
 
@@ -95,7 +96,7 @@ export default class URLPicker extends Component {
   }
 
   render() {
-    const { rel, toolbarSettings = true, inspectorSettings = true, isSelected } = this.props;
+    const { rel, ariaLabel, toolbarSettings = true, inspectorSettings = true, isSelected } = this.props;
 
     const { onChange } = this;
 
@@ -161,6 +162,15 @@ export default class URLPicker extends Component {
                 onChange={(val) => {
                   onChange({
                     rel: val,
+                  });
+                }}
+              />
+              <TextControl
+                label={__('Accessible Label')}
+                value={ariaLabel || ''}
+                onChange={(val) => {
+                  onChange({
+                    ariaLabel: val,
                   });
                 }}
               />

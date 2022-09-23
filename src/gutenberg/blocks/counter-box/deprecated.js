@@ -23,6 +23,48 @@ export default [
   // v2.23.2
   {
     ...metadata,
+    attributes: {
+      number: {
+        type: 'string',
+        source: 'html',
+        selector: '.ghostkit-counter-box-number-wrap',
+        default: '77',
+      },
+      animateInViewport: {
+        type: 'boolean',
+        default: false,
+      },
+      animateInViewportFrom: {
+        type: 'number',
+        default: 0,
+      },
+      numberPosition: {
+        type: 'string',
+        default: 'top',
+      },
+      numberSize: {
+        type: 'number',
+      },
+      showContent: {
+        type: 'boolean',
+        default: true,
+      },
+      numberColor: {
+        type: 'string',
+      },
+      hoverNumberColor: {
+        type: 'string',
+      },
+      url: {
+        type: 'string',
+      },
+      target: {
+        type: 'string',
+      },
+      rel: {
+        type: 'string',
+      },
+    },
     save: class BlockSave extends Component {
       render() {
         const { number, animateInViewport, numberPosition, showContent, url, target, rel } =

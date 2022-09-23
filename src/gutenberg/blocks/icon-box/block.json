@@ -38,6 +38,9 @@
     "url": {
       "type": "string"
     },
+    "ariaLabel": {
+      "type": "string"
+    },
     "target": {
       "type": "string"
     },

@@ -30,6 +30,7 @@ export default function BlockSave(props) {
     iconPosition,
     hideText,
     url,
+    ariaLabel,
     target,
     rel,
     size,
@@ -89,8 +90,9 @@ export default function BlockSave(props) {
     ...('a' === Tag
       ? {
           href: url,
-          target: target || false,
-          rel: rel || false,
+          target: target || null,
+          rel: rel || null,
+          'aria-label': ariaLabel || null,
         }
       : {}),
   });

@@ -62,6 +62,7 @@ export default function BlockEdit(props) {
     iconPosition,
     hideText,
     url,
+    ariaLabel,
     target,
     rel,
     size,
@@ -320,6 +321,7 @@ export default function BlockEdit(props) {
         <URLPicker
           url={url}
           rel={rel}
+          ariaLabel={ariaLabel}
           target={target}
           onChange={(data) => {
             setAttributes(data);

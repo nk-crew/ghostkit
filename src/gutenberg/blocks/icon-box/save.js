@@ -26,7 +26,8 @@ const { name } = metadata;
  */
 class BlockSave extends Component {
   render() {
-    const { icon, iconPosition, iconAlign, showContent, url, target, rel } = this.props.attributes;
+    const { icon, iconPosition, iconAlign, showContent, url, ariaLabel, target, rel } =
+      this.props.attributes;
 
     let className = classnames('ghostkit-icon-box', url ? 'ghostkit-icon-box-with-link' : '');
     className = applyFilters('ghostkit.blocks.className', className, {
@@ -48,8 +49,9 @@ class BlockSave extends Component {
           <a
             className="ghostkit-icon-box-link"
             href={url}
-            target={target || false}
-            rel={rel || false}
+            target={target || null}
+            rel={rel || null}
+            aria-label={ariaLabel || null}
           >
             <span />
           </a>

@@ -117,6 +117,7 @@ class BlockEdit extends Component {
       starsIcon,
 
       url,
+      ariaLabel,
       target,
       rel,
     } = attributes;
@@ -249,6 +250,7 @@ class BlockEdit extends Component {
         <URLPicker
           url={url}
           rel={rel}
+          ariaLabel={ariaLabel}
           target={target}
           onChange={(data) => {
             setAttributes(data);
