@@ -57,6 +57,18 @@
     }
   }
 
+  &-number-top-align-left {
+    justify-content: flex-start;
+  }
+
+  &-number-top-align-center {
+    justify-content: center;
+  }
+
+  &-number-top-align-right {
+    justify-content: flex-end;
+  }
+
   // Content.
   &-content {
     flex: 1;

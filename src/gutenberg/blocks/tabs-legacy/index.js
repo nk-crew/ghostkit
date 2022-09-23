@@ -133,7 +133,6 @@ class TabsBlock extends Component {
                     }
                   }}
                   withoutInteractiveFormatting
-                  keepPlaceholderOnFocus
                   key={`tab_button_${val.number}`}
                 />
               );

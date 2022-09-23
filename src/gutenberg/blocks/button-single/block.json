@@ -1,4 +1,5 @@
 {
+  "apiVersion": 2,
   "name": "ghostkit/button-single",
   "parent": ["ghostkit/button", "ghostkit/form", "ghostkit/form-submit-button"],
   "category": "design",

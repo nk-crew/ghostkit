@@ -6,10 +6,10 @@
 .ghostkit-button-wrapper-inner {
   display: flex;
   flex-wrap: wrap;
+  row-gap: var(--gkt-button__gap-vertical);
+  column-gap: var(--gkt-button__gap);
   align-items: var(--gkt-button__align-items);
   justify-content: var(--gkt-button__justify-content);
-  margin-top: calc(-1 * var(--gkt-button__gap));
-  margin-left: calc(-1 * var(--gkt-button__gap));
 
   // why we need this https://wordpress.org/support/topic/buttons-alignment-issues/
   clear: both;
@@ -21,8 +21,6 @@
   justify-content: center;
   padding: var(--gkt-button__padding-v) var(--gkt-button__padding-h);
   margin: 0;
-  margin-top: var(--gkt-button__gap);
-  margin-left: var(--gkt-button__gap);
   font-size: var(--gkt-button__font-size);
   line-height: var(--gkt-button__line-height);
   color: var(--gkt-button__color);

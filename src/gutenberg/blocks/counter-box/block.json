@@ -29,6 +29,9 @@
       "type": "string",
       "default": "top"
     },
+    "numberAlign": {
+      "type": "string"
+    },
     "numberSize": {
       "type": "number"
     },

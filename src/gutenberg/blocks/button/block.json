@@ -1,4 +1,5 @@
 {
+  "apiVersion": 2,
   "name": "ghostkit/button",
   "category": "design",
   "title": "Buttons",
@@ -23,6 +24,9 @@
       "default": "md"
     },
     "gapCustom": {
+      "type": "number"
+    },
+    "gapCustomVertical": {
       "type": "number"
     }
   }

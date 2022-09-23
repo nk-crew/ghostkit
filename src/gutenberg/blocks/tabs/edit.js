@@ -222,7 +222,6 @@ class BlockEdit extends Component {
                       this.changeLabel(value, i);
                     }}
                     withoutInteractiveFormatting
-                    keepPlaceholderOnFocus
                   />
                   <RemoveButton
                     show={isSelectedBlockInRoot}

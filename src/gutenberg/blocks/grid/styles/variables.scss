@@ -5,6 +5,7 @@
 
 .ghostkit-grid {
   --gkt-grid__gap: 15px;
+  --gkt-grid__gap-vertical: var(--gkt-grid__gap);
   --gkt-grid__justify-content: flex-start;
 
   // Column.

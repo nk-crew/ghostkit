@@ -58,8 +58,6 @@ function activateAccordionItem($heading, animationSpeed = 150, self = {}) {
   }
 
   GHOSTKIT.triggerEvent('activateAccordionItem', self, $heading);
-
-  self.hasScrolled();
 }
 
 /**

@@ -1,65 +1,24 @@
 /**
  * Editor Styles
  */
-@import "./variables";
 @import "./style";
 
 .ghostkit-button-wrapper {
-  position: relative;
-  display: flex;
-  margin-top: 0;
-
-  > .block-editor-inner-blocks {
-    width: calc(100% + var(--gkt-button__gap));
-    margin-top: 0;
-    margin-bottom: calc(-1 * var(--gkt-button__gap));
-    margin-left: calc(-1 * var(--gkt-button__gap));
-
-    > .block-editor-block-list__layout {
-      // we need to use inline-flex because of bug with selecting wrapper block in editor.
-      display: inline-flex;
-      flex-wrap: wrap;
-      align-items: var(--gkt-button__align-items);
-      justify-content: var(--gkt-button__justify-content);
-      width: 100%;
-      margin-right: 0;
-      margin-left: 0;
-
-      > div.wp-block {
-        width: auto;
-        margin: 0;
-        margin-bottom: var(--gkt-button__gap);
-        margin-left: var(--gkt-button__gap);
-      }
-
-      > .block-list-appender {
-        z-index: 7;
-        margin-top: 8px;
-
-        &:empty {
-          display: none;
-        }
-      }
-    }
-  }
-
   .blocks-rich-text__tinymce {
     cursor: text;
   }
 
   // add new button
-  .components-icon-button {
-    align-self: center;
+  .block-list-appender__toggle {
+    min-width: unset;
 
-    &:not(:disabled):not([aria-disabled="true"]):not(.is-default):hover {
-      box-shadow: none;
+    &.has-icon svg {
+      margin: 0;
     }
   }
 }
 
 .ghostkit-button {
-  margin: 0 !important;
-
   .editor-rich-text__tinymce {
     line-height: 1em;
   }
@@ -85,14 +44,4 @@
     border: var(--gkt-button-focus__border-width) solid var(--gkt-button-focus__border-color);
     box-shadow: var(--gkt-button-focus__box-shadow);
   }
-}
-
-// fix centering when more than 2 lines of buttons
-[data-type="ghostkit/button-single"] {
-  margin: 0;
-}
-
-// Example.
-.block-editor-inserter__preview [data-type="ghostkit/button-single"] + [data-type="ghostkit/button-single"] {
-  margin-left: 35px;
 }

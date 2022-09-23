@@ -27,7 +27,7 @@ export const settings = {
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/grid/',
     customStylesCallback(attributes) {
-      const { awb_image: image, gap, gapCustom } = attributes;
+      const { awb_image: image, gap, gapCustom, gapVerticalCustom } = attributes;
 
       let result = {};
 
@@ -40,14 +40,20 @@ export const settings = {
       }
 
       // Custom Gap.
-      if ('custom' === gap && 'undefined' !== typeof gapCustom) {
-        // we need to use `%` unit because of conflict with complex calc() and 0 value.
-        const unit = gapCustom ? 'px' : '%';
+      if ('custom' === gap) {
+        if ('undefined' !== typeof gapCustom) {
+          // we need to use `%` unit because of conflict with complex calc() and 0 value.
+          const unit = gapCustom ? 'px' : '%';
 
-        result = {
-          ...result,
-          '--gkt-grid__gap': `${gapCustom}${unit}`,
-        };
+          result['--gkt-grid__gap'] = `${gapCustom}${unit}`;
+        }
+
+        if ('undefined' !== typeof gapVerticalCustom) {
+          // we need to use `%` unit because of conflict with complex calc() and 0 value.
+          const unit = gapVerticalCustom ? 'px' : '%';
+
+          result['--gkt-grid__gap-vertical'] = `${gapVerticalCustom}${unit}`;
+        }
       }
 
       return result;

@@ -26,16 +26,22 @@ const { name } = metadata;
  */
 class BlockSave extends Component {
   render() {
-    const { icon, iconPosition, showContent, url, target, rel, ariaLabel } = this.props.attributes;
+    const { icon, iconPosition, iconAlign, showContent, url, ariaLabel, target, rel } =
+      this.props.attributes;
 
     let className = classnames('ghostkit-icon-box', url ? 'ghostkit-icon-box-with-link' : '');
-
     className = applyFilters('ghostkit.blocks.className', className, {
       ...{
         name,
       },
       ...this.props,
     });
+
+    const classNameIcon = classnames(
+      'ghostkit-icon-box-icon',
+      `ghostkit-icon-box-icon-align-${iconPosition || 'left'}`,
+      'top' === iconPosition ? `ghostkit-icon-box-icon-top-align-${iconAlign || 'center'}` : ''
+    );
 
     return (
       <div className={className}>
@@ -45,31 +51,17 @@ class BlockSave extends Component {
             href={url}
             target={target || false}
             rel={rel || false}
-            aria-label={ariaLabel || ''}
+            aria-label={ariaLabel || false}
           >
             <span />
           </a>
-        ) : (
-          ''
-        )}
-        {icon ? (
-          <IconPicker.Render
-            name={icon}
-            tag="div"
-            className={`ghostkit-icon-box-icon ghostkit-icon-box-icon-align-${
-              iconPosition || 'left'
-            }`}
-          />
-        ) : (
-          ''
-        )}
+        ) : null}
+        {icon ? <IconPicker.Render name={icon} tag="div" className={classNameIcon} /> : null}
         {showContent ? (
           <div className="ghostkit-icon-box-content">
             <InnerBlocks.Content />
           </div>
-        ) : (
-          ''
-        )}
+        ) : null}
       </div>
     );
   }

@@ -30,7 +30,7 @@ class ToolbarTemplates extends Component {
       <button
         type="button"
         className="components-button components-icon-button"
-        ariaLabel={__('Add Template', '@@text_domain')}
+        aria-label={__('Add Template', '@@text_domain')}
         onClick={(e) => {
           e.preventDefault();
 

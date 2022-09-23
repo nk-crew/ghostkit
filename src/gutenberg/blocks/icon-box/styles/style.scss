@@ -56,6 +56,18 @@
     padding-right: 0;
   }
 
+  &-icon-top-align-left {
+    justify-content: flex-start;
+  }
+
+  &-icon-top-align-center {
+    justify-content: center;
+  }
+
+  &-icon-top-align-right {
+    justify-content: flex-end;
+  }
+
   &-icon-align-top ~ &-content {
     flex: 100%;
     padding-top: var(--gkt-icon-box--icon__offset);

@@ -56,7 +56,9 @@ class BlockEdit extends Component {
       const newDate = new Date();
       newDate.setDate(today.getDate() + 1);
 
-      this.updateDate(newDate, units);
+      const formattedDate = luxon.DateTime.fromJSDate(newDate).toFormat(TIMEZONELESS_FORMAT);
+
+      this.updateDate(formattedDate, units);
     } else {
       this.updateDate(date, units);
     }

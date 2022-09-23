@@ -112,7 +112,6 @@ class BlockEdit extends Component {
               value={title}
               placeholder={__('Plan', '@@text_domain')}
               withoutInteractiveFormatting
-              keepPlaceholderOnFocus
             />
           ) : (
             ''
@@ -127,7 +126,6 @@ class BlockEdit extends Component {
                     value={priceCurrency}
                     placeholder={__('$', '@@text_domain')}
                     withoutInteractiveFormatting
-                    keepPlaceholderOnFocus
                   />
                 </div>
               ) : (
@@ -140,7 +138,6 @@ class BlockEdit extends Component {
                   value={price}
                   placeholder="77"
                   withoutInteractiveFormatting
-                  keepPlaceholderOnFocus
                 />
               </div>
               {showPriceRepeat && (!RichText.isEmpty(priceRepeat) || isSelected) ? (
@@ -151,7 +148,6 @@ class BlockEdit extends Component {
                     value={priceRepeat}
                     placeholder={__('/mo', '@@text_domain')}
                     withoutInteractiveFormatting
-                    keepPlaceholderOnFocus
                   />
                 </div>
               ) : (
@@ -169,7 +165,6 @@ class BlockEdit extends Component {
               value={description}
               placeholder={__('Description', '@@text_domain')}
               withoutInteractiveFormatting
-              keepPlaceholderOnFocus
             />
           ) : (
             ''
@@ -182,7 +177,6 @@ class BlockEdit extends Component {
               onChange={(val) => setAttributes({ features: val })}
               value={features}
               placeholder={__('Add features', '@@text_domain')}
-              keepPlaceholderOnFocus
             />
           ) : (
             ''
@@ -219,7 +213,6 @@ class BlockEdit extends Component {
                 value={popularText}
                 placeholder={__('Popular', '@@text_domain')}
                 withoutInteractiveFormatting
-                keepPlaceholderOnFocus
               />
             </div>
           ) : (

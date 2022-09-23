@@ -110,7 +110,6 @@ class BlockEdit extends Component {
                   value={descriptionConfirmation}
                   placeholder={__('Write description…', '@@text_domain')}
                   onChange={(val) => setAttributes({ descriptionConfirmation: val })}
-                  keepPlaceholderOnFocus
                 />
               </div>
             </div>

@@ -11,70 +11,7 @@ import parseSRConfig from '../../gutenberg/extend/scroll-reveal/parseSRConfig';
 
 const $ = window.jQuery;
 
-const $wnd = $(window);
-
 const { ghostkitVariables, GHOSTKIT } = window;
-
-/**
- * Throttle scroll
- */
-const throttleScrollList = [];
-let lastST = 0;
-
-const hasScrolled = () => {
-  const { body } = document;
-  const html = document.documentElement;
-  const ST = window.pageYOffset || html.scrollTop;
-
-  let type = ''; // [up, down, end, start]
-
-  if (ST > lastST) {
-    type = 'down';
-  } else if (ST < lastST) {
-    type = 'up';
-  } else {
-    type = 'none';
-  }
-
-  const docH = Math.max(
-    body.scrollHeight,
-    body.offsetHeight,
-    html.clientHeight,
-    html.scrollHeight,
-    html.offsetHeight
-  );
-  const wndH = window.innerHeight || html.clientHeight || body.clientHeight;
-
-  if (0 === ST) {
-    type = 'start';
-  } else if (ST >= docH - wndH) {
-    type = 'end';
-  }
-
-  throttleScrollList.forEach((value) => {
-    if ('function' === typeof value) {
-      value(type, ST, lastST);
-    }
-  });
-
-  lastST = ST;
-};
-
-const hasScrolledThrottle = throttle(
-  200,
-  rafSchd(() => {
-    if (throttleScrollList.length) {
-      hasScrolled();
-    }
-  })
-);
-
-$wnd.on('scroll load resize orientationchange throttlescroll.ghostkit', hasScrolledThrottle);
-$(hasScrolledThrottle);
-
-function throttleScroll(callback) {
-  throttleScrollList.push(callback);
-}
 
 class GhostKitClass {
   constructor() {
@@ -97,30 +34,15 @@ class GhostKitClass {
     self.prepareCounters = self.prepareCounters.bind(self);
     self.prepareFallbackCustomStyles = self.prepareFallbackCustomStyles.bind(self);
     self.prepareSR = self.prepareSR.bind(self);
-    self.hasScrolled = self.hasScrolled.bind(self);
-    self.throttleScroll = self.throttleScroll.bind(self);
     self.getWnd = self.getWnd.bind(self);
-    self.isElementInViewport = self.isElementInViewport.bind(self);
 
     GHOSTKIT.triggerEvent('beforeInit', self);
 
     // Additional easing.
     $.extend($.easing, {
-      easeOutCubic(x, t, b, c, d) {
-        return c * ((t = t / d - 1) * t * t + 1) + b;
+      easeOutCubic(x) {
+        return 1 - (1 - x) ** 3;
       },
-    });
-
-    // Alerts dismiss button.
-    $(document).on('click', '.ghostkit-alert-hide-button', function (e) {
-      e.preventDefault();
-      $(this)
-        .parent()
-        .animate({ opacity: 0 }, 150, function () {
-          $(this).slideUp(200);
-
-          hasScrolled();
-        });
     });
 
     // Init blocks.
@@ -142,18 +64,6 @@ class GhostKitClass {
     }
 
     GHOSTKIT.triggerEvent('afterInit', self);
-  }
-
-  // has scrolled
-  // eslint-disable-next-line class-methods-use-this
-  hasScrolled() {
-    hasScrolled();
-  }
-
-  // throttle scroll
-  // eslint-disable-next-line class-methods-use-this
-  throttleScroll(callback) {
-    throttleScroll(callback);
   }
 
   // Init blocks.
@@ -184,49 +94,6 @@ class GhostKitClass {
       w: window.innerWidth,
       h: window.innerHeight,
     };
-  }
-
-  /**
-   * Is element in viewport.
-   * https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
-   *
-   * @param {DOM} el - element.
-   * @param {Number} allowPercent - visible percent of the element.
-   *
-   * @returns {Boolean} - visible.
-   */
-  // eslint-disable-next-line class-methods-use-this
-  isElementInViewport(el, allowPercent = 1) {
-    const rect = el.getBoundingClientRect();
-    const rectW = rect.width || 1;
-    const rectH = rect.height || 1;
-    let visibleHeight = 0;
-    let visibleWidth = 0;
-
-    // on top of viewport
-    if (0 > rect.top && 0 < rectH + rect.top) {
-      visibleHeight = rectH + rect.top;
-
-      // on bot of viewport.
-    } else if (0 < rect.top && rect.top < window.innerHeight) {
-      visibleHeight = window.innerHeight - rect.top;
-    }
-
-    // on left of viewport
-    if (0 > rect.left && 0 < rectW + rect.left) {
-      visibleWidth = rectW + rect.left;
-
-      // on bot of viewport.
-    } else if (0 < window.innerWidth - rect.left) {
-      visibleWidth = window.innerWidth - rect.left;
-    }
-
-    visibleHeight = Math.min(visibleHeight, rectH);
-    visibleWidth = Math.min(visibleWidth, rectW);
-
-    const visiblePercent = (visibleWidth * visibleHeight) / (rectW * rectH);
-
-    return visiblePercent >= allowPercent;
   }
 
   /**
@@ -299,6 +166,7 @@ class GhostKitClass {
       }
 
       const item = {
+        $el: $this,
         el: this,
         from,
         to,
@@ -316,29 +184,39 @@ class GhostKitClass {
           }
         },
       };
-      let showed = false;
 
       GHOSTKIT.triggerEvent('prepareCounters', self, item);
 
       // Run counter.
-      throttleScroll(() => {
-        if (!showed && item && self.isElementInViewport(item.el)) {
-          showed = true;
-          $({ Counter: item.from }).animate(
-            { Counter: item.to },
-            {
-              duration: item.duration,
-              easing: item.easing,
-              step() {
-                item.cb(this.Counter, false);
-              },
-              complete() {
-                item.cb(item.to, true);
-              },
-            }
-          );
-        }
+      if (!('IntersectionObserver' in window)) {
+        item.cb(item.to, true);
+        return;
+      }
+
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && item.el === entry.target) {
+            counterObserver.unobserve(entry.target);
+
+            $({ Counter: item.from }).animate(
+              { Counter: item.to },
+              {
+                duration: item.duration,
+                easing: item.easing,
+                step() {
+                  item.cb(this.Counter, false);
+                },
+                complete() {
+                  item.cb(item.to, true);
+                  GHOSTKIT.triggerEvent('animatedCounters', self, item);
+                },
+              }
+            );
+          }
+        });
       });
+
+      counterObserver.observe(item.el);
     });
 
     GHOSTKIT.triggerEvent('afterPrepareCounters', self);

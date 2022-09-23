@@ -18,19 +18,25 @@ export const settings = {
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/button/',
     customStylesCallback(attributes) {
-      const { gap, gapCustom } = attributes;
+      const { gap, gapCustom, gapVerticalCustom } = attributes;
 
-      let result = {};
+      const result = {};
 
       // Custom Gap.
-      if ('custom' === gap && 'undefined' !== typeof gapCustom) {
-        // we need to use `%` unit because of conflict with complex calc() and 0 value.
-        const unit = gapCustom ? 'px' : '%';
+      if ('custom' === gap) {
+        if ('undefined' !== typeof gapCustom) {
+          // we need to use `%` unit because of conflict with complex calc() and 0 value.
+          const unit = gapCustom ? 'px' : '%';
 
-        result = {
-          ...result,
-          '--gkt-button__gap': `${gapCustom}${unit}`,
-        };
+          result['--gkt-button__gap'] = `${gapCustom}${unit}`;
+        }
+
+        if ('undefined' !== typeof gapVerticalCustom) {
+          // we need to use `%` unit because of conflict with complex calc() and 0 value.
+          const unit = gapVerticalCustom ? 'px' : '%';
+
+          result['--gkt-button__gap-vertical'] = `${gapVerticalCustom}${unit}`;
+        }
       }
 
       return result;

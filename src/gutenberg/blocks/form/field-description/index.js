@@ -31,7 +31,6 @@ class FieldDescription extends Component {
         value={description}
         placeholder={__('Write description…', '@@text_domain')}
         onChange={(val) => setAttributes({ description: val })}
-        keepPlaceholderOnFocus
       />
     );
   }

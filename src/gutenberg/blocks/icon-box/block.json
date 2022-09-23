@@ -19,6 +19,9 @@
       "type": "string",
       "default": "left"
     },
+    "iconAlign": {
+      "type": "string"
+    },
     "iconSize": {
       "type": "number"
     },
