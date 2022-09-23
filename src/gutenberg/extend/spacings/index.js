@@ -210,16 +210,6 @@ class SpacingsComponent extends Component {
                   {getIcon('icon-box')}
                   <div className="ghostkit-control-spacing-margin">
                     <span>{__('Margin', '@@text_domain')}</span>
-                    <div className="ghostkit-control-spacing-margin-left">
-                      <InputDrag
-                        value={this.getCurrentSpacing('marginLeft', device)}
-                        placeholder="-"
-                        onChange={(nextValue) =>
-                          this.updateSpacings('marginLeft', nextValue, device)
-                        }
-                        autoComplete="off"
-                      />
-                    </div>
                     <div className="ghostkit-control-spacing-margin-top">
                       <InputDrag
                         value={this.getCurrentSpacing('marginTop', device)}
@@ -250,19 +240,19 @@ class SpacingsComponent extends Component {
                         autoComplete="off"
                       />
                     </div>
-                  </div>
-                  <div className="ghostkit-control-spacing-padding">
-                    <span>{__('Padding', '@@text_domain')}</span>
-                    <div className="ghostkit-control-spacing-padding-left">
+                    <div className="ghostkit-control-spacing-margin-left">
                       <InputDrag
-                        value={this.getCurrentSpacing('paddingLeft', device)}
+                        value={this.getCurrentSpacing('marginLeft', device)}
                         placeholder="-"
                         onChange={(nextValue) =>
-                          this.updateSpacings('paddingLeft', nextValue, device)
+                          this.updateSpacings('marginLeft', nextValue, device)
                         }
                         autoComplete="off"
                       />
                     </div>
+                  </div>
+                  <div className="ghostkit-control-spacing-padding">
+                    <span>{__('Padding', '@@text_domain')}</span>
                     <div className="ghostkit-control-spacing-padding-top">
                       <InputDrag
                         value={this.getCurrentSpacing('paddingTop', device)}
@@ -289,6 +279,16 @@ class SpacingsComponent extends Component {
                         placeholder="-"
                         onChange={(nextValue) =>
                           this.updateSpacings('paddingBottom', nextValue, device)
+                        }
+                        autoComplete="off"
+                      />
+                    </div>
+                    <div className="ghostkit-control-spacing-padding-left">
+                      <InputDrag
+                        value={this.getCurrentSpacing('paddingLeft', device)}
+                        placeholder="-"
+                        onChange={(nextValue) =>
+                          this.updateSpacings('paddingLeft', nextValue, device)
                         }
                         autoComplete="off"
                       />
