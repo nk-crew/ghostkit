@@ -215,7 +215,6 @@ class BlockEdit extends Component {
               value={number}
               onChange={(value) => setAttributes({ number: value })}
               withoutInteractiveFormatting
-              keepPlaceholderOnFocus
             />
           </div>
           {showContent ? (

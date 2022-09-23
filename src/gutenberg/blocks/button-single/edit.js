@@ -349,7 +349,6 @@ export default function BlockEdit(props) {
           onChange={(value) => setAttributes({ text: value })}
           isSelected={isSelected}
           withoutInteractiveFormatting
-          keepPlaceholderOnFocus
         />
       ) : null}
     </div>
