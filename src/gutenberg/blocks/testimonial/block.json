@@ -63,8 +63,7 @@
       "type": "string"
     },
     "ariaLabel": {
-      "type": "string",
-      "default": ""
+      "type": "string"
     },
     "target": {
       "type": "string"
