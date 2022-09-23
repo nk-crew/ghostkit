@@ -26,7 +26,7 @@
     "@babel/plugin-transform-react-jsx": "^7.18.6",
     "@babel/preset-env": "^7.18.9",
     "@babel/register": "^7.18.9",
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/webpack": "^6.3.1",
     "base64-inline-loader": "^2.0.1",
     "browserslist-config-nk": "^1.0.0",
     "eslint-config-nk": "^1.1.0",
