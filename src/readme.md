@@ -262,6 +262,28 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.24.0 =
+
+* added Vertical Gap support to Grid and Buttons blocks
+* added horizontal align option for top icon/number in the Icon and Number boxes
+* added usage of IntersectionObserver for Animate on Scroll and similar features
+* added aria-label for URL picker
+* updated Swiper script to v8.4.0
+* changed Grid vertical gap from margins to CSS `row-gap`
+* changed Button gap from margins to CSS `gap`
+* changed Spacing control start from the Top input
+* changed RangeControl in all block settings to allow custom values. For example, allow specifying more than 12 columns in the grid
+* fixed Animate on Scroll hide elements even when JS is disabled in browser
+* fixed invalid date in editor Countdown block when block inserted
+* fixed Carousel block making duplicate slides even when Loop option is disabled
+* fixed Carousel block content inside duplicated slides. For example, Tabs block now working correctly inside slides and duplicated slides
+* fixed Images Compare block usage inside Carousel block
+* fixed Form block nonce field ID conflict with block ID
+* fixed Form block send error on some hosts
+* fixed easing function in the Progress block animation
+* fixed rest call permission check
+* minor changes
+
 = 2.23.2 =
 
 * fixed Countdown block wrong date with UTC timezone settings
