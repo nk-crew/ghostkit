@@ -139,14 +139,16 @@ class BlockEdit extends Component {
                 ) : null}
               </Fragment>
             ) : null}
-            {!showContent || icon ? (
+          </PanelBody>
+          {!showContent || icon ? (
+            <PanelBody>
               <ToggleControl
                 label={__('Show Content', '@@text_domain')}
                 checked={!!showContent}
                 onChange={(val) => setAttributes({ showContent: val })}
               />
-            ) : null}
-          </PanelBody>
+            </PanelBody>
+          ) : null}
           <PanelBody
             title={
               <Fragment>
