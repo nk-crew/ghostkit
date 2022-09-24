@@ -9,6 +9,7 @@ import classnames from 'classnames/dedupe';
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
 import ColorIndicator from '../../components/color-indicator';
+import RangeControl from '../../components/range-control';
 import ApplyFilters from '../../components/apply-filters';
 
 /**
@@ -22,8 +23,7 @@ const { Fragment } = wp.element;
 
 const { withSelect } = wp.data;
 
-const { PanelBody, RangeControl, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, TabPanel } =
-  wp.components;
+const { PanelBody, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, TabPanel } = wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
 
@@ -98,6 +98,8 @@ function BlockEdit(props) {
               max={100}
               beforeIcon="editor-textcolor"
               afterIcon="editor-textcolor"
+              allowCustomMin
+              allowCustomMax
             />
           ) : (
             ''

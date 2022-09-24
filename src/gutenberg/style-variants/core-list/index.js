@@ -10,6 +10,7 @@ import { throttle } from 'throttle-debounce';
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import RangeControl from '../../components/range-control';
 import EditorStyles from '../../components/editor-styles';
 import {
   getActiveClass,
@@ -38,7 +39,7 @@ const { createHigherOrderComponent } = wp.compose;
 
 const { InspectorControls } = wp.blockEditor;
 
-const { PanelBody, RangeControl } = wp.components;
+const { PanelBody } = wp.components;
 
 const { ghostkitVariables } = window;
 
@@ -87,7 +88,7 @@ function addAttribute(blockSettings, name) {
   return blockSettings;
 }
 
-const COLUMNS_COUNT_MAX = 6;
+const COLUMNS_COUNT_MAX = 8;
 
 /**
  * Get current columns count for selected screen size.

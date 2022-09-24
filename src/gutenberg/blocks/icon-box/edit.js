@@ -11,6 +11,7 @@ import IconPicker from '../../components/icon-picker';
 import URLPicker from '../../components/url-picker';
 import ColorIndicator from '../../components/color-indicator';
 import ToggleGroup from '../../components/toggle-group';
+import RangeControl from '../../components/range-control';
 import ApplyFilters from '../../components/apply-filters';
 import getIcon from '../../utils/get-icon';
 
@@ -25,16 +26,8 @@ const { Component, Fragment } = wp.element;
 
 const { withSelect } = wp.data;
 
-const {
-  BaseControl,
-  PanelBody,
-  RangeControl,
-  ToggleControl,
-  TabPanel,
-  Toolbar,
-  ToolbarGroup,
-  ToolbarButton,
-} = wp.components;
+const { BaseControl, PanelBody, ToggleControl, TabPanel, Toolbar, ToolbarGroup, ToolbarButton } =
+  wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
 
@@ -86,9 +79,10 @@ class BlockEdit extends Component {
                   value={iconSize}
                   onChange={(value) => setAttributes({ iconSize: value })}
                   min={20}
-                  max={100}
                   beforeIcon="editor-textcolor"
                   afterIcon="editor-textcolor"
+                  allowCustomMin
+                  allowCustomMax
                 />
                 <BaseControl label={__('Icon Position', '@@text_domain')}>
                   <div>

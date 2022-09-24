@@ -11,6 +11,7 @@ import IconPicker from '../../components/icon-picker';
 import ApplyFilters from '../../components/apply-filters';
 import ImagePicker from '../../components/image-picker';
 import ToggleGroup from '../../components/toggle-group';
+import RangeControl from '../../components/range-control';
 import getIcon from '../../utils/get-icon';
 import { hasClass, addClass, removeClass } from '../../utils/classes-replacer';
 
@@ -34,7 +35,6 @@ const {
   SelectControl,
   Button,
   ToggleControl,
-  RangeControl,
   TextControl,
   TextareaControl,
   ExternalLink,
@@ -517,8 +517,8 @@ class BlockEdit extends Component {
             <RangeControl
               label={__('Volume', '@@text_domain')}
               value={videoVolume}
-              min="0"
-              max="100"
+              min={0}
+              max={100}
               onChange={(v) => setAttributes({ videoVolume: v })}
             />
           </PanelBody>

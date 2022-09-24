@@ -8,6 +8,7 @@ import classnames from 'classnames/dedupe';
  */
 import ColorPicker from '../../components/color-picker';
 import ColorIndicator from '../../components/color-indicator';
+import RangeControl from '../../components/range-control';
 import ApplyFilters from '../../components/apply-filters';
 
 /**
@@ -18,8 +19,7 @@ const { applyFilters } = wp.hooks;
 const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
-const { PanelBody, TextControl, RangeControl, ToggleControl, TabPanel, ResizableBox } =
-  wp.components;
+const { PanelBody, TextControl, ToggleControl, TabPanel, ResizableBox } = wp.components;
 
 const { InspectorControls, RichText } = wp.blockEditor;
 
@@ -61,6 +61,7 @@ class BlockEdit extends Component {
               value={height || ''}
               onChange={(value) => setAttributes({ height: value })}
               min={1}
+              allowCustomMax
             />
             <RangeControl
               label={__('Percent', '@@text_domain')}
@@ -75,6 +76,7 @@ class BlockEdit extends Component {
               min={0}
               max={10}
               onChange={(value) => setAttributes({ borderRadius: value })}
+              allowCustomMax
             />
           </PanelBody>
           <PanelBody>

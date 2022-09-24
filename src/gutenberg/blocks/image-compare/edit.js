@@ -6,6 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
+import RangeControl from '../../components/range-control';
 import getIcon from '../../utils/get-icon';
 
 /**
@@ -22,7 +23,6 @@ const {
   BaseControl,
   Button,
   Placeholder,
-  RangeControl,
   SelectControl,
   TextareaControl,
   ExternalLink,

@@ -11,6 +11,7 @@ import IconPicker from '../../components/icon-picker';
 import ColorIndicator from '../../components/color-indicator';
 import ApplyFilters from '../../components/apply-filters';
 import URLPicker from '../../components/url-picker';
+import RangeControl from '../../components/range-control';
 import ToggleGroup from '../../components/toggle-group';
 
 /**
@@ -22,7 +23,7 @@ const { __ } = wp.i18n;
 
 const { Fragment, useEffect, useState } = wp.element;
 
-const { SelectControl, PanelBody, RangeControl, TabPanel, ToggleControl } = wp.components;
+const { SelectControl, PanelBody, TabPanel, ToggleControl } = wp.components;
 
 const { InspectorControls, useBlockProps, RichText } = wp.blockEditor;
 
@@ -165,23 +166,26 @@ export default function BlockEdit(props) {
           <RangeControl
             label={__('Corner Radius', '@@text_domain')}
             value={borderRadius}
-            min="0"
-            max="50"
+            min={0}
+            max={50}
             onChange={(value) => setAttributes({ borderRadius: value })}
+            allowCustomMax
           />
           <RangeControl
             label={__('Border Size', '@@text_domain')}
             value={borderWeight}
-            min="0"
-            max="6"
+            min={0}
+            max={6}
             onChange={(value) => setAttributes({ borderWeight: value })}
+            allowCustomMax
           />
           <RangeControl
             label={__('Focus Outline Size', '@@text_domain')}
             value={focusOutlineWeight}
-            min="0"
-            max="6"
+            min={0}
+            max={6}
             onChange={(value) => setAttributes({ focusOutlineWeight: value })}
+            allowCustomMax
           />
         </PanelBody>
         <PanelBody>

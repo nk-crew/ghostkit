@@ -10,6 +10,7 @@ import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 import ResponsiveTabPanel from '../../components/responsive-tab-panel';
 import ToggleGroup from '../../components/toggle-group';
+import RangeControl from '../../components/range-control';
 
 import getColClass from './get-col-class';
 
@@ -17,7 +18,7 @@ const { __, sprintf } = wp.i18n;
 
 const { Fragment } = wp.element;
 
-const { PanelBody, SelectControl, RangeControl, Tooltip } = wp.components;
+const { PanelBody, SelectControl, Tooltip } = wp.components;
 
 const { applyFilters } = wp.hooks;
 
@@ -251,6 +252,7 @@ export default function BlockEdit(props) {
               label={__('Sticky Offset', '@@text_domain')}
               value={stickyContentOffset}
               onChange={(value) => setAttributes({ stickyContentOffset: value })}
+              allowCustomMax
             />
           ) : (
             ''

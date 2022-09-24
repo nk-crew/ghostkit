@@ -11,6 +11,7 @@ import { debounce } from 'throttle-debounce';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 import ImagePicker from '../../components/image-picker';
+import RangeControl from '../../components/range-control';
 import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 
 import IconMarker from './icons/marker.svg';
@@ -31,7 +32,6 @@ const {
   PanelBody,
   TextControl,
   TextareaControl,
-  RangeControl,
   ToggleControl,
   Button,
   ToolbarGroup,
@@ -379,6 +379,8 @@ class BlockEdit extends Component {
                   onChange={(value) => setAttributes({ height: value })}
                   min={100}
                   max={800}
+                  allowCustomMin
+                  allowCustomMax
                 />
                 <RangeControl
                   label={__('Zoom', '@@text_domain')}
@@ -386,6 +388,7 @@ class BlockEdit extends Component {
                   onChange={(value) => setAttributes({ zoom: value })}
                   min={1}
                   max={18}
+                  allowCustomMax
                 />
               </PanelBody>
               <PanelBody title={__('Markers', '@@text_domain')}>

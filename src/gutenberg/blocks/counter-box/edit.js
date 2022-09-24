@@ -10,6 +10,7 @@ import ColorPicker from '../../components/color-picker';
 import URLPicker from '../../components/url-picker';
 import ColorIndicator from '../../components/color-indicator';
 import ToggleGroup from '../../components/toggle-group';
+import RangeControl from '../../components/range-control';
 import ApplyFilters from '../../components/apply-filters';
 import getIcon from '../../utils/get-icon';
 
@@ -28,7 +29,6 @@ const {
   BaseControl,
   PanelBody,
   TextControl,
-  RangeControl,
   ToggleControl,
   TabPanel,
   Toolbar,
@@ -82,10 +82,9 @@ class BlockEdit extends Component {
               label={__('Number Size', '@@text_domain')}
               value={numberSize}
               onChange={(value) => setAttributes({ numberSize: value })}
-              min={20}
-              max={100}
               beforeIcon="editor-textcolor"
               afterIcon="editor-textcolor"
+              allowCustomMax
             />
             <BaseControl label={__('Number Position', '@@text_domain')}>
               <div>

@@ -2,6 +2,7 @@
 import classnames from 'classnames/dedupe';
 
 // Internal Dependencies.
+import RangeControl from '../../components/range-control';
 import getIcon from '../../utils/get-icon';
 
 import deprecatedArray from './deprecated';
@@ -9,7 +10,7 @@ import deprecatedArray from './deprecated';
 const { applyFilters } = wp.hooks;
 const { __, sprintf } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { PanelBody, RangeControl, SelectControl } = wp.components;
+const { PanelBody, SelectControl } = wp.components;
 
 const { RichText, InspectorControls, InnerBlocks } = wp.blockEditor;
 
@@ -80,6 +81,7 @@ class TabsBlock extends Component {
               onChange={(value) => setAttributes({ tabsCount: value })}
               min={1}
               max={6}
+              allowCustomMax
             />
             <SelectControl
               label={__('Tabs align', '@@text_domain')}

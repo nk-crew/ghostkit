@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import GapSettings from '../../components/gap-settings';
+import RangeControl from '../../components/range-control';
 import getIcon from '../../utils/get-icon';
 
 /**
@@ -16,8 +17,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, Placeholder, TextControl, RangeControl, ToggleControl, Spinner, ExternalLink } =
-  wp.components;
+const { PanelBody, Placeholder, TextControl, ToggleControl, Spinner, ExternalLink } = wp.components;
 
 const { applyFilters } = wp.hooks;
 
@@ -77,6 +77,7 @@ class BlockEdit extends Component {
                   onChange={(value) => setAttributes({ count: value })}
                   min={1}
                   max={20}
+                  allowCustomMax
                 />
                 <RangeControl
                   label={__('Columns', '@@text_domain')}
@@ -84,6 +85,7 @@ class BlockEdit extends Component {
                   onChange={(value) => setAttributes({ columns: value })}
                   min={1}
                   max={8}
+                  allowCustomMax
                 />
               </PanelBody>
               <PanelBody>
@@ -115,6 +117,8 @@ class BlockEdit extends Component {
                         onChange={(value) => setAttributes({ profileAvatarSize: value })}
                         min={30}
                         max={150}
+                        allowCustomMin
+                        allowCustomMax
                       />
                     ) : (
                       ''

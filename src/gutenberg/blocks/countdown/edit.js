@@ -8,6 +8,7 @@ import classnames from 'classnames/dedupe';
  */
 import ColorPicker from '../../components/color-picker';
 import DateTimePicker from '../../components/date-time-picker';
+import RangeControl from '../../components/range-control';
 
 import countDownApi from './api';
 import { TIMEZONELESS_FORMAT } from './constants';
@@ -23,7 +24,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, SelectControl, RangeControl, ToolbarGroup, ToolbarButton } = wp.components;
+const { PanelBody, SelectControl, ToolbarGroup, ToolbarButton } = wp.components;
 
 const { InspectorControls, InnerBlocks, BlockControls } = wp.blockEditor;
 
@@ -199,6 +200,7 @@ class BlockEdit extends Component {
               onChange={(value) => setAttributes({ numberFontSize: value })}
               beforeIcon="editor-textcolor"
               afterIcon="editor-textcolor"
+              allowCustomMax
             />
             <RangeControl
               label={__('Label Font Size', '@@text_domain')}
@@ -206,6 +208,7 @@ class BlockEdit extends Component {
               onChange={(value) => setAttributes({ labelFontSize: value })}
               beforeIcon="editor-textcolor"
               afterIcon="editor-textcolor"
+              allowCustomMax
             />
             <ColorPicker
               label={__('Number Color', '@@text_domain')}

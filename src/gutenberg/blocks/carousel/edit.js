@@ -8,6 +8,7 @@ import classnames from 'classnames/dedupe';
  */
 import IconPicker from '../../components/icon-picker';
 import ToggleGroup from '../../components/toggle-group';
+import RangeControl from '../../components/range-control';
 
 /**
  * WordPress dependencies
@@ -18,7 +19,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, RangeControl, ToggleControl } = wp.components;
+const { PanelBody, ToggleControl } = wp.components;
 
 const { InspectorControls, InnerBlocks } = wp.blockEditor;
 
@@ -106,6 +107,7 @@ class BlockEdit extends Component {
               onChange={(value) => this.updateSlidesCount(value)}
               min={2}
               max={20}
+              allowCustomMax
             />
           </PanelBody>
           <PanelBody>
@@ -141,6 +143,7 @@ class BlockEdit extends Component {
               min={0}
               max={10}
               step={0.1}
+              allowCustomMax
             />
             <RangeControl
               label={__('Autoplay (seconds)', '@@text_domain')}
@@ -149,6 +152,7 @@ class BlockEdit extends Component {
               min={0}
               max={20}
               step={0.3}
+              allowCustomMax
             />
             {autoplay ? (
               <ToggleControl
@@ -165,6 +169,7 @@ class BlockEdit extends Component {
                   onChange={(value) => setAttributes({ slidesPerView: value })}
                   min={1}
                   max={8}
+                  allowCustomMax
                 />
                 <RangeControl
                   label={__('Gap', '@@text_domain')}
@@ -172,6 +177,7 @@ class BlockEdit extends Component {
                   onChange={(value) => setAttributes({ gap: value })}
                   min={0}
                   max={60}
+                  allowCustomMax
                 />
               </Fragment>
             ) : (

@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
+import RangeControl from '../../components/range-control';
 import getIcon from '../../utils/get-icon';
 
 /**
@@ -16,16 +17,8 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const {
-  SelectControl,
-  PanelBody,
-  Placeholder,
-  TextControl,
-  RangeControl,
-  ToggleControl,
-  Spinner,
-  ExternalLink,
-} = wp.components;
+const { SelectControl, PanelBody, Placeholder, TextControl, ToggleControl, Spinner, ExternalLink } =
+  wp.components;
 
 const { applyFilters } = wp.hooks;
 
@@ -120,6 +113,8 @@ class BlockEdit extends Component {
                     onChange={(value) => setAttributes({ feedAvatarSize: value })}
                     min={10}
                     max={100}
+                    allowCustomMin
+                    allowCustomMax
                   />
                 ) : (
                   ''
@@ -194,6 +189,8 @@ class BlockEdit extends Component {
                         onChange={(value) => setAttributes({ profileAvatarSize: value })}
                         min={30}
                         max={150}
+                        allowCustomMin
+                        allowCustomMax
                       />
                     ) : (
                       ''

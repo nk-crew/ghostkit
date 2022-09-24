@@ -10,6 +10,7 @@ import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 import GapSettings from '../../components/gap-settings';
 import ToggleGroup from '../../components/toggle-group';
+import RangeControl from '../../components/range-control';
 import { TemplatesModal } from '../../plugins/templates';
 
 /**
@@ -21,8 +22,7 @@ const { __ } = wp.i18n;
 
 const { Fragment, useState } = wp.element;
 
-const { Button, PanelBody, RangeControl, Placeholder, ToolbarGroup, ToolbarButton, Tooltip } =
-  wp.components;
+const { Button, PanelBody, Placeholder, ToolbarGroup, ToolbarButton, Tooltip } = wp.components;
 
 const {
   InspectorControls,
@@ -299,6 +299,7 @@ export default function BlockEdit(props) {
               onChange={(value) => updateColumns(value)}
               min={1}
               max={12}
+              allowCustomMax
             />
           </PanelBody>
         </ApplyFilters>
