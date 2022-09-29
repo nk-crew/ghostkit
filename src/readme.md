@@ -4,7 +4,7 @@
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
 * Donate link: https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
 * Requires at least: 5.8
-* Tested up to: 5.9
+* Tested up to: 6.0
 * Requires PHP: 7.2
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
@@ -261,6 +261,11 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 2.24.1 =
+
+* fixed custom Gap settings save number value instead of string
+* changed Tested up to in readme
 
 = 2.24.0 =
 
