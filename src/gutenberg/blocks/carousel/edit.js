@@ -106,7 +106,7 @@ class BlockEdit extends Component {
               value={slidesCount}
               onChange={(value) => this.updateSlidesCount(value)}
               min={2}
-              max={20}
+              max={100}
               allowCustomMax
             />
           </PanelBody>
