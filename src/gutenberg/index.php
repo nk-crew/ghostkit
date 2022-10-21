@@ -16,7 +16,7 @@ require_once ghostkit()->plugin_path . 'gutenberg/blocks/table-of-contents/block
 
 
 
-if ( ! $key_exists( 'ghostkit/form', get_option( 'ghostkit_disabled_blocks', array() ) ) ) {
+if ( ! key_exists( 'ghostkit/form', get_option( 'ghostkit_disabled_blocks', array() ) ) ) {
     require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/block.php';
     require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/text/block.php';
     require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/email/block.php';
