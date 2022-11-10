@@ -95,7 +95,9 @@ export default class GapSettings extends Component {
               type="number"
               help={allowVerticalGap ? __('Horizontal', '@@text_domain') : ''}
               value={gapCustom}
-              onChange={(value) => onChange({ gapCustom: value })}
+              onChange={(value) =>
+                onChange({ gapCustom: '' === value ? undefined : parseFloat(value) })
+              }
               min={0}
             />
             {allowVerticalGap ? (
@@ -105,7 +107,7 @@ export default class GapSettings extends Component {
                 placeholder={gapCustom}
                 value={gapVerticalCustom}
                 onChange={(value) =>
-                  onChange({ gapVerticalCustom: '' === value ? undefined : value })
+                  onChange({ gapVerticalCustom: '' === value ? undefined : parseFloat(value) })
                 }
                 min={0}
               />
