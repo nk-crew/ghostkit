@@ -5,8 +5,9 @@
 @import "./style";
 
 .ghostkit-form {
-  & > .block-editor-inserter {
+  > .block-editor-inserter {
     display: block;
+    margin-top: 20px;
   }
 
   &-field-description {
@@ -68,20 +69,4 @@
 
 .ghostkit-field-options > .components-button {
   margin-left: 20px;
-}
-
-// Additional paddings on selected block.
-.wp-block[data-type="ghostkit/form"] {
-  &.is-selected .ghostkit-form,
-  &.has-child-selected .ghostkit-form {
-    > .block-editor-inner-blocks > .block-editor-block-list__layout {
-      padding: 14px;
-      padding-bottom: 0;
-    }
-
-    > .block-editor-inserter {
-      margin: 2px;
-      margin-top: -10px;
-    }
-  }
 }
