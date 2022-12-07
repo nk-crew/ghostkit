@@ -138,6 +138,44 @@
 }
 
 /**
+ * Better appender styles for blocks:
+ * - Grid
+ * - Alert
+ * - Counter Box
+ * - Icon Box
+ * - Testimonial
+ * - Tabs
+ * - Accordion
+ * - Carousel
+ */
+.ghostkit-grid-inner > .block-editor-block-list__block:not(.is-selected) > .ghostkit-col-content > .block-list-appender:only-child,
+[data-type="ghostkit/alert"]:not(.is-selected) > .ghostkit-alert > .ghostkit-alert-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/counter-box"]:not(.is-selected) > .ghostkit-counter-box > .ghostkit-counter-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/icon-box"]:not(.is-selected) > .ghostkit-icon-box > .ghostkit-icon-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/testimonial"]:not(.is-selected) > .ghostkit-testimonial > .ghostkit-testimonial-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/tabs-tab-v2"]:not(.is-selected) > .ghostkit-tab > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/accordion-item"]:not(.is-selected) > .ghostkit-accordion-item > .ghostkit-accordion-item-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/carousel-slide"]:not(.is-selected) > .ghostkit-carousel-slide > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child {
+  pointer-events: none;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    content: "";
+    border: 1px dashed;
+    border-radius: 2px;
+  }
+
+  .block-editor-inserter {
+    visibility: hidden;
+  }
+}
+
+/**
  * Extensions icon in panel body
  */
 .components-panel__body-toggle > .ghostkit-ext-icon {
