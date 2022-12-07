@@ -4,7 +4,7 @@
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
 * Donate link: https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
 * Requires at least: 5.8
-* Tested up to: 6.0
+* Tested up to: 6.1
 * Requires PHP: 7.2
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
