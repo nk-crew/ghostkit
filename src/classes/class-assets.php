@@ -275,7 +275,7 @@ class GhostKit_Assets {
         }
 
         // Get all sidebars.
-        $sidebars = false;
+        $sidebars = array();
         if ( ! empty( $GLOBALS['wp_registered_sidebars'] ) ) {
             foreach ( $GLOBALS['wp_registered_sidebars'] as $k => $sidebar ) {
                 $sidebars[ $k ] = array(
