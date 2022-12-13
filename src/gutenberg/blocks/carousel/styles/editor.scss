@@ -4,6 +4,9 @@
 @import "./variables";
 
 .ghostkit-carousel {
+  --gkt-carousel-gap: 20px;
+  --gkt-carousel-slides-per-view: 2;
+
   position: relative;
   padding-bottom: 10px;
   overflow-x: auto;
@@ -11,23 +14,20 @@
 
   > .block-editor-inner-blocks > .block-editor-block-list__layout {
     display: flex;
+    gap: var(--gkt-carousel-gap);
     margin: 0;
 
     > .wp-block {
-      flex: 0 0 calc(50% - 10px);
-      min-width: calc(50% - 10px);
-      max-width: calc(50% - 10px);
+      --gkt-carousel-slide-width: calc(100% / var(--gkt-carousel-slides-per-view) - var(--gkt-carousel-gap) * (var(--gkt-carousel-slides-per-view) - 1) / var(--gkt-carousel-slides-per-view));
+
+      flex: 0 0 var(--gkt-carousel-slide-width);
+      min-width: var(--gkt-carousel-slide-width);
+      max-width: var(--gkt-carousel-slide-width);
       margin: 0;
-      margin-right: 20px;
       background-color: rgba(126, 126, 126, 5%);
 
       &:last-of-type {
         margin-right: 0;
-      }
-
-      // hide insertion button as it is bugged.
-      > .editor-block-list__insertion-point {
-        display: none;
       }
     }
   }

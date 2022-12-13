@@ -9,6 +9,7 @@ import classnames from 'classnames/dedupe';
 import IconPicker from '../../components/icon-picker';
 import ToggleGroup from '../../components/toggle-group';
 import RangeControl from '../../components/range-control';
+import EditorStyles from '../../components/editor-styles';
 
 /**
  * WordPress dependencies
@@ -28,6 +29,8 @@ const { compose } = wp.compose;
 const { withSelect, withDispatch } = wp.data;
 
 const { createBlock } = wp.blocks;
+
+const ALLOWED_BLOCKS = ['ghostkit/carousel-slide'];
 
 /**
  * Block Edit Class.
@@ -240,11 +243,19 @@ class BlockEdit extends Component {
         <div className={className}>
           <InnerBlocks
             template={[['ghostkit/carousel-slide'], ['ghostkit/carousel-slide']]}
-            allowedBlocks={['ghostkit/carousel-slide']}
+            allowedBlocks={ALLOWED_BLOCKS}
             orientation="horizontal"
             renderAppender={false}
           />
         </div>
+        <EditorStyles
+          styles={`
+              [data-block="${this.props.clientId}"] > .ghostkit-carousel {
+                --gkt-carousel-gap: ${gap}px;
+                --gkt-carousel-slides-per-view: ${'fade' === effect ? 1 : slidesPerView};
+              }
+            `}
+        />
       </Fragment>
     );
   }
