@@ -16,7 +16,7 @@ const { subscribe, select } = wp.data;
 /**
  * Get available TOC block.
  *
- * @param {Array} blocks blocks array.
+ * @param {Array|Boolean} blocks blocks array.
  *
  * @return {Array} toc block data.
  */
