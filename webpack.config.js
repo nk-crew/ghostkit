@@ -51,10 +51,8 @@ module.exports = function () {
               svgoConfig: {
                 plugins: [
                   {
-                    removeViewBox: false,
-                  },
-                  {
-                    cleanupIDs: {
+                    name: 'cleanupIDs',
+                    params: {
                       prefix: `ghostkit-${md5(resource)}-`,
                     },
                   },
