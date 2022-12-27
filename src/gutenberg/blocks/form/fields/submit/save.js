@@ -28,7 +28,7 @@ class BlockSave extends Component {
 
     let className = classnames(
       'ghostkit-form-submit-button',
-      align && 'none' !== align ? `ghostkit-form-submit-button-align-${align}` : false
+      align && align !== 'none' ? `ghostkit-form-submit-button-align-${align}` : false
     );
 
     className = applyFilters('ghostkit.blocks.className', className, {

@@ -43,6 +43,6 @@ export default withSelect((select, ownProps) => {
   const blockEditor = select('core/block-editor');
 
   return {
-    hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
+    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
   };
 })(BlockEdit);

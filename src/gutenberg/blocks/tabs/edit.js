@@ -101,7 +101,7 @@ class BlockEdit extends Component {
 
     const { tabsData = [] } = attributes;
 
-    if (1 >= block.innerBlocks.length) {
+    if (block.innerBlocks.length <= 1) {
       this.props.removeBlock(block.clientId);
     } else if (block.innerBlocks[i]) {
       this.props.removeBlock(block.innerBlocks[i].clientId);
@@ -145,9 +145,9 @@ class BlockEdit extends Component {
     className = applyFilters('ghostkit.editor.className', className, this.props);
 
     let buttonsAlignValForControl = buttonsAlign;
-    if ('start' === buttonsAlignValForControl) {
+    if (buttonsAlignValForControl === 'start') {
       buttonsAlignValForControl = 'left';
-    } else if ('end' === buttonsAlignValForControl) {
+    } else if (buttonsAlignValForControl === 'end') {
       buttonsAlignValForControl = 'right';
     }
 
@@ -157,9 +157,9 @@ class BlockEdit extends Component {
           <AlignmentToolbar
             value={buttonsAlignValForControl}
             onChange={(value) => {
-              if ('left' === value) {
+              if (value === 'left') {
                 value = 'start';
-              } else if ('right' === value) {
+              } else if (value === 'right') {
                 value = 'end';
               }
               setAttributes({ buttonsAlign: value });
@@ -179,9 +179,9 @@ class BlockEdit extends Component {
                 <AlignmentToolbar
                   value={buttonsAlignValForControl}
                   onChange={(value) => {
-                    if ('left' === value) {
+                    if (value === 'left') {
                       value = 'start';
-                    } else if ('right' === value) {
+                    } else if (value === 'right') {
                       value = 'end';
                     }
                     setAttributes({ buttonsAlign: value });
@@ -243,7 +243,6 @@ class BlockEdit extends Component {
                       width="24"
                       height="24"
                       role="img"
-                      ariaHidden="true"
                       focusable="false"
                     >
                       <path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z" />

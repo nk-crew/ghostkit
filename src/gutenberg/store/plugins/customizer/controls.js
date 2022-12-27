@@ -23,7 +23,7 @@ export function API_FETCH({ request }) {
   return apiFetch(request)
     .catch(async (fetchedData) => {
       // try to get customizer data.
-      if (fetchedData && fetchedData.error && 'no_options_found' === fetchedData.error_code) {
+      if (fetchedData && fetchedData.error && fetchedData.error_code === 'no_options_found') {
         await maybeGetCustomizerData();
         return apiFetch(request);
       }
@@ -31,7 +31,7 @@ export function API_FETCH({ request }) {
       return fetchedData;
     })
     .catch((fetchedData) => {
-      if (fetchedData && fetchedData.error && 'no_options_found' === fetchedData.error_code) {
+      if (fetchedData && fetchedData.error && fetchedData.error_code === 'no_options_found') {
         return {
           response: {},
           error: false,

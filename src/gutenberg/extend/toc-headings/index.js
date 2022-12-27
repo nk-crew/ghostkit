@@ -31,7 +31,7 @@ function getTOC(blocks = false) {
 
   blocks.forEach((block) => {
     if (!result) {
-      if ('ghostkit/table-of-contents' === block.name) {
+      if (block.name === 'ghostkit/table-of-contents') {
         result = block;
       } else if (block.innerBlocks && block.innerBlocks.length) {
         result = getTOC(block.innerBlocks);
@@ -59,7 +59,7 @@ function getHeadings(blocks = false) {
   }
 
   blocks.forEach((block) => {
-    if ('core/heading' === block.name) {
+    if (block.name === 'core/heading') {
       result.push(block);
     } else if (block.innerBlocks && block.innerBlocks.length) {
       result = [...result, ...getHeadings(block.innerBlocks)];
@@ -102,7 +102,7 @@ function updateHeadingIDs() {
 
     // check collisions.
     if (anchor) {
-      if ('undefined' !== typeof collisionCollector[anchor]) {
+      if (typeof collisionCollector[anchor] !== 'undefined') {
         collisionCollector[anchor] += 1;
         anchor += `-${collisionCollector[anchor]}`;
         block.attributes.anchor = anchor;

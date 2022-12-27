@@ -16,7 +16,7 @@ export default function getBackgroundStyles(attributes) {
   result['> .nk-awb .jarallax-img'] = {};
 
   // <img> tag with object-fit style
-  if ('pattern' !== imageBackgroundSize) {
+  if (imageBackgroundSize !== 'pattern') {
     if (imageBackgroundSize) {
       result['> .nk-awb .jarallax-img']['object-fit'] = imageBackgroundSize;
       result['> .nk-awb .jarallax-img']['font-family'] = `object-fit: ${imageBackgroundSize}`;

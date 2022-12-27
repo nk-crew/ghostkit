@@ -39,14 +39,14 @@ class BlockEdit extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isSelected && !this.props.isSelected && 'preview' === this.state.activeTab) {
+    if (prevProps.isSelected && !this.props.isSelected && this.state.activeTab === 'preview') {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ activeTab: 'editor' });
     }
     if (
       !prevProps.isSelected &&
       this.props.isSelected &&
-      'editor' === this.state.activeTab &&
+      this.state.activeTab === 'editor' &&
       this.input
     ) {
       this.input.focus();
@@ -64,7 +64,7 @@ class BlockEdit extends Component {
 
     className = classnames('ghostkit-markdown', className);
 
-    if (!isSelected && (!content || '' === content.trim())) {
+    if (!isSelected && (!content || content.trim() === '')) {
       return <p>{__('Write your _Markdown_ **here**...', '@@text_domain')}</p>;
     }
 
@@ -76,7 +76,7 @@ class BlockEdit extends Component {
             <button
               className={classnames(
                 'components-button components-tab-button',
-                'editor' === activeTab ? 'is-pressed' : ''
+                activeTab === 'editor' ? 'is-pressed' : ''
               )}
               onClick={() => this.setState({ activeTab: 'editor' })}
             >
@@ -86,7 +86,7 @@ class BlockEdit extends Component {
             <button
               className={classnames(
                 'components-button components-tab-button',
-                'preview' === activeTab ? 'is-pressed' : ''
+                activeTab === 'preview' ? 'is-pressed' : ''
               )}
               onClick={() => this.setState({ activeTab: 'preview' })}
             >
@@ -95,7 +95,7 @@ class BlockEdit extends Component {
           </ToolbarGroup>
         </BlockControls>
 
-        {'preview' === activeTab || !isSelected ? (
+        {activeTab === 'preview' || !isSelected ? (
           <MDRender className={className} content={content} />
         ) : (
           <PlainText
@@ -105,7 +105,7 @@ class BlockEdit extends Component {
             }}
             onKeyDown={(e) => {
               // Remove the block if content is empty and we're pressing the Backspace key
-              if (8 === e.keyCode && '' === content) {
+              if (e.keyCode === 8 && content === '') {
                 removeBlock();
                 e.preventDefault();
               }

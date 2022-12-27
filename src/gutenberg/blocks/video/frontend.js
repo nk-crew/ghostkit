@@ -48,7 +48,7 @@ $(window).on('DOMContentLoaded load resize orientationchange', () => {
  * Prepare Videos.
  */
 $doc.on('initBlocks.ghostkit', (e, self) => {
-  if ('undefined' === typeof window.VideoWorker) {
+  if (typeof window.VideoWorker === 'undefined') {
     return;
   }
 
@@ -59,9 +59,9 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     const url = $this.attr('data-video');
     const clickAction = $this.attr('data-click-action');
 
-    const videoAutoplay = 'true' === $this.attr('data-video-autoplay');
-    const videoAutopause = 'true' === $this.attr('data-video-autopause');
-    const videoLoop = 'true' === $this.attr('data-video-loop');
+    const videoAutoplay = $this.attr('data-video-autoplay') === 'true';
+    const videoAutopause = $this.attr('data-video-autopause') === 'true';
+    const videoLoop = $this.attr('data-video-loop') === 'true';
 
     let fullscreenCloseIcon = $this.find('.ghostkit-video-fullscreen-close-icon');
     if (fullscreenCloseIcon.length) {
@@ -119,7 +119,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
         clicked = 1;
 
         // fullscreen video
-        if ('fullscreen' === clickAction) {
+        if (clickAction === 'fullscreen') {
           // add loading button
           if (!loaded) {
             $this.addClass('ghostkit-video-loading');
@@ -197,7 +197,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       api.on('ready', () => {
         $this.removeClass('ghostkit-video-loading');
 
-        if ('fullscreen' === clickAction) {
+        if (clickAction === 'fullscreen') {
           if (!$this.hasClass('ghostkit-video-fullscreen-closed')) {
             api.play();
           }
@@ -212,12 +212,12 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       api.on('pause', () => {
         isPlaying = false;
         autoplayOnce = true;
-        if ('fullscreen' === clickAction) {
+        if (clickAction === 'fullscreen') {
           clicked = 0;
         }
       });
 
-      if ('fullscreen' !== clickAction && (videoAutoplay || videoAutopause)) {
+      if (clickAction !== 'fullscreen' && (videoAutoplay || videoAutopause)) {
         if (!('IntersectionObserver' in window)) {
           return;
         }

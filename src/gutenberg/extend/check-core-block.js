@@ -21,5 +21,5 @@ const unsupportedBlocks = [
  * @return {Boolean} block supported.
  */
 export default function checkCoreBlock(name) {
-  return name && /^core/.test(name) && -1 === unsupportedBlocks.indexOf(name);
+  return name && /^core/.test(name) && unsupportedBlocks.indexOf(name) === -1;
 }

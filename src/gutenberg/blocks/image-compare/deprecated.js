@@ -24,7 +24,7 @@ export default [
       customStylesCallback(attributes) {
         return {
           '--gkt-image-compare__position':
-            'undefined' !== typeof attributes.position ? `${attributes.position}%` : undefined,
+            typeof attributes.position !== 'undefined' ? `${attributes.position}%` : undefined,
         };
       },
       supports: {
@@ -83,25 +83,25 @@ export default [
               </div>
               <div className="ghostkit-image-compare-images-divider">
                 <div className="ghostkit-image-compare-images-divider-button-arrow-left">
-                  <svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                       d="M14 7l-5 5 5 5"
                       stroke="currentColor"
-                      strokewidth="1.5"
-                      strokelinecap="round"
-                      strokelinejoin="round"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       fill="transparent"
                     />
                   </svg>
                 </div>
                 <div className="ghostkit-image-compare-images-divider-button-arrow-right">
-                  <svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                       d="M10 17l5-5-5-5"
                       stroke="currentColor"
-                      strokewidth="1.5"
-                      strokelinecap="round"
-                      strokelinejoin="round"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       fill="transparent"
                     />
                   </svg>

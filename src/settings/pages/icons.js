@@ -35,7 +35,7 @@ class Icons extends Component {
   getSetting(name, defaultVal) {
     let result = defaultVal;
 
-    if ('undefined' !== typeof this.state.settings[name]) {
+    if (typeof this.state.settings[name] !== 'undefined') {
       result = this.state.settings[name];
     }
 

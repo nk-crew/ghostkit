@@ -53,7 +53,7 @@ export default function getStyles(data = {}, selector = '', escape = true) {
   // add styles.
   Object.keys(data).forEach((key) => {
     // object values.
-    if (null !== data[key] && 'object' === typeof data[key]) {
+    if (data[key] !== null && typeof data[key] === 'object') {
       // media for different screens
       if (/^media_/.test(key)) {
         resultCSS += `${resultCSS ? ' ' : ''}@media #{ghostkitvar:${key}} { ${getStyles(
@@ -71,7 +71,7 @@ export default function getStyles(data = {}, selector = '', escape = true) {
         let nestedSelector = selector;
 
         if (nestedSelector) {
-          if (-1 !== key.indexOf('&')) {
+          if (key.indexOf('&') !== -1) {
             nestedSelector = key.replace(/&/g, nestedSelector);
           } else {
             nestedSelector = `${nestedSelector} ${key}`;
@@ -84,7 +84,7 @@ export default function getStyles(data = {}, selector = '', escape = true) {
       }
 
       // style properties and values.
-    } else if ('undefined' !== typeof data[key] && false !== data[key]) {
+    } else if (typeof data[key] !== 'undefined' && data[key] !== false) {
       // fix selector > and < usage.
       if (escape) {
         selector = selector.replace(/>/g, '&gt;');
@@ -105,16 +105,16 @@ export default function getStyles(data = {}, selector = '', escape = true) {
 
       // add pixels.
       if (
-        ('number' === typeof propValue &&
-          0 !== propValue &&
+        (typeof propValue === 'number' &&
+          propValue !== 0 &&
           cssPropsWithPixels.includes(propName)) ||
-        ('string' === typeof propValue && propValue && /^[0-9.-]*$/.test(propValue))
+        (typeof propValue === 'string' && propValue && /^[0-9.-]*$/.test(propValue))
       ) {
         propValue += 'px';
       }
 
       // add custom css.
-      if ('undefined' !== typeof propValue && '' !== propValue) {
+      if (typeof propValue !== 'undefined' && propValue !== '') {
         if (thereIsImportant) {
           propValue += ' !important';
         }

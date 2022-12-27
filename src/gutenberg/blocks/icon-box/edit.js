@@ -60,7 +60,7 @@ class BlockEdit extends Component {
     const classNameIcon = classnames(
       'ghostkit-icon-box-icon',
       `ghostkit-icon-box-icon-align-${iconPosition || 'left'}`,
-      'top' === iconPosition ? `ghostkit-icon-box-icon-top-align-${iconAlign || 'center'}` : ''
+      iconPosition === 'top' ? `ghostkit-icon-box-icon-top-align-${iconAlign || 'center'}` : ''
     );
 
     return (
@@ -91,24 +91,24 @@ class BlockEdit extends Component {
                         icon="align-center"
                         title={__('Top', '@@text_domain')}
                         onClick={() => setAttributes({ iconPosition: 'top' })}
-                        isActive={'top' === iconPosition}
+                        isActive={iconPosition === 'top'}
                       />
                       <ToolbarButton
                         icon="align-left"
                         title={__('Left', '@@text_domain')}
                         onClick={() => setAttributes({ iconPosition: 'left' })}
-                        isActive={'left' === iconPosition}
+                        isActive={iconPosition === 'left'}
                       />
                       <ToolbarButton
                         icon="align-right"
                         title={__('Right', '@@text_domain')}
                         onClick={() => setAttributes({ iconPosition: 'right' })}
-                        isActive={'right' === iconPosition}
+                        isActive={iconPosition === 'right'}
                       />
                     </Toolbar>
                   </div>
                 </BaseControl>
-                {'top' === iconPosition ? (
+                {iconPosition === 'top' ? (
                   <ToggleGroup
                     label={__('Icon Alignment', '@@text_domain')}
                     value={iconAlign || 'center'}
@@ -168,7 +168,7 @@ class BlockEdit extends Component {
               ]}
             >
               {(tabData) => {
-                const isHover = 'hover' === tabData.name;
+                const isHover = tabData.name === 'hover';
                 return (
                   <ApplyFilters
                     name="ghostkit.editor.controls"
@@ -208,19 +208,19 @@ class BlockEdit extends Component {
                 icon="align-center"
                 title={__('Top', '@@text_domain')}
                 onClick={() => setAttributes({ iconPosition: 'top' })}
-                isActive={'top' === iconPosition}
+                isActive={iconPosition === 'top'}
               />
               <ToolbarButton
                 icon="align-left"
                 title={__('Left', '@@text_domain')}
                 onClick={() => setAttributes({ iconPosition: 'left' })}
-                isActive={'left' === iconPosition}
+                isActive={iconPosition === 'left'}
               />
               <ToolbarButton
                 icon="align-right"
                 title={__('Right', '@@text_domain')}
                 onClick={() => setAttributes({ iconPosition: 'right' })}
-                isActive={'right' === iconPosition}
+                isActive={iconPosition === 'right'}
               />
             </ToolbarGroup>
           </BlockControls>
@@ -258,6 +258,6 @@ export default withSelect((select, props) => {
   const blockEditor = select('core/block-editor');
 
   return {
-    hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
+    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
   };
 })(BlockEdit);

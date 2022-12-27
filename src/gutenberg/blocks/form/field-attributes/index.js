@@ -37,14 +37,14 @@ export function getFieldAttributes(attributes) {
   Object.keys(attributes).forEach((k) => {
     let val = attributes[k];
 
-    if ('undefined' !== typeof val) {
-      if ('slug' === k) {
+    if (typeof val !== 'undefined') {
+      if (k === 'slug') {
         k = 'id';
       }
 
-      if (-1 !== allowedAttributes.indexOf(k)) {
+      if (allowedAttributes.indexOf(k) !== -1) {
         // boolean value.
-        if ('boolean' === typeof val) {
+        if (typeof val === 'boolean') {
           if (val) {
             val = k;
           } else {
@@ -53,11 +53,11 @@ export function getFieldAttributes(attributes) {
         }
 
         // default attribute.
-        if ('default' === k) {
+        if (k === 'default') {
           k = 'value';
         }
 
-        if (false !== val) {
+        if (val !== false) {
           result[k] = val;
         }
       }

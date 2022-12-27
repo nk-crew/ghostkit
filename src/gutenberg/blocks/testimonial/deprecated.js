@@ -175,7 +175,7 @@ export default [
             ) : (
               ''
             )}
-            {'number' === typeof stars && starsIcon ? (
+            {typeof stars === 'number' && starsIcon ? (
               <div className="ghostkit-testimonial-stars">
                 <div className="ghostkit-testimonial-stars-wrap">
                   <div
@@ -217,13 +217,13 @@ export default [
         ...attributes,
       };
 
-      if ('undefined' !== typeof attributes.photo) {
+      if (typeof attributes.photo !== 'undefined') {
         newAttributes.photoId = attributes.photo;
       }
-      if ('undefined' !== typeof attributes.photoSize) {
+      if (typeof attributes.photoSize !== 'undefined') {
         newAttributes.photoSizeSlug = attributes.photoSize;
       }
-      if ('undefined' !== typeof attributes.photoTag && attributes.photoTag) {
+      if (typeof attributes.photoTag !== 'undefined' && attributes.photoTag) {
         const imgSrc = attributes.photoTag.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/);
         const imgAlt = attributes.photoTag.match(/<img.+alt=(?:"|')(.+?)(?:"|')(?:.+?)>/);
         const imgWidth = attributes.photoTag.match(/<img.+width=(?:"|')(.+?)(?:"|')(?:.+?)>/);
@@ -377,7 +377,7 @@ export default [
             ) : (
               ''
             )}
-            {'number' === typeof stars && starsIcon ? (
+            {typeof stars === 'number' && starsIcon ? (
               <div className="ghostkit-testimonial-stars">
                 <div className="ghostkit-testimonial-stars-wrap">
                   <div

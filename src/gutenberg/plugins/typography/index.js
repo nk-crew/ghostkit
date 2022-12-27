@@ -46,7 +46,7 @@ const conformityAttributes = {
  * @return {boolean} - True or false.
  */
 function isExist(value) {
-  return 'undefined' !== typeof value && '' !== value && null !== value && false !== value;
+  return typeof value !== 'undefined' && value !== '' && value !== null && value !== false;
 }
 
 /**
@@ -57,7 +57,7 @@ function isExist(value) {
  * @return {array} currentFonts - Next Array With Current Fonts.
  */
 function getCurrentFonts(typographyData, currentFonts) {
-  if (false !== typographyData) {
+  if (typographyData !== false) {
     if (isExist(typographyData.ghostkit_typography)) {
       Object.keys(typographyData.ghostkit_typography).forEach((typography) => {
         if (isExist(typography)) {
@@ -68,14 +68,14 @@ function getCurrentFonts(typographyData, currentFonts) {
           if (isExist(fontWeight)) {
             fontWeight = fontWeight.replace(/i/g, '');
             if (
-              '600' !== fontWeight &&
-              '700' !== fontWeight &&
-              '800' !== fontWeight &&
-              '900' !== fontWeight &&
-              '600i' !== fontWeight &&
-              '700i' !== fontWeight &&
-              '800i' !== fontWeight &&
-              '900i' !== fontWeight
+              fontWeight !== '600' &&
+              fontWeight !== '700' &&
+              fontWeight !== '800' &&
+              fontWeight !== '900' &&
+              fontWeight !== '600i' &&
+              fontWeight !== '700i' &&
+              fontWeight !== '800i' &&
+              fontWeight !== '900i'
             ) {
               fontWeights.push(fontWeight, `${fontWeight}i`, '700', '700i');
             } else {
@@ -125,9 +125,9 @@ function printFonts(typographyData) {
           const { widths } = fonts[uniqueFonts[font].family].fonts[findFont];
           const weightsArray = [];
 
-          if ('undefined' !== typeof uniqueFonts[font].weights) {
+          if (typeof uniqueFonts[font].weights !== 'undefined') {
             Object.keys(uniqueFonts[font].weights).forEach((weight) => {
-              if (-1 !== widths.indexOf(uniqueFonts[font].weights[weight])) {
+              if (widths.indexOf(uniqueFonts[font].weights[weight]) !== -1) {
                 weightsArray.push(uniqueFonts[font].weights[weight]);
               }
             });
@@ -148,11 +148,11 @@ function printFonts(typographyData) {
   if (isExist(webfontList) && webfontList.length) {
     const googleFamilies = [];
     Object.keys(webfontList).forEach((key) => {
-      if ('google-fonts' === webfontList[key].family) {
+      if (webfontList[key].family === 'google-fonts') {
         let weights = '';
-        if ('undefined' !== typeof webfontList[key].weights) {
+        if (typeof webfontList[key].weights !== 'undefined') {
           Object.keys(webfontList[key].weights).forEach((keyWeight) => {
-            if (0 < keyWeight && keyWeight !== webfontList[key].weights.length - 1) {
+            if (keyWeight > 0 && keyWeight !== webfontList[key].weights.length - 1) {
               weights += ',';
             }
             weights += webfontList[key].weights[keyWeight];
@@ -213,7 +213,7 @@ function getCurrentTypography(typographyData, typographyPrepeareStyles) {
           Object.keys(conformityAttributes).forEach((propertyKey) => {
             if (
               isExist(typographyData.ghostkit_typography[key][conformityAttributes[propertyKey]]) &&
-              'undefined' !== typeof typographyPrepeareStyles[key]['style-properties'][propertyKey]
+              typeof typographyPrepeareStyles[key]['style-properties'][propertyKey] !== 'undefined'
             ) {
               typographyPrepeareStyles[key]['style-properties'][propertyKey] =
                 typographyData.ghostkit_typography[key][conformityAttributes[propertyKey]];
@@ -242,7 +242,7 @@ function printStyles(typographyData) {
         if (isExist(customTypographyList[key].output) && customTypographyList[key].output.length) {
           Object.keys(customTypographyList[key].output).forEach((outputKey) => {
             if (
-              true === customTypographyList[key].output[outputKey].editor &&
+              customTypographyList[key].output[outputKey].editor === true &&
               isExist(customTypographyList[key].output[outputKey].selectors) &&
               isExist(customTypographyList[key].defaults)
             ) {
@@ -275,15 +275,15 @@ function printStyles(typographyData) {
             Object.keys(conformityAttributes).forEach((propertyKey) => {
               if (
                 isExist(typographyPrepeareStyles[key]['style-properties'][propertyKey]) &&
-                'font-family-category' !== propertyKey
+                propertyKey !== 'font-family-category'
               ) {
-                if ('font-weight' === propertyKey) {
+                if (propertyKey === 'font-weight') {
                   let fontWeight = typographyPrepeareStyles[key]['style-properties'][propertyKey];
-                  if (0 < fontWeight.indexOf('i')) {
+                  if (fontWeight.indexOf('i') > 0) {
                     fontWeight = fontWeight.replace(/i/g, '');
                     typographyStyles += 'font-style: italic;';
                     typographyPrepeareStyles[key]['style-properties'][propertyKey] = fontWeight;
-                  } else if ('' !== fontWeight) {
+                  } else if (fontWeight !== '') {
                     typographyStyles += 'font-style: normal;';
                   }
                 }
@@ -309,7 +309,7 @@ function printStyles(typographyData) {
  * @return {string} - Default Value.
  */
 export function getDefaultValue(state) {
-  return 'undefined' === typeof state || '' === state || false === state || null === state
+  return typeof state === 'undefined' || state === '' || state === false || state === null
     ? ''
     : state;
 }
@@ -324,14 +324,14 @@ export function getDefaultValue(state) {
  */
 export function setDefaultPropertyValues(property, propertyName, customTypographyPropertiesList) {
   let defaultProperty = false;
-  if ('' !== getDefaultValue(customTypographyPropertiesList)) {
-    if ('undefined' === typeof customTypographyPropertiesList[propertyName]) {
+  if (getDefaultValue(customTypographyPropertiesList) !== '') {
+    if (typeof customTypographyPropertiesList[propertyName] === 'undefined') {
       defaultProperty = undefined;
-    } else if ('undefined' !== typeof property) {
+    } else if (typeof property !== 'undefined') {
       defaultProperty = property;
-    } else if ('undefined' !== typeof customTypographyPropertiesList[propertyName]) {
+    } else if (typeof customTypographyPropertiesList[propertyName] !== 'undefined') {
       defaultProperty =
-        '' !== customTypographyPropertiesList[propertyName]
+        customTypographyPropertiesList[propertyName] !== ''
           ? customTypographyPropertiesList[propertyName]
           : '';
     }
@@ -351,14 +351,14 @@ export function getCustomTypographyList(setStateTypography, global) {
 
   const defaultTypography = {};
 
-  if ('undefined' !== typeof customTypographyList && '' !== customTypographyList) {
+  if (typeof customTypographyList !== 'undefined' && customTypographyList !== '') {
     Object.keys(customTypographyList).forEach((key) => {
       const label = getDefaultValue(customTypographyList[key].label);
       const childOf = getDefaultValue(customTypographyList[key]['child-of']);
 
       if (
-        '' !== getDefaultValue(setStateTypography) &&
-        '' !== getDefaultValue(setStateTypography[key])
+        getDefaultValue(setStateTypography) !== '' &&
+        getDefaultValue(setStateTypography[key]) !== ''
       ) {
         defaultTypography[key] = setStateTypography[key];
 
@@ -369,14 +369,14 @@ export function getCustomTypographyList(setStateTypography, global) {
             customTypographyList[key].defaults
           );
 
-          if (false !== defaultProperty) {
+          if (defaultProperty !== false) {
             defaultTypography[key][conformityAttributes[property]] = defaultProperty;
           }
         });
 
         defaultTypography[key].label = label;
         defaultTypography[key].childOf = childOf;
-      } else if ('' !== getDefaultValue(customTypographyList[key].defaults)) {
+      } else if (getDefaultValue(customTypographyList[key].defaults) !== '') {
         const fontName = getDefaultValue(customTypographyList[key].defaults['font-family']);
         const fontFamilyCategory = getDefaultValue(
           customTypographyList[key].defaults['font-family-category']
@@ -391,23 +391,23 @@ export function getCustomTypographyList(setStateTypography, global) {
 
         fontFamily = '';
 
-        if ('' !== fontName && '' !== fontFamilyCategory && global) {
+        if (fontName !== '' && fontFamilyCategory !== '' && global) {
           fontFamily = fontName;
         }
 
         fontWeight = '';
 
-        if ('' !== weight && global) {
+        if (weight !== '' && global) {
           fontWeight = weight;
         }
 
-        if ('undefined' === typeof customTypographyList[key].defaults['line-height']) {
+        if (typeof customTypographyList[key].defaults['line-height'] === 'undefined') {
           lineHeight = undefined;
         } else {
           lineHeight = global ? customTypographyList[key].defaults['line-height'] : '';
         }
 
-        if ('undefined' === typeof customTypographyList[key].defaults['letter-spacing']) {
+        if (typeof customTypographyList[key].defaults['letter-spacing'] === 'undefined') {
           letterSpacing = undefined;
         } else {
           letterSpacing = global ? customTypographyList[key].defaults['letter-spacing'] : '';
@@ -415,7 +415,7 @@ export function getCustomTypographyList(setStateTypography, global) {
 
         fontSize = '';
 
-        if ('undefined' !== typeof customTypographyList[key].defaults['font-size']) {
+        if (typeof customTypographyList[key].defaults['font-size'] !== 'undefined') {
           fontSize = global ? customTypographyList[key].defaults['font-size'] : '';
         }
 
@@ -448,8 +448,8 @@ export function getInitialAdvancedState(customTypographyList) {
 
   Object.keys(customTypographyList).forEach((typography) => {
     if (
-      'undefined' !== typeof customTypographyList[typography].childOf &&
-      '' !== customTypographyList[typography].childOf
+      typeof customTypographyList[typography].childOf !== 'undefined' &&
+      customTypographyList[typography].childOf !== ''
     ) {
       let showAdvanced = false;
 
@@ -457,16 +457,16 @@ export function getInitialAdvancedState(customTypographyList) {
         const metaTypographyAttribute =
           customTypographyList[typography][conformityAttributes[attribute]];
         if (
-          'undefined' !== typeof metaTypographyAttribute &&
-          'default' !== metaTypographyAttribute &&
-          '' !== metaTypographyAttribute
+          typeof metaTypographyAttribute !== 'undefined' &&
+          metaTypographyAttribute !== 'default' &&
+          metaTypographyAttribute !== ''
         ) {
           showAdvanced = true;
           advanced[customTypographyList[typography].childOf] = showAdvanced;
         }
       });
 
-      if (true !== advanced[customTypographyList[typography].childOf] && false === showAdvanced) {
+      if (advanced[customTypographyList[typography].childOf] !== true && showAdvanced === false) {
         advanced[customTypographyList[typography].childOf] = showAdvanced;
       }
     }
@@ -507,7 +507,7 @@ class TypographyModal extends Component {
    * @param {boolean} isGlobal - Flag of global customization.
    */
   onClickAdvanced(key, isGlobal) {
-    if ('undefined' !== typeof this.state[isGlobal ? 'globalAdvanced' : 'advanced']) {
+    if (typeof this.state[isGlobal ? 'globalAdvanced' : 'advanced'] !== 'undefined') {
       this.setState((prevState) => ({
         [isGlobal ? 'globalAdvanced' : 'advanced']: {
           ...prevState[isGlobal ? 'globalAdvanced' : 'advanced'],
@@ -615,7 +615,7 @@ class TypographyModal extends Component {
   maybePrepareGlobalTypographyAndAdvanced() {
     const { customTypography = {} } = this.props;
 
-    if (customTypography && false === this.state.globalCustomTypography) {
+    if (customTypography && this.state.globalCustomTypography === false) {
       this.setState({
         globalCustomTypography:
           getCustomTypographyList(customTypography.ghostkit_typography, true) || '',
@@ -692,7 +692,7 @@ class TypographyModal extends Component {
           ]}
         >
           {(tabData) => {
-            const isGlobal = 'global' === tabData.name;
+            const isGlobal = tabData.name === 'global';
             const setStateTypography = isGlobal
               ? this.state.globalCustomTypography
               : this.state.customTypography;
@@ -703,16 +703,16 @@ class TypographyModal extends Component {
                 {Object.keys(typographyList).map((key) => {
                   const advancedData = this.state[isGlobal ? 'globalAdvanced' : 'advanced'][key];
                   const advancedLabel =
-                    true === advancedData
+                    advancedData === true
                       ? __('Hide Advanced', '@@text_domain')
                       : __('Show Advanced', '@@text_domain');
 
-                  if ('' === typographyList[key].childOf) {
+                  if (typographyList[key].childOf === '') {
                     return (
                       <div className="ghostkit-typography-container" key={key}>
                         {this.getTypographyComponent(typographyList, key, isGlobal)}
 
-                        {'undefined' !== typeof advancedData ? (
+                        {typeof advancedData !== 'undefined' ? (
                           <div className="ghostkit-typography-advanced">
                             <Button
                               isSecondary
@@ -726,7 +726,7 @@ class TypographyModal extends Component {
                           ''
                         )}
 
-                        {true === advancedData
+                        {advancedData === true
                           ? this.getChildrenTypography(typographyList, key, isGlobal)
                           : ''}
                       </div>

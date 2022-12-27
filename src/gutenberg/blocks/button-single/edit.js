@@ -97,10 +97,10 @@ export default function BlockEdit(props) {
   if (isSelected) {
     isNormalState = true;
 
-    if ('hover' === selectedColorState) {
+    if (selectedColorState === 'hover') {
       isNormalState = false;
       isHoveredState = true;
-    } else if ('focus' === selectedColorState) {
+    } else if (selectedColorState === 'focus') {
       isNormalState = false;
       isFocusedState = true;
     }
@@ -247,10 +247,10 @@ export default function BlockEdit(props) {
             }}
           >
             {(tabData) => {
-              const isHover = 'hover' === tabData.name;
+              const isHover = tabData.name === 'hover';
 
               // focus tab
-              if ('focus' === tabData.name) {
+              if (tabData.name === 'focus') {
                 return (
                   <ApplyFilters
                     name="ghostkit.editor.controls"
@@ -321,7 +321,7 @@ export default function BlockEdit(props) {
           </TabPanel>
         </PanelBody>
       </InspectorControls>
-      {!tagName || 'a' === tagName ? (
+      {!tagName || tagName === 'a' ? (
         <URLPicker
           url={url}
           rel={rel}
@@ -338,7 +338,7 @@ export default function BlockEdit(props) {
       {icon ? (
         <div
           className={`ghostkit-button-icon ghostkit-button-icon-${
-            'right' === iconPosition ? 'right' : 'left'
+            iconPosition === 'right' ? 'right' : 'left'
           }`}
         >
           <IconPicker.Dropdown

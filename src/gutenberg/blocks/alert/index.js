@@ -22,7 +22,7 @@ export const settings = {
       const styles = {
         '--gkt-alert__border-color': attributes.color,
         '--gkt-alert--icon__font-size':
-          'undefined' !== typeof attributes.iconSize ? `${attributes.iconSize}px` : undefined,
+          typeof attributes.iconSize !== 'undefined' ? `${attributes.iconSize}px` : undefined,
         '--gkt-alert--icon__color': attributes.color,
       };
 

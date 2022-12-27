@@ -8,17 +8,17 @@ function getSwiperVersion(Swiper) {
   let ver = 8;
 
   // in version 8 added new parameter `maxBackfaceHiddenSlides`.
-  if ('undefined' === typeof Swiper.defaults.maxBackfaceHiddenSlides) {
+  if (typeof Swiper.defaults.maxBackfaceHiddenSlides === 'undefined') {
     ver = 7;
   }
 
   // in version 7 added new parameter `rewind`.
-  if ('undefined' === typeof Swiper.defaults.rewind) {
+  if (typeof Swiper.defaults.rewind === 'undefined') {
     ver = 6;
   }
 
   // in version 6 added new parameter `loopPreventsSlide`.
-  if ('undefined' === typeof Swiper.defaults.loopPreventsSlide) {
+  if (typeof Swiper.defaults.loopPreventsSlide === 'undefined') {
     ver = 5;
   }
 
@@ -29,7 +29,7 @@ function getSwiperVersion(Swiper) {
  * Prepare Carousels.
  */
 $doc.on('initBlocks.ghostkit', (e, self) => {
-  if ('undefined' === typeof window.Swiper) {
+  if (typeof window.Swiper === 'undefined') {
     return;
   }
 
@@ -49,27 +49,27 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
         crossFade: true,
       },
       spaceBetween: parseFloat($carousel.attr('data-gap')) || 0,
-      centeredSlides: 'true' === $carousel.attr('data-centered-slides'),
+      centeredSlides: $carousel.attr('data-centered-slides') === 'true',
       freeMode: {
-        enabled: 'true' === $carousel.attr('data-free-scroll'),
+        enabled: $carousel.attr('data-free-scroll') === 'true',
       },
-      loop: 'true' === $carousel.attr('data-loop'),
+      loop: $carousel.attr('data-loop') === 'true',
       // This feature is cool, but not working properly when loop enabled
       // and fast clicking on previous button is not working properly
       // https://github.com/nolimits4web/swiper/issues/5945
       // loopPreventsSlide: false,
-      autoplay: 0 < parseFloat($carousel.attr('data-autoplay')) && {
+      autoplay: parseFloat($carousel.attr('data-autoplay')) > 0 && {
         delay: parseFloat($carousel.attr('data-autoplay')) * 1000,
         disableOnInteraction: false,
       },
-      navigation: 'true' === $carousel.attr('data-show-arrows') && {
+      navigation: $carousel.attr('data-show-arrows') === 'true' && {
         nextEl: '.ghostkit-carousel-arrow-next',
         prevEl: '.ghostkit-carousel-arrow-prev',
       },
-      pagination: 'true' === $carousel.attr('data-show-bullets') && {
+      pagination: $carousel.attr('data-show-bullets') === 'true' && {
         el: '.ghostkit-carousel-bullets',
         clickable: true,
-        dynamicBullets: 'true' === $carousel.attr('data-dynamic-bullets'),
+        dynamicBullets: $carousel.attr('data-dynamic-bullets') === 'true',
       },
       slidesPerView: 1,
       keyboard: true,
@@ -121,12 +121,12 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 
     // calculate responsive.
     const breakPoints = {};
-    if ('fade' !== effect && !Number.isNaN(slidesPerView)) {
+    if (effect !== 'fade' && !Number.isNaN(slidesPerView)) {
       let count = slidesPerView;
       let currentPoint = Math.min(self.screenSizes.length - 1, count - 1);
 
-      for (; 0 <= currentPoint; currentPoint -= 1) {
-        if (0 < count && 'undefined' !== typeof self.screenSizes[currentPoint]) {
+      for (; currentPoint >= 0; currentPoint -= 1) {
+        if (count > 0 && typeof self.screenSizes[currentPoint] !== 'undefined') {
           breakPoints[self.screenSizes[currentPoint] + 1] = {
             slidesPerView: count,
           };
@@ -158,17 +158,17 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       const swiperVersion = getSwiperVersion(window.Swiper);
 
       // Since v7 used container class `swiper`, we should also add old `swiper-container` class.
-      if (7 > swiperVersion) {
+      if (swiperVersion < 7) {
         $carousel.addClass('swiper-container');
       }
 
       // Since v7 freeMode options moved under `freeMode` object.
-      if (7 > swiperVersion) {
+      if (swiperVersion < 7) {
         options.freeMode = options.freeMode.enabled;
       }
 
       // Since v5 `breakpointsInverse` option is removed and it is now `true` by default, but in older versions it was `false`.
-      if (5 <= swiperVersion) {
+      if (swiperVersion >= 5) {
         options.breakpointsInverse = true;
       }
     })();
@@ -178,7 +178,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     new window.Swiper($carousel[0], options);
 
     // autoplay hover pause.
-    if ('true' === $carousel.attr('data-autoplay-hover-pause') && options.autoplay) {
+    if ($carousel.attr('data-autoplay-hover-pause') === 'true' && options.autoplay) {
       $carousel.on('mouseenter', () => {
         $carousel[0].swiper.autoplay.stop();
       });

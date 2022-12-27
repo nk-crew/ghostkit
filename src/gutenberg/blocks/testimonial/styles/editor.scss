@@ -16,7 +16,7 @@
 
     &:hover,
     &:focus,
-    &:not(:disabled):not([aria-disabled="true"]):focus {
+    &:not(:disabled, [aria-disabled="true"]):focus {
       background-color: $light-gray-300;
       box-shadow: none;
     }

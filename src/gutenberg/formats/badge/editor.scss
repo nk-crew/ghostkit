@@ -2,7 +2,7 @@
 @import "./style";
 
 .ghostkit-format-badge-popover {
-  &:not(.is-without-arrow):not(.is-mobile).is-bottom {
+  &:not(.is-without-arrow, .is-mobile).is-bottom {
     margin-top: 15px;
   }
 

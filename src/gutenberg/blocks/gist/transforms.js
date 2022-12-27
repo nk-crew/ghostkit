@@ -10,9 +10,9 @@ export default {
       priority: 1,
       isMatch: (node) => {
         const match =
-          'P' === node.nodeName && /^https:\/\/gist.github.com?.+\/(.+)/g.exec(node.textContent);
+          node.nodeName === 'P' && /^https:\/\/gist.github.com?.+\/(.+)/g.exec(node.textContent);
 
-        if (match && 'undefined' !== typeof match[1]) {
+        if (match && typeof match[1] !== 'undefined') {
           return true;
         }
 

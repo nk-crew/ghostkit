@@ -51,7 +51,7 @@ class BlockSave extends Component {
     const classNameNumber = classnames(
       'ghostkit-counter-box-number',
       `ghostkit-counter-box-number-align-${numberPosition || 'left'}`,
-      'top' === numberPosition
+      numberPosition === 'top'
         ? `ghostkit-counter-box-number-top-align-${numberAlign || 'center'}`
         : ''
     );

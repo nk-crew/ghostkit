@@ -72,7 +72,7 @@ registerBlockStyle('core/list', {
  * @return {Object} Filtered block settings.
  */
 function addAttribute(blockSettings, name) {
-  if ('core/list' === name) {
+  if (name === 'core/list') {
     if (!blockSettings.attributes.ghostkitListIcon) {
       blockSettings.attributes.ghostkitListIcon = {
         type: 'string',
@@ -99,7 +99,7 @@ const COLUMNS_COUNT_MAX = 8;
  * @returns {String} columns value.
  */
 function getCurrentColumns(className, screen) {
-  if (!screen || 'all' === screen) {
+  if (!screen || screen === 'all') {
     for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
       if (hasClass(className, `ghostkit-list-columns-${k}`)) {
         return `${k}`;
@@ -133,7 +133,7 @@ class GhostKitListColumns extends Component {
 
     let newClassName = className;
 
-    if (screen && 'all' !== screen) {
+    if (screen && screen !== 'all') {
       newClassName = replaceClass(newClassName, `ghostkit-list-columns-${screen}`, val);
     } else {
       for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
@@ -257,7 +257,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 
       const { ghostkitListIcon, ghostkitListIconColor, className } = attributes;
 
-      if ('core/list' !== props.name) {
+      if (props.name !== 'core/list') {
         return <OriginalComponent {...props} />;
       }
 
@@ -310,7 +310,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 function addEditorCustomStyles(customStyles, props) {
   const result = {};
 
-  if ('core/list' !== props.name || !hasClass(props.attributes.className, 'is-style-icon')) {
+  if (props.name !== 'core/list' || !hasClass(props.attributes.className, 'is-style-icon')) {
     return customStyles;
   }
 

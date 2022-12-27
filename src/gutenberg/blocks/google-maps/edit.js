@@ -82,7 +82,7 @@ class BlockEdit extends Component {
       geocoder = new window.google.maps.Geocoder();
     }
     if (geocoder) {
-      if (markers && 0 < markers.length) {
+      if (markers && markers.length > 0) {
         markers.forEach((marker) => {
           if (!marker.address) {
             if (this.state.addresses[marker.lat + marker.lng]) {
@@ -102,7 +102,7 @@ class BlockEdit extends Component {
                   },
                 },
                 (results, status) => {
-                  if ('OK' === status && results.length) {
+                  if (status === 'OK' && results.length) {
                     this.updateMarkerAddress(
                       {
                         lat: marker.lat,
@@ -154,9 +154,9 @@ class BlockEdit extends Component {
           onChange={(value) => {
             let customString = styleCustom;
 
-            if ('default' === value) {
+            if (value === 'default') {
               customString = '';
-            } else if ('custom' !== value) {
+            } else if (value !== 'custom') {
               styles.forEach((styleData) => {
                 if (value === styleData.value) {
                   customString = JSON.stringify(styleData.json);
@@ -170,7 +170,7 @@ class BlockEdit extends Component {
             });
           }}
         />
-        {'custom' === style ? (
+        {style === 'custom' ? (
           <Fragment>
             <TextareaControl
               placeholder={__('Enter Style JSON', '@@text_domain')}
@@ -254,7 +254,7 @@ class BlockEdit extends Component {
     const { markers } = attributes;
     const { addresses } = this.state;
 
-    if (markers && 0 < markers.length) {
+    if (markers && markers.length > 0) {
       markers.forEach((marker, index) => {
         if (!marker.address && latLng.lat === marker.lat && latLng.lng === marker.lng) {
           markers[index].address = address;
@@ -392,7 +392,7 @@ class BlockEdit extends Component {
                 />
               </PanelBody>
               <PanelBody title={__('Markers', '@@text_domain')}>
-                {markers && 0 < markers.length ? (
+                {markers && markers.length > 0 ? (
                   <ul className="ghostkit-google-maps-markers">
                     {markers.map((marker, index) => (
                       // eslint-disable-next-line react/no-array-index-key
@@ -530,10 +530,10 @@ class BlockEdit extends Component {
                       }
                       return '';
                     })()}
-                    checked={'cooperative' === gestureHandling}
+                    checked={gestureHandling === 'cooperative'}
                     onChange={() => {
                       setAttributes({
-                        gestureHandling: 'greedy' === gestureHandling ? 'cooperative' : 'greedy',
+                        gestureHandling: gestureHandling === 'greedy' ? 'cooperative' : 'greedy',
                       });
                     }}
                   />

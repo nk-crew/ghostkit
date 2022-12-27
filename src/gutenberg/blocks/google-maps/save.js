@@ -70,7 +70,7 @@ class BlockSave extends Component {
       'data-styles': maybeDecode(styleCustom),
     };
 
-    if ('greedy' !== gestureHandling) {
+    if (gestureHandling !== 'greedy') {
       attrs['data-gesture-handling'] = gestureHandling;
     }
 

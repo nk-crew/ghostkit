@@ -57,7 +57,7 @@ export default [
     isEligible(attributes, innerBlocks) {
       return innerBlocks.some(
         (item) =>
-          'undefined' !== typeof item.attributes && 'undefined' !== typeof item.attributes.layout
+          typeof item.attributes !== 'undefined' && typeof item.attributes.layout !== 'undefined'
       );
     },
     migrate(attributes, innerBlocks) {

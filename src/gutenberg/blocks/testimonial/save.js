@@ -110,7 +110,7 @@ class BlockSave extends Component {
         ) : (
           ''
         )}
-        {'number' === typeof stars && starsIcon ? (
+        {typeof stars === 'number' && starsIcon ? (
           <div className="ghostkit-testimonial-stars">
             <div className="ghostkit-testimonial-stars-wrap">
               <div

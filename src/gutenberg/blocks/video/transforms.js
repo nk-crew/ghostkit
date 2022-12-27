@@ -12,7 +12,7 @@ function getYoutubeID(ytUrl) {
   // eslint-disable-next-line no-useless-escape
   const regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
   const match = ytUrl.match(regExp);
-  return match && 11 === match[1].length ? match[1] : false;
+  return match && match[1].length === 11 ? match[1] : false;
 }
 
 // parse vimeo ID
@@ -30,11 +30,11 @@ function prepareAttributesForCoreEmbed(attributes) {
   const { video, videoAspectRatio } = attributes;
   let { className } = attributes;
 
-  if ('21:9' === videoAspectRatio) {
+  if (videoAspectRatio === '21:9') {
     aspectRatio = '21-9';
-  } else if ('4:3' === videoAspectRatio) {
+  } else if (videoAspectRatio === '4:3') {
     aspectRatio = '4-3';
-  } else if ('3:2' === videoAspectRatio) {
+  } else if (videoAspectRatio === '3:2') {
     aspectRatio = '3-2';
   }
 
@@ -54,7 +54,7 @@ export default {
       type: 'block',
       blocks: ['core-embed/youtube', 'core-embed/vimeo'],
       isMatch(attributes) {
-        return attributes && attributes.type && 'video' === attributes.type;
+        return attributes && attributes.type && attributes.type === 'video';
       },
       transform(attributes) {
         let aspectRatio = '16:9';
@@ -111,7 +111,7 @@ export default {
         return (
           attributes &&
           attributes.type &&
-          'yt_vm_video' === attributes.type &&
+          attributes.type === 'yt_vm_video' &&
           attributes.video &&
           getYoutubeID(attributes.video)
         );
@@ -127,7 +127,7 @@ export default {
         return (
           attributes &&
           attributes.type &&
-          'yt_vm_video' === attributes.type &&
+          attributes.type === 'yt_vm_video' &&
           attributes.video &&
           getVimeoID(attributes.video)
         );
@@ -143,7 +143,7 @@ export default {
         return (
           attributes &&
           attributes.type &&
-          'video' === attributes.type &&
+          attributes.type === 'video' &&
           (attributes.videoMp4Id || attributes.videoOgvId || attributes.videoWebmId) &&
           (attributes.videoMp4 || attributes.videoOgv || attributes.videoWebm)
         );
@@ -152,7 +152,7 @@ export default {
         return createBlock('core/video', {
           id: attributes.videoMp4Id || attributes.videoOgvId || attributes.videoWebmId,
           src: attributes.videoMp4 || attributes.videoOgv || attributes.videoWebm,
-          muted: 0 === attributes.videoVolume,
+          muted: attributes.videoVolume === 0,
         });
       },
     },

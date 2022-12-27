@@ -21,7 +21,7 @@ export const settings = {
     customStylesCallback(attributes) {
       const styles = {
         '--gkt-icon-box--icon__font-size':
-          'undefined' !== typeof attributes.iconSize ? `${attributes.iconSize}px` : undefined,
+          typeof attributes.iconSize !== 'undefined' ? `${attributes.iconSize}px` : undefined,
         '--gkt-icon-box--icon__color': attributes.iconColor,
       };
 

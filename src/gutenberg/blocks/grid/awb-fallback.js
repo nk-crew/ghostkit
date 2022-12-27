@@ -33,7 +33,7 @@ const { withSelect } = wp.data;
  * @return {Object}               Filtered block settings
  */
 export function addAttribute(blockSettings) {
-  if ('ghostkit/grid' === blockSettings.name || 'ghostkit/grid-column' === blockSettings.name) {
+  if (blockSettings.name === 'ghostkit/grid' || blockSettings.name === 'ghostkit/grid-column') {
     blockSettings.supports.awb = true;
   }
 
@@ -174,7 +174,7 @@ class BackgroundControlsInspector extends Component {
     return (
       <PanelBody title={__('Background', '@@text_domain')} initialOpen={false}>
         <ToggleGroup
-          value={'video' === type || 'yt_vm_video' === type ? 'yt_vm_video' : type}
+          value={type === 'video' || type === 'yt_vm_video' ? 'yt_vm_video' : type}
           options={[
             {
               label: __('Color', '@@text_domain'),
@@ -194,8 +194,8 @@ class BackgroundControlsInspector extends Component {
           }}
         />
 
-        {'image' === type ? (
-          <PanelBody title={__('Image', '@@text_domain')} initialOpen={'image' === type}>
+        {type === 'image' ? (
+          <PanelBody title={__('Image', '@@text_domain')} initialOpen={type === 'image'}>
             {/* Select Image */}
             {!image || !imageTag ? (
               <MediaUpload
@@ -281,7 +281,7 @@ class BackgroundControlsInspector extends Component {
           ''
         )}
 
-        {'color' === type ? (
+        {type === 'color' ? (
           <ColorPicker
             label={__('Background Color', '@@text_domain')}
             value={color}
@@ -296,7 +296,7 @@ class BackgroundControlsInspector extends Component {
                 <ColorIndicator colorValue={color} />
               </Fragment>
             }
-            initialOpen={'color' === type}
+            initialOpen={type === 'color'}
           >
             <ColorPicker
               label={__('Background Color', '@@text_domain')}
@@ -344,7 +344,7 @@ const BackgroundControlsInspectorWithSelect = withSelect((select, props) => {
   };
 
   // background image with pattern size
-  if ('pattern' === imageBackgroundSize) {
+  if (imageBackgroundSize === 'pattern') {
     data.div_tag = true;
   }
 
@@ -362,7 +362,7 @@ const BackgroundControlsInspectorWithSelect = withSelect((select, props) => {
  * @return {Object} Control.
  */
 function addBackgroundControls(Control, props) {
-  if ('background' === props.attribute && hasBlockSupport(props.props.name, 'awb', false)) {
+  if (props.attribute === 'background' && hasBlockSupport(props.props.name, 'awb', false)) {
     return <BackgroundControlsInspectorWithSelect {...props.props} />;
   }
 
@@ -383,11 +383,11 @@ function addEditorBackground(background, props) {
 
     let addBackground = false;
 
-    if ('color' === type && color) {
+    if (type === 'color' && color) {
       addBackground = true;
     }
 
-    if ('image' === type && (color || imageTag)) {
+    if (type === 'image' && (color || imageTag)) {
       addBackground = true;
     }
 
@@ -395,7 +395,7 @@ function addEditorBackground(background, props) {
       return (
         <div className="awb-gutenberg-preview-block">
           {color ? <div className="nk-awb-overlay" style={{ 'background-color': color }} /> : ''}
-          {'image' === type && imageTag ? (
+          {type === 'image' && imageTag ? (
             <div
               className="nk-awb-inner"
               dangerouslySetInnerHTML={{ __html: maybeDecode(imageTag) }}
@@ -434,11 +434,11 @@ function addSaveBackground(background, props) {
 
     let addBackground = false;
 
-    if ('color' === type && color) {
+    if (type === 'color' && color) {
       addBackground = true;
     }
 
-    if ('image' === type && (color || imageTag)) {
+    if (type === 'image' && (color || imageTag)) {
       addBackground = true;
     }
 
@@ -447,7 +447,7 @@ function addSaveBackground(background, props) {
         'data-awb-type': type,
       };
 
-      if ('image' === type) {
+      if (type === 'image') {
         if (imageBackgroundSize) {
           dataAttrs['data-awb-image-background-size'] = imageBackgroundSize;
         }
@@ -457,7 +457,7 @@ function addSaveBackground(background, props) {
       }
 
       // Fix style tag background.
-      if ('image' === type && imageTag) {
+      if (type === 'image' && imageTag) {
         imageTag = maybeDecode(imageTag);
 
         imageTag = imageTag.replace('url(&quot;', "url('");
@@ -468,7 +468,7 @@ function addSaveBackground(background, props) {
         <div className="nk-awb">
           <div className="nk-awb-wrap" {...dataAttrs}>
             {color ? <div className="nk-awb-overlay" style={{ 'background-color': color }} /> : ''}
-            {'image' === type && imageTag ? (
+            {type === 'image' && imageTag ? (
               <div className="nk-awb-inner" dangerouslySetInnerHTML={{ __html: imageTag }} />
             ) : (
               ''

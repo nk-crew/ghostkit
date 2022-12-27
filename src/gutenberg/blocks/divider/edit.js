@@ -155,7 +155,7 @@ class BlockEdit extends Component {
               ]}
             >
               {(tabData) => {
-                const isHover = 'hover' === tabData.name;
+                const isHover = tabData.name === 'hover';
                 return (
                   <Fragment>
                     <ApplyFilters

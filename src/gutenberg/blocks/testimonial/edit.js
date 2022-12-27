@@ -230,7 +230,7 @@ class BlockEdit extends Component {
               allowReset
               onChange={(value) => setAttributes({ stars: value })}
             />
-            {'number' === typeof stars ? (
+            {typeof stars === 'number' ? (
               <IconPicker
                 label={__('Icon', '@@text_domain')}
                 value={starsIcon}
@@ -332,7 +332,7 @@ class BlockEdit extends Component {
               onChange={(value) => setAttributes({ source: value })}
             />
           </div>
-          {'number' === typeof stars && starsIcon ? (
+          {typeof stars === 'number' && starsIcon ? (
             <div className="ghostkit-testimonial-stars">
               <div className="ghostkit-testimonial-stars-wrap">
                 <div
@@ -368,7 +368,7 @@ export default withSelect((select, { attributes, isSelected, clientId }) => {
   const { getMedia } = select('core');
 
   return {
-    hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
+    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
     editorSettings: blockEditor.getSettings(),
     photoImage: attributes.photoId && isSelected ? getMedia(attributes.photoId) : null,
   };

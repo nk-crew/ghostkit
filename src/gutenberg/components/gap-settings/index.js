@@ -76,12 +76,12 @@ export default class GapSettings extends Component {
             };
 
             // Add current predefined gap to custom value.
-            if ('custom' === value && 'custom' !== gap && 'undefined' !== typeof GAP_VALUES[gap]) {
+            if (value === 'custom' && gap !== 'custom' && typeof GAP_VALUES[gap] !== 'undefined') {
               result.gapCustom = GAP_VALUES[gap];
             }
 
             // Reset vertical gap when use predefined value.
-            if ('custom' !== value) {
+            if (value !== 'custom') {
               result.gapVerticalCustom = undefined;
             }
 
@@ -89,14 +89,14 @@ export default class GapSettings extends Component {
           }}
           isBlock
         />
-        {'custom' === gap ? (
+        {gap === 'custom' ? (
           <div className="ghostkit-components-gap-settings-custom">
             <TextControl
               type="number"
               help={allowVerticalGap ? __('Horizontal', '@@text_domain') : ''}
               value={gapCustom}
               onChange={(value) =>
-                onChange({ gapCustom: '' === value ? undefined : parseFloat(value) })
+                onChange({ gapCustom: value === '' ? undefined : parseFloat(value) })
               }
               min={0}
             />
@@ -107,7 +107,7 @@ export default class GapSettings extends Component {
                 placeholder={gapCustom}
                 value={gapVerticalCustom}
                 onChange={(value) =>
-                  onChange({ gapVerticalCustom: '' === value ? undefined : parseFloat(value) })
+                  onChange({ gapVerticalCustom: value === '' ? undefined : parseFloat(value) })
                 }
                 min={0}
               />

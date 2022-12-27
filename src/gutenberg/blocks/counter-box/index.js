@@ -21,7 +21,7 @@ export const settings = {
     customStylesCallback(attributes) {
       const styles = {
         '--gkt-counter-box--number__font-size':
-          'undefined' !== typeof attributes.numberSize ? `${attributes.numberSize}px` : undefined,
+          typeof attributes.numberSize !== 'undefined' ? `${attributes.numberSize}px` : undefined,
         '--gkt-counter-box--number__color': attributes.numberColor,
       };
 

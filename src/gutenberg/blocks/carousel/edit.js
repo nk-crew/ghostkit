@@ -51,7 +51,7 @@ class BlockEdit extends Component {
     const { block, getBlocks, replaceInnerBlocks, slidesCount, removeBlock } = this.props;
 
     // Remove slider block.
-    if (1 > newSlidesCount) {
+    if (newSlidesCount < 1) {
       removeBlock(block.clientId);
 
       // Add new slides.
@@ -164,7 +164,7 @@ class BlockEdit extends Component {
                 onChange={(val) => setAttributes({ autoplayHoverPause: val })}
               />
             ) : null}
-            {'fade' !== effect ? (
+            {effect !== 'fade' ? (
               <Fragment>
                 <RangeControl
                   label={__('Slides per view', '@@text_domain')}
@@ -252,7 +252,7 @@ class BlockEdit extends Component {
           styles={`
               [data-block="${this.props.clientId}"] > .ghostkit-carousel {
                 --gkt-carousel-gap: ${gap}px;
-                --gkt-carousel-slides-per-view: ${'fade' === effect ? 1 : slidesPerView};
+                --gkt-carousel-slides-per-view: ${effect === 'fade' ? 1 : slidesPerView};
               }
             `}
         />

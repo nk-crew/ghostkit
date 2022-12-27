@@ -50,16 +50,16 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
             lat: parseFloat($this.attr('data-lat')),
             lng: parseFloat($this.attr('data-lng')),
             zoom: parseInt($this.attr('data-zoom'), 10),
-            zoomControl: 'true' === $this.attr('data-show-zoom-buttons'),
+            zoomControl: $this.attr('data-show-zoom-buttons') === 'true',
             zoomControlOpt: {
               style: 'DEFAULT',
               position: 'RIGHT_BOTTOM',
             },
-            mapTypeControl: 'true' === $this.attr('data-show-map-type-buttons'),
-            streetViewControl: 'true' === $this.attr('data-show-street-view-button'),
-            fullscreenControl: 'true' === $this.attr('data-show-fullscreen-button'),
-            scrollwheel: 'true' === $this.attr('data-option-scroll-wheel'),
-            draggable: 'true' === $this.attr('data-option-draggable'),
+            mapTypeControl: $this.attr('data-show-map-type-buttons') === 'true',
+            streetViewControl: $this.attr('data-show-street-view-button') === 'true',
+            fullscreenControl: $this.attr('data-show-fullscreen-button') === 'true',
+            scrollwheel: $this.attr('data-option-scroll-wheel') === 'true',
+            draggable: $this.attr('data-option-draggable') === 'true',
             styles,
           };
 
@@ -67,7 +67,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 
           // add gestureHandling
           const gestureHandling = $this.attr('data-gesture-handling');
-          if (mapObject && 'cooperative' === gestureHandling) {
+          if (mapObject && gestureHandling === 'cooperative') {
             mapObject.setOptions({
               gestureHandling,
               scrollwheel: opts.scrollwheel ? null : opts.scrollwheel,

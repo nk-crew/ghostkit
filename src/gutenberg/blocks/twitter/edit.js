@@ -442,7 +442,7 @@ class BlockEdit extends Component {
                       ) : (
                         ''
                       )}
-                      {'links_media' === feedTextConvertLinks ? (
+                      {feedTextConvertLinks === 'links_media' ? (
                         // eslint-disable-next-line react/no-danger
                         <div
                           className="ghostkit-twitter-item-text"
@@ -451,7 +451,7 @@ class BlockEdit extends Component {
                       ) : (
                         ''
                       )}
-                      {'links' === feedTextConvertLinks ? (
+                      {feedTextConvertLinks === 'links' ? (
                         // eslint-disable-next-line react/no-danger
                         <div
                           className="ghostkit-twitter-item-text"
@@ -460,8 +460,8 @@ class BlockEdit extends Component {
                       ) : (
                         ''
                       )}
-                      {'links_media' !== feedTextConvertLinks &&
-                      'links' !== feedTextConvertLinks ? (
+                      {feedTextConvertLinks !== 'links_media' &&
+                      feedTextConvertLinks !== 'links' ? (
                         // eslint-disable-next-line react/no-danger
                         <div
                           className="ghostkit-twitter-item-text"
@@ -582,7 +582,7 @@ export default withSelect((select, props) => {
       count,
       exclude_replies: showReplies ? 'false' : 'true',
       include_rts: showRetweets ? 'true' : 'false',
-      tweet_mode_extended: 'full' === feedTextMode ? 'true' : 'false',
+      tweet_mode_extended: feedTextMode === 'full' ? 'true' : 'false',
       ...apiKeys,
     }),
     twitterProfile: select('ghostkit/blocks/twitter').getTwitterProfile(apiKeys),

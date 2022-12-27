@@ -23,7 +23,7 @@ function initSmoothScroll() {
 
     const offset = $(maybeDecode(evt.target.hash)).offset();
 
-    if ('undefined' === typeof offset) {
+    if (typeof offset === 'undefined') {
       return;
     }
 
@@ -38,7 +38,7 @@ function initSmoothScroll() {
       const $adminBar = $('#wpadminbar');
 
       // Admin bar offset.
-      if ($adminBar.length && 'fixed' === $adminBar.css('position')) {
+      if ($adminBar.length && $adminBar.css('position') === 'fixed') {
         top -= $adminBar.outerHeight();
       }
     }
@@ -56,7 +56,7 @@ function initSmoothScroll() {
 // If smooth scroll enabled in CSS, we don't need to run it with JS.
 if (
   !('scrollBehavior' in document.documentElement.style) ||
-  'smooth' !== $html.css('scroll-behavior')
+  $html.css('scroll-behavior') !== 'smooth'
 ) {
   initSmoothScroll();
 }

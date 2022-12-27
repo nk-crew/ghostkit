@@ -61,7 +61,7 @@ export default class URLPicker extends Component {
 
   toggleToolbarSettings(open) {
     this.setState((prevState) => ({
-      toolbarSettingsOpened: 'undefined' !== typeof open ? open : !prevState.toolbarSettingsOpened,
+      toolbarSettingsOpened: typeof open !== 'undefined' ? open : !prevState.toolbarSettingsOpened,
     }));
   }
 
@@ -75,7 +75,7 @@ export default class URLPicker extends Component {
         className="wp-block-navigation-link__inline-link-input"
         value={{
           url,
-          opensInNewTab: '_blank' === target,
+          opensInNewTab: target === '_blank',
         }}
         onChange={({ url: newURL = '', opensInNewTab: newOpensInNewTab }) => {
           onChange({
@@ -96,7 +96,13 @@ export default class URLPicker extends Component {
   }
 
   render() {
-    const { rel, ariaLabel, toolbarSettings = true, inspectorSettings = true, isSelected } = this.props;
+    const {
+      rel,
+      ariaLabel,
+      toolbarSettings = true,
+      inspectorSettings = true,
+      isSelected,
+    } = this.props;
 
     const { onChange } = this;
 

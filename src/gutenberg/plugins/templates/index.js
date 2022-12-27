@@ -63,7 +63,7 @@ class TemplatesModal extends Component {
 
     const result = [];
 
-    categorySelected = null === categorySelected ? this.getSelectedCategory(type) : '';
+    categorySelected = categorySelected === null ? this.getSelectedCategory(type) : '';
 
     templates.forEach((template) => {
       let allow = !type;
@@ -253,13 +253,13 @@ class TemplatesModal extends Component {
               const currentTemplates = this.getTemplates(tabType);
               const selectedCategory = this.getSelectedCategory(tabType);
 
-              if ('pages' === tabType) {
+              if (tabType === 'pages') {
                 return __('Coming Soon...', '@@text_domain');
               }
 
               return (
                 <Fragment>
-                  {false === currentTemplates ? (
+                  {currentTemplates === false ? (
                     <div className="ghostkit-plugin-templates-spinner">
                       <Spinner />
                     </div>
@@ -268,7 +268,7 @@ class TemplatesModal extends Component {
                   )}
                   {currentTemplates && !currentTemplates.length ? (
                     <div>
-                      {'local' === tabType ? (
+                      {tabType === 'local' ? (
                         <Fragment>
                           <p
                             style={{
@@ -394,7 +394,7 @@ class TemplatesModal extends Component {
                           );
                         })}
                       </Masonry>
-                      {'local' === tabType ? (
+                      {tabType === 'local' ? (
                         <ExternalLink
                           className="components-button is-button is-primary"
                           href={GHOSTKIT.adminTemplatesUrl}
@@ -422,7 +422,7 @@ class TemplatesModal extends Component {
 
 function checkMissingBlocksRecursive(blocks, result = {}) {
   blocks.forEach((item) => {
-    if ('core/missing' === item.name) {
+    if (item.name === 'core/missing') {
       result[item.attributes.originalName] = true;
     }
     if (item.innerBlocks) {
@@ -522,7 +522,7 @@ const TemplatesModalWithSelect = compose([
       templates,
       getTemplateData(data, cb) {
         let { type } = data;
-        if ('local' !== type && 'theme' !== type) {
+        if (type !== 'local' && type !== 'theme') {
           type = 'remote';
         }
 

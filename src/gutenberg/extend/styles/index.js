@@ -47,11 +47,11 @@ function CustomStylesComponent(props) {
     const newStyles = {};
 
     Object.keys(styles).forEach((key) => {
-      if ('undefined' !== typeof styles[key]) {
+      if (typeof styles[key] !== 'undefined') {
         if (
-          'object' === typeof styles[key] &&
+          typeof styles[key] === 'object' &&
           !Array.isArray(styles[key]) &&
-          null !== styles[key]
+          styles[key] !== null
         ) {
           const innerStyles = cleanBlockCustomStyles(styles[key]);
 
@@ -118,20 +118,20 @@ function CustomStylesComponent(props) {
       }
 
       // prepare new block id.
-      if (clientId && !ghostkitId && 'undefined' !== typeof ghostkitId) {
+      if (clientId && !ghostkitId && typeof ghostkitId !== 'undefined') {
         let ID = ghostkitId || '';
 
         // check if ID already exist.
         let tryCount = 10;
         while (
           !ID ||
-          ('undefined' !== typeof usedIds[ID] && usedIds[ID] !== clientId && 0 < tryCount)
+          (typeof usedIds[ID] !== 'undefined' && usedIds[ID] !== clientId && tryCount > 0)
         ) {
           ID = shorthash.unique(clientId);
           tryCount -= 1;
         }
 
-        if (ID && 'undefined' === typeof usedIds[ID]) {
+        if (ID && typeof usedIds[ID] === 'undefined') {
           usedIds[ID] = clientId;
         }
 

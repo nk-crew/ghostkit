@@ -62,7 +62,7 @@ export default class Blocks extends Component {
   getDisabledBlock(data) {
     let result = false;
 
-    if ('undefined' !== typeof this.state.disabledBlocks[data.name]) {
+    if (typeof this.state.disabledBlocks[data.name] !== 'undefined') {
       result = this.state.disabledBlocks[data.name];
     }
 
@@ -132,18 +132,18 @@ export default class Blocks extends Component {
           // prevent showing blocks with disabled inserter.
           !(
             block.supports &&
-            'undefined' !== typeof block.supports.inserter &&
+            typeof block.supports.inserter !== 'undefined' &&
             !block.supports.inserter
           )
         ) {
           let icon = block.icon.src ? block.icon.src : block.icon;
 
           // Prepare icon.
-          if ('function' === typeof icon) {
+          if (typeof icon === 'function') {
             icon = wp.element.renderToString(icon());
-          } else if ('object' === typeof icon) {
+          } else if (typeof icon === 'object') {
             icon = wp.element.renderToString(icon);
-          } else if ('string' === typeof icon) {
+          } else if (typeof icon === 'string') {
             icon = wp.element.createElement(wp.components.Dashicon, { icon });
             icon = wp.element.renderToString(icon);
           }
@@ -316,7 +316,7 @@ export default class Blocks extends Component {
                 <div
                   className={classnames(
                     'ghostkit-settings-blocks-all-check',
-                    0 !== disabledCount && disabledCount !== count
+                    disabledCount !== 0 && disabledCount !== count
                       ? 'ghostkit-settings-blocks-check-gray'
                       : ''
                   )}

@@ -53,7 +53,7 @@ class FieldOptions extends Component {
               />
               <Button
                 onClick={() => {
-                  if (1 < options.length) {
+                  if (options.length > 1) {
                     const newOpts = [...options];
                     newOpts.splice(i, 1);
 
@@ -97,7 +97,6 @@ class FieldOptions extends Component {
             width="24"
             height="24"
             role="img"
-            ariaHidden="true"
             focusable="false"
           >
             <path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z" />

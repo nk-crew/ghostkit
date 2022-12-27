@@ -63,7 +63,7 @@ export default class ColorPicker extends Component {
                 onChangeComplete={(color) => {
                   let colorString;
 
-                  if ('undefined' === typeof color.rgb || 1 === color.rgb.a) {
+                  if (typeof color.rgb === 'undefined' || color.rgb.a === 1) {
                     colorString = color.hex;
                   } else {
                     const { r, g, b, a } = color.rgb;

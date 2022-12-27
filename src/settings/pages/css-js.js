@@ -54,9 +54,9 @@ class CssJs extends Component {
 
     if (
       customCode &&
-      false === this.state.customCSS &&
-      false === this.state.customJSHead &&
-      false === this.state.customJSFoot
+      this.state.customCSS === false &&
+      this.state.customJSHead === false &&
+      this.state.customJSFoot === false
     ) {
       this.setState({
         customCSS: customCode.ghostkit_custom_css || '',
@@ -97,7 +97,7 @@ class CssJs extends Component {
         {icons && Object.keys(icons).length ? (
           <Fragment>
             <h4 style={{ marginTop: 0 }}>{__('CSS', '@@text_domain')}</h4>
-            {false !== this.state.customCSS ? (
+            {this.state.customCSS !== false ? (
               <CodeEditor
                 mode="css"
                 onChange={(value) => {
@@ -112,7 +112,7 @@ class CssJs extends Component {
               <Spinner />
             )}
             <h4>{__('JavaScript', '@@text_domain')}</h4>
-            {false !== this.state.customJSHead && false !== this.state.customJSFoot ? (
+            {this.state.customJSHead !== false && this.state.customJSFoot !== false ? (
               <Fragment>
                 <p className="ghostkit-help-text">
                   {__(

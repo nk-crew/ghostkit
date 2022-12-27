@@ -26,28 +26,30 @@ class ToolbarTemplates extends Component {
     const { insertBlocks } = this.props;
 
     // eslint-disable-next-line react/no-unstable-nested-components
-    const LibraryButton = () => (
-      <button
-        type="button"
-        className="components-button components-icon-button"
-        aria-label={__('Add Template', '@@text_domain')}
-        onClick={(e) => {
-          e.preventDefault();
+    function LibraryButton() {
+      return (
+        <button
+          type="button"
+          className="components-button components-icon-button"
+          aria-label={__('Add Template', '@@text_domain')}
+          onClick={(e) => {
+            e.preventDefault();
 
-          insertBlocks(
-            createBlock('ghostkit/grid', {
-              isTemplatesModalOnly: true,
-            })
-          );
-        }}
-      >
-        {getIcon('plugin-templates')}
-        {__('Templates Library', '@@text_domain')}
-      </button>
-    );
+            insertBlocks(
+              createBlock('ghostkit/grid', {
+                isTemplatesModalOnly: true,
+              })
+            );
+          }}
+        >
+          {getIcon('plugin-templates')}
+          {__('Templates Library', '@@text_domain')}
+        </button>
+      );
+    }
 
     const checkElement = async (selector) => {
-      while (null === document.querySelector(selector)) {
+      while (document.querySelector(selector) === null) {
         // eslint-disable-next-line no-promise-executor-return, no-await-in-loop
         await new Promise((resolve) => requestAnimationFrame(resolve));
       }

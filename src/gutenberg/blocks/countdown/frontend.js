@@ -18,7 +18,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     );
 
     const dateData = countDownApi(date, currentDate, units, 0);
-    const isEnd = 0 <= dateData.value;
+    const isEnd = dateData.value >= 0;
 
     if (isEnd) {
       $this.children('.ghostkit-countdown-unit').hide();
@@ -29,7 +29,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     Object.keys(unitsElements).forEach((unitName) => {
       let formattedUnit = false;
 
-      if (dateData && 'undefined' !== typeof dateData[unitName]) {
+      if (dateData && typeof dateData[unitName] !== 'undefined') {
         formattedUnit = countDownApi.formatUnit(dateData[unitName], unitName);
       }
 

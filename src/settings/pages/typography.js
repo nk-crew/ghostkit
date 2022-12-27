@@ -115,7 +115,7 @@ class TypographySettings extends Component {
   getTypographyComponent(typographyList, key) {
     const placeholders = this.getPlaceholders();
 
-    return false !== this.state.customTypography ? (
+    return this.state.customTypography !== false ? (
       <Typography
         onChange={(opt) => {
           this.updateTypography(opt, typographyList, key);
@@ -138,7 +138,7 @@ class TypographySettings extends Component {
   maybePrepareTypographyData() {
     const { customTypography = {} } = this.props;
 
-    if (customTypography && false === this.state.customTypography) {
+    if (customTypography && this.state.customTypography === false) {
       this.setState({
         customTypography: getCustomTypographyList(customTypography.ghostkit_typography, true) || '',
         advanced: getInitialAdvancedState(
@@ -181,15 +181,15 @@ class TypographySettings extends Component {
             {Object.keys(typographyList).map((key) => {
               const advancedData = this.state.advanced[key];
               const advancedLabel =
-                true === advancedData
+                advancedData === true
                   ? __('Hide Advanced', '@@text_domain')
                   : __('Show Advanced', '@@text_domain');
 
-              if ('' === typographyList[key].childOf) {
+              if (typographyList[key].childOf === '') {
                 return (
                   <div className="ghostkit-typography-container" key={key}>
                     {this.getTypographyComponent(typographyList, key)}
-                    {'undefined' !== typeof advancedData ? (
+                    {typeof advancedData !== 'undefined' ? (
                       <div className="ghostkit-typography-advanced">
                         <Button
                           isSecondary

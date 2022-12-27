@@ -161,7 +161,7 @@ class BlockEdit extends Component {
               allowReset
             />
 
-            {!confirmationType || 'message' === confirmationType ? (
+            {!confirmationType || confirmationType === 'message' ? (
               <TextareaControl
                 label={__('Message', '@@text_domain')}
                 value={confirmationMessage}
@@ -170,7 +170,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {'redirect' === confirmationType ? (
+            {confirmationType === 'redirect' ? (
               <TextControl
                 label={__('Redirect URL', '@@text_domain')}
                 value={confirmationRedirect}
@@ -241,7 +241,7 @@ function getUniqueFieldSlug(data, uniqueIds) {
   // check if slug already exist.
   let tryCount = 100;
   let i = 0;
-  while ('undefined' !== typeof uniqueIds[data.type][newSlug] && 0 < tryCount) {
+  while (typeof uniqueIds[data.type][newSlug] !== 'undefined' && tryCount > 0) {
     i += 1;
     tryCount -= 1;
     newSlug = `field_${data.type}_${i}`;
@@ -277,7 +277,7 @@ export default compose([
           }
           if (data.attributes.slug) {
             // Slug already exist.
-            if ('undefined' !== typeof uniqueIds[data.type][data.attributes.slug]) {
+            if (typeof uniqueIds[data.type][data.attributes.slug] !== 'undefined') {
               const newSlug = getUniqueFieldSlug(data, uniqueIds);
 
               uniqueIds[data.type][newSlug] = true;

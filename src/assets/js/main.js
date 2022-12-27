@@ -107,7 +107,7 @@ class GhostKitClass {
     $('.is-style-styled:not(.is-style-styled-ready)').each(function () {
       const $this = $(this);
       const start = parseInt($this.attr('start'), 10);
-      const isReversed = 'undefined' !== typeof $this.attr('reversed');
+      const isReversed = typeof $this.attr('reversed') !== 'undefined';
       const itemsCount = $this.children().length;
 
       $this.addClass('is-style-styled-ready');

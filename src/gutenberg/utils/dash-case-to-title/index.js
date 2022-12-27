@@ -10,7 +10,7 @@
  * @return {string} - new title-cased string.
  */
 export default function dashCaseToTitle(str) {
-  if ('string' !== typeof str) {
+  if (typeof str !== 'string') {
     return str;
   }
 

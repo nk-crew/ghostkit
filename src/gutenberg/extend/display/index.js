@@ -45,7 +45,7 @@ let initialOpenPanel = false;
 const getDefaultDisplay = function (screen = '') {
   return [
     {
-      label: 'all' === screen ? __('Default', '@@text_domain') : __('Inherit', '@@text_domain'),
+      label: screen === 'all' ? __('Default', '@@text_domain') : __('Inherit', '@@text_domain'),
       value: '',
     },
     {
@@ -95,7 +95,7 @@ function allowedDisplay(data) {
  * @returns {String} display value.
  */
 function getCurrentDisplay(className, screen) {
-  if (!screen || 'all' === screen) {
+  if (!screen || screen === 'all') {
     if (hasClass(className, 'ghostkit-d-none')) {
       return 'none';
     }
@@ -136,7 +136,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 
       let newClassName = className;
 
-      if (screen && 'all' !== screen) {
+      if (screen && screen !== 'all') {
         newClassName = replaceClass(newClassName, `ghostkit-d-${screen}`, val);
       } else {
         newClassName = removeClass(newClassName, 'ghostkit-d-none');

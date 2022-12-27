@@ -32,7 +32,7 @@ export const settings = {
       let result = {};
 
       // Sticky styles.
-      if (stickyContent && 'undefined' !== typeof stickyContentOffset) {
+      if (stickyContent && typeof stickyContentOffset !== 'undefined') {
         result['--gkt-grid--column-sticky__offset'] = `${stickyContentOffset}px`;
       }
 

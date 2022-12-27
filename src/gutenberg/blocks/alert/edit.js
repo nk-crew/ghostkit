@@ -137,7 +137,7 @@ function BlockEdit(props) {
             ]}
           >
             {(tabData) => {
-              const isHover = 'hover' === tabData.name;
+              const isHover = tabData.name === 'hover';
               return (
                 <ApplyFilters
                   name="ghostkit.editor.controls"
@@ -205,6 +205,6 @@ export default withSelect((select, props) => {
   const blockEditor = select('core/block-editor');
 
   return {
-    hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
+    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
   };
 })(BlockEdit);

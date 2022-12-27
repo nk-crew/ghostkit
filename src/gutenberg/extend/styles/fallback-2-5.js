@@ -94,7 +94,7 @@ function addSaveProps(extraProps, blockType, attributes) {
 
   const customStyles = attributes.ghostkitStyles ? { ...attributes.ghostkitStyles } : false;
 
-  if (customStyles && 0 !== Object.keys(customStyles).length) {
+  if (customStyles && Object.keys(customStyles).length !== 0) {
     let styles = getStyles(customStyles);
 
     if (blockType.ghostkit && blockType.ghostkit.customStylesFilter) {

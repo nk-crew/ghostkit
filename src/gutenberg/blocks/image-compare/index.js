@@ -20,7 +20,7 @@ export const settings = {
     customStylesCallback(attributes) {
       return {
         '--gkt-image-compare__position':
-          'undefined' !== typeof attributes.position ? `${attributes.position}%` : undefined,
+          typeof attributes.position !== 'undefined' ? `${attributes.position}%` : undefined,
       };
     },
     supports: {

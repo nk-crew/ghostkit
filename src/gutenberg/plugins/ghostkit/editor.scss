@@ -7,7 +7,7 @@
   display: block;
 }
 
-.interface-pinned-items .components-button:not(.is-toggled):not(.is-pressed) .ghostkit-plugin-icon svg {
+.interface-pinned-items .components-button:not(.is-toggled, .is-pressed) .ghostkit-plugin-icon svg {
   color: $color-brand;
 }
 

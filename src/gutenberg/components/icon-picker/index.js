@@ -35,7 +35,7 @@ function eachIcons(callback) {
 
   Object.keys(icons).forEach((key) => {
     const allow =
-      'undefined' === typeof settings[`icon_pack_${key}`] || settings[`icon_pack_${key}`];
+      typeof settings[`icon_pack_${key}`] === 'undefined' || settings[`icon_pack_${key}`];
 
     if (allow) {
       callback(icons[key]);
@@ -160,7 +160,7 @@ class IconPickerDropdown extends Component {
     eachIcons((iconsData) => {
       const { hiddenCategories } = this.state;
       const showCategory =
-        'undefined' !== typeof hiddenCategories[iconsData.name]
+        typeof hiddenCategories[iconsData.name] !== 'undefined'
           ? hiddenCategories[iconsData.name]
           : true;
       const searchString = this.state.search.toLowerCase();
@@ -170,7 +170,7 @@ class IconPickerDropdown extends Component {
         .filter((iconData) => {
           if (
             !searchString ||
-            (searchString && -1 < iconData.keys.indexOf(searchString.toLowerCase()))
+            (searchString && iconData.keys.indexOf(searchString.toLowerCase()) > -1)
           ) {
             return true;
           }
@@ -283,7 +283,7 @@ class IconPickerDropdown extends Component {
       allIcons.forEach((icon, i) => {
         currentIcons.push(icon);
 
-        if (3 === currentIcons.length || allIcons.length === i + 1) {
+        if (currentIcons.length === 3 || allIcons.length === i + 1) {
           rows.push({
             key: 'icons',
             render: <div className="ghostkit-component-icon-picker-list">{currentIcons}</div>,
@@ -295,7 +295,7 @@ class IconPickerDropdown extends Component {
     });
 
     // No icons.
-    if (1 === rows.length) {
+    if (rows.length === 1) {
       rows.push({
         key: 'icons',
         render: __('No icons found.', '@@text_domain'),

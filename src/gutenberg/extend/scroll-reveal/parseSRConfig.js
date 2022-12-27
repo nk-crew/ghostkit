@@ -8,7 +8,7 @@ export default function parseSRConfig(data) {
   let scale = 1;
   let origin = effect.split('-');
 
-  if (2 === origin.length) {
+  if (origin.length === 2) {
     // eslint-disable-next-line prefer-destructuring
     effect = origin[0];
     // eslint-disable-next-line prefer-destructuring
@@ -34,7 +34,7 @@ export default function parseSRConfig(data) {
     distance = 0;
   }
 
-  if ('zoom' === effect) {
+  if (effect === 'zoom') {
     scale = 0.9;
   }
 
@@ -50,10 +50,10 @@ export default function parseSRConfig(data) {
   };
 
   // replace other data config.
-  if (1 < data.length) {
+  if (data.length > 1) {
     data.forEach((item) => {
       const itemData = item.split(':');
-      if (2 === itemData.length) {
+      if (itemData.length === 2) {
         // eslint-disable-next-line prefer-destructuring
         config[itemData[0]] = itemData[1];
       }

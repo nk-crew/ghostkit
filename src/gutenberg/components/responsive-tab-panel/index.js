@@ -50,7 +50,7 @@ export default class ResponsiveTabPanel extends Component {
         title: (
           <Tooltip
             text={
-              'all' === mediaName
+              mediaName === 'all'
                 ? __('All devices', '@@text_domain')
                 : sprintf(
                     __('Devices with screen width <= %s', '@@text_domain'),

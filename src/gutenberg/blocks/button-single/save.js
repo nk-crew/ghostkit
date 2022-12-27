@@ -76,7 +76,7 @@ export default function BlockSave(props) {
         name={icon}
         tag="span"
         className={`ghostkit-button-icon ghostkit-button-icon-${
-          'right' === iconPosition ? 'right' : 'left'
+          iconPosition === 'right' ? 'right' : 'left'
         }`}
         key="button-icon"
       />
@@ -87,7 +87,7 @@ export default function BlockSave(props) {
 
   const blockProps = useBlockProps.save({
     className,
-    ...('a' === Tag
+    ...(Tag === 'a'
       ? {
           href: url,
           target: target || null,

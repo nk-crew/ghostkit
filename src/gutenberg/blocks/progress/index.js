@@ -25,14 +25,14 @@ export const settings = {
     customStylesCallback(attributes) {
       const styles = {
         '--gkt-progress__height':
-          'undefined' !== typeof attributes.height ? `${attributes.height}px` : undefined,
+          typeof attributes.height !== 'undefined' ? `${attributes.height}px` : undefined,
         '--gkt-progress__border-radius':
-          'undefined' !== typeof attributes.borderRadius
+          typeof attributes.borderRadius !== 'undefined'
             ? `${attributes.borderRadius}px`
             : undefined,
         '--gkt-progress__background-color': attributes.backgroundColor,
         '--gkt-progress--bar__width':
-          'undefined' !== typeof attributes.percent ? `${attributes.percent}%` : undefined,
+          typeof attributes.percent !== 'undefined' ? `${attributes.percent}%` : undefined,
         '--gkt-progress--bar__background-color': attributes.color,
       };
 

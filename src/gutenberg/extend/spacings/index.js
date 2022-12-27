@@ -45,7 +45,7 @@ class SpacingsComponent extends Component {
     const { ghostkitIndents = {}, ghostkitSpacings = {} } = attributes;
 
     // since Indents renamed to Spacings we need to migrate it.
-    if (0 < Object.keys(ghostkitIndents).length && 0 === Object.keys(ghostkitSpacings).length) {
+    if (Object.keys(ghostkitIndents).length > 0 && Object.keys(ghostkitSpacings).length === 0) {
       setAttributes({
         ghostkitIndents: {},
         ghostkitSpacings: ghostkitIndents,
@@ -112,7 +112,7 @@ class SpacingsComponent extends Component {
     Object.keys(ghostkitSpacings).forEach((key) => {
       if (ghostkitSpacings[key]) {
         // check if device object.
-        if ('object' === typeof ghostkitSpacings[key]) {
+        if (typeof ghostkitSpacings[key] === 'object') {
           Object.keys(ghostkitSpacings[key]).forEach((keyDevice) => {
             if (ghostkitSpacings[key][keyDevice]) {
               if (!result[key]) {
@@ -174,7 +174,7 @@ class SpacingsComponent extends Component {
       ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
         filledTabs[media] = false;
         allSpacings.forEach((spacing) => {
-          if (this.getCurrentSpacing(spacing, 'all' !== media ? `media_${media}` : '')) {
+          if (this.getCurrentSpacing(spacing, media !== 'all' ? `media_${media}` : '')) {
             filledTabs[media] = true;
           }
         });
@@ -201,7 +201,7 @@ class SpacingsComponent extends Component {
             {(tabData) => {
               let device = '';
 
-              if ('all' !== tabData.name) {
+              if (tabData.name !== 'all') {
                 device = `media_${tabData.name}`;
               }
 
@@ -425,7 +425,7 @@ const withInspectorControl = createHigherOrderComponent(
  */
 function addEditorCustomStyles(customStyles, props) {
   let customSpacings =
-    props.attributes.ghostkitSpacings && 0 !== Object.keys(props.attributes.ghostkitSpacings).length
+    props.attributes.ghostkitSpacings && Object.keys(props.attributes.ghostkitSpacings).length !== 0
       ? cloneDeep(props.attributes.ghostkitSpacings)
       : false;
 
@@ -433,11 +433,11 @@ function addEditorCustomStyles(customStyles, props) {
   // validate values.
   const result = {};
   Object.keys(customSpacings).forEach((key) => {
-    if (customSpacings[key] && '!important' !== key) {
+    if (customSpacings[key] && key !== '!important') {
       // check if device object.
-      if ('object' === typeof customSpacings[key]) {
+      if (typeof customSpacings[key] === 'object') {
         Object.keys(customSpacings[key]).forEach((keyDevice) => {
-          if (customSpacings[key][keyDevice] && '!important' !== keyDevice) {
+          if (customSpacings[key][keyDevice] && keyDevice !== '!important') {
             if (!result[key]) {
               result[key] = {};
             }
@@ -452,7 +452,7 @@ function addEditorCustomStyles(customStyles, props) {
     }
   });
 
-  customSpacings = 0 !== Object.keys(result).length ? result : false;
+  customSpacings = Object.keys(result).length !== 0 ? result : false;
 
   if (customStyles && customSpacings) {
     customStyles = merge(customStyles, customSpacings);

@@ -9,7 +9,7 @@
  * @return {string} - new dashed string.
  */
 export default function camelCaseToDash(str) {
-  if ('string' !== typeof str) {
+  if (typeof str !== 'string') {
     return str;
   }
 

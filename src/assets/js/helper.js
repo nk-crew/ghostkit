@@ -50,7 +50,7 @@ window.GHOSTKIT = {
   customTypographyList: ghostkitVariables.customTypographyList,
   variants: ghostkitVariables.variants,
   getVariants(name) {
-    if ('undefined' !== typeof this.variants[name]) {
+    if (typeof this.variants[name] !== 'undefined') {
       return this.variants[name];
     }
     return false;
@@ -73,7 +73,7 @@ window.GHOSTKIT = {
    * @return {Mixed} - supports flag
    */
   hasBlockSupport(block, featureName, defaultVal = false) {
-    if ('string' === typeof block && wp && wp.blocks) {
+    if (typeof block === 'string' && wp && wp.blocks) {
       const { getBlockType } = wp.blocks;
 
       if (getBlockType) {
@@ -85,7 +85,7 @@ window.GHOSTKIT = {
       block &&
       block.ghostkit &&
       block.ghostkit.supports &&
-      'undefined' !== typeof block.ghostkit.supports[featureName]
+      typeof block.ghostkit.supports[featureName] !== 'undefined'
     ) {
       return block.ghostkit.supports[featureName];
     }

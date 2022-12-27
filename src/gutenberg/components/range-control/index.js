@@ -32,7 +32,7 @@ export default function CustomRangeControl({ allowCustomMin, allowCustomMax, lab
           max={max}
           step={props.step}
           onChange={(val) => {
-            const result = '' === val ? undefined : parseFloat(val);
+            const result = val === '' ? undefined : parseFloat(val);
 
             if (!allowCustomMin && val < min) {
               props.onChange(min);

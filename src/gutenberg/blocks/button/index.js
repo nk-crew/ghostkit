@@ -23,15 +23,15 @@ export const settings = {
       const result = {};
 
       // Custom Gap.
-      if ('custom' === gap) {
-        if ('undefined' !== typeof gapCustom) {
+      if (gap === 'custom') {
+        if (typeof gapCustom !== 'undefined') {
           // we need to use `%` unit because of conflict with complex calc() and 0 value.
           const unit = gapCustom ? 'px' : '%';
 
           result['--gkt-button__gap'] = `${gapCustom}${unit}`;
         }
 
-        if ('undefined' !== typeof gapVerticalCustom) {
+        if (typeof gapVerticalCustom !== 'undefined') {
           // we need to use `%` unit because of conflict with complex calc() and 0 value.
           const unit = gapVerticalCustom ? 'px' : '%';
 

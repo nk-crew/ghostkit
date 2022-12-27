@@ -57,10 +57,10 @@ const getDefaultColumnSizes = function () {
     },
   ];
 
-  for (let k = 1; 12 >= k; k += 1) {
+  for (let k = 1; k <= 12; k += 1) {
     result.push({
       label: sprintf(
-        1 === k ? __('%d Column (%s)', '@@text_domain') : __('%d Columns (%s)', '@@text_domain'),
+        k === 1 ? __('%d Column (%s)', '@@text_domain') : __('%d Columns (%s)', '@@text_domain'),
         k,
         `${Math.round(((100 * k) / 12) * 100) / 100}%`
       ),
@@ -127,7 +127,7 @@ export default function BlockEdit(props) {
       let orderName = 'order';
       let verticalAlignName = 'verticalAlign';
 
-      if ('all' !== media) {
+      if (media !== 'all') {
         sizeName = `${media}_${sizeName}`;
         orderName = `${media}_${orderName}`;
         verticalAlignName = `${media}_${verticalAlignName}`;
@@ -143,7 +143,7 @@ export default function BlockEdit(props) {
       const blockEditor = select('core/block-editor');
 
       return {
-        hasChildBlocks: blockEditor ? 0 < blockEditor.getBlockOrder(clientId).length : false,
+        hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
       };
     },
     [clientId]
@@ -172,7 +172,7 @@ export default function BlockEdit(props) {
                 let orderName = 'order';
                 let verticalAlignName = 'verticalAlign';
 
-                if ('all' !== tabData.name) {
+                if (tabData.name !== 'all') {
                   sizeName = `${tabData.name}_${sizeName}`;
                   orderName = `${tabData.name}_${orderName}`;
                   verticalAlignName = `${tabData.name}_${verticalAlignName}`;

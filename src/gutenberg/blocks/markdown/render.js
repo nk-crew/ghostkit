@@ -26,7 +26,7 @@ export default class MDRender extends Component {
       <RawHTML
         className={className}
         onClick={(e) => {
-          if ('A' === e.target.nodeName) {
+          if (e.target.nodeName === 'A') {
             // eslint-disable-next-line no-alert
             if (!window.confirm(__('Are you sure you wish to leave this page?', '@@text_domain'))) {
               e.preventDefault();

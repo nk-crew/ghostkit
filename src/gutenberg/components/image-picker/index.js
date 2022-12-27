@@ -32,12 +32,12 @@ export default class ImagePicker extends Component {
               option.className
             )}
           >
-            {option.image && 'string' === typeof option.image ? (
+            {option.image && typeof option.image === 'string' ? (
               <img src={option.image} alt={option.label || option.value} />
             ) : (
               ''
             )}
-            {option.image && 'string' !== typeof option.image ? option.image : ''}
+            {option.image && typeof option.image !== 'string' ? option.image : ''}
             {option.label ? <span>{option.label}</span> : ''}
           </button>
         ))}

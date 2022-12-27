@@ -16,7 +16,7 @@ export function maybeEncode(str) {
   let result = {};
 
   // Object
-  if ('object' === typeof str) {
+  if (typeof str === 'object') {
     Object.keys(str).forEach((k) => {
       result[maybeEncode(k)] = maybeEncode(str[k]);
     });
@@ -27,7 +27,7 @@ export function maybeEncode(str) {
   // String
   result = str;
 
-  if ('string' === typeof result) {
+  if (typeof result === 'string') {
     try {
       // Because of these replacements, some attributes can't be exported to XML without being broken. So, we need to replace it manually with something safe.
       // https://github.com/WordPress/gutenberg/blob/88645e4b268acf5746e914159e3ce790dcb1665a/packages/blocks/src/api/serializer.js#L246-L271
@@ -61,7 +61,7 @@ export function maybeDecode(str) {
   let result = {};
 
   // Object
-  if ('object' === typeof str) {
+  if (typeof str === 'object') {
     Object.keys(str).forEach((k) => {
       result[maybeDecode(k)] = maybeDecode(str[k]);
     });
@@ -72,7 +72,7 @@ export function maybeDecode(str) {
   // String
   result = str;
 
-  if ('string' === typeof result) {
+  if (typeof result === 'string') {
     try {
       result = decodeURIComponent(result);
 

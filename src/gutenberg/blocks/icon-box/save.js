@@ -40,7 +40,7 @@ class BlockSave extends Component {
     const classNameIcon = classnames(
       'ghostkit-icon-box-icon',
       `ghostkit-icon-box-icon-align-${iconPosition || 'left'}`,
-      'top' === iconPosition ? `ghostkit-icon-box-icon-top-align-${iconAlign || 'center'}` : ''
+      iconPosition === 'top' ? `ghostkit-icon-box-icon-top-align-${iconAlign || 'center'}` : ''
     );
 
     return (

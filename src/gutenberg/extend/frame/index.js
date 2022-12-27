@@ -113,7 +113,7 @@ class FrameComponent extends Component {
     Object.keys(ghostkitFrame).forEach((key) => {
       if (ghostkitFrame[key]) {
         // check if device object.
-        if ('object' === typeof ghostkitFrame[key]) {
+        if (typeof ghostkitFrame[key] === 'object') {
           Object.keys(ghostkitFrame[key]).forEach((keyDevice) => {
             if (ghostkitFrame[key][keyDevice]) {
               if (!result[key]) {
@@ -188,7 +188,7 @@ class FrameComponent extends Component {
       ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
         filledTabs[media] = false;
         allFrame.forEach((spacing) => {
-          if (this.getCurrentFrame(spacing, 'all' !== media ? `media_${media}` : '')) {
+          if (this.getCurrentFrame(spacing, media !== 'all' ? `media_${media}` : '')) {
             filledTabs[media] = true;
           }
         });
@@ -298,7 +298,7 @@ class FrameComponent extends Component {
             {(tabData) => {
               let device = '';
 
-              if ('all' !== tabData.name) {
+              if (tabData.name !== 'all') {
                 device = `media_${tabData.name}`;
               }
 
@@ -308,7 +308,7 @@ class FrameComponent extends Component {
                   tabs={stateTabs}
                 >
                   {(stateTabData) => {
-                    const isHover = 'hover' === stateTabData.name;
+                    const isHover = stateTabData.name === 'hover';
                     const borderPropName = `${isHover ? 'hoverBorder' : 'border'}`;
                     const shadowPropName = `${isHover ? 'hoverBoxShadow' : 'boxShadow'}`;
                     const borderStyle = this.getCurrentFrame(`${borderPropName}Style`, device);
@@ -323,7 +323,7 @@ class FrameComponent extends Component {
                             if (value && value !== borderStyle) {
                               this.updateFrame(
                                 {
-                                  [`${borderPropName}Style`]: 'none' === value ? '' : value,
+                                  [`${borderPropName}Style`]: value === 'none' ? '' : value,
                                 },
                                 device
                               );
@@ -653,7 +653,7 @@ const withInspectorControl = createHigherOrderComponent(
  */
 function addPixelsToString(str) {
   // add pixels.
-  if ('string' === typeof str && '0' !== str && /^[0-9.-]*$/.test(str)) {
+  if (typeof str === 'string' && str !== '0' && /^[0-9.-]*$/.test(str)) {
     str += 'px';
   }
 
@@ -670,7 +670,7 @@ function addPixelsToString(str) {
 function prepareShadow(attrs) {
   // check if device object.
   Object.keys(attrs).forEach((key) => {
-    if (attrs[key] && 'object' === typeof attrs[key]) {
+    if (attrs[key] && typeof attrs[key] === 'object') {
       attrs[key] = prepareShadow(attrs[key]);
     }
   });
@@ -705,7 +705,7 @@ function prepareShadow(attrs) {
     'hoverBoxShadowSpread',
   ];
   shadowAttrs.forEach((shadowAttr) => {
-    if ('undefined' !== typeof attrs[shadowAttr]) {
+    if (typeof attrs[shadowAttr] !== 'undefined') {
       delete attrs[shadowAttr];
     }
   });
@@ -749,7 +749,7 @@ function prepareStyle(key, val) {
  */
 function addEditorCustomStyles(customStyles, props) {
   let customFrame =
-    props.attributes.ghostkitFrame && 0 !== Object.keys(props.attributes.ghostkitFrame).length
+    props.attributes.ghostkitFrame && Object.keys(props.attributes.ghostkitFrame).length !== 0
       ? cloneDeep(props.attributes.ghostkitFrame)
       : false;
 
@@ -761,7 +761,7 @@ function addEditorCustomStyles(customStyles, props) {
   Object.keys(customFrame).forEach((key) => {
     if (customFrame[key]) {
       // check if device object.
-      if ('object' === typeof customFrame[key]) {
+      if (typeof customFrame[key] === 'object') {
         Object.keys(customFrame[key]).forEach((keyDevice) => {
           if (customFrame[key][keyDevice]) {
             result = merge(result, {
@@ -775,7 +775,7 @@ function addEditorCustomStyles(customStyles, props) {
     }
   });
 
-  customFrame = 0 !== Object.keys(result).length ? result : false;
+  customFrame = Object.keys(result).length !== 0 ? result : false;
 
   if (customStyles && customFrame) {
     customStyles = merge(customStyles, customFrame);

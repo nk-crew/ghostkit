@@ -149,12 +149,12 @@ class Customizer extends Component {
 
         // disable some options
         if (
-          'active_theme' === val.id ||
-          (val.panel && val.panel.id && 'widgets' === val.panel.id) ||
-          (val.panel && val.panel.id && 'nav_menus' === val.panel.id) ||
-          (!val.panel && 'option' === val.type && /^widget_/.test(val.id)) ||
-          (!val.panel && 'option' === val.type && /^sidebars_widgets\[/.test(val.id)) ||
-          (!val.panel && 'option' === val.type && /^nav_menus_/.test(val.id))
+          val.id === 'active_theme' ||
+          (val.panel && val.panel.id && val.panel.id === 'widgets') ||
+          (val.panel && val.panel.id && val.panel.id === 'nav_menus') ||
+          (!val.panel && val.type === 'option' && /^widget_/.test(val.id)) ||
+          (!val.panel && val.type === 'option' && /^sidebars_widgets\[/.test(val.id)) ||
+          (!val.panel && val.type === 'option' && /^nav_menus_/.test(val.id))
         ) {
           prevent = true;
         }
@@ -162,7 +162,7 @@ class Customizer extends Component {
         if (!prevent) {
           const category = this.getOptionCategory(val);
 
-          if ('undefined' === typeof groupedList[category.slug]) {
+          if (typeof groupedList[category.slug] === 'undefined') {
             groupedList[category.slug] = {
               label: category.label,
               options: [],
@@ -194,7 +194,7 @@ class Customizer extends Component {
     let options = this.getSelectedOptions();
 
     // remove option.
-    if (null === value) {
+    if (value === null) {
       options = options.filter((item) => item.id !== opt.id);
 
       // add/update option
@@ -331,7 +331,7 @@ class Customizer extends Component {
                   control = (
                     <ToggleControl
                       label={opt.label || opt.id}
-                      checked={'on' === opt.value}
+                      checked={opt.value === 'on'}
                       onChange={(value) => {
                         this.updateOptions(value ? 'on' : 'off', opt);
                       }}
@@ -387,11 +387,11 @@ class Customizer extends Component {
                   {control}
                   <div className="ghostkit-customizer-list-info">
                     <small className="ghostkit-customizer-list-info-id">{opt.id}</small>
-                    {opt.default || 'boolean' === typeof opt.default ? (
+                    {opt.default || typeof opt.default === 'boolean' ? (
                       <small className="ghostkit-customizer-list-info-default">
                         {__('Default:', '@@text_domain')}{' '}
                         <span>
-                          {'boolean' === typeof opt.default ? opt.default.toString() : opt.default}
+                          {typeof opt.default === 'boolean' ? opt.default.toString() : opt.default}
                         </span>
                       </small>
                     ) : (

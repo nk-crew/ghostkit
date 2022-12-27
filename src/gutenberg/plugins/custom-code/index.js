@@ -55,9 +55,9 @@ class CustomCodeModal extends Component {
 
     if (
       customCode &&
-      false === this.state.globalCustomCSS &&
-      false === this.state.globalCustomJSHead &&
-      false === this.state.globalCustomJSFoot
+      this.state.globalCustomCSS === false &&
+      this.state.globalCustomJSHead === false &&
+      this.state.globalCustomJSFoot === false
     ) {
       this.setState({
         globalCustomCSS: customCode.ghostkit_custom_css || '',
@@ -144,7 +144,7 @@ class CustomCodeModal extends Component {
           ]}
         >
           {(tabData) => {
-            const isGlobal = 'global' === tabData.name;
+            const isGlobal = tabData.name === 'global';
 
             return (
               <Fragment>

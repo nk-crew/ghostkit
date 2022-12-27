@@ -59,7 +59,7 @@ function getVideoPoster(url, cb) {
     return;
   }
 
-  if ('undefined' === typeof window.VideoWorker) {
+  if (typeof window.VideoWorker === 'undefined') {
     cb('');
     return;
   }
@@ -100,7 +100,7 @@ class BlockEdit extends Component {
 
     // Change click action to Fullscreen when used Icon Only style.
     if (
-      'plain' === attributes.clickAction &&
+      attributes.clickAction === 'plain' &&
       attributes.className !== prevProps.attributes.className &&
       hasClass(attributes.className, 'is-style-icon-only')
     ) {
@@ -130,7 +130,7 @@ class BlockEdit extends Component {
     const { setAttributes, attributes } = this.props;
 
     // load YouTube / Vimeo poster
-    if (!attributes.posterId && 'yt_vm_video' === attributes.type && attributes.video) {
+    if (!attributes.posterId && attributes.type === 'yt_vm_video' && attributes.video) {
       getVideoPoster(attributes.video, (url) => {
         if (url !== attributes.videoPosterPreview) {
           setAttributes({ videoPosterPreview: url });
@@ -272,13 +272,13 @@ class BlockEdit extends Component {
     }
 
     let toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-16-9');
-    if ('3:2' === videoAspectRatio) {
+    if (videoAspectRatio === '3:2') {
       toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-3-2');
     }
-    if ('4:3' === videoAspectRatio) {
+    if (videoAspectRatio === '4:3') {
       toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-4-3');
     }
-    if ('21:9' === videoAspectRatio) {
+    if (videoAspectRatio === '21:9') {
       toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-21-9');
     }
 
@@ -306,7 +306,7 @@ class BlockEdit extends Component {
               )}
             />
           </ToolbarGroup>
-          {'yt_vm_video' === type ? (
+          {type === 'yt_vm_video' ? (
             <ToolbarGroup>
               <TextControl
                 type="url"
@@ -339,7 +339,7 @@ class BlockEdit extends Component {
               }}
               isBlock
             />
-            {'yt_vm_video' === type && (
+            {type === 'yt_vm_video' && (
               <TextControl
                 label={__('Video URL', '@@text_domain')}
                 type="url"
@@ -349,7 +349,7 @@ class BlockEdit extends Component {
             )}
 
             {/* Preview Video */}
-            {'video' === type && (videoMp4 || videoOgv || videoWebm) ? (
+            {type === 'video' && (videoMp4 || videoOgv || videoWebm) ? (
               // eslint-disable-next-line jsx-a11y/media-has-caption
               <video controls>
                 {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : ''}
@@ -361,7 +361,7 @@ class BlockEdit extends Component {
             )}
 
             {/* Select Videos */}
-            {'video' === type && !videoMp4 ? (
+            {type === 'video' && !videoMp4 ? (
               <MediaUpload
                 onSelect={(media) => {
                   setAttributes({
@@ -391,7 +391,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {'video' === type && videoMp4 ? (
+            {type === 'video' && videoMp4 ? (
               <div>
                 <span>{videoMp4.substring(videoMp4.lastIndexOf('/') + 1)} </span>
                 <Button
@@ -411,7 +411,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {'video' === type && !videoOgv ? (
+            {type === 'video' && !videoOgv ? (
               <MediaUpload
                 onSelect={(media) => {
                   setAttributes({
@@ -441,7 +441,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {'video' === type && videoOgv ? (
+            {type === 'video' && videoOgv ? (
               <div>
                 <span>{videoOgv.substring(videoOgv.lastIndexOf('/') + 1)} </span>
                 <Button
@@ -461,7 +461,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {'video' === type && !videoWebm ? (
+            {type === 'video' && !videoWebm ? (
               <MediaUpload
                 onSelect={(media) => {
                   setAttributes({
@@ -491,7 +491,7 @@ class BlockEdit extends Component {
             ) : (
               ''
             )}
-            {'video' === type && videoWebm ? (
+            {type === 'video' && videoWebm ? (
               <div>
                 <span>{videoWebm.substring(videoWebm.lastIndexOf('/') + 1)} </span>
                 <Button
@@ -550,7 +550,7 @@ class BlockEdit extends Component {
                         'ghostkit-video-style-icon-only-align-left'
                       );
 
-                      if ('left' === value || 'right' === value) {
+                      if (value === 'left' || value === 'right') {
                         newClassName = addClass(
                           newClassName,
                           `ghostkit-video-style-icon-only-align-${value}`
@@ -588,7 +588,7 @@ class BlockEdit extends Component {
               }}
               isAdaptiveWidth
             />
-            {'fullscreen' === clickAction ? (
+            {clickAction === 'fullscreen' ? (
               <Fragment>
                 <ApplyFilters
                   name="ghostkit.editor.controls"
@@ -743,7 +743,7 @@ class BlockEdit extends Component {
             ''
           )}
           {!posterUrl &&
-          'yt_vm_video' === type &&
+          type === 'yt_vm_video' &&
           videoPosterPreview &&
           !hasClass(attributes.className, 'is-style-icon-only') ? (
             <div className="ghostkit-video-poster">

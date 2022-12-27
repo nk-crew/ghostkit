@@ -179,7 +179,7 @@ class BlockEdit extends Component {
         let heightName = 'height';
         let widthName = 'width';
 
-        if ('all' !== media) {
+        if (media !== 'all') {
           heightName = `${media}_${heightName}`;
           widthName = `${media}_${widthName}`;
         }
@@ -250,7 +250,7 @@ class BlockEdit extends Component {
                 let heightName = 'height';
                 let widthName = 'width';
 
-                if ('all' !== tabData.name) {
+                if (tabData.name !== 'all') {
                   heightName = `${tabData.name}_${heightName}`;
                   widthName = `${tabData.name}_${widthName}`;
                 }
@@ -262,7 +262,7 @@ class BlockEdit extends Component {
                       value={attributes[heightName] ? parseInt(attributes[heightName], 10) : ''}
                       onChange={(value) => {
                         setAttributes({
-                          [heightName]: `${'number' === typeof value ? value : ''}`,
+                          [heightName]: `${typeof value === 'number' ? value : ''}`,
                         });
                       }}
                       min={1}
@@ -274,7 +274,7 @@ class BlockEdit extends Component {
                       value={attributes[widthName] ? parseInt(attributes[widthName], 10) : ''}
                       onChange={(value) => {
                         setAttributes({
-                          [widthName]: `${'number' === typeof value ? value : ''}`,
+                          [widthName]: `${typeof value === 'number' ? value : ''}`,
                         });
                       }}
                       min={100}

@@ -40,15 +40,15 @@ export const settings = {
       }
 
       // Custom Gap.
-      if ('custom' === gap) {
-        if ('undefined' !== typeof gapCustom) {
+      if (gap === 'custom') {
+        if (typeof gapCustom !== 'undefined') {
           // we need to use `%` unit because of conflict with complex calc() and 0 value.
           const unit = gapCustom ? 'px' : '%';
 
           result['--gkt-grid__gap'] = `${gapCustom}${unit}`;
         }
 
-        if ('undefined' !== typeof gapVerticalCustom) {
+        if (typeof gapVerticalCustom !== 'undefined') {
           // we need to use `%` unit because of conflict with complex calc() and 0 value.
           const unit = gapVerticalCustom ? 'px' : '%';
 
@@ -126,7 +126,7 @@ export const withClasses = createHigherOrderComponent(
     function (props) {
       const { name: blockName } = props;
 
-      if ('ghostkit/grid' === blockName && props.attributes.isTemplatesModalOnly) {
+      if (blockName === 'ghostkit/grid' && props.attributes.isTemplatesModalOnly) {
         return <BlockListBlock {...props} data-ghostkit-grid-templates-modal-only="true" />;
       }
 

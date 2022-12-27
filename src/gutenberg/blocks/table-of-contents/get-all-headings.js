@@ -11,8 +11,8 @@ export default function getAllHeadings(blocks, allowedHeaders) {
   if (allowedHeaders && allowedHeaders.length) {
     blocks.forEach((block) => {
       if (
-        'core/heading' === block.name &&
-        -1 < allowedHeaders.indexOf(block.attributes.level) &&
+        block.name === 'core/heading' &&
+        allowedHeaders.indexOf(block.attributes.level) > -1 &&
         block?.attributes?.anchor
       ) {
         headings.push({
