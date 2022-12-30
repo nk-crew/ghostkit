@@ -222,32 +222,41 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
           return;
         }
 
-        const counterObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if ($this[0] !== entry.target) {
-                return;
-              }
+        const videoObserverCallback = (entries) => {
+          entries.forEach((entry) => {
+            if ($this[0] !== entry.target) {
+              return;
+            }
 
-              // autoplay
-              if (!autoplayOnce && !isPlaying && videoAutoplay && entry.isIntersecting) {
-                if (clicked) {
-                  api.play();
-                } else {
-                  $this.click();
-                }
+            // autoplay
+            if (!autoplayOnce && !isPlaying && videoAutoplay && entry.isIntersecting) {
+              if (clicked) {
+                api.play();
+              } else {
+                $this.click();
               }
+            }
 
-              // autopause
-              if (isPlaying && videoAutopause && !entry.isIntersecting) {
-                api.pause();
-              }
-            });
-          },
-          { threshold: 0.6 }
+            // autopause
+            if (isPlaying && videoAutopause && !entry.isIntersecting) {
+              api.pause();
+            }
+          });
+        };
+        const videoObserverOptions = {
+          threshold: 0.6,
+        };
+
+        GHOSTKIT.triggerEvent(
+          'prepareVideoObserver',
+          self,
+          videoObserverCallback,
+          videoObserverOptions
         );
 
-        counterObserver.observe($this[0]);
+        const videoObserver = new IntersectionObserver(videoObserverCallback, videoObserverOptions);
+
+        videoObserver.observe($this[0]);
       }
     }
   });

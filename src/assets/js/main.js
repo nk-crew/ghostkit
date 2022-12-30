@@ -193,10 +193,10 @@ class GhostKitClass {
         return;
       }
 
-      const counterObserver = new IntersectionObserver((entries) => {
+      const countersObserverCallback = (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && item.el === entry.target) {
-            counterObserver.unobserve(entry.target);
+            observer.unobserve(entry.target);
 
             $({ Counter: item.from }).animate(
               { Counter: item.to },
@@ -214,9 +214,25 @@ class GhostKitClass {
             );
           }
         });
-      });
+      };
+      const countersObserverOptions = {
+        // We have to start the animation only when part of the block is visible on the screen.
+        rootMargin: '-50px',
+      };
 
-      counterObserver.observe(item.el);
+      GHOSTKIT.triggerEvent(
+        'prepareCountersObserver',
+        self,
+        countersObserverCallback,
+        countersObserverOptions
+      );
+
+      const countersObserver = new IntersectionObserver(
+        countersObserverCallback,
+        countersObserverOptions
+      );
+
+      countersObserver.observe(item.el);
     });
 
     GHOSTKIT.triggerEvent('afterPrepareCounters', self);
