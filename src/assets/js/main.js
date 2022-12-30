@@ -193,43 +193,40 @@ class GhostKitClass {
         return;
       }
 
-      const countersObserverCallback = (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && item.el === entry.target) {
-            observer.unobserve(entry.target);
+      const countersObserverData = {
+        callback: (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && item.el === entry.target) {
+              observer.unobserve(entry.target);
 
-            $({ Counter: item.from }).animate(
-              { Counter: item.to },
-              {
-                duration: item.duration,
-                easing: item.easing,
-                step() {
-                  item.cb(this.Counter, false);
-                },
-                complete() {
-                  item.cb(item.to, true);
-                  GHOSTKIT.triggerEvent('animatedCounters', self, item);
-                },
-              }
-            );
-          }
-        });
-      };
-      const countersObserverOptions = {
-        // We have to start the animation only when part of the block is visible on the screen.
-        rootMargin: '-50px',
+              $({ Counter: item.from }).animate(
+                { Counter: item.to },
+                {
+                  duration: item.duration,
+                  easing: item.easing,
+                  step() {
+                    item.cb(this.Counter, false);
+                  },
+                  complete() {
+                    item.cb(item.to, true);
+                    GHOSTKIT.triggerEvent('animatedCounters', self, item);
+                  },
+                }
+              );
+            }
+          });
+        },
+        options: {
+          // We have to start the animation only when part of the block is visible on the screen.
+          rootMargin: '-50px',
+        },
       };
 
-      GHOSTKIT.triggerEvent(
-        'prepareCountersObserver',
-        self,
-        countersObserverCallback,
-        countersObserverOptions
-      );
+      GHOSTKIT.triggerEvent('prepareCountersObserver', self, countersObserverData);
 
       const countersObserver = new IntersectionObserver(
-        countersObserverCallback,
-        countersObserverOptions
+        countersObserverData.callback,
+        countersObserverData.options
       );
 
       countersObserver.observe(item.el);

@@ -222,39 +222,39 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
           return;
         }
 
-        const videoObserverCallback = (entries) => {
-          entries.forEach((entry) => {
-            if ($this[0] !== entry.target) {
-              return;
-            }
-
-            // autoplay
-            if (!autoplayOnce && !isPlaying && videoAutoplay && entry.isIntersecting) {
-              if (clicked) {
-                api.play();
-              } else {
-                $this.click();
+        const videoObserverData = {
+          callback: (entries) => {
+            entries.forEach((entry) => {
+              if ($this[0] !== entry.target) {
+                return;
               }
-            }
 
-            // autopause
-            if (isPlaying && videoAutopause && !entry.isIntersecting) {
-              api.pause();
-            }
-          });
-        };
-        const videoObserverOptions = {
-          threshold: 0.6,
+              // autoplay
+              if (!autoplayOnce && !isPlaying && videoAutoplay && entry.isIntersecting) {
+                if (clicked) {
+                  api.play();
+                } else {
+                  $this.click();
+                }
+              }
+
+              // autopause
+              if (isPlaying && videoAutopause && !entry.isIntersecting) {
+                api.pause();
+              }
+            });
+          },
+          options: {
+            threshold: 0.6,
+          },
         };
 
-        GHOSTKIT.triggerEvent(
-          'prepareVideoObserver',
-          self,
-          videoObserverCallback,
-          videoObserverOptions
+        GHOSTKIT.triggerEvent('prepareVideoObserver', self, videoObserverData);
+
+        const videoObserver = new IntersectionObserver(
+          videoObserverData.callback,
+          videoObserverData.options
         );
-
-        const videoObserver = new IntersectionObserver(videoObserverCallback, videoObserverOptions);
 
         videoObserver.observe($this[0]);
       }
