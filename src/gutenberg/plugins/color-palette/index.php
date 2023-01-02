@@ -1,16 +1,16 @@
 <?php
 /**
- * Custom color palette
+ * Custom color palette plugin
  *
  * @package @@plugin_name
  */
 
 /**
- * GhostKit_Color_Palette
+ * GhostKit_Color_Palette_Plugin
  */
-class GhostKit_Color_Palette {
+class GhostKit_Color_Palette_Plugin {
     /**
-     * GhostKit_Color_Palette constructor.
+     * GhostKit_Color_Palette_Plugin constructor.
      */
     public function __construct() {
         add_action( 'after_setup_theme', array( $this, 'add_palette' ), 9999 );
@@ -73,4 +73,4 @@ class GhostKit_Color_Palette {
     }
 }
 
-new GhostKit_Color_Palette();
+new GhostKit_Color_Palette_Plugin();
