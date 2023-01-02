@@ -103,7 +103,7 @@ class ColorPaletteModal extends Component {
               return null;
             }
 
-            const colorName = `palette-item-${data.slug}-${i}`;
+            const colorName = `palette-item-${i}`;
 
             return (
               <ColorPicker
