@@ -81,17 +81,19 @@ export class Plugin extends Component {
                 {getIcon('plugin-custom-code')}
                 {__('CSS & JavaScript', '@@text_domain')}
               </Button>
-              <Button
-                className="plugin-ghostkit-panel-button"
-                isSecondary
-                isLarge
-                onClick={() => {
-                  this.setState({ isModalOpen: 'color-palette' });
-                }}
-              >
-                {getIcon('plugin-color-palette')}
-                {__('Color Palette', '@@text_domain')}
-              </Button>
+              {GHOSTKIT.allowPluginColorPalette ? (
+                <Button
+                  className="plugin-ghostkit-panel-button"
+                  isSecondary
+                  isLarge
+                  onClick={() => {
+                    this.setState({ isModalOpen: 'color-palette' });
+                  }}
+                >
+                  {getIcon('plugin-color-palette')}
+                  {__('Color Palette', '@@text_domain')}
+                </Button>
+              ) : null}
               {GHOSTKIT.allowPluginCustomizer ? (
                 <Button
                   className="plugin-ghostkit-panel-button"

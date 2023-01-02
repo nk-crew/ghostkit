@@ -197,8 +197,6 @@ const ColorPaletteModalWithSelect = compose([
     const { getSettings } = select('core/block-editor');
     const settings = getSettings();
 
-    // const colorPalette = select( 'ghostkit/plugins/color-palette' ).getColorPalette();
-
     return {
       colors: settings.colors || [],
     };

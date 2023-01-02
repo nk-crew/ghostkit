@@ -13,9 +13,25 @@ class GhostKit_Color_Palette_Plugin {
      * GhostKit_Color_Palette_Plugin constructor.
      */
     public function __construct() {
-        add_action( 'after_setup_theme', array( $this, 'add_palette' ), 9999 );
-        add_action( 'enqueue_block_editor_assets', array( $this, 'add_palette_styles' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'add_palette_styles' ) );
+        add_action(
+            'wp_loaded',
+            function () {
+                $allow_custom_palette = 'false';
+
+                // Don't add custom palette if a block theme is activated.
+                if ( function_exists( 'wp_is_block_theme' ) && ! wp_is_block_theme() ) {
+                    add_action( 'after_setup_theme', array( $this, 'add_palette' ), 9999 );
+                    add_action( 'enqueue_block_editor_assets', array( $this, 'add_palette_styles' ) );
+                    add_action( 'wp_enqueue_scripts', array( $this, 'add_palette_styles' ) );
+
+                    $allow_custom_palette = 'true';
+                }
+
+                // Disable color palette settings from GhostKit.
+                wp_add_inline_script( 'ghostkit-helper', 'if (ghostkitVariables) { ghostkitVariables.allowPluginColorPalette = ' . $allow_custom_palette . '; }', 'before' );
+            },
+            9
+        );
     }
 
     /**

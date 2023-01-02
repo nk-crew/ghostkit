@@ -20,6 +20,9 @@ const { GHOSTKIT } = window;
  */
 [ghostkit, templates, typography, customCode, colorPalette, customizer].forEach(
   ({ name, icon, Plugin }) => {
+    if (name === 'ghostkit-color-palette' && !GHOSTKIT.allowPluginColorPalette) {
+      return;
+    }
     if (name === 'ghostkit-customizer' && !GHOSTKIT.allowPluginCustomizer) {
       return;
     }

@@ -19,6 +19,7 @@ window.GHOSTKIT = {
 
   disabledBlocks: ghostkitVariables.disabledBlocks,
 
+  allowPluginColorPalette: ghostkitVariables.allowPluginColorPalette,
   allowPluginCustomizer: ghostkitVariables.allowPluginCustomizer,
 
   vars,
