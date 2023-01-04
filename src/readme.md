@@ -262,6 +262,19 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 2.25.0 =
+
+* added JS events `prepareCountersObserver` and `prepareVideoObserver`
+* improved Carousel displaying in editor (added slides per view and gap styles)
+* improved appender CSS in some blocks which uses InnerBlocks
+* fixed "Display" extension styles in editor
+* fixed TOC conflict with special characters in headings
+* fixed Form block appended overflow upper blocks
+* fixed wrong variable type usage warning
+* fixed Customizer Plugin displaying in Non Block Based themes
+* disabled Color Palette Plugin from the Block Based themes (custom colors can be added in Appearance → Editor → Styles → Colors → Palette)
+* minor changes
+
 = 2.24.1 =
 
 * fixed custom Gap settings save number value instead of string
