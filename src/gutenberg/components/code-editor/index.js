@@ -39,6 +39,9 @@ export default class CodeEditor extends Component {
           showLineNumbers: true,
           printMargin: false,
           tabSize: 2,
+
+          // When worker is enabled, a lot of errors displayed in the console.
+          useWorker: false,
         }}
         editorProps={{
           $blockScrolling: Infinity,
