@@ -171,7 +171,9 @@ function getFontWeights(font, fontFamilyCategory) {
  */
 export default class Typography extends Component {
   render() {
-    const { fontFamilyCategory } = this.props;
+    let { fontFamilyCategory } = this.props;
+
+    fontFamilyCategory = fontFamilyCategory === 'default' ? 'google-fonts' : fontFamilyCategory;
 
     const {
       onChange,
@@ -186,9 +188,7 @@ export default class Typography extends Component {
       fontWeights = getFontWeights(getDefaultFont(fontFamily), fontFamilyCategory),
     } = this.props;
 
-    const fontsIcon = `icon-typography-${
-      fontFamilyCategory === 'default' ? 'google-fonts' : fontFamilyCategory
-    }`;
+    const fontsIcon = `icon-typography-${fontFamilyCategory}`;
     const allowFontSelectors = applyFilters(
       'ghostkit.typography.allow.fonts',
       fontFamilyCategory !== 'adobe-fonts' && fontFamilyCategory !== 'custom-fonts',
@@ -201,13 +201,7 @@ export default class Typography extends Component {
     };
     const fontWeightValue = { value: fontWeight, label: getFontWeightLabel(fontWeight) };
     const fontSizeValue = typeof fontSize === 'undefined' ? '' : fontSize;
-    let fontFamilies;
-
-    if (fontFamilyCategory === 'default') {
-      fontFamilies = getFonts('google-fonts');
-    } else {
-      fontFamilies = getFonts(fontFamilyCategory);
-    }
+    const fontFamilies = getFonts(fontFamilyCategory);
 
     // Find actual label.
     if (fontFamilyValue.value) {

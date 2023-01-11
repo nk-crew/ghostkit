@@ -286,6 +286,23 @@ class GhostKit_Fonts {
     }
 
     /**
+     * Get Default Site Font.
+     *
+     * @return array
+     */
+    private function get_default_site_font() {
+        return array(
+            'name'     => 'Default Site Font',
+            'widths'   => array(
+                '',
+                '400',
+                '700',
+            ),
+            'category' => 'sans-serif',
+        );
+    }
+
+    /**
      * Add Default fonts list.
      *
      * @param array $fonts - fonts list.
@@ -293,18 +310,11 @@ class GhostKit_Fonts {
      * @return array
      */
     public function add_default_site_fonts( $fonts ) {
+
         $fonts['default'] = array(
             'name'  => __( 'Default Fonts Site', '@@text_domain' ),
             'fonts' => array(
-                array(
-                    'name'     => 'Default Site Font',
-                    'widths'   => array(
-                        '',
-                        '400',
-                        '700',
-                    ),
-                    'category' => 'sans-serif',
-                ),
+                $this->get_default_site_font(),
             ),
         );
         return $fonts;
@@ -356,6 +366,8 @@ class GhostKit_Fonts {
                 set_transient( 'ghostkit_google_fonts_list', $result, DAY_IN_SECONDS );
             }
         }
+
+        $result[] = $this->get_default_site_font();
 
         $fonts['google-fonts'] = array(
             'name'  => 'Google Fonts',
