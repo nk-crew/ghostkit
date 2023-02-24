@@ -30,13 +30,17 @@ class GhostKit_Parse_Blocks {
         add_action(
             'wp',
             function() {
+                // Parse methods [classic,modern].
+                $parse_methods = apply_filters( 'gkt_parse_blocks_methods', current_theme_supports( 'block-templates' ) ? array( 'modern' ) : array( 'classic' ) );
+
                 // Simple use `render_block` in FSE themes to enqueue assets.
-                if ( current_theme_supports( 'block-templates' ) ) {
+                if ( in_array( 'modern', $parse_methods, true ) ) {
                     // Parse all blocks.
                     add_action( 'render_block', 'GhostKit_Parse_Blocks::render_block', 11, 2 );
+                }
 
-                    // Parse blocks manually from content and custom locations in Classic themes.
-                } else {
+                // Parse blocks manually from content and custom locations in Classic themes.
+                if ( in_array( 'classic', $parse_methods, true ) ) {
                     // parse blocks from post content.
                     GhostKit_Parse_Blocks::maybe_parse_blocks_from_content();
 

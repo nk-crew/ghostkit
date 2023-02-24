@@ -32,6 +32,13 @@ class GhostKit_Assets {
     private static $already_added_custom_assets = false;
 
     /**
+     * Already add styles.
+     *
+     * @var array
+     */
+    private static $already_added_styles = array();
+
+    /**
      * List with assets to skip from Autoptimize when CSS generated.
      *
      * @var array
@@ -64,6 +71,15 @@ class GhostKit_Assets {
     public static function store_used_assets( $name, $value = true, $type = 'script', $priority = 10 ) {
         if ( ! isset( self::$stored_assets[ $type ] ) ) {
             return;
+        }
+
+        // We need to check for duplicate assets, which may be added because of custom locations.
+        // Sometimes custom CSS is duplicated in Astra or Blocksy themes.
+        if ( 'custom-css' === $type ) {
+            if ( in_array( $value, self::$already_added_styles, true ) ) {
+                return;
+            }
+            self::$already_added_styles[] = $value;
         }
 
         if ( isset( self::$stored_assets[ $type ][ $name ] ) ) {
@@ -640,16 +656,18 @@ class GhostKit_Assets {
     /**
      * Add custom CSS.
      *
-     * @param String $name - handle name.
-     * @param String $css - code.
+     * @param string $name - handle name.
+     * @param string $css - code.
      */
     public static function add_custom_css( $name, $css ) {
         if ( ! wp_style_is( $name, 'enqueued' ) ) {
             $css = wp_kses( $css, array( '\'', '\"' ) );
             $css = str_replace( '&gt;', '>', $css );
 
+            $allow_js_fallback = apply_filters( 'gkt_custom_css_allow_js_fallback', self::$already_added_custom_assets, $name, $css );
+
             // Enqueue custom CSS.
-            if ( ! self::$already_added_custom_assets ) {
+            if ( ! $allow_js_fallback ) {
                 wp_register_style( $name, false, array(), '@@plugin_version' );
                 wp_enqueue_style( $name );
                 wp_add_inline_style( $name, $css );
@@ -676,9 +694,9 @@ class GhostKit_Assets {
     /**
      * Add custom JS.
      *
-     * @param String  $name - handle name.
-     * @param String  $js - code.
-     * @param Boolean $footer - print in footer.
+     * @param string  $name - handle name.
+     * @param string  $js - code.
+     * @param boolean $footer - print in footer.
      */
     public static function add_custom_js( $name, $js, $footer = false ) {
         wp_register_script( $name, '', array(), '@@plugin_version', $footer );
