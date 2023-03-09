@@ -158,6 +158,9 @@ class GhostKit {
         require_once $this->plugin_path . 'classes/3rd/class-astra.php';
         require_once $this->plugin_path . 'classes/3rd/class-blocksy.php';
         require_once $this->plugin_path . 'classes/3rd/class-rank-math.php';
+
+        // Migration.
+        require_once $this->plugin_path . 'classes/class-migration.php';
     }
 
     /**
