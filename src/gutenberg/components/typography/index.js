@@ -326,6 +326,7 @@ export default class Typography extends Component {
                       onChange({
                         fontFamily: opt && opt.value ? opt.value : '',
                         fontWeight: opt && opt.value ? '400' : '',
+                        fontFamilyCategory,
                       });
                     }}
                     options={fontFamilies}
