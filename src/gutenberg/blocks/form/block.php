@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-require_once $this->plugin_path . 'gutenberg/blocks/form/field-attributes/index.php';
-require_once $this->plugin_path . 'gutenberg/blocks/form/field-label/index.php';
-require_once $this->plugin_path . 'gutenberg/blocks/form/field-description/index.php';
+require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/field-attributes/index.php';
+require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/field-label/index.php';
+require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/field-description/index.php';
 
 /**
  * Class GhostKit_Form_Block
@@ -443,17 +443,18 @@ class GhostKit_Form_Block {
 
         $response = json_decode( $response, true );
 
-        if ( ! isset( $response['success'] ) ) {
-            return false;
-        }
+        $threshold = apply_filters( 'gkt_recaptcha_threshold', 0.5 );
+        $verified  = isset( $response['success'] ) && $response['success'] && 'ghostkit' === $response['action'] && $response['score'] >= $threshold;
 
-        return $response['success'];
+        $verified = apply_filters( 'gkt_recaptcha_verify_response', $verified, $response );
+
+        return $verified;
     }
 
     /**
      * Template string with POST data.
      *
-     * @param String $string - string for template.
+     * @param string $string - string for template.
      *
      * @return string
      */
