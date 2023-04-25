@@ -4,13 +4,13 @@
 @import "./variables";
 
 .ghostkit-form {
-  &-field + &-field,
-  &-submit-button + &-field,
-  &-field + &-submit-button {
-    margin-top: var(--gkt-form--field__gap);
+  form {
+    display: grid;
+    row-gap: var(--gkt-form--field__gap);
   }
 
   &-field-label {
+    display: inline-block;
     margin-bottom: var(--gkt-form--field-label__margin-bottom);
 
     .required {
@@ -40,7 +40,7 @@
   &-field-row {
     display: grid;
     grid-template-columns: var(--gkt-form--field-row__template-columns);
-    grid-gap: var(--gkt-form--field-row__gap);
+    gap: var(--gkt-form--field-row__gap);
 
     @include media-breakpoint-down(md) {
       grid-template-columns: 1fr;
@@ -56,10 +56,19 @@
     }
   }
 
-  // Field Select
-  &-field-select select {
-    width: 100%;
-    max-width: 100%;
+  // Fields default sizes.
+  &-field {
+    input:not([type="checkbox"], [type="radio"]),
+    textarea,
+    select {
+      width: 100%;
+      max-width: 100%;
+      min-height: 2.2em;
+    }
+
+    textarea {
+      min-height: 6em;
+    }
   }
 
   // Field Radio
