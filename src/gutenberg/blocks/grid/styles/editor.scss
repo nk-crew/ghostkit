@@ -59,6 +59,11 @@
   margin-left: 0;
 }
 
+// Fix for displaying block appender.
+.block-editor-block-list__block .ghostkit-col-content > .block-list-appender .block-editor-inserter__toggle.components-button {
+  display: block;
+}
+
 // Highlight the label to easily select grid/column block by clicking on it.
 .ghostkit-grid-button-select,
 .ghostkit-column-button-select {
