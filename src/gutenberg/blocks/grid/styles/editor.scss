@@ -64,59 +64,6 @@
   display: block;
 }
 
-// Highlight the label to easily select grid/column block by clicking on it.
-.ghostkit-grid-button-select,
-.ghostkit-column-button-select {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  z-index: 21;
-  // We should add it manually, since not all themes use box-sizing.
-  box-sizing: border-box;
-  width: 25px;
-  height: 25px;
-  padding: 2px 4px;
-  font-family: $default-font;
-  font-size: 17px;
-  line-height: 25px;
-  color: #fff;
-  cursor: pointer;
-  visibility: hidden;
-  background-color: $gray-900;
-  border-radius: 14px;
-  opacity: 0;
-  transition: 0.2s opacity, 0.2s visibility, 0.2s background-color;
-
-  svg {
-    width: auto;
-    height: 1em;
-  }
-}
-
-.ghostkit-grid-button-select {
-  top: auto;
-  bottom: 100%;
-  margin-bottom: 10px;
-}
-
-[data-type="ghostkit/grid"]:hover > .ghostkit-grid > .ghostkit-grid-button-select,
-[data-type="ghostkit/grid-column"]:hover > .ghostkit-col-content > .ghostkit-column-button-select {
-  visibility: visible;
-  opacity: 1;
-}
-
-.ghostkit-grid-button-select:hover,
-.ghostkit-column-button-select:hover {
-  background-color: $blue-wordpress-700;
-}
-
-// add outlines on hover
-[data-type="ghostkit/grid"]:not(.is-selected):hover::before,
-[data-type="ghostkit/grid-column"]:not(.is-selected):hover::before {
-  border-color: $dark-gray-100;
-  border-left: 1px solid $dark-gray-100;
-}
-
 // Layouts selector.
 .ghostkit-select-layout {
   padding: 25px;

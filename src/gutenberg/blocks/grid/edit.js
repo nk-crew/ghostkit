@@ -22,7 +22,7 @@ const { __ } = wp.i18n;
 
 const { Fragment, useState } = wp.element;
 
-const { Button, PanelBody, Placeholder, ToolbarGroup, ToolbarButton, Tooltip } = wp.components;
+const { Button, PanelBody, Placeholder, ToolbarGroup, ToolbarButton } = wp.components;
 
 const {
   InspectorControls,
@@ -42,7 +42,7 @@ const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInne
  * Block Edit Class.
  */
 export default function BlockEdit(props) {
-  const { clientId, attributes, setAttributes, isSelected } = props;
+  const { clientId, attributes, setAttributes } = props;
 
   const { gap, gapCustom, gapVerticalCustom, verticalAlign, horizontalAlign } = attributes;
 
@@ -381,13 +381,6 @@ export default function BlockEdit(props) {
       {columnsCount > 0 ? (
         <Fragment>
           {background}
-          {!isSelected ? (
-            <div className="ghostkit-grid-button-select">
-              <Tooltip text={__('Select Grid', '@@text_domain')}>{getIcon('block-grid')}</Tooltip>
-            </div>
-          ) : (
-            ''
-          )}
           <div className="ghostkit-grid-inner">{children}</div>
         </Fragment>
       ) : (

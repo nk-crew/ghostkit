@@ -18,7 +18,7 @@ const { __, sprintf } = wp.i18n;
 
 const { Fragment } = wp.element;
 
-const { PanelBody, SelectControl, Tooltip } = wp.components;
+const { PanelBody, SelectControl } = wp.components;
 
 const { applyFilters } = wp.hooks;
 
@@ -112,7 +112,7 @@ const getDefaultColumnOrders = function (columns = 12) {
  * Block Edit Class.
  */
 export default function BlockEdit(props) {
-  const { clientId, attributes, setAttributes, isSelected } = props;
+  const { clientId, attributes, setAttributes } = props;
 
   const { stickyContent, stickyContentOffset } = attributes;
 
@@ -261,16 +261,7 @@ export default function BlockEdit(props) {
         </div>
       </InspectorControls>
       {background}
-      <div className="ghostkit-col-content">
-        {!isSelected && hasChildBlocks ? (
-          <div className="ghostkit-column-button-select">
-            <Tooltip text={__('Select Column', '@@text_domain')}>
-              {getIcon('block-grid-column')}
-            </Tooltip>
-          </div>
-        ) : null}
-        {children}
-      </div>
+      <div className="ghostkit-col-content">{children}</div>
     </div>
   );
 }
