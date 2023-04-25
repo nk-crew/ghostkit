@@ -31,7 +31,7 @@ class BlockEdit extends Component {
       <div className={className}>
         <InnerBlocks
           templateLock={false}
-          renderAppender={hasChildBlocks ? undefined : () => <InnerBlocks.ButtonBlockAppender />}
+          renderAppender={hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender}
         />
       </div>
     );

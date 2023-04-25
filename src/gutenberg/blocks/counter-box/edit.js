@@ -249,9 +249,7 @@ class BlockEdit extends Component {
             <div className="ghostkit-counter-box-content">
               <InnerBlocks
                 templateLock={false}
-                renderAppender={
-                  hasChildBlocks ? undefined : () => <InnerBlocks.ButtonBlockAppender />
-                }
+                renderAppender={hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender}
               />
             </div>
           ) : null}

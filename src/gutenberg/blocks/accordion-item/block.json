@@ -9,7 +9,6 @@
     "className": false,
     "anchor": true,
     "align": ["wide", "full"],
-    "inserter": false,
     "reusable": false
   },
   "attributes": {

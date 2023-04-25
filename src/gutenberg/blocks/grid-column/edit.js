@@ -158,7 +158,7 @@ export default function BlockEdit(props) {
 
   const { children, ...innerBlocksProps } = useInnerBlocksProps(blockProps, {
     templateLock: false,
-    renderAppender: hasChildBlocks ? undefined : () => <InnerBlocks.ButtonBlockAppender />,
+    renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
   });
 
   return (
@@ -254,9 +254,7 @@ export default function BlockEdit(props) {
               onChange={(value) => setAttributes({ stickyContentOffset: value })}
               allowCustomMax
             />
-          ) : (
-            ''
-          )}
+          ) : null}
         </PanelBody>
         <div className="ghostkit-background-controls">
           <ApplyFilters name="ghostkit.editor.controls" attribute="background" props={props} />
@@ -270,9 +268,7 @@ export default function BlockEdit(props) {
               {getIcon('block-grid-column')}
             </Tooltip>
           </div>
-        ) : (
-          ''
-        )}
+        ) : null}
         {children}
       </div>
     </div>

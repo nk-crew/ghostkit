@@ -173,7 +173,7 @@ function BlockEdit(props) {
         <div className="ghostkit-alert-content">
           <InnerBlocks
             templateLock={false}
-            renderAppender={hasChildBlocks ? undefined : () => <InnerBlocks.ButtonBlockAppender />}
+            renderAppender={hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender}
           />
         </div>
         {hideButton ? (
