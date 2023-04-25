@@ -47,10 +47,11 @@
 .ghostkit-field-options-item {
   display: flex;
   align-items: center;
+  margin-bottom: 8px;
 
   > [type="radio"],
   > [type="checkbox"] {
-    margin-bottom: 4px;
+    margin-bottom: 0;
   }
 
   > .components-base-control {
@@ -58,8 +59,15 @@
   }
 
   > .components-button {
-    margin-bottom: 8px;
-    margin-left: 4px;
+    height: 30px;
+    padding-top: 4px;
+    padding-right: 0;
+    padding-bottom: 4px;
+    margin-left: 3px;
+  }
+
+  .components-base-control__field {
+    margin-bottom: 0;
   }
 
   .components-text-control__input {
@@ -68,5 +76,7 @@
 }
 
 .ghostkit-field-options > .components-button {
-  margin-left: 20px;
+  padding-top: 0;
+  padding-left: 16px;
+  margin-top: -4px;
 }
