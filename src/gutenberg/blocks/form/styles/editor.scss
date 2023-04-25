@@ -10,6 +10,13 @@
     margin-top: 20px;
   }
 
+  // Reset field default styles.
+  &-field > .components-base-control,
+  &-field-row > div > .components-base-control {
+    font-family: inherit;
+    font-size: 1em;
+  }
+
   &-field-description {
     margin-bottom: 0;
   }
