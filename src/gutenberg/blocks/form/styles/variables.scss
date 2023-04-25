@@ -5,6 +5,9 @@
 
 .ghostkit-form {
   // Fields.
+  --gkt-form--field__font-family: inherit;
+  --gkt-form--field__font-size: 1em;
+  --gkt-form--field__min-height: 1.7em;
   --gkt-form--field__gap: 1.1em;
 
   // Fields Label.
@@ -29,6 +32,9 @@
 
   // Checkbox Field.
   --gkt-form--field-checkbox-inline__margin-right: 1.2em;
+
+  // Textarea Field.
+  --gkt-form--field-textarea__min-height: 7em;
 
   // Errors.
   --gkt-form--errors__margin-top: 0.5em;

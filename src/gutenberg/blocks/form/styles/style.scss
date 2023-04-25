@@ -63,11 +63,13 @@
     select {
       width: 100%;
       max-width: 100%;
-      min-height: 2.2em;
+      min-height: var(--gkt-form--field__min-height);
+      font-family: var(--gkt-form--field__font-family);
+      font-size: var(--gkt-form--field__font-size);
     }
 
     textarea {
-      min-height: 6em;
+      min-height: var(--gkt-form--field-textarea__min-height);
     }
   }
 
