@@ -152,4 +152,15 @@
   .parsley-errors-list:empty {
     display: none;
   }
+
+  // Honeypot field.
+  [name="ghostkit_verify_email"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
 }

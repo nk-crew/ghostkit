@@ -228,6 +228,11 @@ class GhostKit_Form_Block {
                 // phpcs:ignore
                 echo do_blocks( $inner_blocks );
 
+                // Honeypot protection.
+                ?>
+                <input aria-label="<?php echo esc_attr__( 'Verify your Email', '@@text_domain' ); ?>" type="email" name="ghostkit_verify_email" autocomplete="off" placeholder="<?php echo esc_attr__( 'Email', '@@text_domain' ); ?>" tabindex="-1" data-parsley-excluded="true">
+                <?php
+
                 // Add `__` prefix to prevent conflict with form id attribute duplicate.
                 wp_nonce_field( 'ghostkit_form', '__' . $form_id );
                 ?>
@@ -292,6 +297,11 @@ class GhostKit_Form_Block {
             $nonce = sanitize_text_field( wp_unslash( $this->form_post_data[ '__' . $form_id ] ) );
 
             if ( wp_verify_nonce( $nonce, 'ghostkit_form' ) ) {
+                // check for honeypot.
+                if ( ! $this->verify_honeypot() ) {
+                    $errors[] = esc_html__( 'Your actions look suspicious, the form was not submitted.', '@@text_domain' );
+                }
+
                 // validate Google reCaptcha.
                 if ( ! $this->verify_recaptcha() ) {
                     $errors[] = esc_html__( 'Google reCaptcha form verification failed.', '@@text_domain' );
@@ -391,6 +401,19 @@ class GhostKit_Form_Block {
             GhostKit_Assets::store_used_assets( 'ghostkit-block-button', true, 'style' );
             GhostKit_Assets::store_used_assets( 'ghostkit-block-button', true, 'script' );
         }
+    }
+
+    /**
+     * Verify Honeypot Field.
+     *
+     * @return bool
+     */
+    private function verify_honeypot() {
+        if ( ! empty( $this->form_post_data['ghostkit_verify_email'] ) ) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
