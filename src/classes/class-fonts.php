@@ -323,15 +323,14 @@ class GhostKit_Fonts {
     /**
      * Add Google fonts list.
      *
+     * @link https://developers.google.com/fonts/docs/developer_api?apix_params=%7B%22alt%22%3A%22json%22%2C%22fields%22%3A%22items(family%2Ckind%2Ccategory%2Cvariants%2Csubsets%2Cversion%2ClastModified)%22%2C%22prettyPrint%22%3Afalse%7D - get new fonts.
+     *
      * @param array $fonts - fonts list.
      *
      * @return array
      */
     public function add_google_fonts( $fonts ) {
         $result = get_transient( 'ghostkit_google_fonts_list' );
-
-        // Get new fonts:
-        // https://developers.google.com/fonts/docs/developer_api?apix_params=%7B%22alt%22%3A%22json%22%2C%22fields%22%3A%22items(family%2Ckind%2Ccategory%2Cvariants%2Csubsets%2Cversion%2ClastModified)%22%2C%22prettyPrint%22%3Afalse%7D .
 
         if ( ! $result ) {
             $result       = array();
@@ -370,7 +369,7 @@ class GhostKit_Fonts {
         $result[] = $this->get_default_site_font();
 
         $fonts['google-fonts'] = array(
-            'name'  => 'Google Fonts',
+            'name'  => esc_attr__( 'Google Fonts', '@@text_domain' ),
             'fonts' => $result,
         );
 

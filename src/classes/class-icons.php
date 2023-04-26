@@ -165,7 +165,7 @@ class GhostKit_Icons_List {
     /**
      * Extend icons list with FontAwesome free icons.
      *
-     * @link https://codepen.io/_nK/pen/ZEqKawe
+     * @link https://codepen.io/_nK/pen/ZEqKawe - get new icons.
      *
      * @param array $icons - icons list.
      *
