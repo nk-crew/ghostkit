@@ -119,11 +119,11 @@
 
   // Alert
   .ghostkit-alert-form-success {
-    border-left-color: var(--gkt-form--alert-success__color);
+    --gkt-alert__border-color: var(--gkt-form--alert-success__color);
   }
 
   .ghostkit-alert-form-error {
-    border-left-color: var(--gkt-form--alert-error__color);
+    --gkt-alert__border-color: var(--gkt-form--alert-error__color);
   }
 
   // Parsley validation.
