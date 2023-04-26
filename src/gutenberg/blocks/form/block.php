@@ -59,21 +59,11 @@ class GhostKit_Form_Block {
      * Save post data and redirect after form submitted.
      */
     public function get_post_data() {
-        if ( ! is_admin() && ! session_id() ) {
-            session_start();
-        }
-
         // phpcs:disable
         if ( ! is_admin() && isset( $_POST['ghostkit_form_id'] ) ) {
-            $_SESSION['ghostkit_form_submit_post'] = $_POST;
-            wp_redirect( $_SERVER['REQUEST_URI'] );
-            exit;
+            $this->form_post_data = $_POST;
         }
         // phpcs:enable
-
-        if ( isset( $_SESSION['ghostkit_form_submit_post'] ) ) {
-            $this->form_post_data = $_SESSION['ghostkit_form_submit_post'];
-        }
     }
 
     /**
@@ -82,9 +72,6 @@ class GhostKit_Form_Block {
     public function reset_post_data() {
         if ( ! empty( $this->form_post_data ) ) {
             $this->form_post_data = array();
-        }
-        if ( isset( $_SESSION['ghostkit_form_submit_post'] ) ) {
-            unset( $_SESSION['ghostkit_form_submit_post'] );
         }
     }
 
@@ -383,6 +370,9 @@ class GhostKit_Form_Block {
                 <?php echo $new_content; // phpcs:ignore ?>
             </div>
             <?php
+
+            $this->remove_hash_from_address_bar();
+
             return ob_get_clean();
         }
 
@@ -430,13 +420,11 @@ class GhostKit_Form_Block {
             return true;
         }
 
-        // phpcs:disable
         if ( ! isset( $this->form_post_data['ghostkit_form_google_recaptcha'] ) ) {
             return false;
         }
 
         $token = sanitize_text_field( wp_unslash( $this->form_post_data['ghostkit_form_google_recaptcha'] ) );
-        // phpcs:enable
 
         // empty token.
         if ( ! $token ) {
@@ -472,6 +460,29 @@ class GhostKit_Form_Block {
         $verified = apply_filters( 'gkt_recaptcha_verify_response', $verified, $response );
 
         return $verified;
+    }
+
+    /**
+     * Remove hash from address bar when form submitted.
+     * It will solve the problem when you can submit the submitted form data again after page refresh.
+     */
+    public function remove_hash_from_address_bar() {
+        ?>
+        <script type="text/javascript">
+            (function() {
+                if ( window.history.replaceState && window.location.hash ) {
+                    const $id = window.location.hash.substring( 1 );
+                    const $form = $id ? document.getElementById( $id ) : false;
+
+                    window.history.replaceState( null, null, ' ' );
+
+                    if ( $form ) {
+                        $form.scrollIntoView(true);
+                    }
+                }
+            })();
+        </script>
+        <?php
     }
 
     /**
