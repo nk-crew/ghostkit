@@ -88,7 +88,7 @@ function addAttribute(blockSettings, name) {
   return blockSettings;
 }
 
-const COLUMNS_COUNT_MAX = 8;
+const COLUMNS_COUNT_MAX = 6;
 
 /**
  * Get current columns count for selected screen size.
@@ -331,10 +331,10 @@ function addEditorCustomStyles(customStyles, props) {
 }
 
 // Init filters.
-addFilter('blocks.registerBlockType', 'ghostkit/icon-list/additional-attributes', addAttribute);
-addFilter('editor.BlockEdit', 'ghostkit/icon-list/additional-attributes', withInspectorControl, 9);
+addFilter('blocks.registerBlockType', 'ghostkit/core-list/additional-attributes', addAttribute);
+addFilter('editor.BlockEdit', 'ghostkit/core-list/additional-attributes', withInspectorControl, 9);
 addFilter(
   'ghostkit.blocks.customStyles',
-  'ghostkit/icon-list/editor-custom-styles',
+  'ghostkit/core-list/editor-custom-styles',
   addEditorCustomStyles
 );
