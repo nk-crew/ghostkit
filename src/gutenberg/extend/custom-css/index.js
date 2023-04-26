@@ -118,7 +118,7 @@ selector p {
 
     // add new custom CSS control.
     return (
-      <InspectorControls>
+      <InspectorControls group="styles">
         <PanelBody
           title={
             <Fragment>

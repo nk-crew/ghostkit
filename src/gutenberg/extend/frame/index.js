@@ -280,7 +280,7 @@ class FrameComponent extends Component {
 
     // add new frame controls.
     return (
-      <InspectorControls>
+      <InspectorControls group="styles">
         <PanelBody
           title={
             <Fragment>

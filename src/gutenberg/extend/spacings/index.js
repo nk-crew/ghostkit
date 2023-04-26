@@ -183,7 +183,7 @@ class SpacingsComponent extends Component {
 
     // add new spacings controls.
     return (
-      <InspectorControls>
+      <InspectorControls group="styles">
         <PanelBody
           title={
             <Fragment>
