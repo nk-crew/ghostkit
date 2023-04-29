@@ -5,16 +5,25 @@
 
 .ghostkit-accordion-item {
   display: block;
-  margin-bottom: 20px;
 
   // Heading.
-  &-heading {
+  .ghostkit-accordion-item-heading {
     position: relative;
     display: block;
     padding: var(--gkt-accordion--heading__padding-v) var(--gkt-accordion--heading__padding-h);
     padding-right: var(--gkt-accordion--heading-collapse-icon__width);
-    margin-bottom: -1px;
+    margin: var(--gkt-accordion--heading__margin);
+    font-size: var(--gkt-accordion--heading__font-size);
     font-weight: var(--gkt-accordion--heading__font-weight);
+    line-height: var(--gkt-accordion--heading__line-height);
+  }
+
+  a.ghostkit-accordion-item-heading,
+  .ghostkit-accordion-item-heading > a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: none;
+    box-shadow: none;
   }
 
   // Collapse.
@@ -58,9 +67,13 @@
   line-height: inherit;
 }
 
+// Hide default appender button.
+.ghostkit-accordion > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender {
+  display: none;
+}
+
 .ghostkit-accordion-add-item {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
   text-align: center;
 }
 

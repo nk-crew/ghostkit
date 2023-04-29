@@ -31,7 +31,12 @@ class BlockEdit extends Component {
   constructor(props) {
     super(props);
 
+    this.maybeUpdateTitleTag = this.maybeUpdateTitleTag.bind(this);
     this.updateSlug = this.updateSlug.bind(this);
+  }
+
+  componentDidMount() {
+    this.maybeUpdateTitleTag();
   }
 
   componentDidUpdate(prevProps) {
@@ -41,6 +46,19 @@ class BlockEdit extends Component {
 
     if (attributes.heading !== prevAttributes.heading || !attributes.slug) {
       this.updateSlug();
+    }
+
+    this.maybeUpdateTitleTag();
+  }
+
+  maybeUpdateTitleTag() {
+    const { attributes, context, setAttributes } = this.props;
+    const { titleTag } = attributes;
+
+    const contextTitleTag = context['ghostkit/collapseTitleTag'] || 'div';
+
+    if (titleTag !== contextTitleTag) {
+      setAttributes({ titleTag: contextTitleTag });
     }
   }
 
@@ -61,7 +79,7 @@ class BlockEdit extends Component {
 
     let { className = '' } = this.props;
 
-    const { heading, active } = attributes;
+    const { heading, active, titleTag } = attributes;
 
     className = classnames(
       className,
@@ -70,6 +88,8 @@ class BlockEdit extends Component {
     );
 
     className = applyFilters('ghostkit.editor.className', className, this.props);
+
+    const TitleTag = titleTag || 'div';
 
     return (
       <Fragment>
@@ -82,7 +102,7 @@ class BlockEdit extends Component {
           />
         </BlockControls>
         <div className={className}>
-          <div className="ghostkit-accordion-item-heading">
+          <TitleTag className="ghostkit-accordion-item-heading">
             <RichText
               tagName="div"
               className="ghostkit-accordion-item-label"
@@ -112,7 +132,7 @@ class BlockEdit extends Component {
                 />
               </svg>
             </button>
-          </div>
+          </TitleTag>
           <div className="ghostkit-accordion-item-content">
             <InnerBlocks
               templateLock={false}

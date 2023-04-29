@@ -11,12 +11,17 @@
     "align": ["wide", "full"],
     "reusable": false
   },
+  "usesContext": ["ghostkit/collapseTitleTag"],
   "attributes": {
     "heading": {
       "type": "string",
       "source": "html",
       "selector": ".ghostkit-accordion-item-label",
       "default": "Accordion Item"
+    },
+    "titleTag": {
+      "type": "string",
+      "default": "div"
     },
     "slug": {
       "type": "string"

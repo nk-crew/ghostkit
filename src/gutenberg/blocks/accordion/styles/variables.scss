@@ -5,9 +5,12 @@
 
 .ghostkit-accordion {
   // Heading.
+  --gkt-accordion--heading__margin: 0;
   --gkt-accordion--heading__padding-v: 0.75em;
   --gkt-accordion--heading__padding-h: 0;
   --gkt-accordion--heading__font-weight: 500;
+  --gkt-accordion--heading__font-size: 1em;
+  --gkt-accordion--heading__line-height: 1.6;
 
   // Heading Collapse Icon.
   --gkt-accordion--heading-collapse-icon__width: 3em;

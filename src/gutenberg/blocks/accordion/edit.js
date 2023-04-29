@@ -12,7 +12,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, ToggleControl, Button } = wp.components;
+const { PanelBody, ToggleControl, SelectControl, Button } = wp.components;
 
 const { InspectorControls, InnerBlocks } = wp.blockEditor;
 
@@ -22,6 +22,8 @@ const { compose } = wp.compose;
 
 const { withSelect, withDispatch } = wp.data;
 
+const accordionItemBlockName = 'ghostkit/accordion-item';
+
 /**
  * Block Edit Class.
  */
@@ -29,7 +31,6 @@ class BlockEdit extends Component {
   constructor(props) {
     super(props);
 
-    this.getAccordionsTemplate = this.getAccordionsTemplate.bind(this);
     this.maybeUpdateItemsCount = this.maybeUpdateItemsCount.bind(this);
   }
 
@@ -39,25 +40,6 @@ class BlockEdit extends Component {
 
   componentDidUpdate() {
     this.maybeUpdateItemsCount();
-  }
-
-  /**
-   * Returns the layouts configuration for a given number of items.
-   *
-   * @param {number} attributes items attributes.
-   *
-   * @return {Object[]} Tabs layout configuration.
-   */
-  getAccordionsTemplate() {
-    const { itemsCount } = this.props.attributes;
-
-    const result = [];
-
-    for (let k = 1; k <= itemsCount; k += 1) {
-      result.push(['ghostkit/accordion-item']);
-    }
-
-    return result;
   }
 
   /**
@@ -80,7 +62,7 @@ class BlockEdit extends Component {
 
     let { className = '' } = this.props;
 
-    const { collapseOne } = attributes;
+    const { collapseOne, collapseTitleTag } = attributes;
 
     className = classnames(className, 'ghostkit-accordion');
 
@@ -95,12 +77,43 @@ class BlockEdit extends Component {
               checked={!!collapseOne}
               onChange={(val) => setAttributes({ collapseOne: val })}
             />
+            <SelectControl
+              label={__('Collapse Title HTML Element', '@@text_domain')}
+              value={collapseTitleTag}
+              options={[
+                {
+                  value: 'div',
+                  label: __('Default (<div>)', '@@text_domain'),
+                },
+                {
+                  value: 'h2',
+                  label: __('<h2>', '@@text_domain'),
+                },
+                {
+                  value: 'h3',
+                  label: __('<h3>', '@@text_domain'),
+                },
+                {
+                  value: 'h4',
+                  label: __('<h4>', '@@text_domain'),
+                },
+                {
+                  value: 'h5',
+                  label: __('<h5>', '@@text_domain'),
+                },
+                {
+                  value: 'h6',
+                  label: __('<h6>', '@@text_domain'),
+                },
+              ]}
+              onChange={(value) => setAttributes({ collapseTitleTag: value })}
+            />
           </PanelBody>
         </InspectorControls>
         <div className={className}>
           <InnerBlocks
-            template={this.getAccordionsTemplate()}
-            allowedBlocks={['ghostkit/accordion-item']}
+            template={[[accordionItemBlockName], [accordionItemBlockName]]}
+            allowedBlocks={[accordionItemBlockName]}
           />
         </div>
         {isSelectedBlockInRoot ? (
@@ -126,9 +139,7 @@ class BlockEdit extends Component {
               {__('Add Accordion Item', '@@text_domain')}
             </Button>
           </div>
-        ) : (
-          ''
-        )}
+        ) : null}
       </Fragment>
     );
   }
@@ -152,7 +163,7 @@ export default compose([
 
     return {
       insertAccordionItem() {
-        insertBlock(createBlock('ghostkit/accordion-item'), undefined, clientId);
+        insertBlock(createBlock(accordionItemBlockName), undefined, clientId);
       },
     };
   }),
