@@ -28,6 +28,8 @@ const { compose } = wp.compose;
 
 const { withSelect, withDispatch } = wp.data;
 
+const pricingItemBlockName = 'ghostkit/pricing-table-item';
+
 /**
  * Block Edit Class.
  */
@@ -35,7 +37,6 @@ class BlockEdit extends Component {
   constructor(props) {
     super(props);
 
-    this.getInnerBlocksTemplate = this.getInnerBlocksTemplate.bind(this);
     this.maybeUpdateColumnsNumber = this.maybeUpdateColumnsNumber.bind(this);
   }
 
@@ -48,37 +49,16 @@ class BlockEdit extends Component {
   }
 
   /**
-   * Returns the layouts configuration for a given number of items.
-   *
-   * @return {Object[]} Items layout configuration.
-   */
-  getInnerBlocksTemplate() {
-    const { attributes } = this.props;
-
-    const { count } = attributes;
-
-    const result = [];
-
-    if (count > 0) {
-      for (let k = 1; k <= count; k += 1) {
-        result.push(['ghostkit/pricing-table-item']);
-      }
-    }
-
-    return result;
-  }
-
-  /**
    * Update current columns number.
    */
   maybeUpdateColumnsNumber() {
     const { count } = this.props.attributes;
 
-    const { block, setAttributes } = this.props;
+    const { itemsCount, setAttributes } = this.props;
 
-    if (block && block.innerBlocks && count !== block.innerBlocks.length) {
+    if (count !== itemsCount) {
       setAttributes({
-        count: block.innerBlocks.length,
+        count: itemsCount,
       });
     }
   }
@@ -109,32 +89,28 @@ class BlockEdit extends Component {
             onChange={(val) => setAttributes({ horizontalAlign: val })}
           />
         </BlockControls>
-        {count > 1 ? (
-          <BlockControls>
-            <ToolbarGroup>
-              <ToolbarButton
-                icon={getIcon('icon-vertical-top')}
-                title={__('ItemsVertical Start', '@@text_domain')}
-                onClick={() => setAttributes({ verticalAlign: '' })}
-                isActive={verticalAlign === ''}
-              />
-              <ToolbarButton
-                icon={getIcon('icon-vertical-center')}
-                title={__('ItemsVertical Center', '@@text_domain')}
-                onClick={() => setAttributes({ verticalAlign: 'center' })}
-                isActive={verticalAlign === 'center'}
-              />
-              <ToolbarButton
-                icon={getIcon('icon-vertical-bottom')}
-                title={__('ItemsVertical End', '@@text_domain')}
-                onClick={() => setAttributes({ verticalAlign: 'end' })}
-                isActive={verticalAlign === 'end'}
-              />
-            </ToolbarGroup>
-          </BlockControls>
-        ) : (
-          ''
-        )}
+        <BlockControls>
+          <ToolbarGroup>
+            <ToolbarButton
+              icon={getIcon('icon-vertical-top')}
+              title={__('ItemsVertical Start', '@@text_domain')}
+              onClick={() => setAttributes({ verticalAlign: '' })}
+              isActive={verticalAlign === ''}
+            />
+            <ToolbarButton
+              icon={getIcon('icon-vertical-center')}
+              title={__('ItemsVertical Center', '@@text_domain')}
+              onClick={() => setAttributes({ verticalAlign: 'center' })}
+              isActive={verticalAlign === 'center'}
+            />
+            <ToolbarButton
+              icon={getIcon('icon-vertical-bottom')}
+              title={__('ItemsVertical End', '@@text_domain')}
+              onClick={() => setAttributes({ verticalAlign: 'end' })}
+              isActive={verticalAlign === 'end'}
+            />
+          </ToolbarGroup>
+        </BlockControls>
         <InspectorControls>
           <PanelBody>
             <BaseControl label={__('Vertical align', '@@text_domain')}>
@@ -182,16 +158,12 @@ class BlockEdit extends Component {
           </PanelBody>
         </InspectorControls>
         <div className={className}>
-          {count > 0 ? (
-            <InnerBlocks
-              template={this.getInnerBlocksTemplate()}
-              allowedBlocks={['ghostkit/pricing-table-item']}
-              orientation="horizontal"
-              renderAppender={false}
-            />
-          ) : (
-            ''
-          )}
+          <InnerBlocks
+            template={[[pricingItemBlockName], [pricingItemBlockName]]}
+            allowedBlocks={[pricingItemBlockName]}
+            orientation="horizontal"
+            renderAppender={false}
+          />
         </div>
         {isSelectedBlockInRoot && count < 6 ? (
           <div className="ghostkit-pricing-table-add-item">
@@ -216,9 +188,7 @@ class BlockEdit extends Component {
               {__('Add Pricing Table', '@@text_domain')}
             </Button>
           </div>
-        ) : (
-          ''
-        )}
+        ) : null}
       </Fragment>
     );
   }
@@ -226,12 +196,11 @@ class BlockEdit extends Component {
 
 export default compose([
   withSelect((select, ownProps) => {
-    const { getBlock, isBlockSelected, hasSelectedInnerBlock } = select('core/block-editor');
-
+    const { isBlockSelected, getBlockCount, hasSelectedInnerBlock } = select('core/block-editor');
     const { clientId } = ownProps;
 
     return {
-      block: getBlock(clientId),
+      itemsCount: getBlockCount(clientId),
       isSelectedBlockInRoot: isBlockSelected(clientId) || hasSelectedInnerBlock(clientId, true),
     };
   }),
