@@ -113,9 +113,7 @@ class BlockEdit extends Component {
               placeholder={__('Plan', '@@text_domain')}
               withoutInteractiveFormatting
             />
-          ) : (
-            ''
-          )}
+          ) : null}
           {showPrice ? (
             <div className="ghostkit-pricing-table-item-price">
               {showPriceCurrency && (!RichText.isEmpty(priceCurrency) || isSelected) ? (
@@ -154,9 +152,7 @@ class BlockEdit extends Component {
                 ''
               )}
             </div>
-          ) : (
-            ''
-          )}
+          ) : null}
           {showDescription && (!RichText.isEmpty(description) || isSelected) ? (
             <RichText
               tagName="div"
@@ -166,9 +162,7 @@ class BlockEdit extends Component {
               placeholder={__('Description', '@@text_domain')}
               withoutInteractiveFormatting
             />
-          ) : (
-            ''
-          )}
+          ) : null}
           {showFeatures && (!RichText.isEmpty(features) || isSelected) ? (
             <RichText
               tagName="ul"
@@ -178,9 +172,7 @@ class BlockEdit extends Component {
               value={features}
               placeholder={__('Add features', '@@text_domain')}
             />
-          ) : (
-            ''
-          )}
+          ) : null}
           {showButton ? (
             <InnerBlocks
               template={[
@@ -202,9 +194,7 @@ class BlockEdit extends Component {
               templateLock="all"
               allowedBlocks={['ghostkit/button']}
             />
-          ) : (
-            ''
-          )}
+          ) : null}
           {showPopular && (!RichText.isEmpty(popularText) || isSelected) ? (
             <div className="ghostkit-pricing-table-item-popular-badge">
               <RichText
@@ -215,9 +205,7 @@ class BlockEdit extends Component {
                 withoutInteractiveFormatting
               />
             </div>
-          ) : (
-            ''
-          )}
+          ) : null}
         </div>
       </Fragment>
     );
