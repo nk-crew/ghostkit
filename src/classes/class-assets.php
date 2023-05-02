@@ -399,6 +399,17 @@ class GhostKit_Assets {
             )
         );
 
+        // Fallback for classic themes.
+        if ( ! wp_is_block_theme() ) {
+            wp_register_style(
+                'ghostkit-classic-theme-fallback',
+                ghostkit()->plugin_url . 'assets/css/fallback-classic-theme.css',
+                array(),
+                '@@plugin_version'
+            );
+            $css_deps[] = 'ghostkit-classic-theme-fallback';
+        }
+
         // Ghost Kit.
         wp_register_style(
             'ghostkit',
