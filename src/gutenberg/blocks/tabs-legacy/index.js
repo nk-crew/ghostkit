@@ -124,6 +124,7 @@ class TabsBlock extends Component {
                   )}
                   placeholder={__('Tab label', '@@text_domain')}
                   value={val.label}
+                  onFocus={() => setAttributes({ tabActive: val.number })}
                   unstableOnFocus={() => setAttributes({ tabActive: val.number })}
                   onChange={(value) => {
                     if (typeof tabs[val.number - 1] !== 'undefined') {

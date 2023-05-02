@@ -283,6 +283,9 @@ export default class BlockEdit extends Component {
                 className="ghostkit-gif-caption"
                 inlineToolbar
                 isSelected={captionFocus}
+                onFocus={() => {
+                  this.setState({ captionFocus: true });
+                }}
                 unstableOnFocus={() => {
                   this.setState({ captionFocus: true });
                 }}
