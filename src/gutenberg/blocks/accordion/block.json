@@ -1,4 +1,6 @@
 {
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
   "name": "ghostkit/accordion",
   "category": "design",
   "title": "Accordion",

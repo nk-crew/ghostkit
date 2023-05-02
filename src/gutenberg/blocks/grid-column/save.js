@@ -45,12 +45,12 @@ export default function BlockSave(props) {
   const blockProps = useBlockProps.save({
     className,
   });
-  const { children, ...innerBlocksProps } = useInnerBlocksProps.save(blockProps);
+  const innerBlocksProps = useInnerBlocksProps.save({ className: 'ghostkit-col-content' });
 
   return (
-    <div {...innerBlocksProps}>
+    <div {...blockProps}>
       {background}
-      <div className="ghostkit-col-content">{children}</div>
+      <div {...innerBlocksProps} />
     </div>
   );
 }

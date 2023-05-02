@@ -1,4 +1,6 @@
 {
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
   "name": "ghostkit/accordion-item",
   "parent": ["ghostkit/accordion"],
   "category": "design",
@@ -9,7 +11,14 @@
     "className": false,
     "anchor": true,
     "align": ["wide", "full"],
-    "reusable": false
+    "reusable": false,
+    "spacing": {
+      "blockGap": true,
+      "__experimentalDefaultControls": {
+        "blockGap": true
+      }
+    },
+    "__experimentalLayout": true
   },
   "usesContext": ["ghostkit/collapseTitleTag"],
   "attributes": {

@@ -118,8 +118,8 @@ class GhostKit_Form_Block {
             'confirmationMessage' => esc_html__( 'Thank you for contacting us! We will be in touch with you shortly.', '@@text_domain' ),
         );
 
-        register_block_type(
-            'ghostkit/form',
+        register_block_type_from_metadata(
+            dirname( __FILE__ ),
             array(
                 'render_callback' => array( $this, 'block_render' ),
                 'attributes'      => array(
@@ -177,8 +177,6 @@ class GhostKit_Form_Block {
      * @return string
      */
     public function block_render( $attributes, $inner_blocks ) {
-        ob_start();
-
         $class = 'ghostkit-form';
 
         if ( isset( $attributes['className'] ) ) {
@@ -207,36 +205,38 @@ class GhostKit_Form_Block {
         $recaptcha_site_key   = get_option( 'ghostkit_google_recaptcha_api_site_key' );
         $recaptcha_secret_key = get_option( 'ghostkit_google_recaptcha_api_secret_key' );
 
+        ob_start();
+        // phpcs:ignore
+        echo do_blocks( $inner_blocks );
+
+        // Honeypot protection.
         ?>
-
-        <div class="<?php echo esc_attr( $class ); ?>" id="<?php echo esc_attr( $form_id ); ?>">
-            <form method="POST" name="ghostkit-form" action="<?php echo esc_url( $url ); ?>">
-                <?php
-                // phpcs:ignore
-                echo do_blocks( $inner_blocks );
-
-                // Honeypot protection.
-                ?>
-                <input aria-label="<?php echo esc_attr__( 'Verify your Email', '@@text_domain' ); ?>" type="email" name="ghostkit_verify_email" autocomplete="off" placeholder="<?php echo esc_attr__( 'Email', '@@text_domain' ); ?>" tabindex="-1" data-parsley-excluded="true">
-                <?php
-
-                // Add `__` prefix to prevent conflict with form id attribute duplicate.
-                wp_nonce_field( 'ghostkit_form', '__' . $form_id );
-                ?>
-                <input type="hidden" name="ghostkit_form_id" value="<?php echo esc_attr( $form_id ); ?>">
-                <?php
-                if ( $recaptcha_site_key && $recaptcha_secret_key ) {
-                    ?>
-                    <input type="hidden" name="ghostkit_form_google_recaptcha" />
-                    <?php
-                }
-                ?>
-            </form>
-        </div>
-
+        <input aria-label="<?php echo esc_attr__( 'Verify your Email', '@@text_domain' ); ?>" type="email" name="ghostkit_verify_email" autocomplete="off" placeholder="<?php echo esc_attr__( 'Email', '@@text_domain' ); ?>" tabindex="-1" data-parsley-excluded="true">
         <?php
 
-        return ob_get_clean();
+        // Add `__` prefix to prevent conflict with form id attribute duplicate.
+        wp_nonce_field( 'ghostkit_form', '__' . $form_id );
+        ?>
+        <input type="hidden" name="ghostkit_form_id" value="<?php echo esc_attr( $form_id ); ?>">
+        <?php
+        if ( $recaptcha_site_key && $recaptcha_secret_key ) {
+            ?>
+            <input type="hidden" name="ghostkit_form_google_recaptcha" />
+            <?php
+        }
+        $output = ob_get_clean();
+
+        $wrapper_attributes = get_block_wrapper_attributes(
+            array(
+                'method' => 'POST',
+                'name'   => 'ghostkit-form',
+                'action' => esc_url( $url ),
+                'class'  => $class,
+                'id'     => $form_id,
+            )
+        );
+
+        return sprintf( '<form %1$s>%2$s</form>', $wrapper_attributes, $output );
     }
 
     /**

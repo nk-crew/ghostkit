@@ -5,6 +5,13 @@
     "html": false,
     "className": false,
     "anchor": false,
-    "align": ["wide", "full"]
+    "align": ["wide", "full"],
+    "spacing": {
+      "blockGap": true,
+      "__experimentalDefaultControls": {
+        "blockGap": true
+      }
+    },
+    "__experimentalLayout": true
   }
 }

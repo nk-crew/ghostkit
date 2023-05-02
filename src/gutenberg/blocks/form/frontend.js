@@ -14,7 +14,7 @@ $doc.on('initBlocks.ghostkit', () => {
 
     $form.addClass('ghostkit-form-ready');
 
-    $form.children('form').parsley({
+    $form.parsley({
       errorsContainer(parsleyField) {
         const $parent = parsleyField.$element.closest(
           '.ghostkit-form-field-name-first, .ghostkit-form-field-name-last, .ghostkit-form-field-email-primary, .ghostkit-form-field-email-confirm, .ghostkit-form-field'

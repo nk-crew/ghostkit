@@ -30,7 +30,7 @@ const { withSelect, withDispatch } = wp.data;
 
 const { createBlock } = wp.blocks;
 
-const ALLOWED_BLOCKS = ['ghostkit/carousel-slide'];
+const slideBlockName = 'ghostkit/carousel-slide';
 
 /**
  * Block Edit Class.
@@ -60,7 +60,7 @@ class BlockEdit extends Component {
       const newInnerBlocks = [...getBlocks(block.clientId)];
 
       for (let i = 1; i <= newCount; i += 1) {
-        newInnerBlocks.push(createBlock('ghostkit/carousel-slide', { size: 3 }));
+        newInnerBlocks.push(createBlock(slideBlockName, { size: 3 }));
       }
 
       replaceInnerBlocks(block.clientId, newInnerBlocks, false);
@@ -242,8 +242,8 @@ class BlockEdit extends Component {
         </InspectorControls>
         <div className={className}>
           <InnerBlocks
-            template={[['ghostkit/carousel-slide'], ['ghostkit/carousel-slide']]}
-            allowedBlocks={ALLOWED_BLOCKS}
+            template={[[slideBlockName], [slideBlockName], [slideBlockName]]}
+            allowedBlocks={[slideBlockName]}
             orientation="horizontal"
             renderAppender={false}
           />

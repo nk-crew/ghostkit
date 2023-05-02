@@ -8,19 +8,6 @@
   display: none;
 }
 
-// Styles from core Columns block
-// https://github.com/WordPress/gutenberg/blob/master/blocks/library/columns/editor.scss
-// .ghostkit-grid {
-//   position: relative;
-//   display: block;
-//   padding-bottom: 0.01px;
-//   // These margins make sure that nested blocks stack/overlay with the parent block chrome
-//   // This is sort of an experiment at making sure the editor looks as much like the end result as possible
-//   // Potentially the rules here can apply to all nested blocks and enable stacking, in which case it should be moved elsewhere
-//   margin-right: 0;
-//   margin-left: 0;
-// }
-
 // Background AWB
 .ghostkit-grid > .awb-gutenberg-preview-block,
 .ghostkit-col > .awb-gutenberg-preview-block {

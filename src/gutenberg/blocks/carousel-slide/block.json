@@ -8,6 +8,13 @@
     "html": false,
     "className": false,
     "anchor": true,
-    "reusable": false
+    "reusable": false,
+    "spacing": {
+      "blockGap": true,
+      "__experimentalDefaultControls": {
+        "blockGap": true
+      }
+    },
+    "__experimentalLayout": true
   }
 }

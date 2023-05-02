@@ -156,13 +156,16 @@ export default function BlockEdit(props) {
     className: classnames(props.attributes.className, getColClass(props)),
   });
 
-  const { children, ...innerBlocksProps } = useInnerBlocksProps(blockProps, {
-    templateLock: false,
-    renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
-  });
+  const innerBlocksProps = useInnerBlocksProps(
+    { className: 'ghostkit-col-content' },
+    {
+      templateLock: false,
+      renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+    }
+  );
 
   return (
-    <div {...innerBlocksProps}>
+    <div {...blockProps}>
       <InspectorControls>
         <ApplyFilters name="ghostkit.editor.controls" attribute="columnSettings" props={props}>
           <PanelBody>
@@ -261,7 +264,7 @@ export default function BlockEdit(props) {
         </div>
       </InspectorControls>
       {background}
-      <div className="ghostkit-col-content">{children}</div>
+      <div {...innerBlocksProps} />
     </div>
   );
 }

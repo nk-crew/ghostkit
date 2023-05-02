@@ -4,10 +4,7 @@
 @import "./variables";
 
 .ghostkit-form {
-  form {
-    display: grid;
-    row-gap: var(--gkt-form--field__gap);
-  }
+  display: grid;
 
   &-field-label {
     display: inline-block;
