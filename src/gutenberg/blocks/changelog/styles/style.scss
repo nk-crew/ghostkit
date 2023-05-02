@@ -45,30 +45,12 @@
   // More info.
   &-more {
     width: 100%;
-    min-width: 100%;
     padding-left: calc(var(--gkt-changelog--version-badge__min-width) + var(--gkt-changelog--date__margin-left));
     margin-top: var(--gkt-changelog--content__margin-top);
 
     @media screen and (max-width: 768px) {
       padding-left: 0;
     }
-
-    > ul,
-    > ol {
-      padding: 0;
-      margin: 0;
-      margin-bottom: var(--gkt-changelog--content-lists__margin-bottom);
-      list-style: none;
-
-      > li {
-        margin-left: 0;
-        list-style: none;
-      }
-    }
-  }
-
-  .ghostkit-alert {
-    margin-bottom: var(--gkt-changelog--content-lists__margin-bottom);
   }
 
   .ghostkit-badge {

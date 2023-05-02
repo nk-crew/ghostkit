@@ -49,11 +49,11 @@ class BlockEdit extends Component {
         </div>
         <div className="ghostkit-changelog-more">
           <InnerBlocks
-            allowedBlocks={['core/list', 'core/paragraph', 'ghostkit/alert']}
             template={[
               [
                 'core/list',
                 {
+                  className: 'is-style-none',
                   values: [
                     <li key="list-item-1">
                       <span className="ghostkit-badge" style={{ backgroundColor: '#4ab866' }}>
