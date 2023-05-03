@@ -35,7 +35,7 @@
  */
 ol.is-style-styled,
 ul.is-style-styled {
-  line-height: var(--gkt-styled-lists__line-height);
+  line-height: var(--gkt-styled-lists--items__line-height);
 
   li {
     > ul,
