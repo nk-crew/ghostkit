@@ -15,6 +15,7 @@ import ResponsiveTabPanel from '../../../components/responsive-tab-panel';
 import ToggleGroup from '../../../components/toggle-group';
 import URLPicker from '../../../components/url-picker';
 import Typography from '../../../components/typography';
+import GoogleFonts from '../../../components/google-fonts';
 
 export function get() {
   return {
@@ -32,5 +33,6 @@ export function get() {
     ToggleGroup,
     URLPicker,
     Typography,
+    GoogleFonts,
   };
 }

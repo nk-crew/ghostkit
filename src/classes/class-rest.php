@@ -237,6 +237,54 @@ class GhostKit_Rest extends WP_REST_Controller {
                 'permission_callback' => array( $this, 'update_settings_permission' ),
             )
         );
+
+        // Get Custom Fonts.
+        register_rest_route(
+            $namespace,
+            '/get_custom_fonts/',
+            array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'get_custom_fonts' ),
+                'permission_callback' => array( $this, 'get_custom_fonts_permission' ),
+            )
+        );
+
+        // Update Custom Fonts.
+        register_rest_route(
+            $namespace,
+            '/update_custom_fonts/',
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'update_custom_fonts' ),
+                'permission_callback' => array( $this, 'update_custom_fonts_permission' ),
+            )
+        );
+    }
+
+    /**
+     * Get read fonts permissions.
+     *
+     * @return bool
+     */
+    public function get_custom_fonts_permission() {
+        if ( ! current_user_can( 'edit_theme_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+        }
+
+        return true;
+    }
+
+    /**
+     * Get edit fonts permissions.
+     *
+     * @return bool
+     */
+    public function update_custom_fonts_permission() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+        }
+
+        return true;
     }
 
     /**
@@ -411,6 +459,46 @@ class GhostKit_Rest extends WP_REST_Controller {
         }
 
         return true;
+    }
+
+    /**
+     * Get custom fonts.
+     *
+     * @return mixed
+     */
+    public function get_custom_fonts() {
+        $fonts = get_option( 'ghostkit_fonts_settings', array() );
+        $fonts = apply_filters( 'gkt_rest_get_custom_fonts', $fonts );
+
+        if ( is_array( $fonts ) ) {
+            return $this->success( $fonts );
+        } else {
+            return $this->error( 'no_fonts', __( 'Custom fonts not found.', '@@text_domain' ) );
+        }
+    }
+
+    /**
+     * Update fonts.
+     *
+     * @param WP_REST_Request $request  request object.
+     *
+     * @return mixed
+     */
+    public function update_custom_fonts( WP_REST_Request $request ) {
+        $new_fonts      = $request->get_param( 'data' );
+        $updated_option = array();
+
+        $new_fonts = apply_filters( 'gkt_rest_update_custom_fonts', $new_fonts );
+
+        if ( is_array( $new_fonts ) ) {
+            $current_fonts = get_option( 'ghostkit_fonts_settings', array() );
+
+            $updated_option = array_merge( is_array( $current_fonts ) ? $current_fonts : array(), $new_fonts );
+
+            update_option( 'ghostkit_fonts_settings', $updated_option );
+        }
+
+        return $this->success( $updated_option );
     }
 
     /**

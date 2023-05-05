@@ -20,6 +20,8 @@ const { withSelect, withDispatch } = wp.data;
 
 const { TabPanel, Tooltip, Button } = wp.components;
 
+const { isFseTheme } = window.ghostkitVariables;
+
 /**
  * Internal dependencies
  */
@@ -663,82 +665,91 @@ class TypographyModal extends Component {
         }}
         icon={getIcon('plugin-typography')}
       >
-        <TabPanel
-          className="ghostkit-control-tabs ghostkit-component-modal-tab-panel"
-          tabs={[
-            {
-              name: 'local',
-              title: (
-                <Tooltip
-                  text={__(
-                    'All changes will be applied on the current page only.',
-                    '@@text_domain'
-                  )}
-                >
-                  <span>{__('Local', '@@text_domain')}</span>
-                </Tooltip>
-              ),
-              className: 'ghostkit-control-tabs-tab',
-            },
-            {
-              name: 'global',
-              title: (
-                <Tooltip text={__('All changes will be applied site wide.', '@@text_domain')}>
-                  <span>{__('Global', '@@text_domain')}</span>
-                </Tooltip>
-              ),
-              className: 'ghostkit-control-tabs-tab',
-            },
-          ]}
-        >
-          {(tabData) => {
-            const isGlobal = tabData.name === 'global';
-            const setStateTypography = isGlobal
-              ? this.state.globalCustomTypography
-              : this.state.customTypography;
-            const typographyList = getCustomTypographyList(setStateTypography, isGlobal);
+        {isFseTheme ? (
+          <div>
+            {__(
+              'You are using FSE theme. Typography settings have been moved to block settings',
+              '@@text_domain'
+            )}
+          </div>
+        ) : (
+          <TabPanel
+            className="ghostkit-control-tabs ghostkit-component-modal-tab-panel"
+            tabs={[
+              {
+                name: 'local',
+                title: (
+                  <Tooltip
+                    text={__(
+                      'All changes will be applied on the current page only.',
+                      '@@text_domain'
+                    )}
+                  >
+                    <span>{__('Local', '@@text_domain')}</span>
+                  </Tooltip>
+                ),
+                className: 'ghostkit-control-tabs-tab',
+              },
+              {
+                name: 'global',
+                title: (
+                  <Tooltip text={__('All changes will be applied site wide.', '@@text_domain')}>
+                    <span>{__('Global', '@@text_domain')}</span>
+                  </Tooltip>
+                ),
+                className: 'ghostkit-control-tabs-tab',
+              },
+            ]}
+          >
+            {(tabData) => {
+              const isGlobal = tabData.name === 'global';
+              const setStateTypography = isGlobal
+                ? this.state.globalCustomTypography
+                : this.state.customTypography;
+              const typographyList = getCustomTypographyList(setStateTypography, isGlobal);
 
-            return (
-              <Fragment>
-                {Object.keys(typographyList).map((key) => {
-                  const advancedData = this.state[isGlobal ? 'globalAdvanced' : 'advanced'][key];
-                  const advancedLabel =
-                    advancedData === true
-                      ? __('Hide Advanced', '@@text_domain')
-                      : __('Show Advanced', '@@text_domain');
+              return (
+                <Fragment>
+                  {Object.keys(typographyList).map((key) => {
+                    const advancedData = this.state[isGlobal ? 'globalAdvanced' : 'advanced'][key];
+                    const advancedLabel =
+                      advancedData === true
+                        ? __('Hide Advanced', '@@text_domain')
+                        : __('Show Advanced', '@@text_domain');
 
-                  if (typographyList[key].childOf === '') {
-                    return (
-                      <div className="ghostkit-typography-container" key={key}>
-                        {this.getTypographyComponent(typographyList, key, isGlobal)}
+                    if (typographyList[key].childOf === '') {
+                      return (
+                        <div className="ghostkit-typography-container" key={key}>
+                          {this.getTypographyComponent(typographyList, key, isGlobal)}
 
-                        {typeof advancedData !== 'undefined' ? (
-                          <div className="ghostkit-typography-advanced">
-                            <Button
-                              isSecondary
-                              onClick={() => this.onClickAdvanced(key, isGlobal)}
-                              className="ghostkit-typography-advanced-button"
-                            >
-                              {advancedLabel}
-                            </Button>
-                          </div>
-                        ) : (
-                          ''
-                        )}
+                          {typeof advancedData !== 'undefined' ? (
+                            <div className="ghostkit-typography-advanced">
+                              <Button
+                                isSecondary
+                                onClick={() => this.onClickAdvanced(key, isGlobal)}
+                                className="ghostkit-typography-advanced-button"
+                              >
+                                {advancedLabel}
+                              </Button>
+                            </div>
+                          ) : (
+                            ''
+                          )}
 
-                        {advancedData === true
-                          ? this.getChildrenTypography(typographyList, key, isGlobal)
-                          : ''}
-                      </div>
-                    );
-                  }
+                          {advancedData === true
+                            ? this.getChildrenTypography(typographyList, key, isGlobal)
+                            : ''}
+                        </div>
+                      );
+                    }
 
-                  return null;
-                })}
-              </Fragment>
-            );
-          }}
-        </TabPanel>
+                    return null;
+                  })}
+                </Fragment>
+              );
+            }}
+          </TabPanel>
+        )}
       </Modal>
     );
   }
