@@ -15,12 +15,56 @@ class GhostKit_Fonts {
      * GhostKit_Fonts constructor.
      */
     public function __construct() {
-        add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ) );
-        add_filter( 'gkt_fonts_list', array( $this, 'add_default_site_fonts' ), 9 );
+        // enqueue fonts for FSE.
+        if ( current_theme_supports( 'block-templates' ) ) {
+            add_action( 'init', array( $this, 'add_fonts' ), 20 );
+        } else {
+            add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ) );
+            add_filter( 'gkt_fonts_list', array( $this, 'add_default_site_fonts' ), 9 );
 
-        // enqueue fonts.
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all_fonts_assets' ), 12 );
-        add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_all_fonts_assets' ), 12 );
+            // enqueue fonts.
+            add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all_fonts_assets' ), 12 );
+            add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_all_fonts_assets' ), 12 );
+        }
+    }
+
+    /**
+     * Registered Google Fonts for FSE Themes.
+     *
+     * @return void
+     */
+    public function add_fonts() {
+        if ( ! function_exists( 'wp_register_fonts' ) ) {
+            return;
+        }
+
+        wp_register_font_provider( 'google', 'Ghostkit_Fonts_Google_Provider' );
+
+        $fonts        = get_option( 'ghostkit_fonts_settings', array() );
+        $google_fonts = $fonts['google'] ?? false;
+
+        if ( $google_fonts ) {
+            $register_fonts = array();
+            foreach ( $google_fonts as $font ) {
+                $variants   = array();
+                $font_style = $font['style'];
+                foreach ( $font['weight'] as $weight ) {
+                    $variants[] = array(
+                        'font-family'  => $font['name'],
+                        'font-weight'  => $weight,
+                        'font-style'   => $font_style,
+                        'provider'     => 'google',
+                    );
+                }
+                $register_fonts[ $font['name'] ] = $variants;
+
+                wp_register_fonts(
+                    array(
+                        $font['name'] => $variants,
+                    )
+                );
+            }
+        }
     }
 
     /**

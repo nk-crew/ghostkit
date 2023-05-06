@@ -160,7 +160,7 @@ class GhostKit_Typography {
         $check = false;
 
         if ( $attribute ) {
-            if ( 'full' === $mode && isset( $value[ $attribute ] ) && ! empty( $value[ $attribute ] ) ) {
+            if ( 'full' === $mode && isset( $value[ $attribute ] ) && ! empty( $value[ $attribute ] ) && 'null' !== $value ) {
                 $check = true;
             }
             if ( 'isset' === $mode && isset( $value[ $attribute ] ) ) {
@@ -168,7 +168,7 @@ class GhostKit_Typography {
             }
         } else {
             if ( 'full' === $mode ) {
-                $check = ( isset( $value ) && ! empty( $value ) ) ? true : false;
+                $check = ( isset( $value ) && ! empty( $value ) && 'null' !== $value ) ? true : false;
             }
             if ( 'isset' === $mode ) {
                 $check = ( isset( $value ) ) ? true : false;

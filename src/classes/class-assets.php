@@ -345,6 +345,7 @@ class GhostKit_Assets {
             'ghostkitVariables',
             array(
                 'themeName'                   => $theme_data->get( 'Name' ),
+                'isFseTheme'                  => current_theme_supports( 'block-templates' ) ? true : false,
                 'settings'                    => get_option( 'ghostkit_settings', array() ),
                 'disabledBlocks'              => get_option( 'ghostkit_disabled_blocks', array() ),
 
