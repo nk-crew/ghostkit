@@ -28,7 +28,7 @@ const { merge } = window.lodash;
 
 const { apiFetch } = wp;
 
-const { isFseTheme } = window.ghostkitVariables;
+const { isFseTheme, typographyExist } = window.ghostkitVariables;
 
 let reloadPage = false;
 
@@ -51,7 +51,7 @@ class FontsSettings extends Component {
 
     return (
       <ApplyFilters name="ghostkit.fonts.settings" props={this.props}>
-        {isFseTheme ? (
+        {isFseTheme && !typographyExist ? (
           <div className={classes}>
             <TabPanel
               className="ghostkit-settings-fonts-tabs"

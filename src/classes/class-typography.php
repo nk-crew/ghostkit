@@ -19,6 +19,42 @@ class GhostKit_Typography {
     }
 
     /**
+     * Check if typography settings exist.
+     *
+     * @return bool
+     */
+    public static function typography_exist() {
+        $result = get_transient( 'ghostkit_typography_exist' );
+
+        if ( ! $result ) {
+            global $wpdb;
+            $result = false;
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $local_typography  = $wpdb->query(
+                $wpdb->prepare(
+                    'SELECT * FROM `wp_postmeta` WHERE (`meta_key` LIKE %s) LIMIT 50',
+                    '%ghostkit_typography%'
+                )
+            );
+            $global_typography = get_option( 'ghostkit_typography', array() );
+
+            if (
+                (
+                    self::is_exist( $global_typography ) &&
+                    self::is_exist( $global_typography['ghostkit_typography'] )
+                ) ||
+                $local_typography > 0
+            ) {
+                $result = true;
+            }
+
+            set_transient( 'ghostkit_typography_exist', $result );
+        }
+
+        return $result;
+    }
+
+    /**
      * Enqueue Typography assets to editor and front end.
      */
     public function enqueue_typography_assets() {
@@ -64,10 +100,10 @@ class GhostKit_Typography {
         $is_single       = is_singular() && $post_id;
         $is_admin_editor = $is_admin_editor && $post_id;
 
-        if ( $this->is_exist( $default_typography ) ) {
+        if ( self::is_exist( $default_typography ) ) {
 
             foreach ( $default_typography as $key => $typography ) {
-                if ( $this->is_exist( $typography['output'] ) ) {
+                if ( self::is_exist( $typography['output'] ) ) {
                     $typography_prepeare_styles[ $key ] = array(
                         'style-properties' => $typography['defaults'],
                         'output'           => $typography['output'],
@@ -76,7 +112,7 @@ class GhostKit_Typography {
             }
 
             // Global custom Typography.
-            if ( $this->is_exist( $global_typography ) && $this->is_exist( $global_typography['ghostkit_typography'] ) ) {
+            if ( self::is_exist( $global_typography ) && self::is_exist( $global_typography['ghostkit_typography'] ) ) {
                 $typography_prepeare_styles = $this->get_typography_values( $global_typography['ghostkit_typography'], $typography_prepeare_styles );
             }
 
@@ -89,29 +125,29 @@ class GhostKit_Typography {
             // Collect all the styles for further transfer to the inline file on the edit or front page.
             foreach ( $typography_prepeare_styles as $typography_prepeare_style ) {
                 if (
-                    $this->is_exist( $typography_prepeare_style['output'] ) &&
+                    self::is_exist( $typography_prepeare_style['output'] ) &&
                     is_array( $typography_prepeare_style['output'] ) &&
-                    ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ||
-                        $this->is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ||
-                        $this->is_exist( $typography_prepeare_style['style-properties'], 'font-weight' ) ||
-                        $this->is_exist( $typography_prepeare_style['style-properties'], 'line-height' ) ||
-                        $this->is_exist( $typography_prepeare_style['style-properties'], 'letter-spacing' )
+                    ( self::is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ||
+                        self::is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ||
+                        self::is_exist( $typography_prepeare_style['style-properties'], 'font-weight' ) ||
+                        self::is_exist( $typography_prepeare_style['style-properties'], 'line-height' ) ||
+                        self::is_exist( $typography_prepeare_style['style-properties'], 'letter-spacing' )
                     )
                 ) {
                     foreach ( $typography_prepeare_style['output'] as $output ) {
-                        if ( $this->is_exist( $output['selectors'] ) ) {
+                        if ( self::is_exist( $output['selectors'] ) ) {
                             $typography_styles  = '';
                             $typography_styles .= $output['selectors'] . '{';
 
-                            if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ) {
+                            if ( self::is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ) {
                                 $typography_styles .= 'font-family: ' . esc_attr( $typography_prepeare_style['style-properties']['font-family'] ) . ', sans-serif;';
                             }
 
-                            if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ) {
+                            if ( self::is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ) {
                                 $typography_styles .= 'font-size: ' . esc_attr( $typography_prepeare_style['style-properties']['font-size'] ) . ';';
                             }
 
-                            if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'font-weight' ) ) {
+                            if ( self::is_exist( $typography_prepeare_style['style-properties'], 'font-weight' ) ) {
                                 $font_weight = $typography_prepeare_style['style-properties']['font-weight'];
 
                                 if ( false !== strpos( $font_weight, 'i' ) ) {
@@ -124,11 +160,11 @@ class GhostKit_Typography {
                                 $typography_styles .= 'font-weight: ' . esc_attr( $font_weight ) . ';';
                             }
 
-                            if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'line-height' ) ) {
+                            if ( self::is_exist( $typography_prepeare_style['style-properties'], 'line-height' ) ) {
                                 $typography_styles .= 'line-height: ' . esc_attr( $typography_prepeare_style['style-properties']['line-height'] ) . ';';
                             }
 
-                            if ( $this->is_exist( $typography_prepeare_style['style-properties'], 'letter-spacing' ) ) {
+                            if ( self::is_exist( $typography_prepeare_style['style-properties'], 'letter-spacing' ) ) {
                                 $typography_styles .= 'letter-spacing: ' . esc_attr( $typography_prepeare_style['style-properties']['letter-spacing'] ) . ';';
                             }
 
@@ -156,7 +192,7 @@ class GhostKit_Typography {
      * @param string $mode - Full or isset for partial check.
      * @return bool  $value - True or false.
      */
-    public function is_exist( $value, $attribute = false, $mode = 'full' ) {
+    public static function is_exist( $value, $attribute = false, $mode = 'full' ) {
         $check = false;
 
         if ( $attribute ) {
@@ -197,12 +233,12 @@ class GhostKit_Typography {
             'childOf'            => 'child-of',
         );
 
-        if ( $this->is_exist( $typography_object ) ) {
+        if ( self::is_exist( $typography_object ) ) {
             foreach ( json_decode( $typography_object ) as $meta_typography_key => $meta_typography_value ) {
                 if ( array_key_exists( $meta_typography_key, $typography_prepeare_styles ) ) {
                     foreach ( $meta_typography_value as $typography_attribute_key => $typography_attribute ) {
-                        if ( $this->is_exist( $conformity_attributes[ $typography_attribute_key ] ) &&
-                            $this->is_exist( $typography_prepeare_styles[ $meta_typography_key ]['style-properties'], $conformity_attributes[ $typography_attribute_key ], 'isset' ) ) {
+                        if ( self::is_exist( $conformity_attributes[ $typography_attribute_key ] ) &&
+                            self::is_exist( $typography_prepeare_styles[ $meta_typography_key ]['style-properties'], $conformity_attributes[ $typography_attribute_key ], 'isset' ) ) {
                             if ( '' !== $typography_attribute ) {
                                 $typography_prepeare_styles[ $meta_typography_key ]['style-properties'][ $conformity_attributes[ $typography_attribute_key ] ] = $typography_attribute;
                             }

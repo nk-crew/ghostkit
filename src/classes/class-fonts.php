@@ -16,7 +16,7 @@ class GhostKit_Fonts {
      */
     public function __construct() {
         // enqueue fonts for FSE.
-        if ( current_theme_supports( 'block-templates' ) ) {
+        if ( current_theme_supports( 'block-templates' ) && ! GhostKit_Typography::typography_exist() ) {
             add_action( 'init', array( $this, 'add_fonts' ), 20 );
         } else {
             add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ) );
