@@ -72,7 +72,7 @@ class GhostKit_Typography {
             set_transient( 'ghostkit_typography_exist', $result );
         }
 
-        return $result;
+        return true === $result;
     }
 
     /**
