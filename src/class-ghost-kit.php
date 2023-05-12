@@ -124,11 +124,11 @@ class GhostKit {
         // shapes.
         require_once $this->plugin_path . 'classes/class-shapes.php';
 
-        // fonts.
-        require_once $this->plugin_path . 'classes/class-fonts.php';
-
         // typography.
         require_once $this->plugin_path . 'classes/class-typography.php';
+
+        // fonts.
+        require_once $this->plugin_path . 'classes/class-fonts.php';
 
         // templates.
         require_once $this->plugin_path . 'classes/class-templates.php';
