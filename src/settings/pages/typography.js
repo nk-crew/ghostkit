@@ -27,7 +27,7 @@ const { withSelect, withDispatch } = wp.data;
 
 const { Button, Spinner } = wp.components;
 
-const { isFseTheme, typographyExist } = window.ghostkitVariables;
+const { isFseTheme, typographyExist, fontsApiExist } = window.ghostkitVariables;
 
 class TypographySettings extends Component {
   constructor(props) {
@@ -180,7 +180,7 @@ class TypographySettings extends Component {
       <div className="ghostkit-settings-content-wrapper ghostkit-settings-typography">
         {typographyList &&
         Object.keys(typographyList).length &&
-        (!isFseTheme || typographyExist) ? (
+        (!isFseTheme || !fontsApiExist || typographyExist) ? (
           <Fragment>
             {Object.keys(typographyList).map((key) => {
               const advancedData = this.state.advanced[key];
@@ -216,7 +216,7 @@ class TypographySettings extends Component {
           </Fragment>
         ) : (
           <div>
-            {isFseTheme && !typographyExist ? (
+            {isFseTheme && fontsApiExist && !typographyExist ? (
               <div>
                 {__(
                   'You are using FSE theme. Typography settings have been moved to block settings',

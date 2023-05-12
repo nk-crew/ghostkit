@@ -20,7 +20,7 @@ const { withSelect, withDispatch } = wp.data;
 
 const { TabPanel, Tooltip, Button } = wp.components;
 
-const { isFseTheme, typographyExist } = window.ghostkitVariables;
+const { isFseTheme, typographyExist, fontsApiExist } = window.ghostkitVariables;
 
 /**
  * Internal dependencies
@@ -665,7 +665,7 @@ class TypographyModal extends Component {
         }}
         icon={getIcon('plugin-typography')}
       >
-        {isFseTheme && !typographyExist ? (
+        {isFseTheme && fontsApiExist && !typographyExist ? (
           <div>
             {__(
               'You are using FSE theme. Typography settings have been moved to block settings',

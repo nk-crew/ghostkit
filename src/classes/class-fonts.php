@@ -15,18 +15,25 @@ class GhostKit_Fonts {
      * GhostKit_Fonts constructor.
      */
     public function __construct() {
-        // enqueue fonts for FSE.
-        if ( current_theme_supports( 'block-templates' ) && ! GhostKit_Typography::typography_exist() ) {
-            add_action( 'init', array( $this, 'add_fonts' ), 20 );
-        } else {
-            add_filter( 'gkt_fonts_list', array( $this, 'add_default_site_fonts' ), 9 );
+        add_action( 'init', array( $this, 'enqueue_fonts' ), 20 );
+        add_filter( 'gkt_fonts_list', array( $this, 'add_default_site_fonts' ), 9 );
+        add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ) );
+    }
 
+    /**
+     * Enqueue fonts.
+     *
+     * @return void
+     */
+    public function enqueue_fonts() {
+        // enqueue fonts for FSE.
+        if ( current_theme_supports( 'block-templates' ) && ! GhostKit_Typography::typography_exist() && class_exists( 'WP_Fonts' ) ) {
+            $this->add_fonts();
+        } else {
             // enqueue fonts.
             add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all_fonts_assets' ), 12 );
             add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_all_fonts_assets' ), 12 );
         }
-
-        add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ) );
     }
 
     /**
