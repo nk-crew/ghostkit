@@ -88,7 +88,7 @@ class GhostKit_Migrations {
                         isset( $typography['fontFamily'] )
                     ) {
                         // Find typography font from fonts list default category.
-                        $found_default_font = array_search( $typography['fontFamily'], array_column( $fonts_list['default']['fonts'], 'name' ), true );
+                        $found_default_font = null !== $fonts_list['default']['fonts'] ? array_search( $typography['fontFamily'], array_column( $fonts_list['default']['fonts'], 'name' ), true ) : false;
                         // If not find, search font from google fonts category.
                         if ( false === $found_default_font ) {
                             $found_google_font = array_search( $typography['fontFamily'], array_column( $fonts_list['google-fonts']['fonts'], 'name' ), true );
