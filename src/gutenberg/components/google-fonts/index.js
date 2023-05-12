@@ -10,7 +10,7 @@ import Select from '../select';
  */
 const { Component, Fragment } = wp.element;
 
-const { Button, SelectControl, Spinner } = wp.components;
+const { Button, BaseControl, SelectControl, Spinner } = wp.components;
 
 const { __ } = wp.i18n;
 
@@ -137,44 +137,46 @@ class GoogleFonts extends Component {
       <div className="editor-styles-wrapper">
         <div className="ghostkit-settings-fonts-google-form">
           {!isEdit ? (
-            <Select
-              label={__('Font Family', '@@text_domain')}
-              value={{
-                value: name,
-                label: name,
-              }}
-              onChange={(opt) => {
-                let options = this.getFontWeightAndStyleOptions(opt.value, style);
-                const newWeight = [];
-                let newStyle = false;
+            <BaseControl label={__('Font', '@@text_domain')}>
+              <Select
+                value={{
+                  value: name,
+                  label: name,
+                }}
+                onChange={(opt) => {
+                  let options = this.getFontWeightAndStyleOptions(opt.value, style);
+                  const newWeight = [];
+                  let newStyle = false;
 
-                if (options.fontWeightOptions.length === 0) {
-                  newStyle = style === 'normal' ? 'italic' : 'normal';
-                  options = this.getFontWeightAndStyleOptions(opt.value, newStyle);
-                }
-
-                Object.keys(weight).forEach((key) => {
-                  const findWeight = options.fontWeightOptions.find((el) => el.value === weight);
-
-                  if (typeof findWeight !== 'undefined') {
-                    newWeight.push(weight[key]);
+                  if (options.fontWeightOptions.length === 0) {
+                    newStyle = style === 'normal' ? 'italic' : 'normal';
+                    options = this.getFontWeightAndStyleOptions(opt.value, newStyle);
                   }
-                });
 
-                if (newWeight.length === 0 && options.fontWeightOptions.length !== 0) {
-                  newWeight.push(options.fontWeightOptions[0].value);
-                }
+                  Object.keys(weight).forEach((key) => {
+                    const findWeight = options.fontWeightOptions.find((el) => el.value === weight);
 
-                this.setState({
-                  name: opt.value,
-                  style: newStyle || style,
-                  weight: newWeight,
-                  fontWeightOptions: options.fontWeightOptions,
-                  styleOptions: options.styleOptions,
-                });
-              }}
-              options={fontFamilyOptions}
-            />
+                    if (typeof findWeight !== 'undefined') {
+                      newWeight.push(weight[key]);
+                    }
+                  });
+
+                  if (newWeight.length === 0 && options.fontWeightOptions.length !== 0) {
+                    newWeight.push(options.fontWeightOptions[0].value);
+                  }
+
+                  this.setState({
+                    name: opt.value,
+                    style: newStyle || style,
+                    weight: newWeight,
+                    fontWeightOptions: options.fontWeightOptions,
+                    styleOptions: options.styleOptions,
+                  });
+                }}
+                options={fontFamilyOptions}
+                placeholder={__('--- Select ---', '@@text_domain')}
+              />
+            </BaseControl>
           ) : null}
           <SelectControl
             multiple
