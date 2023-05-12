@@ -19,13 +19,14 @@ class GhostKit_Fonts {
         if ( current_theme_supports( 'block-templates' ) && ! GhostKit_Typography::typography_exist() ) {
             add_action( 'init', array( $this, 'add_fonts' ), 20 );
         } else {
-            add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ) );
             add_filter( 'gkt_fonts_list', array( $this, 'add_default_site_fonts' ), 9 );
 
             // enqueue fonts.
             add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all_fonts_assets' ), 12 );
             add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_all_fonts_assets' ), 12 );
         }
+
+        add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ) );
     }
 
     /**

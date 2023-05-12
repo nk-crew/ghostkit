@@ -4,7 +4,6 @@
 import './style.scss';
 
 import Select from '../select';
-import googleFonts from '../../../classes/google-fonts/webfonts.json';
 
 /**
  * WordPress dependencies
@@ -15,46 +14,56 @@ const { Button, SelectControl, Spinner } = wp.components;
 
 const { __ } = wp.i18n;
 
+const { fonts } = window.GHOSTKIT;
+
+const defaultFont =
+  typeof fonts['google-fonts'].fonts !== 'undefined' ? fonts['google-fonts'].fonts[0].name : '';
+
 function getGoogleFontFamilyOptions() {
   const fontFamilies = [];
 
-  Object.keys(googleFonts.items).forEach((key) => {
-    fontFamilies.push({
-      value: googleFonts.items[key].family,
-      label: googleFonts.items[key].family,
+  if (
+    typeof fonts['google-fonts'] !== 'undefined' &&
+    typeof fonts['google-fonts'].fonts !== 'undefined'
+  ) {
+    Object.keys(fonts['google-fonts'].fonts).forEach((key) => {
+      fontFamilies.push({
+        value: fonts['google-fonts'].fonts[key].name,
+        label: fonts['google-fonts'].fonts[key].name,
+      });
     });
-  });
+  }
 
   return fontFamilies;
 }
 
 function getGoogleFontWeightsByFamily(fontFamily) {
-  const font = googleFonts.items.find((item) => item.family === fontFamily);
-  const { variants } = font;
   const fontWeights = {
     normal: [],
     italic: [],
   };
-  Object.keys(variants).forEach((key) => {
-    let weight = {};
-    if (variants[key] === 'regular' || variants[key] === 'italic') {
-      weight = {
-        value: '400',
-        label: __('400', '@@text_domain'),
-      };
-    } else {
-      weight = {
-        value: variants[key].replace('italic', ''),
-        label: __(variants[key].replace('italic', ''), '@@text_domain'),
-      };
-    }
 
-    if (variants[key] === 'regular' || variants[key].indexOf('italic') === -1) {
-      fontWeights.normal.push(weight);
-    } else {
-      fontWeights.italic.push(weight);
-    }
-  });
+  if (
+    typeof fonts['google-fonts'] !== 'undefined' &&
+    typeof fonts['google-fonts'].fonts !== 'undefined'
+  ) {
+    const font = fonts['google-fonts'].fonts.find((item) => item.name === fontFamily);
+    const { widths } = font;
+
+    Object.keys(widths).forEach((key) => {
+      const weight = {
+        value: widths[key].replace('i', ''),
+        label: __(widths[key].replace('i', ''), '@@text_domain'),
+      };
+
+      if (widths[key].indexOf('i') === -1) {
+        fontWeights.normal.push(weight);
+      } else {
+        fontWeights.italic.push(weight);
+      }
+    });
+  }
+
   return fontWeights;
 }
 
@@ -62,14 +71,12 @@ class GoogleFonts extends Component {
   constructor(props) {
     super(props);
 
-    const { fontWeightOptions, styleOptions } = this.getFontWeightAndStyleOptions(
-      googleFonts.items[0].family
-    );
+    const { fontWeightOptions, styleOptions } = this.getFontWeightAndStyleOptions(defaultFont);
 
     this.state = {
       isLoading: true,
       // isEdit: false,
-      name: googleFonts.items[0].family,
+      name: defaultFont,
       weight: ['400'],
       style: 'normal',
       fontFamilyOptions: getGoogleFontFamilyOptions(),
@@ -220,10 +227,10 @@ class GoogleFonts extends Component {
                     },
                   });
 
-                  const options = this.getFontWeightAndStyleOptions(googleFonts.items[0].family);
+                  const options = this.getFontWeightAndStyleOptions(defaultFont);
 
                   this.setState({
-                    name: googleFonts.items[0].family,
+                    name: defaultFont,
                     weight: ['400'],
                     style: 'normal',
                     fontWeightOptions: options.fontWeightOptions,
@@ -271,10 +278,10 @@ class GoogleFonts extends Component {
                     },
                   });
 
-                  const options = this.getFontWeightAndStyleOptions(googleFonts.items[0].family);
+                  const options = this.getFontWeightAndStyleOptions(defaultFont);
 
                   this.setState({
-                    name: googleFonts.items[0].family,
+                    name: defaultFont,
                     weight: ['400'],
                     style: 'normal',
                     fontWeightOptions: options.fontWeightOptions,
