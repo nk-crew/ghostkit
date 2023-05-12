@@ -28,7 +28,8 @@ class GhostKit_Typography {
 
         if ( ! $result ) {
             global $wpdb;
-            $result                            = false;
+            // When caching, we have to write a string so that the function does not call requests every time the page is loaded.
+            $result                            = 'false';
             $typography_prepeare_styles        = array();
             $global_typography_prepeare_styles = array();
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
