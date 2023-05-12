@@ -347,7 +347,7 @@ class GhostKit_Assets {
                 'themeName'                   => $theme_data->get( 'Name' ),
                 'isFseTheme'                  => current_theme_supports( 'block-templates' ) ? true : false,
                 'fontsApiExist'               => class_exists( 'WP_Fonts' ),
-                'typographyExist'             => GhostKit_Typography::typography_exist() ? true : false,
+                'typographyExist'             => GhostKit_Typography::typography_exist(),
                 'settings'                    => get_option( 'ghostkit_settings', array() ),
                 'disabledBlocks'              => get_option( 'ghostkit_disabled_blocks', array() ),
 
