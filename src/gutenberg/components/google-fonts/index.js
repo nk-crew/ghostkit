@@ -3,6 +3,7 @@
  */
 import './style.scss';
 
+import Select from '../select';
 import googleFonts from '../../../classes/google-fonts/webfonts.json';
 
 /**
@@ -129,17 +130,20 @@ class GoogleFonts extends Component {
       <div className="editor-styles-wrapper">
         <div className="ghostkit-settings-fonts-google-form">
           {!isEdit ? (
-            <SelectControl
+            <Select
               label={__('Font Family', '@@text_domain')}
-              value={name}
-              onChange={(val) => {
-                let options = this.getFontWeightAndStyleOptions(val, style);
+              value={{
+                value: name,
+                label: name,
+              }}
+              onChange={(opt) => {
+                let options = this.getFontWeightAndStyleOptions(opt.value, style);
                 const newWeight = [];
                 let newStyle = false;
 
                 if (options.fontWeightOptions.length === 0) {
                   newStyle = style === 'normal' ? 'italic' : 'normal';
-                  options = this.getFontWeightAndStyleOptions(val, newStyle);
+                  options = this.getFontWeightAndStyleOptions(opt.value, newStyle);
                 }
 
                 Object.keys(weight).forEach((key) => {
@@ -155,7 +159,7 @@ class GoogleFonts extends Component {
                 }
 
                 this.setState({
-                  name: val,
+                  name: opt.value,
                   style: newStyle || style,
                   weight: newWeight,
                   fontWeightOptions: options.fontWeightOptions,
