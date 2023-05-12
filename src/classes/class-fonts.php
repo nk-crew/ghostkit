@@ -71,6 +71,10 @@ class GhostKit_Fonts {
                         $font['name'] => $variants,
                     )
                 );
+
+                if ( ! is_admin() ) {
+                    wp_enqueue_fonts( array( $font['name'] ) );
+                }
             }
         }
     }
