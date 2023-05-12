@@ -28,22 +28,42 @@ class GhostKit_Typography {
 
         if ( ! $result ) {
             global $wpdb;
-            $result = false;
+            $result                            = false;
+            $typography_prepeare_styles        = array();
+            $global_typography_prepeare_styles = array();
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $local_typography  = $wpdb->query(
+            $local_typography = $wpdb->query(
                 $wpdb->prepare(
                     'SELECT * FROM `wp_postmeta` WHERE (`meta_key` LIKE %s) LIMIT 50',
                     '%ghostkit_typography%'
                 )
             );
-            $global_typography = get_option( 'ghostkit_typography', array() );
+            /**
+             * Comparing the global typography with the default.
+             * If the global typography differs from the default, then it is original.
+             * In this case, the custom typography is exist.
+             */
+            $global_typography  = get_option( 'ghostkit_typography', array() );
+            $default_typography = apply_filters( 'gkt_custom_typography', array() );
+            if ( self::is_exist( $default_typography ) && self::is_exist( $global_typography ) && self::is_exist( $global_typography['ghostkit_typography'] ) ) {
+                foreach ( $default_typography as $key => $typography ) {
+                    if ( self::is_exist( $typography['output'] ) ) {
+                        $typography_prepeare_styles[ $key ] = array(
+                            'style-properties' => $typography['defaults'],
+                            'output'           => $typography['output'],
+                        );
+                    }
+                }
+
+                // Global custom Typography.
+                if ( self::is_exist( $global_typography ) && self::is_exist( $global_typography['ghostkit_typography'] ) ) {
+                    $global_typography_prepeare_styles = self::get_typography_values( $global_typography['ghostkit_typography'], $typography_prepeare_styles );
+                }
+            }
 
             if (
-                (
-                    self::is_exist( $global_typography ) &&
-                    self::is_exist( $global_typography['ghostkit_typography'] )
-                ) ||
-                $local_typography > 0
+                $local_typography > 0 &&
+                $typography_prepeare_styles !== $global_typography_prepeare_styles
             ) {
                 $result = true;
             }
@@ -79,7 +99,7 @@ class GhostKit_Typography {
      *
      * @return array - Typography Css.
      */
-    public function generate_typography_styles() {
+    public static function generate_typography_styles() {
         $typography_prepeare_styles = array();
         $typography_css             = array(
             'editor' => '',
@@ -113,13 +133,13 @@ class GhostKit_Typography {
 
             // Global custom Typography.
             if ( self::is_exist( $global_typography ) && self::is_exist( $global_typography['ghostkit_typography'] ) ) {
-                $typography_prepeare_styles = $this->get_typography_values( $global_typography['ghostkit_typography'], $typography_prepeare_styles );
+                $typography_prepeare_styles = self::get_typography_values( $global_typography['ghostkit_typography'], $typography_prepeare_styles );
             }
 
             // Local custom Typography.
             if ( $is_single || $is_admin_editor ) {
                 $meta_typography            = get_post_meta( $post_id, 'ghostkit_typography', true );
-                $typography_prepeare_styles = $this->get_typography_values( $meta_typography, $typography_prepeare_styles );
+                $typography_prepeare_styles = self::get_typography_values( $meta_typography, $typography_prepeare_styles );
             }
 
             // Collect all the styles for further transfer to the inline file on the edit or front page.
@@ -221,7 +241,7 @@ class GhostKit_Typography {
      * @param array  $typography_prepeare_styles - Previous Array With Current Styles Properties.
      * @return mixed - Next Array With Current Styles Properties.
      */
-    public function get_typography_values( $typography_object, $typography_prepeare_styles ) {
+    public static function get_typography_values( $typography_object, $typography_prepeare_styles ) {
         $conformity_attributes = array(
             'fontFamily'         => 'font-family',
             'fontFamilyCategory' => 'font-family-category',
