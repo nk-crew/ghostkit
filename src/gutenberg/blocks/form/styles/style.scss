@@ -4,8 +4,6 @@
 @import "./variables";
 
 .ghostkit-form {
-  display: grid;
-
   &-field-label {
     display: inline-block;
     margin-bottom: var(--gkt-form--field-label__margin-bottom);
