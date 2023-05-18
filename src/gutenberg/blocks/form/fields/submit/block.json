@@ -1,4 +1,5 @@
 {
+  "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/form-submit-button",
   "parent": ["ghostkit/form"],
   "category": "design",

@@ -1,4 +1,5 @@
 {
+  "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/google-maps",
   "category": "media",
   "title": "Google Maps",

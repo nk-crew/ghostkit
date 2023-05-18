@@ -1,4 +1,5 @@
 {
+  "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/carousel-slide",
   "parent": ["ghostkit/carousel"],
   "category": "design",

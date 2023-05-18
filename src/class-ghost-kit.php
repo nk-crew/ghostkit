@@ -334,7 +334,7 @@ class GhostKit {
         $data                        = get_plugin_data( __FILE__ );
         $this->plugin_name           = $data['Name'];
         $this->plugin_version        = $data['Version'];
-        $this->plugin_slug           = plugin_basename( __FILE__, '.php' );
+        $this->plugin_slug           = plugin_basename( __FILE__ );
         $this->plugin_name_sanitized = basename( __FILE__, '.php' );
     }
 
@@ -360,8 +360,8 @@ class GhostKit {
     /**
      * Equivalent of GHOSTKIT.replaceVars method.
      *
-     * @param String $str styles string.
-     * @return String string with replaced vars.
+     * @param string $str styles string.
+     * @return string string with replaced vars.
      */
     public function replace_vars( $str ) {
         $breakpoints = GhostKit_Breakpoints::get_breakpoints();
@@ -383,7 +383,7 @@ class GhostKit {
     /**
      * Add Go Pro link to plugins page.
      *
-     * @param Array $links - available links.
+     * @param array $links - available links.
      *
      * @return array
      */

@@ -1,6 +1,8 @@
 {
+  "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/form",
   "category": "design",
+  "title": "Form",
   "supports": {
     "html": false,
     "className": false,
