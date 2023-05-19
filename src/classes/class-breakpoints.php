@@ -211,7 +211,10 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
                             $config['output_file'] === $output_file &&
                             file_exists( $output_file )
                         ) {
-                            $src = $upload_dir['baseurl'] . '/' . $this->plugin_name . '/' . $relative_uri;
+                            // add hash to compiled CSS version to prevent problems with cache.
+                            $uri_with_hash_version = str_replace( '?ver=', '?ver=' . $breakpoints_hash . '.', $relative_uri );
+
+                            $src = $upload_dir['baseurl'] . '/' . $this->plugin_name . '/' . $uri_with_hash_version;
                         }
                     }
                 }
