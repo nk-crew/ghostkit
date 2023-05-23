@@ -208,6 +208,13 @@ class GhostKit_Assets {
             $js_deps[] = 'scrollreveal';
         }
 
+        // Motion.
+        if ( apply_filters( 'gkt_enqueue_plugin_motion', true ) ) {
+            wp_register_script( 'motion', ghostkit()->plugin_url . 'assets/vendor/motion/dist/motion.umd.js', array(), '10.16.2', true );
+
+            $js_deps[] = 'motion';
+        }
+
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
             wp_register_script( 'jarallax', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax.min.js', array( 'jquery' ), '2.0.1', true );
