@@ -40,6 +40,11 @@ export const settings = {
     render() {
       const { isActive } = this.props;
 
+      // Since this format is deprecated, we don't need to display it in UI.
+      if (!isActive) {
+        return null;
+      }
+
       return (
         <Fragment>
           <RichTextShortcut type="access" character="m" onUse={this.toggleMark} />

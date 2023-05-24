@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import * as uppercase from './uppercase';
-import * as mark from './mark';
+import * as mark from './deprecated-mark';
 import * as badge from './badge';
 
 /**
