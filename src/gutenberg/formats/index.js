@@ -2,8 +2,9 @@
  * Internal dependencies
  */
 import * as uppercase from './uppercase';
-import * as mark from './deprecated-mark';
 import * as badge from './badge';
+// Deprecated
+import * as deprecatedMark from './deprecated-mark';
 
 /**
  * WordPress dependencies
@@ -13,6 +14,6 @@ const { registerFormatType } = wp.richText;
 /**
  * Register formats
  */
-[uppercase, mark, badge].forEach(({ name, settings }) => {
+[uppercase, badge, deprecatedMark].forEach(({ name, settings }) => {
   registerFormatType(name, settings);
 });
