@@ -270,11 +270,11 @@ class GhostKitClass {
   prepareSR() {
     const self = this;
 
-    if (!window.ScrollReveal) {
+    if (!window.Motion) {
       return;
     }
 
-    const { reveal } = window.ScrollReveal();
+    const { animate, inView } = window.Motion;
 
     GHOSTKIT.triggerEvent('beforePrepareSR', self);
 
@@ -288,14 +288,15 @@ class GhostKitClass {
       const data = $element.attr('data-ghostkit-sr');
       const config = parseSRConfig(data);
 
-      config.afterReveal = () => {
-        $element.removeAttr('data-ghostkit-sr');
-        $element.removeClass('data-ghostkit-sr-ready');
-      };
-
       GHOSTKIT.triggerEvent('beforeInitSR', self, $element, config);
 
-      reveal(this, config);
+      const stopInView = inView(this, () => {
+        stopInView();
+
+        animate(this, config.keyframes, config.options).finished.then(() => {
+          config.cleanup(this);
+        });
+      });
 
       GHOSTKIT.triggerEvent('beforePrepareSREnd', self, $element);
     });

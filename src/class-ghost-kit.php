@@ -261,9 +261,9 @@ class GhostKit {
             $js_deps[] = 'jarallax-video';
         }
 
-        // ScrollReveal.
-        if ( apply_filters( 'gkt_enqueue_plugin_scrollreveal', true ) ) {
-            $js_deps[] = 'scrollreveal';
+        // Motion.
+        if ( apply_filters( 'gkt_enqueue_plugin_motion', true ) ) {
+            $js_deps[] = 'motion';
         }
 
         // Luxon.

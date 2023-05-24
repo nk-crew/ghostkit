@@ -40,13 +40,13 @@ export default function parseSRConfig(data) {
 
   const config = {
     distance,
-    origin,
+    x: '0px',
+    y: '0px',
     opacity: 0,
     scale,
     duration: 900,
     delay: 0,
-    reset: false,
-    cleanup: true,
+    easing: [0.5, 0, 0, 1],
   };
 
   // replace other data config.
@@ -60,9 +60,56 @@ export default function parseSRConfig(data) {
     });
   }
 
-  config.scale = parseFloat(config.scale);
-  config.duration = parseFloat(config.duration);
-  config.delay = parseFloat(config.delay);
+  if (config.distance && origin) {
+    switch (origin) {
+      case 'bottom':
+        config.y = config.distance;
+        break;
+      case 'top':
+        config.y = `-${config.distance}`;
+        break;
+      case 'right':
+        config.x = config.distance;
+        break;
+      case 'left':
+        config.x = `-${config.distance}`;
+        break;
+      // no default
+    }
+  }
 
-  return config;
+  config.scale = parseFloat(config.scale);
+  config.duration = parseFloat(config.duration) / 1000;
+  config.delay = parseFloat(config.delay) / 1000;
+
+  return {
+    keyframes: {
+      visibility: 'visible',
+      opacity: [config.opacity, 1],
+      transform: [
+        `translateY(${config.y}) translateX(${config.x}) scale(${config.scale})`,
+        `translateY(0px) translateX(0px) scale(1)`,
+      ],
+    },
+    options: {
+      duration: config.duration,
+      delay: config.delay,
+      easing: config.easing,
+    },
+    cleanup(el) {
+      el.removeAttribute('data-ghostkit-sr');
+      el.classList.remove('data-ghostkit-sr-ready');
+
+      el.style.visibility = '';
+      el.style.opacity = '';
+      el.style.transform = '';
+
+      if (!el.getAttribute('style')) {
+        el.removeAttribute('style');
+      }
+      if (!el.getAttribute('class')) {
+        el.removeAttribute('class');
+      }
+    },
+  };
 }

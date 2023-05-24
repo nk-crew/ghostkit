@@ -200,14 +200,6 @@ class GhostKit_Assets {
 
         do_action( 'gkt_before_assets_register' );
 
-        // ScrollReveal.
-        if ( apply_filters( 'gkt_enqueue_plugin_scrollreveal', true ) ) {
-            // We need to use previous version, as in 4.0.9 `cleanup` is not working at all.
-            wp_register_script( 'scrollreveal', ghostkit()->plugin_url . 'assets/vendor/scrollreveal-4-0-7/scrollreveal.min.js', array(), '4.0.7', true );
-
-            $js_deps[] = 'scrollreveal';
-        }
-
         // Motion.
         if ( apply_filters( 'gkt_enqueue_plugin_motion', true ) ) {
             wp_register_script( 'motion', ghostkit()->plugin_url . 'assets/vendor/motion/dist/motion.umd.js', array(), '10.16.2', true );

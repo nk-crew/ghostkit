@@ -21,11 +21,15 @@ const { __ } = wp.i18n;
 
 const { applyFilters, addFilter } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Component, Fragment, useEffect, useState, useContext, useRef } = wp.element;
 
 const { createHigherOrderComponent } = wp.compose;
 
-const { InspectorControls, BlockControls } = wp.blockEditor;
+const { InspectorControls, BlockControls, BlockList } = wp.blockEditor;
+
+const { elementContext: __stableElementContext, __unstableElementContext } = BlockList;
+
+const elementContext = __stableElementContext || __unstableElementContext;
 
 const {
   BaseControl,
@@ -38,9 +42,8 @@ const {
   MenuItem,
 } = wp.components;
 
-const $ = window.jQuery;
-
-const { GHOSTKIT, ScrollReveal } = window;
+const { GHOSTKIT, Motion } = window;
+const { animate, inView } = Motion;
 
 let initialOpenPanel = false;
 
@@ -483,61 +486,48 @@ function addSaveProps(extraProps, blockType, attributes) {
 }
 
 const withDataSR = createHigherOrderComponent((BlockListBlock) => {
-  class GhostKitSRWrapper extends Component {
-    constructor(props) {
-      super(props);
+  function GhostKitSRWrapper(props) {
+    const { attributes, clientId } = props;
+    const { ghostkitSR } = attributes;
 
-      this.state = {
-        allowedSR: allowedSR(this.props),
-        currentSR: '',
-      };
+    const [allow] = useState(allowedSR(props));
+    const [currentSR, setCurrentSR] = useState('');
 
-      this.runSRTimeout = false;
+    const srTimeout = useRef();
 
-      this.maybeRunSR = this.maybeRunSR.bind(this);
-    }
+    const element = useContext(elementContext);
 
-    componentDidMount() {
-      this.maybeRunSR();
-    }
-
-    componentDidUpdate() {
-      this.maybeRunSR();
-    }
-
-    maybeRunSR() {
-      const { attributes } = this.props;
-
-      if (!this.state.allowedSR || this.state.currentSR === attributes.ghostkitSR) {
+    useEffect(() => {
+      if (!allow || !element || !clientId || currentSR === ghostkitSR) {
         return;
       }
 
-      if (this.props && this.props.clientId) {
-        this.setState({
-          currentSR: attributes.ghostkitSR,
-        });
+      setCurrentSR(ghostkitSR);
 
-        clearTimeout(this.runSRTimeout);
+      clearTimeout(srTimeout.current);
 
-        this.runSRTimeout = setTimeout(() => {
-          const $element = $(`[id="block-${this.props.clientId}"]`);
-          const element = $element[0];
+      srTimeout.current = setTimeout(() => {
+        const blockElement = element.querySelector(`[id="block-${clientId}"]`);
 
-          if (element) {
-            const config = parseSRConfig(attributes.ghostkitSR);
+        if (blockElement) {
+          const config = parseSRConfig(ghostkitSR);
 
-            config.container = '.editor-styles-wrapper';
+          const stopInView = inView(
+            blockElement,
+            () => {
+              stopInView();
 
-            ScrollReveal().clean(element);
-            ScrollReveal().reveal(element, config);
-          }
-        }, 150);
-      }
-    }
+              animate(blockElement, config.keyframes, config.options).finished.then(() => {
+                config.cleanup(blockElement);
+              });
+            },
+            { root: element.ownerDocument }
+          );
+        }
+      }, 150);
+    }, [allow, element, clientId, currentSR, ghostkitSR]);
 
-    render() {
-      return <BlockListBlock {...this.props} />;
-    }
+    return <BlockListBlock {...props} />;
   }
 
   return GhostKitSRWrapper;

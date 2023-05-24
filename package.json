@@ -64,7 +64,6 @@
     "react-virtualized": "^9.22.5",
     "recompose": "^0.30.0",
     "scriptjs": "^2.5.9",
-    "scrollreveal": "^4.0.9",
     "shorthash": "0.0.2",
     "slugify": "^1.6.6",
     "striptags": "^3.2.0",
