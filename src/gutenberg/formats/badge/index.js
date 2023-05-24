@@ -11,13 +11,11 @@ import { BadgePopover } from './badge-popover';
  */
 const { __ } = wp.i18n;
 
-const { Component, Fragment } = wp.element;
-
-const { ToolbarGroup, Button } = wp.components;
+const { Component } = wp.element;
 
 const { toggleFormat, applyFormat, getActiveFormat } = wp.richText;
 
-const { RichTextToolbarButton, ColorPalette, BlockControls } = wp.blockEditor;
+const { RichTextToolbarButton, ColorPalette } = wp.blockEditor;
 
 export const name = 'ghostkit/badge';
 
@@ -101,42 +99,21 @@ export const settings = {
       }
 
       return (
-        <Fragment>
-          {isActive ? (
-            <BlockControls>
-              <ToolbarGroup>
-                <Button
-                  icon={
-                    <Fragment>
-                      {getIcon('icon-badge')}
-                      {currentColor ? (
-                        <span
-                          className="ghostkit-format-badge-button__indicator"
-                          style={{ background: currentColor }}
-                        />
-                      ) : (
-                        ''
-                      )}
-                    </Fragment>
-                  }
-                  onClick={() => {
-                    this.setState({
-                      openedPopover: !openedPopover,
-                    });
-                  }}
-                />
-              </ToolbarGroup>
-            </BlockControls>
-          ) : (
-            <RichTextToolbarButton
-              icon={getIcon('icon-badge')}
-              title={__('Badge', '@@text_domain')}
-              onClick={() => {
+        <>
+          <RichTextToolbarButton
+            icon={getIcon('icon-badge')}
+            title={__('Badge', '@@text_domain')}
+            onClick={() => {
+              if (!isActive) {
                 this.toggleFormat();
-              }}
-              isActive={isActive}
-            />
-          )}
+              }
+
+              this.setState({
+                openedPopover: !openedPopover,
+              });
+            }}
+            isActive={isActive}
+          />
           {isActive && openedPopover ? (
             <BadgePopover value={value} name={name}>
               <ApplyFilters
@@ -154,10 +131,8 @@ export const settings = {
                 />
               </ApplyFilters>
             </BadgePopover>
-          ) : (
-            ''
-          )}
-        </Fragment>
+          ) : null}
+        </>
       );
     }
   },
