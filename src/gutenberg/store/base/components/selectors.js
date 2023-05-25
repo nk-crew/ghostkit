@@ -4,6 +4,7 @@
 import ApplyFilters from '../../../components/apply-filters';
 import CodeEditor from '../../../components/code-editor';
 import ColorIndicator from '../../../components/color-indicator';
+import ColorPalette from '../../../components/color-palette';
 import ColorPicker from '../../../components/color-picker';
 import IconPicker from '../../../components/icon-picker';
 import ImagePicker from '../../../components/image-picker';
@@ -22,6 +23,7 @@ export function get() {
     ApplyFilters,
     CodeEditor,
     ColorIndicator,
+    ColorPalette,
     ColorPicker,
     IconPicker,
     ImagePicker,

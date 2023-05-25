@@ -153,6 +153,7 @@ class BlockEdit extends Component {
                           setAttributes(isHover ? { hoverColor: val } : { color: val })
                         }
                         alpha
+                        gradient
                       />
                     </ApplyFilters>
                     <ApplyFilters
@@ -169,6 +170,7 @@ class BlockEdit extends Component {
                           )
                         }
                         alpha
+                        gradient
                       />
                     </ApplyFilters>
                   </Fragment>

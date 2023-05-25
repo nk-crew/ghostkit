@@ -281,6 +281,7 @@ export default function BlockEdit(props) {
                         setAttributes(isHover ? { hoverColor: val } : { color: val })
                       }
                       alpha
+                      gradient
                     />
                   </ApplyFilters>
                   <ApplyFilters

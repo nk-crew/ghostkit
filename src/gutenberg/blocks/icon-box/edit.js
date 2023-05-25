@@ -182,6 +182,7 @@ class BlockEdit extends Component {
                         setAttributes(isHover ? { hoverIconColor: val } : { iconColor: val })
                       }
                       alpha
+                      gradient
                     />
                   </ApplyFilters>
                 );

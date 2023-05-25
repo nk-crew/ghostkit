@@ -3,6 +3,7 @@
  */
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
+import ColorPalette from '../../components/color-palette';
 
 import { BadgePopover } from './badge-popover';
 
@@ -15,7 +16,7 @@ const { Component } = wp.element;
 
 const { toggleFormat, applyFormat, getActiveFormat } = wp.richText;
 
-const { RichTextToolbarButton, ColorPalette } = wp.blockEditor;
+const { RichTextToolbarButton } = wp.blockEditor;
 
 export const name = 'ghostkit/badge';
 
@@ -128,6 +129,8 @@ export const settings = {
                   onChange={(color) => {
                     this.toggleFormat(color, !color);
                   }}
+                  alpha
+                  gradient
                 />
               </ApplyFilters>
             </BadgePopover>
