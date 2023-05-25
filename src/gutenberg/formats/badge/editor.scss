@@ -1,20 +1,6 @@
 @import "./variables";
 @import "./style";
 
-.ghostkit-format-badge-popover {
-  &:not(.is-without-arrow, .is-mobile).is-bottom {
-    margin-top: 15px;
-  }
-
-  &:not(.is-mobile) .components-popover__content {
-    min-width: 275px;
-  }
-
-  .components-popover__content {
-    padding: 20px 18px;
-  }
-}
-
 // fix badge background color on focus.
 .block-editor-rich-text__editable:focus [data-rich-text-format-boundary].ghostkit-badge:not([style]) {
   background-color: #6a6c75;

@@ -89,7 +89,7 @@ export const settings = {
     }
 
     render() {
-      const { value, isActive } = this.props;
+      const { value, isActive, contentRef } = this.props;
 
       const { openedPopover } = this.state;
 
@@ -116,7 +116,7 @@ export const settings = {
             isActive={isActive}
           />
           {isActive && openedPopover ? (
-            <BadgePopover value={value} name={name}>
+            <BadgePopover value={value} name={name} contentRef={contentRef}>
               <ApplyFilters
                 name="ghostkit.editor-format.controls"
                 property="background"
