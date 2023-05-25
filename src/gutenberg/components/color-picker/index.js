@@ -62,7 +62,6 @@ export default function ColorPicker(props) {
               onChange={(color) => {
                 onChange(color || '');
               }}
-              disableCustomColors
             />
             {afterDropdownContent || ''}
           </div>
