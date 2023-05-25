@@ -12,7 +12,7 @@ const { useCachedTruthy } = wp.blockEditor;
  * The position is calculated at the time of the component being mounted, so it
  * should only be mounted after the desired selection has been made.
  */
-export function BadgePopover(props) {
+export default function BadgePopover(props) {
   const { children, contentRef, settings } = props;
 
   const popoverAnchor = useCachedTruthy(

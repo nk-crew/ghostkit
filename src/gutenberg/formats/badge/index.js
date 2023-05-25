@@ -5,7 +5,7 @@ import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 import ColorPalette from '../../components/color-palette';
 
-import { BadgePopover } from './badge-popover';
+import BadgePopover from './badge-popover';
 
 /**
  * WordPress dependencies
