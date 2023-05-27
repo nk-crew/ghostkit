@@ -6,9 +6,13 @@ import { maybeDecode } from '../../utils/encode-decode';
 /**
  * Block Accordion
  */
-const { location, GHOSTKIT, jQuery: $, Motion, requestAnimationFrame } = window;
-
-const { animate } = Motion;
+const {
+  location,
+  GHOSTKIT,
+  jQuery: $,
+  Motion: { animate },
+  requestAnimationFrame,
+} = window;
 
 const $doc = $(document);
 const $wnd = $(window);

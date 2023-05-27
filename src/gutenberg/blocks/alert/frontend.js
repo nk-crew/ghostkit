@@ -1,9 +1,11 @@
 /**
  * Block Alert
  */
-const { jQuery: $, Motion, GHOSTKIT } = window;
-
-const { animate } = Motion;
+const {
+  jQuery: $,
+  Motion: { animate },
+  GHOSTKIT,
+} = window;
 
 const $doc = $(document);
 

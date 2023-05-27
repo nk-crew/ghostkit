@@ -9,9 +9,12 @@ import rafSchd from 'raf-schd';
  */
 import parseSRConfig from '../../gutenberg/extend/scroll-reveal/parseSRConfig';
 
-const { jQuery: $, Motion, ghostkitVariables, GHOSTKIT } = window;
-
-const { animate, inView } = Motion;
+const {
+  jQuery: $,
+  Motion: { animate, inView },
+  ghostkitVariables,
+  GHOSTKIT,
+} = window;
 
 class GhostKitClass {
   constructor() {

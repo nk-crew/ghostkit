@@ -42,8 +42,10 @@ const {
   MenuItem,
 } = wp.components;
 
-const { GHOSTKIT, Motion } = window;
-const { animate, inView } = Motion;
+const {
+  GHOSTKIT,
+  Motion: { animate, inView },
+} = window;
 
 let initialOpenPanel = false;
 
