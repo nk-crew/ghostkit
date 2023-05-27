@@ -9,9 +9,9 @@ import rafSchd from 'raf-schd';
  */
 import parseSRConfig from '../../gutenberg/extend/scroll-reveal/parseSRConfig';
 
-const $ = window.jQuery;
+const { jQuery: $, Motion, ghostkitVariables, GHOSTKIT } = window;
 
-const { ghostkitVariables, GHOSTKIT } = window;
+const { animate, inView } = Motion;
 
 class GhostKitClass {
   constructor() {
@@ -170,66 +170,57 @@ class GhostKitClass {
         el: this,
         from,
         to,
-        duration: 1000,
-        easing: 'easeOutCubic',
-        cb(num) {
-          if (isProgress) {
-            $this.css('width', `${Math.ceil(num * 100) / 100}%`);
-            $progressCountBadgeWrap.css('width', `${Math.ceil(num * 100) / 100}%`);
+        duration: 800,
+        easing: [0.6, 0, 0.3, 1],
+        cb(progress) {
+          const position = (to - from) * progress + from;
 
-            $progressCountBadge.text(Math.ceil(num));
+          if (isProgress) {
+            $progressCountBadge.text(Math.ceil(position));
           } else {
             // eslint-disable-next-line no-template-curly-in-string
-            $this.text(mask.replace('${val}', Math.ceil(num)));
+            $this.text(mask.replace('${val}', Math.ceil(position)));
           }
         },
       };
 
       GHOSTKIT.triggerEvent('prepareCounters', self, item);
 
-      // Run counter.
-      if (!('IntersectionObserver' in window)) {
-        item.cb(item.to, true);
-        return;
-      }
+      // Animate counter.
+      const stopInView = inView(
+        this,
+        () => {
+          stopInView();
 
-      const countersObserverData = {
-        callback: (entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && item.el === entry.target) {
-              observer.unobserve(entry.target);
-
-              $({ Counter: item.from }).animate(
-                { Counter: item.to },
+          if (isProgress) {
+            [this, $progressCountBadgeWrap[0]].forEach((el) => {
+              animate(
+                el,
                 {
-                  duration: item.duration,
+                  width: `${to}%`,
+                },
+                {
+                  duration: item.duration / 1000,
                   easing: item.easing,
-                  step() {
-                    item.cb(this.Counter, false);
-                  },
-                  complete() {
-                    item.cb(item.to, true);
-                    GHOSTKIT.triggerEvent('animatedCounters', self, item);
-                  },
                 }
               );
+            });
+          }
+
+          animate(
+            (progress) => {
+              item.cb(progress);
+            },
+            {
+              duration: item.duration / 1000,
+              easing: item.easing,
             }
+          ).finished.then(() => {
+            GHOSTKIT.triggerEvent('animatedCounters', self, item);
           });
         },
-        options: {
-          // We have to start the animation only when part of the block is visible on the screen.
-          rootMargin: '-50px',
-        },
-      };
-
-      GHOSTKIT.triggerEvent('prepareCountersObserver', self, countersObserverData);
-
-      const countersObserver = new IntersectionObserver(
-        countersObserverData.callback,
-        countersObserverData.options
+        { margin: '-50px' }
       );
-
-      countersObserver.observe(item.el);
     });
 
     GHOSTKIT.triggerEvent('afterPrepareCounters', self);
@@ -269,12 +260,6 @@ class GhostKitClass {
    */
   prepareSR() {
     const self = this;
-
-    if (!window.Motion) {
-      return;
-    }
-
-    const { animate, inView } = window.Motion;
 
     GHOSTKIT.triggerEvent('beforePrepareSR', self);
 

@@ -437,6 +437,10 @@ class GhostKit_Assets {
             $block_js_deps    = array( 'ghostkit', 'jquery' );
 
             switch ( $block_name ) {
+                case 'accordion':
+                case 'alert':
+                    $block_js_deps[] = 'motion';
+                    break;
                 case 'grid':
                 case 'grid-column':
                     if ( wp_script_is( 'jarallax-video' ) || wp_script_is( 'jarallax-video', 'registered' ) ) {
