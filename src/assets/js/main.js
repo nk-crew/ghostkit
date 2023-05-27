@@ -40,13 +40,6 @@ class GhostKitClass {
 
     GHOSTKIT.triggerEvent('beforeInit', self);
 
-    // Additional easing.
-    $.extend($.easing, {
-      easeOutCubic(x) {
-        return 1 - (1 - x) ** 3;
-      },
-    });
-
     // Init blocks.
     const throttledInitBlocks = throttle(
       200,
