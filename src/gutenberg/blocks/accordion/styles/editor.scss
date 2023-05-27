@@ -9,9 +9,10 @@
   // Heading.
   .ghostkit-accordion-item-heading {
     position: relative;
-    display: block;
+    display: flex;
+    gap: var(--gkt-accordion--heading__gap);
+    align-items: center;
     padding: var(--gkt-accordion--heading__padding-v) var(--gkt-accordion--heading__padding-h);
-    padding-right: var(--gkt-accordion--heading-collapse-icon__width);
     margin: var(--gkt-accordion--heading__margin);
     font-size: var(--gkt-accordion--heading__font-size);
     font-weight: var(--gkt-accordion--heading__font-weight);
@@ -28,11 +29,11 @@
 
   // Collapse.
   &-collapse {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: var(--gkt-accordion--heading-collapse-icon__width);
-    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-left: auto;
     font-size: var(--gkt-accordion--heading-collapse-icon__font-size);
     color: inherit;
     cursor: pointer;
