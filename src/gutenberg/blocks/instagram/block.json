@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/instagram",
-  "category": "media",
+  "category": "ghostkit",
   "title": "Instagram",
   "description": "Show Instagram feed and user data.",
   "keywords": ["instagram"],

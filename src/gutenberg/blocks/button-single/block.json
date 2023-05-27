@@ -3,7 +3,7 @@
   "apiVersion": 2,
   "name": "ghostkit/button-single",
   "parent": ["ghostkit/button", "ghostkit/form", "ghostkit/form-submit-button"],
-  "category": "design",
+  "category": "ghostkit",
   "title": "Button",
   "description": "A single button within a buttons wrapper block.",
   "supports": {

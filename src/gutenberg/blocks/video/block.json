@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/video",
-  "category": "media",
+  "category": "ghostkit",
   "title": "Video",
   "description": "Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.",
   "keywords": ["video", "youtube", "vimeo"],

@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/gif",
-  "category": "media",
+  "category": "ghostkit",
   "title": "GIF",
   "description": "Search for and insert an animated image.",
   "keywords": ["animated", "giphy", "image"],

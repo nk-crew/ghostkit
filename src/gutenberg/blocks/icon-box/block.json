@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/icon-box",
-  "category": "design",
+  "category": "ghostkit",
   "title": "Icon Box",
   "description": "Icons are one of the best visual replacement for text descriptions.",
   "keywords": ["icon", "icon-box"],

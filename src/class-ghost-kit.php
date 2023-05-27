@@ -180,7 +180,7 @@ class GhostKit {
         add_action( 'enqueue_block_editor_assets', array( $this, 'js_translation_editor' ) );
 
         // add Ghost Kit blocks category.
-        add_filter( 'block_categories_all', array( $this, 'block_categories_all' ), 9 );
+        add_filter( 'block_categories_all', array( $this, 'block_categories_all' ), 9999 );
 
         // we need to enqueue the main script earlier to let 3rd-party plugins add custom styles support.
         add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ), 9 );

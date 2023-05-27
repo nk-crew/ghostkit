@@ -3,7 +3,7 @@
   "apiVersion": 2,
   "name": "ghostkit/accordion-item",
   "parent": ["ghostkit/accordion"],
-  "category": "design",
+  "category": "ghostkit",
   "title": "Item",
   "description": "A single item within a accordion block.",
   "supports": {

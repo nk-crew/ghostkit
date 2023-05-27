@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/tabs-tab-v2",
   "parent": ["ghostkit/tabs-v2"],
-  "category": "design",
+  "category": "ghostkit",
   "title": "Tab",
   "description": "A single tab within a tabs block.",
   "supports": {

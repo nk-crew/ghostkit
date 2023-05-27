@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/countdown",
-  "category": "text",
+  "category": "ghostkit",
   "title": "Countdown",
   "description": "Countdown timer for upcoming event.",
   "keywords": ["timer", "count", "number"],

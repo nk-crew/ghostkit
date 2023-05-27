@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/markdown",
-  "category": "text",
+  "category": "ghostkit",
   "title": "Markdown",
   "description": "Lightweight markup language with plain-text-formatting syntax.",
   "keywords": ["formatting", "markup", "md"],

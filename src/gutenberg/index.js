@@ -41,21 +41,11 @@ import './disable-blocks';
 /**
  * Internal dependencies
  */
-const { registerBlockCollection, updateCategory } = wp.blocks;
+const { updateCategory } = wp.blocks;
 
 /**
  * Add category icon.
  */
-const categoryIcon = <GhostKitCategoryIcon className="components-panel__icon" />;
-
-// Collections.
-if (typeof registerBlockCollection !== 'undefined') {
-  registerBlockCollection('ghostkit', {
-    title: 'Ghost Kit',
-    icon: categoryIcon,
-  });
-} else if (updateCategory) {
-  updateCategory('ghostkit', {
-    icon: categoryIcon,
-  });
-}
+updateCategory('ghostkit', {
+  icon: <GhostKitCategoryIcon />,
+});

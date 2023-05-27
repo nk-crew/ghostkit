@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/gist",
-  "category": "text",
+  "category": "ghostkit",
   "title": "GitHub Gist",
   "description": "Embed code parts form GitHub Gist to your site or documentation.",
   "keywords": ["github", "gist"],

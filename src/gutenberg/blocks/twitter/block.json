@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/twitter",
-  "category": "media",
+  "category": "ghostkit",
   "title": "Twitter",
   "description": "Show Twitter feed and user data.",
   "keywords": ["twitter"],

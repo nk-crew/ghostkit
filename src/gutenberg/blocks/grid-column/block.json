@@ -3,7 +3,7 @@
   "apiVersion": 2,
   "name": "ghostkit/grid-column",
   "parent": ["ghostkit/grid"],
-  "category": "design",
+  "category": "ghostkit",
   "title": "Column",
   "description": "A single column within a grid block.",
   "supports": {

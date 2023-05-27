@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/form-field-url",
   "parent": ["ghostkit/form"],
-  "category": "design",
+  "category": "ghostkit",
   "title": "URL",
   "description": "Form field url.",
   "supports": {

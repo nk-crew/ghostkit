@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "ghostkit/widgetized-area",
-  "category": "widgets",
+  "category": "ghostkit",
   "title": "Widgetized Area",
   "description": "Select registered sidebars and put it in any place.",
   "keywords": ["widget", "sidebar"],
