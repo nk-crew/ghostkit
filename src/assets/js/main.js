@@ -37,7 +37,6 @@ class GhostKitClass {
     self.prepareCounters = self.prepareCounters.bind(self);
     self.prepareFallbackCustomStyles = self.prepareFallbackCustomStyles.bind(self);
     self.prepareSR = self.prepareSR.bind(self);
-    self.getWnd = self.getWnd.bind(self);
 
     GHOSTKIT.triggerEvent('beforeInit', self);
 
@@ -83,20 +82,6 @@ class GhostKitClass {
     self.prepareSR();
 
     GHOSTKIT.triggerEvent('afterInitBlocks', self);
-  }
-
-  // Get window size.
-  // eslint-disable-next-line class-methods-use-this
-  getWnd() {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'GHOSTKIT.getWnd method is deprecated since v2.9.0 and will be removed in future updates. Please, use `window.innerWidth` and `window.innerHeight`'
-    );
-
-    return {
-      w: window.innerWidth,
-      h: window.innerHeight,
-    };
   }
 
   /**
