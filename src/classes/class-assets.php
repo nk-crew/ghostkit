@@ -231,6 +231,12 @@ class GhostKit_Assets {
             wp_register_script( 'luxon', ghostkit()->plugin_url . 'assets/vendor/luxon/build/global/luxon.min.js', array(), '3.3.0', true );
         }
 
+        // Lottie Player.
+        if ( apply_filters( 'gkt_enqueue_plugin_lottie_player', true ) ) {
+            wp_register_script( 'lottie-player', ghostkit()->plugin_url . 'assets/vendor/lottie-player/dist/lottie-player.js', array(), '1.7.1', true );
+            wp_script_add_data( 'lottie-player', 'async', true );
+        }
+
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
             wp_register_style( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.css', array(), '1.0.1' );
@@ -475,6 +481,10 @@ class GhostKit_Assets {
                     if ( wp_script_is( 'google-recaptcha' ) || wp_script_is( 'google-recaptcha', 'registered' ) ) {
                         $block_js_deps[] = 'google-recaptcha';
                     }
+                    break;
+                case 'lottie':
+                    $block_js_deps[] = 'motion';
+                    $block_js_deps[] = 'lottie-player';
                     break;
                 case 'tabs':
                     $block_name = 'tabs-v2';

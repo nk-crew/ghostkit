@@ -17,6 +17,7 @@ import blockGridColumn from './block-grid-column.svg';
 import blockIconBox from './block-icon-box.svg';
 import blockImageCompare from './block-image-compare.svg';
 import blockInstagram from './block-instagram.svg';
+import blockLottie from './block-lottie.svg';
 import blockMarkdown from './block-markdown.svg';
 import blockGif from './block-gif.svg';
 import blockPricingTable from './block-pricing.svg';
@@ -114,6 +115,7 @@ export default {
   'block-icon-box': blockIconBox,
   'block-image-compare': blockImageCompare,
   'block-instagram': blockInstagram,
+  'block-lottie': blockLottie,
   'block-markdown': blockMarkdown,
   'block-gif': blockGif,
   'block-pricing-table': blockPricingTable,

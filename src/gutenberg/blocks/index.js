@@ -31,6 +31,7 @@ import * as pricingTableItem from './pricing-table-item';
 import * as googleMaps from './google-maps';
 import * as widgetizedArea from './widgetized-area';
 import * as instagram from './instagram';
+import * as lottie from './lottie';
 import * as twitter from './twitter';
 import * as markdown from './markdown';
 import * as gif from './gif';
@@ -85,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toc,
     twitter,
     instagram,
+    lottie,
     markdown,
     googleMaps,
     gist,

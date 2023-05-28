@@ -187,6 +187,10 @@ class GhostKit {
 
         // add support for excerpts to some blocks.
         add_filter( 'excerpt_allowed_blocks', array( $this, 'excerpt_allowed_blocks' ) );
+
+        // add support for additional mimes.
+        add_filter( 'upload_mimes', array( $this, 'upload_mimes' ), 100 );
+        add_filter( 'wp_check_filetype_and_ext', array( $this, 'wp_check_filetype_and_ext' ), 100, 3 );
     }
 
     /**
@@ -271,6 +275,11 @@ class GhostKit {
             $js_deps[] = 'luxon';
         }
 
+        // Lottie Player.
+        if ( apply_filters( 'gkt_enqueue_plugin_lottie_player', true ) ) {
+            $js_deps[] = 'lottie-player';
+        }
+
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
             $css_deps[] = 'gist-simple';
@@ -324,6 +333,46 @@ class GhostKit {
                 'ghostkit/testimonial',
             )
         );
+    }
+
+    /**
+     * Allow JSON uploads
+     *
+     * @param array $mimes supported mimes.
+     *
+     * @return array
+     */
+    public function upload_mimes( $mimes ) {
+        if ( ! isset( $mimes['json'] ) ) {
+            $mimes['json'] = 'application/json';
+        }
+
+        return $mimes;
+    }
+
+    /**
+     * Allow JSON file uploads
+     *
+     * @param array  $data File data.
+     * @param array  $file File object.
+     * @param string $filename File name.
+     *
+     * @return array
+     */
+    public function wp_check_filetype_and_ext( $data, $file, $filename ) {
+        $ext = isset( $data['ext'] ) ? $data['ext'] : '';
+
+        if ( ! $ext ) {
+            $exploded = explode( '.', $filename );
+            $ext      = strtolower( end( $exploded ) );
+        }
+
+        if ( 'json' === $ext ) {
+            $data['type'] = 'application/json';
+            $data['ext']  = 'json';
+        }
+
+        return $data;
     }
 
     /**

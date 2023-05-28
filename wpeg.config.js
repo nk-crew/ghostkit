@@ -49,6 +49,8 @@ cfg.copy_files_src = [
   './node_modules/*swiper/swiper-bundle.min.css',
   './node_modules/*luxon/build/global/luxon.min.js',
   './node_modules/*luxon/build/global/luxon.min.js.map',
+  './node_modules/@lottiefiles/*lottie-player/dist/lottie-player.js',
+  './node_modules/@lottiefiles/*lottie-player/dist/lottie-player.js.map',
   './node_modules/*motion/dist/motion.umd.js',
 ];
 

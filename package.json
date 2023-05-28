@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@giphy/js-fetch-api": "^4.9.1",
+    "@lottiefiles/lottie-player": "^1.7.1",
     "ace-builds": "^1.21.1",
     "classnames": "^2.3.2",
     "deep-equal": "^2.2.1",
