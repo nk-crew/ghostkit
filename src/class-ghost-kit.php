@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:  Ghost Kit
- * Description:  Blocks collection and extensions for Gutenberg
+ * Description:  Page Builder Blocks and Extensions for Gutenberg
  * Version:      @@plugin_version
  * Author:       Ghost Kit Team
  * Author URI:   https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
