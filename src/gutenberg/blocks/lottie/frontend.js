@@ -34,6 +34,7 @@ $doc.on('initBlocks.ghostkit', () => {
   $('.ghostkit-lottie[data-trigger="scroll"]:not(.ghostkit-lottie-ready)').each(function () {
     const $this = $(this);
     const lottieEl = $this.children('lottie-player')[0];
+    const reverse = lottieEl.getAttribute('direction') === '-1';
 
     $this.addClass('ghostkit-lottie-ready');
 
@@ -42,7 +43,11 @@ $doc.on('initBlocks.ghostkit', () => {
         if (lottieEl?._lottie) {
           const { progress } = y;
           const { totalFrames, goToAndStop } = lottieEl._lottie;
-          const newFrame = Math.round(progress * totalFrames);
+          let newFrame = Math.round(progress * totalFrames);
+
+          if (reverse) {
+            newFrame = totalFrames - newFrame;
+          }
 
           // Check if the current frame is the last frame. If it's the last frame, do nothing. This prevents showing the empty frame at the end. Thanks Pauline for pointing out.
           if (newFrame < totalFrames) {

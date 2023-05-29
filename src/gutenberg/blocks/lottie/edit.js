@@ -71,14 +71,14 @@ export default function BlockEdit(props) {
         <InspectorControls>
           <PanelBody>
             <SelectControl
-              label={__('Animation Trigger', '@@text_domain')}
+              label={__('Play Animation On', '@@text_domain')}
               value={trigger}
               options={[
-                { label: __('Auto', '@@text_domain'), value: '' },
-                { label: __('In Viewport', '@@text_domain'), value: 'viewport' },
+                { label: __('Page Load', '@@text_domain'), value: '' },
+                { label: __('Viewport', '@@text_domain'), value: 'viewport' },
                 { label: __('Hover', '@@text_domain'), value: 'hover' },
                 { label: __('Click', '@@text_domain'), value: 'click' },
-                { label: __('Scroll Position', '@@text_domain'), value: 'scroll' },
+                { label: __('Scroll', '@@text_domain'), value: 'scroll' },
               ]}
               onChange={(value) => setAttributes({ trigger: value })}
             />
