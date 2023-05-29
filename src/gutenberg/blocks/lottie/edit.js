@@ -78,22 +78,27 @@ export default function BlockEdit(props) {
                 { label: __('In Viewport', '@@text_domain'), value: 'viewport' },
                 { label: __('Hover', '@@text_domain'), value: 'hover' },
                 { label: __('Click', '@@text_domain'), value: 'click' },
+                { label: __('Scroll Position', '@@text_domain'), value: 'scroll' },
               ]}
               onChange={(value) => setAttributes({ trigger: value })}
             />
-            <RangeControl
-              label={__('Speed', 'otter-blocks')}
-              value={speed}
-              onChange={(val) => setAttributes({ speed: val })}
-              step={0.1}
-              min={0}
-              max={10}
-            />
-            <ToggleControl
-              label={__('Loop', '@@text_domain')}
-              checked={!!loop}
-              onChange={() => setAttributes({ loop: !loop })}
-            />
+            {trigger !== 'scroll' ? (
+              <>
+                <RangeControl
+                  label={__('Speed', 'otter-blocks')}
+                  value={speed}
+                  onChange={(val) => setAttributes({ speed: val })}
+                  step={0.1}
+                  min={0}
+                  max={10}
+                />
+                <ToggleControl
+                  label={__('Loop', '@@text_domain')}
+                  checked={!!loop}
+                  onChange={() => setAttributes({ loop: !loop })}
+                />
+              </>
+            ) : null}
             <ToggleControl
               label={__('Reverse', '@@text_domain')}
               checked={direction === -1}

@@ -44,12 +44,12 @@ export default function BlockSave(props) {
     <div {...blockProps}>
       <lottie-player
         src={fileUrl}
-        speed={speed}
         direction={direction}
         background="transparent"
         mode="normal"
+        {...(trigger !== 'scroll' ? { speed } : {})}
+        {...(trigger !== 'scroll' && loop ? { loop: 'loop' } : {})}
         {...(!trigger ? { autoplay: 'autoplay' } : {})}
-        {...(loop ? { loop: 'loop' } : {})}
         {...(trigger === 'hover' ? { hover: 'hover' } : {})}
         style={{
           width: '100%',

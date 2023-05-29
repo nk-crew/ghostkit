@@ -36,12 +36,12 @@ export default function PreviewLottie(props) {
       key={`lottie-${trigger}-${speed}-${loop}-${direction}`}
       ref={lottieRef}
       src={url}
-      speed={speed}
       direction={direction}
       background="transparent"
       mode="normal"
+      {...(trigger !== 'scroll' ? { speed } : {})}
+      {...(trigger !== 'scroll' && loop ? { loop: 'loop' } : {})}
       {...(!trigger || isSelected ? { autoplay: 'autoplay' } : {})}
-      {...(loop ? { loop: 'loop' } : {})}
       {...(trigger === 'hover' ? { hover: 'hover' } : {})}
       style={{
         width: '100%',
