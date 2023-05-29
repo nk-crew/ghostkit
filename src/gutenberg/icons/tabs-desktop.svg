@@ -1,9 +1,3 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path
-    d="M20 4H4C2.89543 4 2 4.83147 2 5.85714V15.1429C2 16.1685 2.89543 17 4 17H20C21.1046 17 22 16.1685 22 15.1429V5.85714C22 4.83147 21.1046 4 20 4Z"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="transparent" />
-  <path d="M8 20H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-    fill="transparent" />
-  <path d="M12 18V20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-    fill="transparent" />
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 5.5C2.25 4.5335 3.0335 3.75 4 3.75H14C14.9665 3.75 15.75 4.5335 15.75 5.5V11.75C15.75 12.7165 14.9665 13.5 14 13.5H9.75L9.75 14.25H12V15.75H6V14.25H8.25L8.25 13.5H4C3.0335 13.5 2.25 12.7165 2.25 11.75V5.5ZM9.75 12L8.25 12L4 12C3.86193 12 3.75 11.8881 3.75 11.75V5.5C3.75 5.36193 3.86193 5.25 4 5.25H14C14.1381 5.25 14.25 5.36193 14.25 5.5V11.75C14.25 11.8881 14.1381 12 14 12H9.75Z" fill="currentColor"/>
 </svg>
