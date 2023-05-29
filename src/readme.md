@@ -29,7 +29,7 @@ Gutenberg is good tool for basic websites, but when you need something advanced,
 
 #### 🧱 Blocks ####
 
-* [**Grid Block**](https://ghostkit.io/blocks/grid/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Advanced Columns Block**](https://ghostkit.io/blocks/grid/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.
 
 * [**Progress Block**](https://ghostkit.io/blocks/progress/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
@@ -168,7 +168,7 @@ See demo page with content formatting [https://ghostkit.io/content-formatting/](
 >
 > In order to maintain the free version of the plugin on an ongoing basis, and to provide quick and effective support for free, we offer a Pro version of the plugin. The Pro version allows you to:
 
-* Visual Grid Editor
+* Visual Advanced Columns Editor
 * Custom Responsive Breakpoints
 * More Icon Packs
 * 30 additional shapes for Shape Divider block
@@ -240,7 +240,7 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 1. All blocks
 2. Templates
-3. Responsive Grid
+3. Responsive Advanced Columns
 4. Progress Bar
 5. Button
 6. Divider

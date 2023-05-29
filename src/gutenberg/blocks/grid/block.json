@@ -3,7 +3,7 @@
   "apiVersion": 2,
   "name": "ghostkit/grid",
   "category": "ghostkit",
-  "title": "Grid",
+  "title": "Advanced Columns",
   "description": "Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.",
   "keywords": ["row", "columns", "section"],
   "supports": {

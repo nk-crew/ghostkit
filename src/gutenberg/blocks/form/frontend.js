@@ -1,5 +1,5 @@
 /**
- * Block Grid
+ * Block Advanced Columns
  */
 const { jQuery: $, grecaptcha, GHOSTKIT } = window;
 

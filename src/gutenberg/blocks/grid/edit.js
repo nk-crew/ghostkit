@@ -152,7 +152,7 @@ export default function BlockEdit(props) {
     return (
       <Placeholder
         icon={getIcon('block-grid')}
-        label={__('Grid', '@@text_domain')}
+        label={__('Advanced Columns', '@@text_domain')}
         instructions={__('Select one layout to get started.', '@@text_domain')}
         className="ghostkit-select-layout"
       >
