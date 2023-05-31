@@ -1,6 +1,10 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M19.75 12.74L4.25 12.74L4.25 11.24L19.75 11.24L19.75 12.74ZM17.25 9.23999L17.25 6.73999C17.25 6.46385 17.0261 6.23999 16.75 6.23999L7.25 6.23999C6.97386 6.23999 6.75 6.46385 6.75 6.73999L6.75 9.23999L5.25 9.23999L5.25 6.73999C5.25 5.63542 6.14543 4.73999 7.25 4.73999L16.75 4.73999C17.8546 4.73999 18.75 5.63542 18.75 6.73999L18.75 9.23999L17.25 9.23999Z" fill="currentColor"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17.25 19.25C18.0784 19.25 18.75 18.5784 18.75 17.75L17.25 17.75L17.25 19.25Z" fill="currentColor"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M18.75 14.74L18.75 16.25L17.25 16.25L17.25 14.74L18.75 14.74ZM14.75 17.75L14.75 19.26L13.25 19.26L13.25 17.75L14.75 17.75ZM10.75 17.75L10.75 19.26L9.25 19.26L9.25 17.75L10.75 17.75ZM6.75 14.74L6.75 16.25L5.25 16.25L5.25 14.74L6.75 14.74Z" fill="currentColor"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 19.25C5.92157 19.25 5.25 18.5784 5.25 17.75L6.75 17.75L6.75 19.25Z" fill="currentColor"/>
+<path d="M4.75 11.75L19.25 11.75" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+<path d="M5.75 8.25L5.75 7C5.75 6.30964 6.30964 5.75 7 5.75L17 5.75C17.6904 5.75 18.25 6.30964 18.25 7L18.25 8.25" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+<rect x="19" y="14.5" width="1.5" height="1.5" transform="rotate(90 19 14.5)" fill="currentColor"/>
+<path d="M19 17.5V17.5C19 18.3284 18.3284 19 17.5 19V19L17.5 17.5L19 17.5Z" fill="currentColor"/>
+<path d="M6.5 17.5L6.5 19V19C5.67157 19 5 18.3284 5 17.5V17.5L6.5 17.5Z" fill="currentColor"/>
+<rect x="6.5" y="14.5" width="1.5" height="1.5" transform="rotate(90 6.5 14.5)" fill="currentColor"/>
+<rect x="10.5" y="17.5" width="1.5" height="1.5" transform="rotate(90 10.5 17.5)" fill="currentColor"/>
+<rect x="15" y="17.5" width="1.5" height="1.5" transform="rotate(90 15 17.5)" fill="currentColor"/>
 </svg>

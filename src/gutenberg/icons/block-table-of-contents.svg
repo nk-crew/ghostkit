@@ -1,7 +1,7 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 9.125C6.75 8.02043 7.64543 7.125 8.75 7.125C9.85457 7.125 10.75 8.02043 10.75 9.125C10.75 10.2296 9.85457 11.125 8.75 11.125C7.64543 11.125 6.75 10.2296 6.75 9.125Z" fill="currentColor"/>
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M12.25 8.375H17.25V9.875H12.25V8.375Z" fill="currentColor"/>
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M11 15C11 16.1736 10.0486 17.125 8.875 17.125C7.70139 17.125 6.75 16.1736 6.75 15C6.75 13.8264 7.70139 12.875 8.875 12.875C10.0486 12.875 11 13.8264 11 15ZM8.875 16.125C9.49632 16.125 10 15.6213 10 15C10 14.3787 9.49632 13.875 8.875 13.875C8.25368 13.875 7.75 14.3787 7.75 15C7.75 15.6213 8.25368 16.125 8.875 16.125Z" fill="currentColor"/>
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M12.25 14.25H17.25V15.75H12.25V14.25Z" fill="currentColor"/>
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 5.25C3.25 4.14543 4.14543 3.25 5.25 3.25H18.75C19.8546 3.25 20.75 4.14543 20.75 5.25V18.75C20.75 19.8546 19.8546 20.75 18.75 20.75H5.25C4.14543 20.75 3.25 19.8546 3.25 18.75V5.25ZM5.25 4.75C4.97386 4.75 4.75 4.97386 4.75 5.25V18.75C4.75 19.0261 4.97386 19.25 5.25 19.25H18.75C19.0261 19.25 19.25 19.0261 19.25 18.75V5.25C19.25 4.97386 19.0261 4.75 18.75 4.75H5.25Z" fill="currentColor"/>
+<circle cx="9" cy="9" r="1.25" fill="currentColor" stroke="currentColor" stroke-width="1.5"/>
+<path d="M13.25 9.25H16.2539" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+<circle cx="9" cy="15" r="1.5" fill="transparent" stroke="currentColor"/>
+<path d="M13.25 15.25H16.25" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+<path d="M20.25 5.25C20.25 4.42157 19.5784 3.75 18.75 3.75H5.25C4.42157 3.75 3.75 4.42157 3.75 5.25V18.75C3.75 19.5784 4.42157 20.25 5.25 20.25H18.75C19.5784 20.25 20.25 19.5784 20.25 18.75V5.25Z" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

@@ -1,6 +1,10 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M12.74 4.25L12.74 19.75H11.24L11.24 4.25H12.74ZM9.24 6.75H6.74C6.46386 6.75 6.24 6.97386 6.24 7.25L6.24 16.75C6.24 17.0261 6.46386 17.25 6.74 17.25H9.24V18.75H6.74C5.63543 18.75 4.74 17.8546 4.74 16.75L4.74 7.25C4.74 6.14543 5.63543 5.25 6.74 5.25L9.24 5.25V6.75Z" fill="currentColor"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M19.25 6.75C19.25 5.92157 18.5784 5.25 17.75 5.25L17.75 6.75L19.25 6.75Z" fill="currentColor"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M14.74 5.25H16.25V6.75H14.74V5.25ZM17.75 9.25H19.26V10.75H17.75V9.25ZM17.75 13.25H19.26V14.75H17.75V13.25ZM14.74 17.25H16.25V18.75H14.74V17.25Z" fill="currentColor"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M19.25 17.25C19.25 18.0784 18.5784 18.75 17.75 18.75L17.75 17.25L19.25 17.25Z" fill="currentColor"/>
+<path d="M11.75 19.25L11.75 4.75" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+<path d="M8.25 18.25L7 18.25C6.30964 18.25 5.75 17.6904 5.75 17L5.75 7C5.75 6.30964 6.30964 5.75 7 5.75L8.25 5.75" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+<rect x="14.5" y="5" width="1.5" height="1.5" fill="currentColor"/>
+<path d="M17.5 5V5C18.3284 5 19 5.67157 19 6.5V6.5H17.5V5Z" fill="currentColor"/>
+<path d="M17.5 17.5H19V17.5C19 18.3284 18.3284 19 17.5 19V19V17.5Z" fill="currentColor"/>
+<rect x="14.5" y="17.5" width="1.5" height="1.5" fill="currentColor"/>
+<rect x="17.5" y="13.5" width="1.5" height="1.5" fill="currentColor"/>
+<rect x="17.5" y="9" width="1.5" height="1.5" fill="currentColor"/>
 </svg>
