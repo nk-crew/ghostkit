@@ -335,7 +335,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                 onChange={(value) => {
                   this.updateData({ effect: value });
                 }}
-                allowReset
+                isDeselectable
               />
 
               {this.state.effect ? (

@@ -312,50 +312,61 @@ export default function BlockEdit(props) {
               value={verticalAlign}
               options={[
                 {
-                  label: getIcon('icon-vertical-top'),
+                  icon: getIcon('icon-vertical-top'),
+                  label: __('Top', '@@text_domain'),
                   value: '',
                 },
                 {
-                  label: getIcon('icon-vertical-center'),
+                  icon: getIcon('icon-vertical-center'),
+                  label: __('Center', '@@text_domain'),
                   value: 'center',
                 },
                 {
-                  label: getIcon('icon-vertical-bottom'),
+                  icon: getIcon('icon-vertical-bottom'),
+                  label: __('Bottom', '@@text_domain'),
                   value: 'end',
                 },
               ]}
               onChange={(value) => {
                 setAttributes({ verticalAlign: value });
               }}
+              isDeselectable
+              isAdaptiveWidth
             />
             <ToggleGroup
               label={__('Horizontal alignment', '@@text_domain')}
               value={horizontalAlign}
               options={[
                 {
-                  label: getIcon('icon-horizontal-start'),
+                  icon: getIcon('icon-horizontal-start'),
+                  label: __('Start', '@@text_domain'),
                   value: '',
                 },
                 {
-                  label: getIcon('icon-horizontal-center'),
+                  icon: getIcon('icon-horizontal-center'),
+                  label: __('Center', '@@text_domain'),
                   value: 'center',
                 },
                 {
-                  label: getIcon('icon-horizontal-end'),
+                  icon: getIcon('icon-horizontal-end'),
+                  label: __('End', '@@text_domain'),
                   value: 'end',
                 },
                 {
-                  label: getIcon('icon-horizontal-around'),
+                  icon: getIcon('icon-horizontal-around'),
+                  label: __('Around', '@@text_domain'),
                   value: 'around',
                 },
                 {
-                  label: getIcon('icon-horizontal-between'),
+                  icon: getIcon('icon-horizontal-between'),
+                  label: __('Space Between', '@@text_domain'),
                   value: 'between',
                 },
               ]}
               onChange={(value) => {
                 setAttributes({ horizontalAlign: value });
               }}
+              isDeselectable
             />
           </PanelBody>
           <PanelBody>

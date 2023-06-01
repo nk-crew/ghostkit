@@ -339,7 +339,7 @@ class FrameComponent extends Component {
                             }
                           }}
                           className="ghostkit-control-border-style"
-                          allowReset
+                          isDeselectable
                         />
                         {borderStyle ? (
                           <div className="ghostkit-control-border-additional">

@@ -11,6 +11,7 @@ const { Component } = wp.element;
 const {
   __experimentalToggleGroupControl: ToggleGroupControl,
   __experimentalToggleGroupControlOption: ToggleGroupControlOption,
+  __experimentalToggleGroupControlOptionIcon: ToggleGroupControlOptionIcon,
   BaseControl,
   ButtonGroup,
   Button,
@@ -21,7 +22,8 @@ const {
  */
 class ToggleGroup extends Component {
   render() {
-    const { label, value, options, onChange, isBlock, isAdaptiveWidth, allowReset } = this.props;
+    const { label, value, options, onChange, isBlock, isAdaptiveWidth, isDeselectable } =
+      this.props;
 
     if (ToggleGroupControl && ToggleGroupControlOption) {
       return (
@@ -34,22 +36,27 @@ class ToggleGroup extends Component {
             onChange={onChange}
             isBlock={isBlock}
             isAdaptiveWidth={isAdaptiveWidth}
+            isDeselectable={isDeselectable}
             hideLabelFromVision
           >
-            {options.map((option) => (
-              <ToggleGroupControlOption
-                key={option.value}
-                value={option.value}
-                label={option.label}
-                disabled={option.disabled}
-                onClick={() => {
-                  // Reset value.
-                  if (allowReset && value === option.value) {
-                    onChange('');
-                  }
-                }}
-              />
-            ))}
+            {options.map((option) =>
+              option.icon ? (
+                <ToggleGroupControlOptionIcon
+                  key={option.value}
+                  value={option.value}
+                  icon={option.icon}
+                  label={option.label}
+                  disabled={option.disabled}
+                />
+              ) : (
+                <ToggleGroupControlOption
+                  key={option.value}
+                  value={option.value}
+                  label={option.label}
+                  disabled={option.disabled}
+                />
+              )
+            )}
           </ToggleGroupControl>
         </BaseControl>
       );
@@ -67,11 +74,7 @@ class ToggleGroup extends Component {
               isPressed={value === option.value}
               disabled={option.disabled}
               onClick={() => {
-                if (allowReset && value === option.value) {
-                  onChange('');
-                } else {
-                  onChange(option.value);
-                }
+                onChange(option.value);
               }}
             >
               {option.label}

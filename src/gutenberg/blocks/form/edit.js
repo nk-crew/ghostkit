@@ -158,7 +158,7 @@ class BlockEdit extends Component {
               onChange={(value) => {
                 setAttributes({ confirmationType: value });
               }}
-              allowReset
+              isDeselectable
             />
 
             {!confirmationType || confirmationType === 'message' ? (

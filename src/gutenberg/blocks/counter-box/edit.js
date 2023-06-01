@@ -116,15 +116,18 @@ class BlockEdit extends Component {
                 value={numberAlign || 'center'}
                 options={[
                   {
-                    label: getIcon('icon-horizontal-start'),
+                    icon: getIcon('icon-horizontal-start'),
+                    label: __('Start', '@@text_domain'),
                     value: 'left',
                   },
                   {
-                    label: getIcon('icon-horizontal-center'),
+                    icon: getIcon('icon-horizontal-center'),
+                    label: __('Center', '@@text_domain'),
                     value: 'center',
                   },
                   {
-                    label: getIcon('icon-horizontal-end'),
+                    icon: getIcon('icon-horizontal-end'),
+                    label: __('End', '@@text_domain'),
                     value: 'right',
                   },
                 ]}

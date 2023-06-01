@@ -204,26 +204,29 @@ export default function BlockEdit(props) {
                       options={getDefaultColumnOrders()}
                     />
                     <ToggleGroup
-                      label={__('Vertical alignment', '@@text_domain')}
+                      label={__('Vertical Alignment', '@@text_domain')}
                       value={attributes[verticalAlignName]}
                       options={[
                         {
-                          label: getIcon('icon-vertical-top'),
+                          icon: getIcon('icon-vertical-top'),
+                          label: __('Top', '@@text_domain'),
                           value: '',
                         },
                         {
-                          label: getIcon('icon-vertical-center'),
+                          icon: getIcon('icon-vertical-center'),
+                          label: __('Center', '@@text_domain'),
                           value: 'center',
                         },
                         {
-                          label: getIcon('icon-vertical-bottom'),
+                          icon: getIcon('icon-vertical-bottom'),
+                          label: __('Bottom', '@@text_domain'),
                           value: 'end',
                         },
                       ]}
                       onChange={(value) => {
                         setAttributes({ [verticalAlignName]: value });
                       }}
-                      allowReset
+                      isDeselectable
                     />
                   </Fragment>
                 );
@@ -248,7 +251,7 @@ export default function BlockEdit(props) {
             onChange={(value) => {
               setAttributes({ stickyContent: value });
             }}
-            allowReset
+            isDeselectable
           />
           {stickyContent ? (
             <RangeControl
