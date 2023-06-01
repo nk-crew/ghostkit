@@ -19,7 +19,7 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const { PanelBody, BaseControl, ToggleControl, Button, Tooltip } = wp.components;
+const { PanelBody, BaseControl, ToggleControl, SelectControl, Button, Tooltip } = wp.components;
 
 const { RichText, InspectorControls, InnerBlocks, BlockControls, AlignmentToolbar } =
   wp.blockEditor;
@@ -134,7 +134,7 @@ class BlockEdit extends Component {
 
     let { className = '' } = this.props;
 
-    const { tabActive, buttonsVerticalAlign, buttonsAlign, tabsData = [] } = attributes;
+    const { tabActive, trigger, buttonsVerticalAlign, buttonsAlign, tabsData = [] } = attributes;
 
     className = classnames(
       className,
@@ -169,6 +169,23 @@ class BlockEdit extends Component {
         </BlockControls>
         <InspectorControls>
           <PanelBody>
+            <SelectControl
+              label={__('Select Tab Trigger', '@@text_domain')}
+              value={trigger}
+              options={[
+                {
+                  value: '',
+                  label: __('Click', '@@text_domain'),
+                },
+                {
+                  value: 'hover',
+                  label: __('Hover', '@@text_domain'),
+                },
+              ]}
+              onChange={(val) => {
+                setAttributes({ trigger: val });
+              }}
+            />
             <ToggleControl
               label={__('Vertical Tabs', '@@text_domain')}
               checked={!!buttonsVerticalAlign}

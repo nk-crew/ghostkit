@@ -16,6 +16,9 @@
       "type": "string",
       "default": "tab-1"
     },
+    "trigger": {
+      "type": "string"
+    },
     "buttonsVerticalAlign": {
       "type": "boolean",
       "default": false

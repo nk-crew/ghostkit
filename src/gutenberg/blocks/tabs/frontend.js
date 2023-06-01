@@ -96,6 +96,21 @@ $doc.on('click', '.ghostkit-tabs-buttons-item', function (evt) {
   activateTab($tab, tabName, GHOSTKIT.classObject);
 });
 
+/**
+ * Hover Tabs.
+ */
+$doc.on(
+  'mouseenter',
+  '.ghostkit-tabs-buttons-trigger-hover > .ghostkit-tabs-buttons .ghostkit-tabs-buttons-item',
+  function () {
+    const $thisBtn = $(this);
+    const $tab = $thisBtn.closest('.ghostkit-tabs');
+    const tabName = $thisBtn.attr('data-tab') || this.hash;
+
+    activateTab($tab, tabName, GHOSTKIT.classObject);
+  }
+);
+
 /*
  * Activate tab on hash change.
  */
