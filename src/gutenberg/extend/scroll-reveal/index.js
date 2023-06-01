@@ -274,6 +274,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
                       {presetAnimations.map((animationItem) => (
                         <MenuItem
                           icon={animationItem.icon}
+                          iconPosition="left"
                           isSelected={ghostkitSR === animationItem.value}
                           key={`animation-${animationItem.value}`}
                           label={animationItem.label}
