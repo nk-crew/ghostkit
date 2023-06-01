@@ -187,6 +187,15 @@ class GhostKit_Settings {
             'manage_options',
             'admin.php?page=ghostkit&sub_page=css_js'
         );
+
+        add_submenu_page(
+            'ghostkit',
+            '',
+            esc_html__( 'Templates', '@@text_domain' ),
+            'manage_options',
+            'edit.php?post_type=ghostkit_template'
+        );
+
         add_submenu_page(
             'ghostkit',
             '',
