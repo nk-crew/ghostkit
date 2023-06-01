@@ -286,9 +286,6 @@ export default class BlockEdit extends Component {
                 onFocus={() => {
                   this.setState({ captionFocus: true });
                 }}
-                unstableOnFocus={() => {
-                  this.setState({ captionFocus: true });
-                }}
                 onChange={(value) => setAttributes({ caption: value })}
                 placeholder={__('Write caption…', 'jetpack')}
                 tagName="figcaption"

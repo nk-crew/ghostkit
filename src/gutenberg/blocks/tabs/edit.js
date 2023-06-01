@@ -218,7 +218,6 @@ class BlockEdit extends Component {
                     placeholder={__('Tab label', '@@text_domain')}
                     value={title}
                     onFocus={() => setAttributes({ tabActive: slug })}
-                    unstableOnFocus={() => setAttributes({ tabActive: slug })}
                     onChange={(value) => {
                       this.changeLabel(value, i);
                     }}
