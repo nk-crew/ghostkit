@@ -9,10 +9,22 @@ const $doc = $(document);
  * Since v2.9 added inner block inside main wrapper to prevent bugs in TwentyTwenty theme.
  */
 $doc.on('initBlocks.ghostkit', () => {
-  $('.ghostkit-grid > .ghostkit-col:eq(0)').each(function () {
-    const $grid = $(this).parent();
-    const $cols = $grid.children('.ghostkit-col');
+  document
+    .querySelectorAll('.ghostkit-grid > .ghostkit-col:first-child')
+    .forEach(($columnFirst) => {
+      const $grid = $columnFirst.parentElement;
+      const $columns = $grid.querySelectorAll(':scope > .ghostkit-col');
 
-    $('<div class="ghostkit-grid-inner">').append($cols).appendTo($grid);
-  });
+      // Create wrapper.
+      const $gridInner = document.createElement('div');
+      $gridInner.classList.add('ghostkit-grid-inner');
+
+      // Append columns to the wrapper.
+      $columns.forEach(($column) => {
+        $gridInner.append($column);
+      });
+
+      // Append wrapper.
+      $grid.append($gridInner);
+    });
 });
