@@ -3,56 +3,57 @@
  */
 import rafSchd from 'raf-schd';
 
-const { jQuery: $, GHOSTKIT } = window;
-
-const $doc = $(document);
+const { GHOSTKIT } = window;
 
 let $currentImageCompare = false;
 let disabledTransition = false;
 
 function movePosition(e) {
   if ($currentImageCompare) {
-    const rect = $currentImageCompare[0].getBoundingClientRect();
+    const rect = $currentImageCompare.getBoundingClientRect();
     const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const result = Math.round(10000 * x) / 100;
 
-    $currentImageCompare[0].style.setProperty('--gkt-image-compare__position', `${100 * x}%`);
+    $currentImageCompare.style.setProperty('--gkt-image-compare__position', `${result}%`);
 
     GHOSTKIT.triggerEvent('movedImageCompare', GHOSTKIT.classObject, $currentImageCompare, e);
   }
 }
 
-$doc.on('mousedown', '.ghostkit-image-compare', function (e) {
-  e.preventDefault();
+document.querySelectorAll('.ghostkit-image-compare').forEach(($this) => {
+  const handler = (e) => {
+    e.preventDefault();
 
-  $currentImageCompare = $(this);
+    $currentImageCompare = $this;
+  };
+
+  $this.addEventListener('mousedown', handler);
 });
 
-$doc.on('mouseup', (e) => {
+window.addEventListener('mouseup', (e) => {
   if ($currentImageCompare) {
     movePosition(e);
 
-    $currentImageCompare[0].style.removeProperty('--gkt-image-compare__transition-duration');
+    $currentImageCompare.style.removeProperty('--gkt-image-compare__transition-duration');
 
     $currentImageCompare = false;
     disabledTransition = false;
   }
 });
 
-$doc.on('mousemove', (e) => {
-  if ($currentImageCompare) {
-    e.preventDefault();
-
-    if (!disabledTransition) {
-      $currentImageCompare[0].style.setProperty('--gkt-image-compare__transition-duration', '0s');
-
-      disabledTransition = true;
-    }
-  }
-});
-
-$doc.on(
+window.addEventListener(
   'mousemove',
   rafSchd((e) => {
-    movePosition(e);
+    if ($currentImageCompare) {
+      e.preventDefault();
+
+      if (!disabledTransition) {
+        $currentImageCompare.style.setProperty('--gkt-image-compare__transition-duration', '0s');
+
+        disabledTransition = true;
+      }
+
+      movePosition(e);
+    }
   })
 );
