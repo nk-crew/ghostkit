@@ -10,11 +10,17 @@ const {
 const $doc = $(document);
 
 // Click trigger.
-$doc.on('click', '.ghostkit-lottie[data-trigger="click"] > lottie-player', function () {
-  if (this?.play) {
-    this.play();
-  }
-});
+document
+  .querySelectorAll('.ghostkit-lottie[data-trigger="click"] > lottie-player')
+  .forEach(($this) => {
+    const handler = () => {
+      if ($this?.play) {
+        $this.play();
+      }
+    };
+
+    $this.addEventListener('click', handler);
+  });
 
 // In Viewport trigger.
 inView('.ghostkit-lottie[data-trigger="viewport"] > lottie-player', (info) => {
@@ -31,34 +37,35 @@ inView('.ghostkit-lottie[data-trigger="viewport"] > lottie-player', (info) => {
 
 // Scroll trigger.
 $doc.on('initBlocks.ghostkit', () => {
-  $('.ghostkit-lottie[data-trigger="scroll"]:not(.ghostkit-lottie-ready)').each(function () {
-    const $this = $(this);
-    const lottieEl = $this.children('lottie-player')[0];
-    const reverse = lottieEl.getAttribute('direction') === '-1';
+  document
+    .querySelectorAll('.ghostkit-lottie[data-trigger="scroll"]:not(.ghostkit-lottie-ready)')
+    .forEach(($this) => {
+      const lottieEl = $this.querySelector('lottie-player');
+      const reverse = lottieEl.getAttribute('direction') === '-1';
 
-    $this.addClass('ghostkit-lottie-ready');
+      $this.classList.add('ghostkit-lottie-ready');
 
-    scroll(
-      ({ y }) => {
-        if (lottieEl?._lottie) {
-          const { progress } = y;
-          const { totalFrames, goToAndStop } = lottieEl._lottie;
-          let newFrame = Math.round(progress * totalFrames);
+      scroll(
+        ({ y }) => {
+          if (lottieEl?._lottie) {
+            const { progress } = y;
+            const { totalFrames, goToAndStop } = lottieEl._lottie;
+            let newFrame = Math.round(progress * totalFrames);
 
-          if (reverse) {
-            newFrame = totalFrames - newFrame;
+            if (reverse) {
+              newFrame = totalFrames - newFrame;
+            }
+
+            // Check if the current frame is the last frame. If it's the last frame, do nothing. This prevents showing the empty frame at the end. Thanks Pauline for pointing out.
+            if (newFrame < totalFrames) {
+              goToAndStop.call(lottieEl._lottie, newFrame, true);
+            }
           }
-
-          // Check if the current frame is the last frame. If it's the last frame, do nothing. This prevents showing the empty frame at the end. Thanks Pauline for pointing out.
-          if (newFrame < totalFrames) {
-            goToAndStop.call(lottieEl._lottie, newFrame, true);
-          }
+        },
+        {
+          target: lottieEl,
+          offset: ['start end', 'end start'],
         }
-      },
-      {
-        target: lottieEl,
-        offset: ['start end', 'end start'],
-      }
-    );
-  });
+      );
+    });
 });
