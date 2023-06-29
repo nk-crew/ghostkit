@@ -1,48 +1,29 @@
 /**
  * Block Video
  */
-import { throttle } from 'throttle-debounce';
-import rafSchd from 'raf-schd';
 
-const { GHOSTKIT, jQuery: $ } = window;
+const {
+  GHOSTKIT,
+  jQuery: $,
+  Motion: { animate },
+} = window;
 
 const $doc = $(document);
+const animationDuration = 0.2;
 
-// set video size
-function setFullscreenVideoSize() {
-  $('.ghostkit-video-fullscreen:visible .ghostkit-video-fullscreen-frame').each(function () {
-    const $this = $(this);
-    const aspectRatio = $this.data('ghostkit-video-aspect-ratio') || 16 / 9;
-    let resultW;
-    let resultH;
-
-    if (aspectRatio > window.innerWidth / window.innerHeight) {
-      resultW = window.innerWidth * 0.9;
-      resultH = resultW / aspectRatio;
-    } else {
-      resultH = window.innerHeight * 0.9;
-      resultW = resultH * aspectRatio;
+function animationFullscreenOpen(element) {
+  animate(
+    element,
+    {
+      opacity: [0, 1],
+      display: 'flex',
+    },
+    {
+      duration: animationDuration,
+      display: { duration: 0 },
     }
-
-    $this.css({
-      width: resultW,
-      height: resultH,
-      top: (window.innerHeight - resultH) / 2,
-      left: (window.innerWidth - resultW) / 2,
-    });
-  });
+  );
 }
-
-// Set FS video size.
-const throttledSetFullscreenVideoSize = throttle(
-  200,
-  rafSchd(() => {
-    setFullscreenVideoSize();
-  })
-);
-$(window).on('DOMContentLoaded load resize orientationchange', () => {
-  throttledSetFullscreenVideoSize();
-});
 
 /**
  * Prepare Videos.
@@ -54,46 +35,40 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 
   GHOSTKIT.triggerEvent('beforePrepareVideo', self);
 
-  $('.ghostkit-video:not(.ghostkit-video-ready)').each(function () {
-    const $this = $(this).addClass('ghostkit-video-ready');
-    const url = $this.attr('data-video');
-    const clickAction = $this.attr('data-click-action');
+  document.querySelectorAll('.ghostkit-video:not(.ghostkit-video-ready)').forEach(($this) => {
+    $this.classList.add('ghostkit-video-ready');
 
-    const videoAutoplay = $this.attr('data-video-autoplay') === 'true';
-    const videoAutopause = $this.attr('data-video-autopause') === 'true';
-    const videoLoop = $this.attr('data-video-loop') === 'true';
+    const url = $this.getAttribute('data-video');
+    const clickAction = $this.getAttribute('data-click-action');
 
-    let fullscreenCloseIcon = $this.find('.ghostkit-video-fullscreen-close-icon');
-    if (fullscreenCloseIcon.length) {
-      fullscreenCloseIcon = fullscreenCloseIcon.html();
-    } else if ($this.attr('data-fullscreen-action-close-icon')) {
-      fullscreenCloseIcon = `<span class="${$this.attr(
-        'data-fullscreen-action-close-icon'
-      )}"></span>`;
-    } else {
-      fullscreenCloseIcon = '';
-    }
+    const videoAutoplay = $this.getAttribute('data-video-autoplay') === 'true';
+    const videoAutopause = $this.getAttribute('data-video-autopause') === 'true';
+    const videoLoop = $this.getAttribute('data-video-loop') === 'true';
 
-    const fullscreenBackgroundColor = $this.attr('data-fullscreen-background-color');
+    const fullscreenCloseIcon =
+      $this.querySelector('.ghostkit-video-fullscreen-close-icon')?.innerHTML || '';
 
-    let $poster = $this.find('.ghostkit-video-poster');
+    const fullscreenBackgroundColor = $this.getAttribute('data-fullscreen-background-color');
+
+    let $poster = $this.querySelector('.ghostkit-video-poster');
     let $fullscreenWrapper = false;
-    let $iframe = false;
     let mute = 0;
 
-    let aspectRatio = $this.attr('data-video-aspect-ratio');
-    if (aspectRatio && aspectRatio.split(':')[0] && aspectRatio.split(':')[1]) {
-      aspectRatio = aspectRatio.split(':')[0] / aspectRatio.split(':')[1];
+    let aspectRatio = $this.getAttribute('data-video-aspect-ratio');
+    const aspectRatioWidth = aspectRatio.split(':')[0];
+    const aspectRatioHeight = aspectRatio.split(':')[1];
+    if (aspectRatio && aspectRatioWidth && aspectRatioHeight) {
+      aspectRatio = aspectRatioWidth / aspectRatioHeight;
     } else {
       aspectRatio = 16 / 9;
     }
 
-    // mute if volume 0
-    if (!parseFloat($this.attr('data-video-volume'))) {
+    // Mute if volume 0.
+    if (!parseFloat($this.getAttribute('data-video-volume'))) {
       mute = 1;
     }
 
-    // mute if autoplay
+    // Mute if autoplay.
     if (videoAutoplay) {
       mute = 1;
     }
@@ -102,7 +77,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       autoplay: 0,
       loop: videoLoop,
       mute,
-      volume: parseFloat($this.attr('data-video-volume')) || 0,
+      volume: parseFloat($this.getAttribute('data-video-volume')) || 0,
       showContols: 1,
     });
 
@@ -111,70 +86,102 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       let clicked = 0;
       let isPlaying = false;
 
-      // add play event
-      $this.on('click', () => {
+      // Add play event.
+      const handlerOpen = () => {
         if (clicked) {
           return;
         }
         clicked = 1;
 
-        // fullscreen video
+        // Fullscreen video.
         if (clickAction === 'fullscreen') {
-          // add loading button
+          // Add loading button.
           if (!loaded) {
-            $this.addClass('ghostkit-video-loading');
+            $this.classList.add('ghostkit-video-loading');
 
-            api.getIframe((iframe) => {
-              // add iframe
-              $iframe = $(iframe);
-              const $parent = $iframe.parent();
+            api.getIframe(($iframe) => {
+              // Add iframe.
+              const $parent = $iframe.parentNode;
 
-              $fullscreenWrapper = $(
-                `<div class="ghostkit-video-fullscreen" style="background-color: ${fullscreenBackgroundColor};">`
-              )
-                .appendTo('body')
-                .append(
-                  $(`<div class="ghostkit-video-fullscreen-close">${fullscreenCloseIcon}</div>`)
-                )
-                .append($('<div class="ghostkit-video-fullscreen-frame">').append($iframe));
-              $fullscreenWrapper.data('ghostkit-video-aspect-ratio', aspectRatio);
+              // Create fullscreen frame wrapper.
+              const $fullscreenFrameWrapper = document.createElement('div');
+              $fullscreenFrameWrapper.classList.add('ghostkit-video-fullscreen-frame');
+              $fullscreenFrameWrapper.append($iframe);
+
+              // Create close wrapper.
+              const $fullscreenClose = document.createElement('div');
+              $fullscreenClose.classList.add('ghostkit-video-fullscreen-close');
+              $fullscreenClose.innerHTML = fullscreenCloseIcon;
+
+              // Create fullscreen wrapper.
+              $fullscreenWrapper = document.createElement('div');
+              $fullscreenWrapper.classList.add('ghostkit-video-fullscreen');
+              $fullscreenWrapper.style.backgroundColor = fullscreenBackgroundColor;
+              $fullscreenWrapper.style.setProperty(
+                '--gkt-fullscreen-video__aspect-ratio-width',
+                aspectRatioWidth
+              );
+              $fullscreenWrapper.style.setProperty(
+                '--gkt-fullscreen-video__aspect-ratio-height',
+                aspectRatioHeight
+              );
+
+              // Add close and frame in the fullscreen wrapper.
+              $fullscreenWrapper.append($fullscreenClose);
+              $fullscreenWrapper.append($fullscreenFrameWrapper);
+
+              // Add fullscreen in the body.
+              document.body.append($fullscreenWrapper);
+
               $parent.remove();
 
-              $fullscreenWrapper.fadeIn(200);
+              animationFullscreenOpen($fullscreenWrapper);
 
-              $fullscreenWrapper.on('click', (evt) => {
-                const $target = $(evt.target);
+              const handlerClose = (evt) => {
+                const $target = evt.target;
 
                 if (
-                  $target.hasClass('ghostkit-video-fullscreen') ||
-                  $target.hasClass('ghostkit-video-fullscreen-close') ||
-                  $target.closest('.ghostkit-video-fullscreen-close').length
+                  $target.classList.contains('ghostkit-video-fullscreen') ||
+                  $target.classList.contains('ghostkit-video-fullscreen-close') ||
+                  $target.closest('.ghostkit-video-fullscreen-close')
                 ) {
                   api.pause();
-                  $fullscreenWrapper.fadeOut(200);
-                  $this.addClass('ghostkit-video-fullscreen-closed');
+                  $this.classList.add('ghostkit-video-fullscreen-closed');
+                  animate(
+                    $fullscreenWrapper,
+                    {
+                      opacity: [1, 0],
+                      display: 'none',
+                    },
+                    { duration: animationDuration }
+                  );
                 }
-              });
-
-              setFullscreenVideoSize();
+              };
+              $fullscreenWrapper.addEventListener('click', handlerClose);
             });
 
             loaded = 1;
           } else if ($fullscreenWrapper) {
-            $this.removeClass('ghostkit-video-fullscreen-closed');
-            $fullscreenWrapper.fadeIn(200);
+            $this.classList.remove('ghostkit-video-fullscreen-closed');
+
+            animationFullscreenOpen($fullscreenWrapper);
             api.play();
           }
 
-          // plain video
+          // Plain video.
         } else if (!loaded) {
-          $this.addClass('ghostkit-video-loading');
+          $this.classList.add('ghostkit-video-loading');
 
-          api.getIframe((iframe) => {
-            // add iframe
-            $iframe = $(iframe);
-            const $parent = $iframe.parent();
-            $('<div class="ghostkit-video-frame">').appendTo($this).append($iframe);
+          api.getIframe(($iframe) => {
+            const $parent = $iframe.parentNode;
+
+            // Add iframe.
+            const $wrapper = document.createElement('div');
+            $wrapper.classList.add('ghostkit-video-frame');
+            $wrapper.append($iframe);
+
+            $this.append($wrapper);
+
             $parent.remove();
           });
 
@@ -182,12 +189,20 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
         } else {
           api.play();
         }
-      });
+      };
+      $this.addEventListener('click', handlerOpen);
 
-      // set thumb
-      if (!$poster.length && !$this.hasClass('is-style-icon-only')) {
+      // Set thumb.
+      if (!$poster && !$this.classList.contains('is-style-icon-only')) {
         api.getImageURL((imgSrc) => {
-          $poster = $(`<div class="ghostkit-video-poster"><img src="${imgSrc}" alt=""></div>`);
+          const $image = document.createElement('img');
+          $image.setAttribute('src', imgSrc);
+          $image.setAttribute('alt', '');
+
+          $poster = document.createElement('div');
+          $poster.classList.add('ghostkit-video-poster');
+          $poster.append($image);
+
           $this.append($poster);
         });
       }
@@ -195,14 +210,14 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       let autoplayOnce = false;
 
       api.on('ready', () => {
-        $this.removeClass('ghostkit-video-loading');
+        $this.classList.remove('ghostkit-video-loading');
 
         if (clickAction === 'fullscreen') {
-          if (!$this.hasClass('ghostkit-video-fullscreen-closed')) {
+          if (!$this.classList.contains('ghostkit-video-fullscreen-closed')) {
             api.play();
           }
         } else {
-          $this.addClass('ghostkit-video-playing');
+          $this.classList.add('ghostkit-video-playing');
           api.play();
         }
       });
@@ -225,11 +240,11 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
         const videoObserverData = {
           callback: (entries) => {
             entries.forEach((entry) => {
-              if ($this[0] !== entry.target) {
+              if ($this !== entry.target) {
                 return;
               }
 
-              // autoplay
+              // Autoplay.
               if (!autoplayOnce && !isPlaying && videoAutoplay && entry.isIntersecting) {
                 if (clicked) {
                   api.play();
@@ -238,7 +253,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
                 }
               }
 
-              // autopause
+              // Autopause.
               if (isPlaying && videoAutopause && !entry.isIntersecting) {
                 api.pause();
               }
@@ -256,7 +271,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
           videoObserverData.options
         );
 
-        videoObserver.observe($this[0]);
+        videoObserver.observe($this);
       }
     }
   });
