@@ -9,10 +9,22 @@ const $doc = $(document);
  * Since v2.9 added inner block inside main wrapper to prevent bugs in TwentyTwenty theme.
  */
 $doc.on('initBlocks.ghostkit', () => {
-  $('.ghostkit-pricing-table > .ghostkit-pricing-table-item-wrap:eq(0)').each(function () {
-    const $wrap = $(this).parent();
-    const $items = $wrap.children('.ghostkit-pricing-table-item-wrap');
+  document
+    .querySelectorAll('.ghostkit-pricing-table > .ghostkit-pricing-table-item-wrap:first-child')
+    .forEach(($pricingFirst) => {
+      const $wrap = $pricingFirst.parentElement;
+      const $items = $wrap.querySelectorAll(':scope > .ghostkit-pricing-table-item-wrap');
 
-    $('<div class="ghostkit-pricing-table-inner">').append($items).appendTo($wrap);
-  });
+      // Create wrapper.
+      const $wrapInner = document.createElement('div');
+      $wrapInner.classList.add('ghostkit-pricing-table-inner');
+
+      // Append buttons to the wrapper.
+      $items.forEach(($button) => {
+        $wrapInner.append($button);
+      });
+
+      // Append wrapper.
+      $wrap.append($wrapInner);
+    });
 });
