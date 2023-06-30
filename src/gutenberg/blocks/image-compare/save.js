@@ -16,12 +16,20 @@ const { RichText } = wp.blockEditor;
 class BlockSave extends Component {
   render() {
     const {
+      vertical,
       caption,
+
+      showLabels,
+      labelBeforeText,
+      labelAfterText,
+      labelAlign,
+
       beforeId,
       beforeUrl,
       beforeAlt,
       beforeWidth,
       beforeHeight,
+
       afterId,
       afterUrl,
       afterAlt,
@@ -35,7 +43,12 @@ class BlockSave extends Component {
 
     let { className } = this.props.attributes;
 
-    className = classnames('ghostkit-image-compare', className);
+    className = classnames(
+      'ghostkit-image-compare',
+      vertical ? 'ghostkit-image-compare-vertical' : false,
+      labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
+      className
+    );
 
     return (
       <figure className={className}>
@@ -48,6 +61,15 @@ class BlockSave extends Component {
               width={beforeWidth}
               height={beforeHeight}
             />
+            {showLabels && !RichText.isEmpty(labelBeforeText) ? (
+              <RichText.Content
+                tagName="div"
+                className="ghostkit-image-compare-image-label ghostkit-image-compare-image-before-label"
+                value={labelBeforeText}
+              />
+            ) : (
+              ''
+            )}
           </div>
           <div className="ghostkit-image-compare-image-after">
             <img
@@ -57,6 +79,15 @@ class BlockSave extends Component {
               width={afterWidth}
               height={afterHeight}
             />
+            {showLabels && !RichText.isEmpty(labelAfterText) ? (
+              <RichText.Content
+                tagName="div"
+                className="ghostkit-image-compare-image-label ghostkit-image-compare-image-after-label"
+                value={labelAfterText}
+              />
+            ) : (
+              ''
+            )}
           </div>
           <div className="ghostkit-image-compare-images-divider">
             <div className="ghostkit-image-compare-images-divider-button-arrow-left">

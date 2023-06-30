@@ -21,6 +21,17 @@
   --gkt-image-compare--divider-button__height: 50px;
   --gkt-image-compare--divider-button__background-color: #fff;
 
+  // Labels.
+  --gkt-image-compare--label__blur: 10px;
+  --gkt-image-compare--label__offset: 10px;
+  --gkt-image-compare--label__max-width: 30%;
+  --gkt-image-compare--label__padding: 0.3em 1.6em;
+  --gkt-image-compare--label__font-size: 0.8em;
+  --gkt-image-compare--label__text-align: center;
+  --gkt-image-compare--label__color: #fff;
+  --gkt-image-compare--label__background-color: rgba(255, 255, 255, 30%);
+  --gkt-image-compare--label__border-radius: 3px;
+
   // Transitions.
   --gkt-image-compare__transition-duration: var(--gkt-transition-duration);
   --gkt-image-compare__transition-easing: var(--gkt-transition-easing);

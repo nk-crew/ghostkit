@@ -19,6 +19,11 @@
       "type": "number",
       "default": 50
     },
+    "vertical": {
+      "type": "boolean",
+      "default": false
+    },
+
     "beforeId": {
       "type": "number"
     },
@@ -44,6 +49,7 @@
     "beforeSizeSlug": {
       "type": "string"
     },
+
     "afterId": {
       "type": "number"
     },
@@ -69,6 +75,28 @@
     "afterSizeSlug": {
       "type": "string"
     },
+
+    "showLabels": {
+      "type": "boolean",
+      "default": false
+    },
+    "labelBeforeText": {
+      "type": "string",
+      "source": "html",
+      "selector": ".ghostkit-image-compare-image-before-label",
+      "default": "Before"
+    },
+    "labelAfterText": {
+      "type": "string",
+      "source": "html",
+      "selector": ".ghostkit-image-compare-image-after-label",
+      "default": "After"
+    },
+    "labelAlign": {
+      "type": "string",
+      "default": "end"
+    },
+
     "caption": {
       "type": "string",
       "source": "html",

@@ -6,13 +6,19 @@ import rafSchd from 'raf-schd';
 const { GHOSTKIT } = window;
 
 let $currentImageCompare = false;
+let orientation = '';
 let disabledTransition = false;
 
 function movePosition(e) {
   if ($currentImageCompare) {
     const rect = $currentImageCompare.getBoundingClientRect();
-    const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    const result = Math.round(10000 * x) / 100;
+    let move = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+
+    if (orientation === 'vertical') {
+      move = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+    }
+
+    const result = Math.round(10000 * move) / 100;
 
     $currentImageCompare.style.setProperty('--gkt-image-compare__position', `${result}%`);
 
@@ -21,13 +27,15 @@ function movePosition(e) {
 }
 
 document.querySelectorAll('.ghostkit-image-compare').forEach(($this) => {
-  const handler = (e) => {
+  orientation = $this.classList.contains('ghostkit-image-compare-vertical')
+    ? 'vertical'
+    : 'horizontal';
+
+  $this.addEventListener('mousedown', (e) => {
     e.preventDefault();
 
     $currentImageCompare = $this;
-  };
-
-  $this.addEventListener('mousedown', handler);
+  });
 });
 
 window.addEventListener('mouseup', (e) => {

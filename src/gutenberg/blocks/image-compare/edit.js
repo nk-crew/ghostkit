@@ -25,10 +25,15 @@ const {
   Placeholder,
   SelectControl,
   TextareaControl,
+  ToggleControl,
   ExternalLink,
+  Toolbar,
+  ToolbarGroup,
+  ToolbarButton,
 } = wp.components;
 
-const { InspectorControls, MediaUpload, RichText, MediaPlaceholder } = wp.blockEditor;
+const { InspectorControls, BlockControls, MediaUpload, RichText, MediaPlaceholder } =
+  wp.blockEditor;
 
 const ALLOWED_MEDIA_TYPES = ['image'];
 const DEFAULT_SIZE_SLUG = 'large';
@@ -59,15 +64,13 @@ class BlockEdit extends Component {
     const { attributes } = this.props;
 
     return attributes[`${type}Url`] ? (
-      <div className={`ghostkit-image-compare-image-${type}`}>
-        <img
-          src={attributes[`${type}Url`]}
-          alt={attributes[`${type}Alt`]}
-          className={attributes[`${type}Id`] ? `wp-image-${attributes[`${type}Id`]}` : null}
-          width={attributes[`${type}Width`]}
-          height={attributes[`${type}Height`]}
-        />
-      </div>
+      <img
+        src={attributes[`${type}Url`]}
+        alt={attributes[`${type}Alt`]}
+        className={attributes[`${type}Id`] ? `wp-image-${attributes[`${type}Id`]}` : null}
+        width={attributes[`${type}Width`]}
+        height={attributes[`${type}Height`]}
+      />
     ) : (
       false
     );
@@ -133,8 +136,14 @@ class BlockEdit extends Component {
     let { className } = this.props;
 
     const {
-      caption,
       position,
+      vertical,
+      caption,
+
+      showLabels,
+      labelBeforeText,
+      labelAfterText,
+      labelAlign,
 
       beforeId,
       beforeUrl,
@@ -153,10 +162,56 @@ class BlockEdit extends Component {
 
     const { captionFocus } = this.state;
 
-    className = classnames('ghostkit-image-compare', className);
+    const iconStart = vertical ? getIcon('icon-horizontal-start') : getIcon('icon-vertical-top');
+    const iconCenter = vertical
+      ? getIcon('icon-horizontal-center')
+      : getIcon('icon-vertical-center');
+    const iconEnd = vertical ? getIcon('icon-horizontal-end') : getIcon('icon-vertical-bottom');
+
+    className = classnames(
+      'ghostkit-image-compare',
+      vertical ? 'ghostkit-image-compare-vertical' : false,
+      labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
+      className
+    );
 
     return (
       <Fragment>
+        <BlockControls>
+          <ToolbarGroup>
+            <ToolbarButton
+              icon={getIcon('icon-flip-vertical')}
+              title={__('Vertical', '@@text_domain')}
+              onClick={() => setAttributes({ vertical: !vertical })}
+              isActive={vertical}
+            />
+          </ToolbarGroup>
+        </BlockControls>
+
+        {showLabels && (
+          <BlockControls>
+            <ToolbarGroup>
+              <ToolbarButton
+                icon={iconStart}
+                title={__('Start', '@@text_domain')}
+                onClick={() => setAttributes({ labelAlign: 'start' })}
+                isActive={labelAlign === 'start'}
+              />
+              <ToolbarButton
+                icon={iconCenter}
+                title={__('Center', '@@text_domain')}
+                onClick={() => setAttributes({ labelAlign: 'center' })}
+                isActive={labelAlign === 'center'}
+              />
+              <ToolbarButton
+                icon={iconEnd}
+                title={__('End', '@@text_domain')}
+                onClick={() => setAttributes({ labelAlign: 'end' })}
+                isActive={labelAlign === 'end'}
+              />
+            </ToolbarGroup>
+          </BlockControls>
+        )}
         <InspectorControls>
           {beforeUrl && afterUrl ? (
             <PanelBody title={__('Divider', '@@text_domain')}>
@@ -167,8 +222,60 @@ class BlockEdit extends Component {
                 max={100}
                 onChange={(val) => setAttributes({ position: val })}
               />
+              <ToggleControl
+                label={__('Vertical Orientation', '@@text_domain')}
+                checked={!!vertical}
+                onChange={(value) => setAttributes({ vertical: value })}
+              />
             </PanelBody>
           ) : null}
+
+          <PanelBody title={__('Labels', '@@text_domain')}>
+            <ToggleControl
+              label={__('Show Labels', '@@text_domain')}
+              checked={!!showLabels}
+              onChange={(value) => setAttributes({ showLabels: value })}
+            />
+            {showLabels && (
+              <BaseControl
+                label={
+                  vertical
+                    ? __('Horizontal Align', '@@text_domain')
+                    : __('Vertical Align', '@@text_domain')
+                }
+              >
+                <div>
+                  <Toolbar
+                    label={
+                      vertical
+                        ? __('Horizontal Align', '@@text_domain')
+                        : __('Vertical Align', '@@text_domain')
+                    }
+                  >
+                    <ToolbarButton
+                      icon={iconStart}
+                      title={__('Start', '@@text_domain')}
+                      onClick={() => setAttributes({ labelAlign: 'start' })}
+                      isActive={labelAlign === 'start'}
+                    />
+                    <ToolbarButton
+                      icon={iconCenter}
+                      title={__('Center', '@@text_domain')}
+                      onClick={() => setAttributes({ labelAlign: 'center' })}
+                      isActive={labelAlign === 'center'}
+                    />
+                    <ToolbarButton
+                      icon={iconEnd}
+                      title={__('End', '@@text_domain')}
+                      onClick={() => setAttributes({ labelAlign: 'end' })}
+                      isActive={labelAlign === 'end'}
+                    />
+                  </Toolbar>
+                </div>
+              </BaseControl>
+            )}
+          </PanelBody>
+
           <PanelBody title={__('Before Image Settings', '@@text_domain')}>
             {!beforeId ? (
               <MediaUpload
@@ -412,8 +519,34 @@ class BlockEdit extends Component {
         ) : (
           <figure className={className}>
             <div className="ghostkit-image-compare-images">
-              {this.getImgTag('before')}
-              {this.getImgTag('after')}
+              <div className="ghostkit-image-compare-image-before">
+                {this.getImgTag('before')}
+                {showLabels && (!RichText.isEmpty(labelBeforeText) || isSelected) ? (
+                  <div className="ghostkit-image-compare-image-label ghostkit-image-compare-image-before-label">
+                    <RichText
+                      tagName="div"
+                      onChange={(val) => setAttributes({ labelBeforeText: val })}
+                      value={labelBeforeText}
+                      placeholder={__('Before', '@@text_domain')}
+                      withoutInteractiveFormatting
+                    />
+                  </div>
+                ) : null}
+              </div>
+              <div className="ghostkit-image-compare-image-after">
+                {this.getImgTag('after')}
+                {showLabels && (!RichText.isEmpty(labelAfterText) || isSelected) ? (
+                  <div className="ghostkit-image-compare-image-label ghostkit-image-compare-image-after-label">
+                    <RichText
+                      tagName="div"
+                      onChange={(val) => setAttributes({ labelAfterText: val })}
+                      value={labelAfterText}
+                      placeholder={__('After', '@@text_domain')}
+                      withoutInteractiveFormatting
+                    />
+                  </div>
+                ) : null}
+              </div>
               <div className="ghostkit-image-compare-images-divider">
                 <div className="ghostkit-image-compare-images-divider-button-arrow-left">
                   <svg
