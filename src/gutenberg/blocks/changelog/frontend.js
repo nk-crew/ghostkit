@@ -10,47 +10,47 @@ const $doc = $(document);
 $doc.on('initBlocks.ghostkit', (e, self) => {
   GHOSTKIT.triggerEvent('beforePrepareChangelog', self);
 
-  $('.ghostkit-changelog:not(.ghostkit-changelog-ready)').each(function () {
-    const $this = $(this);
-    $this.addClass('ghostkit-changelog-ready');
+  document
+    .querySelectorAll('.ghostkit-changelog:not(.ghostkit-changelog-ready)')
+    .forEach(($this) => {
+      $this.classList.add('ghostkit-changelog-ready');
 
-    // add badges.
-    $this
-      .children('.ghostkit-changelog-more')
-      .find('> ul li, > ol li')
-      .each(function () {
-        const $li = $(this);
-        const text = $.trim($li.html());
-        const typeMatches = text.match(
-          /^\[(new|added|fixed|improved|updated|removed|changed)\]\s(.*)/i
-        );
+      // Add badges.
+      $this
+        .querySelector(':scope > .ghostkit-changelog-more')
+        .querySelectorAll(':scope > ul li, :scope > ol li')
+        .forEach(($li) => {
+          const text = $li.innerHTML.trim();
+          const typeMatches = text.match(
+            /^\[(new|added|fixed|improved|updated|removed|changed)\]\s(.*)/i
+          );
 
-        if (typeMatches) {
-          const changeType = typeMatches[1];
-          const changeDescription = typeMatches[2];
+          if (typeMatches) {
+            const changeType = typeMatches[1];
+            const changeDescription = typeMatches[2];
 
-          let className = 'ghostkit-badge';
+            let className = 'ghostkit-badge';
 
-          switch (changeType.toLowerCase()) {
-            case 'added':
-            case 'new':
-              className += ' ghostkit-badge-success';
-              break;
-            case 'fixed':
-            case 'improved':
-            case 'updated':
-              className += ' ghostkit-badge-primary';
-              break;
-            case 'removed':
-              className += ' ghostkit-badge-danger';
-              break;
-            // no default
+            switch (changeType.toLowerCase()) {
+              case 'added':
+              case 'new':
+                className += ' ghostkit-badge-success';
+                break;
+              case 'fixed':
+              case 'improved':
+              case 'updated':
+                className += ' ghostkit-badge-primary';
+                break;
+              case 'removed':
+                className += ' ghostkit-badge-danger';
+                break;
+              // no default
+            }
+
+            $li.innerHTML = `<span class="${className}">${changeType}</span> ${changeDescription}`;
           }
-
-          $li.html(`<span class="${className}">${changeType}</span> ${changeDescription}`);
-        }
-      });
-  });
+        });
+    });
 
   GHOSTKIT.triggerEvent('afterPrepareChangelog', self);
 });
