@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import { maybeDecode } from '../../utils/encode-decode';
-import siblings from '../../utils/siblings';
+import getSiblings from '../../utils/get-siblings';
 
 /**
  * Block Tabs
@@ -45,14 +45,14 @@ function activateTab($tabs, tabName, self) {
   }
 
   $activeBtn.classList.add('ghostkit-tabs-buttons-item-active');
-  siblings($activeBtn).forEach(($this) => {
+  getSiblings($activeBtn).forEach(($this) => {
     if ($this.classList.contains('ghostkit-tabs-buttons-item-active')) {
       $this.classList.remove('ghostkit-tabs-buttons-item-active');
     }
   });
 
   $activeTab.classList.add('ghostkit-tab-active');
-  siblings($activeTab).forEach(($this) => {
+  getSiblings($activeTab).forEach(($this) => {
     if ($this.classList.contains('ghostkit-tab-active')) {
       $this.classList.remove('ghostkit-tab-active');
     }

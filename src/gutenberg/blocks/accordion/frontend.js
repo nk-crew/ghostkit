@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import { maybeDecode } from '../../utils/encode-decode';
-import siblings from '../../utils/siblings';
+import getSiblings from '../../utils/get-siblings';
 
 /**
  * Block Accordion
@@ -149,7 +149,7 @@ function toggleAccordionItem(
 
     // Shrink all other elements
     if (collapseOne && !isActive) {
-      siblings($item).forEach(($this) => {
+      getSiblings($item).forEach(($this) => {
         if ($this.classList.contains('ghostkit-accordion-item-active')) {
           toggleAccordionItem($this, animationSpeed, self, true);
         }
