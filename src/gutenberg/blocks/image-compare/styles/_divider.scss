@@ -27,6 +27,7 @@
       left: 0;
       width: auto;
       height: var(--gkt-image-compare--divider-button__width);
+      cursor: row-resize;
       transform: translateY(-50%);
     }
   }
