@@ -8,7 +8,8 @@
   "supports": {
     "html": false,
     "className": false,
-    "anchor": true
+    "anchor": true,
+    "align": ["wide", "full"]
   },
   "attributes": {
     "align": {
