@@ -186,8 +186,6 @@ Ghost Kit adds a new layer of compatibility for [WPML](https://wpml.org/). All b
 
 ## Installation ##
 
-Make sure you use WordPress 5. As alternative you need to install the [Gutenberg plugin](https://wordpress.org/plugins/gutenberg/) to use Ghost Kit.
-
 ### Automatic installation ###
 
 Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of Ghost Kit, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
