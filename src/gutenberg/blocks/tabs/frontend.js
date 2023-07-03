@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import { maybeDecode } from '../../utils/encode-decode';
+import addEventListener from '../../utils/add-event-listener';
 import getSiblings from '../../utils/get-siblings';
 
 /**
@@ -96,36 +97,31 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 /**
  * Click Tabs.
  */
-document.querySelectorAll('.ghostkit-tabs-buttons-item').forEach(($this) => {
-  const handler = (evt) => {
-    evt.preventDefault();
+function handlerClickTab(evt) {
+  evt.preventDefault();
 
-    const $tab = $this.closest('.ghostkit-tabs');
-    const tabName = $this.getAttribute('data-tab') || $this.hash;
+  const $tab = this.closest('.ghostkit-tabs');
+  const tabName = this.getAttribute('data-tab') || this.hash;
 
-    activateTab($tab, tabName, GHOSTKIT.classObject);
-  };
-
-  $this.addEventListener('click', handler);
-});
+  activateTab($tab, tabName, GHOSTKIT.classObject);
+}
+addEventListener(document, 'click', handlerClickTab, '.ghostkit-tabs-buttons-item');
 
 /**
  * Hover Tabs.
  */
-document
-  .querySelectorAll(
-    '.ghostkit-tabs-buttons-trigger-hover > .ghostkit-tabs-buttons .ghostkit-tabs-buttons-item'
-  )
-  .forEach(($this) => {
-    const handler = () => {
-      const $tab = $this.closest('.ghostkit-tabs');
-      const tabName = $this.getAttribute('data-tab') || $this.hash;
+const handlerHoverTab = () => {
+  const $tab = this.closest('.ghostkit-tabs');
+  const tabName = this.getAttribute('data-tab') || this.hash;
 
-      activateTab($tab, tabName, GHOSTKIT.classObject);
-    };
-
-    $this.addEventListener('mouseenter', handler);
-  });
+  activateTab($tab, tabName, GHOSTKIT.classObject);
+};
+addEventListener(
+  document,
+  'mouseenter',
+  handlerHoverTab,
+  '.ghostkit-tabs-buttons-trigger-hover > .ghostkit-tabs-buttons .ghostkit-tabs-buttons-item'
+);
 
 /*
  * Activate tab on hash change.

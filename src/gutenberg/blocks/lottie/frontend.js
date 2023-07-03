@@ -2,6 +2,8 @@
 /**
  * Block Lottie
  */
+import addEventListener from '../../utils/add-event-listener';
+
 const {
   jQuery: $,
   Motion: { inView, scroll },
@@ -10,17 +12,18 @@ const {
 const $doc = $(document);
 
 // Click trigger.
-document
-  .querySelectorAll('.ghostkit-lottie[data-trigger="click"] > lottie-player')
-  .forEach(($this) => {
-    const handler = () => {
-      if ($this?.play) {
-        $this.play();
-      }
-    };
+function handler() {
+  if (this?.play) {
+    this.play();
+  }
+}
 
-    $this.addEventListener('click', handler);
-  });
+addEventListener(
+  document,
+  'click',
+  handler,
+  '.ghostkit-lottie[data-trigger="click"] > lottie-player'
+);
 
 // In Viewport trigger.
 inView('.ghostkit-lottie[data-trigger="viewport"] > lottie-player', (info) => {

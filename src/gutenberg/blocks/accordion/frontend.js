@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import { maybeDecode } from '../../utils/encode-decode';
+import addEventListener from '../../utils/add-event-listener';
 import getSiblings from '../../utils/get-siblings';
 
 /**
@@ -193,16 +194,17 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 /**
  * Click Accordions.
  */
-document
-  .querySelectorAll('.ghostkit-accordion-item .ghostkit-accordion-item-heading')
-  .forEach(($accordion) => {
-    const handlerClickAccordions = (evt) => {
-      evt.preventDefault();
-      toggleAccordionItem($accordion, ANIMATION_SPEED, GHOSTKIT.classObject);
-    };
+function handlerClickAccordion(evt) {
+  evt.preventDefault();
+  toggleAccordionItem(this, ANIMATION_SPEED, GHOSTKIT.classObject);
+}
 
-    $accordion.addEventListener('click', handlerClickAccordions);
-  });
+addEventListener(
+  document,
+  'click',
+  handlerClickAccordion,
+  '.ghostkit-accordion-item .ghostkit-accordion-item-heading'
+);
 
 /*
  * Activate item on hash change.
