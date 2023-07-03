@@ -19,7 +19,7 @@
   // Divider Button.
   --gkt-image-compare--divider-button__width: 50px;
   --gkt-image-compare--divider-button__height: 50px;
-  --gkt-image-compare--divider-button__background-color: #fff;
+  --gkt-image-compare--divider-button__background-color: var(--gkt-image-compare--divider__background-color);
 
   // Labels.
   --gkt-image-compare--label__blur: 10px;

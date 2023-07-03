@@ -97,6 +97,20 @@
       "default": "end"
     },
 
+    "colorOverlay": {
+      "type": "string"
+    },
+    "colorDivider": {
+      "type": "string"
+    },
+    "colorDividerIcon": {
+      "type": "string"
+    },
+    "overlayOpacity": {
+      "type": "number",
+      "default": 50
+    },
+
     "caption": {
       "type": "string",
       "source": "html",

@@ -6,6 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
+import ColorPicker from '../../components/color-picker';
 import RangeControl from '../../components/range-control';
 import getIcon from '../../utils/get-icon';
 
@@ -158,6 +159,11 @@ class BlockEdit extends Component {
       afterWidth,
       afterHeight,
       afterSizeSlug,
+
+      colorOverlay,
+      colorDivider,
+      colorDividerIcon,
+      overlayOpacity,
     } = attributes;
 
     const { captionFocus } = this.state;
@@ -171,6 +177,7 @@ class BlockEdit extends Component {
     className = classnames(
       'ghostkit-image-compare',
       vertical ? 'ghostkit-image-compare-vertical' : false,
+      colorOverlay ? 'ghostkit-image-compare-overlay' : false,
       labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
       className
     );
@@ -187,7 +194,6 @@ class BlockEdit extends Component {
             />
           </ToolbarGroup>
         </BlockControls>
-
         {showLabels && (
           <BlockControls>
             <ToolbarGroup>
@@ -212,6 +218,7 @@ class BlockEdit extends Component {
             </ToolbarGroup>
           </BlockControls>
         )}
+
         <InspectorControls>
           {beforeUrl && afterUrl ? (
             <PanelBody title={__('Divider', '@@text_domain')}>
@@ -465,6 +472,40 @@ class BlockEdit extends Component {
             )}
           </PanelBody>
         </InspectorControls>
+
+        <InspectorControls group="styles">
+          <PanelBody title={__('Color', '@@text_domain')}>
+            <ColorPicker
+              label={__('Overlay', '@@text_domain')}
+              value={colorOverlay}
+              onChange={(val) => setAttributes({ colorOverlay: val })}
+              alpha
+            />
+            <ColorPicker
+              label={__('Divider', '@@text_domain')}
+              value={colorDivider}
+              onChange={(val) => setAttributes({ colorDivider: val })}
+              alpha
+            />
+            <ColorPicker
+              label={__('Divider Icon', '@@text_domain')}
+              value={colorDividerIcon}
+              onChange={(val) => setAttributes({ colorDividerIcon: val })}
+              alpha
+            />
+            {colorOverlay && (
+              <RangeControl
+                label={__('Overlay Opacity', '@@text_domain')}
+                value={overlayOpacity || ''}
+                onChange={(value) => setAttributes({ overlayOpacity: value })}
+                step={10}
+                min={0}
+                max={100}
+              />
+            )}
+          </PanelBody>
+        </InspectorControls>
+
         {!beforeUrl || !afterUrl ? (
           <Placeholder
             className="ghostkit-image-compare-placeholder"

@@ -1,5 +1,6 @@
 .ghostkit-image-compare-image-label {
   position: absolute;
+  z-index: 1;
   max-width: var(--gkt-image-compare--label__max-width);
   padding: var(--gkt-image-compare--label__padding);
   font-size: var(--gkt-image-compare--label__font-size);
