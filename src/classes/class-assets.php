@@ -239,8 +239,8 @@ class GhostKit_Assets {
 
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
-            wp_register_style( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.css', array(), '1.0.1' );
-            wp_register_script( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.min.js', array( 'jquery' ), '1.0.1', true );
+            wp_register_style( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.css', array(), '2.0.0' );
+            wp_register_script( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.min.js', array(), '2.0.0', true );
         }
 
         // Google reCaptcha.

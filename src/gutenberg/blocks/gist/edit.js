@@ -24,7 +24,7 @@ const { PanelBody, TextControl, ToggleControl, Placeholder, ToolbarGroup, Extern
 
 const { InspectorControls, BlockControls } = wp.blockEditor;
 
-const { jQuery } = window;
+const { gistSimple } = window;
 
 /**
  * Block Edit Class.
@@ -64,7 +64,7 @@ class BlockEdit extends Component {
       return;
     }
 
-    if (typeof jQuery.fn.gistsimple === 'undefined') {
+    if (typeof gistSimple === 'undefined') {
       // eslint-disable-next-line no-console
       console.warn(__('Gist Simple plugin is not defined.', '@@text_domain'));
       return;
@@ -79,13 +79,13 @@ class BlockEdit extends Component {
     this.cachedRequest = cachedRequest;
 
     setTimeout(() => {
-      const $gist = jQuery(this.gistNode);
+      const $gist = this.gistNode;
 
-      if ($gist[0].GistSimple) {
-        $gist.gistsimple('destroy');
+      if ($gist.GistSimple) {
+        $gist.GistSimple.destroy();
       }
 
-      $gist.gistsimple({
+      gistSimple($gist, {
         id: validUrl,
         file,
         caption,
