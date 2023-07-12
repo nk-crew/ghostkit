@@ -253,48 +253,6 @@ class GhostKit_Assets {
             }
         }
 
-        // Parsley.
-        if ( apply_filters( 'gkt_enqueue_plugin_parsley', true ) ) {
-            wp_register_script( 'parsley', ghostkit()->plugin_url . 'assets/vendor/parsleyjs/dist/parsley.min.js', array( 'jquery' ), '2.9.2', true );
-
-            $locale = get_locale();
-
-            // phpcs:disable
-            wp_add_inline_script(
-                'parsley',
-                'Parsley.addMessages("' . esc_attr( $locale ) . '", {
-                    defaultMessage: "' . esc_attr__( 'This value seems to be invalid.', '@@text_domain' ) . '",
-                    type: {
-                        email:        "' . esc_attr__( 'This value should be a valid email.', '@@text_domain' ) . '",
-                        url:          "' . esc_attr__( 'This value should be a valid url.', '@@text_domain' ) . '",
-                        number:       "' . esc_attr__( 'This value should be a valid number.', '@@text_domain' ) . '",
-                        integer:      "' . esc_attr__( 'This value should be a valid integer.', '@@text_domain' ) . '",
-                        digits:       "' . esc_attr__( 'This value should be digits.', '@@text_domain' ) . '",
-                        alphanum:     "' . esc_attr__( 'This value should be alphanumeric.', '@@text_domain' ) . '"
-                    },
-                    notblank:       "' . esc_attr__( 'This value should not be blank.', '@@text_domain' ) . '",
-                    required:       "' . esc_attr__( 'This value is required.', '@@text_domain' ) . '",
-                    pattern:        "' . esc_attr__( 'This value seems to be invalid.', '@@text_domain' ) . '",
-                    min:            "' . esc_attr__( 'This value should be greater than or equal to %s.', '@@text_domain' ) . '",
-                    max:            "' . esc_attr__( 'This value should be lower than or equal to %s.', '@@text_domain' ) . '",
-                    range:          "' . esc_attr__( 'This value should be between %s and %s.', '@@text_domain' ) . '",
-                    minlength:      "' . esc_attr__( 'This value is too short. It should have %s characters or more.', '@@text_domain' ) . '",
-                    maxlength:      "' . esc_attr__( 'This value is too long. It should have %s characters or fewer.', '@@text_domain' ) . '",
-                    length:         "' . esc_attr__( 'This value length is invalid. It should be between %s and %s characters long.', '@@text_domain' ) . '",
-                    mincheck:       "' . esc_attr__( 'You must select at least %s choices.', '@@text_domain' ) . '",
-                    maxcheck:       "' . esc_attr__( 'You must select %s choices or fewer.', '@@text_domain' ) . '",
-                    check:          "' . esc_attr__( 'You must select between %s and %s choices.', '@@text_domain' ) . '",
-                    equalto:        "' . esc_attr__( 'This value should be the same.', '@@text_domain' ) . '",
-                    euvatin:        "' . esc_attr__( 'It\'s not a valid VAT Identification Number.', '@@text_domain' ) . '",
-                    confirmEmail:   "' . esc_attr__( 'These emails should match.', '@@text_domain' ) . '",
-                });
-
-                Parsley.setLocale("' . esc_attr( $locale ) . '");',
-                'after'
-            );
-            // phpcs:enable
-        }
-
         // Get all sidebars.
         $sidebars = array();
         if ( ! empty( $GLOBALS['wp_registered_sidebars'] ) ) {
@@ -475,12 +433,10 @@ class GhostKit_Assets {
                     $block_js_deps[] = 'luxon';
                     break;
                 case 'form':
-                    if ( wp_script_is( 'parsley' ) || wp_script_is( 'parsley', 'registered' ) ) {
-                        $block_js_deps[] = 'parsley';
-                    }
                     if ( wp_script_is( 'google-recaptcha' ) || wp_script_is( 'google-recaptcha', 'registered' ) ) {
                         $block_js_deps[] = 'google-recaptcha';
                     }
+                    $block_js_deps[] = 'wp-i18n';
                     break;
                 case 'lottie':
                     $block_js_deps[] = 'motion';

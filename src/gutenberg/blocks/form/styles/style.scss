@@ -121,20 +121,22 @@
     --gkt-alert__border-color: var(--gkt-form--alert-error__color);
   }
 
-  // Parsley validation.
-  input.parsley-success,
-  select.parsley-success,
-  textarea.parsley-success {
-    border-color: var(--gkt-form--field-success__border-color);
+  // Form validation.
+  &-was-validated {
+    input:valid,
+    select:valid,
+    textarea:valid {
+      border-color: var(--gkt-form--field-success__border-color);
+    }
+
+    input:invalid,
+    select:invalid,
+    textarea:invalid {
+      border-color: var(--gkt-form--field-error__border-color);
+    }
   }
 
-  input.parsley-error,
-  select.parsley-error,
-  textarea.parsley-error {
-    border-color: var(--gkt-form--field-error__border-color);
-  }
-
-  .parsley-errors-list {
+  .ghostkit-form-field-error {
     padding: 0;
     margin: 0;
     margin-top: var(--gkt-form--errors__margin-top);
@@ -142,21 +144,11 @@
     font-size: var(--gkt-form--errors__font-size);
     line-height: var(--gkt-form--errors__line-height);
     color: var(--gkt-form--errors__color);
-    list-style-type: none;
-    opacity: 0;
-    transition: var(--gkt-form__transition-duration) all var(--gkt-form__transition-easing);
 
-    li {
-      margin-left: 0;
+    &:empty,
+    &[aria-hidden="true"] {
+      display: none;
     }
-  }
-
-  .parsley-errors-list.filled {
-    opacity: 1;
-  }
-
-  .parsley-errors-list:empty {
-    display: none;
   }
 
   // Honeypot field.

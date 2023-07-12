@@ -111,7 +111,7 @@ class GhostKit_Form_Field_Email_Block {
             <?php if ( $attributes['emailConfirmation'] ) : ?>
                     </div>
                     <div class="ghostkit-form-field-email-confirm">
-                        <input type="email" <?php GhostKit_Form_Field_Attributes::get( $confirmation_attributes ); ?> data-parsley-confirm-email="[name='<?php echo esc_attr( $attributes['slug'] ); ?>[value]']" data-parsley-validate-if-empty />
+                        <input type="email" <?php GhostKit_Form_Field_Attributes::get( $confirmation_attributes ); ?> data-confirm-email="[name='<?php echo esc_attr( $attributes['slug'] ); ?>[value]']" />
 
                         <?php GhostKit_Form_Field_Description::get( $confirmation_attributes ); ?>
                     </div>
