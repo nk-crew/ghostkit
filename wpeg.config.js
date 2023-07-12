@@ -41,8 +41,6 @@ cfg.copy_files_src = [
   './node_modules/*jarallax/dist/jarallax.min.js',
   './node_modules/*jarallax/dist/jarallax.min.js.map',
   './node_modules/*jarallax/dist/jarallax.css',
-  './node_modules/*parsleyjs/dist/parsley.min.js',
-  './node_modules/*parsleyjs/dist/parsley.min.js.map',
   './node_modules/*scrollreveal/dist/scrollreveal.min.js',
   './node_modules/*swiper/swiper-bundle.min.js',
   './node_modules/*swiper/swiper-bundle.min.js.map',

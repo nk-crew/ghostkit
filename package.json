@@ -55,7 +55,6 @@
     "luxon": "^3.3.0",
     "markdown-it": "^13.0.1",
     "motion": "^10.16.2",
-    "parsleyjs": "^2.9.2",
     "qs": "^6.11.2",
     "raf-schd": "^4.0.3",
     "react-ace": "^10.1.0",
