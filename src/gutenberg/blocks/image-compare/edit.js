@@ -47,10 +47,6 @@ class BlockEdit extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      captionFocus: false,
-    };
-
     this.onUploadError = this.onUploadError.bind(this);
     this.getImgTag = this.getImgTag.bind(this);
     this.updateImageData = this.updateImageData.bind(this);
@@ -167,8 +163,6 @@ class BlockEdit extends Component {
       colorDividerIcon,
       overlayOpacity,
     } = attributes;
-
-    const { captionFocus } = this.state;
 
     const iconStart =
       direction === 'vertical' ? getIcon('icon-horizontal-start') : getIcon('icon-vertical-top');
@@ -577,11 +571,11 @@ class BlockEdit extends Component {
                 {showLabels && (!RichText.isEmpty(labelBeforeText) || isSelected) ? (
                   <div className="ghostkit-image-compare-image-label ghostkit-image-compare-image-before-label">
                     <RichText
+                      inlineToolbar
                       tagName="div"
                       onChange={(val) => setAttributes({ labelBeforeText: val })}
                       value={labelBeforeText}
-                      placeholder={__('Before', '@@text_domain')}
-                      withoutInteractiveFormatting
+                      placeholder={__('Before label…', '@@text_domain')}
                     />
                   </div>
                 ) : null}
@@ -591,11 +585,11 @@ class BlockEdit extends Component {
                 {showLabels && (!RichText.isEmpty(labelAfterText) || isSelected) ? (
                   <div className="ghostkit-image-compare-image-label ghostkit-image-compare-image-after-label">
                     <RichText
+                      inlineToolbar
                       tagName="div"
                       onChange={(val) => setAttributes({ labelAfterText: val })}
                       value={labelAfterText}
-                      placeholder={__('After', '@@text_domain')}
-                      withoutInteractiveFormatting
+                      placeholder={__('After label…', '@@text_domain')}
                     />
                   </div>
                 ) : null}
@@ -637,10 +631,6 @@ class BlockEdit extends Component {
               <RichText
                 className="ghostkit-image-compare-caption"
                 inlineToolbar
-                isSelected={captionFocus}
-                onFocus={() => {
-                  this.setState({ captionFocus: true });
-                }}
                 onChange={(value) => setAttributes({ caption: value })}
                 placeholder={__('Write caption…', 'jetpack')}
                 tagName="figcaption"
