@@ -12,10 +12,13 @@ let disabledTransition = false;
 function movePosition(e) {
   if ($currentImageCompare) {
     const rect = $currentImageCompare.getBoundingClientRect();
-    let move = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+
+    let move = 0;
 
     if (orientation === 'vertical') {
       move = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+    } else {
+      move = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
     }
 
     const result = Math.round(10000 * move) / 100;
