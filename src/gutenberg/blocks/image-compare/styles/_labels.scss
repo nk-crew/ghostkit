@@ -8,7 +8,7 @@
   text-align: var(--gkt-image-compare--label__text-align);
   background-color: var(--gkt-image-compare--label__background-color);
   border-radius: var(--gkt-image-compare--label__border-radius);
-  backdrop-filter: blur(var(--gkt-image-compare--label__blur));
+  backdrop-filter: var(--gkt-image-compare--label__backdrop-filter);
 }
 
 .ghostkit-image-compare-image-before-label {

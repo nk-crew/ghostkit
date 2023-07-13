@@ -22,7 +22,7 @@
   --gkt-image-compare--divider-button__background-color: var(--gkt-image-compare--divider__background-color);
 
   // Labels.
-  --gkt-image-compare--label__blur: 10px;
+  --gkt-image-compare--label__backdrop-filter: brightness(0.75) blur(10px);
   --gkt-image-compare--label__offset: 10px;
   --gkt-image-compare--label__max-width: 30%;
   --gkt-image-compare--label__padding: 0.3em 1.6em;
