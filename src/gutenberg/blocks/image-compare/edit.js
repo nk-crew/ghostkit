@@ -158,10 +158,8 @@ class BlockEdit extends Component {
       afterHeight,
       afterSizeSlug,
 
-      colorOverlay,
       colorDivider,
       colorDividerIcon,
-      overlayOpacity,
     } = attributes;
 
     const iconStart =
@@ -176,7 +174,6 @@ class BlockEdit extends Component {
     className = classnames(
       'ghostkit-image-compare',
       direction === 'vertical' ? 'ghostkit-image-compare-vertical' : false,
-      colorOverlay ? 'ghostkit-image-compare-overlay' : false,
       showLabels && labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
       className
     );
@@ -482,12 +479,6 @@ class BlockEdit extends Component {
         <InspectorControls group="styles">
           <PanelBody title={__('Color', '@@text_domain')}>
             <ColorPicker
-              label={__('Overlay', '@@text_domain')}
-              value={colorOverlay}
-              onChange={(val) => setAttributes({ colorOverlay: val })}
-              alpha
-            />
-            <ColorPicker
               label={__('Divider', '@@text_domain')}
               value={colorDivider}
               onChange={(val) => setAttributes({ colorDivider: val })}
@@ -499,16 +490,6 @@ class BlockEdit extends Component {
               onChange={(val) => setAttributes({ colorDividerIcon: val })}
               alpha
             />
-            {colorOverlay && (
-              <RangeControl
-                label={__('Overlay Opacity', '@@text_domain')}
-                value={overlayOpacity || ''}
-                onChange={(value) => setAttributes({ overlayOpacity: value })}
-                step={10}
-                min={0}
-                max={100}
-              />
-            )}
           </PanelBody>
         </InspectorControls>
 

@@ -21,8 +21,6 @@ export const settings = {
       return {
         '--gkt-image-compare__position':
           typeof attributes.position !== 'undefined' ? `${attributes.position}%` : undefined,
-        '--gkt-image-compare--overlay__color': attributes.colorOverlay,
-        '--gkt-image-compare--overlay__opacity': attributes.overlayOpacity / 100,
         '--gkt-image-compare--divider__background-color': attributes.colorDivider,
         '--gkt-image-compare--divider-icons__color': attributes.colorDividerIcon,
       };

@@ -43,7 +43,6 @@ function destroy(e) {
   movePosition(e);
 
   $currentImageCompare.style.removeProperty('--gkt-image-compare__transition-duration');
-  $currentImageCompare.style.removeProperty('--gkt-image-compare--overlay__opacity');
 
   $currentImageCompare = false;
   $currentImageCompareWrapper = false;
@@ -114,7 +113,6 @@ window.addEventListener(
 
     if (!disabledTransition) {
       $currentImageCompare.style.setProperty('--gkt-image-compare__transition-duration', '0s');
-      $currentImageCompare.style.setProperty('--gkt-image-compare--overlay__opacity', '0');
 
       disabledTransition = true;
     }

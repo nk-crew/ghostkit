@@ -36,8 +36,6 @@ class BlockSave extends Component {
       afterAlt,
       afterWidth,
       afterHeight,
-
-      colorOverlay,
     } = this.props.attributes;
 
     if (!beforeUrl || !afterUrl) {
@@ -50,7 +48,6 @@ class BlockSave extends Component {
       'ghostkit-image-compare',
       direction === 'vertical' ? 'ghostkit-image-compare-vertical' : false,
       trigger ? `ghostkit-image-compare-trigger-${trigger}` : false,
-      colorOverlay ? 'ghostkit-image-compare-overlay' : false,
       showLabels && labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
       className
     );
