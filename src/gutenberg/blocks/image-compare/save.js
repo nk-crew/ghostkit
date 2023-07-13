@@ -17,6 +17,7 @@ class BlockSave extends Component {
   render() {
     const {
       direction,
+      trigger,
       caption,
 
       showLabels,
@@ -48,6 +49,7 @@ class BlockSave extends Component {
     className = classnames(
       'ghostkit-image-compare',
       direction === 'vertical' ? 'ghostkit-image-compare-vertical' : false,
+      trigger ? `ghostkit-image-compare-trigger-${trigger}` : false,
       colorOverlay ? 'ghostkit-image-compare-overlay' : false,
       showLabels && labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
       className

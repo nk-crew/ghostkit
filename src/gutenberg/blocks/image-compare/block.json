@@ -22,6 +22,9 @@
     "direction": {
       "type": "string"
     },
+    "trigger": {
+      "type": "string"
+    },
 
     "beforeId": {
       "type": "number"

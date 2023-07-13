@@ -30,8 +30,31 @@ function movePosition(e) {
   }
 }
 
+function init($block) {
+  $currentImageCompare = $block;
+  $currentImageCompareWrapper = $block.querySelector('.ghostkit-image-compare-images');
+
+  orientation = $block.classList.contains('ghostkit-image-compare-vertical')
+    ? 'vertical'
+    : 'horizontal';
+}
+
+function destroy($block, e) {
+  movePosition(e);
+
+  $currentImageCompare.style.removeProperty('--gkt-image-compare__transition-duration');
+  $currentImageCompare.style.removeProperty('--gkt-image-compare--overlay__opacity');
+
+  $currentImageCompare = false;
+  $currentImageCompareWrapper = false;
+  disabledTransition = false;
+}
+
+// Trigger - Click.
 window.addEventListener('mousedown', (e) => {
-  const $imageCompareBlock = e?.target?.closest('.ghostkit-image-compare');
+  const $imageCompareBlock = e?.target?.closest(
+    '.ghostkit-image-compare:not(.ghostkit-image-compare-trigger-hover)'
+  );
 
   if (!$imageCompareBlock) {
     return;
@@ -39,41 +62,63 @@ window.addEventListener('mousedown', (e) => {
 
   e.preventDefault();
 
-  $currentImageCompare = $imageCompareBlock;
-  $currentImageCompareWrapper = $imageCompareBlock.querySelector('.ghostkit-image-compare-images');
+  init($imageCompareBlock);
+});
 
-  orientation = $imageCompareBlock.classList.contains('ghostkit-image-compare-vertical')
-    ? 'vertical'
-    : 'horizontal';
+// Trigger - Hover.
+window.addEventListener('mouseover', (e) => {
+  if ($currentImageCompare) {
+    return;
+  }
+
+  const $imageCompareBlock = e?.target?.closest('.ghostkit-image-compare-trigger-hover');
+
+  if (!$imageCompareBlock) {
+    return;
+  }
+
+  e.preventDefault();
+
+  init($imageCompareBlock);
+});
+document.addEventListener('mouseout', (e) => {
+  if (!$currentImageCompare) {
+    return;
+  }
+
+  const $imageCompareBlock = e?.target?.closest('.ghostkit-image-compare-trigger-hover');
+
+  if (!$imageCompareBlock) {
+    return;
+  }
+
+  destroy($currentImageCompare, e);
 });
 
 window.addEventListener('mouseup', (e) => {
-  if ($currentImageCompare) {
-    movePosition(e);
-
-    $currentImageCompare.style.removeProperty('--gkt-image-compare__transition-duration');
-    $currentImageCompare.style.removeProperty('--gkt-image-compare--overlay__opacity');
-
-    $currentImageCompare = false;
-    $currentImageCompareWrapper = false;
-    disabledTransition = false;
+  if (!$currentImageCompare) {
+    return;
   }
+
+  destroy($currentImageCompare, e);
 });
 
 window.addEventListener(
   'mousemove',
   rafSchd((e) => {
-    if ($currentImageCompare) {
-      e.preventDefault();
-
-      if (!disabledTransition) {
-        $currentImageCompare.style.setProperty('--gkt-image-compare__transition-duration', '0s');
-        $currentImageCompare.style.setProperty('--gkt-image-compare--overlay__opacity', '0');
-
-        disabledTransition = true;
-      }
-
-      movePosition(e);
+    if (!$currentImageCompare) {
+      return;
     }
+
+    e.preventDefault();
+
+    if (!disabledTransition) {
+      $currentImageCompare.style.setProperty('--gkt-image-compare__transition-duration', '0s');
+      $currentImageCompare.style.setProperty('--gkt-image-compare--overlay__opacity', '0');
+
+      disabledTransition = true;
+    }
+
+    movePosition(e);
   })
 );

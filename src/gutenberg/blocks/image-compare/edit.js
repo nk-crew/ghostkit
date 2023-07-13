@@ -140,6 +140,7 @@ class BlockEdit extends Component {
     const {
       position,
       direction,
+      trigger,
       caption,
 
       showLabels,
@@ -204,16 +205,23 @@ class BlockEdit extends Component {
         <InspectorControls>
           {beforeUrl && afterUrl ? (
             <PanelBody title={__('General', '@@text_domain')}>
+              <RangeControl
+                label={__('Start Position', '@@text_domain')}
+                value={position}
+                min={0}
+                max={100}
+                onChange={(val) => setAttributes({ position: val })}
+              />
               <ToggleGroup
                 label={__('Direction', '@@text_domain')}
                 value={direction || ''}
                 options={[
                   {
-                    label: __('Horizontal'),
+                    label: __('Horizontal', '@@text_domain'),
                     value: '',
                   },
                   {
-                    label: __('Vertical'),
+                    label: __('Vertical', '@@text_domain'),
                     value: 'vertical',
                   },
                 ]}
@@ -221,12 +229,22 @@ class BlockEdit extends Component {
                   setAttributes({ direction: value });
                 }}
               />
-              <RangeControl
-                label={__('Start Position', '@@text_domain')}
-                value={position}
-                min={0}
-                max={100}
-                onChange={(val) => setAttributes({ position: val })}
+              <ToggleGroup
+                label={__('Trigger', '@@text_domain')}
+                value={trigger || ''}
+                options={[
+                  {
+                    label: __('Click', '@@text_domain'),
+                    value: '',
+                  },
+                  {
+                    label: __('Hover', '@@text_domain'),
+                    value: 'hover',
+                  },
+                ]}
+                onChange={(value) => {
+                  setAttributes({ trigger: value });
+                }}
               />
             </PanelBody>
           ) : null}
