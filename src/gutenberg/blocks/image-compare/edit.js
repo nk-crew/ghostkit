@@ -178,7 +178,7 @@ class BlockEdit extends Component {
       'ghostkit-image-compare',
       vertical ? 'ghostkit-image-compare-vertical' : false,
       colorOverlay ? 'ghostkit-image-compare-overlay' : false,
-      labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
+      showLabels && labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
       className
     );
 
