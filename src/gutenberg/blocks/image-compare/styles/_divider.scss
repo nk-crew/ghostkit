@@ -9,6 +9,7 @@
   transition-timing-function: var(--gkt-image-compare__transition-easing);
   transition-duration: var(--gkt-image-compare__transition-duration);
   transition-property: left;
+  will-change: left, top;
 
   // Vertical compare.
   .ghostkit-image-compare-vertical & {
