@@ -39,7 +39,7 @@ function init($block) {
     : 'horizontal';
 }
 
-function destroy($block, e) {
+function destroy(e) {
   movePosition(e);
 
   $currentImageCompare.style.removeProperty('--gkt-image-compare__transition-duration');
@@ -92,7 +92,7 @@ document.addEventListener('mouseout', (e) => {
     return;
   }
 
-  destroy($currentImageCompare, e);
+  destroy(e);
 });
 
 window.addEventListener('mouseup', (e) => {
@@ -100,7 +100,7 @@ window.addEventListener('mouseup', (e) => {
     return;
   }
 
-  destroy($currentImageCompare, e);
+  destroy(e);
 });
 
 window.addEventListener(
