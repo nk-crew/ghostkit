@@ -4,7 +4,7 @@
   "category": "ghostkit",
   "title": "Image Compare",
   "description": "Compare two images with a slider.",
-  "keywords": ["image", "compare"],
+  "keywords": ["image", "compare", "before", "after"],
   "supports": {
     "html": false,
     "className": false,
