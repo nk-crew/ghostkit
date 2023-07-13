@@ -29,16 +29,19 @@ function movePosition(e) {
   }
 }
 
-document.querySelectorAll('.ghostkit-image-compare').forEach(($this) => {
-  orientation = $this.classList.contains('ghostkit-image-compare-vertical')
+window.addEventListener('mousedown', (e) => {
+  const $imageCompareBlock = e?.target?.closest('.ghostkit-image-compare');
+
+  if (!$imageCompareBlock) {
+    return;
+  }
+
+  e.preventDefault();
+
+  $currentImageCompare = $imageCompareBlock;
+  orientation = $imageCompareBlock.classList.contains('ghostkit-image-compare-vertical')
     ? 'vertical'
     : 'horizontal';
-
-  $this.addEventListener('mousedown', (e) => {
-    e.preventDefault();
-
-    $currentImageCompare = $this;
-  });
 });
 
 window.addEventListener('mouseup', (e) => {
