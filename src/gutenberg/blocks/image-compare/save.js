@@ -16,7 +16,7 @@ const { RichText } = wp.blockEditor;
 class BlockSave extends Component {
   render() {
     const {
-      vertical,
+      direction,
       caption,
 
       showLabels,
@@ -47,7 +47,7 @@ class BlockSave extends Component {
 
     className = classnames(
       'ghostkit-image-compare',
-      vertical ? 'ghostkit-image-compare-vertical' : false,
+      direction === 'vertical' ? 'ghostkit-image-compare-vertical' : false,
       colorOverlay ? 'ghostkit-image-compare-overlay' : false,
       showLabels && labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
       className

@@ -8,6 +8,7 @@ import classnames from 'classnames/dedupe';
  */
 import ColorPicker from '../../components/color-picker';
 import RangeControl from '../../components/range-control';
+import ToggleGroup from '../../components/toggle-group';
 import getIcon from '../../utils/get-icon';
 
 /**
@@ -138,7 +139,7 @@ class BlockEdit extends Component {
 
     const {
       position,
-      vertical,
+      direction,
       caption,
 
       showLabels,
@@ -168,15 +169,18 @@ class BlockEdit extends Component {
 
     const { captionFocus } = this.state;
 
-    const iconStart = vertical ? getIcon('icon-horizontal-start') : getIcon('icon-vertical-top');
-    const iconCenter = vertical
-      ? getIcon('icon-horizontal-center')
-      : getIcon('icon-vertical-center');
-    const iconEnd = vertical ? getIcon('icon-horizontal-end') : getIcon('icon-vertical-bottom');
+    const iconStart =
+      direction === 'vertical' ? getIcon('icon-horizontal-start') : getIcon('icon-vertical-top');
+    const iconCenter =
+      direction === 'vertical'
+        ? getIcon('icon-horizontal-center')
+        : getIcon('icon-vertical-center');
+    const iconEnd =
+      direction === 'vertical' ? getIcon('icon-horizontal-end') : getIcon('icon-vertical-bottom');
 
     className = classnames(
       'ghostkit-image-compare',
-      vertical ? 'ghostkit-image-compare-vertical' : false,
+      direction === 'vertical' ? 'ghostkit-image-compare-vertical' : false,
       colorOverlay ? 'ghostkit-image-compare-overlay' : false,
       showLabels && labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
       className
@@ -189,50 +193,40 @@ class BlockEdit extends Component {
             <ToolbarButton
               icon={getIcon('icon-flip-vertical')}
               title={__('Vertical', '@@text_domain')}
-              onClick={() => setAttributes({ vertical: !vertical })}
-              isActive={vertical}
+              onClick={() =>
+                setAttributes({ direction: direction === 'vertical' ? '' : 'vertical' })
+              }
+              isActive={direction === 'vertical'}
             />
           </ToolbarGroup>
         </BlockControls>
-        {showLabels && (
-          <BlockControls>
-            <ToolbarGroup>
-              <ToolbarButton
-                icon={iconStart}
-                title={__('Start', '@@text_domain')}
-                onClick={() => setAttributes({ labelAlign: 'start' })}
-                isActive={labelAlign === 'start'}
-              />
-              <ToolbarButton
-                icon={iconCenter}
-                title={__('Center', '@@text_domain')}
-                onClick={() => setAttributes({ labelAlign: 'center' })}
-                isActive={labelAlign === 'center'}
-              />
-              <ToolbarButton
-                icon={iconEnd}
-                title={__('End', '@@text_domain')}
-                onClick={() => setAttributes({ labelAlign: 'end' })}
-                isActive={labelAlign === 'end'}
-              />
-            </ToolbarGroup>
-          </BlockControls>
-        )}
 
         <InspectorControls>
           {beforeUrl && afterUrl ? (
-            <PanelBody title={__('Divider', '@@text_domain')}>
+            <PanelBody title={__('General', '@@text_domain')}>
+              <ToggleGroup
+                label={__('Direction', '@@text_domain')}
+                value={direction || ''}
+                options={[
+                  {
+                    label: __('Horizontal'),
+                    value: '',
+                  },
+                  {
+                    label: __('Vertical'),
+                    value: 'vertical',
+                  },
+                ]}
+                onChange={(value) => {
+                  setAttributes({ direction: value });
+                }}
+              />
               <RangeControl
                 label={__('Start Position', '@@text_domain')}
                 value={position}
                 min={0}
                 max={100}
                 onChange={(val) => setAttributes({ position: val })}
-              />
-              <ToggleControl
-                label={__('Vertical Orientation', '@@text_domain')}
-                checked={!!vertical}
-                onChange={(value) => setAttributes({ vertical: value })}
               />
             </PanelBody>
           ) : null}
@@ -246,7 +240,7 @@ class BlockEdit extends Component {
             {showLabels && (
               <BaseControl
                 label={
-                  vertical
+                  direction === 'vertical'
                     ? __('Horizontal Align', '@@text_domain')
                     : __('Vertical Align', '@@text_domain')
                 }
@@ -254,7 +248,7 @@ class BlockEdit extends Component {
                 <div>
                   <Toolbar
                     label={
-                      vertical
+                      direction === 'vertical'
                         ? __('Horizontal Align', '@@text_domain')
                         : __('Vertical Align', '@@text_domain')
                     }

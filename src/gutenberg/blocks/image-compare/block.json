@@ -19,9 +19,8 @@
       "type": "number",
       "default": 50
     },
-    "vertical": {
-      "type": "boolean",
-      "default": false
+    "direction": {
+      "type": "string"
     },
 
     "beforeId": {
