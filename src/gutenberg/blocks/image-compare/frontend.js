@@ -6,12 +6,13 @@ import rafSchd from 'raf-schd';
 const { GHOSTKIT } = window;
 
 let $currentImageCompare = false;
+let $currentImageCompareWrapper = false;
 let orientation = '';
 let disabledTransition = false;
 
 function movePosition(e) {
-  if ($currentImageCompare) {
-    const rect = $currentImageCompare.getBoundingClientRect();
+  if ($currentImageCompare && $currentImageCompareWrapper) {
+    const rect = $currentImageCompareWrapper.getBoundingClientRect();
 
     let move = 0;
 
@@ -39,6 +40,8 @@ window.addEventListener('mousedown', (e) => {
   e.preventDefault();
 
   $currentImageCompare = $imageCompareBlock;
+  $currentImageCompareWrapper = $imageCompareBlock.querySelector('.ghostkit-image-compare-images');
+
   orientation = $imageCompareBlock.classList.contains('ghostkit-image-compare-vertical')
     ? 'vertical'
     : 'horizontal';
@@ -52,6 +55,7 @@ window.addEventListener('mouseup', (e) => {
     $currentImageCompare.style.removeProperty('--gkt-image-compare--overlay__opacity');
 
     $currentImageCompare = false;
+    $currentImageCompareWrapper = false;
     disabledTransition = false;
   }
 });
