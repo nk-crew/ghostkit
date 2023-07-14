@@ -12,16 +12,14 @@ const {
 const $doc = $(document);
 
 // Click trigger.
-function handler() {
-  if (this?.play) {
-    this.play();
-  }
-}
-
 addEventListener(
   document,
   'click',
-  handler,
+  function () {
+    if (this?.play) {
+      this.play();
+    }
+  },
   '.ghostkit-lottie[data-trigger="click"] > lottie-player'
 );
 

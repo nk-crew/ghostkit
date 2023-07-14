@@ -194,15 +194,13 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 /**
  * Click Accordions.
  */
-function handlerClickAccordion(evt) {
-  evt.preventDefault();
-  toggleAccordionItem(this, ANIMATION_SPEED, GHOSTKIT.classObject);
-}
-
 addEventListener(
   document,
   'click',
-  handlerClickAccordion,
+  function (evt) {
+    evt.preventDefault();
+    toggleAccordionItem(this, ANIMATION_SPEED, GHOSTKIT.classObject);
+  },
   '.ghostkit-accordion-item .ghostkit-accordion-item-heading'
 );
 

@@ -97,29 +97,32 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 /**
  * Click Tabs.
  */
-function handlerClickTab(evt) {
-  evt.preventDefault();
+addEventListener(
+  document,
+  'click',
+  function (evt) {
+    evt.preventDefault();
 
-  const $tab = this.closest('.ghostkit-tabs');
-  const tabName = this.getAttribute('data-tab') || this.hash;
+    const $tab = this.closest('.ghostkit-tabs');
+    const tabName = this.getAttribute('data-tab') || this.hash;
 
-  activateTab($tab, tabName, GHOSTKIT.classObject);
-}
-addEventListener(document, 'click', handlerClickTab, '.ghostkit-tabs-buttons-item');
+    activateTab($tab, tabName, GHOSTKIT.classObject);
+  },
+  '.ghostkit-tabs-buttons-item'
+);
 
 /**
  * Hover Tabs.
  */
-const handlerHoverTab = () => {
-  const $tab = this.closest('.ghostkit-tabs');
-  const tabName = this.getAttribute('data-tab') || this.hash;
-
-  activateTab($tab, tabName, GHOSTKIT.classObject);
-};
 addEventListener(
   document,
   'mouseenter',
-  handlerHoverTab,
+  function () {
+    const $tab = this.closest('.ghostkit-tabs');
+    const tabName = this.getAttribute('data-tab') || this.hash;
+
+    activateTab($tab, tabName, GHOSTKIT.classObject);
+  },
   '.ghostkit-tabs-buttons-trigger-hover > .ghostkit-tabs-buttons .ghostkit-tabs-buttons-item'
 );
 
