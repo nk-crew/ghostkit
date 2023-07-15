@@ -13,3 +13,10 @@
     box-shadow: none;
   }
 }
+
+// Disable transitions.
+.ghostkit-image-compare-image-before,
+.ghostkit-image-compare-image-after,
+.ghostkit-image-compare-images-divider {
+  transition-duration: 0s;
+}

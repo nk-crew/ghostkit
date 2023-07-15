@@ -6,7 +6,9 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
+import ColorPicker from '../../components/color-picker';
 import RangeControl from '../../components/range-control';
+import ToggleGroup from '../../components/toggle-group';
 import getIcon from '../../utils/get-icon';
 
 /**
@@ -25,10 +27,15 @@ const {
   Placeholder,
   SelectControl,
   TextareaControl,
+  ToggleControl,
   ExternalLink,
+  Toolbar,
+  ToolbarGroup,
+  ToolbarButton,
 } = wp.components;
 
-const { InspectorControls, MediaUpload, RichText, MediaPlaceholder } = wp.blockEditor;
+const { InspectorControls, BlockControls, MediaUpload, RichText, MediaPlaceholder } =
+  wp.blockEditor;
 
 const ALLOWED_MEDIA_TYPES = ['image'];
 const DEFAULT_SIZE_SLUG = 'large';
@@ -39,10 +46,6 @@ const DEFAULT_SIZE_SLUG = 'large';
 class BlockEdit extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      captionFocus: false,
-    };
 
     this.onUploadError = this.onUploadError.bind(this);
     this.getImgTag = this.getImgTag.bind(this);
@@ -59,15 +62,13 @@ class BlockEdit extends Component {
     const { attributes } = this.props;
 
     return attributes[`${type}Url`] ? (
-      <div className={`ghostkit-image-compare-image-${type}`}>
-        <img
-          src={attributes[`${type}Url`]}
-          alt={attributes[`${type}Alt`]}
-          className={attributes[`${type}Id`] ? `wp-image-${attributes[`${type}Id`]}` : null}
-          width={attributes[`${type}Width`]}
-          height={attributes[`${type}Height`]}
-        />
-      </div>
+      <img
+        src={attributes[`${type}Url`]}
+        alt={attributes[`${type}Alt`]}
+        className={attributes[`${type}Id`] ? `wp-image-${attributes[`${type}Id`]}` : null}
+        width={attributes[`${type}Width`]}
+        height={attributes[`${type}Height`]}
+      />
     ) : (
       false
     );
@@ -133,8 +134,15 @@ class BlockEdit extends Component {
     let { className } = this.props;
 
     const {
-      caption,
       position,
+      direction,
+      trigger,
+      caption,
+
+      showLabels,
+      labelBeforeText,
+      labelAfterText,
+      labelAlign,
 
       beforeId,
       beforeUrl,
@@ -149,17 +157,45 @@ class BlockEdit extends Component {
       afterWidth,
       afterHeight,
       afterSizeSlug,
+
+      colorDivider,
+      colorDividerIcon,
     } = attributes;
 
-    const { captionFocus } = this.state;
+    const iconStart =
+      direction === 'vertical' ? getIcon('icon-horizontal-start') : getIcon('icon-vertical-top');
+    const iconCenter =
+      direction === 'vertical'
+        ? getIcon('icon-horizontal-center')
+        : getIcon('icon-vertical-center');
+    const iconEnd =
+      direction === 'vertical' ? getIcon('icon-horizontal-end') : getIcon('icon-vertical-bottom');
 
-    className = classnames('ghostkit-image-compare', className);
+    className = classnames(
+      'ghostkit-image-compare',
+      direction === 'vertical' ? 'ghostkit-image-compare-vertical' : false,
+      showLabels && labelAlign ? `ghostkit-image-compare-labels-align-${labelAlign}` : false,
+      className
+    );
 
     return (
       <Fragment>
+        <BlockControls>
+          <ToolbarGroup>
+            <ToolbarButton
+              icon={getIcon('icon-flip-vertical')}
+              title={__('Vertical', '@@text_domain')}
+              onClick={() =>
+                setAttributes({ direction: direction === 'vertical' ? '' : 'vertical' })
+              }
+              isActive={direction === 'vertical'}
+            />
+          </ToolbarGroup>
+        </BlockControls>
+
         <InspectorControls>
           {beforeUrl && afterUrl ? (
-            <PanelBody title={__('Divider', '@@text_domain')}>
+            <PanelBody title={__('General', '@@text_domain')}>
               <RangeControl
                 label={__('Start Position', '@@text_domain')}
                 value={position}
@@ -167,8 +203,89 @@ class BlockEdit extends Component {
                 max={100}
                 onChange={(val) => setAttributes({ position: val })}
               />
+              <ToggleGroup
+                label={__('Direction', '@@text_domain')}
+                value={direction || ''}
+                options={[
+                  {
+                    label: __('Horizontal', '@@text_domain'),
+                    value: '',
+                  },
+                  {
+                    label: __('Vertical', '@@text_domain'),
+                    value: 'vertical',
+                  },
+                ]}
+                onChange={(value) => {
+                  setAttributes({ direction: value });
+                }}
+              />
+              <ToggleGroup
+                label={__('Trigger', '@@text_domain')}
+                value={trigger || ''}
+                options={[
+                  {
+                    label: __('Click', '@@text_domain'),
+                    value: '',
+                  },
+                  {
+                    label: __('Hover', '@@text_domain'),
+                    value: 'hover',
+                  },
+                ]}
+                onChange={(value) => {
+                  setAttributes({ trigger: value });
+                }}
+              />
             </PanelBody>
           ) : null}
+
+          <PanelBody title={__('Labels', '@@text_domain')}>
+            <ToggleControl
+              label={__('Show Labels', '@@text_domain')}
+              checked={!!showLabels}
+              onChange={(value) => setAttributes({ showLabels: value })}
+            />
+            {showLabels && (
+              <BaseControl
+                label={
+                  direction === 'vertical'
+                    ? __('Horizontal Align', '@@text_domain')
+                    : __('Vertical Align', '@@text_domain')
+                }
+              >
+                <div>
+                  <Toolbar
+                    label={
+                      direction === 'vertical'
+                        ? __('Horizontal Align', '@@text_domain')
+                        : __('Vertical Align', '@@text_domain')
+                    }
+                  >
+                    <ToolbarButton
+                      icon={iconStart}
+                      title={__('Start', '@@text_domain')}
+                      onClick={() => setAttributes({ labelAlign: 'start' })}
+                      isActive={labelAlign === 'start'}
+                    />
+                    <ToolbarButton
+                      icon={iconCenter}
+                      title={__('Center', '@@text_domain')}
+                      onClick={() => setAttributes({ labelAlign: 'center' })}
+                      isActive={labelAlign === 'center'}
+                    />
+                    <ToolbarButton
+                      icon={iconEnd}
+                      title={__('End', '@@text_domain')}
+                      onClick={() => setAttributes({ labelAlign: 'end' })}
+                      isActive={labelAlign === 'end'}
+                    />
+                  </Toolbar>
+                </div>
+              </BaseControl>
+            )}
+          </PanelBody>
+
           <PanelBody title={__('Before Image Settings', '@@text_domain')}>
             {!beforeId ? (
               <MediaUpload
@@ -358,6 +475,24 @@ class BlockEdit extends Component {
             )}
           </PanelBody>
         </InspectorControls>
+
+        <InspectorControls group="styles">
+          <PanelBody title={__('Color', '@@text_domain')}>
+            <ColorPicker
+              label={__('Divider', '@@text_domain')}
+              value={colorDivider}
+              onChange={(val) => setAttributes({ colorDivider: val })}
+              alpha
+            />
+            <ColorPicker
+              label={__('Divider Icon', '@@text_domain')}
+              value={colorDividerIcon}
+              onChange={(val) => setAttributes({ colorDividerIcon: val })}
+              alpha
+            />
+          </PanelBody>
+        </InspectorControls>
+
         {!beforeUrl || !afterUrl ? (
           <Placeholder
             className="ghostkit-image-compare-placeholder"
@@ -412,8 +547,34 @@ class BlockEdit extends Component {
         ) : (
           <figure className={className}>
             <div className="ghostkit-image-compare-images">
-              {this.getImgTag('before')}
-              {this.getImgTag('after')}
+              <div className="ghostkit-image-compare-image-before">
+                {this.getImgTag('before')}
+                {showLabels && (!RichText.isEmpty(labelBeforeText) || isSelected) ? (
+                  <div className="ghostkit-image-compare-image-label ghostkit-image-compare-image-before-label">
+                    <RichText
+                      inlineToolbar
+                      tagName="div"
+                      onChange={(val) => setAttributes({ labelBeforeText: val })}
+                      value={labelBeforeText}
+                      placeholder={__('Before label…', '@@text_domain')}
+                    />
+                  </div>
+                ) : null}
+              </div>
+              <div className="ghostkit-image-compare-image-after">
+                {this.getImgTag('after')}
+                {showLabels && (!RichText.isEmpty(labelAfterText) || isSelected) ? (
+                  <div className="ghostkit-image-compare-image-label ghostkit-image-compare-image-after-label">
+                    <RichText
+                      inlineToolbar
+                      tagName="div"
+                      onChange={(val) => setAttributes({ labelAfterText: val })}
+                      value={labelAfterText}
+                      placeholder={__('After label…', '@@text_domain')}
+                    />
+                  </div>
+                ) : null}
+              </div>
               <div className="ghostkit-image-compare-images-divider">
                 <div className="ghostkit-image-compare-images-divider-button-arrow-left">
                   <svg
@@ -451,10 +612,6 @@ class BlockEdit extends Component {
               <RichText
                 className="ghostkit-image-compare-caption"
                 inlineToolbar
-                isSelected={captionFocus}
-                onFocus={() => {
-                  this.setState({ captionFocus: true });
-                }}
                 onChange={(value) => setAttributes({ caption: value })}
                 placeholder={__('Write caption…', 'jetpack')}
                 tagName="figcaption"
