@@ -10,12 +10,11 @@ import rafSchd from 'raf-schd';
 import parseSRConfig from '../../gutenberg/extend/scroll-reveal/parseSRConfig';
 
 const {
-  jQuery: $,
   Motion: { animate, inView },
   GHOSTKIT,
 } = window;
 
-const { events, replaceVars } = GHOSTKIT;
+const { events } = GHOSTKIT;
 
 class GhostKitClass {
   constructor() {
@@ -24,8 +23,6 @@ class GhostKitClass {
     self.isMobile = /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/g.test(
       window.navigator.userAgent || window.navigator.vendor || window.opera
     );
-
-    self.customStyles = $('#ghostkit-blocks-custom-css-inline-css').html() || '';
 
     // Methods bind class.
     self.initBlocks = self.initBlocks.bind(self);
@@ -36,7 +33,6 @@ class GhostKitClass {
       })
     );
     self.prepareCounters = self.prepareCounters.bind(self);
-    self.prepareFallbackCustomStyles = self.prepareFallbackCustomStyles.bind(self);
     self.prepareSR = self.prepareSR.bind(self);
 
     events.trigger(document, 'init.gkt');
@@ -58,7 +54,6 @@ class GhostKitClass {
 
     events.trigger(document, 'init.blocks.gkt');
 
-    self.prepareFallbackCustomStyles();
     self.prepareNumberedLists();
     self.prepareCounters();
     self.prepareSR();
@@ -71,21 +66,20 @@ class GhostKitClass {
    */
   // eslint-disable-next-line class-methods-use-this
   prepareNumberedLists() {
-    $('.is-style-styled:not(.is-style-styled-ready)').each(function () {
-      const $this = $(this);
-      const start = parseInt($this.attr('start'), 10);
-      const isReversed = typeof $this.attr('reversed') !== 'undefined';
-      const itemsCount = $this.children().length;
+    document.querySelectorAll('.is-style-styled:not(.is-style-styled-ready)').forEach(($list) => {
+      const start = parseInt($list.getAttribute('start'), 10);
+      const isReversed = $list.getAttribute('reversed') !== null;
+      const itemsCount = $list.children.length;
 
-      $this.addClass('is-style-styled-ready');
+      $list.classList.add('is-style-styled-ready');
 
       if (isReversed) {
-        $this.css('counter-reset', `li ${(start || itemsCount) + 1}`);
+        $list.style.counterReset = `li ${(start || itemsCount) + 1}`;
       } else if (start) {
-        $this.css('counter-reset', `li ${start - 1}`);
+        $list.style.counterReset = `li ${start - 1}`;
       }
 
-      events.trigger(this, 'prepare.numberedList.gkt');
+      events.trigger($list, 'prepare.numberedList.gkt');
     });
   }
 
@@ -94,127 +88,111 @@ class GhostKitClass {
    */
   // eslint-disable-next-line class-methods-use-this
   prepareCounters() {
-    $('.ghostkit-count-up:not(.ghostkit-count-up-ready)').each(function () {
-      const $this = $(this);
-      const isProgress = $this.hasClass('ghostkit-progress-bar');
-      const from = parseFloat($this.attr('data-count-from')) || 0;
-      const to = parseFloat(isProgress ? $this.attr('aria-valuenow') : $this.text()) || 0;
-      let $progressCountBadgeWrap;
-      let $progressCountBadge;
+    document
+      .querySelectorAll('.ghostkit-count-up:not(.ghostkit-count-up-ready)')
+      .forEach(($counter) => {
+        $counter.classList.add('ghostkit-count-up-ready');
 
-      // prepare mask.
-      let mask = '';
-      if (!isProgress) {
-        // eslint-disable-next-line no-template-curly-in-string
-        mask = $this.text().replace(to, '${val}');
-      }
-      if (!/\${val}/.test(mask)) {
-        // eslint-disable-next-line no-template-curly-in-string
-        mask = '${val}';
-      }
+        const isProgress = $counter.classList.contains('ghostkit-progress-bar');
+        const from = parseFloat($counter.getAttribute('data-count-from')) || 0;
+        const to =
+          parseFloat(isProgress ? $counter.getAttribute('aria-valuenow') : $counter.textContent) ||
+          0;
+        let $progressCountBadgeWrap;
+        let $progressCountBadge;
 
-      $this.addClass('ghostkit-count-up-ready');
+        // prepare mask.
+        let mask = '';
+        if (!isProgress) {
+          // eslint-disable-next-line no-template-curly-in-string
+          mask = $counter.textContent.replace(to, '${val}');
+        }
+        if (!/\${val}/.test(mask)) {
+          // eslint-disable-next-line no-template-curly-in-string
+          mask = '${val}';
+        }
 
-      if (isProgress) {
-        $progressCountBadgeWrap = $this
-          .closest('.ghostkit-progress')
-          .find('.ghostkit-progress-bar-count');
-        $progressCountBadge = $progressCountBadgeWrap.find('> div > span:eq(1)');
+        if (isProgress) {
+          $progressCountBadgeWrap = $counter
+            .closest('.ghostkit-progress')
+            .querySelector('.ghostkit-progress-bar-count');
 
-        $progressCountBadgeWrap.css('width', '0%');
-        $progressCountBadge.text('0');
-        $this.css('width', '0%');
-      } else {
-        // eslint-disable-next-line no-template-curly-in-string
-        $this.text(mask.replace('${val}', from));
-      }
+          if ($progressCountBadgeWrap) {
+            $progressCountBadge = $progressCountBadgeWrap.querySelector(
+              ':scope > div > span:eq(1)'
+            );
 
-      const config = {
-        $el: $this,
-        el: this,
-        from,
-        to,
-        duration: 800,
-        easing: [0.6, 0, 0.3, 1],
-        cb(progress) {
-          const position = (to - from) * progress + from;
-
-          if (isProgress) {
-            $progressCountBadge.text(Math.ceil(position));
-          } else {
-            // eslint-disable-next-line no-template-curly-in-string
-            $this.text(mask.replace('${val}', Math.ceil(position)));
-          }
-        },
-      };
-
-      events.trigger(this, 'prepare.counter.gkt', { config });
-
-      // Animate counter.
-      const stopInView = inView(
-        this,
-        () => {
-          stopInView();
-
-          events.trigger(config.el, 'animate.counter.gkt', { config });
-
-          if (isProgress) {
-            [this, $progressCountBadgeWrap[0]].forEach((el) => {
-              animate(
-                el,
-                {
-                  width: `${to}%`,
-                },
-                {
-                  duration: config.duration / 1000,
-                  easing: config.easing,
-                }
-              );
-            });
+            $progressCountBadgeWrap.style.width = '0%';
+            $progressCountBadge.textContent = '0';
           }
 
-          animate(
-            (progress) => {
-              config.cb(progress);
-            },
-            {
-              duration: config.duration / 1000,
-              easing: config.easing,
+          $counter.style.width = '0%';
+        } else {
+          // eslint-disable-next-line no-template-curly-in-string
+          $counter.textContent = mask.replace('${val}', from);
+        }
+
+        const config = {
+          from,
+          to,
+          duration: 800,
+          easing: [0.6, 0, 0.3, 1],
+          cb(progress) {
+            const position = (to - from) * progress + from;
+
+            if (isProgress) {
+              if ($progressCountBadge) {
+                $progressCountBadge.textContent = Math.ceil(position);
+              }
+            } else {
+              // eslint-disable-next-line no-template-curly-in-string
+              $counter.textContent = mask.replace('${val}', Math.ceil(position));
             }
-          ).finished.then(() => {
-            events.trigger(config.el, 'animated.counter.gkt', { config });
-          });
-        },
-        { margin: '-50px' }
-      );
-    });
-  }
+          },
+        };
 
-  /**
-   * Prepare custom styles.
-   * This method used as Fallback only.
-   * Since plugin version 2.6.0 we use PHP styles render.
-   */
-  prepareFallbackCustomStyles() {
-    const self = this;
-    let reloadStyles = false;
+        events.trigger($counter, 'prepare.counter.gkt', { config });
 
-    $('[data-ghostkit-styles]').each(function () {
-      const $this = $(this);
-      self.customStyles += replaceVars($this.attr('data-ghostkit-styles'));
-      $this.removeAttr('data-ghostkit-styles');
-      reloadStyles = true;
-    });
+        // Animate counter.
+        const stopInView = inView(
+          $counter,
+          () => {
+            stopInView();
 
-    if (reloadStyles) {
-      let $style = $('#ghostkit-blocks-custom-css-inline-css');
-      if (!$style.length) {
-        $style = $('<style id="ghostkit-blocks-custom-css-inline-css">').appendTo('head');
-      }
-      $style.html(self.customStyles);
+            events.trigger($counter, 'count.counter.gkt', { config });
 
-      events.trigger($style[0], 'prepare.customStyles.gkt');
-    }
+            if (isProgress) {
+              [$counter, $progressCountBadgeWrap].forEach((el) => {
+                if (el) {
+                  animate(
+                    el,
+                    {
+                      width: `${to}%`,
+                    },
+                    {
+                      duration: config.duration / 1000,
+                      easing: config.easing,
+                    }
+                  );
+                }
+              });
+            }
+
+            animate(
+              (progress) => {
+                config.cb(progress);
+              },
+              {
+                duration: config.duration / 1000,
+                easing: config.easing,
+              }
+            ).finished.then(() => {
+              events.trigger($counter, 'counted.counter.gkt', { config });
+            });
+          },
+          { margin: '-50px' }
+        );
+      });
   }
 
   /**
@@ -222,26 +200,29 @@ class GhostKitClass {
    */
   // eslint-disable-next-line class-methods-use-this
   prepareSR() {
-    $('[data-ghostkit-sr]:not(.data-ghostkit-sr-ready)').each(function () {
-      const $element = $(this);
+    document
+      .querySelectorAll('[data-ghostkit-sr]:not(.data-ghostkit-sr-ready)')
+      .forEach(function ($element) {
+        $element.classList.add('data-ghostkit-sr-ready');
 
-      $element.addClass('data-ghostkit-sr-ready');
+        const data = $element.getAttribute('data-ghostkit-sr');
+        const config = parseSRConfig(data);
 
-      const data = $element.attr('data-ghostkit-sr');
-      const config = parseSRConfig(data);
+        events.trigger($element, 'prepare.scrollReveal.gkt', { config });
 
-      events.trigger(this, 'prepare.scrollReveal.gkt', { config });
+        const stopInView = inView($element, () => {
+          stopInView();
 
-      const stopInView = inView(this, () => {
-        stopInView();
+          events.trigger($element, 'show.scrollReveal.gkt', { config });
 
-        animate(this, config.keyframes, config.options).finished.then(() => {
-          config.cleanup(this);
+          animate($element, config.keyframes, config.options).finished.then(() => {
+            config.cleanup($element);
+            events.trigger($element, 'showed.scrollReveal.gkt', { config });
+          });
         });
-      });
 
-      events.trigger(this, 'prepared.scrollReveal.gkt', { config });
-    });
+        events.trigger($element, 'prepared.scrollReveal.gkt', { config });
+      });
   }
 }
 
