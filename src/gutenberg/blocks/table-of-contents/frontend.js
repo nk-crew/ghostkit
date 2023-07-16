@@ -2,59 +2,56 @@
  * Internal dependencies
  */
 import { maybeDecode } from '../../utils/encode-decode';
-import addEventListener from '../../utils/add-event-listener';
 
 /**
  * Block TOC
  */
 const $html = document.documentElement;
+const { events } = window.GHOSTKIT;
 
 /**
  * Prepare TOCs click to link.
  */
 function initSmoothScroll() {
-  addEventListener(
-    document,
-    'click',
-    function (evt) {
-      evt.preventDefault();
+  events.on(document, 'click', '.ghostkit-toc a', (e) => {
+    e.preventDefault();
 
-      if (!this || !this.hash) {
-        return;
+    const $el = e.delegateTarget;
+
+    if (!$el || !$el.hash) {
+      return;
+    }
+
+    const offsetEl = document.getElementById(maybeDecode($el.hash).substring(1));
+
+    if (!offsetEl) {
+      return;
+    }
+
+    let { top } = offsetEl.getBoundingClientRect();
+
+    // Get offset from CSS.
+    const scrollPadding = parseFloat(getComputedStyle($html)['scroll-padding-top']);
+
+    if (scrollPadding) {
+      top -= scrollPadding;
+    } else {
+      const $adminBar = document.getElementById('wpadminbar');
+
+      // Admin bar offset.
+      if ($adminBar && getComputedStyle($adminBar).position === 'fixed') {
+        top -= $adminBar.getBoundingClientRect().height;
       }
+    }
 
-      const offsetEl = document.getElementById(maybeDecode(this.hash).substring(1));
+    // Limit max offset.
+    top = Math.max(0, top);
 
-      if (!offsetEl) {
-        return;
-      }
-
-      let { top } = offsetEl.getBoundingClientRect();
-
-      // Get offset from CSS.
-      const scrollPadding = parseFloat(getComputedStyle($html)['scroll-padding-top']);
-
-      if (scrollPadding) {
-        top -= scrollPadding;
-      } else {
-        const $adminBar = document.getElementById('wpadminbar');
-
-        // Admin bar offset.
-        if ($adminBar && getComputedStyle($adminBar).position === 'fixed') {
-          top -= $adminBar.getBoundingClientRect().height;
-        }
-      }
-
-      // Limit max offset.
-      top = Math.max(0, top);
-
-      window.scrollTo({
-        top,
-        behavior: 'smooth',
-      });
-    },
-    '.ghostkit-toc a'
-  );
+    window.scrollTo({
+      top,
+      behavior: 'smooth',
+    });
+  });
 }
 
 // If smooth scroll enabled in CSS, we don't need to run it with JS.

@@ -2,26 +2,17 @@
 /**
  * Block Lottie
  */
-import addEventListener from '../../utils/add-event-listener';
-
 const {
-  jQuery: $,
+  GHOSTKIT: { events },
   Motion: { inView, scroll },
 } = window;
 
-const $doc = $(document);
-
 // Click trigger.
-addEventListener(
-  document,
-  'click',
-  function () {
-    if (this?.play) {
-      this.play();
-    }
-  },
-  '.ghostkit-lottie[data-trigger="click"] > lottie-player'
-);
+events.on(document, 'click', '.ghostkit-lottie[data-trigger="click"] > lottie-player', (e) => {
+  if (e.delegateTarget?.play) {
+    e.delegateTarget.play();
+  }
+});
 
 // In Viewport trigger.
 inView('.ghostkit-lottie[data-trigger="viewport"] > lottie-player', (info) => {
@@ -37,7 +28,7 @@ inView('.ghostkit-lottie[data-trigger="viewport"] > lottie-player', (info) => {
 });
 
 // Scroll trigger.
-$doc.on('initBlocks.ghostkit', () => {
+events.on(document, 'init.blocks.gkt', () => {
   document
     .querySelectorAll('.ghostkit-lottie[data-trigger="scroll"]:not(.ghostkit-lottie-ready)')
     .forEach(($this) => {

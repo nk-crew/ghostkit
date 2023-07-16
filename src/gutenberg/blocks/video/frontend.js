@@ -3,12 +3,10 @@
  */
 
 const {
-  GHOSTKIT,
-  jQuery: $,
+  GHOSTKIT: { events },
   Motion: { animate },
 } = window;
 
-const $doc = $(document);
 const animationDuration = 0.2;
 
 function animationFullscreenOpen(element) {
@@ -28,15 +26,15 @@ function animationFullscreenOpen(element) {
 /**
  * Prepare Videos.
  */
-$doc.on('initBlocks.ghostkit', (e, self) => {
+events.on(document, 'init.blocks.gkt', () => {
   if (typeof window.VideoWorker === 'undefined') {
     return;
   }
 
-  GHOSTKIT.triggerEvent('beforePrepareVideo', self);
-
   document.querySelectorAll('.ghostkit-video:not(.ghostkit-video-ready)').forEach(($this) => {
     $this.classList.add('ghostkit-video-ready');
+
+    events.trigger($this, 'prepare.video.gkt');
 
     const url = $this.getAttribute('data-video');
     const clickAction = $this.getAttribute('data-click-action');
@@ -73,13 +71,19 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       mute = 1;
     }
 
-    const api = new window.VideoWorker(url, {
+    const options = {
       autoplay: 0,
       loop: videoLoop,
       mute,
       volume: parseFloat($this.getAttribute('data-video-volume')) || 0,
       showContols: 1,
-    });
+    };
+
+    events.trigger($this, 'prepare.videoWorker.gkt', { options });
+
+    const api = new window.VideoWorker(url, options);
+
+    events.trigger($this, 'prepared.videoWorker.gkt', { api });
 
     if (api && api.isValid()) {
       let loaded = 0;
@@ -137,8 +141,8 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
 
               animationFullscreenOpen($fullscreenWrapper);
 
-              const handlerClose = (evt) => {
-                const $target = evt.target;
+              events.on($fullscreenWrapper, 'click', (e) => {
+                const $target = e.target;
 
                 if (
                   $target.classList.contains('ghostkit-video-fullscreen') ||
@@ -156,8 +160,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
                     { duration: animationDuration }
                   );
                 }
-              };
-              $fullscreenWrapper.addEventListener('click', handlerClose);
+              });
             });
 
             loaded = 1;
@@ -190,7 +193,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
           api.play();
         }
       };
-      $this.addEventListener('click', handlerOpen);
+      events.on($this, 'click', handlerOpen);
 
       // Set thumb.
       if (!$poster && !$this.classList.contains('is-style-icon-only')) {
@@ -264,7 +267,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
           },
         };
 
-        GHOSTKIT.triggerEvent('prepareVideoObserver', self, videoObserverData);
+        events.trigger($this, 'prepare.videoObserver.gkt', { config: videoObserverData });
 
         const videoObserver = new IntersectionObserver(
           videoObserverData.callback,
@@ -274,7 +277,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
         videoObserver.observe($this);
       }
     }
-  });
 
-  GHOSTKIT.triggerEvent('afterPrepareVideo', self);
+    events.trigger($this, 'prepared.video.gkt');
+  });
 });

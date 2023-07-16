@@ -1,18 +1,19 @@
 /**
  * Block Changelog
  */
-const { GHOSTKIT, jQuery: $ } = window;
-const $doc = $(document);
+const {
+  GHOSTKIT: { events },
+} = window;
 
 /**
  * Prepare Changelogs.
  */
-$doc.on('initBlocks.ghostkit', (e, self) => {
-  GHOSTKIT.triggerEvent('beforePrepareChangelog', self);
-
+events.on(document, 'init.blocks.gkt', () => {
   document
     .querySelectorAll('.ghostkit-changelog:not(.ghostkit-changelog-ready)')
     .forEach(($this) => {
+      events.trigger($this, 'prepare.changelog.gkt');
+
       $this.classList.add('ghostkit-changelog-ready');
 
       // Add badges.
@@ -50,7 +51,7 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
             $li.innerHTML = `<span class="${className}">${changeType}</span> ${changeDescription}`;
           }
         });
-    });
 
-  GHOSTKIT.triggerEvent('afterPrepareChangelog', self);
+      events.trigger($this, 'prepared.changelog.gkt');
+    });
 });

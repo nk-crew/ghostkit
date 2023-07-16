@@ -1,18 +1,18 @@
 /**
  * Block Gist
  */
-const { GHOSTKIT, jQuery: $, gistSimple } = window;
-const $doc = $(document);
+const {
+  GHOSTKIT: { events },
+  gistSimple,
+} = window;
 
 /**
  * Prepare Gists.
  */
-$doc.on('initBlocks.ghostkit', (e, self) => {
+events.on(document, 'init.blocks.gkt', () => {
   if (typeof gistSimple === 'undefined') {
     return;
   }
-
-  GHOSTKIT.triggerEvent('beforePrepareGist', self);
 
   document.querySelectorAll('.ghostkit-gist:not(.ghostkit-gist-ready)').forEach(($this) => {
     $this.classList.add('ghostkit-gist-ready');
@@ -20,15 +20,19 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec($this.getAttribute('data-url'));
 
     if (match && typeof match[1] !== 'undefined') {
-      gistSimple($this, {
+      const options = {
         id: match[1],
         file: $this.getAttribute('data-file'),
         caption: $this.getAttribute('data-caption'),
         showFooter: $this.getAttribute('data-show-footer') === 'true',
         showLineNumbers: $this.getAttribute('data-show-line-numbers') === 'true',
-      });
+      };
+
+      events.trigger($this, 'prepare.gist.gkt', { options });
+
+      gistSimple($this, options);
+
+      events.trigger($this, 'prepared.gist.gkt', { options });
     }
   });
-
-  GHOSTKIT.triggerEvent('afterPrepareGist', self);
 });

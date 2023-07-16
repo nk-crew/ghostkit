@@ -12,9 +12,10 @@ import parseSRConfig from '../../gutenberg/extend/scroll-reveal/parseSRConfig';
 const {
   jQuery: $,
   Motion: { animate, inView },
-  ghostkitVariables,
   GHOSTKIT,
 } = window;
+
+const { events, replaceVars } = GHOSTKIT;
 
 class GhostKitClass {
   constructor() {
@@ -24,67 +25,52 @@ class GhostKitClass {
       window.navigator.userAgent || window.navigator.vendor || window.opera
     );
 
-    // prepare media vars.
-    self.screenSizes = [];
-    Object.keys(ghostkitVariables.media_sizes).forEach((k) => {
-      self.screenSizes.push(ghostkitVariables.media_sizes[k]);
-    });
-
     self.customStyles = $('#ghostkit-blocks-custom-css-inline-css').html() || '';
 
     // Methods bind class.
     self.initBlocks = self.initBlocks.bind(self);
-    self.prepareCounters = self.prepareCounters.bind(self);
-    self.prepareFallbackCustomStyles = self.prepareFallbackCustomStyles.bind(self);
-    self.prepareSR = self.prepareSR.bind(self);
-
-    GHOSTKIT.triggerEvent('beforeInit', self);
-
-    // Init blocks.
-    const throttledInitBlocks = throttle(
+    self.initBlocksThrottled = throttle(
       200,
       rafSchd(() => {
         self.initBlocks();
       })
     );
-    if (window.MutationObserver) {
-      new window.MutationObserver(throttledInitBlocks).observe(document.documentElement, {
-        childList: true,
-        subtree: true,
-      });
-    } else {
-      $(document).on('DOMContentLoaded DOMNodeInserted load', () => {
-        throttledInitBlocks();
-      });
-    }
+    self.prepareCounters = self.prepareCounters.bind(self);
+    self.prepareFallbackCustomStyles = self.prepareFallbackCustomStyles.bind(self);
+    self.prepareSR = self.prepareSR.bind(self);
 
-    GHOSTKIT.triggerEvent('afterInit', self);
+    events.trigger(document, 'init.gkt');
+
+    // Init blocks.
+    new window.MutationObserver(self.initBlocksThrottled).observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    });
+
+    events.trigger(document, 'afterInit.gkt');
   }
 
   // Init blocks.
   initBlocks() {
     const self = this;
 
-    GHOSTKIT.triggerEvent('beforeInitBlocks', self);
+    events.trigger(document, 'beforeInit.blocks.gkt');
 
-    GHOSTKIT.triggerEvent('initBlocks', self);
+    events.trigger(document, 'init.blocks.gkt');
 
     self.prepareFallbackCustomStyles();
     self.prepareNumberedLists();
     self.prepareCounters();
     self.prepareSR();
 
-    GHOSTKIT.triggerEvent('afterInitBlocks', self);
+    events.trigger(document, 'afterInit.blocks.gkt');
   }
 
   /**
    * Prepare Numbered Lists with `start` attribute.
    */
+  // eslint-disable-next-line class-methods-use-this
   prepareNumberedLists() {
-    const self = this;
-
-    GHOSTKIT.triggerEvent('beforePrepareNumberedLists', self);
-
     $('.is-style-styled:not(.is-style-styled-ready)').each(function () {
       const $this = $(this);
       const start = parseInt($this.attr('start'), 10);
@@ -98,19 +84,16 @@ class GhostKitClass {
       } else if (start) {
         $this.css('counter-reset', `li ${start - 1}`);
       }
-    });
 
-    GHOSTKIT.triggerEvent('afterPrepareNumberedLists', self);
+      events.trigger(this, 'prepare.numberedList.gkt');
+    });
   }
 
   /**
    * Prepare Counters (Number Box, Progress Bar)
    */
+  // eslint-disable-next-line class-methods-use-this
   prepareCounters() {
-    const self = this;
-
-    GHOSTKIT.triggerEvent('beforePrepareCounters', self);
-
     $('.ghostkit-count-up:not(.ghostkit-count-up-ready)').each(function () {
       const $this = $(this);
       const isProgress = $this.hasClass('ghostkit-progress-bar');
@@ -146,7 +129,7 @@ class GhostKitClass {
         $this.text(mask.replace('${val}', from));
       }
 
-      const item = {
+      const config = {
         $el: $this,
         el: this,
         from,
@@ -165,13 +148,15 @@ class GhostKitClass {
         },
       };
 
-      GHOSTKIT.triggerEvent('prepareCounters', self, item);
+      events.trigger(this, 'prepare.counter.gkt', { config });
 
       // Animate counter.
       const stopInView = inView(
         this,
         () => {
           stopInView();
+
+          events.trigger(config.el, 'animate.counter.gkt', { config });
 
           if (isProgress) {
             [this, $progressCountBadgeWrap[0]].forEach((el) => {
@@ -181,8 +166,8 @@ class GhostKitClass {
                   width: `${to}%`,
                 },
                 {
-                  duration: item.duration / 1000,
-                  easing: item.easing,
+                  duration: config.duration / 1000,
+                  easing: config.easing,
                 }
               );
             });
@@ -190,21 +175,19 @@ class GhostKitClass {
 
           animate(
             (progress) => {
-              item.cb(progress);
+              config.cb(progress);
             },
             {
-              duration: item.duration / 1000,
-              easing: item.easing,
+              duration: config.duration / 1000,
+              easing: config.easing,
             }
           ).finished.then(() => {
-            GHOSTKIT.triggerEvent('animatedCounters', self, item);
+            events.trigger(config.el, 'animated.counter.gkt', { config });
           });
         },
         { margin: '-50px' }
       );
     });
-
-    GHOSTKIT.triggerEvent('afterPrepareCounters', self);
   }
 
   /**
@@ -216,11 +199,9 @@ class GhostKitClass {
     const self = this;
     let reloadStyles = false;
 
-    GHOSTKIT.triggerEvent('beforePrepareCustomStyles', self);
-
     $('[data-ghostkit-styles]').each(function () {
       const $this = $(this);
-      self.customStyles += GHOSTKIT.replaceVars($this.attr('data-ghostkit-styles'));
+      self.customStyles += replaceVars($this.attr('data-ghostkit-styles'));
       $this.removeAttr('data-ghostkit-styles');
       reloadStyles = true;
     });
@@ -231,30 +212,25 @@ class GhostKitClass {
         $style = $('<style id="ghostkit-blocks-custom-css-inline-css">').appendTo('head');
       }
       $style.html(self.customStyles);
-    }
 
-    GHOSTKIT.triggerEvent('afterPrepareCustomStyles', self);
+      events.trigger($style[0], 'prepare.customStyles.gkt');
+    }
   }
 
   /**
    * Prepare ScrollReveal
    */
+  // eslint-disable-next-line class-methods-use-this
   prepareSR() {
-    const self = this;
-
-    GHOSTKIT.triggerEvent('beforePrepareSR', self);
-
     $('[data-ghostkit-sr]:not(.data-ghostkit-sr-ready)').each(function () {
       const $element = $(this);
-
-      GHOSTKIT.triggerEvent('beforePrepareSRStart', self, $element);
 
       $element.addClass('data-ghostkit-sr-ready');
 
       const data = $element.attr('data-ghostkit-sr');
       const config = parseSRConfig(data);
 
-      GHOSTKIT.triggerEvent('beforeInitSR', self, $element, config);
+      events.trigger(this, 'prepare.scrollReveal.gkt', { config });
 
       const stopInView = inView(this, () => {
         stopInView();
@@ -264,11 +240,12 @@ class GhostKitClass {
         });
       });
 
-      GHOSTKIT.triggerEvent('beforePrepareSREnd', self, $element);
+      events.trigger(this, 'prepared.scrollReveal.gkt', { config });
     });
-
-    GHOSTKIT.triggerEvent('afterPrepareSR', self);
   }
 }
 
-GHOSTKIT.classObject = new GhostKitClass();
+GHOSTKIT.class = new GhostKitClass();
+
+// Fallback.
+GHOSTKIT.classObject = GHOSTKIT.class;

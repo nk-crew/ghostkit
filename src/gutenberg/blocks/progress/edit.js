@@ -247,8 +247,7 @@ class BlockEdit extends Component {
                       100,
                       Math.max(
                         0,
-                        percent +
-                          parseInt((100 * delta.width) / window.jQuery(elt).parent().width(), 10)
+                        percent + parseInt((100 * delta.width) / elt.parentNode.width(), 10)
                       )
                     ),
                   });

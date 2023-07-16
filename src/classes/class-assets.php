@@ -196,7 +196,7 @@ class GhostKit_Assets {
      */
     public function register_scripts() {
         $css_deps = array();
-        $js_deps  = array( 'jquery', 'ghostkit-helper' );
+        $js_deps  = array( 'ghostkit-helper' );
 
         do_action( 'gkt_before_assets_register' );
 
@@ -209,7 +209,7 @@ class GhostKit_Assets {
 
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
-            wp_register_script( 'jarallax', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax.min.js', array( 'jquery' ), '2.0.1', true );
+            wp_register_script( 'jarallax', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax.min.js', array(), '2.0.1', true );
             wp_register_script( 'jarallax-video', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax-video.min.js', array( 'jarallax' ), '2.0.1', true );
         }
 
@@ -268,7 +268,7 @@ class GhostKit_Assets {
         wp_register_script(
             'ghostkit-helper',
             ghostkit()->plugin_url . 'assets/js/helper.min.js',
-            array( 'jquery' ),
+            array(),
             '@@plugin_version',
             true
         );
@@ -398,7 +398,7 @@ class GhostKit_Assets {
         foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/frontend.min.js' ) as $template ) {
             $block_name       = basename( dirname( $template ) );
             $block_script_url = ghostkit()->plugin_url . 'gutenberg/blocks/' . $block_name . '/frontend.min.js';
-            $block_js_deps    = array( 'ghostkit', 'jquery' );
+            $block_js_deps    = array( 'ghostkit' );
 
             switch ( $block_name ) {
                 case 'accordion':

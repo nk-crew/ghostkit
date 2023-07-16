@@ -16,8 +16,6 @@ const { Component, Fragment } = wp.element;
 
 const { __ } = wp.i18n;
 
-const $ = window.jQuery;
-
 export default class Container extends Component {
   constructor(props) {
     super(props);
@@ -46,23 +44,29 @@ export default class Container extends Component {
   updateAdminPageActiveLink() {
     const { activePage } = this.state;
 
-    // disable active link.
-    $('.toplevel_page_ghostkit .current').removeClass('current');
+    // disable active links.
+    document.querySelectorAll('.toplevel_page_ghostkit .current').forEach(($el) => {
+      $el.classList.remove('current');
+    });
 
     // find new active link.
-    let $link = $(
+    let $links = document.querySelectorAll(
       `.toplevel_page_ghostkit [href="admin.php?page=ghostkit&sub_page=${activePage}"]`
     );
 
-    if (!$link.length) {
-      $link = $('.toplevel_page_ghostkit [href="admin.php?page=ghostkit"]');
+    if (!$links || !$links.length) {
+      $links = document.querySelectorAll(
+        '.toplevel_page_ghostkit [href="admin.php?page=ghostkit"]'
+      );
     }
 
-    $link.parent().addClass('current');
+    $links.forEach(($link) => {
+      $link.parentNode.classList.add('current');
+    });
 
     // change address bar link
-    if ($link.length) {
-      window.history.pushState(document.title, document.title, $link.prop('href'));
+    if ($links && $links.length) {
+      window.history.pushState(document.title, document.title, $links[0].href);
     }
   }
 

@@ -4,8 +4,9 @@
 import getSiblings from '../../utils/get-siblings';
 import getParents from '../../utils/get-parents';
 
-const { GHOSTKIT, jQuery: $ } = window;
-const $doc = $(document);
+const {
+  GHOSTKIT: { screenSizes, events },
+} = window;
 
 function getSwiperVersion(Swiper) {
   let ver = 8;
@@ -31,12 +32,10 @@ function getSwiperVersion(Swiper) {
 /**
  * Prepare Carousels.
  */
-$doc.on('initBlocks.ghostkit', (e, self) => {
+events.on(document, 'init.blocks.gkt', () => {
   if (typeof window.Swiper === 'undefined') {
     return;
   }
-
-  GHOSTKIT.triggerEvent('beforePrepareCarousels', self);
 
   document
     .querySelectorAll('.ghostkit-carousel:not(.ghostkit-carousel-ready)')
@@ -122,11 +121,11 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       const breakPoints = {};
       if (effect !== 'fade' && !Number.isNaN(slidesPerView)) {
         let count = slidesPerView;
-        let currentPoint = Math.min(self.screenSizes.length - 1, count - 1);
+        let currentPoint = Math.min(screenSizes.length - 1, count - 1);
 
         for (; currentPoint >= 0; currentPoint -= 1) {
-          if (count > 0 && typeof self.screenSizes[currentPoint] !== 'undefined') {
-            breakPoints[self.screenSizes[currentPoint] + 1] = {
+          if (count > 0 && typeof screenSizes[currentPoint] !== 'undefined') {
+            breakPoints[screenSizes[currentPoint] + 1] = {
               slidesPerView: count,
             };
           }
@@ -142,13 +141,13 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
         // These events used to add fixes for
         // conflict with custom cursor movement.
         touchStart(swiper, evt) {
-          GHOSTKIT.triggerEvent('swiperTouchStart', self, swiper, evt);
+          events.trigger($carousel, 'touchStart.carousel.gkt', { originalEvent: evt });
         },
         touchMove(swiper, evt) {
-          GHOSTKIT.triggerEvent('swiperTouchMove', self, swiper, evt);
+          events.trigger($carousel, 'touchMove.carousel.gkt', { originalEvent: evt });
         },
         touchEnd(swiper, evt) {
-          GHOSTKIT.triggerEvent('swiperTouchEnd', self, swiper, evt);
+          events.trigger($carousel, 'touchEnd.carousel.gkt', { originalEvent: evt });
         },
       };
 
@@ -172,71 +171,85 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
         }
       })();
 
+      events.trigger($carousel, 'init.carousel.gkt', { options });
+
       // init swiper
       // eslint-disable-next-line no-new
       new window.Swiper($carousel, options);
 
-      // Autoplay hover pause.
-      if ($carousel.getAttribute('data-autoplay-hover-pause') === 'true' && options.autoplay) {
-        const handlerAutoplayStop = () => {
-          $carousel.swiper.autoplay.stop();
-        };
-
-        const handlerAutoplayStart = () => {
-          $carousel.swiper.autoplay.start();
-        };
-
-        $carousel.addEventListener('mouseenter', handlerAutoplayStop);
-        $carousel.addEventListener('mouseleave', handlerAutoplayStart);
-      }
+      events.trigger($carousel, 'inited.carousel.gkt', { options });
     });
-
-  GHOSTKIT.triggerEvent('afterPrepareCarousels', self);
 });
+
+/**
+ * Autoplay pause/play on hover.
+ */
+events.on(
+  document,
+  'mouseenter',
+  '.ghostkit-carousel-ready[data-autoplay-hover-pause="true"]',
+  (e) => {
+    const $slider = e.delegateTarget;
+
+    if (!$slider?.swiper?.autoplay || !$slider?.swiper?.params?.autoplay?.enabled) {
+      return;
+    }
+
+    $slider.swiper.autoplay.stop();
+  }
+);
+events.on(
+  document,
+  'mouseleave',
+  '.ghostkit-carousel-ready[data-autoplay-hover-pause="true"]',
+  (e) => {
+    const $slider = e.delegateTarget;
+
+    if (!$slider?.swiper?.autoplay || !$slider?.swiper?.params?.autoplay?.enabled) {
+      return;
+    }
+
+    $slider.swiper.autoplay.start();
+  }
+);
 
 /**
  * Re-create slides duplicates.
  * https://github.com/nolimits4web/swiper/issues/2629
  */
-function reinitDuplicates($item) {
-  const $carousels = getParents($item);
+events.on(
+  document,
+  'shown.tab.gkt shown.accordion.gkt move.image-compare.gkt closed.alert.gkt animated.counter.gkt',
+  (e) => {
+    const $el = e.delegateTarget;
+    const $carousels = getParents($el);
 
-  $carousels.forEach(($this) => {
-    if (
-      $this.classList.contains('ghostkit-carousel-ready') &&
-      $this.getAttribute('data-loop') === 'true' &&
-      $this.swiper
-    ) {
-      const $slide = $item.closest('.swiper-slide');
+    $carousels.forEach(($this) => {
+      if (
+        $this.classList.contains('ghostkit-carousel-ready') &&
+        $this.getAttribute('data-loop') === 'true' &&
+        $this.swiper
+      ) {
+        const $slide = $el.closest('.swiper-slide');
 
-      // Copy the content of duplicated slide to original when changed content inside duplicated slide.
-      if ($slide && $slide.classList.contains('swiper-slide-duplicate')) {
-        getSiblings($slide).forEach(($slideSibling) => {
-          if (
-            $slideSibling.getAttribute('data-swiper-slide-index') ===
-              $slide.getAttribute('data-swiper-slide-index') &&
-            $slideSibling.classList.contains(':not(.swiper-slide-duplicate):first-child')
-          ) {
-            $slideSibling.innerHTML = $slide.innerHTML;
-          }
-        });
+        // Copy the content of duplicated slide to original when changed content inside duplicated slide.
+        if ($slide && $slide.classList.contains('swiper-slide-duplicate')) {
+          getSiblings($slide).forEach(($slideSibling) => {
+            if (
+              $slideSibling.getAttribute('data-swiper-slide-index') ===
+                $slide.getAttribute('data-swiper-slide-index') &&
+              $slideSibling.classList.contains(':not(.swiper-slide-duplicate):first-child')
+            ) {
+              $slideSibling.innerHTML = $slide.innerHTML;
+            }
+          });
 
-        // Recreate loop when changed content inside original slide.
-      } else {
-        $this.swiper.loopDestroy();
-        $this.swiper.loopCreate();
+          // Recreate loop when changed content inside original slide.
+        } else {
+          $this.swiper.loopDestroy();
+          $this.swiper.loopCreate();
+        }
       }
-    }
-  });
-}
-
-$doc.on(
-  'activateTab.ghostkit afterActivateAccordionItem.ghostkit movedImageCompare.ghostkit dismissedAlert.ghostkit',
-  (e, self, $item) => {
-    reinitDuplicates($item);
+    });
   }
 );
-
-$doc.on('animatedCounters.ghostkit', (e, self, item) => {
-  reinitDuplicates(item.$el);
-});

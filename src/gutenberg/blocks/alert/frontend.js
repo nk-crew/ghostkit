@@ -1,32 +1,27 @@
 /**
  * Block Alert
  */
-import addEventListener from '../../utils/add-event-listener';
-
 const {
   Motion: { animate },
-  GHOSTKIT,
+  GHOSTKIT: { events },
 } = window;
 
-addEventListener(
-  document.body,
-  'click',
-  function (e) {
-    e.preventDefault();
+events.on(document, 'click', '.ghostkit-alert-hide-button', (e) => {
+  e.preventDefault();
 
-    const alert = this.parentNode;
+  const alert = e.delegateTarget.parentNode;
 
-    animate(alert, { opacity: 0 }, { duration: 0.5 }).finished.then(() => {
-      alert.style.height = `${alert.offsetHeight}px`;
-      alert.style.paddingTop = '0px';
-      alert.style.paddingBottom = '0px';
+  events.trigger(alert, 'close.alert.gkt');
 
-      animate(alert, { height: 0, marginTop: 0, marginBottom: 0 }, { duration: 0.5 }).finished.then(
-        () => {
-          GHOSTKIT.triggerEvent('dismissedAlert', GHOSTKIT.classObject, alert);
-        }
-      );
-    });
-  },
-  '.ghostkit-alert-hide-button'
-);
+  animate(alert, { opacity: 0 }, { duration: 0.5 }).finished.then(() => {
+    alert.style.height = `${alert.offsetHeight}px`;
+    alert.style.paddingTop = '0px';
+    alert.style.paddingBottom = '0px';
+
+    animate(alert, { height: 0, marginTop: 0, marginBottom: 0 }, { duration: 0.5 }).finished.then(
+      () => {
+        events.trigger(alert, 'closed.alert.gkt');
+      }
+    );
+  });
+});

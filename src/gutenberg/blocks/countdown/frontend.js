@@ -4,17 +4,18 @@
 import countDownApi from './api';
 import { TIMEZONELESS_FORMAT } from './constants';
 
-const { GHOSTKIT, jQuery: $, luxon } = window;
-
-const $doc = $(document);
+const {
+  GHOSTKIT: { events, timezone },
+  luxon,
+} = window;
 
 /**
  * Prepare Countdowns.
  */
-$doc.on('initBlocks.ghostkit', (e, self) => {
+events.on(document, 'init.blocks.gkt', () => {
   function updateUnits(date, units, unitsElements, $this) {
     const currentDate = new Date(
-      luxon.DateTime.now().setZone(GHOSTKIT.timezone).toFormat(TIMEZONELESS_FORMAT)
+      luxon.DateTime.now().setZone(timezone).toFormat(TIMEZONELESS_FORMAT)
     );
 
     const dateData = countDownApi(date, currentDate, units, 0);
@@ -52,11 +53,11 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     }, countDownApi.getDelay(units));
   }
 
-  GHOSTKIT.triggerEvent('beforePrepareCountdown', self);
-
   document
     .querySelectorAll('.ghostkit-countdown:not(.ghostkit-countdown-ready)')
     .forEach(($countdown) => {
+      events.trigger($countdown, 'prepare.countdown.gkt');
+
       $countdown.classList.add('ghostkit-countdown-ready');
 
       const date = new Date($countdown.getAttribute('data-date'));
@@ -78,8 +79,8 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
         }
       );
 
+      events.trigger($countdown, 'prepared.countdown.gkt');
+
       updateUnits(date, units, unitsElements, $countdown);
     });
-
-  GHOSTKIT.triggerEvent('afterPrepareCountdown', self);
 });

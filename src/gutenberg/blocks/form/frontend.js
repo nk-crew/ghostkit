@@ -1,10 +1,13 @@
 /**
  * Block Form
  */
-const { jQuery: $, grecaptcha, GHOSTKIT, wp } = window;
-const { __ } = wp.i18n;
+const {
+  grecaptcha,
+  GHOSTKIT: { googleReCaptchaAPISiteKey, events },
+  wp,
+} = window;
 
-const $doc = $(document);
+const { __ } = wp.i18n;
 
 const errorParentSelector =
   '.ghostkit-form-field-name-first, .ghostkit-form-field-name-last, .ghostkit-form-field-email-primary, .ghostkit-form-field-email-confirm, .ghostkit-form-field';
@@ -44,77 +47,12 @@ function hideError($field) {
 /**
  * Form validation.
  */
-$doc.on('initBlocks.ghostkit', () => {
+events.on(document, 'init.blocks.gkt', () => {
   document.querySelectorAll('.ghostkit-form:not(.ghostkit-form-ready)').forEach(($form) => {
     $form.classList.add('ghostkit-form-ready');
 
     // Disable native validation errors.
     $form.setAttribute('novalidate', '');
-
-    // Add event listeners.
-    $form.addEventListener('submit', (e) => {
-      // Fields validation.
-      const isValid = e.target.checkValidity();
-
-      if (!isValid) {
-        e.preventDefault();
-
-        e.target.classList.add('ghostkit-form-was-validated');
-        e.target.querySelector(':invalid').focus();
-
-        return;
-      }
-
-      /// Google reCaptcha.
-      if (typeof grecaptcha !== 'undefined') {
-        if ($form.classList.contains('ghostkit-form-processed')) {
-          return;
-        }
-
-        const $recaptchaTokenField = $form.querySelector('[name="ghostkit_form_google_recaptcha"]');
-
-        if (!$recaptchaTokenField) {
-          return;
-        }
-
-        e.preventDefault();
-
-        if ($form.classList.contains('ghostkit-form-processing')) {
-          return;
-        }
-
-        $form.classList.add('ghostkit-form-processing');
-
-        // Ensure Recaptcha is loaded.
-        grecaptcha.ready(() => {
-          grecaptcha
-            .execute(GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' })
-            .then((token) => {
-              $recaptchaTokenField.val(token);
-
-              $form.classList.add('ghostkit-form-processed');
-
-              // After the token is fetched, submit the form.
-              $form.submit();
-
-              $form.classList.remove('ghostkit-form-processing', 'ghostkit-form-processed');
-            });
-        });
-      }
-    });
-
-    $form.addEventListener('blur', (e) => {
-      e.target.checkValidity();
-    });
-
-    $form.addEventListener('input', (e) => {
-      const field = e.target;
-      const valid = field.checkValidity();
-
-      if (valid) {
-        hideError(field);
-      }
-    });
 
     // Add 'invalid' event listener to all form fields separately
     // since this event does not bubbles.
@@ -134,7 +72,7 @@ $doc.on('initBlocks.ghostkit', () => {
             $field.setAttribute('required', refEmail.getAttribute('required'));
           }
 
-          refEmail.addEventListener('input', () => {
+          events.on(refEmail, 'input', () => {
             if (refEmail.value) {
               $field.setAttribute('pattern', refEmail.value);
               $field.setAttribute('required', true);
@@ -151,7 +89,7 @@ $doc.on('initBlocks.ghostkit', () => {
         }
       }
 
-      $field.addEventListener('invalid', () => {
+      events.on($field, 'invalid', () => {
         if (customPatternError && $field.validity.patternMismatch) {
           showError($field, customPatternError);
         } else {
@@ -160,4 +98,69 @@ $doc.on('initBlocks.ghostkit', () => {
       });
     });
   });
+});
+
+// Add event listeners.
+events.on(document, 'submit', '.ghostkit-form', (e) => {
+  const $form = e.delegateTarget;
+
+  // Fields validation.
+  const isValid = $form.checkValidity();
+
+  if (!isValid) {
+    e.preventDefault();
+
+    $form.classList.add('ghostkit-form-was-validated');
+    $form.querySelector(':invalid').focus();
+
+    return;
+  }
+
+  /// Google reCaptcha.
+  if (typeof grecaptcha !== 'undefined') {
+    if ($form.classList.contains('ghostkit-form-processed')) {
+      return;
+    }
+
+    const $recaptchaTokenField = $form.querySelector('[name="ghostkit_form_google_recaptcha"]');
+
+    if (!$recaptchaTokenField) {
+      return;
+    }
+
+    e.preventDefault();
+
+    if ($form.classList.contains('ghostkit-form-processing')) {
+      return;
+    }
+
+    $form.classList.add('ghostkit-form-processing');
+
+    // Ensure Recaptcha is loaded.
+    grecaptcha.ready(() => {
+      grecaptcha.execute(googleReCaptchaAPISiteKey, { action: 'ghostkit' }).then((token) => {
+        $recaptchaTokenField.val(token);
+
+        $form.classList.add('ghostkit-form-processed');
+
+        // After the token is fetched, submit the form.
+        $form.submit();
+
+        $form.classList.remove('ghostkit-form-processing', 'ghostkit-form-processed');
+      });
+    });
+  }
+});
+
+events.on(document, 'blur', '.ghostkit-form', (e) => {
+  e.delegateTarget.checkValidity();
+});
+
+events.on(document, 'input', '.ghostkit-form', (e) => {
+  const $field = e.delegateTarget;
+  const valid = $field.checkValidity();
+
+  if (valid) {
+    hideError($field);
+  }
 });

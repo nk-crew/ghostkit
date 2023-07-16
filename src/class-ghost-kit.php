@@ -118,9 +118,6 @@ class GhostKit {
         // icons.
         require_once $this->plugin_path . 'classes/class-icons.php';
 
-        // icons fallback.
-        require_once $this->plugin_path . 'classes/class-icons-fallback.php';
-
         // shapes.
         require_once $this->plugin_path . 'classes/class-shapes.php';
 
