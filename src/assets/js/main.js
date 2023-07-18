@@ -20,10 +20,6 @@ class GhostKitClass {
   constructor() {
     const self = this;
 
-    self.isMobile = /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/g.test(
-      window.navigator.userAgent || window.navigator.vendor || window.opera
-    );
-
     // Methods bind class.
     self.initBlocks = self.initBlocks.bind(self);
     self.initBlocksThrottled = throttle(
