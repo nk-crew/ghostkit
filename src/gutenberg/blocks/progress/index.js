@@ -6,7 +6,6 @@ import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
-import deprecated from './deprecated';
 
 /**
  * External dependencies
@@ -66,5 +65,4 @@ export const settings = {
   },
   edit,
   save,
-  deprecated,
 };
