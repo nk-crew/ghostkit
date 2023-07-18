@@ -71,22 +71,22 @@ events.on(document, 'init.blocks.gkt', () => {
 
           events.trigger($this, 'prepare.googleMaps.gkt', { options });
 
-          const mapObject = new window.GMaps(options);
+          const instance = new window.GMaps(options);
 
           // add gestureHandling
           const gestureHandling = $this.getAttribute('data-gesture-handling');
-          if (mapObject && gestureHandling === 'cooperative') {
-            mapObject.setOptions({
+          if (instance && gestureHandling === 'cooperative') {
+            instance.setOptions({
               gestureHandling,
               scrollwheel: options.scrollwheel ? null : options.scrollwheel,
             });
           }
 
           if (markers && markers.length) {
-            mapObject.addMarkers(markers);
+            instance.addMarkers(markers);
           }
 
-          events.trigger($this, 'prepared.googleMaps.gkt', { options });
+          events.trigger($this, 'prepared.googleMaps.gkt', { options, instance });
         });
       });
     });

@@ -196,7 +196,7 @@ class GhostKit_Assets {
      */
     public function register_scripts() {
         $css_deps = array();
-        $js_deps  = array( 'ghostkit-helper' );
+        $js_deps  = array( 'ghostkit-helper', 'ghostkit-event-fallbacks' );
 
         do_action( 'gkt_before_assets_register' );
 
@@ -363,6 +363,15 @@ class GhostKit_Assets {
                 'admin_url'                   => admin_url(),
                 'admin_templates_url'         => admin_url( 'edit.php?post_type=ghostkit_template' ),
             )
+        );
+
+        // events fallback script.
+        wp_register_script(
+            'ghostkit-event-fallbacks',
+            ghostkit()->plugin_url . 'assets/js/event-fallbacks.min.js',
+            array( 'ghostkit-helper' ),
+            '@@plugin_version',
+            true
         );
 
         // Fallback for classic themes.

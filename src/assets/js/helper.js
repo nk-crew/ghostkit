@@ -1,5 +1,4 @@
 import EventHandler from './utils/event-handler';
-import getjQuery from './utils/get-jquery';
 
 const {
   themeName,
@@ -91,19 +90,6 @@ const GHOSTKIT = {
    * Events helper functions.
    */
   events: EventHandler,
-  // Fallback
-  triggerEvent(name, ...args) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'Using `GHOSTKIT.triggerEvent` function is deprecated since version 3.0.0. Please use `GHOSTKIT.events.trigger` function instead.'
-    );
-
-    const $ = getjQuery();
-
-    if ($) {
-      $(document).trigger(`${name}.ghostkit`, [...args]);
-    }
-  },
 
   /**
    * Check for block support GhostKit features.

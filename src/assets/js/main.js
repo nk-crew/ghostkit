@@ -42,23 +42,17 @@ class GhostKitClass {
       childList: true,
       subtree: true,
     });
-
-    events.trigger(document, 'afterInit.gkt');
   }
 
   // Init blocks.
   initBlocks() {
     const self = this;
 
-    events.trigger(document, 'beforeInit.blocks.gkt');
-
     events.trigger(document, 'init.blocks.gkt');
 
     self.prepareNumberedLists();
     self.prepareCounters();
     self.prepareSR();
-
-    events.trigger(document, 'afterInit.blocks.gkt');
   }
 
   /**
