@@ -8,7 +8,6 @@ import { throttle } from 'throttle-debounce';
 /**
  * Internal dependencies
  */
-import './fallback-2-5';
 import { replaceClass } from '../../utils/classes-replacer';
 import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 import EditorStyles from '../../components/editor-styles';

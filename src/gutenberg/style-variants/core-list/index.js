@@ -23,8 +23,6 @@ import {
 /**
  * WordPress dependencies
  */
-const { jQuery: $ } = window;
-
 const { merge } = window.lodash;
 
 const { __ } = wp.i18n;
@@ -213,7 +211,7 @@ class GhostKitListStartAndReversedCustomStyles extends Component {
     const { clientId } = this.props;
 
     this.setState({
-      itemsCount: $(`[data-block="${clientId}"]`).children().length,
+      itemsCount: document.querySelectorAll(`[data-block="${clientId}"] > *`).length,
     });
   }
 

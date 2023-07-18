@@ -1,86 +1,166 @@
 /**
- * Block Advanced Columns
+ * Block Form
  */
-const { jQuery: $, grecaptcha, GHOSTKIT } = window;
+const {
+  grecaptcha,
+  GHOSTKIT: { googleReCaptchaAPISiteKey, events },
+  wp,
+} = window;
 
-const $doc = $(document);
+const { __ } = wp.i18n;
+
+const errorParentSelector =
+  '.ghostkit-form-field-name-first, .ghostkit-form-field-name-last, .ghostkit-form-field-email-primary, .ghostkit-form-field-email-confirm, .ghostkit-form-field';
+
+function showError($field, message) {
+  const $parent = $field.closest(errorParentSelector);
+
+  if (!$parent) {
+    return;
+  }
+
+  let $errorBox = $parent.querySelector('.ghostkit-form-field-error');
+
+  if (!$errorBox) {
+    $errorBox = document.createElement('div');
+    $errorBox.classList.add('ghostkit-form-field-error');
+    $parent.append($errorBox);
+  }
+
+  $errorBox.innerHTML = message;
+  $errorBox.setAttribute('aria-hidden', false);
+  $field.setAttribute('aria-invalid', true);
+}
+
+function hideError($field) {
+  const $parent = $field.closest(errorParentSelector);
+  const $errorBox = $parent.querySelector('.ghostkit-form-field-error');
+
+  if ($errorBox) {
+    $errorBox.innerHTML = '';
+    $errorBox.setAttribute('aria-hidden', true);
+  }
+
+  $field.setAttribute('aria-invalid', false);
+}
 
 /**
- * Parsley form validation.
+ * Form validation.
  */
-$doc.on('initBlocks.ghostkit', () => {
-  $('.ghostkit-form:not(.ghostkit-form-ready)').each(function () {
-    const $form = $(this);
+events.on(document, 'init.blocks.gkt', () => {
+  document.querySelectorAll('.ghostkit-form:not(.ghostkit-form-ready)').forEach(($form) => {
+    $form.classList.add('ghostkit-form-ready');
 
-    $form.addClass('ghostkit-form-ready');
+    // Disable native validation errors.
+    $form.setAttribute('novalidate', '');
 
-    $form.parsley({
-      errorsContainer(parsleyField) {
-        const $parent = parsleyField.$element.closest(
-          '.ghostkit-form-field-name-first, .ghostkit-form-field-name-last, .ghostkit-form-field-email-primary, .ghostkit-form-field-email-confirm, .ghostkit-form-field'
-        );
+    // Add 'invalid' event listener to all form fields separately
+    // since this event does not bubbles.
+    const fields = Array.from($form.elements);
 
-        if ($parent.length) {
-          return $parent;
+    fields.forEach(($field) => {
+      let customPatternError = '';
+
+      // Custom Email Confirm validation.
+      if ($field.type === 'email' && $field.dataset.confirmEmail) {
+        const refEmail = $form.querySelector($field.dataset.confirmEmail);
+
+        if (refEmail) {
+          customPatternError = __('These emails should match.', 'ghostkit');
+
+          if (refEmail.getAttribute('required')) {
+            $field.setAttribute('required', refEmail.getAttribute('required'));
+          }
+
+          events.on(refEmail, 'input', () => {
+            if (refEmail.value) {
+              $field.setAttribute('pattern', refEmail.value);
+              $field.setAttribute('required', true);
+            } else {
+              $field.removeAttribute('pattern', refEmail.value);
+
+              if (refEmail.getAttribute('required')) {
+                $field.setAttribute('required', refEmail.getAttribute('required'));
+              } else {
+                $field.removeAttribute('required');
+              }
+            }
+          });
         }
+      }
 
-        return parsleyField;
-      },
+      events.on($field, 'invalid', () => {
+        if (customPatternError && $field.validity.patternMismatch) {
+          showError($field, customPatternError);
+        } else {
+          showError($field, $field.validationMessage);
+        }
+      });
     });
   });
 });
 
-/**
- * Parsley custom validations.
- */
-window.Parsley.addValidator('confirmEmail', {
-  requirementType: 'string',
-  validateString(value, refOrValue) {
-    const $reference = $(refOrValue);
+// Add event listeners.
+events.on(document, 'submit', '.ghostkit-form', (e) => {
+  const $form = e.delegateTarget;
 
-    if ($reference.length) {
-      return value === $reference.val();
+  // Fields validation.
+  const isValid = $form.checkValidity();
+
+  if (!isValid) {
+    e.preventDefault();
+
+    $form.classList.add('ghostkit-form-was-validated');
+    $form.querySelector(':invalid').focus();
+
+    return;
+  }
+
+  /// Google reCaptcha.
+  if (typeof grecaptcha !== 'undefined') {
+    if ($form.classList.contains('ghostkit-form-processed')) {
+      return;
     }
 
-    return value === refOrValue;
-  },
-});
+    const $recaptchaTokenField = $form.querySelector('[name="ghostkit_form_google_recaptcha"]');
 
-/**
- * Google reCaptcha
- */
-if (typeof grecaptcha !== 'undefined') {
-  $doc.on('submit', '.ghostkit-form form:not(.ghostkit-form-processed)', function (e) {
-    const $form = $(this);
-    const $recaptchaTokenField = $form.find('[name="ghostkit_form_google_recaptcha"]');
-
-    if (!$recaptchaTokenField.length) {
+    if (!$recaptchaTokenField) {
       return;
     }
 
     e.preventDefault();
 
-    if ($form.hasClass('ghostkit-form-processing')) {
+    if ($form.classList.contains('ghostkit-form-processing')) {
       return;
     }
 
-    $form.addClass('ghostkit-form-processing');
+    $form.classList.add('ghostkit-form-processing');
 
     // Ensure Recaptcha is loaded.
     grecaptcha.ready(() => {
-      grecaptcha
-        .execute(GHOSTKIT.googleReCaptchaAPISiteKey, { action: 'ghostkit' })
-        .then((token) => {
-          $recaptchaTokenField.val(token);
+      grecaptcha.execute(googleReCaptchaAPISiteKey, { action: 'ghostkit' }).then((token) => {
+        $recaptchaTokenField.val(token);
 
-          $form.addClass('ghostkit-form-processed');
+        $form.classList.add('ghostkit-form-processed');
 
-          // After the token is fetched, submit the form.
-          $form[0].submit();
+        // After the token is fetched, submit the form.
+        $form.submit();
 
-          $form.removeClass('ghostkit-form-processing');
-          $form.removeClass('ghostkit-form-processed');
-        });
+        $form.classList.remove('ghostkit-form-processing', 'ghostkit-form-processed');
+      });
     });
-  });
-}
+  }
+});
+
+events.on(document, 'blur', '.ghostkit-form', (e) => {
+  e.delegateTarget.checkValidity();
+});
+
+events.on(document, 'input', '.ghostkit-form', (e) => {
+  const $field = e.delegateTarget;
+  const valid = $field.checkValidity();
+
+  if (valid) {
+    hideError($field);
+  }
+});

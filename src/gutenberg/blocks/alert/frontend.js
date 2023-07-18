@@ -2,19 +2,16 @@
  * Block Alert
  */
 const {
-  jQuery: $,
   Motion: { animate },
-  GHOSTKIT,
+  GHOSTKIT: { events },
 } = window;
 
-const $doc = $(document);
-
-// Dismiss button.
-$doc.on('click', '.ghostkit-alert-hide-button', function (e) {
+events.on(document, 'click', '.ghostkit-alert-hide-button', (e) => {
   e.preventDefault();
 
-  const alert = this.parentNode;
-  const $alert = $(alert);
+  const alert = e.delegateTarget.parentNode;
+
+  events.trigger(alert, 'close.alert.gkt');
 
   animate(alert, { opacity: 0 }, { duration: 0.5 }).finished.then(() => {
     alert.style.height = `${alert.offsetHeight}px`;
@@ -23,7 +20,7 @@ $doc.on('click', '.ghostkit-alert-hide-button', function (e) {
 
     animate(alert, { height: 0, marginTop: 0, marginBottom: 0 }, { duration: 0.5 }).finished.then(
       () => {
-        GHOSTKIT.triggerEvent('dismissedAlert', GHOSTKIT.classObject, $alert);
+        events.trigger(alert, 'closed.alert.gkt');
       }
     );
   });

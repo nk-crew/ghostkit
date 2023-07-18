@@ -300,7 +300,11 @@ function printStyles(typographyData) {
         typographyCss += typographyStyles;
       });
     }
-    window.jQuery('#ghostkit-typography-inline-css').html(typographyCss);
+
+    const $styles = document.querySelector('#ghostkit-typography-inline-css');
+    if ($styles) {
+      $styles.innerHTML = typographyCss;
+    }
   }
 }
 

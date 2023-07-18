@@ -1,9 +1,9 @@
 /**
  * Block Image Compare
  */
-import rafSchd from 'raf-schd';
-
-const { GHOSTKIT } = window;
+const {
+  GHOSTKIT: { events },
+} = window;
 
 let $currentImageCompare = false;
 let $currentImageCompareWrapper = false;
@@ -26,7 +26,7 @@ function movePosition(e) {
 
     $currentImageCompare.style.setProperty('--gkt-image-compare__position', `${result}%`);
 
-    GHOSTKIT.triggerEvent('movedImageCompare', GHOSTKIT.classObject, $currentImageCompare, e);
+    events.trigger($currentImageCompare, 'move.imageCompare.gkt', { originalEvent: e });
   }
 }
 
@@ -50,73 +50,55 @@ function destroy(e) {
 }
 
 // Trigger - Click.
-window.addEventListener('mousedown', (e) => {
-  const $imageCompareBlock = e?.target?.closest(
-    '.ghostkit-image-compare:not(.ghostkit-image-compare-trigger-hover)'
-  );
+events.on(
+  document,
+  'mousedown',
+  '.ghostkit-image-compare:not(.ghostkit-image-compare-trigger-hover)',
+  (e) => {
+    e.preventDefault();
 
-  if (!$imageCompareBlock) {
-    return;
+    init(e.delegateTarget);
   }
-
-  e.preventDefault();
-
-  init($imageCompareBlock);
-});
+);
 
 // Trigger - Hover.
-window.addEventListener('mouseover', (e) => {
+events.on(document, 'mouseover', '.ghostkit-image-compare-trigger-hover', (e) => {
   if ($currentImageCompare) {
     return;
   }
 
-  const $imageCompareBlock = e?.target?.closest('.ghostkit-image-compare-trigger-hover');
+  e.preventDefault();
 
-  if (!$imageCompareBlock) {
+  init(e.delegateTarget);
+});
+events.on(document, 'mouseout', '.ghostkit-image-compare-trigger-hover', (e) => {
+  if (!$currentImageCompare) {
+    return;
+  }
+
+  destroy(e);
+});
+
+events.on(document, 'mouseup', (e) => {
+  if (!$currentImageCompare) {
+    return;
+  }
+
+  destroy(e);
+});
+
+events.on(document, 'mousemove', (e) => {
+  if (!$currentImageCompare) {
     return;
   }
 
   e.preventDefault();
 
-  init($imageCompareBlock);
-});
-document.addEventListener('mouseout', (e) => {
-  if (!$currentImageCompare) {
-    return;
+  if (!disabledTransition) {
+    $currentImageCompare.style.setProperty('--gkt-image-compare__transition-duration', '0s');
+
+    disabledTransition = true;
   }
 
-  const $imageCompareBlock = e?.target?.closest('.ghostkit-image-compare-trigger-hover');
-
-  if (!$imageCompareBlock) {
-    return;
-  }
-
-  destroy(e);
+  movePosition(e);
 });
-
-window.addEventListener('mouseup', (e) => {
-  if (!$currentImageCompare) {
-    return;
-  }
-
-  destroy(e);
-});
-
-window.addEventListener(
-  'mousemove',
-  rafSchd((e) => {
-    if (!$currentImageCompare) {
-      return;
-    }
-
-    e.preventDefault();
-
-    if (!disabledTransition) {
-      $currentImageCompare.style.setProperty('--gkt-image-compare__transition-duration', '0s');
-
-      disabledTransition = true;
-    }
-
-    movePosition(e);
-  })
-);

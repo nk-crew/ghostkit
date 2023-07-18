@@ -6,40 +6,41 @@ import { maybeDecode } from '../../utils/encode-decode';
 /**
  * Block TOC
  */
-const { jQuery: $ } = window;
-const $doc = $(document);
-const $html = $('html');
+const $html = document.documentElement;
+const { events } = window.GHOSTKIT;
 
 /**
  * Prepare TOCs click to link.
  */
 function initSmoothScroll() {
-  $doc.on('click', '.ghostkit-toc a', (evt) => {
-    evt.preventDefault();
+  events.on(document, 'click', '.ghostkit-toc a', (e) => {
+    e.preventDefault();
 
-    if (!evt.target || !evt.target.hash) {
+    const $el = e.delegateTarget;
+
+    if (!$el || !$el.hash) {
       return;
     }
 
-    const offset = $(maybeDecode(evt.target.hash)).offset();
+    const offsetEl = document.getElementById(maybeDecode($el.hash).substring(1));
 
-    if (typeof offset === 'undefined') {
+    if (!offsetEl) {
       return;
     }
 
-    let { top } = offset;
+    let { top } = offsetEl.getBoundingClientRect();
 
     // Get offset from CSS.
-    const scrollPadding = parseFloat($html.css('scroll-padding-top'));
+    const scrollPadding = parseFloat(getComputedStyle($html)['scroll-padding-top']);
 
     if (scrollPadding) {
       top -= scrollPadding;
     } else {
-      const $adminBar = $('#wpadminbar');
+      const $adminBar = document.getElementById('wpadminbar');
 
       // Admin bar offset.
-      if ($adminBar.length && $adminBar.css('position') === 'fixed') {
-        top -= $adminBar.outerHeight();
+      if ($adminBar && getComputedStyle($adminBar).position === 'fixed') {
+        top -= $adminBar.getBoundingClientRect().height;
       }
     }
 
@@ -54,9 +55,6 @@ function initSmoothScroll() {
 }
 
 // If smooth scroll enabled in CSS, we don't need to run it with JS.
-if (
-  !('scrollBehavior' in document.documentElement.style) ||
-  $html.css('scroll-behavior') !== 'smooth'
-) {
+if (!('scrollBehavior' in $html.style) || getComputedStyle($html)['scroll-behavior'] !== 'smooth') {
   initSmoothScroll();
 }

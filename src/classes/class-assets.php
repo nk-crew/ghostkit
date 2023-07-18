@@ -196,7 +196,7 @@ class GhostKit_Assets {
      */
     public function register_scripts() {
         $css_deps = array();
-        $js_deps  = array( 'jquery', 'ghostkit-helper' );
+        $js_deps  = array( 'ghostkit-helper', 'ghostkit-event-fallbacks' );
 
         do_action( 'gkt_before_assets_register' );
 
@@ -209,7 +209,7 @@ class GhostKit_Assets {
 
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
-            wp_register_script( 'jarallax', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax.min.js', array( 'jquery' ), '2.0.1', true );
+            wp_register_script( 'jarallax', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax.min.js', array(), '2.0.1', true );
             wp_register_script( 'jarallax-video', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax-video.min.js', array( 'jarallax' ), '2.0.1', true );
         }
 
@@ -239,8 +239,8 @@ class GhostKit_Assets {
 
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
-            wp_register_style( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.css', array(), '1.0.1' );
-            wp_register_script( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.min.js', array( 'jquery' ), '1.0.1', true );
+            wp_register_style( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.css', array(), '2.0.0' );
+            wp_register_script( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.min.js', array(), '2.0.0', true );
         }
 
         // Google reCaptcha.
@@ -251,48 +251,6 @@ class GhostKit_Assets {
             if ( $recaptcha_site_key && $recaptcha_secret_key ) {
                 wp_register_script( 'google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . esc_attr( $recaptcha_site_key ), array(), '3.0.0', true );
             }
-        }
-
-        // Parsley.
-        if ( apply_filters( 'gkt_enqueue_plugin_parsley', true ) ) {
-            wp_register_script( 'parsley', ghostkit()->plugin_url . 'assets/vendor/parsleyjs/dist/parsley.min.js', array( 'jquery' ), '2.9.2', true );
-
-            $locale = get_locale();
-
-            // phpcs:disable
-            wp_add_inline_script(
-                'parsley',
-                'Parsley.addMessages("' . esc_attr( $locale ) . '", {
-                    defaultMessage: "' . esc_attr__( 'This value seems to be invalid.', '@@text_domain' ) . '",
-                    type: {
-                        email:        "' . esc_attr__( 'This value should be a valid email.', '@@text_domain' ) . '",
-                        url:          "' . esc_attr__( 'This value should be a valid url.', '@@text_domain' ) . '",
-                        number:       "' . esc_attr__( 'This value should be a valid number.', '@@text_domain' ) . '",
-                        integer:      "' . esc_attr__( 'This value should be a valid integer.', '@@text_domain' ) . '",
-                        digits:       "' . esc_attr__( 'This value should be digits.', '@@text_domain' ) . '",
-                        alphanum:     "' . esc_attr__( 'This value should be alphanumeric.', '@@text_domain' ) . '"
-                    },
-                    notblank:       "' . esc_attr__( 'This value should not be blank.', '@@text_domain' ) . '",
-                    required:       "' . esc_attr__( 'This value is required.', '@@text_domain' ) . '",
-                    pattern:        "' . esc_attr__( 'This value seems to be invalid.', '@@text_domain' ) . '",
-                    min:            "' . esc_attr__( 'This value should be greater than or equal to %s.', '@@text_domain' ) . '",
-                    max:            "' . esc_attr__( 'This value should be lower than or equal to %s.', '@@text_domain' ) . '",
-                    range:          "' . esc_attr__( 'This value should be between %s and %s.', '@@text_domain' ) . '",
-                    minlength:      "' . esc_attr__( 'This value is too short. It should have %s characters or more.', '@@text_domain' ) . '",
-                    maxlength:      "' . esc_attr__( 'This value is too long. It should have %s characters or fewer.', '@@text_domain' ) . '",
-                    length:         "' . esc_attr__( 'This value length is invalid. It should be between %s and %s characters long.', '@@text_domain' ) . '",
-                    mincheck:       "' . esc_attr__( 'You must select at least %s choices.', '@@text_domain' ) . '",
-                    maxcheck:       "' . esc_attr__( 'You must select %s choices or fewer.', '@@text_domain' ) . '",
-                    check:          "' . esc_attr__( 'You must select between %s and %s choices.', '@@text_domain' ) . '",
-                    equalto:        "' . esc_attr__( 'This value should be the same.', '@@text_domain' ) . '",
-                    euvatin:        "' . esc_attr__( 'It\'s not a valid VAT Identification Number.', '@@text_domain' ) . '",
-                    confirmEmail:   "' . esc_attr__( 'These emails should match.', '@@text_domain' ) . '",
-                });
-
-                Parsley.setLocale("' . esc_attr( $locale ) . '");',
-                'after'
-            );
-            // phpcs:enable
         }
 
         // Get all sidebars.
@@ -310,7 +268,7 @@ class GhostKit_Assets {
         wp_register_script(
             'ghostkit-helper',
             ghostkit()->plugin_url . 'assets/js/helper.min.js',
-            array( 'jquery' ),
+            array(),
             '@@plugin_version',
             true
         );
@@ -407,6 +365,15 @@ class GhostKit_Assets {
             )
         );
 
+        // events fallback script.
+        wp_register_script(
+            'ghostkit-event-fallbacks',
+            ghostkit()->plugin_url . 'assets/js/event-fallbacks.min.js',
+            array( 'ghostkit-helper' ),
+            '@@plugin_version',
+            true
+        );
+
         // Fallback for classic themes.
         if ( ! wp_is_block_theme() ) {
             wp_register_style(
@@ -440,7 +407,7 @@ class GhostKit_Assets {
         foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/frontend.min.js' ) as $template ) {
             $block_name       = basename( dirname( $template ) );
             $block_script_url = ghostkit()->plugin_url . 'gutenberg/blocks/' . $block_name . '/frontend.min.js';
-            $block_js_deps    = array( 'ghostkit', 'jquery' );
+            $block_js_deps    = array( 'ghostkit' );
 
             switch ( $block_name ) {
                 case 'accordion':
@@ -475,12 +442,10 @@ class GhostKit_Assets {
                     $block_js_deps[] = 'luxon';
                     break;
                 case 'form':
-                    if ( wp_script_is( 'parsley' ) || wp_script_is( 'parsley', 'registered' ) ) {
-                        $block_js_deps[] = 'parsley';
-                    }
                     if ( wp_script_is( 'google-recaptcha' ) || wp_script_is( 'google-recaptcha', 'registered' ) ) {
                         $block_js_deps[] = 'google-recaptcha';
                     }
+                    $block_js_deps[] = 'wp-i18n';
                     break;
                 case 'lottie':
                     $block_js_deps[] = 'motion';

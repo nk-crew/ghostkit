@@ -4,25 +4,29 @@
 import countDownApi from './api';
 import { TIMEZONELESS_FORMAT } from './constants';
 
-const { GHOSTKIT, jQuery: $, luxon } = window;
-
-const $doc = $(document);
+const {
+  GHOSTKIT: { events, timezone },
+  luxon,
+} = window;
 
 /**
  * Prepare Countdowns.
  */
-$doc.on('initBlocks.ghostkit', (e, self) => {
+events.on(document, 'init.blocks.gkt', () => {
   function updateUnits(date, units, unitsElements, $this) {
     const currentDate = new Date(
-      luxon.DateTime.now().setZone(GHOSTKIT.timezone).toFormat(TIMEZONELESS_FORMAT)
+      luxon.DateTime.now().setZone(timezone).toFormat(TIMEZONELESS_FORMAT)
     );
 
     const dateData = countDownApi(date, currentDate, units, 0);
     const isEnd = dateData.value >= 0;
 
     if (isEnd) {
-      $this.children('.ghostkit-countdown-unit').hide();
-      $this.children('.ghostkit-countdown-expire-action').show();
+      $this.querySelectorAll(':scope > .ghostkit-countdown-unit').forEach(($unit) => {
+        $unit.style.display = 'none';
+      });
+
+      $this.querySelector(':scope > .ghostkit-countdown-expire-action').style.display = 'block';
       return;
     }
 
@@ -36,11 +40,11 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
       const newNumber = formattedUnit ? formattedUnit.number : '00';
       const newLabel = formattedUnit ? formattedUnit.label : unitName;
 
-      if (unitsElements[unitName].$number.html() !== newNumber) {
-        unitsElements[unitName].$number.html(newNumber);
+      if (unitsElements[unitName].$number.innerHTML !== newNumber) {
+        unitsElements[unitName].$number.innerHTML = newNumber;
       }
-      if (unitsElements[unitName].$label.html() !== newLabel) {
-        unitsElements[unitName].$label.html(newLabel);
+      if (unitsElements[unitName].$label.innerHTML !== newLabel) {
+        unitsElements[unitName].$label.innerHTML = newLabel;
       }
     });
 
@@ -49,33 +53,34 @@ $doc.on('initBlocks.ghostkit', (e, self) => {
     }, countDownApi.getDelay(units));
   }
 
-  GHOSTKIT.triggerEvent('beforePrepareCountdown', self);
+  document
+    .querySelectorAll('.ghostkit-countdown:not(.ghostkit-countdown-ready)')
+    .forEach(($countdown) => {
+      events.trigger($countdown, 'prepare.countdown.gkt');
 
-  $('.ghostkit-countdown:not(.ghostkit-countdown-ready)').each(function () {
-    const $this = $(this);
-    $this.addClass('ghostkit-countdown-ready');
+      $countdown.classList.add('ghostkit-countdown-ready');
 
-    const date = new Date($this.attr('data-date'));
+      const date = new Date($countdown.getAttribute('data-date'));
 
-    const unitsElements = [];
-    const units = ['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds'].filter(
-      (unitName) => {
-        const $unit = $this.children(`.ghostkit-countdown-unit-${unitName}`);
+      const unitsElements = [];
+      const units = ['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds'].filter(
+        (unitName) => {
+          const $unit = $countdown.querySelector(`:scope > .ghostkit-countdown-unit-${unitName}`);
 
-        if ($unit.length) {
-          unitsElements[unitName] = {
-            $number: $unit.find('.ghostkit-countdown-unit-number'),
-            $label: $unit.find('.ghostkit-countdown-unit-label'),
-          };
-          return true;
+          if ($unit) {
+            unitsElements[unitName] = {
+              $number: $unit.querySelector('.ghostkit-countdown-unit-number'),
+              $label: $unit.querySelector('.ghostkit-countdown-unit-label'),
+            };
+            return true;
+          }
+
+          return false;
         }
+      );
 
-        return false;
-      }
-    );
+      events.trigger($countdown, 'prepared.countdown.gkt');
 
-    updateUnits(date, units, unitsElements, $this);
-  });
-
-  GHOSTKIT.triggerEvent('afterPrepareCountdown', self);
+      updateUnits(date, units, unitsElements, $countdown);
+    });
 });

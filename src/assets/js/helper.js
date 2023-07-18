@@ -1,26 +1,52 @@
-const { ghostkitVariables } = window;
-const $ = window.jQuery;
-const $doc = $(document);
+import EventHandler from './utils/event-handler';
+
+const {
+  themeName,
+  settings,
+  media_sizes: mediaSizes,
+  disabledBlocks,
+  allowPluginColorPalette,
+  allowPluginCustomizer,
+  sidebars,
+  timezone,
+
+  googleMapsAPIKey,
+  googleMapsAPIUrl,
+  googleMapsLibrary,
+
+  googleReCaptchaAPISiteKey,
+  googleReCaptchaAPISecretKey,
+
+  icons,
+  shapes,
+  fonts,
+  customTypographyList,
+  variants,
+
+  admin_url: adminUrl,
+  admin_templates_url: adminTemplatesUrl,
+} = window.ghostkitVariables;
 
 // prepare media vars.
 const vars = {};
-Object.keys(ghostkitVariables.media_sizes).forEach((k) => {
-  vars[`media_${k}`] = ghostkitVariables.media_sizes[k];
+const screenSizes = [];
+Object.keys(mediaSizes).forEach((k) => {
+  vars[`media_${k}`] = mediaSizes[k];
+  screenSizes.push(mediaSizes[k]);
 });
 
 function escapeRegExp(s) {
   return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 }
 
-window.GHOSTKIT = {
-  themeName: ghostkitVariables.themeName,
+const GHOSTKIT = {
+  themeName,
+  settings,
 
-  settings: ghostkitVariables.settings,
+  disabledBlocks,
 
-  disabledBlocks: ghostkitVariables.disabledBlocks,
-
-  allowPluginColorPalette: ghostkitVariables.allowPluginColorPalette,
-  allowPluginCustomizer: ghostkitVariables.allowPluginCustomizer,
+  allowPluginColorPalette,
+  allowPluginCustomizer,
 
   vars,
   replaceVars(str) {
@@ -34,22 +60,22 @@ window.GHOSTKIT = {
     return str;
   },
 
-  sidebars: ghostkitVariables.sidebars,
+  screenSizes,
+  sidebars,
+  timezone,
 
-  timezone: ghostkitVariables.timezone,
+  googleMapsAPIKey,
+  googleMapsAPIUrl,
+  googleMapsLibrary,
 
-  googleMapsAPIKey: ghostkitVariables.googleMapsAPIKey,
-  googleMapsAPIUrl: ghostkitVariables.googleMapsAPIUrl,
-  googleMapsLibrary: ghostkitVariables.googleMapsLibrary,
+  googleReCaptchaAPISiteKey,
+  googleReCaptchaAPISecretKey,
 
-  googleReCaptchaAPISiteKey: ghostkitVariables.googleReCaptchaAPISiteKey,
-  googleReCaptchaAPISecretKey: ghostkitVariables.googleReCaptchaAPISecretKey,
-
-  icons: ghostkitVariables.icons,
-  shapes: ghostkitVariables.shapes,
-  fonts: ghostkitVariables.fonts,
-  customTypographyList: ghostkitVariables.customTypographyList,
-  variants: ghostkitVariables.variants,
+  icons,
+  shapes,
+  fonts,
+  customTypographyList,
+  variants,
   getVariants(name) {
     if (typeof this.variants[name] !== 'undefined') {
       return this.variants[name];
@@ -57,12 +83,13 @@ window.GHOSTKIT = {
     return false;
   },
 
-  adminUrl: ghostkitVariables.admin_url,
-  adminTemplatesUrl: ghostkitVariables.admin_templates_url,
+  adminUrl,
+  adminTemplatesUrl,
 
-  triggerEvent(name, ...args) {
-    $doc.trigger(`${name}.ghostkit`, [...args]);
-  },
+  /**
+   * Events helper functions.
+   */
+  events: EventHandler,
 
   /**
    * Check for block support GhostKit features.
@@ -94,3 +121,5 @@ window.GHOSTKIT = {
     return defaultVal;
   },
 };
+
+window.GHOSTKIT = GHOSTKIT;

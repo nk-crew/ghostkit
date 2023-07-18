@@ -211,7 +211,7 @@ class GhostKit_Form_Block {
 
         // Honeypot protection.
         ?>
-        <input aria-label="<?php echo esc_attr__( 'Verify your Email', '@@text_domain' ); ?>" type="email" name="ghostkit_verify_email" autocomplete="off" placeholder="<?php echo esc_attr__( 'Email', '@@text_domain' ); ?>" tabindex="-1" data-parsley-excluded="true">
+        <input aria-label="<?php echo esc_attr__( 'Verify your Email', '@@text_domain' ); ?>" type="email" name="ghostkit_verify_email" autocomplete="off" placeholder="<?php echo esc_attr__( 'Email', '@@text_domain' ); ?>" tabindex="-1">
         <?php
 
         // Add `__` prefix to prevent conflict with form id attribute duplicate.

@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import { maybeDecode } from '../../utils/encode-decode';
+import getSiblings from '../../utils/get-siblings';
 
 /**
  * Block Accordion
@@ -9,34 +10,32 @@ import { maybeDecode } from '../../utils/encode-decode';
 const {
   location,
   GHOSTKIT,
-  jQuery: $,
   Motion: { animate },
   requestAnimationFrame,
 } = window;
 
-const $doc = $(document);
-const $wnd = $(window);
+const { events } = GHOSTKIT;
 
 let pageHash = location.hash;
 
 const ANIMATION_SPEED = 300;
 
-function expand($item, animationSpeed, cb) {
-  const $content = $item.find('.ghostkit-accordion-item-content');
+function show($item, animationSpeed, cb) {
+  const $content = $item.querySelector('.ghostkit-accordion-item-content');
 
-  $item.addClass('ghostkit-accordion-item-active');
+  $item.classList.add('ghostkit-accordion-item-active');
 
-  const contentStyles = window.getComputedStyle($content[0]);
+  const contentStyles = getComputedStyle($content);
 
   const endHeight = contentStyles.height;
   const endPaddingTop = contentStyles.paddingTop;
   const endPaddingBottom = contentStyles.paddingBottom;
 
-  $content[0].style.display = 'block';
-  $content[0].style.overflow = 'hidden';
+  $content.style.display = 'block';
+  $content.style.overflow = 'hidden';
 
   const animation = animate(
-    $content[0],
+    $content,
     {
       height: ['0px', endHeight],
       paddingTop: ['0px', endPaddingTop],
@@ -50,33 +49,33 @@ function expand($item, animationSpeed, cb) {
 
   animation.finished.then(() => {
     // Reset styles.
-    $content[0].style.display = '';
-    $content[0].style.overflow = '';
-    $content[0].style.height = '';
-    $content[0].style.paddingTop = '';
-    $content[0].style.paddingBottom = '';
-    $item[0].gktAccordion.animation = null;
+    $content.style.display = '';
+    $content.style.overflow = '';
+    $content.style.height = '';
+    $content.style.paddingTop = '';
+    $content.style.paddingBottom = '';
+    $item.gktAccordion.animation = null;
 
     cb();
   });
 
-  $item[0].gktAccordion.animation = animation;
+  $item.gktAccordion.animation = animation;
 }
 
-function shrink($item, animationSpeed, cb) {
-  const $content = $item.find('.ghostkit-accordion-item-content');
+function hide($item, animationSpeed, cb) {
+  const $content = $item.querySelector('.ghostkit-accordion-item-content');
 
-  const contentStyles = window.getComputedStyle($content[0]);
+  const contentStyles = getComputedStyle($content);
 
   const startPaddingTop = contentStyles.paddingTop;
   const startPaddingBottom = contentStyles.paddingBottom;
   const startHeight = contentStyles.height;
 
-  $content[0].style.display = 'block';
-  $content[0].style.overflow = 'hidden';
+  $content.style.display = 'block';
+  $content.style.overflow = 'hidden';
 
   const animation = animate(
-    $content[0],
+    $content,
     {
       height: [startHeight, '0px'],
       paddingTop: [startPaddingTop, '0px'],
@@ -90,117 +89,119 @@ function shrink($item, animationSpeed, cb) {
 
   animation.finished.then(() => {
     // Reset styles.
-    $content[0].style.display = '';
-    $content[0].style.overflow = '';
-    $content[0].style.height = '';
-    $content[0].style.paddingTop = '';
-    $content[0].style.paddingBottom = '';
-    $item[0].gktAccordion.animation = null;
+    $content.style.display = '';
+    $content.style.overflow = '';
+    $content.style.height = '';
+    $content.style.paddingTop = '';
+    $content.style.paddingBottom = '';
+    $item.gktAccordion.animation = null;
 
     cb();
   });
 
-  $item[0].gktAccordion.animation = animation;
+  $item.gktAccordion.animation = animation;
 
-  $item.removeClass('ghostkit-accordion-item-active');
+  $item.classList.remove('ghostkit-accordion-item-active');
 }
 
 /**
  * Toggle accordion item
  *
- * @param {jQuery} $heading - heading element
+ * @param {Element} $heading - heading element
  * @param {Int} animationSpeed - animation speed
- * @param {Object} self - ghostkit class object
  * @param {Boolean} skipCollapse - skip collapse other items
  */
-function toggleAccordionItem(
-  $heading,
-  animationSpeed = ANIMATION_SPEED,
-  self = {},
-  skipCollapse = false
-) {
+function toggleAccordionItem($heading, animationSpeed = ANIMATION_SPEED, skipCollapse = false) {
   const $accordion = $heading.closest('.ghostkit-accordion');
   const $item = $heading.closest('.ghostkit-accordion-item');
-  const isActive = $item.hasClass('ghostkit-accordion-item-active');
-  const collapseOne = !skipCollapse && $accordion.hasClass('ghostkit-accordion-collapse-one');
+  const isActive = $item.classList.contains('ghostkit-accordion-item-active');
+  const collapseOne =
+    !skipCollapse && $accordion.classList.contains('ghostkit-accordion-collapse-one');
 
-  if (!$item[0]?.gktAccordion) {
-    $item[0].gktAccordion = {
+  if (!$item?.gktAccordion) {
+    $item.gktAccordion = {
       animation: null,
     };
   }
 
-  if ($item[0].gktAccordion.animation) {
-    $item[0].gktAccordion.animation.stop();
+  if ($item.gktAccordion.animation) {
+    $item.gktAccordion.animation.stop();
   }
 
   // Wait for the next frame to call this code after animation stopped.
   requestAnimationFrame(() => {
     if (isActive) {
-      shrink($item, animationSpeed, () => {
-        GHOSTKIT.triggerEvent('afterActivateAccordionItem', self, $heading);
+      events.trigger($accordion, 'hide.accordion.gkt', {
+        relatedTarget: $item,
+      });
+
+      hide($item, animationSpeed, () => {
+        events.trigger($accordion, 'hidden.accordion.gkt', {
+          relatedTarget: $item,
+        });
       });
     } else {
-      expand($item, animationSpeed, () => {
-        GHOSTKIT.triggerEvent('afterActivateAccordionItem', self, $heading);
+      events.trigger($accordion, 'show.accordion.gkt', {
+        relatedTarget: $item,
+      });
+
+      show($item, animationSpeed, () => {
+        events.trigger($accordion, 'shown.accordion.gkt', {
+          relatedTarget: $item,
+        });
       });
     }
 
-    // Shrink all other elements
+    // Hide all other elements
     if (collapseOne && !isActive) {
-      const $collapseItems = $accordion.find('.ghostkit-accordion-item-active').not($item);
-
-      $collapseItems.each(function () {
-        toggleAccordionItem($(this), animationSpeed, self, true);
+      getSiblings($item).forEach(($this) => {
+        if ($this.classList.contains('ghostkit-accordion-item-active')) {
+          toggleAccordionItem($this, animationSpeed, true);
+        }
       });
     }
-
-    GHOSTKIT.triggerEvent('toggleAccordionItem', self, $heading);
-
-    // Deprecated event.
-    GHOSTKIT.triggerEvent('activateAccordionItem', self, $heading);
   });
 }
 
 /**
  * Prepare Accordions.
  */
-$doc.on('initBlocks.ghostkit', (e, self) => {
-  GHOSTKIT.triggerEvent('beforePrepareAccordions', self);
+events.on(document, 'init.blocks.gkt', () => {
+  document
+    .querySelectorAll('.ghostkit-accordion:not(.ghostkit-accordion-ready)')
+    .forEach(($this) => {
+      $this.classList.add('ghostkit-accordion-ready');
 
-  $('.ghostkit-accordion:not(.ghostkit-accordion-ready)').each(function () {
-    const $this = $(this);
+      events.trigger($this, 'prepare.accordion.gkt');
 
-    $this.addClass('ghostkit-accordion-ready');
+      // activate by page hash
+      if (pageHash) {
+        const pageHashEncoded = maybeDecode(pageHash);
+        const $activeAccordion = $this.querySelector(
+          `:scope > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading > [href="${pageHashEncoded}"]`
+        );
 
-    // activate by page hash
-    if (pageHash) {
-      const pageHashEncoded = maybeDecode(pageHash);
-      const $activeAccordion = $this.find(
-        `> :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading > [href="${pageHashEncoded}"]`
-      );
-
-      if ($activeAccordion.length) {
-        toggleAccordionItem($activeAccordion, 0, self);
+        if ($activeAccordion) {
+          toggleAccordionItem($activeAccordion, 0);
+        }
       }
-    }
-  });
 
-  GHOSTKIT.triggerEvent('afterPrepareAccordions', self);
+      events.trigger($this, 'prepared.accordion.gkt');
+    });
 });
 
 /**
  * Click Accordions.
  */
-$doc.on('click', '.ghostkit-accordion-item .ghostkit-accordion-item-heading', function (evt) {
-  evt.preventDefault();
-  toggleAccordionItem($(this), ANIMATION_SPEED, GHOSTKIT.classObject);
+events.on(document, 'click', '.ghostkit-accordion-item .ghostkit-accordion-item-heading', (e) => {
+  e.preventDefault();
+  toggleAccordionItem(e.delegateTarget, ANIMATION_SPEED);
 });
 
 /*
- * Activate tab on hash change.
+ * Activate item on hash change.
  */
-$wnd.on('hashchange', () => {
+const handlerActivateItem = () => {
   if (window.location.hash === pageHash) {
     return;
   }
@@ -214,9 +215,13 @@ $wnd.on('hashchange', () => {
   const pageHashEncoded = maybeDecode(pageHash);
 
   // Activate accordion item.
-  $(
-    `.ghostkit-accordion-ready > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading >[href="${pageHashEncoded}"]`
-  ).each(function () {
-    toggleAccordionItem($(this), ANIMATION_SPEED, GHOSTKIT.classObject);
-  });
-});
+  document
+    .querySelectorAll(
+      `.ghostkit-accordion-ready > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading > [href="${pageHashEncoded}"]`
+    )
+    .forEach(($this) => {
+      toggleAccordionItem($this, ANIMATION_SPEED);
+    });
+};
+
+events.on(window, 'hashchange', handlerActivateItem);

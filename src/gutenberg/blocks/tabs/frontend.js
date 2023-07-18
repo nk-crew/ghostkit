@@ -2,52 +2,76 @@
  * Internal dependencies
  */
 import { maybeDecode } from '../../utils/encode-decode';
+import getSiblings from '../../utils/get-siblings';
+import transitionCallback from '../../../assets/js/utils/transition-callback';
 
 /**
  * Block Tabs
  */
-const { location, GHOSTKIT, jQuery: $ } = window;
-
-const $doc = $(document);
-const $wnd = $(window);
+const {
+  location,
+  GHOSTKIT: { events },
+} = window;
 
 let pageHash = location.hash;
 
 /**
  * Activate tab
  *
- * @param {jQuery} $tabs - tabs block element
+ * @param {Element} $tabs - tabs block element
  * @param {String} tabName - tab name
- * @param {Object} self - ghostkit class object
  *
  * @return {Boolean} is tab activated.
  */
-function activateTab($tabs, tabName, self) {
+function activateTab($tabs, tabName) {
   const isLegacy = !/^#/g.test(tabName);
   let $activeBtn = false;
   const tabNameEncoded = maybeDecode(tabName);
-  const $activeTab = $tabs
-    .children('.ghostkit-tabs-content')
-    .children(`[data-tab="${tabNameEncoded.replace(/^#/, '')}"]`);
+  const $activeTab = $tabs.querySelector(
+    `:scope > .ghostkit-tabs-content > [data-tab="${tabNameEncoded.replace(/^#/, '')}"]`
+  );
 
   if (isLegacy) {
-    $activeBtn = $tabs.find('.ghostkit-tabs-buttons').find(`[href="#tab-${tabNameEncoded}"]`);
+    $activeBtn = $tabs.querySelector(
+      `:scope > .ghostkit-tabs-buttons > [href="#tab-${tabNameEncoded}"]`
+    );
   } else {
-    $activeBtn = $tabs.find('.ghostkit-tabs-buttons').find(`[href="${tabNameEncoded}"]`);
+    $activeBtn = $tabs.querySelector(
+      `:scope > .ghostkit-tabs-buttons > [href="${tabNameEncoded}"]`
+    );
   }
 
-  if (!$activeBtn || !$activeBtn.length || !$activeTab.length) {
+  if (!$activeBtn || !$activeTab) {
     return false;
   }
 
-  $activeBtn
-    .addClass('ghostkit-tabs-buttons-item-active')
-    .siblings()
-    .removeClass('ghostkit-tabs-buttons-item-active');
+  // Show tab.
+  events.trigger($tabs, 'show.tab.gkt', { relatedTarget: $activeTab });
 
-  $activeTab.addClass('ghostkit-tab-active').siblings().removeClass('ghostkit-tab-active');
+  $activeBtn.classList.add('ghostkit-tabs-buttons-item-active');
+  $activeTab.classList.add('ghostkit-tab-active');
 
-  GHOSTKIT.triggerEvent('activateTab', self, $tabs, tabNameEncoded);
+  transitionCallback(() => {
+    events.trigger($tabs, 'shown.tab.gkt', { relatedTarget: $activeTab });
+  }, $activeTab);
+
+  // Hide all siblings.
+  getSiblings($activeBtn).forEach(($this) => {
+    if ($this.classList.contains('ghostkit-tabs-buttons-item-active')) {
+      $this.classList.remove('ghostkit-tabs-buttons-item-active');
+    }
+  });
+  getSiblings($activeTab).forEach(($this) => {
+    if ($this.classList.contains('ghostkit-tab-active')) {
+      events.trigger($tabs, 'hide.tab.gkt', { relatedTarget: $this });
+
+      $this.classList.remove('ghostkit-tab-active');
+
+      transitionCallback(() => {
+        events.trigger($tabs, 'hidden.tab.gkt', { relatedTarget: $this });
+      }, $activeTab);
+    }
+  });
 
   return true;
 }
@@ -55,66 +79,66 @@ function activateTab($tabs, tabName, self) {
 /**
  * Prepare Tabs.
  */
-$doc.on('initBlocks.ghostkit', (e, self) => {
-  GHOSTKIT.triggerEvent('beforePrepareTabs', self);
+events.on(document, 'init.blocks.gkt', () => {
+  document.querySelectorAll('.ghostkit-tabs:not(.ghostkit-tabs-ready)').forEach(($tabs) => {
+    events.trigger($tabs, 'prepare.tabs.gkt');
 
-  $('.ghostkit-tabs:not(.ghostkit-tabs-ready)').each(function () {
-    const $this = $(this);
-    const tabsActive = $this.attr('data-tab-active');
+    const tabsActive = $tabs.getAttribute('data-tab-active');
 
-    $this.addClass('ghostkit-tabs-ready');
+    $tabs.classList.add('ghostkit-tabs-ready');
 
     // activate by page hash
     let tabActivated = false;
     if (pageHash) {
-      tabActivated = activateTab($this, pageHash, self);
+      tabActivated = activateTab($tabs, pageHash);
     }
 
     if (!tabActivated && tabsActive) {
-      tabActivated = activateTab($this, `#${tabsActive}`, self);
+      tabActivated = activateTab($tabs, `#${tabsActive}`);
     }
 
     // legacy
     if (!tabActivated && tabsActive) {
-      tabActivated = activateTab($this, tabsActive, self);
+      tabActivated = activateTab($tabs, tabsActive);
     }
-  });
 
-  GHOSTKIT.triggerEvent('afterPrepareTabs', self);
+    events.trigger($tabs, 'prepared.tabs.gkt');
+  });
 });
 
 /**
  * Click Tabs.
  */
-$doc.on('click', '.ghostkit-tabs-buttons-item', function (evt) {
-  evt.preventDefault();
+events.on(document, 'click', '.ghostkit-tabs-buttons-item', (e) => {
+  e.preventDefault();
 
-  const $thisBtn = $(this);
-  const $tab = $thisBtn.closest('.ghostkit-tabs');
-  const tabName = $thisBtn.attr('data-tab') || this.hash;
+  const $btn = e.delegateTarget;
+  const $tab = $btn.closest('.ghostkit-tabs');
+  const tabName = $btn.getAttribute('data-tab') || $btn.hash;
 
-  activateTab($tab, tabName, GHOSTKIT.classObject);
+  activateTab($tab, tabName);
 });
 
 /**
  * Hover Tabs.
  */
-$doc.on(
+events.on(
+  document,
   'mouseenter',
   '.ghostkit-tabs-buttons-trigger-hover > .ghostkit-tabs-buttons .ghostkit-tabs-buttons-item',
-  function () {
-    const $thisBtn = $(this);
-    const $tab = $thisBtn.closest('.ghostkit-tabs');
-    const tabName = $thisBtn.attr('data-tab') || this.hash;
+  (e) => {
+    const $btn = e.delegateTarget;
+    const $tab = $btn.closest('.ghostkit-tabs');
+    const tabName = $btn.getAttribute('data-tab') || $btn.hash;
 
-    activateTab($tab, tabName, GHOSTKIT.classObject);
+    activateTab($tab, tabName);
   }
 );
 
 /*
  * Activate tab on hash change.
  */
-$wnd.on('hashchange', () => {
+events.on(window, 'hashchange', function () {
   if (window.location.hash === pageHash) {
     return;
   }
@@ -126,7 +150,7 @@ $wnd.on('hashchange', () => {
   }
 
   // Activate tab.
-  $('.ghostkit-tabs-ready').each(function () {
-    activateTab($(this), pageHash, GHOSTKIT.classObject);
+  document.querySelectorAll('.ghostkit-tabs-ready').forEach(($this) => {
+    activateTab($this, pageHash);
   });
 });
