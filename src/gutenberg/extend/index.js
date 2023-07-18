@@ -1,7 +1,6 @@
 /**
  * Internal dependencies
  */
-import './variants';
 import './styles';
 import './frame';
 import './spacings';

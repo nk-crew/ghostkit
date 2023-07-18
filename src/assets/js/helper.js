@@ -21,7 +21,6 @@ const {
   shapes,
   fonts,
   customTypographyList,
-  variants,
 
   admin_url: adminUrl,
   admin_templates_url: adminTemplatesUrl,
@@ -75,13 +74,6 @@ const GHOSTKIT = {
   shapes,
   fonts,
   customTypographyList,
-  variants,
-  getVariants(name) {
-    if (typeof this.variants[name] !== 'undefined') {
-      return this.variants[name];
-    }
-    return false;
-  },
 
   adminUrl,
   adminTemplatesUrl,
