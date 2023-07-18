@@ -403,9 +403,47 @@ class GhostKit_Assets {
             true
         );
 
+        // Extensions.
+        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/extend/*/frontend.min.js' ) as $file ) {
+            $ext_name       = basename( dirname( $file ) );
+            $ext_script_url = ghostkit()->plugin_url . 'gutenberg/extend/' . $ext_name . '/frontend.min.js';
+            $ext_js_deps    = array( 'ghostkit' );
+
+            switch ( $ext_name ) {
+                case 'animation':
+                    $ext_js_deps[] = 'motion';
+                    break;
+            }
+
+            wp_register_script(
+                'ghostkit-extension-' . $ext_name,
+                $ext_script_url,
+                array_unique( $ext_js_deps ),
+                '@@plugin_version',
+                true
+            );
+            self::store_used_assets( 'ghostkit-extension-' . $ext_name, true, 'script' );
+        }
+
+        // Style Variants.
+        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/style-variants/*/frontend.min.js' ) as $template ) {
+            $ext_name       = basename( dirname( $template ) );
+            $ext_script_url = ghostkit()->plugin_url . 'gutenberg/style-variants/' . $ext_name . '/frontend.min.js';
+            $ext_js_deps    = array( 'ghostkit' );
+
+            wp_register_script(
+                'ghostkit-style-variant-' . $ext_name,
+                $ext_script_url,
+                array_unique( $ext_js_deps ),
+                '@@plugin_version',
+                true
+            );
+            self::store_used_assets( 'ghostkit-style-variant-' . $ext_name, true, 'script' );
+        }
+
         // Blocks.
-        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/frontend.min.js' ) as $template ) {
-            $block_name       = basename( dirname( $template ) );
+        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/frontend.min.js' ) as $file ) {
+            $block_name       = basename( dirname( $file ) );
             $block_script_url = ghostkit()->plugin_url . 'gutenberg/blocks/' . $block_name . '/frontend.min.js';
             $block_js_deps    = array( 'ghostkit' );
 
@@ -464,8 +502,8 @@ class GhostKit_Assets {
                 true
             );
         }
-        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/styles/style.min.css' ) as $template ) {
-            $block_name      = basename( dirname( dirname( $template ) ) );
+        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/styles/style.min.css' ) as $file ) {
+            $block_name      = basename( dirname( dirname( $file ) ) );
             $block_style_url = ghostkit()->plugin_url . 'gutenberg/blocks/' . $block_name . '/styles/style.min.css';
             $block_css_deps  = array( 'ghostkit' );
 

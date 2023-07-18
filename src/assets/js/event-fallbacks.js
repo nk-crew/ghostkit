@@ -6,6 +6,31 @@ import getjQuery from './utils/get-jquery';
 const { GHOSTKIT } = window;
 const { events } = GHOSTKIT;
 
+class GhostKitFallbackClass {
+  constructor() {
+    const self = this;
+
+    self.deprecatedWarning = self.deprecatedWarning.bind(self);
+    self.initBlocks = self.deprecatedWarning.bind(self);
+    self.initBlocksThrottled = self.deprecatedWarning.bind(self);
+    self.prepareSR = self.deprecatedWarning.bind(self);
+    self.prepareCounters = self.deprecatedWarning.bind(self);
+    self.prepareNumberedLists = self.deprecatedWarning.bind(self);
+    self.prepareFallbackCustomStyles = self.deprecatedWarning.bind(self);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  deprecatedWarning() {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Using `classObject` methods are deprecated since version 3.0.0. The main class object is removed and no more used.'
+    );
+  }
+}
+
+const classObject = new GhostKitFallbackClass();
+GHOSTKIT.classObject = classObject;
+
 function trigger(name, ...args) {
   const $ = getjQuery();
 
@@ -39,111 +64,111 @@ GHOSTKIT.triggerEvent = (...args) => {
 
 // Init.
 events.on(document, 'init.gkt', () => {
-  trigger('beforeInit', GHOSTKIT.class);
+  trigger('beforeInit', classObject);
 
   window.requestAnimationFrame(() => {
-    trigger('afterInit', GHOSTKIT.class);
+    trigger('afterInit', classObject);
   });
 });
 
 // Init blocks.
 events.on(document, 'init.blocks.gkt', () => {
-  trigger('beforeInitBlocks', GHOSTKIT.class);
-  trigger('initBlocks', GHOSTKIT.class);
+  trigger('beforeInitBlocks', classObject);
+  trigger('initBlocks', classObject);
 
-  trigger('beforePrepareNumberedLists', GHOSTKIT.class);
-  trigger('beforePrepareCounters', GHOSTKIT.class);
-  trigger('beforePrepareSR', GHOSTKIT.class);
-  trigger('beforePrepareAccordions', GHOSTKIT.class);
-  trigger('beforePrepareCarousels', GHOSTKIT.class);
-  trigger('beforePrepareChangelog', GHOSTKIT.class);
-  trigger('beforePrepareCountdown', GHOSTKIT.class);
-  trigger('beforePrepareGist', GHOSTKIT.class);
-  trigger('beforePrepareGoogleMaps', GHOSTKIT.class);
-  trigger('beforePrepareTabs', GHOSTKIT.class);
-  trigger('beforePrepareVideo', GHOSTKIT.class);
+  trigger('beforePrepareNumberedLists', classObject);
+  trigger('beforePrepareCounters', classObject);
+  trigger('beforePrepareSR', classObject);
+  trigger('beforePrepareAccordions', classObject);
+  trigger('beforePrepareCarousels', classObject);
+  trigger('beforePrepareChangelog', classObject);
+  trigger('beforePrepareCountdown', classObject);
+  trigger('beforePrepareGist', classObject);
+  trigger('beforePrepareGoogleMaps', classObject);
+  trigger('beforePrepareTabs', classObject);
+  trigger('beforePrepareVideo', classObject);
 
   window.requestAnimationFrame(() => {
-    trigger('afterPrepareNumberedLists', GHOSTKIT.class);
-    trigger('afterPrepareCounters', GHOSTKIT.class);
-    trigger('afterPrepareSR', GHOSTKIT.class);
-    trigger('afterPrepareAccordions', GHOSTKIT.class);
-    trigger('afterPrepareCarousels', GHOSTKIT.class);
-    trigger('afterPrepareChangelog', GHOSTKIT.class);
-    trigger('afterPrepareCountdown', GHOSTKIT.class);
-    trigger('afterPrepareGist', GHOSTKIT.class);
-    trigger('afterPrepareGoogleMaps', GHOSTKIT.class);
-    trigger('afterPrepareTabs', GHOSTKIT.class);
-    trigger('afterPrepareVideo', GHOSTKIT.class);
+    trigger('afterPrepareNumberedLists', classObject);
+    trigger('afterPrepareCounters', classObject);
+    trigger('afterPrepareSR', classObject);
+    trigger('afterPrepareAccordions', classObject);
+    trigger('afterPrepareCarousels', classObject);
+    trigger('afterPrepareChangelog', classObject);
+    trigger('afterPrepareCountdown', classObject);
+    trigger('afterPrepareGist', classObject);
+    trigger('afterPrepareGoogleMaps', classObject);
+    trigger('afterPrepareTabs', classObject);
+    trigger('afterPrepareVideo', classObject);
 
-    trigger('afterInitBlocks', GHOSTKIT.class);
+    trigger('afterInitBlocks', classObject);
   });
 });
 
 // Counters.
 events.on(document, 'prepare.counter.gkt', ({ config }) => {
-  trigger('prepareCounters', GHOSTKIT.class, config);
+  trigger('prepareCounters', classObject, config);
 });
 events.on(document, 'counted.counter.gkt', ({ config }) => {
-  trigger('animatedCounters', GHOSTKIT.class, config);
+  trigger('animatedCounters', classObject, config);
 });
 
 // Scroll Reveal.
 events.on(document, 'prepare.scrollReveal.gkt', ({ config, target }) => {
-  trigger('beforePrepareSRStart', GHOSTKIT.class, getElement(target));
-  trigger('beforeInitSR', GHOSTKIT.class, getElement(target), config);
+  trigger('beforePrepareSRStart', classObject, getElement(target));
+  trigger('beforeInitSR', classObject, getElement(target), config);
 });
 events.on(document, 'prepared.scrollReveal.gkt', ({ target }) => {
-  trigger('beforePrepareSREnd', GHOSTKIT.class, getElement(target));
+  trigger('beforePrepareSREnd', classObject, getElement(target));
 });
 
 // Accordion.
 events.on(document, 'show.accordion.gkt hide.accordion.gkt', ({ relatedTarget }) => {
-  trigger('toggleAccordionItem', GHOSTKIT.class, getElement(relatedTarget));
-  trigger('activateAccordionItem', GHOSTKIT.class, getElement(relatedTarget));
+  trigger('toggleAccordionItem', classObject, getElement(relatedTarget));
+  trigger('activateAccordionItem', classObject, getElement(relatedTarget));
 });
 events.on(document, 'shown.accordion.gkt hidden.accordion.gkt', ({ relatedTarget }) => {
-  trigger('afterActivateAccordionItem', GHOSTKIT.class, getElement(relatedTarget));
+  trigger('afterActivateAccordionItem', classObject, getElement(relatedTarget));
 });
 
 // Alert.
 events.on(document, 'closed.alert.gkt', ({ target }) => {
-  trigger('dismissedAlert', GHOSTKIT.class, getElement(target));
+  trigger('dismissedAlert', classObject, getElement(target));
 });
 
 // Carousel.
 events.on(document, 'touchStart.carousel.gkt', ({ target, originalEvent }) => {
-  trigger('swiperTouchStart', GHOSTKIT.class, target.swiper, originalEvent);
+  trigger('swiperTouchStart', classObject, target.swiper, originalEvent);
 });
 events.on(document, 'touchMove.carousel.gkt', ({ target, originalEvent }) => {
-  trigger('swiperTouchMove', GHOSTKIT.class, target.swiper, originalEvent);
+  trigger('swiperTouchMove', classObject, target.swiper, originalEvent);
 });
 events.on(document, 'touchEnd.carousel.gkt', ({ target, originalEvent }) => {
-  trigger('swiperTouchEnd', GHOSTKIT.class, target.swiper, originalEvent);
+  trigger('swiperTouchEnd', classObject, target.swiper, originalEvent);
 });
 
 // Google Maps.
 events.on(document, 'prepare.googleMaps.gkt', ({ target }) => {
-  trigger('beforePrepareGoogleMapsStart', GHOSTKIT.class, getElement(target));
+  trigger('beforePrepareGoogleMapsStart', classObject, getElement(target));
 });
 events.on(document, 'prepared.googleMaps.gkt', ({ target, instance }) => {
-  trigger('beforePrepareGoogleMapsEnd', GHOSTKIT.class, getElement(target), instance);
+  trigger('beforePrepareGoogleMapsEnd', classObject, getElement(target), instance);
 });
 
 // Image Compare.
 events.on(document, 'move.imageCompare.gkt', ({ target, originalEvent }) => {
-  trigger('movedImageCompare', GHOSTKIT.class, getElement(target), originalEvent);
+  trigger('movedImageCompare', classObject, getElement(target), originalEvent);
 });
 
 // Tabs.
 events.on(document, 'show.tab.gkt', ({ target }) => {
   window.requestAnimationFrame(() => {
     const tabNameEncoded = target.getAttribute('href');
-    trigger('activateTab', GHOSTKIT.class, getElement(target), tabNameEncoded);
+    trigger('activateTab', classObject, getElement(target), tabNameEncoded);
   });
 });
 
 // Video.
 events.on(document, 'prepare.videoObserver.gkt', ({ config }) => {
-  trigger('prepareVideoObserver', GHOSTKIT.class, config);
+  trigger('prepareVideoObserver', classObject, config);
 });

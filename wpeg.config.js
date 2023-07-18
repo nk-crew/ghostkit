@@ -81,6 +81,8 @@ cfg.compile_js_files_src = [
   '{src}/*assets/**/*.js',
   '{src}/*gutenberg/index.js',
   '{src}/*gutenberg/blocks/*/frontend.js',
+  '{src}/*gutenberg/extend/*/frontend.js',
+  '{src}/*gutenberg/style-variants/*/frontend.js',
   '{src}/*settings/index.js',
   '!{src}/**/vendor/**/*',
 ];
