@@ -173,7 +173,7 @@ class PositionComponent extends Component {
 
     // add new position controls.
     return (
-      <InspectorControls>
+      <InspectorControls group="styles">
         <PanelBody
           title={
             <Fragment>
