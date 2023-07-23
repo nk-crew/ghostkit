@@ -1,10 +1,5 @@
 /* eslint-disable max-classes-per-file */
 /**
- * External dependencies
- */
-import { throttle } from 'throttle-debounce';
-
-/**
  * Internal dependencies
  */
 import ColorPicker from '../../components/color-picker';
@@ -30,6 +25,8 @@ const { __ } = wp.i18n;
 const { addFilter } = wp.hooks;
 
 const { Component, Fragment } = wp.element;
+
+const { useSelect } = wp.data;
 
 const { registerBlockStyle } = wp.blocks;
 
@@ -188,54 +185,34 @@ class GhostKitListColumns extends Component {
 /**
  * Custom Styles for Start and Reversed attributes of lists.
  */
-class GhostKitListStartAndReversedCustomStyles extends Component {
-  constructor(props) {
-    super(props);
+function GhostKitListStartAndReversedCustomStyles(props) {
+  const { attributes, clientId } = props;
+  const { start, reversed: isReversed } = attributes;
 
-    this.state = {
-      itemsCount: 0,
-    };
+  const { itemsCount } = useSelect(
+    (select) => {
+      const { getBlockCount } = select('core/block-editor');
 
-    this.onUpdate = throttle(120, this.onUpdate.bind(this));
+      return {
+        itemsCount: getBlockCount(clientId),
+      };
+    },
+    [clientId]
+  );
+
+  let styles = '';
+
+  if (isReversed) {
+    styles += `counter-reset: li ${(start || itemsCount) + 1}`;
+  } else if (start) {
+    styles += `counter-reset: li ${start - 1}`;
   }
 
-  componentDidMount() {
-    this.onUpdate(true);
+  if (!styles) {
+    return null;
   }
 
-  componentDidUpdate() {
-    this.onUpdate();
-  }
-
-  onUpdate() {
-    const { clientId } = this.props;
-
-    this.setState({
-      itemsCount: document.querySelectorAll(`[data-block="${clientId}"] > *`).length,
-    });
-  }
-
-  render() {
-    const { attributes, clientId } = this.props;
-
-    const { itemsCount } = this.state;
-
-    const { start, reversed: isReversed } = attributes;
-
-    let styles = '';
-
-    if (isReversed) {
-      styles += `counter-reset: li ${(start || itemsCount) + 1}`;
-    } else if (start) {
-      styles += `counter-reset: li ${start - 1}`;
-    }
-
-    if (!styles) {
-      return null;
-    }
-
-    return <EditorStyles styles={`[data-block="${clientId}"].wp-block { ${styles} }`} />;
-  }
+  return <EditorStyles styles={`[data-block="${clientId}"].wp-block { ${styles} }`} />;
 }
 
 /**
