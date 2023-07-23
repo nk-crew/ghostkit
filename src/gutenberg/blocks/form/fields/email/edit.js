@@ -105,6 +105,7 @@ class BlockEdit extends Component {
                   })}
                 />
                 <RichText
+                  inlineToolbar
                   tagName="small"
                   className="ghostkit-form-field-description"
                   value={descriptionConfirmation}

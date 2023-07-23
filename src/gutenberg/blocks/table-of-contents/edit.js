@@ -132,6 +132,7 @@ class BlockEdit extends Component {
           <div className={className}>
             {!RichText.isEmpty(title) || isSelected ? (
               <RichText
+                inlineToolbar
                 tagName="h5"
                 className="ghostkit-toc-title"
                 placeholder={__('Write title…', '@@text_domain')}

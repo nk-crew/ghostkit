@@ -610,8 +610,8 @@ class BlockEdit extends Component {
             </div>
             {(!RichText.isEmpty(caption) || isSelected) && (
               <RichText
-                className="ghostkit-image-compare-caption"
                 inlineToolbar
+                className="ghostkit-image-compare-caption"
                 onChange={(value) => setAttributes({ caption: value })}
                 placeholder={__('Write caption…', 'jetpack')}
                 tagName="figcaption"

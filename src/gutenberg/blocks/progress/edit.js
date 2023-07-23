@@ -182,6 +182,7 @@ class BlockEdit extends Component {
         <div className={className}>
           {!RichText.isEmpty(caption) || isSelected ? (
             <RichText
+              inlineToolbar
               tagName="div"
               className="ghostkit-progress-caption"
               placeholder={__('Write caption…', '@@text_domain')}

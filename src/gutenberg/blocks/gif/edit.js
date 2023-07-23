@@ -35,7 +35,6 @@ export default class BlockEdit extends Component {
     this.textControlRef = createRef();
 
     this.state = {
-      captionFocus: false,
       results: null,
       loading: false,
     };
@@ -60,7 +59,6 @@ export default class BlockEdit extends Component {
 
   setFocus() {
     this.textControlRef.current.querySelector('input').focus();
-    this.setState({ captionFocus: false });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -187,7 +185,7 @@ export default class BlockEdit extends Component {
 
     const { caption, url, srcset, alt, width, height, searchText } = attributes;
 
-    const { captionFocus, results, loading } = this.state;
+    const { results, loading } = this.state;
 
     const inputFields = (
       <Fragment>
@@ -280,12 +278,8 @@ export default class BlockEdit extends Component {
             <img src={url} srcSet={srcset} alt={alt} width={width} height={height} />
             {(!RichText.isEmpty(caption) || isSelected) && !!url && (
               <RichText
-                className="ghostkit-gif-caption"
                 inlineToolbar
-                isSelected={captionFocus}
-                onFocus={() => {
-                  this.setState({ captionFocus: true });
-                }}
+                className="ghostkit-gif-caption"
                 onChange={(value) => setAttributes({ caption: value })}
                 placeholder={__('Write caption…', 'jetpack')}
                 tagName="figcaption"

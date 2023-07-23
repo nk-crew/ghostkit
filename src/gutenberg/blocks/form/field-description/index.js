@@ -26,6 +26,7 @@ class FieldDescription extends Component {
 
     return (
       <RichText
+        inlineToolbar
         tagName="small"
         className="ghostkit-form-field-description"
         value={description}

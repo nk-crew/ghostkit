@@ -28,6 +28,7 @@ class FieldLabel extends Component {
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
       <label className="ghostkit-form-field-label">
         <RichText
+          inlineToolbar
           tagName="span"
           value={label}
           placeholder={__('Write label…', '@@text_domain')}

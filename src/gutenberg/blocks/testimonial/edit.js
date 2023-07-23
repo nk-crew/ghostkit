@@ -316,6 +316,7 @@ class BlockEdit extends Component {
           </div>
           <div className="ghostkit-testimonial-meta">
             <RichText
+              inlineToolbar
               tagName="div"
               className="ghostkit-testimonial-name"
               placeholder={__('Write name…', '@@text_domain')}
@@ -323,6 +324,7 @@ class BlockEdit extends Component {
               onChange={(value) => setAttributes({ name: value })}
             />
             <RichText
+              inlineToolbar
               tagName="div"
               className="ghostkit-testimonial-source"
               placeholder={__('Write source…', '@@text_domain')}

@@ -33,6 +33,7 @@ class BlockEdit extends Component {
       <div className={className}>
         <div className="ghostkit-changelog-version">
           <RichText
+            inlineToolbar
             tagName="span"
             placeholder={__('1.0.0', '@@text_domain')}
             value={version}
@@ -41,6 +42,7 @@ class BlockEdit extends Component {
         </div>
         <div className="ghostkit-changelog-date">
           <RichText
+            inlineToolbar
             tagName="h2"
             placeholder={__('18 September 2019', '@@text_domain')}
             value={date}

@@ -241,6 +241,7 @@ class BlockEdit extends Component {
         <div className={className}>
           <div className={classNameNumber}>
             <RichText
+              inlineToolbar
               tagName="div"
               className="ghostkit-counter-box-number-wrap"
               placeholder={__('Write number…', '@@text_domain')}

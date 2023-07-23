@@ -106,6 +106,7 @@ class BlockEdit extends Component {
         <div className={className}>
           {showTitle ? (
             <RichText
+              inlineToolbar
               tagName="h3"
               className="ghostkit-pricing-table-item-title"
               onChange={(val) => setAttributes({ title: val })}
@@ -119,6 +120,7 @@ class BlockEdit extends Component {
               {showPriceCurrency && (!RichText.isEmpty(priceCurrency) || isSelected) ? (
                 <div className="ghostkit-pricing-table-item-price-currency">
                   <RichText
+                    inlineToolbar
                     tagName="div"
                     onChange={(val) => setAttributes({ priceCurrency: val })}
                     value={priceCurrency}
@@ -131,6 +133,7 @@ class BlockEdit extends Component {
               )}
               <div className="ghostkit-pricing-table-item-price-amount">
                 <RichText
+                  inlineToolbar
                   tagName="div"
                   onChange={(val) => setAttributes({ price: val })}
                   value={price}
@@ -141,6 +144,7 @@ class BlockEdit extends Component {
               {showPriceRepeat && (!RichText.isEmpty(priceRepeat) || isSelected) ? (
                 <div className="ghostkit-pricing-table-item-price-repeat">
                   <RichText
+                    inlineToolbar
                     tagName="div"
                     onChange={(val) => setAttributes({ priceRepeat: val })}
                     value={priceRepeat}
@@ -155,6 +159,7 @@ class BlockEdit extends Component {
           ) : null}
           {showDescription && (!RichText.isEmpty(description) || isSelected) ? (
             <RichText
+              inlineToolbar
               tagName="div"
               className="ghostkit-pricing-table-item-description"
               onChange={(val) => setAttributes({ description: val })}
@@ -165,6 +170,7 @@ class BlockEdit extends Component {
           ) : null}
           {showFeatures && (!RichText.isEmpty(features) || isSelected) ? (
             <RichText
+              inlineToolbar
               tagName="ul"
               multiline="li"
               className="ghostkit-pricing-table-item-features"
@@ -198,6 +204,7 @@ class BlockEdit extends Component {
           {showPopular && (!RichText.isEmpty(popularText) || isSelected) ? (
             <div className="ghostkit-pricing-table-item-popular-badge">
               <RichText
+                inlineToolbar
                 tagName="div"
                 onChange={(val) => setAttributes({ popularText: val })}
                 value={popularText}
