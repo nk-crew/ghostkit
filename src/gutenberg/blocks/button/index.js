@@ -44,6 +44,7 @@ export const settings = {
     supports: {
       styles: true,
       spacings: true,
+      position: true,
       display: true,
       scrollReveal: true,
       customCSS: true,

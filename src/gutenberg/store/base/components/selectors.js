@@ -10,6 +10,7 @@ import IconPicker from '../../../components/icon-picker';
 import ImagePicker from '../../../components/image-picker';
 import InputDrag from '../../../components/input-drag';
 import Modal from '../../../components/modal';
+import Notice from '../../../components/notice';
 import RangeControl from '../../../components/range-control';
 import RemoveButton from '../../../components/remove-button';
 import ResponsiveTabPanel from '../../../components/responsive-tab-panel';
@@ -29,6 +30,7 @@ export function get() {
     ImagePicker,
     InputDrag,
     Modal,
+    Notice,
     RangeControl,
     RemoveButton,
     ResponsiveTabPanel,

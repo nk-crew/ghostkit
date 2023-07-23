@@ -35,6 +35,7 @@ export const settings = {
       styles: true,
       frame: true,
       spacings: true,
+      position: true,
       display: true,
       customCSS: true,
     },

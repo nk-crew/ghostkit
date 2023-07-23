@@ -74,6 +74,7 @@ export const settings = {
       styles: true,
       frame: true,
       spacings: true,
+      position: true,
       display: true,
       scrollReveal: true,
       customCSS: true,

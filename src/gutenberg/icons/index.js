@@ -53,6 +53,7 @@ import srZoomFromLeft from './sr-zoom-from-left.svg';
 import srZoomFromRight from './sr-zoom-from-right.svg';
 import srZoom from './sr-zoom.svg';
 import extensionFrame from './extension-frame.svg';
+import extensionPosition from './extension-position.svg';
 import extensionDisplay from './extension-display.svg';
 import extensionSpacings from './extension-spacings.svg';
 import extensionSR from './extension-sr.svg';
@@ -154,6 +155,7 @@ export default {
   'sr-zoom': srZoom,
 
   'extension-frame': extensionFrame,
+  'extension-position': extensionPosition,
   'extension-display': extensionDisplay,
   'extension-spacings': extensionSpacings,
   'extension-sr': extensionSR,
