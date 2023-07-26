@@ -35,12 +35,7 @@ events.on(document, 'init.blocks.gkt', () => {
             markers = [];
 
             $markers.forEach(($marker) => {
-              const markerConf = {};
-
-              markerConf.lat = $marker.getAttribute('data-lat');
-              markerConf.lng = $marker.getAttribute('data-lng');
-
-              markers.push(markerConf);
+              markers.push($marker.dataset);
             });
 
             // old way.
