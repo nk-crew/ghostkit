@@ -176,10 +176,6 @@ function normalizeParameters(originalTypeEvent, handler, delegationFunction) {
 }
 
 function addHandler(element, originalTypeEvent, handler, delegationFunction, oneOff) {
-  if (typeof originalTypeEvent !== 'string' || !element) {
-    return;
-  }
-
   let [isDelegated, callable, typeEvent] = normalizeParameters(
     originalTypeEvent,
     handler,
@@ -256,51 +252,65 @@ function removeNamespacedHandlers(element, events, typeEvent, namespace) {
  */
 
 EventHandler.on = function (element, event, handler, delegationFunction) {
-  addHandler(element, event, handler, delegationFunction, false);
+  if (typeof event !== 'string' || !element) {
+    return;
+  }
+
+  event.split(' ').forEach((originalTypeEvent) => {
+    addHandler(element, originalTypeEvent, handler, delegationFunction, false);
+  });
 };
 
 EventHandler.one = function (element, event, handler, delegationFunction) {
-  addHandler(element, event, handler, delegationFunction, true);
+  if (typeof event !== 'string' || !element) {
+    return;
+  }
+
+  event.split(' ').forEach((originalTypeEvent) => {
+    addHandler(element, originalTypeEvent, handler, delegationFunction, true);
+  });
 };
 
-EventHandler.off = function (element, originalTypeEvent, handler, delegationFunction) {
+EventHandler.off = function (element, event, handler, delegationFunction) {
   if (typeof originalTypeEvent !== 'string' || !element) {
     return;
   }
 
-  const [isDelegated, callable, typeEvent] = normalizeParameters(
-    originalTypeEvent,
-    handler,
-    delegationFunction
-  );
-  const inNamespace = typeEvent !== originalTypeEvent;
-  const events = getElementEvents(element);
-  const storeElementEvent = events[typeEvent] || {};
-  const isNamespace = originalTypeEvent.startsWith('.');
+  event.split(' ').forEach((originalTypeEvent) => {
+    const [isDelegated, callable, typeEvent] = normalizeParameters(
+      originalTypeEvent,
+      handler,
+      delegationFunction
+    );
+    const inNamespace = typeEvent !== originalTypeEvent;
+    const events = getElementEvents(element);
+    const storeElementEvent = events[typeEvent] || {};
+    const isNamespace = originalTypeEvent.startsWith('.');
 
-  if (typeof callable !== 'undefined') {
-    // Simplest case: handler is passed, remove that listener ONLY.
-    if (!Object.keys(storeElementEvent).length) {
+    if (typeof callable !== 'undefined') {
+      // Simplest case: handler is passed, remove that listener ONLY.
+      if (!Object.keys(storeElementEvent).length) {
+        return;
+      }
+
+      removeHandler(element, events, typeEvent, callable, isDelegated ? handler : null);
       return;
     }
 
-    removeHandler(element, events, typeEvent, callable, isDelegated ? handler : null);
-    return;
-  }
-
-  if (isNamespace) {
-    for (const elementEvent of Object.keys(events)) {
-      removeNamespacedHandlers(element, events, elementEvent, originalTypeEvent.slice(1));
+    if (isNamespace) {
+      for (const elementEvent of Object.keys(events)) {
+        removeNamespacedHandlers(element, events, elementEvent, originalTypeEvent.slice(1));
+      }
     }
-  }
 
-  for (const [keyHandlers, event] of Object.entries(storeElementEvent)) {
-    const handlerKey = keyHandlers.replace(stripUidRegex, '');
+    for (const [keyHandlers, evt] of Object.entries(storeElementEvent)) {
+      const handlerKey = keyHandlers.replace(stripUidRegex, '');
 
-    if (!inNamespace || originalTypeEvent.includes(handlerKey)) {
-      removeHandler(element, events, typeEvent, event.callable, event.delegationSelector);
+      if (!inNamespace || originalTypeEvent.includes(handlerKey)) {
+        removeHandler(element, events, typeEvent, evt.callable, evt.delegationSelector);
+      }
     }
-  }
+  });
 };
 
 EventHandler.trigger = function (element, event, args) {
