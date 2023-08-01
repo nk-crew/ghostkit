@@ -1,206 +1,237 @@
-[
-    {
-        "name": "deliciousbrains/wp-background-processing",
-        "version": "1.0.2",
-        "version_normalized": "1.0.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/deliciousbrains/wp-background-processing.git",
-            "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
-            "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2"
-        },
-        "suggest": {
-            "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
-        },
-        "time": "2020-07-31T07:00:11+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "classes/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-2.0-or-later"
-        ],
-        "authors": [
-            {
-                "name": "Delicious Brains",
-                "email": "nom@deliciousbrains.com"
-            }
-        ],
-        "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
-    },
-    {
-        "name": "prestashop/php-css-parser",
-        "version": "8.2.0",
-        "version_normalized": "8.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/PrestaShop/PHP-CSS-Parser.git",
-            "reference": "4fc2af16da00dd954b41a7d754a9a0b1fccadc1d"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/PrestaShop/PHP-CSS-Parser/zipball/4fc2af16da00dd954b41a7d754a9a0b1fccadc1d",
-            "reference": "4fc2af16da00dd954b41a7d754a9a0b1fccadc1d",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.2"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.8"
-        },
-        "time": "2017-12-28T13:36:06+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Sabberworm\\CSS": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Raphael Schweikert"
-            }
-        ],
-        "description": "Parser for CSS Files written in PHP",
-        "homepage": "http://www.sabberworm.com/blog/2010/6/10/php-css-parser",
-        "keywords": [
-            "css",
-            "parser",
-            "stylesheet"
-        ]
-    },
-    {
-        "name": "prestashop/rtlcss-php",
-        "version": "v2.0.0",
-        "version_normalized": "2.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/PrestaShop/rtlcss-php.git",
-            "reference": "eb26a4c5651ccaddc9e7eecc725367954c6bd1c4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/PrestaShop/rtlcss-php/zipball/eb26a4c5651ccaddc9e7eecc725367954c6bd1c4",
-            "reference": "eb26a4c5651ccaddc9e7eecc725367954c6bd1c4",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4",
-            "prestashop/php-css-parser": "^8.2"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "*"
-        },
-        "time": "2017-12-28T14:27:03+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "PrestaShop\\RtlCss\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Massart",
-                "homepage": "https://github.com/FMCorz"
+{
+    "packages": [
+        {
+            "name": "deliciousbrains/wp-background-processing",
+            "version": "1.1.1",
+            "version_normalized": "1.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deliciousbrains/wp-background-processing.git",
+                "reference": "ebbed762c42e70e76573ffbd36e591378ba5f2ee"
             },
-            {
-                "name": "Pablo Borowicz",
-                "email": "pablo.borowicz@prestashop.com",
-                "homepage": "https://github.com/eternoendless"
-            }
-        ],
-        "description": "Converts CSS to Right-to-Left",
-        "keywords": [
-            "css",
-            "rtl"
-        ],
-        "abandoned": true
-    },
-    {
-        "name": "scssphp/scssphp",
-        "version": "v1.4.0",
-        "version_normalized": "1.4.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/scssphp/scssphp.git",
-            "reference": "f7c9088320e218ca42e4ef0074259a1ba24ec93a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/scssphp/scssphp/zipball/f7c9088320e218ca42e4ef0074259a1ba24ec93a",
-            "reference": "f7c9088320e218ca42e4ef0074259a1ba24ec93a",
-            "shasum": ""
-        },
-        "require": {
-            "ext-ctype": "*",
-            "ext-json": "*",
-            "php": ">=5.6.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3 || ^9.4",
-            "sass/sass-spec": "2020.10.29",
-            "squizlabs/php_codesniffer": "~3.5",
-            "symfony/phpunit-bridge": "^5.1",
-            "twbs/bootstrap": "~4.3",
-            "zurb/foundation": "~6.5"
-        },
-        "time": "2020-11-07T20:53:41+00:00",
-        "bin": [
-            "bin/pscss"
-        ],
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "ScssPhp\\ScssPhp\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Anthon Pang",
-                "email": "apang@softwaredevelopment.ca",
-                "homepage": "https://github.com/robocoder"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/ebbed762c42e70e76573ffbd36e591378ba5f2ee",
+                "reference": "ebbed762c42e70e76573ffbd36e591378ba5f2ee",
+                "shasum": ""
             },
-            {
-                "name": "Cédric Morin",
-                "email": "cedric@yterium.com",
-                "homepage": "https://github.com/Cerdic"
-            }
-        ],
-        "description": "scssphp is a compiler for SCSS written in PHP.",
-        "homepage": "http://scssphp.github.io/scssphp/",
-        "keywords": [
-            "css",
-            "less",
-            "sass",
-            "scss",
-            "stylesheet"
-        ]
-    }
-]
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "phpunit/phpunit": "^8.0",
+                "spryker/code-sniffer": "^0.17.18",
+                "wp-coding-standards/wpcs": "^2.3",
+                "yoast/phpunit-polyfills": "^1.0"
+            },
+            "suggest": {
+                "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
+            },
+            "time": "2023-07-18T10:22:06+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "classes/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Delicious Brains",
+                    "email": "nom@deliciousbrains.com"
+                }
+            ],
+            "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks.",
+            "support": {
+                "issues": "https://github.com/deliciousbrains/wp-background-processing/issues",
+                "source": "https://github.com/deliciousbrains/wp-background-processing/tree/1.1.1"
+            },
+            "install-path": "../deliciousbrains/wp-background-processing"
+        },
+        {
+            "name": "moodlehq/rtlcss-php",
+            "version": "v1.0.1",
+            "version_normalized": "1.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moodlehq/rtlcss-php.git",
+                "reference": "e251ac75ae5a8ea8e745ae92a6d426fcb0797d84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moodlehq/rtlcss-php/zipball/e251ac75ae5a8ea8e745ae92a6d426fcb0797d84",
+                "reference": "e251ac75ae5a8ea8e745ae92a6d426fcb0797d84",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3.0",
+                "sabberworm/php-css-parser": "8.1.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "9.5.*"
+            },
+            "time": "2022-01-24T17:53:10+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "MoodleHQ\\": "src/MoodleHQ"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Convert CSS to Right-to-Left (Port of RTLCSS)",
+            "keywords": [
+                "css",
+                "rtl"
+            ],
+            "support": {
+                "source": "https://github.com/moodlehq/rtlcss-php/tree/v1.0.1",
+                "issues": "https://github.com/moodlehq/rtlcss-php/issues"
+            },
+            "install-path": "../moodlehq/rtlcss-php"
+        },
+        {
+            "name": "sabberworm/php-css-parser",
+            "version": "8.1.1",
+            "version_normalized": "8.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
+                "reference": "b3683fba4e30963908265b039190a0e88f74c6fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/b3683fba4e30963908265b039190a0e88f74c6fb",
+                "reference": "b3683fba4e30963908265b039190a0e88f74c6fb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "time": "2020-06-01T09:09:10+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Sabberworm\\CSS": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raphael Schweikert"
+                }
+            ],
+            "description": "Parser for CSS Files written in PHP",
+            "homepage": "http://www.sabberworm.com/blog/2010/6/10/php-css-parser",
+            "keywords": [
+                "css",
+                "parser",
+                "stylesheet"
+            ],
+            "support": {
+                "issues": "https://github.com/sabberworm/PHP-CSS-Parser/issues",
+                "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.1.1"
+            },
+            "install-path": "../sabberworm/php-css-parser"
+        },
+        {
+            "name": "scssphp/scssphp",
+            "version": "v1.11.0",
+            "version_normalized": "1.11.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scssphp/scssphp.git",
+                "reference": "33749d12c2569bb24071f94e9af828662dabb068"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/33749d12c2569bb24071f94e9af828662dabb068",
+                "reference": "33749d12c2569bb24071f94e9af828662dabb068",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4",
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3 || ^9.4",
+                "sass/sass-spec": "*",
+                "squizlabs/php_codesniffer": "~3.5",
+                "symfony/phpunit-bridge": "^5.1",
+                "thoughtbot/bourbon": "^7.0",
+                "twbs/bootstrap": "~5.0",
+                "twbs/bootstrap4": "4.6.1",
+                "zurb/foundation": "~6.5"
+            },
+            "suggest": {
+                "ext-iconv": "Can be used as fallback when ext-mbstring is not available",
+                "ext-mbstring": "For best performance, mbstring should be installed as it is faster than ext-iconv"
+            },
+            "time": "2022-09-02T21:24:55+00:00",
+            "bin": [
+                "bin/pscss"
+            ],
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "forward-command": false,
+                    "bin-links": false
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ScssPhp\\ScssPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthon Pang",
+                    "email": "apang@softwaredevelopment.ca",
+                    "homepage": "https://github.com/robocoder"
+                },
+                {
+                    "name": "Cédric Morin",
+                    "email": "cedric@yterium.com",
+                    "homepage": "https://github.com/Cerdic"
+                }
+            ],
+            "description": "scssphp is a compiler for SCSS written in PHP.",
+            "homepage": "http://scssphp.github.io/scssphp/",
+            "keywords": [
+                "css",
+                "less",
+                "sass",
+                "scss",
+                "stylesheet"
+            ],
+            "support": {
+                "issues": "https://github.com/scssphp/scssphp/issues",
+                "source": "https://github.com/scssphp/scssphp/tree/v1.11.0"
+            },
+            "install-path": "../scssphp/scssphp"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

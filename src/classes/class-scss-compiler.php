@@ -31,6 +31,13 @@ class GhostKit_Scss_Compiler {
     private $output_file_info;
 
     /**
+     * Input SCSS file content.
+     *
+     * @var string
+     */
+    private $scss_in;
+
+    /**
      * GhostKit_Scss_Compiler constructor.
      *
      * @param array $args - Arguments for compile scss file.
@@ -124,7 +131,7 @@ class GhostKit_Scss_Compiler {
         // Prepare RTL.
         $parser = new Sabberworm\CSS\Parser( $result );
         $tree   = $parser->parse();
-        $rtlcss = new PrestaShop\RtlCss\RtlCss( $tree );
+        $rtlcss = new MoodleHQ\RTLCSS\RTLCSS( $tree );
         $rtlcss->flip();
 
         // phpcs:ignore

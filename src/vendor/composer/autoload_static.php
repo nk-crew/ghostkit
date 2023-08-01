@@ -11,9 +11,9 @@ class ComposerStaticInitbe404e81c1e7a97a2b92ccf231fabfe8
         array (
             'ScssPhp\\ScssPhp\\' => 16,
         ),
-        'P' => 
+        'M' => 
         array (
-            'PrestaShop\\RtlCss\\' => 18,
+            'MoodleHQ\\' => 9,
         ),
     );
 
@@ -22,9 +22,9 @@ class ComposerStaticInitbe404e81c1e7a97a2b92ccf231fabfe8
         array (
             0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
         ),
-        'PrestaShop\\RtlCss\\' => 
+        'MoodleHQ\\' => 
         array (
-            0 => __DIR__ . '/..' . '/prestashop/rtlcss-php/src',
+            0 => __DIR__ . '/..' . '/moodlehq/rtlcss-php/src/MoodleHQ',
         ),
     );
 
@@ -33,12 +33,13 @@ class ComposerStaticInitbe404e81c1e7a97a2b92ccf231fabfe8
         array (
             'Sabberworm\\CSS' => 
             array (
-                0 => __DIR__ . '/..' . '/prestashop/php-css-parser/lib',
+                0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
             ),
         ),
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'WP_Async_Request' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-async-request.php',
         'WP_Background_Process' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-background-process.php',
     );
