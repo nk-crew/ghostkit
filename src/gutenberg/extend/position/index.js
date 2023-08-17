@@ -318,7 +318,13 @@ class PositionComponent extends Component {
                   <UnitControl
                     label={__('zIndex', '@@text_domain')}
                     value={this.getCurrentPosition('zIndex', device)}
-                    onChange={(val) => this.setPosition('zIndex', parseInt(val, 10), device)}
+                    onChange={(val) => {
+                      this.setPosition(
+                        'zIndex',
+                        val === '' ? undefined : parseInt(val, 10),
+                        device
+                      );
+                    }}
                     labelPosition="edge"
                     __unstableInputWidth="70px"
                     disableUnits
