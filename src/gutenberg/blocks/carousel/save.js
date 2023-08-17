@@ -4,6 +4,8 @@
 /**
  * Internal dependencies
  */
+import classNames from 'classnames';
+
 import IconPicker from '../../components/icon-picker';
 
 import metadata from './block.json';
@@ -30,6 +32,7 @@ class BlockSave extends Component {
       centeredSlides,
       loop,
       freeScroll,
+      fadeEdges,
       showArrows,
       arrowPrevIcon,
       arrowNextIcon,
@@ -38,7 +41,7 @@ class BlockSave extends Component {
       gap,
     } = this.props.attributes;
 
-    let className = 'ghostkit-carousel';
+    let className = classNames('ghostkit-carousel', fadeEdges && 'ghostkit-carousel-fade-edges');
 
     className = applyFilters('ghostkit.blocks.className', className, {
       ...{

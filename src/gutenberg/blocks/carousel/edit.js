@@ -88,6 +88,7 @@ class BlockEdit extends Component {
       centeredSlides,
       loop,
       freeScroll,
+      fadeEdges,
       showArrows,
       arrowPrevIcon,
       arrowNextIcon,
@@ -96,7 +97,11 @@ class BlockEdit extends Component {
       gap,
     } = attributes;
 
-    className = classnames(className, 'ghostkit-carousel');
+    className = classnames(
+      className,
+      'ghostkit-carousel',
+      fadeEdges && 'ghostkit-carousel-fade-edges'
+    );
 
     className = applyFilters('ghostkit.editor.className', className, this.props);
 
@@ -202,6 +207,11 @@ class BlockEdit extends Component {
               label={__('Free scroll', '@@text_domain')}
               checked={!!freeScroll}
               onChange={(val) => setAttributes({ freeScroll: val })}
+            />
+            <ToggleControl
+              label={__('Fade edges', '@@text_domain')}
+              checked={!!fadeEdges}
+              onChange={(val) => setAttributes({ fadeEdges: val })}
             />
             <ToggleControl
               label={__('Show arrows', '@@text_domain')}
