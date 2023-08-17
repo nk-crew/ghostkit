@@ -351,7 +351,8 @@ class BlockEdit extends Component {
                 <div style={{ marginBottom: 13 }} />
                 {editorSettings && editorSettings.imageSizes ? (
                   <SelectControl
-                    label={__('Image Size', '@@text_domain')}
+                    label={__('Resolution', '@@text_domain')}
+                    help={__('Select the size of the source image.', '@@text_domain')}
                     value={beforeSizeSlug || DEFAULT_SIZE_SLUG}
                     onChange={(val) => {
                       this.updateImageData('before', beforeImage, val);
@@ -445,7 +446,8 @@ class BlockEdit extends Component {
                 <div style={{ marginBottom: 13 }} />
                 {editorSettings && editorSettings.imageSizes ? (
                   <SelectControl
-                    label={__('Image Size', '@@text_domain')}
+                    label={__('Resolution', '@@text_domain')}
+                    help={__('Select the size of the source image.', '@@text_domain')}
                     value={afterSizeSlug || DEFAULT_SIZE_SLUG}
                     onChange={(val) => {
                       this.updateImageData('after', afterImage, val);
