@@ -245,7 +245,7 @@ class GhostKit {
         global $current_screen;
 
         $css_deps = array();
-        $js_deps  = array( 'ghostkit-helper', 'wp-block-editor', 'wp-blocks', 'wp-date', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-hooks', 'wp-components', 'wp-keycodes', 'jquery' );
+        $js_deps  = array( 'ghostkit-helper', 'wp-block-editor', 'wp-blocks', 'wp-date', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-hooks', 'wp-components', 'wp-keycodes', 'lodash', 'jquery' );
 
         // Fix for Widgets screen.
         if ( isset( $current_screen->id ) && 'widgets' === $current_screen->id ) {
