@@ -109,7 +109,7 @@ export default function BlockEdit(props) {
   return (
     <Fragment>
       <InspectorControls>
-        <PanelBody>
+        <PanelBody title={__('Settings', '@@text_domain')}>
           <RangeControl
             label={__('Slides', '@@text_domain')}
             value={slidesCount}
@@ -118,8 +118,28 @@ export default function BlockEdit(props) {
             max={20}
             allowCustomMax
           />
-        </PanelBody>
-        <PanelBody>
+          {effect !== 'fade' ? (
+            <>
+              <RangeControl
+                label={__('Slides per view', '@@text_domain')}
+                value={slidesPerView}
+                onChange={(value) => setAttributes({ slidesPerView: value })}
+                min={1}
+                max={8}
+                allowCustomMax
+              />
+              <RangeControl
+                label={__('Gap', '@@text_domain')}
+                value={gap}
+                onChange={(value) => setAttributes({ gap: value })}
+                min={0}
+                max={60}
+                allowCustomMax
+              />
+            </>
+          ) : (
+            false
+          )}
           <ToggleGroup
             label={__('Effect', '@@text_domain')}
             value={effect}
@@ -142,8 +162,9 @@ export default function BlockEdit(props) {
             }}
             isAdaptiveWidth
           />
-        </PanelBody>
-        <PanelBody>
+
+          <div style={{ borderTop: '1px solid #E0E0E0', marginBottom: '16px' }} />
+
           <RangeControl
             label={__('Speed (seconds)', '@@text_domain')}
             suffix={__('sec', '@@text_domain')}
@@ -170,30 +191,9 @@ export default function BlockEdit(props) {
               onChange={(val) => setAttributes({ autoplayHoverPause: val })}
             />
           ) : null}
-          {effect !== 'fade' ? (
-            <Fragment>
-              <RangeControl
-                label={__('Slides per view', '@@text_domain')}
-                value={slidesPerView}
-                onChange={(value) => setAttributes({ slidesPerView: value })}
-                min={1}
-                max={8}
-                allowCustomMax
-              />
-              <RangeControl
-                label={__('Gap', '@@text_domain')}
-                value={gap}
-                onChange={(value) => setAttributes({ gap: value })}
-                min={0}
-                max={60}
-                allowCustomMax
-              />
-            </Fragment>
-          ) : (
-            ''
-          )}
-        </PanelBody>
-        <PanelBody>
+
+          <div style={{ borderTop: '1px solid #E0E0E0', marginBottom: '16px' }} />
+
           <ToggleControl
             label={__('Centered slides', '@@text_domain')}
             checked={!!centeredSlides}
@@ -214,20 +214,22 @@ export default function BlockEdit(props) {
             checked={!!fadeEdges}
             onChange={(val) => setAttributes({ fadeEdges: val })}
           />
+        </PanelBody>
+        <PanelBody title={__('Arrow', '@@text_domain')}>
           <ToggleControl
-            label={__('Show arrows', '@@text_domain')}
+            label={__('Show', '@@text_domain')}
             checked={!!showArrows}
             onChange={(val) => setAttributes({ showArrows: val })}
           />
           {showArrows ? (
             <Fragment>
               <IconPicker
-                label={__('Prev arrow icon', '@@text_domain')}
+                label={__('Prev icon', '@@text_domain')}
                 value={arrowPrevIcon}
                 onChange={(value) => setAttributes({ arrowPrevIcon: value })}
               />
               <IconPicker
-                label={__('Next arrow icon', '@@text_domain')}
+                label={__('Next icon', '@@text_domain')}
                 value={arrowNextIcon}
                 onChange={(value) => setAttributes({ arrowNextIcon: value })}
               />
@@ -235,14 +237,16 @@ export default function BlockEdit(props) {
           ) : (
             ''
           )}
+        </PanelBody>
+        <PanelBody title={__('Bullets', '@@text_domain')}>
           <ToggleControl
-            label={__('Show bullets', '@@text_domain')}
+            label={__('Show', '@@text_domain')}
             checked={!!showBullets}
             onChange={(val) => setAttributes({ showBullets: val })}
           />
           {showBullets ? (
             <ToggleControl
-              label={__('Dynamic bullets', '@@text_domain')}
+              label={__('Dynamic', '@@text_domain')}
               checked={!!dynamicBullets}
               onChange={(val) => setAttributes({ dynamicBullets: val })}
             />
