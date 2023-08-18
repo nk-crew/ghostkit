@@ -28,9 +28,12 @@ const {
   PanelBody,
   UnitControl: __stableUnitControl,
   __experimentalUnitControl,
+  NumberControl: __stableNumberControl,
+  __experimentalNumberControl,
 } = wp.components;
 
 const UnitControl = __stableUnitControl || __experimentalUnitControl;
+const NumberControl = __stableNumberControl || __experimentalNumberControl;
 
 const { GHOSTKIT, ghostkitVariables } = window;
 
@@ -117,21 +120,24 @@ class PositionComponent extends Component {
 
     // validate values.
     Object.keys(ghostkitPosition).forEach((key) => {
-      // check if device object.
-      if (typeof ghostkitPosition[key] === 'object') {
-        Object.keys(ghostkitPosition[key]).forEach((keyDevice) => {
-          if (!result[key]) {
-            result[key] = {};
-          }
-          result[key][keyDevice] = ghostkitPosition[key][keyDevice];
-        });
-      } else {
-        result[key] = ghostkitPosition[key];
+      // We have to check for empty value to remove it from attributes.
+      if (ghostkitPosition[key] !== '') {
+        // check if device object.
+        if (typeof ghostkitPosition[key] === 'object') {
+          Object.keys(ghostkitPosition[key]).forEach((keyDevice) => {
+            if (!result[key]) {
+              result[key] = {};
+            }
+            result[key][keyDevice] = ghostkitPosition[key][keyDevice];
+          });
+        } else {
+          result[key] = ghostkitPosition[key];
+        }
       }
     });
 
     setAttributes({
-      ghostkitPosition: Object.keys(result).length ? result : '',
+      ghostkitPosition: Object.keys(result).length ? result : undefined,
     });
   }
 
@@ -234,7 +240,7 @@ class PositionComponent extends Component {
               value={this.getCurrentPosition('location')}
               options={[
                 {
-                  value: 'top-left',
+                  value: '',
                   label: __('Top Left', '@@text_domain'),
                 },
                 {
@@ -315,19 +321,14 @@ class PositionComponent extends Component {
                       />
                     </Fragment>
                   ) : null}
-                  <UnitControl
+                  <NumberControl
                     label={__('zIndex', '@@text_domain')}
-                    value={this.getCurrentPosition('zIndex', device)}
+                    value={this.getCurrentPosition('zIndex', device) ?? ''}
                     onChange={(val) => {
-                      this.setPosition(
-                        'zIndex',
-                        val === '' ? undefined : parseInt(val, 10),
-                        device
-                      );
+                      this.setPosition('zIndex', val, device);
                     }}
                     labelPosition="edge"
                     __unstableInputWidth="70px"
-                    disableUnits
                   />
                 </BaseControl>
               );
@@ -382,7 +383,7 @@ function addAttribute(settings) {
     if (!settings.attributes.ghostkitPosition) {
       settings.attributes.ghostkitPosition = {
         type: 'object',
-        default: '',
+        default: {},
       };
 
       // add to deprecated items.
