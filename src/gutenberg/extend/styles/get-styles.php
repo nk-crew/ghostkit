@@ -143,16 +143,14 @@ class GhostKit_Block_Custom_Styles {
 
                 // add pixels.
                 if (
+                    // Ensure that value is number, or string, which contains numbers.
                     (
-                        is_numeric( $prop_value ) &&
-                        0 !== $prop_value &&
-                        in_array( $prop_name, self::$css_props_with_pixels, true )
-                    ) ||
-                    (
-                        is_string( $prop_value ) &&
-                        $prop_value &&
-                        preg_match( '/^[0-9.\-]*$/', $prop_value )
-                    )
+                        ( is_numeric( $prop_value ) && 0 !== $prop_value ) ||
+                        ( is_string( $prop_value ) && $prop_value && preg_match( '/^[0-9.\-]*$/', $prop_value ) )
+                    ) &&
+                    // Unsure that property support units.
+                    // For example, we should not add pixes to z-index.
+                    in_array( $prop_name, self::$css_props_with_pixels, true )
                 ) {
                     $prop_value .= 'px';
                 }

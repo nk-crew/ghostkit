@@ -22,6 +22,11 @@
     }
   }
 
+  // Fade edges.
+  &-fade-edges {
+    mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  }
+
   // Arrows.
   &-arrow {
     position: absolute;

@@ -105,10 +105,12 @@ export default function getStyles(data = {}, selector = '', escape = true) {
 
       // add pixels.
       if (
-        (typeof propValue === 'number' &&
-          propValue !== 0 &&
-          cssPropsWithPixels.includes(propName)) ||
-        (typeof propValue === 'string' && propValue && /^[0-9.-]*$/.test(propValue))
+        // Ensure that value is number, or string, which contains numbers.
+        ((typeof propValue === 'number' && propValue !== 0) ||
+          (typeof propValue === 'string' && propValue && /^[0-9.-]*$/.test(propValue))) &&
+        // Unsure that property support units.
+        // For example, we should not add pixes to z-index.
+        cssPropsWithPixels.includes(propName)
       ) {
         propValue += 'px';
       }
