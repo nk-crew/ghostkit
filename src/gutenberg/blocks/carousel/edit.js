@@ -34,7 +34,7 @@ const slideBlockName = 'ghostkit/carousel-slide';
  * Block Edit Class.
  */
 export default function BlockEdit(props) {
-  const { attributes, setAttributes } = props;
+  const { attributes, setAttributes, clientId } = props;
 
   let { className = '' } = props;
 
@@ -56,13 +56,13 @@ export default function BlockEdit(props) {
     gap,
   } = attributes;
 
-  const { getBlocks, slidesCount, block } = useSelect((select, ownProps) => {
-    const { clientId } = ownProps;
+  const { getBlocks, slidesCount, block } = useSelect((select) => {
+    const blockEditorData = select('core/block-editor');
 
     return {
-      getBlocks: select('core/block-editor').getBlocks,
-      slidesCount: select('core/block-editor').getBlockCount(clientId),
-      block: select('core/block-editor').getBlock(clientId),
+      getBlocks: blockEditorData.getBlocks,
+      slidesCount: blockEditorData.getBlockCount(clientId),
+      block: blockEditorData.getBlock(clientId),
     };
   });
 
