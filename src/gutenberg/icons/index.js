@@ -69,8 +69,10 @@ import iconHorizontalBetween from './icon-horizontal-between.svg';
 import iconHorizontalCenter from './icon-horizontal-center.svg';
 import iconHorizontalEnd from './icon-horizontal-end.svg';
 import iconHorizontalStart from './icon-horizontal-start.svg';
+import iconVerticalBetween from './icon-vertical-between.svg';
 import iconVerticalBottom from './icon-vertical-bottom.svg';
 import iconVerticalCenter from './icon-vertical-center.svg';
+import iconVerticalStretch from './icon-vertical-stretch.svg';
 import iconVerticalTop from './icon-vertical-top.svg';
 import iconFlipHorizontal from './icon-flip-horizontal.svg';
 import iconFlipVertical from './icon-flip-vertical.svg';
@@ -173,8 +175,10 @@ export default {
   'icon-horizontal-center': iconHorizontalCenter,
   'icon-horizontal-end': iconHorizontalEnd,
   'icon-horizontal-start': iconHorizontalStart,
+  'icon-vertical-between': iconVerticalBetween,
   'icon-vertical-bottom': iconVerticalBottom,
   'icon-vertical-center': iconVerticalCenter,
+  'icon-vertical-stretch': iconVerticalStretch,
   'icon-vertical-top': iconVerticalTop,
   'icon-flip-horizontal': iconFlipHorizontal,
   'icon-flip-vertical': iconFlipVertical,
