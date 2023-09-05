@@ -25,14 +25,7 @@ class GhostKit_Extensions {
      *
      * @var array
      */
-    private static $default_supports = array(
-        'animation' => array(
-            'reveal' => true,
-            'scroll' => true,
-            'loop'   => true,
-            'mouse'  => true,
-        ),
-    );
+    private static $default_supports = array();
 
     /**
      * The list of unsupported Core blocks to add extension.
@@ -77,6 +70,11 @@ class GhostKit_Extensions {
         self::$extensions[ $extension_name ] = array_merge(
             $extension_data,
             array( 'name' => $extension_name )
+        );
+
+        self::$default_supports = array_merge(
+            self::$default_supports,
+            $extension_data['default_supports'] ?? array()
         );
     }
 

@@ -6,6 +6,14 @@
   "description": "Show the changes log of your product.",
   "keywords": ["changelog", "log"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

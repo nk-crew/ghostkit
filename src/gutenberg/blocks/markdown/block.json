@@ -6,6 +6,14 @@
   "description": "Lightweight markup language with plain-text-formatting syntax.",
   "keywords": ["formatting", "markup", "md"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": true,
     "anchor": false

@@ -6,6 +6,14 @@
   "description": "Show maps with custom styles, markers and settings.",
   "keywords": ["maps", "google"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

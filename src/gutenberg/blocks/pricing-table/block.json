@@ -6,6 +6,14 @@
   "description": "Sell your products or services and show all features.",
   "keywords": ["pricing", "table"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

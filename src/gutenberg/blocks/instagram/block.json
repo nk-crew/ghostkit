@@ -6,6 +6,14 @@
   "description": "Show Instagram feed and user data.",
   "keywords": ["instagram"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "align": ["wide", "full"]

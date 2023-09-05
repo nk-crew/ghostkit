@@ -6,6 +6,14 @@
   "title": "Radio",
   "description": "Form field radio.",
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

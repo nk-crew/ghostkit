@@ -6,6 +6,14 @@
   "title": "Phone",
   "description": "Form field phone.",
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

@@ -7,6 +7,14 @@
   "description": "Toggle the visibility of content across your project.",
   "keywords": ["accordion", "collapsible", "collapse"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

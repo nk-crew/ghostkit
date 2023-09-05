@@ -7,6 +7,14 @@
   "description": "Change important links to buttons to get more click rate.",
   "keywords": ["btn", "button"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true

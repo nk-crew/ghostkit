@@ -6,6 +6,14 @@
   "description": "Show the progress of your work, skills or earnings.",
   "keywords": ["progress", "bar"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

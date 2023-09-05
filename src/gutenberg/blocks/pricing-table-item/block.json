@@ -6,6 +6,14 @@
   "title": "Pricing Table Item",
   "description": "A single item within a pricing table block.",
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

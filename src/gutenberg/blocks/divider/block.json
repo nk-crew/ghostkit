@@ -6,6 +6,14 @@
   "description": "Divide your long texts and blocks.",
   "keywords": ["divider", "spacer"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

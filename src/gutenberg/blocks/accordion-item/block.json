@@ -7,6 +7,14 @@
   "title": "Item",
   "description": "A single item within a accordion block.",
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

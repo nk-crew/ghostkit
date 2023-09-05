@@ -20,7 +20,15 @@ class GhostKit_Extension_Animation {
         GhostKit_Extensions::register(
             'animation',
             array(
-                'render_block' => array( $this, 'render_block' ),
+                'default_supports' => array(
+                    'animation' => array(
+                        'reveal' => true,
+                        'scroll' => true,
+                        'loop'   => true,
+                        'mouse'  => true,
+                    ),
+                ),
+                'render_block'     => array( $this, 'render_block' ),
             )
         );
 

@@ -6,6 +6,14 @@
   "description": "Provide contextual feedback messages for user actions.",
   "keywords": ["alert", "notification"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

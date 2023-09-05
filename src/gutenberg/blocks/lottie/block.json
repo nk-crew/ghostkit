@@ -7,6 +7,14 @@
   "description": "Add Lottie SVG animations.",
   "keywords": ["lottie", "animation", "svg"],
   "supports": {
+    "ghostkit": {
+      "animation": {
+        "reveal": true,
+        "scroll": true,
+        "loop": true,
+        "mouse": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,
