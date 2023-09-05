@@ -12,6 +12,7 @@
 @import "./components/color-indicator/editor";
 @import "./components/color-picker/editor";
 @import "./components/date-time-picker/editor";
+@import "./components/dropdown-picker/editor";
 @import "./components/gap-settings/editor";
 @import "./components/icon-picker/editor";
 @import "./components/image-picker/editor";
@@ -30,10 +31,11 @@
 /**
  * Extensions.
  */
+@import "./extend/animation/reveal/editor";
+@import "./extend/animation/deprecated-scroll-reveal/editor";
 @import "./extend/custom-css/editor";
 @import "./extend/frame/editor";
 @import "./extend/display/editor";
-@import "./extend/scroll-reveal/editor";
 @import "./extend/spacings/editor";
 @import "./extend/toolbar-templates/editor";
 
@@ -193,6 +195,20 @@
 
   + span {
     margin-left: 35px;
+  }
+}
+
+/**
+ * Extensions icon in tools panel
+ */
+.components-tools-panel-header > h2 {
+  > .ghostkit-ext-icon {
+    position: absolute;
+    margin-top: -5px;
+
+    + span {
+      margin-left: 35px;
+    }
   }
 }
 

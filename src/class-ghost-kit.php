@@ -139,16 +139,12 @@ class GhostKit {
         // breakpoints.
         require_once $this->plugin_path . 'classes/class-breakpoints.php';
 
-        // scroll reveal extension.
-        require_once $this->plugin_path . 'classes/class-scroll-reveal.php';
-
         // utils encode/decode.
         require_once $this->plugin_path . 'gutenberg/utils/encode-decode/index.php';
 
-        // custom block styles class.
+        // Extensions.
+        require_once $this->plugin_path . 'gutenberg/extend/index.php';
         require_once $this->plugin_path . 'gutenberg/extend/styles/get-styles.php';
-
-        // block users custom CSS class.
         require_once $this->plugin_path . 'gutenberg/extend/custom-css/get-custom-css.php';
 
         // 3rd.

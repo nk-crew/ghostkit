@@ -1,10 +1,7 @@
 /**
- * Animations
- */
-/**
  * Internal dependencies
  */
-import parseSRConfig from '../scroll-reveal/parseSRConfig';
+import parseAnimationData from './parseAnimationData';
 
 const {
   GHOSTKIT: { events },
@@ -12,32 +9,67 @@ const {
 } = window;
 
 /**
- * Scroll Reveal.
+ * Animation Reveal.
  */
 events.on(document, 'init.blocks.gkt', () => {
-  document
-    .querySelectorAll('[data-ghostkit-sr]:not(.data-ghostkit-sr-ready)')
-    .forEach(function ($element) {
-      $element.classList.add('data-ghostkit-sr-ready');
+  document.querySelectorAll('[data-ghostkit-animation-reveal]').forEach(function ($element) {
+    const data = $element.getAttribute('data-ghostkit-animation-reveal');
 
-      const data = $element.getAttribute('data-ghostkit-sr');
-      const config = parseSRConfig(data);
+    // Hide block first and then remove attribute to prevent block visibility blinking.
+    $element.style.pointerEvents = 'none';
+    $element.style.visibility = 'hidden';
+    $element.removeAttribute('data-ghostkit-animation-reveal');
 
-      events.trigger($element, 'prepare.scrollReveal.gkt', { config });
-
-      const stopInView = inView($element, () => {
-        stopInView();
-
-        events.trigger($element, 'show.scrollReveal.gkt', { config });
-
-        animate($element, config.keyframes, config.options).finished.then(() => {
-          config.cleanup($element);
-          events.trigger($element, 'showed.scrollReveal.gkt', { config });
-        });
-      });
-
-      events.trigger($element, 'prepared.scrollReveal.gkt', { config });
+    const config = parseAnimationData(data, {
+      opacity: 1,
+      scale: 1,
+      x: '0px',
+      y: '0px',
+      rotate: '0deg',
     });
+
+    events.trigger($element, 'prepare.animation.reveal.gkt', { config });
+
+    const stopInView = inView($element, () => {
+      stopInView();
+
+      events.trigger($element, 'show.animation.reveal.gkt', { config });
+
+      animate(
+        $element,
+        {
+          visibility: 'visible',
+          opacity: [config.opacity, 1],
+          x: [config.x, 0],
+          y: [config.y, 0],
+          scale: [config.scale, 1],
+          rotate: [config.rotate, 0],
+        },
+        {
+          duration: config.duration || 1,
+          delay: config.delay || 0,
+          easing: config.easing || 'ease',
+        }
+      ).finished.then(() => {
+        // Cleanup.
+        $element.style.pointerEvents = '';
+        $element.style.visibility = '';
+        $element.style.opacity = '';
+        $element.style.transform = '';
+
+        if (!$element.getAttribute('style')) {
+          $element.removeAttribute('style');
+        }
+        if (!$element.getAttribute('class')) {
+          $element.removeAttribute('class');
+        }
+
+        events.trigger($element, 'showed.animation.reveal.gkt', { config });
+      });
+    });
+
+    events.trigger($element, 'prepared.animation.reveal.gkt', { config });
+  });
 });
 
 /**

@@ -1,0 +1,159 @@
+<?php
+/**
+ * Extensions for blocks
+ *
+ * @package @@plugin_name
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+/**
+ * Class GhostKit_Extensions
+ */
+class GhostKit_Extensions {
+    /**
+     * Registered extensions.
+     *
+     * @var array
+     */
+    private static $extensions = array();
+
+    /**
+     * The list of default settings to extend Core blocks.
+     *
+     * @var array
+     */
+    private static $default_supports = array(
+        'animation' => array(
+            'reveal' => true,
+            'scroll' => true,
+            'loop'   => true,
+            'mouse'  => true,
+        ),
+    );
+
+    /**
+     * The list of unsupported Core blocks to add extension.
+     *
+     * @var array
+     */
+    private static $unsupported_blocks = array(
+        'core/shortcode',
+        'core/block',
+        'core/legacy-widget',
+        'core/freeform',
+        'core/html',
+    );
+
+    /**
+     * GhostKit_Extensions constructor.
+     */
+    public static function init() {
+        add_action(
+            'init',
+            function() {
+                // Register the block support.
+                WP_Block_Supports::get_instance()->register(
+                    'ghostkit',
+                    array(
+                        'register_attribute' => 'GhostKit_Extensions::register_attribute',
+                    )
+                );
+
+                add_filter( 'render_block', 'GhostKit_Extensions::render_block', 10, 2 );
+            }
+        );
+    }
+
+    /**
+     * Register extension.
+     *
+     * @param string $extension_name - new extension name.
+     * @param array  $extension_data - new extension data.
+     */
+    public static function register( $extension_name, $extension_data ) {
+        self::$extensions[ $extension_name ] = array_merge(
+            $extension_data,
+            array( 'name' => $extension_name )
+        );
+    }
+
+    /**
+     * Registers the `ghostkit` block attribute for block types that support it.
+     *
+     * @param WP_Block_Type $block_type Block Type.
+     */
+    public static function register_attribute( $block_type ) {
+        $has_ghostkit_support = block_has_support( $block_type, array( 'ghostkit' ), false );
+
+        // Add ghostkit extensions support to core blocks.
+        if (
+            ! $has_ghostkit_support &&
+            $block_type->name &&
+            substr( $block_type->name, 0, 5 ) === 'core/' &&
+            ! in_array( $block_type->name, self::$unsupported_blocks, true )
+        ) {
+            $has_ghostkit_support = true;
+        }
+
+        if ( ! $has_ghostkit_support ) {
+            return;
+        }
+
+        // Add supports.
+        if ( ! $block_type->supports ) {
+            $block_type->supports = array();
+        }
+        if ( ! array_key_exists( 'ghostkit', $block_type->supports ) ) {
+            $block_type->supports['ghostkit'] = self::$default_supports;
+        }
+
+        // Add attribute.
+        if ( ! $block_type->attributes ) {
+            $block_type->attributes = array();
+        }
+        if ( ! array_key_exists( 'ghostkit', $block_type->attributes ) ) {
+            $block_type->attributes['ghostkit'] = array(
+                'type' => 'object',
+            );
+        }
+    }
+
+    /**
+     * Renders block with extensions.
+     *
+     * @param  string $block_content Rendered block content.
+     * @param  array  $block         Block object.
+     *
+     * @return string                Filtered block content.
+     */
+    public static function render_block( $block_content, $block ) {
+        $block_type = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+
+        foreach ( self::$extensions as $block_extension_config ) {
+            $has_extension_support = block_has_support( $block_type, array( 'ghostkit', $block_extension_config['name'] ), false );
+
+            if ( ! $has_extension_support || ! isset( $block_extension_config['render_block'] ) ) {
+                continue;
+            }
+
+            $block_content = call_user_func(
+                $block_extension_config['render_block'],
+                $block_content,
+                $block,
+                $block_type
+            );
+
+            $block_content = apply_filters( 'gkt_extension_' . $block_extension_config['name'] . '_render_block', $block_content, $block, $block_type );
+        }
+
+        return $block_content;
+    }
+}
+
+require_once ghostkit()->plugin_path . 'gutenberg/extend/animation/index.php';
+require_once ghostkit()->plugin_path . 'gutenberg/extend/animation/index.php';
+
+GhostKit_Extensions::init();
