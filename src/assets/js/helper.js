@@ -1,6 +1,9 @@
 import EventHandler from './utils/event-handler';
 
 const {
+  version,
+  pro,
+
   themeName,
   settings,
   media_sizes: mediaSizes,
@@ -39,6 +42,9 @@ function escapeRegExp(s) {
 }
 
 const GHOSTKIT = {
+  version,
+  pro,
+
   themeName,
   settings,
 
