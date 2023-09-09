@@ -29,6 +29,7 @@ events.on(document, 'init.blocks.gkt', () => {
       stopInView();
 
       $element.style.pointerEvents = '';
+      $element.style.visibility = '';
 
       events.trigger($element, 'show.animation.reveal.gkt', { config });
 
@@ -48,12 +49,25 @@ events.on(document, 'init.blocks.gkt', () => {
           damping: config.transition.damping,
           mass: config.transition.mass,
         });
+
+        // Fix for Scale.
+        // https://github.com/motiondivision/motionone/issues/221
+        if (config.scale !== 1) {
+          options.scale = {
+            easing: spring({
+              stiffness: config.transition.stiffness,
+              damping: config.transition.damping,
+              mass: config.transition.mass,
+              restSpeed: 0.01,
+              restDistance: 0.001,
+            }),
+          };
+        }
       }
 
       animate(
         $element,
         {
-          visibility: 'visible',
           opacity: [config.opacity, 1],
           x: [config.x, 0],
           y: [config.y, 0],
