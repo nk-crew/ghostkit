@@ -78,6 +78,8 @@ export default function parseSRConfig(data) {
     }
   }
 
+  delete config.distance;
+
   config.scale = parseFloat(config.scale);
   config.duration = parseFloat(config.duration) / 1000;
   config.delay = parseFloat(config.delay) / 1000;

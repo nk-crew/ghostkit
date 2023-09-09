@@ -2,10 +2,11 @@
  * Internal dependencies
  */
 import parseAnimationData from './parseAnimationData';
+import DEFAULTS from './reveal/defaults';
 
 const {
   GHOSTKIT: { events },
-  Motion: { animate, inView },
+  Motion: { animate, spring, inView },
 } = window;
 
 /**
@@ -20,20 +21,34 @@ events.on(document, 'init.blocks.gkt', () => {
     $element.style.visibility = 'hidden';
     $element.removeAttribute('data-ghostkit-animation-reveal');
 
-    const config = parseAnimationData(data, {
-      opacity: 1,
-      scale: 1,
-      x: '0px',
-      y: '0px',
-      rotate: '0deg',
-    });
+    const config = parseAnimationData(data, DEFAULTS);
 
     events.trigger($element, 'prepare.animation.reveal.gkt', { config });
 
     const stopInView = inView($element, () => {
       stopInView();
 
+      $element.style.pointerEvents = '';
+
       events.trigger($element, 'show.animation.reveal.gkt', { config });
+
+      const options = {};
+
+      // Easing with Cubic Bezier.
+      if (config?.transition?.type === 'easing') {
+        options.duration = config.transition.duration / 1000;
+        options.delay = config.transition.delay / 1000;
+        options.easing = config.transition.ease;
+
+        // Easing with Spring.
+      } else if (config?.transition?.type === 'spring') {
+        options.delay = config.transition.delay / 1000;
+        options.easing = spring({
+          stiffness: config.transition.stiffness,
+          damping: config.transition.damping,
+          mass: config.transition.mass,
+        });
+      }
 
       animate(
         $element,
@@ -45,25 +60,8 @@ events.on(document, 'init.blocks.gkt', () => {
           scale: [config.scale, 1],
           rotate: [config.rotate, 0],
         },
-        {
-          duration: config.duration || 1,
-          delay: config.delay || 0,
-          easing: config.easing || 'ease',
-        }
+        options
       ).finished.then(() => {
-        // Cleanup.
-        $element.style.pointerEvents = '';
-        $element.style.visibility = '';
-        $element.style.opacity = '';
-        $element.style.transform = '';
-
-        if (!$element.getAttribute('style')) {
-          $element.removeAttribute('style');
-        }
-        if (!$element.getAttribute('class')) {
-          $element.removeAttribute('class');
-        }
-
         events.trigger($element, 'showed.animation.reveal.gkt', { config });
       });
     });

@@ -4,8 +4,11 @@
 import Select from '../../../components/select';
 import DropdownPicker from '../../../components/dropdown-picker';
 import EditorStyles from '../../../components/editor-styles';
-import getIcon from '../../../utils/get-icon';
+import TransitionSelector from '../../../components/transition-selector';
 import sortObject from '../../../utils/sort-object';
+
+import DEFAULTS from './defaults';
+import PRESETS from './presets';
 
 /**
  * WordPress dependencies
@@ -17,68 +20,20 @@ const { addFilter } = wp.hooks;
 const { useState, useEffect } = wp.element;
 
 const {
-  BaseControl,
   __experimentalToolsPanelItem: ToolsPanelItem,
   UnitControl: __stableUnitControl,
   __experimentalUnitControl,
   NumberControl: __stableNumberControl,
   __experimentalNumberControl,
+  Grid: __stableGrid,
+  __experimentalGrid,
 } = wp.components;
 
 const UnitControl = __stableUnitControl || __experimentalUnitControl;
 const NumberControl = __stableNumberControl || __experimentalNumberControl;
+const Grid = __stableGrid || __experimentalGrid;
 
 const { hasBlockSupport } = wp.blocks;
-
-const DEFAULTS = {
-  x: '0px',
-  y: '0px',
-  opacity: 1,
-  scale: 1,
-  rotate: '0deg',
-  easing: [0.5, 0, 0, 1],
-};
-
-const PRESETS = {
-  fade: {
-    label: __('Fade in', '@@text_domain'),
-    icon: getIcon('sr-fade'),
-    data: {
-      opacity: 0,
-    },
-  },
-  zoom: {
-    label: __('Zoom in', '@@text_domain'),
-    icon: getIcon('sr-zoom'),
-    data: {
-      scale: 0.9,
-    },
-  },
-  'zoom-up': {
-    label: __('Zoom in from Bottom', '@@text_domain'),
-    icon: getIcon('sr-zoom-from-bottom'),
-    data: {
-      y: '50px',
-      scale: 0.9,
-    },
-  },
-  'zoom-left': {
-    label: __('Zoom in from Left', '@@text_domain'),
-    icon: getIcon('sr-zoom-from-left'),
-    data: {
-      x: '-50px',
-      scale: 0.9,
-    },
-  },
-  'zoom-right': {
-    label: __('Zoom in from Right', '@@text_domain'),
-    icon: getIcon('sr-zoom-from-right'),
-    data: {
-      x: '50px',
-      scale: 0.9,
-    },
-  },
-};
 
 function AnimationRevealTools(props) {
   const { attributes, setAttributes, clientId } = props;
@@ -118,7 +73,7 @@ function AnimationRevealTools(props) {
     return attributes.ghostkit.animation.reveal[prop];
   }
 
-  function updateValue(newData, clear = false) {
+  function updateValue(newData, reset = false) {
     const ghostkitData = {
       ...(attributes?.ghostkit || {}),
     };
@@ -127,8 +82,15 @@ function AnimationRevealTools(props) {
       ghostkitData.animation = {};
     }
 
-    if (clear || typeof ghostkitData?.animation?.reveal === 'undefined') {
-      ghostkitData.animation.reveal = {};
+    // Reset all values except transition.
+    if (reset || typeof ghostkitData?.animation?.reveal === 'undefined') {
+      if (ghostkitData.animation.reveal?.transition) {
+        ghostkitData.animation.reveal = {
+          transition: ghostkitData.animation.reveal.transition,
+        };
+      } else {
+        ghostkitData.animation.reveal = {};
+      }
     }
 
     // Create the new object instead of using existing one.
@@ -142,6 +104,14 @@ function AnimationRevealTools(props) {
   }
 
   const presetOptions = [
+    ...(preset === 'custom'
+      ? [
+          {
+            value: 'custom',
+            label: __('-- Select Preset --', '@@text_domain'),
+          },
+        ]
+      : []),
     ...Object.keys(PRESETS).map((name) => {
       return {
         value: name,
@@ -149,14 +119,6 @@ function AnimationRevealTools(props) {
         icon: PRESETS[name].icon,
       };
     }),
-    ...(preset === 'custom'
-      ? [
-          {
-            value: 'custom',
-            label: __('Custom', '@@text_domain'),
-          },
-        ]
-      : []),
   ];
 
   const presetValue = {
@@ -166,9 +128,9 @@ function AnimationRevealTools(props) {
 
   // Find actual label.
   if (presetValue.value) {
-    presetOptions.forEach((familyData) => {
-      if (presetValue.value === familyData.value) {
-        presetValue.label = familyData.label;
+    presetOptions.forEach((presetData) => {
+      if (presetValue.value === presetData.value) {
+        presetValue.label = presetData.label;
       }
     });
   }
@@ -204,67 +166,67 @@ function AnimationRevealTools(props) {
               }
             `}
         />
-        <BaseControl label={__('Presets', '@@text_domain')}>
-          <Select
-            value={presetValue}
-            onChange={({ value }) => {
-              if (PRESETS?.[value]?.data) {
-                updateValue(PRESETS[value].data, true);
-              }
-            }}
-            options={presetOptions}
-            isSearchable={false}
+        <Select
+          value={presetValue}
+          onChange={({ value }) => {
+            if (PRESETS?.[value]?.data) {
+              updateValue(PRESETS[value].data, true);
+            }
+          }}
+          options={presetOptions}
+          isSearchable={false}
+        />
+        <Grid columns={2}>
+          <UnitControl
+            label={__('X', '@@text_domain')}
+            value={getValue('x')}
+            onChange={(val) => updateValue({ x: val })}
+            units={[
+              { value: 'px', label: 'px' },
+              { value: '%', label: '%' },
+            ]}
           />
-        </BaseControl>
-        <UnitControl
-          label={__('Translate X', '@@text_domain')}
-          value={getValue('x')}
-          onChange={(val) => updateValue({ x: val })}
-          labelPosition="edge"
-          __unstableInputWidth="70px"
-          units={[
-            { value: 'px', label: 'px' },
-            { value: '%', label: '%' },
-          ]}
-        />
-        <UnitControl
-          label={__('Translate Y', '@@text_domain')}
-          value={getValue('y')}
-          onChange={(val) => updateValue({ y: val })}
-          labelPosition="edge"
-          __unstableInputWidth="70px"
-          units={[
-            { value: 'px', label: 'px' },
-            { value: '%', label: '%' },
-          ]}
-        />
-        <NumberControl
-          label={__('Opacity', '@@text_domain')}
-          value={getValue('opacity')}
-          onChange={(val) => updateValue({ opacity: parseFloat(val) })}
-          labelPosition="edge"
-          __unstableInputWidth="70px"
-          min={0}
-          max={1}
-          step={0.05}
-        />
-        <NumberControl
-          label={__('Scale', '@@text_domain')}
-          value={getValue('scale')}
-          onChange={(val) => updateValue({ scale: parseFloat(val) })}
-          labelPosition="edge"
-          __unstableInputWidth="70px"
-          min={0}
-          max={10}
-          step={0.1}
-        />
-        <UnitControl
-          label={__('Rotate', '@@text_domain')}
-          value={getValue('rotate')}
-          onChange={(val) => updateValue({ rotate: val })}
-          labelPosition="edge"
-          __unstableInputWidth="70px"
-          units={[{ value: 'deg', label: 'deg' }]}
+          <UnitControl
+            label={__('Y', '@@text_domain')}
+            value={getValue('y')}
+            onChange={(val) => updateValue({ y: val })}
+            units={[
+              { value: 'px', label: 'px' },
+              { value: '%', label: '%' },
+            ]}
+          />
+        </Grid>
+        <Grid columns={3}>
+          <NumberControl
+            label={__('Opacity', '@@text_domain')}
+            value={getValue('opacity')}
+            onChange={(val) => updateValue({ opacity: parseFloat(val) })}
+            min={0}
+            max={1}
+            step={0.05}
+            style={{ flex: 1 }}
+          />
+          <NumberControl
+            label={__('Scale', '@@text_domain')}
+            value={getValue('scale')}
+            onChange={(val) => updateValue({ scale: parseFloat(val) })}
+            min={0}
+            max={10}
+            step={0.1}
+            style={{ flex: 1 }}
+          />
+          <UnitControl
+            label={__('Rotate', '@@text_domain')}
+            value={getValue('rotate')}
+            onChange={(val) => updateValue({ rotate: val })}
+            units={[{ value: 'deg', label: 'deg' }]}
+            style={{ flex: 1 }}
+          />
+        </Grid>
+        <TransitionSelector
+          label={__('Transition', '@@text_domain')}
+          value={getValue('transition')}
+          onChange={(val) => updateValue({ transition: val })}
         />
       </DropdownPicker>
     </ToolsPanelItem>

@@ -36,6 +36,39 @@ class GhostKit_Extension_Animation {
     }
 
     /**
+     * Convert array data to string for data-attribute.
+     *
+     * @param array  $data - data array.
+     * @param string $prefix - prefix for name.
+     *
+     * @return string
+     */
+    public function convert_array_data_to_string( $data, $prefix = '' ) {
+        $result = '';
+
+        foreach ( $data as $name => $val ) {
+            if ( $result ) {
+                $result .= ';';
+            }
+
+            $prefixed_name = ( $prefix ? ( $prefix . '-' ) : '' ) . $name;
+
+            // Convert bezier array to string.
+            if ( 'ease' === $name && is_array( $val ) ) {
+                $val = '[' . implode( ',', $val ) . ']';
+            }
+
+            if ( is_array( $val ) ) {
+                $result .= $this->convert_array_data_to_string( $val, $prefixed_name );
+            } else {
+                $result .= $prefixed_name . ':' . $val;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Renders attributes to the block wrapper.
      *
      * @param  string        $block_content Rendered block content.
@@ -61,15 +94,7 @@ class GhostKit_Extension_Animation {
         $tag = new WP_HTML_Tag_Processor( $block_content );
 
         if ( $tag->next_tag() ) {
-            $reveal_string_data = '';
-
-            foreach ( $reveal_data as $name => $val ) {
-                if ( $reveal_string_data ) {
-                    $reveal_string_data .= ';';
-                }
-
-                $reveal_string_data .= $name . ':' . $val;
-            }
+            $reveal_string_data = $this->convert_array_data_to_string( $reveal_data );
 
             $tag->set_attribute( 'data-ghostkit-animation-reveal', esc_attr( $reveal_string_data ) );
         }

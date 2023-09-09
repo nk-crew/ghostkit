@@ -7,7 +7,7 @@ import getIcon from '../../../utils/get-icon';
 import ActiveIndicator from '../../../components/active-indicator';
 import ToggleGroup from '../../../components/toggle-group';
 
-import parseSRConfig from './parseSRConfig';
+import parseSRConfig from './parse-sr-config';
 
 /**
  * WordPress dependencies

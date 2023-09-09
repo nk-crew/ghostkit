@@ -152,6 +152,6 @@ class GhostKit_Extensions {
 }
 
 require_once ghostkit()->plugin_path . 'gutenberg/extend/animation/index.php';
-require_once ghostkit()->plugin_path . 'gutenberg/extend/animation/index.php';
+require_once ghostkit()->plugin_path . 'gutenberg/extend/animation/deprecated-scroll-reveal/index.php';
 
 GhostKit_Extensions::init();
