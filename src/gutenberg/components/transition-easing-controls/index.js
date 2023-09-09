@@ -86,9 +86,9 @@ export function EasingControls(props) {
     onChange({ ...value, ...val });
   }
 
-  let ease = value?.ease;
-  if (!ease || ease.length !== 4) {
-    ease = DEFAULT.ease;
+  let easing = value?.easing;
+  if (!easing || easing.length !== 4) {
+    easing = DEFAULT.easing;
   }
 
   // Find default preset
@@ -96,15 +96,15 @@ export function EasingControls(props) {
     let newPreset = 'custom';
 
     Object.keys(PRESETS).forEach((slug) => {
-      const presetData = PRESETS[slug].ease;
+      const presetData = PRESETS[slug].easing;
 
-      if (JSON.stringify(ease) === JSON.stringify(presetData)) {
+      if (JSON.stringify(easing) === JSON.stringify(presetData)) {
         newPreset = slug;
       }
     });
 
     setPreset(newPreset);
-  }, [preset, ease]);
+  }, [preset, easing]);
 
   const presetOptions = [
     ...(preset === 'custom'
@@ -142,21 +142,21 @@ export function EasingControls(props) {
       <Select
         value={presetValue}
         onChange={({ value: newPreset }) => {
-          if (PRESETS?.[newPreset]?.ease) {
-            updateValue({ ease: PRESETS[newPreset].ease });
+          if (PRESETS?.[newPreset]?.easing) {
+            updateValue({ easing: PRESETS[newPreset].easing });
           }
         }}
         options={presetOptions}
         isSearchable={false}
       />
       <EasingBezierEditor
-        value={ease}
+        value={easing}
         onChange={(val) => {
           const newEase = val.map((v) => {
             return round(v, 2);
           });
 
-          updateValue({ ease: newEase });
+          updateValue({ easing: newEase });
         }}
       />
       <BaseControl
@@ -164,36 +164,36 @@ export function EasingControls(props) {
         className="ghostkit-component-easing-controls-bezier"
       >
         <NumberControl
-          value={ease[0]}
+          value={easing[0]}
           onChange={(val) =>
-            updateValue({ ease: [round(parseFloat(val), 2), ease[1], ease[2], ease[3]] })
+            updateValue({ easing: [round(parseFloat(val), 2), easing[1], easing[2], easing[3]] })
           }
           min={0}
           max={1}
           step={0.01}
         />
         <NumberControl
-          value={ease[1]}
+          value={easing[1]}
           onChange={(val) =>
-            updateValue({ ease: [ease[0], round(parseFloat(val), 2), ease[2], ease[3]] })
+            updateValue({ easing: [easing[0], round(parseFloat(val), 2), easing[2], easing[3]] })
           }
           min={-5}
           max={5}
           step={0.01}
         />
         <NumberControl
-          value={ease[2]}
+          value={easing[2]}
           onChange={(val) =>
-            updateValue({ ease: [ease[0], ease[1], round(parseFloat(val), 2), ease[3]] })
+            updateValue({ easing: [easing[0], easing[1], round(parseFloat(val), 2), easing[3]] })
           }
           min={0}
           max={1}
           step={0.01}
         />
         <NumberControl
-          value={ease[3]}
+          value={easing[3]}
           onChange={(val) =>
-            updateValue({ ease: [ease[0], ease[1], ease[2], round(parseFloat(val), 2)] })
+            updateValue({ easing: [easing[0], easing[1], easing[2], round(parseFloat(val), 2)] })
           }
           min={-5}
           max={5}
@@ -227,7 +227,7 @@ export function EasingControls(props) {
         options={{
           type: 'easing',
           duration: value?.duration || 0,
-          ease,
+          easing,
         }}
       />
     </>

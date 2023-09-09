@@ -54,7 +54,7 @@ class GhostKit_Extension_Animation {
             $prefixed_name = ( $prefix ? ( $prefix . '-' ) : '' ) . $name;
 
             // Convert bezier array to string.
-            if ( 'ease' === $name && is_array( $val ) ) {
+            if ( 'easing' === $name && is_array( $val ) ) {
                 $val = '[' . implode( ',', $val ) . ']';
             }
 

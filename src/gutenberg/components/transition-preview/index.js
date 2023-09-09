@@ -32,7 +32,7 @@ export default function TransitionPreview(props) {
         const animationOptions = {};
 
         if (opts?.type === 'easing') {
-          animationOptions.easing = opts.ease;
+          animationOptions.easing = opts.easing;
           animationOptions.duration = opts.duration / 1000;
         } else if (opts?.type === 'spring') {
           animationOptions.easing = spring({

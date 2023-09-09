@@ -38,7 +38,7 @@ events.on(document, 'init.blocks.gkt', () => {
       if (config?.transition?.type === 'easing') {
         options.duration = config.transition.duration / 1000;
         options.delay = config.transition.delay / 1000;
-        options.easing = config.transition.ease;
+        options.easing = config.transition.easing;
 
         // Easing with Spring.
       } else if (config?.transition?.type === 'spring') {

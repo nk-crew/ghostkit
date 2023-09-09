@@ -51,11 +51,21 @@ function AnimationRevealTools(props) {
       ...(hasReveal || {}),
     });
 
+    // Remove transition from the comparison.
+    if (currentReveal?.transition) {
+      delete currentReveal.transition;
+    }
+
     Object.keys(PRESETS).forEach((slug) => {
       const presetData = sortObject({
         ...DEFAULTS,
         ...PRESETS[slug].data,
       });
+
+      // Remove transition from the comparison.
+      if (presetData?.transition) {
+        delete presetData.transition;
+      }
 
       if (JSON.stringify(currentReveal) === JSON.stringify(presetData)) {
         newPreset = slug;
@@ -108,7 +118,7 @@ function AnimationRevealTools(props) {
       ? [
           {
             value: 'custom',
-            label: __('-- Select Preset --', '@@text_domain'),
+            label: __('-- Presets --', '@@text_domain'),
           },
         ]
       : []),

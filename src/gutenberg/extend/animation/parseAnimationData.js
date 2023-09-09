@@ -31,7 +31,7 @@ export default function parseAnimationData(data, defaults = {}) {
             val = parseFloat(val);
           }
 
-          if (name === 'ease') {
+          if (name === 'easing') {
             val = val.replace(/[[\]]/g, '');
             val = val.split(',');
             val = val.map((v) => parseFloat(v));

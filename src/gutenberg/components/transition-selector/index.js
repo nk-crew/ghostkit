@@ -17,15 +17,15 @@ const { BaseControl } = wp.components;
 export default function TransitionSelector(props) {
   const { label, value, onChange } = props;
 
-  let ease = value?.ease;
-  if (!ease || ease.length !== 4) {
-    ease = EASING_DEFAULT.ease;
+  let easing = value?.easing;
+  if (!easing || easing.length !== 4) {
+    easing = EASING_DEFAULT.easing;
   }
 
   const buttonLabel =
     value?.type !== 'spring' ? (
       <>
-        <EasingBezierEditor variant="preview" value={ease} />
+        <EasingBezierEditor variant="preview" value={easing} />
         {__('Easing', '@@text_domain')}
       </>
     ) : (
