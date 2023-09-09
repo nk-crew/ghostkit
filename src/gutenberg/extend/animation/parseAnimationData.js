@@ -1,5 +1,5 @@
 // Parse animation data from string.
-// x:10px;scale:2:opacity:0.4;duration:900
+// x:10px;scale:2:opacity:0.4;duration:0.9
 export default function parseAnimationData(data, defaults = {}) {
   const config = {
     ...defaults,

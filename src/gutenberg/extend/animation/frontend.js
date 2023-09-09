@@ -36,13 +36,13 @@ events.on(document, 'init.blocks.gkt', () => {
 
       // Easing with Cubic Bezier.
       if (config?.transition?.type === 'easing') {
-        options.duration = config.transition.duration / 1000;
-        options.delay = config.transition.delay / 1000;
+        options.duration = config.transition.duration;
+        options.delay = config.transition.delay;
         options.easing = config.transition.easing;
 
         // Easing with Spring.
       } else if (config?.transition?.type === 'spring') {
-        options.delay = config.transition.delay / 1000;
+        options.delay = config.transition.delay;
         options.easing = spring({
           stiffness: config.transition.stiffness,
           damping: config.transition.damping,
@@ -118,7 +118,7 @@ events.on(document, 'init.blocks.gkt', () => {
       const config = {
         from,
         to,
-        duration: 800,
+        duration: 0.8,
         easing: [0.6, 0, 0.3, 1],
         cb(progress) {
           const position = (to - from) * progress + from;
@@ -153,7 +153,7 @@ events.on(document, 'init.blocks.gkt', () => {
                     width: `${to}%`,
                   },
                   {
-                    duration: config.duration / 1000,
+                    duration: config.duration,
                     easing: config.easing,
                   }
                 );
@@ -166,7 +166,7 @@ events.on(document, 'init.blocks.gkt', () => {
               config.cb(progress);
             },
             {
-              duration: config.duration / 1000,
+              duration: config.duration,
               easing: config.easing,
             }
           ).finished.then(() => {

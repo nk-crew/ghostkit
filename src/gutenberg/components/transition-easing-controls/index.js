@@ -202,25 +202,25 @@ export function EasingControls(props) {
       </BaseControl>
       <NumberControl
         label={__('Duration', '@@text_domain')}
-        suffix={__('ms', '@@text_domain')}
+        suffix={__('s', '@@text_domain')}
         value={value?.duration || 0}
         onChange={(val) => updateValue({ duration: parseFloat(val) })}
         labelPosition="edge"
         __unstableInputWidth="90px"
         min={0}
-        max={10000}
-        step={10}
+        max={10}
+        step={0.01}
       />
       <NumberControl
         label={__('Delay', '@@text_domain')}
-        suffix={__('ms', '@@text_domain')}
+        suffix={__('s', '@@text_domain')}
         value={value?.delay || 0}
         onChange={(val) => updateValue({ delay: parseFloat(val) })}
         labelPosition="edge"
         __unstableInputWidth="90px"
         min={0}
-        max={10000}
-        step={10}
+        max={10}
+        step={0.01}
       />
       <TransitionPreview
         label={__('Preview', '@@text_domain')}
