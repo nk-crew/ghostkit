@@ -13,14 +13,10 @@ import getUniqueSlug from '../../utils/get-unique-slug';
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-
 const { __ } = wp.i18n;
-
 const { useEffect, useRef } = wp.element;
-
 const { useSelect } = wp.data;
-
-const { ToolbarButton } = wp.components;
+const { ToolbarGroup, ToolbarButton } = wp.components;
 
 const {
   BlockControls,
@@ -103,12 +99,14 @@ export default function BlockEdit(props) {
   return (
     <>
       <BlockControls>
-        <ToolbarButton
-          icon={getIcon('icon-collapse')}
-          label={__('Collapse', '@@text_domain')}
-          onClick={() => setAttributes({ active: !active })}
-          isActive={active}
-        />
+        <ToolbarGroup>
+          <ToolbarButton
+            icon={getIcon('icon-collapse')}
+            label={__('Collapse', '@@text_domain')}
+            onClick={() => setAttributes({ active: !active })}
+            isActive={active}
+          />
+        </ToolbarGroup>
       </BlockControls>
       <div {...blockProps}>
         <TitleTag className="ghostkit-accordion-item-heading">
