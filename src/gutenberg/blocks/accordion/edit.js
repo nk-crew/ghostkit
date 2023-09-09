@@ -33,20 +33,14 @@ export default function BlockEdit(props) {
 
   const { itemsCount, collapseOne, collapseTitleTag } = attributes;
 
-  const { isSelectedBlockInRoot } = useSelect(
+  const { isSelectedBlockInRoot, count } = useSelect(
     (select) => {
-      const { isBlockSelected, hasSelectedInnerBlock } = select('core/block-editor');
+      const { isBlockSelected, hasSelectedInnerBlock, getBlockCount } = select('core/block-editor');
 
       return {
         isSelectedBlockInRoot: isBlockSelected(clientId) || hasSelectedInnerBlock(clientId, true),
+        count: getBlockCount(clientId),
       };
-    },
-    [clientId]
-  );
-
-  const count = useSelect(
-    (select) => {
-      return select('core/block-editor').getBlockCount(clientId);
     },
     [clientId]
   );
@@ -120,9 +114,7 @@ export default function BlockEdit(props) {
           />
         </PanelBody>
       </InspectorControls>
-      <div {...blockProps}>
-        <div {...innerBlocksProps} />
-      </div>
+      <div {...innerBlocksProps} />
       {isSelectedBlockInRoot ? (
         <div className="ghostkit-accordion-add-item">
           <Button
