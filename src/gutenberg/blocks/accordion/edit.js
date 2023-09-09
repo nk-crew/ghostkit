@@ -7,18 +7,19 @@ import classnames from 'classnames/dedupe';
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-
 const { __ } = wp.i18n;
-
 const { useEffect } = wp.element;
-
 const { PanelBody, ToggleControl, SelectControl, Button } = wp.components;
-
-const { InspectorControls, InnerBlocks } = wp.blockEditor;
-
+const {
+  InspectorControls,
+  useBlockProps,
+  useInnerBlocksProps: __stableUseInnerBlocksProps,
+  __experimentalUseInnerBlocksProps,
+} = wp.blockEditor;
 const { createBlock } = wp.blocks;
-
 const { useSelect, useDispatch } = wp.data;
+
+const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
 
 const accordionItemBlockName = 'ghostkit/accordion-item';
 
@@ -43,13 +44,9 @@ export default function BlockEdit(props) {
     [clientId]
   );
 
-  const { count } = useSelect(
+  const count = useSelect(
     (select) => {
-      const { getBlockCount } = select('core/block-editor');
-
-      return {
-        count: getBlockCount(clientId),
-      };
+      return select('core/block-editor').getBlockCount(clientId);
     },
     [clientId]
   );
@@ -71,6 +68,15 @@ export default function BlockEdit(props) {
   className = classnames(className, 'ghostkit-accordion');
 
   className = applyFilters('ghostkit.editor.className', className, props);
+
+  const blockProps = useBlockProps({
+    className,
+  });
+
+  const innerBlocksProps = useInnerBlocksProps(blockProps, {
+    allowedBlocks: [accordionItemBlockName],
+    template: [[accordionItemBlockName], [accordionItemBlockName]],
+  });
 
   return (
     <>
@@ -114,11 +120,8 @@ export default function BlockEdit(props) {
           />
         </PanelBody>
       </InspectorControls>
-      <div className={className}>
-        <InnerBlocks
-          template={[[accordionItemBlockName], [accordionItemBlockName]]}
-          allowedBlocks={[accordionItemBlockName]}
-        />
+      <div {...blockProps}>
+        <div {...innerBlocksProps} />
       </div>
       {isSelectedBlockInRoot ? (
         <div className="ghostkit-accordion-add-item">
