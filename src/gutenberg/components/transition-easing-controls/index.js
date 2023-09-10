@@ -12,8 +12,8 @@ import Select from '../select';
 import TransitionPreview from '../transition-preview';
 import round from '../../utils/round';
 
-import PRESETS from './presets';
 import DEFAULT from './default';
+import PRESETS from './presets';
 
 /**
  * WordPress dependencies
@@ -29,6 +29,9 @@ const {
 } = wp.components;
 
 const NumberControl = __stableNumberControl || __experimentalNumberControl;
+
+export { DEFAULT };
+export { PRESETS };
 
 export function EasingBezierEditor(props) {
   const { value, onChange, variant = '' } = props;

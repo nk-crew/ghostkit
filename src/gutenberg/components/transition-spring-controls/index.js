@@ -10,6 +10,7 @@ import round from '../../utils/round';
 import Select from '../select';
 import TransitionPreview from '../transition-preview';
 
+import DEFAULT from './default';
 import PRESETS from './presets';
 
 /**
@@ -32,6 +33,9 @@ const Grid = __stableGrid || __experimentalGrid;
 const {
   Motion: { spring },
 } = window;
+
+export { DEFAULT };
+export { PRESETS };
 
 export function SpringEditor(props) {
   const { value, variant = '' } = props;
