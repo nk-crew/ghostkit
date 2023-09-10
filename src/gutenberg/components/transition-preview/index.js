@@ -20,7 +20,10 @@ export default function TransitionPreview(props) {
     if (animationRef?.current) {
       animationRef.current.stop();
     }
-    animationRef.current = animate(buttonSquareRef.current, { x: 0 }, { duration: 0 });
+
+    if (buttonSquareRef.current) {
+      animationRef.current = animate(buttonSquareRef.current, { x: 0 }, { duration: 0 });
+    }
   }
 
   // Run animation.
