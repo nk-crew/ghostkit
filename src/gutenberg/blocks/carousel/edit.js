@@ -107,13 +107,16 @@ export default function BlockEdit(props) {
 
   className = applyFilters('ghostkit.editor.className', className, props);
 
-  const blockProps = useBlockProps();
-  const innerBlockProps = useInnerBlocksProps(blockProps, {
-    template: [[slideBlockName], [slideBlockName], [slideBlockName]],
-    allowedBlocks: [slideBlockName],
-    templateLock: false,
-    orientation: 'horizontal',
-  });
+  const blockProps = useBlockProps({ className });
+  const innerBlockProps = useInnerBlocksProps(
+    { className: 'ghostkit-carousel-items' },
+    {
+      template: [[slideBlockName], [slideBlockName], [slideBlockName]],
+      allowedBlocks: [slideBlockName],
+      templateLock: false,
+      orientation: 'horizontal',
+    }
+  );
 
   return (
     <>
@@ -264,7 +267,7 @@ export default function BlockEdit(props) {
           )}
         </PanelBody>
       </InspectorControls>
-      <div className={className}>
+      <div {...blockProps}>
         <div className="block-editor-inner-blocks">
           <div {...innerBlockProps} />
         </div>
