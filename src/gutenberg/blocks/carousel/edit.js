@@ -15,18 +15,19 @@ import EditorStyles from '../../components/editor-styles';
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-
 const { __ } = wp.i18n;
-
-const { Fragment } = wp.element;
-
 const { PanelBody, ToggleControl } = wp.components;
-
-const { InspectorControls, InnerBlocks } = wp.blockEditor;
-
 const { useSelect, useDispatch } = wp.data;
-
 const { createBlock } = wp.blocks;
+
+const {
+  InspectorControls,
+  useBlockProps,
+  useInnerBlocksProps: __stableUseInnerBlocksProps,
+  __experimentalUseInnerBlocksProps,
+} = wp.blockEditor;
+
+const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
 
 const slideBlockName = 'ghostkit/carousel-slide';
 
@@ -73,7 +74,7 @@ export default function BlockEdit(props) {
    *
    * @param {number} newSlidesCount New slides count.
    */
-  function updateSlidesCount(newSlidesCount) {
+  const updateSlidesCount = (newSlidesCount) => {
     // Remove slider block.
     if (newSlidesCount < 1) {
       removeBlock(block.clientId);
@@ -96,7 +97,7 @@ export default function BlockEdit(props) {
 
       replaceInnerBlocks(block.clientId, newInnerBlocks, false);
     }
-  }
+  };
 
   className = classnames(
     className,
@@ -106,14 +107,22 @@ export default function BlockEdit(props) {
 
   className = applyFilters('ghostkit.editor.className', className, props);
 
+  const blockProps = useBlockProps();
+  const innerBlockProps = useInnerBlocksProps(blockProps, {
+    template: [[slideBlockName], [slideBlockName], [slideBlockName]],
+    allowedBlocks: [slideBlockName],
+    templateLock: false,
+    orientation: 'horizontal',
+  });
+
   return (
-    <Fragment>
+    <>
       <InspectorControls>
         <PanelBody title={__('Settings', '@@text_domain')}>
           <RangeControl
             label={__('Slides', '@@text_domain')}
             value={slidesCount}
-            onChange={(value) => updateSlidesCount(value)}
+            onChange={updateSlidesCount}
             min={2}
             max={20}
             allowCustomMax
@@ -222,7 +231,7 @@ export default function BlockEdit(props) {
             onChange={(val) => setAttributes({ showArrows: val })}
           />
           {showArrows ? (
-            <Fragment>
+            <>
               <IconPicker
                 label={__('Prev icon', '@@text_domain')}
                 value={arrowPrevIcon}
@@ -233,7 +242,7 @@ export default function BlockEdit(props) {
                 value={arrowNextIcon}
                 onChange={(value) => setAttributes({ arrowNextIcon: value })}
               />
-            </Fragment>
+            </>
           ) : (
             ''
           )}
@@ -256,12 +265,9 @@ export default function BlockEdit(props) {
         </PanelBody>
       </InspectorControls>
       <div className={className}>
-        <InnerBlocks
-          template={[[slideBlockName], [slideBlockName], [slideBlockName]]}
-          allowedBlocks={[slideBlockName]}
-          orientation="horizontal"
-          renderAppender={false}
-        />
+        <div className="block-editor-inner-blocks">
+          <div {...innerBlockProps} />
+        </div>
       </div>
       <EditorStyles
         styles={`
@@ -271,6 +277,6 @@ export default function BlockEdit(props) {
             }
           `}
       />
-    </Fragment>
+    </>
   );
 }

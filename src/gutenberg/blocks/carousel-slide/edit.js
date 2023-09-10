@@ -7,42 +7,41 @@ import classnames from 'classnames/dedupe';
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
+const { useSelect } = wp.data;
+const {
+  InnerBlocks,
+  useBlockProps,
+  useInnerBlocksProps: __stableUseInnerBlocksProps,
+  __experimentalUseInnerBlocksProps,
+} = wp.blockEditor;
 
-const { Component } = wp.element;
-
-const { InnerBlocks } = wp.blockEditor;
-
-const { withSelect } = wp.data;
+const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
 
 /**
  * Block Edit Class.
  */
-class BlockEdit extends Component {
-  render() {
-    const { attributes, hasChildBlocks } = this.props;
+export default function BlockEdit(props) {
+  const { attributes, clientId } = props;
+  let { className } = attributes;
 
-    let { className } = attributes;
+  const hasChildBlocks = useSelect(
+    (select) => {
+      const blockEditor = select('core/block-editor');
 
-    className = classnames(className, 'ghostkit-carousel-slide');
+      return blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false;
+    },
+    [clientId]
+  );
 
-    className = applyFilters('ghostkit.editor.className', className, this.props);
+  className = classnames(className, 'ghostkit-carousel-slide');
 
-    return (
-      <div className={className}>
-        <InnerBlocks
-          templateLock={false}
-          renderAppender={hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender}
-        />
-      </div>
-    );
-  }
+  className = applyFilters('ghostkit.editor.className', className, props);
+
+  const blockProps = useBlockProps({ className });
+  const innerBlockProps = useInnerBlocksProps(blockProps, {
+    renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+    templateLock: false,
+  });
+
+  return <div {...innerBlockProps} />;
 }
-
-export default withSelect((select, ownProps) => {
-  const { clientId } = ownProps;
-  const blockEditor = select('core/block-editor');
-
-  return {
-    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
-  };
-})(BlockEdit);
