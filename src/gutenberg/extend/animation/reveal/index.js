@@ -208,7 +208,7 @@ function AnimationRevealTools(props) {
             onChange={(val) => updateValue({ opacity: parseFloat(val) })}
             min={0}
             max={1}
-            step={0.05}
+            step={0.01}
             style={{ flex: 1 }}
           />
           <NumberControl
@@ -217,7 +217,7 @@ function AnimationRevealTools(props) {
             onChange={(val) => updateValue({ scale: parseFloat(val) })}
             min={0}
             max={10}
-            step={0.1}
+            step={0.01}
             style={{ flex: 1 }}
           />
           <UnitControl
