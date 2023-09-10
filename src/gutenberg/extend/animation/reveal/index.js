@@ -13,6 +13,8 @@ import PRESETS from './presets';
 /**
  * WordPress dependencies
  */
+const { cloneDeep } = window.lodash;
+
 const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
@@ -84,9 +86,7 @@ function AnimationRevealTools(props) {
   }
 
   function updateValue(newData, reset = false) {
-    const ghostkitData = {
-      ...(attributes?.ghostkit || {}),
-    };
+    const ghostkitData = cloneDeep(attributes?.ghostkit || {});
 
     if (typeof ghostkitData?.animation === 'undefined') {
       ghostkitData.animation = {};
@@ -102,9 +102,6 @@ function AnimationRevealTools(props) {
         ghostkitData.animation.reveal = {};
       }
     }
-
-    // Create the new object instead of using existing one.
-    ghostkitData.animation.reveal = { ...ghostkitData.animation.reveal };
 
     Object.keys(newData).forEach((prop) => {
       ghostkitData.animation.reveal[prop] = newData[prop];
@@ -150,11 +147,9 @@ function AnimationRevealTools(props) {
       label={__('Reveal', '@@text_domain')}
       hasValue={() => !!hasReveal}
       onDeselect={() => {
-        const ghostkitData = {
-          ...(attributes?.ghostkit || {}),
-        };
+        if (typeof attributes?.ghostkit?.animation?.reveal !== 'undefined') {
+          const ghostkitData = cloneDeep(attributes?.ghostkit || {});
 
-        if (typeof ghostkitData?.animation?.reveal !== 'undefined') {
           delete ghostkitData?.animation?.reveal;
 
           setAttributes({ ghostkit: ghostkitData });
