@@ -220,7 +220,7 @@ export function SpringControls(props) {
           onChange={(val) => updateValue({ mass: parseFloat(val) })}
           min={0}
           max={10}
-          step={0.1}
+          step={0.05}
         />
       </Grid>
       <NumberControl

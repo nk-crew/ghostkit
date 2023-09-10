@@ -63,6 +63,17 @@ events.on(document, 'init.blocks.gkt', () => {
             }),
           };
         }
+        if (config.rotate !== '0deg') {
+          options.rotate = {
+            easing: spring({
+              stiffness: config.transition.stiffness,
+              damping: config.transition.damping,
+              mass: config.transition.mass,
+              restSpeed: 1,
+              restDistance: 0.1,
+            }),
+          };
+        }
       }
 
       animate(

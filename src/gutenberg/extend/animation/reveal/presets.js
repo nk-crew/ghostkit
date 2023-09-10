@@ -13,7 +13,7 @@ export default {
     label: __('Fade In', '@@text_domain'),
     icon: getIcon('sr-fade'),
     data: {
-      opacity: 0,
+      opacity: 0.15,
     },
   },
   zoom: {
