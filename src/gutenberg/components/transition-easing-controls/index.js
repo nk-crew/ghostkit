@@ -86,6 +86,12 @@ export function EasingControls(props) {
   const [preset, setPreset] = useState();
 
   function updateValue(val) {
+    // Fix invalid easing value
+    if (val.easing && val.easing.length) {
+      val.easing[0] = Math.max(Math.min(val.easing[0], 1), 0);
+      val.easing[2] = Math.max(Math.min(val.easing[2], 1), 0);
+    }
+
     onChange({ ...value, ...val });
   }
 
@@ -140,6 +146,42 @@ export function EasingControls(props) {
     });
   }
 
+  // Parse pasted cubic bezier values.
+  // Supported values:
+  // - cubic-bezier(.62,1.45,0,-0.7)
+  // - (.62,1.45,0,-0.7)
+  // - .62,1.45,0,-0.7
+  // - 0.62,1.45,0,-0.7
+  // - 0.62, 1.45, 0, -0.7
+  function handlePasteBezier(e) {
+    const clipboard = e.clipboardData.getData('text');
+
+    if (!clipboard) {
+      return;
+    }
+
+    const parts = clipboard.split(',');
+
+    if (!parts || parts.length !== 4) {
+      return;
+    }
+
+    parts[0] = parts[0].replace(/^cubic-bezier/, '').replace(/^\(/, '');
+    parts[3] = parts[3].replace(/\)$/, '');
+
+    const result = parts.map((a) => {
+      return parseFloat(a);
+    });
+
+    if (!result || result.length !== 4) {
+      return;
+    }
+
+    e.preventDefault();
+
+    updateValue({ easing: result });
+  }
+
   return (
     <>
       <Select
@@ -171,6 +213,7 @@ export function EasingControls(props) {
           onChange={(val) =>
             updateValue({ easing: [round(parseFloat(val), 2), easing[1], easing[2], easing[3]] })
           }
+          onPaste={(e) => handlePasteBezier(e)}
           min={0}
           max={1}
           step={0.01}
@@ -180,6 +223,7 @@ export function EasingControls(props) {
           onChange={(val) =>
             updateValue({ easing: [easing[0], round(parseFloat(val), 2), easing[2], easing[3]] })
           }
+          onPaste={(e) => handlePasteBezier(e)}
           min={-5}
           max={5}
           step={0.01}
@@ -189,6 +233,7 @@ export function EasingControls(props) {
           onChange={(val) =>
             updateValue({ easing: [easing[0], easing[1], round(parseFloat(val), 2), easing[3]] })
           }
+          onPaste={(e) => handlePasteBezier(e)}
           min={0}
           max={1}
           step={0.01}
@@ -198,6 +243,7 @@ export function EasingControls(props) {
           onChange={(val) =>
             updateValue({ easing: [easing[0], easing[1], easing[2], round(parseFloat(val), 2)] })
           }
+          onPaste={(e) => handlePasteBezier(e)}
           min={-5}
           max={5}
           step={0.01}
