@@ -212,7 +212,7 @@ export function SpringControls(props) {
           onChange={(val) => updateValue({ damping: parseFloat(val) })}
           min={0}
           max={100}
-          step={1}
+          step={0.1}
         />
         <NumberControl
           label={__('Mass', '@@text_domain')}

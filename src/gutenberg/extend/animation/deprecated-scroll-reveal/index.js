@@ -16,22 +16,17 @@ const { __ } = wp.i18n;
 
 const { applyFilters, addFilter } = wp.hooks;
 
-const { Component, Fragment, useEffect, useState, useContext, useRef } = wp.element;
+const { hasBlockSupport } = wp.blocks;
+
+const { useEffect, useState } = wp.element;
 
 const { createHigherOrderComponent } = wp.compose;
 
-const { InspectorControls, BlockList } = wp.blockEditor;
-
-const { elementContext: __stableElementContext, __unstableElementContext } = BlockList;
-
-const elementContext = __stableElementContext || __unstableElementContext;
+const { InspectorControls } = wp.blockEditor;
 
 const { BaseControl, PanelBody, TextControl, Button } = wp.components;
 
-const {
-  GHOSTKIT,
-  Motion: { animate, inView },
-} = window;
+const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
 
@@ -98,20 +93,23 @@ function addAttribute(settings) {
  * @return {string} Wrapped component.
  */
 const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
-  class GhostKitSRWrapper extends Component {
-    constructor(props) {
-      super(props);
+  function GhostKitSRWrapper(props) {
+    const { attributes, setAttributes, name } = props;
+    const { ghostkitSR = '' } = attributes;
 
-      const { ghostkitSR = '' } = this.props.attributes;
+    const [srData, setSrData] = useState({
+      effect: '',
+      direction: '',
+      distance: 50,
+      scale: 0.9,
+      duration: 900,
+      delay: 0,
+    });
 
-      const state = {
-        effect: '',
-        direction: '',
-        distance: 50,
-        scale: 0.9,
-        duration: 900,
-        delay: 0,
-      };
+    const hasNewRevealSupport = hasBlockSupport(name, ['ghostkit', 'animation', 'reveal']);
+
+    useEffect(() => {
+      const newSrData = { ...srData };
 
       // parse data from string.
       // fade-right;duration:500;delay:1000;distance:60px;scale:0.8
@@ -129,240 +127,256 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
           direction = '';
         }
 
-        state.effect = effect;
-        state.direction = direction;
+        newSrData.effect = effect;
+        newSrData.direction = direction;
 
         // replace other data config.
         if (data.length > 1) {
           data.forEach((item) => {
             const itemData = item.split(':');
             if (itemData.length === 2) {
-              const name = itemData[0];
+              const revealName = itemData[0];
               const val = itemData[1];
-              state[name] = val;
+              newSrData[revealName] = val;
             }
           });
         }
 
-        state.distance = parseFloat(state.distance);
-        state.scale = parseFloat(state.scale);
-        state.duration = parseFloat(state.duration);
-        state.delay = parseFloat(state.delay);
+        newSrData.distance = parseFloat(newSrData.distance);
+        newSrData.scale = parseFloat(newSrData.scale);
+        newSrData.duration = parseFloat(newSrData.duration);
+        newSrData.delay = parseFloat(newSrData.delay);
       }
 
-      this.state = state;
+      // Migration to new animation attribute.
+      if (hasNewRevealSupport && ghostkitSR) {
+        const ghostkitData = {
+          ...(attributes?.ghostkit || {}),
+        };
 
-      this.updateData = this.updateData.bind(this);
-    }
+        if (!ghostkitData?.animation?.reveal) {
+          const parsedConfig = parseSRConfig(ghostkitSR);
 
-    updateData(newData) {
-      const { ghostkitSR } = this.props.attributes;
+          const newAnimationData = {
+            x: `${parsedConfig.x}px`,
+            y: `${parsedConfig.y}px`,
+            opacity: parsedConfig.opacity,
+            scale: parsedConfig.scale,
+            transition: {
+              type: 'easing',
+              duration: parsedConfig.duration,
+              delay: parsedConfig.delay,
+              easing: parsedConfig.easing,
+            },
+          };
 
-      const { setAttributes } = this.props;
+          if (!ghostkitData?.animation) {
+            ghostkitData.animation = {};
+          }
 
-      const newState = { ...this.state, ...newData };
+          ghostkitData.animation.reveal = newAnimationData;
+
+          setAttributes({
+            ghostkit: ghostkitData,
+          });
+        }
+
+        // Clean old attribute.
+        setAttributes({ ghostkitSR: '' });
+      } else {
+        setSrData(newSrData);
+      }
+    }, []);
+
+    function updateData(data) {
+      const newSrData = { ...srData, ...data };
 
       let newAttribute = '';
-      if (newState.effect) {
-        newAttribute = newState.effect;
+      if (newSrData.effect) {
+        newAttribute = newSrData.effect;
 
-        if (newState.direction) {
-          newAttribute += `-${newState.direction}`;
+        if (newSrData.direction) {
+          newAttribute += `-${newSrData.direction}`;
 
-          if (newState.distance !== 50) {
-            newAttribute += `;distance:${newState.distance}px`;
+          if (newSrData.distance !== 50) {
+            newAttribute += `;distance:${newSrData.distance}px`;
           }
         }
-        if (newState.duration !== 900) {
-          newAttribute += `;duration:${newState.duration}`;
+        if (newSrData.duration !== 900) {
+          newAttribute += `;duration:${newSrData.duration}`;
         }
-        if (newState.delay !== 0) {
-          newAttribute += `;delay:${newState.delay}`;
+        if (newSrData.delay !== 0) {
+          newAttribute += `;delay:${newSrData.delay}`;
         }
 
-        if (newState.effect === 'zoom' && newState.scale !== 0.9) {
-          newAttribute += `;scale:${newState.scale}`;
+        if (newSrData.effect === 'zoom' && newSrData.scale !== 0.9) {
+          newAttribute += `;scale:${newSrData.scale}`;
         }
       }
 
-      this.setState(newData);
+      setSrData(newSrData);
 
       if (ghostkitSR !== newAttribute) {
         setAttributes({ ghostkitSR: newAttribute });
       }
     }
 
-    render() {
-      const { props } = this;
-      const allow = allowedSR(props);
+    const allow = !hasNewRevealSupport && allowedSR(props);
 
-      if (!allow) {
-        return <OriginalComponent {...props} />;
-      }
-
-      const { ghostkitSR } = props.attributes;
-
-      // add new SR controls.
-      return (
-        <Fragment>
-          <OriginalComponent {...props} setState={this.setState} />
-          <InspectorControls>
-            <PanelBody
-              title={
-                <Fragment>
-                  <span className="ghostkit-ext-icon">{getIcon('extension-sr')}</span>
-                  <span>{__('Animate on Scroll', '@@text_domain')}</span>
-                  {ghostkitSR ? <ActiveIndicator /> : ''}
-                </Fragment>
-              }
-              initialOpen={initialOpenPanel}
-              onToggle={() => {
-                initialOpenPanel = !initialOpenPanel;
-              }}
-            >
-              <ToggleGroup
-                value={this.state.effect}
-                options={[
-                  {
-                    label: __('Fade', '@@text_domain'),
-                    value: 'fade',
-                  },
-                  {
-                    label: __('Zoom', '@@text_domain'),
-                    value: 'zoom',
-                  },
-                ]}
-                onChange={(value) => {
-                  this.updateData({ effect: value });
-                }}
-                isDeselectable
-              />
-
-              {this.state.effect ? (
-                <Fragment>
-                  <BaseControl className="ghostkit-control-sr-direction">
-                    <div className="ghostkit-control-sr-direction-wrap">
-                      <div className="ghostkit-control-sr-direction-left">
-                        <Button
-                          className={
-                            this.state.direction === 'left'
-                              ? 'ghostkit-control-sr-direction-active'
-                              : ''
-                          }
-                          onClick={() => this.updateData({ direction: 'left' })}
-                        >
-                          {getIcon('icon-arrow-right')}
-                        </Button>
-                      </div>
-                      <div className="ghostkit-control-sr-direction-top">
-                        <Button
-                          className={
-                            this.state.direction === 'down'
-                              ? 'ghostkit-control-sr-direction-active'
-                              : ''
-                          }
-                          onClick={() => this.updateData({ direction: 'down' })}
-                        >
-                          {getIcon('icon-arrow-down')}
-                        </Button>
-                      </div>
-                      <div className="ghostkit-control-sr-direction-right">
-                        <Button
-                          className={
-                            this.state.direction === 'right'
-                              ? 'ghostkit-control-sr-direction-active'
-                              : ''
-                          }
-                          onClick={() => this.updateData({ direction: 'right' })}
-                        >
-                          {getIcon('icon-arrow-left')}
-                        </Button>
-                      </div>
-                      <div className="ghostkit-control-sr-direction-bottom">
-                        <Button
-                          className={
-                            this.state.direction === 'up'
-                              ? 'ghostkit-control-sr-direction-active'
-                              : ''
-                          }
-                          onClick={() => this.updateData({ direction: 'up' })}
-                        >
-                          {getIcon('icon-arrow-up')}
-                        </Button>
-                      </div>
-                      <div className="ghostkit-control-sr-direction-center">
-                        <Button
-                          className={
-                            !this.state.direction ? 'ghostkit-control-sr-direction-active' : ''
-                          }
-                          onClick={() => this.updateData({ direction: '' })}
-                        >
-                          {getIcon('icon-circle')}
-                        </Button>
-                      </div>
-                    </div>
-                  </BaseControl>
-
-                  {this.state.direction || this.state.effect === 'zoom' ? (
-                    <div className="ghostkit-grid-controls">
-                      {this.state.direction ? (
-                        <TextControl
-                          type="number"
-                          label={__('Distance', '@@text_domain')}
-                          value={this.state.distance}
-                          onChange={(value) => this.updateData({ distance: value })}
-                          min={10}
-                          max={200}
-                        />
-                      ) : (
-                        ''
-                      )}
-                      {this.state.effect === 'zoom' ? (
-                        <TextControl
-                          type="number"
-                          label={__('Scale', '@@text_domain')}
-                          value={this.state.scale}
-                          onChange={(value) => this.updateData({ scale: value })}
-                          min={0}
-                          max={1}
-                          step={0.05}
-                        />
-                      ) : (
-                        ''
-                      )}
-                      {!this.state.direction || this.state.effect !== 'zoom' ? <div /> : ''}
-                    </div>
-                  ) : (
-                    ''
-                  )}
-
-                  <div className="ghostkit-grid-controls">
-                    <TextControl
-                      type="number"
-                      label={__('Duration', '@@text_domain')}
-                      value={this.state.duration}
-                      onChange={(value) => this.updateData({ duration: value })}
-                      min={100}
-                      max={2000}
-                    />
-                    <TextControl
-                      type="number"
-                      label={__('Delay', '@@text_domain')}
-                      value={this.state.delay}
-                      onChange={(value) => this.updateData({ delay: value })}
-                      min={0}
-                      max={1000}
-                    />
-                  </div>
-                </Fragment>
-              ) : (
-                ''
-              )}
-            </PanelBody>
-          </InspectorControls>
-        </Fragment>
-      );
+    if (!allow) {
+      return <OriginalComponent {...props} />;
     }
+
+    // add SR controls.
+    return (
+      <>
+        <OriginalComponent {...props} />
+        <InspectorControls>
+          <PanelBody
+            title={
+              <>
+                <span className="ghostkit-ext-icon">{getIcon('extension-sr')}</span>
+                <span>{__('Animate on Scroll', '@@text_domain')}</span>
+                {ghostkitSR ? <ActiveIndicator /> : ''}
+              </>
+            }
+            initialOpen={initialOpenPanel}
+            onToggle={() => {
+              initialOpenPanel = !initialOpenPanel;
+            }}
+          >
+            <ToggleGroup
+              value={srData.effect}
+              options={[
+                {
+                  label: __('Fade', '@@text_domain'),
+                  value: 'fade',
+                },
+                {
+                  label: __('Zoom', '@@text_domain'),
+                  value: 'zoom',
+                },
+              ]}
+              onChange={(value) => {
+                updateData({ effect: value });
+              }}
+              isDeselectable
+            />
+
+            {srData.effect ? (
+              <>
+                <BaseControl className="ghostkit-control-sr-direction">
+                  <div className="ghostkit-control-sr-direction-wrap">
+                    <div className="ghostkit-control-sr-direction-left">
+                      <Button
+                        className={
+                          srData.direction === 'left' ? 'ghostkit-control-sr-direction-active' : ''
+                        }
+                        onClick={() => updateData({ direction: 'left' })}
+                      >
+                        {getIcon('icon-arrow-right')}
+                      </Button>
+                    </div>
+                    <div className="ghostkit-control-sr-direction-top">
+                      <Button
+                        className={
+                          srData.direction === 'down' ? 'ghostkit-control-sr-direction-active' : ''
+                        }
+                        onClick={() => updateData({ direction: 'down' })}
+                      >
+                        {getIcon('icon-arrow-down')}
+                      </Button>
+                    </div>
+                    <div className="ghostkit-control-sr-direction-right">
+                      <Button
+                        className={
+                          srData.direction === 'right' ? 'ghostkit-control-sr-direction-active' : ''
+                        }
+                        onClick={() => updateData({ direction: 'right' })}
+                      >
+                        {getIcon('icon-arrow-left')}
+                      </Button>
+                    </div>
+                    <div className="ghostkit-control-sr-direction-bottom">
+                      <Button
+                        className={
+                          srData.direction === 'up' ? 'ghostkit-control-sr-direction-active' : ''
+                        }
+                        onClick={() => updateData({ direction: 'up' })}
+                      >
+                        {getIcon('icon-arrow-up')}
+                      </Button>
+                    </div>
+                    <div className="ghostkit-control-sr-direction-center">
+                      <Button
+                        className={!srData.direction ? 'ghostkit-control-sr-direction-active' : ''}
+                        onClick={() => updateData({ direction: '' })}
+                      >
+                        {getIcon('icon-circle')}
+                      </Button>
+                    </div>
+                  </div>
+                </BaseControl>
+
+                {srData.direction || srData.effect === 'zoom' ? (
+                  <div className="ghostkit-grid-controls">
+                    {srData.direction ? (
+                      <TextControl
+                        type="number"
+                        label={__('Distance', '@@text_domain')}
+                        value={srData.distance}
+                        onChange={(value) => updateData({ distance: value })}
+                        min={10}
+                        max={200}
+                      />
+                    ) : (
+                      ''
+                    )}
+                    {srData.effect === 'zoom' ? (
+                      <TextControl
+                        type="number"
+                        label={__('Scale', '@@text_domain')}
+                        value={srData.scale}
+                        onChange={(value) => updateData({ scale: value })}
+                        min={0}
+                        max={1}
+                        step={0.05}
+                      />
+                    ) : (
+                      ''
+                    )}
+                    {!srData.direction || srData.effect !== 'zoom' ? <div /> : ''}
+                  </div>
+                ) : (
+                  ''
+                )}
+
+                <div className="ghostkit-grid-controls">
+                  <TextControl
+                    type="number"
+                    label={__('Duration', '@@text_domain')}
+                    value={srData.duration}
+                    onChange={(value) => updateData({ duration: value })}
+                    min={100}
+                    max={2000}
+                  />
+                  <TextControl
+                    type="number"
+                    label={__('Delay', '@@text_domain')}
+                    value={srData.delay}
+                    onChange={(value) => updateData({ delay: value })}
+                    min={0}
+                    max={1000}
+                  />
+                </div>
+              </>
+            ) : (
+              ''
+            )}
+          </PanelBody>
+        </InspectorControls>
+      </>
+    );
   }
 
   return GhostKitSRWrapper;
@@ -387,56 +401,7 @@ function addSaveProps(extraProps, blockType, attributes) {
   return extraProps;
 }
 
-const withDataSR = createHigherOrderComponent((BlockListBlock) => {
-  function GhostKitSRWrapper(props) {
-    const { attributes, clientId } = props;
-    const { ghostkitSR } = attributes;
-
-    const [allow] = useState(allowedSR(props));
-    const [currentSR, setCurrentSR] = useState('');
-
-    const srTimeout = useRef();
-
-    const element = useContext(elementContext);
-
-    useEffect(() => {
-      if (!allow || !element || !clientId || currentSR === ghostkitSR) {
-        return;
-      }
-
-      setCurrentSR(ghostkitSR);
-
-      clearTimeout(srTimeout.current);
-
-      srTimeout.current = setTimeout(() => {
-        const blockElement = element.querySelector(`[id="block-${clientId}"]`);
-
-        if (blockElement) {
-          const config = parseSRConfig(ghostkitSR);
-
-          const stopInView = inView(
-            blockElement,
-            () => {
-              stopInView();
-
-              animate(blockElement, config.keyframes, config.options).finished.then(() => {
-                config.cleanup(blockElement);
-              });
-            },
-            { root: element.ownerDocument }
-          );
-        }
-      }, 150);
-    }, [allow, element, clientId, currentSR, ghostkitSR]);
-
-    return <BlockListBlock {...props} />;
-  }
-
-  return GhostKitSRWrapper;
-}, 'withDataSR');
-
 // Init filters.
 addFilter('blocks.registerBlockType', 'ghostkit/sr/additional-attributes', addAttribute);
 addFilter('editor.BlockEdit', 'ghostkit/sr/additional-attributes', withInspectorControl);
 addFilter('blocks.getSaveContent.extraProps', 'ghostkit/sr/save-props', addSaveProps);
-addFilter('editor.BlockListBlock', 'ghostkit/sr/editor/additional-attributes', withDataSR);

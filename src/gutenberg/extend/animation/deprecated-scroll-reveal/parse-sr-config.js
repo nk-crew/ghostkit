@@ -84,34 +84,5 @@ export default function parseSRConfig(data) {
   config.duration = parseFloat(config.duration) / 1000;
   config.delay = parseFloat(config.delay) / 1000;
 
-  return {
-    keyframes: {
-      visibility: 'visible',
-      opacity: [config.opacity, 1],
-      transform: [
-        `translateY(${config.y}) translateX(${config.x}) scale(${config.scale})`,
-        `translateY(0px) translateX(0px) scale(1)`,
-      ],
-    },
-    options: {
-      duration: config.duration,
-      delay: config.delay,
-      easing: config.easing,
-    },
-    cleanup(el) {
-      el.removeAttribute('data-ghostkit-sr');
-      el.classList.remove('data-ghostkit-sr-ready');
-
-      el.style.visibility = '';
-      el.style.opacity = '';
-      el.style.transform = '';
-
-      if (!el.getAttribute('style')) {
-        el.removeAttribute('style');
-      }
-      if (!el.getAttribute('class')) {
-        el.removeAttribute('class');
-      }
-    },
-  };
+  return config;
 }

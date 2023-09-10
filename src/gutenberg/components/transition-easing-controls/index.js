@@ -53,7 +53,12 @@ export function EasingBezierEditor(props) {
     textStyle: {
       display: 'none',
     },
-    onChange,
+    // We have to add the onChange callback to prevent warning in console.
+    onChange(val) {
+      if (onChange) {
+        onChange(val);
+      }
+    },
   };
 
   if (variant === 'preview') {
