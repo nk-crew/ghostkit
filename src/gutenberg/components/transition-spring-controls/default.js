@@ -1,6 +1,6 @@
 export default {
-  stiffness: 150,
-  damping: 30,
-  mass: 1,
+  stiffness: 100,
+  damping: 10,
+  mass: 0.75,
   delay: 0,
 };
