@@ -167,7 +167,7 @@ function AnimationRevealTools(props) {
                 transform: translateX(${getValue('x')}) translateY(${getValue(
             'y'
           )}) scale(${getValue('scale')}) rotate(${getValue('rotate')});
-                opacity: ${getValue('opacity')};
+                opacity: ${Math.max(0.1, getValue('opacity'))};
               }
             `}
         />
