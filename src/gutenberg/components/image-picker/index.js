@@ -15,10 +15,16 @@ const { BaseControl } = wp.components;
  */
 export default class ImagePicker extends Component {
   render() {
-    const { value, options, onChange, label } = this.props;
+    const { value, options, itemsPerRow = 2, onChange, label } = this.props;
 
     return (
-      <BaseControl label={label} className="ghostkit-component-image-picker">
+      <BaseControl
+        label={label}
+        className={classnames(
+          'ghostkit-component-image-picker',
+          `ghostkit-component-image-picker-${itemsPerRow}`
+        )}
+      >
         {options.map((option) => (
           // eslint-disable-next-line react/button-has-type
           <button
