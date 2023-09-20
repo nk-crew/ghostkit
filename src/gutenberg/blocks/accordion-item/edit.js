@@ -18,16 +18,7 @@ const { useEffect, useRef } = wp.element;
 const { useSelect } = wp.data;
 const { ToolbarGroup, ToolbarButton } = wp.components;
 
-const {
-  BlockControls,
-  InnerBlocks,
-  RichText,
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
+const { BlockControls, InnerBlocks, RichText, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Edit Class.

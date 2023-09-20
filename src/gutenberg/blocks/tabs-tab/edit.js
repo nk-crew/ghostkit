@@ -8,13 +8,7 @@ import classnames from 'classnames/dedupe';
  */
 const { applyFilters } = wp.hooks;
 const { useSelect } = wp.data;
-const {
-  InnerBlocks,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
+const { InnerBlocks, useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Edit Class.

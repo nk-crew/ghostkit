@@ -10,16 +10,9 @@ const { applyFilters } = wp.hooks;
 const { __ } = wp.i18n;
 const { useEffect } = wp.element;
 const { PanelBody, ToggleControl, SelectControl, Button } = wp.components;
-const {
-  InspectorControls,
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
+const { InspectorControls, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 const { createBlock } = wp.blocks;
 const { useSelect, useDispatch } = wp.data;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
 
 const accordionItemBlockName = 'ghostkit/accordion-item';
 

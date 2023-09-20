@@ -20,14 +20,7 @@ const { PanelBody, ToggleControl } = wp.components;
 const { useSelect, useDispatch } = wp.data;
 const { createBlock } = wp.blocks;
 
-const {
-  InspectorControls,
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
+const { InspectorControls, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 const slideBlockName = 'ghostkit/carousel-slide';
 

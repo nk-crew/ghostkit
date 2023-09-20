@@ -19,16 +19,8 @@ const { applyFilters } = wp.hooks;
 const { __ } = wp.i18n;
 const { useSelect } = wp.data;
 const { PanelBody, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, TabPanel } = wp.components;
-const {
-  InspectorControls,
-  InnerBlocks,
-  BlockControls,
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
+const { InspectorControls, InnerBlocks, BlockControls, useBlockProps, useInnerBlocksProps } =
+  wp.blockEditor;
 
 /**
  * Block Edit Class.

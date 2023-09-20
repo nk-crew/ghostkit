@@ -24,11 +24,8 @@ const {
   BlockControls,
   AlignmentToolbar,
   useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
+  useInnerBlocksProps,
 } = wp.blockEditor;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
 
 /**
  * Block Edit Class.

@@ -9,14 +9,7 @@ import classnames from 'classnames/dedupe';
 const { applyFilters } = wp.hooks;
 const { __ } = wp.i18n;
 
-const {
-  RichText,
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
+const { RichText, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Edit Class.

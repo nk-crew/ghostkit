@@ -8,13 +8,7 @@ import metadata from './block.json';
 
 const { applyFilters } = wp.hooks;
 
-const {
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
+const { useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 const { name } = metadata;
 

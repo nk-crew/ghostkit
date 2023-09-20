@@ -24,16 +24,8 @@ const { useSelect } = wp.data;
 const { BaseControl, PanelBody, ToggleControl, TabPanel, Toolbar, ToolbarGroup, ToolbarButton } =
   wp.components;
 
-const {
-  InspectorControls,
-  InnerBlocks,
-  BlockControls,
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
+const { InspectorControls, InnerBlocks, BlockControls, useBlockProps, useInnerBlocksProps } =
+  wp.blockEditor;
 
 /**
  * Block Edit Class.
