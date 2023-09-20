@@ -1,15 +1,6 @@
 /**
- * WordPress dependencies
+ * Block Save component.
  */
-const { Component } = wp.element;
-
-/**
- * Block Save Class.
- */
-class BlockSave extends Component {
-  render() {
-    return null;
-  }
+export default function BlockSave() {
+  return null;
 }
-
-export default BlockSave;

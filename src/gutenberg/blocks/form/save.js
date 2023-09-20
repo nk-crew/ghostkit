@@ -1,17 +1,13 @@
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
-
-const { InnerBlocks } = wp.blockEditor;
+const { useInnerBlocksProps } = wp.blockEditor;
 
 /**
- * Block Save Class.
+ * Block Save component.
  */
-class BlockSave extends Component {
-  render() {
-    return <InnerBlocks.Content />;
-  }
-}
+export default function BlockSave() {
+  const innerBlocksProps = useInnerBlocksProps.save();
 
-export default BlockSave;
+  return innerBlocksProps.children;
+}
