@@ -1,8 +1,8 @@
 {
   "name": "ghostkit",
   "title": "Ghost Kit",
-  "version": "2.25.1-beta.1",
-  "description": "Blocks collection and extensions for Gutenberg",
+  "version": "3.0.0-beta.1",
+  "description": "Page Builder Blocks and Extensions for Gutenberg",
   "license": "GPL-2.0",
   "author": "nK <https://nkdev.info>",
   "scripts": {

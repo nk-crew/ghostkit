@@ -106,6 +106,9 @@ Select registered sidebars and put it in any place.
 
 #### ⚙️ Extensions ####
 
+* [**Position**](https://ghostkit.io/extensions/position/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+Change block position to absolute or fixed and move it with offset in Ghost Kit and Core blocks.
+
 * [**Spacings**](https://ghostkit.io/extensions/spacings/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 Easily add spacings to Ghost Kit and Core blocks.
 
@@ -120,9 +123,6 @@ Show with animation Ghost Kit and Core blocks on page scrolling.
 
 * [**Custom CSS & JavaScript**](https://ghostkit.io/extensions/custom-css-js/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 This extension is available on all pages and let you add custom CSS and JavaScript for the current page and globally site wide.
-
-* [**Customizer**](https://ghostkit.io/extensions/customizer/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
-This extension is available on all pages and let you change customizer options on the current page.
 
 ### 📁 Templates ###
 
@@ -230,9 +230,9 @@ You should use default Gutenberg hooks to extend blocks functionality. Read more
 
 You can extend Gutenberg blocks save attributes using core hooks. Read more here: <https://developer.wordpress.org/block-editor/developers/filters/block-filters/#blocks-getsavecontent-extraprops>
 
-### jQuery frontend events ####
+### JS frontend events ####
 
-[https://ghostkit.io/docs/jquery-events/](https://ghostkit.io/docs/jquery-events/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
+[https://ghostkit.io/docs/js-events/](https://ghostkit.io/docs/js-events/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
 
 ## Screenshots ##
 
@@ -259,6 +259,70 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 3.0.0 =
+
+There are a lot of changed in v3, before updating it on production, we recommend test it in staging site first. Look at some of the breaking changes:
+
+* removed jQuery usage completely:
+  * added simple fallbacks where possible
+  * added instance to the `prepared.googleMaps` event
+  * remove events `afterInit`, `beforeInit.blocks`, `afterInit.blocks`
+  * new JS events documented here - <https://ghostkit.io/docs/js-events/>
+* remove main GhostKit class from JS
+* removed Variants feature, use native Gutenberg Styles instead. This feature was introduced in first versions of Ghost Kit, but Gutenberg added their Styles feature, which is widely used now and our Variants no longer needed
+* removed custom bottom margin from all Ghost Kit blocks in FSE themes only (this change may impact your existing sites)
+* removed Parsley library, use native Form validation instead. Less size, better performance
+* there are a lot of plans for Ghost Kit v3 future updates (and new site coming soon). It will be huge 😎
+
+Common changes:
+
+* register all blocks in PHP using `register_block_type_from_metadata`
+* added Position extension - it allows creating fixed or absolute blocks with custom offsets
+* added Lottie block
+* added Motion One script for animations. Great performance and native WAAPI support. We will use it for all future advanced blocks and extensions
+  * changed jQuery animations to Motion One
+  * remove ScrollReveal script, use Motion One instead
+* added support for Fonts in FSE themes. You can now select the specific font to load it in editor Typography settings and on frontend
+* added Lorem Ipsum format-command. Just type in editor `lorem15` and press `space` and it will generate a lorem ipsum text instantly
+* added reCaptcha score check for Form block
+* added filters for parse blocks and fallback custom styles render
+* added Honeypot protection to Form block
+* added column settings for paragraph
+* added option to change the Title tag in the Accordion block
+* added support for `layout-flow` inside InnerBlocks
+* added support for adding different blocks inside Changelog block
+* added Hover trigger for Tabs block
+* added vertical orientation, hover trigger, and labels to Image Compare block
+* added Fade Edges option to Carousel block
+* improved inserter in blocks with InnerBlocks
+* improved Form radio and checkbox editor ui
+* improved Form block alert colors
+* improved Color Picker component to use native UI
+* moved some extensions to Styles tab in inspector control
+* moved Templates menu item under Ghost Kit menu
+* fixed Typography font weights output
+* fixed custom styles render in Astra, Blocksy, and Page Builder Framework themes
+* fixed Pricing block not displaying items when block inserted in the editor
+* fixed Tabs block click on tab in editor
+* fixed conflict with dynamically generated styles with custom breakpoints and cached CSS
+* fixed Progress bar width calculation in editor
+* fixed styled lists reversed and start attributes rendering in editor
+* fixed infinite loop of Widgetized Area block if sidebar nested himself
+* changed Form gap to CSS `gap`
+* changed Form default input sizes for better support of standard themes
+* changed category of all Ghost Kit blocks. Moved Ghost Kit block category to the top of the blocks list
+* changed block icons and color
+* renamed Grid → Advanced Columns
+* removed sessions usage from Form block
+* removed grid column helpful buttons to select column or grid block. You can use blocks list view to select complex inner blocks <https://learn.wordpress.org/tutorial/how-to-use-the-list-view/>
+* removed fallbacks for old versions:
+  * remove old icons fallback script, which converted span icons to svg
+  * remove fallback for custom styles render from data attribute
+  * remove InnerBlocks fallback for frontend of blocks: Button, Grid, Pricing Table
+* removed Reusable Blocks item from Admin Menu since WP v6.3
+* deprecated Highlight text format, use core Highlight format instead
+* a lot of minor changes
 
 = 2.25.0 =
 
