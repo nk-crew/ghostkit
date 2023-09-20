@@ -13,7 +13,7 @@ import metadata from './block.json';
  */
 const { Component } = wp.element;
 
-const { InnerBlocks } = wp.blockEditor;
+const { useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 const { applyFilters } = wp.hooks;
 
@@ -40,8 +40,13 @@ class BlockSave extends Component {
       ...this.props,
     });
 
+    const blockProps = useBlockProps.save({ className, 'data-date': date });
+    const innerBlockProps = useInnerBlocksProps.save({
+      className: 'ghostkit-countdown-expire-action',
+    });
+
     return (
-      <div className={className} data-date={date}>
+      <div {...blockProps}>
         {units.map((unitName) => (
           <div
             key={unitName}
@@ -51,9 +56,7 @@ class BlockSave extends Component {
             <span className="ghostkit-countdown-unit-label">{unitName}</span>
           </div>
         ))}
-        <div className="ghostkit-countdown-expire-action">
-          <InnerBlocks.Content />
-        </div>
+        <div {...innerBlockProps} />
       </div>
     );
   }
