@@ -5,7 +5,7 @@ const { Component } = wp.element;
 
 const { __ } = wp.i18n;
 
-const { __experimentalGetSettings: getSettings, dateI18n } = wp.date;
+const { getSettings, dateI18n } = wp.date;
 
 const { BaseControl, Popover, Button, DateTimePicker: WPDateTimePicker } = wp.components;
 
@@ -44,7 +44,10 @@ export default class DateTimePicker extends Component {
               : __('Select Date', '@@text_domain')}
           </Button>
           {isPickerOpen ? (
-            <Popover onClose={() => this.setState({ isPickerOpen: false })}>
+            <Popover
+              className="ghostkit-components-date-time-picker-popover"
+              onClose={() => this.setState({ isPickerOpen: false })}
+            >
               <WPDateTimePicker
                 label={label}
                 currentDate={luxon.DateTime.fromISO(value).isValid ? value : ''}
