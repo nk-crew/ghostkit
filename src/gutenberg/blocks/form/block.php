@@ -206,9 +206,6 @@ class GhostKit_Form_Block {
         $recaptcha_secret_key = get_option( 'ghostkit_google_recaptcha_api_secret_key' );
 
         ob_start();
-        // phpcs:ignore
-        echo do_blocks( $inner_blocks );
-
         // Honeypot protection.
         ?>
         <input aria-label="<?php echo esc_attr__( 'Verify your Email', '@@text_domain' ); ?>" type="email" name="ghostkit_verify_email" autocomplete="off" placeholder="<?php echo esc_attr__( 'Email', '@@text_domain' ); ?>" tabindex="-1">
@@ -224,7 +221,8 @@ class GhostKit_Form_Block {
             <input type="hidden" name="ghostkit_form_google_recaptcha" />
             <?php
         }
-        $output = ob_get_clean();
+
+        $output = $inner_blocks . ob_get_clean();
 
         $wrapper_attributes = get_block_wrapper_attributes(
             array(
