@@ -7,6 +7,7 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+import { loadBlockEditorAssets } from '../../utils/block-editor-asset-loader';
 
 import GistFilesSelect from './file-select';
 
@@ -17,48 +18,47 @@ const { applyFilters } = wp.hooks;
 
 const { __ } = wp.i18n;
 
-const { Component, Fragment } = wp.element;
+const { Fragment, useEffect, useState, useRef } = wp.element;
 
 const { PanelBody, TextControl, ToggleControl, Placeholder, ToolbarGroup, ExternalLink } =
   wp.components;
 
-const { InspectorControls, BlockControls } = wp.blockEditor;
+const { InspectorControls, BlockControls, useBlockProps } = wp.blockEditor;
 
 const { gistSimple } = window;
 
 /**
  * Block Edit Class.
  */
-class BlockEdit extends Component {
-  constructor(props) {
-    super(props);
+export default function BlockEdit(props) {
+  const { attributes, setAttributes } = props;
+  const { url, file, caption, showFooter, showLineNumbers } = attributes;
 
-    this.state = {
-      url: '',
-    };
+  const [sUrl, setUrl] = useState(attributes.url);
+  const gistNode = useRef();
+  const cachedRequest = useRef();
+  const urlTimeout = useRef();
 
-    this.onUpdate = this.onUpdate.bind(this);
-    this.urlOnChange = this.urlOnChange.bind(this);
-    this.getValidGistUrl = this.getValidGistUrl.bind(this);
+  let { className = '' } = props;
+
+  function getValidGistUrl() {
+    if (url) {
+      const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec(url);
+
+      if (match && typeof match[1] !== 'undefined') {
+        return match[1].split('#')[0];
+      }
+    }
+
+    return false;
   }
 
-  componentDidMount() {
-    this.setState({ url: this.props.attributes.url });
-    this.onUpdate();
-  }
-
-  componentDidUpdate() {
-    this.onUpdate();
-  }
-
-  onUpdate() {
-    const { url, file, caption, showFooter, showLineNumbers } = this.props.attributes;
-
-    if (!url || !this.gistNode) {
+  function onUpdate() {
+    if (!url || !gistNode?.current) {
       return;
     }
 
-    const validUrl = this.getValidGistUrl();
+    const validUrl = getValidGistUrl();
 
     if (!validUrl) {
       return;
@@ -71,21 +71,19 @@ class BlockEdit extends Component {
     }
 
     // cache request to prevent reloading.
-    const cachedRequest =
+    const newCachedRequest =
       validUrl + file + caption + (showFooter ? 1 : 0) + (showLineNumbers ? 1 : 0);
-    if (cachedRequest === this.cachedRequest) {
+    if (newCachedRequest === cachedRequest?.current) {
       return;
     }
-    this.cachedRequest = cachedRequest;
+    cachedRequest.current = newCachedRequest;
 
     setTimeout(() => {
-      const $gist = this.gistNode;
-
-      if ($gist.GistSimple) {
-        $gist.GistSimple.destroy();
+      if (gistNode.current.GistSimple) {
+        gistNode.current.GistSimple.destroy();
       }
 
-      gistSimple($gist, {
+      gistSimple(gistNode.current, {
         id: validUrl,
         file,
         caption,
@@ -95,158 +93,141 @@ class BlockEdit extends Component {
     }, 0);
   }
 
-  getValidGistUrl() {
-    const { url } = this.props.attributes;
+  // Mount and update.
+  useEffect(() => {
+    onUpdate();
+  });
 
-    if (url) {
-      const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec(url);
-
-      if (match && typeof match[1] !== 'undefined') {
-        return match[1].split('#')[0];
-      }
+  // Load assets.
+  useEffect(() => {
+    if (gistNode?.current) {
+      loadBlockEditorAssets('css', 'gist-simple-css', gistNode.current);
     }
+  }, [gistNode]);
 
-    return false;
-  }
+  function urlOnChange(value, timeout = 1000) {
+    setUrl(value);
 
-  urlOnChange(value, timeout = 1000) {
-    this.setState({ url: value });
+    clearTimeout(urlTimeout.current);
 
-    clearTimeout(this.urlTimeout);
-
-    this.urlTimeout = setTimeout(() => {
-      this.props.setAttributes({ url: value });
+    urlTimeout.current = setTimeout(() => {
+      setAttributes({ url: value });
     }, timeout);
   }
 
-  render() {
-    const { attributes, setAttributes } = this.props;
+  className = classnames('ghostkit-gist', className);
+  className = applyFilters('ghostkit.editor.className', className, props);
 
-    let { className = '' } = this.props;
+  const blockProps = useBlockProps({ className });
 
-    const { url, file, caption, showFooter, showLineNumbers } = attributes;
-
-    className = classnames('ghostkit-gist', className);
-
-    className = applyFilters('ghostkit.editor.className', className, this.props);
-
-    return (
-      <Fragment>
-        <BlockControls>
-          {url ? (
-            <ToolbarGroup>
-              <TextControl
-                type="url"
-                value={this.state.url}
-                placeholder={__('Gist URL', '@@text_domain')}
-                onChange={this.urlOnChange}
-                onKeyDown={(e) => {
-                  if (e.keyCode === 13) {
-                    this.urlOnChange(this.state.url, 0);
-                  }
-                }}
-                className="ghostkit-gist-toolbar-url"
-              />
-            </ToolbarGroup>
-          ) : (
-            ''
-          )}
-          {this.getValidGistUrl() ? (
-            <ToolbarGroup>
-              <GistFilesSelect
-                label={__('File', '@@text_domain')}
-                url={url}
-                value={file}
-                isToolbar
-                onChange={(value) => setAttributes({ file: value })}
-              />
-            </ToolbarGroup>
-          ) : (
-            ''
-          )}
-        </BlockControls>
-        <InspectorControls>
-          <PanelBody>
+  return (
+    <Fragment>
+      <BlockControls>
+        {url ? (
+          <ToolbarGroup>
             <TextControl
-              label={__('URL', '@@text_domain')}
               type="url"
-              value={this.state.url}
-              onChange={this.urlOnChange}
+              value={sUrl}
+              placeholder={__('Gist URL', '@@text_domain')}
+              onChange={(val) => urlOnChange(val)}
               onKeyDown={(e) => {
                 if (e.keyCode === 13) {
-                  this.urlOnChange(this.state.url, 0);
+                  urlOnChange(sUrl, 0);
                 }
               }}
+              className="ghostkit-gist-toolbar-url"
             />
+          </ToolbarGroup>
+        ) : (
+          ''
+        )}
+        {getValidGistUrl() ? (
+          <ToolbarGroup>
             <GistFilesSelect
               label={__('File', '@@text_domain')}
               url={url}
               value={file}
+              isToolbar
               onChange={(value) => setAttributes({ file: value })}
             />
-          </PanelBody>
-          <PanelBody>
+          </ToolbarGroup>
+        ) : (
+          ''
+        )}
+      </BlockControls>
+      <InspectorControls>
+        <PanelBody>
+          <TextControl
+            label={__('URL', '@@text_domain')}
+            type="url"
+            value={sUrl}
+            onChange={(val) => urlOnChange(val)}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                urlOnChange(sUrl, 0);
+              }
+            }}
+          />
+          <GistFilesSelect
+            label={__('File', '@@text_domain')}
+            url={url}
+            value={file}
+            onChange={(value) => setAttributes({ file: value })}
+          />
+        </PanelBody>
+        <PanelBody>
+          <TextControl
+            label={__('Caption', '@@text_domain')}
+            value={caption}
+            onChange={(value) => setAttributes({ caption: value })}
+          />
+          <ToggleControl
+            label={__('Show footer', '@@text_domain')}
+            checked={!!showFooter}
+            onChange={(val) => setAttributes({ showFooter: val })}
+          />
+          <ToggleControl
+            label={__('Show line numbers', '@@text_domain')}
+            checked={!!showLineNumbers}
+            onChange={(val) => setAttributes({ showLineNumbers: val })}
+          />
+        </PanelBody>
+      </InspectorControls>
+
+      <div {...blockProps}>
+        {!url ? (
+          <Placeholder
+            icon={getIcon('block-gist')}
+            label={__('Gist URL', '@@text_domain')}
+            className={className}
+          >
             <TextControl
-              label={__('Caption', '@@text_domain')}
-              value={caption}
-              onChange={(value) => setAttributes({ caption: value })}
-            />
-            <ToggleControl
-              label={__('Show footer', '@@text_domain')}
-              checked={!!showFooter}
-              onChange={(val) => setAttributes({ showFooter: val })}
-            />
-            <ToggleControl
-              label={__('Show line numbers', '@@text_domain')}
-              checked={!!showLineNumbers}
-              onChange={(val) => setAttributes({ showLineNumbers: val })}
-            />
-          </PanelBody>
-        </InspectorControls>
-
-        <div>
-          {!url ? (
-            <Placeholder
-              icon={getIcon('block-gist')}
-              label={__('Gist URL', '@@text_domain')}
-              className={className}
-            >
-              <TextControl
-                placeholder="https://gist.github.com/..."
-                value={this.state.url}
-                onChange={this.urlOnChange}
-                onKeyDown={(e) => {
-                  if (e.keyCode === 13) {
-                    this.urlOnChange(this.state.url, 0);
-                  }
-                }}
-              />
-              <ExternalLink href="https://gist.github.com/">
-                {__('Visit GitHub Gist Site', '@@text_domain')}
-              </ExternalLink>
-            </Placeholder>
-          ) : (
-            ''
-          )}
-          {url ? (
-            <div
-              ref={(gistNode) => {
-                this.gistNode = gistNode;
+              placeholder="https://gist.github.com/..."
+              value={sUrl}
+              onChange={(val) => urlOnChange(val)}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  urlOnChange(sUrl, 0);
+                }
               }}
-              className={className}
-              data-url={url}
-              data-file={file}
-              data-caption={caption}
-              data-show-footer={showFooter ? 'true' : 'false'}
-              data-show-line-numbers={showLineNumbers ? 'true' : 'false'}
             />
-          ) : (
-            ''
-          )}
-        </div>
-      </Fragment>
-    );
-  }
+            <ExternalLink href="https://gist.github.com/">
+              {__('Visit GitHub Gist Site', '@@text_domain')}
+            </ExternalLink>
+          </Placeholder>
+        ) : null}
+        {url ? (
+          <div
+            ref={gistNode}
+            className={className}
+            data-url={url}
+            data-file={file}
+            data-caption={caption}
+            data-show-footer={showFooter ? 'true' : 'false'}
+            data-show-line-numbers={showLineNumbers ? 'true' : 'false'}
+          />
+        ) : null}
+      </div>
+    </Fragment>
+  );
 }
-
-export default BlockEdit;
