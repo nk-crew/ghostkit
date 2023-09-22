@@ -15,34 +15,32 @@ import metadata from './block.json';
  */
 const { applyFilters } = wp.hooks;
 
-const { Component } = wp.element;
+const { useBlockProps } = wp.blockEditor;
 
 const { name } = metadata;
 
 /**
  * Block Save Class.
  */
-class BlockSave extends Component {
-  render() {
-    const { svg, flipVertical, flipHorizontal } = this.props.attributes;
+export default function BlockSave(props) {
+  const { svg, flipVertical, flipHorizontal } = props.attributes;
 
-    let className = classnames('ghostkit-shape-divider', {
-      'ghostkit-shape-divider-flip-vertical': flipVertical,
-      'ghostkit-shape-divider-flip-horizontal': flipHorizontal,
-    });
+  let className = classnames('ghostkit-shape-divider', {
+    'ghostkit-shape-divider-flip-vertical': flipVertical,
+    'ghostkit-shape-divider-flip-horizontal': flipHorizontal,
+  });
 
-    className = applyFilters('ghostkit.blocks.className', className, {
-      ...{
-        name,
-      },
-      ...this.props,
-    });
+  className = applyFilters('ghostkit.blocks.className', className, {
+    ...{
+      name,
+    },
+    ...props,
+  });
 
-    return (
-      // eslint-disable-next-line react/no-danger
-      <div className={className} dangerouslySetInnerHTML={{ __html: maybeDecode(svg) }} />
-    );
-  }
+  const blockProps = useBlockProps.save({
+    className,
+    dangerouslySetInnerHTML: { __html: maybeDecode(svg) },
+  });
+
+  return <div {...blockProps} />;
 }
-
-export default BlockSave;
