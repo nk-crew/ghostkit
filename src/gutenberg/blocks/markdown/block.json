@@ -8,8 +8,8 @@
   "keywords": ["formatting", "markup", "md"],
   "supports": {
     "html": false,
-    "className": true,
-    "anchor": false
+    "className": false,
+    "anchor": true
   },
   "attributes": {
     "content": {

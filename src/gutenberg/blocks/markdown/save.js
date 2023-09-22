@@ -11,21 +11,20 @@ import MDRender from './render';
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
+const { useBlockProps } = wp.blockEditor;
 
 /**
  * Block Save Class.
  */
-class BlockSave extends Component {
-  render() {
-    const { content } = this.props.attributes;
+export default function BlockSave(props) {
+  const { attributes } = props;
+  const { content } = attributes;
 
-    let { className } = this.props.attributes;
+  let { className } = attributes;
 
-    className = classnames('ghostkit-markdown', className);
+  className = classnames('ghostkit-markdown', className);
 
-    return <MDRender className={className} content={content} />;
-  }
+  const blockProps = useBlockProps.save({ className });
+
+  return <MDRender content={content} {...blockProps} />;
 }
-
-export default BlockSave;
