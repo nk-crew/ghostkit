@@ -19,7 +19,7 @@ const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment } = wp.element;
 
 const { createHigherOrderComponent } = wp.compose;
 
@@ -54,12 +54,9 @@ function getCurrentColumns(className, screen) {
 /**
  * Paragraph Columns
  */
-class GhostKitParagraphColumns extends Component {
-  constructor(props) {
-    super(props);
-
-    this.updateColumns = this.updateColumns.bind(this);
-  }
+function GhostKitParagraphColumns(props) {
+  const { attributes, setAttributes } = props;
+  const { className } = attributes;
 
   /**
    * Update columns count class.
@@ -67,11 +64,7 @@ class GhostKitParagraphColumns extends Component {
    * @param {String} screen - name of screen size.
    * @param {String} val - value for columns count.
    */
-  updateColumns(screen, val) {
-    const { attributes, setAttributes } = this.props;
-
-    const { className } = attributes;
-
+  function updateColumns(screen, val) {
     let newClassName = className;
 
     if (screen && screen !== 'all') {
@@ -91,41 +84,35 @@ class GhostKitParagraphColumns extends Component {
     });
   }
 
-  render() {
-    const { attributes } = this.props;
-
-    const { className } = attributes;
-
-    const filledTabs = {};
-    if (
-      ghostkitVariables &&
-      ghostkitVariables.media_sizes &&
-      Object.keys(ghostkitVariables.media_sizes).length
-    ) {
-      ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-        filledTabs[media] = !!getCurrentColumns(className, media);
-      });
-    }
-
-    // add new display controls.
-    return (
-      <InspectorControls>
-        <PanelBody title={__('Columns Settings', '@@text_domain')} initialOpen>
-          <ResponsiveTabPanel filledTabs={filledTabs}>
-            {(tabData) => (
-              <RangeControl
-                label={__('Columns Count', '@@text_domain')}
-                value={parseInt(getCurrentColumns(className, tabData.name), 10)}
-                onChange={(value) => this.updateColumns(tabData.name, value)}
-                min={1}
-                max={COLUMNS_COUNT_MAX}
-              />
-            )}
-          </ResponsiveTabPanel>
-        </PanelBody>
-      </InspectorControls>
-    );
+  const filledTabs = {};
+  if (
+    ghostkitVariables &&
+    ghostkitVariables.media_sizes &&
+    Object.keys(ghostkitVariables.media_sizes).length
+  ) {
+    ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
+      filledTabs[media] = !!getCurrentColumns(className, media);
+    });
   }
+
+  // add new display controls.
+  return (
+    <InspectorControls>
+      <PanelBody title={__('Columns Settings', '@@text_domain')} initialOpen>
+        <ResponsiveTabPanel filledTabs={filledTabs}>
+          {(tabData) => (
+            <RangeControl
+              label={__('Columns Count', '@@text_domain')}
+              value={parseInt(getCurrentColumns(className, tabData.name), 10)}
+              onChange={(value) => updateColumns(tabData.name, value)}
+              min={1}
+              max={COLUMNS_COUNT_MAX}
+            />
+          )}
+        </ResponsiveTabPanel>
+      </PanelBody>
+    </InspectorControls>
+  );
 }
 
 /**
@@ -137,22 +124,20 @@ class GhostKitParagraphColumns extends Component {
  * @return {string} Wrapped component.
  */
 const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
-  class GhostKitParagraphWrapper extends Component {
-    render() {
-      const { props } = this;
+  function GhostKitParagraphWrapper(props) {
+    const { name } = props;
 
-      if (props.name !== 'core/paragraph') {
-        return <OriginalComponent {...props} />;
-      }
-
-      // add new display controls.
-      return (
-        <Fragment>
-          <OriginalComponent {...props} setState={this.setState} />
-          <GhostKitParagraphColumns {...props} />
-        </Fragment>
-      );
+    if (name !== 'core/paragraph') {
+      return <OriginalComponent {...props} />;
     }
+
+    // add new display controls.
+    return (
+      <Fragment>
+        <OriginalComponent {...props} />
+        <GhostKitParagraphColumns {...props} />
+      </Fragment>
+    );
   }
 
   return GhostKitParagraphWrapper;

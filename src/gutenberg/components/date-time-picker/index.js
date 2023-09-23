@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
+const { useState } = wp.element;
 
 const { __ } = wp.i18n;
 
@@ -14,52 +14,40 @@ const { luxon } = window;
 /**
  * Component Class
  */
-export default class DateTimePicker extends Component {
-  constructor(props) {
-    super(props);
+export default function DateTimePicker(props) {
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
 
-    this.state = {
-      isPickerOpen: false,
-    };
-  }
+  const { value, onChange, label, is12Hour = false } = props;
 
-  render() {
-    const { value, onChange, label, is12Hour = false } = this.props;
+  const settings = getSettings();
+  const resolvedFormat = settings.formats.datetime || 'F j, Y g:i a';
 
-    const { isPickerOpen } = this.state;
-
-    const settings = getSettings();
-    const resolvedFormat = settings.formats.datetime || 'F j, Y g:i a';
-
-    return (
-      <BaseControl label={label} className="ghostkit-components-date-time-picker">
-        <div>
-          <Button isLink onClick={() => this.setState({ isPickerOpen: !isPickerOpen })}>
-            {value
-              ? `${dateI18n(resolvedFormat, value)} ${
-                  settings.timezone.abbr ||
-                  settings.timezone.string ||
-                  `UTC${settings.timezone.offset}`
-                }`
-              : __('Select Date', '@@text_domain')}
-          </Button>
-          {isPickerOpen ? (
-            <Popover
-              className="ghostkit-components-date-time-picker-popover"
-              onClose={() => this.setState({ isPickerOpen: false })}
-            >
-              <WPDateTimePicker
-                label={label}
-                currentDate={luxon.DateTime.fromISO(value).isValid ? value : ''}
-                onChange={onChange}
-                is12Hour={is12Hour}
-              />
-            </Popover>
-          ) : (
-            ''
-          )}
-        </div>
-      </BaseControl>
-    );
-  }
+  return (
+    <BaseControl label={label} className="ghostkit-components-date-time-picker">
+      <div>
+        <Button isLink onClick={() => setIsPickerOpen(!isPickerOpen)}>
+          {value
+            ? `${dateI18n(resolvedFormat, value)} ${
+                settings.timezone.abbr ||
+                settings.timezone.string ||
+                `UTC${settings.timezone.offset}`
+              }`
+            : __('Select Date', '@@text_domain')}
+        </Button>
+        {isPickerOpen ? (
+          <Popover
+            className="ghostkit-components-date-time-picker-popover"
+            onClose={() => setIsPickerOpen(false)}
+          >
+            <WPDateTimePicker
+              label={label}
+              currentDate={luxon.DateTime.fromISO(value).isValid ? value : ''}
+              onChange={onChange}
+              is12Hour={is12Hour}
+            />
+          </Popover>
+        ) : null}
+      </div>
+    </BaseControl>
+  );
 }

@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 /**
  * External dependencies
  */
@@ -252,7 +251,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
       // add new SR controls.
       return (
         <Fragment>
-          <OriginalComponent {...props} setState={this.setState} />
+          <OriginalComponent {...props} />
           <BlockControls group="other">
             <ToolbarGroup>
               <DropdownMenu
