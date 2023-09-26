@@ -24,7 +24,7 @@ const { GHOSTKIT } = window;
 
 export const name = 'ghostkit';
 
-export const icon = <div className="ghostkit-plugin-icon">{getIcon('plugin-ghostkit')}</div>;
+export const icon = <div className="ghostkit-plugin-icon">{getIcon('ghostkit-logo')}</div>;
 
 export class Plugin extends Component {
   constructor(props) {

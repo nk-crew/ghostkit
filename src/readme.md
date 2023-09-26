@@ -1,4 +1,4 @@
-# Ghost Kit – Page Builder Blocks and Extensions for Gutenberg #
+# Ghost Kit – Page Builder Blocks & Extensions #
 
 * Contributors: nko
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder

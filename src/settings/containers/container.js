@@ -7,7 +7,7 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import getPages from '../pages';
-import Logo from '../assets/logo.svg';
+import Logo from '../../gutenberg/icons/ghostkit-text-logo.svg';
 
 /**
  * WordPress dependencies
@@ -121,11 +121,12 @@ export default class Container extends Component {
       <Fragment>
         <div className="ghostkit-admin-head">
           <div className="ghostkit-admin-head-wrap">
-            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-            <a href="https://ghostkit.io/?utm_source=plugin&utm_medium=settings&utm_campaign=logo&utm_content=@@plugin_version">
+            <a
+              href="https://ghostkit.io/?utm_source=plugin&utm_medium=settings&utm_campaign=logo&utm_content=@@plugin_version"
+              aria-label={__('Ghost Kit', '@@text_domain')}
+            >
               <Logo />
             </a>
-            <h1>{__('Ghost Kit')}</h1>
             <ul className="ghostkit-admin-tabs">{resultTabs}</ul>
           </div>
         </div>

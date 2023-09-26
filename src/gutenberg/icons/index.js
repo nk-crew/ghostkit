@@ -1,6 +1,7 @@
 /**
  * Internal dependencies
  */
+import ghostkitLogo from './ghostkit-logo.svg';
 import blockAccordion from './block-accordion.svg';
 import blockAlert from './block-alert.svg';
 import blockButton from './block-button.svg';
@@ -41,7 +42,6 @@ import blockFormFieldSelect from './block-form-field-select.svg';
 import blockFormFieldText from './block-form-field-text.svg';
 import blockFormFieldTextarea from './block-form-field-textarea.svg';
 import blockFormFieldUrl from './block-form-field-url.svg';
-import pluginGhostkit from './plugin-ghostkit.svg';
 import pluginTemplates from './plugin-templates.svg';
 import pluginCustomCode from './plugin-custom-code.svg';
 import pluginColorPalette from './plugin-color-palette.svg';
@@ -102,6 +102,8 @@ import iconTypographyAdobeFonts from './icon-typography-adobe-fonts.svg';
 import iconTypographyCustomFonts from './icon-typography-custom-fonts.svg';
 
 export default {
+  'ghostkit-logo': ghostkitLogo,
+
   'block-accordion': blockAccordion,
   'block-alert': blockAlert,
   'block-button': blockButton,
@@ -143,7 +145,6 @@ export default {
   'block-form-field-textarea': blockFormFieldTextarea,
   'block-form-field-url': blockFormFieldUrl,
 
-  'plugin-ghostkit': pluginGhostkit,
   'plugin-templates': pluginTemplates,
   'plugin-custom-code': pluginCustomCode,
   'plugin-color-palette': pluginColorPalette,
