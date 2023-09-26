@@ -27,6 +27,14 @@
   .ghostkit-gif-input {
     flex: 1;
     min-width: 100px;
+
+    .components-base-control__field {
+      margin-bottom: 0;
+    }
+
+    .components-text-control__input {
+      height: 36px;
+    }
   }
 }
 

@@ -16,7 +16,7 @@ const { __ } = wp.i18n;
 
 const { applyFilters, addFilter } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment } = wp.element;
 
 const { createHigherOrderComponent } = wp.compose;
 
@@ -42,72 +42,50 @@ let initialOpenPanel = false;
 /**
  * Position Component.
  */
-class PositionComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.setPosition = this.setPosition.bind(this);
-    this.updatePosition = this.updatePosition.bind(this);
-    this.getCurrentPosition = this.getCurrentPosition.bind(this);
-  }
+function PositionComponent(props) {
+  const { attributes, setAttributes, name } = props;
+  const { ghostkitPosition = {} } = attributes;
 
   /**
    * Get current position for selected device type.
    *
-   * @param {String} name - name of position.
+   * @param {String} posName - name of position.
    * @param {String} device - position for device.
    *
    * @returns {String} position value.
    */
-  getCurrentPosition(name, device) {
-    const { ghostkitPosition = {} } = this.props.attributes;
+  function getCurrentPosition(posName, device) {
     let result = '';
 
     if (!device) {
-      if (ghostkitPosition[name]) {
-        result = ghostkitPosition[name];
+      if (ghostkitPosition[posName]) {
+        result = ghostkitPosition[posName];
       }
-    } else if (ghostkitPosition[device] && ghostkitPosition[device][name]) {
-      result = ghostkitPosition[device][name];
+    } else if (ghostkitPosition[device] && ghostkitPosition[device][posName]) {
+      result = ghostkitPosition[device][posName];
     }
 
     return result;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  getNewPosition(name, val, device) {
+  function getNewPosition(posName, val, device) {
     const newPosition = {};
 
     if (device) {
       newPosition[device] = {};
-      newPosition[device][name] = val;
+      newPosition[device][posName] = val;
     } else {
-      newPosition[name] = val;
+      newPosition[posName] = val;
     }
 
     return newPosition;
   }
 
-  /**
-   * Set new position value.
-   *
-   * @param {String} name - name of new position.
-   * @param {String} val - value for new position.
-   * @param {String} device - position for device.
-   */
-  setPosition(name, val, device) {
-    const newPosition = this.getNewPosition(name, val, device);
-
-    this.updatePosition(newPosition);
-  }
-
-  updatePosition(newPosition) {
-    const { setAttributes } = this.props;
-    let { ghostkitPosition = {} } = this.props.attributes;
+  function updatePosition(newPosition) {
     const result = {};
 
     // add default properties to keep sorting.
-    ghostkitPosition = merge(
+    const newGhostkitPosition = merge(
       {
         media_xl: {},
         media_lg: {},
@@ -119,19 +97,19 @@ class PositionComponent extends Component {
     );
 
     // validate values.
-    Object.keys(ghostkitPosition).forEach((key) => {
+    Object.keys(newGhostkitPosition).forEach((key) => {
       // We have to check for empty value to remove it from attributes.
-      if (ghostkitPosition[key] !== '') {
+      if (newGhostkitPosition[key] !== '') {
         // check if device object.
-        if (typeof ghostkitPosition[key] === 'object') {
-          Object.keys(ghostkitPosition[key]).forEach((keyDevice) => {
+        if (typeof newGhostkitPosition[key] === 'object') {
+          Object.keys(newGhostkitPosition[key]).forEach((keyDevice) => {
             if (!result[key]) {
               result[key] = {};
             }
-            result[key][keyDevice] = ghostkitPosition[key][keyDevice];
+            result[key][keyDevice] = newGhostkitPosition[key][keyDevice];
           });
         } else {
-          result[key] = ghostkitPosition[key];
+          result[key] = newGhostkitPosition[key];
         }
       }
     });
@@ -141,203 +119,206 @@ class PositionComponent extends Component {
     });
   }
 
-  render() {
-    const { props } = this;
-    let allow = false;
+  /**
+   * Set new position value.
+   *
+   * @param {String} posName - name of new position.
+   * @param {String} val - value for new position.
+   * @param {String} device - position for device.
+   */
+  function setPosition(posName, val, device) {
+    const newPosition = getNewPosition(posName, val, device);
 
-    const { ghostkitPosition } = props.attributes;
+    updatePosition(newPosition);
+  }
 
-    if (GHOSTKIT.hasBlockSupport(props.name, 'position', false)) {
-      allow = true;
-    }
+  let allow = false;
 
-    if (!allow) {
-      allow = checkCoreBlock(props.name);
-      allow = applyFilters('ghostkit.blocks.allowPosition', allow, props, props.name);
-    }
+  if (GHOSTKIT.hasBlockSupport(name, 'position', false)) {
+    allow = true;
+  }
 
-    if (!allow) {
-      return null;
-    }
+  if (!allow) {
+    allow = checkCoreBlock(name);
+    allow = applyFilters('ghostkit.blocks.allowPosition', allow, props, name);
+  }
 
-    const filledTabs = {};
-    const allPositionOptions = ['position', 'location', 'offsetY', 'offsetX', 'width', 'zIndex'];
-    if (
-      ghostkitVariables &&
-      ghostkitVariables.media_sizes &&
-      Object.keys(ghostkitVariables.media_sizes).length
-    ) {
-      ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-        filledTabs[media] = false;
-        allPositionOptions.forEach((option) => {
-          if (this.getCurrentPosition(option, media !== 'all' ? `media_${media}` : '')) {
-            filledTabs[media] = true;
-          }
-        });
+  if (!allow) {
+    return null;
+  }
+
+  const filledTabs = {};
+  const allPositionOptions = ['position', 'location', 'offsetY', 'offsetX', 'width', 'zIndex'];
+  if (
+    ghostkitVariables &&
+    ghostkitVariables.media_sizes &&
+    Object.keys(ghostkitVariables.media_sizes).length
+  ) {
+    ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
+      filledTabs[media] = false;
+      allPositionOptions.forEach((option) => {
+        if (getCurrentPosition(option, media !== 'all' ? `media_${media}` : '')) {
+          filledTabs[media] = true;
+        }
       });
-    }
+    });
+  }
 
-    // add new position controls.
-    return (
-      <InspectorControls group="styles">
-        <PanelBody
-          title={
-            <Fragment>
-              <span className="ghostkit-ext-icon">{getIcon('extension-position')}</span>
-              <span>{__('Position', '@@text_domain')}</span>
-              {ghostkitPosition && Object.keys(ghostkitPosition).length ? <ActiveIndicator /> : ''}
-            </Fragment>
-          }
-          initialOpen={initialOpenPanel}
-          onToggle={() => {
-            initialOpenPanel = !initialOpenPanel;
+  // add new position controls.
+  return (
+    <InspectorControls group="styles">
+      <PanelBody
+        title={
+          <Fragment>
+            <span className="ghostkit-ext-icon">{getIcon('extension-position')}</span>
+            <span>{__('Position', '@@text_domain')}</span>
+            {ghostkitPosition && Object.keys(ghostkitPosition).length ? <ActiveIndicator /> : ''}
+          </Fragment>
+        }
+        initialOpen={initialOpenPanel}
+        onToggle={() => {
+          initialOpenPanel = !initialOpenPanel;
+        }}
+      >
+        {['absolute', 'fixed', 'relative'].includes(getCurrentPosition('position')) ? (
+          <Notice status="info" isDismissible={false}>
+            {__(
+              'Please note! Custom positioning is not considered best practice for responsive web design and should not be used too frequently.',
+              '@@text_domain'
+            )}
+          </Notice>
+        ) : null}
+        <SelectControl
+          value={getCurrentPosition('position')}
+          options={[
+            {
+              value: '',
+              label: __('Default', '@@text_domain'),
+            },
+            {
+              value: 'absolute',
+              label: __('Absolute', '@@text_domain'),
+            },
+            {
+              value: 'fixed',
+              label: __('Fixed', '@@text_domain'),
+            },
+            {
+              value: 'relative',
+              label: __('Relative', '@@text_domain'),
+            },
+          ]}
+          onChange={(val) => {
+            let updatedPosition = getNewPosition('position', val);
+
+            if (['absolute', 'fixed', 'relative'].includes(val) && !getCurrentPosition('zIndex')) {
+              updatedPosition = merge(updatedPosition, getNewPosition('zIndex', 1));
+            }
+
+            updatePosition(updatedPosition);
           }}
-        >
-          {['absolute', 'fixed', 'relative'].includes(this.getCurrentPosition('position')) ? (
-            <Notice status="info" isDismissible={false}>
-              {__(
-                'Please note! Custom positioning is not considered best practice for responsive web design and should not be used too frequently.',
-                '@@text_domain'
-              )}
-            </Notice>
-          ) : null}
+        />
+        {['absolute', 'fixed', 'relative'].includes(getCurrentPosition('position')) ? (
           <SelectControl
-            value={this.getCurrentPosition('position')}
+            label={__('Location', '@@text_domain')}
+            value={getCurrentPosition('location')}
             options={[
               {
                 value: '',
-                label: __('Default', '@@text_domain'),
+                label: __('Top Left', '@@text_domain'),
               },
               {
-                value: 'absolute',
-                label: __('Absolute', '@@text_domain'),
+                value: 'top-right',
+                label: __('Top Right', '@@text_domain'),
               },
               {
-                value: 'fixed',
-                label: __('Fixed', '@@text_domain'),
+                value: 'bottom-left',
+                label: __('Bottom Left', '@@text_domain'),
               },
               {
-                value: 'relative',
-                label: __('Relative', '@@text_domain'),
+                value: 'bottom-right',
+                label: __('Bottom Right', '@@text_domain'),
               },
             ]}
-            onChange={(val) => {
-              let updatedPosition = this.getNewPosition('position', val);
-
-              if (
-                ['absolute', 'fixed', 'relative'].includes(val) &&
-                !this.getCurrentPosition('zIndex')
-              ) {
-                updatedPosition = merge(updatedPosition, this.getNewPosition('zIndex', 1));
-              }
-
-              this.updatePosition(updatedPosition);
-            }}
+            onChange={(nextValue) => setPosition('location', nextValue)}
           />
-          {['absolute', 'fixed', 'relative'].includes(this.getCurrentPosition('position')) ? (
-            <SelectControl
-              label={__('Location', '@@text_domain')}
-              value={this.getCurrentPosition('location')}
-              options={[
-                {
-                  value: '',
-                  label: __('Top Left', '@@text_domain'),
-                },
-                {
-                  value: 'top-right',
-                  label: __('Top Right', '@@text_domain'),
-                },
-                {
-                  value: 'bottom-left',
-                  label: __('Bottom Left', '@@text_domain'),
-                },
-                {
-                  value: 'bottom-right',
-                  label: __('Bottom Right', '@@text_domain'),
-                },
-              ]}
-              onChange={(nextValue) => this.setPosition('location', nextValue)}
-            />
-          ) : null}
-          <ResponsiveTabPanel filledTabs={filledTabs}>
-            {(tabData) => {
-              let device = '';
+        ) : null}
+        <ResponsiveTabPanel filledTabs={filledTabs}>
+          {(tabData) => {
+            let device = '';
 
-              if (tabData.name !== 'all') {
-                device = `media_${tabData.name}`;
-              }
+            if (tabData.name !== 'all') {
+              device = `media_${tabData.name}`;
+            }
 
-              return (
-                <BaseControl className="ghostkit-control-position">
-                  {['absolute', 'fixed', 'relative'].includes(
-                    this.getCurrentPosition('position')
-                  ) ? (
-                    <Fragment>
-                      <UnitControl
-                        label={__('Vertical Offset', '@@text_domain')}
-                        value={this.getCurrentPosition('offsetY', device)}
-                        onChange={(val) => this.setPosition('offsetY', val, device)}
-                        labelPosition="edge"
-                        __unstableInputWidth="70px"
-                        units={[
-                          { value: 'px', label: 'px' },
-                          { value: '%', label: '%' },
-                          { value: 'em', label: 'em' },
-                          { value: 'rem', label: 'rem' },
-                          { value: 'vw', label: 'vw' },
-                          { value: 'vh', label: 'vh' },
-                        ]}
-                      />
-                      <UnitControl
-                        label={__('Horizontal Offset', '@@text_domain')}
-                        value={this.getCurrentPosition('offsetX', device)}
-                        onChange={(val) => this.setPosition('offsetX', val, device)}
-                        labelPosition="edge"
-                        __unstableInputWidth="70px"
-                        units={[
-                          { value: 'px', label: 'px' },
-                          { value: '%', label: '%' },
-                          { value: 'em', label: 'em' },
-                          { value: 'rem', label: 'rem' },
-                          { value: 'vw', label: 'vw' },
-                          { value: 'vh', label: 'vh' },
-                        ]}
-                      />
-                      <UnitControl
-                        label={__('Width', '@@text_domain')}
-                        value={this.getCurrentPosition('width', device)}
-                        onChange={(val) => this.setPosition('width', val, device)}
-                        labelPosition="edge"
-                        __unstableInputWidth="70px"
-                        units={[
-                          { value: 'px', label: 'px' },
-                          { value: '%', label: '%' },
-                          { value: 'em', label: 'em' },
-                          { value: 'rem', label: 'rem' },
-                          { value: 'vw', label: 'vw' },
-                          { value: 'vh', label: 'vh' },
-                        ]}
-                        min={0}
-                      />
-                    </Fragment>
-                  ) : null}
-                  <NumberControl
-                    label={__('zIndex', '@@text_domain')}
-                    value={this.getCurrentPosition('zIndex', device) ?? ''}
-                    onChange={(val) => {
-                      this.setPosition('zIndex', val, device);
-                    }}
-                    labelPosition="edge"
-                    __unstableInputWidth="70px"
-                  />
-                </BaseControl>
-              );
-            }}
-          </ResponsiveTabPanel>
-        </PanelBody>
-      </InspectorControls>
-    );
-  }
+            return (
+              <BaseControl className="ghostkit-control-position">
+                {['absolute', 'fixed', 'relative'].includes(getCurrentPosition('position')) ? (
+                  <Fragment>
+                    <UnitControl
+                      label={__('Vertical Offset', '@@text_domain')}
+                      value={getCurrentPosition('offsetY', device)}
+                      onChange={(val) => setPosition('offsetY', val, device)}
+                      labelPosition="edge"
+                      __unstableInputWidth="70px"
+                      units={[
+                        { value: 'px', label: 'px' },
+                        { value: '%', label: '%' },
+                        { value: 'em', label: 'em' },
+                        { value: 'rem', label: 'rem' },
+                        { value: 'vw', label: 'vw' },
+                        { value: 'vh', label: 'vh' },
+                      ]}
+                    />
+                    <UnitControl
+                      label={__('Horizontal Offset', '@@text_domain')}
+                      value={getCurrentPosition('offsetX', device)}
+                      onChange={(val) => setPosition('offsetX', val, device)}
+                      labelPosition="edge"
+                      __unstableInputWidth="70px"
+                      units={[
+                        { value: 'px', label: 'px' },
+                        { value: '%', label: '%' },
+                        { value: 'em', label: 'em' },
+                        { value: 'rem', label: 'rem' },
+                        { value: 'vw', label: 'vw' },
+                        { value: 'vh', label: 'vh' },
+                      ]}
+                    />
+                    <UnitControl
+                      label={__('Width', '@@text_domain')}
+                      value={getCurrentPosition('width', device)}
+                      onChange={(val) => setPosition('width', val, device)}
+                      labelPosition="edge"
+                      __unstableInputWidth="70px"
+                      units={[
+                        { value: 'px', label: 'px' },
+                        { value: '%', label: '%' },
+                        { value: 'em', label: 'em' },
+                        { value: 'rem', label: 'rem' },
+                        { value: 'vw', label: 'vw' },
+                        { value: 'vh', label: 'vh' },
+                      ]}
+                      min={0}
+                    />
+                  </Fragment>
+                ) : null}
+                <NumberControl
+                  label={__('zIndex', '@@text_domain')}
+                  value={getCurrentPosition('zIndex', device) ?? ''}
+                  onChange={(val) => {
+                    setPosition('zIndex', val, device);
+                  }}
+                  labelPosition="edge"
+                  __unstableInputWidth="70px"
+                />
+              </BaseControl>
+            );
+          }}
+        </ResponsiveTabPanel>
+      </PanelBody>
+    </InspectorControls>
+  );
 }
 
 /**

@@ -24,7 +24,7 @@ const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment } = wp.element;
 
 const { useSelect } = wp.data;
 
@@ -108,12 +108,9 @@ function getCurrentColumns(className, screen) {
 /**
  * List Columns
  */
-class GhostKitListColumns extends Component {
-  constructor(props) {
-    super(props);
-
-    this.updateColumns = this.updateColumns.bind(this);
-  }
+function GhostKitListColumns(props) {
+  const { attributes, setAttributes } = props;
+  const { className } = attributes;
 
   /**
    * Update columns count class.
@@ -121,11 +118,7 @@ class GhostKitListColumns extends Component {
    * @param {String} screen - name of screen size.
    * @param {String} val - value for columns count.
    */
-  updateColumns(screen, val) {
-    const { attributes, setAttributes } = this.props;
-
-    const { className } = attributes;
-
+  function updateColumns(screen, val) {
     let newClassName = className;
 
     if (screen && screen !== 'all') {
@@ -145,41 +138,35 @@ class GhostKitListColumns extends Component {
     });
   }
 
-  render() {
-    const { attributes } = this.props;
-
-    const { className } = attributes;
-
-    const filledTabs = {};
-    if (
-      ghostkitVariables &&
-      ghostkitVariables.media_sizes &&
-      Object.keys(ghostkitVariables.media_sizes).length
-    ) {
-      ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-        filledTabs[media] = !!getCurrentColumns(className, media);
-      });
-    }
-
-    // add new display controls.
-    return (
-      <InspectorControls>
-        <PanelBody title={__('Columns Settings', '@@text_domain')} initialOpen>
-          <ResponsiveTabPanel filledTabs={filledTabs}>
-            {(tabData) => (
-              <RangeControl
-                label={__('Columns Count', '@@text_domain')}
-                value={parseInt(getCurrentColumns(className, tabData.name), 10)}
-                onChange={(value) => this.updateColumns(tabData.name, value)}
-                min={1}
-                max={COLUMNS_COUNT_MAX}
-              />
-            )}
-          </ResponsiveTabPanel>
-        </PanelBody>
-      </InspectorControls>
-    );
+  const filledTabs = {};
+  if (
+    ghostkitVariables &&
+    ghostkitVariables.media_sizes &&
+    Object.keys(ghostkitVariables.media_sizes).length
+  ) {
+    ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
+      filledTabs[media] = !!getCurrentColumns(className, media);
+    });
   }
+
+  // add new display controls.
+  return (
+    <InspectorControls>
+      <PanelBody title={__('Columns Settings', '@@text_domain')} initialOpen>
+        <ResponsiveTabPanel filledTabs={filledTabs}>
+          {(tabData) => (
+            <RangeControl
+              label={__('Columns Count', '@@text_domain')}
+              value={parseInt(getCurrentColumns(className, tabData.name), 10)}
+              onChange={(value) => updateColumns(tabData.name, value)}
+              min={1}
+              max={COLUMNS_COUNT_MAX}
+            />
+          )}
+        </ResponsiveTabPanel>
+      </PanelBody>
+    </InspectorControls>
+  );
 }
 
 /**
@@ -224,51 +211,47 @@ function GhostKitListStartAndReversedCustomStyles(props) {
  * @return {string} Wrapped component.
  */
 const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
-  class GhostKitIconListWrapper extends Component {
-    render() {
-      const { props } = this;
+  function GhostKitIconListWrapper(props) {
+    const { setAttributes, attributes } = props;
 
-      const { setAttributes, attributes } = props;
+    const { ghostkitListIcon, ghostkitListIconColor, className } = attributes;
 
-      const { ghostkitListIcon, ghostkitListIconColor, className } = attributes;
+    if (props.name !== 'core/list') {
+      return <OriginalComponent {...props} />;
+    }
 
-      if (props.name !== 'core/list') {
-        return <OriginalComponent {...props} />;
-      }
-
-      if (!hasClass(className, 'is-style-icon')) {
-        return (
-          <Fragment>
-            <OriginalComponent {...props} />
-            <GhostKitListColumns {...props} />
-            <GhostKitListStartAndReversedCustomStyles {...props} />
-          </Fragment>
-        );
-      }
-
-      // add new display controls.
+    if (!hasClass(className, 'is-style-icon')) {
       return (
         <Fragment>
-          <OriginalComponent {...props} setState={this.setState} />
+          <OriginalComponent {...props} />
           <GhostKitListColumns {...props} />
-          <InspectorControls>
-            <PanelBody title={__('Icon Settings', '@@text_domain')} initialOpen>
-              <IconPicker
-                label={__('Icon', '@@text_domain')}
-                value={ghostkitListIcon}
-                onChange={(value) => setAttributes({ ghostkitListIcon: value })}
-              />
-              <ColorPicker
-                label={__('Color', '@@text_domain')}
-                value={ghostkitListIconColor}
-                onChange={(val) => setAttributes({ ghostkitListIconColor: val })}
-                alpha
-              />
-            </PanelBody>
-          </InspectorControls>
+          <GhostKitListStartAndReversedCustomStyles {...props} />
         </Fragment>
       );
     }
+
+    // add new display controls.
+    return (
+      <Fragment>
+        <OriginalComponent {...props} />
+        <GhostKitListColumns {...props} />
+        <InspectorControls>
+          <PanelBody title={__('Icon Settings', '@@text_domain')} initialOpen>
+            <IconPicker
+              label={__('Icon', '@@text_domain')}
+              value={ghostkitListIcon}
+              onChange={(value) => setAttributes({ ghostkitListIcon: value })}
+            />
+            <ColorPicker
+              label={__('Color', '@@text_domain')}
+              value={ghostkitListIconColor}
+              onChange={(val) => setAttributes({ ghostkitListIconColor: val })}
+              alpha
+            />
+          </PanelBody>
+        </InspectorControls>
+      </Fragment>
+    );
   }
 
   return GhostKitIconListWrapper;

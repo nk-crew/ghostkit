@@ -24,15 +24,12 @@ const {
   BlockControls,
   BlockAlignmentToolbar,
   useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
+  useInnerBlocksProps,
 } = wp.blockEditor;
 
 const { createBlock } = wp.blocks;
 
 const { useSelect, useDispatch } = wp.data;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
 
 const buttonBlockName = 'ghostkit/button-single';
 

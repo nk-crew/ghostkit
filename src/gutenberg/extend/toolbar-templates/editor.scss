@@ -4,9 +4,7 @@
 .ghostkit-toolbar-templates {
   white-space: nowrap;
 
-  svg {
-    margin-top: -2px;
-    margin-right: 6px;
-    margin-bottom: -2px;
+  .components-button {
+    gap: 6px;
   }
 }

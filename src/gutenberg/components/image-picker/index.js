@@ -6,48 +6,42 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
-
 const { BaseControl } = wp.components;
 
 /**
  * Component Class
  */
-export default class ImagePicker extends Component {
-  render() {
-    const { value, options, itemsPerRow = 2, onChange, label } = this.props;
+export default function ImagePicker(props) {
+  const { value, options, itemsPerRow = 2, onChange, label } = props;
 
-    return (
-      <BaseControl
-        label={label}
-        className={classnames(
-          'ghostkit-component-image-picker',
-          `ghostkit-component-image-picker-${itemsPerRow}`
-        )}
-      >
-        {options.map((option) => (
-          // eslint-disable-next-line react/button-has-type
-          <button
-            key={`image-pircker-${option.value}`}
-            onClick={() => {
-              onChange(option.value);
-            }}
-            className={classnames(
-              'ghostkit-component-image-picker-item',
-              value === option.value ? 'ghostkit-component-image-picker-item-active' : '',
-              option.className
-            )}
-          >
-            {option.image && typeof option.image === 'string' ? (
-              <img src={option.image} alt={option.label || option.value} />
-            ) : (
-              ''
-            )}
-            {option.image && typeof option.image !== 'string' ? option.image : ''}
-            {option.label ? <span>{option.label}</span> : ''}
-          </button>
-        ))}
-      </BaseControl>
-    );
-  }
+  return (
+    <BaseControl
+      label={label}
+      className={classnames(
+        'ghostkit-component-image-picker',
+        `ghostkit-component-image-picker-${itemsPerRow}`
+      )}
+    >
+      {options.map((option) => (
+        // eslint-disable-next-line react/button-has-type
+        <button
+          key={`image-pircker-${option.value}`}
+          onClick={() => {
+            onChange(option.value);
+          }}
+          className={classnames(
+            'ghostkit-component-image-picker-item',
+            value === option.value ? 'ghostkit-component-image-picker-item-active' : '',
+            option.className
+          )}
+        >
+          {option.image && typeof option.image === 'string' ? (
+            <img src={option.image} alt={option.label || option.value} />
+          ) : null}
+          {option.image && typeof option.image !== 'string' ? option.image : ''}
+          {option.label ? <span>{option.label}</span> : ''}
+        </button>
+      ))}
+    </BaseControl>
+  );
 }

@@ -1,5 +1,6 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
   "name": "ghostkit/markdown",
   "category": "ghostkit",
   "title": "Markdown",
@@ -7,8 +8,8 @@
   "keywords": ["formatting", "markup", "md"],
   "supports": {
     "html": false,
-    "className": true,
-    "anchor": false
+    "className": false,
+    "anchor": true
   },
   "attributes": {
     "content": {

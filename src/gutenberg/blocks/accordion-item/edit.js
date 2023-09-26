@@ -13,25 +13,12 @@ import getUniqueSlug from '../../utils/get-unique-slug';
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-
 const { __ } = wp.i18n;
-
 const { useEffect, useRef } = wp.element;
-
 const { useSelect } = wp.data;
+const { ToolbarGroup, ToolbarButton } = wp.components;
 
-const { ToolbarButton } = wp.components;
-
-const {
-  BlockControls,
-  InnerBlocks,
-  RichText,
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
+const { BlockControls, InnerBlocks, RichText, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Edit Class.
@@ -103,12 +90,14 @@ export default function BlockEdit(props) {
   return (
     <>
       <BlockControls>
-        <ToolbarButton
-          icon={getIcon('icon-collapse')}
-          label={__('Collapse', '@@text_domain')}
-          onClick={() => setAttributes({ active: !active })}
-          isActive={active}
-        />
+        <ToolbarGroup>
+          <ToolbarButton
+            icon={getIcon('icon-collapse')}
+            label={__('Collapse', '@@text_domain')}
+            onClick={() => setAttributes({ active: !active })}
+            isActive={active}
+          />
+        </ToolbarGroup>
       </BlockControls>
       <div {...blockProps}>
         <TitleTag className="ghostkit-accordion-item-heading">

@@ -8,7 +8,7 @@ import getIcon from '../../utils/get-icon';
  */
 const { __ } = wp.i18n;
 
-const { Component, Fragment } = wp.element;
+const { Fragment } = wp.element;
 
 const { RichTextToolbarButton, RichTextShortcut } = wp.blockEditor;
 
@@ -20,16 +20,10 @@ export const settings = {
   title: __('Highlight', '@@text_domain'),
   tagName: 'mark',
   className: 'ghostkit-highlight',
-  edit: class HighlightFormat extends Component {
-    constructor(props) {
-      super(props);
+  edit: function HighlightFormat(props) {
+    const { value, onChange, isActive } = props;
 
-      this.toggleMark = this.toggleMark.bind(this);
-    }
-
-    toggleMark() {
-      const { value, onChange } = this.props;
-
+    function toggleMark() {
       onChange(
         toggleFormat(value, {
           type: name,
@@ -37,27 +31,23 @@ export const settings = {
       );
     }
 
-    render() {
-      const { isActive } = this.props;
-
-      // Since this format is deprecated, we don't need to display it in UI.
-      if (!isActive) {
-        return null;
-      }
-
-      return (
-        <Fragment>
-          <RichTextShortcut type="access" character="m" onUse={this.toggleMark} />
-          <RichTextToolbarButton
-            shortcutCharacter="m"
-            shortcutType="access"
-            title={__('Highlight', '@@text_domain')}
-            icon={getIcon('icon-felt-pen')}
-            onClick={this.toggleMark}
-            isActive={isActive}
-          />
-        </Fragment>
-      );
+    // Since this format is deprecated, we don't need to display it in UI.
+    if (!isActive) {
+      return null;
     }
+
+    return (
+      <Fragment>
+        <RichTextShortcut type="access" character="m" onUse={() => toggleMark()} />
+        <RichTextToolbarButton
+          shortcutCharacter="m"
+          shortcutType="access"
+          title={__('Highlight', '@@text_domain')}
+          icon={getIcon('icon-felt-pen')}
+          onClick={() => toggleMark()}
+          isActive={isActive}
+        />
+      </Fragment>
+    );
   },
 };
