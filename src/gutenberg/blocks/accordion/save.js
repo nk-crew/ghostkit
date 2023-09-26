@@ -14,37 +14,29 @@ const { name } = metadata;
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-
-const { Component } = wp.element;
-
-const { InnerBlocks } = wp.blockEditor;
+const { useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Save Class.
  */
-class BlockSave extends Component {
-  render() {
-    const { itemsCount, collapseOne } = this.props.attributes;
+export default function BlockSave(props) {
+  const { itemsCount, collapseOne } = props.attributes;
 
-    let className = classnames(
-      'ghostkit-accordion',
-      `ghostkit-accordion-${itemsCount}`,
-      collapseOne ? 'ghostkit-accordion-collapse-one' : ''
-    );
+  let className = classnames(
+    'ghostkit-accordion',
+    `ghostkit-accordion-${itemsCount}`,
+    collapseOne ? 'ghostkit-accordion-collapse-one' : ''
+  );
 
-    className = applyFilters('ghostkit.blocks.className', className, {
-      ...{
-        name,
-      },
-      ...this.props,
-    });
+  className = applyFilters('ghostkit.blocks.className', className, {
+    ...{
+      name,
+    },
+    ...props,
+  });
 
-    return (
-      <div className={className}>
-        <InnerBlocks.Content />
-      </div>
-    );
-  }
+  const blockProps = useBlockProps.save({ className });
+  const innerBlockProps = useInnerBlocksProps.save(blockProps);
+
+  return <div {...innerBlockProps} />;
 }
-
-export default BlockSave;

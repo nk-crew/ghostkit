@@ -18,15 +18,13 @@ const { applyFilters } = wp.hooks;
 
 const { __ } = wp.i18n;
 
-const { Component, Fragment } = wp.element;
+const { useEffect, Fragment } = wp.element;
+
+const { useSelect, useDispatch } = wp.data;
 
 const { BaseControl, PanelBody, TextControl, TextareaControl, ToggleControl } = wp.components;
 
-const { InspectorControls, InnerBlocks } = wp.blockEditor;
-
-const { compose } = wp.compose;
-
-const { withSelect, withDispatch } = wp.data;
+const { InspectorControls, useBlockProps, useInnerBlocksProps, InnerBlocks } = wp.blockEditor;
 
 const TEMPLATE = [
   ['ghostkit/form-field-name', { slug: 'field_name' }],
@@ -48,152 +46,6 @@ const ALLOWED_BLOCKS = [
   'core/divider',
   'ghostkit/divider',
 ];
-
-/**
- * Block Edit Class.
- */
-class BlockEdit extends Component {
-  constructor(props) {
-    super(props);
-
-    this.maybeUpdateFieldSlug = throttle(200, this.maybeUpdateFieldSlug.bind(this));
-  }
-
-  componentDidMount() {
-    this.maybeUpdateFieldSlug();
-  }
-
-  componentDidUpdate() {
-    this.maybeUpdateFieldSlug();
-  }
-
-  maybeUpdateFieldSlug() {
-    this.props.updateFieldsSlugs();
-  }
-
-  render() {
-    const { attributes, setAttributes, isSelectedBlockInRoot } = this.props;
-
-    let { className = '' } = this.props;
-
-    const {
-      mailAllow,
-      mailTo,
-      mailSubject,
-      mailFrom,
-      mailReplyTo,
-      mailMessage,
-
-      confirmationType,
-      confirmationMessage,
-      confirmationRedirect,
-    } = attributes;
-
-    className = classnames(className, 'ghostkit-form');
-
-    className = applyFilters('ghostkit.editor.className', className, this.props);
-
-    return (
-      <Fragment>
-        <InspectorControls>
-          <PanelBody title={__('Mail', '@@text_domain')}>
-            {mailAllow ? (
-              <Fragment>
-                <TextControl
-                  label={__('Send To Email Address', '@@text_domain')}
-                  value={mailTo}
-                  onChange={(val) => setAttributes({ mailTo: val })}
-                />
-                <TextControl
-                  label={__('Subject', '@@text_domain')}
-                  value={mailSubject}
-                  onChange={(val) => setAttributes({ mailSubject: val })}
-                />
-                <TextControl
-                  label={__('From', '@@text_domain')}
-                  value={mailFrom}
-                  onChange={(val) => setAttributes({ mailFrom: val })}
-                />
-                <TextControl
-                  label={__('Reply To', '@@text_domain')}
-                  value={mailReplyTo}
-                  onChange={(val) => setAttributes({ mailReplyTo: val })}
-                />
-                <TextareaControl
-                  label={__('Message', '@@text_domain')}
-                  value={mailMessage}
-                  onChange={(val) => setAttributes({ mailMessage: val })}
-                />
-              </Fragment>
-            ) : (
-              ''
-            )}
-            <BaseControl
-              label={__('Send Email', '@@text_domain')}
-              help={__(
-                "In case if you don't want to receive email messages from this form, you may disable sending emails functionality."
-              )}
-            >
-              <ToggleControl
-                Label={__('Yes', '@@text_domain')}
-                checked={!!mailAllow}
-                onChange={() => setAttributes({ mailAllow: !mailAllow })}
-              />
-            </BaseControl>
-          </PanelBody>
-          <PanelBody title={__('Confirmation', '@@text_domain')}>
-            <ToggleGroup
-              label={__('Type', '@@text_domain')}
-              value={confirmationType}
-              options={[
-                {
-                  label: __('Message', '@@text_domain'),
-                  value: 'message',
-                },
-                {
-                  label: __('Redirect', '@@text_domain'),
-                  value: 'redirect',
-                },
-              ]}
-              onChange={(value) => {
-                setAttributes({ confirmationType: value });
-              }}
-              isDeselectable
-            />
-
-            {!confirmationType || confirmationType === 'message' ? (
-              <TextareaControl
-                label={__('Message', '@@text_domain')}
-                value={confirmationMessage}
-                onChange={(val) => setAttributes({ confirmationMessage: val })}
-              />
-            ) : (
-              ''
-            )}
-            {confirmationType === 'redirect' ? (
-              <TextControl
-                label={__('Redirect URL', '@@text_domain')}
-                value={confirmationRedirect}
-                onChange={(val) => setAttributes({ confirmationRedirect: val })}
-              />
-            ) : (
-              ''
-            )}
-          </PanelBody>
-          <RecaptchaSettings />
-        </InspectorControls>
-        <div className={className}>
-          <InnerBlocks
-            template={TEMPLATE}
-            allowedBlocks={ALLOWED_BLOCKS}
-            renderAppender={() => null}
-          />
-          {isSelectedBlockInRoot ? <InnerBlocks.ButtonBlockAppender /> : ''}
-        </div>
-      </Fragment>
-    );
-  }
-}
 
 /**
  * Parse all Form inner blocks and get Fields data.
@@ -250,64 +102,195 @@ function getUniqueFieldSlug(data, uniqueIds) {
   return newSlug;
 }
 
-export default compose([
-  withSelect((select, ownProps) => {
-    const { getBlock, isBlockSelected, hasSelectedInnerBlock } = select('core/block-editor');
+/**
+ * Block Edit component.
+ */
+export default function BlockEdit(props) {
+  const { attributes, setAttributes, clientId } = props;
 
-    const { clientId } = ownProps;
+  let { className = '' } = props;
 
-    return {
-      allFieldsData: getAllFieldsData(getBlock(ownProps.clientId)),
-      isSelectedBlockInRoot: isBlockSelected(clientId) || hasSelectedInnerBlock(clientId, true),
-    };
-  }),
-  withDispatch((dispatch, ownProps) => {
-    const { updateBlockAttributes } = dispatch('core/block-editor');
+  const {
+    mailAllow,
+    mailTo,
+    mailSubject,
+    mailFrom,
+    mailReplyTo,
+    mailMessage,
 
-    return {
-      updateFieldsSlugs() {
-        const { allFieldsData = [] } = ownProps;
+    confirmationType,
+    confirmationMessage,
+    confirmationRedirect,
+  } = attributes;
 
-        const uniqueIds = {};
+  const { isSelectedBlockInRoot, allFieldsData } = useSelect(
+    (select) => {
+      const { getBlock, isBlockSelected, hasSelectedInnerBlock } = select('core/block-editor');
 
-        // Collect all available slugs.
-        allFieldsData.forEach((data) => {
-          if (!uniqueIds[data.type]) {
-            uniqueIds[data.type] = {};
-          }
-          if (data.attributes.slug) {
-            // Slug already exist.
-            if (typeof uniqueIds[data.type][data.attributes.slug] !== 'undefined') {
-              const newSlug = getUniqueFieldSlug(data, uniqueIds);
+      return {
+        allFieldsData: getAllFieldsData(getBlock(clientId)),
+        isSelectedBlockInRoot: isBlockSelected(clientId) || hasSelectedInnerBlock(clientId, true),
+      };
+    },
+    [clientId]
+  );
 
-              uniqueIds[data.type][newSlug] = true;
+  const { updateBlockAttributes } = useDispatch('core/block-editor');
 
-              updateBlockAttributes(data.clientId, {
-                slug: newSlug,
-              });
-            } else {
-              uniqueIds[data.type][data.attributes.slug] = true;
-            }
-          }
+  function updateFieldsSlugs() {
+    const uniqueIds = {};
+
+    // Collect all available slugs.
+    allFieldsData.forEach((data) => {
+      if (!uniqueIds[data.type]) {
+        uniqueIds[data.type] = {};
+      }
+      if (data.attributes.slug) {
+        // Slug already exist.
+        if (typeof uniqueIds[data.type][data.attributes.slug] !== 'undefined') {
+          const newSlug = getUniqueFieldSlug(data, uniqueIds);
+
+          uniqueIds[data.type][newSlug] = true;
+
+          updateBlockAttributes(data.clientId, {
+            slug: newSlug,
+          });
+        } else {
+          uniqueIds[data.type][data.attributes.slug] = true;
+        }
+      }
+    });
+
+    // Generate slugs for new fields.
+    allFieldsData.forEach((data) => {
+      if (!uniqueIds[data.type]) {
+        uniqueIds[data.type] = {};
+      }
+
+      if (!data.attributes.slug) {
+        const newSlug = getUniqueFieldSlug(data, uniqueIds);
+
+        uniqueIds[data.type][newSlug] = true;
+
+        updateBlockAttributes(data.clientId, {
+          slug: newSlug,
         });
+      }
+    });
+  }
 
-        // Generate slugs for new fields.
-        allFieldsData.forEach((data) => {
-          if (!uniqueIds[data.type]) {
-            uniqueIds[data.type] = {};
-          }
+  const maybeUpdateFieldSlug = throttle(200, () => {
+    updateFieldsSlugs();
+  });
 
-          if (!data.attributes.slug) {
-            const newSlug = getUniqueFieldSlug(data, uniqueIds);
+  // Mount and update.
+  useEffect(() => {
+    maybeUpdateFieldSlug();
+  });
 
-            uniqueIds[data.type][newSlug] = true;
+  className = classnames(className, 'ghostkit-form');
+  className = applyFilters('ghostkit.editor.className', className, props);
 
-            updateBlockAttributes(data.clientId, {
-              slug: newSlug,
-            });
-          }
-        });
-      },
-    };
-  }),
-])(BlockEdit);
+  const blockProps = useBlockProps({ className });
+  const { children, ...innerBlockProps } = useInnerBlocksProps(blockProps, {
+    template: TEMPLATE,
+    allowedBlocks: ALLOWED_BLOCKS,
+    renderAppender: () => null,
+  });
+
+  return (
+    <Fragment>
+      <InspectorControls>
+        <PanelBody title={__('Mail', '@@text_domain')}>
+          {mailAllow ? (
+            <Fragment>
+              <TextControl
+                label={__('Send To Email Address', '@@text_domain')}
+                value={mailTo}
+                onChange={(val) => setAttributes({ mailTo: val })}
+              />
+              <TextControl
+                label={__('Subject', '@@text_domain')}
+                value={mailSubject}
+                onChange={(val) => setAttributes({ mailSubject: val })}
+              />
+              <TextControl
+                label={__('From', '@@text_domain')}
+                value={mailFrom}
+                onChange={(val) => setAttributes({ mailFrom: val })}
+              />
+              <TextControl
+                label={__('Reply To', '@@text_domain')}
+                value={mailReplyTo}
+                onChange={(val) => setAttributes({ mailReplyTo: val })}
+              />
+              <TextareaControl
+                label={__('Message', '@@text_domain')}
+                value={mailMessage}
+                onChange={(val) => setAttributes({ mailMessage: val })}
+              />
+            </Fragment>
+          ) : (
+            ''
+          )}
+          <BaseControl
+            label={__('Send Email', '@@text_domain')}
+            help={__(
+              "In case if you don't want to receive email messages from this form, you may disable sending emails functionality."
+            )}
+          >
+            <ToggleControl
+              Label={__('Yes', '@@text_domain')}
+              checked={!!mailAllow}
+              onChange={() => setAttributes({ mailAllow: !mailAllow })}
+            />
+          </BaseControl>
+        </PanelBody>
+        <PanelBody title={__('Confirmation', '@@text_domain')}>
+          <ToggleGroup
+            label={__('Type', '@@text_domain')}
+            value={confirmationType}
+            options={[
+              {
+                label: __('Message', '@@text_domain'),
+                value: 'message',
+              },
+              {
+                label: __('Redirect', '@@text_domain'),
+                value: 'redirect',
+              },
+            ]}
+            onChange={(value) => {
+              setAttributes({ confirmationType: value });
+            }}
+            isDeselectable
+          />
+
+          {!confirmationType || confirmationType === 'message' ? (
+            <TextareaControl
+              label={__('Message', '@@text_domain')}
+              value={confirmationMessage}
+              onChange={(val) => setAttributes({ confirmationMessage: val })}
+            />
+          ) : (
+            ''
+          )}
+          {confirmationType === 'redirect' ? (
+            <TextControl
+              label={__('Redirect URL', '@@text_domain')}
+              value={confirmationRedirect}
+              onChange={(val) => setAttributes({ confirmationRedirect: val })}
+            />
+          ) : (
+            ''
+          )}
+        </PanelBody>
+        <RecaptchaSettings />
+      </InspectorControls>
+      <div {...innerBlockProps}>
+        {children}
+        {isSelectedBlockInRoot ? <InnerBlocks.ButtonBlockAppender /> : ''}
+      </div>
+    </Fragment>
+  );
+}

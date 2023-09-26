@@ -9,8 +9,6 @@ import { AutoSizer, List } from 'react-virtualized';
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
-
 const rowHeight = 26;
 
 function MenuList(props) {
@@ -47,24 +45,22 @@ function MenuList(props) {
 /**
  * Component Class
  */
-export default class SelectComponent extends Component {
-  render() {
-    const props = {
-      ...(this.props.grouped
-        ? {
-            groupHeaderHeight: 50,
-          }
-        : {}),
-      ...this.props,
-    };
+export default function SelectComponent(props) {
+  const restProps = {
+    ...(props.grouped
+      ? {
+          groupHeaderHeight: 50,
+        }
+      : {}),
+    ...props,
+  };
 
-    return (
-      <Select
-        styles={selectStyles}
-        components={{ MenuList }}
-        {...props}
-        className={classnames(props.className, 'ghostkit-control-select')}
-      />
-    );
-  }
+  return (
+    <Select
+      styles={selectStyles}
+      components={{ MenuList }}
+      {...restProps}
+      className={classnames(restProps.className, 'ghostkit-control-select')}
+    />
+  );
 }

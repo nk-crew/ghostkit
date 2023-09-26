@@ -27,7 +27,7 @@ const { applyFilters } = wp.hooks;
 
 const { __ } = wp.i18n;
 
-const { Component, Fragment } = wp.element;
+const { Fragment, useEffect } = wp.element;
 
 const {
   BaseControl,
@@ -39,12 +39,14 @@ const {
   TextareaControl,
   ExternalLink,
   ToolbarGroup,
+  ToolbarButton,
   Dropdown,
 } = wp.components;
 
-const { withSelect } = wp.data;
+const { useSelect } = wp.data;
 
-const { InspectorControls, BlockControls, MediaUpload, BlockAlignmentToolbar } = wp.blockEditor;
+const { InspectorControls, BlockControls, MediaUpload, BlockAlignmentToolbar, useBlockProps } =
+  wp.blockEditor;
 
 const DEFAULT_SIZE_SLUG = 'full';
 
@@ -82,67 +84,84 @@ function getVideoPoster(url, cb) {
 /**
  * Block Edit Class.
  */
-class BlockEdit extends Component {
-  constructor(props) {
-    super(props);
+export default function BlockEdit(props) {
+  const { attributes, setAttributes, isSelected } = props;
 
-    this.onUpdate = this.onUpdate.bind(this);
-    this.onPosterSelect = this.onPosterSelect.bind(this);
-    this.getAspectRatioPicker = this.getAspectRatioPicker.bind(this);
-  }
+  let { className = '' } = props;
 
-  componentDidMount() {
-    this.onUpdate();
-  }
+  const {
+    type,
+    video,
+    videoPosterPreview,
+    videoMp4,
+    videoOgv,
+    videoWebm,
+    videoAspectRatio,
+    videoVolume,
+    videoAutoplay,
+    videoAutopause,
+    videoLoop,
 
-  componentDidUpdate(prevProps) {
-    const { attributes, setAttributes } = this.props;
+    iconPlay,
+    iconLoading,
 
-    // Change click action to Fullscreen when used Icon Only style.
-    if (
-      attributes.clickAction === 'plain' &&
-      attributes.className !== prevProps.attributes.className &&
-      hasClass(attributes.className, 'is-style-icon-only')
-    ) {
-      setAttributes({ clickAction: 'fullscreen' });
-      return;
-    }
+    posterId,
+    posterUrl,
+    posterAlt,
+    posterWidth,
+    posterHeight,
+    posterSizeSlug,
 
-    // Remove unused classes.
-    if (
-      attributes.className !== prevProps.attributes.className &&
-      !hasClass(attributes.className, 'is-style-icon-only')
-    ) {
-      let newClassName = attributes.className;
+    clickAction,
+    fullscreenBackgroundColor,
+    fullscreenActionCloseIcon,
+  } = attributes;
 
-      newClassName = removeClass(newClassName, 'ghostkit-video-style-icon-only-align-right');
-      newClassName = removeClass(newClassName, 'ghostkit-video-style-icon-only-align-left');
+  const { editorSettings, posterImage } = useSelect((select) => {
+    const { getSettings } = select('core/block-editor');
+    const { getMedia } = select('core');
 
-      if (attributes.className !== newClassName) {
-        setAttributes({ className: newClassName });
-      }
-    }
+    return {
+      editorSettings: getSettings(),
+      posterImage: posterId && isSelected ? getMedia(posterId) : null,
+    };
+  });
 
-    this.onUpdate();
-  }
-
-  onUpdate() {
-    const { setAttributes, attributes } = this.props;
-
+  // Mount and update.
+  useEffect(() => {
     // load YouTube / Vimeo poster
-    if (!attributes.posterId && attributes.type === 'yt_vm_video' && attributes.video) {
-      getVideoPoster(attributes.video, (url) => {
-        if (url !== attributes.videoPosterPreview) {
+    if (!posterId && type === 'yt_vm_video' && video) {
+      getVideoPoster(video, (url) => {
+        if (url !== videoPosterPreview) {
           setAttributes({ videoPosterPreview: url });
         }
       });
     }
-  }
+  });
 
-  onPosterSelect(imageData, imageSize = false) {
-    const { attributes, setAttributes } = this.props;
+  useEffect(() => {
+    // Change click action to Fullscreen when used Icon Only style.
+    if (clickAction === 'plain' && className && hasClass(className, 'is-style-icon-only')) {
+      setAttributes({ clickAction: 'fullscreen' });
+    }
+  }, [clickAction, className]);
 
-    imageSize = imageSize || attributes.posterSizeSlug || DEFAULT_SIZE_SLUG;
+  useEffect(() => {
+    // Remove unused classes.
+    if (className && !hasClass(className, 'is-style-icon-only')) {
+      let newClassName = className;
+
+      newClassName = removeClass(newClassName, 'ghostkit-video-style-icon-only-align-right');
+      newClassName = removeClass(newClassName, 'ghostkit-video-style-icon-only-align-left');
+
+      if (className !== newClassName) {
+        setAttributes({ className: newClassName });
+      }
+    }
+  }, [className]);
+
+  function onPosterSelect(imageData, imageSize = false) {
+    imageSize = imageSize || posterSizeSlug || DEFAULT_SIZE_SLUG;
 
     const result = {
       posterId: imageData.id,
@@ -191,11 +210,7 @@ class BlockEdit extends Component {
     setAttributes(result);
   }
 
-  getAspectRatioPicker() {
-    const { attributes, setAttributes } = this.props;
-
-    const { videoAspectRatio } = attributes;
-
+  function getAspectRatioPicker() {
     return (
       <ImagePicker
         label={__('Aspect Ratio', '@@text_domain')}
@@ -227,557 +242,477 @@ class BlockEdit extends Component {
     );
   }
 
-  render() {
-    const { attributes, setAttributes, editorSettings, posterImage } = this.props;
+  className = classnames('ghostkit-video', className);
 
-    let { className = '' } = this.props;
+  className = applyFilters('ghostkit.editor.className', className, props);
 
-    const {
-      type,
-      video,
-      videoPosterPreview,
-      videoMp4,
-      videoOgv,
-      videoWebm,
-      videoAspectRatio,
-      videoVolume,
-      videoAutoplay,
-      videoAutopause,
-      videoLoop,
+  let styleIconOnlyAlign = 'center';
+  if (hasClass(className, 'ghostkit-video-style-icon-only-align-left')) {
+    styleIconOnlyAlign = 'left';
+  } else if (hasClass(className, 'ghostkit-video-style-icon-only-align-right')) {
+    styleIconOnlyAlign = 'right';
+  }
 
-      iconPlay,
-      iconLoading,
+  let toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-16-9');
+  if (videoAspectRatio === '3:2') {
+    toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-3-2');
+  }
+  if (videoAspectRatio === '4:3') {
+    toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-4-3');
+  }
+  if (videoAspectRatio === '21:9') {
+    toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-21-9');
+  }
 
-      posterId,
-      posterUrl,
-      posterAlt,
-      posterWidth,
-      posterHeight,
-      posterSizeSlug,
+  const blockProps = useBlockProps({ className, 'data-video-aspect-ratio': videoAspectRatio });
 
-      clickAction,
-      fullscreenBackgroundColor,
-      fullscreenActionCloseIcon,
-    } = attributes;
+  return (
+    <div {...blockProps}>
+      <BlockControls>
+        <ToolbarGroup>
+          <Dropdown
+            renderToggle={({ onToggle }) => (
+              <ToolbarButton
+                label={__('Aspect Ratio', '@@text_domain')}
+                icon={toolbarAspectRatioIcon}
+                className="components-toolbar__control"
+                onClick={onToggle}
+              />
+            )}
+            renderContent={() => (
+              <div
+                style={{
+                  minWidth: 260,
+                }}
+              >
+                {getAspectRatioPicker()}
+              </div>
+            )}
+          />
+        </ToolbarGroup>
+      </BlockControls>
+      <InspectorControls>
+        <PanelBody>
+          <ToggleGroup
+            value={type}
+            options={[
+              {
+                label: __('YouTube / Vimeo', '@@text_domain'),
+                value: 'yt_vm_video',
+              },
+              {
+                label: __('Self Hosted', '@@text_domain'),
+                value: 'video',
+              },
+            ]}
+            onChange={(value) => {
+              setAttributes({ type: value });
+            }}
+            isBlock
+          />
+          {type === 'yt_vm_video' && (
+            <TextControl
+              label={__('Video URL', '@@text_domain')}
+              type="url"
+              value={video}
+              onChange={(value) => setAttributes({ video: value })}
+            />
+          )}
 
-    className = classnames('ghostkit-video', className);
+          {/* Preview Video */}
+          {type === 'video' && (videoMp4 || videoOgv || videoWebm) ? (
+            // eslint-disable-next-line jsx-a11y/media-has-caption
+            <video controls>
+              {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : ''}
+              {videoOgv ? <source src={videoOgv} type="video/ogg" /> : ''}
+              {videoWebm ? <source src={videoWebm} type="video/webm" /> : ''}
+            </video>
+          ) : null}
 
-    className = applyFilters('ghostkit.editor.className', className, this.props);
-
-    let styleIconOnlyAlign = 'center';
-    if (hasClass(className, 'ghostkit-video-style-icon-only-align-left')) {
-      styleIconOnlyAlign = 'left';
-    } else if (hasClass(className, 'ghostkit-video-style-icon-only-align-right')) {
-      styleIconOnlyAlign = 'right';
-    }
-
-    let toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-16-9');
-    if (videoAspectRatio === '3:2') {
-      toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-3-2');
-    }
-    if (videoAspectRatio === '4:3') {
-      toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-4-3');
-    }
-    if (videoAspectRatio === '21:9') {
-      toolbarAspectRatioIcon = getIcon('icon-aspect-ratio-21-9');
-    }
-
-    return (
-      <Fragment>
-        <BlockControls>
-          <ToolbarGroup>
-            <Dropdown
-              renderToggle={({ onToggle }) => (
-                <Button
-                  label={__('Aspect Ratio', '@@text_domain')}
-                  icon={toolbarAspectRatioIcon}
-                  className="components-toolbar__control"
-                  onClick={onToggle}
-                />
-              )}
-              renderContent={() => (
-                <div
-                  style={{
-                    minWidth: 260,
-                  }}
-                >
-                  {this.getAspectRatioPicker()}
+          {/* Select Videos */}
+          {type === 'video' && !videoMp4 ? (
+            <MediaUpload
+              onSelect={(media) => {
+                setAttributes({
+                  videoMp4: '',
+                  videoMp4Id: '',
+                });
+                wp.media
+                  .attachment(media.id)
+                  .fetch()
+                  .then((data) => {
+                    setAttributes({
+                      videoMp4: data.url,
+                      videoMp4Id: data.id,
+                    });
+                  });
+              }}
+              allowedTypes={['video/mp4', 'video/m4v']}
+              value={videoMp4}
+              render={({ open }) => (
+                <div style={{ marginBottom: 13 }}>
+                  <Button onClick={open} isPrimary>
+                    {__('Select MP4', '@@text_domain')}
+                  </Button>
                 </div>
               )}
             />
-          </ToolbarGroup>
-          {type === 'yt_vm_video' ? (
-            <ToolbarGroup>
-              <TextControl
-                type="url"
-                value={video}
-                placeholder={__('YouTube / Vimeo URL', '@@text_domain')}
-                onChange={(value) => setAttributes({ video: value })}
-                className="ghostkit-video-toolbar-url"
-              />
-            </ToolbarGroup>
-          ) : (
-            ''
-          )}
-        </BlockControls>
-        <InspectorControls>
-          <PanelBody>
-            <ToggleGroup
-              value={type}
-              options={[
-                {
-                  label: __('YouTube / Vimeo', '@@text_domain'),
-                  value: 'yt_vm_video',
-                },
-                {
-                  label: __('Self Hosted', '@@text_domain'),
-                  value: 'video',
-                },
-              ]}
-              onChange={(value) => {
-                setAttributes({ type: value });
-              }}
-              isBlock
-            />
-            {type === 'yt_vm_video' && (
-              <TextControl
-                label={__('Video URL', '@@text_domain')}
-                type="url"
-                value={video}
-                onChange={(value) => setAttributes({ video: value })}
-              />
-            )}
-
-            {/* Preview Video */}
-            {type === 'video' && (videoMp4 || videoOgv || videoWebm) ? (
-              // eslint-disable-next-line jsx-a11y/media-has-caption
-              <video controls>
-                {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : ''}
-                {videoOgv ? <source src={videoOgv} type="video/ogg" /> : ''}
-                {videoWebm ? <source src={videoWebm} type="video/webm" /> : ''}
-              </video>
-            ) : (
-              ''
-            )}
-
-            {/* Select Videos */}
-            {type === 'video' && !videoMp4 ? (
-              <MediaUpload
-                onSelect={(media) => {
+          ) : null}
+          {type === 'video' && videoMp4 ? (
+            <div>
+              <span>{videoMp4.substring(videoMp4.lastIndexOf('/') + 1)} </span>
+              <Button
+                isLink
+                onClick={(e) => {
                   setAttributes({
                     videoMp4: '',
                     videoMp4Id: '',
                   });
-                  wp.media
-                    .attachment(media.id)
-                    .fetch()
-                    .then((data) => {
-                      setAttributes({
-                        videoMp4: data.url,
-                        videoMp4Id: data.id,
-                      });
-                    });
+                  e.preventDefault();
                 }}
-                allowedTypes={['video/mp4', 'video/m4v']}
-                value={videoMp4}
-                render={({ open }) => (
-                  <div style={{ marginBottom: 13 }}>
-                    <Button onClick={open} isPrimary>
-                      {__('Select MP4', '@@text_domain')}
-                    </Button>
-                  </div>
-                )}
-              />
-            ) : (
-              ''
-            )}
-            {type === 'video' && videoMp4 ? (
-              <div>
-                <span>{videoMp4.substring(videoMp4.lastIndexOf('/') + 1)} </span>
-                <Button
-                  isLink
-                  onClick={(e) => {
+              >
+                {__('(Remove)', '@@text_domain')}
+              </Button>
+              <div style={{ marginBottom: 13 }} />
+            </div>
+          ) : null}
+          {type === 'video' && !videoOgv ? (
+            <MediaUpload
+              onSelect={(media) => {
+                setAttributes({
+                  videoOgv: '',
+                  videoOgvId: '',
+                });
+                wp.media
+                  .attachment(media.id)
+                  .fetch()
+                  .then((data) => {
                     setAttributes({
-                      videoMp4: '',
-                      videoMp4Id: '',
+                      videoOgv: data.url,
+                      videoOgvId: data.id,
                     });
-                    e.preventDefault();
-                  }}
-                >
-                  {__('(Remove)', '@@text_domain')}
-                </Button>
-                <div style={{ marginBottom: 13 }} />
-              </div>
-            ) : (
-              ''
-            )}
-            {type === 'video' && !videoOgv ? (
-              <MediaUpload
-                onSelect={(media) => {
+                  });
+              }}
+              allowedTypes={['video/ogg', 'video/ogv']}
+              value={videoOgv}
+              render={({ open }) => (
+                <div style={{ marginBottom: 13 }}>
+                  <Button onClick={open} isPrimary>
+                    {__('Select OGV', '@@text_domain')}
+                  </Button>
+                </div>
+              )}
+            />
+          ) : null}
+          {type === 'video' && videoOgv ? (
+            <div>
+              <span>{videoOgv.substring(videoOgv.lastIndexOf('/') + 1)} </span>
+              <Button
+                isLink
+                onClick={(e) => {
                   setAttributes({
                     videoOgv: '',
                     videoOgvId: '',
                   });
-                  wp.media
-                    .attachment(media.id)
-                    .fetch()
-                    .then((data) => {
-                      setAttributes({
-                        videoOgv: data.url,
-                        videoOgvId: data.id,
-                      });
-                    });
+                  e.preventDefault();
                 }}
-                allowedTypes={['video/ogg', 'video/ogv']}
-                value={videoOgv}
-                render={({ open }) => (
-                  <div style={{ marginBottom: 13 }}>
-                    <Button onClick={open} isPrimary>
-                      {__('Select OGV', '@@text_domain')}
-                    </Button>
-                  </div>
-                )}
-              />
-            ) : (
-              ''
-            )}
-            {type === 'video' && videoOgv ? (
-              <div>
-                <span>{videoOgv.substring(videoOgv.lastIndexOf('/') + 1)} </span>
-                <Button
-                  isLink
-                  onClick={(e) => {
+              >
+                {__('(Remove)', '@@text_domain')}
+              </Button>
+              <div style={{ marginBottom: 13 }} />
+            </div>
+          ) : null}
+          {type === 'video' && !videoWebm ? (
+            <MediaUpload
+              onSelect={(media) => {
+                setAttributes({
+                  videoWebm: '',
+                  videoWebmId: '',
+                });
+                wp.media
+                  .attachment(media.id)
+                  .fetch()
+                  .then((data) => {
                     setAttributes({
-                      videoOgv: '',
-                      videoOgvId: '',
+                      videoWebm: data.url,
+                      videoWebmId: data.id,
                     });
-                    e.preventDefault();
-                  }}
-                >
-                  {__('(Remove)', '@@text_domain')}
-                </Button>
-                <div style={{ marginBottom: 13 }} />
-              </div>
-            ) : (
-              ''
-            )}
-            {type === 'video' && !videoWebm ? (
-              <MediaUpload
-                onSelect={(media) => {
+                  });
+              }}
+              allowedTypes={['video/webm']}
+              value={videoWebm}
+              render={({ open }) => (
+                <div style={{ marginBottom: 13 }}>
+                  <Button onClick={open} isPrimary>
+                    {__('Select WEBM', '@@text_domain')}
+                  </Button>
+                </div>
+              )}
+            />
+          ) : null}
+          {type === 'video' && videoWebm ? (
+            <div>
+              <span>{videoWebm.substring(videoWebm.lastIndexOf('/') + 1)} </span>
+              <Button
+                isLink
+                onClick={(e) => {
                   setAttributes({
                     videoWebm: '',
                     videoWebmId: '',
                   });
-                  wp.media
-                    .attachment(media.id)
-                    .fetch()
-                    .then((data) => {
-                      setAttributes({
-                        videoWebm: data.url,
-                        videoWebmId: data.id,
-                      });
-                    });
+                  e.preventDefault();
                 }}
-                allowedTypes={['video/webm']}
-                value={videoWebm}
+              >
+                {__('(Remove)', '@@text_domain')}
+              </Button>
+              <div style={{ marginBottom: 13 }} />
+            </div>
+          ) : null}
+        </PanelBody>
+        <PanelBody>{getAspectRatioPicker()}</PanelBody>
+        <PanelBody>
+          <RangeControl
+            label={__('Volume', '@@text_domain')}
+            value={videoVolume}
+            min={0}
+            max={100}
+            onChange={(v) => setAttributes({ videoVolume: v })}
+          />
+        </PanelBody>
+        <PanelBody>
+          <IconPicker
+            label={__('Play Icon', '@@text_domain')}
+            value={iconPlay}
+            onChange={(value) => setAttributes({ iconPlay: value })}
+          />
+          <IconPicker
+            label={__('Loading Icon', '@@text_domain')}
+            value={iconLoading}
+            onChange={(value) => setAttributes({ iconLoading: value })}
+          />
+          {hasClass(className, 'is-style-icon-only') ? (
+            <BaseControl label={__('Icon Align', '@@text_domain')}>
+              <div>
+                <BlockAlignmentToolbar
+                  value={styleIconOnlyAlign}
+                  onChange={(value) => {
+                    let newClassName = className;
+
+                    newClassName = removeClass(
+                      newClassName,
+                      'ghostkit-video-style-icon-only-align-right'
+                    );
+                    newClassName = removeClass(
+                      newClassName,
+                      'ghostkit-video-style-icon-only-align-left'
+                    );
+
+                    if (value === 'left' || value === 'right') {
+                      newClassName = addClass(
+                        newClassName,
+                        `ghostkit-video-style-icon-only-align-${value}`
+                      );
+                    }
+
+                    if (className !== newClassName) {
+                      setAttributes({ className: newClassName });
+                    }
+                  }}
+                  controls={['left', 'center', 'right']}
+                  isCollapsed={false}
+                />
+              </div>
+            </BaseControl>
+          ) : null}
+        </PanelBody>
+        <PanelBody>
+          <ToggleGroup
+            label={__('Click Action', '@@text_domain')}
+            value={clickAction}
+            options={[
+              {
+                label: __('Plain', '@@text_domain'),
+                value: 'plain',
+                disabled: hasClass(className, 'is-style-icon-only'),
+              },
+              {
+                label: __('Fullscreen', '@@text_domain'),
+                value: 'fullscreen',
+              },
+            ]}
+            onChange={(value) => {
+              setAttributes({ clickAction: value });
+            }}
+            isAdaptiveWidth
+          />
+          {clickAction === 'fullscreen' ? (
+            <Fragment>
+              <ApplyFilters
+                name="ghostkit.editor.controls"
+                attribute="fullscreenBackgroundColor"
+                props={props}
+              >
+                <ColorPicker
+                  label={__('Fullscreen Background', '@@text_domain')}
+                  value={fullscreenBackgroundColor}
+                  onChange={(val) => setAttributes({ fullscreenBackgroundColor: val })}
+                  alpha
+                />
+              </ApplyFilters>
+              <IconPicker
+                label={__('Fullscreen Close Icon', '@@text_domain')}
+                value={fullscreenActionCloseIcon}
+                onChange={(value) => setAttributes({ fullscreenActionCloseIcon: value })}
+              />
+            </Fragment>
+          ) : (
+            <Fragment>
+              <ToggleControl
+                label={__('Autoplay', '@@text_domain')}
+                help={__(
+                  'Automatically play video when block reaches the viewport. The video will be play muted due to browser Autoplay policy.',
+                  '@@text_domain'
+                )}
+                checked={!!videoAutoplay}
+                onChange={(value) => setAttributes({ videoAutoplay: value })}
+              />
+              <ToggleControl
+                label={__('Autopause', '@@text_domain')}
+                help={__(
+                  'Automatically pause video when block out of the viewport.',
+                  '@@text_domain'
+                )}
+                checked={!!videoAutopause}
+                onChange={(value) => setAttributes({ videoAutopause: value })}
+              />
+              <ToggleControl
+                label={__('Loop', '@@text_domain')}
+                checked={!!videoLoop}
+                onChange={(value) => setAttributes({ videoLoop: value })}
+              />
+            </Fragment>
+          )}
+        </PanelBody>
+
+        {!hasClass(className, 'is-style-icon-only') ? (
+          <PanelBody title={__('Poster Image', '@@text_domain')}>
+            {!posterId ? (
+              <MediaUpload
+                onSelect={(media) => {
+                  onPosterSelect(media);
+                }}
+                allowedTypes={['image']}
+                value={posterId}
                 render={({ open }) => (
-                  <div style={{ marginBottom: 13 }}>
-                    <Button onClick={open} isPrimary>
-                      {__('Select WEBM', '@@text_domain')}
-                    </Button>
-                  </div>
+                  <Button onClick={open} isPrimary>
+                    {__('Select Image', '@@text_domain')}
+                  </Button>
                 )}
               />
-            ) : (
-              ''
-            )}
-            {type === 'video' && videoWebm ? (
-              <div>
-                <span>{videoWebm.substring(videoWebm.lastIndexOf('/') + 1)} </span>
-                <Button
-                  isLink
-                  onClick={(e) => {
-                    setAttributes({
-                      videoWebm: '',
-                      videoWebmId: '',
-                    });
-                    e.preventDefault();
-                  }}
-                >
-                  {__('(Remove)', '@@text_domain')}
-                </Button>
-                <div style={{ marginBottom: 13 }} />
-              </div>
-            ) : (
-              ''
-            )}
-          </PanelBody>
-          <PanelBody>{this.getAspectRatioPicker()}</PanelBody>
-          <PanelBody>
-            <RangeControl
-              label={__('Volume', '@@text_domain')}
-              value={videoVolume}
-              min={0}
-              max={100}
-              onChange={(v) => setAttributes({ videoVolume: v })}
-            />
-          </PanelBody>
-          <PanelBody>
-            <IconPicker
-              label={__('Play Icon', '@@text_domain')}
-              value={iconPlay}
-              onChange={(value) => setAttributes({ iconPlay: value })}
-            />
-            <IconPicker
-              label={__('Loading Icon', '@@text_domain')}
-              value={iconLoading}
-              onChange={(value) => setAttributes({ iconLoading: value })}
-            />
-            {hasClass(attributes.className, 'is-style-icon-only') ? (
-              <BaseControl label={__('Icon Align', '@@text_domain')}>
-                <div>
-                  <BlockAlignmentToolbar
-                    value={styleIconOnlyAlign}
-                    onChange={(value) => {
-                      let newClassName = attributes.className;
-
-                      newClassName = removeClass(
-                        newClassName,
-                        'ghostkit-video-style-icon-only-align-right'
-                      );
-                      newClassName = removeClass(
-                        newClassName,
-                        'ghostkit-video-style-icon-only-align-left'
-                      );
-
-                      if (value === 'left' || value === 'right') {
-                        newClassName = addClass(
-                          newClassName,
-                          `ghostkit-video-style-icon-only-align-${value}`
-                        );
-                      }
-
-                      if (attributes.className !== newClassName) {
-                        setAttributes({ className: newClassName });
-                      }
-                    }}
-                    controls={['left', 'center', 'right']}
-                    isCollapsed={false}
-                  />
-                </div>
-              </BaseControl>
             ) : null}
-          </PanelBody>
-          <PanelBody>
-            <ToggleGroup
-              label={__('Click Action', '@@text_domain')}
-              value={clickAction}
-              options={[
-                {
-                  label: __('Plain', '@@text_domain'),
-                  value: 'plain',
-                  disabled: hasClass(attributes.className, 'is-style-icon-only'),
-                },
-                {
-                  label: __('Fullscreen', '@@text_domain'),
-                  value: 'fullscreen',
-                },
-              ]}
-              onChange={(value) => {
-                setAttributes({ clickAction: value });
-              }}
-              isAdaptiveWidth
-            />
-            {clickAction === 'fullscreen' ? (
-              <Fragment>
-                <ApplyFilters
-                  name="ghostkit.editor.controls"
-                  attribute="fullscreenBackgroundColor"
-                  props={this.props}
-                >
-                  <ColorPicker
-                    label={__('Fullscreen Background', '@@text_domain')}
-                    value={fullscreenBackgroundColor}
-                    onChange={(val) => setAttributes({ fullscreenBackgroundColor: val })}
-                    alpha
-                  />
-                </ApplyFilters>
-                <IconPicker
-                  label={__('Fullscreen Close Icon', '@@text_domain')}
-                  value={fullscreenActionCloseIcon}
-                  onChange={(value) => setAttributes({ fullscreenActionCloseIcon: value })}
-                />
-              </Fragment>
-            ) : (
-              <Fragment>
-                <ToggleControl
-                  label={__('Autoplay', '@@text_domain')}
-                  help={__(
-                    'Automatically play video when block reaches the viewport. The video will be play muted due to browser Autoplay policy.',
-                    '@@text_domain'
-                  )}
-                  checked={!!videoAutoplay}
-                  onChange={(value) => setAttributes({ videoAutoplay: value })}
-                />
-                <ToggleControl
-                  label={__('Autopause', '@@text_domain')}
-                  help={__(
-                    'Automatically pause video when block out of the viewport.',
-                    '@@text_domain'
-                  )}
-                  checked={!!videoAutopause}
-                  onChange={(value) => setAttributes({ videoAutopause: value })}
-                />
-                <ToggleControl
-                  label={__('Loop', '@@text_domain')}
-                  checked={!!videoLoop}
-                  onChange={(value) => setAttributes({ videoLoop: value })}
-                />
-              </Fragment>
-            )}
-          </PanelBody>
 
-          {!hasClass(attributes.className, 'is-style-icon-only') ? (
-            <PanelBody title={__('Poster Image', '@@text_domain')}>
-              {!posterId ? (
+            {posterId ? (
+              <Fragment>
                 <MediaUpload
                   onSelect={(media) => {
-                    this.onPosterSelect(media);
+                    onPosterSelect(media);
                   }}
                   allowedTypes={['image']}
                   value={posterId}
                   render={({ open }) => (
-                    <Button onClick={open} isPrimary>
-                      {__('Select Image', '@@text_domain')}
-                    </Button>
+                    <BaseControl help={__('Click the image to edit or update', '@@text_domain')}>
+                      {/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
+                      <a
+                        href="#"
+                        onClick={open}
+                        className="ghostkit-gutenberg-media-upload"
+                        style={{ display: 'block' }}
+                      >
+                        <img
+                          src={posterUrl}
+                          alt={posterAlt}
+                          width={posterWidth}
+                          height={posterHeight}
+                        />
+                      </a>
+                    </BaseControl>
                   )}
                 />
-              ) : (
-                ''
-              )}
+                <div style={{ marginTop: -20 }} />
+                <Button
+                  isLink
+                  onClick={(e) => {
+                    setAttributes({
+                      posterId: '',
+                      posterUrl: '',
+                      posterAlt: '',
+                      posterWidth: '',
+                      posterHeight: '',
+                    });
+                    e.preventDefault();
+                  }}
+                  className="button button-secondary"
+                >
+                  {__('Remove Image', '@@text_domain')}
+                </Button>
+                <div style={{ marginBottom: 13 }} />
+                {editorSettings && editorSettings.imageSizes ? (
+                  <SelectControl
+                    label={__('Resolution', '@@text_domain')}
+                    help={__('Select the size of the source image.', '@@text_domain')}
+                    value={posterSizeSlug || DEFAULT_SIZE_SLUG}
+                    onChange={(val) => {
+                      onPosterSelect(posterImage, val);
+                    }}
+                    options={editorSettings.imageSizes.map((imgSize) => ({
+                      value: imgSize.slug,
+                      label: imgSize.name,
+                    }))}
+                  />
+                ) : null}
+                <TextareaControl
+                  label={__('Alt text (alternative text)')}
+                  value={posterAlt}
+                  onChange={(val) => setAttributes({ posterAlt: val })}
+                  help={
+                    <Fragment>
+                      <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
+                        {__('Describe the purpose of the image', '@@text_domain')}
+                      </ExternalLink>
+                      {__('Leave empty if the image is purely decorative.', '@@text_domain')}
+                    </Fragment>
+                  }
+                />
+              </Fragment>
+            ) : null}
+          </PanelBody>
+        ) : null}
+      </InspectorControls>
 
-              {posterId ? (
-                <Fragment>
-                  <MediaUpload
-                    onSelect={(media) => {
-                      this.onPosterSelect(media);
-                    }}
-                    allowedTypes={['image']}
-                    value={posterId}
-                    render={({ open }) => (
-                      <BaseControl help={__('Click the image to edit or update', '@@text_domain')}>
-                        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
-                        <a
-                          href="#"
-                          onClick={open}
-                          className="ghostkit-gutenberg-media-upload"
-                          style={{ display: 'block' }}
-                        >
-                          <img
-                            src={posterUrl}
-                            alt={posterAlt}
-                            width={posterWidth}
-                            height={posterHeight}
-                          />
-                        </a>
-                      </BaseControl>
-                    )}
-                  />
-                  <div style={{ marginTop: -20 }} />
-                  <Button
-                    isLink
-                    onClick={(e) => {
-                      setAttributes({
-                        posterId: '',
-                        posterUrl: '',
-                        posterAlt: '',
-                        posterWidth: '',
-                        posterHeight: '',
-                      });
-                      e.preventDefault();
-                    }}
-                    className="button button-secondary"
-                  >
-                    {__('Remove Image', '@@text_domain')}
-                  </Button>
-                  <div style={{ marginBottom: 13 }} />
-                  {editorSettings && editorSettings.imageSizes ? (
-                    <SelectControl
-                      label={__('Resolution', '@@text_domain')}
-                      help={__('Select the size of the source image.', '@@text_domain')}
-                      value={posterSizeSlug || DEFAULT_SIZE_SLUG}
-                      onChange={(val) => {
-                        this.onPosterSelect(posterImage, val);
-                      }}
-                      options={editorSettings.imageSizes.map((imgSize) => ({
-                        value: imgSize.slug,
-                        label: imgSize.name,
-                      }))}
-                    />
-                  ) : null}
-                  <TextareaControl
-                    label={__('Alt text (alternative text)')}
-                    value={posterAlt}
-                    onChange={(val) => setAttributes({ posterAlt: val })}
-                    help={
-                      <Fragment>
-                        <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                          {__('Describe the purpose of the image', '@@text_domain')}
-                        </ExternalLink>
-                        {__('Leave empty if the image is purely decorative.', '@@text_domain')}
-                      </Fragment>
-                    }
-                  />
-                </Fragment>
-              ) : (
-                ''
-              )}
-            </PanelBody>
-          ) : null}
-        </InspectorControls>
-        <div className={className} data-video-aspect-ratio={videoAspectRatio}>
-          {posterUrl && !hasClass(attributes.className, 'is-style-icon-only') ? (
-            <div className="ghostkit-video-poster">
-              <img src={posterUrl} alt={posterAlt} width={posterWidth} height={posterHeight} />
-            </div>
-          ) : (
-            ''
-          )}
-          {!posterUrl &&
-          type === 'yt_vm_video' &&
-          videoPosterPreview &&
-          !hasClass(attributes.className, 'is-style-icon-only') ? (
-            <div className="ghostkit-video-poster">
-              <img src={videoPosterPreview} alt="" />
-            </div>
-          ) : (
-            ''
-          )}
-          {iconPlay ? (
-            <div className="ghostkit-video-play-icon">
-              <IconPicker.Dropdown
-                onChange={(value) => setAttributes({ iconPlay: value })}
-                value={iconPlay}
-                renderToggle={({ onToggle }) => (
-                  <IconPicker.Preview onClick={onToggle} name={iconPlay} />
-                )}
-              />
-            </div>
-          ) : (
-            ''
-          )}
+      {posterUrl && !hasClass(className, 'is-style-icon-only') ? (
+        <div className="ghostkit-video-poster">
+          <img src={posterUrl} alt={posterAlt} width={posterWidth} height={posterHeight} />
         </div>
-      </Fragment>
-    );
-  }
+      ) : null}
+      {!posterUrl &&
+      type === 'yt_vm_video' &&
+      videoPosterPreview &&
+      !hasClass(className, 'is-style-icon-only') ? (
+        <div className="ghostkit-video-poster">
+          <img src={videoPosterPreview} alt="" />
+        </div>
+      ) : null}
+      {iconPlay ? (
+        <div className="ghostkit-video-play-icon">
+          <IconPicker.Dropdown
+            onChange={(value) => setAttributes({ iconPlay: value })}
+            value={iconPlay}
+            renderToggle={({ onToggle }) => (
+              <IconPicker.Preview onClick={onToggle} name={iconPlay} />
+            )}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
 }
-
-export default withSelect((select, { attributes, isSelected }) => {
-  const { getSettings } = select('core/block-editor');
-  const { getMedia } = select('core');
-
-  return {
-    editorSettings: getSettings(),
-    posterImage: attributes.posterId && isSelected ? getMedia(attributes.posterId) : null,
-  };
-})(BlockEdit);

@@ -1,10 +1,5 @@
-/**
- * WordPress dependencies
- */
-const { Component } = wp.element;
+export default function (props) {
+  const { children } = props;
 
-export default class Info extends Component {
-  render() {
-    return <div className="ghostkit-settings-info">{this.props.children}</div>;
-  }
+  return <div className="ghostkit-settings-info">{children}</div>;
 }

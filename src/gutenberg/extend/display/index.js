@@ -21,7 +21,7 @@ const { __ } = wp.i18n;
 
 const { applyFilters, addFilter } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment } = wp.element;
 
 const { hasBlockSupport } = wp.blocks;
 
@@ -116,12 +116,11 @@ function getCurrentDisplay(className, screen) {
  * @return {string} Wrapped component.
  */
 const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
-  class GhostKitDisplayWrapper extends Component {
-    constructor(props) {
-      super(props);
+  function GhostKitDisplayWrapper(props) {
+    const { attributes, setAttributes } = props;
+    const { className } = attributes;
 
-      this.updateDisplay = this.updateDisplay.bind(this);
-    }
+    const allow = allowedDisplay(props);
 
     /**
      * Update display object.
@@ -129,11 +128,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
      * @param {String} screen - name of screen size.
      * @param {String} val - value for new display.
      */
-    updateDisplay(screen, val) {
-      const { attributes, setAttributes } = this.props;
-
-      const { className } = attributes;
-
+    function updateDisplay(screen, val) {
       let newClassName = className;
 
       if (screen && screen !== 'all') {
@@ -152,64 +147,57 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
       });
     }
 
-    render() {
-      const { props } = this;
-      const { className } = props.attributes;
-
-      const allow = allowedDisplay(props);
-
-      if (!allow) {
-        return <OriginalComponent {...props} />;
-      }
-
-      const filledTabs = {};
-      if (
-        ghostkitVariables &&
-        ghostkitVariables.media_sizes &&
-        Object.keys(ghostkitVariables.media_sizes).length
-      ) {
-        ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-          filledTabs[media] = !!getCurrentDisplay(className, media);
-        });
-      }
-
-      // add new display controls.
-      return (
-        <Fragment>
-          <OriginalComponent {...props} setState={this.setState} />
-          <InspectorControls>
-            <PanelBody
-              title={
-                <Fragment>
-                  <span className="ghostkit-ext-icon">{getIcon('extension-display')}</span>
-                  <span>{__('Display', '@@text_domain')}</span>
-                  {className && getActiveClass(className, 'ghostkit-d') ? <ActiveIndicator /> : ''}
-                </Fragment>
-              }
-              initialOpen={initialOpenPanel}
-              onToggle={() => {
-                initialOpenPanel = !initialOpenPanel;
-              }}
-            >
-              <ResponsiveTabPanel filledTabs={filledTabs}>
-                {(tabData) => (
-                  <ToggleGroup
-                    value={getCurrentDisplay(className, tabData.name)}
-                    options={getDefaultDisplay(tabData.name).map((val) => ({
-                      value: val.value,
-                      label: val.label,
-                    }))}
-                    onChange={(value) => {
-                      this.updateDisplay(tabData.name, value);
-                    }}
-                  />
-                )}
-              </ResponsiveTabPanel>
-            </PanelBody>
-          </InspectorControls>
-        </Fragment>
-      );
+    if (!allow) {
+      return <OriginalComponent {...props} />;
     }
+
+    const filledTabs = {};
+    if (
+      ghostkitVariables &&
+      ghostkitVariables.media_sizes &&
+      Object.keys(ghostkitVariables.media_sizes).length
+    ) {
+      ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
+        filledTabs[media] = !!getCurrentDisplay(className, media);
+      });
+    }
+
+    // add new display controls.
+    return (
+      <Fragment>
+        <OriginalComponent {...props} />
+        <InspectorControls>
+          <PanelBody
+            title={
+              <Fragment>
+                <span className="ghostkit-ext-icon">{getIcon('extension-display')}</span>
+                <span>{__('Display', '@@text_domain')}</span>
+                {className && getActiveClass(className, 'ghostkit-d') ? <ActiveIndicator /> : ''}
+              </Fragment>
+            }
+            initialOpen={initialOpenPanel}
+            onToggle={() => {
+              initialOpenPanel = !initialOpenPanel;
+            }}
+          >
+            <ResponsiveTabPanel filledTabs={filledTabs}>
+              {(tabData) => (
+                <ToggleGroup
+                  value={getCurrentDisplay(className, tabData.name)}
+                  options={getDefaultDisplay(tabData.name).map((val) => ({
+                    value: val.value,
+                    label: val.label,
+                  }))}
+                  onChange={(value) => {
+                    updateDisplay(tabData.name, value);
+                  }}
+                />
+              )}
+            </ResponsiveTabPanel>
+          </PanelBody>
+        </InspectorControls>
+      </Fragment>
+    );
   }
 
   return GhostKitDisplayWrapper;

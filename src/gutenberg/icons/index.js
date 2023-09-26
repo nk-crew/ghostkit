@@ -42,6 +42,10 @@ import blockFormFieldSelect from './block-form-field-select.svg';
 import blockFormFieldText from './block-form-field-text.svg';
 import blockFormFieldTextarea from './block-form-field-textarea.svg';
 import blockFormFieldUrl from './block-form-field-url.svg';
+import borderDashed from './border-dashed.svg';
+import borderDotted from './border-dotted.svg';
+import borderDouble from './border-double.svg';
+import borderSolid from './border-solid.svg';
 import pluginTemplates from './plugin-templates.svg';
 import pluginCustomCode from './plugin-custom-code.svg';
 import pluginColorPalette from './plugin-color-palette.svg';
@@ -144,6 +148,11 @@ export default {
   'block-form-field-text': blockFormFieldText,
   'block-form-field-textarea': blockFormFieldTextarea,
   'block-form-field-url': blockFormFieldUrl,
+
+  'border-dashed': borderDashed,
+  'border-dotted': borderDotted,
+  'border-double': borderDouble,
+  'border-solid': borderSolid,
 
   'plugin-templates': pluginTemplates,
   'plugin-custom-code': pluginCustomCode,
