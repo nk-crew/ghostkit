@@ -20,10 +20,9 @@ const { __ } = wp.i18n;
 
 const { Fragment, useEffect, useState, useRef } = wp.element;
 
-const { PanelBody, TextControl, ToggleControl, Placeholder, ToolbarGroup, ExternalLink } =
-  wp.components;
+const { PanelBody, TextControl, ToggleControl, Placeholder, ExternalLink } = wp.components;
 
-const { InspectorControls, BlockControls, useBlockProps } = wp.blockEditor;
+const { InspectorControls, useBlockProps } = wp.blockEditor;
 
 const { gistSimple } = window;
 
@@ -122,39 +121,6 @@ export default function BlockEdit(props) {
 
   return (
     <Fragment>
-      <BlockControls>
-        {url ? (
-          <ToolbarGroup>
-            <TextControl
-              type="url"
-              value={sUrl}
-              placeholder={__('Gist URL', '@@text_domain')}
-              onChange={(val) => urlOnChange(val)}
-              onKeyDown={(e) => {
-                if (e.keyCode === 13) {
-                  urlOnChange(sUrl, 0);
-                }
-              }}
-              className="ghostkit-gist-toolbar-url"
-            />
-          </ToolbarGroup>
-        ) : (
-          ''
-        )}
-        {getValidGistUrl() ? (
-          <ToolbarGroup>
-            <GistFilesSelect
-              label={__('File', '@@text_domain')}
-              url={url}
-              value={file}
-              isToolbar
-              onChange={(value) => setAttributes({ file: value })}
-            />
-          </ToolbarGroup>
-        ) : (
-          ''
-        )}
-      </BlockControls>
       <InspectorControls>
         <PanelBody>
           <TextControl

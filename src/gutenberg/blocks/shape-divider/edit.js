@@ -23,7 +23,7 @@ const { __ } = wp.i18n;
 
 const { Fragment, useEffect } = wp.element;
 
-const { PanelBody, Button, ToolbarGroup, ToolbarButton, Dropdown } = wp.components;
+const { PanelBody, ToolbarGroup, ToolbarButton, Dropdown } = wp.components;
 
 const { InspectorControls, BlockControls, useBlockProps } = wp.blockEditor;
 
@@ -212,7 +212,7 @@ export default function BlockEdit(props) {
 
           <Dropdown
             renderToggle={({ onToggle }) => (
-              <Button
+              <ToolbarButton
                 label={__('Shapes', '@@text_domain')}
                 icon="edit"
                 className="components-toolbar__control"

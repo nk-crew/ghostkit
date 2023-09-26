@@ -15,7 +15,7 @@ const { __ } = wp.i18n;
 
 const { useEffect, useState, useRef } = wp.element;
 
-const { ToolbarGroup } = wp.components;
+const { ToolbarGroup, ToolbarButton } = wp.components;
 
 const { BlockControls, PlainText, useBlockProps } = wp.blockEditor;
 
@@ -73,8 +73,7 @@ export default function BlockEdit(props) {
     <div {...blockProps}>
       <BlockControls>
         <ToolbarGroup>
-          {/* eslint-disable-next-line react/button-has-type */}
-          <button
+          <ToolbarButton
             className={classnames(
               'components-button components-tab-button',
               activeTab === 'editor' ? 'is-pressed' : ''
@@ -82,9 +81,8 @@ export default function BlockEdit(props) {
             onClick={() => setActiveTab('editor')}
           >
             <span>{__('Markdown', '@@text_domain')}</span>
-          </button>
-          {/* eslint-disable-next-line react/button-has-type */}
-          <button
+          </ToolbarButton>
+          <ToolbarButton
             className={classnames(
               'components-button components-tab-button',
               activeTab === 'preview' ? 'is-pressed' : ''
@@ -92,7 +90,7 @@ export default function BlockEdit(props) {
             onClick={() => setActiveTab('preview')}
           >
             <span>{__('Preview', '@@text_domain')}</span>
-          </button>
+          </ToolbarButton>
         </ToolbarGroup>
       </BlockControls>
 

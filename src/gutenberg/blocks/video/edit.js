@@ -39,6 +39,7 @@ const {
   TextareaControl,
   ExternalLink,
   ToolbarGroup,
+  ToolbarButton,
   Dropdown,
 } = wp.components;
 
@@ -271,7 +272,7 @@ export default function BlockEdit(props) {
         <ToolbarGroup>
           <Dropdown
             renderToggle={({ onToggle }) => (
-              <Button
+              <ToolbarButton
                 label={__('Aspect Ratio', '@@text_domain')}
                 icon={toolbarAspectRatioIcon}
                 className="components-toolbar__control"
@@ -289,17 +290,6 @@ export default function BlockEdit(props) {
             )}
           />
         </ToolbarGroup>
-        {type === 'yt_vm_video' ? (
-          <ToolbarGroup>
-            <TextControl
-              type="url"
-              value={video}
-              placeholder={__('YouTube / Vimeo URL', '@@text_domain')}
-              onChange={(value) => setAttributes({ video: value })}
-              className="ghostkit-video-toolbar-url"
-            />
-          </ToolbarGroup>
-        ) : null}
       </BlockControls>
       <InspectorControls>
         <PanelBody>

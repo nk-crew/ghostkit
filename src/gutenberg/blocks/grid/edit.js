@@ -279,9 +279,7 @@ export default function BlockEdit(props) {
             />
           </ToolbarGroup>
         </BlockControls>
-      ) : (
-        ''
-      )}
+      ) : null}
       <InspectorControls>
         <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={props}>
           <PanelBody>

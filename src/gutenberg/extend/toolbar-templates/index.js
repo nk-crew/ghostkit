@@ -16,6 +16,8 @@ const { render } = wp.element;
 
 const { useDispatch } = wp.data;
 
+const { ToolbarButton } = wp.components;
+
 /**
  * Add templates button to Gutenberg toolbar
  */
@@ -25,13 +27,10 @@ function ToolbarTemplates() {
   // eslint-disable-next-line react/no-unstable-nested-components
   function LibraryButton() {
     return (
-      <button
-        type="button"
+      <ToolbarButton
         className="components-button components-icon-button"
         aria-label={__('Add Template', '@@text_domain')}
-        onClick={(e) => {
-          e.preventDefault();
-
+        onClick={() => {
           insertBlocks(
             createBlock('ghostkit/grid', {
               isTemplatesModalOnly: true,
@@ -41,7 +40,7 @@ function ToolbarTemplates() {
       >
         {getIcon('plugin-templates')}
         {__('Templates Library', '@@text_domain')}
-      </button>
+      </ToolbarButton>
     );
   }
 
