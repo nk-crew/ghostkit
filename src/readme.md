@@ -71,6 +71,9 @@ Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.
 * [**Image Compare Block**](https://ghostkit.io/blocks/image-compare/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Compare two images with a slider.
 
+* [**Image Scroller Block**](https://ghostkit.io/blocks/image-scroller/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+Scroll tall images with hover or mouse scroll.
+
 * [**Carousel Block**](https://ghostkit.io/blocks/carousel/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Carousel for any type of content – images or other blocks.
 
@@ -270,8 +273,6 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
-= 3.0.0 =
-
 There are a lot of changes in v3, before updating it on production, we recommend test it in staging site first. Look at some of the breaking changes:
 
 * removed jQuery usage completely:
@@ -285,7 +286,11 @@ There are a lot of changes in v3, before updating it on production, we recommend
 * removed Parsley library, use native Form validation instead. Less size, better performance
 * there are a lot of plans for Ghost Kit v3 future updates (and new site coming soon). It will be huge 😎
 
-Common changes:
+= 3.0.1 =
+
+* fixed rare error on some operating systems, which does not contain the GLOB_BRACE constant
+
+= 3.0.0 =
 
 * register all blocks in PHP using `register_block_type_from_metadata`
 * added Position extension - it allows creating fixed or absolute blocks with custom offsets
