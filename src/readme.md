@@ -3,7 +3,7 @@
 * Contributors: nko
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
 * Donate link: https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
-* Requires at least: 5.9
+* Requires at least: 6.2
 * Tested up to: 6.3
 * Requires PHP: 7.2
 * Stable tag: @@plugin_version
@@ -59,6 +59,9 @@ Toggle the visibility of content across your project.
 * [**Tabs Block**](https://ghostkit.io/blocks/tabs/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Separate content on the tabs with titles.
 
+* [**Toggle Content Block**](https://ghostkit.io/blocks/toggle-content/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+Switch content by clicking on toggle button.
+
 * [**Countdown Block**](https://ghostkit.io/blocks/countdown/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Display countdown for you upcoming events.
 
@@ -70,6 +73,9 @@ Compare two images with a slider.
 
 * [**Carousel Block**](https://ghostkit.io/blocks/carousel/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Carousel for any type of content – images or other blocks.
+
+* [**Marquee Block**](https://ghostkit.io/blocks/marquee/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+Scroll text and blocks in a marquee effect.
 
 * [**Pricing Table Block**](https://ghostkit.io/blocks/pricing-tables/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Sell your products or services and show all features.
@@ -155,12 +161,16 @@ Add custom colors to Gutenberg color palette.
 
 See demo page with content formatting [https://ghostkit.io/content-formatting/](https://ghostkit.io/content-formatting/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
 
-* Dotted Lists
-* Styled Lists
-* Custom Icon Lists
-* Uppercase
-* Highlight
-* Badge
+* [Numbered Headings](https://ghostkit.io/content-formatting/numered-headings/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Dotted Lists](https://ghostkit.io/content-formatting/lists/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Styled Lists](https://ghostkit.io/content-formatting/lists/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Custom Icon Lists](https://ghostkit.io/content-formatting/lists/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Badges](https://ghostkit.io/content-formatting/badges/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Animated Text](https://ghostkit.io/content-formatting/animated-text/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Tooltip](https://ghostkit.io/content-formatting/tooltip/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Text Stroke](https://ghostkit.io/content-formatting/stroke/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Spoiler](https://ghostkit.io/content-formatting/spoiler/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Lorem Ipsum Generator](https://ghostkit.io/content-formatting/lorem-ipsum-generator/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
 
 ### 🔥 Ghost Kit Pro ###
 
@@ -169,13 +179,13 @@ See demo page with content formatting [https://ghostkit.io/content-formatting/](
 > In order to maintain the free version of the plugin on an ongoing basis, and to provide quick and effective support for free, we offer a Pro version of the plugin. The Pro version allows you to:
 
 * Visual Advanced Columns Editor
+* New Icon Packs
+* New Blocks
+* New Content Formatting
 * Custom Responsive Breakpoints
-* More Icon Packs
 * 30 additional shapes for Shape Divider block
 * Adobe Fonts (Typekit)
 * Custom Fonts
-* Animated (Typed) Text
-* Tooltips
 * Gradient buttons, backgrounds, icons, badges
 * Google Maps custom markers and info boxes
 * And more
@@ -262,7 +272,7 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 = 3.0.0 =
 
-There are a lot of changed in v3, before updating it on production, we recommend test it in staging site first. Look at some of the breaking changes:
+There are a lot of changes in v3, before updating it on production, we recommend test it in staging site first. Look at some of the breaking changes:
 
 * removed jQuery usage completely:
   * added simple fallbacks where possible
