@@ -18,7 +18,8 @@
         "blockGap": true
       }
     },
-    "__experimentalLayout": true
+    "__experimentalLayout": true,
+    "layout": true
   },
   "usesContext": ["ghostkit/collapseTitleTag"],
   "attributes": {

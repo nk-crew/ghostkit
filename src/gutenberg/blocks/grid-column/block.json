@@ -17,7 +17,8 @@
         "blockGap": true
       }
     },
-    "__experimentalLayout": true
+    "__experimentalLayout": true,
+    "layout": true
   },
   "attributes": {
     "sm_size": {
