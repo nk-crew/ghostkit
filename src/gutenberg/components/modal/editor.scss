@@ -1,6 +1,10 @@
 @import "../../variables";
 
 .ghostkit-component-modal {
+  // Disable animation for now, because it conflicts with the React Select menu position.
+  position: relative;
+  animation: none;
+
   @media (min-width: 600px) {
     min-width: 600px;
     max-width: 600px;

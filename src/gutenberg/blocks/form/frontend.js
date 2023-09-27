@@ -139,7 +139,7 @@ events.on(document, 'submit', '.ghostkit-form', (e) => {
     // Ensure Recaptcha is loaded.
     grecaptcha.ready(() => {
       grecaptcha.execute(googleReCaptchaAPISiteKey, { action: 'ghostkit' }).then((token) => {
-        $recaptchaTokenField.val(token);
+        $recaptchaTokenField.value = token;
 
         $form.classList.add('ghostkit-form-processed');
 

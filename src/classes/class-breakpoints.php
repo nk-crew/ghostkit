@@ -149,13 +149,13 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
             $scss_paths           = apply_filters( 'gkt_scss_paths', $plugin_path );
             $scss_configs         = apply_filters( 'gkt_scss_configs', $this->scss_configs );
 
+            if ( ! is_array( $scss_paths ) ) {
+                $scss_paths = array( $scss_paths );
+            }
+
             foreach ( $scss_configs as $scss_config ) {
-                if ( is_array( $scss_paths ) ) {
-                    foreach ( $scss_paths as $path ) {
-                        $compile_scss_configs = $this->get_parsed_scss_files( $compile_scss_configs, $path, $upload_dir, $scss_config );
-                    }
-                } else {
-                    $compile_scss_configs = $this->get_parsed_scss_files( $compile_scss_configs, $scss_paths, $upload_dir, $scss_config );
+                foreach ( $scss_paths as $path ) {
+                    $compile_scss_configs = $this->get_parsed_scss_files( $compile_scss_configs, $path, $upload_dir, $scss_config );
                 }
             }
 
@@ -202,7 +202,7 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
                 if ( $is_plugin_file ) {
                     $configs       = $this->compile_scss_configs;
                     $relative_uri  = str_replace( $plugin_url, '', $is_plugin_file );
-                    $relative_path = str_replace( '?ver=' . $this->plugin_version, '', $relative_uri );
+                    $relative_path = explode( '?ver=', $relative_uri )[0];
                     $upload_dir    = wp_upload_dir();
                     $output_file   = $upload_dir['basedir'] . '/' . $this->plugin_name . '/' . $relative_path;
 
@@ -313,6 +313,21 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
             ) {
                 $compile_scss_configs = $this->compile_scss_configs;
 
+                // Replace modules in all SCSS files.
+                if ( ! empty( $compile_scss_configs ) ) {
+                    $plugin_path = $this->get_plugin_path();
+
+                    $scss_paths = apply_filters( 'gkt_scss_paths', $plugin_path );
+
+                    if ( ! is_array( $scss_paths ) ) {
+                        $scss_paths = array( $scss_paths );
+                    }
+
+                    foreach ( $scss_paths as $path ) {
+                        new GhostKit_Scss_Replace_Modules( $path );
+                    }
+                }
+
                 $breakpoints = self::get_breakpoints();
 
                 $variables = array(
@@ -329,6 +344,7 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
                             'variables'   => $variables,
                         )
                     );
+
                     if ( ! file_exists( $compile_scss_config['output_file'] ) ) {
                         new GhostKit_Scss_Compiler( $scss_config_arguments );
                     } else {
