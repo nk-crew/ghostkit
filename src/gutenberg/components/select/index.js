@@ -46,21 +46,23 @@ function MenuList(props) {
  * Component Class
  */
 export default function SelectComponent(props) {
-  const restProps = {
+  const { className, ...restProps } = props;
+
+  const selectProps = {
     ...(props.grouped
       ? {
           groupHeaderHeight: 50,
         }
       : {}),
-    ...props,
+    ...restProps,
   };
 
   return (
     <Select
       styles={selectStyles}
       components={{ MenuList }}
-      {...restProps}
-      className={classnames(restProps.className, 'ghostkit-control-select')}
+      className={classnames('ghostkit-control-select', className)}
+      {...selectProps}
     />
   );
 }
