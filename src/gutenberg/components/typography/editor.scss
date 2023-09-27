@@ -44,6 +44,8 @@
   // Information control.
   .ghostkit-typography-information-control.ghostkit-typography-font-control {
     flex: 1 0 80%;
+    padding-right: 0;
+    padding-left: 20px;
     font-style: italic;
     color: $light-gray-900;
   }
