@@ -286,6 +286,12 @@ There are a lot of changes in v3, before updating it on production, we recommend
 * removed Parsley library, use native Form validation instead. Less size, better performance
 * there are a lot of plans for Ghost Kit v3 future updates (and new site coming soon). It will be huge 😎
 
+= 3.0.2 =
+
+* fixed form with recaptcha JS submit error
+* fixed Typography Select control dropdown position when placed inside Modal
+* fixed custom styles background processing error
+
 = 3.0.1 =
 
 * fixed rare error on some operating systems, which does not contain the GLOB_BRACE constant
