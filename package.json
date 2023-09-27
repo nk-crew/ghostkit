@@ -61,7 +61,7 @@
     "react-google-maps": "^9.4.5",
     "react-lazyload": "^3.2.0",
     "react-masonry-component": "^6.3.0",
-    "react-select": "^5.7.3",
+    "react-select": "^5.7.5",
     "react-virtualized": "^9.22.5",
     "recompose": "^0.30.0",
     "scriptjs": "^2.5.9",
