@@ -1,0 +1,19 @@
+.ghostkit-pro-group-controls {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 8px;
+  }
+
+  > * {
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+
+  > .components-base-control,
+  > .components-base-control:last-child {
+    margin-bottom: 0;
+  }
+}

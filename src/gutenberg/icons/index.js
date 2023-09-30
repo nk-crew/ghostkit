@@ -15,6 +15,7 @@ import blockGist from './block-gist.svg';
 import blockGoogleMaps from './block-google-maps.svg';
 import blockGrid from './block-grid.svg';
 import blockGridColumn from './block-grid-column.svg';
+import blockIcon from './block-icon.svg';
 import blockIconBox from './block-icon-box.svg';
 import blockImageCompare from './block-image-compare.svg';
 import blockInstagram from './block-instagram.svg';
@@ -121,6 +122,7 @@ export default {
   'block-google-maps': blockGoogleMaps,
   'block-grid': blockGrid,
   'block-grid-column': blockGridColumn,
+  'block-icon': blockIcon,
   'block-icon-box': blockIconBox,
   'block-image-compare': blockImageCompare,
   'block-instagram': blockInstagram,

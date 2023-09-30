@@ -1,0 +1,16 @@
+/**
+ * Frontend Styles
+ */
+.ghostkit-icon {
+  display: flex;
+
+  svg.ghostkit-svg-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ghostkit-icon-inline {
+  display: inline-block;
+}

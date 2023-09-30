@@ -8,6 +8,7 @@ import * as dividerShape from './shape-divider';
 import * as button from './button';
 import * as buttonSingle from './button-single';
 import * as progress from './progress';
+import * as icon from './icon';
 import * as iconBox from './icon-box';
 import * as imageCompare from './image-compare';
 import * as tabs from './tabs';
@@ -65,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     divider,
     dividerShape,
     alert,
+    icon,
     iconBox,
     imageCompare,
     countdown,
