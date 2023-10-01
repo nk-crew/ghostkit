@@ -8,7 +8,7 @@ export default function GroupControls(props) {
   }
 
   return (
-    <div className="ghostkit-pro-group-controls" style={style}>
+    <div className="ghostkit-group-controls" style={style}>
       {children}
     </div>
   );

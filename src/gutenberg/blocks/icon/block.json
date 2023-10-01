@@ -82,7 +82,5 @@
         "fontSize": true
       }
     }
-  },
-  "editorStyle": ".ghostkit-icon",
-  "style": ".ghostkit-icon"
+  }
 }
