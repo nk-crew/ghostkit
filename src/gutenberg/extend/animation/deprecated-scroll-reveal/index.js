@@ -158,8 +158,8 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
           const parsedConfig = parseSRConfig(ghostkitSR);
 
           const newAnimationData = {
-            x: `${parsedConfig.x}px`,
-            y: `${parsedConfig.y}px`,
+            x: parsedConfig.x,
+            y: parsedConfig.y,
             opacity: parsedConfig.opacity,
             scale: parsedConfig.scale,
             transition: {

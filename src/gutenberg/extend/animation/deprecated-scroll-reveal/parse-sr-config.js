@@ -31,7 +31,7 @@ export default function parseSRConfig(data) {
     }
   } else {
     origin = 'center';
-    distance = 0;
+    distance = '0px';
   }
 
   if (effect === 'zoom') {
