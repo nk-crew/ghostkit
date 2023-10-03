@@ -295,8 +295,7 @@ export default function BlockEdit(props) {
           // We need to add styles for `> .wp-block` because this wrapper added by Gutenberg when used Wide or Full alignment.
           // Thanks to https://github.com/nk-crew/ghostkit/issues/123.
           `
-          [data-block="${clientId}"] > .ghostkit-tabs > .ghostkit-tabs-content > [data-tab="${tabActive}"],
-          [data-block="${clientId}"] > .wp-block > .ghostkit-tabs > .ghostkit-tabs-content > [data-tab="${tabActive}"] {
+          [data-block="${clientId}"] > .ghostkit-tabs-content > [data-tab="${tabActive}"] {
               display: block;
           }
         `
