@@ -16,6 +16,7 @@ const { InnerBlocks, useInnerBlocksProps } = wp.blockEditor;
 export default function BlockEdit(props) {
   const { clientId } = props;
   let { className = '' } = props;
+  const { slug } = props.attributes;
 
   const hasChildBlocks = useSelect(
     (select) => {
@@ -31,7 +32,7 @@ export default function BlockEdit(props) {
   className = applyFilters('ghostkit.editor.className', className, props);
 
   const innerBlockProps = useInnerBlocksProps(
-    { className },
+    { className, 'data-tab': slug },
     {
       renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
       templateLock: false,
