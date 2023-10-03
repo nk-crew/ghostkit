@@ -67,12 +67,6 @@
         "padding": false,
         "margin": false
       }
-    },
-    "typography": {
-      "fontSize": true,
-      "__experimentalDefaultControls": {
-        "fontSize": false
-      }
     }
   }
 }
