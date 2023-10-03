@@ -20,8 +20,7 @@ const { hasBlockSupport } = wp.blocks;
 const { InspectorControls, BlockControls } = wp.blockEditor;
 
 const {
-  ToolbarGroup,
-  DropdownMenu,
+  ToolbarDropdownMenu,
   MenuGroup,
   Button,
   __experimentalToolsPanel: ToolsPanel,
@@ -91,46 +90,44 @@ function GhostKitExtensionAnimationToolbar(original, { props }) {
     <>
       {original}
       <BlockControls group="other">
-        <ToolbarGroup>
-          <DropdownMenu
-            icon={getIcon('extension-sr')}
-            label={__('Animate on Scroll', '@@text_domain')}
-            menuProps={{
-              style: { width: '260px' },
-            }}
-            popoverProps={{ focusOnMount: false }}
-          >
-            {() => (
-              <>
-                <MenuGroup>
-                  {__(
-                    'There are animations added to the current block. To change animation options open the "Animation" block settings panel.',
-                    '@@text_domain'
-                  )}
-                </MenuGroup>
-                <MenuGroup>
-                  {__('Reset all animations of the current block:', '@@text_domain')}
-                  <Button
-                    variant="link"
-                    onClick={() => {
-                      const ghostkitData = {
-                        ...(attributes?.ghostkit || {}),
-                      };
+        <ToolbarDropdownMenu
+          icon={getIcon('extension-sr')}
+          label={__('Animate on Scroll', '@@text_domain')}
+          menuProps={{
+            style: { width: '260px' },
+          }}
+          popoverProps={{ focusOnMount: false }}
+        >
+          {() => (
+            <>
+              <MenuGroup>
+                {__(
+                  'There are animations added to the current block. To change animation options open the "Animation" block settings panel.',
+                  '@@text_domain'
+                )}
+              </MenuGroup>
+              <MenuGroup>
+                {__('Reset all animations of the current block:', '@@text_domain')}
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    const ghostkitData = {
+                      ...(attributes?.ghostkit || {}),
+                    };
 
-                      if (typeof ghostkitData?.animation !== 'undefined') {
-                        delete ghostkitData?.animation;
+                    if (typeof ghostkitData?.animation !== 'undefined') {
+                      delete ghostkitData?.animation;
 
-                        setAttributes({ ghostkit: ghostkitData });
-                      }
-                    }}
-                  >
-                    {__('Reset All', '@@text_domain')}
-                  </Button>
-                </MenuGroup>
-              </>
-            )}
-          </DropdownMenu>
-        </ToolbarGroup>
+                      setAttributes({ ghostkit: ghostkitData });
+                    }
+                  }}
+                >
+                  {__('Reset All', '@@text_domain')}
+                </Button>
+              </MenuGroup>
+            </>
+          )}
+        </ToolbarDropdownMenu>
       </BlockControls>
     </>
   );
