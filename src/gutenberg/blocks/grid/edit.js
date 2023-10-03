@@ -24,19 +24,11 @@ const { Fragment, useState } = wp.element;
 
 const { Button, PanelBody, Placeholder, ToolbarGroup, ToolbarButton } = wp.components;
 
-const {
-  InspectorControls,
-  BlockControls,
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
+const { InspectorControls, BlockControls, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 const { useSelect, useDispatch } = wp.data;
 
 const { createBlock } = wp.blocks;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
 
 /**
  * Block Edit Class.
@@ -287,9 +279,7 @@ export default function BlockEdit(props) {
             />
           </ToolbarGroup>
         </BlockControls>
-      ) : (
-        ''
-      )}
+      ) : null}
       <InspectorControls>
         <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={props}>
           <PanelBody>

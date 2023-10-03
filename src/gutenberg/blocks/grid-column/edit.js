@@ -22,19 +22,11 @@ const { PanelBody, SelectControl } = wp.components;
 
 const { applyFilters } = wp.hooks;
 
-const {
-  InspectorControls,
-  InnerBlocks,
-  useBlockProps,
-  useInnerBlocksProps: __stableUseInnerBlocksProps,
-  __experimentalUseInnerBlocksProps,
-} = wp.blockEditor;
+const { InspectorControls, InnerBlocks, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 const { useSelect } = wp.data;
 
 const { ghostkitVariables } = window;
-
-const useInnerBlocksProps = __stableUseInnerBlocksProps || __experimentalUseInnerBlocksProps;
 
 /**
  * Get array for Select element.

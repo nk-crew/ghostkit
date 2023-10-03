@@ -131,6 +131,7 @@ class GhostKit {
         require_once $this->plugin_path . 'classes/class-templates.php';
 
         // scss compiler.
+        require_once $this->plugin_path . 'classes/class-scss-replace-modules.php';
         require_once $this->plugin_path . 'classes/class-scss-compiler.php';
 
         // breakpoints background.

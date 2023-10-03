@@ -31,7 +31,7 @@ import './plugins';
 /**
  * Icon
  */
-import GhostKitCategoryIcon from './icons/ghostkit-category.svg';
+import GhostKitLogoIcon from './icons/ghostkit-logo.svg';
 
 /**
  * Disable Blocks
@@ -47,5 +47,5 @@ const { updateCategory } = wp.blocks;
  * Add category icon.
  */
 updateCategory('ghostkit', {
-  icon: <GhostKitCategoryIcon />,
+  icon: <GhostKitLogoIcon />,
 });

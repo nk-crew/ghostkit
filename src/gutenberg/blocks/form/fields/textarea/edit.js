@@ -17,50 +17,47 @@ const { __ } = wp.i18n;
 
 const { applyFilters } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment } = wp.element;
 
 const { PanelBody, TextareaControl } = wp.components;
 
-const { InspectorControls } = wp.blockEditor;
+const { InspectorControls, useBlockProps } = wp.blockEditor;
 
 /**
  * Block Edit Class.
  */
-class BlockEdit extends Component {
-  render() {
-    const { attributes, setAttributes } = this.props;
+export default function BlockEdit(props) {
+  const { attributes, setAttributes } = props;
 
-    const { default: defaultVal } = attributes;
+  const { default: defaultVal } = attributes;
 
-    let { className = '' } = this.props;
+  let { className = '' } = props;
 
-    className = classnames('ghostkit-form-field ghostkit-form-field-textarea', className);
+  className = classnames('ghostkit-form-field ghostkit-form-field-textarea', className);
+  className = applyFilters('ghostkit.editor.className', className, props);
 
-    className = applyFilters('ghostkit.editor.className', className, this.props);
+  const defaultCustom = (
+    <TextareaControl
+      label={__('Default', '@@text_domain')}
+      value={defaultVal}
+      onChange={(val) => setAttributes({ default: val })}
+    />
+  );
 
-    const defaultCustom = (
-      <TextareaControl
-        label={__('Default', '@@text_domain')}
-        value={defaultVal}
-        onChange={(val) => setAttributes({ default: val })}
-      />
-    );
+  const blockProps = useBlockProps({ className });
 
-    return (
-      <Fragment>
-        <InspectorControls>
-          <PanelBody>
-            <FieldDefaultSettings {...this.props} defaultCustom={defaultCustom} />
-          </PanelBody>
-        </InspectorControls>
-        <div className={className}>
-          <FieldLabel {...this.props} />
-          <TextareaControl {...getFieldAttributes(attributes)} />
-          <FieldDescription {...this.props} />
-        </div>
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      <InspectorControls>
+        <PanelBody>
+          <FieldDefaultSettings {...props} defaultCustom={defaultCustom} />
+        </PanelBody>
+      </InspectorControls>
+      <div {...blockProps}>
+        <FieldLabel {...props} />
+        <TextareaControl {...getFieldAttributes(attributes)} />
+        <FieldDescription {...props} />
+      </div>
+    </Fragment>
+  );
 }
-
-export default BlockEdit;

@@ -13,30 +13,31 @@ import getIcon from '../../utils/get-icon';
  */
 const { __ } = wp.i18n;
 
-const { Component } = wp.element;
-
 const { Placeholder, SelectControl } = wp.components;
+
+const { useBlockProps } = wp.blockEditor;
 
 const { GHOSTKIT } = window;
 
 /**
  * Block Edit Class.
  */
-class BlockEdit extends Component {
-  render() {
-    const { setAttributes, attributes } = this.props;
+export default function BlockEdit(props) {
+  const { setAttributes, attributes } = props;
 
-    let { className } = this.props;
+  let { className } = props;
 
-    const { id } = attributes;
+  const { id } = attributes;
 
-    className = classnames('ghostkit-widgetized-area', className);
+  className = classnames('ghostkit-widgetized-area', className);
 
-    return (
+  const blockProps = useBlockProps({ className });
+
+  return (
+    <div {...blockProps}>
       <Placeholder
         icon={getIcon('block-widgetized-area')}
         label={__('Widgetized Area', '@@text_domain')}
-        className={className}
       >
         <SelectControl
           value={id}
@@ -62,8 +63,6 @@ class BlockEdit extends Component {
           })()}
         />
       </Placeholder>
-    );
-  }
+    </div>
+  );
 }
-
-export default BlockEdit;

@@ -15,40 +15,37 @@ import { getFieldAttributes, FieldDefaultSettings } from '../../field-attributes
  */
 const { applyFilters } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment } = wp.element;
 
 const { PanelBody, TextControl } = wp.components;
 
-const { InspectorControls } = wp.blockEditor;
+const { InspectorControls, useBlockProps } = wp.blockEditor;
 
 /**
  * Block Edit Class.
  */
-class BlockEdit extends Component {
-  render() {
-    const { attributes } = this.props;
+export default function BlockEdit(props) {
+  const { attributes } = props;
 
-    let { className = '' } = this.props;
+  let { className = '' } = props;
 
-    className = classnames('ghostkit-form-field ghostkit-form-field-url', className);
+  className = classnames('ghostkit-form-field ghostkit-form-field-url', className);
+  className = applyFilters('ghostkit.editor.className', className, props);
 
-    className = applyFilters('ghostkit.editor.className', className, this.props);
+  const blockProps = useBlockProps({ className });
 
-    return (
-      <Fragment>
-        <InspectorControls>
-          <PanelBody>
-            <FieldDefaultSettings {...this.props} />
-          </PanelBody>
-        </InspectorControls>
-        <div className={className}>
-          <FieldLabel {...this.props} />
-          <TextControl type="url" {...getFieldAttributes(attributes)} />
-          <FieldDescription {...this.props} />
-        </div>
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      <InspectorControls>
+        <PanelBody>
+          <FieldDefaultSettings {...props} />
+        </PanelBody>
+      </InspectorControls>
+      <div {...blockProps}>
+        <FieldLabel {...props} />
+        <TextControl type="url" {...getFieldAttributes(attributes)} />
+        <FieldDescription {...props} />
+      </div>
+    </Fragment>
+  );
 }
-
-export default BlockEdit;

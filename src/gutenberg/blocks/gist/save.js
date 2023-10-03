@@ -8,37 +8,32 @@ import metadata from './block.json';
  */
 const { applyFilters } = wp.hooks;
 
-const { Component } = wp.element;
-
 const { name } = metadata;
+
+const { useBlockProps } = wp.blockEditor;
 
 /**
  * Block Save Class.
  */
-class BlockSave extends Component {
-  render() {
-    const { url, file, caption, showFooter, showLineNumbers } = this.props.attributes;
+export default function BlockSave(props) {
+  const { url, file, caption, showFooter, showLineNumbers } = props.attributes;
 
-    let className = 'ghostkit-gist';
+  let className = 'ghostkit-gist';
+  className = applyFilters('ghostkit.blocks.className', className, {
+    ...{
+      name,
+    },
+    ...props,
+  });
 
-    className = applyFilters('ghostkit.blocks.className', className, {
-      ...{
-        name,
-      },
-      ...this.props,
-    });
+  const blockProps = useBlockProps.save({
+    className,
+    'data-url': url,
+    'data-file': file,
+    'data-caption': caption,
+    'data-show-footer': showFooter ? 'true' : 'false',
+    'data-show-line-numbers': showLineNumbers ? 'true' : 'false',
+  });
 
-    return (
-      <div
-        className={className}
-        data-url={url}
-        data-file={file}
-        data-caption={caption}
-        data-show-footer={showFooter ? 'true' : 'false'}
-        data-show-line-numbers={showLineNumbers ? 'true' : 'false'}
-      />
-    );
-  }
+  return <div {...blockProps} />;
 }
-
-export default BlockSave;

@@ -1,5 +1,6 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
   "name": "ghostkit/form-field-url",
   "parent": ["ghostkit/form"],
   "category": "ghostkit",

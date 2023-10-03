@@ -7,17 +7,11 @@ import classnames from 'classnames/dedupe';
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-
 const { __ } = wp.i18n;
-
 const { useEffect } = wp.element;
-
 const { PanelBody, ToggleControl, SelectControl, Button } = wp.components;
-
-const { InspectorControls, InnerBlocks } = wp.blockEditor;
-
+const { InspectorControls, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 const { createBlock } = wp.blocks;
-
 const { useSelect, useDispatch } = wp.data;
 
 const accordionItemBlockName = 'ghostkit/accordion-item';
@@ -32,22 +26,12 @@ export default function BlockEdit(props) {
 
   const { itemsCount, collapseOne, collapseTitleTag } = attributes;
 
-  const { isSelectedBlockInRoot } = useSelect(
+  const { isSelectedBlockInRoot, count } = useSelect(
     (select) => {
-      const { isBlockSelected, hasSelectedInnerBlock } = select('core/block-editor');
+      const { isBlockSelected, hasSelectedInnerBlock, getBlockCount } = select('core/block-editor');
 
       return {
         isSelectedBlockInRoot: isBlockSelected(clientId) || hasSelectedInnerBlock(clientId, true),
-      };
-    },
-    [clientId]
-  );
-
-  const { count } = useSelect(
-    (select) => {
-      const { getBlockCount } = select('core/block-editor');
-
-      return {
         count: getBlockCount(clientId),
       };
     },
@@ -71,6 +55,15 @@ export default function BlockEdit(props) {
   className = classnames(className, 'ghostkit-accordion');
 
   className = applyFilters('ghostkit.editor.className', className, props);
+
+  const blockProps = useBlockProps({
+    className,
+  });
+
+  const innerBlocksProps = useInnerBlocksProps(blockProps, {
+    allowedBlocks: [accordionItemBlockName],
+    template: [[accordionItemBlockName], [accordionItemBlockName]],
+  });
 
   return (
     <>
@@ -114,12 +107,7 @@ export default function BlockEdit(props) {
           />
         </PanelBody>
       </InspectorControls>
-      <div className={className}>
-        <InnerBlocks
-          template={[[accordionItemBlockName], [accordionItemBlockName]]}
-          allowedBlocks={[accordionItemBlockName]}
-        />
-      </div>
+      <div {...innerBlocksProps} />
       {isSelectedBlockInRoot ? (
         <div className="ghostkit-accordion-add-item">
           <Button

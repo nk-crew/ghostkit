@@ -3,39 +3,28 @@
  */
 import metadata from './block.json';
 
+const { name } = metadata;
+
 /**
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-
-const { Component } = wp.element;
-
-const { InnerBlocks } = wp.blockEditor;
-
-const { name } = metadata;
+const { useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Save Class.
  */
-class BlockSave extends Component {
-  render() {
-    const { slug } = this.props.attributes;
+export default function BlockEdit(props) {
+  const { slug } = props.attributes;
 
-    let className = 'ghostkit-tab';
+  let className = 'ghostkit-tab';
 
-    className = applyFilters('ghostkit.blocks.className', className, {
-      ...{
-        name,
-      },
-      ...this.props,
-    });
+  className = applyFilters('ghostkit.blocks.className', className, {
+    ...{ name },
+    ...props,
+  });
 
-    return (
-      <div className={className} data-tab={slug}>
-        <InnerBlocks.Content />
-      </div>
-    );
-  }
+  const innerBlockProps = useInnerBlocksProps.save({ className, 'data-tab': slug });
+
+  return <div {...innerBlockProps} />;
 }
-
-export default BlockSave;

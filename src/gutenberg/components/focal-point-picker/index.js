@@ -1,8 +1,6 @@
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
-
 const { FocalPointPicker } = wp.components;
 
 /**
@@ -82,32 +80,30 @@ function parseImageUrl(image) {
 /**
  * Component Class.
  */
-export default class CustomFocalPointPicker extends Component {
-  render() {
-    const { value, onChange, label, image } = this.props;
+export default function CustomFocalPointPicker(props) {
+  const { value, onChange, label, image } = props;
 
-    const focalPointValue = sizeToPoint(value);
-    let imageUrl = '';
+  const focalPointValue = sizeToPoint(value);
+  let imageUrl = '';
 
-    if (!image) {
-      return null;
-    }
-
-    imageUrl = parseImageUrl(image);
-
-    if (!imageUrl) {
-      return null;
-    }
-
-    return (
-      <FocalPointPicker
-        label={label}
-        url={imageUrl}
-        value={focalPointValue}
-        onChange={(val) => {
-          onChange(`${parseInt(100 * val.x, 10)}% ${parseInt(100 * val.y, 10)}%`);
-        }}
-      />
-    );
+  if (!image) {
+    return null;
   }
+
+  imageUrl = parseImageUrl(image);
+
+  if (!imageUrl) {
+    return null;
+  }
+
+  return (
+    <FocalPointPicker
+      label={label}
+      url={imageUrl}
+      value={focalPointValue}
+      onChange={(val) => {
+        onChange(`${parseInt(100 * val.x, 10)}% ${parseInt(100 * val.y, 10)}%`);
+      }}
+    />
+  );
 }

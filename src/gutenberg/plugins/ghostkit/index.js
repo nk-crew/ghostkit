@@ -24,7 +24,7 @@ const { GHOSTKIT } = window;
 
 export const name = 'ghostkit';
 
-export const icon = <div className="ghostkit-plugin-icon">{getIcon('plugin-ghostkit')}</div>;
+export const icon = <div className="ghostkit-plugin-icon">{getIcon('ghostkit-logo')}</div>;
 
 export class Plugin extends Component {
   constructor(props) {
@@ -50,8 +50,7 @@ export class Plugin extends Component {
             <PanelBody className="plugin-ghostkit-panel">
               <Button
                 className="plugin-ghostkit-panel-button"
-                isSecondary
-                isLarge
+                variant="secondary"
                 onClick={() => {
                   this.setState({ isModalOpen: 'templates' });
                 }}
@@ -61,8 +60,7 @@ export class Plugin extends Component {
               </Button>
               <Button
                 className="plugin-ghostkit-panel-button"
-                isSecondary
-                isLarge
+                variant="secondary"
                 onClick={() => {
                   this.setState({ isModalOpen: 'typography' });
                 }}
@@ -72,8 +70,7 @@ export class Plugin extends Component {
               </Button>
               <Button
                 className="plugin-ghostkit-panel-button"
-                isSecondary
-                isLarge
+                variant="secondary"
                 onClick={() => {
                   this.setState({ isModalOpen: 'custom-code' });
                 }}
@@ -84,8 +81,7 @@ export class Plugin extends Component {
               {GHOSTKIT.allowPluginColorPalette ? (
                 <Button
                   className="plugin-ghostkit-panel-button"
-                  isSecondary
-                  isLarge
+                  variant="secondary"
                   onClick={() => {
                     this.setState({ isModalOpen: 'color-palette' });
                   }}
@@ -97,8 +93,7 @@ export class Plugin extends Component {
               {GHOSTKIT.allowPluginCustomizer ? (
                 <Button
                   className="plugin-ghostkit-panel-button"
-                  isSecondary
-                  isLarge
+                  variant="secondary"
                   onClick={() => {
                     this.setState({ isModalOpen: 'customizer' });
                   }}
@@ -112,29 +107,19 @@ export class Plugin extends Component {
         ) : null}
         {isModalOpen === 'templates' ? (
           <TemplatesModal onRequestClose={() => this.setState({ isModalOpen: false })} />
-        ) : (
-          ''
-        )}
+        ) : null}
         {isModalOpen === 'typography' ? (
           <TypographyModal onRequestClose={() => this.setState({ isModalOpen: false })} />
-        ) : (
-          ''
-        )}
+        ) : null}
         {isModalOpen === 'custom-code' ? (
           <CustomCodeModal onRequestClose={() => this.setState({ isModalOpen: false })} />
-        ) : (
-          ''
-        )}
+        ) : null}
         {isModalOpen === 'color-palette' ? (
           <ColorPaletteModal onRequestClose={() => this.setState({ isModalOpen: false })} />
-        ) : (
-          ''
-        )}
+        ) : null}
         {isModalOpen === 'customizer' ? (
           <CustomizerModal onRequestClose={() => this.setState({ isModalOpen: false })} />
-        ) : (
-          ''
-        )}
+        ) : null}
       </Fragment>
     );
   }

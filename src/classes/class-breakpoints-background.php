@@ -18,11 +18,18 @@ if ( ! class_exists( 'WP_Background_Process' ) ) {
  */
 class GhostKit_Breakpoints_Background extends WP_Background_Process {
     /**
+     * Prefix
+     *
+     * @var string
+     */
+    protected $prefix = 'ghostkit';
+
+    /**
      * Name of Cron Action Task.
      *
      * @var string
      */
-    protected $action = '@@plugin_name_run_breakpoints_processing';
+    protected $action = 'run_breakpoints_processing';
 
     /**
      * Cron Interval.
@@ -54,53 +61,4 @@ class GhostKit_Breakpoints_Background extends WP_Background_Process {
         new GhostKit_Scss_Compiler( $item );
         return false;
     }
-
-    /**
-     * Schedule event
-     */
-    protected function schedule_event() {
-        if ( ! wp_next_scheduled( $this->cron_hook_identifier ) ) {
-            wp_schedule_event( time() + ( 60 * $this->cron_interval ), $this->cron_interval_identifier, $this->cron_hook_identifier );
-        }
-    }
-
-    /**
-     * Dispatch
-     *
-     * @access public
-     * @return void
-     */
-    public function dispatch() {
-        // Schedule the cron healthcheck.
-        $this->schedule_event();
-    }
-
-    /**
-     * Schedule cron healthcheck
-     *
-     * @access public
-     *
-     * @param mixed $schedules Schedules.
-     *
-     * @return mixed
-     */
-    public function schedule_cron_healthcheck( $schedules ) {
-        // phpcs:ignore
-        $interval = apply_filters( $this->identifier . '_cron_interval', 5 );
-
-        if ( property_exists( $this, 'cron_interval' ) ) {
-            // phpcs:ignore
-            $interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval );
-        }
-
-        // Adds every 5 minutes to the existing schedules.
-        $schedules[ $this->identifier . '_cron_interval' ] = array(
-            'interval' => (int) MINUTE_IN_SECONDS * $interval,
-            // translators: %d - Interval.
-            'display'  => sprintf( __( 'Every %d Minutes', '@@text_domain' ), $interval ),
-        );
-
-        return $schedules;
-    }
-
 }

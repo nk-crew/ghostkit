@@ -18,7 +18,7 @@ const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment } = wp.element;
 
 const { createHigherOrderComponent } = wp.compose;
 
@@ -42,13 +42,11 @@ function checkSupportedBlock(name) {
 /**
  * Frame Component.
  */
-class FrameComponent extends Component {
-  constructor(props) {
-    super(props);
+function FrameComponent(props) {
+  const { attributes, setAttributes } = props;
+  const { className = '' } = attributes;
 
-    this.updateFrame = this.updateFrame.bind(this);
-    this.getCurrentFrame = this.getCurrentFrame.bind(this);
-  }
+  let { ghostkitFrame = {} } = attributes;
 
   /**
    * Get current frame setting for selected device type.
@@ -58,8 +56,7 @@ class FrameComponent extends Component {
    *
    * @returns {String} frame setting value.
    */
-  getCurrentFrame(name, device) {
-    const { ghostkitFrame = {} } = this.props.attributes;
+  function getCurrentFrame(name, device) {
     let result = '';
 
     if (!device) {
@@ -79,10 +76,7 @@ class FrameComponent extends Component {
    * @param {Object} data - new attributes object.
    * @param {String} device - frame setting for device.
    */
-  updateFrame(data, device) {
-    const { setAttributes } = this.props;
-    let { ghostkitFrame = {} } = this.props.attributes;
-    const { className = '' } = this.props.attributes;
+  function updateFrame(data, device) {
     const result = {};
     const newFrame = {};
 
@@ -143,439 +137,425 @@ class FrameComponent extends Component {
     setAttributes(resultAttrs);
   }
 
-  render() {
-    const { props } = this;
-    const allow = checkSupportedBlock(props.name);
+  const allow = checkSupportedBlock(props.name);
 
-    const { ghostkitFrame } = props.attributes;
-
-    if (!allow) {
-      return null;
-    }
-
-    const filledTabs = {};
-    const allFrame = [
-      'borderStyle',
-      'borderWidth',
-      'borderColor',
-      'boxShadowColor',
-      'boxShadowX',
-      'boxShadowY',
-      'boxShadowBlur',
-      'boxShadowSpread',
-      'borderTopLeftRadius',
-      'borderTopRightRadius',
-      'borderBottomRightRadius',
-      'borderBottomLeftRadius',
-      'hoverBorderStyle',
-      'hoverBorderWidth',
-      'hoverBorderColor',
-      'hoverBoxShadowColor',
-      'hoverBoxShadowX',
-      'hoverBoxShadowY',
-      'hoverBoxShadowBlur',
-      'hoverBoxShadowSpread',
-      'hoverBorderTopLeftRadius',
-      'hoverBorderTopRightRadius',
-      'hoverBorderBottomRightRadius',
-      'hoverBorderBottomLeftRadius',
-    ];
-    if (
-      ghostkitVariables &&
-      ghostkitVariables.media_sizes &&
-      Object.keys(ghostkitVariables.media_sizes).length
-    ) {
-      ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-        filledTabs[media] = false;
-        allFrame.forEach((spacing) => {
-          if (this.getCurrentFrame(spacing, media !== 'all' ? `media_${media}` : '')) {
-            filledTabs[media] = true;
-          }
-        });
-      });
-    }
-
-    const stateTabs = [
-      {
-        name: 'normal',
-        title: __('Normal', '@@text_domain'),
-        className: 'ghostkit-control-tabs-tab',
-      },
-      {
-        name: 'hover',
-        title: __('Hover', '@@text_domain'),
-        className: 'ghostkit-control-tabs-tab',
-      },
-    ];
-
-    const borderStyles = [
-      {
-        value: 'solid',
-        label: (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M5 11.25H19V12.75H5V11.25Z" fill="currentColor" />
-          </svg>
-        ),
-      },
-      {
-        value: 'dashed',
-        label: (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M5 11.25H8V12.75H5V11.25ZM10.5 11.25H13.5V12.75H10.5V11.25ZM19 11.25H16V12.75H19V11.25Z"
-              fill="currentColor"
-            />
-          </svg>
-        ),
-      },
-      {
-        value: 'dotted',
-        label: (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M5.25 11.25H6.75V12.75H5.25V11.25ZM8.25 11.25H9.75V12.75H8.25V11.25ZM12.75 11.25H11.25V12.75H12.75V11.25ZM14.25 11.25H15.75V12.75H14.25V11.25ZM18.75 11.25H17.25V12.75H18.75V11.25Z"
-              fill="currentColor"
-            />
-          </svg>
-        ),
-      },
-      {
-        value: 'double',
-        label: (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M5 9.25H19V10.75H5V9.25Z" fill="currentColor" />
-            <path d="M5 13H19V14.5H5V13Z" fill="currentColor" />
-          </svg>
-        ),
-      },
-    ];
-
-    // add new frame controls.
-    return (
-      <InspectorControls group="styles">
-        <PanelBody
-          title={
-            <Fragment>
-              <span className="ghostkit-ext-icon">{getIcon('extension-frame')}</span>
-              <span>{__('Frame', '@@text_domain')}</span>
-              {ghostkitFrame && Object.keys(ghostkitFrame).length ? <ActiveIndicator /> : ''}
-            </Fragment>
-          }
-          initialOpen={initialOpenPanel}
-          onToggle={() => {
-            initialOpenPanel = !initialOpenPanel;
-          }}
-        >
-          <ResponsiveTabPanel filledTabs={filledTabs}>
-            {(tabData) => {
-              let device = '';
-
-              if (tabData.name !== 'all') {
-                device = `media_${tabData.name}`;
-              }
-
-              return (
-                <TabPanel
-                  className="ghostkit-control-tabs ghostkit-control-tabs-wide ghostkit-extension-frame-tabs"
-                  tabs={stateTabs}
-                >
-                  {(stateTabData) => {
-                    const isHover = stateTabData.name === 'hover';
-                    const borderPropName = `${isHover ? 'hoverBorder' : 'border'}`;
-                    const shadowPropName = `${isHover ? 'hoverBoxShadow' : 'boxShadow'}`;
-                    const borderStyle = this.getCurrentFrame(`${borderPropName}Style`, device);
-
-                    return (
-                      <Fragment>
-                        <ToggleGroup
-                          label={__('Border', '@@text_domain')}
-                          value={borderStyle}
-                          options={borderStyles}
-                          onChange={(value) => {
-                            if (value && value !== borderStyle) {
-                              this.updateFrame(
-                                {
-                                  [`${borderPropName}Style`]: value === 'none' ? '' : value,
-                                },
-                                device
-                              );
-                            } else {
-                              this.updateFrame(
-                                {
-                                  [`${borderPropName}Style`]: '',
-                                  [`${borderPropName}Color`]: '',
-                                  [`${borderPropName}Width`]: '',
-                                },
-                                device
-                              );
-                            }
-                          }}
-                          className="ghostkit-control-border-style"
-                          isDeselectable
-                        />
-                        {borderStyle ? (
-                          <div className="ghostkit-control-border-additional">
-                            <Tooltip text={__('Border Color', '@@text_domain')}>
-                              <div>
-                                <ColorPicker
-                                  value={this.getCurrentFrame(`${borderPropName}Color`, device)}
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${borderPropName}Color`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  alpha
-                                />
-                              </div>
-                            </Tooltip>
-                            <Tooltip text={__('Border Size', '@@text_domain')}>
-                              <div>
-                                <InputDrag
-                                  value={this.getCurrentFrame(`${borderPropName}Width`, device)}
-                                  placeholder={__('Border Size', '@@text_domain')}
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${borderPropName}Width`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  startDistance={1}
-                                  autoComplete="off"
-                                />
-                              </div>
-                            </Tooltip>
-                          </div>
-                        ) : (
-                          ''
-                        )}
-                        <BaseControl label={__('Border Radius', '@@text_domain')}>
-                          <div className="ghostkit-control-radius">
-                            <Tooltip text={__('Top Left', '@@text_domain')}>
-                              <div>
-                                <InputDrag
-                                  value={this.getCurrentFrame(
-                                    `${borderPropName}TopLeftRadius`,
-                                    device
-                                  )}
-                                  placeholder="-"
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${borderPropName}TopLeftRadius`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  autoComplete="off"
-                                  className="ghostkit-control-radius-tl"
-                                />
-                              </div>
-                            </Tooltip>
-                            <Tooltip text={__('Top Right', '@@text_domain')}>
-                              <div>
-                                <InputDrag
-                                  value={this.getCurrentFrame(
-                                    `${borderPropName}TopRightRadius`,
-                                    device
-                                  )}
-                                  placeholder="-"
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${borderPropName}TopRightRadius`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  autoComplete="off"
-                                  className="ghostkit-control-radius-tr"
-                                />
-                              </div>
-                            </Tooltip>
-                            <Tooltip text={__('Bottom Right', '@@text_domain')}>
-                              <div>
-                                <InputDrag
-                                  value={this.getCurrentFrame(
-                                    `${borderPropName}BottomRightRadius`,
-                                    device
-                                  )}
-                                  placeholder="-"
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${borderPropName}BottomRightRadius`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  autoComplete="off"
-                                  className="ghostkit-control-radius-br"
-                                />
-                              </div>
-                            </Tooltip>
-                            <Tooltip text={__('Bottom Left', '@@text_domain')}>
-                              <div>
-                                <InputDrag
-                                  value={this.getCurrentFrame(
-                                    `${borderPropName}BottomLeftRadius`,
-                                    device
-                                  )}
-                                  placeholder="-"
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${borderPropName}BottomLeftRadius`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  autoComplete="off"
-                                  className="ghostkit-control-radius-bl"
-                                />
-                              </div>
-                            </Tooltip>
-                          </div>
-                        </BaseControl>
-                        <BaseControl label={__('Shadow', '@@text_domain')}>
-                          <div className="ghostkit-control-box-shadow">
-                            <Tooltip text={__('Color', '@@text_domain')}>
-                              <div>
-                                <ColorPicker
-                                  value={this.getCurrentFrame(`${shadowPropName}Color`, device)}
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${shadowPropName}Color`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  alpha
-                                />
-                              </div>
-                            </Tooltip>
-                            <Tooltip text={__('X', '@@text_domain')}>
-                              <div>
-                                <InputDrag
-                                  value={this.getCurrentFrame(`${shadowPropName}X`, device)}
-                                  placeholder={__('X', '@@text_domain')}
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${shadowPropName}X`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  startDistance={1}
-                                  autoComplete="off"
-                                  className="ghostkit-control-box-shadow-x"
-                                />
-                              </div>
-                            </Tooltip>
-                            <Tooltip text={__('Y', '@@text_domain')}>
-                              <div>
-                                <InputDrag
-                                  value={this.getCurrentFrame(`${shadowPropName}Y`, device)}
-                                  placeholder={__('Y', '@@text_domain')}
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${shadowPropName}Y`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  startDistance={1}
-                                  autoComplete="off"
-                                  className="ghostkit-control-box-shadow-y"
-                                />
-                              </div>
-                            </Tooltip>
-                            <Tooltip text={__('Blur', '@@text_domain')}>
-                              <div>
-                                <InputDrag
-                                  value={this.getCurrentFrame(`${shadowPropName}Blur`, device)}
-                                  placeholder={__('Blur', '@@text_domain')}
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${shadowPropName}Blur`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  startDistance={1}
-                                  autoComplete="off"
-                                  className="ghostkit-control-box-shadow-blur"
-                                />
-                              </div>
-                            </Tooltip>
-                            <Tooltip text={__('Spread', '@@text_domain')}>
-                              <div>
-                                <InputDrag
-                                  value={this.getCurrentFrame(`${shadowPropName}Spread`, device)}
-                                  placeholder={__('Spread', '@@text_domain')}
-                                  onChange={(val) =>
-                                    this.updateFrame(
-                                      {
-                                        [`${shadowPropName}Spread`]: val,
-                                      },
-                                      device
-                                    )
-                                  }
-                                  startDistance={1}
-                                  autoComplete="off"
-                                  className="ghostkit-control-box-shadow-spread"
-                                />
-                              </div>
-                            </Tooltip>
-                          </div>
-                        </BaseControl>
-                      </Fragment>
-                    );
-                  }}
-                </TabPanel>
-              );
-            }}
-          </ResponsiveTabPanel>
-        </PanelBody>
-      </InspectorControls>
-    );
+  if (!allow) {
+    return null;
   }
+
+  const filledTabs = {};
+  const allFrame = [
+    'borderStyle',
+    'borderWidth',
+    'borderColor',
+    'boxShadowColor',
+    'boxShadowX',
+    'boxShadowY',
+    'boxShadowBlur',
+    'boxShadowSpread',
+    'borderTopLeftRadius',
+    'borderTopRightRadius',
+    'borderBottomRightRadius',
+    'borderBottomLeftRadius',
+    'hoverBorderStyle',
+    'hoverBorderWidth',
+    'hoverBorderColor',
+    'hoverBoxShadowColor',
+    'hoverBoxShadowX',
+    'hoverBoxShadowY',
+    'hoverBoxShadowBlur',
+    'hoverBoxShadowSpread',
+    'hoverBorderTopLeftRadius',
+    'hoverBorderTopRightRadius',
+    'hoverBorderBottomRightRadius',
+    'hoverBorderBottomLeftRadius',
+  ];
+  if (
+    ghostkitVariables &&
+    ghostkitVariables.media_sizes &&
+    Object.keys(ghostkitVariables.media_sizes).length
+  ) {
+    ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
+      filledTabs[media] = false;
+      allFrame.forEach((spacing) => {
+        if (getCurrentFrame(spacing, media !== 'all' ? `media_${media}` : '')) {
+          filledTabs[media] = true;
+        }
+      });
+    });
+  }
+
+  const stateTabs = [
+    {
+      name: 'normal',
+      title: __('Normal', '@@text_domain'),
+      className: 'ghostkit-control-tabs-tab',
+    },
+    {
+      name: 'hover',
+      title: __('Hover', '@@text_domain'),
+      className: 'ghostkit-control-tabs-tab',
+    },
+  ];
+
+  const borderStyles = [
+    {
+      value: 'solid',
+      label: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M5 11.25H19V12.75H5V11.25Z" fill="currentColor" />
+        </svg>
+      ),
+    },
+    {
+      value: 'dashed',
+      label: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M5 11.25H8V12.75H5V11.25ZM10.5 11.25H13.5V12.75H10.5V11.25ZM19 11.25H16V12.75H19V11.25Z"
+            fill="currentColor"
+          />
+        </svg>
+      ),
+    },
+    {
+      value: 'dotted',
+      label: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M5.25 11.25H6.75V12.75H5.25V11.25ZM8.25 11.25H9.75V12.75H8.25V11.25ZM12.75 11.25H11.25V12.75H12.75V11.25ZM14.25 11.25H15.75V12.75H14.25V11.25ZM18.75 11.25H17.25V12.75H18.75V11.25Z"
+            fill="currentColor"
+          />
+        </svg>
+      ),
+    },
+    {
+      value: 'double',
+      label: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M5 9.25H19V10.75H5V9.25Z" fill="currentColor" />
+          <path d="M5 13H19V14.5H5V13Z" fill="currentColor" />
+        </svg>
+      ),
+    },
+  ];
+
+  // add new frame controls.
+  return (
+    <InspectorControls group="styles">
+      <PanelBody
+        title={
+          <Fragment>
+            <span className="ghostkit-ext-icon">{getIcon('extension-frame')}</span>
+            <span>{__('Frame', '@@text_domain')}</span>
+            {ghostkitFrame && Object.keys(ghostkitFrame).length ? <ActiveIndicator /> : ''}
+          </Fragment>
+        }
+        initialOpen={initialOpenPanel}
+        onToggle={() => {
+          initialOpenPanel = !initialOpenPanel;
+        }}
+      >
+        <ResponsiveTabPanel filledTabs={filledTabs}>
+          {(tabData) => {
+            let device = '';
+
+            if (tabData.name !== 'all') {
+              device = `media_${tabData.name}`;
+            }
+
+            return (
+              <TabPanel
+                className="ghostkit-control-tabs ghostkit-control-tabs-wide ghostkit-extension-frame-tabs"
+                tabs={stateTabs}
+              >
+                {(stateTabData) => {
+                  const isHover = stateTabData.name === 'hover';
+                  const borderPropName = `${isHover ? 'hoverBorder' : 'border'}`;
+                  const shadowPropName = `${isHover ? 'hoverBoxShadow' : 'boxShadow'}`;
+                  const borderStyle = getCurrentFrame(`${borderPropName}Style`, device);
+
+                  return (
+                    <Fragment>
+                      <ToggleGroup
+                        label={__('Border', '@@text_domain')}
+                        value={borderStyle}
+                        options={borderStyles}
+                        onChange={(value) => {
+                          if (value && value !== borderStyle) {
+                            updateFrame(
+                              {
+                                [`${borderPropName}Style`]: value === 'none' ? '' : value,
+                              },
+                              device
+                            );
+                          } else {
+                            updateFrame(
+                              {
+                                [`${borderPropName}Style`]: '',
+                                [`${borderPropName}Color`]: '',
+                                [`${borderPropName}Width`]: '',
+                              },
+                              device
+                            );
+                          }
+                        }}
+                        className="ghostkit-control-border-style"
+                        isDeselectable
+                      />
+                      {borderStyle ? (
+                        <div className="ghostkit-control-border-additional">
+                          <Tooltip text={__('Border Color', '@@text_domain')}>
+                            <div>
+                              <ColorPicker
+                                value={getCurrentFrame(`${borderPropName}Color`, device)}
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${borderPropName}Color`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                alpha
+                              />
+                            </div>
+                          </Tooltip>
+                          <Tooltip text={__('Border Size', '@@text_domain')}>
+                            <div>
+                              <InputDrag
+                                value={getCurrentFrame(`${borderPropName}Width`, device)}
+                                placeholder={__('Border Size', '@@text_domain')}
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${borderPropName}Width`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                startDistance={1}
+                                autoComplete="off"
+                              />
+                            </div>
+                          </Tooltip>
+                        </div>
+                      ) : (
+                        ''
+                      )}
+                      <BaseControl label={__('Border Radius', '@@text_domain')}>
+                        <div className="ghostkit-control-radius">
+                          <Tooltip text={__('Top Left', '@@text_domain')}>
+                            <div>
+                              <InputDrag
+                                value={getCurrentFrame(`${borderPropName}TopLeftRadius`, device)}
+                                placeholder="-"
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${borderPropName}TopLeftRadius`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                autoComplete="off"
+                                className="ghostkit-control-radius-tl"
+                              />
+                            </div>
+                          </Tooltip>
+                          <Tooltip text={__('Top Right', '@@text_domain')}>
+                            <div>
+                              <InputDrag
+                                value={getCurrentFrame(`${borderPropName}TopRightRadius`, device)}
+                                placeholder="-"
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${borderPropName}TopRightRadius`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                autoComplete="off"
+                                className="ghostkit-control-radius-tr"
+                              />
+                            </div>
+                          </Tooltip>
+                          <Tooltip text={__('Bottom Right', '@@text_domain')}>
+                            <div>
+                              <InputDrag
+                                value={getCurrentFrame(
+                                  `${borderPropName}BottomRightRadius`,
+                                  device
+                                )}
+                                placeholder="-"
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${borderPropName}BottomRightRadius`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                autoComplete="off"
+                                className="ghostkit-control-radius-br"
+                              />
+                            </div>
+                          </Tooltip>
+                          <Tooltip text={__('Bottom Left', '@@text_domain')}>
+                            <div>
+                              <InputDrag
+                                value={getCurrentFrame(`${borderPropName}BottomLeftRadius`, device)}
+                                placeholder="-"
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${borderPropName}BottomLeftRadius`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                autoComplete="off"
+                                className="ghostkit-control-radius-bl"
+                              />
+                            </div>
+                          </Tooltip>
+                        </div>
+                      </BaseControl>
+                      <BaseControl label={__('Shadow', '@@text_domain')}>
+                        <div className="ghostkit-control-box-shadow">
+                          <Tooltip text={__('Color', '@@text_domain')}>
+                            <div>
+                              <ColorPicker
+                                value={getCurrentFrame(`${shadowPropName}Color`, device)}
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${shadowPropName}Color`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                alpha
+                              />
+                            </div>
+                          </Tooltip>
+                          <Tooltip text={__('X', '@@text_domain')}>
+                            <div>
+                              <InputDrag
+                                value={getCurrentFrame(`${shadowPropName}X`, device)}
+                                placeholder={__('X', '@@text_domain')}
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${shadowPropName}X`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                startDistance={1}
+                                autoComplete="off"
+                                className="ghostkit-control-box-shadow-x"
+                              />
+                            </div>
+                          </Tooltip>
+                          <Tooltip text={__('Y', '@@text_domain')}>
+                            <div>
+                              <InputDrag
+                                value={getCurrentFrame(`${shadowPropName}Y`, device)}
+                                placeholder={__('Y', '@@text_domain')}
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${shadowPropName}Y`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                startDistance={1}
+                                autoComplete="off"
+                                className="ghostkit-control-box-shadow-y"
+                              />
+                            </div>
+                          </Tooltip>
+                          <Tooltip text={__('Blur', '@@text_domain')}>
+                            <div>
+                              <InputDrag
+                                value={getCurrentFrame(`${shadowPropName}Blur`, device)}
+                                placeholder={__('Blur', '@@text_domain')}
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${shadowPropName}Blur`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                startDistance={1}
+                                autoComplete="off"
+                                className="ghostkit-control-box-shadow-blur"
+                              />
+                            </div>
+                          </Tooltip>
+                          <Tooltip text={__('Spread', '@@text_domain')}>
+                            <div>
+                              <InputDrag
+                                value={getCurrentFrame(`${shadowPropName}Spread`, device)}
+                                placeholder={__('Spread', '@@text_domain')}
+                                onChange={(val) =>
+                                  updateFrame(
+                                    {
+                                      [`${shadowPropName}Spread`]: val,
+                                    },
+                                    device
+                                  )
+                                }
+                                startDistance={1}
+                                autoComplete="off"
+                                className="ghostkit-control-box-shadow-spread"
+                              />
+                            </div>
+                          </Tooltip>
+                        </div>
+                      </BaseControl>
+                    </Fragment>
+                  );
+                }}
+              </TabPanel>
+            );
+          }}
+        </ResponsiveTabPanel>
+      </PanelBody>
+    </InspectorControls>
+  );
 }
 
 /**

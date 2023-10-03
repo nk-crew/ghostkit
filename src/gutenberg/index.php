@@ -14,17 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function ghostkit_register_blocks() {
     // Find all json and php files of blocks.
-    $all_block_json = glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/block.{json,php}', GLOB_BRACE );
+    $all_block_json = glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/block.json' );
+    $all_block_php  = glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/block.php' );
 
     foreach ( $all_block_json as $path ) {
-        $is_json = substr_compare( $path, '.json', -strlen( '.json' ) ) === 0;
-
-        if ( ! $is_json ) {
-            continue;
-        }
-
         $php_file_path = str_replace( '.json', '.php', $path );
-        $there_is_php  = in_array( $php_file_path, $all_block_json, true );
+        $there_is_php  = in_array( $php_file_path, $all_block_php, true );
 
         // Don't register block if there is php file,
         // which already should contains the registration code.

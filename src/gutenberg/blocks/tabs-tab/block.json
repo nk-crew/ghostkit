@@ -1,5 +1,6 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
   "name": "ghostkit/tabs-tab-v2",
   "parent": ["ghostkit/tabs-v2"],
   "category": "ghostkit",
@@ -24,7 +25,8 @@
         "blockGap": true
       }
     },
-    "__experimentalLayout": true
+    "__experimentalLayout": true,
+    "layout": true
   },
   "attributes": {
     "slug": {

@@ -7,42 +7,37 @@ import classnames from 'classnames/dedupe';
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-
-const { Component } = wp.element;
-
-const { withSelect } = wp.data;
-
-const { InnerBlocks } = wp.blockEditor;
+const { useSelect } = wp.data;
+const { InnerBlocks, useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Edit Class.
  */
-class BlockEdit extends Component {
-  render() {
-    const { hasChildBlocks } = this.props;
-
-    let { className = '' } = this.props;
-
-    className = classnames(className, 'ghostkit-tab');
-
-    className = applyFilters('ghostkit.editor.className', className, this.props);
-
-    return (
-      <div className={className}>
-        <InnerBlocks
-          templateLock={false}
-          renderAppender={hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender}
-        />
-      </div>
-    );
-  }
-}
-
-export default withSelect((select, props) => {
+export default function BlockEdit(props) {
   const { clientId } = props;
-  const blockEditor = select('core/block-editor');
+  let { className = '' } = props;
+  const { slug } = props.attributes;
 
-  return {
-    hasChildBlocks: blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false,
-  };
-})(BlockEdit);
+  const hasChildBlocks = useSelect(
+    (select) => {
+      const blockEditor = select('core/block-editor');
+
+      return blockEditor ? blockEditor.getBlockOrder(clientId).length > 0 : false;
+    },
+    [clientId]
+  );
+
+  className = classnames(className, 'ghostkit-tab');
+
+  className = applyFilters('ghostkit.editor.className', className, props);
+
+  const innerBlockProps = useInnerBlocksProps(
+    { className, 'data-tab': slug },
+    {
+      renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+      templateLock: false,
+    }
+  );
+
+  return <div {...innerBlockProps} />;
+}

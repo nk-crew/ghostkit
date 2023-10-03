@@ -21,3 +21,11 @@
     filter: contrast(1.1) brightness(1.2);
   }
 }
+
+/**
+ * Admin menu icon.
+ */
+#adminmenu .toplevel_page_ghostkit > .wp-menu-image.svg {
+  filter: brightness(1.3);
+  background-size: 16px auto;
+}

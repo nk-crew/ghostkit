@@ -5,7 +5,6 @@
 /**
  * Internal dependencies
  */
-import '../gutenberg/store';
 import Container from './containers/container';
 
 window.addEventListener('load', () => {

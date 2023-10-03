@@ -8,12 +8,11 @@ import * as dividerShape from './shape-divider';
 import * as button from './button';
 import * as buttonSingle from './button-single';
 import * as progress from './progress';
+import * as icon from './icon';
 import * as iconBox from './icon-box';
 import * as imageCompare from './image-compare';
 import * as tabs from './tabs';
 import * as tabsTab from './tabs-tab';
-import * as tabsLegacy from './tabs-legacy';
-import * as tabsLegacyTab from './tabs-legacy/tab';
 import * as accordion from './accordion';
 import * as accordionItem from './accordion-item';
 import * as countdown from './countdown';
@@ -67,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     divider,
     dividerShape,
     alert,
+    icon,
     iconBox,
     imageCompare,
     countdown,
@@ -75,8 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
     accordionItem,
     tabs,
     tabsTab,
-    tabsLegacy,
-    tabsLegacyTab,
     video,
     carousel,
     carouselSlide,

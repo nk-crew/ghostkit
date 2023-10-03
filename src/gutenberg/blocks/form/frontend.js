@@ -48,7 +48,7 @@ function hideError($field) {
  * Form validation.
  */
 events.on(document, 'init.blocks.gkt', () => {
-  document.querySelectorAll('.ghostkit-form:not(.ghostkit-form-ready)').forEach(($form) => {
+  document.querySelectorAll('form.ghostkit-form:not(.ghostkit-form-ready)').forEach(($form) => {
     $form.classList.add('ghostkit-form-ready');
 
     // Disable native validation errors.
@@ -139,7 +139,7 @@ events.on(document, 'submit', '.ghostkit-form', (e) => {
     // Ensure Recaptcha is loaded.
     grecaptcha.ready(() => {
       grecaptcha.execute(googleReCaptchaAPISiteKey, { action: 'ghostkit' }).then((token) => {
-        $recaptchaTokenField.val(token);
+        $recaptchaTokenField.value = token;
 
         $form.classList.add('ghostkit-form-processed');
 
@@ -153,11 +153,11 @@ events.on(document, 'submit', '.ghostkit-form', (e) => {
 });
 
 events.on(document, 'blur', '.ghostkit-form', (e) => {
-  e.delegateTarget.checkValidity();
+  e.target.checkValidity();
 });
 
 events.on(document, 'input', '.ghostkit-form', (e) => {
-  const $field = e.delegateTarget;
+  const $field = e.target;
   const valid = $field.checkValidity();
 
   if (valid) {

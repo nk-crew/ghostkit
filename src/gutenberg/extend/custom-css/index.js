@@ -16,7 +16,7 @@ const { __ } = wp.i18n;
 
 const { applyFilters, addFilter } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment, useState } = wp.element;
 
 const { createHigherOrderComponent } = wp.compose;
 
@@ -32,23 +32,14 @@ let initialOpenPanel = false;
 /**
  * Custom CSS Component.
  */
-class CustomCSSComponent extends Component {
-  constructor(props) {
-    super(props);
+function CustomCSSComponent(props) {
+  const { setAttributes, attributes } = props;
+  const { ghostkitCustomCSS = '' } = attributes;
 
-    this.state = {
-      defaultPlaceholder: placeholder,
-      modalOpened: false,
-    };
+  const [defaultPlaceholder, setDefaultPlaceholder] = useState(placeholder);
+  const [modalOpened, setModalOpened] = useState(false);
 
-    this.getEditor = this.getEditor.bind(this);
-  }
-
-  getEditor() {
-    const { setAttributes, attributes } = this.props;
-
-    const { ghostkitCustomCSS = '' } = attributes;
-
+  function getEditor() {
     return (
       <Fragment>
         <CodeEditor
@@ -59,13 +50,11 @@ class CustomCSSComponent extends Component {
                 ghostkitCustomCSS: maybeEncode(value),
               });
             }
-            if (this.state.defaultPlaceholder) {
-              this.setState({
-                defaultPlaceholder: '',
-              });
+            if (defaultPlaceholder) {
+              setDefaultPlaceholder('');
             }
           }}
-          value={maybeDecode(ghostkitCustomCSS || this.state.defaultPlaceholder)}
+          value={maybeDecode(ghostkitCustomCSS || defaultPlaceholder)}
           maxLines={20}
           minLines={5}
           height="300px"
@@ -93,66 +82,55 @@ selector p {
     );
   }
 
-  render() {
-    const { props } = this;
-    let allow = false;
+  let allow = false;
 
-    if (GHOSTKIT.hasBlockSupport(props.name, 'customCSS', false)) {
-      allow = true;
-    }
-
-    if (!allow) {
-      allow = checkCoreBlock(props.name);
-      allow = applyFilters('ghostkit.blocks.allowCustomCSS', allow, props, props.name);
-    }
-
-    if (!allow) {
-      return null;
-    }
-
-    const { attributes } = this.props;
-
-    const { modalOpened } = this.state;
-
-    const { ghostkitCustomCSS = '' } = attributes;
-
-    // add new custom CSS control.
-    return (
-      <InspectorControls group="styles">
-        <PanelBody
-          title={
-            <Fragment>
-              <span className="ghostkit-ext-icon">{getIcon('extension-custom-css')}</span>
-              <span>{__('Custom CSS', '@@text_domain')}</span>
-              {ghostkitCustomCSS ? <ActiveIndicator /> : ''}
-            </Fragment>
-          }
-          initialOpen={initialOpenPanel}
-          onToggle={() => {
-            initialOpenPanel = !initialOpenPanel;
-          }}
-        >
-          {this.getEditor()}
-
-          <Button isSecondary onClick={() => this.setState({ modalOpened: !modalOpened })}>
-            {__('Open in Modal', '@@text_domain')}
-          </Button>
-          {modalOpened ? (
-            <Modal
-              title={__('Custom CSS', '@@text_domain')}
-              position="top"
-              size="md"
-              onRequestClose={() => this.setState({ modalOpened: !modalOpened })}
-            >
-              {this.getEditor()}
-            </Modal>
-          ) : (
-            ''
-          )}
-        </PanelBody>
-      </InspectorControls>
-    );
+  if (GHOSTKIT.hasBlockSupport(props.name, 'customCSS', false)) {
+    allow = true;
   }
+
+  if (!allow) {
+    allow = checkCoreBlock(props.name);
+    allow = applyFilters('ghostkit.blocks.allowCustomCSS', allow, props, props.name);
+  }
+
+  if (!allow) {
+    return null;
+  }
+
+  // add new custom CSS control.
+  return (
+    <InspectorControls group="styles">
+      <PanelBody
+        title={
+          <Fragment>
+            <span className="ghostkit-ext-icon">{getIcon('extension-custom-css')}</span>
+            <span>{__('Custom CSS', '@@text_domain')}</span>
+            {ghostkitCustomCSS ? <ActiveIndicator /> : ''}
+          </Fragment>
+        }
+        initialOpen={initialOpenPanel}
+        onToggle={() => {
+          initialOpenPanel = !initialOpenPanel;
+        }}
+      >
+        {getEditor()}
+
+        <Button isSecondary onClick={() => setModalOpened(!modalOpened)}>
+          {__('Open in Modal', '@@text_domain')}
+        </Button>
+        {modalOpened ? (
+          <Modal
+            title={__('Custom CSS', '@@text_domain')}
+            position="top"
+            size="md"
+            onRequestClose={() => setModalOpened(!modalOpened)}
+          >
+            {getEditor()}
+          </Modal>
+        ) : null}
+      </PanelBody>
+    </InspectorControls>
+  );
 }
 
 /**

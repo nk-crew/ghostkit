@@ -1,6 +1,7 @@
 /**
  * Internal dependencies
  */
+import ghostkitLogo from './ghostkit-logo.svg';
 import blockAccordion from './block-accordion.svg';
 import blockAlert from './block-alert.svg';
 import blockButton from './block-button.svg';
@@ -14,6 +15,7 @@ import blockGist from './block-gist.svg';
 import blockGoogleMaps from './block-google-maps.svg';
 import blockGrid from './block-grid.svg';
 import blockGridColumn from './block-grid-column.svg';
+import blockIcon from './block-icon.svg';
 import blockIconBox from './block-icon-box.svg';
 import blockImageCompare from './block-image-compare.svg';
 import blockInstagram from './block-instagram.svg';
@@ -41,7 +43,10 @@ import blockFormFieldSelect from './block-form-field-select.svg';
 import blockFormFieldText from './block-form-field-text.svg';
 import blockFormFieldTextarea from './block-form-field-textarea.svg';
 import blockFormFieldUrl from './block-form-field-url.svg';
-import pluginGhostkit from './plugin-ghostkit.svg';
+import borderDashed from './border-dashed.svg';
+import borderDotted from './border-dotted.svg';
+import borderDouble from './border-double.svg';
+import borderSolid from './border-solid.svg';
 import pluginTemplates from './plugin-templates.svg';
 import pluginCustomCode from './plugin-custom-code.svg';
 import pluginColorPalette from './plugin-color-palette.svg';
@@ -69,8 +74,10 @@ import iconHorizontalBetween from './icon-horizontal-between.svg';
 import iconHorizontalCenter from './icon-horizontal-center.svg';
 import iconHorizontalEnd from './icon-horizontal-end.svg';
 import iconHorizontalStart from './icon-horizontal-start.svg';
+import iconVerticalBetween from './icon-vertical-between.svg';
 import iconVerticalBottom from './icon-vertical-bottom.svg';
 import iconVerticalCenter from './icon-vertical-center.svg';
+import iconVerticalStretch from './icon-vertical-stretch.svg';
 import iconVerticalTop from './icon-vertical-top.svg';
 import iconFlipHorizontal from './icon-flip-horizontal.svg';
 import iconFlipVertical from './icon-flip-vertical.svg';
@@ -100,6 +107,8 @@ import iconTypographyAdobeFonts from './icon-typography-adobe-fonts.svg';
 import iconTypographyCustomFonts from './icon-typography-custom-fonts.svg';
 
 export default {
+  'ghostkit-logo': ghostkitLogo,
+
   'block-accordion': blockAccordion,
   'block-alert': blockAlert,
   'block-button': blockButton,
@@ -113,6 +122,7 @@ export default {
   'block-google-maps': blockGoogleMaps,
   'block-grid': blockGrid,
   'block-grid-column': blockGridColumn,
+  'block-icon': blockIcon,
   'block-icon-box': blockIconBox,
   'block-image-compare': blockImageCompare,
   'block-instagram': blockInstagram,
@@ -141,7 +151,11 @@ export default {
   'block-form-field-textarea': blockFormFieldTextarea,
   'block-form-field-url': blockFormFieldUrl,
 
-  'plugin-ghostkit': pluginGhostkit,
+  'border-dashed': borderDashed,
+  'border-dotted': borderDotted,
+  'border-double': borderDouble,
+  'border-solid': borderSolid,
+
   'plugin-templates': pluginTemplates,
   'plugin-custom-code': pluginCustomCode,
   'plugin-color-palette': pluginColorPalette,
@@ -173,8 +187,10 @@ export default {
   'icon-horizontal-center': iconHorizontalCenter,
   'icon-horizontal-end': iconHorizontalEnd,
   'icon-horizontal-start': iconHorizontalStart,
+  'icon-vertical-between': iconVerticalBetween,
   'icon-vertical-bottom': iconVerticalBottom,
   'icon-vertical-center': iconVerticalCenter,
+  'icon-vertical-stretch': iconVerticalStretch,
   'icon-vertical-top': iconVerticalTop,
   'icon-flip-horizontal': iconFlipHorizontal,
   'icon-flip-vertical': iconFlipVertical,

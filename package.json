@@ -1,8 +1,8 @@
 {
   "name": "ghostkit",
   "title": "Ghost Kit",
-  "version": "2.25.1-beta.1",
-  "description": "Blocks collection and extensions for Gutenberg",
+  "version": "3.0.2",
+  "description": "Page Builder Blocks and Extensions for Gutenberg",
   "license": "GPL-2.0",
   "author": "nK <https://nkdev.info>",
   "scripts": {
@@ -48,7 +48,7 @@
     "bezier-easing-editor": "^0.8.0",
     "classnames": "^2.3.2",
     "deep-equal": "^2.2.1",
-    "gist-simple": "^2.0.0",
+    "gist-simple": "^2.0.1",
     "gmaps": "^0.4.25",
     "gutenberg-react-select-styles": "0.0.2",
     "jarallax": "^2.1.3",
@@ -62,7 +62,7 @@
     "react-google-maps": "^9.4.5",
     "react-lazyload": "^3.2.0",
     "react-masonry-component": "^6.3.0",
-    "react-select": "^5.7.3",
+    "react-select": "^5.7.5",
     "react-virtualized": "^9.22.5",
     "recompose": "^0.30.0",
     "scriptjs": "^2.5.9",

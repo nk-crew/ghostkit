@@ -11,96 +11,19 @@ const { __ } = wp.i18n;
 
 const { applyFilters } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment, useEffect } = wp.element;
 
 const { PanelBody, BaseControl } = wp.components;
 
-const { InspectorControls, InnerBlocks, BlockControls, BlockAlignmentToolbar } = wp.blockEditor;
+const {
+  InspectorControls,
+  useBlockProps,
+  useInnerBlocksProps,
+  BlockControls,
+  BlockAlignmentToolbar,
+} = wp.blockEditor;
 
-const { compose } = wp.compose;
-
-const { withSelect, withDispatch } = wp.data;
-
-/**
- * Block Edit Class.
- */
-class BlockEdit extends Component {
-  constructor(props) {
-    super(props);
-
-    this.maybeChangeButtonTagName = throttle(200, this.maybeChangeButtonTagName.bind(this));
-  }
-
-  componentDidMount() {
-    this.maybeChangeButtonTagName();
-  }
-
-  componentDidUpdate() {
-    this.maybeChangeButtonTagName();
-  }
-
-  maybeChangeButtonTagName() {
-    this.props.changeButtonTagName();
-  }
-
-  render() {
-    const { attributes, setAttributes } = this.props;
-
-    let { className = '' } = this.props;
-
-    const { align } = attributes;
-
-    className = classnames(
-      'ghostkit-form-submit-button',
-      align && align !== 'none' ? `ghostkit-form-submit-button-align-${align}` : false,
-      className
-    );
-
-    className = applyFilters('ghostkit.editor.className', className, this.props);
-
-    return (
-      <Fragment>
-        <BlockControls>
-          <BlockAlignmentToolbar
-            value={align}
-            onChange={(value) => setAttributes({ align: value })}
-            controls={['left', 'center', 'right']}
-          />
-        </BlockControls>
-        <InspectorControls>
-          <PanelBody>
-            <BaseControl label={__('Align', '@@text_domain')}>
-              <div>
-                <BlockAlignmentToolbar
-                  value={align}
-                  onChange={(value) => setAttributes({ align: value })}
-                  controls={['left', 'center', 'right']}
-                  isCollapsed={false}
-                />
-              </div>
-            </BaseControl>
-          </PanelBody>
-        </InspectorControls>
-        <div className={className}>
-          <InnerBlocks
-            template={[
-              [
-                'ghostkit/button-single',
-                {
-                  text: __('Submit', '@@text_domain'),
-                  tagName: 'button',
-                  focusOutlineWeight: 2,
-                },
-              ],
-            ]}
-            allowedBlocks={['ghostkit/button-single']}
-            templateLock="all"
-          />
-        </div>
-      </Fragment>
-    );
-  }
-}
+const { useSelect, useDispatch } = wp.data;
 
 /**
  * Parse all button blocks.
@@ -129,32 +52,96 @@ function getAllButtonBlocks(submitData) {
   return result;
 }
 
-export default compose([
-  withSelect((select, ownProps) => {
-    const { getBlock } = select('core/block-editor');
+/**
+ * Block Edit Class.
+ */
+export default function BlockEdit(props) {
+  const { attributes, setAttributes, clientId } = props;
 
-    return {
-      blockData: getBlock(ownProps.clientId),
-    };
-  }),
-  withDispatch((dispatch, ownProps) => {
-    const { updateBlockAttributes } = dispatch('core/block-editor');
+  let { className = '' } = props;
 
-    return {
-      changeButtonTagName() {
-        const { blockData } = ownProps;
+  const { align } = attributes;
 
-        const allButtonBlocks = getAllButtonBlocks(blockData) || [];
+  const { updateBlockAttributes } = useDispatch('core/block-editor');
 
-        // Generate slugs for new fields.
-        allButtonBlocks.forEach((data) => {
-          if (!data.attributes.tagName || data.attributes.tagName !== 'button') {
-            updateBlockAttributes(data.clientId, {
-              tagName: 'button',
-            });
-          }
+  const { blockData } = useSelect(
+    (select) => {
+      const { getBlock } = select('core/block-editor');
+
+      return {
+        blockData: getBlock(clientId),
+      };
+    },
+    [clientId]
+  );
+
+  function changeButtonTagName() {
+    const allButtonBlocks = getAllButtonBlocks(blockData) || [];
+
+    // Generate slugs for new fields.
+    allButtonBlocks.forEach((data) => {
+      if (!data.attributes.tagName || data.attributes.tagName !== 'button') {
+        updateBlockAttributes(data.clientId, {
+          tagName: 'button',
         });
-      },
-    };
-  }),
-])(BlockEdit);
+      }
+    });
+  }
+
+  const maybeChangeButtonTagName = throttle(200, changeButtonTagName.bind(this));
+
+  // Mount and update.
+  useEffect(() => {
+    maybeChangeButtonTagName();
+  });
+
+  className = classnames(
+    'ghostkit-form-submit-button',
+    align && align !== 'none' ? `ghostkit-form-submit-button-align-${align}` : false,
+    className
+  );
+  className = applyFilters('ghostkit.editor.className', className, props);
+
+  const blockProps = useBlockProps({ className });
+  const innerBlockProps = useInnerBlocksProps(blockProps, {
+    template: [
+      [
+        'ghostkit/button-single',
+        {
+          text: __('Submit', '@@text_domain'),
+          tagName: 'button',
+          focusOutlineWeight: 2,
+        },
+      ],
+    ],
+    allowedBlocks: ['ghostkit/button-single'],
+    templateLock: 'all',
+  });
+
+  return (
+    <Fragment>
+      <BlockControls>
+        <BlockAlignmentToolbar
+          value={align}
+          onChange={(value) => setAttributes({ align: value })}
+          controls={['left', 'center', 'right']}
+        />
+      </BlockControls>
+      <InspectorControls>
+        <PanelBody>
+          <BaseControl label={__('Align', '@@text_domain')}>
+            <div>
+              <BlockAlignmentToolbar
+                value={align}
+                onChange={(value) => setAttributes({ align: value })}
+                controls={['left', 'center', 'right']}
+                isCollapsed={false}
+              />
+            </div>
+          </BaseControl>
+        </PanelBody>
+      </InspectorControls>
+      <div {...innerBlockProps} />
+    </Fragment>
+  );
+}

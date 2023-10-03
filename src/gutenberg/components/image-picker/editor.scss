@@ -1,6 +1,16 @@
 @import "../../variables";
 
 .ghostkit-component-image-picker {
+  --ghostkit-component-image-picker-item-size: 50%;
+
+  &.ghostkit-component-image-picker-3 {
+    --ghostkit-component-image-picker-item-size: 33.33%;
+  }
+
+  &.ghostkit-component-image-picker-4 {
+    --ghostkit-component-image-picker-item-size: 25%;
+  }
+
   .components-base-control__field {
     display: flex;
     flex-wrap: wrap;
@@ -16,8 +26,8 @@
     flex-direction: column;
     flex-shrink: 0;
     align-items: center;
-    justify-content: flex-end;
-    width: calc(50% - 4px);
+    justify-content: flex-start;
+    width: calc(var(--ghostkit-component-image-picker-item-size) - 4px);
     padding: 4px;
     margin: 4px 0;
     overflow: hidden;
@@ -46,8 +56,11 @@
       box-shadow: 0 0 0 2px $blue-medium-focus;
     }
 
+    svg,
     img {
       display: block;
+      width: 100%;
+      height: auto;
       border: 1px solid rgba($dark-gray-500, 0.2);
       border-radius: 4px;
       outline: 1px solid transparent;

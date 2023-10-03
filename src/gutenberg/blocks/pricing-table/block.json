@@ -1,5 +1,6 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
   "name": "ghostkit/pricing-table",
   "category": "ghostkit",
   "title": "Pricing Table",

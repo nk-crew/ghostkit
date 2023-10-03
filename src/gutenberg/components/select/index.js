@@ -9,8 +9,6 @@ import { AutoSizer, List } from 'react-virtualized';
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
-
 const rowHeight = 26;
 
 function MenuList(props) {
@@ -57,40 +55,40 @@ function Option(props) {
 /**
  * Component Class
  */
-export default class SelectComponent extends Component {
-  render() {
-    const props = {
-      ...(this.props.grouped
-        ? {
-            groupHeaderHeight: 50,
-          }
-        : {}),
-      ...this.props,
-    };
+export default function SelectComponent(props) {
+  const { className, ...restProps } = props;
 
-    // Add virtualized if there are > 30 items.
-    const useVirtualized = props?.options?.length > 30;
+  const selectProps = {
+    ...(props.grouped
+      ? {
+          groupHeaderHeight: 50,
+        }
+      : {}),
+    ...restProps,
+  };
 
-    return (
-      <Select
-        styles={{
-          ...selectStyles,
-          option(styles, state) {
-            const newStyles = selectStyles.option(styles, state);
+  // Add virtualized if there are > 30 items.
+  const withVirtualized = props?.options?.length > 30;
 
-            newStyles['> svg'] = {
-              width: '24px',
-              height: 'auto',
-              marginRight: '5px',
-            };
+  return (
+    <Select
+      styles={{
+        ...selectStyles,
+        option(styles, state) {
+          const newStyles = selectStyles.option(styles, state);
 
-            return newStyles;
-          },
-        }}
-        components={{ ...(useVirtualized ? { MenuList } : {}), Option }}
-        {...props}
-        className={classnames(props.className, 'ghostkit-control-select')}
-      />
-    );
-  }
+          newStyles['> svg'] = {
+            width: '24px',
+            height: 'auto',
+            marginRight: '5px',
+          };
+
+          return newStyles;
+        },
+      }}
+      components={{ ...(withVirtualized ? { MenuList } : {}), Option }}
+      className={classnames('ghostkit-control-select', className)}
+      {...selectProps}
+    />
+  );
 }
