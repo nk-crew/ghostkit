@@ -3,10 +3,12 @@
  */
 @import "./variables";
 @import "./pills";
+@import "./radio";
 
 .ghostkit-tabs-buttons {
   display: flex;
   flex-wrap: wrap;
+  gap: var(--gkt-tabs--buttons__gap);
   margin-bottom: var(--gkt-tabs--buttons__offset);
   border-bottom: var(--gkt-tabs--button__border-width) solid var(--gkt-tabs--button__border-color);
 
