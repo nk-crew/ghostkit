@@ -8,13 +8,7 @@ import edit from './edit';
 import save from './save';
 import transforms from './transforms';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-
 const { name } = metadata;
-
 export { metadata, name };
 
 export const settings = {
@@ -31,17 +25,6 @@ export const settings = {
       customCSS: true,
     },
   },
-  styles: [
-    {
-      name: 'default',
-      label: __('Tabs', '@@text_domain'),
-      isDefault: true,
-    },
-    {
-      name: 'pills',
-      label: __('Pills', '@@text_domain'),
-    },
-  ],
   edit,
   save,
   transforms,

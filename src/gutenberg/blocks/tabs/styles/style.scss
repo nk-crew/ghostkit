@@ -24,6 +24,12 @@
     justify-content: flex-end;
   }
 
+  &-align-stretch > .ghostkit-tabs-buttons-item {
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+
   // Items.
   &-item {
     padding: var(--gkt-tabs--button__padding-v) var(--gkt-tabs--button__padding-h);
