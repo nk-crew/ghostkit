@@ -8,7 +8,7 @@ import classnames from 'classnames/dedupe';
  */
 const { applyFilters } = wp.hooks;
 const { useSelect } = wp.data;
-const { InnerBlocks, useInnerBlocksProps } = wp.blockEditor;
+const { InnerBlocks, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Edit Class.
@@ -31,13 +31,12 @@ export default function BlockEdit(props) {
 
   className = applyFilters('ghostkit.editor.className', className, props);
 
-  const innerBlockProps = useInnerBlocksProps(
-    { className, 'data-tab': slug },
-    {
-      renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
-      templateLock: false,
-    }
-  );
+  const blockProps = useBlockProps({ className, 'data-tab': slug });
+
+  const innerBlockProps = useInnerBlocksProps(blockProps, {
+    renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+    templateLock: false,
+  });
 
   return <div {...innerBlockProps} />;
 }
