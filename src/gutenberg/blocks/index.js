@@ -7,6 +7,7 @@ import * as divider from './divider';
 import * as dividerShape from './shape-divider';
 import * as button from './button';
 import * as buttonSingle from './button-single';
+import * as card from './card';
 import * as progress from './progress';
 import * as icon from './icon';
 import * as iconBox from './icon-box';
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     progress,
     button,
     buttonSingle,
+    card,
     divider,
     dividerShape,
     alert,

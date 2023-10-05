@@ -5,6 +5,7 @@ import ghostkitLogo from './ghostkit-logo.svg';
 import blockAccordion from './block-accordion.svg';
 import blockAlert from './block-alert.svg';
 import blockButton from './block-button.svg';
+import blockCard from './block-card.svg';
 import blockCarousel from './block-carousel.svg';
 import blockChangelog from './block-changelog.svg';
 import blockCountdown from './block-countdown.svg';
@@ -112,6 +113,7 @@ export default {
   'block-accordion': blockAccordion,
   'block-alert': blockAlert,
   'block-button': blockButton,
+  'block-card': blockCard,
   'block-carousel': blockCarousel,
   'block-changelog': blockChangelog,
   'block-countdown': blockCountdown,
