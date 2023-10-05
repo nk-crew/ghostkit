@@ -125,7 +125,7 @@ export function SpringEditor(props) {
 }
 
 export function SpringControls(props) {
-  const { value, onChange } = props;
+  const { value, onChange, enableDelayControl = true } = props;
   const [preset, setPreset] = useState();
 
   function updateValue(val) {
@@ -223,17 +223,19 @@ export function SpringControls(props) {
           step={0.05}
         />
       </Grid>
-      <NumberControl
-        label={__('Delay', '@@text_domain')}
-        suffix={__('s', '@@text_domain')}
-        value={value?.delay || 0}
-        onChange={(val) => updateValue({ delay: parseFloat(val) })}
-        labelPosition="edge"
-        __unstableInputWidth="90px"
-        min={0}
-        max={10}
-        step={0.01}
-      />
+      {enableDelayControl && (
+        <NumberControl
+          label={__('Delay', '@@text_domain')}
+          suffix={__('s', '@@text_domain')}
+          value={value?.delay || 0}
+          onChange={(val) => updateValue({ delay: parseFloat(val) })}
+          labelPosition="edge"
+          __unstableInputWidth="90px"
+          min={0}
+          max={10}
+          step={0.01}
+        />
+      )}
       <TransitionPreview
         label={__('Preview', '@@text_domain')}
         options={{

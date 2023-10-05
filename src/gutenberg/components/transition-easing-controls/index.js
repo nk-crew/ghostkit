@@ -86,7 +86,7 @@ export function EasingBezierEditor(props) {
 }
 
 export function EasingControls(props) {
-  const { value, onChange } = props;
+  const { value, onChange, enableDelayControl = true } = props;
 
   const [preset, setPreset] = useState();
 
@@ -265,17 +265,19 @@ export function EasingControls(props) {
         max={10}
         step={0.01}
       />
-      <NumberControl
-        label={__('Delay', '@@text_domain')}
-        suffix={__('s', '@@text_domain')}
-        value={value?.delay || 0}
-        onChange={(val) => updateValue({ delay: parseFloat(val) })}
-        labelPosition="edge"
-        __unstableInputWidth="90px"
-        min={0}
-        max={10}
-        step={0.01}
-      />
+      {enableDelayControl && (
+        <NumberControl
+          label={__('Delay', '@@text_domain')}
+          suffix={__('s', '@@text_domain')}
+          value={value?.delay || 0}
+          onChange={(val) => updateValue({ delay: parseFloat(val) })}
+          labelPosition="edge"
+          __unstableInputWidth="90px"
+          min={0}
+          max={10}
+          step={0.01}
+        />
+      )}
       <TransitionPreview
         label={__('Preview', '@@text_domain')}
         options={{

@@ -15,17 +15,24 @@ const { __ } = wp.i18n;
 const { BaseControl } = wp.components;
 
 export default function TransitionSelector(props) {
-  const { label, value, onChange } = props;
+  const {
+    label,
+    value,
+    onChange,
+    enableEasing = true,
+    enableSpring = true,
+    enableDelayControl = true,
+  } = props;
 
-  let easing = value?.easing;
-  if (!easing || easing.length !== 4) {
-    easing = EASING_DEFAULT.easing;
+  let easingValue = value?.easing;
+  if (!easingValue || easingValue.length !== 4) {
+    easingValue = EASING_DEFAULT.easing;
   }
 
   const buttonLabel =
     value?.type !== 'spring' ? (
       <>
-        <EasingBezierEditor variant="preview" value={easing} />
+        <EasingBezierEditor variant="preview" value={easingValue} />
         {__('Easing', '@@text_domain')}
       </>
     ) : (
@@ -35,6 +42,10 @@ export default function TransitionSelector(props) {
       </>
     );
 
+  if (!enableEasing && !enableSpring) {
+    return false;
+  }
+
   return (
     <BaseControl label={label}>
       <DropdownPicker
@@ -42,43 +53,48 @@ export default function TransitionSelector(props) {
         className="ghostkit-component-transition-selector"
         contentClassName="ghostkit-component-transition-selector-content"
       >
-        <ToggleGroup
-          value={value?.type || 'easing'}
-          options={[
-            {
-              label: __('Easing', '@@text_domain'),
-              value: 'easing',
-            },
-            {
-              label: __('Spring', '@@text_domain'),
-              value: 'spring',
-            },
-          ]}
-          onChange={(val) => {
-            const defaultTransition =
-              val === 'spring'
-                ? { type: 'spring', ...SPRING_DEFAULT }
-                : { type: 'easing', ...EASING_DEFAULT };
+        {enableEasing && enableSpring && (
+          <ToggleGroup
+            value={value?.type || 'spring'}
+            options={[
+              {
+                label: __('Easing', '@@text_domain'),
+                value: 'easing',
+              },
+              {
+                label: __('Spring', '@@text_domain'),
+                value: 'spring',
+              },
+            ]}
+            onChange={(val) => {
+              const defaultTransition =
+                val === 'spring'
+                  ? { type: 'spring', ...SPRING_DEFAULT }
+                  : { type: 'easing', ...EASING_DEFAULT };
 
-            delete defaultTransition.label;
+              delete defaultTransition.label;
 
-            onChange(defaultTransition);
-          }}
-          isBlock
-        />
-        {value?.type === 'spring' ? (
+              onChange(defaultTransition);
+            }}
+            isBlock
+          />
+        )}
+        {enableSpring && value?.type !== 'easing' && (
           <SpringControls
             value={value}
             onChange={(val) => {
               onChange(val);
             }}
+            enableDelayControl={enableDelayControl}
           />
-        ) : (
+        )}
+        {enableEasing && value?.type === 'easing' && (
           <EasingControls
             value={value}
             onChange={(val) => {
               onChange(val);
             }}
+            enableDelayControl={enableDelayControl}
           />
         )}
       </DropdownPicker>
