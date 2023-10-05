@@ -1,0 +1,16 @@
+/**
+ * Editor Styles
+ */
+@import "./style";
+
+.ghostkit-icon {
+  display: block;
+
+  .components-dropdown {
+    display: block;
+  }
+
+  > span {
+    transition: transform 0.15s;
+  }
+}
