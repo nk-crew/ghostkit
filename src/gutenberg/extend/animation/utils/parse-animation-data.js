@@ -41,7 +41,7 @@ export default function parseAnimationData(data, defaults = {}) {
 
           // Standard value
         } else {
-          if (['scale', 'opacity'].includes(name)) {
+          if (['x', 'y', 'scale', 'rotate', 'opacity'].includes(name)) {
             val = parseFloat(val);
           }
 

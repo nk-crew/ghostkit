@@ -23,15 +23,12 @@ const { useState, useEffect } = wp.element;
 
 const {
   __experimentalToolsPanelItem: ToolsPanelItem,
-  UnitControl: __stableUnitControl,
-  __experimentalUnitControl,
   NumberControl: __stableNumberControl,
   __experimentalNumberControl,
   Grid: __stableGrid,
   __experimentalGrid,
 } = wp.components;
 
-const UnitControl = __stableUnitControl || __experimentalUnitControl;
 const NumberControl = __stableNumberControl || __experimentalNumberControl;
 const Grid = __stableGrid || __experimentalGrid;
 
@@ -164,9 +161,9 @@ function AnimationRevealTools(props) {
         <EditorStyles
           styles={`
               [data-block="${clientId}"] {
-                transform: translateX(${getValue('x')}) translateY(${getValue(
+                transform: translateX(${getValue('x')}px) translateY(${getValue(
             'y'
-          )}) scale(${getValue('scale')}) rotate(${getValue('rotate')});
+          )}px) scale(${getValue('scale')}) rotate(${getValue('rotate')}deg);
                 opacity: ${Math.max(0.1, getValue('opacity'))};
               }
             `}
@@ -182,30 +179,28 @@ function AnimationRevealTools(props) {
           isSearchable={false}
         />
         <Grid columns={2}>
-          <UnitControl
+          <NumberControl
             label={__('X', '@@text_domain')}
             value={getValue('x')}
-            onChange={(val) => updateValue({ x: val })}
-            units={[
-              { value: 'px', label: 'px' },
-              { value: '%', label: '%' },
-            ]}
+            onChange={(val) => {
+              updateValue({ x: val === '' ? undefined : val });
+            }}
+            suffix="px"
+            style={{ flex: 1 }}
           />
-          <UnitControl
+          <NumberControl
             label={__('Y', '@@text_domain')}
             value={getValue('y')}
-            onChange={(val) => updateValue({ y: val })}
-            units={[
-              { value: 'px', label: 'px' },
-              { value: '%', label: '%' },
-            ]}
+            onChange={(val) => updateValue({ y: val === '' ? undefined : val })}
+            suffix="px"
+            style={{ flex: 1 }}
           />
         </Grid>
         <Grid columns={3}>
           <NumberControl
             label={__('Opacity', '@@text_domain')}
             value={getValue('opacity')}
-            onChange={(val) => updateValue({ opacity: parseFloat(val) })}
+            onChange={(val) => updateValue({ opacity: val === '' ? undefined : val })}
             min={0}
             max={1}
             step={0.01}
@@ -214,17 +209,17 @@ function AnimationRevealTools(props) {
           <NumberControl
             label={__('Scale', '@@text_domain')}
             value={getValue('scale')}
-            onChange={(val) => updateValue({ scale: parseFloat(val) })}
+            onChange={(val) => updateValue({ scale: val === '' ? undefined : val })}
             min={0}
             max={10}
             step={0.01}
             style={{ flex: 1 }}
           />
-          <UnitControl
+          <NumberControl
             label={__('Rotate', '@@text_domain')}
             value={getValue('rotate')}
-            onChange={(val) => updateValue({ rotate: val })}
-            units={[{ value: 'deg', label: 'deg' }]}
+            onChange={(val) => updateValue({ rotate: val === '' ? undefined : val })}
+            suffix="deg"
             style={{ flex: 1 }}
           />
         </Grid>

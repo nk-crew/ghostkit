@@ -33,7 +33,7 @@ class GhostKit_Deprecated_Scroll_Reveal {
         $data = explode( ';', $data );
 
         $effect   = $data[0];
-        $distance = '50px';
+        $distance = 0;
         $scale    = 1;
         $origin   = explode( '-', $effect );
 
@@ -66,8 +66,8 @@ class GhostKit_Deprecated_Scroll_Reveal {
 
         $config = array(
             'distance' => $distance,
-            'x'        => '0px',
-            'y'        => '0px',
+            'x'        => 0,
+            'y'        => 0,
             'opacity'  => 0,
             'scale'    => $scale,
             'duration' => 900,
@@ -91,13 +91,13 @@ class GhostKit_Deprecated_Scroll_Reveal {
                     $config['y'] = $config['distance'];
                     break;
                 case 'top':
-                    $config['y'] = "-{$config['distance']}";
+                    $config['y'] = -$config['distance'];
                     break;
                 case 'right':
                     $config['x'] = $config['distance'];
                     break;
                 case 'left':
-                    $config['x'] = "-{$config['distance']}";
+                    $config['x'] = -$config['distance'];
                     break;
             }
         }

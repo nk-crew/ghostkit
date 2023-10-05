@@ -4,7 +4,7 @@ export default function parseSRConfig(data) {
   data = data.split(';');
 
   let effect = data[0];
-  let distance = '50px';
+  let distance = 50;
   let scale = 1;
   let origin = effect.split('-');
 
@@ -31,7 +31,7 @@ export default function parseSRConfig(data) {
     }
   } else {
     origin = 'center';
-    distance = '0px';
+    distance = 0;
   }
 
   if (effect === 'zoom') {
@@ -40,8 +40,8 @@ export default function parseSRConfig(data) {
 
   const config = {
     distance,
-    x: '0px',
-    y: '0px',
+    x: 0,
+    y: 0,
     opacity: 0,
     scale,
     duration: 900,
@@ -66,13 +66,13 @@ export default function parseSRConfig(data) {
         config.y = config.distance;
         break;
       case 'top':
-        config.y = `-${config.distance}`;
+        config.y = -config.distance;
         break;
       case 'right':
         config.x = config.distance;
         break;
       case 'left':
-        config.x = `-${config.distance}`;
+        config.x = -config.distance;
         break;
       // no default
     }

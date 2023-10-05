@@ -27,7 +27,7 @@ export default {
     label: __('Zoom In From Bottom', '@@text_domain'),
     icon: getIcon('sr-zoom-from-bottom'),
     data: {
-      y: '50px',
+      y: 50,
       scale: 0.9,
     },
   },
@@ -35,7 +35,7 @@ export default {
     label: __('Zoom In From Left', '@@text_domain'),
     icon: getIcon('sr-zoom-from-left'),
     data: {
-      x: '-50px',
+      x: -50,
       scale: 0.9,
     },
   },
@@ -43,7 +43,7 @@ export default {
     label: __('Zoom In From Right', '@@text_domain'),
     icon: getIcon('sr-zoom-from-right'),
     data: {
-      x: '50px',
+      x: 50,
       scale: 0.9,
     },
   },

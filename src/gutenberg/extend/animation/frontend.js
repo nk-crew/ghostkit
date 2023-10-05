@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import parseAnimationData from './parseAnimationData';
+import parseAnimationData from './utils/parse-animation-data';
 import DEFAULTS from './reveal/defaults';
 
 const {
@@ -50,7 +50,7 @@ events.on(document, 'init.blocks.gkt', () => {
           mass: config.transition.mass,
         });
 
-        // Fix for Scale.
+        // Fix for Scale and Rotate.
         // https://github.com/motiondivision/motionone/issues/221
         if (config.scale !== 1) {
           options.scale = {
@@ -63,7 +63,7 @@ events.on(document, 'init.blocks.gkt', () => {
             }),
           };
         }
-        if (config.rotate !== '0deg') {
+        if (config.rotate !== 0) {
           options.rotate = {
             easing: spring({
               stiffness: config.transition.stiffness,
@@ -76,17 +76,25 @@ events.on(document, 'init.blocks.gkt', () => {
         }
       }
 
-      animate(
-        $element,
-        {
-          opacity: [config.opacity, 1],
-          x: [config.x, 0],
-          y: [config.y, 0],
-          scale: [config.scale, 1],
-          rotate: [config.rotate, 0],
-        },
-        options
-      ).finished.then(() => {
+      const keyframes = {};
+
+      if (config.opacity !== 1) {
+        keyframes.opacity = [config.opacity, 1];
+      }
+      if (config.x !== 0) {
+        keyframes.x = [config.x, 0];
+      }
+      if (config.y !== 0) {
+        keyframes.y = [config.y, 0];
+      }
+      if (config.scale !== 1) {
+        keyframes.scale = [config.scale, 1];
+      }
+      if (config.rotate !== 0) {
+        keyframes.rotate = [config.rotate, 0];
+      }
+
+      animate($element, keyframes, options).finished.then(() => {
         events.trigger($element, 'showed.animation.reveal.gkt', { config });
       });
     });
