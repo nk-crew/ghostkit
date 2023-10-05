@@ -34,7 +34,7 @@ export { DEFAULT };
 export { PRESETS };
 
 export function EasingBezierEditor(props) {
-  const { value, onChange, variant = '' } = props;
+  const { value, onChange, variant = '', backgroundColor } = props;
 
   let options = {
     value,
@@ -79,6 +79,7 @@ export function EasingBezierEditor(props) {
         'ghostkit-component-bezier-editor',
         variant && `ghostkit-component-bezier-editor-${variant}`
       )}
+      style={backgroundColor ? { backgroundColor } : {}}
     >
       <BezierEditor {...options} />
     </div>

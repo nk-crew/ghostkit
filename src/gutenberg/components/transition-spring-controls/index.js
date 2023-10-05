@@ -38,7 +38,7 @@ export { DEFAULT };
 export { PRESETS };
 
 export function SpringEditor(props) {
-  const { value, variant = '' } = props;
+  const { value, variant = '', backgroundColor } = props;
   const [path, setPath] = useState('');
   const [duration, setDuration] = useState(null);
 
@@ -102,6 +102,7 @@ export function SpringEditor(props) {
         'ghostkit-component-spring-editor',
         variant && `ghostkit-component-spring-editor-${variant}`
       )}
+      style={backgroundColor ? { backgroundColor } : {}}
     >
       <svg
         width={options.width}

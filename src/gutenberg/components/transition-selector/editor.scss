@@ -4,7 +4,7 @@
 .ghostkit-component-transition-selector {
   .ghostkit-component-dropdown-picker-toggle {
     min-height: 30px;
-    padding: 6px;
+    padding: 3px;
     border-color: #949494;
     border-radius: 4px;
 
@@ -12,15 +12,39 @@
       display: flex;
       gap: 10px;
       align-items: center;
+      width: 100%;
 
       > .ghostkit-component-bezier-editor,
       > .ghostkit-component-spring-editor {
         display: inline-block;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         overflow: hidden;
         background-color: var(--wp-admin-theme-color);
         border-radius: 2px;
+      }
+    }
+
+    .ghostkit-component-transition-selector-reset {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+      margin-left: auto;
+      overflow: hidden;
+      color: #000;
+      cursor: pointer;
+      background-color: #f9f5f5;
+      border-radius: 2px;
+
+      &:hover,
+      &:focus {
+        background-color: #e5e5e5;
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
       }
     }
   }
