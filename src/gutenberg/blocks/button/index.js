@@ -14,7 +14,7 @@ export { metadata, name };
 
 export const settings = {
   ...metadata,
-  icon: getIcon('block-button', true),
+  icon: getIcon('block-buttons', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/button/',
     customStylesCallback(attributes) {

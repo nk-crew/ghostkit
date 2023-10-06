@@ -14,7 +14,7 @@ export { metadata, name };
 
 export const settings = {
   ...metadata,
-  icon: getIcon('block-accordion', true),
+  icon: getIcon('block-accordion-item', true),
   ghostkit: {
     supports: {
       styles: true,

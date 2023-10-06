@@ -1,6 +1,3 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.25 5.25L5.25 5.25V8.25" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
-<path d="M8.25 18.75L5.25 18.75V15.75" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
-<path d="M15.75 18.75L18.75 18.75V15.75" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
-<path d="M15.75 5.25L18.75 5.25V8.25" fill="transparent" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.25 6H9V4.5H8.25H5.25C4.83579 4.5 4.5 4.83579 4.5 5.25V8.25V9H6V8.25V6L8.25 6ZM6 15.75V15H4.5V15.75V18.75C4.5 18.9489 4.57902 19.1397 4.71967 19.2803C4.86032 19.421 5.05109 19.5 5.25 19.5H8.25H9V18H8.25H6V15.75ZM19.5 15V15.75V18.75C19.5 19.1642 19.1642 19.5 18.75 19.5H15.75H15V18H15.75H18V15.75V15H19.5ZM18.75 4.5H15.75H15V6L15.75 6L18 6V8.25V9H19.5V8.25V5.25C19.5 5.05109 19.421 4.86032 19.2803 4.71967C19.1397 4.57902 18.9489 4.5 18.75 4.5Z" fill="currentColor"/>
 </svg>
