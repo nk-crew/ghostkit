@@ -92,7 +92,7 @@ function GhostKitExtensionAnimationToolbar(original, { props }) {
       <BlockControls group="other">
         <ToolbarDropdownMenu
           icon={getIcon('extension-sr')}
-          label={__('Animate on Scroll', '@@text_domain')}
+          label={__('Animations', '@@text_domain')}
           menuProps={{
             style: { width: '260px' },
           }}
