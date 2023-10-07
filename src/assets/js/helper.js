@@ -1,4 +1,5 @@
 import EventHandler from './utils/event-handler';
+import Instance from './utils/instance';
 
 const {
   version,
@@ -83,6 +84,11 @@ const GHOSTKIT = {
 
   adminUrl,
   adminTemplatesUrl,
+
+  /**
+   * Instance helper functions.
+   */
+  instance: Instance,
 
   /**
    * Events helper functions.

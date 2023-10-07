@@ -1,14 +1,13 @@
 /**
  * Internal dependencies
  */
-import Select from '../../../components/select';
+import ProNote from '../../../components/pro-note';
 import DropdownPicker from '../../../components/dropdown-picker';
 import EditorStyles from '../../../components/editor-styles';
 import TransitionSelector from '../../../components/transition-selector';
-import sortObject from '../../../utils/sort-object';
+import TransitionPresetsControl from '../../../components/transition-presets-control';
 
 import DEFAULTS from './defaults';
-import PRESETS from './presets';
 
 /**
  * WordPress dependencies
@@ -18,8 +17,6 @@ const { cloneDeep } = window.lodash;
 const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
-
-const { useState, useEffect } = wp.element;
 
 const {
   __experimentalToolsPanelItem: ToolsPanelItem,
@@ -37,42 +34,7 @@ const { hasBlockSupport } = wp.blocks;
 function AnimationRevealTools(props) {
   const { attributes, setAttributes, clientId } = props;
 
-  const [preset, setPreset] = useState();
-
   const hasReveal = attributes?.ghostkit?.animation?.reveal;
-
-  // Find default preset
-  useEffect(() => {
-    let newPreset = 'custom';
-
-    const currentReveal = sortObject({
-      ...DEFAULTS,
-      ...(hasReveal || {}),
-    });
-
-    // Remove transition from the comparison.
-    if (currentReveal?.transition) {
-      delete currentReveal.transition;
-    }
-
-    Object.keys(PRESETS).forEach((slug) => {
-      const presetData = sortObject({
-        ...DEFAULTS,
-        ...PRESETS[slug].data,
-      });
-
-      // Remove transition from the comparison.
-      if (presetData?.transition) {
-        delete presetData.transition;
-      }
-
-      if (JSON.stringify(currentReveal) === JSON.stringify(presetData)) {
-        newPreset = slug;
-      }
-    });
-
-    setPreset(newPreset);
-  }, [preset, hasReveal]);
 
   function getValue(prop, def) {
     if (typeof attributes?.ghostkit?.animation?.reveal?.[prop] === 'undefined') {
@@ -107,38 +69,6 @@ function AnimationRevealTools(props) {
     setAttributes({ ghostkit: ghostkitData });
   }
 
-  const presetOptions = [
-    ...(preset === 'custom'
-      ? [
-          {
-            value: 'custom',
-            label: __('-- Presets --', '@@text_domain'),
-          },
-        ]
-      : []),
-    ...Object.keys(PRESETS).map((name) => {
-      return {
-        value: name,
-        label: PRESETS[name].label,
-        icon: PRESETS[name].icon,
-      };
-    }),
-  ];
-
-  const presetValue = {
-    value: preset,
-    label: preset,
-  };
-
-  // Find actual label.
-  if (presetValue.value) {
-    presetOptions.forEach((presetData) => {
-      if (presetValue.value === presetData.value) {
-        presetValue.label = presetData.label;
-      }
-    });
-  }
-
   return (
     <ToolsPanelItem
       label={__('Reveal', '@@text_domain')}
@@ -168,31 +98,27 @@ function AnimationRevealTools(props) {
               }
             `}
         />
-        <Select
-          value={presetValue}
-          onChange={({ value }) => {
-            if (PRESETS?.[value]?.data) {
-              updateValue(PRESETS[value].data, true);
-            }
+        <TransitionPresetsControl
+          value={hasReveal}
+          onChange={(data) => {
+            updateValue(data, true);
           }}
-          options={presetOptions}
-          isSearchable={false}
         />
         <Grid columns={2}>
           <NumberControl
             label={__('X', '@@text_domain')}
             value={getValue('x')}
             onChange={(val) => {
-              updateValue({ x: val === '' ? undefined : val });
+              updateValue({ x: val === '' ? undefined : parseFloat(val) });
             }}
-            suffix="px"
+            suffix="px&nbsp;"
             style={{ flex: 1 }}
           />
           <NumberControl
             label={__('Y', '@@text_domain')}
             value={getValue('y')}
-            onChange={(val) => updateValue({ y: val === '' ? undefined : val })}
-            suffix="px"
+            onChange={(val) => updateValue({ y: val === '' ? undefined : parseFloat(val) })}
+            suffix="px&nbsp;"
             style={{ flex: 1 }}
           />
         </Grid>
@@ -200,7 +126,7 @@ function AnimationRevealTools(props) {
           <NumberControl
             label={__('Opacity', '@@text_domain')}
             value={getValue('opacity')}
-            onChange={(val) => updateValue({ opacity: val === '' ? undefined : val })}
+            onChange={(val) => updateValue({ opacity: val === '' ? undefined : parseFloat(val) })}
             min={0}
             max={1}
             step={0.01}
@@ -209,7 +135,7 @@ function AnimationRevealTools(props) {
           <NumberControl
             label={__('Scale', '@@text_domain')}
             value={getValue('scale')}
-            onChange={(val) => updateValue({ scale: val === '' ? undefined : val })}
+            onChange={(val) => updateValue({ scale: val === '' ? undefined : parseFloat(val) })}
             min={0}
             max={10}
             step={0.01}
@@ -218,8 +144,8 @@ function AnimationRevealTools(props) {
           <NumberControl
             label={__('Rotate', '@@text_domain')}
             value={getValue('rotate')}
-            onChange={(val) => updateValue({ rotate: val === '' ? undefined : val })}
-            suffix="deg"
+            onChange={(val) => updateValue({ rotate: val === '' ? undefined : parseFloat(val) })}
+            suffix="deg&nbsp;"
             style={{ flex: 1 }}
           />
         </Grid>
@@ -228,6 +154,26 @@ function AnimationRevealTools(props) {
           value={getValue('transition')}
           onChange={(val) => updateValue({ transition: val })}
         />
+        <ProNote title={__('Pro Settings', '@@text_domain')}>
+          <p>
+            {__(
+              'Advanced reveal settings are available in the Ghost Kit Pro plugin only:',
+              '@@text_domain'
+            )}
+          </p>
+          <ul>
+            <li>{__('3D Rotation', '@@text_domain')}</li>
+            <li>{__('Replay Animation', '@@text_domain')}</li>
+            <li>{__('Viewport Configuration', '@@text_domain')}</li>
+          </ul>
+          <ProNote.Button
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://ghostkit.io/animations/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_animations&utm_content=@@plugin_version"
+          >
+            {__('Read More', '@@text_domain')}
+          </ProNote.Button>
+        </ProNote>
       </DropdownPicker>
     </ToolsPanelItem>
   );

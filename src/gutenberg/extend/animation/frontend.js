@@ -1,11 +1,10 @@
 /**
  * Internal dependencies
  */
-import parseAnimationData from './utils/parse-animation-data';
 import DEFAULTS from './reveal/defaults';
 
 const {
-  GHOSTKIT: { events },
+  GHOSTKIT: { events, instance },
   Motion: { animate, spring, inView },
 } = window;
 
@@ -13,25 +12,40 @@ const {
  * Animation Reveal.
  */
 events.on(document, 'init.blocks.gkt', () => {
-  document.querySelectorAll('[data-ghostkit-animation-reveal]').forEach(function ($element) {
-    const data = $element.getAttribute('data-ghostkit-animation-reveal');
+  document.querySelectorAll('[data-gkt-animation]').forEach(function ($element) {
+    const dataString = $element.getAttribute('data-gkt-animation');
+    let data;
+
+    $element.removeAttribute('data-gkt-animation');
+
+    try {
+      data = JSON.parse(dataString);
+    } catch (e) {
+      return;
+    }
+
+    events.trigger($element, 'prepare.animation.gkt', { data });
+
+    instance.set($element, 'animation', data);
+
+    if (!data?.reveal) {
+      return;
+    }
+
+    const config = {
+      ...DEFAULTS,
+      ...data.reveal,
+    };
 
     // Hide block first and then remove attribute to prevent block visibility blinking.
     $element.style.pointerEvents = 'none';
     $element.style.visibility = 'hidden';
-    $element.removeAttribute('data-ghostkit-animation-reveal');
-
-    const config = parseAnimationData(data, DEFAULTS);
 
     events.trigger($element, 'prepare.animation.reveal.gkt', { config });
 
     const stopInView = inView($element, () => {
-      stopInView();
-
       $element.style.pointerEvents = '';
       $element.style.visibility = '';
-
-      events.trigger($element, 'show.animation.reveal.gkt', { config });
 
       const options = {};
 
@@ -94,9 +108,25 @@ events.on(document, 'init.blocks.gkt', () => {
         keyframes.rotate = [config.rotate, 0];
       }
 
+      const eventData = {
+        config,
+        keyframes,
+        options,
+        stopInView,
+        leaveCallback: () => {},
+      };
+
+      events.trigger($element, 'show.animation.reveal.gkt', eventData);
+
+      // Stop inView listener.
+      eventData.stopInView();
+
       animate($element, keyframes, options).finished.then(() => {
-        events.trigger($element, 'showed.animation.reveal.gkt', { config });
+        events.trigger($element, 'showed.animation.reveal.gkt', eventData);
       });
+
+      // This will fire when the element leaves the viewport
+      return eventData.leaveCallback;
     });
 
     events.trigger($element, 'prepared.animation.reveal.gkt', { config });

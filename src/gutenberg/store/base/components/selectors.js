@@ -23,6 +23,7 @@ import ResponsiveTabPanel from '../../../components/responsive-tab-panel';
 import Select from '../../../components/select';
 import ToggleGroup from '../../../components/toggle-group';
 import * as transitionEasingControls from '../../../components/transition-easing-controls';
+import TransitionPresetsControl from '../../../components/transition-presets-control';
 import TransitionPreview from '../../../components/transition-preview';
 import TransitionSelector from '../../../components/transition-selector';
 import * as transitionSpringControls from '../../../components/transition-spring-controls';
@@ -53,6 +54,7 @@ export function get() {
     Select,
     ToggleGroup,
     transitionEasingControls,
+    TransitionPresetsControl,
     TransitionPreview,
     TransitionSelector,
     transitionSpringControls,

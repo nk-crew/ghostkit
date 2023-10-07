@@ -121,7 +121,7 @@ class GhostKit_Deprecated_Scroll_Reveal {
      * @return string                Filtered block content.
      */
     public function migrate_deprecated_attribute( $block_content, $block ) {
-        $reveal_data = _wp_array_get( $block['attrs'], array( 'ghostkit', 'animation', 'reveal' ), false );
+        $animation_supports_data = _wp_array_get( $block['attrs'], array( 'ghostkit', 'animation' ), false );
 
         // Inject data attribute to block container markup.
         $tag = new WP_HTML_Tag_Processor( $block_content );
@@ -131,16 +131,30 @@ class GhostKit_Deprecated_Scroll_Reveal {
 
             if ( $old_data ) {
                 // Convert old attribute data to new one.
-                if ( ! $reveal_data ) {
+                if ( ! $animation_supports_data ) {
                     $new_data = $this->parse_sr_config( $old_data );
 
                     if ( $new_data ) {
                         $new_data['duration'] /= 1000;
                         $new_data['delay']    /= 1000;
 
-                        $new_data_string = "x:{$new_data['x']};y:{$new_data['y']};opacity:{$new_data['opacity']};scale:{$new_data['scale']};transition-duration:{$new_data['duration']};transition-delay:{$new_data['delay']};transition-type:easing";
+                        $animation_data_string = wp_json_encode(
+                            array(
+                                'reveal' => array(
+                                    'x'          => $new_data['x'],
+                                    'y'          => $new_data['y'],
+                                    'opacity'    => $new_data['opacity'],
+                                    'scale'      => $new_data['scale'],
+                                    'transition' => array(
+                                        'type'     => 'easing',
+                                        'duration' => $new_data['duration'],
+                                        'delay'    => $new_data['delay'],
+                                    ),
+                                ),
+                            )
+                        );
 
-                        $tag->set_attribute( 'data-ghostkit-animation-reveal', $new_data_string );
+                        $tag->set_attribute( 'data-gkt-animation', esc_attr( $animation_data_string ) );
                     }
                 }
 

@@ -36,39 +36,6 @@ class GhostKit_Extension_Animation {
     }
 
     /**
-     * Convert array data to string for data-attribute.
-     *
-     * @param array  $data - data array.
-     * @param string $prefix - prefix for name.
-     *
-     * @return string
-     */
-    public function convert_array_data_to_string( $data, $prefix = '' ) {
-        $result = '';
-
-        foreach ( $data as $name => $val ) {
-            if ( $result ) {
-                $result .= ';';
-            }
-
-            $prefixed_name = ( $prefix ? ( $prefix . '-' ) : '' ) . $name;
-
-            // Convert bezier array to string.
-            if ( 'easing' === $name && is_array( $val ) ) {
-                $val = '[' . implode( ',', $val ) . ']';
-            }
-
-            if ( is_array( $val ) ) {
-                $result .= $this->convert_array_data_to_string( $val, $prefixed_name );
-            } else {
-                $result .= $prefixed_name . ':' . $val;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
      * Renders attributes to the block wrapper.
      *
      * @param  string        $block_content Rendered block content.
@@ -78,15 +45,24 @@ class GhostKit_Extension_Animation {
      * @return string                Filtered block content.
      */
     public function render_block( $block_content, $block, $block_type ) {
-        $has_reveal_support = block_has_support( $block_type, array( 'ghostkit', 'animation', 'reveal' ), null );
+        $has_animation_support = block_has_support( $block_type, array( 'ghostkit', 'animation' ), null );
 
-        if ( ! $has_reveal_support ) {
+        if ( ! $has_animation_support ) {
             return $block_content;
         }
 
-        $reveal_data = _wp_array_get( $block['attrs'], array( 'ghostkit', 'animation', 'reveal' ), false );
+        $animation_data = array();
 
-        if ( ! $reveal_data || ! is_array( $reveal_data ) ) {
+        $has_reveal_support = block_has_support( $block_type, array( 'ghostkit', 'animation', 'reveal' ), null );
+        $reveal_data        = _wp_array_get( $block['attrs'], array( 'ghostkit', 'animation', 'reveal' ), false );
+
+        if ( $has_reveal_support && $reveal_data && is_array( $reveal_data ) ) {
+            $animation_data['reveal'] = $reveal_data;
+        }
+
+        $animation_data = apply_filters( 'gkt_extension_animation_data', $animation_data, $block_content, $block, $block_type );
+
+        if ( empty( $animation_data ) ) {
             return $block_content;
         }
 
@@ -94,9 +70,9 @@ class GhostKit_Extension_Animation {
         $tag = new WP_HTML_Tag_Processor( $block_content );
 
         if ( $tag->next_tag() ) {
-            $reveal_string_data = $this->convert_array_data_to_string( $reveal_data );
+            $animation_data_string = wp_json_encode( $animation_data );
 
-            $tag->set_attribute( 'data-ghostkit-animation-reveal', esc_attr( $reveal_string_data ) );
+            $tag->set_attribute( 'data-gkt-animation', esc_attr( $animation_data_string ) );
         }
 
         return (string) $tag;
@@ -109,7 +85,7 @@ class GhostKit_Extension_Animation {
     public function add_reveal_styles() {
         ?>
         <style type="text/css">
-            .ghostkit-animations-enabled [data-ghostkit-animation-reveal] {
+            .ghostkit-animations-enabled [data-gkt-animation*="reveal"] {
                 pointer-events: none;
                 visibility: hidden;
             }
