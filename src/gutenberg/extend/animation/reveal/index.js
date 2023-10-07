@@ -36,9 +36,9 @@ function AnimationRevealTools(props) {
 
   const hasReveal = attributes?.ghostkit?.animation?.reveal;
 
-  function getValue(prop, def) {
+  function getValue(prop, defaultValue) {
     if (typeof attributes?.ghostkit?.animation?.reveal?.[prop] === 'undefined') {
-      return typeof DEFAULTS[prop] !== 'undefined' ? DEFAULTS[prop] : def;
+      return defaultValue;
     }
 
     return attributes.ghostkit.animation.reveal[prop];
@@ -91,10 +91,14 @@ function AnimationRevealTools(props) {
         <EditorStyles
           styles={`
               [data-block="${clientId}"] {
-                transform: translateX(${getValue('x')}px) translateY(${getValue(
-            'y'
-          )}px) scale(${getValue('scale')}) rotate(${getValue('rotate')}deg);
-                opacity: ${Math.max(0.1, getValue('opacity'))};
+                transform: translateX(${getValue('x', DEFAULTS.x)}px) translateY(${getValue(
+            'y',
+            DEFAULTS.y
+          )}px) scale(${getValue('scale', DEFAULTS.scale)}) rotate(${getValue(
+            'rotate',
+            DEFAULTS.rotate
+          )}deg);
+                opacity: ${Math.max(0.1, getValue('opacity', DEFAULTS.opacity))};
               }
             `}
         />
@@ -108,6 +112,7 @@ function AnimationRevealTools(props) {
           <NumberControl
             label={__('X', '@@text_domain')}
             value={getValue('x')}
+            placeholder={DEFAULTS.x}
             onChange={(val) => {
               updateValue({ x: val === '' ? undefined : parseFloat(val) });
             }}
@@ -117,6 +122,7 @@ function AnimationRevealTools(props) {
           <NumberControl
             label={__('Y', '@@text_domain')}
             value={getValue('y')}
+            placeholder={DEFAULTS.y}
             onChange={(val) => updateValue({ y: val === '' ? undefined : parseFloat(val) })}
             suffix="px&nbsp;"
             style={{ flex: 1 }}
@@ -126,6 +132,7 @@ function AnimationRevealTools(props) {
           <NumberControl
             label={__('Opacity', '@@text_domain')}
             value={getValue('opacity')}
+            placeholder={DEFAULTS.opacity}
             onChange={(val) => updateValue({ opacity: val === '' ? undefined : parseFloat(val) })}
             min={0}
             max={1}
@@ -135,6 +142,7 @@ function AnimationRevealTools(props) {
           <NumberControl
             label={__('Scale', '@@text_domain')}
             value={getValue('scale')}
+            placeholder={DEFAULTS.scale}
             onChange={(val) => updateValue({ scale: val === '' ? undefined : parseFloat(val) })}
             min={0}
             max={10}
@@ -144,6 +152,7 @@ function AnimationRevealTools(props) {
           <NumberControl
             label={__('Rotate', '@@text_domain')}
             value={getValue('rotate')}
+            placeholder={DEFAULTS.rotate}
             onChange={(val) => updateValue({ rotate: val === '' ? undefined : parseFloat(val) })}
             suffix="deg&nbsp;"
             style={{ flex: 1 }}
@@ -151,7 +160,7 @@ function AnimationRevealTools(props) {
         </Grid>
         <TransitionSelector
           label={__('Transition', '@@text_domain')}
-          value={getValue('transition')}
+          value={getValue('transition', DEFAULTS.transition)}
           onChange={(val) => updateValue({ transition: val })}
         />
         <ProNote title={__('Pro Settings', '@@text_domain')}>
