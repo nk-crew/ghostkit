@@ -19,13 +19,15 @@ const { __ } = wp.i18n;
 const { addFilter } = wp.hooks;
 
 const {
-  __experimentalToolsPanelItem: ToolsPanelItem,
+  ToolsPanelItem: __stableToolsPanelItem,
+  __experimentalToolsPanelItem,
   NumberControl: __stableNumberControl,
   __experimentalNumberControl,
   Grid: __stableGrid,
   __experimentalGrid,
 } = wp.components;
 
+const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 const NumberControl = __stableNumberControl || __experimentalNumberControl;
 const Grid = __stableGrid || __experimentalGrid;
 
@@ -173,7 +175,7 @@ function AnimationRevealTools(props) {
           <ul>
             <li>{__('3D Rotation', '@@text_domain')}</li>
             <li>{__('Replay Animation', '@@text_domain')}</li>
-            <li>{__('Viewport Configuration', '@@text_domain')}</li>
+            <li>{__('Visibility Threshold', '@@text_domain')}</li>
           </ul>
           <ProNote.Button
             target="_blank"

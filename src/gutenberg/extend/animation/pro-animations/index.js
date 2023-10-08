@@ -14,7 +14,9 @@ const { useState } = wp.element;
 
 const { hasBlockSupport } = wp.blocks;
 
-const { __experimentalToolsPanelItem: ToolsPanelItem } = wp.components;
+const { ToolsPanelItem: __stableToolsPanelItem, __experimentalToolsPanelItem } = wp.components;
+
+const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 
 const { pro } = window.GHOSTKIT;
 
