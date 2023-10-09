@@ -75,6 +75,20 @@ function AnimationRevealTools(props) {
     <ToolsPanelItem
       label={__('Reveal', '@@text_domain')}
       hasValue={() => !!hasReveal}
+      onSelect={() => {
+        if (typeof attributes?.ghostkit?.animation?.reveal === 'undefined') {
+          const ghostkitData = cloneDeep(attributes?.ghostkit || {});
+
+          ghostkitData.animation = {
+            ...ghostkitData.animation,
+            reveal: {
+              opacity: 0,
+            },
+          };
+
+          setAttributes({ ghostkit: ghostkitData });
+        }
+      }}
       onDeselect={() => {
         if (typeof attributes?.ghostkit?.animation?.reveal !== 'undefined') {
           const ghostkitData = cloneDeep(attributes?.ghostkit || {});
