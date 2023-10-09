@@ -26,6 +26,7 @@ class GhostKit_Extension_Animation {
                         'scroll' => true,
                         'loop'   => true,
                         'mouse'  => true,
+                        'hover'  => true,
                     ),
                 ),
                 'render_block'     => array( $this, 'render_block' ),

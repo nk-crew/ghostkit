@@ -10,7 +10,8 @@
         "reveal": true,
         "scroll": true,
         "loop": true,
-        "mouse": true
+        "mouse": true,
+        "hover": true
       }
     },
     "html": false,

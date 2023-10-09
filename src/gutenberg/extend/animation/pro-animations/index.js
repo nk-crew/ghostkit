@@ -27,6 +27,9 @@ const PRESETS = {
   loop: {
     label: __('Loop', '@@text_domain'),
   },
+  hover: {
+    label: __('Hover', '@@text_domain'),
+  },
   mouse: {
     label: __('Mouse', '@@text_domain'),
   },
