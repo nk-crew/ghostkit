@@ -8,11 +8,18 @@ const {
   Motion: { animate, spring, inView },
 } = window;
 
+const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /**
  * Animation Reveal.
  */
 events.on(document, 'init.blocks.gkt', () => {
   document.querySelectorAll('[data-gkt-animation]').forEach(function ($element) {
+    if (isReducedMotion) {
+      $element.removeAttribute('data-gkt-animation');
+      return;
+    }
+
     const dataString = $element.getAttribute('data-gkt-animation');
     let data;
 
@@ -147,6 +154,10 @@ events.on(document, 'init.blocks.gkt', () => {
     .querySelectorAll('.ghostkit-count-up:not(.ghostkit-count-up-ready)')
     .forEach(($counter) => {
       $counter.classList.add('ghostkit-count-up-ready');
+
+      if (isReducedMotion) {
+        return;
+      }
 
       const isProgress = $counter.classList.contains('ghostkit-progress-bar');
       const from = parseFloat($counter.getAttribute('data-count-from')) || 0;
