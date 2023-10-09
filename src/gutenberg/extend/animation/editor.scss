@@ -1,0 +1,12 @@
+@import "../../variables";
+
+@import "./extend/animation/reveal/editor";
+@import "./extend/animation/deprecated-scroll-reveal/editor";
+
+.ghostkit-tools-panel-animation {
+  grid-column: 1 / -1;
+
+  .components-tools-panel-item:has(+ .components-tools-panel-item) .ghostkit-component-dropdown-picker-toggle {
+    border-bottom: none;
+  }
+}

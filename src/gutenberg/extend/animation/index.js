@@ -61,7 +61,9 @@ function GhostKitExtensionAnimationInspector(original, { props }) {
             }
           }}
         >
-          <ApplyFilters name="ghostkit.extension.animation.tools" props={props} />
+          <div className="ghostkit-tools-panel-animation">
+            <ApplyFilters name="ghostkit.extension.animation.tools" props={props} />
+          </div>
         </ToolsPanel>
       </InspectorControls>
     </>
