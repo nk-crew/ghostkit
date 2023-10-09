@@ -16,11 +16,21 @@ events.on(document, 'init.blocks.gkt', () => {
     const dataString = $element.getAttribute('data-gkt-animation');
     let data;
 
-    $element.removeAttribute('data-gkt-animation');
-
     try {
       data = JSON.parse(dataString);
     } catch (e) {
+      data = false;
+    }
+
+    // Hide block first and then remove attribute to prevent block visibility blinking.
+    if (data?.reveal) {
+      $element.style.pointerEvents = 'none';
+      $element.style.visibility = 'hidden';
+    }
+
+    $element.removeAttribute('data-gkt-animation');
+
+    if (!data) {
       return;
     }
 
@@ -36,10 +46,6 @@ events.on(document, 'init.blocks.gkt', () => {
       ...DEFAULTS,
       ...data.reveal,
     };
-
-    // Hide block first and then remove attribute to prevent block visibility blinking.
-    $element.style.pointerEvents = 'none';
-    $element.style.visibility = 'hidden';
 
     events.trigger($element, 'prepare.animation.reveal.gkt', { config });
 

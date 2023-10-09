@@ -174,8 +174,8 @@ function AnimationRevealTools(props) {
           </p>
           <ul>
             <li>{__('3D Rotation', '@@text_domain')}</li>
+            <li>{__('Custom Viewport', '@@text_domain')}</li>
             <li>{__('Replay Animation', '@@text_domain')}</li>
-            <li>{__('Visibility Threshold', '@@text_domain')}</li>
           </ul>
           <ProNote.Button
             target="_blank"
