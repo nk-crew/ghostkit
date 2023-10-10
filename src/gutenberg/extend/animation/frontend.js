@@ -29,12 +29,6 @@ events.on(document, 'init.blocks.gkt', () => {
       data = false;
     }
 
-    // Hide block first and then remove attribute to prevent block visibility blinking.
-    if (data?.reveal) {
-      $element.style.pointerEvents = 'none';
-      $element.style.visibility = 'hidden';
-    }
-
     $element.removeAttribute('data-gkt-animation');
 
     if (!data) {
@@ -57,8 +51,7 @@ events.on(document, 'init.blocks.gkt', () => {
     events.trigger($element, 'prepare.animation.reveal.gkt', { config });
 
     const stopInView = inView($element, () => {
-      $element.style.pointerEvents = '';
-      $element.style.visibility = '';
+      $element.classList.remove('ghostkit-animation-reveal');
 
       const options = {};
 

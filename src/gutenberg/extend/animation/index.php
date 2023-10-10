@@ -74,6 +74,12 @@ class GhostKit_Extension_Animation {
             $animation_data_string = wp_json_encode( $animation_data );
 
             $processor->set_attribute( 'data-gkt-animation', esc_attr( $animation_data_string ) );
+
+            if ( ! empty( $animation_data['reveal'] ) ) {
+                $processor->add_class( 'ghostkit-animation-reveal' );
+            }
+
+            $processor = apply_filters( 'gkt_extension_animation_tag_processor', $processor, $animation_data, $block_content, $block, $block_type );
         }
 
         return $processor->get_updated_html();
@@ -86,7 +92,7 @@ class GhostKit_Extension_Animation {
     public function add_reveal_styles() {
         ?>
         <style type="text/css">
-            .ghostkit-animations-enabled [data-gkt-animation*="reveal"] {
+            .ghostkit-animations-enabled .ghostkit-animation-reveal {
                 pointer-events: none;
                 visibility: hidden;
             }
