@@ -14,7 +14,11 @@ export { metadata, name };
 /**
  * WordPress dependencies
  */
-const { __experimentalGetBorderClassesAndStyles: getBorderClassesAndStyles } = wp.blockEditor;
+const {
+  __experimentalGetBorderClassesAndStyles: getBorderClassesAndStyles,
+  __experimentalGetColorClassesAndStyles: getColorClassesAndStyles,
+  __experimentalGetSpacingClassesAndStyles: getSpacingClassesAndStyles,
+} = wp.blockEditor;
 
 export const settings = {
   ...metadata,
@@ -23,35 +27,56 @@ export const settings = {
     previewUrl: 'https://ghostkit.io/blocks/circle-button/',
     customStylesCallback(attributes) {
       const { justify, width, flipH, flipV } = attributes;
-      let styles = {};
+      const styles = {};
+      let innerStyles = {};
 
       const borderStyle = getBorderClassesAndStyles(attributes)?.style;
+      const colorStyle = getColorClassesAndStyles(attributes)?.style;
+      const spacingStyle = getSpacingClassesAndStyles(attributes)?.style;
 
       if (justify) {
         styles.justifyContent = justify;
       }
 
       if (width) {
-        styles.width = width;
+        innerStyles.width = width;
       }
 
       if (flipH) {
         const flip = 'scaleX(-1)';
-        styles.transform = styles.transform ? `${styles.transform} ${flip}` : flip;
+        innerStyles.transform = innerStyles.transform ? `${innerStyles.transform} ${flip}` : flip;
       }
 
       if (flipV) {
         const flip = 'scaleY(-1)';
-        styles.transform = styles.transform ? `${styles.transform} ${flip}` : flip;
+        innerStyles.transform = innerStyles.transform ? `${innerStyles.transform} ${flip}` : flip;
       }
 
       // Border.
       if (Object.keys(borderStyle).length) {
-        styles = {
-          ...styles,
+        innerStyles = {
+          ...innerStyles,
           ...setBorder(borderStyle),
         };
       }
+
+      // Color.
+      if (Object.keys(colorStyle).length) {
+        innerStyles = {
+          ...innerStyles,
+          ...colorStyle,
+        };
+      }
+
+      // Spacing.
+      if (Object.keys(spacingStyle).length) {
+        innerStyles = {
+          ...innerStyles,
+          ...spacingStyle,
+        };
+      }
+
+      styles['> .ghostkit-icon-inner'] = innerStyles;
 
       return styles;
     },
