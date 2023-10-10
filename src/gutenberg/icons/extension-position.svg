@@ -1,22 +1,3 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M12 14.25V9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"
-    fill="transparent" />
-  <path d="M9.75 12L14.25 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"
-    fill="transparent" />
-  <path d="M4.75 7.25V4.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"
-    fill="transparent" />
-  <path d="M4.75 4.75L7.25 4.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"
-    stroke-linejoin="round" fill="transparent" />
-  <path d="M7.25 19.25L4.75 19.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"
-    stroke-linejoin="round" fill="transparent" />
-  <path d="M4.75 19.25L4.75 16.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"
-    stroke-linejoin="round" fill="transparent" />
-  <path d="M16.75 4.75L19.25 4.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"
-    stroke-linejoin="round" fill="transparent" />
-  <path d="M19.25 4.75L19.25 7.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"
-    stroke-linejoin="round" fill="transparent" />
-  <path d="M19.25 16.75L19.25 19.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"
-    stroke-linejoin="round" fill="transparent" />
-  <path d="M19.25 19.25L16.75 19.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"
-    stroke-linejoin="round" fill="transparent" />
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4 6V5.25V4.5H4.75H5.5H7.25H8V6H7.25L5.5 6V7.75V8.5H4V7.75V6ZM12.5 9.75406V9.00406H11V9.75406V11.5H9.25H8.5V13H9.25H11V14.7541V15.5041H12.5V14.7541V13H14.25H15V11.5H14.25H12.5V9.75406ZM5.5 18.5L5.5 16.75V16H4V16.75V18.5V19.25V20H4.75H5.5H7.25H8L8 18.5H7.25H5.5ZM18 4.5H18.75H19.5V5.25V6V7.75V8.5H18V7.75V6L16.25 6H15.5V4.5H16.25H18ZM18 18.5H16.25H15.5V20H16.25H18H18.75H19.5V19.25V18.5V16.75V16H18V16.75V18.5Z" fill="currentColor"/>
 </svg>

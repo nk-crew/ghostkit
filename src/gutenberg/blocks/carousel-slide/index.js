@@ -13,7 +13,7 @@ export { metadata, name };
 
 export const settings = {
   ...metadata,
-  icon: getIcon('block-carousel', true),
+  icon: getIcon('block-carousel-slide', true),
   ghostkit: {
     supports: {
       styles: true,
