@@ -124,10 +124,10 @@ class GhostKit_Deprecated_Scroll_Reveal {
         $animation_supports_data = _wp_array_get( $block['attrs'], array( 'ghostkit', 'animation' ), false );
 
         // Inject data attribute to block container markup.
-        $tag = new WP_HTML_Tag_Processor( $block_content );
+        $processor = new WP_HTML_Tag_Processor( $block_content );
 
-        if ( $tag->next_tag() ) {
-            $old_data = $tag->get_attribute( 'data-ghostkit-sr' );
+        if ( $processor->next_tag() ) {
+            $old_data = $processor->get_attribute( 'data-ghostkit-sr' );
 
             if ( $old_data ) {
                 // Convert old attribute data to new one.
@@ -154,16 +154,16 @@ class GhostKit_Deprecated_Scroll_Reveal {
                             )
                         );
 
-                        $tag->set_attribute( 'data-gkt-animation', esc_attr( $animation_data_string ) );
+                        $processor->set_attribute( 'data-gkt-animation', esc_attr( $animation_data_string ) );
                     }
                 }
 
                 // Remove old attribute if new reveal animation is available.
-                $tag->remove_attribute( 'data-ghostkit-sr' );
+                $processor->remove_attribute( 'data-ghostkit-sr' );
             }
         }
 
-        return (string) $tag;
+        return $processor->get_updated_html();
     }
 }
 

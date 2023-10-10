@@ -68,15 +68,15 @@ class GhostKit_Extension_Animation {
         }
 
         // Inject data attribute to block container markup.
-        $tag = new WP_HTML_Tag_Processor( $block_content );
+        $processor = new WP_HTML_Tag_Processor( $block_content );
 
-        if ( $tag->next_tag() ) {
+        if ( $processor->next_tag() ) {
             $animation_data_string = wp_json_encode( $animation_data );
 
-            $tag->set_attribute( 'data-gkt-animation', esc_attr( $animation_data_string ) );
+            $processor->set_attribute( 'data-gkt-animation', esc_attr( $animation_data_string ) );
         }
 
-        return (string) $tag;
+        return $processor->get_updated_html();
     }
 
     /**
