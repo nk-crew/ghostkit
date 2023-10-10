@@ -16,7 +16,9 @@
 
       > .ghostkit-component-bezier-editor,
       > .ghostkit-component-spring-editor {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: 24px;
         height: 24px;
         overflow: hidden;
