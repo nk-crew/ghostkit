@@ -202,7 +202,7 @@ class GhostKit_Assets {
 
         // Motion.
         if ( apply_filters( 'gkt_enqueue_plugin_motion', true ) ) {
-            wp_register_script( 'motion', ghostkit()->plugin_url . 'assets/vendor/motion/dist/motion.umd.js', array(), '10.16.2', true );
+            wp_register_script( 'motion', ghostkit()->plugin_url . 'assets/vendor/motion/dist/motion.min.js', array(), '10.16.2', true );
 
             $js_deps[] = 'motion';
         }

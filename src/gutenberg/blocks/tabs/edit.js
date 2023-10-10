@@ -10,22 +10,18 @@ import RemoveButton from '../../components/remove-button';
 import EditorStyles from '../../components/editor-styles';
 import getUniqueSlug from '../../utils/get-unique-slug';
 
+import EditBlockControls from './edit/block-controls';
+import EditInspectorControls from './edit/inspector-controls';
+
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
 const { __ } = wp.i18n;
-const { PanelBody, BaseControl, ToggleControl, SelectControl, Button, Tooltip } = wp.components;
+const { applyFilters } = wp.hooks;
+const { Button, Tooltip } = wp.components;
 const { useSelect, useDispatch } = wp.data;
 const { createBlock } = wp.blocks;
-const {
-  RichText,
-  InspectorControls,
-  BlockControls,
-  AlignmentToolbar,
-  useBlockProps,
-  useInnerBlocksProps,
-} = wp.blockEditor;
+const { RichText, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Edit Class.
@@ -34,7 +30,7 @@ export default function BlockEdit(props) {
   const { attributes, setAttributes, clientId } = props;
   let { className = '' } = props;
 
-  const { tabActive, trigger, buttonsVerticalAlign, buttonsAlign, tabsData = [] } = attributes;
+  const { tabActive, buttonsVerticalAlign, buttonsAlign, tabsData = [] } = attributes;
 
   const { getBlocks, block, isSelectedBlockInRoot } = useSelect((select) => {
     const {
@@ -129,13 +125,6 @@ export default function BlockEdit(props) {
 
   className = applyFilters('ghostkit.editor.className', className, props);
 
-  let buttonsAlignValForControl = buttonsAlign;
-  if (buttonsAlignValForControl === 'start') {
-    buttonsAlignValForControl = 'left';
-  } else if (buttonsAlignValForControl === 'end') {
-    buttonsAlignValForControl = 'right';
-  }
-
   const blockProps = useBlockProps({ className, 'data-tab-active': tabActive });
   const innerBlockProps = useInnerBlocksProps(
     { className: 'ghostkit-tabs-content' },
@@ -148,63 +137,9 @@ export default function BlockEdit(props) {
 
   return (
     <>
-      <BlockControls>
-        <AlignmentToolbar
-          value={buttonsAlignValForControl}
-          onChange={(value) => {
-            if (value === 'left') {
-              value = 'start';
-            } else if (value === 'right') {
-              value = 'end';
-            }
-            setAttributes({ buttonsAlign: value });
-          }}
-          controls={['left', 'center', 'right']}
-        />
-      </BlockControls>
-      <InspectorControls>
-        <PanelBody>
-          <SelectControl
-            label={__('Select Tab Trigger', '@@text_domain')}
-            value={trigger}
-            options={[
-              {
-                value: '',
-                label: __('Click', '@@text_domain'),
-              },
-              {
-                value: 'hover',
-                label: __('Hover', '@@text_domain'),
-              },
-            ]}
-            onChange={(val) => {
-              setAttributes({ trigger: val });
-            }}
-          />
-          <ToggleControl
-            label={__('Vertical Tabs', '@@text_domain')}
-            checked={!!buttonsVerticalAlign}
-            onChange={(val) => setAttributes({ buttonsVerticalAlign: val })}
-          />
-          <BaseControl label={__('Tabs Align', '@@text_domain')}>
-            <div>
-              <AlignmentToolbar
-                value={buttonsAlignValForControl}
-                onChange={(value) => {
-                  if (value === 'left') {
-                    value = 'start';
-                  } else if (value === 'right') {
-                    value = 'end';
-                  }
-                  setAttributes({ buttonsAlign: value });
-                }}
-                controls={['left', 'center', 'right']}
-                isCollapsed={false}
-              />
-            </div>
-          </BaseControl>
-        </PanelBody>
-      </InspectorControls>
+      <EditBlockControls attributes={attributes} setAttributes={setAttributes} />
+      <EditInspectorControls attributes={attributes} setAttributes={setAttributes} />
+
       <div {...blockProps}>
         <div
           className={classnames(
@@ -296,9 +231,9 @@ export default function BlockEdit(props) {
           // Thanks to https://github.com/nk-crew/ghostkit/issues/123.
           `
           [data-block="${clientId}"] > .ghostkit-tabs-content > [data-tab="${tabActive}"] {
-              display: block;
+            display: block;
           }
-        `
+          `
         }
       />
     </>

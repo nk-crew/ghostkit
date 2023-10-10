@@ -9,7 +9,7 @@ const { name } = metadata;
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-const { useInnerBlocksProps } = wp.blockEditor;
+const { useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 /**
  * Block Save Class.
@@ -24,7 +24,8 @@ export default function BlockEdit(props) {
     ...props,
   });
 
-  const innerBlockProps = useInnerBlocksProps.save({ className, 'data-tab': slug });
+  const blockProps = useBlockProps.save({ className, 'data-tab': slug });
+  const innerBlockProps = useInnerBlocksProps.save(blockProps);
 
   return <div {...innerBlockProps} />;
 }

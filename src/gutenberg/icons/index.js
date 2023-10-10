@@ -3,9 +3,13 @@
  */
 import ghostkitLogo from './ghostkit-logo.svg';
 import blockAccordion from './block-accordion.svg';
+import blockAccordionItem from './block-accordion-item.svg';
+import blockAccordionCollapse from './block-accordion-collapse.svg';
 import blockAlert from './block-alert.svg';
+import blockButtons from './block-buttons.svg';
 import blockButton from './block-button.svg';
 import blockCarousel from './block-carousel.svg';
+import blockCarouselSlide from './block-carousel-slide.svg';
 import blockChangelog from './block-changelog.svg';
 import blockCountdown from './block-countdown.svg';
 import blockCounterBox from './block-counter-box.svg';
@@ -25,6 +29,7 @@ import blockGif from './block-gif.svg';
 import blockPricingTable from './block-pricing.svg';
 import blockProgress from './block-progress.svg';
 import blockTabs from './block-tabs.svg';
+import blockTab from './block-tab.svg';
 import blockTestimonial from './block-testimonial.svg';
 import blockTwitter from './block-twitter.svg';
 import blockVideo from './block-video.svg';
@@ -74,6 +79,7 @@ import iconHorizontalBetween from './icon-horizontal-between.svg';
 import iconHorizontalCenter from './icon-horizontal-center.svg';
 import iconHorizontalEnd from './icon-horizontal-end.svg';
 import iconHorizontalStart from './icon-horizontal-start.svg';
+import iconHorizontalStretch from './icon-horizontal-stretch.svg';
 import iconVerticalBetween from './icon-vertical-between.svg';
 import iconVerticalBottom from './icon-vertical-bottom.svg';
 import iconVerticalCenter from './icon-vertical-center.svg';
@@ -88,7 +94,6 @@ import iconArrowUp from './icon-arrow-up.svg';
 import iconBox from './icon-box.svg';
 import iconCircle from './icon-circle.svg';
 import iconTrash from './icon-trash.svg';
-import iconCollapse from './icon-collapse.svg';
 import iconMarker from './icon-marker.svg';
 import iconTextUppercase from './icon-text-uppercase.svg';
 import iconMap from './icon-map.svg';
@@ -110,9 +115,13 @@ export default {
   'ghostkit-logo': ghostkitLogo,
 
   'block-accordion': blockAccordion,
+  'block-accordion-item': blockAccordionItem,
+  'block-accordion-collapse': blockAccordionCollapse,
   'block-alert': blockAlert,
+  'block-buttons': blockButtons,
   'block-button': blockButton,
   'block-carousel': blockCarousel,
+  'block-carousel-slide': blockCarouselSlide,
   'block-changelog': blockChangelog,
   'block-countdown': blockCountdown,
   'block-counter-box': blockCounterBox,
@@ -132,6 +141,7 @@ export default {
   'block-pricing-table': blockPricingTable,
   'block-progress': blockProgress,
   'block-tabs': blockTabs,
+  'block-tab': blockTab,
   'block-testimonial': blockTestimonial,
   'block-twitter': blockTwitter,
   'block-video': blockVideo,
@@ -187,6 +197,7 @@ export default {
   'icon-horizontal-center': iconHorizontalCenter,
   'icon-horizontal-end': iconHorizontalEnd,
   'icon-horizontal-start': iconHorizontalStart,
+  'icon-horizontal-stretch': iconHorizontalStretch,
   'icon-vertical-between': iconVerticalBetween,
   'icon-vertical-bottom': iconVerticalBottom,
   'icon-vertical-center': iconVerticalCenter,
@@ -201,7 +212,6 @@ export default {
   'icon-box': iconBox,
   'icon-circle': iconCircle,
   'icon-trash': iconTrash,
-  'icon-collapse': iconCollapse,
   'icon-marker': iconMarker,
   'icon-text-uppercase': iconTextUppercase,
   'icon-map': iconMap,

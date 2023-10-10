@@ -6,6 +6,7 @@
 .ghostkit-tabs {
   // Buttons.
   --gkt-tabs--buttons__offset: 1em;
+  --gkt-tabs--buttons__gap: 0px;
   --gkt-tabs--button__padding-v: 0.5em;
   --gkt-tabs--button__padding-h: 1.2em;
   --gkt-tabs--button__font-weight: 500;
@@ -20,6 +21,17 @@
   --gkt-tabs-pills--button__border-radius: var(--gkt-border-radius);
   --gkt-tabs-pills--button-active__color: #fff;
   --gkt-tabs-pills--button-active__background-color: var(--gkt-color-dark-gray);
+
+  // Radio Style.
+  --gkt-tabs-radio--button__gap: 0.5em;
+  --gkt-tabs-radio--button--radio__width: 0.85em;
+  --gkt-tabs-radio--button--radio__height: 0.85em;
+  --gkt-tabs-radio--button--radio__border-width: 1px;
+  --gkt-tabs-radio--button--radio__border-color: var(--gkt-color-light-gray-darken);
+  --gkt-tabs-radio--button-active--radio__border-color: currentcolor;
+  --gkt-tabs-radio--button--dot__size: 0.25em;
+  --gkt-tabs-radio--button--dot__color: transparent;
+  --gkt-tabs-radio--button-active--dot__color: currentcolor;
 
   // Transitions.
   --gkt-tabs__transition-duration: var(--gkt-transition-duration);

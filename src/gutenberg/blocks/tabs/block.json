@@ -50,5 +50,10 @@
         }
       ]
     }
-  }
+  },
+  "styles": [
+    { "name": "default", "label": "Tabs", "isDefault": true },
+    { "name": "pills", "label": "Pills" },
+    { "name": "radio", "label": "Radio Buttons" }
+  ]
 }

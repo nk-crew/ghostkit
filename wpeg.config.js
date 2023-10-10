@@ -49,7 +49,7 @@ cfg.copy_files_src = [
   './node_modules/*luxon/build/global/luxon.min.js.map',
   './node_modules/@lottiefiles/*lottie-player/dist/lottie-player.js',
   './node_modules/@lottiefiles/*lottie-player/dist/lottie-player.js.map',
-  './node_modules/*motion/dist/motion.umd.js',
+  './node_modules/*motion/dist/motion.min.js',
 ];
 
 cfg.copy_files_dist = (file) => {

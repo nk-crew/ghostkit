@@ -15,6 +15,10 @@
       "type": "string",
       "default": "50px"
     },
+    "justify": {
+      "type": "string",
+      "default": "center"
+    },
     "flipH": {
       "type": "boolean"
     },
@@ -44,9 +48,12 @@
       "text": true,
       "gradients": true,
       "background": true,
+      "link": true,
+      "__experimentalSkipSerialization": true,
       "__experimentalDefaultControls": {
         "text": true,
-        "background": true
+        "background": true,
+        "link": false
       }
     },
     "__experimentalBorder": {
@@ -63,6 +70,7 @@
     "spacing": {
       "padding": true,
       "margin": true,
+      "__experimentalSkipSerialization": true,
       "__experimentalDefaultControls": {
         "padding": false,
         "margin": false

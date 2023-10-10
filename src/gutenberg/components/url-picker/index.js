@@ -29,6 +29,7 @@ export default function URLPicker(props) {
     ariaLabel,
     toolbarSettings = true,
     inspectorSettings = true,
+    blockControlsGroup = 'block',
     isSelected,
   } = props;
 
@@ -90,7 +91,7 @@ export default function URLPicker(props) {
     <Fragment>
       {toolbarSettings ? (
         <Fragment>
-          <BlockControls>
+          <BlockControls group={blockControlsGroup}>
             <ToolbarGroup>
               <ToolbarButton
                 name="link"

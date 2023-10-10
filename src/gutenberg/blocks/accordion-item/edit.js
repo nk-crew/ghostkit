@@ -92,7 +92,7 @@ export default function BlockEdit(props) {
       <BlockControls>
         <ToolbarGroup>
           <ToolbarButton
-            icon={getIcon('icon-collapse')}
+            icon={getIcon('block-accordion-collapse')}
             label={__('Collapse', '@@text_domain')}
             onClick={() => setAttributes({ active: !active })}
             isActive={active}
