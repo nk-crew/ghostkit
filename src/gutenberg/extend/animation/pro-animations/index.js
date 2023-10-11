@@ -21,17 +21,20 @@ const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 const { pro } = window.GHOSTKIT;
 
 const PRESETS = {
+  mouseHover: {
+    label: __('Mouse Hover', '@@text_domain'),
+  },
+  mousePress: {
+    label: __('Mouse Press', '@@text_domain'),
+  },
+  mouseMove: {
+    label: __('Mouse Move', '@@text_domain'),
+  },
   scroll: {
     label: __('Scroll', '@@text_domain'),
   },
   loop: {
     label: __('Loop', '@@text_domain'),
-  },
-  hover: {
-    label: __('Hover', '@@text_domain'),
-  },
-  mouse: {
-    label: __('Mouse', '@@text_domain'),
   },
 };
 

@@ -22,11 +22,12 @@ class GhostKit_Extension_Animation {
             array(
                 'default_supports' => array(
                     'animation' => array(
-                        'reveal' => true,
-                        'scroll' => true,
-                        'loop'   => true,
-                        'mouse'  => true,
-                        'hover'  => true,
+                        'reveal'     => true,
+                        'mouseHover' => true,
+                        'mousePress' => true,
+                        'mouseMove'  => true,
+                        'scroll'     => true,
+                        'loop'       => true,
                     ),
                 ),
                 'render_block'     => array( $this, 'render_block' ),
