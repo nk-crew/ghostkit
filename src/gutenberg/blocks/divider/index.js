@@ -18,7 +18,6 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-  ...metadata,
   icon: getIcon('block-divider', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/divider/',

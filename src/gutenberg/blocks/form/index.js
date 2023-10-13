@@ -17,11 +17,7 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-  ...metadata,
-  title: __('Form', '@@text_domain'),
-  description: __('Add contact form to your page with reCaptcha.', '@@text_domain'),
   icon: getIcon('block-form', true),
-  keywords: [__('form', '@@text_domain'), __('contact', '@@text_domain')],
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/contact-form/',
     supports: {

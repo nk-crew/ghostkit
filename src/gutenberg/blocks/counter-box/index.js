@@ -14,7 +14,6 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-  ...metadata,
   icon: getIcon('block-counter-box', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/number-box/',

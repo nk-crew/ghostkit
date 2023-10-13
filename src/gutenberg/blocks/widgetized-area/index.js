@@ -12,7 +12,6 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-  ...metadata,
   icon: getIcon('block-widgetized-area', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/widgetized-area/',

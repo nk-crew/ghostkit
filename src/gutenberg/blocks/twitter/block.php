@@ -24,14 +24,12 @@ class GhostKit_Twitter_Block {
      * Init.
      */
     public function init() {
-        if ( function_exists( 'register_block_type' ) ) {
-            register_block_type(
-                'ghostkit/twitter',
-                array(
-                    'render_callback' => array( $this, 'block_render' ),
-                )
-            );
-        }
+        register_block_type_from_metadata(
+            dirname( __FILE__ ),
+            array(
+                'render_callback' => array( $this, 'block_render' ),
+            )
+        );
     }
 
     /**

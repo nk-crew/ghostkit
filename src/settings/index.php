@@ -17,11 +17,6 @@ class GhostKit_Settings {
      * GhostKit_Settings constructor.
      */
     public function __construct() {
-        // work only if Gutenberg available.
-        if ( ! function_exists( 'register_block_type' ) ) {
-            return;
-        }
-
         // Load admin style sheet and JavaScript.
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 

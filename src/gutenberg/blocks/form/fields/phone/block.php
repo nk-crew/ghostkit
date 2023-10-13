@@ -24,14 +24,9 @@ class GhostKit_Form_Field_Phone_Block {
      * Init.
      */
     public function init() {
-        if ( ! function_exists( 'register_block_type' ) ) {
-            return;
-        }
-
-        register_block_type(
-            'ghostkit/form-field-phone',
+        register_block_type_from_metadata(
+            dirname( __FILE__ ),
             array(
-                'parent'          => array( 'ghostkit/form' ),
                 'render_callback' => array( $this, 'block_render' ),
                 'attributes'      => GhostKit_Form_Field_Attributes::get_block_attributes(
                     array(

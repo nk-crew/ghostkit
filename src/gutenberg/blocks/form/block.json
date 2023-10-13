@@ -4,6 +4,8 @@
   "name": "ghostkit/form",
   "category": "ghostkit",
   "title": "Form",
+  "description": "Add contact form to your page with reCaptcha.",
+  "keywords": ["form", "contact"],
   "supports": {
     "ghostkit": {
       "animation": {

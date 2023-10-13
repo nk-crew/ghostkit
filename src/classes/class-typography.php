@@ -86,7 +86,7 @@ class GhostKit_Typography {
             if ( ! is_admin() && isset( $typography_css['front'] ) && ! empty( $typography_css['front'] ) ) {
                 $css = $typography_css['front'];
             }
-            if ( function_exists( 'register_block_type' ) && is_admin() && isset( $typography_css['editor'] ) && ! empty( $typography_css['editor'] ) ) {
+            if ( is_admin() && isset( $typography_css['editor'] ) && ! empty( $typography_css['editor'] ) ) {
                 $css = $typography_css['editor'];
             }
         }

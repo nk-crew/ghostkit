@@ -21,7 +21,6 @@ const {
 } = wp.blockEditor;
 
 export const settings = {
-  ...metadata,
   icon: getIcon('block-icon', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/circle-button/',

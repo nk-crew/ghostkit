@@ -79,10 +79,6 @@ class GhostKit_Form_Block {
      * Init.
      */
     public function init() {
-        if ( ! function_exists( 'register_block_type' ) ) {
-            return;
-        }
-
         $from_email  = '';
         $admin_email = get_option( 'admin_email' );
         $blogname    = get_option( 'blogname' );

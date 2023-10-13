@@ -17,7 +17,6 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-  ...metadata,
   icon: getIcon('block-grid-column', true),
   ghostkit: {
     customSelector(selector) {
