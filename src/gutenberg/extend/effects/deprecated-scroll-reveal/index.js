@@ -106,7 +106,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
       delay: 0,
     });
 
-    const hasNewRevealSupport = hasBlockSupport(name, ['ghostkit', 'animation', 'reveal']);
+    const hasNewRevealSupport = hasBlockSupport(name, ['ghostkit', 'effects', 'reveal']);
 
     useEffect(() => {
       const newSrData = { ...srData };
@@ -148,13 +148,13 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
         newSrData.delay = parseFloat(newSrData.delay);
       }
 
-      // Migration to new animation attribute.
+      // Migration to new effects attribute.
       if (hasNewRevealSupport && ghostkitSR) {
         const ghostkitData = {
           ...(attributes?.ghostkit || {}),
         };
 
-        if (!ghostkitData?.animation?.reveal) {
+        if (!ghostkitData?.effects?.reveal) {
           const parsedConfig = parseSRConfig(ghostkitSR);
 
           const newAnimationData = {
@@ -170,11 +170,11 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
             },
           };
 
-          if (!ghostkitData?.animation) {
-            ghostkitData.animation = {};
+          if (!ghostkitData?.effects) {
+            ghostkitData.effects = {};
           }
 
-          ghostkitData.animation.reveal = newAnimationData;
+          ghostkitData.effects.reveal = newAnimationData;
 
           setAttributes({
             ghostkit: ghostkitData,

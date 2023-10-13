@@ -6,7 +6,7 @@ import './frame';
 import './spacings';
 import './position';
 import './display';
-import './animation';
+import './effects';
 import './custom-css';
 import './toc-headings';
 import './toolbar-templates';

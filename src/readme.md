@@ -115,6 +115,9 @@ Select registered sidebars and put it in any place.
 
 #### ⚙️ Extensions ####
 
+* [**Effects**](https://ghostkit.io/extensions/effects/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+Add stunning visual effects and interactivity to Ghost Kit and Core blocks. You can can easily add appear animations, scroll effects, mouse move/hover/press effects and loop animations.
+
 * [**Position**](https://ghostkit.io/extensions/position/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 Change block position to absolute or fixed and move it with offset in Ghost Kit and Core blocks.
 
@@ -126,9 +129,6 @@ Show and hide blocks Ghost Kit and Core blocks on different screen sizes.
 
 * [**Frame**](https://ghostkit.io/extensions/frame/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 Add borders, shadows and corner radius to Ghost Kit and Core blocks on different screen sizes.
-
-* [**Animate on Scroll**](https://ghostkit.io/extensions/animate-on-scroll/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
-Show with animation Ghost Kit and Core blocks on page scrolling.
 
 * [**Custom CSS & JavaScript**](https://ghostkit.io/extensions/custom-css-js/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 This extension is available on all pages and let you add custom CSS and JavaScript for the current page and globally site wide.

@@ -1,9 +1,9 @@
 @import "../../variables";
 
-@import "./extend/animation/reveal/editor";
-@import "./extend/animation/deprecated-scroll-reveal/editor";
+@import "./extend/effects/reveal/editor";
+@import "./extend/effects/deprecated-scroll-reveal/editor";
 
-.ghostkit-tools-panel-animation {
+.ghostkit-tools-panel-effects {
   grid-column: 1 / -1;
 
   .components-tools-panel-item:has(+ .components-tools-panel-item) .ghostkit-component-dropdown-picker-toggle {

@@ -8,7 +8,7 @@
   "description": "Form field name.",
   "supports": {
     "ghostkit": {
-      "animation": {
+      "effects": {
         "reveal": true,
         "mouseHover": true,
         "mousePress": true,

@@ -1,6 +1,6 @@
 <?php
 /**
- * Animation Extension.
+ * Scroll Reveal Extension.
  *
  * @package @@plugin_name
  */
@@ -121,7 +121,7 @@ class GhostKit_Deprecated_Scroll_Reveal {
      * @return string                Filtered block content.
      */
     public function migrate_deprecated_attribute( $block_content, $block ) {
-        $animation_supports_data = _wp_array_get( $block['attrs'], array( 'ghostkit', 'animation' ), false );
+        $effects_supports_data = _wp_array_get( $block['attrs'], array( 'ghostkit', 'effects' ), false );
 
         // Inject data attribute to block container markup.
         $processor = new WP_HTML_Tag_Processor( $block_content );
@@ -131,14 +131,14 @@ class GhostKit_Deprecated_Scroll_Reveal {
 
             if ( $old_data ) {
                 // Convert old attribute data to new one.
-                if ( ! $animation_supports_data ) {
+                if ( ! $effects_supports_data ) {
                     $new_data = $this->parse_sr_config( $old_data );
 
                     if ( $new_data ) {
                         $new_data['duration'] /= 1000;
                         $new_data['delay']    /= 1000;
 
-                        $animation_data_string = wp_json_encode(
+                        $effects_data_string = wp_json_encode(
                             array(
                                 'reveal' => array(
                                     'x'          => $new_data['x'],
@@ -154,11 +154,11 @@ class GhostKit_Deprecated_Scroll_Reveal {
                             )
                         );
 
-                        $processor->set_attribute( 'data-gkt-animation', esc_attr( $animation_data_string ) );
+                        $processor->set_attribute( 'data-gkt-effects', esc_attr( $effects_data_string ) );
                     }
                 }
 
-                // Remove old attribute if new reveal animation is available.
+                // Remove old attribute if new reveal effects is available.
                 $processor->remove_attribute( 'data-ghostkit-sr' );
             }
         }

@@ -3,7 +3,7 @@
  */
 import './deprecated-scroll-reveal';
 import './reveal';
-import './pro-animations';
+import './pro-effects';
 
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
@@ -29,12 +29,12 @@ const {
 /**
  * Add inspector controls.
  */
-function GhostKitExtensionAnimationInspector(original, { props }) {
+function GhostKitExtensionEffectsInspector(original, { props }) {
   const { name, attributes, setAttributes } = props;
 
-  const hasAnimationSupport = hasBlockSupport(name, ['ghostkit', 'animation']);
+  const hasEffectsSupport = hasBlockSupport(name, ['ghostkit', 'effects']);
 
-  if (!hasAnimationSupport) {
+  if (!hasEffectsSupport) {
     return original;
   }
 
@@ -46,7 +46,7 @@ function GhostKitExtensionAnimationInspector(original, { props }) {
           label={
             <>
               <span className="ghostkit-ext-icon">{getIcon('extension-sr')}</span>
-              <span>{__('Animation', '@@text_domain')}</span>
+              <span>{__('Effects', '@@text_domain')}</span>
             </>
           }
           resetAll={() => {
@@ -54,15 +54,15 @@ function GhostKitExtensionAnimationInspector(original, { props }) {
               ...(attributes?.ghostkit || {}),
             };
 
-            if (typeof ghostkitData?.animation !== 'undefined') {
-              delete ghostkitData?.animation;
+            if (typeof ghostkitData?.effects !== 'undefined') {
+              delete ghostkitData?.effects;
 
               setAttributes({ ghostkit: ghostkitData });
             }
           }}
         >
-          <div className="ghostkit-tools-panel-animation">
-            <ApplyFilters name="ghostkit.extension.animation.tools" props={props} />
+          <div className="ghostkit-tools-panel-effects">
+            <ApplyFilters name="ghostkit.extension.effects.tools" props={props} />
           </div>
         </ToolsPanel>
       </InspectorControls>
@@ -73,18 +73,18 @@ function GhostKitExtensionAnimationInspector(original, { props }) {
 /**
  * Add toolbar controls.
  */
-function GhostKitExtensionAnimationToolbar(original, { props }) {
+function GhostKitExtensionEffectsToolbar(original, { props }) {
   const { name, attributes, setAttributes } = props;
 
-  const hasAnimationSupport = hasBlockSupport(name, ['ghostkit', 'animation']);
+  const hasEffectsSupport = hasBlockSupport(name, ['ghostkit', 'effects']);
 
-  if (!hasAnimationSupport) {
+  if (!hasEffectsSupport) {
     return original;
   }
 
-  const hasAnimation = attributes?.ghostkit?.animation;
+  const hasEffects = attributes?.ghostkit?.effects;
 
-  if (!hasAnimation) {
+  if (!hasEffects) {
     return original;
   }
 
@@ -94,7 +94,7 @@ function GhostKitExtensionAnimationToolbar(original, { props }) {
       <BlockControls group="other">
         <ToolbarDropdownMenu
           icon={getIcon('extension-sr')}
-          label={__('Animations', '@@text_domain')}
+          label={__('Effects', '@@text_domain')}
           menuProps={{
             style: { width: '260px' },
           }}
@@ -104,12 +104,12 @@ function GhostKitExtensionAnimationToolbar(original, { props }) {
             <>
               <MenuGroup>
                 {__(
-                  'There are animations added to the current block. To change animation options open the "Animation" block settings panel.',
+                  'There are effects added to the current block. To change these options open the "Effects" block settings panel.',
                   '@@text_domain'
                 )}
               </MenuGroup>
               <MenuGroup>
-                {__('Reset all animations of the current block:', '@@text_domain')}
+                {__('Reset all effects of the current block:', '@@text_domain')}
                 <Button
                   variant="link"
                   onClick={() => {
@@ -117,8 +117,8 @@ function GhostKitExtensionAnimationToolbar(original, { props }) {
                       ...(attributes?.ghostkit || {}),
                     };
 
-                    if (typeof ghostkitData?.animation !== 'undefined') {
-                      delete ghostkitData?.animation;
+                    if (typeof ghostkitData?.effects !== 'undefined') {
+                      delete ghostkitData?.effects;
 
                       setAttributes({ ghostkit: ghostkitData });
                     }
@@ -138,11 +138,11 @@ function GhostKitExtensionAnimationToolbar(original, { props }) {
 // Init filters.
 addFilter(
   'ghostkit.editor.extensions',
-  'ghostkit/extension/animation/inspector',
-  GhostKitExtensionAnimationInspector
+  'ghostkit/extension/effects/inspector',
+  GhostKitExtensionEffectsInspector
 );
 addFilter(
   'ghostkit.editor.extensions',
-  'ghostkit/extension/animation/toolbar',
-  GhostKitExtensionAnimationToolbar
+  'ghostkit/extension/effects/toolbar',
+  GhostKitExtensionEffectsToolbar
 );

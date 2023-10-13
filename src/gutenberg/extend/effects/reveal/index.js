@@ -33,39 +33,39 @@ const Grid = __stableGrid || __experimentalGrid;
 
 const { hasBlockSupport } = wp.blocks;
 
-function AnimationRevealTools(props) {
+function EffectsRevealTools(props) {
   const { attributes, setAttributes, clientId } = props;
 
-  const hasReveal = attributes?.ghostkit?.animation?.reveal;
+  const hasReveal = attributes?.ghostkit?.effects?.reveal;
 
   function getValue(prop, defaultValue) {
-    if (typeof attributes?.ghostkit?.animation?.reveal?.[prop] === 'undefined') {
+    if (typeof attributes?.ghostkit?.effects?.reveal?.[prop] === 'undefined') {
       return defaultValue;
     }
 
-    return attributes.ghostkit.animation.reveal[prop];
+    return attributes.ghostkit.effects.reveal[prop];
   }
 
   function updateValue(newData, reset = false) {
     const ghostkitData = cloneDeep(attributes?.ghostkit || {});
 
-    if (typeof ghostkitData?.animation === 'undefined') {
-      ghostkitData.animation = {};
+    if (typeof ghostkitData?.effects === 'undefined') {
+      ghostkitData.effects = {};
     }
 
     // Reset all values except transition.
-    if (reset || typeof ghostkitData?.animation?.reveal === 'undefined') {
-      if (ghostkitData.animation.reveal?.transition) {
-        ghostkitData.animation.reveal = {
-          transition: ghostkitData.animation.reveal.transition,
+    if (reset || typeof ghostkitData?.effects?.reveal === 'undefined') {
+      if (ghostkitData.effects.reveal?.transition) {
+        ghostkitData.effects.reveal = {
+          transition: ghostkitData.effects.reveal.transition,
         };
       } else {
-        ghostkitData.animation.reveal = {};
+        ghostkitData.effects.reveal = {};
       }
     }
 
     Object.keys(newData).forEach((prop) => {
-      ghostkitData.animation.reveal[prop] = newData[prop];
+      ghostkitData.effects.reveal[prop] = newData[prop];
     });
 
     setAttributes({ ghostkit: ghostkitData });
@@ -76,11 +76,11 @@ function AnimationRevealTools(props) {
       label={__('Reveal', '@@text_domain')}
       hasValue={() => !!hasReveal}
       onSelect={() => {
-        if (typeof attributes?.ghostkit?.animation?.reveal === 'undefined') {
+        if (typeof attributes?.ghostkit?.effects?.reveal === 'undefined') {
           const ghostkitData = cloneDeep(attributes?.ghostkit || {});
 
-          ghostkitData.animation = {
-            ...ghostkitData.animation,
+          ghostkitData.effects = {
+            ...ghostkitData.effects,
             reveal: {
               opacity: 0,
             },
@@ -90,10 +90,10 @@ function AnimationRevealTools(props) {
         }
       }}
       onDeselect={() => {
-        if (typeof attributes?.ghostkit?.animation?.reveal !== 'undefined') {
+        if (typeof attributes?.ghostkit?.effects?.reveal !== 'undefined') {
           const ghostkitData = cloneDeep(attributes?.ghostkit || {});
 
-          delete ghostkitData?.animation?.reveal;
+          delete ghostkitData?.effects?.reveal;
 
           setAttributes({ ghostkit: ghostkitData });
         }
@@ -102,7 +102,7 @@ function AnimationRevealTools(props) {
     >
       <DropdownPicker
         label={__('Reveal', '@@text_domain')}
-        contentClassName="ghostkit-component-animation-reveal"
+        contentClassName="ghostkit-component-effects-reveal"
       >
         <EditorStyles
           styles={`
@@ -194,7 +194,7 @@ function AnimationRevealTools(props) {
           <ProNote.Button
             target="_blank"
             rel="noopener noreferrer"
-            href="https://ghostkit.io/animations/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_animations&utm_content=@@plugin_version"
+            href="https://ghostkit.io/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=@@plugin_version"
           >
             {__('Read More', '@@text_domain')}
           </ProNote.Button>
@@ -205,10 +205,10 @@ function AnimationRevealTools(props) {
 }
 
 addFilter(
-  'ghostkit.extension.animation.tools',
-  'ghostkit/extension/animation/reveal',
+  'ghostkit.extension.effects.tools',
+  'ghostkit/extension/effects/reveal',
   (children, { props }) => {
-    const hasRevealSupport = hasBlockSupport(props.name, ['ghostkit', 'animation', 'reveal']);
+    const hasRevealSupport = hasBlockSupport(props.name, ['ghostkit', 'effects', 'reveal']);
 
     if (!hasRevealSupport) {
       return children;
@@ -217,7 +217,7 @@ addFilter(
     return (
       <>
         {children}
-        <AnimationRevealTools {...props} />
+        <EffectsRevealTools {...props} />
       </>
     );
   }

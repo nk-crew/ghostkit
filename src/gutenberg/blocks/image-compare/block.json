@@ -8,7 +8,7 @@
   "keywords": ["image", "compare", "before", "after"],
   "supports": {
     "ghostkit": {
-      "animation": {
+      "effects": {
         "reveal": true,
         "mouseHover": true,
         "mousePress": true,

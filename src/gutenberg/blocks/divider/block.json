@@ -8,7 +8,7 @@
   "keywords": ["divider", "spacer"],
   "supports": {
     "ghostkit": {
-      "animation": {
+      "effects": {
         "reveal": true,
         "mouseHover": true,
         "mousePress": true,

@@ -8,7 +8,7 @@
   "keywords": ["testimonial", "blockquote", "quote"],
   "supports": {
     "ghostkit": {
-      "animation": {
+      "effects": {
         "reveal": true,
         "mouseHover": true,
         "mousePress": true,

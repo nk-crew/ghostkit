@@ -11,16 +11,16 @@ const {
 const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /**
- * Animation Reveal.
+ * Effects Reveal.
  */
 events.on(document, 'init.blocks.gkt', () => {
-  document.querySelectorAll('[data-gkt-animation]').forEach(function ($element) {
+  document.querySelectorAll('[data-gkt-effects]').forEach(function ($element) {
     if (isReducedMotion) {
-      $element.removeAttribute('data-gkt-animation');
+      $element.removeAttribute('data-gkt-effects');
       return;
     }
 
-    const dataString = $element.getAttribute('data-gkt-animation');
+    const dataString = $element.getAttribute('data-gkt-effects');
     let data;
 
     try {
@@ -29,15 +29,15 @@ events.on(document, 'init.blocks.gkt', () => {
       data = false;
     }
 
-    $element.removeAttribute('data-gkt-animation');
+    $element.removeAttribute('data-gkt-effects');
 
     if (!data) {
       return;
     }
 
-    events.trigger($element, 'prepare.animation.gkt', { data });
+    events.trigger($element, 'prepare.effects.gkt', { data });
 
-    instance.set($element, 'animation', data);
+    instance.set($element, 'effects', data);
 
     if (!data?.reveal) {
       return;
@@ -48,10 +48,10 @@ events.on(document, 'init.blocks.gkt', () => {
       ...data.reveal,
     };
 
-    events.trigger($element, 'prepare.animation.reveal.gkt', { config });
+    events.trigger($element, 'prepare.effects.reveal.gkt', { config });
 
     const stopInView = inView($element, () => {
-      $element.classList.remove('ghostkit-animation-reveal');
+      $element.classList.remove('ghostkit-effects-reveal');
 
       const options = {};
 
@@ -122,20 +122,20 @@ events.on(document, 'init.blocks.gkt', () => {
         leaveCallback: () => {},
       };
 
-      events.trigger($element, 'show.animation.reveal.gkt', eventData);
+      events.trigger($element, 'show.effects.reveal.gkt', eventData);
 
       // Stop inView listener.
       eventData.stopInView();
 
       animate($element, keyframes, options).finished.then(() => {
-        events.trigger($element, 'showed.animation.reveal.gkt', eventData);
+        events.trigger($element, 'showed.effects.reveal.gkt', eventData);
       });
 
       // This will fire when the element leaves the viewport
       return eventData.leaveCallback;
     });
 
-    events.trigger($element, 'prepared.animation.reveal.gkt', { config });
+    events.trigger($element, 'prepared.effects.reveal.gkt', { config });
   });
 });
 

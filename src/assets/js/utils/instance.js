@@ -3,7 +3,7 @@
  * These instances contains many helpful data such as block APIs and extensions data.
  *
  * Example:
- * GHOSTKIT.instances.get(element, 'animation');
+ * GHOSTKIT.instances.get(element, 'effects');
  */
 const elementsMap = new Map();
 

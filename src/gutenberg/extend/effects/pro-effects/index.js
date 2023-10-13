@@ -38,24 +38,24 @@ const PRESETS = {
   },
 };
 
-function AnimationProTools() {
+function EffectsProTools() {
   const [selected, setSelected] = useState(false);
 
   return (
     <>
       {selected && (
         <div style={{ gridColumn: '1 / -1' }}>
-          <ProNote title={__('Advanced Animations', '@@text_domain')}>
+          <ProNote title={__('Advanced Effects', '@@text_domain')}>
             <p>
               {__(
-                'Advanced animations are available in the Ghost Kit Pro plugin only.',
+                'Advanced effects are available in the Ghost Kit Pro plugin only.',
                 '@@text_domain'
               )}
             </p>
             <ProNote.Button
               target="_blank"
               rel="noopener noreferrer"
-              href="https://ghostkit.io/animations/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_animations&utm_content=@@plugin_version"
+              href="https://ghostkit.io/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=@@plugin_version"
             >
               {__('Read More', '@@text_domain')}
             </ProNote.Button>
@@ -79,25 +79,25 @@ function AnimationProTools() {
 }
 
 addFilter(
-  'ghostkit.extension.animation.tools',
-  'ghostkit/extension/animation/pro',
+  'ghostkit.extension.effects.tools',
+  'ghostkit/extension/effects/pro',
   (children, { props }) => {
     if (pro) {
       return children;
     }
 
-    const hasOneOfProAnimationsSupport = Object.keys(PRESETS).some((k) =>
-      hasBlockSupport(props.name, ['ghostkit', 'animation', k])
+    const hasOneOfProEffectsSupport = Object.keys(PRESETS).some((k) =>
+      hasBlockSupport(props.name, ['ghostkit', 'effects', k])
     );
 
-    if (!hasOneOfProAnimationsSupport) {
+    if (!hasOneOfProEffectsSupport) {
       return children;
     }
 
     return (
       <>
         {children}
-        <AnimationProTools {...props} />
+        <EffectsProTools {...props} />
       </>
     );
   }

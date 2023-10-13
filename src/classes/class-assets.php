@@ -391,7 +391,7 @@ class GhostKit_Assets {
             $ext_js_deps    = array( 'ghostkit' );
 
             switch ( $ext_name ) {
-                case 'animation':
+                case 'effects':
                     $ext_js_deps[] = 'motion';
                     break;
             }

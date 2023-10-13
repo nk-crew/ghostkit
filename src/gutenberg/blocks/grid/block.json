@@ -8,7 +8,7 @@
   "keywords": ["row", "columns", "section"],
   "supports": {
     "ghostkit": {
-      "animation": {
+      "effects": {
         "reveal": true,
         "mouseHover": true,
         "mousePress": true,

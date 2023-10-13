@@ -8,7 +8,7 @@
   "keywords": ["table of contents", "toc", "summary", "document outline"],
   "supports": {
     "ghostkit": {
-      "animation": {
+      "effects": {
         "reveal": true,
         "mouseHover": true,
         "mousePress": true,

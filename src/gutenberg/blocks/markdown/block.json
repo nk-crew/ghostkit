@@ -8,7 +8,7 @@
   "keywords": ["formatting", "markup", "md"],
   "supports": {
     "ghostkit": {
-      "animation": {
+      "effects": {
         "reveal": true,
         "mouseHover": true,
         "mousePress": true,

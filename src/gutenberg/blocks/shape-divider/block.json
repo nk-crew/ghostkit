@@ -8,7 +8,7 @@
   "keywords": ["shape", "svg", "spacer"],
   "supports": {
     "ghostkit": {
-      "animation": {
+      "effects": {
         "reveal": true,
         "mouseHover": true,
         "mousePress": true,
