@@ -8,10 +8,11 @@
     "ghostkit": {
       "animation": {
         "reveal": true,
+        "mouseHover": true,
+        "mousePress": true,
+        "mouseMove": true,
         "scroll": true,
-        "loop": true,
-        "mouse": true,
-        "hover": true
+        "loop": true
       }
     },
     "html": false,
