@@ -45,6 +45,7 @@ require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/number/bloc
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/date/block.php';
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/textarea/block.php';
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/select/block.php';
+require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/submit/block.php';
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/checkbox/block.php';
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/radio/block.php';
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/hidden/block.php';

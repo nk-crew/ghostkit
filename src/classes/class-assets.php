@@ -272,11 +272,6 @@ class GhostKit_Assets {
             '@@plugin_version',
             true
         );
-        $default_variant = array(
-            'default' => array(
-                'title' => esc_html__( 'Default', '@@text_domain' ),
-            ),
-        );
 
         // Google Maps prepare localization as in WordPress settings.
         $gmaps_locale = get_locale();
@@ -303,40 +298,47 @@ class GhostKit_Assets {
             $timezone = 'UTC' . $timezone;
         }
 
+        $global_data = array(
+            'version'                     => '@@plugin_version',
+            'pro'                         => false,
+
+            'themeName'                   => $theme_data->get( 'Name' ),
+            'isFseTheme'                  => current_theme_supports( 'block-templates' ) ? true : false,
+            'fontsApiExist'               => class_exists( 'WP_Fonts' ),
+            'typographyExist'             => GhostKit_Typography::typography_exist(),
+            'settings'                    => get_option( 'ghostkit_settings', array() ),
+            'disabledBlocks'              => get_option( 'ghostkit_disabled_blocks', array() ),
+
+            // TODO: Due to different formats in scss and assets there is an offset.
+            'media_sizes'                 => array(
+                'sm' => $breakpoints['xs'],
+                'md' => $breakpoints['sm'],
+                'lg' => $breakpoints['md'],
+                'xl' => $breakpoints['lg'],
+            ),
+            'timezone'                    => $timezone,
+            'googleMapsAPIKey'            => get_option( 'ghostkit_google_maps_api_key' ),
+            'googleMapsAPIUrl'            => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
+            'googleMapsLibrary'           => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
+                'url' => ghostkit()->plugin_url . 'assets/vendor/gmaps/gmaps.min.js?ver=0.4.25',
+            ) : false,
+            'googleReCaptchaAPISiteKey'   => get_option( 'ghostkit_google_recaptcha_api_site_key' ),
+            'googleReCaptchaAPISecretKey' => is_admin() ? get_option( 'ghostkit_google_recaptcha_api_secret_key' ) : '',
+            'sidebars'                    => $sidebars,
+            'icons'                       => is_admin() ? apply_filters( 'gkt_icons_list', array() ) : array(),
+            'shapes'                      => is_admin() ? apply_filters( 'gkt_shapes_list', array() ) : array(),
+            'fonts'                       => is_admin() ? apply_filters( 'gkt_fonts_list', array() ) : array(),
+            'customTypographyList'        => is_admin() ? apply_filters( 'gkt_custom_typography', array() ) : array(),
+            'admin_url'                   => admin_url(),
+            'admin_templates_url'         => admin_url( 'edit.php?post_type=ghostkit_template' ),
+        );
+
+        $global_data = apply_filters( 'gkt_global_data', $global_data );
+
         wp_localize_script(
             'ghostkit-helper',
             'ghostkitVariables',
-            array(
-                'themeName'                   => $theme_data->get( 'Name' ),
-                'isFseTheme'                  => current_theme_supports( 'block-templates' ) ? true : false,
-                'fontsApiExist'               => class_exists( 'WP_Fonts' ),
-                'typographyExist'             => GhostKit_Typography::typography_exist(),
-                'settings'                    => get_option( 'ghostkit_settings', array() ),
-                'disabledBlocks'              => get_option( 'ghostkit_disabled_blocks', array() ),
-
-                // TODO: Due to different formats in scss and assets there is an offset.
-                'media_sizes'                 => array(
-                    'sm' => $breakpoints['xs'],
-                    'md' => $breakpoints['sm'],
-                    'lg' => $breakpoints['md'],
-                    'xl' => $breakpoints['lg'],
-                ),
-                'timezone'                    => $timezone,
-                'googleMapsAPIKey'            => get_option( 'ghostkit_google_maps_api_key' ),
-                'googleMapsAPIUrl'            => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
-                'googleMapsLibrary'           => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
-                    'url' => ghostkit()->plugin_url . 'assets/vendor/gmaps/gmaps.min.js?ver=0.4.25',
-                ) : false,
-                'googleReCaptchaAPISiteKey'   => get_option( 'ghostkit_google_recaptcha_api_site_key' ),
-                'googleReCaptchaAPISecretKey' => is_admin() ? get_option( 'ghostkit_google_recaptcha_api_secret_key' ) : '',
-                'sidebars'                    => $sidebars,
-                'icons'                       => is_admin() ? apply_filters( 'gkt_icons_list', array() ) : array(),
-                'shapes'                      => is_admin() ? apply_filters( 'gkt_shapes_list', array() ) : array(),
-                'fonts'                       => is_admin() ? apply_filters( 'gkt_fonts_list', array() ) : array(),
-                'customTypographyList'        => is_admin() ? apply_filters( 'gkt_custom_typography', array() ) : array(),
-                'admin_url'                   => admin_url(),
-                'admin_templates_url'         => admin_url( 'edit.php?post_type=ghostkit_template' ),
-            )
+            $global_data
         );
 
         // events fallback script.
@@ -384,7 +386,7 @@ class GhostKit_Assets {
             $ext_js_deps    = array( 'ghostkit' );
 
             switch ( $ext_name ) {
-                case 'animation':
+                case 'effects':
                     $ext_js_deps[] = 'motion';
                     break;
             }

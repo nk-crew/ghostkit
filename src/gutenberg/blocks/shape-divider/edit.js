@@ -134,8 +134,13 @@ export default function BlockEdit(props) {
                   });
                 }}
               />
-              <ProNote title={__('PRO Shapes', '@@text_domain')}>
-                <p>{__('Additional 30 shapes available for Pro users only', '@@text_domain')}</p>
+              <ProNote title={__('Pro Shapes', '@@text_domain')}>
+                <p>
+                  {__(
+                    'Additional 30 shapes available in the Ghost Kit Pro plugin only',
+                    '@@text_domain'
+                  )}
+                </p>
                 <ProNote.Button
                   target="_blank"
                   rel="noopener noreferrer"

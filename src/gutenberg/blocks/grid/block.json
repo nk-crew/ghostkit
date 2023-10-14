@@ -7,6 +7,16 @@
   "description": "Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.",
   "keywords": ["row", "columns", "section"],
   "supports": {
+    "ghostkit": {
+      "effects": {
+        "reveal": true,
+        "mouseHover": true,
+        "mousePress": true,
+        "mouseMove": true,
+        "scroll": true,
+        "loop": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

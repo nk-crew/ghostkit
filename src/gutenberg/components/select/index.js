@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import selectStyles from 'gutenberg-react-select-styles';
 import classnames from 'classnames/dedupe';
 import { AutoSizer, List } from 'react-virtualized';
@@ -42,6 +42,16 @@ function MenuList(props) {
   );
 }
 
+const { Option: DefaultOption } = components;
+function Option(props) {
+  return (
+    <DefaultOption {...props}>
+      {props?.data?.icon || ''}
+      {props.data.label}
+    </DefaultOption>
+  );
+}
+
 /**
  * Component Class
  */
@@ -57,10 +67,26 @@ export default function SelectComponent(props) {
     ...restProps,
   };
 
+  // Add virtualized if there are > 30 items.
+  const withVirtualized = props?.options?.length > 30;
+
   return (
     <Select
-      styles={selectStyles}
-      components={{ MenuList }}
+      styles={{
+        ...selectStyles,
+        option(styles, state) {
+          const newStyles = selectStyles.option(styles, state);
+
+          newStyles['> svg'] = {
+            width: '24px',
+            height: 'auto',
+            marginRight: '5px',
+          };
+
+          return newStyles;
+        },
+      }}
+      components={{ ...(withVirtualized ? { MenuList } : {}), Option }}
       className={classnames('ghostkit-control-select', className)}
       {...selectProps}
     />

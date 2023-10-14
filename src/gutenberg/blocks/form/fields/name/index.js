@@ -12,7 +12,6 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-  ...metadata,
   icon: getIcon('block-form-field-name', true),
   ghostkit: {
     supports: {

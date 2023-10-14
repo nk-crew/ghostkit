@@ -7,6 +7,16 @@
   "description": "Select registered sidebars and put it in any place.",
   "keywords": ["widget", "sidebar"],
   "supports": {
+    "ghostkit": {
+      "effects": {
+        "reveal": true,
+        "mouseHover": true,
+        "mousePress": true,
+        "mouseMove": true,
+        "scroll": true,
+        "loop": true
+      }
+    },
     "html": false,
     "className": false,
     "align": ["wide", "full"]

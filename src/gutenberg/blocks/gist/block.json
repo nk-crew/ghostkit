@@ -7,6 +7,16 @@
   "description": "Embed code parts form GitHub Gist to your site or documentation.",
   "keywords": ["github", "gist"],
   "supports": {
+    "ghostkit": {
+      "effects": {
+        "reveal": true,
+        "mouseHover": true,
+        "mousePress": true,
+        "mouseMove": true,
+        "scroll": true,
+        "loop": true
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,
