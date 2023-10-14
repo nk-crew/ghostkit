@@ -272,11 +272,6 @@ class GhostKit_Assets {
             '@@plugin_version',
             true
         );
-        $default_variant = array(
-            'default' => array(
-                'title' => esc_html__( 'Default', '@@text_domain' ),
-            ),
-        );
 
         // Google Maps prepare localization as in WordPress settings.
         $gmaps_locale = get_locale();
