@@ -145,8 +145,6 @@ class GhostKit {
 
         // Extensions.
         require_once $this->plugin_path . 'gutenberg/extend/index.php';
-        require_once $this->plugin_path . 'gutenberg/extend/styles/get-styles.php';
-        require_once $this->plugin_path . 'gutenberg/extend/custom-css/get-custom-css.php';
 
         // 3rd.
         require_once $this->plugin_path . 'classes/3rd/class-astra.php';

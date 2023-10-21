@@ -152,6 +152,7 @@ function CustomStylesComponent(props) {
   }
 
   function onUpdate(checkDuplicates) {
+    const { ghostkit } = attributes;
     let { className } = attributes;
 
     const newAttrs = {};
@@ -169,9 +170,10 @@ function CustomStylesComponent(props) {
     blockCustomStyles = cleanBlockCustomStyles(blockCustomStyles);
 
     const thereIsCustomStyles = blockCustomStyles && Object.keys(blockCustomStyles).length;
-    const thereIsCustomCSS = !!maybeDecode(attributes.ghostkitCustomCSS);
+    const thereIsNewCustomStyles = ghostkit?.styles && Object.keys(ghostkit.styles).length;
+    const thereIsDeprecatedCustomCSS = !!maybeDecode(attributes.ghostkitCustomCSS ?? '');
 
-    if (thereIsCustomStyles || thereIsCustomCSS) {
+    if (thereIsCustomStyles || thereIsNewCustomStyles || thereIsDeprecatedCustomCSS) {
       const ghostkitAtts = getGhostKitAtts(checkDuplicates);
 
       if (ghostkitAtts.ghostkitClassname) {
@@ -244,14 +246,30 @@ function CustomStylesComponent(props) {
   let styles = '';
 
   // generate custom styles.
-  if (
-    attributes.ghostkitClassname &&
-    attributes.ghostkitStyles &&
-    Object.keys(attributes.ghostkitStyles).length
-  ) {
-    styles = getStyles(maybeDecode(attributes.ghostkitStyles), '', false);
+  if (attributes.ghostkitClassname) {
+    if (attributes.ghostkitStyles && Object.keys(attributes.ghostkitStyles).length) {
+      styles = getStyles(maybeDecode(attributes.ghostkitStyles), '', false);
+    }
 
-    if (blockSettings && blockSettings.ghostkit && blockSettings.ghostkit.customStylesFilter) {
+    // New custom styles.
+    if (attributes?.ghostkit?.styles && Object.keys(attributes?.ghostkit?.styles).length) {
+      styles +=
+        (styles ? ' ' : '') +
+        getStyles(
+          maybeDecode({
+            [`.${attributes.ghostkitClassname}`]: attributes?.ghostkit?.styles,
+          }),
+          '',
+          false
+        );
+    }
+
+    if (
+      styles &&
+      blockSettings &&
+      blockSettings.ghostkit &&
+      blockSettings.ghostkit.customStylesFilter
+    ) {
       styles = blockSettings.ghostkit.customStylesFilter(
         styles,
         maybeDecode(attributes.ghostkitStyles),
