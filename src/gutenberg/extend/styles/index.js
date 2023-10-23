@@ -8,8 +8,6 @@ import { throttle } from 'throttle-debounce';
 /**
  * Internal dependencies
  */
-import './deprecated-styles';
-
 import { replaceClass } from '../../utils/classes-replacer';
 import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 import EditorStyles from '../../components/editor-styles';

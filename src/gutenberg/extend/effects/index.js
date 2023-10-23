@@ -1,7 +1,6 @@
 /**
  * Internal dependencies
  */
-import './deprecated-scroll-reveal';
 import './reveal';
 import './pro-effects';
 

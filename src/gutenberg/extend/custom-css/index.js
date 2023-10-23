@@ -1,7 +1,6 @@
 /**
  * Internal dependencies
  */
-import './deprecated-custom-css';
 import './opacity';
 import './overflow';
 import './cursor';
