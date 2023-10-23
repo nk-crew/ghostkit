@@ -21,7 +21,10 @@ const { ghostkitVariables } = window;
  * Component Class
  */
 export default function ResponsiveTabPanel(props) {
-  const { filledTabs = {}, children } = props;
+  const { children } = props;
+
+  // Fallback for deprecated filledTabs prop.
+  const active = props?.active || props?.filledTabs || {};
 
   const { device } = useSelect((select) => {
     const { getDevice } = select('ghostkit/responsive');
@@ -58,7 +61,7 @@ export default function ResponsiveTabPanel(props) {
         >
           <span className="ghostkit-control-tabs-icon">
             {icons[i]}
-            {filledTabs && filledTabs[mediaName] ? <ActiveIndicator /> : ''}
+            {active && active[mediaName] ? <ActiveIndicator /> : ''}
           </span>
         </Tooltip>
       ),

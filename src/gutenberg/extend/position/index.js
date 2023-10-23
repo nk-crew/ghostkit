@@ -147,7 +147,7 @@ function PositionComponent(props) {
     return null;
   }
 
-  const filledTabs = {};
+  const activeDevices = {};
   const allPositionOptions = ['position', 'location', 'offsetY', 'offsetX', 'width', 'zIndex'];
   if (
     ghostkitVariables &&
@@ -155,10 +155,10 @@ function PositionComponent(props) {
     Object.keys(ghostkitVariables.media_sizes).length
   ) {
     ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-      filledTabs[media] = false;
+      activeDevices[media] = false;
       allPositionOptions.forEach((option) => {
         if (getCurrentPosition(option, media ? `media_${media}` : '')) {
-          filledTabs[media] = true;
+          activeDevices[media] = true;
         }
       });
     });
@@ -243,7 +243,7 @@ function PositionComponent(props) {
             onChange={(nextValue) => setPosition('location', nextValue)}
           />
         ) : null}
-        <ResponsiveTabPanel filledTabs={filledTabs}>
+        <ResponsiveTabPanel active={activeDevices}>
           {(tabData) => {
             let device = '';
 

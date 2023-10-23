@@ -158,7 +158,7 @@ export default function BlockEdit(props) {
 
   const shapeData = getShapeData(svg);
 
-  const filledTabs = {};
+  const activeDevices = {};
   if (
     ghostkitVariables &&
     ghostkitVariables.media_sizes &&
@@ -173,7 +173,7 @@ export default function BlockEdit(props) {
         widthName = `${media}_${widthName}`;
       }
 
-      filledTabs[media] = attributes[heightName] || attributes[widthName];
+      activeDevices[media] = attributes[heightName] || attributes[widthName];
     });
   }
 
@@ -239,7 +239,7 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody title={__('Style', '@@text_domain')}>{getShapesPicker()}</PanelBody>
         <PanelBody title={__('Size', '@@text_domain')}>
-          <ResponsiveTabPanel filledTabs={filledTabs}>
+          <ResponsiveTabPanel active={activeDevices}>
             {(tabData) => {
               let heightName = 'height';
               let widthName = 'width';

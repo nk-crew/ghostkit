@@ -108,7 +108,7 @@ export default function BlockEdit(props) {
 
   const { stickyContent, stickyContentOffset } = attributes;
 
-  const filledTabs = {};
+  const activeDevices = {};
   if (
     ghostkitVariables &&
     ghostkitVariables.media_sizes &&
@@ -125,7 +125,7 @@ export default function BlockEdit(props) {
         verticalAlignName = `${media}_${verticalAlignName}`;
       }
 
-      filledTabs[media] =
+      activeDevices[media] =
         attributes[sizeName] || attributes[orderName] || attributes[verticalAlignName];
     });
   }
@@ -161,7 +161,7 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <ApplyFilters name="ghostkit.editor.controls" attribute="columnSettings" props={props}>
           <PanelBody>
-            <ResponsiveTabPanel filledTabs={filledTabs}>
+            <ResponsiveTabPanel active={activeDevices}>
               {(tabData) => {
                 let sizeName = 'size';
                 let orderName = 'order';

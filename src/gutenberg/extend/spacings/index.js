@@ -155,7 +155,7 @@ class SpacingsComponent extends Component {
       return null;
     }
 
-    const filledTabs = {};
+    const activeDevices = {};
     const allSpacings = [
       'marginLeft',
       'marginTop',
@@ -172,10 +172,10 @@ class SpacingsComponent extends Component {
       Object.keys(ghostkitVariables.media_sizes).length
     ) {
       ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-        filledTabs[media] = false;
+        activeDevices[media] = false;
         allSpacings.forEach((spacing) => {
           if (this.getCurrentSpacing(spacing, media ? `media_${media}` : '')) {
-            filledTabs[media] = true;
+            activeDevices[media] = true;
           }
         });
       });
@@ -197,7 +197,7 @@ class SpacingsComponent extends Component {
             initialOpenPanel = !initialOpenPanel;
           }}
         >
-          <ResponsiveTabPanel filledTabs={filledTabs}>
+          <ResponsiveTabPanel active={activeDevices}>
             {(tabData) => {
               let device = '';
 

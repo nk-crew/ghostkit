@@ -84,14 +84,14 @@ function GhostKitParagraphColumns(props) {
     });
   }
 
-  const filledTabs = {};
+  const activeDevices = {};
   if (
     ghostkitVariables &&
     ghostkitVariables.media_sizes &&
     Object.keys(ghostkitVariables.media_sizes).length
   ) {
     ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-      filledTabs[media] = !!getCurrentColumns(className, media);
+      activeDevices[media] = !!getCurrentColumns(className, media);
     });
   }
 
@@ -99,7 +99,7 @@ function GhostKitParagraphColumns(props) {
   return (
     <InspectorControls>
       <PanelBody title={__('Columns Settings', '@@text_domain')} initialOpen>
-        <ResponsiveTabPanel filledTabs={filledTabs}>
+        <ResponsiveTabPanel active={activeDevices}>
           {(tabData) => (
             <RangeControl
               label={__('Columns Count', '@@text_domain')}

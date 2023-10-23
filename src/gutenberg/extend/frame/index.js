@@ -143,7 +143,7 @@ function FrameComponent(props) {
     return null;
   }
 
-  const filledTabs = {};
+  const activeDevices = {};
   const allFrame = [
     'borderStyle',
     'borderWidth',
@@ -176,10 +176,10 @@ function FrameComponent(props) {
     Object.keys(ghostkitVariables.media_sizes).length
   ) {
     ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-      filledTabs[media] = false;
+      activeDevices[media] = false;
       allFrame.forEach((spacing) => {
         if (getCurrentFrame(spacing, media ? `media_${media}` : '')) {
-          filledTabs[media] = true;
+          activeDevices[media] = true;
         }
       });
     });
@@ -284,7 +284,7 @@ function FrameComponent(props) {
           initialOpenPanel = !initialOpenPanel;
         }}
       >
-        <ResponsiveTabPanel filledTabs={filledTabs}>
+        <ResponsiveTabPanel active={activeDevices}>
           {(tabData) => {
             let device = '';
 

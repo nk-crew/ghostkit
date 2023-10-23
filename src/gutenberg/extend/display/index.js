@@ -151,14 +151,14 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
       return <OriginalComponent {...props} />;
     }
 
-    const filledTabs = {};
+    const activeDevices = {};
     if (
       ghostkitVariables &&
       ghostkitVariables.media_sizes &&
       Object.keys(ghostkitVariables.media_sizes).length
     ) {
       ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-        filledTabs[media] = !!getCurrentDisplay(className, media);
+        activeDevices[media] = !!getCurrentDisplay(className, media);
       });
     }
 
@@ -180,7 +180,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
               initialOpenPanel = !initialOpenPanel;
             }}
           >
-            <ResponsiveTabPanel filledTabs={filledTabs}>
+            <ResponsiveTabPanel active={activeDevices}>
               {(tabData) => (
                 <ToggleGroup
                   value={getCurrentDisplay(className, tabData.name)}
