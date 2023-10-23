@@ -1,6 +1,7 @@
 import './responsive';
 
 import './base/utils';
+import './base/hooks';
 import './base/components';
 import './base/images';
 

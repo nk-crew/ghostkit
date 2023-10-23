@@ -20,6 +20,7 @@ import Notice from '../../../components/notice';
 import RangeControl from '../../../components/range-control';
 import RemoveButton from '../../../components/remove-button';
 import ResponsiveTabPanel from '../../../components/responsive-tab-panel';
+import ResponsiveToggle from '../../../components/responsive-toggle';
 import Select from '../../../components/select';
 import ToggleGroup from '../../../components/toggle-group';
 import * as transitionEasingControls from '../../../components/transition-easing-controls';
@@ -51,6 +52,7 @@ export function get() {
     RangeControl,
     RemoveButton,
     ResponsiveTabPanel,
+    ResponsiveToggle,
     Select,
     ToggleGroup,
     transitionEasingControls,

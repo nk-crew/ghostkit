@@ -5,6 +5,7 @@ import classnames from 'classnames/dedupe';
  */
 import ActiveIndicator from '../active-indicator';
 import getIcon from '../../utils/get-icon';
+import useResponsive from '../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
@@ -12,8 +13,6 @@ import getIcon from '../../utils/get-icon';
 const { __, sprintf } = wp.i18n;
 
 const { Tooltip, Button } = wp.components;
-
-const { useSelect, useDispatch } = wp.data;
 
 const { ghostkitVariables } = window;
 
@@ -26,15 +25,7 @@ export default function ResponsiveTabPanel(props) {
   // Fallback for deprecated filledTabs prop.
   const active = props?.active || props?.filledTabs || {};
 
-  const { device } = useSelect((select) => {
-    const { getDevice } = select('ghostkit/responsive');
-
-    return {
-      device: getDevice(),
-    };
-  });
-
-  const { setDevice } = useDispatch('ghostkit/responsive');
+  const { device, setDevice } = useResponsive();
 
   const tabs = [];
   const icons = [
