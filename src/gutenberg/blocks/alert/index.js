@@ -46,8 +46,9 @@ export const settings = {
   example: {
     attributes: {
       color: '#E47F3B',
-      ghostkitId: 'example-alert',
-      ghostkitClassname: 'ghostkit-custom-example-alert',
+      ghostkit: {
+        id: 'example-alert',
+      },
       className: 'ghostkit-custom-example-alert',
     },
     innerBlocks: [

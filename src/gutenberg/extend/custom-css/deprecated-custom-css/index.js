@@ -256,14 +256,14 @@ const withInspectorControl = createHigherOrderComponent(
  * @return {String} Additional element styles object.
  */
 function addEditorCustomStylesOutput(customStylesOutput, props) {
-  const { ghostkitClassname, ghostkitCustomCSS } = props.attributes;
+  const { ghostkit, ghostkitCustomCSS } = props.attributes;
 
   const ghostkitCustomCSSDecode = maybeDecode(ghostkitCustomCSS);
 
-  if (ghostkitCustomCSSDecode && ghostkitClassname) {
+  if (ghostkitCustomCSSDecode && ghostkit?.id) {
     customStylesOutput += ` ${ghostkitCustomCSSDecode.replace(
       /selector/g,
-      `.${ghostkitClassname}`
+      `.ghostkit-custom-${ghostkit.id}`
     )}`;
   }
 

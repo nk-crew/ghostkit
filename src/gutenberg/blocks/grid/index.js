@@ -59,7 +59,7 @@ export const settings = {
     },
     customStylesFilter(styles, data, isEditor, attributes) {
       // change custom styles in Editor.
-      if (isEditor && attributes.ghostkitClassname) {
+      if (isEditor && attributes?.ghostkit?.id) {
         // background.
         styles = styles.replace(
           // eslint-disable-next-line prefer-regex-literals

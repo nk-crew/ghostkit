@@ -67,31 +67,21 @@ class GhostKit_Extension_Styles {
     public static function block_custom_styles( $blocks_css, $block ) {
         $attributes = $block['attrs'] ?? array();
 
-        $blocks_css = '';
+        $id     = $attributes['ghostkit']['id'] ?? '';
+        $styles = $attributes['ghostkit']['styles'] ?? '';
 
-        if ( ! empty( $attributes['ghostkitClassname'] ) ) {
-            if ( ! empty( $attributes['ghostkitStyles'] ) ) {
-                if ( ! empty( $blocks_css ) ) {
-                    $blocks_css .= ' ';
-                }
-
-                $blocks_css .= self::parse( ghostkit_decode( $attributes['ghostkitStyles'] ) );
+        if ( $id && $styles ) {
+            if ( ! empty( $blocks_css ) ) {
+                $blocks_css .= ' ';
             }
 
-            // New custom styles.
-            if ( ! empty( $attributes['ghostkit']['styles'] ) ) {
-                if ( ! empty( $blocks_css ) ) {
-                    $blocks_css .= ' ';
-                }
-
-                $blocks_css .= self::parse(
-                    ghostkit_decode(
-                        array(
-                            '.' . $attributes['ghostkitClassname'] => $attributes['ghostkit']['styles'],
-                        )
+            $blocks_css .= self::parse(
+                ghostkit_decode(
+                    array(
+                        '.ghostkit-custom-' . $id => $styles,
                     )
-                );
-            }
+                )
+            );
         }
 
         return $blocks_css;

@@ -156,10 +156,11 @@ class GhostKit_Extensions {
     }
 }
 
+require_once ghostkit()->plugin_path . 'gutenberg/extend/styles/deprecated-styles/index.php';
 require_once ghostkit()->plugin_path . 'gutenberg/extend/styles/index.php';
 
-require_once ghostkit()->plugin_path . 'gutenberg/extend/effects/index.php';
 require_once ghostkit()->plugin_path . 'gutenberg/extend/effects/deprecated-scroll-reveal/index.php';
+require_once ghostkit()->plugin_path . 'gutenberg/extend/effects/index.php';
 
 require_once ghostkit()->plugin_path . 'gutenberg/extend/custom-css/deprecated-custom-css/index.php';
 require_once ghostkit()->plugin_path . 'gutenberg/extend/custom-css/index.php';

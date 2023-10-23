@@ -46,8 +46,9 @@ export const settings = {
     attributes: {
       number: '77',
       numberColor: '#0366d6',
-      ghostkitId: 'example-counter-box',
-      ghostkitClassname: 'ghostkit-custom-example-counter-box',
+      ghostkit: {
+        id: 'example-counter-box',
+      },
       className: 'ghostkit-custom-example-counter-box',
     },
     innerBlocks: [
