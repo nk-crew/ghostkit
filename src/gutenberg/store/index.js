@@ -1,6 +1,5 @@
-/**
- * Internal dependencies
- */
+import './responsive';
+
 import './base/utils';
 import './base/components';
 import './base/images';

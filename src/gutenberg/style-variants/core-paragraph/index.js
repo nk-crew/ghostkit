@@ -40,7 +40,7 @@ const COLUMNS_COUNT_MAX = 6;
  * @returns {String} columns value.
  */
 function getCurrentColumns(className, screen) {
-  if (!screen || screen === 'all') {
+  if (!screen) {
     for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
       if (hasClass(className, `ghostkit-paragraph-columns-${k}`)) {
         return `${k}`;
@@ -67,7 +67,7 @@ function GhostKitParagraphColumns(props) {
   function updateColumns(screen, val) {
     let newClassName = className;
 
-    if (screen && screen !== 'all') {
+    if (screen) {
       newClassName = replaceClass(newClassName, `ghostkit-paragraph-columns-${screen}`, val);
     } else {
       for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
@@ -90,7 +90,7 @@ function GhostKitParagraphColumns(props) {
     ghostkitVariables.media_sizes &&
     Object.keys(ghostkitVariables.media_sizes).length
   ) {
-    ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
+    ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
       filledTabs[media] = !!getCurrentColumns(className, media);
     });
   }

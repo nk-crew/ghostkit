@@ -171,10 +171,10 @@ class SpacingsComponent extends Component {
       ghostkitVariables.media_sizes &&
       Object.keys(ghostkitVariables.media_sizes).length
     ) {
-      ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
+      ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
         filledTabs[media] = false;
         allSpacings.forEach((spacing) => {
-          if (this.getCurrentSpacing(spacing, media !== 'all' ? `media_${media}` : '')) {
+          if (this.getCurrentSpacing(spacing, media ? `media_${media}` : '')) {
             filledTabs[media] = true;
           }
         });
@@ -201,7 +201,7 @@ class SpacingsComponent extends Component {
             {(tabData) => {
               let device = '';
 
-              if (tabData.name !== 'all') {
+              if (tabData.name) {
                 device = `media_${tabData.name}`;
               }
 

@@ -168,7 +168,7 @@ export default function BlockEdit(props) {
       let heightName = 'height';
       let widthName = 'width';
 
-      if (media !== 'all') {
+      if (media) {
         heightName = `${media}_${heightName}`;
         widthName = `${media}_${widthName}`;
       }
@@ -244,7 +244,7 @@ export default function BlockEdit(props) {
               let heightName = 'height';
               let widthName = 'width';
 
-              if (tabData.name !== 'all') {
+              if (tabData.name) {
                 heightName = `${tabData.name}_${heightName}`;
                 widthName = `${tabData.name}_${widthName}`;
               }

@@ -175,10 +175,10 @@ function FrameComponent(props) {
     ghostkitVariables.media_sizes &&
     Object.keys(ghostkitVariables.media_sizes).length
   ) {
-    ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
+    ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
       filledTabs[media] = false;
       allFrame.forEach((spacing) => {
-        if (getCurrentFrame(spacing, media !== 'all' ? `media_${media}` : '')) {
+        if (getCurrentFrame(spacing, media ? `media_${media}` : '')) {
           filledTabs[media] = true;
         }
       });
@@ -288,7 +288,7 @@ function FrameComponent(props) {
           {(tabData) => {
             let device = '';
 
-            if (tabData.name !== 'all') {
+            if (tabData.name) {
               device = `media_${tabData.name}`;
             }
 

@@ -119,7 +119,7 @@ export default function BlockEdit(props) {
       let orderName = 'order';
       let verticalAlignName = 'verticalAlign';
 
-      if (media !== 'all') {
+      if (media) {
         sizeName = `${media}_${sizeName}`;
         orderName = `${media}_${orderName}`;
         verticalAlignName = `${media}_${verticalAlignName}`;
@@ -167,7 +167,7 @@ export default function BlockEdit(props) {
                 let orderName = 'order';
                 let verticalAlignName = 'verticalAlign';
 
-                if (tabData.name !== 'all') {
+                if (tabData.name) {
                   sizeName = `${tabData.name}_${sizeName}`;
                   orderName = `${tabData.name}_${orderName}`;
                   verticalAlignName = `${tabData.name}_${verticalAlignName}`;
