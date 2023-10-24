@@ -23,4 +23,19 @@
     height: 3px;
     transform: translateX(-50%);
   }
+
+  // Responsive Toggle.
+  .ghostkit-control-responsive-toggle & {
+    position: absolute;
+    top: 0px;
+    left: 75%;
+    width: 5px;
+    height: 5px;
+    outline: 2px solid #fff;
+  }
+
+  .is-active > .ghostkit-control-responsive-toggle-icon & {
+    background-color: #fff;
+    outline: 2px solid #000;
+  }
 }

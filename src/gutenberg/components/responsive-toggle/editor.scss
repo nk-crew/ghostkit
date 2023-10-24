@@ -30,6 +30,12 @@
   }
 }
 
+.ghostkit-control-responsive-toggle-icon,
+.ghostkit-control-responsive-toggle-button {
+  // Relative position for active toggle.
+  position: relative;
+}
+
 .ghostkit-control-responsive-toggle-dropdown {
   position: absolute;
   top: -5px;
