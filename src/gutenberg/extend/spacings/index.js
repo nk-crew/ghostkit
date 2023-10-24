@@ -3,8 +3,9 @@
  */
 import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
+import useResponsive from '../../hooks/use-responsive';
 import InputDrag from '../../components/input-drag';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ResponsiveToggle from '../../components/responsive-toggle';
 import ActiveIndicator from '../../components/active-indicator';
 
 /**
@@ -16,7 +17,7 @@ const { __ } = wp.i18n;
 
 const { applyFilters, addFilter } = wp.hooks;
 
-const { Component, Fragment } = wp.element;
+const { Fragment, useEffect } = wp.element;
 
 const { createHigherOrderComponent } = wp.compose;
 
@@ -31,19 +32,15 @@ let initialOpenPanel = false;
 /**
  * Spacings Component.
  */
-class SpacingsComponent extends Component {
-  constructor(props) {
-    super(props);
+function SpacingsComponent(props) {
+  const { attributes, setAttributes } = props;
 
-    this.updateSpacings = this.updateSpacings.bind(this);
-    this.getCurrentSpacing = this.getCurrentSpacing.bind(this);
-  }
+  const { ghostkitIndents = {}, ghostkitSpacings = {} } = attributes;
 
-  componentDidMount() {
-    const { attributes, setAttributes } = this.props;
+  const { device } = useResponsive();
 
-    const { ghostkitIndents = {}, ghostkitSpacings = {} } = attributes;
-
+  // Mounted.
+  useEffect(() => {
     // since Indents renamed to Spacings we need to migrate it.
     if (Object.keys(ghostkitIndents).length > 0 && Object.keys(ghostkitSpacings).length === 0) {
       setAttributes({
@@ -51,26 +48,25 @@ class SpacingsComponent extends Component {
         ghostkitSpacings: ghostkitIndents,
       });
     }
-  }
+  }, []);
 
   /**
    * Get current spacing for selected device type.
    *
    * @param {String} name - name of spacing.
-   * @param {String} device - spacing for device.
+   * @param {Boolean} withDevice - get spacing for device.
    *
    * @returns {String} spacing value.
    */
-  getCurrentSpacing(name, device) {
-    const { ghostkitSpacings = {} } = this.props.attributes;
+  function getCurrentSpacing(name, withDevice = false) {
     let result = '';
 
-    if (!device) {
+    if (!withDevice || !device) {
       if (ghostkitSpacings[name]) {
         result = ghostkitSpacings[name];
       }
-    } else if (ghostkitSpacings[device] && ghostkitSpacings[device][name]) {
-      result = ghostkitSpacings[device][name];
+    } else if (ghostkitSpacings[`media_${device}`] && ghostkitSpacings[`media_${device}`][name]) {
+      result = ghostkitSpacings[`media_${device}`][name];
     }
 
     return result;
@@ -81,23 +77,21 @@ class SpacingsComponent extends Component {
    *
    * @param {String} name - name of new spacing.
    * @param {String} val - value for new spacing.
-   * @param {String} device - spacing for device.
+   * @param {Boolean} withDevice - update spacing for device.
    */
-  updateSpacings(name, val, device) {
-    const { setAttributes } = this.props;
-    let { ghostkitSpacings = {} } = this.props.attributes;
+  function updateSpacings(name, val, withDevice = false) {
     const result = {};
     const newSpacings = {};
 
-    if (device) {
-      newSpacings[device] = {};
-      newSpacings[device][name] = val;
+    if (withDevice && device) {
+      newSpacings[`media_${device}`] = {};
+      newSpacings[`media_${device}`][name] = val;
     } else {
       newSpacings[name] = val;
     }
 
     // add default properties to keep sorting.
-    ghostkitSpacings = merge(
+    const spacings = merge(
       {
         media_xl: {},
         media_lg: {},
@@ -109,20 +103,20 @@ class SpacingsComponent extends Component {
     );
 
     // validate values.
-    Object.keys(ghostkitSpacings).forEach((key) => {
-      if (ghostkitSpacings[key]) {
+    Object.keys(spacings).forEach((key) => {
+      if (spacings[key]) {
         // check if device object.
-        if (typeof ghostkitSpacings[key] === 'object') {
-          Object.keys(ghostkitSpacings[key]).forEach((keyDevice) => {
-            if (ghostkitSpacings[key][keyDevice]) {
+        if (typeof spacings[key] === 'object') {
+          Object.keys(spacings[key]).forEach((keyDevice) => {
+            if (spacings[key][keyDevice]) {
               if (!result[key]) {
                 result[key] = {};
               }
-              result[key][keyDevice] = ghostkitSpacings[key][keyDevice];
+              result[key][keyDevice] = spacings[key][keyDevice];
             }
           });
         } else {
-          result[key] = ghostkitSpacings[key];
+          result[key] = spacings[key];
         }
       }
     });
@@ -132,183 +126,158 @@ class SpacingsComponent extends Component {
     });
   }
 
-  render() {
-    const { props } = this;
-    let allow = false;
+  let allow = false;
 
-    const { ghostkitSpacings } = props.attributes;
-
-    if (
-      GHOSTKIT.hasBlockSupport(props.name, 'spacings', false) ||
-      GHOSTKIT.hasBlockSupport(props.name, 'indents', false)
-    ) {
-      allow = true;
-    }
-
-    if (!allow) {
-      allow = checkCoreBlock(props.name);
-      allow = applyFilters('ghostkit.blocks.allowSpacings', allow, props, props.name);
-      allow = applyFilters('ghostkit.blocks.allowIndents', allow, props, props.name);
-    }
-
-    if (!allow) {
-      return null;
-    }
-
-    const activeDevices = {};
-    const allSpacings = [
-      'marginLeft',
-      'marginTop',
-      'marginRight',
-      'marginBottom',
-      'paddingLeft',
-      'paddingTop',
-      'paddingRight',
-      'paddingBottom',
-    ];
-    if (
-      ghostkitVariables &&
-      ghostkitVariables.media_sizes &&
-      Object.keys(ghostkitVariables.media_sizes).length
-    ) {
-      ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-        activeDevices[media] = false;
-        allSpacings.forEach((spacing) => {
-          if (this.getCurrentSpacing(spacing, media ? `media_${media}` : '')) {
-            activeDevices[media] = true;
-          }
-        });
-      });
-    }
-
-    // add new spacings controls.
-    return (
-      <InspectorControls group="styles">
-        <PanelBody
-          title={
-            <Fragment>
-              <span className="ghostkit-ext-icon">{getIcon('extension-spacings')}</span>
-              <span>{__('Spacings', '@@text_domain')}</span>
-              {ghostkitSpacings && Object.keys(ghostkitSpacings).length ? <ActiveIndicator /> : ''}
-            </Fragment>
-          }
-          initialOpen={initialOpenPanel}
-          onToggle={() => {
-            initialOpenPanel = !initialOpenPanel;
-          }}
-        >
-          <ResponsiveTabPanel active={activeDevices}>
-            {(tabData) => {
-              let device = '';
-
-              if (tabData.name) {
-                device = `media_${tabData.name}`;
-              }
-
-              return (
-                <BaseControl className="ghostkit-control-spacing">
-                  {getIcon('icon-box')}
-                  <div className="ghostkit-control-spacing-margin">
-                    <span>{__('Margin', '@@text_domain')}</span>
-                    <div className="ghostkit-control-spacing-margin-top">
-                      <InputDrag
-                        value={this.getCurrentSpacing('marginTop', device)}
-                        placeholder="-"
-                        onChange={(nextValue) =>
-                          this.updateSpacings('marginTop', nextValue, device)
-                        }
-                        autoComplete="off"
-                      />
-                    </div>
-                    <div className="ghostkit-control-spacing-margin-right">
-                      <InputDrag
-                        value={this.getCurrentSpacing('marginRight', device)}
-                        placeholder="-"
-                        onChange={(nextValue) =>
-                          this.updateSpacings('marginRight', nextValue, device)
-                        }
-                        autoComplete="off"
-                      />
-                    </div>
-                    <div className="ghostkit-control-spacing-margin-bottom">
-                      <InputDrag
-                        value={this.getCurrentSpacing('marginBottom', device)}
-                        placeholder="-"
-                        onChange={(nextValue) =>
-                          this.updateSpacings('marginBottom', nextValue, device)
-                        }
-                        autoComplete="off"
-                      />
-                    </div>
-                    <div className="ghostkit-control-spacing-margin-left">
-                      <InputDrag
-                        value={this.getCurrentSpacing('marginLeft', device)}
-                        placeholder="-"
-                        onChange={(nextValue) =>
-                          this.updateSpacings('marginLeft', nextValue, device)
-                        }
-                        autoComplete="off"
-                      />
-                    </div>
-                  </div>
-                  <div className="ghostkit-control-spacing-padding">
-                    <span>{__('Padding', '@@text_domain')}</span>
-                    <div className="ghostkit-control-spacing-padding-top">
-                      <InputDrag
-                        value={this.getCurrentSpacing('paddingTop', device)}
-                        placeholder="-"
-                        onChange={(nextValue) =>
-                          this.updateSpacings('paddingTop', nextValue, device)
-                        }
-                        autoComplete="off"
-                      />
-                    </div>
-                    <div className="ghostkit-control-spacing-padding-right">
-                      <InputDrag
-                        value={this.getCurrentSpacing('paddingRight', device)}
-                        placeholder="-"
-                        onChange={(nextValue) =>
-                          this.updateSpacings('paddingRight', nextValue, device)
-                        }
-                        autoComplete="off"
-                      />
-                    </div>
-                    <div className="ghostkit-control-spacing-padding-bottom">
-                      <InputDrag
-                        value={this.getCurrentSpacing('paddingBottom', device)}
-                        placeholder="-"
-                        onChange={(nextValue) =>
-                          this.updateSpacings('paddingBottom', nextValue, device)
-                        }
-                        autoComplete="off"
-                      />
-                    </div>
-                    <div className="ghostkit-control-spacing-padding-left">
-                      <InputDrag
-                        value={this.getCurrentSpacing('paddingLeft', device)}
-                        placeholder="-"
-                        onChange={(nextValue) =>
-                          this.updateSpacings('paddingLeft', nextValue, device)
-                        }
-                        autoComplete="off"
-                      />
-                    </div>
-                  </div>
-                  <div className="ghostkit-control-spacing-important">
-                    <CheckboxControl
-                      label="!important"
-                      checked={!!this.getCurrentSpacing('!important', device)}
-                      onChange={(nextValue) => this.updateSpacings('!important', nextValue, device)}
-                    />
-                  </div>
-                </BaseControl>
-              );
-            }}
-          </ResponsiveTabPanel>
-        </PanelBody>
-      </InspectorControls>
-    );
+  if (
+    GHOSTKIT.hasBlockSupport(props.name, 'spacings', false) ||
+    GHOSTKIT.hasBlockSupport(props.name, 'indents', false)
+  ) {
+    allow = true;
   }
+
+  if (!allow) {
+    allow = checkCoreBlock(props.name);
+    allow = applyFilters('ghostkit.blocks.allowSpacings', allow, props, props.name);
+    allow = applyFilters('ghostkit.blocks.allowIndents', allow, props, props.name);
+  }
+
+  if (!allow) {
+    return null;
+  }
+
+  const activeDevices = {};
+  const allSpacings = [
+    'marginLeft',
+    'marginTop',
+    'marginRight',
+    'marginBottom',
+    'paddingLeft',
+    'paddingTop',
+    'paddingRight',
+    'paddingBottom',
+  ];
+  if (
+    ghostkitVariables &&
+    ghostkitVariables.media_sizes &&
+    Object.keys(ghostkitVariables.media_sizes).length
+  ) {
+    ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
+      activeDevices[media] = false;
+      allSpacings.forEach((spacing) => {
+        if (getCurrentSpacing(spacing, media ? `media_${media}` : '')) {
+          activeDevices[media] = true;
+        }
+      });
+    });
+  }
+
+  // add new spacings controls.
+  return (
+    <InspectorControls group="styles">
+      <PanelBody
+        title={
+          <Fragment>
+            <span className="ghostkit-ext-icon">{getIcon('extension-spacings')}</span>
+            <span>{__('Spacings', '@@text_domain')}</span>
+            {ghostkitSpacings && Object.keys(ghostkitSpacings).length ? <ActiveIndicator /> : ''}
+          </Fragment>
+        }
+        initialOpen={initialOpenPanel}
+        onToggle={() => {
+          initialOpenPanel = !initialOpenPanel;
+        }}
+      >
+        <BaseControl
+          label={
+            <>
+              {__('Responsive', '@@text_domain')}
+              <ResponsiveToggle active={activeDevices} />
+            </>
+          }
+          className="ghostkit-control-spacing"
+        >
+          {getIcon('icon-box')}
+          <div className="ghostkit-control-spacing-margin">
+            <span>{__('Margin', '@@text_domain')}</span>
+            <div className="ghostkit-control-spacing-margin-top">
+              <InputDrag
+                value={getCurrentSpacing('marginTop', true)}
+                placeholder="-"
+                onChange={(nextValue) => updateSpacings('marginTop', nextValue, true)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="ghostkit-control-spacing-margin-right">
+              <InputDrag
+                value={getCurrentSpacing('marginRight', true)}
+                placeholder="-"
+                onChange={(nextValue) => updateSpacings('marginRight', nextValue, true)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="ghostkit-control-spacing-margin-bottom">
+              <InputDrag
+                value={getCurrentSpacing('marginBottom', true)}
+                placeholder="-"
+                onChange={(nextValue) => updateSpacings('marginBottom', nextValue, true)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="ghostkit-control-spacing-margin-left">
+              <InputDrag
+                value={getCurrentSpacing('marginLeft', true)}
+                placeholder="-"
+                onChange={(nextValue) => updateSpacings('marginLeft', nextValue, true)}
+                autoComplete="off"
+              />
+            </div>
+          </div>
+          <div className="ghostkit-control-spacing-padding">
+            <span>{__('Padding', '@@text_domain')}</span>
+            <div className="ghostkit-control-spacing-padding-top">
+              <InputDrag
+                value={getCurrentSpacing('paddingTop', true)}
+                placeholder="-"
+                onChange={(nextValue) => updateSpacings('paddingTop', nextValue, true)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="ghostkit-control-spacing-padding-right">
+              <InputDrag
+                value={getCurrentSpacing('paddingRight', true)}
+                placeholder="-"
+                onChange={(nextValue) => updateSpacings('paddingRight', nextValue, true)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="ghostkit-control-spacing-padding-bottom">
+              <InputDrag
+                value={getCurrentSpacing('paddingBottom', true)}
+                placeholder="-"
+                onChange={(nextValue) => updateSpacings('paddingBottom', nextValue, true)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="ghostkit-control-spacing-padding-left">
+              <InputDrag
+                value={getCurrentSpacing('paddingLeft', true)}
+                placeholder="-"
+                onChange={(nextValue) => updateSpacings('paddingLeft', nextValue, true)}
+                autoComplete="off"
+              />
+            </div>
+          </div>
+          <div className="ghostkit-control-spacing-important">
+            <CheckboxControl
+              label="!important"
+              checked={!!getCurrentSpacing('!important', true)}
+              onChange={(nextValue) => updateSpacings('!important', nextValue, true)}
+            />
+          </div>
+        </BaseControl>
+      </PanelBody>
+    </InspectorControls>
+  );
 }
 
 /**

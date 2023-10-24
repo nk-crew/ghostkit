@@ -4,7 +4,7 @@
  */
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ResponsiveToggle from '../../components/responsive-toggle';
 import RangeControl from '../../components/range-control';
 import EditorStyles from '../../components/editor-styles';
 import {
@@ -14,6 +14,7 @@ import {
   removeClass,
   hasClass,
 } from '../../utils/classes-replacer';
+import useResponsive from '../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
@@ -112,17 +113,20 @@ function GhostKitListColumns(props) {
   const { attributes, setAttributes } = props;
   const { className } = attributes;
 
+  const { device } = useResponsive();
+
   /**
    * Update columns count class.
    *
-   * @param {String} screen - name of screen size.
    * @param {String} val - value for columns count.
    */
-  function updateColumns(screen, val) {
+  function updateColumns(val) {
     let newClassName = className;
 
-    if (screen) {
-      newClassName = replaceClass(newClassName, `ghostkit-list-columns-${screen}`, val);
+    if (device) {
+      newClassName = replaceClass(newClassName, `ghostkit-list-columns-${device}`, val);
+
+      console.log(val);
     } else {
       for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
         newClassName = removeClass(newClassName, `ghostkit-list-columns-${k}`);
@@ -152,18 +156,21 @@ function GhostKitListColumns(props) {
   // add new display controls.
   return (
     <InspectorControls>
-      <PanelBody title={__('Columns Settings', '@@text_domain')} initialOpen>
-        <ResponsiveTabPanel active={activeDevices}>
-          {(tabData) => (
-            <RangeControl
-              label={__('Columns Count', '@@text_domain')}
-              value={parseInt(getCurrentColumns(className, tabData.name), 10)}
-              onChange={(value) => updateColumns(tabData.name, value)}
-              min={1}
-              max={COLUMNS_COUNT_MAX}
-            />
-          )}
-        </ResponsiveTabPanel>
+      <PanelBody>
+        <RangeControl
+          label={
+            <>
+              {__('Columns Count', '@@text_domain')}
+              <ResponsiveToggle active={activeDevices} />
+            </>
+          }
+          value={parseInt(getCurrentColumns(className, device), 10) || null}
+          onChange={(value) => {
+            updateColumns(value);
+          }}
+          min={1}
+          max={COLUMNS_COUNT_MAX}
+        />
       </PanelBody>
     </InspectorControls>
   );

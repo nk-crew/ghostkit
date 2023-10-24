@@ -8,7 +8,13 @@
   position: relative;
   width: 100%;
   padding-top: 87%;
+  margin-top: 30px;
   border: 1px solid #e8eaec;
+
+  .components-base-control__field > .components-base-control__label {
+    position: absolute;
+    top: -28px;
+  }
 
   // icon
   .components-base-control__field > svg {

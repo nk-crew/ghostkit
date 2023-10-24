@@ -9,7 +9,8 @@ import {
   removeClass,
   hasClass,
 } from '../../utils/classes-replacer';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import useResponsive from '../../hooks/use-responsive';
+import ResponsiveToggle from '../../components/responsive-toggle';
 import getIcon from '../../utils/get-icon';
 import ActiveIndicator from '../../components/active-indicator';
 import ToggleGroup from '../../components/toggle-group';
@@ -120,6 +121,8 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
     const { attributes, setAttributes } = props;
     const { className } = attributes;
 
+    const { device } = useResponsive();
+
     const allow = allowedDisplay(props);
 
     /**
@@ -180,20 +183,22 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
               initialOpenPanel = !initialOpenPanel;
             }}
           >
-            <ResponsiveTabPanel active={activeDevices}>
-              {(tabData) => (
-                <ToggleGroup
-                  value={getCurrentDisplay(className, tabData.name)}
-                  options={getDefaultDisplay(tabData.name).map((val) => ({
-                    value: val.value,
-                    label: val.label,
-                  }))}
-                  onChange={(value) => {
-                    updateDisplay(tabData.name, value);
-                  }}
-                />
-              )}
-            </ResponsiveTabPanel>
+            <ToggleGroup
+              label={
+                <>
+                  {__('Responsive', '@@text_domain')}
+                  <ResponsiveToggle active={activeDevices} />
+                </>
+              }
+              value={getCurrentDisplay(className, device)}
+              options={getDefaultDisplay(device).map((val) => ({
+                value: val.value,
+                label: val.label,
+              }))}
+              onChange={(value) => {
+                updateDisplay(device, value);
+              }}
+            />
           </PanelBody>
         </InspectorControls>
       </Fragment>

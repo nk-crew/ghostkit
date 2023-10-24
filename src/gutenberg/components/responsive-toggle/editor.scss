@@ -4,7 +4,13 @@
   position: relative;
   display: inline-flex;
 
-  .components-base-control__label > & {
+  .components-base-control__label:has(&),
+  .components-input-control__label:has(&) {
+    overflow: visible !important;
+  }
+
+  .components-base-control__label > &,
+  .components-input-control__label > & {
     margin-left: 8px;
     vertical-align: bottom;
   }
@@ -28,7 +34,7 @@
   position: absolute;
   top: -5px;
   left: -5px;
-  z-index: 1;
+  z-index: 5;
   display: none;
   flex-direction: column;
   gap: 2px;

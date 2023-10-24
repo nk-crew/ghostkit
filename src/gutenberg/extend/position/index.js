@@ -3,8 +3,9 @@
  */
 import checkCoreBlock from '../check-core-block';
 import getIcon from '../../utils/get-icon';
+import useResponsive from '../../hooks/use-responsive';
 import Notice from '../../components/notice';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ResponsiveToggle from '../../components/responsive-toggle';
 import ActiveIndicator from '../../components/active-indicator';
 
 /**
@@ -46,34 +47,39 @@ function PositionComponent(props) {
   const { attributes, setAttributes, name } = props;
   const { ghostkitPosition = {} } = attributes;
 
+  const { device } = useResponsive();
+
   /**
    * Get current position for selected device type.
    *
    * @param {String} posName - name of position.
-   * @param {String} device - position for device.
+   * @param {Boolean} withDevice - get position for device.
    *
    * @returns {String} position value.
    */
-  function getCurrentPosition(posName, device) {
+  function getCurrentPosition(posName, withDevice = false) {
     let result = '';
 
-    if (!device) {
+    if (!withDevice || !device) {
       if (ghostkitPosition[posName]) {
         result = ghostkitPosition[posName];
       }
-    } else if (ghostkitPosition[device] && ghostkitPosition[device][posName]) {
-      result = ghostkitPosition[device][posName];
+    } else if (
+      ghostkitPosition[`media_${device}`] &&
+      ghostkitPosition[`media_${device}`][posName]
+    ) {
+      result = ghostkitPosition[`media_${device}`][posName];
     }
 
     return result;
   }
 
-  function getNewPosition(posName, val, device) {
+  function getNewPosition(posName, val, withDevice = false) {
     const newPosition = {};
 
-    if (device) {
-      newPosition[device] = {};
-      newPosition[device][posName] = val;
+    if (withDevice && device) {
+      newPosition[`media_${device}`] = {};
+      newPosition[`media_${device}`][posName] = val;
     } else {
       newPosition[posName] = val;
     }
@@ -124,10 +130,10 @@ function PositionComponent(props) {
    *
    * @param {String} posName - name of new position.
    * @param {String} val - value for new position.
-   * @param {String} device - position for device.
+   * @param {Boolean} withDevice - get position for device.
    */
-  function setPosition(posName, val, device) {
-    const newPosition = getNewPosition(posName, val, device);
+  function setPosition(posName, val, withDevice = false) {
+    const newPosition = getNewPosition(posName, val, withDevice);
 
     updatePosition(newPosition);
   }
@@ -243,79 +249,87 @@ function PositionComponent(props) {
             onChange={(nextValue) => setPosition('location', nextValue)}
           />
         ) : null}
-        <ResponsiveTabPanel active={activeDevices}>
-          {(tabData) => {
-            let device = '';
-
-            if (tabData.name) {
-              device = `media_${tabData.name}`;
+        <BaseControl className="ghostkit-control-position">
+          {['absolute', 'fixed', 'relative'].includes(getCurrentPosition('position')) ? (
+            <Fragment>
+              <UnitControl
+                label={
+                  <>
+                    {__('Vertical Offset', '@@text_domain')}
+                    <ResponsiveToggle active={activeDevices} />
+                  </>
+                }
+                value={getCurrentPosition('offsetY', true)}
+                onChange={(val) => setPosition('offsetY', val, true)}
+                labelPosition="edge"
+                __unstableInputWidth="70px"
+                units={[
+                  { value: 'px', label: 'px' },
+                  { value: '%', label: '%' },
+                  { value: 'em', label: 'em' },
+                  { value: 'rem', label: 'rem' },
+                  { value: 'vw', label: 'vw' },
+                  { value: 'vh', label: 'vh' },
+                ]}
+              />
+              <UnitControl
+                label={
+                  <>
+                    {__('Horizontal Offset', '@@text_domain')}
+                    <ResponsiveToggle active={activeDevices} />
+                  </>
+                }
+                value={getCurrentPosition('offsetX', true)}
+                onChange={(val) => setPosition('offsetX', val, true)}
+                labelPosition="edge"
+                __unstableInputWidth="70px"
+                units={[
+                  { value: 'px', label: 'px' },
+                  { value: '%', label: '%' },
+                  { value: 'em', label: 'em' },
+                  { value: 'rem', label: 'rem' },
+                  { value: 'vw', label: 'vw' },
+                  { value: 'vh', label: 'vh' },
+                ]}
+              />
+              <UnitControl
+                label={
+                  <>
+                    {__('Width', '@@text_domain')}
+                    <ResponsiveToggle active={activeDevices} />
+                  </>
+                }
+                value={getCurrentPosition('width', true)}
+                onChange={(val) => setPosition('width', val, true)}
+                labelPosition="edge"
+                __unstableInputWidth="70px"
+                units={[
+                  { value: 'px', label: 'px' },
+                  { value: '%', label: '%' },
+                  { value: 'em', label: 'em' },
+                  { value: 'rem', label: 'rem' },
+                  { value: 'vw', label: 'vw' },
+                  { value: 'vh', label: 'vh' },
+                ]}
+                min={0}
+              />
+            </Fragment>
+          ) : null}
+          <NumberControl
+            label={
+              <>
+                {__('zIndex', '@@text_domain')}
+                <ResponsiveToggle active={activeDevices} />
+              </>
             }
-
-            return (
-              <BaseControl className="ghostkit-control-position">
-                {['absolute', 'fixed', 'relative'].includes(getCurrentPosition('position')) ? (
-                  <Fragment>
-                    <UnitControl
-                      label={__('Vertical Offset', '@@text_domain')}
-                      value={getCurrentPosition('offsetY', device)}
-                      onChange={(val) => setPosition('offsetY', val, device)}
-                      labelPosition="edge"
-                      __unstableInputWidth="70px"
-                      units={[
-                        { value: 'px', label: 'px' },
-                        { value: '%', label: '%' },
-                        { value: 'em', label: 'em' },
-                        { value: 'rem', label: 'rem' },
-                        { value: 'vw', label: 'vw' },
-                        { value: 'vh', label: 'vh' },
-                      ]}
-                    />
-                    <UnitControl
-                      label={__('Horizontal Offset', '@@text_domain')}
-                      value={getCurrentPosition('offsetX', device)}
-                      onChange={(val) => setPosition('offsetX', val, device)}
-                      labelPosition="edge"
-                      __unstableInputWidth="70px"
-                      units={[
-                        { value: 'px', label: 'px' },
-                        { value: '%', label: '%' },
-                        { value: 'em', label: 'em' },
-                        { value: 'rem', label: 'rem' },
-                        { value: 'vw', label: 'vw' },
-                        { value: 'vh', label: 'vh' },
-                      ]}
-                    />
-                    <UnitControl
-                      label={__('Width', '@@text_domain')}
-                      value={getCurrentPosition('width', device)}
-                      onChange={(val) => setPosition('width', val, device)}
-                      labelPosition="edge"
-                      __unstableInputWidth="70px"
-                      units={[
-                        { value: 'px', label: 'px' },
-                        { value: '%', label: '%' },
-                        { value: 'em', label: 'em' },
-                        { value: 'rem', label: 'rem' },
-                        { value: 'vw', label: 'vw' },
-                        { value: 'vh', label: 'vh' },
-                      ]}
-                      min={0}
-                    />
-                  </Fragment>
-                ) : null}
-                <NumberControl
-                  label={__('zIndex', '@@text_domain')}
-                  value={getCurrentPosition('zIndex', device) ?? ''}
-                  onChange={(val) => {
-                    setPosition('zIndex', val, device);
-                  }}
-                  labelPosition="edge"
-                  __unstableInputWidth="70px"
-                />
-              </BaseControl>
-            );
-          }}
-        </ResponsiveTabPanel>
+            value={getCurrentPosition('zIndex', true) ?? ''}
+            onChange={(val) => {
+              setPosition('zIndex', val, true);
+            }}
+            labelPosition="edge"
+            __unstableInputWidth="70px"
+          />
+        </BaseControl>
       </PanelBody>
     </InspectorControls>
   );

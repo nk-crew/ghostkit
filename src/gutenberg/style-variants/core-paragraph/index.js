@@ -2,7 +2,7 @@
 /**
  * Internal dependencies
  */
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ResponsiveToggle from '../../components/responsive-toggle';
 import RangeControl from '../../components/range-control';
 import {
   getActiveClass,
@@ -11,6 +11,7 @@ import {
   removeClass,
   hasClass,
 } from '../../utils/classes-replacer';
+import useResponsive from '../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
@@ -58,6 +59,8 @@ function GhostKitParagraphColumns(props) {
   const { attributes, setAttributes } = props;
   const { className } = attributes;
 
+  const { device } = useResponsive();
+
   /**
    * Update columns count class.
    *
@@ -98,18 +101,19 @@ function GhostKitParagraphColumns(props) {
   // add new display controls.
   return (
     <InspectorControls>
-      <PanelBody title={__('Columns Settings', '@@text_domain')} initialOpen>
-        <ResponsiveTabPanel active={activeDevices}>
-          {(tabData) => (
-            <RangeControl
-              label={__('Columns Count', '@@text_domain')}
-              value={parseInt(getCurrentColumns(className, tabData.name), 10)}
-              onChange={(value) => updateColumns(tabData.name, value)}
-              min={1}
-              max={COLUMNS_COUNT_MAX}
-            />
-          )}
-        </ResponsiveTabPanel>
+      <PanelBody>
+        <RangeControl
+          label={
+            <>
+              {__('Columns Count', '@@text_domain')}
+              <ResponsiveToggle active={activeDevices} />
+            </>
+          }
+          value={parseInt(getCurrentColumns(className, device), 10)}
+          onChange={(value) => updateColumns(device, value)}
+          min={1}
+          max={COLUMNS_COUNT_MAX}
+        />
       </PanelBody>
     </InspectorControls>
   );
