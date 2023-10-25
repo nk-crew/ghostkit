@@ -32,7 +32,7 @@ const { InspectorControls } = wp.blockEditor;
 
 const { PanelBody } = wp.components;
 
-const { GHOSTKIT, ghostkitVariables } = window;
+const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
 
@@ -152,17 +152,6 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 
     if (!allow) {
       return <OriginalComponent {...props} />;
-    }
-
-    const activeDevices = {};
-    if (
-      ghostkitVariables &&
-      ghostkitVariables.media_sizes &&
-      Object.keys(ghostkitVariables.media_sizes).length
-    ) {
-      ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-        activeDevices[media] = !!getCurrentDisplay(className, media);
-      });
     }
 
     // add new display controls.

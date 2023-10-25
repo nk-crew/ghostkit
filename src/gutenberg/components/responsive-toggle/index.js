@@ -16,8 +16,6 @@ const { useState, useEffect } = wp.element;
 
 const { Tooltip, Button } = wp.components;
 
-const { ghostkitVariables } = window;
-
 /**
  * Component Class
  */
@@ -26,7 +24,7 @@ export default function ResponsiveToggle(props) {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const { device, setDevice } = useResponsive();
+  const { allDevices, device, setDevice } = useResponsive();
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -55,8 +53,8 @@ export default function ResponsiveToggle(props) {
   let translateY = '0';
   let withActiveResponsive = false;
 
-  [...Object.keys(ghostkitVariables.media_sizes), ''].forEach((mediaName, i) => {
-    if (mediaName === device) {
+  [...Object.keys(allDevices), ''].forEach((name, i) => {
+    if (name === device) {
       selectedIcon = icons[i];
       translateY = `${(100 * (1 + i - icons.length)) / icons.length}%`;
 
@@ -64,20 +62,20 @@ export default function ResponsiveToggle(props) {
       translateY = `calc(${translateY} + ${icons.length - i - 1}px)`;
     }
 
-    const isActive = mediaName && checkActive && checkActive(mediaName);
+    const isActive = name && checkActive && checkActive(name);
 
     withActiveResponsive = withActiveResponsive || isActive;
 
     items.unshift({
-      name: mediaName,
+      name,
       title: (
         <Tooltip
           text={
-            !mediaName
+            !name
               ? __('All devices', '@@text_domain')
               : sprintf(
                   __('Devices with screen width <= %s', '@@text_domain'),
-                  `${ghostkitVariables.media_sizes[mediaName]}px`
+                  `${allDevices[name]}px`
                 )
           }
         >

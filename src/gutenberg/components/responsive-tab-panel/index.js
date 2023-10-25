@@ -14,8 +14,6 @@ const { __, sprintf } = wp.i18n;
 
 const { Tooltip, Button } = wp.components;
 
-const { ghostkitVariables } = window;
-
 /**
  * Component Class
  */
@@ -25,7 +23,7 @@ export default function ResponsiveTabPanel(props) {
   // Fallback for deprecated filledTabs prop.
   const active = props?.active || props?.filledTabs || {};
 
-  const { device, setDevice } = useResponsive();
+  const { allDevices, device, setDevice } = useResponsive();
 
   const tabs = [];
   const icons = [
@@ -36,23 +34,23 @@ export default function ResponsiveTabPanel(props) {
     getIcon('tabs-tv'),
   ];
 
-  [...Object.keys(ghostkitVariables.media_sizes), ''].forEach((mediaName, i) => {
+  [...Object.keys(allDevices), ''].forEach((name, i) => {
     tabs.unshift({
-      name: mediaName,
+      name,
       title: (
         <Tooltip
           text={
-            !mediaName
+            !name
               ? __('All devices', '@@text_domain')
               : sprintf(
                   __('Devices with screen width <= %s', '@@text_domain'),
-                  `${ghostkitVariables.media_sizes[mediaName]}px`
+                  `${allDevices[name]}px`
                 )
           }
         >
           <span className="ghostkit-control-tabs-icon">
             {icons[i]}
-            {active && active[mediaName] ? <ActiveIndicator /> : ''}
+            {active && active[name] ? <ActiveIndicator /> : ''}
           </span>
         </Tooltip>
       ),
