@@ -37,8 +37,6 @@ const { InspectorControls } = wp.blockEditor;
 
 const { PanelBody } = wp.components;
 
-const { ghostkitVariables } = window;
-
 /**
  * Register additional list styles.
  */
@@ -142,17 +140,6 @@ function GhostKitListColumns(props) {
     });
   }
 
-  const activeDevices = {};
-  if (
-    ghostkitVariables &&
-    ghostkitVariables.media_sizes &&
-    Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-      activeDevices[media] = !!getCurrentColumns(className, media);
-    });
-  }
-
   // add new display controls.
   return (
     <InspectorControls>
@@ -161,7 +148,11 @@ function GhostKitListColumns(props) {
           label={
             <>
               {__('Columns Count', '@@text_domain')}
-              <ResponsiveToggle active={activeDevices} />
+              <ResponsiveToggle
+                checkActive={(checkMedia) => {
+                  return !!getCurrentColumns(className, checkMedia);
+                }}
+              />
             </>
           }
           value={parseInt(getCurrentColumns(className, device), 10) || null}

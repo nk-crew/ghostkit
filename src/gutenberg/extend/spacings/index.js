@@ -25,7 +25,7 @@ const { InspectorControls } = wp.blockEditor;
 
 const { BaseControl, PanelBody, CheckboxControl } = wp.components;
 
-const { GHOSTKIT, ghostkitVariables } = window;
+const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
 
@@ -145,32 +145,6 @@ function SpacingsComponent(props) {
     return null;
   }
 
-  const activeDevices = {};
-  const allSpacings = [
-    'marginLeft',
-    'marginTop',
-    'marginRight',
-    'marginBottom',
-    'paddingLeft',
-    'paddingTop',
-    'paddingRight',
-    'paddingBottom',
-  ];
-  if (
-    ghostkitVariables &&
-    ghostkitVariables.media_sizes &&
-    Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-      activeDevices[media] = false;
-      allSpacings.forEach((spacing) => {
-        if (getCurrentSpacing(spacing, media ? `media_${media}` : '')) {
-          activeDevices[media] = true;
-        }
-      });
-    });
-  }
-
   // add new spacings controls.
   return (
     <InspectorControls group="styles">
@@ -191,7 +165,11 @@ function SpacingsComponent(props) {
           label={
             <>
               {__('Responsive', '@@text_domain')}
-              <ResponsiveToggle active={activeDevices} />
+              <ResponsiveToggle
+                checkActive={(checkMedia) => {
+                  return !!Object.keys(ghostkitSpacings?.[`media_${checkMedia}`] || {}).length;
+                }}
+              />
             </>
           }
           className="ghostkit-control-spacing"

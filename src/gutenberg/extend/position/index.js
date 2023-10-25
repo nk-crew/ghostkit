@@ -36,7 +36,7 @@ const {
 const UnitControl = __stableUnitControl || __experimentalUnitControl;
 const NumberControl = __stableNumberControl || __experimentalNumberControl;
 
-const { GHOSTKIT, ghostkitVariables } = window;
+const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
 
@@ -153,23 +153,6 @@ function PositionComponent(props) {
     return null;
   }
 
-  const activeDevices = {};
-  const allPositionOptions = ['position', 'location', 'offsetY', 'offsetX', 'width', 'zIndex'];
-  if (
-    ghostkitVariables &&
-    ghostkitVariables.media_sizes &&
-    Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-      activeDevices[media] = false;
-      allPositionOptions.forEach((option) => {
-        if (getCurrentPosition(option, media ? `media_${media}` : '')) {
-          activeDevices[media] = true;
-        }
-      });
-    });
-  }
-
   // add new position controls.
   return (
     <InspectorControls group="styles">
@@ -256,7 +239,11 @@ function PositionComponent(props) {
                 label={
                   <>
                     {__('Vertical Offset', '@@text_domain')}
-                    <ResponsiveToggle active={activeDevices} />
+                    <ResponsiveToggle
+                      checkActive={(checkMedia) => {
+                        return !!ghostkitPosition?.[`media_${checkMedia}`]?.offsetY;
+                      }}
+                    />
                   </>
                 }
                 value={getCurrentPosition('offsetY', true)}
@@ -276,7 +263,11 @@ function PositionComponent(props) {
                 label={
                   <>
                     {__('Horizontal Offset', '@@text_domain')}
-                    <ResponsiveToggle active={activeDevices} />
+                    <ResponsiveToggle
+                      checkActive={(checkMedia) => {
+                        return !!ghostkitPosition?.[`media_${checkMedia}`]?.offsetX;
+                      }}
+                    />
                   </>
                 }
                 value={getCurrentPosition('offsetX', true)}
@@ -296,7 +287,11 @@ function PositionComponent(props) {
                 label={
                   <>
                     {__('Width', '@@text_domain')}
-                    <ResponsiveToggle active={activeDevices} />
+                    <ResponsiveToggle
+                      checkActive={(checkMedia) => {
+                        return !!ghostkitPosition?.[`media_${checkMedia}`]?.width;
+                      }}
+                    />
                   </>
                 }
                 value={getCurrentPosition('width', true)}
@@ -319,7 +314,11 @@ function PositionComponent(props) {
             label={
               <>
                 {__('zIndex', '@@text_domain')}
-                <ResponsiveToggle active={activeDevices} />
+                <ResponsiveToggle
+                  checkActive={(checkMedia) => {
+                    return !!ghostkitPosition?.[`media_${checkMedia}`]?.zIndex;
+                  }}
+                />
               </>
             }
             value={getCurrentPosition('zIndex', true) ?? ''}

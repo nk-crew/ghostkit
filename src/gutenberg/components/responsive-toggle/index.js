@@ -22,7 +22,7 @@ const { ghostkitVariables } = window;
  * Component Class
  */
 export default function ResponsiveToggle(props) {
-  const { active } = props;
+  const { checkActive = () => {} } = props;
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,8 +50,10 @@ export default function ResponsiveToggle(props) {
     getIcon('tabs-desktop'),
     getIcon('tabs-tv'),
   ];
+
   let selectedIcon = icons[icons.length - 1];
   let translateY = '0';
+  let withActiveResponsive = false;
 
   [...Object.keys(ghostkitVariables.media_sizes), ''].forEach((mediaName, i) => {
     if (mediaName === device) {
@@ -61,6 +63,10 @@ export default function ResponsiveToggle(props) {
       // Additional transform for gap.
       translateY = `calc(${translateY} + ${icons.length - i - 1}px)`;
     }
+
+    const isActive = mediaName && checkActive && checkActive(mediaName);
+
+    withActiveResponsive = withActiveResponsive || isActive;
 
     items.unshift({
       name: mediaName,
@@ -77,7 +83,7 @@ export default function ResponsiveToggle(props) {
         >
           <span className="ghostkit-control-responsive-toggle-icon">
             {icons[i]}
-            {active && active[mediaName] ? <ActiveIndicator /> : ''}
+            {isActive && <ActiveIndicator />}
           </span>
         </Tooltip>
       ),
@@ -93,6 +99,7 @@ export default function ResponsiveToggle(props) {
         }}
       >
         {selectedIcon}
+        {withActiveResponsive && <ActiveIndicator />}
       </Button>
       <div
         className={classnames('ghostkit-control-responsive-toggle-dropdown', isOpen && 'is-open')}

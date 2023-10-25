@@ -28,7 +28,7 @@ const { PanelBody, ToolbarGroup, ToolbarButton, Dropdown } = wp.components;
 
 const { InspectorControls, BlockControls, useBlockProps } = wp.blockEditor;
 
-const { GHOSTKIT, ghostkitVariables } = window;
+const { GHOSTKIT } = window;
 
 const { shapes } = GHOSTKIT;
 
@@ -161,25 +161,6 @@ export default function BlockEdit(props) {
 
   const shapeData = getShapeData(svg);
 
-  const activeDevices = {};
-  if (
-    ghostkitVariables &&
-    ghostkitVariables.media_sizes &&
-    Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    Object.keys(ghostkitVariables.media_sizes).forEach((media) => {
-      let heightName = 'height';
-      let widthName = 'width';
-
-      if (media) {
-        heightName = `${media}_${heightName}`;
-        widthName = `${media}_${widthName}`;
-      }
-
-      activeDevices[media] = attributes[heightName] || attributes[widthName];
-    });
-  }
-
   className = classnames(
     'ghostkit-shape-divider',
     {
@@ -254,7 +235,11 @@ export default function BlockEdit(props) {
             label={
               <>
                 {__('Height', '@@text_domain')}
-                <ResponsiveToggle active={activeDevices} />
+                <ResponsiveToggle
+                  checkActive={(checkMedia) => {
+                    return !!attributes[`${checkMedia}_height`];
+                  }}
+                />
               </>
             }
             value={attributes[heightName] ? parseInt(attributes[heightName], 10) : ''}
@@ -271,7 +256,11 @@ export default function BlockEdit(props) {
             label={
               <>
                 {__('Width', '@@text_domain')}
-                <ResponsiveToggle active={activeDevices} />
+                <ResponsiveToggle
+                  checkActive={(checkMedia) => {
+                    return !!attributes[`${checkMedia}_width`];
+                  }}
+                />
               </>
             }
             value={attributes[widthName] ? parseInt(attributes[widthName], 10) : ''}

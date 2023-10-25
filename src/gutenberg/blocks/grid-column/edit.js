@@ -27,8 +27,6 @@ const { InspectorControls, InnerBlocks, useBlockProps, useInnerBlocksProps } = w
 
 const { useSelect } = wp.data;
 
-const { ghostkitVariables } = window;
-
 /**
  * Get array for Select element.
  *
@@ -111,28 +109,6 @@ export default function BlockEdit(props) {
 
   const { device } = useResponsive();
 
-  const activeDevices = {};
-  if (
-    ghostkitVariables &&
-    ghostkitVariables.media_sizes &&
-    Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    Object.keys(ghostkitVariables.media_sizes).forEach((media) => {
-      let sizeName = 'size';
-      let orderName = 'order';
-      let verticalAlignName = 'verticalAlign';
-
-      if (media) {
-        sizeName = `${media}_${sizeName}`;
-        orderName = `${media}_${orderName}`;
-        verticalAlignName = `${media}_${verticalAlignName}`;
-      }
-
-      activeDevices[media] =
-        attributes[sizeName] || attributes[orderName] || attributes[verticalAlignName];
-    });
-  }
-
   const { hasChildBlocks } = useSelect(
     (select) => {
       const blockEditor = select('core/block-editor');
@@ -178,7 +154,11 @@ export default function BlockEdit(props) {
               label={
                 <>
                   {__('Size', '@@text_domain')}
-                  <ResponsiveToggle active={activeDevices} />
+                  <ResponsiveToggle
+                    checkActive={(checkMedia) => {
+                      return !!attributes[`${checkMedia}_size`];
+                    }}
+                  />
                 </>
               }
               value={attributes[sizeName]}
@@ -193,7 +173,11 @@ export default function BlockEdit(props) {
               label={
                 <>
                   {__('Order', '@@text_domain')}
-                  <ResponsiveToggle active={activeDevices} />
+                  <ResponsiveToggle
+                    checkActive={(checkMedia) => {
+                      return !!attributes[`${checkMedia}_order`];
+                    }}
+                  />
                 </>
               }
               value={attributes[orderName]}
@@ -208,7 +192,11 @@ export default function BlockEdit(props) {
               label={
                 <>
                   {__('Vertical Alignment', '@@text_domain')}
-                  <ResponsiveToggle active={activeDevices} />
+                  <ResponsiveToggle
+                    checkActive={(checkMedia) => {
+                      return !!attributes[`${checkMedia}_verticalAlign`];
+                    }}
+                  />
                 </>
               }
               value={attributes[verticalAlignName]}

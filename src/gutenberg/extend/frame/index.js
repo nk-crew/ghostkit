@@ -27,7 +27,7 @@ const { InspectorControls } = wp.blockEditor;
 
 const { BaseControl, PanelBody, TabPanel, Tooltip } = wp.components;
 
-const { GHOSTKIT, ghostkitVariables } = window;
+const { GHOSTKIT } = window;
 
 let initialOpenPanel = false;
 
@@ -142,49 +142,6 @@ function FrameComponent(props) {
 
   if (!allow) {
     return null;
-  }
-
-  const activeDevices = {};
-  const allFrame = [
-    'borderStyle',
-    'borderWidth',
-    'borderColor',
-    'boxShadowColor',
-    'boxShadowX',
-    'boxShadowY',
-    'boxShadowBlur',
-    'boxShadowSpread',
-    'borderTopLeftRadius',
-    'borderTopRightRadius',
-    'borderBottomRightRadius',
-    'borderBottomLeftRadius',
-    'hoverBorderStyle',
-    'hoverBorderWidth',
-    'hoverBorderColor',
-    'hoverBoxShadowColor',
-    'hoverBoxShadowX',
-    'hoverBoxShadowY',
-    'hoverBoxShadowBlur',
-    'hoverBoxShadowSpread',
-    'hoverBorderTopLeftRadius',
-    'hoverBorderTopRightRadius',
-    'hoverBorderBottomRightRadius',
-    'hoverBorderBottomLeftRadius',
-  ];
-
-  if (
-    ghostkitVariables &&
-    ghostkitVariables.media_sizes &&
-    Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    ['', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-      activeDevices[media] = false;
-      allFrame.forEach((spacing) => {
-        if (getCurrentFrame(spacing, media ? `media_${media}` : '')) {
-          activeDevices[media] = true;
-        }
-      });
-    });
   }
 
   const stateTabs = [
@@ -302,7 +259,13 @@ function FrameComponent(props) {
                   label={
                     <>
                       {__('Border', '@@text_domain')}
-                      <ResponsiveToggle active={activeDevices} />
+                      <ResponsiveToggle
+                        checkActive={(checkMedia) => {
+                          return !!ghostkitFrame?.[`media_${checkMedia}`]?.[
+                            `${borderPropName}Style`
+                          ];
+                        }}
+                      />
                     </>
                   }
                   value={borderStyle}
@@ -361,7 +324,24 @@ function FrameComponent(props) {
                   label={
                     <>
                       {__('Border Radius', '@@text_domain')}
-                      <ResponsiveToggle active={activeDevices} />
+                      <ResponsiveToggle
+                        checkActive={(checkMedia) => {
+                          return (
+                            !!ghostkitFrame?.[`media_${checkMedia}`]?.[
+                              `${borderPropName}TopLeftRadius`
+                            ] ||
+                            !!ghostkitFrame?.[`media_${checkMedia}`]?.[
+                              `${borderPropName}TopRightRadius`
+                            ] ||
+                            !!ghostkitFrame?.[`media_${checkMedia}`]?.[
+                              `${borderPropName}BottomRightRadius`
+                            ] ||
+                            !!ghostkitFrame?.[`media_${checkMedia}`]?.[
+                              `${borderPropName}BottomLeftRadius`
+                            ]
+                          );
+                        }}
+                      />
                     </>
                   }
                 >
@@ -432,7 +412,17 @@ function FrameComponent(props) {
                   label={
                     <>
                       {__('Shadow', '@@text_domain')}
-                      <ResponsiveToggle active={activeDevices} />
+                      <ResponsiveToggle
+                        checkActive={(checkMedia) => {
+                          return (
+                            !!ghostkitFrame?.[`media_${checkMedia}`]?.[`${shadowPropName}Color`] ||
+                            !!ghostkitFrame?.[`media_${checkMedia}`]?.[`${shadowPropName}X`] ||
+                            !!ghostkitFrame?.[`media_${checkMedia}`]?.[`${shadowPropName}Y`] ||
+                            !!ghostkitFrame?.[`media_${checkMedia}`]?.[`${shadowPropName}Blur`] ||
+                            !!ghostkitFrame?.[`media_${checkMedia}`]?.[`${shadowPropName}Spread`]
+                          );
+                        }}
+                      />
                     </>
                   }
                 >

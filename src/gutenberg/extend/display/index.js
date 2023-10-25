@@ -187,7 +187,11 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
               label={
                 <>
                   {__('Responsive', '@@text_domain')}
-                  <ResponsiveToggle active={activeDevices} />
+                  <ResponsiveToggle
+                    checkActive={(checkMedia) => {
+                      return !!getCurrentDisplay(className, checkMedia);
+                    }}
+                  />
                 </>
               }
               value={getCurrentDisplay(className, device)}
