@@ -174,16 +174,20 @@ export default function BlockEdit(props) {
 
   return (
     <>
-      <BlockControls>
-        <ToolbarGroup>
-          <ToolbarButton
-            icon={getIcon('icon-flip-vertical')}
-            title={__('Vertical', '@@text_domain')}
-            onClick={() => setAttributes({ direction: direction === 'vertical' ? '' : 'vertical' })}
-            isActive={direction === 'vertical'}
-          />
-        </ToolbarGroup>
-      </BlockControls>
+      {beforeUrl && afterUrl ? (
+        <BlockControls>
+          <ToolbarGroup>
+            <ToolbarButton
+              icon={getIcon('icon-flip-vertical')}
+              title={__('Vertical', '@@text_domain')}
+              onClick={() =>
+                setAttributes({ direction: direction === 'vertical' ? '' : 'vertical' })
+              }
+              isActive={direction === 'vertical'}
+            />
+          </ToolbarGroup>
+        </BlockControls>
+      ) : null}
 
       <InspectorControls>
         {beforeUrl && afterUrl ? (
@@ -467,56 +471,58 @@ export default function BlockEdit(props) {
       </InspectorControls>
 
       {!beforeUrl || !afterUrl ? (
-        <Placeholder
-          className="ghostkit-image-compare-placeholder"
-          icon={getIcon('block-image-compare')}
-          label={__('Image Compare', '@@text_domain')}
-          instructions={__('Select images to compare', '@@text_domain')}
-        >
-          {getImgTag('before') ? (
-            <div className="components-placeholder">{getImgTag('before')}</div>
-          ) : (
-            <MediaPlaceholder
-              icon="format-image"
-              labels={{
-                title: __('Image Before', '@@text_domain'),
-                name: __('image', '@@text_domain'),
-              }}
-              onSelect={(image) => {
-                updateImageData('before', image);
-              }}
-              accept="image/*"
-              allowedTypes={ALLOWED_MEDIA_TYPES}
-              disableMaxUploadErrorMessages
-              onError={onUploadError}
-            />
-          )}
-          {getImgTag('after') ? (
-            <div className="components-placeholder">{getImgTag('after')}</div>
-          ) : (
-            <MediaPlaceholder
-              icon="format-image"
-              labels={{
-                title: __('Image After', '@@text_domain'),
-                name: __('image', '@@text_domain'),
-              }}
-              value={
-                afterUrl
-                  ? {
-                      src: afterUrl,
-                    }
-                  : false
-              }
-              onSelect={(image) => {
-                updateImageData('after', image);
-              }}
-              accept="image/*"
-              allowedTypes={ALLOWED_MEDIA_TYPES}
-              disableMaxUploadErrorMessages
-              onError={onUploadError}
-            />
-          )}
-        </Placeholder>
+        <div {...blockProps}>
+          <Placeholder
+            className="ghostkit-image-compare-placeholder"
+            icon={getIcon('block-image-compare')}
+            label={__('Image Compare', '@@text_domain')}
+            instructions={__('Select images to compare', '@@text_domain')}
+          >
+            {getImgTag('before') ? (
+              <div className="components-placeholder">{getImgTag('before')}</div>
+            ) : (
+              <MediaPlaceholder
+                icon="format-image"
+                labels={{
+                  title: __('Image Before', '@@text_domain'),
+                  name: __('image', '@@text_domain'),
+                }}
+                onSelect={(image) => {
+                  updateImageData('before', image);
+                }}
+                accept="image/*"
+                allowedTypes={ALLOWED_MEDIA_TYPES}
+                disableMaxUploadErrorMessages
+                onError={onUploadError}
+              />
+            )}
+            {getImgTag('after') ? (
+              <div className="components-placeholder">{getImgTag('after')}</div>
+            ) : (
+              <MediaPlaceholder
+                icon="format-image"
+                labels={{
+                  title: __('Image After', '@@text_domain'),
+                  name: __('image', '@@text_domain'),
+                }}
+                value={
+                  afterUrl
+                    ? {
+                        src: afterUrl,
+                      }
+                    : false
+                }
+                onSelect={(image) => {
+                  updateImageData('after', image);
+                }}
+                accept="image/*"
+                allowedTypes={ALLOWED_MEDIA_TYPES}
+                disableMaxUploadErrorMessages
+                onError={onUploadError}
+              />
+            )}
+          </Placeholder>
+        </div>
       ) : (
         <figure {...blockProps}>
           <div className="ghostkit-image-compare-images">
