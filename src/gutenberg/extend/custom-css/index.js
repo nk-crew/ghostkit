@@ -8,14 +8,13 @@ import './userSelect';
 import './clipPath';
 import './custom';
 
+import useStyles from '../../hooks/use-styles';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 
 /**
  * WordPress dependencies
  */
-const { cloneDeep } = window.lodash;
-
 const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
@@ -50,13 +49,15 @@ function allowCustomStyles(allow, settings) {
  * Add inspector controls.
  */
 function GhostKitExtensionCustomCSSInspector(original, { props }) {
-  const { name, attributes, setAttributes } = props;
+  const { name } = props;
 
   const hasCustomCSSSupport = hasBlockSupport(name, ['ghostkit', 'customCSS']);
 
   if (!hasCustomCSSSupport) {
     return original;
   }
+
+  const { setStyles } = useStyles(props);
 
   return (
     <>
@@ -70,25 +71,15 @@ function GhostKitExtensionCustomCSSInspector(original, { props }) {
             </>
           }
           resetAll={() => {
-            const propsToReset = [
-              'opacity',
-              'overflow-x',
-              'overflow-y',
-              'cursor',
-              'user-select',
-              'clip-path',
-              'custom',
-            ];
-
-            const ghostkitData = cloneDeep(attributes?.ghostkit || {});
-
-            propsToReset.forEach((propName) => {
-              if (typeof ghostkitData?.styles?.[propName] !== 'undefined') {
-                delete ghostkitData.styles[propName];
-              }
+            setStyles({
+              opacity: undefined,
+              'overflow-x': undefined,
+              'overflow-y': undefined,
+              cursor: undefined,
+              'user-select': undefined,
+              'clip-path': undefined,
+              custom: undefined,
             });
-
-            setAttributes({ ghostkit: ghostkitData });
           }}
         >
           <div className="ghostkit-tools-panel-custom-css">

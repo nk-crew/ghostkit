@@ -7,14 +7,13 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
+import useStyles from '../../../hooks/use-styles';
 import CodeEditor from '../../../components/code-editor';
 import { maybeEncode, maybeDecode } from '../../../utils/encode-decode';
 
 /**
  * WordPress dependencies
  */
-const { cloneDeep } = window.lodash;
-
 const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
@@ -36,42 +35,24 @@ const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 const placeholder = 'selector {\n\n}';
 
 function CustomCSSCustomTools(props) {
-  const { attributes, setAttributes } = props;
-
   const [defaultPlaceholder, setDefaultPlaceholder] = useState(placeholder);
 
-  const hasCustom = attributes?.ghostkit?.styles?.custom;
+  const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  function updateValue(val) {
-    const ghostkitData = cloneDeep(attributes?.ghostkit || {});
-
-    if (typeof ghostkitData?.styles === 'undefined') {
-      ghostkitData.styles = {};
-    }
-
-    if (typeof val === 'undefined') {
-      if (typeof ghostkitData?.styles?.custom !== 'undefined') {
-        delete ghostkitData.styles.custom;
-      }
-    } else {
-      ghostkitData.styles.custom = maybeEncode(val);
-    }
-
-    setAttributes({ ghostkit: ghostkitData });
-  }
+  const hasCustom = hasStyle('custom');
 
   return (
     <ToolsPanelItem
       label={__('Custom', '@@text_domain')}
       hasValue={() => !!hasCustom}
       onSelect={() => {
-        if (typeof attributes?.ghostkit?.styles?.custom === 'undefined') {
-          updateValue('');
+        if (!hasStyle('custom')) {
+          setStyles({ custom: '' });
         }
       }}
       onDeselect={() => {
-        if (typeof attributes?.ghostkit?.styles?.custom !== 'undefined') {
-          updateValue(undefined);
+        if (hasStyle('custom')) {
+          setStyles({ custom: undefined });
         }
       }}
       isShownByDefault={false}
@@ -98,7 +79,7 @@ function CustomCSSCustomTools(props) {
               <span>{__('Edit CSS', '@@text_domain')}</span>
               <CodeEditor
                 mode="css"
-                value={maybeDecode(attributes?.ghostkit?.styles?.custom || defaultPlaceholder)}
+                value={maybeDecode(getStyle('custom') || defaultPlaceholder)}
                 maxLines={7}
                 minLines={3}
                 height="200px"
@@ -120,7 +101,7 @@ function CustomCSSCustomTools(props) {
                 mode="css"
                 onChange={(value) => {
                   if (value !== placeholder) {
-                    updateValue(value);
+                    setStyles({ custom: maybeEncode(value) });
                   }
 
                   // Reset placeholder.
@@ -128,7 +109,7 @@ function CustomCSSCustomTools(props) {
                     setDefaultPlaceholder('');
                   }
                 }}
-                value={maybeDecode(attributes?.ghostkit?.styles?.custom || defaultPlaceholder)}
+                value={maybeDecode(getStyle('custom') || defaultPlaceholder)}
                 maxLines={20}
                 minLines={5}
                 height="300px"

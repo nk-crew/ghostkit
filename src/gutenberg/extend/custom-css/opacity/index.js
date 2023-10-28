@@ -1,8 +1,11 @@
 /**
+ * Internal dependencies
+ */
+import useStyles from '../../../hooks/use-styles';
+
+/**
  * WordPress dependencies
  */
-const { cloneDeep } = window.lodash;
-
 const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
@@ -18,48 +21,31 @@ const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 const { hasBlockSupport } = wp.blocks;
 
 function CustomCSSOpacityTools(props) {
-  const { attributes, setAttributes } = props;
+  const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasOpacity = attributes?.ghostkit?.styles?.opacity;
-
-  function updateValue(val) {
-    const ghostkitData = cloneDeep(attributes?.ghostkit || {});
-
-    if (typeof ghostkitData?.styles === 'undefined') {
-      ghostkitData.styles = {};
-    }
-    if (typeof val === 'undefined') {
-      if (typeof ghostkitData?.styles?.opacity !== 'undefined') {
-        delete ghostkitData.styles.opacity;
-      }
-    } else {
-      ghostkitData.styles.opacity = val;
-    }
-
-    setAttributes({ ghostkit: ghostkitData });
-  }
+  const hasOpacity = hasStyle('opacity');
 
   return (
     <ToolsPanelItem
       label={__('Opacity', '@@text_domain')}
       hasValue={() => !!hasOpacity}
       onSelect={() => {
-        if (typeof attributes?.ghostkit?.styles?.opacity === 'undefined') {
-          updateValue(1);
+        if (!hasStyle('opacity')) {
+          setStyles({ opacity: 1 });
         }
       }}
       onDeselect={() => {
-        if (typeof attributes?.ghostkit?.styles?.opacity !== 'undefined') {
-          updateValue(undefined);
+        if (hasStyle('opacity')) {
+          setStyles({ opacity: undefined });
         }
       }}
       isShownByDefault={false}
     >
       <RangeControl
         label={__('Opacity', '@@text_domain')}
-        value={attributes?.ghostkit?.styles?.opacity}
+        value={getStyle('opacity')}
         placeholder={1}
-        onChange={(val) => updateValue(val === '' ? undefined : parseFloat(val))}
+        onChange={(val) => setStyles({ opacity: val === '' ? undefined : parseFloat(val) })}
         min={0}
         max={1}
         step={0.01}

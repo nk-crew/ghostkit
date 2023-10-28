@@ -1,8 +1,11 @@
 /**
+ * Internal dependencies
+ */
+import useStyles from '../../../hooks/use-styles';
+
+/**
  * WordPress dependencies
  */
-const { cloneDeep } = window.lodash;
-
 const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
@@ -18,49 +21,31 @@ const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 const { hasBlockSupport } = wp.blocks;
 
 function CustomCSSCursorTools(props) {
-  const { attributes, setAttributes } = props;
+  const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasCursor = attributes?.ghostkit?.styles?.cursor;
-
-  function updateValue(val) {
-    const ghostkitData = cloneDeep(attributes?.ghostkit || {});
-
-    if (typeof ghostkitData?.styles === 'undefined') {
-      ghostkitData.styles = {};
-    }
-
-    if (typeof val === 'undefined') {
-      if (typeof ghostkitData?.styles?.cursor !== 'undefined') {
-        delete ghostkitData.styles.cursor;
-      }
-    } else {
-      ghostkitData.styles.cursor = val;
-    }
-
-    setAttributes({ ghostkit: ghostkitData });
-  }
+  const hasCursor = hasStyle('cursor');
 
   return (
     <ToolsPanelItem
       label={__('Cursor', '@@text_domain')}
       hasValue={() => !!hasCursor}
       onSelect={() => {
-        if (typeof attributes?.ghostkit?.styles?.cursor === 'undefined') {
-          updateValue('default');
+        if (!hasStyle('cursor')) {
+          setStyles({ cursor: 'default' });
         }
       }}
       onDeselect={() => {
-        if (typeof attributes?.ghostkit?.styles?.cursor !== 'undefined') {
-          updateValue(undefined);
+        if (hasStyle('cursor')) {
+          setStyles({ cursor: undefined });
         }
       }}
       isShownByDefault={false}
     >
       <SelectControl
         label={__('Cursor', '@@text_domain')}
-        value={attributes?.ghostkit?.styles?.cursor}
+        value={getStyle('cursor')}
         onChange={(val) => {
-          updateValue(val);
+          setStyles({ cursor: val });
         }}
         options={[
           {

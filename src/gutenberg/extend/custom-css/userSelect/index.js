@@ -1,8 +1,11 @@
 /**
+ * Internal dependencies
+ */
+import useStyles from '../../../hooks/use-styles';
+
+/**
  * WordPress dependencies
  */
-const { cloneDeep } = window.lodash;
-
 const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
@@ -18,49 +21,31 @@ const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 const { hasBlockSupport } = wp.blocks;
 
 function CustomCSSUserSelectTools(props) {
-  const { attributes, setAttributes } = props;
+  const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasUserSelect = attributes?.ghostkit?.styles?.['user-select'];
-
-  function updateValue(val) {
-    const ghostkitData = cloneDeep(attributes?.ghostkit || {});
-
-    if (typeof ghostkitData?.styles === 'undefined') {
-      ghostkitData.styles = {};
-    }
-
-    if (typeof val === 'undefined') {
-      if (typeof ghostkitData?.styles?.['user-select'] !== 'undefined') {
-        delete ghostkitData.styles['user-select'];
-      }
-    } else {
-      ghostkitData.styles['user-select'] = val;
-    }
-
-    setAttributes({ ghostkit: ghostkitData });
-  }
+  const hasUserSelect = hasStyle('user-select');
 
   return (
     <ToolsPanelItem
       label={__('User Select', '@@text_domain')}
       hasValue={() => !!hasUserSelect}
       onSelect={() => {
-        if (typeof attributes?.ghostkit?.styles?.['user-select'] === 'undefined') {
-          updateValue('none');
+        if (!hasStyle('user-select')) {
+          setStyles({ 'user-select': 'none' });
         }
       }}
       onDeselect={() => {
-        if (typeof attributes?.ghostkit?.styles?.['user-select'] !== 'undefined') {
-          updateValue(undefined);
+        if (hasStyle('user-select')) {
+          setStyles({ 'user-select': undefined });
         }
       }}
       isShownByDefault={false}
     >
       <SelectControl
         label={__('User Select', '@@text_domain')}
-        value={attributes?.ghostkit?.styles?.['user-select']}
+        value={getStyle('user-select')}
         onChange={(val) => {
-          updateValue(val);
+          setStyles({ 'user-select': val });
         }}
         options={[
           {

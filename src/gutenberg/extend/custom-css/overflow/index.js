@@ -1,8 +1,11 @@
 /**
+ * Internal dependencies
+ */
+import useStyles from '../../../hooks/use-styles';
+
+/**
  * WordPress dependencies
  */
-const { cloneDeep } = window.lodash;
-
 const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
@@ -22,56 +25,25 @@ const Grid = __stableGrid || __experimentalGrid;
 const { hasBlockSupport } = wp.blocks;
 
 function CustomCSSOverflowTools(props) {
-  const { attributes, setAttributes } = props;
+  const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasOverflow =
-    attributes?.ghostkit?.styles?.['overflow-x'] || attributes?.ghostkit?.styles?.['overflow-y'];
-
-  function getValue(prop) {
-    return attributes?.ghostkit?.styles?.[prop];
-  }
-
-  function updateValue(newData) {
-    const ghostkitData = cloneDeep(attributes?.ghostkit || {});
-
-    if (typeof ghostkitData?.styles === 'undefined') {
-      ghostkitData.styles = {};
-    }
-
-    Object.keys(newData).forEach((prop) => {
-      if (typeof newData[prop] === 'undefined') {
-        if (typeof ghostkitData?.styles?.[prop] !== 'undefined') {
-          delete ghostkitData.styles[prop];
-        }
-      } else {
-        ghostkitData.styles[prop] = newData[prop];
-      }
-    });
-
-    setAttributes({ ghostkit: ghostkitData });
-  }
+  const hasOverflow = hasStyle('overflow-x') || hasStyle('overflow-y');
 
   return (
     <ToolsPanelItem
       label={__('Overflow', '@@text_domain')}
       hasValue={() => !!hasOverflow}
       onSelect={() => {
-        if (
-          typeof attributes?.ghostkit?.styles?.['overflow-x'] === 'undefined' ||
-          typeof attributes?.ghostkit?.styles?.['overflow-y'] === 'undefined'
-        ) {
-          updateValue({
+        if (!hasStyle('overflow-x') || !hasStyle('overflow-y')) {
+          setStyles({
             'overflow-x': 'hidden',
             'overflow-y': 'hidden',
           });
         }
       }}
       onDeselect={() => {
-        if (
-          typeof attributes?.ghostkit?.styles?.['overflow-x'] !== 'undefined' ||
-          typeof attributes?.ghostkit?.styles?.['overflow-y'] !== 'undefined'
-        ) {
-          updateValue({
+        if (hasStyle('overflow-x') || hasStyle('overflow-x')) {
+          setStyles({
             'overflow-x': undefined,
             'overflow-y': undefined,
           });
@@ -83,9 +55,9 @@ function CustomCSSOverflowTools(props) {
         <Grid columns={2}>
           <SelectControl
             help={__('X', '@@text_domain')}
-            value={getValue('overflow-x')}
+            value={getStyle('overflow-x')}
             onChange={(val) => {
-              updateValue({ 'overflow-x': val });
+              setStyles({ 'overflow-x': val });
             }}
             options={[
               {
@@ -104,9 +76,9 @@ function CustomCSSOverflowTools(props) {
           />
           <SelectControl
             help={__('Y', '@@text_domain')}
-            value={getValue('overflow-y')}
+            value={getStyle('overflow-y')}
             onChange={(val) => {
-              updateValue({ 'overflow-y': val });
+              setStyles({ 'overflow-y': val });
             }}
             options={[
               {

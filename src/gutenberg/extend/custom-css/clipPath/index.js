@@ -1,13 +1,13 @@
 /**
  * Internal dependencies
  */
+import useStyles from '../../../hooks/use-styles';
+
 import PRESETS from './presets';
 
 /**
  * WordPress dependencies
  */
-const { cloneDeep } = window.lodash;
-
 const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
@@ -37,57 +37,39 @@ const optionPresets = [
 ];
 
 function CustomCSSClipPathTools(props) {
-  const { attributes, setAttributes } = props;
+  const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasClipPath = attributes?.ghostkit?.styles?.['clip-path'];
-
-  function updateValue(val) {
-    const ghostkitData = cloneDeep(attributes?.ghostkit || {});
-
-    if (typeof ghostkitData?.styles === 'undefined') {
-      ghostkitData.styles = {};
-    }
-
-    if (typeof val === 'undefined') {
-      if (typeof ghostkitData?.styles?.['clip-path'] !== 'undefined') {
-        delete ghostkitData.styles['clip-path'];
-      }
-    } else {
-      ghostkitData.styles['clip-path'] = val;
-    }
-
-    setAttributes({ ghostkit: ghostkitData });
-  }
+  const hasClipPath = hasStyle('clip-path');
 
   return (
     <ToolsPanelItem
       label={__('Clip Path', '@@text_domain')}
       hasValue={() => !!hasClipPath}
       onSelect={() => {
-        if (typeof attributes?.ghostkit?.styles?.['clip-path'] === 'undefined') {
-          updateValue(optionPresets[1].value);
+        if (!hasStyle('clip-path')) {
+          setStyles({ 'clip-path': optionPresets[1].value });
         }
       }}
       onDeselect={() => {
-        if (typeof attributes?.ghostkit?.styles?.['clip-path'] !== 'undefined') {
-          updateValue(undefined);
+        if (hasStyle('clip-path')) {
+          setStyles({ 'clip-path': undefined });
         }
       }}
       isShownByDefault={false}
     >
       <SelectControl
         label={__('Clip Path', '@@text_domain')}
-        value={attributes?.ghostkit?.styles?.['clip-path']}
+        value={getStyle('clip-path')}
         onChange={(val) => {
-          updateValue(val);
+          setStyles({ 'clip-path': val });
         }}
         options={optionPresets}
       />
       <br />
       <TextareaControl
-        value={attributes?.ghostkit?.styles?.['clip-path']}
+        value={getStyle('clip-path')}
         onChange={(val) => {
-          updateValue(val);
+          setStyles({ 'clip-path': val });
         }}
       />
     </ToolsPanelItem>

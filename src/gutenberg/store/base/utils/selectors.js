@@ -9,6 +9,7 @@ import getIcon from '../../../utils/get-icon';
 import getParents from '../../../utils/get-parents';
 import getSiblings from '../../../utils/get-siblings';
 import getUniqueSlug, { getSlug } from '../../../utils/get-unique-slug';
+import merge from '../../../utils/merge';
 import round from '../../../utils/round';
 import sortObject from '../../../utils/sort-object';
 
@@ -23,6 +24,7 @@ export function get() {
     getSiblings,
     getSlug,
     getUniqueSlug,
+    merge,
     round,
     sortObject,
   };
