@@ -14,6 +14,7 @@ import FocalPointPicker from '../../../components/focal-point-picker';
 import GoogleFonts from '../../../components/google-fonts';
 import IconPicker from '../../../components/icon-picker';
 import ImagePicker from '../../../components/image-picker';
+import ImportantToggle from '../../../components/important-toggle';
 import InputDrag from '../../../components/input-drag';
 import Modal from '../../../components/modal';
 import Notice from '../../../components/notice';
@@ -46,6 +47,7 @@ export function get() {
     GoogleFonts,
     IconPicker,
     ImagePicker,
+    ImportantToggle,
     InputDrag,
     Modal,
     Notice,
