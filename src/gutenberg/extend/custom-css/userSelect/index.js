@@ -1,7 +1,9 @@
 /**
  * Internal dependencies
  */
+import ResponsiveToggle from '../../../components/responsive-toggle';
 import useStyles from '../../../hooks/use-styles';
+import useResponsive from '../../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
@@ -23,7 +25,13 @@ const { hasBlockSupport } = wp.blocks;
 function CustomCSSUserSelectTools(props) {
   const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasUserSelect = hasStyle('user-select');
+  const { device, allDevices } = useResponsive();
+
+  let hasUserSelect = false;
+
+  ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+    hasUserSelect = hasUserSelect || hasStyle('user-select', thisDevice);
+  });
 
   return (
     <ToolsPanelItem
@@ -35,17 +43,38 @@ function CustomCSSUserSelectTools(props) {
         }
       }}
       onDeselect={() => {
-        if (hasStyle('user-select')) {
-          setStyles({ 'user-select': undefined });
-        }
+        const propsToReset = {};
+
+        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`] = {};
+          }
+
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`]['user-select'] = undefined;
+          } else {
+            propsToReset['user-select'] = undefined;
+          }
+        });
+
+        setStyles(propsToReset);
       }}
       isShownByDefault={false}
     >
       <SelectControl
-        label={__('User Select', '@@text_domain')}
-        value={getStyle('user-select')}
+        label={
+          <>
+            {__('User Select', '@@text_domain')}
+            <ResponsiveToggle
+              checkActive={(checkMedia) => {
+                return hasStyle('user-select', checkMedia);
+              }}
+            />
+          </>
+        }
+        value={getStyle('user-select', device)}
         onChange={(val) => {
-          setStyles({ 'user-select': val });
+          setStyles({ 'user-select': val }, device);
         }}
         options={[
           {

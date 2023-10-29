@@ -1,7 +1,9 @@
 /**
  * Internal dependencies
  */
+import ResponsiveToggle from '../../../components/responsive-toggle';
 import useStyles from '../../../hooks/use-styles';
+import useResponsive from '../../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
@@ -27,7 +29,14 @@ const { hasBlockSupport } = wp.blocks;
 function CustomCSSOverflowTools(props) {
   const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasOverflow = hasStyle('overflow-x') || hasStyle('overflow-y');
+  const { device, allDevices } = useResponsive();
+
+  let hasOverflow = false;
+
+  ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+    hasOverflow =
+      hasOverflow || hasStyle('overflow-x', thisDevice) || hasStyle('overflow-y', thisDevice);
+  });
 
   return (
     <ToolsPanelItem
@@ -42,22 +51,44 @@ function CustomCSSOverflowTools(props) {
         }
       }}
       onDeselect={() => {
-        if (hasStyle('overflow-x') || hasStyle('overflow-x')) {
-          setStyles({
-            'overflow-x': undefined,
-            'overflow-y': undefined,
-          });
-        }
+        const propsToReset = {};
+
+        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`] = {};
+          }
+
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`]['overflow-x'] = undefined;
+            propsToReset[`media_${thisDevice}`]['overflow-y'] = undefined;
+          } else {
+            propsToReset['overflow-x'] = undefined;
+            propsToReset['overflow-y'] = undefined;
+          }
+        });
+
+        setStyles(propsToReset);
       }}
       isShownByDefault={false}
     >
-      <BaseControl label={__('Overflow', '@@text_domain')}>
+      <BaseControl
+        label={
+          <>
+            {__('Overflow', '@@text_domain')}
+            <ResponsiveToggle
+              checkActive={(checkMedia) => {
+                return hasStyle('overflow-x', checkMedia) || hasStyle('overflow-y', checkMedia);
+              }}
+            />
+          </>
+        }
+      >
         <Grid columns={2}>
           <SelectControl
             help={__('X', '@@text_domain')}
-            value={getStyle('overflow-x')}
+            value={getStyle('overflow-x', device)}
             onChange={(val) => {
-              setStyles({ 'overflow-x': val });
+              setStyles({ 'overflow-x': val }, device);
             }}
             options={[
               {
@@ -76,9 +107,9 @@ function CustomCSSOverflowTools(props) {
           />
           <SelectControl
             help={__('Y', '@@text_domain')}
-            value={getStyle('overflow-y')}
+            value={getStyle('overflow-y', device)}
             onChange={(val) => {
-              setStyles({ 'overflow-y': val });
+              setStyles({ 'overflow-y': val }, device);
             }}
             options={[
               {

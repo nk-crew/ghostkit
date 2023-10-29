@@ -1,7 +1,9 @@
 /**
  * Internal dependencies
  */
+import ResponsiveToggle from '../../../components/responsive-toggle';
 import useStyles from '../../../hooks/use-styles';
+import useResponsive from '../../../hooks/use-responsive';
 
 import PRESETS from './presets';
 
@@ -39,7 +41,13 @@ const optionPresets = [
 function CustomCSSClipPathTools(props) {
   const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasClipPath = hasStyle('clip-path');
+  const { device, allDevices } = useResponsive();
+
+  let hasClipPath = false;
+
+  ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+    hasClipPath = hasClipPath || hasStyle('clip-path', thisDevice);
+  });
 
   return (
     <ToolsPanelItem
@@ -51,25 +59,46 @@ function CustomCSSClipPathTools(props) {
         }
       }}
       onDeselect={() => {
-        if (hasStyle('clip-path')) {
-          setStyles({ 'clip-path': undefined });
-        }
+        const propsToReset = {};
+
+        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`] = {};
+          }
+
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`]['clip-path'] = undefined;
+          } else {
+            propsToReset['clip-path'] = undefined;
+          }
+        });
+
+        setStyles(propsToReset);
       }}
       isShownByDefault={false}
     >
       <SelectControl
-        label={__('Clip Path', '@@text_domain')}
-        value={getStyle('clip-path')}
+        label={
+          <>
+            {__('Clip Path', '@@text_domain')}
+            <ResponsiveToggle
+              checkActive={(checkMedia) => {
+                return hasStyle('clip-path', checkMedia);
+              }}
+            />
+          </>
+        }
+        value={getStyle('clip-path', device)}
         onChange={(val) => {
-          setStyles({ 'clip-path': val });
+          setStyles({ 'clip-path': val }, device);
         }}
         options={optionPresets}
       />
       <br />
       <TextareaControl
-        value={getStyle('clip-path')}
+        value={getStyle('clip-path', device)}
         onChange={(val) => {
-          setStyles({ 'clip-path': val });
+          setStyles({ 'clip-path': val }, device);
         }}
       />
     </ToolsPanelItem>

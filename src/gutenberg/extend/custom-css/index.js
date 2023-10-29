@@ -9,6 +9,7 @@ import './clipPath';
 import './custom';
 
 import useStyles from '../../hooks/use-styles';
+import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 
@@ -45,6 +46,16 @@ function allowCustomStyles(allow, settings) {
   return allow;
 }
 
+const allCustomCSS = [
+  'opacity',
+  'overflow-x',
+  'overflow-y',
+  'cursor',
+  'user-select',
+  'clip-path',
+  'custom',
+];
+
 /**
  * Add inspector controls.
  */
@@ -58,6 +69,7 @@ function GhostKitExtensionCustomCSSInspector(original, { props }) {
   }
 
   const { setStyles } = useStyles(props);
+  const { allDevices } = useResponsive();
 
   return (
     <>
@@ -71,15 +83,23 @@ function GhostKitExtensionCustomCSSInspector(original, { props }) {
             </>
           }
           resetAll={() => {
-            setStyles({
-              opacity: undefined,
-              'overflow-x': undefined,
-              'overflow-y': undefined,
-              cursor: undefined,
-              'user-select': undefined,
-              'clip-path': undefined,
-              custom: undefined,
+            const propsToReset = {};
+
+            ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+              if (thisDevice) {
+                propsToReset[`media_${thisDevice}`] = {};
+              }
+
+              allCustomCSS.forEach((propName) => {
+                if (thisDevice) {
+                  propsToReset[`media_${thisDevice}`][propName] = undefined;
+                } else {
+                  propsToReset[propName] = undefined;
+                }
+              });
             });
+
+            setStyles(propsToReset);
           }}
         >
           <div className="ghostkit-tools-panel-custom-css">

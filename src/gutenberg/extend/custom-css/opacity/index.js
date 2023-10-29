@@ -1,7 +1,9 @@
 /**
  * Internal dependencies
  */
+import ResponsiveToggle from '../../../components/responsive-toggle';
 import useStyles from '../../../hooks/use-styles';
+import useResponsive from '../../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
@@ -23,7 +25,13 @@ const { hasBlockSupport } = wp.blocks;
 function CustomCSSOpacityTools(props) {
   const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasOpacity = hasStyle('opacity');
+  const { device, allDevices } = useResponsive();
+
+  let hasOpacity = false;
+
+  ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+    hasOpacity = hasOpacity || hasStyle('opacity', thisDevice);
+  });
 
   return (
     <ToolsPanelItem
@@ -35,17 +43,38 @@ function CustomCSSOpacityTools(props) {
         }
       }}
       onDeselect={() => {
-        if (hasStyle('opacity')) {
-          setStyles({ opacity: undefined });
-        }
+        const propsToReset = {};
+
+        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`] = {};
+          }
+
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`].opacity = undefined;
+          } else {
+            propsToReset.opacity = undefined;
+          }
+        });
+
+        setStyles(propsToReset);
       }}
       isShownByDefault={false}
     >
       <RangeControl
-        label={__('Opacity', '@@text_domain')}
-        value={getStyle('opacity')}
+        label={
+          <>
+            {__('Opacity', '@@text_domain')}
+            <ResponsiveToggle
+              checkActive={(checkMedia) => {
+                return hasStyle('opacity', checkMedia);
+              }}
+            />
+          </>
+        }
+        value={getStyle('opacity', device)}
         placeholder={1}
-        onChange={(val) => setStyles({ opacity: val === '' ? undefined : parseFloat(val) })}
+        onChange={(val) => setStyles({ opacity: val === '' ? undefined : parseFloat(val) }, device)}
         min={0}
         max={1}
         step={0.01}

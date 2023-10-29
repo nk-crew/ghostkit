@@ -7,7 +7,9 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
+import ResponsiveToggle from '../../../components/responsive-toggle';
 import useStyles from '../../../hooks/use-styles';
+import useResponsive from '../../../hooks/use-responsive';
 import CodeEditor from '../../../components/code-editor';
 import { maybeEncode, maybeDecode } from '../../../utils/encode-decode';
 
@@ -39,7 +41,13 @@ function CustomCSSCustomTools(props) {
 
   const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasCustom = hasStyle('custom');
+  const { device, allDevices } = useResponsive();
+
+  let hasCustom = false;
+
+  ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+    hasCustom = hasCustom || hasStyle('custom', thisDevice);
+  });
 
   return (
     <ToolsPanelItem
@@ -51,13 +59,36 @@ function CustomCSSCustomTools(props) {
         }
       }}
       onDeselect={() => {
-        if (hasStyle('custom')) {
-          setStyles({ custom: undefined });
-        }
+        const propsToReset = {};
+
+        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`] = {};
+          }
+
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`].custom = undefined;
+          } else {
+            propsToReset.custom = undefined;
+          }
+        });
+
+        setStyles(propsToReset);
       }}
       isShownByDefault={false}
     >
-      <BaseControl label={__('Custom', '@@text_domain')}>
+      <BaseControl
+        label={
+          <>
+            {__('Custom', '@@text_domain')}
+            <ResponsiveToggle
+              checkActive={(checkMedia) => {
+                return hasStyle('custom', checkMedia);
+              }}
+            />
+          </>
+        }
+      >
         <Dropdown
           className="ghostkit-extension-customCSS-custom__dropdown"
           contentClassName="ghostkit-extension-customCSS-custom__dropdown-content"
@@ -79,7 +110,7 @@ function CustomCSSCustomTools(props) {
               <span>{__('Edit CSS', '@@text_domain')}</span>
               <CodeEditor
                 mode="css"
-                value={maybeDecode(getStyle('custom') || defaultPlaceholder)}
+                value={maybeDecode(getStyle('custom', device) || defaultPlaceholder)}
                 maxLines={7}
                 minLines={3}
                 height="200px"
@@ -97,11 +128,23 @@ function CustomCSSCustomTools(props) {
           )}
           renderContent={() => (
             <>
+              <BaseControl
+                label={
+                  <>
+                    {__('Custom', '@@text_domain')}
+                    <ResponsiveToggle
+                      checkActive={(checkMedia) => {
+                        return hasStyle('custom', checkMedia);
+                      }}
+                    />
+                  </>
+                }
+              />
               <CodeEditor
                 mode="css"
                 onChange={(value) => {
                   if (value !== placeholder) {
-                    setStyles({ custom: maybeEncode(value) });
+                    setStyles({ custom: maybeEncode(value) }, device);
                   }
 
                   // Reset placeholder.
@@ -109,7 +152,7 @@ function CustomCSSCustomTools(props) {
                     setDefaultPlaceholder('');
                   }
                 }}
-                value={maybeDecode(getStyle('custom') || defaultPlaceholder)}
+                value={maybeDecode(getStyle('custom', device) || defaultPlaceholder)}
                 maxLines={20}
                 minLines={5}
                 height="300px"

@@ -1,7 +1,9 @@
 /**
  * Internal dependencies
  */
+import ResponsiveToggle from '../../../components/responsive-toggle';
 import useStyles from '../../../hooks/use-styles';
+import useResponsive from '../../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
@@ -23,7 +25,13 @@ const { hasBlockSupport } = wp.blocks;
 function CustomCSSCursorTools(props) {
   const { getStyle, hasStyle, setStyles } = useStyles(props);
 
-  const hasCursor = hasStyle('cursor');
+  const { device, allDevices } = useResponsive();
+
+  let hasCursor = false;
+
+  ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+    hasCursor = hasCursor || hasStyle('cursor', thisDevice);
+  });
 
   return (
     <ToolsPanelItem
@@ -35,17 +43,38 @@ function CustomCSSCursorTools(props) {
         }
       }}
       onDeselect={() => {
-        if (hasStyle('cursor')) {
-          setStyles({ cursor: undefined });
-        }
+        const propsToReset = {};
+
+        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`] = {};
+          }
+
+          if (thisDevice) {
+            propsToReset[`media_${thisDevice}`].cursor = undefined;
+          } else {
+            propsToReset.cursor = undefined;
+          }
+        });
+
+        setStyles(propsToReset);
       }}
       isShownByDefault={false}
     >
       <SelectControl
-        label={__('Cursor', '@@text_domain')}
-        value={getStyle('cursor')}
+        label={
+          <>
+            {__('Cursor', '@@text_domain')}
+            <ResponsiveToggle
+              checkActive={(checkMedia) => {
+                return hasStyle('cursor', checkMedia);
+              }}
+            />
+          </>
+        }
+        value={getStyle('cursor', device)}
         onChange={(val) => {
-          setStyles({ cursor: val });
+          setStyles({ cursor: val }, device);
         }}
         options={[
           {
