@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import ResponsiveToggle from '../../../components/responsive-toggle';
+import Notice from '../../../components/notice';
 import useStyles from '../../../hooks/use-styles';
 import useResponsive from '../../../hooks/use-responsive';
 
@@ -61,6 +62,17 @@ function PositionPositionTools(props) {
       }}
       isShownByDefault={false}
     >
+      {['absolute', 'fixed'].includes(getStyle('position', device)) ? (
+        <>
+          <Notice status="info" isDismissible={false}>
+            {__(
+              'Please note! Custom positioning is not considered best practice for responsive web design and should not be used too frequently.',
+              '@@text_domain'
+            )}
+          </Notice>
+          <br />
+        </>
+      ) : null}
       <SelectControl
         label={
           <>
