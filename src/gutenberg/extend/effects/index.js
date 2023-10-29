@@ -43,7 +43,7 @@ function GhostKitExtensionEffectsInspector(original, { props }) {
   return (
     <>
       {original}
-      <InspectorControls>
+      <InspectorControls group="styles">
         <ToolsPanel
           label={
             <>

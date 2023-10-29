@@ -3,11 +3,11 @@
  */
 import './styles';
 import './frame';
-import './spacings';
 import './position';
+import './spacings';
 import './display';
-import './effects';
 import './custom-css';
+import './effects';
 import './toc-headings';
 import './toolbar-templates';
 
