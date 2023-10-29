@@ -152,6 +152,7 @@ function DisplayScreenSizeTools(props) {
         onChange={(value) => {
           updateDisplay(device, value);
         }}
+        isBlock
       />
     </ToolsPanelItem>
   );

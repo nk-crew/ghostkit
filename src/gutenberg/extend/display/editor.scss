@@ -1,5 +1,9 @@
 @import "../../variables";
 
+.ghostkit-tools-panel-display {
+  grid-column: 1/-1;
+}
+
 // Classes for visual styling hidden blocks
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-down($breakpoint) {
