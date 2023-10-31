@@ -1,6 +1,7 @@
 /**
  * Internal dependencies
  */
+import InputGroup from '../../../components/input-group';
 import InputDrag from '../../../components/input-drag';
 import ResponsiveToggle from '../../../components/responsive-toggle';
 import ImportantToggle from '../../../components/important-toggle';
@@ -14,11 +15,7 @@ const { __ } = wp.i18n;
 
 const { addFilter } = wp.hooks;
 
-const {
-  BaseControl,
-  ToolsPanelItem: __stableToolsPanelItem,
-  __experimentalToolsPanelItem,
-} = wp.components;
+const { ToolsPanelItem: __stableToolsPanelItem, __experimentalToolsPanelItem } = wp.components;
 
 const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 
@@ -64,7 +61,7 @@ function PositionDistanceTools(props) {
       }}
       isShownByDefault={false}
     >
-      <BaseControl
+      <InputGroup
         label={
           <>
             {__('Distance', '@@text_domain')}
@@ -81,62 +78,57 @@ function PositionDistanceTools(props) {
             />
           </>
         }
-        className="ghostkit-tools-panel-distance-row"
       >
-        <div>
-          {allDistances.map((distanceName) => {
-            let label = __('Top', '@@text_domain');
+        {allDistances.map((distanceName) => {
+          let label = __('Top', '@@text_domain');
 
-            switch (distanceName) {
-              case 'right':
-                label = __('Right', '@@text_domain');
-                break;
-              case 'bottom':
-                label = __('Bottom', '@@text_domain');
-                break;
-              case 'left':
-                label = __('Left', '@@text_domain');
-                break;
-              // no default
-            }
+          switch (distanceName) {
+            case 'right':
+              label = __('Right', '@@text_domain');
+              break;
+            case 'bottom':
+              label = __('Bottom', '@@text_domain');
+              break;
+            case 'left':
+              label = __('Left', '@@text_domain');
+              break;
+            // no default
+          }
 
-            let value = getStyle(distanceName, device);
+          let value = getStyle(distanceName, device);
 
-            const withImportant = / !important$/.test(value);
-            if (withImportant) {
-              value = value.replace(/ !important$/, '');
-            }
+          const withImportant = / !important$/.test(value);
+          if (withImportant) {
+            value = value.replace(/ !important$/, '');
+          }
 
-            return (
-              <div key={distanceName} className="ghostkit-tools-panel-distance-item">
-                <InputDrag
-                  help={label}
-                  value={value}
-                  placeholder="-"
-                  onChange={(val) => {
-                    const newValue = val
-                      ? `${val}${withImportant ? ' !important' : ''}`
-                      : undefined;
+          return (
+            <div key={distanceName}>
+              <InputDrag
+                help={label}
+                value={value}
+                placeholder="-"
+                onChange={(val) => {
+                  const newValue = val ? `${val}${withImportant ? ' !important' : ''}` : undefined;
+
+                  setStyles({ [distanceName]: newValue }, device);
+                }}
+                autoComplete="off"
+              />
+              <ImportantToggle
+                onClick={(newWithImportant) => {
+                  if (value) {
+                    const newValue = `${value}${newWithImportant ? ' !important' : ''}`;
 
                     setStyles({ [distanceName]: newValue }, device);
-                  }}
-                  autoComplete="off"
-                />
-                <ImportantToggle
-                  onClick={(newWithImportant) => {
-                    if (value) {
-                      const newValue = `${value}${newWithImportant ? ' !important' : ''}`;
-
-                      setStyles({ [distanceName]: newValue }, device);
-                    }
-                  }}
-                  isActive={withImportant}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </BaseControl>
+                  }
+                }}
+                isActive={withImportant}
+              />
+            </div>
+          );
+        })}
+      </InputGroup>
     </ToolsPanelItem>
   );
 }

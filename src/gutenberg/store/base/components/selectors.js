@@ -10,12 +10,14 @@ import ColorPicker from '../../../components/color-picker';
 import DateTimePicker from '../../../components/date-time-picker';
 import DropdownPicker from '../../../components/dropdown-picker';
 import EditorStyles from '../../../components/editor-styles';
+import ElementStateToggle from '../../../components/element-state-toggle';
 import FocalPointPicker from '../../../components/focal-point-picker';
 import GoogleFonts from '../../../components/google-fonts';
 import IconPicker from '../../../components/icon-picker';
 import ImagePicker from '../../../components/image-picker';
 import ImportantToggle from '../../../components/important-toggle';
 import InputDrag from '../../../components/input-drag';
+import InputGroup from '../../../components/input-group';
 import Modal from '../../../components/modal';
 import Notice from '../../../components/notice';
 import RangeControl from '../../../components/range-control';
@@ -43,12 +45,14 @@ export function get() {
     DateTimePicker,
     DropdownPicker,
     EditorStyles,
+    ElementStateToggle,
     FocalPointPicker,
     GoogleFonts,
     IconPicker,
     ImagePicker,
     ImportantToggle,
     InputDrag,
+    InputGroup,
     Modal,
     Notice,
     RangeControl,

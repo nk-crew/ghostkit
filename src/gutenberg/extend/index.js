@@ -2,9 +2,9 @@
  * Internal dependencies
  */
 import './styles';
-import './frame';
 import './position';
 import './spacings';
+import './frame';
 import './custom-css';
 import './display';
 import './effects';

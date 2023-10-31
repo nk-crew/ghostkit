@@ -1,6 +1,7 @@
 /**
  * Internal dependencies
  */
+import arrayMove from '../../../utils/array-move';
 import camelCaseToDash from '../../../utils/camel-case-to-dash';
 import * as classesReplacer from '../../../utils/classes-replacer';
 import dashCaseToTitle from '../../../utils/dash-case-to-title';
@@ -15,6 +16,7 @@ import sortObject from '../../../utils/sort-object';
 
 export function get() {
   return {
+    arrayMove,
     camelCaseToDash,
     classesReplacer,
     dashCaseToTitle,

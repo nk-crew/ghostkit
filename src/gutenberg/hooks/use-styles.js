@@ -10,31 +10,67 @@ export default function useStyles(props) {
   const ghostkitData = attributes?.ghostkit || {};
   const styles = ghostkitData?.styles || {};
 
-  function getStyle(name, device) {
+  /**
+   * Get style value by property name, selected device and optional selector.
+   *
+   * @param {String} name - style property name.
+   * @param {String} device - responsive device.
+   * @param {String} selector - optional custom selector.
+   *
+   * @returns {any}
+   */
+  function getStyle(name, device = false, selector = false) {
     let result;
+    let processStyles = styles;
 
     if (device) {
-      if (typeof styles?.[`media_${device}`]?.[name] !== 'undefined') {
-        result = styles?.[`media_${device}`]?.[name];
-      }
-    } else if (typeof styles?.[name] !== 'undefined') {
-      result = styles?.[name];
+      processStyles = processStyles?.[`media_${device}`];
+    }
+
+    if (selector) {
+      processStyles = processStyles?.[selector];
+    }
+
+    if (typeof processStyles?.[name] !== 'undefined') {
+      result = processStyles?.[name];
     }
 
     return result;
   }
 
-  function hasStyle(name, device) {
-    return typeof getStyle(name, device) !== 'undefined';
+  /**
+   * Check if style exists.
+   *
+   * @param {String} name - style property name.
+   * @param {String} device - responsive device.
+   * @param {String} selector - optional custom selector.
+   *
+   * @returns {boolean}
+   */
+  function hasStyle(name, device = false, selector = false) {
+    return typeof getStyle(name, device, selector) !== 'undefined';
   }
 
-  function setStyles(newStyles, device) {
+  /**
+   * Set new styles.
+   *
+   * @param {String} name - style property name.
+   * @param {String} device - responsive device.
+   * @param {String} selector - optional custom selector.
+   *
+   * @returns {boolean}
+   */
+  function setStyles(newStyles, device = false, selector = false) {
     let result;
 
     const clonedGhostkitData = cloneDeep(ghostkitData);
 
     if (typeof clonedGhostkitData?.styles === 'undefined') {
       clonedGhostkitData.styles = {};
+    }
+
+    if (selector) {
+      newStyles = { [selector]: newStyles };
     }
 
     if (device) {
