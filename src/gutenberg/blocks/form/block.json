@@ -7,16 +7,6 @@
   "description": "Add contact form to your page with reCaptcha.",
   "keywords": ["form", "contact"],
   "supports": {
-    "ghostkit": {
-      "effects": {
-        "reveal": true,
-        "mouseHover": true,
-        "mousePress": true,
-        "mouseMove": true,
-        "scroll": true,
-        "loop": true
-      }
-    },
     "html": false,
     "className": false,
     "anchor": false,

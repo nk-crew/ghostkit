@@ -86,11 +86,14 @@ class GhostKit_Extensions {
     public static function register_attribute( $block_type ) {
         $has_ghostkit_support = block_has_support( $block_type, array( 'ghostkit' ), false );
 
-        // Add ghostkit extensions support to core blocks.
+        // Add ghostkit extensions support to all Ghost Kit and Core blocks.
         if (
             ! $has_ghostkit_support &&
             $block_type->name &&
-            substr( $block_type->name, 0, 5 ) === 'core/' &&
+            (
+                substr( $block_type->name, 0, 5 ) === 'core/' ||
+                substr( $block_type->name, 0, 9 ) === 'ghostkit/'
+            ) &&
             ! in_array( $block_type->name, self::$unsupported_blocks, true )
         ) {
             $has_ghostkit_support = true;

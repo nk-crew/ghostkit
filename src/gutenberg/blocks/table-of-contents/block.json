@@ -7,16 +7,6 @@
   "description": "Summarize your post with a list of headings. Add HTML anchors to Heading blocks to link them here.",
   "keywords": ["table of contents", "toc", "summary", "document outline"],
   "supports": {
-    "ghostkit": {
-      "effects": {
-        "reveal": true,
-        "mouseHover": true,
-        "mousePress": true,
-        "mouseMove": true,
-        "scroll": true,
-        "loop": true
-      }
-    },
     "html": false,
     "className": false,
     "align": ["wide", "full"],

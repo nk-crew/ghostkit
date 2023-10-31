@@ -7,16 +7,6 @@
   "description": "Show Twitter feed and user data.",
   "keywords": ["twitter"],
   "supports": {
-    "ghostkit": {
-      "effects": {
-        "reveal": true,
-        "mouseHover": true,
-        "mousePress": true,
-        "mouseMove": true,
-        "scroll": true,
-        "loop": true
-      }
-    },
     "html": false,
     "className": false,
     "align": ["wide", "full"]

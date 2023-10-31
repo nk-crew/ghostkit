@@ -7,16 +7,6 @@
   "description": "Compare two images with a slider.",
   "keywords": ["image", "compare", "before", "after"],
   "supports": {
-    "ghostkit": {
-      "effects": {
-        "reveal": true,
-        "mouseHover": true,
-        "mousePress": true,
-        "mouseMove": true,
-        "scroll": true,
-        "loop": true
-      }
-    },
     "html": false,
     "className": false,
     "anchor": true,
