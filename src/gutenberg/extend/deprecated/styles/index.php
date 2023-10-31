@@ -2,6 +2,8 @@
 /**
  * Render deprecated block custom styles.
  *
+ * @since v3.1.0
+ *
  * @package ghostkit
  */
 

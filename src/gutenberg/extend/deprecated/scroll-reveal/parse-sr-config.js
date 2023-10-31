@@ -63,16 +63,16 @@ export default function parseSRConfig(data) {
   if (config.distance && origin) {
     switch (origin) {
       case 'bottom':
-        config.y = config.distance;
+        config.y = parseFloat(config.distance);
         break;
       case 'top':
-        config.y = -config.distance;
+        config.y = -parseFloat(config.distance);
         break;
       case 'right':
-        config.x = config.distance;
+        config.x = parseFloat(config.distance);
         break;
       case 'left':
-        config.x = -config.distance;
+        config.x = -parseFloat(config.distance);
         break;
       // no default
     }

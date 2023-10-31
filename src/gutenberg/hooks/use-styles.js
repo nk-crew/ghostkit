@@ -1,6 +1,7 @@
 // We can't use lodash merge, because it skip the specified undefined value.
 // We need it to remove styles.
 import merge from '../utils/merge';
+import { maybeEncode, maybeDecode } from '../utils/encode-decode';
 
 const { cloneDeep } = window.lodash;
 
@@ -35,7 +36,7 @@ export default function useStyles(props) {
       result = processStyles?.[name];
     }
 
-    return result;
+    return result && maybeDecode(result);
   }
 
   /**
@@ -117,7 +118,7 @@ export default function useStyles(props) {
       }
     });
 
-    clonedGhostkitData.styles = cleanResult;
+    clonedGhostkitData.styles = maybeEncode(cleanResult);
 
     setAttributes({ ghostkit: clonedGhostkitData });
   }

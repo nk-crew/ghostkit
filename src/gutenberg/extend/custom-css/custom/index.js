@@ -11,7 +11,6 @@ import ResponsiveToggle from '../../../components/responsive-toggle';
 import useStyles from '../../../hooks/use-styles';
 import useResponsive from '../../../hooks/use-responsive';
 import CodeEditor from '../../../components/code-editor';
-import { maybeEncode, maybeDecode } from '../../../utils/encode-decode';
 
 /**
  * WordPress dependencies
@@ -110,7 +109,7 @@ function CustomCSSCustomTools(props) {
               <span>{__('Edit CSS', '@@text_domain')}</span>
               <CodeEditor
                 mode="css"
-                value={maybeDecode(getStyle('custom', device) || defaultPlaceholder)}
+                value={getStyle('custom', device) || defaultPlaceholder}
                 maxLines={7}
                 minLines={3}
                 height="200px"
@@ -144,7 +143,7 @@ function CustomCSSCustomTools(props) {
                 mode="css"
                 onChange={(value) => {
                   if (value !== placeholder) {
-                    setStyles({ custom: maybeEncode(value) }, device);
+                    setStyles({ custom: value }, device);
                   }
 
                   // Reset placeholder.
@@ -152,7 +151,7 @@ function CustomCSSCustomTools(props) {
                     setDefaultPlaceholder('');
                   }
                 }}
-                value={maybeDecode(getStyle('custom', device) || defaultPlaceholder)}
+                value={getStyle('custom', device) || defaultPlaceholder}
                 maxLines={20}
                 minLines={5}
                 height="300px"

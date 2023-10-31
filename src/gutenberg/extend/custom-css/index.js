@@ -28,24 +28,6 @@ const { ToolsPanel: __stableToolsPanel, __experimentalToolsPanel } = wp.componen
 
 const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
 
-/**
- * Allow custom styles in blocks.
- *
- * @param {Boolean} allow Original block allow custom styles.
- * @param {Object} settings Original block settings.
- *
- * @return {Object} Filtered block settings.
- */
-function allowCustomStyles(allow, settings) {
-  const { name } = settings;
-
-  if (hasBlockSupport(name, ['ghostkit', 'customCSS'])) {
-    return true;
-  }
-
-  return allow;
-}
-
 const allCustomCSS = [
   'opacity',
   'overflow-x',
@@ -112,11 +94,6 @@ function GhostKitExtensionCustomCSSInspector(original, { props }) {
 }
 
 // Init filters.
-addFilter(
-  'ghostkit.blocks.allowCustomStyles',
-  'ghostkit/extension/customCSS/allow-custom-styles',
-  allowCustomStyles
-);
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/customCSS/inspector',
