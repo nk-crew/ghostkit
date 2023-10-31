@@ -29,16 +29,36 @@ function fixStylesPropNames(styles) {
  */
 export default function migrate(props) {
   const { attributes } = props;
-  const { ghostkitId, ghostkitClassname, ghostkitStyles, ghostkitCustomCSS } = attributes;
+  const {
+    ghostkitId,
+    ghostkitClassname,
+    ghostkitStyles,
+    ghostkitCustomCSS,
+    ghostkitPosition,
+    ghostkitSpacings,
+    ghostkitFrame,
+  } = attributes;
 
   const result = {};
 
   // Migration to new attribute.
-  if (ghostkitId || ghostkitClassname || ghostkitStyles || ghostkitCustomCSS) {
+  if (
+    ghostkitId ||
+    ghostkitClassname ||
+    ghostkitStyles ||
+    ghostkitCustomCSS ||
+    ghostkitPosition ||
+    ghostkitSpacings ||
+    ghostkitFrame
+  ) {
+    // Clean old attributes.
     result.ghostkitId = undefined;
     result.ghostkitClassname = undefined;
     result.ghostkitStyles = undefined;
     result.ghostkitCustomCSS = undefined;
+    result.ghostkitPosition = undefined;
+    result.ghostkitSpacings = undefined;
+    result.ghostkitFrame = undefined;
 
     const ghostkitData = cloneDeep(attributes?.ghostkit || {});
 

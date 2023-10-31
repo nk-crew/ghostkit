@@ -12,7 +12,7 @@ const { hasBlockSupport } = wp.blocks;
 
 export default function migrate(props) {
   const { name, attributes } = props;
-  const { ghostkitSR } = props;
+  const { ghostkitSR } = attributes;
 
   const result = {};
 
