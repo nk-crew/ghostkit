@@ -100,10 +100,6 @@ import iconMap from './icon-map.svg';
 import iconBadge from './icon-badge.svg';
 import iconFeltPen from './icon-felt-pen.svg';
 import iconKebabMenu from './icon-kebab-menu.svg';
-import iconAspectRatio32 from './icon-aspect-ratio-3-2.svg';
-import iconAspectRatio43 from './icon-aspect-ratio-4-3.svg';
-import iconAspectRatio169 from './icon-aspect-ratio-16-9.svg';
-import iconAspectRatio219 from './icon-aspect-ratio-21-9.svg';
 import iconTypographyFontSize from './icon-typography-font-size.svg';
 import iconTypographyLetterSpacing from './icon-typography-letter-spacing.svg';
 import iconTypographyLineHeight from './icon-typography-line-height.svg';
@@ -218,10 +214,6 @@ export default {
   'icon-badge': iconBadge,
   'icon-felt-pen': iconFeltPen,
   'icon-kebab-menu': iconKebabMenu,
-  'icon-aspect-ratio-3-2': iconAspectRatio32,
-  'icon-aspect-ratio-4-3': iconAspectRatio43,
-  'icon-aspect-ratio-16-9': iconAspectRatio169,
-  'icon-aspect-ratio-21-9': iconAspectRatio219,
   'icon-typography-font-size': iconTypographyFontSize,
   'icon-typography-letter-spacing': iconTypographyLetterSpacing,
   'icon-typography-line-height': iconTypographyLineHeight,
