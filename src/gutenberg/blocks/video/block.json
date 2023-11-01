@@ -76,6 +76,10 @@
       "type": "boolean",
       "default": false
     },
+    "videoBackgroundColor": {
+      "type": "string",
+      "default": "#010101"
+    },
 
     "iconPlay": {
       "type": "string",
@@ -116,6 +120,9 @@
     "clickAction": {
       "type": "string",
       "default": "plain"
+    },
+    "fullscreenVideoBackgroundColor": {
+      "type": "string"
     },
     "fullscreenBackgroundColor": {
       "type": "string"
