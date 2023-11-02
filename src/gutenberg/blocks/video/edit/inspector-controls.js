@@ -275,11 +275,13 @@ export default function BlockInspectorControls(props) {
           label={__('Play Icon', '@@text_domain')}
           value={iconPlay}
           onChange={(val) => setAttributes({ iconPlay: val })}
+          insideInspector
         />
         <IconPicker
           label={__('Loading Icon', '@@text_domain')}
           value={iconLoading}
           onChange={(val) => setAttributes({ iconLoading: val })}
+          insideInspector
         />
         {hasClass(className, 'is-style-icon-only') ? (
           <BaseControl label={__('Icon Align', '@@text_domain')}>
@@ -351,6 +353,7 @@ export default function BlockInspectorControls(props) {
               label={__('Fullscreen Close Icon', '@@text_domain')}
               value={fullscreenActionCloseIcon}
               onChange={(value) => setAttributes({ fullscreenActionCloseIcon: value })}
+              insideInspector
             />
           </>
         ) : (
