@@ -59,6 +59,8 @@ events.on(
   'mousedown touchstart',
   '.ghostkit-image-compare:not(.ghostkit-image-compare-trigger-hover)',
   (e) => {
+    if (e.targetTouches && !e.target.classList.contains('ghostkit-image-compare-images-divider'))
+      return;
     if (!e.targetTouches) e.preventDefault();
 
     init(e.delegateTarget);
@@ -68,18 +70,30 @@ events.on(
 // Trigger - Hover.
 events.on(document, 'mouseover touchstart', '.ghostkit-image-compare-trigger-hover', (e) => {
   if ($currentImageCompare) return;
+  if (e.targetTouches && !e.target.classList.contains('ghostkit-image-compare-images-divider'))
+    return;
   if (!e.targetTouches) e.preventDefault();
 
   init(e.delegateTarget);
 });
-events.on(document, 'mouseout touchend', '.ghostkit-image-compare-trigger-hover', () => {
+events.on(document, 'mouseout touchend', '.ghostkit-image-compare-trigger-hover', (e) => {
   if (!$currentImageCompare) return;
+
+  if (!e.targetTouches) {
+    clientX = e.clientX;
+    clientY = e.clientY;
+  }
 
   destroy();
 });
 
-events.on(document, 'mouseup touchend', () => {
+events.on(document, 'mouseup touchend', (e) => {
   if (!$currentImageCompare) return;
+
+  if (!e.targetTouches) {
+    clientX = e.clientX;
+    clientY = e.clientY;
+  }
 
   destroy();
 });
@@ -105,6 +119,7 @@ window.addEventListener(
   'touchstart',
   function (e) {
     if (!$currentImageCompare) return;
+    if (!e.target.classList.contains('ghostkit-image-compare-images-divider')) return;
 
     e.preventDefault();
   },
