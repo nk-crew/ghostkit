@@ -232,11 +232,13 @@ export default function BlockEdit(props) {
                 label={__('Prev icon', '@@text_domain')}
                 value={arrowPrevIcon}
                 onChange={(value) => setAttributes({ arrowPrevIcon: value })}
+                insideInspector
               />
               <IconPicker
                 label={__('Next icon', '@@text_domain')}
                 value={arrowNextIcon}
                 onChange={(value) => setAttributes({ arrowNextIcon: value })}
+                insideInspector
               />
             </>
           ) : (

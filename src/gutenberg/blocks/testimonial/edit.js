@@ -138,6 +138,7 @@ export default function BlockEdit(props) {
             label={__('Icon', '@@text_domain')}
             value={icon}
             onChange={(value) => setAttributes({ icon: value })}
+            insideInspector
           />
         </PanelBody>
         <PanelBody title={__('Photo', '@@text_domain')}>
@@ -241,6 +242,7 @@ export default function BlockEdit(props) {
               label={__('Icon', '@@text_domain')}
               value={starsIcon}
               onChange={(value) => setAttributes({ starsIcon: value })}
+              insideInspector
             />
           ) : (
             ''
