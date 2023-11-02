@@ -46,7 +46,14 @@ events.on(document, 'init.blocks.gkt', () => {
     const fullscreenCloseIcon =
       $this.querySelector('.ghostkit-video-fullscreen-close-icon')?.innerHTML || '';
 
+    const fullscreenVideoBackgroundColor = $this.getAttribute(
+      'data-fullscreen-video-background-color'
+    );
+    const fullscreenVideoBackgroundGradient = $this.getAttribute(
+      'data-fullscreen-video-background-gradient'
+    );
     const fullscreenBackgroundColor = $this.getAttribute('data-fullscreen-background-color');
+    const fullscreenBackgroundGradient = $this.getAttribute('data-fullscreen-background-gradient');
 
     let $poster = $this.querySelector('.ghostkit-video-poster');
     let $fullscreenWrapper = false;
@@ -121,6 +128,11 @@ events.on(document, 'init.blocks.gkt', () => {
               $fullscreenWrapper = document.createElement('div');
               $fullscreenWrapper.classList.add('ghostkit-video-fullscreen');
               $fullscreenWrapper.style.backgroundColor = fullscreenBackgroundColor;
+              $fullscreenWrapper.style.backgroundImage = fullscreenBackgroundGradient;
+              $fullscreenWrapper.style.setProperty(
+                '--gkt-fullscreen-video--video__background',
+                fullscreenVideoBackgroundColor || fullscreenVideoBackgroundGradient
+              );
               $fullscreenWrapper.style.setProperty(
                 '--gkt-fullscreen-video__aspect-ratio-width',
                 aspectRatioWidth

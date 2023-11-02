@@ -8,19 +8,35 @@ import edit from './edit';
 import save from './save';
 import transforms from './transforms';
 
+const { name } = metadata;
+export { metadata, name };
+
 /**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
 
-const { name } = metadata;
-
-export { metadata, name };
-
 export const settings = {
   icon: getIcon('block-video', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/video/',
+    customStylesCallback(attributes) {
+      const { videoBackgroundColor, videoBackgroundGradient } = attributes;
+      const styles = {};
+      const videoStyle = {};
+
+      if (videoBackgroundColor) {
+        videoStyle.backgroundColor = videoBackgroundColor;
+      }
+
+      if (videoBackgroundGradient) {
+        videoStyle.backgroundImage = videoBackgroundGradient;
+      }
+
+      styles.video = videoStyle;
+
+      return styles;
+    },
     supports: {
       styles: true,
       frame: true,

@@ -44,7 +44,10 @@ export default function BlockSave(props) {
 
     clickAction,
     fullscreenActionCloseIcon,
+    fullscreenVideoBackgroundColor,
+    fullscreenVideoBackgroundGradient,
     fullscreenBackgroundColor,
+    fullscreenBackgroundGradient,
 
     className,
   } = attributes;
@@ -52,7 +55,6 @@ export default function BlockSave(props) {
   const resultAttrs = {};
 
   resultAttrs.className = 'ghostkit-video';
-
   resultAttrs.className = applyFilters('ghostkit.blocks.className', resultAttrs.className, {
     ...{
       name,
@@ -80,13 +82,14 @@ export default function BlockSave(props) {
   }
 
   resultAttrs['data-video-aspect-ratio'] = videoAspectRatio;
-
   resultAttrs['data-video-volume'] = videoVolume;
-
   resultAttrs['data-click-action'] = clickAction;
 
   if (clickAction === 'fullscreen') {
+    resultAttrs['data-fullscreen-video-background-color'] = fullscreenVideoBackgroundColor;
+    resultAttrs['data-fullscreen-video-background-gradient'] = fullscreenVideoBackgroundGradient;
     resultAttrs['data-fullscreen-background-color'] = fullscreenBackgroundColor;
+    resultAttrs['data-fullscreen-background-gradient'] = fullscreenBackgroundGradient;
   } else {
     if (videoAutoplay) {
       resultAttrs['data-video-autoplay'] = 'true';
