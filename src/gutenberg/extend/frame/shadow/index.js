@@ -102,6 +102,40 @@ function FrameShadowTools(props) {
     }
   }, [device, isHover]);
 
+  // Update shadow.
+  useEffect(() => {
+    if (
+      typeof x === 'undefined' &&
+      typeof y === 'undefined' &&
+      typeof blur === 'undefined' &&
+      typeof spread === 'undefined' &&
+      typeof color === 'undefined'
+    ) {
+      // Reset.
+      if (getStyle('box-shadow', device, isHover && hoverSelector)) {
+        setStyles(
+          {
+            'box-shadow': undefined,
+          },
+          device,
+          isHover && hoverSelector
+        );
+      }
+
+      return;
+    }
+
+    setStyles(
+      {
+        'box-shadow': `${addPixelsToString(x || 0)} ${addPixelsToString(
+          y || 0
+        )} ${addPixelsToString(blur || 0)} ${addPixelsToString(spread || 0)} ${color || '#000'}`,
+      },
+      device,
+      isHover && hoverSelector
+    );
+  }, [x, y, blur, spread, color]);
+
   let hasShadow = false;
 
   ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
@@ -136,6 +170,11 @@ function FrameShadowTools(props) {
         });
 
         setStyles(propsToReset);
+        setX(undefined);
+        setY(undefined);
+        setBlur(undefined);
+        setSpread(undefined);
+        setColor(undefined);
       }}
       isShownByDefault={false}
     >
@@ -163,21 +202,7 @@ function FrameShadowTools(props) {
               <ColorPicker
                 value={color}
                 onChange={(val) => {
-                  if (!val) {
-                    setStyles({ 'box-shadow': undefined }, device, isHover && hoverSelector);
-                    setX(undefined);
-                    setY(undefined);
-                    setBlur(undefined);
-                    setSpread(undefined);
-                    setColor(undefined);
-                  } else {
-                    setStyles(
-                      { 'box-shadow': `${x} ${y} ${blur} ${spread} ${val}` },
-                      device,
-                      isHover && hoverSelector
-                    );
-                    setColor(val);
-                  }
+                  setColor(val);
                 }}
                 alpha
               />
@@ -188,14 +213,7 @@ function FrameShadowTools(props) {
               help={__('X', '@@text_domain')}
               value={x}
               onChange={(val) => {
-                setStyles(
-                  {
-                    'box-shadow': `${addPixelsToString(val || 0)} ${y} ${blur} ${spread} ${color}`,
-                  },
-                  device,
-                  isHover && hoverSelector
-                );
-                setX(addPixelsToString(val || 0));
+                setX(val || 0);
               }}
               startDistance={1}
               autoComplete="off"
@@ -204,14 +222,7 @@ function FrameShadowTools(props) {
               help={__('Y', '@@text_domain')}
               value={y}
               onChange={(val) => {
-                setStyles(
-                  {
-                    'box-shadow': `${x} ${addPixelsToString(val || 0)} ${blur} ${spread} ${color}`,
-                  },
-                  device,
-                  isHover && hoverSelector
-                );
-                setY(addPixelsToString(val || 0));
+                setY(val || 0);
               }}
               startDistance={1}
               autoComplete="off"
@@ -220,12 +231,7 @@ function FrameShadowTools(props) {
               help={__('Blur', '@@text_domain')}
               value={blur}
               onChange={(val) => {
-                setStyles(
-                  { 'box-shadow': `${x} ${y} ${addPixelsToString(val || 0)} ${spread} ${color}` },
-                  device,
-                  isHover && hoverSelector
-                );
-                setBlur(addPixelsToString(val || 0));
+                setBlur(val || 0);
               }}
               startDistance={1}
               autoComplete="off"
@@ -234,12 +240,7 @@ function FrameShadowTools(props) {
               help={__('Spread', '@@text_domain')}
               value={spread}
               onChange={(val) => {
-                setStyles(
-                  { 'box-shadow': `${x} ${y} ${blur} ${addPixelsToString(val || 0)} ${color}` },
-                  device,
-                  isHover && hoverSelector
-                );
-                setSpread(addPixelsToString(val || 0));
+                setSpread(val || 0);
               }}
               startDistance={1}
               autoComplete="off"
