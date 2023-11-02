@@ -22,7 +22,7 @@ export default function useStyles(props) {
    */
   function getStyle(name, device = false, selector = false) {
     let result;
-    let processStyles = styles;
+    let processStyles = maybeDecode(styles);
 
     if (device) {
       processStyles = processStyles?.[`media_${device}`];
@@ -36,7 +36,7 @@ export default function useStyles(props) {
       result = processStyles?.[name];
     }
 
-    return result && maybeDecode(result);
+    return result;
   }
 
   /**
@@ -89,7 +89,7 @@ export default function useStyles(props) {
         media_md: {},
         media_sm: {},
       },
-      clonedGhostkitData.styles,
+      maybeDecode(clonedGhostkitData.styles),
       result
     );
 
