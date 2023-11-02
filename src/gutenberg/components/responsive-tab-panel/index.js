@@ -1,37 +1,29 @@
+import classnames from 'classnames/dedupe';
+
 /**
  * Internal dependencies
  */
 import ActiveIndicator from '../active-indicator';
 import getIcon from '../../utils/get-icon';
+import useResponsive from '../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
  */
 const { __, sprintf } = wp.i18n;
 
-const { Tooltip, TabPanel } = wp.components;
-
-const { ghostkitVariables } = window;
+const { Tooltip, Button } = wp.components;
 
 /**
  * Component Class
  */
 export default function ResponsiveTabPanel(props) {
-  const {
-    filledTabs = {},
-    activeClass = 'is-active',
-    instanceId,
-    orientation = 'horizontal',
-    children,
-  } = props;
+  const { children } = props;
 
-  if (
-    !ghostkitVariables ||
-    !ghostkitVariables.media_sizes ||
-    !Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    return __('No media sizes found.', '@@text_domain');
-  }
+  // Fallback for deprecated filledTabs prop.
+  const active = props?.active || props?.filledTabs || {};
+
+  const { allDevices, device, setDevice } = useResponsive();
 
   const tabs = [];
   const icons = [
@@ -42,39 +34,50 @@ export default function ResponsiveTabPanel(props) {
     getIcon('tabs-tv'),
   ];
 
-  [...Object.keys(ghostkitVariables.media_sizes), 'all'].forEach((mediaName, i) => {
+  [...Object.keys(allDevices), ''].forEach((name, i) => {
     tabs.unshift({
-      name: mediaName,
+      name,
       title: (
         <Tooltip
           text={
-            mediaName === 'all'
+            !name
               ? __('All devices', '@@text_domain')
               : sprintf(
                   __('Devices with screen width <= %s', '@@text_domain'),
-                  `${ghostkitVariables.media_sizes[mediaName]}px`
+                  `${allDevices[name]}px`
                 )
           }
         >
           <span className="ghostkit-control-tabs-icon">
             {icons[i]}
-            {filledTabs && filledTabs[mediaName] ? <ActiveIndicator /> : ''}
+            {active && active[name] ? <ActiveIndicator /> : ''}
           </span>
         </Tooltip>
       ),
-      className: 'ghostkit-control-tabs-tab',
     });
   });
 
   return (
-    <TabPanel
-      className="ghostkit-control-tabs ghostkit-control-tabs-wide"
-      tabs={tabs}
-      activeClass={activeClass}
-      instanceId={instanceId}
-      orientation={orientation}
-    >
-      {children}
-    </TabPanel>
+    <div className="ghostkit-control-tabs ghostkit-control-tabs-wide">
+      <div className="components-tab-panel__tabs">
+        {tabs.map((data) => {
+          return (
+            <Button
+              key={data.name}
+              className={classnames(
+                'ghostkit-control-tabs-tab',
+                data.name === device && 'is-active'
+              )}
+              onClick={() => {
+                setDevice(data.name);
+              }}
+            >
+              {data.title}
+            </Button>
+          );
+        })}
+      </div>
+      {children({ name: device })}
+    </div>
   );
 }

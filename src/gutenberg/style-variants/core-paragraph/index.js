@@ -2,7 +2,7 @@
 /**
  * Internal dependencies
  */
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ResponsiveToggle from '../../components/responsive-toggle';
 import RangeControl from '../../components/range-control';
 import {
   getActiveClass,
@@ -11,6 +11,7 @@ import {
   removeClass,
   hasClass,
 } from '../../utils/classes-replacer';
+import useResponsive from '../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
@@ -27,8 +28,6 @@ const { InspectorControls } = wp.blockEditor;
 
 const { PanelBody } = wp.components;
 
-const { ghostkitVariables } = window;
-
 const COLUMNS_COUNT_MAX = 6;
 
 /**
@@ -40,7 +39,7 @@ const COLUMNS_COUNT_MAX = 6;
  * @returns {String} columns value.
  */
 function getCurrentColumns(className, screen) {
-  if (!screen || screen === 'all') {
+  if (!screen) {
     for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
       if (hasClass(className, `ghostkit-paragraph-columns-${k}`)) {
         return `${k}`;
@@ -58,6 +57,8 @@ function GhostKitParagraphColumns(props) {
   const { attributes, setAttributes } = props;
   const { className } = attributes;
 
+  const { device } = useResponsive();
+
   /**
    * Update columns count class.
    *
@@ -67,7 +68,7 @@ function GhostKitParagraphColumns(props) {
   function updateColumns(screen, val) {
     let newClassName = className;
 
-    if (screen && screen !== 'all') {
+    if (screen) {
       newClassName = replaceClass(newClassName, `ghostkit-paragraph-columns-${screen}`, val);
     } else {
       for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
@@ -84,32 +85,26 @@ function GhostKitParagraphColumns(props) {
     });
   }
 
-  const filledTabs = {};
-  if (
-    ghostkitVariables &&
-    ghostkitVariables.media_sizes &&
-    Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    ['all', ...Object.keys(ghostkitVariables.media_sizes)].forEach((media) => {
-      filledTabs[media] = !!getCurrentColumns(className, media);
-    });
-  }
-
   // add new display controls.
   return (
     <InspectorControls>
-      <PanelBody title={__('Columns Settings', '@@text_domain')} initialOpen>
-        <ResponsiveTabPanel filledTabs={filledTabs}>
-          {(tabData) => (
-            <RangeControl
-              label={__('Columns Count', '@@text_domain')}
-              value={parseInt(getCurrentColumns(className, tabData.name), 10)}
-              onChange={(value) => updateColumns(tabData.name, value)}
-              min={1}
-              max={COLUMNS_COUNT_MAX}
-            />
-          )}
-        </ResponsiveTabPanel>
+      <PanelBody>
+        <RangeControl
+          label={
+            <>
+              {__('Columns Count', '@@text_domain')}
+              <ResponsiveToggle
+                checkActive={(checkMedia) => {
+                  return !!getCurrentColumns(className, checkMedia);
+                }}
+              />
+            </>
+          }
+          value={parseInt(getCurrentColumns(className, device), 10)}
+          onChange={(value) => updateColumns(device, value)}
+          min={1}
+          max={COLUMNS_COUNT_MAX}
+        />
       </PanelBody>
     </InspectorControls>
   );

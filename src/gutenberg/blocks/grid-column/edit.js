@@ -7,8 +7,9 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import getIcon from '../../utils/get-icon';
+import useResponsive from '../../hooks/use-responsive';
 import ApplyFilters from '../../components/apply-filters';
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ResponsiveToggle from '../../components/responsive-toggle';
 import ToggleGroup from '../../components/toggle-group';
 import RangeControl from '../../components/range-control';
 
@@ -25,8 +26,6 @@ const { applyFilters } = wp.hooks;
 const { InspectorControls, InnerBlocks, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
 
 const { useSelect } = wp.data;
-
-const { ghostkitVariables } = window;
 
 /**
  * Get array for Select element.
@@ -108,27 +107,7 @@ export default function BlockEdit(props) {
 
   const { stickyContent, stickyContentOffset } = attributes;
 
-  const filledTabs = {};
-  if (
-    ghostkitVariables &&
-    ghostkitVariables.media_sizes &&
-    Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    Object.keys(ghostkitVariables.media_sizes).forEach((media) => {
-      let sizeName = 'size';
-      let orderName = 'order';
-      let verticalAlignName = 'verticalAlign';
-
-      if (media !== 'all') {
-        sizeName = `${media}_${sizeName}`;
-        orderName = `${media}_${orderName}`;
-        verticalAlignName = `${media}_${verticalAlignName}`;
-      }
-
-      filledTabs[media] =
-        attributes[sizeName] || attributes[orderName] || attributes[verticalAlignName];
-    });
-  }
+  const { device } = useResponsive();
 
   const { hasChildBlocks } = useSelect(
     (select) => {
@@ -156,74 +135,93 @@ export default function BlockEdit(props) {
     }
   );
 
+  let sizeName = 'size';
+  let orderName = 'order';
+  let verticalAlignName = 'verticalAlign';
+
+  if (device) {
+    sizeName = `${device}_${sizeName}`;
+    orderName = `${device}_${orderName}`;
+    verticalAlignName = `${device}_${verticalAlignName}`;
+  }
+
   return (
     <div {...blockProps}>
       <InspectorControls>
         <ApplyFilters name="ghostkit.editor.controls" attribute="columnSettings" props={props}>
           <PanelBody>
-            <ResponsiveTabPanel filledTabs={filledTabs}>
-              {(tabData) => {
-                let sizeName = 'size';
-                let orderName = 'order';
-                let verticalAlignName = 'verticalAlign';
-
-                if (tabData.name !== 'all') {
-                  sizeName = `${tabData.name}_${sizeName}`;
-                  orderName = `${tabData.name}_${orderName}`;
-                  verticalAlignName = `${tabData.name}_${verticalAlignName}`;
-                }
-
-                return (
-                  <Fragment>
-                    <SelectControl
-                      label={__('Size', '@@text_domain')}
-                      value={attributes[sizeName]}
-                      onChange={(value) => {
-                        setAttributes({
-                          [sizeName]: value,
-                        });
-                      }}
-                      options={getDefaultColumnSizes()}
-                    />
-                    <SelectControl
-                      label={__('Order', '@@text_domain')}
-                      value={attributes[orderName]}
-                      onChange={(value) => {
-                        setAttributes({
-                          [orderName]: value,
-                        });
-                      }}
-                      options={getDefaultColumnOrders()}
-                    />
-                    <ToggleGroup
-                      label={__('Vertical Alignment', '@@text_domain')}
-                      value={attributes[verticalAlignName]}
-                      options={[
-                        {
-                          icon: getIcon('icon-vertical-top'),
-                          label: __('Top', '@@text_domain'),
-                          value: '',
-                        },
-                        {
-                          icon: getIcon('icon-vertical-center'),
-                          label: __('Center', '@@text_domain'),
-                          value: 'center',
-                        },
-                        {
-                          icon: getIcon('icon-vertical-bottom'),
-                          label: __('Bottom', '@@text_domain'),
-                          value: 'end',
-                        },
-                      ]}
-                      onChange={(value) => {
-                        setAttributes({ [verticalAlignName]: value });
-                      }}
-                      isDeselectable
-                    />
-                  </Fragment>
-                );
+            <SelectControl
+              label={
+                <>
+                  {__('Size', '@@text_domain')}
+                  <ResponsiveToggle
+                    checkActive={(checkMedia) => {
+                      return !!attributes[`${checkMedia}_size`];
+                    }}
+                  />
+                </>
+              }
+              value={attributes[sizeName]}
+              onChange={(value) => {
+                setAttributes({
+                  [sizeName]: value,
+                });
               }}
-            </ResponsiveTabPanel>
+              options={getDefaultColumnSizes()}
+            />
+            <SelectControl
+              label={
+                <>
+                  {__('Order', '@@text_domain')}
+                  <ResponsiveToggle
+                    checkActive={(checkMedia) => {
+                      return !!attributes[`${checkMedia}_order`];
+                    }}
+                  />
+                </>
+              }
+              value={attributes[orderName]}
+              onChange={(value) => {
+                setAttributes({
+                  [orderName]: value,
+                });
+              }}
+              options={getDefaultColumnOrders()}
+            />
+            <ToggleGroup
+              label={
+                <>
+                  {__('Vertical Alignment', '@@text_domain')}
+                  <ResponsiveToggle
+                    checkActive={(checkMedia) => {
+                      return !!attributes[`${checkMedia}_verticalAlign`];
+                    }}
+                  />
+                </>
+              }
+              value={attributes[verticalAlignName]}
+              options={[
+                {
+                  icon: getIcon('icon-vertical-top'),
+                  label: __('Top', '@@text_domain'),
+                  value: '',
+                },
+                {
+                  icon: getIcon('icon-vertical-center'),
+                  label: __('Center', '@@text_domain'),
+                  value: 'center',
+                },
+                {
+                  icon: getIcon('icon-vertical-bottom'),
+                  label: __('Bottom', '@@text_domain'),
+                  value: 'end',
+                },
+              ]}
+              onChange={(value) => {
+                setAttributes({ [verticalAlignName]: value });
+              }}
+              isDeselectable
+            />
           </PanelBody>
         </ApplyFilters>
         <PanelBody>

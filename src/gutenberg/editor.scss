@@ -13,16 +13,20 @@
 @import "./components/color-picker/editor";
 @import "./components/date-time-picker/editor";
 @import "./components/dropdown-picker/editor";
+@import "./components/element-state-toggle/editor";
 @import "./components/gap-settings/editor";
 @import "./components/icon-picker/editor";
 @import "./components/image-picker/editor";
+@import "./components/important-toggle/editor";
 @import "./components/input-drag/editor";
+@import "./components/input-group/editor";
 @import "./components/modal/editor";
 @import "./components/notice/editor";
 @import "./components/pro-note/editor";
 @import "./components/range-control/editor";
 @import "./components/remove-button/editor";
 @import "./components/responsive-tab-panel/editor";
+@import "./components/responsive-toggle/editor";
 @import "./components/select/editor";
 @import "./components/toggle-group/editor";
 @import "./components/transition-selector/editor";
@@ -33,9 +37,11 @@
 /**
  * Extensions.
  */
+@import "./extend/deprecated/editor";
 @import "./extend/effects/editor";
 @import "./extend/custom-css/editor";
 @import "./extend/frame/editor";
+@import "./extend/position/editor";
 @import "./extend/display/editor";
 @import "./extend/spacings/editor";
 @import "./extend/toolbar-templates/editor";
@@ -52,6 +58,7 @@
 @import "./plugins/color-palette/editor";
 @import "./plugins/custom-code/editor";
 @import "./plugins/customizer/editor";
+@import "./plugins/editor-iframe-resize/editor";
 @import "./plugins/ghostkit/editor";
 @import "./plugins/templates/editor";
 @import "./plugins/typography/editor";

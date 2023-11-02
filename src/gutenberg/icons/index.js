@@ -95,6 +95,7 @@ import iconBox from './icon-box.svg';
 import iconCircle from './icon-circle.svg';
 import iconTrash from './icon-trash.svg';
 import iconMarker from './icon-marker.svg';
+import iconPointer from './icon-pointer.svg';
 import iconTextUppercase from './icon-text-uppercase.svg';
 import iconMap from './icon-map.svg';
 import iconBadge from './icon-badge.svg';
@@ -209,6 +210,7 @@ export default {
   'icon-circle': iconCircle,
   'icon-trash': iconTrash,
   'icon-marker': iconMarker,
+  'icon-pointer': iconPointer,
   'icon-text-uppercase': iconTextUppercase,
   'icon-map': iconMap,
   'icon-badge': iconBadge,

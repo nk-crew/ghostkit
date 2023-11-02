@@ -13,6 +13,8 @@ import 'ace-builds/src-noconflict/ext-language_tools';
  * Component Class
  */
 export default function CodeEditor(props) {
+  const { setOptions = {} } = props;
+
   return (
     <AceEditor
       className="ghostkit-component-code-editor"
@@ -36,6 +38,8 @@ export default function CodeEditor(props) {
 
         // When worker is enabled, a lot of errors displayed in the console.
         useWorker: false,
+
+        ...setOptions,
       }}
       editorProps={{
         $blockScrolling: Infinity,

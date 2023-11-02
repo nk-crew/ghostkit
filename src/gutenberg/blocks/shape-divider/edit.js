@@ -6,13 +6,14 @@ import classnames from 'classnames/dedupe';
 /**
  * Internal dependencies
  */
-import ResponsiveTabPanel from '../../components/responsive-tab-panel';
+import ResponsiveToggle from '../../components/responsive-toggle';
 import ImagePicker from '../../components/image-picker';
 import ColorPicker from '../../components/color-picker';
 import ProNote from '../../components/pro-note';
 import RangeControl from '../../components/range-control';
 import getIcon from '../../utils/get-icon';
 import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
+import useResponsive from '../../hooks/use-responsive';
 
 /**
  * WordPress dependencies
@@ -27,7 +28,7 @@ const { PanelBody, ToolbarGroup, ToolbarButton, Dropdown } = wp.components;
 
 const { InspectorControls, BlockControls, useBlockProps } = wp.blockEditor;
 
-const { GHOSTKIT, ghostkitVariables } = window;
+const { GHOSTKIT } = window;
 
 const { shapes } = GHOSTKIT;
 
@@ -62,6 +63,8 @@ export default function BlockEdit(props) {
   const { svg, flipVertical, flipHorizontal, color } = attributes;
 
   let { className = '' } = props;
+
+  const { device } = useResponsive();
 
   // Mounted.
   useEffect(() => {
@@ -158,25 +161,6 @@ export default function BlockEdit(props) {
 
   const shapeData = getShapeData(svg);
 
-  const filledTabs = {};
-  if (
-    ghostkitVariables &&
-    ghostkitVariables.media_sizes &&
-    Object.keys(ghostkitVariables.media_sizes).length
-  ) {
-    Object.keys(ghostkitVariables.media_sizes).forEach((media) => {
-      let heightName = 'height';
-      let widthName = 'width';
-
-      if (media !== 'all') {
-        heightName = `${media}_${heightName}`;
-        widthName = `${media}_${widthName}`;
-      }
-
-      filledTabs[media] = attributes[heightName] || attributes[widthName];
-    });
-  }
-
   className = classnames(
     'ghostkit-shape-divider',
     {
@@ -192,6 +176,14 @@ export default function BlockEdit(props) {
     className,
     dangerouslySetInnerHTML: { __html: maybeDecode(svg) },
   });
+
+  let heightName = 'height';
+  let widthName = 'width';
+
+  if (device) {
+    heightName = `${device}_${heightName}`;
+    widthName = `${device}_${widthName}`;
+  }
 
   return (
     <Fragment>
@@ -239,47 +231,49 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody title={__('Style', '@@text_domain')}>{getShapesPicker()}</PanelBody>
         <PanelBody title={__('Size', '@@text_domain')}>
-          <ResponsiveTabPanel filledTabs={filledTabs}>
-            {(tabData) => {
-              let heightName = 'height';
-              let widthName = 'width';
-
-              if (tabData.name !== 'all') {
-                heightName = `${tabData.name}_${heightName}`;
-                widthName = `${tabData.name}_${widthName}`;
-              }
-
-              return (
-                <Fragment>
-                  <RangeControl
-                    label={__('Height', '@@text_domain')}
-                    value={attributes[heightName] ? parseInt(attributes[heightName], 10) : ''}
-                    onChange={(value) => {
-                      setAttributes({
-                        [heightName]: `${typeof value === 'number' ? value : ''}`,
-                      });
-                    }}
-                    min={1}
-                    max={700}
-                    allowCustomMax
-                  />
-                  <RangeControl
-                    label={__('Width', '@@text_domain')}
-                    value={attributes[widthName] ? parseInt(attributes[widthName], 10) : ''}
-                    onChange={(value) => {
-                      setAttributes({
-                        [widthName]: `${typeof value === 'number' ? value : ''}`,
-                      });
-                    }}
-                    min={100}
-                    max={400}
-                    allowCustomMin
-                    allowCustomMax
-                  />
-                </Fragment>
-              );
+          <RangeControl
+            label={
+              <>
+                {__('Height', '@@text_domain')}
+                <ResponsiveToggle
+                  checkActive={(checkMedia) => {
+                    return !!attributes[`${checkMedia}_height`];
+                  }}
+                />
+              </>
+            }
+            value={attributes[heightName] ? parseInt(attributes[heightName], 10) : ''}
+            onChange={(value) => {
+              setAttributes({
+                [heightName]: `${typeof value === 'number' ? value : ''}`,
+              });
             }}
-          </ResponsiveTabPanel>
+            min={1}
+            max={700}
+            allowCustomMax
+          />
+          <RangeControl
+            label={
+              <>
+                {__('Width', '@@text_domain')}
+                <ResponsiveToggle
+                  checkActive={(checkMedia) => {
+                    return !!attributes[`${checkMedia}_width`];
+                  }}
+                />
+              </>
+            }
+            value={attributes[widthName] ? parseInt(attributes[widthName], 10) : ''}
+            onChange={(value) => {
+              setAttributes({
+                [widthName]: `${typeof value === 'number' ? value : ''}`,
+              });
+            }}
+            min={100}
+            max={400}
+            allowCustomMin
+            allowCustomMax
+          />
         </PanelBody>
         <PanelBody>
           <ColorPicker

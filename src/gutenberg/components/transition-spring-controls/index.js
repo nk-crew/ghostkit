@@ -227,7 +227,7 @@ export function SpringControls(props) {
       {enableDelayControl && (
         <NumberControl
           label={__('Delay', '@@text_domain')}
-          suffix={__('s', '@@text_domain')}
+          suffix="s&nbsp;"
           value={value?.delay || 0}
           onChange={(val) => updateValue({ delay: parseFloat(val) })}
           labelPosition="edge"

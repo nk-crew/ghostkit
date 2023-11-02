@@ -1,7 +1,6 @@
 /**
  * Internal dependencies
  */
-import './deprecated-scroll-reveal';
 import './reveal';
 import './pro-effects';
 
@@ -23,8 +22,11 @@ const {
   ToolbarDropdownMenu,
   MenuGroup,
   Button,
-  __experimentalToolsPanel: ToolsPanel,
+  ToolsPanel: __stableToolsPanel,
+  __experimentalToolsPanel,
 } = wp.components;
+
+const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
 
 /**
  * Add inspector controls.
@@ -41,7 +43,7 @@ function GhostKitExtensionEffectsInspector(original, { props }) {
   return (
     <>
       {original}
-      <InspectorControls>
+      <InspectorControls group="styles">
         <ToolsPanel
           label={
             <>

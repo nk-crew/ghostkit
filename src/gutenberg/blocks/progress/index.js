@@ -58,8 +58,9 @@ export const settings = {
   },
   example: {
     attributes: {
-      ghostkitId: 'example-progress',
-      ghostkitClassname: 'ghostkit-custom-example-progress',
+      ghostkit: {
+        id: 'example-progress',
+      },
       className: 'ghostkit-custom-example-progress',
     },
   },

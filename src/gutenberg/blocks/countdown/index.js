@@ -45,8 +45,9 @@ export const settings = {
     attributes: {
       units: ['hours', 'minutes', 'seconds'],
       unitsAlign: 'center',
-      ghostkitId: 'example-countdown',
-      ghostkitClassname: 'ghostkit-custom-example-countdown',
+      ghostkit: {
+        id: 'example-countdown',
+      },
       className: 'ghostkit-custom-example-countdown',
     },
   },

@@ -1,91 +1,57 @@
 @import "../../variables";
 @import "./style";
 
-.ghostkit-extension-frame-tabs {
-  margin-top: -10px;
+.ghostkit-tools-panel-frame {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / -1;
+  gap: 15px;
 }
 
-// Border additional options.
-.ghostkit-control-border-additional {
+// Border.
+.ghostkit-control-border-row {
   display: flex;
   align-items: center;
-  margin-top: -20px;
-  margin-bottom: 24px;
+  justify-content: space-between;
 
-  > div:first-child {
-    margin-right: auto;
+  .ghostkit-control-toggle-group {
+    width: 60%;
+
+    .components-toggle-group-control {
+      min-height: 30px;
+    }
   }
 
-  .ghostkit-component-color-picker-wrapper {
-    margin-bottom: 0 !important;
-
-    .components-base-control__field {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
+  .ghostkit-component-color-toggle {
+    padding: 0px;
+    margin-top: 4px;
+    background: none;
+    border: none;
   }
 
   .ghostkit-component-input-drag {
-    margin-bottom: 0 !important;
-
-    .components-base-control__field {
-      margin-bottom: 0;
-    }
+    max-width: 62px;
   }
 }
 
 // Shadow
 .ghostkit-control-box-shadow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   > div:first-child {
     margin-right: auto;
   }
 
-  .ghostkit-component-color-picker-wrapper {
-    margin-bottom: 0 !important;
-
-    .components-base-control__field {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
-  .ghostkit-component-input-drag {
-    max-width: 45px;
-    margin-bottom: 0 !important;
-
-    .components-base-control__field {
-      margin-bottom: 0;
-    }
-  }
-
-  > div + div {
-    margin-left: -1px;
-  }
-
-  > div:focus-within {
-    z-index: 1;
-  }
-
-  .ghostkit-control-box-shadow-x input {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .ghostkit-control-box-shadow-y input,
-  .ghostkit-control-box-shadow-blur input {
-    border-radius: 0;
-  }
-
-  .ghostkit-control-box-shadow-spread input {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+  .ghostkit-component-color-toggle {
+    padding: 0px;
+    margin-top: 5px;
+    background: none;
+    border: none;
   }
 }
 
-// Corner radius.
+// Border Radius.
 .ghostkit-control-radius {
   display: flex;
 

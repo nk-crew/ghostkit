@@ -7,16 +7,6 @@
   "description": "Show how your users love your products and what saying.",
   "keywords": ["testimonial", "blockquote", "quote"],
   "supports": {
-    "ghostkit": {
-      "effects": {
-        "reveal": true,
-        "mouseHover": true,
-        "mousePress": true,
-        "mouseMove": true,
-        "scroll": true,
-        "loop": true
-      }
-    },
     "html": false,
     "className": false,
     "anchor": true,

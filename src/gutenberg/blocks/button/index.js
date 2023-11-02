@@ -62,8 +62,9 @@ export const settings = {
           text: 'Button 1',
           size: 'xl',
           color: '#0366d6',
-          ghostkitId: 'example-button-1',
-          ghostkitClassname: 'ghostkit-custom-example-button-1',
+          ghostkit: {
+            id: 'example-button-1',
+          },
           className: 'ghostkit-custom-example-button-1',
         },
       },
@@ -75,8 +76,9 @@ export const settings = {
           color: '#2F1747',
           icon: '<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.7813 9.75C16.7813 7.10939 14.6406 4.96875 12 4.96875C9.35939 4.96875 7.21875 7.10939 7.21875 9.75C7.21875 12.3906 9.35939 14.5312 12 14.5312C14.6406 14.5312 16.7813 12.3906 16.7813 9.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.15625 18C10.6023 19.25 13.3977 19.25 15.8437 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
           borderRadius: 50,
-          ghostkitId: 'example-button-2',
-          ghostkitClassname: 'ghostkit-custom-example-button-2',
+          ghostkit: {
+            id: 'example-button-2',
+          },
           className: 'ghostkit-custom-example-button-2',
         },
       },

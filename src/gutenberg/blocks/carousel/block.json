@@ -7,16 +7,6 @@
   "description": "Carousel for any type of content - images or other blocks.",
   "keywords": ["carousel", "slider"],
   "supports": {
-    "ghostkit": {
-      "effects": {
-        "reveal": true,
-        "mouseHover": true,
-        "mousePress": true,
-        "mouseMove": true,
-        "scroll": true,
-        "loop": true
-      }
-    },
     "html": false,
     "className": false,
     "anchor": true,
