@@ -83,7 +83,7 @@ const hiddenIconCategories = {};
 function IconPickerDropdown(props) {
   const cellMCache = useRef();
 
-  const { onChange, value, label, className, renderToggle } = props;
+  const { onChange, value, label, className, renderToggle, insideInspector } = props;
 
   const [search, setSearch] = useState('');
   const [hiddenCategories, setHiddenCategories] = useState(hiddenIconCategories);
@@ -336,6 +336,15 @@ function IconPickerDropdown(props) {
       renderToggle={renderToggle}
       focusOnMount={false}
       renderContent={() => getDropdownContent()}
+      {...(insideInspector
+        ? {
+            popoverProps: {
+              placement: 'left-start',
+              offset: 36,
+              shift: true,
+            },
+          }
+        : {})}
     />
   );
 
@@ -349,29 +358,32 @@ function IconPickerDropdown(props) {
 }
 
 export default function IconPicker(props) {
-  const { value, label, onChange } = props;
+  const { value, label, onChange, insideInspector } = props;
 
   return (
-    <IconPicker.Dropdown
-      label={label}
-      className="ghostkit-component-icon-picker-wrapper"
-      onChange={(val) => onChange(maybeEncode(val))}
-      value={maybeDecode(value)}
-      renderToggle={({ isOpen, onToggle }) => (
-        <Tooltip text={__('Icon Picker', '@@text_domain')}>
-          {/* We need this <div> just because Tooltip don't work without it */}
-          <div>
+    <BaseControl className="ghostkit-component-icon-picker-wrapper">
+      <IconPicker.Dropdown
+        onChange={(val) => onChange(maybeEncode(val))}
+        value={maybeDecode(value)}
+        insideInspector={insideInspector}
+        renderToggle={({ isOpen, onToggle }) => (
+          <Button
+            className={classnames(
+              'ghostkit-component-icon-picker-toggle',
+              isOpen ? 'ghostkit-component-icon-picker-toggle-active' : ''
+            )}
+            onClick={onToggle}
+          >
             <IconPicker.Preview
-              className="ghostkit-component-icon-picker-button hover"
-              aria-expanded={isOpen}
-              onClick={onToggle}
+              className="ghostkit-component-icon-picker-toggle-indicator"
               name={maybeDecode(value)}
               alwaysRender
             />
-          </div>
-        </Tooltip>
-      )}
-    />
+            <span className="ghostkit-component-icon-picker-toggle-label">{label}</span>
+          </Button>
+        )}
+      />
+    </BaseControl>
   );
 }
 
@@ -433,41 +445,22 @@ IconPicker.Preview = function (props) {
 
 // render icon.
 IconPicker.Render = function (props) {
-  const {
-    tag = 'span',
-    className,
-    onClick,
-    onKeyPress,
-    role,
-    tabIndex,
-    alwaysRender = false,
-  } = props;
-
-  let { name } = props;
+  const { tag = 'span', name, alwaysRender = false, ...restProps } = props;
 
   const Tag = tag;
   let result = '';
 
-  name = maybeDecode(name);
+  const decodedName = maybeDecode(name);
 
-  if (name && /^</g.test(name)) {
-    result = name;
-  } else if (name) {
-    result = `<span class="${name}"></span>`;
+  if (decodedName && /^</g.test(decodedName)) {
+    result = decodedName;
+  } else if (decodedName) {
+    result = `<span class="${decodedName}"></span>`;
   }
 
   if (!result && !alwaysRender) {
     return null;
   }
 
-  return (
-    <Tag
-      dangerouslySetInnerHTML={{ __html: result }}
-      className={className}
-      onClick={onClick}
-      onKeyPress={onKeyPress}
-      role={role}
-      tabIndex={tabIndex}
-    />
-  );
+  return <Tag dangerouslySetInnerHTML={{ __html: result }} {...restProps} />;
 };

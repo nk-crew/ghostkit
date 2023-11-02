@@ -484,11 +484,13 @@ export default function BlockEdit(props) {
             label={__('Play Icon', '@@text_domain')}
             value={iconPlay}
             onChange={(value) => setAttributes({ iconPlay: value })}
+            insideInspector
           />
           <IconPicker
             label={__('Loading Icon', '@@text_domain')}
             value={iconLoading}
             onChange={(value) => setAttributes({ iconLoading: value })}
+            insideInspector
           />
           {hasClass(className, 'is-style-icon-only') ? (
             <BaseControl label={__('Icon Align', '@@text_domain')}>
@@ -563,6 +565,7 @@ export default function BlockEdit(props) {
                 label={__('Fullscreen Close Icon', '@@text_domain')}
                 value={fullscreenActionCloseIcon}
                 onChange={(value) => setAttributes({ fullscreenActionCloseIcon: value })}
+                insideInspector
               />
             </Fragment>
           ) : (

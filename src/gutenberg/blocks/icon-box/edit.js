@@ -84,6 +84,7 @@ export default function BlockEdit(props) {
             label={__('Icon', '@@text_domain')}
             value={icon}
             onChange={(value) => setAttributes({ icon: value })}
+            insideInspector
           />
           {icon ? (
             <>
