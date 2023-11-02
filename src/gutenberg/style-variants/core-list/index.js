@@ -239,6 +239,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
               label={__('Icon', '@@text_domain')}
               value={ghostkitListIcon}
               onChange={(value) => setAttributes({ ghostkitListIcon: value })}
+              insideInspector
             />
             <ColorPicker
               label={__('Color', '@@text_domain')}

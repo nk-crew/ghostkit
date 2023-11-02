@@ -11,6 +11,14 @@
     --ghostkit-component-image-picker-item-size: 25%;
   }
 
+  &.ghostkit-component-image-picker-5 {
+    --ghostkit-component-image-picker-item-size: 20%;
+  }
+
+  &.ghostkit-component-image-picker-6 {
+    --ghostkit-component-image-picker-item-size: 16.66%;
+  }
+
   .components-base-control__field {
     display: flex;
     flex-wrap: wrap;

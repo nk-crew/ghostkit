@@ -35,7 +35,7 @@ class GhostKit_Typography {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $local_typography = $wpdb->query(
                 $wpdb->prepare(
-                    'SELECT * FROM `wp_postmeta` WHERE (`meta_key` LIKE %s) LIMIT 50',
+                    "SELECT * FROM `{$wpdb->prefix}postmeta` WHERE (`meta_key` LIKE %s) LIMIT 50",
                     '%ghostkit_typography%'
                 )
             );
