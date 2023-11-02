@@ -43,17 +43,15 @@
     "html": false,
     "className": false,
     "anchor": true,
-    "align": ["left", "center", "right"],
+    "align": ["wide", "full", "left", "center", "right"],
     "color": {
       "text": true,
       "gradients": true,
       "background": true,
-      "link": true,
       "__experimentalSkipSerialization": true,
       "__experimentalDefaultControls": {
         "text": true,
-        "background": true,
-        "link": false
+        "background": true
       }
     },
     "__experimentalBorder": {
