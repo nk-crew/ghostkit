@@ -1,7 +1,6 @@
 @import "../../variables";
 
-@import "./extend/effects/reveal/editor";
-@import "./extend/effects/deprecated-scroll-reveal/editor";
+@import "./reveal/editor";
 
 .ghostkit-tools-panel-effects {
   grid-column: 1 / -1;

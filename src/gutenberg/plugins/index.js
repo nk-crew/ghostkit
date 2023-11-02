@@ -7,6 +7,7 @@ import * as typography from './typography';
 import * as customCode from './custom-code';
 import * as colorPalette from './color-palette';
 import * as customizer from './customizer';
+import * as editorIframeResize from './editor-iframe-resize';
 
 /**
  * WordPress dependencies
@@ -18,7 +19,7 @@ const { GHOSTKIT } = window;
 /**
  * Register plugins
  */
-[ghostkit, templates, typography, customCode, colorPalette, customizer].forEach(
+[ghostkit, templates, typography, customCode, colorPalette, customizer, editorIframeResize].forEach(
   ({ name, icon, Plugin }) => {
     if (name === 'ghostkit-color-palette' && !GHOSTKIT.allowPluginColorPalette) {
       return;

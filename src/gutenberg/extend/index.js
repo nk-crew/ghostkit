@@ -1,13 +1,14 @@
 /**
  * Internal dependencies
  */
+import './deprecated';
 import './styles';
-import './frame';
-import './spacings';
 import './position';
+import './spacings';
+import './frame';
+import './custom-css';
 import './display';
 import './effects';
-import './custom-css';
 import './toc-headings';
 import './toolbar-templates';
 

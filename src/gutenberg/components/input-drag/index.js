@@ -71,9 +71,12 @@ export default class InputDrag extends Component {
   parseValue() {
     let valueNum = parseFloat(this.props.value);
     let unit = '';
+
     // check if value contains units and save it.
     if (this.props.value !== `${valueNum}`) {
-      const matchUnit = this.props.value.match(new RegExp(`${valueNum}(${units.join('|')})`, 'i'));
+      const matchUnit = (this.props.value || '').match(
+        new RegExp(`${valueNum}(${units.join('|')})`, 'i')
+      );
 
       if (matchUnit && matchUnit[1]) {
         // eslint-disable-next-line prefer-destructuring
@@ -217,7 +220,7 @@ export default class InputDrag extends Component {
   }
 
   render() {
-    const { value, onChange, icon, placeholder, autoComplete, className } = this.props;
+    const { value, label, help, onChange, icon, placeholder, autoComplete, className } = this.props;
 
     let classHasIcon = 'ghostkit-component-input-drag-no-icon';
 
@@ -229,14 +232,16 @@ export default class InputDrag extends Component {
       <div className={classnames(classHasIcon, className)}>
         {icon}
         <TextControl
+          label={label}
+          help={help}
+          placeholder={placeholder}
+          value={value || ''}
           onMouseDown={this.mouseDown}
           onKeyDown={this.keyDown}
-          value={value}
           onChange={(val) => {
             onChange(val);
           }}
           className="ghostkit-component-input-drag"
-          placeholder={placeholder}
           autoComplete={autoComplete}
         />
       </div>

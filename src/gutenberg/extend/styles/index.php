@@ -1,6 +1,6 @@
 <?php
 /**
- * Get block custom styles.
+ * Render block CSS.
  *
  * @package ghostkit
  */
@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class GhostKit_Block_Custom_Styles
+ * Class GhostKit_Extension_Styles
  */
-class GhostKit_Block_Custom_Styles {
+class GhostKit_Extension_Styles {
     /**
      * Array of CSS properties, that support pixels.
      *
@@ -21,12 +21,19 @@ class GhostKit_Block_Custom_Styles {
     private static $css_props_with_pixels = array( 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-width', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-radius', 'bottom', 'top', 'left', 'right', 'font-size', 'height', 'width', 'min-height', 'min-width', 'max-height', 'max-width', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', 'margin', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', 'padding', 'outline-width' );
 
     /**
+     * GhostKit_Extension_Styles constructor.
+     */
+    public static function init() {
+        add_filter( 'gkt_block_custom_styles', 'GhostKit_Extension_Styles::block_custom_styles', 10, 2 );
+    }
+
+    /**
      * Check if string end with.
      *
-     * @param String $string full string.
-     * @param String $test  test string.
+     * @param string $string full string.
+     * @param string $test  test string.
      *
-     * @return Boolean
+     * @return boolean
      */
     private static function endswith( $string, $test ) {
         $strlen  = strlen( $string );
@@ -42,8 +49,8 @@ class GhostKit_Block_Custom_Styles {
     /**
      * Convert camel case string to dash case.
      *
-     * @param String $str string to convert.
-     * @return String converted string.
+     * @param string $str string to convert.
+     * @return string converted string.
      */
     private static function camel2dash( $str ) {
         return strtolower( preg_replace( '/([a-zA-Z])(?=[A-Z])/', '$1-', $str ) );
@@ -52,24 +59,32 @@ class GhostKit_Block_Custom_Styles {
     /**
      * Get styles from block attribute.
      *
-     * @param array $block_attrs - block attrs.
+     * @param string $blocks_css - block css.
+     * @param array  $block - block data.
      *
      * @return string - ready to use styles string.
      */
-    public static function get( $block_attrs ) {
-        $result_css = '';
+    public static function block_custom_styles( $blocks_css, $block ) {
+        $attributes = $block['attrs'] ?? array();
 
-        if (
-            isset( $block_attrs ) &&
-            isset( $block_attrs['ghostkitClassname'] ) &&
-            $block_attrs['ghostkitClassname'] &&
-            isset( $block_attrs['ghostkitStyles'] ) &&
-            ! empty( $block_attrs['ghostkitStyles'] )
-        ) {
-            $result_css .= self::parse( ghostkit_decode( $block_attrs['ghostkitStyles'] ) );
+        $id     = $attributes['ghostkit']['id'] ?? '';
+        $styles = $attributes['ghostkit']['styles'] ?? '';
+
+        if ( $id && $styles ) {
+            if ( ! empty( $blocks_css ) ) {
+                $blocks_css .= ' ';
+            }
+
+            $blocks_css .= self::parse(
+                ghostkit_decode(
+                    array(
+                        '.ghostkit-custom-' . $id => $styles,
+                    )
+                )
+            );
         }
 
-        return $result_css;
+        return $blocks_css;
     }
 
     /**
@@ -132,45 +147,67 @@ class GhostKit_Block_Custom_Styles {
                     $result[ $selector ] = '';
                 }
 
+                $is_custom  = 'custom' === $k;
                 $prop_name  = self::camel2dash( $k );
                 $prop_value = $val;
 
-                $there_id_important = self::endswith( $prop_value, ' !important' );
+                // Prepare custom styles as text.
+                if ( $is_custom ) {
+                    if ( ! empty( $prop_value ) && '' !== $prop_value && $selector ) {
+                        if ( ! isset( $result['custom'] ) ) {
+                            $result['custom'] = '';
+                        } else {
+                            $result['custom'] .= ' ';
+                        }
 
-                if ( $there_id_important ) {
-                    $prop_value = str_replace( ' !important', '', $prop_value );
-                }
-
-                // add pixels.
-                if (
-                    // Ensure that value is number, or string, which contains numbers.
-                    (
-                        ( is_numeric( $prop_value ) && 0 !== $prop_value ) ||
-                        ( is_string( $prop_value ) && $prop_value && preg_match( '/^[0-9.\-]*$/', $prop_value ) )
-                    ) &&
-                    // Unsure that property support units.
-                    // For example, we should not add pixes to z-index.
-                    in_array( $prop_name, self::$css_props_with_pixels, true )
-                ) {
-                    $prop_value .= 'px';
-                }
-
-                // add custom css.
-                if ( ! empty( $prop_value ) && '' !== $prop_value ) {
-                    if ( $there_id_important ) {
-                        $prop_value .= ' !important';
+                        $result['custom'] .= str_replace( 'selector', $selector, ghostkit_decode( $prop_value ) );
                     }
 
-                    $result[ $selector ] .= ' ' . $prop_name . ': ' . $prop_value . ';';
+                    // Prepare styles from props.
+                } else {
+                    $with_important = self::endswith( $prop_value, ' !important' );
+
+                    if ( $with_important ) {
+                        $prop_value = str_replace( ' !important', '', $prop_value );
+                    }
+
+                    // add pixels.
+                    if (
+                        // Ensure that value is number, or string, which contains numbers.
+                        (
+                            ( is_numeric( $prop_value ) && 0 !== $prop_value ) ||
+                            ( is_string( $prop_value ) && $prop_value && preg_match( '/^[0-9.\-]*$/', $prop_value ) )
+                        ) &&
+                        // Ensure that property support units.
+                        // For example, we should not add pixes to z-index.
+                        in_array( $prop_name, self::$css_props_with_pixels, true )
+                    ) {
+                        $prop_value .= 'px';
+                    }
+
+                    // add custom css.
+                    if ( ! empty( $prop_value ) && '' !== $prop_value ) {
+                        if ( $with_important ) {
+                            $prop_value .= ' !important';
+                        }
+
+                        $result[ $selector ] .= ' ' . $prop_name . ': ' . $prop_value . ';';
+                    }
                 }
             }
         }
 
         // add styles to selectors.
         foreach ( $result as $k => $val ) {
-            $result_css = $k . ' {' . $val . ' }' . ( $result_css ? " $result_css" : '' );
+            if ( 'custom' === $k ) {
+                $result_css = $val . ( $result_css ? " $result_css" : '' );
+            } else {
+                $result_css = $k . ' {' . $val . ' }' . ( $result_css ? " $result_css" : '' );
+            }
         }
 
         return $result_css;
     }
 }
+
+GhostKit_Extension_Styles::init();

@@ -49,7 +49,7 @@ class GhostKit_Assets {
     );
 
     /**
-     * Visual_Portfolio_Extend constructor.
+     * GhostKit_Assets constructor.
      */
     public function __construct() {
         add_action( 'init', array( $this, 'register_scripts' ) );
@@ -154,6 +154,8 @@ class GhostKit_Assets {
         self::store_used_assets( 'ghostkit', true, 'style', 9 );
         self::store_used_assets( 'ghostkit', true, 'script', 11 );
 
+        $blocks_css = '';
+
         // Prepare blocks assets.
         foreach ( $blocks as $block ) {
             // GhostKit blocks.
@@ -163,12 +165,23 @@ class GhostKit_Assets {
                 self::store_used_assets( 'ghostkit-block-' . $block_name, true, 'style' );
                 self::store_used_assets( 'ghostkit-block-' . $block_name, true, 'script' );
             }
+
+            // Filter blocks custom CSS.
+            if ( isset( $block['blockName'] ) ) {
+                $custom_styles = apply_filters( 'gkt_block_custom_styles', '', $block );
+
+                if ( ! empty( $custom_styles ) ) {
+                    if ( ! empty( $blocks_css ) ) {
+                        $blocks_css .= ' ';
+                    }
+
+                    $blocks_css .= $custom_styles;
+                }
+            }
         }
 
-        // Blocks custom CSS.
-        $blocks_css = self::parse_blocks_css( $blocks );
-
-        if ( ! empty( $blocks_css ) ) {
+        // Store custom CSS.
+        if ( ! empty( $blocks_css ) && $blocks_css ) {
             self::store_used_assets( 'ghostkit-blocks-' . $location . '-custom-css', ghostkit()->replace_vars( $blocks_css ), 'custom-css' );
         }
     }
@@ -550,25 +563,6 @@ class GhostKit_Assets {
         }
 
         self::enqueue( $blocks, $location );
-    }
-
-    /**
-     * Parse blocks and prepare styles
-     *
-     * @param array $blocks Blocks array with attributes.
-     * @return string
-     */
-    public static function parse_blocks_css( $blocks ) {
-        $styles = '';
-
-        foreach ( $blocks as $block ) {
-            if ( isset( $block['attrs'] ) ) {
-                $styles .= GhostKit_Block_Custom_Styles::get( $block['attrs'] );
-                $styles .= GhostKit_Block_Custom_CSS::get( $block['attrs'] );
-            }
-        }
-
-        return $styles;
     }
 
     /**

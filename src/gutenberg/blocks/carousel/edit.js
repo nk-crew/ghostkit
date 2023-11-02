@@ -172,7 +172,7 @@ export default function BlockEdit(props) {
 
           <RangeControl
             label={__('Speed (seconds)', '@@text_domain')}
-            suffix={__('sec', '@@text_domain')}
+            suffix="s&nbsp;"
             value={speed}
             onChange={(value) => setAttributes({ speed: value })}
             min={0}

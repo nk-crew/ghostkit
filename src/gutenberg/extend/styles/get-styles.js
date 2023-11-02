@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import camelCaseToDash from '../../utils/camel-case-to-dash';
+import { maybeDecode } from '../../utils/encode-decode';
 
 const cssPropsWithPixels = [
   'border-top-width',
@@ -95,40 +96,60 @@ export default function getStyles(data = {}, selector = '', escape = true) {
         result[selector] = '';
       }
 
+      const isCustom = key === 'custom';
       const propName = camelCaseToDash(key);
       let propValue = data[key];
 
-      const thereIsImportant = / !important$/.test(propValue);
-      if (thereIsImportant) {
-        propValue = propValue.replace(/ !important$/, '');
-      }
+      // Prepare custom styles as text.
+      if (isCustom) {
+        if (typeof propValue !== 'undefined' && propValue !== '' && selector) {
+          if (!result.custom) {
+            result.custom = '';
+          } else {
+            result.custom += ' ';
+          }
 
-      // add pixels.
-      if (
-        // Ensure that value is number, or string, which contains numbers.
-        ((typeof propValue === 'number' && propValue !== 0) ||
-          (typeof propValue === 'string' && propValue && /^[0-9.-]*$/.test(propValue))) &&
-        // Unsure that property support units.
-        // For example, we should not add pixes to z-index.
-        cssPropsWithPixels.includes(propName)
-      ) {
-        propValue += 'px';
-      }
-
-      // add custom css.
-      if (typeof propValue !== 'undefined' && propValue !== '') {
-        if (thereIsImportant) {
-          propValue += ' !important';
+          result.custom += `${maybeDecode(propValue).replace(/selector/g, selector)}`;
         }
 
-        result[selector] += ` ${propName}: ${propValue};`;
+        // Prepare styles from props.
+      } else {
+        const withImportant = / !important$/.test(propValue);
+        if (withImportant) {
+          propValue = propValue.replace(/ !important$/, '');
+        }
+
+        // add pixels.
+        if (
+          // Ensure that value is number, or string, which contains numbers.
+          ((typeof propValue === 'number' && propValue !== 0) ||
+            (typeof propValue === 'string' && propValue && /^[0-9.-]*$/.test(propValue))) &&
+          // Unsure that property support units.
+          // For example, we should not add pixes to z-index.
+          cssPropsWithPixels.includes(propName)
+        ) {
+          propValue += 'px';
+        }
+
+        // add custom css.
+        if (typeof propValue !== 'undefined' && propValue !== '') {
+          if (withImportant) {
+            propValue += ' !important';
+          }
+
+          result[selector] += ` ${propName}: ${propValue};`;
+        }
       }
     }
   });
 
   // add styles to selectors.
   Object.keys(result).forEach((key) => {
-    resultCSS = `${key} {${result[key]} }${resultCSS ? ` ${resultCSS}` : ''}`;
+    if (key === 'custom') {
+      resultCSS = `${result[key]}${resultCSS ? ` ${resultCSS}` : ''}`;
+    } else {
+      resultCSS = `${key} {${result[key]} }${resultCSS ? ` ${resultCSS}` : ''}`;
+    }
   });
 
   return resultCSS;

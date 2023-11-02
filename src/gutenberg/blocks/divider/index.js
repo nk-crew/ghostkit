@@ -60,8 +60,9 @@ export const settings = {
       iconSize: 40,
       color: '#a7a9ab',
       iconColor: '#a7a9ab',
-      ghostkitId: 'example-divider',
-      ghostkitClassname: 'ghostkit-custom-example-divider',
+      ghostkit: {
+        id: 'example-divider',
+      },
       className: 'ghostkit-custom-example-divider',
     },
   },

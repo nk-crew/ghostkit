@@ -7,16 +7,6 @@
   "description": "Search for and insert an animated image.",
   "keywords": ["animated", "giphy", "image"],
   "supports": {
-    "ghostkit": {
-      "effects": {
-        "reveal": true,
-        "mouseHover": true,
-        "mousePress": true,
-        "mouseMove": true,
-        "scroll": true,
-        "loop": true
-      }
-    },
     "html": false,
     "className": false,
     "anchor": true

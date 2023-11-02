@@ -7,16 +7,6 @@
   "description": "Icons are one of the best visual replacement for text descriptions.",
   "keywords": ["icon", "icon-box"],
   "supports": {
-    "ghostkit": {
-      "effects": {
-        "reveal": true,
-        "mouseHover": true,
-        "mousePress": true,
-        "mouseMove": true,
-        "scroll": true,
-        "loop": true
-      }
-    },
     "html": false,
     "className": false,
     "anchor": true,

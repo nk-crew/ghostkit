@@ -2,6 +2,8 @@
 /**
  * Scroll Reveal Extension.
  *
+ * @since v3.1.0
+ *
  * @package @@plugin_name
  */
 
