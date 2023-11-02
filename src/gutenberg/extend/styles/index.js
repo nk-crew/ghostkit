@@ -201,6 +201,7 @@ function CustomStylesComponent(props) {
         const newClassName = replaceClass(className, 'ghostkit-custom', ghostkitID);
         if (newClassName !== className) {
           newAttrs.className = newClassName;
+          updateAttrs = true;
         }
 
         if (withBlockCustomStyles && !updateAttrs) {
