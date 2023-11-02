@@ -105,7 +105,6 @@ function FrameBorderRadiusTools(props) {
         <InputDrag
           help={__('TL', '@@text_domain')}
           value={getStyle('border-top-left-radius', device, isHover && hoverSelector)}
-          placeholder="-"
           onChange={(val) =>
             setStyles({ 'border-top-left-radius': val }, device, isHover && hoverSelector)
           }
@@ -114,7 +113,6 @@ function FrameBorderRadiusTools(props) {
         <InputDrag
           help={__('TR', '@@text_domain')}
           value={getStyle('border-top-right-radius', device, isHover && hoverSelector)}
-          placeholder="-"
           onChange={(val) =>
             setStyles({ 'border-top-right-radius': val }, device, isHover && hoverSelector)
           }
@@ -123,7 +121,6 @@ function FrameBorderRadiusTools(props) {
         <InputDrag
           help={__('BR', '@@text_domain')}
           value={getStyle('border-bottom-right-radius', device, isHover && hoverSelector)}
-          placeholder="-"
           onChange={(val) =>
             setStyles({ 'border-bottom-right-radius': val }, device, isHover && hoverSelector)
           }
@@ -132,7 +129,6 @@ function FrameBorderRadiusTools(props) {
         <InputDrag
           help={__('BL', '@@text_domain')}
           value={getStyle('border-bottom-left-radius', device, isHover && hoverSelector)}
-          placeholder="-"
           onChange={(val) =>
             setStyles({ 'border-bottom-left-radius': val }, device, isHover && hoverSelector)
           }
