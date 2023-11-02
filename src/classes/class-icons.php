@@ -54,7 +54,7 @@ class GhostKit_Icons_List {
             'icons' => array(
                 array(
                     'keys' => 'ghostkit',
-                    'svg' => '<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.7813 9.75C16.7813 7.10939 14.6406 4.96875 12 4.96875C9.35939 4.96875 7.21875 7.10939 7.21875 9.75C7.21875 12.3906 9.35939 14.5312 12 14.5312C14.6406 14.5312 16.7813 12.3906 16.7813 9.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.15625 18C10.6023 19.25 13.3977 19.25 15.8437 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+                    'svg' => '<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.5965 15.3206C17.0994 14.6244 17.4472 13.8088 17.5894 12.9245H21C20.8198 14.7391 20.102 16.3955 19.0082 17.7322L16.5965 15.3206Z" fill="currentColor"/><path d="M15.3206 16.5965C14.6244 17.0994 13.8088 17.4472 12.9245 17.5894V21C14.7391 20.8198 16.3955 20.102 17.7322 19.0082L15.3206 16.5965Z" fill="currentColor"/><path d="M12.0223 6.38335C14.8295 6.38335 17.1576 8.43463 17.5894 11.12H21C20.5473 6.5608 16.7006 3 12.0223 3C7.03941 3 3 7.03941 3 12.0223C3 16.7006 6.5608 20.5473 11.12 21V17.5894C8.43463 17.1576 6.38335 14.8295 6.38335 12.0223C6.38335 8.90798 8.90798 6.38335 12.0223 6.38335Z" fill="currentColor"/></svg>',
                 ),
                 array(
                     'keys' => 'chevron,angle,up',
