@@ -4,6 +4,7 @@
 import arrayMove from '../../../utils/array-move';
 import camelCaseToDash from '../../../utils/camel-case-to-dash';
 import * as classesReplacer from '../../../utils/classes-replacer';
+import compactObject from '../../../utils/compact-object';
 import dashCaseToTitle from '../../../utils/dash-case-to-title';
 import * as encodeDecode from '../../../utils/encode-decode';
 import getIcon from '../../../utils/get-icon';
@@ -19,6 +20,7 @@ export function get() {
     arrayMove,
     camelCaseToDash,
     classesReplacer,
+    compactObject,
     dashCaseToTitle,
     encodeDecode,
     getIcon,

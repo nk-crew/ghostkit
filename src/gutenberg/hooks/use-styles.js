@@ -1,6 +1,7 @@
 // We can't use lodash merge, because it skip the specified undefined value.
 // We need it to remove styles.
 import merge from '../utils/merge';
+import compactObject from '../utils/compact-object';
 import { maybeEncode, maybeDecode } from '../utils/encode-decode';
 
 const { cloneDeep } = window.lodash;
@@ -93,30 +94,7 @@ export default function useStyles(props) {
       result
     );
 
-    const cleanResult = {};
-
-    // Validate values and remove empty.
-    Object.keys(result).forEach((key) => {
-      if (result[key]) {
-        // check if device object.
-        if (typeof result[key] === 'object') {
-          Object.keys(result[key]).forEach((keyDevice) => {
-            // Skip undefined values to possibility to remove styles.
-            if (typeof result[key][keyDevice] !== 'undefined') {
-              if (!cleanResult[key]) {
-                cleanResult[key] = {};
-              }
-
-              cleanResult[key][keyDevice] = result[key][keyDevice];
-            }
-          });
-
-          // Skip undefined values to possibility to remove styles.
-        } else if (typeof result[key] !== 'undefined') {
-          cleanResult[key] = result[key];
-        }
-      }
-    });
+    const cleanResult = compactObject(result);
 
     clonedGhostkitData.styles = maybeEncode(cleanResult);
 
