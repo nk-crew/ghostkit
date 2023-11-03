@@ -6,6 +6,7 @@ import './styles';
 import './position';
 import './spacings';
 import './frame';
+import './transform';
 import './custom-css';
 import './display';
 import './effects';
