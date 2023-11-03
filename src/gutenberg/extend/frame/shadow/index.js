@@ -192,6 +192,9 @@ function FrameShadowTools(props) {
               onChange={() => {
                 setIsHover(!isHover);
               }}
+              checkActive={() => {
+                return hasStyle('box-shadow', device, hoverSelector);
+              }}
             />
           </>
         }

@@ -98,6 +98,14 @@ function FrameBorderRadiusTools(props) {
               onChange={() => {
                 setIsHover(!isHover);
               }}
+              checkActive={() => {
+                return (
+                  hasStyle('border-top-left-radius', device, hoverSelector) ||
+                  hasStyle('border-top-right-radius', device, hoverSelector) ||
+                  hasStyle('border-bottom-left-radius', device, hoverSelector) ||
+                  hasStyle('border-bottom-right-radius', device, hoverSelector)
+                );
+              }}
             />
           </>
         }
