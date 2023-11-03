@@ -41,14 +41,17 @@ export const settings = {
         innerStyles.width = width;
       }
 
+      const { transform } = innerStyles;
       if (flipH) {
-        const flip = 'scaleX(-1)';
-        innerStyles.transform = innerStyles.transform ? `${innerStyles.transform} ${flip}` : flip;
+        innerStyles.transform = transform ? `${transform} scaleX(-1)` : 'scaleX(-1)';
+      } else {
+        innerStyles.transform = transform || '';
       }
 
       if (flipV) {
-        const flip = 'scaleY(-1)';
-        innerStyles.transform = innerStyles.transform ? `${innerStyles.transform} ${flip}` : flip;
+        innerStyles.transform = transform ? `${transform} scaleY(-1)` : 'scaleY(-1)';
+      } else {
+        innerStyles.transform = transform || '';
       }
 
       // Border.
@@ -57,6 +60,12 @@ export const settings = {
           ...innerStyles,
           ...setBorder(borderStyle),
         };
+      } else {
+        innerStyles.border = '';
+        innerStyles.borderTop = '';
+        innerStyles.borderRight = '';
+        innerStyles.borderBottom = '';
+        innerStyles.borderLeft = '';
       }
 
       // Color.
@@ -73,6 +82,15 @@ export const settings = {
           ...innerStyles,
           ...spacingStyle,
         };
+      } else {
+        innerStyles.paddingTop = '';
+        innerStyles.paddingRight = '';
+        innerStyles.paddingBottom = '';
+        innerStyles.paddingLeft = '';
+        innerStyles.marginTop = '';
+        innerStyles.marginRight = '';
+        innerStyles.marginBottom = '';
+        innerStyles.marginLeft = '';
       }
 
       styles['> .ghostkit-icon-inner'] = innerStyles;
