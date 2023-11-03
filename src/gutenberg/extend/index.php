@@ -160,6 +160,7 @@ class GhostKit_Extensions {
 }
 
 require_once ghostkit()->plugin_path . 'gutenberg/extend/deprecated/index.php';
+require_once ghostkit()->plugin_path . 'gutenberg/extend/attributes/index.php';
 require_once ghostkit()->plugin_path . 'gutenberg/extend/styles/index.php';
 require_once ghostkit()->plugin_path . 'gutenberg/extend/position/index.php';
 require_once ghostkit()->plugin_path . 'gutenberg/extend/spacings/index.php';

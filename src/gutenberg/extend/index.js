@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import './deprecated';
+import './attributes';
 import './styles';
 import './position';
 import './spacings';
