@@ -10,7 +10,25 @@
     "html": false,
     "className": false,
     "anchor": true,
-    "align": ["wide", "full"]
+    "align": ["wide", "full"],
+    "spacing": {
+      "padding": ["vertical"],
+      "margin": ["vertical"],
+      "__experimentalDefaultControls": {
+        "padding": false,
+        "margin": false
+      }
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "width": true,
+      "__experimentalDefaultControls": {
+        "color": false,
+        "radius": false,
+        "width": false
+      }
+    }
   },
   "attributes": {
     "isTemplatesModalOnly": {
