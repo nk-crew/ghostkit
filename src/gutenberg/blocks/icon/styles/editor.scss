@@ -1,17 +1,11 @@
 /**
  * Editor Styles
  */
-.ghostkit-icon {
-  display: flex;
+@import "./style";
 
+.ghostkit-icon {
   .components-dropdown {
     display: block;
-  }
-
-  svg.ghostkit-svg-icon {
-    display: block;
-    width: 100%;
-    height: 100%;
   }
 
   > span {

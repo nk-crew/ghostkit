@@ -28,11 +28,15 @@ const {
  */
 export default function BlockSave(props) {
   const { attributes } = props;
-  const { url, target, ariaLabel, rel, icon } = attributes;
+  const { url, target, ariaLabel, rel, icon, flipV, flipH } = attributes;
 
   const Tag = url ? 'a' : 'div';
 
-  let className = 'ghostkit-icon';
+  let className = classnames('ghostkit-icon', {
+    'ghostkit-icon-flip-vertical': flipV,
+    'ghostkit-icon-flip-horizontal': flipH,
+  });
+
   className = applyFilters('ghostkit.blocks.className', className, {
     ...{ name },
     ...props,

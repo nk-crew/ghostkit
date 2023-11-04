@@ -19,7 +19,10 @@ export const settings = {
     customStylesCallback(attributes) {
       const { gap, gapCustom, gapVerticalCustom } = attributes;
 
-      const result = {};
+      const styles = {
+        '--gkt-button__gap': undefined,
+        '--gkt-button__gap-vertical': undefined,
+      };
 
       // Custom Gap.
       if (gap === 'custom') {
@@ -27,18 +30,18 @@ export const settings = {
           // we need to use `%` unit because of conflict with complex calc() and 0 value.
           const unit = gapCustom ? 'px' : '%';
 
-          result['--gkt-button__gap'] = `${gapCustom}${unit}`;
+          styles['--gkt-button__gap'] = `${gapCustom}${unit}`;
         }
 
         if (typeof gapVerticalCustom !== 'undefined') {
           // we need to use `%` unit because of conflict with complex calc() and 0 value.
           const unit = gapVerticalCustom ? 'px' : '%';
 
-          result['--gkt-button__gap-vertical'] = `${gapVerticalCustom}${unit}`;
+          styles['--gkt-button__gap-vertical'] = `${gapVerticalCustom}${unit}`;
         }
       }
 
-      return result;
+      return styles;
     },
     supports: {
       styles: true,

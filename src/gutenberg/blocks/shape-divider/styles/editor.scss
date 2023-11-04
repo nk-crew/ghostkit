@@ -14,8 +14,6 @@
   .ghostkit-shape-divider-control-styles-item-default-arrow-curve svg {
     width: 300%;
     height: 9px;
-    margin-left: 50%;
-    transform: translateX(-50%);
   }
 }
 
@@ -27,8 +25,4 @@
   + [data-type="ghostkit/shape-divider"] {
     margin-top: $default-block-margin;
   }
-}
-
-.ghostkit-shape-divider {
-  width: 100%;
 }

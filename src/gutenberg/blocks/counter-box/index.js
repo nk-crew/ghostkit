@@ -19,15 +19,15 @@ export const settings = {
     previewUrl: 'https://ghostkit.io/blocks/number-box/',
     customStylesCallback(attributes) {
       const styles = {
-        '--gkt-counter-box--number__font-size':
-          typeof attributes.numberSize !== 'undefined' ? `${attributes.numberSize}px` : undefined,
-        '--gkt-counter-box--number__color': attributes.numberColor,
+        '--gkt-counter-box--number__font-size': undefined,
+        '--gkt-counter-box--number__color': attributes.numberColor || undefined,
+        '&:hover': {
+          '--gkt-counter-box--number__color': attributes.hoverNumberColor || undefined,
+        },
       };
 
-      if (attributes.hoverNumberColor) {
-        styles['&:hover'] = {
-          '--gkt-counter-box--number__color': attributes.hoverNumberColor,
-        };
+      if (typeof attributes.numberSize !== 'undefined' && attributes.numberSize !== '') {
+        styles['--gkt-counter-box--number__font-size'] = `${attributes.numberSize}px`;
       }
 
       return styles;

@@ -16,12 +16,17 @@ export const settings = {
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/image-compare/',
     customStylesCallback(attributes) {
-      return {
-        '--gkt-image-compare__position':
-          typeof attributes.position !== 'undefined' ? `${attributes.position}%` : undefined,
-        '--gkt-image-compare--divider__background-color': attributes.colorDivider,
-        '--gkt-image-compare--divider-icons__color': attributes.colorDividerIcon,
+      const styles = {
+        '--gkt-image-compare__position': undefined,
+        '--gkt-image-compare--divider__background-color': attributes.colorDivider || undefined,
+        '--gkt-image-compare--divider-icons__color': attributes.colorDividerIcon || undefined,
       };
+
+      if (typeof attributes.position !== 'undefined' && attributes.position !== '') {
+        styles['--gkt-image-compare__position'] = `${attributes.position}%`;
+      }
+
+      return styles;
     },
     supports: {
       styles: true,

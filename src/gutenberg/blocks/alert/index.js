@@ -18,10 +18,16 @@ export const settings = {
     previewUrl: 'https://ghostkit.io/blocks/alert/',
     customStylesCallback(attributes) {
       const styles = {
-        '--gkt-alert__border-color': attributes.color,
+        '--gkt-alert__border-color': attributes.color || undefined,
         '--gkt-alert--icon__font-size':
-          typeof attributes.iconSize !== 'undefined' ? `${attributes.iconSize}px` : undefined,
-        '--gkt-alert--icon__color': attributes.color,
+          typeof attributes.iconSize !== 'undefined' && attributes.iconSize !== ''
+            ? `${attributes.iconSize}px`
+            : undefined,
+        '--gkt-alert--icon__color': attributes.color || undefined,
+        '&:hover': {
+          '--gkt-alert__border-color': undefined,
+          '--gkt-alert--icon__color': undefined,
+        },
       };
 
       if (attributes.hoverColor) {

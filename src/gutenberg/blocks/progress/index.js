@@ -10,8 +10,6 @@ import save from './save';
 /**
  * External dependencies
  */
-const { merge } = window.lodash;
-
 const { name } = metadata;
 
 export { metadata, name };
@@ -22,27 +20,25 @@ export const settings = {
     previewUrl: 'https://ghostkit.io/blocks/progress/',
     customStylesCallback(attributes) {
       const styles = {
-        '--gkt-progress__height':
-          typeof attributes.height !== 'undefined' ? `${attributes.height}px` : undefined,
-        '--gkt-progress__border-radius':
-          typeof attributes.borderRadius !== 'undefined'
-            ? `${attributes.borderRadius}px`
-            : undefined,
-        '--gkt-progress__background-color': attributes.backgroundColor,
-        '--gkt-progress--bar__width':
-          typeof attributes.percent !== 'undefined' ? `${attributes.percent}%` : undefined,
-        '--gkt-progress--bar__background-color': attributes.color,
+        '--gkt-progress__height': undefined,
+        '--gkt-progress__border-radius': undefined,
+        '--gkt-progress__background-color': attributes.backgroundColor || undefined,
+        '--gkt-progress--bar__width': undefined,
+        '--gkt-progress--bar__background-color': attributes.color || undefined,
+        '&:hover': {
+          '--gkt-progress--bar__background-color': attributes.hoverColor || undefined,
+          '--gkt-progress__background-color': attributes.hoverBackgroundColor || undefined,
+        },
       };
 
-      if (attributes.hoverColor) {
-        styles['&:hover'] = {
-          '--gkt-progress--bar__background-color': attributes.hoverColor,
-        };
+      if (typeof attributes.height !== 'undefined' && attributes.height !== '') {
+        styles['--gkt-progress__height'] = `${attributes.height}px`;
       }
-      if (attributes.hoverBackgroundColor) {
-        styles['&:hover'] = merge(styles['&:hover'] || {}, {
-          '--gkt-progress__background-color': attributes.hoverBackgroundColor,
-        });
+      if (typeof attributes.borderRadius !== 'undefined' && attributes.borderRadius !== '') {
+        styles['--gkt-progress__border-radius'] = `${attributes.borderRadius}px`;
+      }
+      if (typeof attributes.percent !== 'undefined' && attributes.percent !== '') {
+        styles['--gkt-progress--bar__width'] = `${attributes.percent}px`;
       }
 
       return styles;

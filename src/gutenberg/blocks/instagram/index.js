@@ -18,17 +18,19 @@ export const settings = {
     customStylesCallback(attributes) {
       const { gap, gapCustom } = attributes;
 
-      const result = {};
+      const styles = {
+        '--gkt-instagram--photos__gap': undefined,
+      };
 
       // Custom Gap.
-      if (gap === 'custom' && typeof gapCustom !== 'undefined') {
+      if (gap === 'custom' && typeof gapCustom !== 'undefined' && gapCustom !== '') {
         // we need to use `%` unit because of conflict with complex calc() and 0 value.
         const unit = gapCustom ? 'px' : '%';
 
-        result['--gkt-instagram--photos__gap'] = `${gapCustom}${unit}`;
+        styles['--gkt-instagram--photos__gap'] = `${gapCustom}${unit}`;
       }
 
-      return result;
+      return styles;
     },
     supports: {
       styles: true,
