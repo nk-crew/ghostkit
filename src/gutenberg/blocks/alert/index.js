@@ -19,22 +19,16 @@ export const settings = {
     customStylesCallback(attributes) {
       const styles = {
         '--gkt-alert__border-color': attributes.color || undefined,
-        '--gkt-alert--icon__font-size':
-          typeof attributes.iconSize !== 'undefined' && attributes.iconSize !== ''
-            ? `${attributes.iconSize}px`
-            : undefined,
+        '--gkt-alert--icon__font-size': undefined,
         '--gkt-alert--icon__color': attributes.color || undefined,
         '&:hover': {
-          '--gkt-alert__border-color': undefined,
-          '--gkt-alert--icon__color': undefined,
+          '--gkt-alert__border-color': attributes.hoverColor || undefined,
+          '--gkt-alert--icon__color': attributes.hoverColor || undefined,
         },
       };
 
-      if (attributes.hoverColor) {
-        styles['&:hover'] = {
-          '--gkt-alert__border-color': attributes.hoverColor,
-          '--gkt-alert--icon__color': attributes.hoverColor,
-        };
+      if (typeof attributes.iconSize !== 'undefined' && attributes.iconSize !== '') {
+        styles['--gkt-alert--icon__font-size'] = `${attributes.iconSize}px`;
       }
 
       return styles;
