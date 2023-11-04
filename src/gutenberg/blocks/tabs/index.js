@@ -15,14 +15,6 @@ export const settings = {
   icon: getIcon('block-tabs', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/tabs/',
-    supports: {
-      styles: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
   },
   edit,
   save,

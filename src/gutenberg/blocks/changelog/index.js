@@ -20,15 +20,6 @@ export const settings = {
   icon: getIcon('block-changelog', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/changelog/',
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
   },
   example: {
     attributes: {

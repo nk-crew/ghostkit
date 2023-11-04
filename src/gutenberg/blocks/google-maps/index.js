@@ -15,15 +15,6 @@ export const settings = {
   icon: getIcon('block-google-maps', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/google-maps/',
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
   },
   edit,
   save,

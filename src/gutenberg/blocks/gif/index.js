@@ -15,15 +15,6 @@ export const settings = {
   icon: getIcon('block-gif', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/gif/',
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
   },
   edit,
   save,

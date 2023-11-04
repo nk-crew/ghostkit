@@ -13,16 +13,6 @@ export { metadata, name };
 
 export const settings = {
   icon: getIcon('block-tab', true),
-  ghostkit: {
-    supports: {
-      styles: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
-  },
   getEditWrapperProps(attributes) {
     return { 'data-tab': attributes.slug };
   },

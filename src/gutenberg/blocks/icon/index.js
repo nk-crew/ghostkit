@@ -78,12 +78,6 @@ export const settings = {
 
       return styles;
     },
-    supports: {
-      styles: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
   },
   edit,
   save,

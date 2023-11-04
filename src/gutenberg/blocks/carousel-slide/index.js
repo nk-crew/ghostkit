@@ -13,17 +13,6 @@ export { metadata, name };
 
 export const settings = {
   icon: getIcon('block-carousel-slide', true),
-  ghostkit: {
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
-  },
   edit,
   save,
 };

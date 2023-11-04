@@ -32,19 +32,6 @@ export const settings = {
 
       return styles;
     },
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      customCSS: true,
-    },
-  },
-  supports: {
-    html: false,
-    className: false,
-    align: ['wide', 'full'],
   },
   edit,
   save,

@@ -15,19 +15,6 @@ export const settings = {
   icon: getIcon('block-table-of-contents', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/table-of-contents/',
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      customCSS: true,
-    },
-  },
-  supports: {
-    html: false,
-    className: false,
-    align: ['wide', 'full'],
   },
   edit,
   save,
