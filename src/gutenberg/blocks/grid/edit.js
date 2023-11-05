@@ -30,6 +30,8 @@ const { useSelect, useDispatch } = wp.data;
 
 const { createBlock } = wp.blocks;
 
+const { GHOSTKIT } = window;
+
 /**
  * Block Edit Class.
  */
@@ -172,14 +174,16 @@ export default function BlockEdit(props) {
             );
           })}
         </div>
-        <Button
-          isPrimary
-          onClick={() => {
-            setIsTemplatesModalOpen(true);
-          }}
-        >
-          {__('Select Template', '@@text_domain')}
-        </Button>
+        {GHOSTKIT.allowTemplates && (
+          <Button
+            isPrimary
+            onClick={() => {
+              setIsTemplatesModalOpen(true);
+            }}
+          >
+            {__('Select Template', '@@text_domain')}
+          </Button>
+        )}
         {isTemplatesModalOpen || props.attributes.isTemplatesModalOnly ? (
           <TemplatesModal
             replaceBlockId={clientId}
