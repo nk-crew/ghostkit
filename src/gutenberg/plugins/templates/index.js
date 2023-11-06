@@ -31,7 +31,7 @@ const { applyFilters } = wp.hooks;
 
 const { parse } = wp.blocks;
 
-const { TabPanel, Tooltip, Spinner, SelectControl, ExternalLink } = wp.components;
+const { TabPanel, Tooltip, Spinner, SelectControl, ExternalLink, Notice } = wp.components;
 
 const { GHOSTKIT } = window;
 
@@ -201,6 +201,38 @@ class TemplatesModal extends Component {
             </svg>
           </button>
         </div>
+
+        <Notice
+          status="error"
+          className="ghostkit-plugin-templates-modal-notice"
+          isDismissible={false}
+        >
+          <h3>{__('Templates Deprecated', '@@text_domain')}</h3>
+          <p>
+            {__(
+              'Please avoid using the Templates feature. It has been deprecated since Ghost Kit v3.1.0 and will be removed in future updates.',
+              '@@text_domain'
+            )}
+            <br />
+            {sprintf(
+              __(
+                'To create a block template, you can use the built-in WordPress feature named Patterns.',
+                '@@text_domain'
+              ),
+              'https://wordpress.org/documentation/article/site-editor-patterns/'
+            )}
+          </p>
+          <p>
+            <a
+              href="https://wordpress.org/documentation/article/site-editor-patterns/"
+              target="_blank"
+              rel="noreferrer"
+              className="button button-primary"
+            >
+              {__('Read About Patterns', '@@text_domain')}
+            </a>
+          </p>
+        </Notice>
 
         {allTemplates && allTemplates.length ? (
           <TabPanel

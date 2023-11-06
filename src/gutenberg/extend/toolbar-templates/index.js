@@ -18,11 +18,17 @@ const { useDispatch } = wp.data;
 
 const { ToolbarButton } = wp.components;
 
+const { GHOSTKIT } = window;
+
 /**
  * Add templates button to Gutenberg toolbar
  */
 function ToolbarTemplates() {
   const { insertBlocks } = useDispatch('core/block-editor');
+
+  if (!GHOSTKIT.allowTemplates) {
+    return null;
+  }
 
   // eslint-disable-next-line react/no-unstable-nested-components
   function LibraryButton() {
