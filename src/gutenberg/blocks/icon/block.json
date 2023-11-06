@@ -26,6 +26,16 @@
       "type": "boolean"
     },
 
+    "color": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "backgroundGradient": {
+      "type": "string"
+    },
+
     "url": {
       "type": "string"
     },
@@ -43,36 +53,6 @@
     "html": false,
     "className": false,
     "anchor": true,
-    "align": ["wide", "full", "left", "center", "right"],
-    "color": {
-      "text": true,
-      "gradients": true,
-      "background": true,
-      "__experimentalSkipSerialization": true,
-      "__experimentalDefaultControls": {
-        "text": true,
-        "background": true
-      }
-    },
-    "__experimentalBorder": {
-      "color": true,
-      "radius": true,
-      "width": true,
-      "__experimentalSkipSerialization": true,
-      "__experimentalDefaultControls": {
-        "color": false,
-        "radius": false,
-        "width": false
-      }
-    },
-    "spacing": {
-      "padding": true,
-      "margin": true,
-      "__experimentalSkipSerialization": true,
-      "__experimentalDefaultControls": {
-        "padding": false,
-        "margin": false
-      }
-    }
+    "align": ["wide", "full", "left", "center", "right"]
   }
 }

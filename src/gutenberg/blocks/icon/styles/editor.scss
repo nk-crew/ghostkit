@@ -18,3 +18,8 @@
     transition: transform 0.15s;
   }
 }
+
+.ghostkit-icon-inner {
+  color: var(--gkt-icon__color);
+  background: var(--gkt-icon__background);
+}

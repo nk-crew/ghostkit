@@ -10,20 +10,16 @@ import IconPicker from '../../components/icon-picker';
 
 import EditBlockControls from './edit/block-controls';
 import EditInspectorControls from './edit/inspector-controls';
+import ColorControls from './edit/color-controls';
 
 /**
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-const {
-  useBlockProps,
-  __experimentalUseBorderProps: useBorderProps,
-  __experimentalUseColorProps: useColorProps,
-  __experimentalGetSpacingClassesAndStyles: useSpacingProps,
-} = wp.blockEditor;
+const { useBlockProps } = wp.blockEditor;
 
 export default function BlockEdit(props) {
-  const { attributes, setAttributes, isSelected } = props;
+  const { attributes, setAttributes, isSelected, clientId } = props;
   let { className = '' } = props;
 
   className = classnames(className, 'ghostkit-icon');
@@ -34,6 +30,7 @@ export default function BlockEdit(props) {
   return (
     <>
       <EditInspectorControls attributes={attributes} setAttributes={setAttributes} />
+      <ColorControls attributes={attributes} setAttributes={setAttributes} clientId={clientId} />
       <EditBlockControls
         attributes={attributes}
         setAttributes={setAttributes}
@@ -41,23 +38,8 @@ export default function BlockEdit(props) {
       />
 
       <span {...blockProps}>
-        <Icon icon={attributes.icon} attributes={attributes} setAttributes={setAttributes} />
+        <IconPicker.Preview tag="div" name={attributes.icon} className="ghostkit-icon-inner" />
       </span>
     </>
   );
-}
-
-function Icon({ icon, attributes }) {
-  const borderProps = useBorderProps(attributes);
-  const colorProps = useColorProps(attributes);
-  const spacingProps = useSpacingProps(attributes);
-
-  const className = classnames(
-    'ghostkit-icon-inner',
-    borderProps.className,
-    colorProps.className,
-    spacingProps.className
-  );
-
-  return <IconPicker.Preview tag="div" name={icon} className={className} />;
 }

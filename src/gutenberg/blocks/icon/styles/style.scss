@@ -11,7 +11,7 @@
   }
 }
 
-a.ghostkit-icon {
-  color: inherit;
-  text-decoration: none;
+.ghostkit-icon-inner {
+  color: var(--gkt-icon__color);
+  background: var(--gkt-icon__background);
 }

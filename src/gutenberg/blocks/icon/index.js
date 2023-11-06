@@ -1,7 +1,6 @@
 /**
  * Internal dependencies
  */
-import setBorder from '../../utils/set-border';
 import getIcon from '../../utils/get-icon';
 
 import metadata from './block.json';
@@ -11,27 +10,15 @@ import save from './save';
 const { name } = metadata;
 export { metadata, name };
 
-/**
- * WordPress dependencies
- */
-const {
-  __experimentalGetBorderClassesAndStyles: getBorderClassesAndStyles,
-  __experimentalGetColorClassesAndStyles: getColorClassesAndStyles,
-  __experimentalGetSpacingClassesAndStyles: getSpacingClassesAndStyles,
-} = wp.blockEditor;
-
 export const settings = {
   icon: getIcon('block-icon', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/circle-button/',
     customStylesCallback(attributes) {
-      const { justify, width, flipH, flipV } = attributes;
+      const { justify, width, flipH, flipV, color, backgroundColor, backgroundGradient } =
+        attributes;
       const styles = {};
-      let innerStyles = {};
-
-      const borderStyle = getBorderClassesAndStyles(attributes)?.style;
-      const colorStyle = getColorClassesAndStyles(attributes)?.style;
-      const spacingStyle = getSpacingClassesAndStyles(attributes)?.style;
+      const innerStyles = {};
 
       if (justify) {
         styles.justifyContent = justify;
@@ -54,43 +41,12 @@ export const settings = {
         innerStyles.transform = transform || '';
       }
 
-      // Border.
-      if (Object.keys(borderStyle).length) {
-        innerStyles = {
-          ...innerStyles,
-          ...setBorder(borderStyle),
-        };
-      } else {
-        innerStyles.border = '';
-        innerStyles.borderTop = '';
-        innerStyles.borderRight = '';
-        innerStyles.borderBottom = '';
-        innerStyles.borderLeft = '';
+      if (color) {
+        styles['--gkt-icon__color'] = color;
       }
 
-      // Color.
-      if (Object.keys(colorStyle).length) {
-        innerStyles = {
-          ...innerStyles,
-          ...colorStyle,
-        };
-      }
-
-      // Spacing.
-      if (Object.keys(spacingStyle).length) {
-        innerStyles = {
-          ...innerStyles,
-          ...spacingStyle,
-        };
-      } else {
-        innerStyles.paddingTop = '';
-        innerStyles.paddingRight = '';
-        innerStyles.paddingBottom = '';
-        innerStyles.paddingLeft = '';
-        innerStyles.marginTop = '';
-        innerStyles.marginRight = '';
-        innerStyles.marginBottom = '';
-        innerStyles.marginLeft = '';
+      if (backgroundColor || backgroundGradient) {
+        styles['--gkt-icon__background'] = backgroundColor || backgroundGradient;
       }
 
       styles['> .ghostkit-icon-inner'] = innerStyles;

@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import classnames from 'classnames/dedupe';
-
-/**
  * Internal dependencies
  */
 import IconPicker from '../../components/icon-picker';
@@ -16,12 +11,7 @@ const { name } = metadata;
  * WordPress dependencies
  */
 const { applyFilters } = wp.hooks;
-const {
-  useBlockProps,
-  __experimentalGetBorderClassesAndStyles: getBorderClassesAndStyles,
-  __experimentalGetColorClassesAndStyles: getColorClassesAndStyles,
-  __experimentalGetSpacingClassesAndStyles: getSpacingClassesAndStyles,
-} = wp.blockEditor;
+const { useBlockProps } = wp.blockEditor;
 
 /**
  * Block Save Class.
@@ -44,12 +34,8 @@ export default function BlockSave(props) {
 
 function Icon({ attributes }) {
   const { icon, url, target, ariaLabel, rel } = attributes;
-  const borderProps = getBorderClassesAndStyles(attributes);
-  const colorProps = getColorClassesAndStyles(attributes);
-  const spacingProps = getSpacingClassesAndStyles(attributes);
 
   const tag = url ? 'a' : 'div';
-
   const attrs = {};
 
   if (tag === 'a') {
@@ -59,12 +45,5 @@ function Icon({ attributes }) {
     attrs.ariaLabel = ariaLabel || null;
   }
 
-  const className = classnames(
-    'ghostkit-icon-inner',
-    borderProps.className,
-    colorProps.className,
-    spacingProps.className
-  );
-
-  return <IconPicker.Render {...attrs} name={icon} tag={tag} className={className} />;
+  return <IconPicker.Render {...attrs} name={icon} tag={tag} className="ghostkit-icon-inner" />;
 }
