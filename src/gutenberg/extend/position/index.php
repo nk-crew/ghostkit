@@ -22,11 +22,13 @@ class GhostKit_Extension_Position {
             array(
                 'default_supports' => array(
                     'position' => array(
-                        'position' => true,
-                        'distance' => true,
-                        'width'    => true,
-                        'height'   => true,
-                        'zIndex'   => true,
+                        'position'     => true,
+                        'distance'     => true,
+                        'width'        => true,
+                        'height'       => true,
+                        'minMaxWidth'  => true,
+                        'minMaxHeight' => true,
+                        'zIndex'       => true,
                     ),
                 ),
             )

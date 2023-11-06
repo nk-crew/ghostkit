@@ -5,6 +5,8 @@ import './position';
 import './distance';
 import './width';
 import './height';
+import './minMaxWidth';
+import './minMaxHeight';
 import './zIndex';
 
 import useStyles from '../../hooks/use-styles';
@@ -35,6 +37,10 @@ const allPositionProps = [
   'left',
   'width',
   'height',
+  'min-width',
+  'min-height',
+  'max-width',
+  'max-height',
   'z-index',
 ];
 
