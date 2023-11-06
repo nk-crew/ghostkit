@@ -16,46 +16,36 @@ export const settings = {
   icon: getIcon('block-button', true),
   ghostkit: {
     customStylesCallback(attributes) {
-      const result = {
-        '--gkt-button__background-color': attributes.color,
-        '--gkt-button__color': attributes.textColor,
-        '--gkt-button__border-radius':
-          typeof attributes.borderRadius !== 'undefined'
-            ? `${attributes.borderRadius}px`
-            : undefined,
-        '--gkt-button-hover__background-color': attributes.hoverColor,
-        '--gkt-button-hover__color': attributes.hoverTextColor,
-        '--gkt-button-focus__background-color': attributes.hoverColor,
-        '--gkt-button-focus__color': attributes.hoverTextColor,
+      const styles = {
+        '--gkt-button__background-color': attributes.color || undefined,
+        '--gkt-button__color': attributes.textColor || undefined,
+        '--gkt-button__border-radius': undefined,
+        '--gkt-button__border-width': undefined,
+        '--gkt-button__border-color': attributes.borderColor || undefined,
+        '--gkt-button-hover__background-color': attributes.hoverColor || undefined,
+        '--gkt-button-hover__color': attributes.hoverTextColor || undefined,
+        '--gkt-button-hover__border-color': attributes.hoverBorderColor || undefined,
+        '--gkt-button-focus__background-color': attributes.hoverColor || undefined,
+        '--gkt-button-focus__color': attributes.hoverTextColor || undefined,
+        '--gkt-button-focus__box-shadow': undefined,
       };
 
       // Border.
-      if (typeof attributes.borderWeight !== 'undefined') {
-        result['--gkt-button__border-width'] = `${attributes.borderWeight}px`;
+      if (typeof attributes.borderRadius !== 'undefined' && attributes.borderRadius !== '') {
+        styles['--gkt-button__border-radius'] = `${attributes.borderRadius}px`;
       }
-      if (attributes.borderColor) {
-        result['--gkt-button__border-color'] = attributes.borderColor;
-      }
-      if (attributes.hoverBorderColor) {
-        result['--gkt-button-hover__border-color'] = attributes.hoverBorderColor;
+      if (typeof attributes.borderWeight !== 'undefined' && attributes.borderWeight !== '') {
+        styles['--gkt-button__border-width'] = `${attributes.borderWeight}px`;
       }
 
       // Box Shadow.
       if (typeof attributes.focusOutlineWeight !== 'undefined' && attributes.focusOutlineColor) {
-        result[
+        styles[
           '--gkt-button-focus__box-shadow'
         ] = `0 0 0 ${attributes.focusOutlineWeight}px ${attributes.focusOutlineColor}`;
       }
 
-      return result;
-    },
-    supports: {
-      styles: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
+      return styles;
     },
   },
   edit,

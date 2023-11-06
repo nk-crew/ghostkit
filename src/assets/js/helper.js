@@ -11,6 +11,7 @@ const {
   disabledBlocks,
   allowPluginColorPalette,
   allowPluginCustomizer,
+  allowTemplates,
   sidebars,
   timezone,
 
@@ -53,6 +54,7 @@ const GHOSTKIT = {
 
   allowPluginColorPalette,
   allowPluginCustomizer,
+  allowTemplates,
 
   vars,
   replaceVars(str) {

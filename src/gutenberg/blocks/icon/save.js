@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import classnames from 'classnames/dedupe';
+
+/**
  * Internal dependencies
  */
 import IconPicker from '../../components/icon-picker';
@@ -17,7 +22,14 @@ const { useBlockProps } = wp.blockEditor;
  * Block Save Class.
  */
 export default function BlockSave(props) {
-  let className = 'ghostkit-icon';
+  const { attributes } = props;
+  const { flipV, flipH } = attributes;
+
+  let className = classnames('ghostkit-icon', {
+    'ghostkit-icon-flip-vertical': flipV,
+    'ghostkit-icon-flip-horizontal': flipH,
+  });
+
   className = applyFilters('ghostkit.blocks.className', className, {
     ...{ name },
     ...props,

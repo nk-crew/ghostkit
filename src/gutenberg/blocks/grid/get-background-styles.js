@@ -7,49 +7,40 @@
  */
 export default function getBackgroundStyles(attributes) {
   const {
+    awb_image: image,
     awb_imageBackgroundSize: imageBackgroundSize,
     awb_imageBackgroundPosition: imageBackgroundPosition,
   } = attributes;
 
-  const result = {};
+  const styles = {};
 
-  result['> .nk-awb .jarallax-img'] = {};
+  styles['> .nk-awb .jarallax-img'] = {
+    'object-fit': undefined,
+    'object-position': undefined,
+    'background-repeat': undefined,
+    'background-position': undefined,
+  };
 
   // <img> tag with object-fit style
-  if (imageBackgroundSize !== 'pattern') {
-    if (imageBackgroundSize) {
-      result['> .nk-awb .jarallax-img']['object-fit'] = imageBackgroundSize;
-      result['> .nk-awb .jarallax-img']['font-family'] = `object-fit: ${imageBackgroundSize}`;
-    }
-    if (imageBackgroundPosition) {
-      result['> .nk-awb .jarallax-img']['object-position'] = imageBackgroundPosition;
-
-      if (result['> .nk-awb .jarallax-img']['font-family']) {
-        result['> .nk-awb .jarallax-img'][
-          'font-family'
-        ] += `;object-position: ${imageBackgroundPosition}`;
-      } else {
-        result['> .nk-awb .jarallax-img'][
-          'font-family'
-        ] = `object-position: ${imageBackgroundPosition}`;
+  if (image) {
+    if (imageBackgroundSize !== 'pattern') {
+      if (imageBackgroundSize) {
+        styles['> .nk-awb .jarallax-img']['object-fit'] = imageBackgroundSize;
       }
-    }
+      if (imageBackgroundPosition) {
+        styles['> .nk-awb .jarallax-img']['object-position'] = imageBackgroundPosition;
+      }
 
-    if (result['> .nk-awb .jarallax-img']['font-family']) {
-      result['> .nk-awb .jarallax-img'][
-        'font-family'
-      ] = `"${result['> .nk-awb .jarallax-img']['font-family']}"`;
-    }
-
-    // background image with pattern size
-  } else {
-    if (imageBackgroundSize) {
-      result['> .nk-awb .jarallax-img']['background-repeat'] = 'repeat';
-    }
-    if (imageBackgroundSize) {
-      result['> .nk-awb .jarallax-img']['background-position'] = imageBackgroundPosition;
+      // background image with pattern size
+    } else {
+      if (imageBackgroundSize) {
+        styles['> .nk-awb .jarallax-img']['background-repeat'] = 'repeat';
+      }
+      if (imageBackgroundSize) {
+        styles['> .nk-awb .jarallax-img']['background-position'] = imageBackgroundPosition;
+      }
     }
   }
 
-  return result;
+  return styles;
 }

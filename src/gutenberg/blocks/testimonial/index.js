@@ -17,14 +17,6 @@ export const settings = {
   icon: getIcon('block-testimonial', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/testimonial/',
-    supports: {
-      styles: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
   },
   example: {
     attributes: {

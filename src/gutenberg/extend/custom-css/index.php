@@ -28,6 +28,9 @@ class GhostKit_Extension_Custom_CSS {
                         'userSelect' => true,
                         'clipPath'   => true,
                         'custom'     => true,
+
+                        // Pro.
+                        'transition' => true,
                     ),
                 ),
             )

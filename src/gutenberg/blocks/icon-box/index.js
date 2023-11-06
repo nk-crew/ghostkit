@@ -19,27 +19,18 @@ export const settings = {
     previewUrl: 'https://ghostkit.io/blocks/icon-box/',
     customStylesCallback(attributes) {
       const styles = {
-        '--gkt-icon-box--icon__font-size':
-          typeof attributes.iconSize !== 'undefined' ? `${attributes.iconSize}px` : undefined,
-        '--gkt-icon-box--icon__color': attributes.iconColor,
+        '--gkt-icon-box--icon__font-size': undefined,
+        '--gkt-icon-box--icon__color': attributes.iconColor || undefined,
+        '&:hover': {
+          '--gkt-icon-box--icon__color': attributes.hoverIconColor || undefined,
+        },
       };
 
-      if (attributes.hoverIconColor) {
-        styles['&:hover'] = {
-          '--gkt-icon-box--icon__color': attributes.hoverIconColor,
-        };
+      if (typeof attributes.iconSize !== 'undefined' && attributes.iconSize !== '') {
+        styles['--gkt-icon-box--icon__font-size'] = `${attributes.iconSize}px`;
       }
 
       return styles;
-    },
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
     },
   },
   example: {

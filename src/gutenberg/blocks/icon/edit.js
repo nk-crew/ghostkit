@@ -20,9 +20,19 @@ const { useBlockProps } = wp.blockEditor;
 
 export default function BlockEdit(props) {
   const { attributes, setAttributes, isSelected, clientId } = props;
+  const { flipV, flipH } = attributes;
+
   let { className = '' } = props;
 
-  className = classnames(className, 'ghostkit-icon');
+  className = classnames(
+    'ghostkit-icon',
+    {
+      'ghostkit-icon-flip-vertical': flipV,
+      'ghostkit-icon-flip-horizontal': flipH,
+    },
+    className
+  );
+
   className = applyFilters('ghostkit.editor.className', className, props);
 
   const blockProps = useBlockProps({ className });

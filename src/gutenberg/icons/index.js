@@ -67,6 +67,7 @@ import extensionPosition from './extension-position.svg';
 import extensionDisplay from './extension-display.svg';
 import extensionSpacings from './extension-spacings.svg';
 import extensionSR from './extension-sr.svg';
+import extensionTransform from './extension-transform.svg';
 import extensionCustomCSS from './extension-custom-css.svg';
 import tabsTv from './tabs-tv.svg';
 import tabsDesktop from './tabs-desktop.svg';
@@ -180,6 +181,7 @@ export default {
   'extension-display': extensionDisplay,
   'extension-spacings': extensionSpacings,
   'extension-sr': extensionSR,
+  'extension-transform': extensionTransform,
   'extension-custom-css': extensionCustomCSS,
 
   'tabs-tv': tabsTv,

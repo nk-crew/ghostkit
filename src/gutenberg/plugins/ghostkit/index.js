@@ -52,16 +52,6 @@ export class Plugin extends Component {
                 className="plugin-ghostkit-panel-button"
                 variant="secondary"
                 onClick={() => {
-                  this.setState({ isModalOpen: 'templates' });
-                }}
-              >
-                {getIcon('plugin-templates')}
-                {__('Templates', '@@text_domain')}
-              </Button>
-              <Button
-                className="plugin-ghostkit-panel-button"
-                variant="secondary"
-                onClick={() => {
                   this.setState({ isModalOpen: 'typography' });
                 }}
               >
@@ -78,6 +68,18 @@ export class Plugin extends Component {
                 {getIcon('plugin-custom-code')}
                 {__('CSS & JavaScript', '@@text_domain')}
               </Button>
+              {GHOSTKIT.allowTemplates && (
+                <Button
+                  className="plugin-ghostkit-panel-button"
+                  variant="secondary"
+                  onClick={() => {
+                    this.setState({ isModalOpen: 'templates' });
+                  }}
+                >
+                  {getIcon('plugin-templates')}
+                  {__('Templates', '@@text_domain')}
+                </Button>
+              )}
               {GHOSTKIT.allowPluginColorPalette ? (
                 <Button
                   className="plugin-ghostkit-panel-button"

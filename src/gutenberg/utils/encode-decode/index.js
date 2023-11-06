@@ -60,6 +60,10 @@ export function maybeDecode(str) {
 
   let result = {};
 
+  if (Array.isArray(str)) {
+    result = [];
+  }
+
   // Object
   if (typeof str === 'object') {
     Object.keys(str).forEach((k) => {

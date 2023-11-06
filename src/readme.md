@@ -17,7 +17,7 @@ Ghost Kit is the powerful page building experience for WordPress.
 **Gutenberg Blocks and Page Builder Plugin For WordPress**
 ★★★★★<br>
 
-**Ghost Kit is the powerful page building experience for WordPress.** Ghost Kit provides a large collection of Gutenberg Blocks, Templates, and Extensions. With this collection, you will gain more control over content just like with popular page builders. Just start with pre-defined templates and you can't stop building the page ;)
+**Ghost Kit is the powerful page building experience for WordPress.** Ghost Kit provides a large collection of Gutenberg Blocks, Motion Effects and Extensions. With this collection, you will gain more control over content just like with popular page builders.
 
 [See Live Demo](https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [Documentation](https://ghostkit.io/docs/getting-started/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [GitHub](https://github.com/nk-crew/ghostkit/)
 
@@ -133,10 +133,6 @@ Add borders, shadows and corner radius to Ghost Kit and Core blocks on different
 * [**Custom CSS & JavaScript**](https://ghostkit.io/extensions/custom-css-js/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 This extension is available on all pages and let you add custom CSS and JavaScript for the current page and globally site wide.
 
-### 📁 Templates ###
-
-Ghost Kit has pre-made templates, so you can get started with it and build your pages quickly.
-
 ### 📄 Typography ###
 
 Change typography options globally on a whole site or on specific pages only. Options available:
@@ -218,10 +214,6 @@ The manual installation method involves downloading our Ghost Kit plugin and upl
 ### How to disable enqueued plugins (JS, CSS) on frontend ####
 
 [https://ghostkit.io/docs/php-filters/gkt_enqueue_/](https://ghostkit.io/docs/php-filters/gkt_enqueue_/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
-
-### How to add templates in theme ####
-
-[https://ghostkit.io/docs/templates/#add-custom-templates-in-theme](https://ghostkit.io/docs/templates/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs#add-custom-templates-in-theme)
 
 ### How to extend typography settings ####
 

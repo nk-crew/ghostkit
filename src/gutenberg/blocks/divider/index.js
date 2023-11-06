@@ -11,8 +11,6 @@ import save from './save';
 /**
  * External dependencies
  */
-const { merge } = window.lodash;
-
 const { name } = metadata;
 
 export { metadata, name };
@@ -23,34 +21,24 @@ export const settings = {
     previewUrl: 'https://ghostkit.io/blocks/divider/',
     customStylesCallback(attributes) {
       const styles = {
-        '--gkt-divider__border-width':
-          typeof attributes.size !== 'undefined' ? `${attributes.size}px` : undefined,
+        '--gkt-divider__border-width': undefined,
         '--gkt-divider__border-color': attributes.color,
-        '--gkt-divider--icon__font-size':
-          typeof attributes.iconSize !== 'undefined' ? `${attributes.iconSize}px` : undefined,
+        '--gkt-divider--icon__font-size': undefined,
         '--gkt-divider--icon__color': attributes.iconColor,
+        '&:hover': {
+          '--gkt-divider__border-color': attributes.hoverColor || undefined,
+          '--gkt-divider--icon__color': attributes.hoverIconColor || undefined,
+        },
       };
 
-      if (attributes.hoverColor) {
-        styles['&:hover'] = {
-          '--gkt-divider__border-color': attributes.hoverColor,
-        };
+      if (typeof attributes.size !== 'undefined' && attributes.size !== '') {
+        styles['--gkt-divider__border-width'] = `${attributes.size}px`;
       }
-      if (attributes.hoverIconColor) {
-        styles['&:hover'] = merge(styles['&:hover'] || {}, {
-          '--gkt-divider--icon__color': attributes.hoverIconColor,
-        });
+      if (typeof attributes.iconSize !== 'undefined' && attributes.iconSize !== '') {
+        styles['--gkt-divider--icon__font-size'] = `${attributes.iconSize}px`;
       }
 
       return styles;
-    },
-    supports: {
-      styles: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
     },
   },
   example: {

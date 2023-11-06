@@ -22,29 +22,15 @@ export const settings = {
     previewUrl: 'https://ghostkit.io/blocks/video/',
     customStylesCallback(attributes) {
       const { videoBackgroundColor, videoBackgroundGradient } = attributes;
-      const styles = {};
-      const videoStyle = {};
 
-      if (videoBackgroundColor) {
-        videoStyle.backgroundColor = videoBackgroundColor;
-      }
-
-      if (videoBackgroundGradient) {
-        videoStyle.backgroundImage = videoBackgroundGradient;
-      }
-
-      styles.video = videoStyle;
+      const styles = {
+        video: {
+          'background-color': videoBackgroundColor || undefined,
+          'background-image': videoBackgroundGradient || undefined,
+        },
+      };
 
       return styles;
-    },
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
     },
   },
   example: {

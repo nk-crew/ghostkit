@@ -13,51 +13,23 @@ export { metadata, name };
 export const settings = {
   icon: getIcon('block-icon', true),
   ghostkit: {
-    previewUrl: 'https://ghostkit.io/blocks/circle-button/',
+    previewUrl: 'https://ghostkit.io/blocks/icon/',
     customStylesCallback(attributes) {
-      const { justify, width, flipH, flipV, color, backgroundColor, backgroundGradient } =
-        attributes;
-      const styles = {};
-      const innerStyles = {};
+      const { justify, width, color, backgroundColor, backgroundGradient } = attributes;
+      const styles = {
+        '--gkt-icon__color': color || undefined,
+        '--gkt-icon__background': backgroundColor || backgroundGradient || undefined,
+        'justify-content': justify || undefined,
+      };
+      const innerStyles = {
+        width: undefined,
+      };
 
-      if (justify) {
-        styles.justifyContent = justify;
-      }
-
-      if (width) {
+      if (typeof width !== 'undefined' && width !== '') {
         innerStyles.width = width;
       }
 
-      const { transform } = innerStyles;
-      if (flipH) {
-        innerStyles.transform = transform ? `${transform} scaleX(-1)` : 'scaleX(-1)';
-      } else {
-        innerStyles.transform = transform || '';
-      }
-
-      if (flipV) {
-        innerStyles.transform = transform ? `${transform} scaleY(-1)` : 'scaleY(-1)';
-      } else {
-        innerStyles.transform = transform || '';
-      }
-
-      if (color) {
-        styles['--gkt-icon__color'] = color;
-      }
-
-      if (backgroundColor || backgroundGradient) {
-        styles['--gkt-icon__background'] = backgroundColor || backgroundGradient;
-      }
-
-      styles['> .ghostkit-icon-inner'] = innerStyles;
-
       return styles;
-    },
-    supports: {
-      styles: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
     },
   },
   edit,

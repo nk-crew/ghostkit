@@ -26,24 +26,23 @@ export const settings = {
       return selector;
     },
     customStylesCallback(attributes) {
-      const { stickyContent, stickyContentOffset, awb_image: image } = attributes;
+      const { stickyContent, stickyContentOffset } = attributes;
 
-      let result = {};
+      const styles = {
+        '--gkt-grid--column-sticky__offset': undefined,
+        ...getBackgroundStyles(attributes),
+      };
 
       // Sticky styles.
-      if (stickyContent && typeof stickyContentOffset !== 'undefined') {
-        result['--gkt-grid--column-sticky__offset'] = `${stickyContentOffset}px`;
+      if (
+        stickyContent &&
+        typeof stickyContentOffset !== 'undefined' &&
+        stickyContentOffset !== ''
+      ) {
+        styles['--gkt-grid--column-sticky__offset'] = `${stickyContentOffset}px`;
       }
 
-      // Image styles.
-      if (image) {
-        result = {
-          ...result,
-          ...getBackgroundStyles(attributes),
-        };
-      }
-
-      return result;
+      return styles;
     },
     customStylesFilter(styles, data, isEditor, attributes) {
       // change custom styles in Editor.
@@ -56,15 +55,6 @@ export const settings = {
         );
       }
       return styles;
-    },
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
     },
   },
   edit,

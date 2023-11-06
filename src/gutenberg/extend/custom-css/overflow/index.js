@@ -100,6 +100,10 @@ function CustomCSSOverflowTools(props) {
                 label: __('Visible', '@@text_domain'),
               },
               {
+                value: 'clip',
+                label: __('Clip', '@@text_domain'),
+              },
+              {
                 value: 'scroll',
                 label: __('Scroll', '@@text_domain'),
               },
@@ -123,6 +127,10 @@ function CustomCSSOverflowTools(props) {
               {
                 value: 'visible',
                 label: __('Visible', '@@text_domain'),
+              },
+              {
+                value: 'clip',
+                label: __('Clip', '@@text_domain'),
               },
               {
                 value: 'scroll',

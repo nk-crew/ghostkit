@@ -17,12 +17,39 @@ export const settings = {
     previewUrl: 'https://ghostkit.io/blocks/shape-divider/',
     customStylesCallback(attributes) {
       const styles = {
-        '--gkt-shape-divider__color': attributes.color,
-        svg: {},
+        '--gkt-shape-divider__color': attributes.color || undefined,
+        svg: {
+          width: undefined,
+          height: undefined,
+        },
+        media_sm: {
+          svg: {
+            width: undefined,
+            height: undefined,
+          },
+        },
+        media_md: {
+          svg: {
+            width: undefined,
+            height: undefined,
+          },
+        },
+        media_lg: {
+          svg: {
+            width: undefined,
+            height: undefined,
+          },
+        },
+        media_xl: {
+          svg: {
+            width: undefined,
+            height: undefined,
+          },
+        },
       };
 
       Object.keys(attributes).forEach((key) => {
-        if (attributes[key]) {
+        if (typeof attributes[key] !== 'undefined' && attributes[key] !== '') {
           let prefix = key.split('_')[0];
           let type = key.split('_')[1];
 
@@ -32,16 +59,12 @@ export const settings = {
           }
 
           if (type && (type === 'height' || type === 'width')) {
-            if (prefix && typeof styles.svg[`media_${prefix}`] === 'undefined') {
-              styles.svg[`media_${prefix}`] = {};
-            }
-
             if (type === 'height' && prefix) {
-              styles.svg[`media_${prefix}`].height = `${attributes[key]}px`;
+              styles[`media_${prefix}`].svg.height = `${attributes[key]}px`;
             } else if (type === 'height') {
               styles.svg.height = `${attributes[key]}px`;
             } else if (type === 'width' && prefix) {
-              styles.svg[`media_${prefix}`].width = `${attributes[key]}%`;
+              styles[`media_${prefix}`].svg.width = `${attributes[key]}%`;
             } else if (type === 'width') {
               styles.svg.width = `${attributes[key]}%`;
             }
@@ -50,14 +73,6 @@ export const settings = {
       });
 
       return styles;
-    },
-    supports: {
-      styles: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
     },
   },
   example: {
