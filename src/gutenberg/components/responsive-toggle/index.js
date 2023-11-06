@@ -20,7 +20,11 @@ const { Tooltip, Button } = wp.components;
  * Component Class
  */
 export default function ResponsiveToggle(props) {
-  const { checkActive = () => {} } = props;
+  const {
+    checkActive = () => {
+      return false;
+    },
+  } = props;
 
   const [isOpen, setIsOpen] = useState(false);
 

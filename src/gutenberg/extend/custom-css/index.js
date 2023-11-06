@@ -6,6 +6,7 @@ import './overflow';
 import './cursor';
 import './userSelect';
 import './clipPath';
+import './pro-transition';
 import './custom';
 
 import useStyles from '../../hooks/use-styles';
@@ -36,6 +37,12 @@ const allCustomCSS = [
   'user-select',
   'clip-path',
   'custom',
+
+  // Pro.
+  'transition-property',
+  'transition-duration',
+  'transition-delay',
+  'transition-timing-function',
 ];
 
 /**

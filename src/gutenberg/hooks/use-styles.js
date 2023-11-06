@@ -12,6 +12,10 @@ export default function useStyles(props) {
   const ghostkitData = attributes?.ghostkit || {};
   const styles = ghostkitData?.styles || {};
 
+  function getStyles() {
+    return maybeDecode(styles);
+  }
+
   /**
    * Get style value by property name, selected device and optional selector.
    *
@@ -23,7 +27,7 @@ export default function useStyles(props) {
    */
   function getStyle(name, device = false, selector = false) {
     let result;
-    let processStyles = maybeDecode(styles);
+    let processStyles = getStyles();
 
     if (device) {
       processStyles = processStyles?.[`media_${device}`];
@@ -103,6 +107,7 @@ export default function useStyles(props) {
 
   return {
     styles,
+    getStyles,
     getStyle,
     hasStyle,
     setStyles,

@@ -34,6 +34,16 @@
     outline: 2px solid #fff;
   }
 
+  // Element State Toggle.
+  .ghostkit-control-element-state-toggle & {
+    position: absolute;
+    top: 0px;
+    left: 12px;
+    width: 5px;
+    height: 5px;
+    outline: 2px solid #fff;
+  }
+
   .is-active > .ghostkit-control-responsive-toggle-icon & {
     background-color: #fff;
     outline: 2px solid #000;

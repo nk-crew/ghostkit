@@ -129,7 +129,7 @@ function FrameBorderTools(props) {
       onSelect={() => {
         setStyles({
           'border-style': 'solid',
-          'border-size': '1px',
+          'border-width': '1px',
           'border-color': '#000',
         });
       }}
@@ -172,6 +172,9 @@ function FrameBorderTools(props) {
               isHover={isHover}
               onChange={() => {
                 setIsHover(!isHover);
+              }}
+              checkActive={() => {
+                return hasStyle('border-style', device, hoverSelector);
               }}
             />
           </>

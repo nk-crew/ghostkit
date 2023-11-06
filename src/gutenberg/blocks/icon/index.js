@@ -25,65 +25,58 @@ export const settings = {
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/circle-button/',
     customStylesCallback(attributes) {
-      const { justify, width, flipH, flipV } = attributes;
-      const styles = {};
-      let innerStyles = {};
+      const { justify, width } = attributes;
+
+      const styles = {
+        'justify-content': justify || undefined,
+        '> .ghostkit-icon-inner': {
+          width: width || undefined,
+          borderRadius: undefined,
+          border: undefined,
+          borderTop: undefined,
+          borderRight: undefined,
+          borderBottom: undefined,
+          borderLeft: undefined,
+          paddingTop: undefined,
+          paddingRight: undefined,
+          paddingBottom: undefined,
+          paddingLeft: undefined,
+          marginTop: undefined,
+          marginRight: undefined,
+          marginBottom: undefined,
+          marginLeft: undefined,
+        },
+      };
 
       const borderStyle = getBorderClassesAndStyles(attributes)?.style;
       const colorStyle = getColorClassesAndStyles(attributes)?.style;
       const spacingStyle = getSpacingClassesAndStyles(attributes)?.style;
 
-      if (justify) {
-        styles.justifyContent = justify;
-      }
-
-      if (width) {
-        innerStyles.width = width;
-      }
-
-      if (flipH) {
-        const flip = 'scaleX(-1)';
-        innerStyles.transform = innerStyles.transform ? `${innerStyles.transform} ${flip}` : flip;
-      }
-
-      if (flipV) {
-        const flip = 'scaleY(-1)';
-        innerStyles.transform = innerStyles.transform ? `${innerStyles.transform} ${flip}` : flip;
-      }
-
       // Border.
       if (Object.keys(borderStyle).length) {
-        innerStyles = {
-          ...innerStyles,
+        styles['> .ghostkit-icon-inner'] = {
+          ...styles['> .ghostkit-icon-inner'],
           ...setBorder(borderStyle),
         };
       }
 
       // Color.
       if (Object.keys(colorStyle).length) {
-        innerStyles = {
-          ...innerStyles,
+        styles['> .ghostkit-icon-inner'] = {
+          ...styles['> .ghostkit-icon-inner'],
           ...colorStyle,
         };
       }
 
       // Spacing.
       if (Object.keys(spacingStyle).length) {
-        innerStyles = {
-          ...innerStyles,
+        styles['> .ghostkit-icon-inner'] = {
+          ...styles['> .ghostkit-icon-inner'],
           ...spacingStyle,
         };
       }
 
-      styles['> .ghostkit-icon-inner'] = innerStyles;
-
       return styles;
-    },
-    supports: {
-      styles: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
     },
   },
   edit,

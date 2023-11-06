@@ -15,15 +15,6 @@ export const settings = {
   icon: getIcon('block-markdown', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/markdown/',
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
   },
   example: {
     attributes: {

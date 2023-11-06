@@ -21,15 +21,6 @@ export const settings = {
   icon: getIcon('block-video', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/video/',
-    supports: {
-      styles: true,
-      frame: true,
-      spacings: true,
-      position: true,
-      display: true,
-      scrollReveal: true,
-      customCSS: true,
-    },
   },
   example: {
     attributes: {
