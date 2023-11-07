@@ -9,6 +9,7 @@ export default function MediaSizeSelector(props) {
   const {
     attributes,
     hasOriginalOption = true,
+    hasSizeSelectors = true,
     onChangeAspectRatio,
     onChangeWidth,
     onChangeHeight,
@@ -78,7 +79,7 @@ export default function MediaSizeSelector(props) {
         options={options}
       />
       {/* Width and height. */}
-      {width && height ? (
+      {hasSizeSelectors && (
         <>
           <div style={{ display: 'flex', gap: 10 }}>
             <UnitControl
@@ -96,7 +97,7 @@ export default function MediaSizeSelector(props) {
           </div>
           {!resolution && <div style={{ marginTop: '-22px' }} />}
         </>
-      ) : null}
+      )}
       {/* Resolution. */}
       {resolution && editorSettings?.imageSizes ? (
         <SelectControl

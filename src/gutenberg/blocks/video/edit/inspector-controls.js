@@ -258,6 +258,7 @@ export default function BlockInspectorControls(props) {
             aspectRatio: videoAspectRatio,
           }}
           hasOriginalOption={false}
+          hasSizeSelectors={false}
           onChangeAspectRatio={(val) => setAttributes({ videoAspectRatio: val })}
         />
 
