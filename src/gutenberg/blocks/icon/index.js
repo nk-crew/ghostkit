@@ -20,15 +20,13 @@ export const settings = {
         '--gkt-icon__color': color || undefined,
         '--gkt-icon__background': backgroundColor || backgroundGradient || undefined,
         '--gkt-icon__width': undefined,
-        '--gkt-icon__justify-content': undefined,
+        '--gkt-icon__justify': undefined,
       };
 
       if (justify === 'start') {
-        styles['--gkt-icon__justify-content'] = 'flex-start';
-      } else if (justify === 'center') {
-        styles['--gkt-icon__justify-content'] = 'center';
-      } else {
-        styles['--gkt-icon__justify-content'] = 'flex-end';
+        styles['--gkt-icon__justify'] = 'flex-start';
+      } else if (justify === 'end') {
+        styles['--gkt-icon__justify'] = 'flex-end';
       }
 
       if (typeof width !== 'undefined' && width !== '') {
