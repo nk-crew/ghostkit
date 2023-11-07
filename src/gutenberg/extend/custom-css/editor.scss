@@ -71,6 +71,11 @@
     transition: 0.2s filter;
   }
 
+  .ace_scroller,
+  .ace_scrollbar {
+    overflow: hidden;
+  }
+
   .ghostkit-component-code-editor {
     pointer-events: none;
   }
@@ -105,4 +110,9 @@
       filter: blur(2px);
     }
   }
+}
+
+// Fixes z-index of autocomplete.
+.ace_editor.ace_autocomplete {
+  z-index: 1000000;
 }
