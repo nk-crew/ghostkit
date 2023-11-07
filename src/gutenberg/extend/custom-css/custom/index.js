@@ -3,6 +3,7 @@
  * External dependencies
  */
 import classnames from 'classnames/dedupe';
+import { addCompleter } from 'ace-builds/src-noconflict/ext-language_tools';
 
 /**
  * Internal dependencies
@@ -34,6 +35,24 @@ const {
 const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 
 const placeholder = 'selector {\n\n}';
+
+/**
+ * Autocomplete for `selector`.
+ */
+addCompleter({
+  getCompletions(editor, session, pos, prefix, callback) {
+    if (editor.id === 'gkt-custom-css-editor') {
+      callback(null, [
+        {
+          caption: 'selector',
+          value: 'selector',
+          meta: __('Block Selector', '@@text_domain'),
+        },
+      ]);
+    }
+  },
+  identifierRegexps: [/selector/],
+});
 
 function CustomCSSCustomTools(props) {
   const [defaultPlaceholder, setDefaultPlaceholder] = useState(placeholder);
@@ -155,26 +174,32 @@ function CustomCSSCustomTools(props) {
                 maxLines={20}
                 minLines={5}
                 height="300px"
-              />
-              <p style={{ marginBottom: 20 }} />
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: __('Use %s rule to change block styles.', '@@text_domain').replace(
-                    '%s',
-                    '<code>selector</code>'
-                  ),
+                editorProps={{
+                  id: 'gkt-custom-css-editor',
                 }}
               />
-              <p>{__('Example:', '@@text_domain')}</p>
-              <pre className="ghostkit-control-pre-custom-css">
-                {`selector {
+              <p style={{ marginBottom: 20 }} />
+              <details>
+                <summary
+                  label={__('Examples to use selector', '@@text_domain')}
+                  dangerouslySetInnerHTML={{
+                    __html: __('Use %s rule to change block styles.', '@@text_domain').replace(
+                      '%s',
+                      '<code>selector</code>'
+                    ),
+                  }}
+                />
+                <p>{__('Example:', '@@text_domain')}</p>
+                <pre className="ghostkit-control-pre-custom-css">
+                  {`selector {
   background-color: #2F1747;
 }
 
 selector p {
   color: #2F1747;
 }`}
-              </pre>
+                </pre>
+              </details>
             </>
           )}
         />
