@@ -38,7 +38,7 @@ const { createHigherOrderComponent } = wp.compose;
 function CustomStylesComponent(props) {
   const { setAttributes, attributes, clientId, name } = props;
 
-  const { ghostkit } = attributes;
+  const { ghostkit, className } = attributes;
 
   const { blockSettings } = useSelect(
     () => ({
@@ -149,8 +149,6 @@ function CustomStylesComponent(props) {
   }
 
   function onUpdate(checkDuplicates) {
-    let { className } = attributes;
-
     const newAttrs = {};
 
     // prepare custom block styles.
@@ -165,70 +163,87 @@ function CustomStylesComponent(props) {
     const withBlockCustomStyles = blockCustomStyles && Object.keys(blockCustomStyles).length;
     const withExtensionCustomStyles = ghostkit?.styles && Object.keys(ghostkit.styles).length;
 
+    let reset = !withBlockCustomStyles && !withExtensionCustomStyles;
+
     if (withBlockCustomStyles || withExtensionCustomStyles) {
-      const ghostkitID = getGhostKitID(checkDuplicates);
+      let newStyles = cloneDeep(ghostkit?.styles || {});
 
-      if (ghostkitID) {
-        let updateAttrs = false;
+      if (withBlockCustomStyles) {
+        newStyles = merge(newStyles, maybeEncode(blockCustomStyles));
+      }
 
+      // Clean undefined and empty statements from custom styles list.
+      if (newStyles) {
+        newStyles = cleanBlockCustomStyles(newStyles);
+      }
+
+      const hasCustomStyles = Object.keys(newStyles).length;
+      const ghostkitID = hasCustomStyles && getGhostKitID(checkDuplicates);
+
+      if (!ghostkitID) {
+        reset = true;
+      } else {
         // TODO: add support for custom class selector.
         // let ghostkitClassName = `.ghostkit-custom-${ghostkitID}`;
         // if (blockSettings.ghostkit && blockSettings.ghostkit.customSelector) {
         //   ghostkitClassName = blockSettings.ghostkit.customSelector(ghostkitClassName, props);
         // }
 
-        if (withBlockCustomStyles) {
+        if (ghostkitID !== ghostkit?.id) {
           if (!newAttrs.ghostkit) {
-            newAttrs.ghostkit = cloneDeep(attributes?.ghostkit || {});
-          }
-
-          newAttrs.ghostkit.styles = merge(
-            newAttrs.ghostkit?.styles || {},
-            maybeEncode(blockCustomStyles)
-          );
-        }
-
-        // Clean undefined and empty statements from custom styles list.
-        if (newAttrs?.ghostkit?.styles) {
-          newAttrs.ghostkit.styles = cleanBlockCustomStyles(newAttrs.ghostkit.styles);
-        }
-
-        if (ghostkitID !== attributes?.ghostkit?.id) {
-          if (!newAttrs.ghostkit) {
-            newAttrs.ghostkit = cloneDeep(attributes?.ghostkit || {});
+            newAttrs.ghostkit = cloneDeep(ghostkit || {});
           }
 
           newAttrs.ghostkit.id = ghostkitID;
-          updateAttrs = true;
         }
 
         // Regenerate custom classname if it was removed or changed.
         const newClassName = replaceClass(className, 'ghostkit-custom', ghostkitID);
         if (newClassName !== className) {
           newAttrs.className = newClassName;
-          updateAttrs = true;
         }
 
-        updateAttrs =
-          updateAttrs || !deepEqual(attributes?.ghostkit?.styles, newAttrs?.ghostkit?.styles);
+        // Check if styles changes and update it.
+        if (!deepEqual(ghostkit?.styles, newStyles)) {
+          if (!newAttrs.ghostkit) {
+            newAttrs.ghostkit = cloneDeep(ghostkit || {});
+          }
 
-        if (updateAttrs) {
-          setAttributes(newAttrs);
+          newAttrs.ghostkit.styles = newStyles;
         }
       }
-    } else if (attributes?.ghostkit?.styles) {
-      className = replaceClass(className, 'ghostkit-custom', '');
+    }
 
-      newAttrs.className = className;
+    // Reset unused styles and ID.
+    if (reset) {
+      const newClassName = replaceClass(className, 'ghostkit-custom', '');
 
-      if (!newAttrs.ghostkit) {
-        newAttrs.ghostkit = cloneDeep(attributes?.ghostkit || {});
+      if (newClassName !== className) {
+        newAttrs.className = !newClassName ? undefined : newClassName;
       }
 
-      if (newAttrs.ghostkit?.styles) {
-        delete newAttrs.ghostkit.styles;
+      if (ghostkit?.styles || ghostkit?.id) {
+        if (!newAttrs.ghostkit) {
+          newAttrs.ghostkit = cloneDeep(ghostkit || {});
+        }
+
+        if (newAttrs?.ghostkit?.styles) {
+          delete newAttrs.ghostkit.styles;
+        }
+
+        if (newAttrs?.ghostkit?.id) {
+          delete newAttrs.ghostkit.id;
+        }
       }
 
+      // Reset ghostkit attribute if empty.
+      if (newAttrs?.ghostkit && !Object.keys(newAttrs.ghostkit).length) {
+        newAttrs.ghostkit = undefined;
+      }
+    }
+
+    // Update attributes.
+    if (Object.keys(newAttrs).length) {
       setAttributes(newAttrs);
     }
   }
