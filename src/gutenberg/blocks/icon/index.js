@@ -19,14 +19,20 @@ export const settings = {
       const styles = {
         '--gkt-icon__color': color || undefined,
         '--gkt-icon__background': backgroundColor || backgroundGradient || undefined,
-        'justify-content': justify || undefined,
-      };
-      const innerStyles = {
-        width: undefined,
+        '--gkt-icon__width': undefined,
+        '--gkt-icon__justify-content': undefined,
       };
 
+      if (justify === 'start') {
+        styles['--gkt-icon__justify-content'] = 'flex-start';
+      } else if (justify === 'center') {
+        styles['--gkt-icon__justify-content'] = 'center';
+      } else {
+        styles['--gkt-icon__justify-content'] = 'flex-end';
+      }
+
       if (typeof width !== 'undefined' && width !== '') {
-        innerStyles.width = width;
+        styles['--gkt-icon__width'] = width;
       }
 
       return styles;
