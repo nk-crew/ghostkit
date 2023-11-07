@@ -24,6 +24,17 @@ class GhostKit_Extension_Styles {
      * GhostKit_Extension_Styles constructor.
      */
     public static function init() {
+        GhostKit_Extensions::register(
+            'styles',
+            array(
+                'default_supports' => array(
+                    'styles' => array(
+                        'customSelector' => false,
+                    ),
+                ),
+            )
+        );
+
         add_filter( 'gkt_block_custom_styles', 'GhostKit_Extension_Styles::block_custom_styles', 10, 2 );
     }
 
@@ -71,6 +82,17 @@ class GhostKit_Extension_Styles {
         $styles = $attributes['ghostkit']['styles'] ?? '';
 
         if ( $id && $styles ) {
+            $block_type      = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+            $custom_selector = isset( $block_type->supports['ghostkit']['styles']['customSelector'] )
+            ? $block_type->supports['ghostkit']['styles']['customSelector']
+            : false;
+
+            $selector = '.ghostkit-custom-' . $id;
+
+            if ( $custom_selector ) {
+                $selector = str_replace( '&', $selector, $custom_selector );
+            }
+
             if ( ! empty( $blocks_css ) ) {
                 $blocks_css .= ' ';
             }
@@ -78,7 +100,7 @@ class GhostKit_Extension_Styles {
             $blocks_css .= self::parse(
                 ghostkit_decode(
                     array(
-                        '.ghostkit-custom-' . $id => $styles,
+                        $selector => $styles,
                     )
                 )
             );

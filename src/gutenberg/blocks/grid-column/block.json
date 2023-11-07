@@ -7,6 +7,11 @@
   "title": "Column",
   "description": "A single column within a grid block.",
   "supports": {
+    "ghostkit": {
+      "styles": {
+        "customSelector": ".ghostkit-grid &"
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

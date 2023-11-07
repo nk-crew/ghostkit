@@ -50,6 +50,11 @@
     }
   },
   "supports": {
+    "ghostkit": {
+      "styles": {
+        "customSelector": "& .ghostkit-icon-inner"
+      }
+    },
     "html": false,
     "className": false,
     "anchor": true,

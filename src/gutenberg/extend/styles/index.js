@@ -24,7 +24,7 @@ const { cloneDeep } = window.lodash;
 
 const { applyFilters, addFilter } = wp.hooks;
 
-const { getBlockType } = wp.blocks;
+const { getBlockType, getBlockSupport } = wp.blocks;
 
 const { useRef, useEffect } = wp.element;
 
@@ -39,6 +39,8 @@ function CustomStylesComponent(props) {
   const { setAttributes, attributes, clientId, name } = props;
 
   const { ghostkit, className } = attributes;
+
+  const customSelector = getBlockSupport(name, ['ghostkit', 'styles', 'customSelector']);
 
   const { blockSettings } = useSelect(
     () => ({
@@ -183,12 +185,6 @@ function CustomStylesComponent(props) {
       if (!ghostkitID) {
         reset = true;
       } else {
-        // TODO: add support for custom class selector.
-        // let ghostkitClassName = `.ghostkit-custom-${ghostkitID}`;
-        // if (blockSettings.ghostkit && blockSettings.ghostkit.customSelector) {
-        //   ghostkitClassName = blockSettings.ghostkit.customSelector(ghostkitClassName, props);
-        // }
-
         if (ghostkitID !== ghostkit?.id) {
           if (!newAttrs.ghostkit) {
             newAttrs.ghostkit = cloneDeep(ghostkit || {});
@@ -271,11 +267,17 @@ function CustomStylesComponent(props) {
   if (ghostkit?.id) {
     // New custom styles.
     if (ghostkit?.styles && Object.keys(ghostkit?.styles).length) {
+      let selector = `.ghostkit-custom-${ghostkit?.id}`;
+
+      if (customSelector) {
+        selector = customSelector.replace('&', selector);
+      }
+
       styles +=
         (styles ? ' ' : '') +
         getStyles(
           maybeDecode({
-            [`.ghostkit-custom-${ghostkit?.id}`]: ghostkit?.styles,
+            [selector]: ghostkit?.styles,
           }),
           '',
           false
