@@ -1,5 +1,5 @@
-// We can't use lodash merge, because it skip the specified undefined value.
-// We need it to remove styles.
+// We can't use lodash merge, because it skip the specified undefined value
+// which we use to reset styles.
 import merge from '../utils/merge';
 import compactObject from '../utils/compact-object';
 import { maybeEncode, maybeDecode } from '../utils/encode-decode';

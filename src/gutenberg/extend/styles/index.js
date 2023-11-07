@@ -8,6 +8,9 @@ import { throttle } from 'throttle-debounce';
 /**
  * Internal dependencies
  */
+// We can't use lodash merge, because it skip the specified undefined value
+// which we use to reset styles.
+import merge from '../../utils/merge';
 import { replaceClass } from '../../utils/classes-replacer';
 import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 import EditorStyles from '../../components/editor-styles';
@@ -17,7 +20,7 @@ import getStyles from './get-styles';
 /**
  * WordPress dependencies
  */
-const { merge, cloneDeep } = window.lodash;
+const { cloneDeep } = window.lodash;
 
 const { applyFilters, addFilter } = wp.hooks;
 
@@ -151,16 +154,13 @@ function CustomStylesComponent(props) {
     const newAttrs = {};
 
     // prepare custom block styles.
-    let blockCustomStyles = applyFilters(
+    const blockCustomStyles = applyFilters(
       'ghostkit.blocks.customStyles',
       blockSettings.ghostkit && blockSettings.ghostkit.customStylesCallback
         ? blockSettings.ghostkit.customStylesCallback(attributes, props)
         : {},
       props
     );
-
-    // We need to clean undefined and empty statements from custom styles list.
-    blockCustomStyles = cleanBlockCustomStyles(blockCustomStyles);
 
     const withBlockCustomStyles = blockCustomStyles && Object.keys(blockCustomStyles).length;
     const withExtensionCustomStyles = ghostkit?.styles && Object.keys(ghostkit.styles).length;
@@ -188,6 +188,11 @@ function CustomStylesComponent(props) {
           );
         }
 
+        // Clean undefined and empty statements from custom styles list.
+        if (newAttrs?.ghostkit?.styles) {
+          newAttrs.ghostkit.styles = cleanBlockCustomStyles(newAttrs.ghostkit.styles);
+        }
+
         if (ghostkitID !== attributes?.ghostkit?.id) {
           if (!newAttrs.ghostkit) {
             newAttrs.ghostkit = cloneDeep(attributes?.ghostkit || {});
@@ -204,9 +209,8 @@ function CustomStylesComponent(props) {
           updateAttrs = true;
         }
 
-        if (withBlockCustomStyles && !updateAttrs) {
-          updateAttrs = !deepEqual(attributes?.ghostkit?.styles, newAttrs?.ghostkit?.styles);
-        }
+        updateAttrs =
+          updateAttrs || !deepEqual(attributes?.ghostkit?.styles, newAttrs?.ghostkit?.styles);
 
         if (updateAttrs) {
           setAttributes(newAttrs);
