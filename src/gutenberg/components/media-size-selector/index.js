@@ -59,12 +59,12 @@ export default function MediaSizeSelector(props) {
   };
 
   const handleWidthChange = (val) => {
-    onChangeWidth(val);
+    onChangeWidth(parseFloat(val) ? val : '');
     setCustomAspectRatio(val && height ? 'custom' : false);
   };
 
   const handleHeightChange = (val) => {
-    onChangeHeight(val);
+    onChangeHeight(parseFloat(val) ? val : '');
     setCustomAspectRatio(width && val ? 'custom' : false);
   };
 
