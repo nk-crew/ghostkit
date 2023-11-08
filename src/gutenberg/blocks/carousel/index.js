@@ -15,6 +15,18 @@ export const settings = {
   icon: getIcon('block-carousel', true),
   ghostkit: {
     previewUrl: 'https://ghostkit.io/blocks/carousel/',
+    customStylesCallback(attributes) {
+      const { fadeEdges, fadeEdgesSize } = attributes;
+      const styles = {
+        '--gkt-carousel--fade-edges__size': undefined,
+      };
+
+      if (fadeEdges && typeof fadeEdgesSize !== 'undefined' && fadeEdgesSize !== '') {
+        styles['--gkt-carousel--fade-edges__size'] = `${fadeEdgesSize}%`;
+      }
+
+      return styles;
+    },
   },
   example: {
     attributes: {

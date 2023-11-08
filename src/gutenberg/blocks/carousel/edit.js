@@ -16,11 +16,18 @@ import EditorStyles from '../../components/editor-styles';
  */
 const { applyFilters } = wp.hooks;
 const { __ } = wp.i18n;
-const { PanelBody, ToggleControl } = wp.components;
+const {
+  PanelBody,
+  ToggleControl,
+  NumberControl: __stableNumberControl,
+  __experimentalNumberControl,
+} = wp.components;
 const { useSelect, useDispatch } = wp.data;
 const { createBlock } = wp.blocks;
 
 const { InspectorControls, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+
+const NumberControl = __stableNumberControl || __experimentalNumberControl;
 
 const slideBlockName = 'ghostkit/carousel-slide';
 
@@ -42,6 +49,7 @@ export default function BlockEdit(props) {
     loop,
     freeScroll,
     fadeEdges,
+    fadeEdgesSize,
     showArrows,
     arrowPrevIcon,
     arrowNextIcon,
@@ -165,7 +173,7 @@ export default function BlockEdit(props) {
             onChange={(value) => {
               setAttributes({ effect: value });
             }}
-            isAdaptiveWidth
+            isBlock
           />
 
           <div style={{ borderTop: '1px solid #E0E0E0', marginBottom: '16px' }} />
@@ -200,7 +208,7 @@ export default function BlockEdit(props) {
           <div style={{ borderTop: '1px solid #E0E0E0', marginBottom: '16px' }} />
 
           <ToggleControl
-            label={__('Centered slides', '@@text_domain')}
+            label={__('Centered Slides', '@@text_domain')}
             checked={!!centeredSlides}
             onChange={(val) => setAttributes({ centeredSlides: val })}
           />
@@ -210,15 +218,28 @@ export default function BlockEdit(props) {
             onChange={(val) => setAttributes({ loop: val })}
           />
           <ToggleControl
-            label={__('Free scroll', '@@text_domain')}
+            label={__('Free Scroll', '@@text_domain')}
             checked={!!freeScroll}
             onChange={(val) => setAttributes({ freeScroll: val })}
           />
           <ToggleControl
-            label={__('Fade edges', '@@text_domain')}
+            label={__('Fade Edges', '@@text_domain')}
             checked={!!fadeEdges}
             onChange={(val) => setAttributes({ fadeEdges: val })}
           />
+          {fadeEdges && (
+            <NumberControl
+              label={__('Fade Edges Size', '@@text_domain')}
+              suffix="%&nbsp;"
+              value={fadeEdgesSize}
+              onChange={(val) => setAttributes({ fadeEdgesSize: parseFloat(val) })}
+              labelPosition="edge"
+              __unstableInputWidth="100px"
+              disableUnits
+              min={0}
+              max={50}
+            />
+          )}
         </PanelBody>
         <PanelBody title={__('Arrow', '@@text_domain')}>
           <ToggleControl
