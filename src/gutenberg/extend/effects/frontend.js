@@ -176,7 +176,9 @@ events.on(document, 'init.blocks.gkt', () => {
           .querySelector('.ghostkit-progress-bar-count');
 
         if ($progressCountBadgeWrap) {
-          $progressCountBadge = $progressCountBadgeWrap.querySelector(':scope > div > span:eq(1)');
+          $progressCountBadge = $progressCountBadgeWrap.querySelector(
+            ':scope > div > span:nth-child(2)'
+          );
 
           $progressCountBadgeWrap.style.width = '0%';
           $progressCountBadge.textContent = '0';
