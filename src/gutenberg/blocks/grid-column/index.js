@@ -19,12 +19,6 @@ export { metadata, name };
 export const settings = {
   icon: getIcon('block-grid-column', true),
   ghostkit: {
-    customSelector(selector) {
-      // extend selector to add possibility to override default column spacings without !important
-      selector = `.ghostkit-grid ${selector}`;
-
-      return selector;
-    },
     customStylesCallback(attributes) {
       const { stickyContent, stickyContentOffset } = attributes;
 

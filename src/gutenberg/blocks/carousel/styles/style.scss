@@ -24,7 +24,7 @@
 
   // Fade edges.
   &-fade-edges {
-    mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 0%) 0%, #000 var(--gkt-carousel--fade-edges__size), #000 calc(100% - var(--gkt-carousel--fade-edges__size)), rgba(0, 0, 0, 0%) 100%);
   }
 
   // Arrows.

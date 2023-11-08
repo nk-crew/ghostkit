@@ -1,8 +1,10 @@
 /**
  * Frontend Styles
  */
+@import "./variables";
+
 .ghostkit-icon {
-  display: flex;
+  display: grid;
 
   svg {
     display: block;
@@ -24,7 +26,9 @@
   }
 }
 
-a.ghostkit-icon {
-  color: inherit;
-  text-decoration: none;
+.ghostkit-icon-inner {
+  justify-self: var(--gkt-icon__justify);
+  width: var(--gkt-icon__width);
+  color: var(--gkt-icon__color);
+  background: var(--gkt-icon__background);
 }

@@ -49,6 +49,10 @@
       "type": "boolean",
       "default": false
     },
+    "fadeEdgesSize": {
+      "type": "number",
+      "default": 12
+    },
     "showArrows": {
       "type": "boolean",
       "default": true

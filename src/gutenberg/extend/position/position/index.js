@@ -105,6 +105,10 @@ function PositionPositionTools(props) {
             value: 'relative',
             label: __('Relative', '@@text_domain'),
           },
+          {
+            value: 'sticky',
+            label: __('Sticky', '@@text_domain'),
+          },
         ]}
       />
     </ToolsPanelItem>

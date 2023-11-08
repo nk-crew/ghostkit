@@ -66,6 +66,13 @@
       "type": "boolean",
       "default": false
     },
+    "videoBackgroundColor": {
+      "type": "string",
+      "default": "#010101"
+    },
+    "videoBackgroundGradient": {
+      "type": "string"
+    },
 
     "iconPlay": {
       "type": "string",
@@ -107,7 +114,16 @@
       "type": "string",
       "default": "plain"
     },
+    "fullscreenVideoBackgroundColor": {
+      "type": "string"
+    },
+    "fullscreenVideoBackgroundGradient": {
+      "type": "string"
+    },
     "fullscreenBackgroundColor": {
+      "type": "string"
+    },
+    "fullscreenBackgroundGradient": {
       "type": "string"
     },
     "fullscreenActionCloseIcon": {

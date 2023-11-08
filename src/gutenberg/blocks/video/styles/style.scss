@@ -1,8 +1,18 @@
+@use "sass:math";
+
 /**
  * Frontend Styles
  */
 @import "./variables";
 @import "./icon-only";
+
+@mixin setPaddingAspectRatio($width, $height) {
+  &[data-video-aspect-ratio="#{$width}-#{$height}"]::before,
+  &[data-video-aspect-ratio="#{$width}:#{$height}"]::before,
+  &-aspect-ratio-#{$width}-#{$height}::before {
+    padding-top: #{math.div($height, $width) * 100%};
+  }
+}
 
 .ghostkit-video {
   position: relative;
@@ -18,29 +28,11 @@
     content: "";
   }
 
-  &[data-video-aspect-ratio="16-9"]::before,
-  &[data-video-aspect-ratio="16:9"]::before,
-  &-aspect-ratio-16-9::before {
-    padding-top: 56.25%;
+  @each $width, $height in (16:9, 21:9, 4:3, 3:2, 1:1, 2:3, 9:16) {
+    @include setPaddingAspectRatio($width, $height);
   }
 
-  &[data-video-aspect-ratio="21-9"]::before,
-  &[data-video-aspect-ratio="21:9"]::before,
-  &-aspect-ratio-21-9::before {
-    padding-top: 42.857%;
-  }
-
-  &[data-video-aspect-ratio="4-3"]::before,
-  &[data-video-aspect-ratio="4:3"]::before,
-  &-aspect-ratio-4-3::before {
-    padding-top: 75%;
-  }
-
-  &[data-video-aspect-ratio="3-2"]::before,
-  &[data-video-aspect-ratio="3:2"]::before,
-  &-aspect-ratio-3-2::before {
-    padding-top: 66.667%;
-  }
+  @include setPaddingAspectRatio(3, 4);
 
   // poster
   &-poster {
@@ -193,6 +185,10 @@
       video {
         width: 100%;
         height: 100%;
+      }
+
+      video {
+        background: var(--gkt-fullscreen-video--video__background);
       }
     }
 

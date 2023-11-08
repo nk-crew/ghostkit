@@ -38,7 +38,7 @@ export const settings = {
         styles['--gkt-progress__border-radius'] = `${attributes.borderRadius}px`;
       }
       if (typeof attributes.percent !== 'undefined' && attributes.percent !== '') {
-        styles['--gkt-progress--bar__width'] = `${attributes.percent}px`;
+        styles['--gkt-progress--bar__width'] = `${attributes.percent}%`;
       }
 
       return styles;

@@ -4,6 +4,8 @@
 @import "../../../variables";
 
 .ghostkit-carousel {
+  --gkt-carousel--fade-edges__size: 12%;
+
   // Arrows.
   --gkt-carousel--arrows__width: 2.2em;
   --gkt-carousel--arrows__height: 2.2em;

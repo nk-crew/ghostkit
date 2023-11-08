@@ -13,7 +13,7 @@ import 'ace-builds/src-noconflict/ext-language_tools';
  * Component Class
  */
 export default function CodeEditor(props) {
-  const { setOptions = {} } = props;
+  const { setOptions = {}, editorProps = {}, ...restProps } = props;
 
   return (
     <AceEditor
@@ -43,8 +43,9 @@ export default function CodeEditor(props) {
       }}
       editorProps={{
         $blockScrolling: Infinity,
+        ...editorProps,
       }}
-      {...props}
+      {...restProps}
     />
   );
 }
