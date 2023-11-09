@@ -8,8 +8,9 @@ const UnitControl = __experimentalUnitControl;
 export default function MediaSizeSelector(props) {
   const {
     attributes,
-    hasOriginalOption = true,
+    hasAspectRatio = true,
     hasSizeSelectors = true,
+    hasOriginalOption = true,
     onChangeAspectRatio,
     onChangeWidth,
     onChangeHeight,
@@ -72,12 +73,14 @@ export default function MediaSizeSelector(props) {
   return (
     <>
       {/* Aspect ratio. */}
-      <SelectControl
-        label={__('Aspect Ratio', '@@text_domain')}
-        value={customAspectRatio || aspectRatio}
-        onChange={handleAspectRatioChange}
-        options={options}
-      />
+      {hasAspectRatio && (
+        <SelectControl
+          label={__('Aspect Ratio', '@@text_domain')}
+          value={customAspectRatio || aspectRatio}
+          onChange={handleAspectRatioChange}
+          options={options}
+        />
+      )}
       {/* Width and height. */}
       {hasSizeSelectors && (
         <>
