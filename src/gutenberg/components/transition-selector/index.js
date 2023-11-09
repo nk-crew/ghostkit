@@ -12,6 +12,7 @@ import SPRING_DEFAULT from '../transition-spring-controls/default';
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
+const { useState } = wp.element;
 const { BaseControl } = wp.components;
 
 export default function TransitionSelector(props) {
@@ -24,6 +25,8 @@ export default function TransitionSelector(props) {
     enableDelayControl = true,
     allowReset = false,
   } = props;
+
+  const [isOpenTransition, setIsOpenTransition] = useState(false);
 
   let easingValue = value?.easing;
   if (!easingValue || easingValue.length !== 4) {
@@ -38,6 +41,8 @@ export default function TransitionSelector(props) {
         // Reset.
         e.preventDefault();
         e.stopPropagation();
+
+        setIsOpenTransition(false);
 
         onChange(undefined);
       }}
@@ -103,6 +108,10 @@ export default function TransitionSelector(props) {
         label={buttonLabel}
         className="ghostkit-component-transition-selector"
         contentClassName="ghostkit-component-transition-selector-content"
+        isOpenTransition={isOpenTransition}
+        onToggle={(isOpen) => {
+          setIsOpenTransition(isOpen);
+        }}
         onClick={(onToggle) => {
           // Toggle dropdown.
           if (value?.type === 'spring' || value?.type === 'easing') {

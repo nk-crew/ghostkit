@@ -12,7 +12,7 @@ const { Dropdown, Button, BaseControl } = wp.components;
  * Component
  */
 export default function DropdownPicker(props) {
-  const { label, className, contentClassName, onClick, children } = props;
+  const { label, className, contentClassName, onClick, open, onToggle, children } = props;
 
   return (
     <BaseControl className="ghostkit-component-dropdown-picker-wrapper">
@@ -27,7 +27,9 @@ export default function DropdownPicker(props) {
           offset: 36,
           shift: true,
         }}
-        renderToggle={({ isOpen, onToggle }) => (
+        open={open}
+        onToggle={onToggle}
+        renderToggle={({ isOpen, onToggle: toggle }) => (
           <Button
             className={classnames(
               'ghostkit-component-dropdown-picker-toggle',
@@ -35,9 +37,9 @@ export default function DropdownPicker(props) {
             )}
             onClick={(e) => {
               if (onClick) {
-                onClick(onToggle, isOpen, e);
+                onClick(toggle, isOpen, e);
               } else {
-                onToggle();
+                toggle();
               }
             }}
           >

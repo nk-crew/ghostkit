@@ -67,9 +67,9 @@ export function SpringEditor(props) {
    */
   useEffect(() => {
     const springData = spring({
-      stiffness: value.stiffness,
-      damping: value.damping,
-      mass: value.mass,
+      stiffness: value?.stiffness,
+      damping: value?.damping,
+      mass: value?.mass,
     }).createAnimation([0, options.framesLength]);
 
     const width = options.width - options.padding * 2;
@@ -94,7 +94,7 @@ export function SpringEditor(props) {
 
     setPath(newPath);
     setDuration(springData.duration);
-  }, [options, value.stiffness, value.damping, value.mass]);
+  }, [options, value?.stiffness, value?.damping, value?.mass]);
 
   return (
     <div
@@ -139,9 +139,9 @@ export function SpringControls(props) {
 
     Object.keys(PRESETS).forEach((slug) => {
       if (
-        value.stiffness === PRESETS[slug].stiffness &&
-        value.damping === PRESETS[slug].damping &&
-        value.mass === PRESETS[slug].mass
+        value?.stiffness === PRESETS[slug].stiffness &&
+        value?.damping === PRESETS[slug].damping &&
+        value?.mass === PRESETS[slug].mass
       ) {
         newPreset = slug;
       }
@@ -201,7 +201,7 @@ export function SpringControls(props) {
       <Grid columns={3}>
         <NumberControl
           label={__('Stiffness', '@@text_domain')}
-          value={value.stiffness}
+          value={value?.stiffness}
           onChange={(val) => updateValue({ stiffness: parseFloat(val) })}
           min={1}
           max={1000}
@@ -209,7 +209,7 @@ export function SpringControls(props) {
         />
         <NumberControl
           label={__('Damping', '@@text_domain')}
-          value={value.damping}
+          value={value?.damping}
           onChange={(val) => updateValue({ damping: parseFloat(val) })}
           min={0}
           max={100}
@@ -217,7 +217,7 @@ export function SpringControls(props) {
         />
         <NumberControl
           label={__('Mass', '@@text_domain')}
-          value={value.mass}
+          value={value?.mass}
           onChange={(val) => updateValue({ mass: parseFloat(val) })}
           min={0}
           max={10}
@@ -241,9 +241,9 @@ export function SpringControls(props) {
         label={__('Preview', '@@text_domain')}
         options={{
           type: 'spring',
-          stiffness: value.stiffness,
-          damping: value.damping,
-          mass: value.mass,
+          stiffness: value?.stiffness,
+          damping: value?.damping,
+          mass: value?.mass,
         }}
       />
     </>
