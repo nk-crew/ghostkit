@@ -29,9 +29,15 @@
     min-height: 20px;
     margin-right: 8px;
 
+    &:empty {
+      background-color: #e4e4e4;
+      border-radius: 4px;
+    }
+
     svg {
       width: 100%;
       height: auto;
+      fill: none;
     }
   }
 
