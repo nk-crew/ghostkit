@@ -19,6 +19,9 @@ export default function getBackgroundStyles(attributes) {
     'object-position': undefined,
     'background-repeat': undefined,
     'background-position': undefined,
+
+    // Remove unused fallback styles.
+    'font-family': undefined,
   };
 
   // <img> tag with object-fit style

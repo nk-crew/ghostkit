@@ -7,6 +7,7 @@
   "title": "Column",
   "description": "A single column within a grid block.",
   "supports": {
+    "awb": true,
     "ghostkit": {
       "styles": {
         "customSelector": ".ghostkit-grid &"

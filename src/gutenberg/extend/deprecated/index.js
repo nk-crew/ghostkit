@@ -24,22 +24,25 @@ function DeprecatedExtensions(props) {
   const { setAttributes } = props;
 
   useEffect(() => {
-    // Migration to new attributes.
-    let result = {};
+    // We have tp use timeout to prevent conflicts with block `customStylesCallback`.
+    setTimeout(() => {
+      // Migration to new attributes.
+      let result = {};
 
-    const newSR = migrateSR(props);
-    const newStyles = migrateStyles(props);
+      const newSR = migrateSR(props);
+      const newStyles = migrateStyles(props);
 
-    if (newSR) {
-      result = merge(result, newSR);
-    }
-    if (newStyles) {
-      result = merge(result, newStyles);
-    }
+      if (newSR) {
+        result = merge(result, newSR);
+      }
+      if (newStyles) {
+        result = merge(result, newStyles);
+      }
 
-    if (Object.keys(result).length) {
-      setAttributes(result);
-    }
+      if (Object.keys(result).length) {
+        setAttributes(result);
+      }
+    }, 0);
   }, []);
 
   return null;

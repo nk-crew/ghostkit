@@ -110,10 +110,18 @@ class GhostKit_Extensions {
         if ( ! array_key_exists( 'ghostkit', $block_type->supports ) ) {
             $block_type->supports['ghostkit'] = self::$default_supports;
         } else {
-            $block_type->supports['ghostkit'] = array_merge(
-                self::$default_supports,
-                $block_type->supports['ghostkit']
-            );
+            $new_supports = self::$default_supports;
+
+            // Change defaults to user custom configs.
+            if ( is_array( $block_type->supports['ghostkit'] ) ) {
+                foreach ( $block_type->supports['ghostkit'] as $k => $val ) {
+                    if ( true !== $val ) {
+                        $new_supports[ $k ] = $val;
+                    }
+                }
+            }
+
+            $block_type->supports['ghostkit'] = $new_supports;
         }
 
         // Add attribute.
