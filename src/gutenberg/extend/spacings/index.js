@@ -4,8 +4,8 @@
 import './padding';
 import './margin';
 
+import { EXTENSIONS } from '../constants';
 import useStyles from '../../hooks/use-styles';
-import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 
@@ -24,16 +24,7 @@ const { ToolsPanel: __stableToolsPanel, __experimentalToolsPanel } = wp.componen
 
 const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
 
-const allSpacings = [
-  'padding-top',
-  'padding-right',
-  'padding-bottom',
-  'padding-left',
-  'margin-top',
-  'margin-right',
-  'margin-bottom',
-  'margin-left',
-];
+const allSpacings = EXTENSIONS.spacings.styles;
 
 /**
  * Add inspector controls.
@@ -47,8 +38,7 @@ function GhostKitExtensionSpacingsInspector(original, { props }) {
     return original;
   }
 
-  const { setStyles } = useStyles(props);
-  const { allDevices } = useResponsive();
+  const { resetStyles } = useStyles(props);
 
   return (
     <>
@@ -62,23 +52,7 @@ function GhostKitExtensionSpacingsInspector(original, { props }) {
             </>
           }
           resetAll={() => {
-            const propsToReset = {};
-
-            ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-              if (thisDevice) {
-                propsToReset[`media_${thisDevice}`] = {};
-              }
-
-              allSpacings.forEach((thisMargin) => {
-                if (thisDevice) {
-                  propsToReset[`media_${thisDevice}`][thisMargin] = undefined;
-                } else {
-                  propsToReset[thisMargin] = undefined;
-                }
-              });
-            });
-
-            setStyles(propsToReset);
+            resetStyles(allSpacings, true);
           }}
         >
           <div className="ghostkit-tools-panel-spacings">

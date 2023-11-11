@@ -57,7 +57,7 @@ addCompleter({
 function CustomCSSCustomTools(props) {
   const [defaultPlaceholder, setDefaultPlaceholder] = useState(placeholder);
 
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -77,21 +77,7 @@ function CustomCSSCustomTools(props) {
         }
       }}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`].custom = undefined;
-          } else {
-            propsToReset.custom = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(['custom'], true);
       }}
       isShownByDefault={false}
     >

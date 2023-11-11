@@ -27,7 +27,7 @@ const { hasBlockSupport } = wp.blocks;
 const allMargins = ['margin-top', 'margin-right', 'margin-bottom', 'margin-left'];
 
 function SpacingsMarginTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -44,23 +44,7 @@ function SpacingsMarginTools(props) {
       label={__('Margin', '@@text_domain')}
       hasValue={() => !!hasMargin}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          allMargins.forEach((thisMargin) => {
-            if (thisDevice) {
-              propsToReset[`media_${thisDevice}`][thisMargin] = undefined;
-            } else {
-              propsToReset[thisMargin] = undefined;
-            }
-          });
-        });
-
-        setStyles(propsToReset);
+        resetStyles(allMargins, true);
       }}
       isShownByDefault={false}
     >

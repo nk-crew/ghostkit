@@ -25,7 +25,7 @@ const UnitControl = __stableUnitControl || __experimentalUnitControl;
 const { hasBlockSupport } = wp.blocks;
 
 function PositionWidthTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -40,21 +40,7 @@ function PositionWidthTools(props) {
       label={__('Width', '@@text_domain')}
       hasValue={() => !!hasWidth}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`].width = undefined;
-          } else {
-            propsToReset.width = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(['width'], true);
       }}
       isShownByDefault={false}
     >

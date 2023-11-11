@@ -5,8 +5,8 @@ import './border';
 import './borderRadius';
 import './shadow';
 
+import { EXTENSIONS } from '../constants';
 import useStyles from '../../hooks/use-styles';
-import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 
@@ -25,18 +25,7 @@ const { ToolsPanel: __stableToolsPanel, __experimentalToolsPanel } = wp.componen
 
 const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
 
-const hoverSelector = '&:hover';
-
-const allFrameProps = [
-  'border-style',
-  'border-width',
-  'border-color',
-  'border-top-left-radius',
-  'border-top-right-radius',
-  'border-bottom-left-radius',
-  'border-bottom-right-radius',
-  'box-shadow',
-];
+const allFrameProps = EXTENSIONS.frame.styles;
 
 /**
  * Add inspector controls.
@@ -50,8 +39,7 @@ function GhostKitExtensionFrameInspector(original, { props }) {
     return original;
   }
 
-  const { setStyles } = useStyles(props);
-  const { allDevices } = useResponsive();
+  const { resetStyles } = useStyles(props);
 
   return (
     <>
@@ -65,28 +53,7 @@ function GhostKitExtensionFrameInspector(original, { props }) {
             </>
           }
           resetAll={() => {
-            const propsToReset = {
-              [hoverSelector]: {},
-            };
-
-            ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-              if (thisDevice) {
-                propsToReset[`media_${thisDevice}`] = {};
-                propsToReset[`media_${thisDevice}`][hoverSelector] = {};
-              }
-
-              allFrameProps.forEach((thisProp) => {
-                if (thisDevice) {
-                  propsToReset[`media_${thisDevice}`][thisProp] = undefined;
-                  propsToReset[`media_${thisDevice}`][hoverSelector][thisProp] = undefined;
-                } else {
-                  propsToReset[thisProp] = undefined;
-                  propsToReset[hoverSelector][thisProp] = undefined;
-                }
-              });
-            });
-
-            setStyles(propsToReset);
+            resetStyles(allFrameProps, true, ['', '&:hover']);
           }}
         >
           <div className="ghostkit-tools-panel-frame">

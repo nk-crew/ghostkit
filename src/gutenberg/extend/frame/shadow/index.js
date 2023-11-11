@@ -72,7 +72,7 @@ function parseShadowString(str) {
 function FrameShadowTools(props) {
   const [isHover, setIsHover] = useState(false);
 
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
   const { device, allDevices } = useResponsive();
 
   const [x, setX] = useState();
@@ -150,26 +150,8 @@ function FrameShadowTools(props) {
       label={__('Shadow', '@@text_domain')}
       hasValue={() => !!hasShadow}
       onDeselect={() => {
-        const propsToReset = {
-          [hoverSelector]: {},
-        };
+        resetStyles(['box-shadow'], true, ['', '&:hover']);
 
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-            propsToReset[`media_${thisDevice}`][hoverSelector] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`]['box-shadow'] = undefined;
-            propsToReset[`media_${thisDevice}`][hoverSelector]['box-shadow'] = undefined;
-          } else {
-            propsToReset['box-shadow'] = undefined;
-            propsToReset[hoverSelector]['box-shadow'] = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
         setX(undefined);
         setY(undefined);
         setBlur(undefined);

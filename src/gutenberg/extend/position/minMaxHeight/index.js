@@ -24,7 +24,7 @@ const { hasBlockSupport } = wp.blocks;
 const allProps = ['min-height', 'max-height'];
 
 function PositionMinMaxHeightTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -40,23 +40,7 @@ function PositionMinMaxHeightTools(props) {
       label={__('Min Max Height', '@@text_domain')}
       hasValue={() => !!hasMinMaxHeight}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`]['min-height'] = undefined;
-            propsToReset[`media_${thisDevice}`]['max-height'] = undefined;
-          } else {
-            propsToReset['min-height'] = undefined;
-            propsToReset['max-height'] = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(allProps, true);
       }}
       isShownByDefault={false}
     >

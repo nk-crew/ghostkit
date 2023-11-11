@@ -39,7 +39,7 @@ const optionPresets = [
 ];
 
 function CustomCSSClipPathTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -59,21 +59,7 @@ function CustomCSSClipPathTools(props) {
         }
       }}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`]['clip-path'] = undefined;
-          } else {
-            propsToReset['clip-path'] = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(['clip-path'], true);
       }}
       isShownByDefault={false}
     >

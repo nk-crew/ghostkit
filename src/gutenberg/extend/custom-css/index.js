@@ -9,8 +9,8 @@ import './clipPath';
 import './pro-transition';
 import './custom';
 
+import { EXTENSIONS } from '../constants';
 import useStyles from '../../hooks/use-styles';
-import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 
@@ -29,21 +29,7 @@ const { ToolsPanel: __stableToolsPanel, __experimentalToolsPanel } = wp.componen
 
 const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
 
-const allCustomCSS = [
-  'opacity',
-  'overflow-x',
-  'overflow-y',
-  'cursor',
-  'user-select',
-  'clip-path',
-  'custom',
-
-  // Pro.
-  'transition-property',
-  'transition-duration',
-  'transition-delay',
-  'transition-timing-function',
-];
+const allCustomCSS = EXTENSIONS.customCSS.styles;
 
 /**
  * Add inspector controls.
@@ -57,8 +43,7 @@ function GhostKitExtensionCustomCSSInspector(original, { props }) {
     return original;
   }
 
-  const { setStyles } = useStyles(props);
-  const { allDevices } = useResponsive();
+  const { resetStyles } = useStyles(props);
 
   return (
     <>
@@ -72,23 +57,7 @@ function GhostKitExtensionCustomCSSInspector(original, { props }) {
             </>
           }
           resetAll={() => {
-            const propsToReset = {};
-
-            ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-              if (thisDevice) {
-                propsToReset[`media_${thisDevice}`] = {};
-              }
-
-              allCustomCSS.forEach((propName) => {
-                if (thisDevice) {
-                  propsToReset[`media_${thisDevice}`][propName] = undefined;
-                } else {
-                  propsToReset[propName] = undefined;
-                }
-              });
-            });
-
-            setStyles(propsToReset);
+            resetStyles(allCustomCSS, true);
           }}
         >
           <div className="ghostkit-tools-panel-custom-css">

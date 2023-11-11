@@ -25,7 +25,7 @@ const NumberControl = __stableNumberControl || __experimentalNumberControl;
 const { hasBlockSupport } = wp.blocks;
 
 function PositionZIndexTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -40,21 +40,7 @@ function PositionZIndexTools(props) {
       label={__('zIndex', '@@text_domain')}
       hasValue={() => !!hasZIndex}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`]['z-index'] = undefined;
-          } else {
-            propsToReset['z-index'] = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(['z-index'], true);
       }}
       isShownByDefault={false}
     >

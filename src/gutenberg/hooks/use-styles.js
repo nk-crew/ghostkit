@@ -4,6 +4,8 @@ import merge from '../utils/merge';
 import compactObject from '../utils/compact-object';
 import { maybeEncode, maybeDecode } from '../utils/encode-decode';
 
+import useResponsive from './use-responsive';
+
 const { cloneDeep } = window.lodash;
 
 export default function useStyles(props) {
@@ -11,6 +13,8 @@ export default function useStyles(props) {
 
   const ghostkitData = attributes?.ghostkit || {};
   const styles = ghostkitData?.styles || {};
+
+  const { allDevices } = useResponsive();
 
   function getStyles() {
     return maybeDecode(styles);
@@ -105,11 +109,52 @@ export default function useStyles(props) {
     setAttributes({ ghostkit: clonedGhostkitData });
   }
 
+  function resetStyles(resetProps, withResponsive = false, selectors = ['']) {
+    const result = {};
+
+    selectors.forEach((selector) => {
+      if (selector) {
+        result[selector] = {};
+      }
+    });
+
+    ['', ...(withResponsive ? Object.keys(allDevices) : [])].forEach((thisDevice) => {
+      if (thisDevice) {
+        result[`media_${thisDevice}`] = {};
+
+        selectors.forEach((selector) => {
+          if (selector) {
+            result[`media_${thisDevice}`][selector] = {};
+          }
+        });
+      }
+
+      resetProps.forEach((thisProp) => {
+        selectors.forEach((selector) => {
+          if (thisDevice) {
+            if (selector) {
+              result[`media_${thisDevice}`][selector][thisProp] = undefined;
+            } else {
+              result[`media_${thisDevice}`][thisProp] = undefined;
+            }
+          } else if (selector) {
+            result[selector][thisProp] = undefined;
+          } else {
+            result[thisProp] = undefined;
+          }
+        });
+      });
+    });
+
+    setStyles(result);
+  }
+
   return {
     styles,
     getStyles,
     getStyle,
     hasStyle,
     setStyles,
+    resetStyles,
   };
 }

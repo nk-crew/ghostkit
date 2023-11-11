@@ -24,7 +24,7 @@ const { hasBlockSupport } = wp.blocks;
 const allDistances = ['top', 'right', 'bottom', 'left'];
 
 function PositionDistanceTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -41,23 +41,7 @@ function PositionDistanceTools(props) {
       label={__('Distance', '@@text_domain')}
       hasValue={() => !!hasDistance}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          allDistances.forEach((thisDistance) => {
-            if (thisDevice) {
-              propsToReset[`media_${thisDevice}`][thisDistance] = undefined;
-            } else {
-              propsToReset[thisDistance] = undefined;
-            }
-          });
-        });
-
-        setStyles(propsToReset);
+        resetStyles(allDistances, true);
       }}
       isShownByDefault={false}
     >
