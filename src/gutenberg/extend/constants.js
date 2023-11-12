@@ -6,7 +6,7 @@ const { __ } = wp.i18n;
 export const EXTENSIONS = {
   effects: {
     label: __('Effects', '@@text_domain'),
-    attrs: 'effects',
+    attributes: ['effects'],
   },
   position: {
     label: __('Position', '@@text_domain'),
@@ -24,6 +24,8 @@ export const EXTENSIONS = {
       'max-height',
       'z-index',
     ],
+    responsive: true,
+    selectors: [''],
   },
   spacings: {
     label: __('Spacings', '@@text_domain'),
@@ -37,6 +39,8 @@ export const EXTENSIONS = {
       'margin-bottom',
       'margin-left',
     ],
+    responsive: true,
+    selectors: [''],
   },
   frame: {
     label: __('Frame', '@@text_domain'),
@@ -50,6 +54,8 @@ export const EXTENSIONS = {
       'border-bottom-right-radius',
       'box-shadow',
     ],
+    responsive: true,
+    selectors: ['', '&:hover'],
   },
   transform: {
     label: __('Transform', '@@text_domain'),
@@ -66,6 +72,8 @@ export const EXTENSIONS = {
       '--gkt-transform-skew-y',
       '--gkt-transform-origin',
     ],
+    responsive: true,
+    selectors: ['', '&:hover'],
   },
   customCSS: {
     label: __('Custom CSS', '@@text_domain'),
@@ -84,5 +92,7 @@ export const EXTENSIONS = {
       'transition-delay',
       'transition-timing-function',
     ],
+    responsive: true,
+    selectors: [''],
   },
 };

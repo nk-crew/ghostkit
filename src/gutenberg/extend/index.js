@@ -13,6 +13,7 @@ import './display';
 import './effects';
 import './toc-headings';
 import './toolbar-templates';
+import './block-actions-copy-paste';
 
 import ApplyFilters from '../components/apply-filters';
 

@@ -147,3 +147,51 @@ export function getStylesToReset(resetProps, withResponsive = false, selectors =
 
   return result;
 }
+
+/**
+ * Get object with styles of specific props.
+ *
+ * @param {Object} styles - styles object.
+ * @param {Array} findProps - array with CSS props to find.
+ * @param {Boolean} withResponsive - reset responsive styles.
+ * @param {Selector} selectors - reset styles in custom selectors set.
+ */
+export function getSpecificPropsFromStyles(
+  styles,
+  findProps,
+  withResponsive = false,
+  selectors = ['']
+) {
+  // Firs of all, prepare reset styles.
+  const result = getStylesToReset(findProps, withResponsive, selectors);
+
+  const decodedStyles = maybeDecode(styles || {});
+
+  ['', ...(withResponsive ? Object.keys(allDevices) : [])].forEach((thisDevice) => {
+    findProps.forEach((thisProp) => {
+      selectors.forEach((selector) => {
+        if (thisDevice) {
+          if (selector) {
+            if (
+              typeof decodedStyles?.[`media_${thisDevice}`]?.[selector]?.[thisProp] !== 'undefined'
+            ) {
+              result[`media_${thisDevice}`][selector][thisProp] =
+                decodedStyles[`media_${thisDevice}`][selector][thisProp];
+            }
+          } else if (typeof decodedStyles?.[`media_${thisDevice}`]?.[thisProp] !== 'undefined') {
+            result[`media_${thisDevice}`][thisProp] =
+              decodedStyles[`media_${thisDevice}`][thisProp];
+          }
+        } else if (selector) {
+          if (typeof decodedStyles?.[selector]?.[thisProp] !== 'undefined') {
+            result[selector][thisProp] = decodedStyles[selector][thisProp];
+          }
+        } else if (typeof decodedStyles?.[thisProp] !== 'undefined') {
+          result[thisProp] = decodedStyles[thisProp];
+        }
+      });
+    });
+  });
+
+  return maybeEncode(result);
+}
