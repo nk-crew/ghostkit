@@ -106,7 +106,7 @@ const borderStyles = [
 function FrameBorderTools(props) {
   const [isHover, setIsHover] = useState(false);
 
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
   const { device, allDevices } = useResponsive();
 
   let hasBorder = false;
@@ -134,28 +134,7 @@ function FrameBorderTools(props) {
         });
       }}
       onDeselect={() => {
-        const propsToReset = {
-          [hoverSelector]: {},
-        };
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-            propsToReset[`media_${thisDevice}`][hoverSelector] = {};
-          }
-
-          allBorderProps.forEach((thisProp) => {
-            if (thisDevice) {
-              propsToReset[`media_${thisDevice}`][thisProp] = undefined;
-              propsToReset[`media_${thisDevice}`][hoverSelector][thisProp] = undefined;
-            } else {
-              propsToReset[thisProp] = undefined;
-              propsToReset[hoverSelector][thisProp] = undefined;
-            }
-          });
-        });
-
-        setStyles(propsToReset);
+        resetStyles(allBorderProps, true, ['', '&:hover']);
       }}
       isShownByDefault={false}
     >

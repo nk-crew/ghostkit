@@ -8,9 +8,9 @@ import { throttle } from 'throttle-debounce';
  */
 import './pro-transforms';
 
+import { EXTENSIONS } from '../constants';
 import { hasClass, addClass, removeClass } from '../../utils/classes-replacer';
 import useStyles from '../../hooks/use-styles';
-import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 
@@ -33,21 +33,7 @@ const { createHigherOrderComponent } = wp.compose;
 
 const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
 
-const hoverSelector = '&:hover';
-
-const allProps = [
-  '--gkt-transform-perspective',
-  '--gkt-transform-x',
-  '--gkt-transform-y',
-  '--gkt-transform-scale',
-  '--gkt-transform-rotate',
-  '--gkt-transform-rotate-x',
-  '--gkt-transform-rotate-y',
-  '--gkt-transform-rotate-z',
-  '--gkt-transform-skew-x',
-  '--gkt-transform-skew-y',
-  '--gkt-transform-origin',
-];
+const allProps = EXTENSIONS.transform.styles;
 
 const keyExists = (obj, key) => {
   let result = false;
@@ -77,8 +63,7 @@ function GhostKitExtensionTransformInspector(original, { props }) {
     return original;
   }
 
-  const { setStyles } = useStyles(props);
-  const { allDevices } = useResponsive();
+  const { resetStyles } = useStyles(props);
 
   return (
     <>
@@ -92,28 +77,7 @@ function GhostKitExtensionTransformInspector(original, { props }) {
             </>
           }
           resetAll={() => {
-            const propsToReset = {
-              [hoverSelector]: {},
-            };
-
-            ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-              if (thisDevice) {
-                propsToReset[`media_${thisDevice}`] = {};
-                propsToReset[`media_${thisDevice}`][hoverSelector] = {};
-              }
-
-              allProps.forEach((thisProp) => {
-                if (thisDevice) {
-                  propsToReset[`media_${thisDevice}`][thisProp] = undefined;
-                  propsToReset[`media_${thisDevice}`][hoverSelector][thisProp] = undefined;
-                } else {
-                  propsToReset[thisProp] = undefined;
-                  propsToReset[hoverSelector][thisProp] = undefined;
-                }
-              });
-            });
-
-            setStyles(propsToReset);
+            resetStyles(allProps, true, ['', '&:hover']);
           }}
         >
           <div className="ghostkit-tools-panel-transform">
@@ -203,6 +167,7 @@ const withNewAttrs = createHigherOrderComponent(
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/transform/inspector',
-  GhostKitExtensionTransformInspector
+  GhostKitExtensionTransformInspector,
+  15
 );
 addFilter('editor.BlockEdit', 'ghostkit/extension/transform/classname', withNewAttrs);

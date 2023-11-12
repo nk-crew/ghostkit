@@ -75,7 +75,7 @@ class GhostKit_Settings {
         wp_enqueue_script(
             'ghostkit-settings',
             ghostkit()->plugin_url . 'settings/index.min.js',
-            array( 'ghostkit-helper', 'wp-data', 'wp-element', 'wp-components', 'wp-api', 'wp-api-request', 'wp-i18n' ),
+            array( 'ghostkit-helper', 'lodash', 'wp-data', 'wp-element', 'wp-components', 'wp-api', 'wp-api-request', 'wp-i18n' ),
             filemtime( ghostkit()->plugin_path . 'settings/index.min.js' ),
             true
         );

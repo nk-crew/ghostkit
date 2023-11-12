@@ -24,7 +24,7 @@ const { hasBlockSupport } = wp.blocks;
 const allProps = ['min-width', 'max-width'];
 
 function PositionMinMaxWidthTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -40,23 +40,7 @@ function PositionMinMaxWidthTools(props) {
       label={__('Min Max Width', '@@text_domain')}
       hasValue={() => !!hasMinMaxWidth}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`]['min-width'] = undefined;
-            propsToReset[`media_${thisDevice}`]['max-width'] = undefined;
-          } else {
-            propsToReset['min-width'] = undefined;
-            propsToReset['max-width'] = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(allProps, true);
       }}
       isShownByDefault={false}
     >

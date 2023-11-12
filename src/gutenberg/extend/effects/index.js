@@ -141,7 +141,8 @@ function GhostKitExtensionEffectsToolbar(original, { props }) {
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/effects/inspector',
-  GhostKitExtensionEffectsInspector
+  GhostKitExtensionEffectsInspector,
+  11
 );
 addFilter(
   'ghostkit.editor.extensions',

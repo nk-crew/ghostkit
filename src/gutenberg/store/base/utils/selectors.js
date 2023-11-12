@@ -14,6 +14,7 @@ import getUniqueSlug, { getSlug } from '../../../utils/get-unique-slug';
 import merge from '../../../utils/merge';
 import round from '../../../utils/round';
 import sortObject from '../../../utils/sort-object';
+import * as styles from '../../../utils/styles';
 
 export function get() {
   return {
@@ -31,5 +32,6 @@ export function get() {
     merge,
     round,
     sortObject,
+    styles,
   };
 }

@@ -27,7 +27,7 @@ const { hasBlockSupport } = wp.blocks;
 const allPaddings = ['padding-top', 'padding-right', 'padding-bottom', 'padding-left'];
 
 function SpacingsPaddingTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -44,23 +44,7 @@ function SpacingsPaddingTools(props) {
       label={__('Padding', '@@text_domain')}
       hasValue={() => !!hasPadding}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          allPaddings.forEach((thisPadding) => {
-            if (thisDevice) {
-              propsToReset[`media_${thisDevice}`][thisPadding] = undefined;
-            } else {
-              propsToReset[thisPadding] = undefined;
-            }
-          });
-        });
-
-        setStyles(propsToReset);
+        resetStyles(allPaddings, true);
       }}
       isShownByDefault={false}
     >

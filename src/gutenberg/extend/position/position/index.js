@@ -24,7 +24,7 @@ const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 const { hasBlockSupport } = wp.blocks;
 
 function PositionPositionTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -44,21 +44,7 @@ function PositionPositionTools(props) {
         }
       }}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`].position = undefined;
-          } else {
-            propsToReset.position = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(['position'], true);
       }}
       isShownByDefault={false}
     >

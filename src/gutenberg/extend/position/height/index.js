@@ -25,7 +25,7 @@ const UnitControl = __stableUnitControl || __experimentalUnitControl;
 const { hasBlockSupport } = wp.blocks;
 
 function PositionHeightTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -40,21 +40,7 @@ function PositionHeightTools(props) {
       label={__('Height', '@@text_domain')}
       hasValue={() => !!hasHeight}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`].height = undefined;
-          } else {
-            propsToReset.height = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(['height'], true);
       }}
       isShownByDefault={false}
     >

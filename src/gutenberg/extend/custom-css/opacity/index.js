@@ -23,7 +23,7 @@ const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 const { hasBlockSupport } = wp.blocks;
 
 function CustomCSSOpacityTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -43,21 +43,7 @@ function CustomCSSOpacityTools(props) {
         }
       }}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`].opacity = undefined;
-          } else {
-            propsToReset.opacity = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(['opacity'], true);
       }}
       isShownByDefault={false}
     >

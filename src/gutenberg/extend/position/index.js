@@ -9,8 +9,8 @@ import './minMaxWidth';
 import './minMaxHeight';
 import './zIndex';
 
+import { EXTENSIONS } from '../constants';
 import useStyles from '../../hooks/use-styles';
-import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
 import ApplyFilters from '../../components/apply-filters';
 
@@ -29,20 +29,7 @@ const { ToolsPanel: __stableToolsPanel, __experimentalToolsPanel } = wp.componen
 
 const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
 
-const allPositionProps = [
-  'position',
-  'top',
-  'right',
-  'bottom',
-  'left',
-  'width',
-  'height',
-  'min-width',
-  'min-height',
-  'max-width',
-  'max-height',
-  'z-index',
-];
+const allPositionProps = EXTENSIONS.position.styles;
 
 /**
  * Add inspector controls.
@@ -56,8 +43,7 @@ function GhostKitExtensionPositionInspector(original, { props }) {
     return original;
   }
 
-  const { setStyles } = useStyles(props);
-  const { allDevices } = useResponsive();
+  const { resetStyles } = useStyles(props);
 
   return (
     <>
@@ -71,23 +57,7 @@ function GhostKitExtensionPositionInspector(original, { props }) {
             </>
           }
           resetAll={() => {
-            const propsToReset = {};
-
-            ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-              if (thisDevice) {
-                propsToReset[`media_${thisDevice}`] = {};
-              }
-
-              allPositionProps.forEach((thisMargin) => {
-                if (thisDevice) {
-                  propsToReset[`media_${thisDevice}`][thisMargin] = undefined;
-                } else {
-                  propsToReset[thisMargin] = undefined;
-                }
-              });
-            });
-
-            setStyles(propsToReset);
+            resetStyles(allPositionProps, true);
           }}
         >
           <div className="ghostkit-tools-panel-position">
@@ -103,5 +73,6 @@ function GhostKitExtensionPositionInspector(original, { props }) {
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/position/inspector',
-  GhostKitExtensionPositionInspector
+  GhostKitExtensionPositionInspector,
+  12
 );

@@ -27,7 +27,7 @@ const Grid = __stableGrid || __experimentalGrid;
 const { hasBlockSupport } = wp.blocks;
 
 function CustomCSSOverflowTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -51,23 +51,7 @@ function CustomCSSOverflowTools(props) {
         }
       }}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`]['overflow-x'] = undefined;
-            propsToReset[`media_${thisDevice}`]['overflow-y'] = undefined;
-          } else {
-            propsToReset['overflow-x'] = undefined;
-            propsToReset['overflow-y'] = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(['overflow-x', 'overflow-y'], true);
       }}
       isShownByDefault={false}
     >

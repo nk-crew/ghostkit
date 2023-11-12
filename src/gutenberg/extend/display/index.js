@@ -58,5 +58,6 @@ function GhostKitExtensionDisplayInspector(original, { props }) {
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/display/inspector',
-  GhostKitExtensionDisplayInspector
+  GhostKitExtensionDisplayInspector,
+  17
 );

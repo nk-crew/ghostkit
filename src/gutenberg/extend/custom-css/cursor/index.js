@@ -23,7 +23,7 @@ const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
 const { hasBlockSupport } = wp.blocks;
 
 function CustomCSSCursorTools(props) {
-  const { getStyle, hasStyle, setStyles } = useStyles(props);
+  const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
   const { device, allDevices } = useResponsive();
 
@@ -43,21 +43,7 @@ function CustomCSSCursorTools(props) {
         }
       }}
       onDeselect={() => {
-        const propsToReset = {};
-
-        ['', ...Object.keys(allDevices)].forEach((thisDevice) => {
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`] = {};
-          }
-
-          if (thisDevice) {
-            propsToReset[`media_${thisDevice}`].cursor = undefined;
-          } else {
-            propsToReset.cursor = undefined;
-          }
-        });
-
-        setStyles(propsToReset);
+        resetStyles(['cursor'], true);
       }}
       isShownByDefault={false}
     >
