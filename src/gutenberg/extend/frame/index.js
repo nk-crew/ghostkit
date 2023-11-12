@@ -69,5 +69,6 @@ function GhostKitExtensionFrameInspector(original, { props }) {
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/frame/inspector',
-  GhostKitExtensionFrameInspector
+  GhostKitExtensionFrameInspector,
+  14
 );

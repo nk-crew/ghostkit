@@ -4,13 +4,15 @@
 import './deprecated';
 import './attributes';
 import './styles';
+
+import './effects';
 import './position';
 import './spacings';
 import './frame';
 import './transform';
 import './custom-css';
 import './display';
-import './effects';
+
 import './toc-headings';
 import './toolbar-templates';
 import './block-actions-copy-paste';
@@ -42,6 +44,16 @@ const withGhostKitExtensions = createHigherOrderComponent((OriginalComponent) =>
     return (
       <>
         <OriginalComponent {...props} />
+        {/*
+         * Used priorities:
+         * 11 - Effects
+         * 12 - Position
+         * 13 - Spacings
+         * 14 - Frame
+         * 15 - Transform
+         * 16 - Custom CSS
+         * 17 - Display Conditions
+         */}
         <ApplyFilters name="ghostkit.editor.extensions" props={props} />
       </>
     );

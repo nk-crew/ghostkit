@@ -68,5 +68,6 @@ function GhostKitExtensionSpacingsInspector(original, { props }) {
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/spacings/inspector',
-  GhostKitExtensionSpacingsInspector
+  GhostKitExtensionSpacingsInspector,
+  13
 );

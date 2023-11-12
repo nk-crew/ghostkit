@@ -167,6 +167,7 @@ const withNewAttrs = createHigherOrderComponent(
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/transform/inspector',
-  GhostKitExtensionTransformInspector
+  GhostKitExtensionTransformInspector,
+  15
 );
 addFilter('editor.BlockEdit', 'ghostkit/extension/transform/classname', withNewAttrs);

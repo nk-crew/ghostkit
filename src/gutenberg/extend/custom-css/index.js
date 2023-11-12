@@ -73,5 +73,6 @@ function GhostKitExtensionCustomCSSInspector(original, { props }) {
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/customCSS/inspector',
-  GhostKitExtensionCustomCSSInspector
+  GhostKitExtensionCustomCSSInspector,
+  16
 );

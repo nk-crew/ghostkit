@@ -73,5 +73,6 @@ function GhostKitExtensionPositionInspector(original, { props }) {
 addFilter(
   'ghostkit.editor.extensions',
   'ghostkit/extension/position/inspector',
-  GhostKitExtensionPositionInspector
+  GhostKitExtensionPositionInspector,
+  12
 );
