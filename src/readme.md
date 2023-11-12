@@ -4,7 +4,7 @@
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
 * Donate link: https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
 * Requires at least: 6.2
-* Tested up to: 6.3
+* Tested up to: 6.4
 * Requires PHP: 7.2
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
@@ -38,6 +38,9 @@ Show the progress of your work, skills or earnings.
 * [**Button Block**](https://ghostkit.io/blocks/button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Change important links to buttons to get more click rate.
 
+* [**Circle Button Block**](https://ghostkit.io/blocks/circle-button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+Circle button with circular text.
+
 * [**Shape Divider Block**](https://ghostkit.io/blocks/shape-divider/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Add SVG shapes between your sections.
 
@@ -47,7 +50,7 @@ Divide your long texts and blocks.
 * [**Alert Block**](https://ghostkit.io/blocks/alert/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Provide contextual feedback messages for user actions.
 
-* [**Icon Box Block**](https://ghostkit.io/blocks/icon-box/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Icon Block**](https://ghostkit.io/blocks/icon-box/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Icons are one of the best visual replacement for text descriptions.
 
 * [**Number Box Block**](https://ghostkit.io/blocks/number-box/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
@@ -73,6 +76,12 @@ Compare two images with a slider.
 
 * [**Image Scroller Block**](https://ghostkit.io/blocks/image-scroller/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Scroll tall images with hover or mouse scroll.
+
+* [**Interactive Links Block**](https://ghostkit.io/blocks/interactive-links/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+Interactive links with media displayed on hover.
+
+* [**Magnifying Image Block**](https://ghostkit.io/blocks/magnifying-image/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+Image block with magnifying glass effect.
 
 * [**Carousel Block**](https://ghostkit.io/blocks/carousel/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Carousel for any type of content – images or other blocks.
@@ -116,7 +125,7 @@ Select registered sidebars and put it in any place.
 #### ⚙️ Extensions ####
 
 * [**Effects**](https://ghostkit.io/extensions/effects/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
-Add stunning visual effects and interactivity to Ghost Kit and Core blocks. You can can easily add appear animations, scroll effects, mouse move/hover/press effects and loop animations.
+Add stunning visual effects and interactivity to Ghost Kit and Core blocks. You can can easily add reveal animations, scroll effects, mouse move/hover/press effects and loop animations.
 
 * [**Position**](https://ghostkit.io/extensions/position/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 Change block position to absolute or fixed and move it with offset in Ghost Kit and Core blocks.
@@ -177,12 +186,30 @@ See demo page with content formatting [https://ghostkit.io/content-formatting/](
 >
 > In order to maintain the free version of the plugin on an ongoing basis, and to provide quick and effective support for free, we offer a Pro version of the plugin. The Pro version allows you to:
 
-* Visual Advanced Columns Editor
-* New Icon Packs
-* New Blocks
-* New Content Formatting
+* More Blocks
+  * Marquee block
+  * Interactive Links block
+  * Magnifying Image block
+  * Image Scroller block
+  * Circle Button block
+  * Toggle Content block
+* More Content Formatting
+  * Animated Text format
+  * Stroke format
+  * Spoiler format
+  * Tooltip format
+* Advanced Effects:
+  * Loop Effects
+  * Scroll Effects
+  * Mouse Effects
+  * 3D Rotation
+  * Custom Viewport
+  * Replay Animation
+* More Icon Packs
+* Custom Block Attributes
+* CSS Transform and Transition for blocks
 * Custom Responsive Breakpoints
-* 30 additional shapes for Shape Divider block
+* Additional shapes for Shape Divider block
 * Adobe Fonts (Typekit)
 * Custom Fonts
 * Gradient buttons, backgrounds, icons, badges
@@ -265,6 +292,62 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 3.1.0 =
+
+Deprecated changes:
+
+* completely reworked block extensions. If you used extensions for your custom blocks, using custom JS, you will need to change it, as an API changed.
+* deprecated Templates extension and will be hidden if there are no custom templates available. It is recommended to use Patterns feature instead
+
+Changes:
+
+* added Effects extension
+  * Reveal effects
+  * Loop, Scroll, Mouse Press, Mouse Hover, Mouse Move effects (for Pro users)
+* added Custom CSS extension:
+  * Opacity
+  * Overflow
+  * Clip Path
+  * Cursor
+  * User Select
+  * Transition (for Pro users)
+  * Custom styles
+* added Transform extension (for Pro users)
+* added Custom Attributes extension (for Pro users)
+  * possibility to add custom HTML attributes, something like `data-speed="5"`
+* added more Position extension tools:
+  * Width and Height
+  * Min/Max Width and Height
+* added possibility to copy and paste extensions to blocks
+* added Icon block
+* added Fade Edges option to Carousel block
+* added Radio style to Tabs block
+* added Responsive toggle to editor toolbar with all available Ghost Kit Breakpoints
+* added Responsive toggle to block controls
+* improved Icon Picker UI
+* improved Video block settings
+* updated FontAwesome icons and Google Fonts
+* changed old attributes to new `ghostkit`
+  * ghostkitId → ghostkit.id
+  * ghostkitStyles → ghostkit.styles
+  * ghostkitClassname → removed
+* changed Shape Divider block to flex
+* fixed Image Compare on touch screens
+* fixed Tabs block active tab in editor
+* fixed usage of custom db prefix to get saved typography settings
+
+= 3.0.2 =
+
+* fixed form with recaptcha JS submit error
+* fixed Typography Select control dropdown position when placed inside Modal
+* fixed custom styles background processing error
+
+= 3.0.1 =
+
+* fixed rare error on some operating systems, which does not contain the GLOB_BRACE constant
+
+= 3.0.0 =
+
 There are a lot of changes in v3, before updating it on production, we recommend test it in staging site first. Look at some of the breaking changes:
 
 * removed jQuery usage completely:
@@ -278,17 +361,7 @@ There are a lot of changes in v3, before updating it on production, we recommend
 * removed Parsley library, use native Form validation instead. Less size, better performance
 * there are a lot of plans for Ghost Kit v3 future updates (and new site coming soon). It will be huge 😎
 
-= 3.0.2 =
-
-* fixed form with recaptcha JS submit error
-* fixed Typography Select control dropdown position when placed inside Modal
-* fixed custom styles background processing error
-
-= 3.0.1 =
-
-* fixed rare error on some operating systems, which does not contain the GLOB_BRACE constant
-
-= 3.0.0 =
+Changes:
 
 * register all blocks in PHP using `register_block_type_from_metadata`
 * added Position extension - it allows creating fixed or absolute blocks with custom offsets
