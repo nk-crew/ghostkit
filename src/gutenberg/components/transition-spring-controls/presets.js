@@ -3,9 +3,9 @@ const { __ } = wp.i18n;
 export default {
   default: {
     label: __('Default', '@@text_domain'),
-    stiffness: 100,
-    damping: 10,
-    mass: 0.75,
+    stiffness: 300,
+    damping: 35,
+    mass: 2,
     delay: 0,
   },
   gentle: {
