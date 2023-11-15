@@ -292,6 +292,12 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 3.1.1 =
+
+* fixed migration to new Ghost Kit attributes from deprecated blocks (mostly from Core blocks, which has deprecated attributes)
+* changed ProNote component in Reveal effect to collapsed version to not overwhelm effect settings panel
+* changed Spring transition defaults
+
 = 3.1.0 =
 
 Deprecated changes:
