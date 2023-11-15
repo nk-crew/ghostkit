@@ -20,7 +20,7 @@ if ( is_plugin_active( 'ghostkit-pro/class-ghost-kit-pro.php' ) ) {
 }
 
 if ( $pro_version && version_compare( $pro_version, '1.6.2', '<=' ) ) {
-    require_once $this->plugin_path . 'classes/class-breakpoints-fallback.php';
+    require_once ghostkit()->plugin_path . 'classes/class-breakpoints-fallback.php';
 }
 
 if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
