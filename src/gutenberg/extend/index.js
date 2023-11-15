@@ -62,4 +62,40 @@ const withGhostKitExtensions = createHigherOrderComponent((OriginalComponent) =>
   return GhostKitExtensionsWrapper;
 }, 'withGhostKitExtensions');
 
+/**
+ * Add `ghostkit` attribute to deprecated blocks settings.
+ *
+ * @param {Object} blockSettings Original block settings.
+ * @param {String} name Original block name.
+ *
+ * @return {Object} Filtered block settings.
+ */
+function addAttribute(blockSettings, name) {
+  if (!hasBlockSupport(name, 'ghostkit')) {
+    return blockSettings;
+  }
+
+  // prepare settings of block + deprecated blocks.
+  const eachSettings = [blockSettings];
+  if (blockSettings.deprecated && blockSettings.deprecated.length) {
+    blockSettings.deprecated.forEach((item) => {
+      eachSettings.push(item);
+    });
+  }
+
+  eachSettings.forEach((settings) => {
+    if (settings.attributes) {
+      if (!settings.attributes.ghostkit) {
+        settings.attributes.ghostkit = {
+          type: 'object',
+        };
+      }
+    }
+  });
+
+  return blockSettings;
+}
+
 addFilter('editor.BlockEdit', 'ghostkit/extensions', withGhostKitExtensions);
+
+addFilter('blocks.registerBlockType', 'ghostkit/extensions/additional-attributes', addAttribute);
