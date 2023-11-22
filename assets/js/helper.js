@@ -1,6 +1,8 @@
 import EventHandler from './utils/event-handler';
 import Instance from './utils/instance';
 
+import { getBlockType } from '@wordpress/blocks';
+
 const {
   version,
   pro,
@@ -108,7 +110,6 @@ const GHOSTKIT = {
    */
   hasBlockSupport(block, featureName, defaultVal = false) {
     if (typeof block === 'string' && wp && wp.blocks) {
-      const { getBlockType } = wp.blocks;
 
       if (getBlockType) {
         block = getBlockType(block);
