@@ -11,9 +11,9 @@ import Breakpoints from './breakpoints';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
 export default function () {
   return applyFilters('ghostkit.settings.pages', {

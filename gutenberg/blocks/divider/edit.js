@@ -16,10 +16,10 @@ import ApplyFilters from '../../components/apply-filters';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { __ } = wp.i18n;
-const { PanelBody, SelectControl, ToolbarGroup, ToolbarDropdownMenu, TabPanel } = wp.components;
-const { InspectorControls, BlockControls, useBlockProps } = wp.blockEditor;
+import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
+import { PanelBody, SelectControl, ToolbarGroup, ToolbarDropdownMenu, TabPanel } from '@wordpress/components';
+import { InspectorControls, BlockControls, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

@@ -1,16 +1,15 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment, useState } = wp.element;
+import { Fragment, useState } from '@wordpress/element';
 
-const { Popover, ToolbarGroup, ToolbarButton, KeyboardShortcuts, PanelBody, TextControl } =
-  wp.components;
+import { Popover, ToolbarGroup, ToolbarButton, KeyboardShortcuts, PanelBody, TextControl } from '@wordpress/components';
 
-const { InspectorControls, BlockControls, __experimentalLinkControl: LinkControl } = wp.blockEditor;
+import { InspectorControls, BlockControls, __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
 
-const { rawShortcut, displayShortcut } = wp.keycodes;
+import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
 
 /**
  * Internal dependencies

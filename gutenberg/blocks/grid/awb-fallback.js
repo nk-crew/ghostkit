@@ -12,19 +12,19 @@ import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment, useEffect } = wp.element;
+import { Fragment, useEffect } from '@wordpress/element';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { MediaUpload } = wp.blockEditor;
+import { MediaUpload } from '@wordpress/block-editor';
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
-const { PanelBody, Button, SelectControl, ExternalLink } = wp.components;
+import { PanelBody, Button, SelectControl, ExternalLink } from '@wordpress/components';
 
-const { useSelect } = wp.data;
+import { useSelect } from '@wordpress/data';
 
 /**
  * Filters registered block settings, extending attributes to include backgrounds.

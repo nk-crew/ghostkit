@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-const TokenList = wp.tokenList;
+import TokenList from '@wordpress/token-list';
 
 /**
  * Returns the active style from the given className.

@@ -1,6 +1,7 @@
 /**
  * Internal dependencies
  */
+import { unregisterBlockType } from '@wordpress/blocks';
 const {
   jQuery: $,
   GHOSTKIT,
@@ -24,7 +25,7 @@ $(() => {
       if (GHOSTKIT.disabledBlocks) {
         Object.keys(GHOSTKIT.disabledBlocks).forEach((name) => {
           if (GHOSTKIT.disabledBlocks[name]) {
-            wp.blocks.unregisterBlockType(name);
+            unregisterBlockType(name);
           }
         });
       }

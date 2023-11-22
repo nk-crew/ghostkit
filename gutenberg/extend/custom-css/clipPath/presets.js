@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
 export default {
   'inset(0 round 20px)': __('Round', '@@text_domain'),

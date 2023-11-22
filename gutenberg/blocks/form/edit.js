@@ -14,17 +14,17 @@ import RecaptchaSettings from './recaptcha';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { useEffect, Fragment } = wp.element;
+import { useEffect, Fragment } from '@wordpress/element';
 
-const { useSelect, useDispatch } = wp.data;
+import { useSelect, useDispatch } from '@wordpress/data';
 
-const { BaseControl, PanelBody, TextControl, TextareaControl, ToggleControl } = wp.components;
+import { BaseControl, PanelBody, TextControl, TextareaControl, ToggleControl } from '@wordpress/components';
 
-const { InspectorControls, useBlockProps, useInnerBlocksProps, InnerBlocks } = wp.blockEditor;
+import { InspectorControls, useBlockProps, useInnerBlocksProps, InnerBlocks } from '@wordpress/block-editor';
 
 const TEMPLATE = [
   ['ghostkit/form-field-name', { slug: 'field_name' }],

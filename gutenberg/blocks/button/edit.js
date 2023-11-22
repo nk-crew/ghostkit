@@ -11,25 +11,25 @@ import GapSettings from '../../components/gap-settings';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { useEffect } = wp.element;
+import { useEffect } from '@wordpress/element';
 
-const { PanelBody, BaseControl, Tooltip, Button } = wp.components;
+import { PanelBody, BaseControl, Tooltip, Button } from '@wordpress/components';
 
-const {
+import {
   InspectorControls,
   BlockControls,
   BlockAlignmentToolbar,
   useBlockProps,
   useInnerBlocksProps,
-} = wp.blockEditor;
+} from '@wordpress/block-editor';
 
-const { createBlock } = wp.blocks;
+import { createBlock } from '@wordpress/blocks';
 
-const { useSelect, useDispatch } = wp.data;
+import { useSelect, useDispatch } from '@wordpress/data';
 
 const buttonBlockName = 'ghostkit/button-single';
 

@@ -12,14 +12,13 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment, useState } = wp.element;
+import { Fragment, useState } from '@wordpress/element';
 
-const { Button, PanelBody, Placeholder, Spinner, TextControl, TextareaControl, ExternalLink } =
-  wp.components;
+import { Button, PanelBody, Placeholder, Spinner, TextControl, TextareaControl, ExternalLink } from '@wordpress/components';
 
-const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
+import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 
 const GIPHY_API_KEY = 'Qm6AupESs2abqy7fSeHNQ892EWSS28r8';
 

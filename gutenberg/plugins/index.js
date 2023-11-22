@@ -12,7 +12,7 @@ import * as editorIframeResize from './editor-iframe-resize';
 /**
  * WordPress dependencies
  */
-const { registerPlugin } = wp.plugins;
+import { registerPlugin } from '@wordpress/plugins';
 
 const { GHOSTKIT } = window;
 

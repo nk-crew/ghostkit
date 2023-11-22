@@ -15,17 +15,17 @@ import RangeControl from '../../components/range-control';
 
 import getColClass from './get-col-class';
 
-const { __, sprintf } = wp.i18n;
+import { __, sprintf } from '@wordpress/i18n';
 
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { PanelBody, SelectControl } = wp.components;
+import { PanelBody, SelectControl } from '@wordpress/components';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { InspectorControls, InnerBlocks, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { InspectorControls, InnerBlocks, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
-const { useSelect } = wp.data;
+import { useSelect } from '@wordpress/data';
 
 /**
  * Get array for Select element.

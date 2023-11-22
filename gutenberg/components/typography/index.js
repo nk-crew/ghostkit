@@ -9,13 +9,13 @@ import ApplyFilters from '../apply-filters';
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
+import { Component } from '@wordpress/element';
 
-const { Tooltip, DropdownMenu, MenuGroup, MenuItem, ExternalLink } = wp.components;
+import { Tooltip, DropdownMenu, MenuGroup, MenuItem, ExternalLink } from '@wordpress/components';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
 const { GHOSTKIT } = window;
 

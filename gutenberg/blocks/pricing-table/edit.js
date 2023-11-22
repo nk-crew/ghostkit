@@ -12,20 +12,19 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { useEffect } = wp.element;
+import { useEffect } from '@wordpress/element';
 
-const { BaseControl, Button, PanelBody, Toolbar, ToolbarGroup, ToolbarButton } = wp.components;
+import { BaseControl, Button, PanelBody, Toolbar, ToolbarGroup, ToolbarButton } from '@wordpress/components';
 
-const { InspectorControls, BlockControls, AlignmentToolbar, useBlockProps, useInnerBlocksProps } =
-  wp.blockEditor;
+import { InspectorControls, BlockControls, AlignmentToolbar, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
-const { createBlock } = wp.blocks;
+import { createBlock } from '@wordpress/blocks';
 
-const { useSelect, useDispatch } = wp.data;
+import { useSelect, useDispatch } from '@wordpress/data';
 
 const pricingItemBlockName = 'ghostkit/pricing-table-item';
 

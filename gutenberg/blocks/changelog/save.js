@@ -6,9 +6,13 @@
  */
 import metadata from './block.json';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { RichText, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import {
+	RichText,
+  useBlockProps,
+  useInnerBlocksProps,
+} from '@wordpress/block-editor';
 
 const { name } = metadata;
 

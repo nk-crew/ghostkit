@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * Returns the ready to use className for grid column.

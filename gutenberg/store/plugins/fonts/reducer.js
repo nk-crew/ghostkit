@@ -3,7 +3,7 @@
  */
 const { merge } = window.lodash;
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
 function reducer(state = { data: false }, action = {}) {
   switch (action.type) {

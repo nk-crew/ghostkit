@@ -16,19 +16,19 @@ import { TemplatesModal } from '../../plugins/templates';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment, useState } = wp.element;
+import { Fragment, useState } from '@wordpress/element';
 
-const { Button, PanelBody, Placeholder, ToolbarGroup, ToolbarButton } = wp.components;
+import { Button, PanelBody, Placeholder, ToolbarGroup, ToolbarButton } from '@wordpress/components';
 
-const { InspectorControls, BlockControls, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { InspectorControls, BlockControls, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
-const { useSelect, useDispatch } = wp.data;
+import { useSelect, useDispatch } from '@wordpress/data';
 
-const { createBlock } = wp.blocks;
+import { createBlock } from '@wordpress/blocks';
 
 const { GHOSTKIT } = window;
 

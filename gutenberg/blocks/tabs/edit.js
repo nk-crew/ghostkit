@@ -16,12 +16,12 @@ import EditInspectorControls from './edit/inspector-controls';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { applyFilters } = wp.hooks;
-const { Button, Tooltip } = wp.components;
-const { useSelect, useDispatch } = wp.data;
-const { createBlock } = wp.blocks;
-const { RichText, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { __ } from '@wordpress/i18n';
+import { applyFilters } from '@wordpress/hooks';
+import { Button, Tooltip } from '@wordpress/components';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { createBlock } from '@wordpress/blocks';
+import { RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

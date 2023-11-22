@@ -8,21 +8,21 @@ import useResponsive from '../../../hooks/use-responsive';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const {
-  ToolsPanelItem: __stableToolsPanelItem,
-  __experimentalToolsPanelItem,
-  UnitControl: __stableUnitControl,
-  __experimentalUnitControl,
-} = wp.components;
+import {
+  __stableToolsPanelItem as StableToolsPanelItem,
+  __experimentalToolsPanelItem as ExperimentalToolsPanelItem,
+	__stableUnitControl as StableUnitControl,
+	__experimentalUnitControl as ExperimentalUnitControl,
+} from '@wordpress/components';
 
-const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
-const UnitControl = __stableUnitControl || __experimentalUnitControl;
+const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
+const UnitControl = StableUnitControl || ExperimentalUnitControl;
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
 function PositionWidthTools(props) {
   const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);

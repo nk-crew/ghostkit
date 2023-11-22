@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { Notice: WPNotice } = wp.components;
+import { Notice as WPNotice } from '@wordpress/components';
 
 /**
  * Component Class

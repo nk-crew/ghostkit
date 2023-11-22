@@ -1,9 +1,9 @@
 /**
  * WordPress dependencies
  */
-const { BaseControl, Button } = wp.components;
-const { useCallback, useEffect, useRef } = wp.element;
-const { useDebounce } = wp.compose;
+import { BaseControl, Button } from '@wordpress/components';
+import { useCallback, useEffect, useRef } from '@wordpress/element';
+import { useDebounce } from '@wordpress/compose';
 
 const {
   Motion: { animate, spring },

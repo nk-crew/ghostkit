@@ -8,19 +8,19 @@ import useResponsive from '../../../hooks/use-responsive';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const {
+import {
   SelectControl,
-  ToolsPanelItem: __stableToolsPanelItem,
-  __experimentalToolsPanelItem,
-} = wp.components;
+  __stableToolsPanelItem as StableToolsPanelItem,
+  __experimentalToolsPanelItem as ExperimentalToolsPanelItem,
+} from '@wordpress/components';
 
-const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
+const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
 function CustomCSSCursorTools(props) {
   const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);

@@ -13,15 +13,15 @@ import { getFieldAttributes, FieldDefaultSettings } from '../../field-attributes
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { PanelBody, TextareaControl } = wp.components;
+import { PanelBody, TextareaControl } from '@wordpress/components';
 
-const { InspectorControls, useBlockProps } = wp.blockEditor;
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

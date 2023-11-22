@@ -6,13 +6,13 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { __ } = wp.i18n;
-const { useEffect } = wp.element;
-const { PanelBody, ToggleControl, SelectControl, Button } = wp.components;
-const { InspectorControls, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
-const { createBlock } = wp.blocks;
-const { useSelect, useDispatch } = wp.data;
+import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
+import { useEffect } from '@wordpress/element';
+import { PanelBody, ToggleControl, SelectControl, Button } from '@wordpress/components';
+import { InspectorControls, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { createBlock } from '@wordpress/blocks';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 const accordionItemBlockName = 'ghostkit/accordion-item';
 

@@ -11,9 +11,9 @@ import SPRING_DEFAULT from '../transition-spring-controls/default';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { useState } = wp.element;
-const { BaseControl } = wp.components;
+import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
+import { BaseControl } from '@wordpress/components';
 
 export default function TransitionSelector(props) {
   const {

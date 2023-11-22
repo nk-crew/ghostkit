@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies.
  */
-const { BaseControl } = wp.components;
+import { BaseControl } from '@wordpress/components';
 
 /**
  * Component

@@ -12,22 +12,24 @@ import Info from '../components/info';
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
+import { Component, renderToString, createElement } from '@wordpress/element';
 
 const { merge } = window.lodash;
 
-const { apiFetch } = wp;
+import apiFetch from '@wordpress/api-fetch';
 
-const { __, sprintf } = wp.i18n;
+import { __, sprintf } from '@wordpress/i18n';
 
-const { ToggleControl, Tooltip } = wp.components;
+import { ToggleControl, Tooltip, Dashicon } from '@wordpress/components';
+
+import { getBlockTypes, getCategories } from '@wordpress/blocks';
+
+import { registerCoreBlocks } from '@wordpress/block-library';
 
 const { GHOSTKIT } = window;
 
 // register core Gutenberg blocks.
-if (wp.blockLibrary && wp.blockLibrary.registerCoreBlocks) {
-  wp.blockLibrary.registerCoreBlocks();
-}
+registerCoreBlocks();
 
 export default class Blocks extends Component {
   constructor(props) {
@@ -103,7 +105,7 @@ export default class Blocks extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   getBlocksCategories() {
-    const categories = wp.blocks.getCategories();
+    const categories = getCategories();
     const result = [];
 
     categories.forEach((cat) => {
@@ -122,7 +124,7 @@ export default class Blocks extends Component {
     const result = {};
 
     if (category) {
-      const blocks = wp.blocks.getBlockTypes();
+      const blocks = getBlockTypes();
       blocks.forEach((block) => {
         if (
           // blocks from needed category only
@@ -140,12 +142,12 @@ export default class Blocks extends Component {
 
           // Prepare icon.
           if (typeof icon === 'function') {
-            icon = wp.element.renderToString(icon());
+            icon = renderToString(icon());
           } else if (typeof icon === 'object') {
-            icon = wp.element.renderToString(icon);
+            icon = renderToString(icon);
           } else if (typeof icon === 'string') {
-            icon = wp.element.createElement(wp.components.Dashicon, { icon });
-            icon = wp.element.renderToString(icon);
+            icon = createElement(Dashicon, { icon });
+            icon = renderToString(icon);
           }
 
           result[block.name] = {

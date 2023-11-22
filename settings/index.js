@@ -7,8 +7,10 @@
  */
 import Container from './containers/container';
 
+import { render  } from '@wordpress/element';
+
 window.addEventListener('load', () => {
-  wp.element.render(
+  render(
     <Container data={window.ghostkitSettingsData} />,
     document.querySelector('.ghostkit-admin-page')
   );

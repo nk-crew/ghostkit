@@ -6,17 +6,17 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { createBlock } = wp.blocks;
+import { createBlock } from '@wordpress/blocks';
 
-const { registerPlugin } = wp.plugins;
+import { registerPlugin } from '@wordpress/plugins';
 
-const { render } = wp.element;
+import { render } from '@wordpress/element';
 
-const { useDispatch } = wp.data;
+import { useDispatch } from '@wordpress/data';
 
-const { ToolbarButton } = wp.components;
+import { ToolbarButton } from '@wordpress/components';
 
 const { GHOSTKIT } = window;
 

@@ -16,17 +16,17 @@ import useResponsive from '../../hooks/use-responsive';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { createHigherOrderComponent } = wp.compose;
+import { createHigherOrderComponent } from '@wordpress/compose';
 
-const { InspectorControls } = wp.blockEditor;
+import { InspectorControls } from '@wordpress/block-editor';
 
-const { PanelBody } = wp.components;
+import { PanelBody } from '@wordpress/components';
 
 const COLUMNS_COUNT_MAX = 6;
 

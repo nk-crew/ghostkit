@@ -15,8 +15,8 @@ const { name } = metadata;
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { useBlockProps } = wp.blockEditor;
+import { applyFilters } from '@wordpress/hooks';
+import { useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Block Save Class.

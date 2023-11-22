@@ -1,13 +1,13 @@
 /**
  * WordPress dependencies
  */
-const { useState } = wp.element;
+import { useState } from '@wordpress/element';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { getSettings, dateI18n } = wp.date;
+import { getSettings, dateI18n } from '@wordpress/data';
 
-const { BaseControl, Popover, Button, DateTimePicker: WPDateTimePicker } = wp.components;
+import { BaseControl, Popover, Button, DateTimePicker as WPDateTimePicker } from '@wordpress/components';
 
 const { luxon } = window;
 

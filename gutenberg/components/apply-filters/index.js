@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * Component Class

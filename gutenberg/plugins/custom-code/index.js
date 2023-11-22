@@ -9,19 +9,21 @@ import CodeEditor from '../../components/code-editor';
 /**
  * WordPress dependencies
  */
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { __ } = wp.i18n;
-const { Component } = wp.element;
-const { apiFetch } = wp;
+import { __ } from '@wordpress/i18n';
+import { Component } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 
-const { compose } = wp.compose;
+import { compose } from '@wordpress/compose';
 
-const { PluginMoreMenuItem } = wp.editPost || {};
+import { withSelect, withDispatch } from '@wordpress/data';
 
-const { withSelect, withDispatch } = wp.data;
+import { TabPanel, Tooltip } from '@wordpress/components';
 
-const { TabPanel, Tooltip } = wp.components;
+import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+
+const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 class CustomCodeModal extends Component {
   constructor(props) {

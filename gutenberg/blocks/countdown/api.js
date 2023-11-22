@@ -2,7 +2,7 @@
 /**
  * WordPress dependencies
  */
-const { _n } = wp.i18n;
+import { _n } from '@wordpress/i18n';
 
 /**
  * API for countdown.

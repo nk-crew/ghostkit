@@ -7,23 +7,23 @@ import { throttle } from 'throttle-debounce';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { Fragment, useEffect } = wp.element;
+import { Fragment, useEffect } from '@wordpress/element';
 
-const { PanelBody, BaseControl } = wp.components;
+import { PanelBody, BaseControl } from '@wordpress/components';
 
-const {
+import {
   InspectorControls,
   useBlockProps,
   useInnerBlocksProps,
   BlockControls,
   BlockAlignmentToolbar,
-} = wp.blockEditor;
+} from '@wordpress/block-editor';
 
-const { useSelect, useDispatch } = wp.data;
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * Parse all button blocks.

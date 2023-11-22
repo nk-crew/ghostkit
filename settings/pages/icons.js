@@ -6,13 +6,13 @@ import { debounce } from 'throttle-debounce';
 /**
  * WordPress dependencies
  */
-const { Component, Fragment } = wp.element;
+import { Component, Fragment } from '@wordpress/element';
 
 const { merge } = window.lodash;
 
-const { apiFetch } = wp;
+import apiFetch from '@wordpress/api-fetch';
 
-const { ToggleControl } = wp.components;
+import { ToggleControl } from '@wordpress/components';
 
 /**
  * Internal dependencies

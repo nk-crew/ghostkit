@@ -10,7 +10,7 @@ import * as deprecatedMark from './deprecated-mark';
 /**
  * WordPress dependencies
  */
-const { registerFormatType } = wp.richText;
+import { registerFormatType } from '@wordpress/rich-text';
 
 /**
  * Register formats

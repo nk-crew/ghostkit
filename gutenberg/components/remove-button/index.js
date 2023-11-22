@@ -6,11 +6,11 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { useState } = wp.element;
+import { useState } from '@wordpress/element';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Button, Popover } = wp.components;
+import { Button, Popover } from '@wordpress/components';
 
 /**
  * Component Class

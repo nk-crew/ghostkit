@@ -15,8 +15,8 @@ import ColorControls from './edit/color-controls';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { useBlockProps } = wp.blockEditor;
+import { applyFilters } from '@wordpress/hooks';
+import { useBlockProps } from '@wordpress/block-editor';
 
 export default function BlockEdit(props) {
   const { attributes, setAttributes, isSelected, clientId } = props;

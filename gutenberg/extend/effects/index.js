@@ -10,23 +10,23 @@ import ApplyFilters from '../../components/apply-filters';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
-const { InspectorControls, BlockControls } = wp.blockEditor;
+import { InspectorControls, BlockControls } from '@wordpress/block-editor';
 
-const {
-  ToolbarDropdownMenu,
+import {
+	ToolbarDropdownMenu,
   MenuGroup,
   Button,
-  ToolsPanel: __stableToolsPanel,
-  __experimentalToolsPanel,
-} = wp.components;
+  __stableToolsPanel as StableToolsPanel,
+  __experimentalToolsPanel as ExperimentalToolsPanel,
+} from '@wordpress/components';
 
-const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
+const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
 
 /**
  * Add inspector controls.

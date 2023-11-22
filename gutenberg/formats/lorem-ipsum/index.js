@@ -6,8 +6,8 @@ import getLorem from './get-lorem';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { insert } = wp.richText;
+import { __ } from '@wordpress/i18n';
+import { insert } from '@wordpress/rich-text';
 
 // There is a limitation for command.
 // - min 7 = `lorem1 `

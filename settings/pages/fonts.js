@@ -14,19 +14,19 @@ import GoogleFonts from '../../gutenberg/components/google-fonts';
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
+import { Component } from '@wordpress/element';
 
-const { ExternalLink, TabPanel } = wp.components;
+import { ExternalLink, TabPanel } from '@wordpress/components';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { withSelect, withDispatch } = wp.data;
+import { withSelect, withDispatch } from '@wordpress/data';
 
-const { compose } = wp.compose;
+import { compose } from '@wordpress/compose';
 
 const { merge } = window.lodash;
 
-const { apiFetch } = wp;
+import apiFetch from '@wordpress/api-fetch';
 
 const { isFseTheme, typographyExist, fontsApiExist } = window.ghostkitVariables;
 

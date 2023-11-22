@@ -11,11 +11,11 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Placeholder, SelectControl } = wp.components;
+import { Placeholder, SelectControl } from '@wordpress/components';
 
-const { useBlockProps } = wp.blockEditor;
+import { useBlockProps } from '@wordpress/block-editor';
 
 const { GHOSTKIT } = window;
 

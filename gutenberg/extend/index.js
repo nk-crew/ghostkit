@@ -22,9 +22,9 @@ import ApplyFilters from '../components/apply-filters';
 /**
  * WordPress dependencies
  */
-const { addFilter } = wp.hooks;
-const { createHigherOrderComponent } = wp.compose;
-const { hasBlockSupport } = wp.blocks;
+import { addFilter } from '@wordpress/hooks';
+import { createHigherOrderComponent } from '@wordpress/compose';
+import { hasBlockSupport } from '@wordpress/blocks';
 
 /**
  * Override the default edit UI to include GhostKit extensions

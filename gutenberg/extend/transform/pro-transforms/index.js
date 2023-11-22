@@ -6,17 +6,20 @@ import ProNote from '../../../components/pro-note';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { useState } = wp.element;
+import { useState } from '@wordpress/element';
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
-const { ToolsPanelItem: __stableToolsPanelItem, __experimentalToolsPanelItem } = wp.components;
+import {
+  __stableToolsPanelItem as StableToolsPanelItem,
+  __experimentalToolsPanelItem as ExperimentalToolsPanelItem,
+} from '@wordpress/components';
 
-const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
+const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
 const { pro } = window.GHOSTKIT;
 

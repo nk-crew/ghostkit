@@ -22,15 +22,15 @@ import getStyles from './get-styles';
  */
 const { cloneDeep } = window.lodash;
 
-const { applyFilters, addFilter } = wp.hooks;
+import { applyFilters, addFilter } from '@wordpress/hooks';
 
-const { getBlockType, getBlockSupport } = wp.blocks;
+import { getBlockType, getBlockSupport } from '@wordpress/blocks';
 
-const { useRef, useEffect } = wp.element;
+import { useRef, useEffect } from '@wordpress/element';
 
-const { useSelect } = wp.data;
+import { useSelect, select } from '@wordpress/data';
 
-const { createHigherOrderComponent } = wp.compose;
+import { createHigherOrderComponent } from '@wordpress/compose';
 
 /**
  * Custom Styles Component.
@@ -84,7 +84,7 @@ function CustomStylesComponent(props) {
     let result = [];
 
     if (!blocks) {
-      blocks = wp.data.select('core/block-editor').getBlocks();
+      blocks = select('core/block-editor').getBlocks();
     }
 
     if (!blocks) {

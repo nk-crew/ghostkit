@@ -17,21 +17,24 @@ import ApplyFilters from '../../components/apply-filters';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter, applyFilters } = wp.hooks;
+import { applyFilters, addFilter } from '@wordpress/hooks';
 
-const { useEffect, useRef } = wp.element;
+import { useEffect, useRef } from '@wordpress/element';
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
-const { InspectorControls } = wp.blockEditor;
+import { InspectorControls } from '@wordpress/block-editor';
 
-const { ToolsPanel: __stableToolsPanel, __experimentalToolsPanel } = wp.components;
+import {
+  __stableToolsPanel as StableToolsPanel,
+  __experimentalToolsPanel as ExperimentalToolsPanel,
+} from '@wordpress/components';
 
-const { createHigherOrderComponent } = wp.compose;
+import { createHigherOrderComponent } from '@wordpress/compose';
 
-const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
+const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
 
 const allProps = EXTENSIONS.transform.styles;
 

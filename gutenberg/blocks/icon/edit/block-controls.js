@@ -8,9 +8,9 @@ import UrlPicker from './url-picker';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { BlockControls } = wp.blockEditor;
-const { ToolbarGroup, ToolbarButton, ToolbarDropdownMenu } = wp.components;
+import { __ } from '@wordpress/i18n';
+import { BlockControls } from '@wordpress/block-editor';
+import { ToolbarGroup, ToolbarButton, ToolbarDropdownMenu } from '@wordpress/components';
 
 export default function EditBlockControls({ attributes, setAttributes, isSelected }) {
   const { justify, flipH, flipV } = attributes;

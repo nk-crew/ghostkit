@@ -18,17 +18,17 @@ import { TIMEZONELESS_FORMAT } from './constants';
  */
 const { GHOSTKIT, luxon } = window;
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { useSelect } = wp.data;
+import { useSelect } from '@wordpress/data';
 
-const { Fragment, useEffect, useState, useRef } = wp.element;
+import { Fragment, useEffect, useState, useRef } from '@wordpress/element';
 
-const { PanelBody, SelectControl, ToolbarGroup, ToolbarButton } = wp.components;
+import { PanelBody, SelectControl, ToolbarGroup, ToolbarButton } from '@wordpress/components';
 
-const { InspectorControls, useBlockProps, useInnerBlocksProps, BlockControls } = wp.blockEditor;
+import { InspectorControls, useBlockProps, useInnerBlocksProps, BlockControls } from '@wordpress/block-editor';
 
 /**
  * Block Edit function.

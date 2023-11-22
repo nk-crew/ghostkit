@@ -9,18 +9,16 @@ import Modal from '../../components/modal';
 /**
  * WordPress dependencies
  */
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { __ } = wp.i18n;
-const { Component } = wp.element;
+import { __ } from '@wordpress/i18n';
+import { Component } from '@wordpress/element';
 
-const { compose } = wp.compose;
+import { compose } from '@wordpress/compose';
 
-const { PluginMoreMenuItem } = wp.editPost || {};
+import { withSelect, withDispatch } from '@wordpress/data';
 
-const { withSelect, withDispatch } = wp.data;
-
-const {
+import {
   BaseControl,
   TextControl,
   TextareaControl,
@@ -28,9 +26,13 @@ const {
   SelectControl,
   RangeControl,
   Spinner,
-} = wp.components;
+} from '@wordpress/components';
 
-const { ColorPalette } = wp.blockEditor;
+import { ColorPalette } from '@wordpress/block-editor';
+
+import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+
+const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 class Customizer extends Component {
   constructor(props) {

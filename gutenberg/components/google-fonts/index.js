@@ -8,11 +8,11 @@ import Select from '../select';
 /**
  * WordPress dependencies
  */
-const { Component, Fragment } = wp.element;
+import { Component, Fragment } from '@wordpress/element';
 
-const { Button, BaseControl, SelectControl, Spinner } = wp.components;
+import { Button, BaseControl, SelectControl, Spinner } from '@wordpress/components';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
 const { fonts } = window.GHOSTKIT;
 

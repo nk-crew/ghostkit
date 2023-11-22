@@ -6,9 +6,9 @@ import parseSRConfig from './parse-sr-config';
 /**
  * WordPress dependencies
  */
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
 export default function migrate(props) {
   const { name, attributes } = props;

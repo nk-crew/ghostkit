@@ -18,17 +18,17 @@ import PRESETS from './presets';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { useState, useEffect } = wp.element;
+import { useEffect, useState } from '@wordpress/element';
 
-const {
+import {
   BaseControl,
-  NumberControl: __stableNumberControl,
-  __experimentalNumberControl,
-} = wp.components;
+  __stableNumberControl as StableNumberControl,
+  __experimentalNumberControl as ExperimentalNumberControl,
+} from '@wordpress/components';
 
-const NumberControl = __stableNumberControl || __experimentalNumberControl;
+const NumberControl = StableNumberControl || ExperimentalNumberControl;
 
 export { DEFAULT };
 export { PRESETS };

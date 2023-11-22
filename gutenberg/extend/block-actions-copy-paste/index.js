@@ -8,21 +8,21 @@ import usePasteExtensions from './use-paste-extensions';
 /**
  * WordPress dependencies
  */
-const { __, _n, sprintf } = wp.i18n;
+import { __, _n, sprintf } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { hasBlockSupport, serialize } = wp.blocks;
+import { hasBlockSupport, serialize } from '@wordpress/blocks';
 
-const { useSelect, useDispatch } = wp.data;
+import { useSelect, useDispatch } from '@wordpress/data';
 
-const { BlockSettingsMenuControls } = wp.blockEditor;
+import { BlockSettingsMenuControls } from '@wordpress/block-editor';
 
-const { MenuGroup, MenuItem, Dropdown } = wp.components;
+import { MenuGroup, MenuItem, Dropdown } from '@wordpress/components';
 
-const { useCopyToClipboard } = wp.compose;
+import { useCopyToClipboard } from '@wordpress/compose';
 
-const { store: noticesStore } = wp.notices;
+import { store as noticesStore } from '@wordpress/notices';
 
 function CopyMenuItem({ blocks, onCopy, children }) {
   const ref = useCopyToClipboard(() => serialize(blocks), onCopy);

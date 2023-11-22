@@ -21,21 +21,21 @@ import useResponsive from '../../hooks/use-responsive';
  */
 const { merge } = window.lodash;
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { useSelect } = wp.data;
+import { useSelect } from '@wordpress/data';
 
-const { registerBlockStyle } = wp.blocks;
+import { registerBlockStyle } from '@wordpress/blocks';
 
-const { createHigherOrderComponent } = wp.compose;
+import { createHigherOrderComponent } from '@wordpress/compose';
 
-const { InspectorControls } = wp.blockEditor;
+import { InspectorControls } from '@wordpress/block-editor';
 
-const { PanelBody } = wp.components;
+import { PanelBody } from '@wordpress/components';
 
 /**
  * Register additional list styles.

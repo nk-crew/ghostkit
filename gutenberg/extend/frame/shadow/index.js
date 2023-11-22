@@ -14,22 +14,22 @@ import arrayMove from '../../../utils/array-move';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { useState, useEffect } = wp.element;
+import { useEffect, useState } from '@wordpress/element';
 
-const {
-  BaseControl,
+import {
+	BaseControl,
   Tooltip,
-  ToolsPanelItem: __stableToolsPanelItem,
-  __experimentalToolsPanelItem,
-} = wp.components;
+  __stableToolsPanelItem as StableToolsPanelItem,
+  __experimentalToolsPanelItem as ExperimentalToolsPanelItem,
+} from '@wordpress/components';
 
-const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
+const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
 const hoverSelector = '&:hover';
 

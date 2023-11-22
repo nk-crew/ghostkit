@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { ColorIndicator: WPColorIndicator } = wp.components;
+import { ColorIndicator as WPColorIndicator } from '@wordpress/components';
 
 /**
  * Component Class

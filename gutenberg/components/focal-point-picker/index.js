@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-const { FocalPointPicker } = wp.components;
+import { FocalPointPicker } from '@wordpress/components';
 
 /**
  * Internal dependencies

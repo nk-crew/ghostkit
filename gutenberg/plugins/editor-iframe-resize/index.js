@@ -7,15 +7,15 @@ import useResponsive from '../../hooks/use-responsive';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { render } = wp.element;
+import { render } from '@wordpress/element';
 
-const { DropdownMenu, MenuGroup, MenuItem } = wp.components;
+import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 
-const { useSelect } = wp.data;
+import { useSelect } from '@wordpress/data';
 
-const { PostPreviewButton } = wp.editor;
+import { PostPreviewButton } from '@wordpress/editor';
 
 export const name = 'gkt-editor-iframe-resize';
 

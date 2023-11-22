@@ -22,13 +22,13 @@ import SearchBox from './search-box';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment, useEffect, useState } = wp.element;
+import { Fragment, useEffect, useState } from '@wordpress/element';
 
-const {
+import {
   PanelBody,
   TextControl,
   TextareaControl,
@@ -39,11 +39,11 @@ const {
   Dropdown,
   ResizableBox,
   ExternalLink,
-} = wp.components;
+} from '@wordpress/components';
 
-const { InspectorControls, BlockControls, useBlockProps } = wp.blockEditor;
+import { InspectorControls, BlockControls, useBlockProps } from '@wordpress/block-editor';
 
-const { apiFetch } = wp;
+import apiFetch from '@wordpress/api-fetch';
 
 const { GHOSTKIT } = window;
 

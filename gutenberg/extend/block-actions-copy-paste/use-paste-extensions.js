@@ -10,11 +10,11 @@ import { getSpecificPropsFromStyles } from '../../utils/styles';
  * WordPress dependencies
  */
 const { cloneDeep } = window.lodash;
-const { useCallback } = wp.element;
-const { hasBlockSupport, getBlockType, parse } = wp.blocks;
-const { useDispatch, useRegistry } = wp.data;
-const { store: noticesStore } = wp.notices;
-const { __, sprintf } = wp.i18n;
+import { useCallback } from '@wordpress/element';
+import { hasBlockSupport, getBlockType, parse } from '@wordpress/blocks';
+import { useDispatch, useRegistry } from '@wordpress/data';
+import { store as noticesStore } from '@wordpress/notices';
+import { __, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies

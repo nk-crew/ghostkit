@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { Dropdown, Button, BaseControl } = wp.components;
+import { Dropdown, Button, BaseControl } from '@wordpress/components';
 
 /**
  * Component

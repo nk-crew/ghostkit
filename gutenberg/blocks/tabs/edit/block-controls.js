@@ -6,9 +6,9 @@ import getIcon from '../../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { ToolbarGroup, ToolbarDropdownMenu } = wp.components;
-const { BlockControls } = wp.blockEditor;
+import { __ } from '@wordpress/i18n';
+import { ToolbarGroup, ToolbarDropdownMenu } from '@wordpress/components';
+import { BlockControls } from '@wordpress/block-editor';
 
 export default function EditBlockControls({ attributes, setAttributes }) {
   const { buttonsAlign, buttonsVerticalAlign } = attributes;

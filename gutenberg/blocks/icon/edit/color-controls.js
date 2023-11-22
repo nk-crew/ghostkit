@@ -1,12 +1,12 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const {
+import { __ } from '@wordpress/i18n';
+import {
   InspectorControls,
-  __experimentalColorGradientSettingsDropdown: ColorGradientSettingsDropdown,
-  __experimentalUseMultipleOriginColorsAndGradients: useMultipleOriginColorsAndGradients,
-} = wp.blockEditor;
+  __experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+  __experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
+} from '@wordpress/block-editor';
 
 export default function ColorControls(props) {
   const { attributes, setAttributes, clientId } = props;

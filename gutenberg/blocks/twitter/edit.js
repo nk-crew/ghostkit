@@ -13,18 +13,17 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { SelectControl, PanelBody, Placeholder, TextControl, ToggleControl, Spinner, ExternalLink } =
-  wp.components;
+import { SelectControl, PanelBody, Placeholder, TextControl, ToggleControl, Spinner, ExternalLink } from '@wordpress/components';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { useSelect } = wp.data;
+import { useSelect } from '@wordpress/data';
 
-const { InspectorControls } = wp.blockEditor;
+import { InspectorControls } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

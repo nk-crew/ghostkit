@@ -1,11 +1,11 @@
 /**
  * WordPress dependencies
  */
-const { useEffect, useState } = wp.element;
+import { useEffect, useState } from '@wordpress/element';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { SelectControl, DropdownMenu } = wp.components;
+import { SelectControl, DropdownMenu } from '@wordpress/components';
 
 /**
  * Internal dependencies

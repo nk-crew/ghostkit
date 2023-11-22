@@ -1,9 +1,9 @@
 /**
  * WordPress dependencies
  */
-const { BaseControl, RangeControl, TextControl } = wp.components;
+import { BaseControl, RangeControl, TextControl } from '@wordpress/components';
 
-const { useState, useEffect } = wp.element;
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * Component Class

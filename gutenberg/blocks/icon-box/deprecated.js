@@ -13,11 +13,11 @@ import metadata from './block.json';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { Component } = wp.element;
+import { Component } from '@wordpress/element';
 
-const { InnerBlocks } = wp.blockEditor;
+import { InnerBlocks } from '@wordpress/block-editor';
 
 const { name } = metadata;
 

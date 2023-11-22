@@ -10,11 +10,11 @@ import useResponsive from '../../hooks/use-responsive';
 /**
  * WordPress dependencies
  */
-const { __, sprintf } = wp.i18n;
+import { __, sprintf } from '@wordpress/i18n';
 
-const { useState, useEffect } = wp.element;
+import { useEffect, useState } from '@wordpress/element';
 
-const { Tooltip, Button } = wp.components;
+import { Tooltip, Button } from '@wordpress/components';
 
 /**
  * Component Class

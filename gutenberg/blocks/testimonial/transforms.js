@@ -1,9 +1,9 @@
 /**
  * WordPress dependencies
  */
-const { createBlock } = wp.blocks;
+import { createBlock } from '@wordpress/blocks';
 
-const { split, create, toHTMLString, __UNSTABLE_LINE_SEPARATOR } = wp.richText;
+import { split, create, toHTMLString, __UNSTABLE_LINE_SEPARATOR } from '@wordpress/rich-text';
 
 export default {
   from: [

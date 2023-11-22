@@ -1,9 +1,9 @@
 /**
  * WordPress dependencies
  */
-const { createBlock } = wp.blocks;
+import { createBlock } from '@wordpress/blocks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
 export default {
   from: [

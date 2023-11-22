@@ -8,21 +8,21 @@ import useResponsive from '../../../hooks/use-responsive';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const {
-  ToolsPanelItem: __stableToolsPanelItem,
-  __experimentalToolsPanelItem,
-  NumberControl: __stableNumberControl,
-  __experimentalNumberControl,
-} = wp.components;
+import {
+  __stableToolsPanelItem as StableToolsPanelItem,
+  __experimentalToolsPanelItem as ExperimentalToolsPanelItem,
+	__stableNumberControl as StableNumberControl,
+	__experimentalNumberControl as ExperimentalNumberControl,
+} from '@wordpress/components';
 
-const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
-const NumberControl = __stableNumberControl || __experimentalNumberControl;
+const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
+const NumberControl = StableNumberControl || ExperimentalNumberControl;
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
 function PositionZIndexTools(props) {
   const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);

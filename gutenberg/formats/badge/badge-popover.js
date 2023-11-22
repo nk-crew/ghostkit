@@ -1,11 +1,11 @@
 /**
  * WordPress dependencies
  */
-const { Popover } = wp.components;
+import { Popover } from '@wordpress/components';
 
-const { useAnchor } = wp.richText;
+import { useAnchor } from '@wordpress/rich-text';
 
-const { useCachedTruthy } = wp.blockEditor;
+import { useCachedTruthy } from '@wordpress/block-editor';
 
 /**
  * Component which renders itself positioned under the current caret selection.

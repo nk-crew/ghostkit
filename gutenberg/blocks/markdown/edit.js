@@ -11,15 +11,15 @@ import MDRender from './render';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { useEffect, useState, useRef } = wp.element;
+import { useEffect, useState, useRef } from '@wordpress/element';
 
-const { ToolbarGroup, ToolbarButton } = wp.components;
+import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 
-const { BlockControls, PlainText, useBlockProps } = wp.blockEditor;
+import { BlockControls, PlainText, useBlockProps } from '@wordpress/block-editor';
 
-const { useSelect, useDispatch } = wp.data;
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * Block Edit Class.

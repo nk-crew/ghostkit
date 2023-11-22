@@ -13,25 +13,25 @@ import PreviewLottie from './preview-lottie';
 /**
  * WordPress dependencies
  */
-const { useState } = wp.element;
+import { useState } from '@wordpress/element';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const {
+import {
   PanelBody,
   TextControl,
   SelectControl,
   ToggleControl,
   Button,
-  UnitControl: __stableUnitControl,
-  __experimentalUnitControl,
-} = wp.components;
+	UnitControl as StableUnitControl,
+	__experimentalUnitControl as ExperimentalUnitControl,
+} from '@wordpress/components';
 
-const UnitControl = __stableUnitControl || __experimentalUnitControl;
+const UnitControl = StableUnitControl || ExperimentalUnitControl;
 
-const { InspectorControls, MediaPlaceholder, useBlockProps } = wp.blockEditor;
+import { InspectorControls, MediaPlaceholder, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

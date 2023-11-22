@@ -11,14 +11,16 @@ import { CustomizerModal } from '../customizer';
 /**
  * WordPress dependencies
  */
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { __ } = wp.i18n;
-const { Component } = wp.element;
+import { __ } from '@wordpress/i18n';
+import { Component } from '@wordpress/element';
 
-const { PluginSidebar, PluginSidebarMoreMenuItem } = wp.editPost || {};
+import { Button, PanelBody } from '@wordpress/components';
 
-const { Button, PanelBody } = wp.components;
+import { PluginSidebarMoreMenuItem as StablePluginSidebarMoreMenuItem, PluginSidebar } from '@wordpress/edit-post';
+
+const PluginSidebarMoreMenuItem = StablePluginSidebarMoreMenuItem || {};
 
 const { GHOSTKIT } = window;
 

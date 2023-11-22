@@ -17,11 +17,11 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { __ } = wp.i18n;
-const { useSelect } = wp.data;
+import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 
-const {
+import {
   BaseControl,
   PanelBody,
   TextControl,
@@ -30,16 +30,16 @@ const {
   Toolbar,
   ToolbarGroup,
   ToolbarButton,
-} = wp.components;
+} from '@wordpress/components';
 
-const {
+import {
   InspectorControls,
   InnerBlocks,
   BlockControls,
   RichText,
   useBlockProps,
   useInnerBlocksProps,
-} = wp.blockEditor;
+} from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

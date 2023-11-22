@@ -12,9 +12,9 @@ import Logo from '../../gutenberg/icons/ghostkit-text-logo.svg';
 /**
  * WordPress dependencies
  */
-const { Fragment, useState, useEffect } = wp.element;
+import { Fragment, useState, useEffect } from '@wordpress/element';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
 export default function Container(props) {
   const { data } = props;

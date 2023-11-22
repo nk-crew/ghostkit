@@ -49,7 +49,7 @@ import * as formFieldRadio from './form/fields/radio';
 import * as formFieldHidden from './form/fields/hidden';
 import * as formSubmitButton from './form/fields/submit';
 
-const { registerBlockType } = wp.blocks;
+import { registerBlockType } from '@wordpress/blocks';
 
 /**
  * Register blocks

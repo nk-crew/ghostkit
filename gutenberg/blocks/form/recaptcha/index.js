@@ -6,13 +6,13 @@ import { debounce } from 'throttle-debounce';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { useState } = wp.element;
+import { useState } from '@wordpress/element';
 
-const { TextControl, PanelBody, ExternalLink } = wp.components;
+import { TextControl, PanelBody, ExternalLink } from '@wordpress/components';
 
-const { apiFetch } = wp;
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * Internal dependencies

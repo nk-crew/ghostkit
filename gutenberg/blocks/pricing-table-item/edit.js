@@ -6,15 +6,15 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { BaseControl, PanelBody, ToggleControl } = wp.components;
+import { BaseControl, PanelBody, ToggleControl } from '@wordpress/components';
 
-const { InspectorControls, RichText, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { InspectorControls, RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

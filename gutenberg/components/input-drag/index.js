@@ -6,9 +6,9 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { Component } = wp.element;
+import { Component } from '@wordpress/element';
 
-const { TextControl } = wp.components;
+import { TextControl } from '@wordpress/components';
 
 /**
  * Internal dependencies

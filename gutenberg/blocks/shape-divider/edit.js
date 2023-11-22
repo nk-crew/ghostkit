@@ -18,15 +18,15 @@ import useResponsive from '../../hooks/use-responsive';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment, useEffect } = wp.element;
+import { Fragment, useEffect } from '@wordpress/element';
 
-const { PanelBody, ToolbarGroup, ToolbarButton, Dropdown } = wp.components;
+import { PanelBody, ToolbarGroup, ToolbarButton, Dropdown } from '@wordpress/components';
 
-const { InspectorControls, BlockControls, useBlockProps } = wp.blockEditor;
+import { InspectorControls, BlockControls, useBlockProps } from '@wordpress/block-editor';
 
 const { GHOSTKIT } = window;
 

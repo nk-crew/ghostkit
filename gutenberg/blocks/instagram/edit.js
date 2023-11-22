@@ -13,11 +13,11 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { PanelBody, Placeholder, TextControl, ToggleControl, Spinner, ExternalLink } = wp.components;
-const { applyFilters } = wp.hooks;
-const { useSelect } = wp.data;
-const { InspectorControls, useBlockProps } = wp.blockEditor;
+import { __ } from '@wordpress/i18n';
+import { PanelBody, Placeholder, TextControl, ToggleControl, Spinner, ExternalLink } from '@wordpress/components';
+import { applyFilters } from '@wordpress/hooks';
+import { useSelect } from '@wordpress/data';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

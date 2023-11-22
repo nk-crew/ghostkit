@@ -1,3 +1,9 @@
+
+/**
+ * WordPress dependencies
+ */
+import { createReduxStore, register } from '@wordpress/data';
+
 /**
  * Internal dependencies
  */
@@ -7,15 +13,12 @@ import * as actions from './actions';
 import * as controls from './controls';
 import * as resolvers from './resolvers';
 
-/**
- * WordPress dependencies
- */
-const { registerStore } = wp.data;
-
-registerStore('ghostkit/base/images', {
+const store = createReduxStore('ghostkit/base/images', {
   reducer,
   selectors,
   actions,
   controls,
   resolvers,
 });
+
+register(store);

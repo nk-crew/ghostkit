@@ -7,7 +7,8 @@ import striptags from 'striptags';
 /**
  * WordPress dependencies
  */
-const { getBlocks } = wp.data.select('core/block-editor');
+import { select } from '@wordpress/data';
+const { getBlocks } = select('core/block-editor');
 
 /**
  * Get all block IDs.

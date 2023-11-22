@@ -15,17 +15,17 @@ import {
 /**
  * WordPress dependencies
  */
-const { Component, Fragment } = wp.element;
+import { Component, Fragment } from '@wordpress/element';
 
-const { apiFetch } = wp;
+import apiFetch from '@wordpress/api-fetch';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { compose } = wp.compose;
+import { compose } from '@wordpress/compose';
 
-const { withSelect, withDispatch } = wp.data;
+import { withSelect, withDispatch } from '@wordpress/data';
 
-const { Button, Spinner } = wp.components;
+import { Button, Spinner } from '@wordpress/components';
 
 const { isFseTheme, typographyExist, fontsApiExist } = window.ghostkitVariables;
 

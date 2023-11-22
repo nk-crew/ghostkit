@@ -1,11 +1,10 @@
 import ApplyFilters from '../apply-filters';
 
-const { ColorPalette: WPColorPalette } = wp.components;
+import { ColorPalette as WPColorPalette } from '@wordpress/components';
 
-const { __experimentalUseMultipleOriginColorsAndGradients: useMultipleOriginColorsAndGradients } =
-  wp.blockEditor;
+import { __experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients } from '@wordpress/block-editor';
 
-const { useSelect } = wp.data;
+import { useSelect } from '@wordpress/data';
 
 function useColors() {
   // New way to get colors and gradients.

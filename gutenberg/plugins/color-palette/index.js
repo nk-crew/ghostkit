@@ -10,19 +10,21 @@ import Modal from '../../components/modal';
 /**
  * WordPress dependencies
  */
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { __ } = wp.i18n;
-const { Component } = wp.element;
-const { apiFetch } = wp;
+import { __ } from '@wordpress/i18n';
+import { Component } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 
-const { compose } = wp.compose;
+import { compose } from '@wordpress/compose';
 
-const { PluginMoreMenuItem } = wp.editPost || {};
+import { withSelect, withDispatch } from '@wordpress/data';
 
-const { withSelect, withDispatch } = wp.data;
+import { BaseControl, Tooltip, TextControl, Button } from '@wordpress/components';
 
-const { BaseControl, Tooltip, TextControl, Button } = wp.components;
+import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+
+const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 class ColorPaletteModal extends Component {
   constructor(props) {

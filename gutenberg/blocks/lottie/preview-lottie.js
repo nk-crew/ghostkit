@@ -4,7 +4,7 @@ import { loadBlockEditorAssets } from '../../utils/block-editor-asset-loader';
 /**
  * WordPress dependencies
  */
-const { useRef, useEffect } = wp.element;
+import { useRef, useEffect } from '@wordpress/element';
 
 /**
  * Lottie animation preview.

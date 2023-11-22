@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-const { useInnerBlocksProps } = wp.blockEditor;
+import { useInnerBlocksProps } from '@wordpress/block-editor';
 
 /**
  * Block Save component.

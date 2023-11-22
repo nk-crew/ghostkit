@@ -17,15 +17,15 @@ import ToggleGroup from '../../components/toggle-group';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment, useEffect, useState } = wp.element;
+import { Fragment, useEffect, useState } from '@wordpress/element';
 
-const { SelectControl, PanelBody, TabPanel, ToggleControl } = wp.components;
+import { SelectControl, PanelBody, TabPanel, ToggleControl } from '@wordpress/components';
 
-const { InspectorControls, useBlockProps, RichText } = wp.blockEditor;
+import { InspectorControls, useBlockProps, RichText } from '@wordpress/block-editor';
 
 const SIZES = [
   {

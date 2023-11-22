@@ -12,13 +12,17 @@ import getUniqueSlug from '../../utils/get-unique-slug';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { __ } = wp.i18n;
-const { useEffect, useRef } = wp.element;
-const { useSelect } = wp.data;
-const { ToolbarGroup, ToolbarButton } = wp.components;
+import { applyFilters } from '@wordpress/hooks';
 
-const { BlockControls, InnerBlocks, RichText, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { __ } from '@wordpress/i18n';
+
+import { useEffect, useRef } from '@wordpress/element';
+
+import { useSelect } from '@wordpress/data';
+
+import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+
+import { BlockControls, InnerBlocks, RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

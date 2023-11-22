@@ -10,13 +10,13 @@ import BadgePopover from './badge-popover';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Component } = wp.element;
+import { Component } from '@wordpress/element';
 
-const { toggleFormat, applyFormat, getActiveFormat } = wp.richText;
+import { toggleFormat, applyFormat, getActiveFormat } from '@wordpress/rich-text';
 
-const { RichTextToolbarButton } = wp.blockEditor;
+import { RichTextToolbarButton } from '@wordpress/block-editor';
 
 export const name = 'ghostkit/badge';
 

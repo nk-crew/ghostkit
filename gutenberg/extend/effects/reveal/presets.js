@@ -6,7 +6,7 @@ import getIcon from '../../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
 export default {
   fade: {

@@ -7,7 +7,7 @@ const {
   wp,
 } = window;
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
 const errorParentSelector =
   '.ghostkit-form-field-name-first, .ghostkit-form-field-name-last, .ghostkit-form-field-email-primary, .ghostkit-form-field-email-confirm, .ghostkit-form-field';

@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-const { apiFetch } = wp;
+import apiFetch from '@wordpress/api-fetch';
 
 export function API_FETCH({ request }) {
   // create iframe with customizer url to prepare customizer data.

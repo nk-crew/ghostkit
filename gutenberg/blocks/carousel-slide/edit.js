@@ -6,9 +6,13 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { useSelect } = wp.data;
-const { InnerBlocks, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { applyFilters } from '@wordpress/hooks';
+import { useSelect } from '@wordpress/data';
+import {
+  InnerBlocks,
+  useBlockProps,
+  useInnerBlocksProps,
+} from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

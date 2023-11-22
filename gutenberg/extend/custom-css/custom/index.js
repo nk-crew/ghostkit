@@ -16,23 +16,23 @@ import CodeEditor from '../../../components/code-editor';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { useState } = wp.element;
+import { useState } from '@wordpress/element';
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
-const {
+import {
   BaseControl,
   Dropdown,
   Button,
-  ToolsPanelItem: __stableToolsPanelItem,
-  __experimentalToolsPanelItem,
-} = wp.components;
+  __stableToolsPanelItem as StableToolsPanelItem,
+  __experimentalToolsPanelItem as ExperimentalToolsPanelItem,
+} from '@wordpress/components';
 
-const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
+const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
 const placeholder = 'selector {\n\n}';
 

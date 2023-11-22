@@ -13,10 +13,10 @@ import ButtonClearMedia from '../../../components/button-clear-media';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { useSelect } = wp.data;
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 
-const {
+import {
   BaseControl,
   PanelBody,
   SelectControl,
@@ -25,9 +25,9 @@ const {
   TextControl,
   TextareaControl,
   ExternalLink,
-} = wp.components;
+} from '@wordpress/components';
 
-const { InspectorControls, MediaUpload, BlockAlignmentToolbar } = wp.blockEditor;
+import { InspectorControls, MediaUpload, BlockAlignmentToolbar } from '@wordpress/block-editor';
 
 const DEFAULT_SIZE_SLUG = 'full';
 

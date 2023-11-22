@@ -13,10 +13,10 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { useSelect } = wp.data;
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 
-const {
+import {
   PanelBody,
   BaseControl,
   Button,
@@ -28,12 +28,11 @@ const {
   Toolbar,
   ToolbarGroup,
   ToolbarButton,
-  __experimentalToggleGroupControl: ToggleGroupControl,
-  __experimentalToggleGroupControlOption: ToggleGroupControlOption,
-} = wp.components;
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
+} from '@wordpress/components';
 
-const { InspectorControls, BlockControls, MediaUpload, RichText, MediaPlaceholder, useBlockProps } =
-  wp.blockEditor;
+import { InspectorControls, BlockControls, MediaUpload, RichText, MediaPlaceholder, useBlockProps } from '@wordpress/block-editor';
 
 const ALLOWED_MEDIA_TYPES = ['image'];
 const DEFAULT_SIZE_SLUG = 'large';

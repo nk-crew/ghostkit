@@ -1,11 +1,11 @@
 /**
  * WordPress dependencies
  */
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { TextControl, ToggleControl } = wp.components;
+import { TextControl, ToggleControl } from '@wordpress/components';
 
 /**
  * Get field attributes to render Gutenberg component.

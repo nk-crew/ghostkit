@@ -6,9 +6,9 @@ import IconPicker from '../../../components/icon-picker';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { PanelBody, __experimentalUnitControl: UnitControl } = wp.components;
-const { InspectorControls } = wp.blockEditor;
+import { __ } from '@wordpress/i18n';
+import { PanelBody, __experimentalUnitControl as UnitControl } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
 
 export default function EditInspectorControls({ attributes, setAttributes }) {
   const { icon, width } = attributes;

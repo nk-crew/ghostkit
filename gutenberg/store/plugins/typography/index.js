@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies
+ */
+import { createReduxStore, register } from '@wordpress/data';
+
+/**
  * Internal dependencies
  */
 import reducer from './reducer';
@@ -7,15 +12,12 @@ import * as actions from './actions';
 import * as controls from './controls';
 import * as resolvers from './resolvers';
 
-/**
- * WordPress dependencies
- */
-const { registerStore } = wp.data;
-
-registerStore('ghostkit/plugins/typography', {
+const store = createReduxStore('ghostkit/plugins/typography', {
   reducer,
   selectors,
   actions,
   controls,
   resolvers,
 });
+
+register(store);

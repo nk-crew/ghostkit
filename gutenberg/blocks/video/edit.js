@@ -15,9 +15,9 @@ import BlockInspectorControls from './edit/inspector-controls';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { useEffect } = wp.element;
-const { useBlockProps } = wp.blockEditor;
+import { applyFilters } from '@wordpress/hooks';
+import { useEffect } from '@wordpress/element';
+import { useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Load YouTube / Vimeo poster image

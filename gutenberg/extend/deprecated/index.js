@@ -14,11 +14,11 @@ import migrateStyles from './styles';
  */
 const { merge } = window.lodash;
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { useEffect } = wp.element;
+import { useEffect } from '@wordpress/element';
 
-const { createHigherOrderComponent } = wp.compose;
+import { createHigherOrderComponent } from '@wordpress/compose';
 
 function DeprecatedExtensions(props) {
   const { setAttributes } = props;

@@ -8,9 +8,9 @@ import PRESETS from './presets';
 /**
  * WordPress dependencies
  */
-const { useState, useEffect } = wp.element;
+import { useEffect, useState } from '@wordpress/element';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
 export default function TransitionPresetsControl(props) {
   const { label, value, onChange } = props;

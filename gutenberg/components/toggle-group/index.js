@@ -6,14 +6,14 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const {
-  __experimentalToggleGroupControl: ToggleGroupControl,
-  __experimentalToggleGroupControlOption: ToggleGroupControlOption,
-  __experimentalToggleGroupControlOptionIcon: ToggleGroupControlOptionIcon,
+import {
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
+  __experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
   BaseControl,
   ButtonGroup,
   Button,
-} = wp.components;
+} from '@wordpress/components';
 
 /**
  * Component Class

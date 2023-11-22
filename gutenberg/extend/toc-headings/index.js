@@ -11,7 +11,7 @@ import { getSlug } from '../../utils/get-unique-slug';
 /**
  * WordPress dependencies
  */
-const { subscribe, select } = wp.data;
+import { subscribe, select } from '@wordpress/data';
 
 /**
  * Get available TOC block.

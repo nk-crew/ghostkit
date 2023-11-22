@@ -14,20 +14,27 @@ import EditorStyles from '../../components/editor-styles';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { __ } = wp.i18n;
-const {
+import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
+
+import {
   PanelBody,
   ToggleControl,
-  NumberControl: __stableNumberControl,
-  __experimentalNumberControl,
-} = wp.components;
-const { useSelect, useDispatch } = wp.data;
-const { createBlock } = wp.blocks;
+	NumberControl as StableNumberControl,
+	__experimentalNumberControl as ExperimentalNumberControl,
+} from '@wordpress/components';
 
-const { InspectorControls, useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { useSelect, useDispatch } from '@wordpress/data';
 
-const NumberControl = __stableNumberControl || __experimentalNumberControl;
+import { createBlock } from '@wordpress/blocks';
+
+import {
+  InspectorControls,
+  useBlockProps,
+  useInnerBlocksProps,
+} from '@wordpress/block-editor';
+
+const NumberControl = StableNumberControl || ExperimentalNumberControl;
 
 const slideBlockName = 'ghostkit/carousel-slide';
 

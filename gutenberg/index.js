@@ -41,7 +41,7 @@ import './disable-blocks';
 /**
  * Internal dependencies
  */
-const { updateCategory } = wp.blocks;
+import { updateCategory } from '@wordpress/blocks';
 
 /**
  * Add category icon.

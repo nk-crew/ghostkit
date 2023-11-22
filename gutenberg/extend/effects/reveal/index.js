@@ -14,24 +14,24 @@ import DEFAULTS from './defaults';
  */
 const { cloneDeep } = window.lodash;
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const {
-  ToolsPanelItem: __stableToolsPanelItem,
-  __experimentalToolsPanelItem,
-  NumberControl: __stableNumberControl,
-  __experimentalNumberControl,
-  Grid: __stableGrid,
-  __experimentalGrid,
-} = wp.components;
+import {
+  __stableToolsPanelItem as StableToolsPanelItem,
+  __experimentalToolsPanelItem as ExperimentalToolsPanelItem,
+	__stableNumberControl as StableNumberControl,
+	__experimentalNumberControl as ExperimentalNumberControl,
+	__stableGrid as StableGrid,
+	__experimentalGrid as ExperimentalGrid,
+} from '@wordpress/components';
 
-const ToolsPanelItem = __stableToolsPanelItem || __experimentalToolsPanelItem;
-const NumberControl = __stableNumberControl || __experimentalNumberControl;
-const Grid = __stableGrid || __experimentalGrid;
+const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
+const NumberControl = StableNumberControl || ExperimentalNumberControl;
+const Grid = StableGrid || ExperimentalGrid;
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
 function EffectsRevealTools(props) {
   const { attributes, setAttributes, clientId } = props;

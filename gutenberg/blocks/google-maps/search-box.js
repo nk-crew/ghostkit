@@ -11,7 +11,7 @@ const {
 /**
  * WordPress dependencies
  */
-const { TextControl } = wp.components;
+import { TextControl }from '@wordpress/components';
 
 /*
  * Search Box Component.

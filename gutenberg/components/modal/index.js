@@ -6,7 +6,7 @@ import classnames from 'classnames/dedupe';
 /**
  * WordPress dependencies
  */
-const { Modal } = wp.components;
+import { Modal } from '@wordpress/components';
 
 /**
  * Component Class

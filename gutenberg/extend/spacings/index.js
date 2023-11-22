@@ -12,17 +12,20 @@ import ApplyFilters from '../../components/apply-filters';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
-const { InspectorControls } = wp.blockEditor;
+import { InspectorControls } from '@wordpress/block-editor';
 
-const { ToolsPanel: __stableToolsPanel, __experimentalToolsPanel } = wp.components;
+import {
+  __stableToolsPanel as StableToolsPanel,
+  __experimentalToolsPanel as ExperimentalToolsPanel,
+} from '@wordpress/components';
 
-const ToolsPanel = __stableToolsPanel || __experimentalToolsPanel;
+const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
 
 const allSpacings = EXTENSIONS.spacings.styles;
 

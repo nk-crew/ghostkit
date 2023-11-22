@@ -6,9 +6,9 @@ import ToggleGroup from '../toggle-group';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { BaseControl, TextControl } = wp.components;
+import { BaseControl, TextControl } from '@wordpress/components';
 
 /**
  * Internal dependencies

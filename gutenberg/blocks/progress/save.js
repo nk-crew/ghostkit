@@ -13,8 +13,8 @@ const { name } = metadata;
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { RichText, useBlockProps } = wp.blockEditor;
+import { applyFilters } from '@wordpress/hooks';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Block Save Class.

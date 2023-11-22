@@ -1,4 +1,4 @@
-const { useSelect, useDispatch } = wp.data;
+import { useSelect, useDispatch } from '@wordpress/data';
 
 const { ghostkitVariables } = window;
 

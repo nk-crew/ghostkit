@@ -11,9 +11,9 @@ import metadata from './block.json';
 /**
  * WordPress dependencies
  */
-const { useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
 const { name } = metadata;
 

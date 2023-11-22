@@ -13,17 +13,17 @@ import getAllHeadings from './get-all-headings';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment, RawHTML, useRef } = wp.element;
+import { Fragment, RawHTML, useRef } from '@wordpress/element';
 
-const { PanelBody, Placeholder, SelectControl, Spinner, Disabled } = wp.components;
+import { PanelBody, Placeholder, SelectControl, Spinner, Disabled } from '@wordpress/components';
 
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { useSelect } = wp.data;
+import { useSelect } from '@wordpress/data';
 
-const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
+import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

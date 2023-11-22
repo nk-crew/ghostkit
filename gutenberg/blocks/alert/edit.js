@@ -15,12 +15,11 @@ import ApplyFilters from '../../components/apply-filters';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { __ } = wp.i18n;
-const { useSelect } = wp.data;
-const { PanelBody, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, TabPanel } = wp.components;
-const { InspectorControls, InnerBlocks, BlockControls, useBlockProps, useInnerBlocksProps } =
-  wp.blockEditor;
+import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { PanelBody, ToggleControl, ToolbarGroup, ToolbarDropdownMenu, TabPanel } from '@wordpress/components';
+import { InspectorControls, InnerBlocks, BlockControls, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

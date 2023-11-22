@@ -6,19 +6,21 @@ import getIcon from '../../utils/get-icon';
 import Modal from '../../components/modal';
 import Typography from '../../components/typography';
 
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { __ } = wp.i18n;
-const { Component } = wp.element;
-const { apiFetch } = wp;
-const { doAction } = wp.hooks;
-const { compose } = wp.compose;
+import { __ } from '@wordpress/i18n';
+import { Component } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
+import { doAction } from '@wordpress/hooks';
+import { compose } from '@wordpress/compose';
 
-const { PluginMoreMenuItem } = wp.editPost || {};
+import { withSelect, withDispatch } from '@wordpress/data';
 
-const { withSelect, withDispatch } = wp.data;
+import { TabPanel, Tooltip, Button } from '@wordpress/components';
 
-const { TabPanel, Tooltip, Button } = wp.components;
+import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+
+const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 const { isFseTheme, typographyExist, fontsApiExist } = window.ghostkitVariables;
 

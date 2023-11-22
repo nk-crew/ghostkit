@@ -6,9 +6,9 @@ import MarkdownIt from 'markdown-it';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { RawHTML } = wp.element;
+import { RawHTML } from '@wordpress/element';
 
 /**
  * Module variables

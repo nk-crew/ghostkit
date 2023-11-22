@@ -1,8 +1,8 @@
-const { useEffect, useState } = wp.element;
+import { useEffect, useState } from '@wordpress/element';
 
-const { __ } = wp.i18n;
-const { useSelect } = wp.data;
-const { SelectControl, __experimentalUnitControl } = wp.components;
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { SelectControl, __experimentalUnitControl } from '@wordpress/components';
 const UnitControl = __experimentalUnitControl;
 
 export default function MediaSizeSelector(props) {

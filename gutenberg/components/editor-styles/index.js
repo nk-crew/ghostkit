@@ -6,9 +6,9 @@ const { compact, map } = window.lodash;
 /**
  * WordPress dependencies
  */
-const { createPortal, useContext, useMemo } = wp.element;
+import { createPortal, useContext, useMemo } from '@wordpress/element';
 
-const { transformStyles, BlockList } = wp.blockEditor;
+import { transformStyles, BlockList } from '@wordpress/block-editor';
 
 const { elementContext: __stableElementContext, __unstableElementContext } = BlockList;
 

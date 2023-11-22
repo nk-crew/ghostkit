@@ -14,15 +14,15 @@ import GistFilesSelect from './file-select';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
+import { applyFilters } from '@wordpress/hooks';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment, useEffect, useState, useRef } = wp.element;
+import { Fragment, useEffect, useState, useRef } from '@wordpress/element';
 
-const { PanelBody, TextControl, ToggleControl, Placeholder, ExternalLink } = wp.components;
+import { PanelBody, TextControl, ToggleControl, Placeholder, ExternalLink } from '@wordpress/components';
 
-const { InspectorControls, useBlockProps } = wp.blockEditor;
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 
 const { gistSimple } = window;
 

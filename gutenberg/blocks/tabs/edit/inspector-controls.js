@@ -1,9 +1,9 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { PanelBody, ToggleControl, SelectControl } = wp.components;
-const { InspectorControls } = wp.blockEditor;
+import { __ } from '@wordpress/i18n';
+import { PanelBody, ToggleControl, SelectControl } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
 
 export default function EditInspectorControls({ attributes, setAttributes }) {
   const { trigger, buttonsAlign, buttonsVerticalAlign } = attributes;

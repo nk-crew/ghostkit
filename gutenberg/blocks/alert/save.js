@@ -8,8 +8,8 @@ import metadata from './block.json';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { useBlockProps, useInnerBlocksProps } = wp.blockEditor;
+import { applyFilters } from '@wordpress/hooks';
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 const { name } = metadata;
 
 /**

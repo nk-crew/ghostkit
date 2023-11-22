@@ -17,12 +17,11 @@ const { GHOSTKIT } = window;
 /**
  * WordPress dependencies
  */
-const { Fragment, useRef, useEffect, useState } = wp.element;
+import { Fragment, useRef, useEffect, useState } from '@wordpress/element';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Button, Dropdown, Tooltip, BaseControl, TextControl, TextareaControl, G, Path, SVG } =
-  wp.components;
+import { Button, Dropdown, Tooltip, BaseControl, TextControl, TextareaControl, G, Path, SVG } from '@wordpress/components';
 
 /**
  * Go over each icon.

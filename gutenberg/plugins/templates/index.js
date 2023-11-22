@@ -15,23 +15,25 @@ import Modal from '../../components/modal';
 /**
  * WordPress dependencies
  */
-const { Fragment, RawHTML } = wp.element;
+import { Fragment, RawHTML  } from '@wordpress/element';
 
-const { __, sprintf } = wp.i18n;
-const { Component } = wp.element;
-const { apiFetch } = wp;
+import { __, sprintf } from '@wordpress/i18n';
+import { Component } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 
-const { compose } = wp.compose;
+import { compose } from '@wordpress/compose';
 
-const { PluginMoreMenuItem } = wp.editPost || {};
+import { withSelect, withDispatch } from '@wordpress/data';
 
-const { withSelect, withDispatch } = wp.data;
+import { applyFilters } from '@wordpress/hooks';
 
-const { applyFilters } = wp.hooks;
+import { parse } from '@wordpress/blocks';
 
-const { parse } = wp.blocks;
+import { TabPanel, Tooltip, Spinner, SelectControl, ExternalLink, Notice } from '@wordpress/components';
 
-const { TabPanel, Tooltip, Spinner, SelectControl, ExternalLink, Notice } = wp.components;
+import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+
+const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 const { GHOSTKIT } = window;
 

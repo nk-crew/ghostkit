@@ -13,19 +13,18 @@ import RangeControl from '../../components/range-control';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { __ } = wp.i18n;
-const { useSelect } = wp.data;
-const { PanelBody, BaseControl, SelectControl, TextareaControl, ExternalLink, Button } =
-  wp.components;
-const {
+import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { PanelBody, BaseControl, SelectControl, TextareaControl, ExternalLink, Button } from '@wordpress/components';
+import {
   InspectorControls,
   InnerBlocks,
   RichText,
   MediaUpload,
   useBlockProps,
   useInnerBlocksProps,
-} = wp.blockEditor;
+} from '@wordpress/block-editor';
 
 const DEFAULT_SIZE_SLUG = 'thumbnail';
 

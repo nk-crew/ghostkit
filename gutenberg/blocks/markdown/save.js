@@ -11,7 +11,7 @@ import MDRender from './render';
 /**
  * WordPress dependencies
  */
-const { useBlockProps } = wp.blockEditor;
+import { useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Block Save Class.

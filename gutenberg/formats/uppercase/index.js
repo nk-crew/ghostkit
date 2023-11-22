@@ -6,13 +6,13 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { RichTextToolbarButton, RichTextShortcut } = wp.blockEditor;
+import { RichTextToolbarButton, RichTextShortcut } from '@wordpress/block-editor';
 
-const { toggleFormat } = wp.richText;
+import { toggleFormat } from '@wordpress/rich-text';
 
 export const name = 'ghostkit/uppercase';
 

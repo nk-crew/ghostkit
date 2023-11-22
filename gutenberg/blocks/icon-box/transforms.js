@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-const { createBlock } = wp.blocks;
+import { createBlock } from '@wordpress/blocks';
 
 export default {
   from: [

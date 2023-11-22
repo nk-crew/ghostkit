@@ -18,14 +18,12 @@ import getIcon from '../../utils/get-icon';
 /**
  * WordPress dependencies
  */
-const { applyFilters } = wp.hooks;
-const { __ } = wp.i18n;
-const { useSelect } = wp.data;
-const { BaseControl, PanelBody, ToggleControl, TabPanel, Toolbar, ToolbarGroup, ToolbarButton } =
-  wp.components;
+import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { BaseControl, PanelBody, ToggleControl, TabPanel, Toolbar, ToolbarGroup, ToolbarButton } from '@wordpress/components';
 
-const { InspectorControls, InnerBlocks, BlockControls, useBlockProps, useInnerBlocksProps } =
-  wp.blockEditor;
+import { InspectorControls, InnerBlocks, BlockControls, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.

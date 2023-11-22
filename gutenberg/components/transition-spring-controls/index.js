@@ -16,19 +16,19 @@ import PRESETS from './presets';
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { useState, useEffect } = wp.element;
+import { useEffect, useState } from '@wordpress/element';
 
-const {
-  NumberControl: __stableNumberControl,
-  __experimentalNumberControl,
-  Grid: __stableGrid,
-  __experimentalGrid,
-} = wp.components;
+import {
+  __stableNumberControl as StableNumberControl,
+  __experimentalNumberControl as ExperimentalNumberControl,
+  __stableGrid as StableGrid,
+  __experimentalGrid as ExperimentalGrid,
+} from '@wordpress/components';
 
-const NumberControl = __stableNumberControl || __experimentalNumberControl;
-const Grid = __stableGrid || __experimentalGrid;
+const NumberControl = StableNumberControl || ExperimentalNumberControl;
+const Grid = StableGrid || ExperimentalGrid;
 
 const {
   Motion: { spring },

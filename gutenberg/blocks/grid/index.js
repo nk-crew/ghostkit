@@ -13,9 +13,9 @@ import transforms from './transforms';
 /**
  * WordPress dependencies
  */
-const { createHigherOrderComponent } = wp.compose;
+import { createHigherOrderComponent } from '@wordpress/compose';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
 const { name } = metadata;
 
