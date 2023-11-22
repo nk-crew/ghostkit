@@ -11,11 +11,11 @@ import { __ } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
 
 import {
-	__stableToolsPanelItem as ToolsPanelItem,
+	__stableToolsPanelItem as StableToolsPanelItem,
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem
 } from '@wordpress/components';
 
-const ToolsPanelItem = ToolsPanelItem || ExperimentalToolsPanelItem;
+const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
 import { hasBlockSupport } from '@wordpress/blocks';
 
