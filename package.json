@@ -68,7 +68,8 @@
 		"po2json": "^0.4.5",
 		"rtlcss-webpack-plugin": "^4.0.7",
 		"webpack-remove-empty-scripts": "^1.0.3",
-		"yargs": "^17.7.2"
+		"yargs": "^17.7.2",
+		"filemanager-webpack-plugin": "^8.0.0"
   },
   "dependencies": {
     "@giphy/js-fetch-api": "^4.9.1",
