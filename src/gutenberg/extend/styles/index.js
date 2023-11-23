@@ -11,7 +11,7 @@ import { throttle } from 'throttle-debounce';
 // We can't use lodash merge, because it skip the specified undefined value
 // which we use to reset styles.
 import merge from '../../utils/merge';
-import { replaceClass } from '../../utils/classes-replacer';
+import { hasClass, replaceClass } from '../../utils/classes-replacer';
 import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 import EditorStyles from '../../components/editor-styles';
 
@@ -195,9 +195,13 @@ function CustomStylesComponent(props) {
           }
 
           // Regenerate custom classname if it was removed or changed.
-          const newClassName = replaceClass(className, 'ghostkit-custom', ghostkitID);
-          if (newClassName !== className) {
-            newAttrs.className = newClassName;
+          // We have to check if class name contains ghostkit-custom-<id> because
+          // it can be changed while your edit the custom block class.
+          if (!hasClass(className, `ghostkit-custom-${ghostkitID}`)) {
+            const newClassName = replaceClass(className, 'ghostkit-custom', ghostkitID);
+            if (newClassName !== className) {
+              newAttrs.className = newClassName;
+            }
           }
 
           // Check if styles changes and update it.
