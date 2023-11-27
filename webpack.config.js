@@ -220,13 +220,14 @@ const newConfig = {
 
             if (
               (foundingChunk.indexOf('admin/css/') > -1 ||
-                foundingChunk.indexOf('gutenberg/') > -1) &&
+                foundingChunk.indexOf('gutenberg/') > -1 ||
+								foundingChunk.indexOf('settings/') > -1) &&
               cacheGroupKey === 'style'
             ) {
               cssOutput = `${path.dirname(chunkName)}/${path.basename(chunkName)}`;
             }
 
-            if (chunkName.indexOf('layouts-editor') > -1 && cacheGroupKey === 'style') {
+            if (chunkName.indexOf('settings/index') > -1 && cacheGroupKey === 'style') {
               cssOutput = `${path.dirname(chunkName)}/${cacheGroupKey}-${path.basename(chunkName)}`;
             }
             return cssOutput;
