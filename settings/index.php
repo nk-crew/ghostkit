@@ -120,7 +120,7 @@ class GhostKit_Settings {
             }
 
             // phpcs:ignore
-            wp_redirect( ghostkit()->go_pro_link() . '?utm_source=plugin&utm_medium=' . esc_attr( $medium ) . '&utm_campaign=go_pro&utm_content=@@plugin_version' );
+            wp_redirect( ghostkit()->go_pro_link() . '?utm_source=plugin&utm_medium=' . esc_attr( $medium ) . '&utm_campaign=go_pro&utm_content=' . GHOSTKIT_VERSION );
             exit();
         }
     }

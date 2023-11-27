@@ -90,7 +90,7 @@ class GhostKit_Typography {
                 $css = $typography_css['editor'];
             }
         }
-        wp_register_style( 'ghostkit-typography', false, array(), '@@plugin_version' );
+        wp_register_style( 'ghostkit-typography', false, array(), GHOSTKIT_VERSION );
         wp_enqueue_style( 'ghostkit-typography' );
         wp_add_inline_style( 'ghostkit-typography', $css );
     }

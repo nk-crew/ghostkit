@@ -312,7 +312,7 @@ class GhostKit_Assets {
         }
 
         $global_data = array(
-            'version'                     => '@@plugin_version',
+            'version'                     => GHOSTKIT_VERSION,
             'pro'                         => false,
 
             'themeName'                   => $theme_data->get( 'Name' ),
@@ -668,13 +668,13 @@ class GhostKit_Assets {
 
             // Enqueue custom CSS.
             if ( ! $allow_js_fallback ) {
-                wp_register_style( $name, false, array(), '@@plugin_version' );
+                wp_register_style( $name, false, array(), GHOSTKIT_VERSION );
                 wp_enqueue_style( $name );
                 wp_add_inline_style( $name, $css );
 
                 // Enqueue JS instead of CSS when rendering in <body> to prevent W3C errors.
             } elseif ( ! wp_script_is( $name, 'enqueued' ) ) {
-                wp_register_script( $name, false, array(), '@@plugin_version', true );
+                wp_register_script( $name, false, array(), GHOSTKIT_VERSION, true );
                 wp_enqueue_script( $name );
                 wp_add_inline_script(
                     $name,
@@ -699,7 +699,7 @@ class GhostKit_Assets {
      * @param boolean $footer - print in footer.
      */
     public static function add_custom_js( $name, $js, $footer = false ) {
-        wp_register_script( $name, '', array(), '@@plugin_version', $footer );
+        wp_register_script( $name, '', array(), GHOSTKIT_VERSION, $footer );
         wp_enqueue_script( $name );
         wp_add_inline_script( $name, $js );
     }

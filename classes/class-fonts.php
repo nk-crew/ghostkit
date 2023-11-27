@@ -109,7 +109,7 @@ class GhostKit_Fonts {
                 'display' => 'swap',
             );
 
-            wp_enqueue_style( 'ghostkit-fonts-google', add_query_arg( $query_args, 'https://fonts.googleapis.com/css' ), array(), '@@plugin_version' );
+            wp_enqueue_style( 'ghostkit-fonts-google', add_query_arg( $query_args, 'https://fonts.googleapis.com/css' ), array(), GHOSTKIT_VERSION );
         }
     }
 

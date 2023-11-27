@@ -18,7 +18,7 @@ class GhostKit_Migrations {
      *
      * @var string
      */
-    protected $version = '@@plugin_version';
+    protected $version = GHOSTKIT_VERSION;
 
     /**
      * Initial version.
