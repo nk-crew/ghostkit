@@ -33,20 +33,20 @@ class GhostKit_Settings {
     public function admin_enqueue_scripts() {
         $screen = get_current_screen();
 
-        wp_enqueue_style(
+        GhostKit_Assets::enqueue_style(
             'ghostkit-admin',
-            ghostkit()->plugin_url . 'assets/admin/css/admin.min.css',
+            'build/assets/admin/css/admin',
             array(),
-            filemtime( ghostkit()->plugin_path . 'assets/admin/css/admin.min.css' )
+            filemtime( ghostkit()->plugin_path . 'build/assets/admin/css/admin.css' )
         );
         wp_style_add_data( 'ghostkit-admin', 'rtl', 'replace' );
         wp_style_add_data( 'ghostkit-admin', 'suffix', '.min' );
 
-        wp_enqueue_style(
+        GhostKit_Assets::enqueue_style(
             'ghostkit-settings',
-            ghostkit()->plugin_url . 'settings/style.min.css',
+            'build/settings/style',
             array(),
-            filemtime( ghostkit()->plugin_path . 'settings/style.min.css' )
+            filemtime( ghostkit()->plugin_path . 'build/settings/style.css' )
         );
         wp_style_add_data( 'ghostkit-settings', 'rtl', 'replace' );
         wp_style_add_data( 'ghostkit-settings', 'suffix', '.min' );
@@ -72,15 +72,14 @@ class GhostKit_Settings {
         );
 
         // Ghost Kit Settings.
-        wp_enqueue_script(
+        GhostKit_Assets::enqueue_script(
             'ghostkit-settings',
-            ghostkit()->plugin_url . 'settings/index.min.js',
-            array( 'ghostkit-helper', 'lodash', 'wp-data', 'wp-element', 'wp-components', 'wp-api', 'wp-api-request', 'wp-i18n' ),
-            filemtime( ghostkit()->plugin_path . 'settings/index.min.js' ),
-            true
+            'build/settings/index',
+            array( 'ghostkit-helper', 'lodash', 'wp-api', 'wp-api-request' ),
+            filemtime( ghostkit()->plugin_path . 'build/settings/index.js' )
         );
 
-        wp_localize_script(
+		wp_localize_script(
             'ghostkit-settings',
             'ghostkitSettingsData',
             array(

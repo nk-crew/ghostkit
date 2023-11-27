@@ -337,15 +337,15 @@ class GhostKit_Assets {
 
         // Motion.
         if ( apply_filters( 'gkt_enqueue_plugin_motion', true ) ) {
-            wp_register_script( 'motion', ghostkit()->plugin_url . 'assets/vendor/motion/dist/motion.min.js', array(), '10.16.2', true );
+            self::register_script( 'motion', 'assets/vendor/motion/dist/motion.min', array(), '10.16.2' );
 
             $js_deps[] = 'motion';
         }
 
         // Jarallax.
         if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
-            wp_register_script( 'jarallax', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax.min.js', array(), '2.0.1', true );
-            wp_register_script( 'jarallax-video', ghostkit()->plugin_url . 'assets/vendor/jarallax/dist/jarallax-video.min.js', array( 'jarallax' ), '2.0.1', true );
+            self::register_script( 'jarallax', 'assets/vendor/jarallax/dist/jarallax.min', array(), '2.0.1' );
+            self::register_script( 'jarallax-video', 'assets/vendor/jarallax/dist/jarallax-video.min', array( 'jarallax' ), '2.0.1' );
         }
 
         // Swiper.
@@ -353,29 +353,29 @@ class GhostKit_Assets {
             // Add legacy swiper version in order to support Elementor plugin.
             // https://wordpress.org/support/topic/visual-portfolio-elementor-issue/.
             if ( class_exists( '\Elementor\Plugin' ) ) {
-                wp_register_style( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper-5-4-5/swiper.min.css', array(), '5.4.5' );
-                wp_register_script( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper-5-4-5/swiper.min.js', array(), '5.4.5', true );
+                self::register_style( 'swiper', 'assets/vendor/swiper-5-4-5/swiper.min', array(), '5.4.5' );
+                self::register_script( 'swiper', 'assets/vendor/swiper-5-4-5/swiper.min', array(), '5.4.5' );
             } else {
-                wp_register_style( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper/swiper-bundle.min.css', array(), '8.4.6' );
-                wp_register_script( 'swiper', ghostkit()->plugin_url . 'assets/vendor/swiper/swiper-bundle.min.js', array(), '8.4.6', true );
+                self::register_style( 'swiper', 'assets/vendor/swiper/swiper-bundle.min', array(), '8.4.6' );
+                self::register_script( 'swiper', 'assets/vendor/swiper/swiper-bundle.min', array(), '8.4.6' );
             }
         }
 
         // Luxon.
         if ( apply_filters( 'gkt_enqueue_plugin_luxon', true ) ) {
-            wp_register_script( 'luxon', ghostkit()->plugin_url . 'assets/vendor/luxon/build/global/luxon.min.js', array(), '3.3.0', true );
+            self::register_script( 'luxon', 'assets/vendor/luxon/build/global/luxon.min', array(), '3.3.0' );
         }
 
         // Lottie Player.
         if ( apply_filters( 'gkt_enqueue_plugin_lottie_player', true ) ) {
-            wp_register_script( 'lottie-player', ghostkit()->plugin_url . 'assets/vendor/lottie-player/dist/lottie-player.js', array(), '1.7.1', true );
+            self::register_script( 'lottie-player', 'assets/vendor/lottie-player/dist/lottie-player', array(), '1.7.1' );
             wp_script_add_data( 'lottie-player', 'async', true );
         }
 
         // GistEmbed.
         if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
-            wp_register_style( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.css', array(), '2.0.0' );
-            wp_register_script( 'gist-simple', ghostkit()->plugin_url . 'assets/vendor/gist-simple/dist/gist-simple.min.js', array(), '2.0.0', true );
+            self::register_style( 'gist-simple', 'assets/vendor/gist-simple/dist/gist-simple', array(), '2.0.0' );
+            self::register_script( 'gist-simple', 'assets/vendor/gist-simple/dist/gist-simple.min', array(), '2.0.0' );
         }
 
         // Google reCaptcha.
@@ -400,12 +400,9 @@ class GhostKit_Assets {
         }
 
         // helper script.
-        wp_register_script(
+        self::register_script(
             'ghostkit-helper',
-            ghostkit()->plugin_url . 'assets/js/helper.min.js',
-            array(),
-            '@@plugin_version',
-            true
+            'build/assets/js/helper'
         );
 
         // Google Maps prepare localization as in WordPress settings.
@@ -477,47 +474,40 @@ class GhostKit_Assets {
         );
 
         // events fallback script.
-        wp_register_script(
+        self::register_script(
             'ghostkit-event-fallbacks',
-            ghostkit()->plugin_url . 'assets/js/event-fallbacks.min.js',
-            array( 'ghostkit-helper' ),
-            '@@plugin_version',
-            true
+            'build/assets/js/event-fallbacks',
+            array( 'ghostkit-helper' )
         );
 
         // Fallback for classic themes.
         if ( ! wp_is_block_theme() ) {
-            wp_register_style(
+            self::register_style(
                 'ghostkit-classic-theme-fallback',
-                ghostkit()->plugin_url . 'assets/css/fallback-classic-theme.css',
-                array(),
-                '@@plugin_version'
+                'assets/css/fallback-classic-theme'
             );
             $css_deps[] = 'ghostkit-classic-theme-fallback';
         }
 
         // Ghost Kit.
-        wp_register_style(
+        self::register_style(
             'ghostkit',
-            ghostkit()->plugin_url . 'gutenberg/style.min.css',
-            $css_deps,
-            '@@plugin_version'
+            'build/gutenberg/style',
+            $css_deps
         );
         wp_style_add_data( 'ghostkit', 'rtl', 'replace' );
         wp_style_add_data( 'ghostkit', 'suffix', '.min' );
 
-        wp_register_script(
+        self::register_script(
             'ghostkit',
-            ghostkit()->plugin_url . 'assets/js/main.min.js',
-            $js_deps,
-            '@@plugin_version',
-            true
+            'build/assets/js/main',
+            $js_deps
         );
 
         // Extensions.
-        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/extend/*/frontend.min.js' ) as $file ) {
+        foreach ( glob( ghostkit()->plugin_path . 'build/gutenberg/extend/*/frontend.js' ) as $file ) {
             $ext_name       = basename( dirname( $file ) );
-            $ext_script_url = ghostkit()->plugin_url . 'gutenberg/extend/' . $ext_name . '/frontend.min.js';
+            $ext_script_url = 'build/gutenberg/extend/' . $ext_name . '/frontend';
             $ext_js_deps    = array( 'ghostkit' );
 
             switch ( $ext_name ) {
@@ -526,36 +516,32 @@ class GhostKit_Assets {
                     break;
             }
 
-            wp_register_script(
+            self::register_script(
                 'ghostkit-extension-' . $ext_name,
                 $ext_script_url,
-                array_unique( $ext_js_deps ),
-                '@@plugin_version',
-                true
+                array_unique( $ext_js_deps )
             );
             self::store_used_assets( 'ghostkit-extension-' . $ext_name, true, 'script' );
         }
 
         // Style Variants.
-        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/style-variants/*/frontend.min.js' ) as $template ) {
+        foreach ( glob( ghostkit()->plugin_path . 'build/gutenberg/style-variants/*/frontend.js' ) as $template ) {
             $ext_name       = basename( dirname( $template ) );
-            $ext_script_url = ghostkit()->plugin_url . 'gutenberg/style-variants/' . $ext_name . '/frontend.min.js';
+            $ext_script_url = 'build/gutenberg/style-variants/' . $ext_name . '/frontend';
             $ext_js_deps    = array( 'ghostkit' );
 
-            wp_register_script(
+            self::register_script(
                 'ghostkit-style-variant-' . $ext_name,
                 $ext_script_url,
-                array_unique( $ext_js_deps ),
-                '@@plugin_version',
-                true
+                array_unique( $ext_js_deps )
             );
             self::store_used_assets( 'ghostkit-style-variant-' . $ext_name, true, 'script' );
         }
 
         // Blocks.
-        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/frontend.min.js' ) as $file ) {
+        foreach ( glob( ghostkit()->plugin_path . 'build/gutenberg/blocks/*/frontend.js' ) as $file ) {
             $block_name       = basename( dirname( $file ) );
-            $block_script_url = ghostkit()->plugin_url . 'gutenberg/blocks/' . $block_name . '/frontend.min.js';
+            $block_script_url = 'build/gutenberg/blocks/' . $block_name . '/frontend';
             $block_js_deps    = array( 'ghostkit' );
 
             switch ( $block_name ) {
@@ -605,17 +591,15 @@ class GhostKit_Assets {
                     break;
             }
 
-            wp_register_script(
+            self::register_script(
                 'ghostkit-block-' . $block_name,
                 $block_script_url,
-                array_unique( $block_js_deps ),
-                '@@plugin_version',
-                true
+                array_unique( $block_js_deps )
             );
         }
-        foreach ( glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/styles/style.min.css' ) as $file ) {
+        foreach ( glob( ghostkit()->plugin_path . 'build/gutenberg/blocks/*/styles/style.css' ) as $file ) {
             $block_name      = basename( dirname( dirname( $file ) ) );
-            $block_style_url = ghostkit()->plugin_url . 'gutenberg/blocks/' . $block_name . '/styles/style.min.css';
+            $block_style_url = 'build/gutenberg/blocks/' . $block_name . '/styles/style';
             $block_css_deps  = array( 'ghostkit' );
 
             switch ( $block_name ) {
@@ -630,11 +614,10 @@ class GhostKit_Assets {
                     break;
             }
 
-            wp_register_style(
+            self::register_style(
                 'ghostkit-block-' . $block_name,
                 $block_style_url,
-                array_unique( $block_css_deps ),
-                '@@plugin_version'
+                array_unique( $block_css_deps )
             );
             wp_style_add_data( 'ghostkit-block-' . $block_name, 'rtl', 'replace' );
             wp_style_add_data( 'ghostkit-block-' . $block_name, 'suffix', '.min' );

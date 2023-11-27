@@ -244,7 +244,7 @@ class GhostKit {
         global $current_screen;
 
         $css_deps = array();
-        $js_deps  = array( 'ghostkit-helper', 'wp-block-editor', 'wp-blocks', 'wp-date', 'wp-i18n', 'wp-element', 'wp-edit-post', 'wp-compose', 'underscore', 'wp-hooks', 'wp-components', 'wp-keycodes', 'lodash', 'jquery' );
+        $js_deps  = array( 'ghostkit-helper', 'wp-date', 'underscore', 'lodash', 'jquery' );
 
         // Fix for Widgets screen.
         if ( isset( $current_screen->id ) && 'widgets' === $current_screen->id ) {
@@ -283,21 +283,20 @@ class GhostKit {
         }
 
         // Ghost Kit.
-        wp_enqueue_style(
+        GhostKit_Assets::enqueue_style(
             'ghostkit-editor',
-            plugins_url( 'gutenberg/editor.min.css', __FILE__ ),
+            'build/gutenberg/editor',
             $css_deps,
-            filemtime( plugin_dir_path( __FILE__ ) . 'gutenberg/editor.min.css' )
+            filemtime( plugin_dir_path( __FILE__ ) . 'build/gutenberg/editor.css' )
         );
         wp_style_add_data( 'ghostkit-editor', 'rtl', 'replace' );
         wp_style_add_data( 'ghostkit-editor', 'suffix', '.min' );
 
-        wp_enqueue_script(
+        GhostKit_Assets::enqueue_script(
             'ghostkit-editor',
-            plugins_url( 'gutenberg/index.min.js', __FILE__ ),
+            'build/gutenberg/index',
             $js_deps,
-            filemtime( plugin_dir_path( __FILE__ ) . 'gutenberg/index.min.js' ),
-            true
+            filemtime( plugin_dir_path( __FILE__ ) . 'build/gutenberg/index.js' )
         );
     }
 
