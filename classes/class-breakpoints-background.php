@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WP_Background_Process' ) ) {
-    require_once ghostkit()->plugin_path . 'vendor/deliciousbrains/wp-background-processing/wp-background-processing.php';
+    require_once ghostkit()->plugin_path . 'composer-libraries/vendor/deliciousbrains/wp-background-processing/wp-background-processing.php';
 }
 
 /**
