@@ -58,7 +58,129 @@ class GhostKit_Assets {
         add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_assets' ), 100 );
 
         add_action( 'autoptimize_filter_css_exclude', 'GhostKit_Assets::autoptimize_filter_css_exclude' );
+
+        // enqueue runtime.
+        add_action( 'enqueue_block_editor_assets', 'GhostKit_Assets::enqueue_runtime', 11 );
+        add_action( 'wp_enqueue_scripts', 'GhostKit_Assets::enqueue_runtime', 8 );
     }
+
+	/**
+	 * Check if Webpack HMR file available.
+	 *
+	 * @return boolean
+	 */
+	public static function is_webpack_hmr_support() {
+		return file_exists( ghostkit()->plugin_path . 'build/runtime.js' );
+	}
+
+	/**
+	 * Enqueue runtime script.
+	 */
+	public static function enqueue_runtime() {
+		// HMR Webpack.
+		if ( self::is_webpack_hmr_support() ) {
+			self::enqueue_script( 'ghostkit-runtime', 'build/runtime', array(), null, false );
+		}
+	}
+
+	/**
+	 * Get .asset.php file data.
+	 *
+	 * @param string $filepath asset file path.
+	 *
+	 * @return array
+	 */
+	public static function get_asset_file( $filepath ) {
+		$asset_path = ghostkit()->plugin_path . $filepath . '.asset.php';
+
+		if ( file_exists( $asset_path ) ) {
+			// phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound
+			return include $asset_path;
+		}
+
+		return array(
+			'dependencies' => array(),
+			'version'      => GHOSTKIT_VERSION,
+		);
+	}
+
+	/**
+	 * Register script.
+	 *
+	 * @param string  $name asset name.
+	 * @param string  $path file path.
+	 * @param array   $dependencies asset dependencies.
+	 * @param string  $version asset version.
+	 * @param boolean $in_footer render in footer.
+	 */
+	public static function register_script( $name, $path, $dependencies = array(), $version = null, $in_footer = true ) {
+		$script_data = self::get_asset_file( $path );
+
+		if ( ! empty( $dependencies ) ) {
+			$script_data['dependencies'] = array_unique(
+				array_merge(
+					$script_data['dependencies'],
+					$dependencies
+				)
+			);
+		}
+
+		wp_register_script(
+			$name,
+			ghostkit()->plugin_url . $path . '.js',
+			$script_data['dependencies'],
+			$version ?? $script_data['version'],
+			$in_footer
+		);
+	}
+
+	/**
+	 * Enqueue script.
+	 *
+	 * @param string  $name asset name.
+	 * @param string  $path file path.
+	 * @param array   $dependencies asset dependencies.
+	 * @param string  $version asset version.
+	 * @param boolean $in_footer render in footer.
+	 */
+	public static function enqueue_script( $name, $path, $dependencies = array(), $version = null, $in_footer = true ) {
+		self::register_script( $name, $path, $dependencies, $version, $in_footer );
+
+		wp_enqueue_script( $name );
+	}
+
+	/**
+	 * Register style
+	 *
+	 * @param string $name asset name.
+	 * @param string $path file path.
+	 * @param array  $dependencies asset dependencies.
+	 * @param string $version asset version.
+	 */
+	public static function register_style( $name, $path, $dependencies = array(), $version = null ) {
+		$style_data = self::get_asset_file( $path );
+
+		wp_register_style(
+			$name,
+			ghostkit()->plugin_url . $path . '.css',
+			$dependencies,
+			$version ?? $style_data['version']
+		);
+	}
+
+	/**
+	 * Enqueue style
+	 *
+	 * @param string $name asset name.
+	 * @param string $path file path.
+	 * @param array  $dependencies asset dependencies.
+	 * @param string $version asset version.
+	 */
+	public static function enqueue_style( $name, $path, $dependencies = array(), $version = null ) {
+		self::register_style( $name, $path, $dependencies, $version );
+
+		wp_enqueue_style( $name );
+	}
 
     /**
      * Store used assets, so we can enqueue it later.
