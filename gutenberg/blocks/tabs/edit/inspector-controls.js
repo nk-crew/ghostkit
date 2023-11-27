@@ -12,16 +12,16 @@ export default function EditInspectorControls({ attributes, setAttributes }) {
     <InspectorControls>
       <PanelBody>
         <SelectControl
-          label={__('Select Tab Trigger', '@@text_domain')}
+          label={__('Select Tab Trigger', 'ghostkit')}
           value={trigger}
           options={[
             {
               value: '',
-              label: __('Click', '@@text_domain'),
+              label: __('Click', 'ghostkit'),
             },
             {
               value: 'hover',
-              label: __('Hover', '@@text_domain'),
+              label: __('Hover', 'ghostkit'),
             },
           ]}
           onChange={(val) => {
@@ -29,7 +29,7 @@ export default function EditInspectorControls({ attributes, setAttributes }) {
           }}
         />
         <ToggleControl
-          label={__('Vertical Tabs', '@@text_domain')}
+          label={__('Vertical Tabs', 'ghostkit')}
           checked={!!buttonsVerticalAlign}
           onChange={(val) => {
             setAttributes({ buttonsVerticalAlign: val });

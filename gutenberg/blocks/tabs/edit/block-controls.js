@@ -16,29 +16,29 @@ export default function EditBlockControls({ attributes, setAttributes }) {
   const alignConf = {
     start: {
       icon: getIcon('icon-horizontal-start'),
-      label: __('Buttons Justify Start', '@@text_domain'),
+      label: __('Buttons Justify Start', 'ghostkit'),
     },
     center: {
       icon: getIcon('icon-horizontal-center'),
-      label: __('Buttons Justify Center', '@@text_domain'),
+      label: __('Buttons Justify Center', 'ghostkit'),
     },
     end: {
       icon: getIcon('icon-horizontal-end'),
-      label: __('Buttons Justify End', '@@text_domain'),
+      label: __('Buttons Justify End', 'ghostkit'),
     },
     stretch: {
       icon: getIcon('icon-horizontal-stretch'),
-      label: __('Buttons Justify Stretch', '@@text_domain'),
+      label: __('Buttons Justify Stretch', 'ghostkit'),
     },
   };
 
   if (buttonsVerticalAlign) {
     alignConf.start.icon = getIcon('icon-vertical-top');
-    alignConf.start.label = __('Buttons Vertical Start', '@@text_domain');
+    alignConf.start.label = __('Buttons Vertical Start', 'ghostkit');
     alignConf.center.icon = getIcon('icon-vertical-center');
-    alignConf.center.label = __('Buttons Vertical Center', '@@text_domain');
+    alignConf.center.label = __('Buttons Vertical Center', 'ghostkit');
     alignConf.end.icon = getIcon('icon-vertical-bottom');
-    alignConf.end.label = __('Buttons Vertical End', '@@text_domain');
+    alignConf.end.label = __('Buttons Vertical End', 'ghostkit');
     alignConf.stretch = undefined;
   }
 
@@ -54,8 +54,8 @@ export default function EditBlockControls({ attributes, setAttributes }) {
   });
 
   const alignLabel = buttonsVerticalAlign
-    ? __('Buttons Vertical Align', '@@text_domain')
-    : __('Buttons Justify Align', '@@text_domain');
+    ? __('Buttons Vertical Align', 'ghostkit')
+    : __('Buttons Justify Align', 'ghostkit');
 
   return (
     <BlockControls group="block">

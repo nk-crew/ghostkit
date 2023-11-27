@@ -61,7 +61,7 @@ export default function BlockEdit(props) {
         <PanelBody>
           <FieldDefaultSettings {...props} />
         </PanelBody>
-        <PanelBody title={__('Name Fields', '@@text_domain')}>
+        <PanelBody title={__('Name Fields', 'ghostkit')}>
           <SelectControl
             options={[
               {
@@ -82,15 +82,15 @@ export default function BlockEdit(props) {
               if (val === 'first-last') {
                 setAttributes({
                   nameFields: val,
-                  description: description || __('First', '@@text_domain'),
-                  descriptionLast: descriptionLast || __('Last', '@@text_domain'),
+                  description: description || __('First', 'ghostkit'),
+                  descriptionLast: descriptionLast || __('Last', 'ghostkit'),
                 });
               } else if (val === 'first-middle-last') {
                 setAttributes({
                   nameFields: val,
-                  description: description || __('First', '@@text_domain'),
-                  descriptionLast: descriptionLast || __('Last', '@@text_domain'),
-                  descriptionMiddle: descriptionMiddle || __('Middle', '@@text_domain'),
+                  description: description || __('First', 'ghostkit'),
+                  descriptionLast: descriptionLast || __('Last', 'ghostkit'),
+                  descriptionMiddle: descriptionMiddle || __('Middle', 'ghostkit'),
                 });
               } else {
                 setAttributes({ nameFields: val });
@@ -100,12 +100,12 @@ export default function BlockEdit(props) {
           {nameFields === 'first-middle-last' ? (
             <Fragment>
               <TextControl
-                label={__('Middle Placeholder', '@@text_domain')}
+                label={__('Middle Placeholder', 'ghostkit')}
                 value={placeholderMiddle}
                 onChange={(val) => setAttributes({ placeholderMiddle: val })}
               />
               <TextControl
-                label={__('Middle Default', '@@text_domain')}
+                label={__('Middle Default', 'ghostkit')}
                 value={defaultMiddle}
                 onChange={(val) => setAttributes({ defaultMiddle: val })}
               />
@@ -116,12 +116,12 @@ export default function BlockEdit(props) {
           {nameFields === 'first-middle-last' || nameFields === 'first-last' ? (
             <Fragment>
               <TextControl
-                label={__('Last Placeholder', '@@text_domain')}
+                label={__('Last Placeholder', 'ghostkit')}
                 value={placeholderLast}
                 onChange={(val) => setAttributes({ placeholderLast: val })}
               />
               <TextControl
-                label={__('Last Default', '@@text_domain')}
+                label={__('Last Default', 'ghostkit')}
                 value={defaultLast}
                 onChange={(val) => setAttributes({ defaultLast: val })}
               />
@@ -156,7 +156,7 @@ export default function BlockEdit(props) {
                   tagName="small"
                   className="ghostkit-form-field-description"
                   value={descriptionMiddle}
-                  placeholder={__('Write description…', '@@text_domain')}
+                  placeholder={__('Write description…', 'ghostkit')}
                   onChange={(val) => setAttributes({ descriptionMiddle: val })}
                 />
               </div>
@@ -179,7 +179,7 @@ export default function BlockEdit(props) {
                   tagName="small"
                   className="ghostkit-form-field-description"
                   value={descriptionLast}
-                  placeholder={__('Write description…', '@@text_domain')}
+                  placeholder={__('Write description…', 'ghostkit')}
                   onChange={(val) => setAttributes({ descriptionLast: val })}
                 />
               </div>

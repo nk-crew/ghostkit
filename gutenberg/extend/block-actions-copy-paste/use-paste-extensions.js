@@ -152,7 +152,7 @@ export default function usePasteExtensions() {
           createErrorNotice(
             __(
               'Unable to paste extensions. This feature is only available on secure (https) sites in supporting browsers.',
-              '@@text_domain'
+              'ghostkit'
             ),
             { type: 'snackbar' }
           );
@@ -165,7 +165,7 @@ export default function usePasteExtensions() {
         createErrorNotice(
           __(
             'Unable to paste extensions. Please allow browser clipboard permissions before continuing.',
-            '@@text_domain'
+            'ghostkit'
           ),
           {
             type: 'snackbar',
@@ -179,7 +179,7 @@ export default function usePasteExtensions() {
         createWarningNotice(
           __(
             "Unable to paste extensions. Block extensions couldn't be found within the copied content.",
-            '@@text_domain'
+            'ghostkit'
           ),
           {
             type: 'snackbar',

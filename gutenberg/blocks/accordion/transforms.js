@@ -22,7 +22,7 @@ export default {
             createBlock(
               'ghostkit/accordion-item',
               {
-                heading: tabsData[i] ? tabsData[i].title : __('Accordion Item', '@@text_domain'),
+                heading: tabsData[i] ? tabsData[i].title : __('Accordion Item', 'ghostkit'),
                 active: tabsData[i] ? tabsData[i].slug === tabActive : false,
               },
               tab.innerBlocks

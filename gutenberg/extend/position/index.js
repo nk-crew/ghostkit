@@ -56,7 +56,7 @@ function GhostKitExtensionPositionInspector(original, { props }) {
           label={
             <>
               <span className="ghostkit-ext-icon">{getIcon('extension-position')}</span>
-              <span>{__('Position', '@@text_domain')}</span>
+              <span>{__('Position', 'ghostkit')}</span>
             </>
           }
           resetAll={() => {

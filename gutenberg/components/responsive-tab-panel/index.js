@@ -41,9 +41,9 @@ export default function ResponsiveTabPanel(props) {
         <Tooltip
           text={
             !name
-              ? __('All devices', '@@text_domain')
+              ? __('All devices', 'ghostkit')
               : sprintf(
-                  __('Devices with screen width <= %s', '@@text_domain'),
+                  __('Devices with screen width <= %s', 'ghostkit'),
                   `${allDevices[name]}px`
                 )
           }

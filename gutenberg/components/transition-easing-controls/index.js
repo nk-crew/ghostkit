@@ -126,7 +126,7 @@ export function EasingControls(props) {
       ? [
           {
             value: 'custom',
-            label: __('-- Presets --', '@@text_domain'),
+            label: __('-- Presets --', 'ghostkit'),
           },
         ]
       : []),
@@ -211,7 +211,7 @@ export function EasingControls(props) {
         }}
       />
       <BaseControl
-        label={__('Bezier', '@@text_domain')}
+        label={__('Bezier', 'ghostkit')}
         className="ghostkit-component-easing-controls-bezier"
       >
         <NumberControl
@@ -256,7 +256,7 @@ export function EasingControls(props) {
         />
       </BaseControl>
       <NumberControl
-        label={__('Duration', '@@text_domain')}
+        label={__('Duration', 'ghostkit')}
         suffix="s&nbsp;"
         value={value?.duration || 0}
         onChange={(val) => updateValue({ duration: parseFloat(val) })}
@@ -268,7 +268,7 @@ export function EasingControls(props) {
       />
       {enableDelayControl && (
         <NumberControl
-          label={__('Delay', '@@text_domain')}
+          label={__('Delay', 'ghostkit')}
           suffix="s&nbsp;"
           value={value?.delay || 0}
           onChange={(val) => updateValue({ delay: parseFloat(val) })}
@@ -280,7 +280,7 @@ export function EasingControls(props) {
         />
       )}
       <TransitionPreview
-        label={__('Preview', '@@text_domain')}
+        label={__('Preview', 'ghostkit')}
         options={{
           type: 'easing',
           duration: value?.duration || 0,

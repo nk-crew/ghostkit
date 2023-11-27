@@ -130,8 +130,8 @@ class GhostKit_Settings {
      */
     public function admin_menu() {
         add_menu_page(
-            esc_html__( 'Ghost Kit', '@@text_domain' ),
-            esc_html__( 'Ghost Kit', '@@text_domain' ),
+            esc_html__( 'Ghost Kit', 'ghostkit' ),
+            esc_html__( 'Ghost Kit', 'ghostkit' ),
             'manage_options',
             'ghostkit',
             array( $this, 'display_admin_page' ),
@@ -143,42 +143,42 @@ class GhostKit_Settings {
         add_submenu_page(
             'ghostkit',
             '',
-            esc_html__( 'Blocks', '@@text_domain' ),
+            esc_html__( 'Blocks', 'ghostkit' ),
             'manage_options',
             'ghostkit'
         );
         add_submenu_page(
             'ghostkit',
             '',
-            esc_html__( 'Icons', '@@text_domain' ),
+            esc_html__( 'Icons', 'ghostkit' ),
             'manage_options',
             'admin.php?page=ghostkit&sub_page=icons'
         );
         add_submenu_page(
             'ghostkit',
             '',
-            esc_html__( 'Typography', '@@text_domain' ),
+            esc_html__( 'Typography', 'ghostkit' ),
             'manage_options',
             'admin.php?page=ghostkit&sub_page=typography'
         );
         add_submenu_page(
             'ghostkit',
             '',
-            esc_html__( 'Fonts', '@@text_domain' ),
+            esc_html__( 'Fonts', 'ghostkit' ),
             'manage_options',
             'admin.php?page=ghostkit&sub_page=fonts'
         );
         add_submenu_page(
             'ghostkit',
             '',
-            esc_html__( 'Breakpoints', '@@text_domain' ),
+            esc_html__( 'Breakpoints', 'ghostkit' ),
             'manage_options',
             'admin.php?page=ghostkit&sub_page=breakpoints'
         );
         add_submenu_page(
             'ghostkit',
             '',
-            esc_html__( 'CSS & JavaScript', '@@text_domain' ),
+            esc_html__( 'CSS & JavaScript', 'ghostkit' ),
             'manage_options',
             'admin.php?page=ghostkit&sub_page=css_js'
         );
@@ -187,7 +187,7 @@ class GhostKit_Settings {
             add_submenu_page(
                 'ghostkit',
                 '',
-                esc_html__( 'Templates', '@@text_domain' ),
+                esc_html__( 'Templates', 'ghostkit' ),
                 'manage_options',
                 'edit.php?post_type=ghostkit_template'
             );
@@ -196,7 +196,7 @@ class GhostKit_Settings {
         add_submenu_page(
             'ghostkit',
             '',
-            '<span class="dashicons dashicons-star-filled" style="font-size: 17px"></span> ' . esc_html__( 'Go Pro', '@@text_domain' ),
+            '<span class="dashicons dashicons-star-filled" style="font-size: 17px"></span> ' . esc_html__( 'Go Pro', 'ghostkit' ),
             'manage_options',
             'ghostkit_go_pro',
             array( $this, 'go_pro_redirect' )
@@ -208,8 +208,8 @@ class GhostKit_Settings {
         // From the Appearance -> Editor -> Patterns.
         if ( ! version_compare( $wp_version, '6.3', '>=' ) ) {
             add_menu_page(
-                esc_html__( 'Reusable Blocks', '@@text_domain' ),
-                esc_html__( 'Reusable Blocks', '@@text_domain' ),
+                esc_html__( 'Reusable Blocks', 'ghostkit' ),
+                esc_html__( 'Reusable Blocks', 'ghostkit' ),
                 'read',
                 'edit.php?post_type=wp_block',
                 '',

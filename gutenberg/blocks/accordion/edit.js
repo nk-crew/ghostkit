@@ -70,37 +70,37 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <ToggleControl
-            label={__('Collapse one item only', '@@text_domain')}
+            label={__('Collapse one item only', 'ghostkit')}
             checked={!!collapseOne}
             onChange={(val) => setAttributes({ collapseOne: val })}
           />
           <SelectControl
-            label={__('Collapse Title HTML Element', '@@text_domain')}
+            label={__('Collapse Title HTML Element', 'ghostkit')}
             value={collapseTitleTag}
             options={[
               {
                 value: 'div',
-                label: __('Default (<div>)', '@@text_domain'),
+                label: __('Default (<div>)', 'ghostkit'),
               },
               {
                 value: 'h2',
-                label: __('<h2>', '@@text_domain'),
+                label: __('<h2>', 'ghostkit'),
               },
               {
                 value: 'h3',
-                label: __('<h3>', '@@text_domain'),
+                label: __('<h3>', 'ghostkit'),
               },
               {
                 value: 'h4',
-                label: __('<h4>', '@@text_domain'),
+                label: __('<h4>', 'ghostkit'),
               },
               {
                 value: 'h5',
-                label: __('<h5>', '@@text_domain'),
+                label: __('<h5>', 'ghostkit'),
               },
               {
                 value: 'h6',
-                label: __('<h6>', '@@text_domain'),
+                label: __('<h6>', 'ghostkit'),
               },
             ]}
             onChange={(value) => setAttributes({ collapseTitleTag: value })}
@@ -128,7 +128,7 @@ export default function BlockEdit(props) {
               insertAccordionItem();
             }}
           >
-            {__('Add Accordion Item', '@@text_domain')}
+            {__('Add Accordion Item', 'ghostkit')}
           </Button>
         </div>
       ) : null}

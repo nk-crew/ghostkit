@@ -41,7 +41,7 @@ function PositionDistanceTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Distance', '@@text_domain')}
+      label={__('Distance', 'ghostkit')}
       hasValue={() => !!hasDistance}
       onDeselect={() => {
         resetStyles(allDistances, true);
@@ -51,7 +51,7 @@ function PositionDistanceTools(props) {
       <InputGroup
         label={
           <>
-            {__('Distance', '@@text_domain')}
+            {__('Distance', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 let isActive = false;
@@ -67,17 +67,17 @@ function PositionDistanceTools(props) {
         }
       >
         {allDistances.map((distanceName) => {
-          let label = __('Top', '@@text_domain');
+          let label = __('Top', 'ghostkit');
 
           switch (distanceName) {
             case 'right':
-              label = __('Right', '@@text_domain');
+              label = __('Right', 'ghostkit');
               break;
             case 'bottom':
-              label = __('Bottom', '@@text_domain');
+              label = __('Bottom', 'ghostkit');
               break;
             case 'left':
-              label = __('Left', '@@text_domain');
+              label = __('Left', 'ghostkit');
               break;
             // no default
           }

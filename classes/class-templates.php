@@ -93,19 +93,19 @@ class GhostKit_Templates {
             'ghostkit_template',
             array(
                 'labels'              => array(
-                    'name'                => _x( 'Templates', 'Post Type General Name', '@@text_domain' ),
-                    'singular_name'       => _x( 'Template', 'Post Type Singular Name', '@@text_domain' ),
-                    'menu_name'           => __( 'Templates', '@@text_domain' ),
-                    'parent_item_colon'   => __( 'Parent Template', '@@text_domain' ),
-                    'all_items'           => __( 'Templates', '@@text_domain' ),
-                    'view_item'           => __( 'View Template', '@@text_domain' ),
-                    'add_new_item'        => __( 'Add New Template', '@@text_domain' ),
-                    'add_new'             => __( 'Add New', '@@text_domain' ),
-                    'edit_item'           => __( 'Edit Template', '@@text_domain' ),
-                    'update_item'         => __( 'Update Template', '@@text_domain' ),
-                    'search_items'        => __( 'Search Template', '@@text_domain' ),
-                    'not_found'           => __( 'Not Found', '@@text_domain' ),
-                    'not_found_in_trash'  => __( 'Not found in Trash', '@@text_domain' ),
+                    'name'                => _x( 'Templates', 'Post Type General Name', 'ghostkit' ),
+                    'singular_name'       => _x( 'Template', 'Post Type Singular Name', 'ghostkit' ),
+                    'menu_name'           => __( 'Templates', 'ghostkit' ),
+                    'parent_item_colon'   => __( 'Parent Template', 'ghostkit' ),
+                    'all_items'           => __( 'Templates', 'ghostkit' ),
+                    'view_item'           => __( 'View Template', 'ghostkit' ),
+                    'add_new_item'        => __( 'Add New Template', 'ghostkit' ),
+                    'add_new'             => __( 'Add New', 'ghostkit' ),
+                    'edit_item'           => __( 'Edit Template', 'ghostkit' ),
+                    'update_item'         => __( 'Update Template', 'ghostkit' ),
+                    'search_items'        => __( 'Search Template', 'ghostkit' ),
+                    'not_found'           => __( 'Not Found', 'ghostkit' ),
+                    'not_found_in_trash'  => __( 'Not found in Trash', 'ghostkit' ),
                 ),
                 'public'              => false, // true?
                 'publicly_queryable'  => false, // true?
@@ -134,9 +134,9 @@ class GhostKit_Templates {
             'ghostkit_template_category',
             'ghostkit_template',
             array(
-                'label'              => esc_html__( 'Categories', '@@text_domain' ),
+                'label'              => esc_html__( 'Categories', 'ghostkit' ),
                 'labels'             => array(
-                    'menu_name' => esc_html__( 'Categories', '@@text_domain' ),
+                    'menu_name' => esc_html__( 'Categories', 'ghostkit' ),
                 ),
                 'rewrite'            => false,
                 'hierarchical'       => false,
@@ -161,19 +161,19 @@ class GhostKit_Templates {
         ?>
         <div class="notice notice-error">
             <h3>
-                <?php echo esc_html__( 'Templates Deprecated', '@@text_domain' ); ?>
+                <?php echo esc_html__( 'Templates Deprecated', 'ghostkit' ); ?>
             </h3>
             <p>
                 <?php
-                echo esc_html__( 'Please avoid using the Templates feature. It has been deprecated since Ghost Kit v3.1.0 and will be removed in future updates.', '@@text_domain' );
+                echo esc_html__( 'Please avoid using the Templates feature. It has been deprecated since Ghost Kit v3.1.0 and will be removed in future updates.', 'ghostkit' );
                 ?>
                 <br />
                 <?php
-                echo wp_kses_post( sprintf( __( 'To create a block template, you can use the built-in WordPress feature named Patterns.', '@@text_domain' ), 'https://wordpress.org/documentation/article/site-editor-patterns/' ) );
+                echo wp_kses_post( sprintf( __( 'To create a block template, you can use the built-in WordPress feature named Patterns.', 'ghostkit' ), 'https://wordpress.org/documentation/article/site-editor-patterns/' ) );
                 ?>
             </p>
             <p>
-                <a href="https://wordpress.org/documentation/article/site-editor-patterns/" target="_blank" class="button button-primary"><?php echo esc_html__( 'Read About Patterns', '@@text_domain' ); ?></a>
+                <a href="https://wordpress.org/documentation/article/site-editor-patterns/" target="_blank" class="button button-primary"><?php echo esc_html__( 'Read About Patterns', 'ghostkit' ); ?></a>
             </p>
         </div>
         <?php

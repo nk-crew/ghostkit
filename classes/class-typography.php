@@ -281,7 +281,7 @@ class GhostKit_Typography {
     public function add_default_typography( $custom_typography ) {
         $custom_typography = array(
             'body' => array(
-                'label'    => esc_html__( 'Body', '@@text_domain' ),
+                'label'    => esc_html__( 'Body', 'ghostkit' ),
                 'defaults' => array(
                     'font-family-category' => 'default',
                     'font-family'          => '',
@@ -301,7 +301,7 @@ class GhostKit_Typography {
                 ),
             ),
             'buttons' => array(
-                'label'    => esc_html__( 'Buttons', '@@text_domain' ),
+                'label'    => esc_html__( 'Buttons', 'ghostkit' ),
                 'defaults' => array(
                     'font-family-category' => 'default',
                     'font-family'          => '',
@@ -321,7 +321,7 @@ class GhostKit_Typography {
                 ),
             ),
             'headings' => array(
-                'label'    => esc_html__( 'Headings', '@@text_domain' ),
+                'label'    => esc_html__( 'Headings', 'ghostkit' ),
                 'defaults' => array(
                     'font-family-category' => 'default',
                     'font-family'          => '',
@@ -340,7 +340,7 @@ class GhostKit_Typography {
                 ),
             ),
             'h1' => array(
-                'label'    => esc_html__( 'H1', '@@text_domain' ),
+                'label'    => esc_html__( 'H1', 'ghostkit' ),
                 'defaults' => array(
                     'font-size'      => '',
                     'line-height'    => '',
@@ -358,7 +358,7 @@ class GhostKit_Typography {
                 ),
             ),
             'h2' => array(
-                'label'    => esc_html__( 'H2', '@@text_domain' ),
+                'label'    => esc_html__( 'H2', 'ghostkit' ),
                 'defaults' => array(
                     'font-size'      => '',
                     'line-height'    => '',
@@ -376,7 +376,7 @@ class GhostKit_Typography {
                 ),
             ),
             'h3' => array(
-                'label'    => esc_html__( 'H3', '@@text_domain' ),
+                'label'    => esc_html__( 'H3', 'ghostkit' ),
                 'defaults' => array(
                     'font-size'      => '',
                     'line-height'    => '',
@@ -394,7 +394,7 @@ class GhostKit_Typography {
                 ),
             ),
             'h4' => array(
-                'label'    => esc_html__( 'H4', '@@text_domain' ),
+                'label'    => esc_html__( 'H4', 'ghostkit' ),
                 'defaults' => array(
                     'font-size'      => '',
                     'line-height'    => '',
@@ -412,7 +412,7 @@ class GhostKit_Typography {
                 ),
             ),
             'h5' => array(
-                'label'    => esc_html__( 'H5', '@@text_domain' ),
+                'label'    => esc_html__( 'H5', 'ghostkit' ),
                 'defaults' => array(
                     'font-size'      => '',
                     'line-height'    => '',
@@ -430,7 +430,7 @@ class GhostKit_Typography {
                 ),
             ),
             'h6' => array(
-                'label'    => esc_html__( 'H6', '@@text_domain' ),
+                'label'    => esc_html__( 'H6', 'ghostkit' ),
                 'defaults' => array(
                     'font-size'      => '',
                     'line-height'    => '',

@@ -46,7 +46,7 @@ addCompleter({
         {
           caption: 'selector',
           value: 'selector',
-          meta: __('Block Selector', '@@text_domain'),
+          meta: __('Block Selector', 'ghostkit'),
         },
       ]);
     }
@@ -69,7 +69,7 @@ function CustomCSSCustomTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Custom', '@@text_domain')}
+      label={__('Custom', 'ghostkit')}
       hasValue={() => !!hasCustom}
       onSelect={() => {
         if (!hasStyle('custom')) {
@@ -84,7 +84,7 @@ function CustomCSSCustomTools(props) {
       <BaseControl
         label={
           <>
-            {__('Custom', '@@text_domain')}
+            {__('Custom', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('custom', checkMedia);
@@ -111,7 +111,7 @@ function CustomCSSCustomTools(props) {
                 onToggle();
               }}
             >
-              <span>{__('Edit CSS', '@@text_domain')}</span>
+              <span>{__('Edit CSS', 'ghostkit')}</span>
               <CodeEditor
                 mode="css"
                 value={getStyle('custom', device) || defaultPlaceholder}
@@ -135,7 +135,7 @@ function CustomCSSCustomTools(props) {
               <BaseControl
                 label={
                   <>
-                    {__('Custom', '@@text_domain')}
+                    {__('Custom', 'ghostkit')}
                     <ResponsiveToggle
                       checkActive={(checkMedia) => {
                         return hasStyle('custom', checkMedia);
@@ -167,15 +167,15 @@ function CustomCSSCustomTools(props) {
               <p style={{ marginBottom: 20 }} />
               <details>
                 <summary
-                  label={__('Examples to use selector', '@@text_domain')}
+                  label={__('Examples to use selector', 'ghostkit')}
                   dangerouslySetInnerHTML={{
-                    __html: __('Use %s rule to change block styles.', '@@text_domain').replace(
+                    __html: __('Use %s rule to change block styles.', 'ghostkit').replace(
                       '%s',
                       '<code>selector</code>'
                     ),
                   }}
                 />
-                <p>{__('Example:', '@@text_domain')}</p>
+                <p>{__('Example:', 'ghostkit')}</p>
                 <pre className="ghostkit-control-pre-custom-css">
                   {`selector {
   background-color: #2F1747;

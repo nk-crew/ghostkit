@@ -42,12 +42,12 @@ export const settings = {
   styles: [
     {
       name: 'default',
-      label: __('Plain', '@@text_domain'),
+      label: __('Plain', 'ghostkit'),
       isDefault: true,
     },
     {
       name: 'icon-only',
-      label: __('Icon Only', '@@text_domain'),
+      label: __('Icon Only', 'ghostkit'),
     },
   ],
   edit,

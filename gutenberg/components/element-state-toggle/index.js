@@ -32,7 +32,7 @@ export default function ElementStateToggle(props) {
     >
       {getIcon('icon-pointer')}
       {checkActive() && <ActiveIndicator />}
-      {isHover && <span>{__(':hover', '@@text_domain')}</span>}
+      {isHover && <span>{__(':hover', 'ghostkit')}</span>}
     </Button>
   );
 }

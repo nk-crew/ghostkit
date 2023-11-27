@@ -8,7 +8,7 @@ import { PanelRow, Button } from '@wordpress/components';
 export default function ButtonClearMedia({
   nameAttributes,
   setAttributes,
-  children = __('Clear Media', '@@text_domain'),
+  children = __('Clear Media', 'ghostkit'),
 }) {
   const handleClick = (e) => {
     const clearAttributes = {};

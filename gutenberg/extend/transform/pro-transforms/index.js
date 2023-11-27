@@ -25,22 +25,22 @@ const { pro } = window.GHOSTKIT;
 
 const PRESETS = {
   translate: {
-    label: __('Translate', '@@text_domain'),
+    label: __('Translate', 'ghostkit'),
   },
   scale: {
-    label: __('Scale', '@@text_domain'),
+    label: __('Scale', 'ghostkit'),
   },
   rotate: {
-    label: __('Rotate', '@@text_domain'),
+    label: __('Rotate', 'ghostkit'),
   },
   skew: {
-    label: __('Skew', '@@text_domain'),
+    label: __('Skew', 'ghostkit'),
   },
   perspective: {
-    label: __('Perspective', '@@text_domain'),
+    label: __('Perspective', 'ghostkit'),
   },
   origin: {
-    label: __('Origin', '@@text_domain'),
+    label: __('Origin', 'ghostkit'),
   },
 };
 
@@ -51,11 +51,11 @@ function TransformProTools() {
     <>
       {selected && (
         <div style={{ gridColumn: '1 / -1' }}>
-          <ProNote title={__('Pro Transformations', '@@text_domain')}>
+          <ProNote title={__('Pro Transformations', 'ghostkit')}>
             <p>
               {__(
                 'Adding transformations for normal and hover state are available in the Ghost Kit Pro plugin only.',
-                '@@text_domain'
+                'ghostkit'
               )}
             </p>
             <ProNote.Button
@@ -63,7 +63,7 @@ function TransformProTools() {
               rel="noopener noreferrer"
               href="https://ghostkit.io/extensions/transform/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_transform&utm_content=@@plugin_version"
             >
-              {__('Read More', '@@text_domain')}
+              {__('Read More', 'ghostkit')}
             </ProNote.Button>
           </ProNote>
         </div>

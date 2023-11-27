@@ -97,7 +97,7 @@ export default function BlockEdit(props) {
         <ToolbarGroup>
           <ToolbarButton
             icon={getIcon('block-accordion-collapse')}
-            label={__('Collapse', '@@text_domain')}
+            label={__('Collapse', 'ghostkit')}
             onClick={() => setAttributes({ active: !active })}
             isActive={active}
           />
@@ -108,7 +108,7 @@ export default function BlockEdit(props) {
           <RichText
             tagName="div"
             className="ghostkit-accordion-item-label"
-            placeholder={__('Write label…', '@@text_domain')}
+            placeholder={__('Write label…', 'ghostkit')}
             value={heading}
             onChange={(value) => {
               setAttributes({ heading: value });

@@ -7,7 +7,7 @@
  * Author URI:   https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
  * License:      GPLv2 or later
  * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:  @@text_domain
+ * Text Domain:  ghostkit
  *
  * @package ghostkit
  */
@@ -189,7 +189,7 @@ class GhostKit {
      * PHP translations.
      */
     public function php_translation() {
-        load_plugin_textdomain( '@@text_domain', false, plugin_dir_path( __FILE__ ) . '/languages' );
+        load_plugin_textdomain( 'ghostkit', false, plugin_dir_path( __FILE__ ) . '/languages' );
     }
 
     /**
@@ -200,7 +200,7 @@ class GhostKit {
             return;
         }
 
-        wp_set_script_translations( 'ghostkit-block-countdown', '@@text_domain', plugin_dir_path( __FILE__ ) . '/languages' );
+        wp_set_script_translations( 'ghostkit-block-countdown', 'ghostkit', plugin_dir_path( __FILE__ ) . '/languages' );
     }
 
     /**
@@ -211,8 +211,8 @@ class GhostKit {
             return;
         }
 
-        wp_set_script_translations( 'ghostkit-editor', '@@text_domain', plugin_dir_path( __FILE__ ) . '/languages' );
-        wp_set_script_translations( 'ghostkit-settings', '@@text_domain', plugin_dir_path( __FILE__ ) . '/languages' );
+        wp_set_script_translations( 'ghostkit-editor', 'ghostkit', plugin_dir_path( __FILE__ ) . '/languages' );
+        wp_set_script_translations( 'ghostkit-settings', 'ghostkit', plugin_dir_path( __FILE__ ) . '/languages' );
     }
 
     /**
@@ -226,7 +226,7 @@ class GhostKit {
             array(
                 array(
                     'slug'  => 'ghostkit',
-                    'title' => __( 'Ghost Kit', '@@text_domain' ),
+                    'title' => __( 'Ghost Kit', 'ghostkit' ),
                 ),
             ),
             $categories
@@ -432,7 +432,7 @@ class GhostKit {
         return array_merge(
             $links,
             array(
-                '<a target="_blank" href="admin.php?page=ghostkit_go_pro&utm_medium=plugins_list">' . esc_html__( 'Go Pro', '@@text_domain' ) . '</a>',
+                '<a target="_blank" href="admin.php?page=ghostkit_go_pro&utm_medium=plugins_list">' . esc_html__( 'Go Pro', 'ghostkit' ) . '</a>',
             )
         );
     }

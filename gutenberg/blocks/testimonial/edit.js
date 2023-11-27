@@ -134,13 +134,13 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <IconPicker
-            label={__('Icon', '@@text_domain')}
+            label={__('Icon', 'ghostkit')}
             value={icon}
             onChange={(value) => setAttributes({ icon: value })}
             insideInspector
           />
         </PanelBody>
-        <PanelBody title={__('Photo', '@@text_domain')}>
+        <PanelBody title={__('Photo', 'ghostkit')}>
           {!photoId ? (
             <MediaUpload
               onSelect={(media) => {
@@ -150,7 +150,7 @@ export default function BlockEdit(props) {
               value={photoId}
               render={({ open }) => (
                 <Button onClick={open} isPrimary>
-                  {__('Select Image', '@@text_domain')}
+                  {__('Select Image', 'ghostkit')}
                 </Button>
               )}
             />
@@ -165,7 +165,7 @@ export default function BlockEdit(props) {
                 allowedTypes={['image']}
                 value={photoId}
                 render={({ open }) => (
-                  <BaseControl help={__('Click the image to edit or update', '@@text_domain')}>
+                  <BaseControl help={__('Click the image to edit or update', 'ghostkit')}>
                     {/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
                     <a
                       href="#"
@@ -193,13 +193,13 @@ export default function BlockEdit(props) {
                 }}
                 className="button button-secondary"
               >
-                {__('Remove Image', '@@text_domain')}
+                {__('Remove Image', 'ghostkit')}
               </Button>
               <div style={{ marginBottom: 13 }} />
               {editorSettings && editorSettings.imageSizes ? (
                 <SelectControl
-                  label={__('Resolution', '@@text_domain')}
-                  help={__('Select the size of the source image.', '@@text_domain')}
+                  label={__('Resolution', 'ghostkit')}
+                  help={__('Select the size of the source image.', 'ghostkit')}
                   value={photoSizeSlug || DEFAULT_SIZE_SLUG}
                   onChange={(val) => {
                     onPhotoSelect(photoImage, val);
@@ -217,16 +217,16 @@ export default function BlockEdit(props) {
                 help={
                   <>
                     <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                      {__('Describe the purpose of the image', '@@text_domain')}
+                      {__('Describe the purpose of the image', 'ghostkit')}
                     </ExternalLink>
-                    {__('Leave empty if the image is purely decorative.', '@@text_domain')}
+                    {__('Leave empty if the image is purely decorative.', 'ghostkit')}
                   </>
                 }
               />
             </>
           ) : null}
         </PanelBody>
-        <PanelBody title={__('Stars', '@@text_domain')}>
+        <PanelBody title={__('Stars', 'ghostkit')}>
           <RangeControl
             value={stars}
             min={0}
@@ -238,7 +238,7 @@ export default function BlockEdit(props) {
           />
           {typeof stars === 'number' ? (
             <IconPicker
-              label={__('Icon', '@@text_domain')}
+              label={__('Icon', 'ghostkit')}
               value={starsIcon}
               onChange={(value) => setAttributes({ starsIcon: value })}
               insideInspector
@@ -321,7 +321,7 @@ export default function BlockEdit(props) {
             inlineToolbar
             tagName="div"
             className="ghostkit-testimonial-name"
-            placeholder={__('Write name…', '@@text_domain')}
+            placeholder={__('Write name…', 'ghostkit')}
             value={attributes.name}
             onChange={(value) => setAttributes({ name: value })}
           />
@@ -329,7 +329,7 @@ export default function BlockEdit(props) {
             inlineToolbar
             tagName="div"
             className="ghostkit-testimonial-source"
-            placeholder={__('Write source…', '@@text_domain')}
+            placeholder={__('Write source…', 'ghostkit')}
             value={source}
             onChange={(value) => setAttributes({ source: value })}
           />

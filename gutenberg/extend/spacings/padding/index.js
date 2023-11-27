@@ -41,7 +41,7 @@ function SpacingsPaddingTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Padding', '@@text_domain')}
+      label={__('Padding', 'ghostkit')}
       hasValue={() => !!hasPadding}
       onDeselect={() => {
         resetStyles(allPaddings, true);
@@ -51,7 +51,7 @@ function SpacingsPaddingTools(props) {
       <BaseControl
         label={
           <>
-            {__('Padding', '@@text_domain')}
+            {__('Padding', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 let isActive = false;
@@ -69,17 +69,17 @@ function SpacingsPaddingTools(props) {
       >
         <div>
           {allPaddings.map((paddingName) => {
-            let label = __('Top', '@@text_domain');
+            let label = __('Top', 'ghostkit');
 
             switch (paddingName) {
               case 'padding-right':
-                label = __('Right', '@@text_domain');
+                label = __('Right', 'ghostkit');
                 break;
               case 'padding-bottom':
-                label = __('Bottom', '@@text_domain');
+                label = __('Bottom', 'ghostkit');
                 break;
               case 'padding-left':
-                label = __('Left', '@@text_domain');
+                label = __('Left', 'ghostkit');
                 break;
               // no default
             }

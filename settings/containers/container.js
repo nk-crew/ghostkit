@@ -103,7 +103,7 @@ export default function Container(props) {
         <div className="ghostkit-admin-head-wrap">
           <a
             href="https://ghostkit.io/?utm_source=plugin&utm_medium=settings&utm_campaign=logo&utm_content=@@plugin_version"
-            aria-label={__('Ghost Kit', '@@text_domain')}
+            aria-label={__('Ghost Kit', 'ghostkit')}
           >
             <Logo />
           </a>

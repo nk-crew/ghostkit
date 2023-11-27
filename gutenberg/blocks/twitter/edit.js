@@ -104,37 +104,37 @@ export default function BlockEdit(props) {
           <Fragment>
             <PanelBody>
               <TextControl
-                placeholder={__('Username', '@@text_domain')}
+                placeholder={__('Username', 'ghostkit')}
                 value={userName}
                 onChange={(value) => setAttributes({ userName: value })}
               />
             </PanelBody>
-            <PanelBody title={__('Feed', '@@text_domain')}>
+            <PanelBody title={__('Feed', 'ghostkit')}>
               <RangeControl
-                label={__('Tweets Number', '@@text_domain')}
+                label={__('Tweets Number', 'ghostkit')}
                 value={count}
                 onChange={(value) => setAttributes({ count: value })}
                 min={1}
                 max={20}
               />
               <ToggleControl
-                label={__('Show Replies', '@@text_domain')}
+                label={__('Show Replies', 'ghostkit')}
                 checked={!!showReplies}
                 onChange={(value) => setAttributes({ showReplies: value })}
               />
               <ToggleControl
-                label={__('Show Retweets', '@@text_domain')}
+                label={__('Show Retweets', 'ghostkit')}
                 checked={!!showRetweets}
                 onChange={(value) => setAttributes({ showRetweets: value })}
               />
               <ToggleControl
-                label={__('Show Avatar', '@@text_domain')}
+                label={__('Show Avatar', 'ghostkit')}
                 checked={!!showFeedAvatar}
                 onChange={(value) => setAttributes({ showFeedAvatar: value })}
               />
               {showFeedAvatar ? (
                 <RangeControl
-                  label={__('Avatar Size', '@@text_domain')}
+                  label={__('Avatar Size', 'ghostkit')}
                   value={feedAvatarSize}
                   onChange={(value) => setAttributes({ feedAvatarSize: value })}
                   min={10}
@@ -146,71 +146,71 @@ export default function BlockEdit(props) {
                 ''
               )}
               <ToggleControl
-                label={__('Show Name', '@@text_domain')}
+                label={__('Show Name', 'ghostkit')}
                 checked={!!showFeedName}
                 onChange={(value) => setAttributes({ showFeedName: value })}
               />
               <ToggleControl
-                label={__('Show Date', '@@text_domain')}
+                label={__('Show Date', 'ghostkit')}
                 checked={!!showFeedDate}
                 onChange={(value) => setAttributes({ showFeedDate: value })}
               />
               <ToggleControl
-                label={__('Show Actions', '@@text_domain')}
+                label={__('Show Actions', 'ghostkit')}
                 checked={!!showFeedActions}
                 onChange={(value) => setAttributes({ showFeedActions: value })}
               />
               <SelectControl
-                label={__('Text Mode', '@@text_domain')}
+                label={__('Text Mode', 'ghostkit')}
                 value={feedTextMode}
                 options={[
                   {
                     value: '',
-                    label: __('Short', '@@text_domain'),
+                    label: __('Short', 'ghostkit'),
                   },
                   {
                     value: 'full',
-                    label: __('Full', '@@text_domain'),
+                    label: __('Full', 'ghostkit'),
                   },
                 ]}
                 onChange={(value) => setAttributes({ feedTextMode: value })}
               />
               <SelectControl
-                label={__('Convert Text Links', '@@text_domain')}
+                label={__('Convert Text Links', 'ghostkit')}
                 value={feedTextConvertLinks}
                 options={[
                   {
                     value: 'links_media',
-                    label: __('Links + Media', '@@text_domain'),
+                    label: __('Links + Media', 'ghostkit'),
                   },
                   {
                     value: 'links',
-                    label: __('Links', '@@text_domain'),
+                    label: __('Links', 'ghostkit'),
                   },
                   {
                     value: 'no',
-                    label: __('No Convert', '@@text_domain'),
+                    label: __('No Convert', 'ghostkit'),
                   },
                 ]}
                 onChange={(value) => setAttributes({ feedTextConvertLinks: value })}
               />
             </PanelBody>
-            <PanelBody title={__('Profile', '@@text_domain')}>
+            <PanelBody title={__('Profile', 'ghostkit')}>
               <ToggleControl
-                label={__('Show Profile', '@@text_domain')}
+                label={__('Show Profile', 'ghostkit')}
                 checked={!!showProfile}
                 onChange={(value) => setAttributes({ showProfile: value })}
               />
               {showProfile ? (
                 <Fragment>
                   <ToggleControl
-                    label={__('Show Avatar', '@@text_domain')}
+                    label={__('Show Avatar', 'ghostkit')}
                     checked={!!showProfileAvatar}
                     onChange={(value) => setAttributes({ showProfileAvatar: value })}
                   />
                   {showProfileAvatar ? (
                     <RangeControl
-                      label={__('Avatar Size', '@@text_domain')}
+                      label={__('Avatar Size', 'ghostkit')}
                       value={profileAvatarSize}
                       onChange={(value) => setAttributes({ profileAvatarSize: value })}
                       min={30}
@@ -222,27 +222,27 @@ export default function BlockEdit(props) {
                     ''
                   )}
                   <ToggleControl
-                    label={__('Show Name', '@@text_domain')}
+                    label={__('Show Name', 'ghostkit')}
                     checked={!!showProfileName}
                     onChange={(value) => setAttributes({ showProfileName: value })}
                   />
                   <ToggleControl
-                    label={__('Show Stats', '@@text_domain')}
+                    label={__('Show Stats', 'ghostkit')}
                     checked={!!showProfileStats}
                     onChange={(value) => setAttributes({ showProfileStats: value })}
                   />
                   <ToggleControl
-                    label={__('Show Description', '@@text_domain')}
+                    label={__('Show Description', 'ghostkit')}
                     checked={!!showProfileDescription}
                     onChange={(value) => setAttributes({ showProfileDescription: value })}
                   />
                   <ToggleControl
-                    label={__('Show Website', '@@text_domain')}
+                    label={__('Show Website', 'ghostkit')}
                     checked={!!showProfileWebsite}
                     onChange={(value) => setAttributes({ showProfileWebsite: value })}
                   />
                   <ToggleControl
-                    label={__('Show Location', '@@text_domain')}
+                    label={__('Show Location', 'ghostkit')}
                     checked={!!showProfileLocation}
                     onChange={(value) => setAttributes({ showProfileLocation: value })}
                   />
@@ -256,24 +256,24 @@ export default function BlockEdit(props) {
           ''
         )}
 
-        <PanelBody title={__('API Data', '@@text_domain')} initialOpen={!APIDataReady}>
+        <PanelBody title={__('API Data', 'ghostkit')} initialOpen={!APIDataReady}>
           <TextControl
-            placeholder={__('Consumer Key', '@@text_domain')}
+            placeholder={__('Consumer Key', 'ghostkit')}
             value={consumerKey}
             onChange={(value) => setAttributes({ consumerKey: value })}
           />
           <TextControl
-            placeholder={__('Consumer Secret', '@@text_domain')}
+            placeholder={__('Consumer Secret', 'ghostkit')}
             value={consumerSecret}
             onChange={(value) => setAttributes({ consumerSecret: value })}
           />
           <TextControl
-            placeholder={__('Access Token', '@@text_domain')}
+            placeholder={__('Access Token', 'ghostkit')}
             value={accessToken}
             onChange={(value) => setAttributes({ accessToken: value })}
           />
           <TextControl
-            placeholder={__('Access Token Secret', '@@text_domain')}
+            placeholder={__('Access Token Secret', 'ghostkit')}
             value={accessTokenSecret}
             onChange={(value) => setAttributes({ accessTokenSecret: value })}
           />
@@ -281,7 +281,7 @@ export default function BlockEdit(props) {
             <em>
               {__(
                 'A valid API data is required to use Twitter feed. How to get it',
-                '@@text_domain'
+                'ghostkit'
               )}{' '}
               <ExternalLink href="http://www.gabfirethemes.com/create-twitter-api-key/">
                 http://www.gabfirethemes.com/create-twitter-api-key/
@@ -316,7 +316,7 @@ export default function BlockEdit(props) {
                     </ExternalLink>
                     {twitterProfile.verified ? (
                       <span className="ghostkit-twitter-profile-verified">
-                        {__('Verified account', '@@text_domain')}
+                        {__('Verified account', 'ghostkit')}
                       </span>
                     ) : (
                       ''
@@ -335,15 +335,15 @@ export default function BlockEdit(props) {
                 <div className="ghostkit-twitter-profile-stats">
                   <div>
                     <strong>{twitterProfile.statuses_count_short}</strong>{' '}
-                    <span>{__('Tweets', '@@text_domain')}</span>
+                    <span>{__('Tweets', 'ghostkit')}</span>
                   </div>
                   <div>
                     <strong>{twitterProfile.friends_count_short}</strong>{' '}
-                    <span>{__('Following', '@@text_domain')}</span>
+                    <span>{__('Following', 'ghostkit')}</span>
                   </div>
                   <div>
                     <strong>{twitterProfile.followers_count_short}</strong>{' '}
-                    <span>{__('Followers', '@@text_domain')}</span>
+                    <span>{__('Followers', 'ghostkit')}</span>
                   </div>
                 </div>
               ) : (
@@ -429,7 +429,7 @@ export default function BlockEdit(props) {
                         <ExternalLink href={`https://twitter.com/${oldItem.user.screen_name}/`}>
                           <strong>{oldItem.user.name}</strong>
                         </ExternalLink>
-                        {__('Retweeted', '@@text_domain')}
+                        {__('Retweeted', 'ghostkit')}
                       </div>
                     ) : (
                       ''
@@ -442,7 +442,7 @@ export default function BlockEdit(props) {
                               <strong>{item.user.name}</strong>{' '}
                               {item.user.verified ? (
                                 <span className="ghostkit-twitter-item-meta-name-verified">
-                                  {__('Verified account', '@@text_domain')}
+                                  {__('Verified account', 'ghostkit')}
                                 </span>
                               ) : (
                                 ''
@@ -558,10 +558,10 @@ export default function BlockEdit(props) {
         {!APIDataReady ? (
           <Placeholder
             icon={getIcon('block-twitter')}
-            label={__('Twitter', '@@text_domain')}
+            label={__('Twitter', 'ghostkit')}
             instructions={__(
               'A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.',
-              '@@text_domain'
+              'ghostkit'
             )}
             className={className}
           />

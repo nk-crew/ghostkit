@@ -137,11 +137,11 @@ export default function BlockEdit(props) {
                   });
                 }}
               />
-              <ProNote title={__('Pro Shapes', '@@text_domain')}>
+              <ProNote title={__('Pro Shapes', 'ghostkit')}>
                 <p>
                   {__(
                     'Additional 30 shapes available in the Ghost Kit Pro plugin only',
-                    '@@text_domain'
+                    'ghostkit'
                   )}
                 </p>
                 <ProNote.Button
@@ -149,7 +149,7 @@ export default function BlockEdit(props) {
                   rel="noopener noreferrer"
                   href="https://ghostkit.io/shape-divider/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_shapes&utm_content=@@plugin_version"
                 >
-                  {__('Read More', '@@text_domain')}
+                  {__('Read More', 'ghostkit')}
                 </ProNote.Button>
               </ProNote>
             </div>
@@ -192,7 +192,7 @@ export default function BlockEdit(props) {
           {shapeData.allow_flip_vertical ? (
             <ToolbarButton
               icon={getIcon('icon-flip-vertical')}
-              title={__('Vertical Flip', '@@text_domain')}
+              title={__('Vertical Flip', 'ghostkit')}
               onClick={() => setAttributes({ flipVertical: !flipVertical })}
               isActive={flipVertical}
             />
@@ -201,7 +201,7 @@ export default function BlockEdit(props) {
           {shapeData.allow_flip_horizontal ? (
             <ToolbarButton
               icon={getIcon('icon-flip-horizontal')}
-              title={__('Horizontal Flip', '@@text_domain')}
+              title={__('Horizontal Flip', 'ghostkit')}
               onClick={() => setAttributes({ flipHorizontal: !flipHorizontal })}
               isActive={flipHorizontal}
             />
@@ -210,7 +210,7 @@ export default function BlockEdit(props) {
           <Dropdown
             renderToggle={({ onToggle }) => (
               <ToolbarButton
-                label={__('Shapes', '@@text_domain')}
+                label={__('Shapes', 'ghostkit')}
                 icon="edit"
                 className="components-toolbar__control"
                 onClick={onToggle}
@@ -229,12 +229,12 @@ export default function BlockEdit(props) {
         </ToolbarGroup>
       </BlockControls>
       <InspectorControls>
-        <PanelBody title={__('Style', '@@text_domain')}>{getShapesPicker()}</PanelBody>
-        <PanelBody title={__('Size', '@@text_domain')}>
+        <PanelBody title={__('Style', 'ghostkit')}>{getShapesPicker()}</PanelBody>
+        <PanelBody title={__('Size', 'ghostkit')}>
           <RangeControl
             label={
               <>
-                {__('Height', '@@text_domain')}
+                {__('Height', 'ghostkit')}
                 <ResponsiveToggle
                   checkActive={(checkMedia) => {
                     return !!attributes[`${checkMedia}_height`];
@@ -255,7 +255,7 @@ export default function BlockEdit(props) {
           <RangeControl
             label={
               <>
-                {__('Width', '@@text_domain')}
+                {__('Width', 'ghostkit')}
                 <ResponsiveToggle
                   checkActive={(checkMedia) => {
                     return !!attributes[`${checkMedia}_width`];
@@ -277,7 +277,7 @@ export default function BlockEdit(props) {
         </PanelBody>
         <PanelBody>
           <ColorPicker
-            label={__('Color', '@@text_domain')}
+            label={__('Color', 'ghostkit')}
             value={color}
             onChange={(val) => setAttributes({ color: val })}
             alpha

@@ -120,7 +120,7 @@ class TemplatesModal extends Component {
     if (selectData.length) {
       selectData.unshift({
         value: '',
-        label: __('-- Select Category --', '@@text_domain'),
+        label: __('-- Select Category --', 'ghostkit'),
       });
       return (
         <SelectControl
@@ -171,7 +171,7 @@ class TemplatesModal extends Component {
               {getIcon('plugin-templates')}
             </span>
             <h1 id="components-modal-header-1" className="components-modal__header-heading">
-              {__('Templates', '@@text_domain')}
+              {__('Templates', 'ghostkit')}
             </h1>
           </div>
           {showLoadingSpinner ? (
@@ -209,17 +209,17 @@ class TemplatesModal extends Component {
           className="ghostkit-plugin-templates-modal-notice"
           isDismissible={false}
         >
-          <h3>{__('Templates Deprecated', '@@text_domain')}</h3>
+          <h3>{__('Templates Deprecated', 'ghostkit')}</h3>
           <p>
             {__(
               'Please avoid using the Templates feature. It has been deprecated since Ghost Kit v3.1.0 and will be removed in future updates.',
-              '@@text_domain'
+              'ghostkit'
             )}
             <br />
             {sprintf(
               __(
                 'To create a block template, you can use the built-in WordPress feature named Patterns.',
-                '@@text_domain'
+                'ghostkit'
               ),
               'https://wordpress.org/documentation/article/site-editor-patterns/'
             )}
@@ -231,7 +231,7 @@ class TemplatesModal extends Component {
               rel="noreferrer"
               className="button button-primary"
             >
-              {__('Read About Patterns', '@@text_domain')}
+              {__('Read About Patterns', 'ghostkit')}
             </a>
           </p>
         </Notice>
@@ -245,8 +245,8 @@ class TemplatesModal extends Component {
                     {
                       name: 'theme',
                       title: (
-                        <Tooltip text={__('Templates from the theme.', '@@text_domain')}>
-                          <span>{GHOSTKIT.themeName || __('Theme', '@@text_domain')}</span>
+                        <Tooltip text={__('Templates from the theme.', 'ghostkit')}>
+                          <span>{GHOSTKIT.themeName || __('Theme', 'ghostkit')}</span>
                         </Tooltip>
                       ),
                       className: 'ghostkit-control-tabs-tab',
@@ -256,8 +256,8 @@ class TemplatesModal extends Component {
               {
                 name: 'blocks',
                 title: (
-                  <Tooltip text={__('Simple blocks to construct your page.', '@@text_domain')}>
-                    <span>{__('Blocks', '@@text_domain')}</span>
+                  <Tooltip text={__('Simple blocks to construct your page.', 'ghostkit')}>
+                    <span>{__('Blocks', 'ghostkit')}</span>
                   </Tooltip>
                 ),
                 className: 'ghostkit-control-tabs-tab',
@@ -265,8 +265,8 @@ class TemplatesModal extends Component {
               {
                 name: 'pages',
                 title: (
-                  <Tooltip text={__('Pre-designed ready to use pages.', '@@text_domain')}>
-                    <span>{__('Pages', '@@text_domain')}</span>
+                  <Tooltip text={__('Pre-designed ready to use pages.', 'ghostkit')}>
+                    <span>{__('Pages', 'ghostkit')}</span>
                   </Tooltip>
                 ),
                 className: 'ghostkit-control-tabs-tab',
@@ -274,8 +274,8 @@ class TemplatesModal extends Component {
               {
                 name: 'local',
                 title: (
-                  <Tooltip text={__('My Templates.', '@@text_domain')}>
-                    <span>{__('My Templates', '@@text_domain')}</span>
+                  <Tooltip text={__('My Templates.', 'ghostkit')}>
+                    <span>{__('My Templates', 'ghostkit')}</span>
                   </Tooltip>
                 ),
                 className: 'ghostkit-control-tabs-tab',
@@ -288,7 +288,7 @@ class TemplatesModal extends Component {
               const selectedCategory = this.getSelectedCategory(tabType);
 
               if (tabType === 'pages') {
-                return __('Coming Soon...', '@@text_domain');
+                return __('Coming Soon...', 'ghostkit');
               }
 
               return (
@@ -309,17 +309,17 @@ class TemplatesModal extends Component {
                               marginTop: 0,
                             }}
                           >
-                            {__('No templates found.', '@@text_domain')}
+                            {__('No templates found.', 'ghostkit')}
                           </p>
                           <ExternalLink
                             className="components-button is-button is-primary"
                             href={GHOSTKIT.adminTemplatesUrl}
                           >
-                            {__('Add Template', '@@text_domain')}
+                            {__('Add Template', 'ghostkit')}
                           </ExternalLink>
                         </Fragment>
                       ) : (
-                        __('No templates found.', '@@text_domain')
+                        __('No templates found.', 'ghostkit')
                       )}
                     </div>
                   ) : (
@@ -334,7 +334,7 @@ class TemplatesModal extends Component {
                         <div className="ghostkit-plugin-templates-count">
                           <RawHTML>
                             {sprintf(
-                              __('Templates: %s', '@@text_domain'),
+                              __('Templates: %s', 'ghostkit'),
                               `<strong>${currentTemplates.length}</strong>`
                             )}
                           </RawHTML>
@@ -433,7 +433,7 @@ class TemplatesModal extends Component {
                           className="components-button is-button is-primary"
                           href={GHOSTKIT.adminTemplatesUrl}
                         >
-                          {__('Add Template', '@@text_domain')}
+                          {__('Add Template', 'ghostkit')}
                         </ExternalLink>
                       ) : (
                         ''
@@ -474,14 +474,14 @@ function checkMissingBlocks(data) {
     'nk/awb': {
       info: __(
         '<strong>Advanced Backgrounds</strong> plugin is required to use background image and video blocks.',
-        '@@text_domain'
+        'ghostkit'
       ),
       pluginUrl: 'https://wordpress.org/plugins/advanced-backgrounds/',
     },
     'nk/visual-portfolio': {
       info: __(
         '<strong>Visual Portfolio</strong> plugin is required to show portfolio layouts.',
-        '@@text_domain'
+        'ghostkit'
       ),
       pluginUrl: 'https://wordpress.org/plugins/visual-portfolio/',
     },
@@ -495,7 +495,7 @@ function checkMissingBlocks(data) {
           key={`missing-block-${blockName}`}
         >
           <RawHTML>
-            {sprintf(__('%s block is missing.', '@@text_domain'), `<strong>${blockName}</strong>`)}
+            {sprintf(__('%s block is missing.', 'ghostkit'), `<strong>${blockName}</strong>`)}
           </RawHTML>
           {missingBlocksInfo[blockName] && missingBlocksInfo[blockName].info ? (
             <div className="ghostkit-templates-missing-block-additional">
@@ -505,7 +505,7 @@ function checkMissingBlocks(data) {
                   className="components-button is-button is-default is-small"
                   href={missingBlocksInfo[blockName].pluginUrl}
                 >
-                  {__('Install Plugin', '@@text_domain')}
+                  {__('Install Plugin', 'ghostkit')}
                 </ExternalLink>
               ) : (
                 ''
@@ -598,7 +598,7 @@ export class Plugin extends Component {
               this.setState({ isModalOpen: true });
             }}
           >
-            {__('Templates', '@@text_domain')}
+            {__('Templates', 'ghostkit')}
           </PluginMoreMenuItem>
         ) : null}
         {isModalOpen ? (

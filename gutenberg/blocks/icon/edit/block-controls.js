@@ -21,19 +21,19 @@ export default function EditBlockControls({ attributes, setAttributes, isSelecte
 
   const justifyControls = [
     {
-      title: __('Justify Icon Start', '@@text_domain'),
+      title: __('Justify Icon Start', 'ghostkit'),
       icon: iconStart,
       isActive: justify === 'start',
       onClick: () => setAttributes({ justify: 'start' }),
     },
     {
-      title: __('Justify Icon Center', '@@text_domain'),
+      title: __('Justify Icon Center', 'ghostkit'),
       icon: iconCenter,
       isActive: justify === 'center',
       onClick: () => setAttributes({ justify: 'center' }),
     },
     {
-      title: __('Justify Icon End', '@@text_domain'),
+      title: __('Justify Icon End', 'ghostkit'),
       icon: iconEnd,
       isActive: justify === 'end',
       onClick: () => setAttributes({ justify: 'end' }),
@@ -55,7 +55,7 @@ export default function EditBlockControls({ attributes, setAttributes, isSelecte
         <ToolbarGroup>
           <ToolbarDropdownMenu
             icon={currentJustifyIcon}
-            label={__('Justify Icon', '@@text_domain')}
+            label={__('Justify Icon', 'ghostkit')}
             controls={justifyControls}
           />
         </ToolbarGroup>
@@ -67,13 +67,13 @@ export default function EditBlockControls({ attributes, setAttributes, isSelecte
         <ToolbarGroup>
           <ToolbarButton
             icon={getIcon('icon-flip-horizontal')}
-            title={__('Flip Horizontal', '@@text_domain')}
+            title={__('Flip Horizontal', 'ghostkit')}
             onClick={() => setAttributes({ flipH: !flipH })}
             isActive={flipH}
           />
           <ToolbarButton
             icon={getIcon('icon-flip-vertical')}
-            title={__('Flip Vertical', '@@text_domain')}
+            title={__('Flip Vertical', 'ghostkit')}
             onClick={() => setAttributes({ flipV: !flipV })}
             isActive={flipV}
           />

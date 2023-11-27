@@ -73,7 +73,7 @@ function EffectsRevealTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Reveal', '@@text_domain')}
+      label={__('Reveal', 'ghostkit')}
       hasValue={() => !!hasReveal}
       onSelect={() => {
         if (typeof attributes?.ghostkit?.effects?.reveal === 'undefined') {
@@ -101,7 +101,7 @@ function EffectsRevealTools(props) {
       isShownByDefault={false}
     >
       <DropdownPicker
-        label={__('Reveal', '@@text_domain')}
+        label={__('Reveal', 'ghostkit')}
         contentClassName="ghostkit-component-effects-reveal"
       >
         <EditorStyles
@@ -126,7 +126,7 @@ function EffectsRevealTools(props) {
         />
         <Grid columns={2}>
           <NumberControl
-            label={__('X', '@@text_domain')}
+            label={__('X', 'ghostkit')}
             value={getValue('x')}
             placeholder={DEFAULTS.x}
             onChange={(val) => {
@@ -136,7 +136,7 @@ function EffectsRevealTools(props) {
             style={{ flex: 1 }}
           />
           <NumberControl
-            label={__('Y', '@@text_domain')}
+            label={__('Y', 'ghostkit')}
             value={getValue('y')}
             placeholder={DEFAULTS.y}
             onChange={(val) => updateValue({ y: val === '' ? undefined : parseFloat(val) })}
@@ -146,7 +146,7 @@ function EffectsRevealTools(props) {
         </Grid>
         <Grid columns={3}>
           <NumberControl
-            label={__('Opacity', '@@text_domain')}
+            label={__('Opacity', 'ghostkit')}
             value={getValue('opacity')}
             placeholder={DEFAULTS.opacity}
             onChange={(val) => updateValue({ opacity: val === '' ? undefined : parseFloat(val) })}
@@ -156,7 +156,7 @@ function EffectsRevealTools(props) {
             style={{ flex: 1 }}
           />
           <NumberControl
-            label={__('Scale', '@@text_domain')}
+            label={__('Scale', 'ghostkit')}
             value={getValue('scale')}
             placeholder={DEFAULTS.scale}
             onChange={(val) => updateValue({ scale: val === '' ? undefined : parseFloat(val) })}
@@ -166,7 +166,7 @@ function EffectsRevealTools(props) {
             style={{ flex: 1 }}
           />
           <NumberControl
-            label={__('Rotate', '@@text_domain')}
+            label={__('Rotate', 'ghostkit')}
             value={getValue('rotate')}
             placeholder={DEFAULTS.rotate}
             onChange={(val) => updateValue({ rotate: val === '' ? undefined : parseFloat(val) })}
@@ -175,28 +175,28 @@ function EffectsRevealTools(props) {
           />
         </Grid>
         <TransitionSelector
-          label={__('Transition', '@@text_domain')}
+          label={__('Transition', 'ghostkit')}
           value={getValue('transition', DEFAULTS.transition)}
           onChange={(val) => updateValue({ transition: val })}
         />
-        <ProNote title={__('Pro Settings', '@@text_domain')}>
+        <ProNote title={__('Pro Settings', 'ghostkit')}>
           <p>
             {__(
               'Advanced reveal settings are available in the Ghost Kit Pro plugin only:',
-              '@@text_domain'
+              'ghostkit'
             )}
           </p>
           <ul>
-            <li>{__('3D Rotation', '@@text_domain')}</li>
-            <li>{__('Custom Viewport', '@@text_domain')}</li>
-            <li>{__('Replay Animation', '@@text_domain')}</li>
+            <li>{__('3D Rotation', 'ghostkit')}</li>
+            <li>{__('Custom Viewport', 'ghostkit')}</li>
+            <li>{__('Replay Animation', 'ghostkit')}</li>
           </ul>
           <ProNote.Button
             target="_blank"
             rel="noopener noreferrer"
             href="https://ghostkit.io/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=@@plugin_version"
           >
-            {__('Read More', '@@text_domain')}
+            {__('Read More', 'ghostkit')}
           </ProNote.Button>
         </ProNote>
       </DropdownPicker>

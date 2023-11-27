@@ -152,11 +152,11 @@ export default function BlockInspectorControls(props) {
           value={type}
           options={[
             {
-              label: __('YouTube / Vimeo', '@@text_domain'),
+              label: __('YouTube / Vimeo', 'ghostkit'),
               value: 'yt_vm_video',
             },
             {
-              label: __('Self Hosted', '@@text_domain'),
+              label: __('Self Hosted', 'ghostkit'),
               value: 'video',
             },
           ]}
@@ -165,7 +165,7 @@ export default function BlockInspectorControls(props) {
         />
         {type === 'yt_vm_video' && (
           <TextControl
-            label={__('Video URL', '@@text_domain')}
+            label={__('Video URL', 'ghostkit')}
             type="url"
             value={video}
             onChange={(value) => setAttributes({ video: value })}
@@ -174,7 +174,7 @@ export default function BlockInspectorControls(props) {
 
         {/* Select Videos */}
         {type === 'video' && (
-          <BaseControl label={__('Select Video', '@@text_domain')}>
+          <BaseControl label={__('Select Video', 'ghostkit')}>
             <div style={{ display: 'flex', gap: '10px' }}>
               {!videoMp4 && (
                 <MediaUpload
@@ -185,7 +185,7 @@ export default function BlockInspectorControls(props) {
                   value={videoMp4}
                   render={({ open }) => (
                     <Button onClick={open} variant="primary">
-                      {__('MP4', '@@text_domain')}
+                      {__('MP4', 'ghostkit')}
                     </Button>
                   )}
                 />
@@ -199,7 +199,7 @@ export default function BlockInspectorControls(props) {
                   value={videoOgv}
                   render={({ open }) => (
                     <Button onClick={open} variant="primary">
-                      {__('OGV', '@@text_domain')}
+                      {__('OGV', 'ghostkit')}
                     </Button>
                   )}
                 />
@@ -213,7 +213,7 @@ export default function BlockInspectorControls(props) {
                   value={videoWebm}
                   render={({ open }) => (
                     <Button onClick={open} variant="primary">
-                      {__('WEBM', '@@text_domain')}
+                      {__('WEBM', 'ghostkit')}
                     </Button>
                   )}
                 />
@@ -224,7 +224,7 @@ export default function BlockInspectorControls(props) {
 
         {/* Preview Video */}
         {type === 'video' && (videoMp4 || videoOgv || videoWebm) ? (
-          <BaseControl label={__('Preview', '@@text_domain')}>
+          <BaseControl label={__('Preview', 'ghostkit')}>
             {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <video controls style={{ aspectRatio: '16/9', backgroundColor: videoBackgroundColor }}>
               {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : ''}
@@ -251,7 +251,7 @@ export default function BlockInspectorControls(props) {
           </BaseControl>
         ) : null}
       </PanelBody>
-      <PanelBody title={__('Settings', '@@text_domain')}>
+      <PanelBody title={__('Settings', 'ghostkit')}>
         {/* Aspect ratio. */}
         <MediaSizeSelector
           attributes={{
@@ -264,7 +264,7 @@ export default function BlockInspectorControls(props) {
 
         {/* Volume. */}
         <RangeControl
-          label={__('Volume', '@@text_domain')}
+          label={__('Volume', 'ghostkit')}
           value={videoVolume}
           min={0}
           max={100}
@@ -273,19 +273,19 @@ export default function BlockInspectorControls(props) {
 
         {/* Icon settings. */}
         <IconPicker
-          label={__('Play Icon', '@@text_domain')}
+          label={__('Play Icon', 'ghostkit')}
           value={iconPlay}
           onChange={(val) => setAttributes({ iconPlay: val })}
           insideInspector
         />
         <IconPicker
-          label={__('Loading Icon', '@@text_domain')}
+          label={__('Loading Icon', 'ghostkit')}
           value={iconLoading}
           onChange={(val) => setAttributes({ iconLoading: val })}
           insideInspector
         />
         {hasClass(className, 'is-style-icon-only') ? (
-          <BaseControl label={__('Icon Align', '@@text_domain')}>
+          <BaseControl label={__('Icon Align', 'ghostkit')}>
             <div>
               <BlockAlignmentToolbar
                 value={styleIconOnlyAlign}
@@ -319,17 +319,17 @@ export default function BlockInspectorControls(props) {
           </BaseControl>
         ) : null}
       </PanelBody>
-      <PanelBody title={__('Click Action', '@@text_domain')}>
+      <PanelBody title={__('Click Action', 'ghostkit')}>
         <ToggleGroup
           value={clickAction}
           options={[
             {
-              label: __('Plain', '@@text_domain'),
+              label: __('Plain', 'ghostkit'),
               value: 'plain',
               disabled: hasClass(className, 'is-style-icon-only'),
             },
             {
-              label: __('Fullscreen', '@@text_domain'),
+              label: __('Fullscreen', 'ghostkit'),
               value: 'fullscreen',
             },
           ]}
@@ -344,14 +344,14 @@ export default function BlockInspectorControls(props) {
               props={props}
             >
               <ColorPicker
-                label={__('Fullscreen Background', '@@text_domain')}
+                label={__('Fullscreen Background', 'ghostkit')}
                 value={fullscreenBackgroundColor}
                 onChange={(val) => setAttributes({ fullscreenBackgroundColor: val })}
                 alpha
               />
             </ApplyFilters>
             <IconPicker
-              label={__('Fullscreen Close Icon', '@@text_domain')}
+              label={__('Fullscreen Close Icon', 'ghostkit')}
               value={fullscreenActionCloseIcon}
               onChange={(value) => setAttributes({ fullscreenActionCloseIcon: value })}
               insideInspector
@@ -360,25 +360,25 @@ export default function BlockInspectorControls(props) {
         ) : (
           <>
             <ToggleControl
-              label={__('Autoplay', '@@text_domain')}
+              label={__('Autoplay', 'ghostkit')}
               help={__(
                 'Automatically play video when block reaches the viewport. The video will be play muted due to browser Autoplay policy.',
-                '@@text_domain'
+                'ghostkit'
               )}
               checked={!!videoAutoplay}
               onChange={(value) => setAttributes({ videoAutoplay: value })}
             />
             <ToggleControl
-              label={__('Autopause', '@@text_domain')}
+              label={__('Autopause', 'ghostkit')}
               help={__(
                 'Automatically pause video when block out of the viewport.',
-                '@@text_domain'
+                'ghostkit'
               )}
               checked={!!videoAutopause}
               onChange={(value) => setAttributes({ videoAutopause: value })}
             />
             <ToggleControl
-              label={__('Loop', '@@text_domain')}
+              label={__('Loop', 'ghostkit')}
               checked={!!videoLoop}
               onChange={(value) => setAttributes({ videoLoop: value })}
             />
@@ -387,7 +387,7 @@ export default function BlockInspectorControls(props) {
       </PanelBody>
 
       {!hasClass(className, 'is-style-icon-only') ? (
-        <PanelBody title={__('Poster Image', '@@text_domain')}>
+        <PanelBody title={__('Poster Image', 'ghostkit')}>
           {!posterId ? (
             <MediaUpload
               onSelect={(media) => {
@@ -397,7 +397,7 @@ export default function BlockInspectorControls(props) {
               value={posterId}
               render={({ open }) => (
                 <Button onClick={open} variant="primary">
-                  {__('Select Image', '@@text_domain')}
+                  {__('Select Image', 'ghostkit')}
                 </Button>
               )}
             />
@@ -412,7 +412,7 @@ export default function BlockInspectorControls(props) {
                 allowedTypes={['image']}
                 value={posterId}
                 render={({ open }) => (
-                  <BaseControl help={__('Click the image to edit or update', '@@text_domain')}>
+                  <BaseControl help={__('Click the image to edit or update', 'ghostkit')}>
                     {/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
                     <a
                       href="#"
@@ -437,16 +437,16 @@ export default function BlockInspectorControls(props) {
                 help={
                   <>
                     <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                      {__('Describe the purpose of the image', '@@text_domain')}
+                      {__('Describe the purpose of the image', 'ghostkit')}
                     </ExternalLink>
-                    {__('Leave empty if the image is purely decorative.', '@@text_domain')}
+                    {__('Leave empty if the image is purely decorative.', 'ghostkit')}
                   </>
                 }
               />
               {editorSettings?.imageSizes ? (
                 <SelectControl
-                  label={__('Resolution', '@@text_domain')}
-                  help={__('Select the size of the source image.', '@@text_domain')}
+                  label={__('Resolution', 'ghostkit')}
+                  help={__('Select the size of the source image.', 'ghostkit')}
                   value={posterSizeSlug || DEFAULT_SIZE_SLUG}
                   onChange={(val) => {
                     onPosterSelect(posterImage, val);

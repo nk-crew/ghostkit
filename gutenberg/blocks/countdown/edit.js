@@ -131,7 +131,7 @@ export default function BlockEdit(props) {
       template: [
         [
           'core/paragraph',
-          { content: __('This countdown has been ended already!', '@@text_domain') },
+          { content: __('This countdown has been ended already!', 'ghostkit') },
         ],
       ],
       templateLock: false,
@@ -143,12 +143,12 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <DateTimePicker
-            label={__('End Date', '@@text_domain')}
+            label={__('End Date', 'ghostkit')}
             value={date}
             onChange={(value) => updateDate(value, units)}
           />
           <SelectControl
-            label={__('Display Units', '@@text_domain')}
+            label={__('Display Units', 'ghostkit')}
             value={units}
             onChange={(value) => {
               setAttributes({ units: value });
@@ -157,31 +157,31 @@ export default function BlockEdit(props) {
             multiple
             options={[
               {
-                label: __('Years', '@@text_domain'),
+                label: __('Years', 'ghostkit'),
                 value: 'years',
               },
               {
-                label: __('Months', '@@text_domain'),
+                label: __('Months', 'ghostkit'),
                 value: 'months',
               },
               {
-                label: __('Weeks', '@@text_domain'),
+                label: __('Weeks', 'ghostkit'),
                 value: 'weeks',
               },
               {
-                label: __('Days', '@@text_domain'),
+                label: __('Days', 'ghostkit'),
                 value: 'days',
               },
               {
-                label: __('Hours', '@@text_domain'),
+                label: __('Hours', 'ghostkit'),
                 value: 'hours',
               },
               {
-                label: __('Minutes', '@@text_domain'),
+                label: __('Minutes', 'ghostkit'),
                 value: 'minutes',
               },
               {
-                label: __('Seconds', '@@text_domain'),
+                label: __('Seconds', 'ghostkit'),
                 value: 'seconds',
               },
             ]}
@@ -189,7 +189,7 @@ export default function BlockEdit(props) {
         </PanelBody>
         <PanelBody>
           <RangeControl
-            label={__('Number Font Size', '@@text_domain')}
+            label={__('Number Font Size', 'ghostkit')}
             value={numberFontSize}
             onChange={(value) => setAttributes({ numberFontSize: value })}
             beforeIcon="editor-textcolor"
@@ -197,7 +197,7 @@ export default function BlockEdit(props) {
             allowCustomMax
           />
           <RangeControl
-            label={__('Label Font Size', '@@text_domain')}
+            label={__('Label Font Size', 'ghostkit')}
             value={labelFontSize}
             onChange={(value) => setAttributes({ labelFontSize: value })}
             beforeIcon="editor-textcolor"
@@ -205,13 +205,13 @@ export default function BlockEdit(props) {
             allowCustomMax
           />
           <ColorPicker
-            label={__('Number Color', '@@text_domain')}
+            label={__('Number Color', 'ghostkit')}
             value={numberColor}
             onChange={(val) => setAttributes({ numberColor: val })}
             alpha
           />
           <ColorPicker
-            label={__('Label Color', '@@text_domain')}
+            label={__('Label Color', 'ghostkit')}
             value={labelColor}
             onChange={(val) => setAttributes({ labelColor: val })}
             alpha
@@ -222,19 +222,19 @@ export default function BlockEdit(props) {
         <ToolbarGroup>
           <ToolbarButton
             icon="align-left"
-            title={__('Units Align Left', '@@text_domain')}
+            title={__('Units Align Left', 'ghostkit')}
             onClick={() => setAttributes({ unitsAlign: 'left' })}
             isActive={unitsAlign === 'left'}
           />
           <ToolbarButton
             icon="align-center"
-            title={__('Units Align Center', '@@text_domain')}
+            title={__('Units Align Center', 'ghostkit')}
             onClick={() => setAttributes({ unitsAlign: 'center' })}
             isActive={unitsAlign === 'center'}
           />
           <ToolbarButton
             icon="align-right"
-            title={__('Units Align Right', '@@text_domain')}
+            title={__('Units Align Right', 'ghostkit')}
             onClick={() => setAttributes({ unitsAlign: 'right' })}
             isActive={unitsAlign === 'right'}
           />
@@ -271,7 +271,7 @@ export default function BlockEdit(props) {
       {isSelectedBlockInRoot ? (
         <div className="ghostkit-countdown-expire-action">
           <div className="ghostkit-countdown-expire-action-label">
-            {__('Display content after expiration:', '@@text_domain')}
+            {__('Display content after expiration:', 'ghostkit')}
           </div>
 
           <div {...innerBlockProps} />

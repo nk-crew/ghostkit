@@ -697,25 +697,25 @@ export default (() => {
     // prepare label.
     switch (label) {
       case 'years':
-        label = _n('Year', 'Years', number, '@@text_domain');
+        label = _n('Year', 'Years', number, 'ghostkit');
         break;
       case 'months':
-        label = _n('Month', 'Months', number, '@@text_domain');
+        label = _n('Month', 'Months', number, 'ghostkit');
         break;
       case 'weeks':
-        label = _n('Week', 'Weeks', number, '@@text_domain');
+        label = _n('Week', 'Weeks', number, 'ghostkit');
         break;
       case 'days':
-        label = _n('Day', 'Days', number, '@@text_domain');
+        label = _n('Day', 'Days', number, 'ghostkit');
         break;
       case 'hours':
-        label = _n('Hour', 'Hours', number, '@@text_domain');
+        label = _n('Hour', 'Hours', number, 'ghostkit');
         break;
       case 'minutes':
-        label = _n('Minute', 'Minutes', number, '@@text_domain');
+        label = _n('Minute', 'Minutes', number, 'ghostkit');
         break;
       case 'seconds':
-        label = _n('Second', 'Seconds', number, '@@text_domain');
+        label = _n('Second', 'Seconds', number, 'ghostkit');
         break;
       // no default
     }

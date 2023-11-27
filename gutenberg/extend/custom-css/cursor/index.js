@@ -35,7 +35,7 @@ function CustomCSSCursorTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Cursor', '@@text_domain')}
+      label={__('Cursor', 'ghostkit')}
       hasValue={() => !!hasCursor}
       onSelect={() => {
         if (!hasStyle('cursor')) {
@@ -50,7 +50,7 @@ function CustomCSSCursorTools(props) {
       <SelectControl
         label={
           <>
-            {__('Cursor', '@@text_domain')}
+            {__('Cursor', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('cursor', checkMedia);
@@ -65,139 +65,139 @@ function CustomCSSCursorTools(props) {
         options={[
           {
             value: 'default',
-            label: __('Default', '@@text_domain'),
+            label: __('Default', 'ghostkit'),
           },
           {
             value: 'pointer',
-            label: __('Pointer', '@@text_domain'),
+            label: __('Pointer', 'ghostkit'),
           },
           {
             value: 'not-allowed',
-            label: __('Not Allowed', '@@text_domain'),
+            label: __('Not Allowed', 'ghostkit'),
           },
           {
             value: 'progress',
-            label: __('Progress', '@@text_domain'),
+            label: __('Progress', 'ghostkit'),
           },
           {
             value: 'move',
-            label: __('Move', '@@text_domain'),
+            label: __('Move', 'ghostkit'),
           },
           {
             value: 'grab',
-            label: __('Grab', '@@text_domain'),
+            label: __('Grab', 'ghostkit'),
           },
           {
             value: 'grabbing',
-            label: __('Grabbing', '@@text_domain'),
+            label: __('Grabbing', 'ghostkit'),
           },
           {
             value: 'zoom-in',
-            label: __('Zoom In', '@@text_domain'),
+            label: __('Zoom In', 'ghostkit'),
           },
           {
             value: 'zoom-out',
-            label: __('Zoom Out', '@@text_domain'),
+            label: __('Zoom Out', 'ghostkit'),
           },
           {
             value: 'copy',
-            label: __('Copy', '@@text_domain'),
+            label: __('Copy', 'ghostkit'),
           },
           {
             value: 'no-drop',
-            label: __('No Drop', '@@text_domain'),
+            label: __('No Drop', 'ghostkit'),
           },
           {
             value: 'context-menu',
-            label: __('Context Menu', '@@text_domain'),
+            label: __('Context Menu', 'ghostkit'),
           },
           {
             value: 'help',
-            label: __('Help', '@@text_domain'),
+            label: __('Help', 'ghostkit'),
           },
           {
             value: 'wait',
-            label: __('Wait', '@@text_domain'),
+            label: __('Wait', 'ghostkit'),
           },
           {
             value: 'cell',
-            label: __('Cell', '@@text_domain'),
+            label: __('Cell', 'ghostkit'),
           },
           {
             value: 'crosshair',
-            label: __('Crosshair', '@@text_domain'),
+            label: __('Crosshair', 'ghostkit'),
           },
           {
             value: 'alias',
-            label: __('Alias', '@@text_domain'),
+            label: __('Alias', 'ghostkit'),
           },
           {
             value: 'text',
-            label: __('Text', '@@text_domain'),
+            label: __('Text', 'ghostkit'),
           },
           {
             value: 'vertical-text',
-            label: __('Vertical Text', '@@text_domain'),
+            label: __('Vertical Text', 'ghostkit'),
           },
           {
             value: 'copy',
-            label: __('Copy', '@@text_domain'),
+            label: __('Copy', 'ghostkit'),
           },
           {
             value: 'nw-resize',
-            label: __('NW Resize', '@@text_domain'),
+            label: __('NW Resize', 'ghostkit'),
           },
           {
             value: 'n-resize',
-            label: __('N Resize', '@@text_domain'),
+            label: __('N Resize', 'ghostkit'),
           },
           {
             value: 'e-resize',
-            label: __('E Resize', '@@text_domain'),
+            label: __('E Resize', 'ghostkit'),
           },
           {
             value: 'se-resize',
-            label: __('SE Resize', '@@text_domain'),
+            label: __('SE Resize', 'ghostkit'),
           },
           {
             value: 's-resize',
-            label: __('S Resize', '@@text_domain'),
+            label: __('S Resize', 'ghostkit'),
           },
           {
             value: 'sw-resize',
-            label: __('SW Resize', '@@text_domain'),
+            label: __('SW Resize', 'ghostkit'),
           },
           {
             value: 'w-resize',
-            label: __('W Resize', '@@text_domain'),
+            label: __('W Resize', 'ghostkit'),
           },
           {
             value: 'ew-resize',
-            label: __('EW Resize', '@@text_domain'),
+            label: __('EW Resize', 'ghostkit'),
           },
           {
             value: 'ns-resize',
-            label: __('NS Resize', '@@text_domain'),
+            label: __('NS Resize', 'ghostkit'),
           },
           {
             value: 'nwse-resize',
-            label: __('NWSE Resize', '@@text_domain'),
+            label: __('NWSE Resize', 'ghostkit'),
           },
           {
             value: 'nesw-resize',
-            label: __('NESW Resize', '@@text_domain'),
+            label: __('NESW Resize', 'ghostkit'),
           },
           {
             value: 'col-resize',
-            label: __('Col Resize', '@@text_domain'),
+            label: __('Col Resize', 'ghostkit'),
           },
           {
             value: 'row-resize',
-            label: __('Row Resize', '@@text_domain'),
+            label: __('Row Resize', 'ghostkit'),
           },
           {
             value: 'none',
-            label: __('None', '@@text_domain'),
+            label: __('None', 'ghostkit'),
           },
         ]}
       />

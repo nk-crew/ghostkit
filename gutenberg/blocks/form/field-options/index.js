@@ -37,7 +37,7 @@ export default function FieldOptions(props) {
               }}
             />
             <TextControl
-              placeholder={__('Write label…', '@@text_domain')}
+              placeholder={__('Write label…', 'ghostkit')}
               value={data.value}
               onChange={(newVal) => {
                 const newOpts = [...options];
@@ -99,7 +99,7 @@ export default function FieldOptions(props) {
           <path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z" />
         </svg>
         &nbsp;
-        {__('Add Option', '@@text_domain')}
+        {__('Add Option', 'ghostkit')}
       </Button>
     </div>
   );

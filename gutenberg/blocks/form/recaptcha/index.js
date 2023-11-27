@@ -44,11 +44,11 @@ export default function BlockSettings() {
 
   return (
     <PanelBody
-      title={__('Google reCAPTCHA', '@@text_domain')}
+      title={__('Google reCAPTCHA', 'ghostkit')}
       initialOpen={!(apiSiteKey && apiSecretKey)}
     >
       <TextControl
-        label={__('Site Key', '@@text_domain')}
+        label={__('Site Key', 'ghostkit')}
         value={apiSiteKey}
         onChange={(value) => {
           setApiSiteKey(value);
@@ -56,17 +56,17 @@ export default function BlockSettings() {
         }}
       />
       <TextControl
-        label={__('Secret Key', '@@text_domain')}
+        label={__('Secret Key', 'ghostkit')}
         value={apiSecretKey}
         onChange={(value) => {
           setApiSecretKey(value);
           saveAPIKeys();
         }}
       />
-      <p>{__('Protect your form from spam using Google reCAPTCHA v3.', '@@text_domain')}</p>
+      <p>{__('Protect your form from spam using Google reCAPTCHA v3.', 'ghostkit')}</p>
       <p>
         <ExternalLink href="https://g.co/recaptcha/v3">
-          {__('Generate Keys', '@@text_domain')}
+          {__('Generate Keys', 'ghostkit')}
         </ExternalLink>
       </p>
     </PanelBody>

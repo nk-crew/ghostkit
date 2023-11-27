@@ -81,7 +81,7 @@ export default function GistFilesSelect(props) {
       icon="media-default"
       label={label}
       controls={items.map((item) => ({
-        title: item || __('Show all files', '@@text_domain'),
+        title: item || __('Show all files', 'ghostkit'),
         isActive: item === value,
         onClick: () => onChange(item),
       }))}
@@ -93,7 +93,7 @@ export default function GistFilesSelect(props) {
       value={value}
       options={items.map((item) => ({
         value: item,
-        label: item || __('Show all files', '@@text_domain'),
+        label: item || __('Show all files', 'ghostkit'),
       }))}
       onChange={onChange}
       className={className}

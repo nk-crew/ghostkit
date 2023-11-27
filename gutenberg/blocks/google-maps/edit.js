@@ -195,15 +195,15 @@ export default function BlockEdit(props) {
         {style === 'custom' ? (
           <Fragment>
             <TextareaControl
-              placeholder={__('Enter Style JSON', '@@text_domain')}
+              placeholder={__('Enter Style JSON', 'ghostkit')}
               value={maybeDecode(styleCustom)}
               onChange={(value) => setAttributes({ styleCustom: maybeEncode(value) })}
             />
             <p>
               <em>
-                {__('You can use custom styles presets from the', '@@text_domain')}{' '}
+                {__('You can use custom styles presets from the', 'ghostkit')}{' '}
                 <ExternalLink href="https://snazzymaps.com/">
-                  {__('Snazzy Maps', '@@text_domain')}
+                  {__('Snazzy Maps', 'ghostkit')}
                 </ExternalLink>
                 .
               </em>
@@ -270,7 +270,7 @@ export default function BlockEdit(props) {
         <ToolbarGroup>
           <ToolbarButton
             icon={getIcon('icon-fullheight')}
-            title={__('Full Height', '@@text_domain')}
+            title={__('Full Height', 'ghostkit')}
             onClick={() => setAttributes({ fullHeight: !fullHeight })}
             isActive={fullHeight}
           />
@@ -278,7 +278,7 @@ export default function BlockEdit(props) {
         <ToolbarGroup>
           <ToolbarButton
             icon={getIcon('icon-marker')}
-            title={__('Add Marker', '@@text_domain')}
+            title={__('Add Marker', 'ghostkit')}
             onClick={() => () => {
               setAttributes({
                 markers: [
@@ -296,7 +296,7 @@ export default function BlockEdit(props) {
           <Dropdown
             renderToggle={({ onToggle }) => (
               <Button
-                label={__('Style', '@@text_domain')}
+                label={__('Style', 'ghostkit')}
                 icon={getIcon('icon-map')}
                 className="components-toolbar__control"
                 onClick={onToggle}
@@ -319,13 +319,13 @@ export default function BlockEdit(props) {
           <Fragment>
             <PanelBody>
               <ToggleControl
-                label={__('Full Height', '@@text_domain')}
+                label={__('Full Height', 'ghostkit')}
                 checked={!!fullHeight}
                 onChange={(val) => setAttributes({ fullHeight: val })}
               />
               <RangeControl
                 label={
-                  fullHeight ? __('Minimal Height', '@@text_domain') : __('Height', '@@text_domain')
+                  fullHeight ? __('Minimal Height', 'ghostkit') : __('Height', 'ghostkit')
                 }
                 value={height}
                 onChange={(value) => setAttributes({ height: value })}
@@ -335,7 +335,7 @@ export default function BlockEdit(props) {
                 allowCustomMax
               />
               <RangeControl
-                label={__('Zoom', '@@text_domain')}
+                label={__('Zoom', 'ghostkit')}
                 value={zoom}
                 onChange={(value) => setAttributes({ zoom: value })}
                 min={1}
@@ -343,7 +343,7 @@ export default function BlockEdit(props) {
                 allowCustomMax
               />
             </PanelBody>
-            <PanelBody title={__('Markers', '@@text_domain')}>
+            <PanelBody title={__('Markers', 'ghostkit')}>
               {markers && markers.length > 0 ? (
                 <ul className="ghostkit-google-maps-markers">
                   {markers.map((marker, index) => (
@@ -351,7 +351,7 @@ export default function BlockEdit(props) {
                     <li key={index}>
                       <SearchBox
                         googleMapURL={`${mapsUrl}&key=${maybeEncode(apiKey)}`}
-                        placeholder={__('Enter address', '@@text_domain')}
+                        placeholder={__('Enter address', 'ghostkit')}
                         value={marker.address || addresses[marker.lat + marker.lng] || ''}
                         onChange={(value) => {
                           if (value && value[0]) {
@@ -392,7 +392,7 @@ export default function BlockEdit(props) {
                         }}
                         className="ghostkit-google-maps-marker-remove"
                       >
-                        {__('Remove Marker', '@@text_domain')}
+                        {__('Remove Marker', 'ghostkit')}
                       </Button>
                     </li>
                   ))}
@@ -414,38 +414,38 @@ export default function BlockEdit(props) {
                   });
                 }}
               >
-                {__('+ Add Marker', '@@text_domain')}
+                {__('+ Add Marker', 'ghostkit')}
               </Button>
             </PanelBody>
-            <PanelBody title={__('Style', '@@text_domain')}>{getStylesPicker()}</PanelBody>
-            <PanelBody title={__('Options', '@@text_domain')}>
+            <PanelBody title={__('Style', 'ghostkit')}>{getStylesPicker()}</PanelBody>
+            <PanelBody title={__('Options', 'ghostkit')}>
               <ToggleControl
-                label={__('Zoom Buttons', '@@text_domain')}
+                label={__('Zoom Buttons', 'ghostkit')}
                 checked={!!showZoomButtons}
                 onChange={(val) => setAttributes({ showZoomButtons: val })}
               />
               <ToggleControl
-                label={__('Map Type Buttons', '@@text_domain')}
+                label={__('Map Type Buttons', 'ghostkit')}
                 checked={!!showMapTypeButtons}
                 onChange={(val) => setAttributes({ showMapTypeButtons: val })}
               />
               <ToggleControl
-                label={__('Street View Button', '@@text_domain')}
+                label={__('Street View Button', 'ghostkit')}
                 checked={!!showStreetViewButton}
                 onChange={(val) => setAttributes({ showStreetViewButton: val })}
               />
               <ToggleControl
-                label={__('Fullscreen Button', '@@text_domain')}
+                label={__('Fullscreen Button', 'ghostkit')}
                 checked={!!showFullscreenButton}
                 onChange={(val) => setAttributes({ showFullscreenButton: val })}
               />
               <ToggleControl
-                label={__('Scroll Wheel', '@@text_domain')}
+                label={__('Scroll Wheel', 'ghostkit')}
                 checked={!!optionScrollWheel}
                 onChange={(val) => setAttributes({ optionScrollWheel: val })}
               />
               <ToggleControl
-                label={__('Draggable', '@@text_domain')}
+                label={__('Draggable', 'ghostkit')}
                 checked={!!optionDraggable}
                 onChange={(val) => setAttributes({ optionDraggable: val })}
               />
@@ -453,13 +453,13 @@ export default function BlockEdit(props) {
                 <ToggleControl
                   label={(() => {
                     if (optionScrollWheel && optionDraggable) {
-                      return __('Better Scroll & Draggable', '@@text_domain');
+                      return __('Better Scroll & Draggable', 'ghostkit');
                     }
                     if (optionScrollWheel) {
-                      return __('Better Scroll', '@@text_domain');
+                      return __('Better Scroll', 'ghostkit');
                     }
                     if (optionDraggable) {
-                      return __('Better Draggable', '@@text_domain');
+                      return __('Better Draggable', 'ghostkit');
                     }
                     return '';
                   })()}
@@ -467,14 +467,14 @@ export default function BlockEdit(props) {
                     if (optionScrollWheel && optionDraggable) {
                       return __(
                         'Scroll with pressed Ctrl or ⌘ key to zoom. Draggable with two fingers.',
-                        '@@text_domain'
+                        'ghostkit'
                       );
                     }
                     if (optionScrollWheel) {
-                      return __('Scroll with pressed Ctrl or ⌘ key to zoom.', '@@text_domain');
+                      return __('Scroll with pressed Ctrl or ⌘ key to zoom.', 'ghostkit');
                     }
                     if (optionDraggable) {
-                      return __('Draggable with two fingers.', '@@text_domain');
+                      return __('Draggable with two fingers.', 'ghostkit');
                     }
                     return '';
                   })()}
@@ -489,9 +489,9 @@ export default function BlockEdit(props) {
             </PanelBody>
           </Fragment>
         ) : null}
-        <PanelBody title={__('API Key', '@@text_domain')} initialOpen={!apiKey}>
+        <PanelBody title={__('API Key', 'ghostkit')} initialOpen={!apiKey}>
           <TextControl
-            placeholder={__('Enter API Key', '@@text_domain')}
+            placeholder={__('Enter API Key', 'ghostkit')}
             value={apiKey}
             onChange={(value) => {
               setApiKey(value);
@@ -503,17 +503,17 @@ export default function BlockEdit(props) {
             <em>
               {__(
                 'A valid API key is required to use Google Maps. How to get API key',
-                '@@text_domain'
+                'ghostkit'
               )}{' '}
               <ExternalLink href="https://developers.google.com/maps/documentation/javascript/get-api-key">
-                {__('read here', '@@text_domain')}
+                {__('read here', 'ghostkit')}
               </ExternalLink>
               .
             </em>
           </p>
           <p>
             <em>
-              {__('This key will be used in all Google Maps blocks on your site.', '@@text_domain')}
+              {__('This key will be used in all Google Maps blocks on your site.', 'ghostkit')}
             </em>
           </p>
         </PanelBody>
@@ -551,8 +551,8 @@ export default function BlockEdit(props) {
               <div className="ghostkit-google-maps-search">
                 <SearchBox
                   googleMapURL={`${mapsUrl}&key=${maybeEncode(apiKey)}`}
-                  label={__('Center Map', '@@text_domain')}
-                  placeholder={__('Enter search query', '@@text_domain')}
+                  label={__('Center Map', 'ghostkit')}
+                  placeholder={__('Enter search query', 'ghostkit')}
                   onChange={(value) => {
                     if (value && value[0]) {
                       setAttributes({
@@ -568,7 +568,7 @@ export default function BlockEdit(props) {
                     <small>
                       {__(
                         'You can also drag the map to change the center coordinates.',
-                        '@@text_domain'
+                        'ghostkit'
                       )}
                     </small>
                   </p>
@@ -581,10 +581,10 @@ export default function BlockEdit(props) {
             <IconMarker />
             <div className="ghostkit-google-maps-placeholder-key">
               <div>
-                <strong>{__('Google Maps API Key Required', '@@text_domain')}</strong>
+                <strong>{__('Google Maps API Key Required', 'ghostkit')}</strong>
               </div>
               <div>
-                <small>{__('Add an API key in block settings.', '@@text_domain')}</small>
+                <small>{__('Add an API key in block settings.', 'ghostkit')}</small>
               </div>
             </div>
           </div>

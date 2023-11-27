@@ -26,7 +26,7 @@ class GhostKit_Form_Field_Attributes {
 
             'label' => array(
                 'type'    => 'string',
-                'default' => esc_html__( 'Field Label', '@@text_domain' ),
+                'default' => esc_html__( 'Field Label', 'ghostkit' ),
             ),
             'description' => array(
                 'type' => 'string',

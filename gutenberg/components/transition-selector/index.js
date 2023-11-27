@@ -67,7 +67,7 @@ export default function TransitionSelector(props) {
     buttonLabel = (
       <>
         <EasingBezierEditor variant="preview" value={easingValue} />
-        {__('Easing', '@@text_domain')}
+        {__('Easing', 'ghostkit')}
         {resetButton}
       </>
     );
@@ -75,7 +75,7 @@ export default function TransitionSelector(props) {
     buttonLabel = (
       <>
         <SpringEditor variant="preview" value={value} />
-        {__('Spring', '@@text_domain')}
+        {__('Spring', 'ghostkit')}
         {resetButton}
       </>
     );
@@ -93,7 +93,7 @@ export default function TransitionSelector(props) {
           }}
           backgroundColor="#c3c3c3"
         />
-        {__('Add...', '@@text_domain')}
+        {__('Add...', 'ghostkit')}
       </>
     );
   }
@@ -132,11 +132,11 @@ export default function TransitionSelector(props) {
             value={value?.type || 'spring'}
             options={[
               {
-                label: __('Easing', '@@text_domain'),
+                label: __('Easing', 'ghostkit'),
                 value: 'easing',
               },
               {
-                label: __('Spring', '@@text_domain'),
+                label: __('Spring', 'ghostkit'),
                 value: 'spring',
               },
             ]}

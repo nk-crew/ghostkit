@@ -21,7 +21,7 @@ export default function ColorControls(props) {
         settings={[
           {
             colorValue: color,
-            label: __('Icon', '@@text_domain'),
+            label: __('Icon', 'ghostkit'),
             onColorChange: (val) => {
               setAttributes({ color: val });
             },
@@ -33,7 +33,7 @@ export default function ColorControls(props) {
           {
             colorValue: backgroundColor,
             gradientValue: backgroundGradient,
-            label: __('Background', '@@text_domain'),
+            label: __('Background', 'ghostkit'),
             onColorChange: (val) => {
               setAttributes({ backgroundColor: val });
             },

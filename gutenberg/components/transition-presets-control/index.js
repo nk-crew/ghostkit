@@ -49,7 +49,7 @@ export default function TransitionPresetsControl(props) {
       ? [
           {
             value: 'custom',
-            label: __('-- Presets --', '@@text_domain'),
+            label: __('-- Presets --', 'ghostkit'),
           },
         ]
       : []),

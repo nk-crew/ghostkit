@@ -92,7 +92,7 @@ function GhostKitParagraphColumns(props) {
         <RangeControl
           label={
             <>
-              {__('Columns Count', '@@text_domain')}
+              {__('Columns Count', 'ghostkit')}
               <ResponsiveToggle
                 checkActive={(checkMedia) => {
                   return !!getCurrentColumns(className, checkMedia);

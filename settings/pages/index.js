@@ -18,27 +18,27 @@ import { applyFilters } from '@wordpress/hooks';
 export default function () {
   return applyFilters('ghostkit.settings.pages', {
     blocks: {
-      label: __('Blocks', '@@text_domain'),
+      label: __('Blocks', 'ghostkit'),
       block: Blocks,
     },
     icons: {
-      label: __('Icons', '@@text_domain'),
+      label: __('Icons', 'ghostkit'),
       block: Icons,
     },
     typography: {
-      label: __('Typography', '@@text_domain'),
+      label: __('Typography', 'ghostkit'),
       block: Typography,
     },
     fonts: {
-      label: __('Fonts', '@@text_domain'),
+      label: __('Fonts', 'ghostkit'),
       block: Fonts,
     },
     breakpoints: {
-      label: __('Breakpoints', '@@text_domain'),
+      label: __('Breakpoints', 'ghostkit'),
       block: Breakpoints,
     },
     css_js: {
-      label: __('CSS & JavaScript', '@@text_domain'),
+      label: __('CSS & JavaScript', 'ghostkit'),
       block: CssJs,
     },
   });

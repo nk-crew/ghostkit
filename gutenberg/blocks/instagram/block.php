@@ -152,13 +152,13 @@ class GhostKit_Instagram_Block {
                                 <?php if ( $attributes['showProfileStats'] && isset( $profile['counts'] ) ) : ?>
                                     <div class="ghostkit-instagram-profile-stats">
                                         <div>
-                                            <strong><?php echo esc_html( $profile['counts']['media'] ); ?></strong> <span><?php echo esc_html__( 'Posts', '@@text_domain' ); ?></span>
+                                            <strong><?php echo esc_html( $profile['counts']['media'] ); ?></strong> <span><?php echo esc_html__( 'Posts', 'ghostkit' ); ?></span>
                                         </div>
                                         <div>
-                                            <strong><?php echo esc_html( $profile['counts']['followed_by'] ); ?></strong> <span><?php echo esc_html__( 'Followers', '@@text_domain' ); ?></span>
+                                            <strong><?php echo esc_html( $profile['counts']['followed_by'] ); ?></strong> <span><?php echo esc_html__( 'Followers', 'ghostkit' ); ?></span>
                                         </div>
                                         <div>
-                                            <strong><?php echo esc_html( $profile['counts']['follows'] ); ?></strong> <span><?php echo esc_html__( 'Following', '@@text_domain' ); ?></span>
+                                            <strong><?php echo esc_html( $profile['counts']['follows'] ); ?></strong> <span><?php echo esc_html__( 'Following', 'ghostkit' ); ?></span>
                                         </div>
                                     </div>
                                 <?php endif; ?>

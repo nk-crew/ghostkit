@@ -96,7 +96,7 @@ export function FieldDefaultSettings(props) {
 
   const hideLabelControl = hideLabelCustom || (
     <ToggleControl
-      label={__('Hide Label', '@@text_domain')}
+      label={__('Hide Label', 'ghostkit')}
       checked={hideLabel}
       onChange={() => setAttributes({ hideLabel: !hideLabel })}
     />
@@ -104,7 +104,7 @@ export function FieldDefaultSettings(props) {
 
   const hideDescriptionControl = hideDescriptionCustom || (
     <ToggleControl
-      label={__('Hide Description', '@@text_domain')}
+      label={__('Hide Description', 'ghostkit')}
       checked={hideDescription}
       onChange={() => setAttributes({ hideDescription: !hideDescription })}
     />
@@ -114,8 +114,8 @@ export function FieldDefaultSettings(props) {
     <Fragment>
       {slugCustom || (
         <TextControl
-          label={__('Slug', '@@text_domain')}
-          help={__('Slug is used in form field [name] attribute.', '@@text_domain')}
+          label={__('Slug', 'ghostkit')}
+          help={__('Slug is used in form field [name] attribute.', 'ghostkit')}
           value={slug}
           onChange={() => {}}
           readOnly
@@ -123,21 +123,21 @@ export function FieldDefaultSettings(props) {
       )}
       {placeholderCustom || (
         <TextControl
-          label={__('Placeholder', '@@text_domain')}
+          label={__('Placeholder', 'ghostkit')}
           value={placeholder}
           onChange={(val) => setAttributes({ placeholder: val })}
         />
       )}
       {defaultCustom || (
         <TextControl
-          label={__('Default', '@@text_domain')}
+          label={__('Default', 'ghostkit')}
           value={defaultVal}
           onChange={(val) => setAttributes({ default: val })}
         />
       )}
       {requiredCustom || (
         <ToggleControl
-          label={__('Required', '@@text_domain')}
+          label={__('Required', 'ghostkit')}
           checked={required}
           onChange={() => setAttributes({ required: !required })}
         />

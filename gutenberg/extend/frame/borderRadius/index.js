@@ -54,7 +54,7 @@ function FrameBorderRadiusTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Border Radius', '@@text_domain')}
+      label={__('Border Radius', 'ghostkit')}
       hasValue={() => !!hasBorderRadius}
       onDeselect={() => {
         resetStyles(allRadiusProps, true, ['', '&:hover']);
@@ -64,7 +64,7 @@ function FrameBorderRadiusTools(props) {
       <InputGroup
         label={
           <>
-            {__('Border Radius', '@@text_domain')}
+            {__('Border Radius', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return (
@@ -93,7 +93,7 @@ function FrameBorderRadiusTools(props) {
         }
       >
         <InputDrag
-          help={__('TL', '@@text_domain')}
+          help={__('TL', 'ghostkit')}
           value={getStyle('border-top-left-radius', device, isHover && hoverSelector)}
           onChange={(val) =>
             setStyles({ 'border-top-left-radius': val }, device, isHover && hoverSelector)
@@ -101,7 +101,7 @@ function FrameBorderRadiusTools(props) {
           autoComplete="off"
         />
         <InputDrag
-          help={__('TR', '@@text_domain')}
+          help={__('TR', 'ghostkit')}
           value={getStyle('border-top-right-radius', device, isHover && hoverSelector)}
           onChange={(val) =>
             setStyles({ 'border-top-right-radius': val }, device, isHover && hoverSelector)
@@ -109,7 +109,7 @@ function FrameBorderRadiusTools(props) {
           autoComplete="off"
         />
         <InputDrag
-          help={__('BR', '@@text_domain')}
+          help={__('BR', 'ghostkit')}
           value={getStyle('border-bottom-right-radius', device, isHover && hoverSelector)}
           onChange={(val) =>
             setStyles({ 'border-bottom-right-radius': val }, device, isHover && hoverSelector)
@@ -117,7 +117,7 @@ function FrameBorderRadiusTools(props) {
           autoComplete="off"
         />
         <InputDrag
-          help={__('BL', '@@text_domain')}
+          help={__('BL', 'ghostkit')}
           value={getStyle('border-bottom-left-radius', device, isHover && hoverSelector)}
           onChange={(val) =>
             setStyles({ 'border-bottom-left-radius': val }, device, isHover && hoverSelector)

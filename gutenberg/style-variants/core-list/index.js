@@ -42,15 +42,15 @@ import { PanelBody } from '@wordpress/components';
  */
 registerBlockStyle('core/list', {
   name: 'styled',
-  label: __('Styled', '@@text_domain'),
+  label: __('Styled', 'ghostkit'),
 });
 registerBlockStyle('core/list', {
   name: 'icon',
-  label: __('Icon', '@@text_domain'),
+  label: __('Icon', 'ghostkit'),
 });
 registerBlockStyle('core/list', {
   name: 'none',
-  label: __('None', '@@text_domain'),
+  label: __('None', 'ghostkit'),
 });
 
 /**
@@ -147,7 +147,7 @@ function GhostKitListColumns(props) {
         <RangeControl
           label={
             <>
-              {__('Columns Count', '@@text_domain')}
+              {__('Columns Count', 'ghostkit')}
               <ResponsiveToggle
                 checkActive={(checkMedia) => {
                   return !!getCurrentColumns(className, checkMedia);
@@ -234,15 +234,15 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
         <OriginalComponent {...props} />
         <GhostKitListColumns {...props} />
         <InspectorControls>
-          <PanelBody title={__('Icon Settings', '@@text_domain')} initialOpen>
+          <PanelBody title={__('Icon Settings', 'ghostkit')} initialOpen>
             <IconPicker
-              label={__('Icon', '@@text_domain')}
+              label={__('Icon', 'ghostkit')}
               value={ghostkitListIcon}
               onChange={(value) => setAttributes({ ghostkitListIcon: value })}
               insideInspector
             />
             <ColorPicker
-              label={__('Color', '@@text_domain')}
+              label={__('Color', 'ghostkit')}
               value={ghostkitListIconColor}
               onChange={(val) => setAttributes({ ghostkitListIconColor: val })}
               alpha

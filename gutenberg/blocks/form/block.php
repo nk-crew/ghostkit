@@ -111,7 +111,7 @@ class GhostKit_Form_Block {
             'mailReplyTo'         => '{field_email}',
             'mailMessage'         => '{all_fields}',
             'confirmationType'    => 'message',
-            'confirmationMessage' => esc_html__( 'Thank you for contacting us! We will be in touch with you shortly.', '@@text_domain' ),
+            'confirmationMessage' => esc_html__( 'Thank you for contacting us! We will be in touch with you shortly.', 'ghostkit' ),
         );
 
         register_block_type_from_metadata(
@@ -204,7 +204,7 @@ class GhostKit_Form_Block {
         ob_start();
         // Honeypot protection.
         ?>
-        <input aria-label="<?php echo esc_attr__( 'Verify your Email', '@@text_domain' ); ?>" type="email" name="ghostkit_verify_email" autocomplete="off" placeholder="<?php echo esc_attr__( 'Email', '@@text_domain' ); ?>" tabindex="-1">
+        <input aria-label="<?php echo esc_attr__( 'Verify your Email', 'ghostkit' ); ?>" type="email" name="ghostkit_verify_email" autocomplete="off" placeholder="<?php echo esc_attr__( 'Email', 'ghostkit' ); ?>" tabindex="-1">
         <?php
 
         // Add `__` prefix to prevent conflict with form id attribute duplicate.
@@ -280,12 +280,12 @@ class GhostKit_Form_Block {
             if ( wp_verify_nonce( $nonce, 'ghostkit_form' ) ) {
                 // check for honeypot.
                 if ( ! $this->verify_honeypot() ) {
-                    $errors[] = esc_html__( 'Your actions look suspicious, the form was not submitted.', '@@text_domain' );
+                    $errors[] = esc_html__( 'Your actions look suspicious, the form was not submitted.', 'ghostkit' );
                 }
 
                 // validate Google reCaptcha.
                 if ( ! $this->verify_recaptcha() ) {
-                    $errors[] = esc_html__( 'Google reCaptcha form verification failed.', '@@text_domain' );
+                    $errors[] = esc_html__( 'Google reCaptcha form verification failed.', 'ghostkit' );
                 }
 
                 if ( ! count( $errors ) ) {
@@ -301,11 +301,11 @@ class GhostKit_Form_Block {
 
                     if ( ! $success ) {
                         $error    = error_get_last();
-                        $errors[] = isset( $error['message'] ) ? $error['message'] : esc_html__( 'Something went wrong while trying to send the form.', '@@text_domain' );
+                        $errors[] = isset( $error['message'] ) ? $error['message'] : esc_html__( 'Something went wrong while trying to send the form.', 'ghostkit' );
                     }
                 }
             } else {
-                $errors[] = esc_html__( 'Something went wrong while trying to send the form.', '@@text_domain' );
+                $errors[] = esc_html__( 'Something went wrong while trying to send the form.', 'ghostkit' );
             }
 
             $this->reset_post_data();
@@ -335,7 +335,7 @@ class GhostKit_Form_Block {
                     echo wp_kses_post(
                         sprintf(
                             // translators: %s - redirect link.
-                            __( 'Your form is successfully submitted. Redirecting to %s...', '@@text_domain' ),
+                            __( 'Your form is successfully submitted. Redirecting to %s...', 'ghostkit' ),
                             '<a href="' . esc_url( $attributes['confirmationRedirect'] ) . '">' . esc_url( $attributes['confirmationRedirect'] ) . '</a>'
                         )
                     );

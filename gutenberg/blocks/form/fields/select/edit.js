@@ -68,7 +68,7 @@ export default function BlockEdit(props) {
         <PanelBody>
           <FieldDefaultSettings {...props} defaultCustom={' '} placeholderCustom={' '} />
           <ToggleControl
-            label={__('Multiple', '@@text_domain')}
+            label={__('Multiple', 'ghostkit')}
             checked={multiple}
             onChange={() => {
               if (multiple) {
@@ -122,7 +122,7 @@ export default function BlockEdit(props) {
                 if (addNullOption) {
                   return [
                     {
-                      label: __('--- Select ---', '@@text_domain'),
+                      label: __('--- Select ---', 'ghostkit'),
                       value: '',
                       selected: true,
                     },

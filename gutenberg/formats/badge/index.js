@@ -21,7 +21,7 @@ import { RichTextToolbarButton } from '@wordpress/block-editor';
 export const name = 'ghostkit/badge';
 
 export const settings = {
-  title: __('Badge', '@@text_domain'),
+  title: __('Badge', 'ghostkit'),
   tagName: 'span',
   className: 'ghostkit-badge',
   attributes: {
@@ -103,7 +103,7 @@ export const settings = {
         <>
           <RichTextToolbarButton
             icon={getIcon('icon-badge')}
-            title={__('Badge', '@@text_domain')}
+            title={__('Badge', 'ghostkit')}
             onClick={() => {
               if (!isActive) {
                 this.toggleFormat();

@@ -35,7 +35,7 @@ function CustomCSSUserSelectTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('User Select', '@@text_domain')}
+      label={__('User Select', 'ghostkit')}
       hasValue={() => !!hasUserSelect}
       onSelect={() => {
         if (!hasStyle('user-select')) {
@@ -50,7 +50,7 @@ function CustomCSSUserSelectTools(props) {
       <SelectControl
         label={
           <>
-            {__('User Select', '@@text_domain')}
+            {__('User Select', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('user-select', checkMedia);
@@ -65,11 +65,11 @@ function CustomCSSUserSelectTools(props) {
         options={[
           {
             value: 'none',
-            label: __('None', '@@text_domain'),
+            label: __('None', 'ghostkit'),
           },
           {
             value: 'auto',
-            label: __('Auto', '@@text_domain'),
+            label: __('Auto', 'ghostkit'),
           },
         ]}
       />

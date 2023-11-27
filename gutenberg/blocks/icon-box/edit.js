@@ -79,7 +79,7 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <IconPicker
-            label={__('Icon', '@@text_domain')}
+            label={__('Icon', 'ghostkit')}
             value={icon}
             onChange={(value) => setAttributes({ icon: value })}
             insideInspector
@@ -87,7 +87,7 @@ export default function BlockEdit(props) {
           {icon ? (
             <>
               <RangeControl
-                label={__('Icon Size', '@@text_domain')}
+                label={__('Icon Size', 'ghostkit')}
                 value={iconSize}
                 onChange={(value) => setAttributes({ iconSize: value })}
                 min={20}
@@ -96,24 +96,24 @@ export default function BlockEdit(props) {
                 allowCustomMin
                 allowCustomMax
               />
-              <BaseControl label={__('Icon Position', '@@text_domain')}>
+              <BaseControl label={__('Icon Position', 'ghostkit')}>
                 <div>
-                  <Toolbar label={__('Icon Position', '@@text_domain')}>
+                  <Toolbar label={__('Icon Position', 'ghostkit')}>
                     <ToolbarButton
                       icon="align-center"
-                      title={__('Top', '@@text_domain')}
+                      title={__('Top', 'ghostkit')}
                       onClick={() => setAttributes({ iconPosition: 'top' })}
                       isActive={iconPosition === 'top'}
                     />
                     <ToolbarButton
                       icon="align-left"
-                      title={__('Left', '@@text_domain')}
+                      title={__('Left', 'ghostkit')}
                       onClick={() => setAttributes({ iconPosition: 'left' })}
                       isActive={iconPosition === 'left'}
                     />
                     <ToolbarButton
                       icon="align-right"
-                      title={__('Right', '@@text_domain')}
+                      title={__('Right', 'ghostkit')}
                       onClick={() => setAttributes({ iconPosition: 'right' })}
                       isActive={iconPosition === 'right'}
                     />
@@ -122,22 +122,22 @@ export default function BlockEdit(props) {
               </BaseControl>
               {iconPosition === 'top' ? (
                 <ToggleGroup
-                  label={__('Icon Alignment', '@@text_domain')}
+                  label={__('Icon Alignment', 'ghostkit')}
                   value={iconAlign || 'center'}
                   options={[
                     {
                       icon: getIcon('icon-horizontal-start'),
-                      label: __('Start', '@@text_domain'),
+                      label: __('Start', 'ghostkit'),
                       value: 'left',
                     },
                     {
                       icon: getIcon('icon-horizontal-center'),
-                      label: __('Center', '@@text_domain'),
+                      label: __('Center', 'ghostkit'),
                       value: 'center',
                     },
                     {
                       icon: getIcon('icon-horizontal-end'),
-                      label: __('End', '@@text_domain'),
+                      label: __('End', 'ghostkit'),
                       value: 'right',
                     },
                   ]}
@@ -152,7 +152,7 @@ export default function BlockEdit(props) {
         {!showContent || icon ? (
           <PanelBody>
             <ToggleControl
-              label={__('Show Content', '@@text_domain')}
+              label={__('Show Content', 'ghostkit')}
               checked={!!showContent}
               onChange={(val) => setAttributes({ showContent: val })}
             />
@@ -161,7 +161,7 @@ export default function BlockEdit(props) {
         <PanelBody
           title={
             <>
-              {__('Colors', '@@text_domain')}
+              {__('Colors', 'ghostkit')}
               <ColorIndicator colorValue={iconColor} />
             </>
           }
@@ -172,12 +172,12 @@ export default function BlockEdit(props) {
             tabs={[
               {
                 name: 'normal',
-                title: __('Normal', '@@text_domain'),
+                title: __('Normal', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
               {
                 name: 'hover',
-                title: __('Hover', '@@text_domain'),
+                title: __('Hover', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
             ]}
@@ -191,7 +191,7 @@ export default function BlockEdit(props) {
                   props={props}
                 >
                   <ColorPicker
-                    label={__('Icon', '@@text_domain')}
+                    label={__('Icon', 'ghostkit')}
                     value={isHover ? hoverIconColor : iconColor}
                     onChange={(val) =>
                       setAttributes(isHover ? { hoverIconColor: val } : { iconColor: val })
@@ -222,19 +222,19 @@ export default function BlockEdit(props) {
           <ToolbarGroup>
             <ToolbarButton
               icon="align-center"
-              title={__('Top', '@@text_domain')}
+              title={__('Top', 'ghostkit')}
               onClick={() => setAttributes({ iconPosition: 'top' })}
               isActive={iconPosition === 'top'}
             />
             <ToolbarButton
               icon="align-left"
-              title={__('Left', '@@text_domain')}
+              title={__('Left', 'ghostkit')}
               onClick={() => setAttributes({ iconPosition: 'left' })}
               isActive={iconPosition === 'left'}
             />
             <ToolbarButton
               icon="align-right"
-              title={__('Right', '@@text_domain')}
+              title={__('Right', 'ghostkit')}
               onClick={() => setAttributes({ iconPosition: 'right' })}
               isActive={iconPosition === 'right'}
             />

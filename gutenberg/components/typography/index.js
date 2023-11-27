@@ -25,7 +25,7 @@ const { GHOSTKIT } = window;
  * @return {*} - Current font or default label if font is empty.
  */
 function getDefaultFont(fontFamily) {
-  return fontFamily === '' ? __('Default Site Font', '@@text_domain') : fontFamily;
+  return fontFamily === '' ? __('Default Site Font', 'ghostkit') : fontFamily;
 }
 
 /**
@@ -72,61 +72,61 @@ function getFontWeightLabel(weight) {
 
   switch (weight) {
     case '':
-      label = __('Default', '@@text_domain');
+      label = __('Default', 'ghostkit');
       break;
     case '100':
-      label = __('Thin', '@@text_domain');
+      label = __('Thin', 'ghostkit');
       break;
     case '100i':
-      label = __('Thin Italic', '@@text_domain');
+      label = __('Thin Italic', 'ghostkit');
       break;
     case '200':
-      label = __('Extra Light', '@@text_domain');
+      label = __('Extra Light', 'ghostkit');
       break;
     case '200i':
-      label = __('Extra Light Italic', '@@text_domain');
+      label = __('Extra Light Italic', 'ghostkit');
       break;
     case '300':
-      label = __('Light', '@@text_domain');
+      label = __('Light', 'ghostkit');
       break;
     case '300i':
-      label = __('Light Italic', '@@text_domain');
+      label = __('Light Italic', 'ghostkit');
       break;
     case '400':
-      label = __('Regular', '@@text_domain');
+      label = __('Regular', 'ghostkit');
       break;
     case '400i':
-      label = __('Regular Italic', '@@text_domain');
+      label = __('Regular Italic', 'ghostkit');
       break;
     case '500':
-      label = __('Medium', '@@text_domain');
+      label = __('Medium', 'ghostkit');
       break;
     case '500i':
-      label = __('Medium Italic', '@@text_domain');
+      label = __('Medium Italic', 'ghostkit');
       break;
     case '600':
-      label = __('Semi Bold', '@@text_domain');
+      label = __('Semi Bold', 'ghostkit');
       break;
     case '600i':
-      label = __('Semi Bold Italic', '@@text_domain');
+      label = __('Semi Bold Italic', 'ghostkit');
       break;
     case '700':
-      label = __('Bold', '@@text_domain');
+      label = __('Bold', 'ghostkit');
       break;
     case '700i':
-      label = __('Bold Italic', '@@text_domain');
+      label = __('Bold Italic', 'ghostkit');
       break;
     case '800':
-      label = __('Extra Bold', '@@text_domain');
+      label = __('Extra Bold', 'ghostkit');
       break;
     case '800i':
-      label = __('Extra Bold Italic', '@@text_domain');
+      label = __('Extra Bold Italic', 'ghostkit');
       break;
     case '900':
-      label = __('Black', '@@text_domain');
+      label = __('Black', 'ghostkit');
       break;
     case '900i':
-      label = __('Black Italic', '@@text_domain');
+      label = __('Black Italic', 'ghostkit');
       break;
     // no default
   }
@@ -223,7 +223,7 @@ export default class Typography extends Component {
           {typeof fontFamilyCategory !== 'undefined' ? (
             <DropdownMenu
               icon={getIcon(fontsIcon, false)}
-              label={__('Font Family Category', '@@text_domain')}
+              label={__('Font Family Category', 'ghostkit')}
               popoverProps={{
                 position: 'bottom right',
               }}
@@ -248,7 +248,7 @@ export default class Typography extends Component {
                       onClose();
                     }}
                   >
-                    {__('Google Fonts', '@@text_domain')}
+                    {__('Google Fonts', 'ghostkit')}
                   </MenuItem>
                   <MenuItem
                     icon={getIcon('icon-typography-adobe-fonts', false)}
@@ -261,9 +261,9 @@ export default class Typography extends Component {
                       onClose();
                     }}
                   >
-                    {__('Adobe Fonts', '@@text_domain')}
+                    {__('Adobe Fonts', 'ghostkit')}
                     <span className="ghostkit-typography-badge-pro">
-                      {__('PRO', '@@text_domain')}
+                      {__('PRO', 'ghostkit')}
                     </span>
                   </MenuItem>
                   <MenuItem
@@ -277,9 +277,9 @@ export default class Typography extends Component {
                       onClose();
                     }}
                   >
-                    {__('Custom Fonts', '@@text_domain')}
+                    {__('Custom Fonts', 'ghostkit')}
                     <span className="ghostkit-typography-badge-pro">
-                      {__('PRO', '@@text_domain')}
+                      {__('PRO', 'ghostkit')}
                     </span>
                   </MenuItem>
                 </MenuGroup>
@@ -293,7 +293,7 @@ export default class Typography extends Component {
               <div className="ghostkit-typography-information-control ghostkit-typography-font-control">
                 {__(
                   'Adobe Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
-                  '@@text_domain'
+                  'ghostkit'
                 )}
                 <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=adobe_fonts&utm_content=@@plugin_version">
                   https://ghostkit.io/pricing/
@@ -306,7 +306,7 @@ export default class Typography extends Component {
               <div className="ghostkit-typography-information-control ghostkit-typography-font-control">
                 {__(
                   'Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
-                  '@@text_domain'
+                  'ghostkit'
                 )}
                 <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=custom_fonts&utm_content=@@plugin_version">
                   https://ghostkit.io/pricing/
@@ -318,7 +318,7 @@ export default class Typography extends Component {
           </ApplyFilters>
           {typeof fontFamily !== 'undefined' && allowFontSelectors ? (
             <div className="ghostkit-typography-font-control">
-              <Tooltip text={__('Font Family', '@@text_domain')}>
+              <Tooltip text={__('Font Family', 'ghostkit')}>
                 <div>
                   <Select
                     value={fontFamilyValue}
@@ -330,7 +330,7 @@ export default class Typography extends Component {
                       });
                     }}
                     options={fontFamilies}
-                    placeholder={__('--- Select Font Family ---', '@@text_domain')}
+                    placeholder={__('--- Select Font Family ---', 'ghostkit')}
                     className="ghostkit-typography-font-selector"
                     menuPosition="fixed"
                   />
@@ -342,7 +342,7 @@ export default class Typography extends Component {
           )}
           {typeof fontWeight !== 'undefined' && allowFontSelectors ? (
             <div className="ghostkit-typography-weight-control">
-              <Tooltip text={__('Font Weight', '@@text_domain')}>
+              <Tooltip text={__('Font Weight', 'ghostkit')}>
                 <div>
                   <Select
                     value={fontWeightValue}
@@ -352,7 +352,7 @@ export default class Typography extends Component {
                       });
                     }}
                     options={fontWeights}
-                    placeholder={__('--- Select Weight ---', '@@text_domain')}
+                    placeholder={__('--- Select Weight ---', 'ghostkit')}
                     className="ghostkit-typography-weight-selector"
                     classNamePrefix="ghostkit-typography-weight-selector"
                     menuPosition="fixed"
@@ -365,7 +365,7 @@ export default class Typography extends Component {
           )}
           {typeof fontSize !== 'undefined' ? (
             <div className="ghostkit-typography-size-control">
-              <Tooltip text={__('Font Size', '@@text_domain')}>
+              <Tooltip text={__('Font Size', 'ghostkit')}>
                 <div>
                   <InputDrag
                     value={fontSizeValue}
@@ -387,7 +387,7 @@ export default class Typography extends Component {
           )}
           {typeof lineHeight !== 'undefined' ? (
             <div className="ghostkit-typography-line-control">
-              <Tooltip text={__('Line Height', '@@text_domain')}>
+              <Tooltip text={__('Line Height', 'ghostkit')}>
                 <div>
                   <InputDrag
                     value={lineHeight}
@@ -409,7 +409,7 @@ export default class Typography extends Component {
           )}
           {typeof letterSpacing !== 'undefined' ? (
             <div className="ghostkit-typography-letter-control">
-              <Tooltip text={__('Letter Spacing', '@@text_domain')}>
+              <Tooltip text={__('Letter Spacing', 'ghostkit')}>
                 <div>
                   <InputDrag
                     value={letterSpacing}

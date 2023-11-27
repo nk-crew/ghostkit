@@ -17,7 +17,7 @@ import { toggleFormat } from '@wordpress/rich-text';
 export const name = 'ghostkit/uppercase';
 
 export const settings = {
-  title: __('Uppercase', '@@text_domain'),
+  title: __('Uppercase', 'ghostkit'),
   tagName: 'span',
   className: 'ghostkit-text-uppercase',
   edit: function BadgeFormat(props) {
@@ -37,7 +37,7 @@ export const settings = {
         <RichTextToolbarButton
           shortcutCharacter="u"
           shortcutType="access"
-          title={__('Uppercase', '@@text_domain')}
+          title={__('Uppercase', 'ghostkit')}
           icon={getIcon('icon-text-uppercase')}
           onClick={() => toggleUppercase()}
           isActive={isActive}

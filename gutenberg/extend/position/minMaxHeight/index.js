@@ -40,7 +40,7 @@ function PositionMinMaxHeightTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Min Max Height', '@@text_domain')}
+      label={__('Min Max Height', 'ghostkit')}
       hasValue={() => !!hasMinMaxHeight}
       onDeselect={() => {
         resetStyles(allProps, true);
@@ -50,7 +50,7 @@ function PositionMinMaxHeightTools(props) {
       <InputGroup
         label={
           <>
-            {__('Min Max Height', '@@text_domain')}
+            {__('Min Max Height', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 let isActive = false;
@@ -66,10 +66,10 @@ function PositionMinMaxHeightTools(props) {
         }
       >
         {allProps.map((propName) => {
-          let label = __('Min', '@@text_domain');
+          let label = __('Min', 'ghostkit');
 
           if (propName === 'max-height') {
-            label = __('Max', '@@text_domain');
+            label = __('Max', 'ghostkit');
           }
 
           let value = getStyle(propName, device);

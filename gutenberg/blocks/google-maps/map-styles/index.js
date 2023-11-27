@@ -18,14 +18,14 @@ import ImgStyleCustom from './style-custom.png';
 export default [
   {
     value: 'default',
-    label: __('Default', '@@text_domain'),
+    label: __('Default', 'ghostkit'),
     image: ImgStyleDefault,
     json: [],
   },
   {
     // https://snazzymaps.com/style/127403/no-label-bright-colors
     value: 'bright',
-    label: __('Bright', '@@text_domain'),
+    label: __('Bright', 'ghostkit'),
     image: ImgStyleBright,
     json: [
       {
@@ -132,7 +132,7 @@ export default [
   {
     // https://snazzymaps.com/style/102/clean-grey
     value: 'light',
-    label: __('Light', '@@text_domain'),
+    label: __('Light', 'ghostkit'),
     image: ImgStyleLight,
     json: [
       {
@@ -278,7 +278,7 @@ export default [
   {
     // https://snazzymaps.com/style/35661/dark-with-better-contrast
     value: 'dark',
-    label: __('Dark', '@@text_domain'),
+    label: __('Dark', 'ghostkit'),
     image: ImgStyleDark,
     json: [
       {
@@ -469,7 +469,7 @@ export default [
   {
     // https://snazzymaps.com/style/1/pale-dawn
     value: 'pale_dawn',
-    label: __('Pale Dawn', '@@text_domain'),
+    label: __('Pale Dawn', 'ghostkit'),
     image: ImgStylePaleDawn,
     json: [
       {
@@ -566,7 +566,7 @@ export default [
   },
   {
     value: 'custom',
-    label: __('Custom', '@@text_domain'),
+    label: __('Custom', 'ghostkit'),
     image: ImgStyleCustom,
   },
 ];

@@ -81,29 +81,29 @@ export default function BlockEdit(props) {
         <PanelBody>
           <BaseControl>
             <ToggleControl
-              label={__('Show Popular Badge', '@@text_domain')}
+              label={__('Show Popular Badge', 'ghostkit')}
               checked={!!showPopular}
               onChange={(value) => setAttributes({ showPopular: value })}
             />
             <ToggleControl
-              label={__('Show Title', '@@text_domain')}
+              label={__('Show Title', 'ghostkit')}
               checked={!!showTitle}
               onChange={(value) => setAttributes({ showTitle: value })}
             />
             <ToggleControl
-              label={__('Show Price', '@@text_domain')}
+              label={__('Show Price', 'ghostkit')}
               checked={!!showPrice}
               onChange={(value) => setAttributes({ showPrice: value })}
             />
             {showPrice ? (
               <Fragment>
                 <ToggleControl
-                  label={__('Show Price Currency', '@@text_domain')}
+                  label={__('Show Price Currency', 'ghostkit')}
                   checked={!!showPriceCurrency}
                   onChange={(value) => setAttributes({ showPriceCurrency: value })}
                 />
                 <ToggleControl
-                  label={__('Show Price Repeat', '@@text_domain')}
+                  label={__('Show Price Repeat', 'ghostkit')}
                   checked={!!showPriceRepeat}
                   onChange={(value) => setAttributes({ showPriceRepeat: value })}
                 />
@@ -112,17 +112,17 @@ export default function BlockEdit(props) {
               ''
             )}
             <ToggleControl
-              label={__('Show Description', '@@text_domain')}
+              label={__('Show Description', 'ghostkit')}
               checked={!!showDescription}
               onChange={(value) => setAttributes({ showDescription: value })}
             />
             <ToggleControl
-              label={__('Show Features', '@@text_domain')}
+              label={__('Show Features', 'ghostkit')}
               checked={!!showFeatures}
               onChange={(value) => setAttributes({ showFeatures: value })}
             />
             <ToggleControl
-              label={__('Show Button', '@@text_domain')}
+              label={__('Show Button', 'ghostkit')}
               checked={!!showButton}
               onChange={(value) => setAttributes({ showButton: value })}
             />
@@ -137,7 +137,7 @@ export default function BlockEdit(props) {
             className="ghostkit-pricing-table-item-title"
             onChange={(val) => setAttributes({ title: val })}
             value={title}
-            placeholder={__('Plan', '@@text_domain')}
+            placeholder={__('Plan', 'ghostkit')}
             withoutInteractiveFormatting
           />
         ) : null}
@@ -150,7 +150,7 @@ export default function BlockEdit(props) {
                   tagName="div"
                   onChange={(val) => setAttributes({ priceCurrency: val })}
                   value={priceCurrency}
-                  placeholder={__('$', '@@text_domain')}
+                  placeholder={__('$', 'ghostkit')}
                   withoutInteractiveFormatting
                 />
               </div>
@@ -172,7 +172,7 @@ export default function BlockEdit(props) {
                   tagName="div"
                   onChange={(val) => setAttributes({ priceRepeat: val })}
                   value={priceRepeat}
-                  placeholder={__('/mo', '@@text_domain')}
+                  placeholder={__('/mo', 'ghostkit')}
                   withoutInteractiveFormatting
                 />
               </div>
@@ -186,7 +186,7 @@ export default function BlockEdit(props) {
             className="ghostkit-pricing-table-item-description"
             onChange={(val) => setAttributes({ description: val })}
             value={description}
-            placeholder={__('Description', '@@text_domain')}
+            placeholder={__('Description', 'ghostkit')}
             withoutInteractiveFormatting
           />
         ) : null}
@@ -198,7 +198,7 @@ export default function BlockEdit(props) {
             className="ghostkit-pricing-table-item-features"
             onChange={(val) => setAttributes({ features: val })}
             value={features}
-            placeholder={__('Add features', '@@text_domain')}
+            placeholder={__('Add features', 'ghostkit')}
           />
         ) : null}
         {showButton ? <div {...innerBlocksProps} /> : null}
@@ -209,7 +209,7 @@ export default function BlockEdit(props) {
               tagName="div"
               onChange={(val) => setAttributes({ popularText: val })}
               value={popularText}
-              placeholder={__('Popular', '@@text_domain')}
+              placeholder={__('Popular', 'ghostkit')}
               withoutInteractiveFormatting
             />
           </div>

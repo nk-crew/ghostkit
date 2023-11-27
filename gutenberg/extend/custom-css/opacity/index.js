@@ -35,7 +35,7 @@ function CustomCSSOpacityTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Opacity', '@@text_domain')}
+      label={__('Opacity', 'ghostkit')}
       hasValue={() => !!hasOpacity}
       onSelect={() => {
         if (!hasStyle('opacity')) {
@@ -50,7 +50,7 @@ function CustomCSSOpacityTools(props) {
       <RangeControl
         label={
           <>
-            {__('Opacity', '@@text_domain')}
+            {__('Opacity', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('opacity', checkMedia);

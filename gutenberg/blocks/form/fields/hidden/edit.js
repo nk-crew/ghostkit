@@ -42,7 +42,7 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <TextControl
-            label={__('Value', '@@text_domain')}
+            label={__('Value', 'ghostkit')}
             value={defaultVal}
             onChange={(val) => setAttributes({ default: val })}
           />

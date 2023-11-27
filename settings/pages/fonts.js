@@ -61,7 +61,7 @@ class FontsSettings extends Component {
                   title: (
                     <span>
                       {getIcon('icon-typography-google-fonts', false)}
-                      {__('Google Fonts', '@@text_domain')}
+                      {__('Google Fonts', 'ghostkit')}
                     </span>
                   ),
                 },
@@ -70,7 +70,7 @@ class FontsSettings extends Component {
                   title: (
                     <span>
                       {getIcon('icon-typography-adobe-fonts', false)}
-                      {__('Adobe Fonts', '@@text_domain')}
+                      {__('Adobe Fonts', 'ghostkit')}
                     </span>
                   ),
                 },
@@ -79,7 +79,7 @@ class FontsSettings extends Component {
                   title: (
                     <span>
                       {getIcon('icon-typography-custom-fonts', false)}
-                      {__('Custom Fonts', '@@text_domain')}
+                      {__('Custom Fonts', 'ghostkit')}
                     </span>
                   ),
                 },
@@ -95,7 +95,7 @@ class FontsSettings extends Component {
                     <div className="ghostkit-settings-content-wrapper ghostkit-settings-fonts">
                       {__(
                         'Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
-                        '@@text_domain'
+                        'ghostkit'
                       )}
                       <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=fonts&utm_content=@@plugin_version">
                         https://ghostkit.io/pricing/
@@ -108,7 +108,7 @@ class FontsSettings extends Component {
                   <div className="ghostkit-settings-content-wrapper ghostkit-settings-fonts">
                     {__(
                       'Adobe Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
-                      '@@text_domain'
+                      'ghostkit'
                     )}
                     <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=fonts&utm_content=@@plugin_version">
                       https://ghostkit.io/pricing/
@@ -122,7 +122,7 @@ class FontsSettings extends Component {
           <div className="ghostkit-settings-content-wrapper ghostkit-settings-fonts">
             {__(
               'Adobe and Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
-              '@@text_domain'
+              'ghostkit'
             )}
             <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=fonts&utm_content=@@plugin_version">
               https://ghostkit.io/pricing/

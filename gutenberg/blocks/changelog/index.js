@@ -33,21 +33,21 @@ export const settings = {
           values: [
             <li key="list-item-1">
               <span className="ghostkit-badge" style={{ backgroundColor: '#4ab866' }}>
-                {__('Added', '@@text_domain')}
+                {__('Added', 'ghostkit')}
               </span>
-              {__('Something', '@@text_domain')}
+              {__('Something', 'ghostkit')}
             </li>,
             <li key="list-item-2">
               <span className="ghostkit-badge" style={{ backgroundColor: '#0366d6' }}>
-                {__('Fixed', '@@text_domain')}
+                {__('Fixed', 'ghostkit')}
               </span>
-              {__('Something', '@@text_domain')}
+              {__('Something', 'ghostkit')}
             </li>,
             <li key="list-item-3">
               <span className="ghostkit-badge" style={{ backgroundColor: '#63656b' }}>
-                {__('Changed', '@@text_domain')}
+                {__('Changed', 'ghostkit')}
               </span>
-              {__('Something', '@@text_domain')}
+              {__('Something', 'ghostkit')}
             </li>,
           ],
         },

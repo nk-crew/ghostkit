@@ -99,31 +99,31 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <RangeControl
-            label={__('Number Size', '@@text_domain')}
+            label={__('Number Size', 'ghostkit')}
             value={numberSize}
             onChange={(value) => setAttributes({ numberSize: value })}
             beforeIcon="editor-textcolor"
             afterIcon="editor-textcolor"
             allowCustomMax
           />
-          <BaseControl label={__('Number Position', '@@text_domain')}>
+          <BaseControl label={__('Number Position', 'ghostkit')}>
             <div>
-              <Toolbar label={__('Number Position', '@@text_domain')}>
+              <Toolbar label={__('Number Position', 'ghostkit')}>
                 <ToolbarButton
                   icon="align-center"
-                  title={__('Top', '@@text_domain')}
+                  title={__('Top', 'ghostkit')}
                   onClick={() => setAttributes({ numberPosition: 'top' })}
                   isActive={numberPosition === 'top'}
                 />
                 <ToolbarButton
                   icon="align-left"
-                  title={__('Left', '@@text_domain')}
+                  title={__('Left', 'ghostkit')}
                   onClick={() => setAttributes({ numberPosition: 'left' })}
                   isActive={numberPosition === 'left'}
                 />
                 <ToolbarButton
                   icon="align-right"
-                  title={__('Right', '@@text_domain')}
+                  title={__('Right', 'ghostkit')}
                   onClick={() => setAttributes({ numberPosition: 'right' })}
                   isActive={numberPosition === 'right'}
                 />
@@ -132,22 +132,22 @@ export default function BlockEdit(props) {
           </BaseControl>
           {numberPosition === 'top' ? (
             <ToggleGroup
-              label={__('Number Alignment', '@@text_domain')}
+              label={__('Number Alignment', 'ghostkit')}
               value={numberAlign || 'center'}
               options={[
                 {
                   icon: getIcon('icon-horizontal-start'),
-                  label: __('Start', '@@text_domain'),
+                  label: __('Start', 'ghostkit'),
                   value: 'left',
                 },
                 {
                   icon: getIcon('icon-horizontal-center'),
-                  label: __('Center', '@@text_domain'),
+                  label: __('Center', 'ghostkit'),
                   value: 'center',
                 },
                 {
                   icon: getIcon('icon-horizontal-end'),
-                  label: __('End', '@@text_domain'),
+                  label: __('End', 'ghostkit'),
                   value: 'right',
                 },
               ]}
@@ -159,18 +159,18 @@ export default function BlockEdit(props) {
         </PanelBody>
         <PanelBody>
           <ToggleControl
-            label={__('Show Content', '@@text_domain')}
+            label={__('Show Content', 'ghostkit')}
             checked={!!showContent}
             onChange={(val) => setAttributes({ showContent: val })}
           />
           <ToggleControl
-            label={__('Animate in viewport', '@@text_domain')}
+            label={__('Animate in viewport', 'ghostkit')}
             checked={!!animateInViewport}
             onChange={(val) => setAttributes({ animateInViewport: val })}
           />
           {animateInViewport ? (
             <TextControl
-              label={__('Animate from', '@@text_domain')}
+              label={__('Animate from', 'ghostkit')}
               type="number"
               value={animateInViewportFrom}
               onChange={(value) => setAttributes({ animateInViewportFrom: parseInt(value, 10) })}
@@ -180,7 +180,7 @@ export default function BlockEdit(props) {
         <PanelBody
           title={
             <>
-              {__('Colors', '@@text_domain')}
+              {__('Colors', 'ghostkit')}
               <ColorIndicator colorValue={numberColor} />
             </>
           }
@@ -191,12 +191,12 @@ export default function BlockEdit(props) {
             tabs={[
               {
                 name: 'normal',
-                title: __('Normal', '@@text_domain'),
+                title: __('Normal', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
               {
                 name: 'hover',
-                title: __('Hover', '@@text_domain'),
+                title: __('Hover', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
             ]}
@@ -210,7 +210,7 @@ export default function BlockEdit(props) {
                   props={props}
                 >
                   <ColorPicker
-                    label={__('Color', '@@text_domain')}
+                    label={__('Color', 'ghostkit')}
                     value={isHover ? hoverNumberColor : numberColor}
                     onChange={(val) =>
                       setAttributes(isHover ? { hoverNumberColor: val } : { numberColor: val })
@@ -240,19 +240,19 @@ export default function BlockEdit(props) {
         <ToolbarGroup>
           <ToolbarButton
             icon="align-center"
-            title={__('Top', '@@text_domain')}
+            title={__('Top', 'ghostkit')}
             onClick={() => setAttributes({ numberPosition: 'top' })}
             isActive={numberPosition === 'top'}
           />
           <ToolbarButton
             icon="align-left"
-            title={__('Left', '@@text_domain')}
+            title={__('Left', 'ghostkit')}
             onClick={() => setAttributes({ numberPosition: 'left' })}
             isActive={numberPosition === 'left'}
           />
           <ToolbarButton
             icon="align-right"
-            title={__('Right', '@@text_domain')}
+            title={__('Right', 'ghostkit')}
             onClick={() => setAttributes({ numberPosition: 'right' })}
             isActive={numberPosition === 'right'}
           />
@@ -264,7 +264,7 @@ export default function BlockEdit(props) {
             inlineToolbar
             tagName="div"
             className="ghostkit-counter-box-number-wrap"
-            placeholder={__('Write number…', '@@text_domain')}
+            placeholder={__('Write number…', 'ghostkit')}
             value={number}
             onChange={(value) => setAttributes({ number: value })}
             withoutInteractiveFormatting

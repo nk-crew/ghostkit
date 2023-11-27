@@ -64,7 +64,7 @@ export default function BlockEdit(props) {
   if (!isSelected && (!content || content.trim() === '')) {
     return (
       <div {...blockProps}>
-        <p>{__('Write your _Markdown_ **here**...', '@@text_domain')}</p>
+        <p>{__('Write your _Markdown_ **here**...', 'ghostkit')}</p>
       </div>
     );
   }
@@ -80,7 +80,7 @@ export default function BlockEdit(props) {
             )}
             onClick={() => setActiveTab('editor')}
           >
-            <span>{__('Markdown', '@@text_domain')}</span>
+            <span>{__('Markdown', 'ghostkit')}</span>
           </ToolbarButton>
           <ToolbarButton
             className={classnames(
@@ -89,7 +89,7 @@ export default function BlockEdit(props) {
             )}
             onClick={() => setActiveTab('preview')}
           >
-            <span>{__('Preview', '@@text_domain')}</span>
+            <span>{__('Preview', 'ghostkit')}</span>
           </ToolbarButton>
         </ToolbarGroup>
       </BlockControls>
@@ -108,7 +108,7 @@ export default function BlockEdit(props) {
               e.preventDefault();
             }
           }}
-          aria-label={__('Markdown', '@@text_domain')}
+          aria-label={__('Markdown', 'ghostkit')}
           ref={ref}
           value={content}
         />

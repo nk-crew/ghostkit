@@ -26,7 +26,7 @@ export default function MDRender(props) {
       onClick={(e) => {
         if (e.target.nodeName === 'A') {
           // eslint-disable-next-line no-alert
-          if (!window.confirm(__('Are you sure you wish to leave this page?', '@@text_domain'))) {
+          if (!window.confirm(__('Are you sure you wish to leave this page?', 'ghostkit'))) {
             e.preventDefault();
           }
         }

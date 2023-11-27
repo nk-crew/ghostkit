@@ -77,7 +77,7 @@ class CustomCodeModal extends Component {
         className="ghostkit-plugin-custom-code-modal"
         position="top"
         size="md"
-        title={__('CSS & JavaScript', '@@text_domain')}
+        title={__('CSS & JavaScript', 'ghostkit')}
         onRequestClose={() => {
           const local = this.props.meta || {};
           const global = this.props.customCode || {};
@@ -126,10 +126,10 @@ class CustomCodeModal extends Component {
                 <Tooltip
                   text={__(
                     'All changes will be applied on the current page only.',
-                    '@@text_domain'
+                    'ghostkit'
                   )}
                 >
-                  <span>{__('Local', '@@text_domain')}</span>
+                  <span>{__('Local', 'ghostkit')}</span>
                 </Tooltip>
               ),
               className: 'ghostkit-control-tabs-tab',
@@ -137,8 +137,8 @@ class CustomCodeModal extends Component {
             {
               name: 'global',
               title: (
-                <Tooltip text={__('All changes will be applied site wide.', '@@text_domain')}>
-                  <span>{__('Global', '@@text_domain')}</span>
+                <Tooltip text={__('All changes will be applied site wide.', 'ghostkit')}>
+                  <span>{__('Global', 'ghostkit')}</span>
                 </Tooltip>
               ),
               className: 'ghostkit-control-tabs-tab',
@@ -150,7 +150,7 @@ class CustomCodeModal extends Component {
 
             return (
               <Fragment>
-                <h4>{__('CSS', '@@text_domain')}</h4>
+                <h4>{__('CSS', 'ghostkit')}</h4>
                 <CodeEditor
                   mode="css"
                   onChange={(value) => {
@@ -164,11 +164,11 @@ class CustomCodeModal extends Component {
                   height="300px"
                 />
 
-                <h4>{__('JavaScript', '@@text_domain')}</h4>
+                <h4>{__('JavaScript', 'ghostkit')}</h4>
                 <p className="ghostkit-help-text">
                   {__(
                     'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.',
-                    '@@text_domain'
+                    'ghostkit'
                   )}
                 </p>
                 <p>
@@ -266,7 +266,7 @@ export class Plugin extends Component {
               this.setState({ isModalOpen: true });
             }}
           >
-            {__('CSS & JavaScript', '@@text_domain')}
+            {__('CSS & JavaScript', 'ghostkit')}
           </PluginMoreMenuItem>
         ) : null}
         {isModalOpen ? (

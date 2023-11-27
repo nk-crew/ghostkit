@@ -31,7 +31,7 @@ class GhostKit_Form_Field_Select_Block {
                 'attributes'      => GhostKit_Form_Field_Attributes::get_block_attributes(
                     array(
                         'label' => array(
-                            'default' => esc_html__( 'Select', '@@text_domain' ),
+                            'default' => esc_html__( 'Select', 'ghostkit' ),
                         ),
                         'options' => array(
                             'type'  => 'array',
@@ -83,7 +83,7 @@ class GhostKit_Form_Field_Select_Block {
                 array_unshift(
                     $options,
                     array(
-                        'label'    => esc_attr__( '--- Select ---', '@@text_domain' ),
+                        'label'    => esc_attr__( '--- Select ---', 'ghostkit' ),
                         'value'    => '',
                         'selected' => true,
                     )

@@ -37,7 +37,7 @@ function PositionZIndexTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('zIndex', '@@text_domain')}
+      label={__('zIndex', 'ghostkit')}
       hasValue={() => !!hasZIndex}
       onDeselect={() => {
         resetStyles(['z-index'], true);
@@ -47,7 +47,7 @@ function PositionZIndexTools(props) {
       <NumberControl
         label={
           <>
-            {__('zIndex', '@@text_domain')}
+            {__('zIndex', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('z-index', checkMedia);

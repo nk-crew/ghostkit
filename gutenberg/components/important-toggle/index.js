@@ -17,7 +17,7 @@ export default function ImportantToggle(props) {
   const { onClick, isActive } = props;
 
   return (
-    <Tooltip text={__('!important', '@@text_domain')}>
+    <Tooltip text={__('!important', 'ghostkit')}>
       <Button
         className={classnames('ghostkit-control-important-toggle', isActive && 'is-active')}
         onClick={() => {

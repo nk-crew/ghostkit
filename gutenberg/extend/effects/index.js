@@ -48,7 +48,7 @@ function GhostKitExtensionEffectsInspector(original, { props }) {
           label={
             <>
               <span className="ghostkit-ext-icon">{getIcon('extension-sr')}</span>
-              <span>{__('Effects', '@@text_domain')}</span>
+              <span>{__('Effects', 'ghostkit')}</span>
             </>
           }
           resetAll={() => {
@@ -96,7 +96,7 @@ function GhostKitExtensionEffectsToolbar(original, { props }) {
       <BlockControls group="other">
         <ToolbarDropdownMenu
           icon={getIcon('extension-sr')}
-          label={__('Effects', '@@text_domain')}
+          label={__('Effects', 'ghostkit')}
           menuProps={{
             style: { width: '260px' },
           }}
@@ -107,11 +107,11 @@ function GhostKitExtensionEffectsToolbar(original, { props }) {
               <MenuGroup>
                 {__(
                   'There are effects added to the current block. To change these options open the "Effects" block settings panel.',
-                  '@@text_domain'
+                  'ghostkit'
                 )}
               </MenuGroup>
               <MenuGroup>
-                {__('Reset all effects of the current block:', '@@text_domain')}
+                {__('Reset all effects of the current block:', 'ghostkit')}
                 <Button
                   variant="link"
                   onClick={() => {
@@ -126,7 +126,7 @@ function GhostKitExtensionEffectsToolbar(original, { props }) {
                     }
                   }}
                 >
-                  {__('Reset All', '@@text_domain')}
+                  {__('Reset All', 'ghostkit')}
                 </Button>
               </MenuGroup>
             </>

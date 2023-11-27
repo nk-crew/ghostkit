@@ -147,7 +147,7 @@ function FrameShadowTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Shadow', '@@text_domain')}
+      label={__('Shadow', 'ghostkit')}
       hasValue={() => !!hasShadow}
       onDeselect={() => {
         resetStyles(['box-shadow'], true, ['', '&:hover']);
@@ -163,7 +163,7 @@ function FrameShadowTools(props) {
       <BaseControl
         label={
           <>
-            {__('Shadow', '@@text_domain')}
+            {__('Shadow', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('box-shadow', checkMedia, isHover && hoverSelector);
@@ -182,7 +182,7 @@ function FrameShadowTools(props) {
         }
       >
         <div className="ghostkit-control-box-shadow">
-          <Tooltip text={__('Color', '@@text_domain')}>
+          <Tooltip text={__('Color', 'ghostkit')}>
             <div>
               <ColorPicker
                 value={color}
@@ -195,7 +195,7 @@ function FrameShadowTools(props) {
           </Tooltip>
           <InputGroup>
             <InputDrag
-              help={__('X', '@@text_domain')}
+              help={__('X', 'ghostkit')}
               value={x}
               onChange={(val) => {
                 setX(val || 0);
@@ -204,7 +204,7 @@ function FrameShadowTools(props) {
               autoComplete="off"
             />
             <InputDrag
-              help={__('Y', '@@text_domain')}
+              help={__('Y', 'ghostkit')}
               value={y}
               onChange={(val) => {
                 setY(val || 0);
@@ -213,7 +213,7 @@ function FrameShadowTools(props) {
               autoComplete="off"
             />
             <InputDrag
-              help={__('Blur', '@@text_domain')}
+              help={__('Blur', 'ghostkit')}
               value={blur}
               onChange={(val) => {
                 setBlur(val || 0);
@@ -222,7 +222,7 @@ function FrameShadowTools(props) {
               autoComplete="off"
             />
             <InputDrag
-              help={__('Spread', '@@text_domain')}
+              help={__('Spread', 'ghostkit')}
               value={spread}
               onChange={(val) => {
                 setSpread(val || 0);

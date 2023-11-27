@@ -17,14 +17,14 @@ export default function EditInspectorControls({ attributes, setAttributes }) {
     <InspectorControls>
       <PanelBody>
         <IconPicker
-          label={__('Icon', '@@text_domain')}
+          label={__('Icon', 'ghostkit')}
           value={icon}
           onChange={(value) => setAttributes({ icon: value })}
           insideInspector
         />
         <UnitControl
-          label={__('Width', '@@text_domain')}
-          placeholder={__('Auto', '@@text_domain')}
+          label={__('Width', 'ghostkit')}
+          placeholder={__('Auto', 'ghostkit')}
           value={width}
           onChange={(val) => setAttributes({ width: val })}
           labelPosition="edge"

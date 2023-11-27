@@ -75,7 +75,7 @@ function GhostKitExtensionCopyPaste(original, { props }) {
           return (
             <MenuGroup
               className="ghostkit-block-actions-copy-paste"
-              label={__('Ghost Kit', '@@text_domain')}
+              label={__('Ghost Kit', 'ghostkit')}
             >
               <CopyMenuItem
                 blocks={blocks}
@@ -96,7 +96,7 @@ function GhostKitExtensionCopyPaste(original, { props }) {
                   );
                 }}
               >
-                {__('Copy extensions', '@@text_domain')}
+                {__('Copy extensions', 'ghostkit')}
               </CopyMenuItem>
 
               <Dropdown
@@ -125,7 +125,7 @@ function GhostKitExtensionCopyPaste(original, { props }) {
                       </svg>
                     }
                   >
-                    {__('Paste extensions', '@@text_domain')}
+                    {__('Paste extensions', 'ghostkit')}
                   </MenuItem>
                 )}
                 renderContent={() => (
@@ -135,7 +135,7 @@ function GhostKitExtensionCopyPaste(original, { props }) {
                         pasteExtensions(blocks);
                       }}
                     >
-                      {__('Paste All', '@@text_domain')}
+                      {__('Paste All', 'ghostkit')}
                     </MenuItem>
                     {Object.keys(EXTENSIONS).map((extName) => {
                       if (!blocksHasSupport(blocks, ['ghostkit', extName])) {

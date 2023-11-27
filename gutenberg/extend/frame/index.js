@@ -52,7 +52,7 @@ function GhostKitExtensionFrameInspector(original, { props }) {
           label={
             <>
               <span className="ghostkit-ext-icon">{getIcon('extension-frame')}</span>
-              <span>{__('Frame', '@@text_domain')}</span>
+              <span>{__('Frame', 'ghostkit')}</span>
             </>
           }
           resetAll={() => {

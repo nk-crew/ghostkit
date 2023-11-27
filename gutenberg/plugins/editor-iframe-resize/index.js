@@ -95,20 +95,20 @@ function ResponsiveToggleDropdown() {
       selectedIcon = icons[i];
     }
 
-    let title = __('Desktop', '@@text_domain');
+    let title = __('Desktop', 'ghostkit');
 
     switch (deviceName) {
       case 'sm':
-        title = __('Mobile', '@@text_domain');
+        title = __('Mobile', 'ghostkit');
         break;
       case 'md':
-        title = __('Mobile Landscape', '@@text_domain');
+        title = __('Mobile Landscape', 'ghostkit');
         break;
       case 'lg':
-        title = __('Tablet', '@@text_domain');
+        title = __('Tablet', 'ghostkit');
         break;
       case 'xl':
-        title = __('Laptop', '@@text_domain');
+        title = __('Laptop', 'ghostkit');
         break;
       // no default
     }
@@ -132,10 +132,10 @@ function ResponsiveToggleDropdown() {
           className: 'ghostkit-toolbar-responsive__button-toggle',
         }}
         menuProps={{
-          'aria-label': __('View options', '@@text_domain'),
+          'aria-label': __('View options', 'ghostkit'),
         }}
         icon={selectedIcon}
-        label={__('Responsive Preview', '@@text_domain')}
+        label={__('Responsive Preview', 'ghostkit')}
       >
         {({ onClose }) => (
           <>

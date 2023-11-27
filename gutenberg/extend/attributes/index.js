@@ -41,11 +41,11 @@ function GhostKitExtensionAttributesInspector(original, { props }) {
 
 function ProAttributesControls() {
   return (
-    <ProNote title={__('Attributes', '@@text_domain')}>
+    <ProNote title={__('Attributes', 'ghostkit')}>
       <p>
         {__(
           'Adding custom attributes to block available in the Ghost Kit Pro plugin only.',
-          '@@text_domain'
+          'ghostkit'
         )}
       </p>
       <ProNote.Button
@@ -53,7 +53,7 @@ function ProAttributesControls() {
         rel="noopener noreferrer"
         href="https://ghostkit.io/extensions/attributes/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_attributes&utm_content=@@plugin_version"
       >
-        {__('Read More', '@@text_domain')}
+        {__('Read More', 'ghostkit')}
       </ProNote.Button>
     </ProNote>
   );

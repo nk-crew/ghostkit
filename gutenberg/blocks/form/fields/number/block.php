@@ -31,7 +31,7 @@ class GhostKit_Form_Field_Number_Block {
                 'attributes'      => GhostKit_Form_Field_Attributes::get_block_attributes(
                     array(
                         'label' => array(
-                            'default' => esc_html__( 'Number', '@@text_domain' ),
+                            'default' => esc_html__( 'Number', 'ghostkit' ),
                         ),
                         'min' => array(
                             'type' => 'string',

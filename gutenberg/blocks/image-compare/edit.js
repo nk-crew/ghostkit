@@ -178,7 +178,7 @@ export default function BlockEdit(props) {
           <ToolbarGroup>
             <ToolbarButton
               icon={getIcon('icon-flip-vertical')}
-              title={__('Vertical', '@@text_domain')}
+              title={__('Vertical', 'ghostkit')}
               onClick={() =>
                 setAttributes({ direction: direction === 'vertical' ? '' : 'vertical' })
               }
@@ -190,38 +190,38 @@ export default function BlockEdit(props) {
 
       <InspectorControls>
         {beforeUrl && afterUrl ? (
-          <PanelBody title={__('General', '@@text_domain')}>
+          <PanelBody title={__('General', 'ghostkit')}>
             <RangeControl
-              label={__('Start Position', '@@text_domain')}
+              label={__('Start Position', 'ghostkit')}
               value={position}
               min={0}
               max={100}
               onChange={(val) => setAttributes({ position: val })}
             />
             <ToggleGroupControl
-              label={__('Direction', '@@text_domain')}
+              label={__('Direction', 'ghostkit')}
               onChange={(val) => setAttributes({ direction: val })}
               value={direction || ''}
               isBlock
             >
-              <ToggleGroupControlOption value="" label={__('Horizontal', '@@text_domain')} />
-              <ToggleGroupControlOption value="vertical" label={__('Vertical', '@@text_domain')} />
+              <ToggleGroupControlOption value="" label={__('Horizontal', 'ghostkit')} />
+              <ToggleGroupControlOption value="vertical" label={__('Vertical', 'ghostkit')} />
             </ToggleGroupControl>
             <ToggleGroupControl
-              label={__('Trigger', '@@text_domain')}
+              label={__('Trigger', 'ghostkit')}
               onChange={(val) => setAttributes({ trigger: val })}
               value={trigger || ''}
               isBlock
             >
-              <ToggleGroupControlOption value="" label={__('Click', '@@text_domain')} />
-              <ToggleGroupControlOption value="hover" label={__('Hover', '@@text_domain')} />
+              <ToggleGroupControlOption value="" label={__('Click', 'ghostkit')} />
+              <ToggleGroupControlOption value="hover" label={__('Hover', 'ghostkit')} />
             </ToggleGroupControl>
           </PanelBody>
         ) : null}
 
-        <PanelBody title={__('Labels', '@@text_domain')}>
+        <PanelBody title={__('Labels', 'ghostkit')}>
           <ToggleControl
-            label={__('Show Labels', '@@text_domain')}
+            label={__('Show Labels', 'ghostkit')}
             checked={!!showLabels}
             onChange={(value) => setAttributes({ showLabels: value })}
           />
@@ -229,33 +229,33 @@ export default function BlockEdit(props) {
             <BaseControl
               label={
                 direction === 'vertical'
-                  ? __('Horizontal Align', '@@text_domain')
-                  : __('Vertical Align', '@@text_domain')
+                  ? __('Horizontal Align', 'ghostkit')
+                  : __('Vertical Align', 'ghostkit')
               }
             >
               <div>
                 <Toolbar
                   label={
                     direction === 'vertical'
-                      ? __('Horizontal Align', '@@text_domain')
-                      : __('Vertical Align', '@@text_domain')
+                      ? __('Horizontal Align', 'ghostkit')
+                      : __('Vertical Align', 'ghostkit')
                   }
                 >
                   <ToolbarButton
                     icon={iconStart}
-                    title={__('Start', '@@text_domain')}
+                    title={__('Start', 'ghostkit')}
                     onClick={() => setAttributes({ labelAlign: 'start' })}
                     isActive={labelAlign === 'start'}
                   />
                   <ToolbarButton
                     icon={iconCenter}
-                    title={__('Center', '@@text_domain')}
+                    title={__('Center', 'ghostkit')}
                     onClick={() => setAttributes({ labelAlign: 'center' })}
                     isActive={labelAlign === 'center'}
                   />
                   <ToolbarButton
                     icon={iconEnd}
-                    title={__('End', '@@text_domain')}
+                    title={__('End', 'ghostkit')}
                     onClick={() => setAttributes({ labelAlign: 'end' })}
                     isActive={labelAlign === 'end'}
                   />
@@ -265,7 +265,7 @@ export default function BlockEdit(props) {
           )}
         </PanelBody>
 
-        <PanelBody title={__('Before Image Settings', '@@text_domain')}>
+        <PanelBody title={__('Before Image Settings', 'ghostkit')}>
           {!beforeId ? (
             <MediaUpload
               onSelect={(media) => {
@@ -275,7 +275,7 @@ export default function BlockEdit(props) {
               value={beforeId}
               render={({ open }) => (
                 <Button onClick={open} isPrimary>
-                  {__('Select Image', '@@text_domain')}
+                  {__('Select Image', 'ghostkit')}
                 </Button>
               )}
             />
@@ -292,7 +292,7 @@ export default function BlockEdit(props) {
                 allowedTypes={['image']}
                 value={beforeId}
                 render={({ open }) => (
-                  <BaseControl help={__('Click the image to edit or update', '@@text_domain')}>
+                  <BaseControl help={__('Click the image to edit or update', 'ghostkit')}>
                     {/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
                     <a
                       href="#"
@@ -325,13 +325,13 @@ export default function BlockEdit(props) {
                 }}
                 className="button button-secondary"
               >
-                {__('Remove Image', '@@text_domain')}
+                {__('Remove Image', 'ghostkit')}
               </Button>
               <div style={{ marginBottom: 13 }} />
               {editorSettings && editorSettings.imageSizes ? (
                 <SelectControl
-                  label={__('Resolution', '@@text_domain')}
-                  help={__('Select the size of the source image.', '@@text_domain')}
+                  label={__('Resolution', 'ghostkit')}
+                  help={__('Select the size of the source image.', 'ghostkit')}
                   value={beforeSizeSlug || DEFAULT_SIZE_SLUG}
                   onChange={(val) => {
                     updateImageData('before', beforeImage, val);
@@ -349,9 +349,9 @@ export default function BlockEdit(props) {
                 help={
                   <>
                     <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                      {__('Describe the purpose of the image', '@@text_domain')}
+                      {__('Describe the purpose of the image', 'ghostkit')}
                     </ExternalLink>
-                    {__('Leave empty if the image is purely decorative.', '@@text_domain')}
+                    {__('Leave empty if the image is purely decorative.', 'ghostkit')}
                   </>
                 }
               />
@@ -360,7 +360,7 @@ export default function BlockEdit(props) {
             ''
           )}
         </PanelBody>
-        <PanelBody title={__('After Image Settings', '@@text_domain')}>
+        <PanelBody title={__('After Image Settings', 'ghostkit')}>
           {!afterId ? (
             <MediaUpload
               onSelect={(media) => {
@@ -370,7 +370,7 @@ export default function BlockEdit(props) {
               value={afterId}
               render={({ open }) => (
                 <Button onClick={open} isPrimary>
-                  {__('Select Image', '@@text_domain')}
+                  {__('Select Image', 'ghostkit')}
                 </Button>
               )}
             />
@@ -387,7 +387,7 @@ export default function BlockEdit(props) {
                 allowedTypes={['image']}
                 value={afterId}
                 render={({ open }) => (
-                  <BaseControl help={__('Click the image to edit or update', '@@text_domain')}>
+                  <BaseControl help={__('Click the image to edit or update', 'ghostkit')}>
                     {/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
                     <a
                       href="#"
@@ -415,13 +415,13 @@ export default function BlockEdit(props) {
                 }}
                 className="button button-secondary"
               >
-                {__('Remove Image', '@@text_domain')}
+                {__('Remove Image', 'ghostkit')}
               </Button>
               <div style={{ marginBottom: 13 }} />
               {editorSettings && editorSettings.imageSizes ? (
                 <SelectControl
-                  label={__('Resolution', '@@text_domain')}
-                  help={__('Select the size of the source image.', '@@text_domain')}
+                  label={__('Resolution', 'ghostkit')}
+                  help={__('Select the size of the source image.', 'ghostkit')}
                   value={afterSizeSlug || DEFAULT_SIZE_SLUG}
                   onChange={(val) => {
                     updateImageData('after', afterImage, val);
@@ -439,9 +439,9 @@ export default function BlockEdit(props) {
                 help={
                   <>
                     <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                      {__('Describe the purpose of the image', '@@text_domain')}
+                      {__('Describe the purpose of the image', 'ghostkit')}
                     </ExternalLink>
-                    {__('Leave empty if the image is purely decorative.', '@@text_domain')}
+                    {__('Leave empty if the image is purely decorative.', 'ghostkit')}
                   </>
                 }
               />
@@ -453,15 +453,15 @@ export default function BlockEdit(props) {
       </InspectorControls>
 
       <InspectorControls group="styles">
-        <PanelBody title={__('Color', '@@text_domain')}>
+        <PanelBody title={__('Color', 'ghostkit')}>
           <ColorPicker
-            label={__('Divider', '@@text_domain')}
+            label={__('Divider', 'ghostkit')}
             value={colorDivider}
             onChange={(val) => setAttributes({ colorDivider: val })}
             alpha
           />
           <ColorPicker
-            label={__('Divider Icon', '@@text_domain')}
+            label={__('Divider Icon', 'ghostkit')}
             value={colorDividerIcon}
             onChange={(val) => setAttributes({ colorDividerIcon: val })}
             alpha
@@ -474,8 +474,8 @@ export default function BlockEdit(props) {
           <Placeholder
             className="ghostkit-image-compare-placeholder"
             icon={getIcon('block-image-compare')}
-            label={__('Image Compare', '@@text_domain')}
-            instructions={__('Select images to compare', '@@text_domain')}
+            label={__('Image Compare', 'ghostkit')}
+            instructions={__('Select images to compare', 'ghostkit')}
           >
             {getImgTag('before') ? (
               <div className="components-placeholder">{getImgTag('before')}</div>
@@ -483,8 +483,8 @@ export default function BlockEdit(props) {
               <MediaPlaceholder
                 icon="format-image"
                 labels={{
-                  title: __('Image Before', '@@text_domain'),
-                  name: __('image', '@@text_domain'),
+                  title: __('Image Before', 'ghostkit'),
+                  name: __('image', 'ghostkit'),
                 }}
                 onSelect={(image) => {
                   updateImageData('before', image);
@@ -501,8 +501,8 @@ export default function BlockEdit(props) {
               <MediaPlaceholder
                 icon="format-image"
                 labels={{
-                  title: __('Image After', '@@text_domain'),
-                  name: __('image', '@@text_domain'),
+                  title: __('Image After', 'ghostkit'),
+                  name: __('image', 'ghostkit'),
                 }}
                 value={
                   afterUrl
@@ -534,7 +534,7 @@ export default function BlockEdit(props) {
                     tagName="div"
                     onChange={(val) => setAttributes({ labelBeforeText: val })}
                     value={labelBeforeText}
-                    placeholder={__('Before label…', '@@text_domain')}
+                    placeholder={__('Before label…', 'ghostkit')}
                   />
                 </div>
               ) : null}
@@ -548,7 +548,7 @@ export default function BlockEdit(props) {
                     tagName="div"
                     onChange={(val) => setAttributes({ labelAfterText: val })}
                     value={labelAfterText}
-                    placeholder={__('After label…', '@@text_domain')}
+                    placeholder={__('After label…', 'ghostkit')}
                   />
                 </div>
               ) : null}

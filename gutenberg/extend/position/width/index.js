@@ -37,7 +37,7 @@ function PositionWidthTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Width', '@@text_domain')}
+      label={__('Width', 'ghostkit')}
       hasValue={() => !!hasWidth}
       onDeselect={() => {
         resetStyles(['width'], true);
@@ -47,7 +47,7 @@ function PositionWidthTools(props) {
       <UnitControl
         label={
           <>
-            {__('Width', '@@text_domain')}
+            {__('Width', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('width', checkMedia);

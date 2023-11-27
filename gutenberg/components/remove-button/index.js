@@ -22,9 +22,9 @@ export default function RemoveButton(props) {
     onRemove,
     show,
     style,
-    tooltipText = __('Remove Block?', '@@text_domain'),
-    tooltipRemoveText = __('Remove', '@@text_domain'),
-    tooltipCancelText = __('Cancel', '@@text_domain'),
+    tooltipText = __('Remove Block?', 'ghostkit'),
+    tooltipRemoveText = __('Remove', 'ghostkit'),
+    tooltipCancelText = __('Cancel', 'ghostkit'),
   } = props;
 
   if (!show) {

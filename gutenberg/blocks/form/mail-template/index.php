@@ -316,7 +316,7 @@
                         sprintf(
                             // translators: %1$s - current page title.
                             // translators: %2$s - current page link.
-                            __( 'This e-mail was sent from a contact form on %1$s. (%2$s)', '@@text_domain' ),
+                            __( 'This e-mail was sent from a contact form on %1$s. (%2$s)', 'ghostkit' ),
                             esc_html( get_the_title() ),
                             '<a href="' . esc_url( get_the_permalink() ) . '">' . esc_url( get_the_permalink() ) . '</a>'
                         )

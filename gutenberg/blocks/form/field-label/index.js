@@ -28,7 +28,7 @@ export default function FieldLabel(props) {
         inlineToolbar
         tagName="span"
         value={label}
-        placeholder={__('Write label…', '@@text_domain')}
+        placeholder={__('Write label…', 'ghostkit')}
         onChange={(val) => setAttributes({ label: val })}
       />
       {attributes.required ? <span className="required">*</span> : ''}

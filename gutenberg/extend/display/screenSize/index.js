@@ -38,15 +38,15 @@ import { hasBlockSupport } from '@wordpress/blocks';
 const getDefaultDisplay = function (screen = '') {
   return [
     {
-      label: !screen ? __('Default', '@@text_domain') : __('Inherit', '@@text_domain'),
+      label: !screen ? __('Default', 'ghostkit') : __('Inherit', 'ghostkit'),
       value: '',
     },
     {
-      label: __('Show', '@@text_domain'),
+      label: __('Show', 'ghostkit'),
       value: 'block',
     },
     {
-      label: __('Hide', '@@text_domain'),
+      label: __('Hide', 'ghostkit'),
       value: 'none',
     },
   ];
@@ -112,7 +112,7 @@ function DisplayScreenSizeTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Screen Size', '@@text_domain')}
+      label={__('Screen Size', 'ghostkit')}
       hasValue={() => !!hasDisplayScreenSize}
       onDeselect={() => {
         let newClassName = className;
@@ -136,7 +136,7 @@ function DisplayScreenSizeTools(props) {
       <ToggleGroup
         label={
           <>
-            {__('Screen Size', '@@text_domain')}
+            {__('Screen Size', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return (

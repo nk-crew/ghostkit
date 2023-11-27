@@ -74,32 +74,32 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <SelectControl
-            label={__('Allowed Headers', '@@text_domain')}
+            label={__('Allowed Headers', 'ghostkit')}
             value={allowedHeaders}
             options={[
               {
                 value: 1,
-                label: __('Heading 1', '@@text_domain'),
+                label: __('Heading 1', 'ghostkit'),
               },
               {
                 value: 2,
-                label: __('Heading 2', '@@text_domain'),
+                label: __('Heading 2', 'ghostkit'),
               },
               {
                 value: 3,
-                label: __('Heading 3', '@@text_domain'),
+                label: __('Heading 3', 'ghostkit'),
               },
               {
                 value: 4,
-                label: __('Heading 4', '@@text_domain'),
+                label: __('Heading 4', 'ghostkit'),
               },
               {
                 value: 5,
-                label: __('Heading 5', '@@text_domain'),
+                label: __('Heading 5', 'ghostkit'),
               },
               {
                 value: 6,
-                label: __('Heading 6', '@@text_domain'),
+                label: __('Heading 6', 'ghostkit'),
               },
             ]}
             onChange={(val) => {
@@ -110,24 +110,24 @@ export default function BlockEdit(props) {
             multiple
           />
           <SelectControl
-            label={__('List Style', '@@text_domain')}
+            label={__('List Style', 'ghostkit')}
             value={listStyle}
             options={[
               {
                 value: 'ol',
-                label: __('Numbered List', '@@text_domain'),
+                label: __('Numbered List', 'ghostkit'),
               },
               {
                 value: 'ul',
-                label: __('Dotted List', '@@text_domain'),
+                label: __('Dotted List', 'ghostkit'),
               },
               {
                 value: 'ol-styled',
-                label: __('Numbered List Styled', '@@text_domain'),
+                label: __('Numbered List Styled', 'ghostkit'),
               },
               {
                 value: 'ul-styled',
-                label: __('Dotted List Styled', '@@text_domain'),
+                label: __('Dotted List Styled', 'ghostkit'),
               },
             ]}
             onChange={(val) => setAttributes({ listStyle: val })}
@@ -141,7 +141,7 @@ export default function BlockEdit(props) {
               inlineToolbar
               tagName="h5"
               className="ghostkit-toc-title"
-              placeholder={__('Write title…', '@@text_domain')}
+              placeholder={__('Write title…', 'ghostkit')}
               format="string"
               value={title}
               onChange={(val) => setAttributes({ title: val })}
@@ -163,10 +163,10 @@ export default function BlockEdit(props) {
       ) : (
         <Placeholder
           icon={getIcon('block-table-of-contents')}
-          label={__('Table of Contents', '@@text_domain')}
+          label={__('Table of Contents', 'ghostkit')}
           instructions={__(
             'Start adding Heading blocks to create a table of contents. Headings with HTML anchors will be linked here.',
-            '@@text_domain'
+            'ghostkit'
           )}
           {...blockProps}
         />

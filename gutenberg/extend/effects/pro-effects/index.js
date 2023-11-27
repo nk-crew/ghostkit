@@ -25,19 +25,19 @@ const { pro } = window.GHOSTKIT;
 
 const PRESETS = {
   mouseHover: {
-    label: __('Mouse Hover', '@@text_domain'),
+    label: __('Mouse Hover', 'ghostkit'),
   },
   mousePress: {
-    label: __('Mouse Press', '@@text_domain'),
+    label: __('Mouse Press', 'ghostkit'),
   },
   mouseMove: {
-    label: __('Mouse Move', '@@text_domain'),
+    label: __('Mouse Move', 'ghostkit'),
   },
   scroll: {
-    label: __('Scroll', '@@text_domain'),
+    label: __('Scroll', 'ghostkit'),
   },
   loop: {
-    label: __('Loop', '@@text_domain'),
+    label: __('Loop', 'ghostkit'),
   },
 };
 
@@ -48,11 +48,11 @@ function EffectsProTools() {
     <>
       {selected && (
         <div style={{ gridColumn: '1 / -1' }}>
-          <ProNote title={__('Advanced Effects', '@@text_domain')}>
+          <ProNote title={__('Advanced Effects', 'ghostkit')}>
             <p>
               {__(
                 'Advanced effects are available in the Ghost Kit Pro plugin only.',
-                '@@text_domain'
+                'ghostkit'
               )}
             </p>
             <ProNote.Button
@@ -60,7 +60,7 @@ function EffectsProTools() {
               rel="noopener noreferrer"
               href="https://ghostkit.io/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=@@plugin_version"
             >
-              {__('Read More', '@@text_domain')}
+              {__('Read More', 'ghostkit')}
             </ProNote.Button>
           </ProNote>
         </div>

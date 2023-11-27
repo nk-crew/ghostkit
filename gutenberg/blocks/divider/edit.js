@@ -46,28 +46,28 @@ export default function BlockEdit(props) {
         <ToolbarGroup>
           <ToolbarDropdownMenu
             icon={getIcon('border-solid')}
-            label={__('Type', '@@text_domain')}
+            label={__('Type', 'ghostkit')}
             controls={[
               {
-                label: __('Line', '@@text_domain'),
+                label: __('Line', 'ghostkit'),
                 icon: getIcon('border-solid'),
                 isActive: type === 'solid',
                 onClick: () => setAttributes({ type: 'solid' }),
               },
               {
-                label: __('Dashed', '@@text_domain'),
+                label: __('Dashed', 'ghostkit'),
                 icon: getIcon('border-dashed'),
                 isActive: type === 'dashed',
                 onClick: () => setAttributes({ type: 'dashed' }),
               },
               {
-                label: __('Dotted', '@@text_domain'),
+                label: __('Dotted', 'ghostkit'),
                 icon: getIcon('border-dotted'),
                 isActive: type === 'dotted',
                 onClick: () => setAttributes({ type: 'dotted' }),
               },
               {
-                label: __('Double', '@@text_domain'),
+                label: __('Double', 'ghostkit'),
                 icon: getIcon('border-double'),
                 isActive: type === 'double',
                 onClick: () => setAttributes({ type: 'double' }),
@@ -79,30 +79,30 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <SelectControl
-            label={__('Type', '@@text_domain')}
+            label={__('Type', 'ghostkit')}
             value={type}
             options={[
               {
                 value: 'solid',
-                label: __('Line', '@@text_domain'),
+                label: __('Line', 'ghostkit'),
               },
               {
                 value: 'dashed',
-                label: __('Dashed', '@@text_domain'),
+                label: __('Dashed', 'ghostkit'),
               },
               {
                 value: 'dotted',
-                label: __('Dotted', '@@text_domain'),
+                label: __('Dotted', 'ghostkit'),
               },
               {
                 value: 'double',
-                label: __('Double', '@@text_domain'),
+                label: __('Double', 'ghostkit'),
               },
             ]}
             onChange={(value) => setAttributes({ type: value })}
           />
           <RangeControl
-            label={__('Size', '@@text_domain')}
+            label={__('Size', 'ghostkit')}
             value={size}
             onChange={(value) => setAttributes({ size: value })}
             min={1}
@@ -114,14 +114,14 @@ export default function BlockEdit(props) {
         </PanelBody>
         <PanelBody>
           <IconPicker
-            label={__('Icon', '@@text_domain')}
+            label={__('Icon', 'ghostkit')}
             value={icon}
             onChange={(value) => setAttributes({ icon: value })}
             insideInspector
           />
           {icon ? (
             <RangeControl
-              label={__('Icon Size', '@@text_domain')}
+              label={__('Icon Size', 'ghostkit')}
               value={iconSize}
               onChange={(value) => setAttributes({ iconSize: value })}
               min={10}
@@ -137,7 +137,7 @@ export default function BlockEdit(props) {
         <PanelBody
           title={
             <>
-              {__('Colors', '@@text_domain')}
+              {__('Colors', 'ghostkit')}
               <ColorIndicator colorValue={color} />
               {icon ? <ColorIndicator colorValue={iconColor} /> : ''}
             </>
@@ -149,12 +149,12 @@ export default function BlockEdit(props) {
             tabs={[
               {
                 name: 'normal',
-                title: __('Normal', '@@text_domain'),
+                title: __('Normal', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
               {
                 name: 'hover',
-                title: __('Hover', '@@text_domain'),
+                title: __('Hover', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
             ]}
@@ -169,7 +169,7 @@ export default function BlockEdit(props) {
                     props={props}
                   >
                     <ColorPicker
-                      label={__('Divider', '@@text_domain')}
+                      label={__('Divider', 'ghostkit')}
                       value={isHover ? hoverColor : color}
                       onChange={(val) =>
                         setAttributes(isHover ? { hoverColor: val } : { color: val })
@@ -184,7 +184,7 @@ export default function BlockEdit(props) {
                       props={props}
                     >
                       <ColorPicker
-                        label={__('Icon', '@@text_domain')}
+                        label={__('Icon', 'ghostkit')}
                         value={isHover ? hoverIconColor : iconColor}
                         onChange={(val) =>
                           setAttributes(isHover ? { hoverIconColor: val } : { iconColor: val })

@@ -37,7 +37,7 @@ function PositionHeightTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Height', '@@text_domain')}
+      label={__('Height', 'ghostkit')}
       hasValue={() => !!hasHeight}
       onDeselect={() => {
         resetStyles(['height'], true);
@@ -47,7 +47,7 @@ function PositionHeightTools(props) {
       <UnitControl
         label={
           <>
-            {__('Height', '@@text_domain')}
+            {__('Height', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('height', checkMedia);

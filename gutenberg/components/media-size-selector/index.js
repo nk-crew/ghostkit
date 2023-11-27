@@ -75,7 +75,7 @@ export default function MediaSizeSelector(props) {
       {/* Aspect ratio. */}
       {hasAspectRatio && (
         <SelectControl
-          label={__('Aspect Ratio', '@@text_domain')}
+          label={__('Aspect Ratio', 'ghostkit')}
           value={customAspectRatio || aspectRatio}
           onChange={handleAspectRatioChange}
           options={options}
@@ -87,14 +87,14 @@ export default function MediaSizeSelector(props) {
           <div style={{ display: 'flex', gap: 10 }}>
             <UnitControl
               value={width}
-              placeholder={__('Auto', '@@text_domain')}
-              label={__('Width', '@@text_domain')}
+              placeholder={__('Auto', 'ghostkit')}
+              label={__('Width', 'ghostkit')}
               onChange={handleWidthChange}
             />
             <UnitControl
               value={height}
-              placeholder={__('Auto', '@@text_domain')}
-              label={__('Height', '@@text_domain')}
+              placeholder={__('Auto', 'ghostkit')}
+              label={__('Height', 'ghostkit')}
               onChange={handleHeightChange}
             />
           </div>
@@ -104,8 +104,8 @@ export default function MediaSizeSelector(props) {
       {/* Resolution. */}
       {resolution && editorSettings?.imageSizes ? (
         <SelectControl
-          label={__('Resolution', '@@text_domain')}
-          help={__('Select the size of the source image.', '@@text_domain')}
+          label={__('Resolution', 'ghostkit')}
+          help={__('Select the size of the source image.', 'ghostkit')}
           value={resolution}
           onChange={onChangeResolution}
           options={editorSettings.imageSizes.map((imgSize) => ({

@@ -172,20 +172,20 @@ function BackgroundControlsInspector(props) {
   });
 
   return (
-    <PanelBody title={__('Background', '@@text_domain')} initialOpen={false}>
+    <PanelBody title={__('Background', 'ghostkit')} initialOpen={false}>
       <ToggleGroup
         value={type === 'video' || type === 'yt_vm_video' ? 'yt_vm_video' : type}
         options={[
           {
-            label: __('Color', '@@text_domain'),
+            label: __('Color', 'ghostkit'),
             value: 'color',
           },
           {
-            label: __('Image', '@@text_domain'),
+            label: __('Image', 'ghostkit'),
             value: 'image',
           },
           {
-            label: __('Video', '@@text_domain'),
+            label: __('Video', 'ghostkit'),
             value: 'yt_vm_video',
           },
         ]}
@@ -195,7 +195,7 @@ function BackgroundControlsInspector(props) {
       />
 
       {type === 'image' ? (
-        <PanelBody title={__('Image', '@@text_domain')} initialOpen={type === 'image'}>
+        <PanelBody title={__('Image', 'ghostkit')} initialOpen={type === 'image'}>
           {/* Select Image */}
           {!image || !imageTag ? (
             <MediaUpload
@@ -206,7 +206,7 @@ function BackgroundControlsInspector(props) {
               value={image}
               render={({ open }) => (
                 <Button onClick={open} isPrimary>
-                  {__('Select image', '@@text_domain')}
+                  {__('Select image', 'ghostkit')}
                 </Button>
               )}
             />
@@ -223,7 +223,7 @@ function BackgroundControlsInspector(props) {
               />
               {imageSizes ? (
                 <SelectControl
-                  label={__('Size', '@@text_domain')}
+                  label={__('Size', 'ghostkit')}
                   value={imageSize}
                   options={(() => {
                     const result = [];
@@ -241,19 +241,19 @@ function BackgroundControlsInspector(props) {
                 ''
               )}
               <SelectControl
-                label={__('Background size', '@@text_domain')}
+                label={__('Background size', 'ghostkit')}
                 value={imageBackgroundSize}
                 options={[
                   {
-                    label: __('Cover', '@@text_domain'),
+                    label: __('Cover', 'ghostkit'),
                     value: 'cover',
                   },
                   {
-                    label: __('Contain', '@@text_domain'),
+                    label: __('Contain', 'ghostkit'),
                     value: 'contain',
                   },
                   {
-                    label: __('Pattern', '@@text_domain'),
+                    label: __('Pattern', 'ghostkit'),
                     value: 'pattern',
                   },
                 ]}
@@ -270,7 +270,7 @@ function BackgroundControlsInspector(props) {
                   e.preventDefault();
                 }}
               >
-                {__('Remove image', '@@text_domain')}
+                {__('Remove image', 'ghostkit')}
               </Button>
             </Fragment>
           ) : (
@@ -283,7 +283,7 @@ function BackgroundControlsInspector(props) {
 
       {type === 'color' ? (
         <ColorPicker
-          label={__('Background Color', '@@text_domain')}
+          label={__('Background Color', 'ghostkit')}
           value={color}
           onChange={(val) => setAttributes({ color: val })}
           alpha
@@ -292,14 +292,14 @@ function BackgroundControlsInspector(props) {
         <PanelBody
           title={
             <Fragment>
-              {__('Overlay', '@@text_domain')}
+              {__('Overlay', 'ghostkit')}
               <ColorIndicator colorValue={color} />
             </Fragment>
           }
           initialOpen={type === 'color'}
         >
           <ColorPicker
-            label={__('Background Color', '@@text_domain')}
+            label={__('Background Color', 'ghostkit')}
             value={color}
             onChange={(val) => setAttributes({ color: val })}
             alpha
@@ -310,14 +310,14 @@ function BackgroundControlsInspector(props) {
       <p>
         {__(
           'Install AWB plugin to set video backgrounds and images with parallax support.',
-          '@@text_domain'
+          'ghostkit'
         )}
       </p>
       <ExternalLink
         className="components-button is-button is-secondary is-small"
         href="https://wordpress.org/plugins/advanced-backgrounds/"
       >
-        {__('Install', '@@text_domain')}
+        {__('Install', 'ghostkit')}
       </ExternalLink>
     </PanelBody>
   );

@@ -227,7 +227,7 @@ export default class Blocks extends Component {
           )}
           {block.ghostkit && block.ghostkit.previewUrl ? (
             <div className="ghostkit-settings-blocks-item-preview-url">
-              <a href={block.ghostkit.previewUrl}>{__('Preview', '@@text_domain')}</a>
+              <a href={block.ghostkit.previewUrl}>{__('Preview', 'ghostkit')}</a>
             </div>
           ) : (
             ''
@@ -235,8 +235,8 @@ export default class Blocks extends Component {
           <Tooltip
             text={
               this.getDisabledBlock(block)
-                ? __('Enable Block', '@@text_domain')
-                : __('Disable Block', '@@text_domain')
+                ? __('Enable Block', 'ghostkit')
+                : __('Disable Block', 'ghostkit')
             }
           >
             <div className="ghostkit-settings-blocks-item-check">
@@ -280,7 +280,7 @@ export default class Blocks extends Component {
       if (disabledCurrentCount) {
         categoryButton = (
           <Tooltip
-            text={sprintf(__('Disabled Blocks: %s', '@@text_domain'), disabledCurrentCount)}
+            text={sprintf(__('Disabled Blocks: %s', 'ghostkit'), disabledCurrentCount)}
             key="tab-disabled-blocks"
           >
             {categoryButton}
@@ -293,7 +293,7 @@ export default class Blocks extends Component {
 
     if (!count) {
       resultBlocks.push(
-        <Info key="no-blocks">{__('No blocks in selected category.', '@@text_domain')}</Info>
+        <Info key="no-blocks">{__('No blocks in selected category.', 'ghostkit')}</Info>
       );
     }
 
@@ -306,13 +306,13 @@ export default class Blocks extends Component {
           {count ? (
             <div className="ghostkit-settings-blocks-items-head">
               <span className="ghostkit-settings-blocks-items-head-count">
-                {sprintf(__('Blocks: %s', '@@text_domain'), count)}
+                {sprintf(__('Blocks: %s', 'ghostkit'), count)}
               </span>
               <Tooltip
                 text={
                   disabledCount !== count
-                    ? __('Disable All Blocks', '@@text_domain')
-                    : __('Enable All Blocks', '@@text_domain')
+                    ? __('Disable All Blocks', 'ghostkit')
+                    : __('Enable All Blocks', 'ghostkit')
                 }
               >
                 <div

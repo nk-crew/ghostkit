@@ -65,7 +65,7 @@ export default function BlockEdit(props) {
 
     if (typeof gistSimple === 'undefined') {
       // eslint-disable-next-line no-console
-      console.warn(__('Gist Simple plugin is not defined.', '@@text_domain'));
+      console.warn(__('Gist Simple plugin is not defined.', 'ghostkit'));
       return;
     }
 
@@ -124,7 +124,7 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <TextControl
-            label={__('URL', '@@text_domain')}
+            label={__('URL', 'ghostkit')}
             type="url"
             value={sUrl}
             onChange={(val) => urlOnChange(val)}
@@ -135,7 +135,7 @@ export default function BlockEdit(props) {
             }}
           />
           <GistFilesSelect
-            label={__('File', '@@text_domain')}
+            label={__('File', 'ghostkit')}
             url={url}
             value={file}
             onChange={(value) => setAttributes({ file: value })}
@@ -143,17 +143,17 @@ export default function BlockEdit(props) {
         </PanelBody>
         <PanelBody>
           <TextControl
-            label={__('Caption', '@@text_domain')}
+            label={__('Caption', 'ghostkit')}
             value={caption}
             onChange={(value) => setAttributes({ caption: value })}
           />
           <ToggleControl
-            label={__('Show footer', '@@text_domain')}
+            label={__('Show footer', 'ghostkit')}
             checked={!!showFooter}
             onChange={(val) => setAttributes({ showFooter: val })}
           />
           <ToggleControl
-            label={__('Show line numbers', '@@text_domain')}
+            label={__('Show line numbers', 'ghostkit')}
             checked={!!showLineNumbers}
             onChange={(val) => setAttributes({ showLineNumbers: val })}
           />
@@ -164,7 +164,7 @@ export default function BlockEdit(props) {
         {!url ? (
           <Placeholder
             icon={getIcon('block-gist')}
-            label={__('Gist URL', '@@text_domain')}
+            label={__('Gist URL', 'ghostkit')}
             className={className}
           >
             <TextControl
@@ -178,7 +178,7 @@ export default function BlockEdit(props) {
               }}
             />
             <ExternalLink href="https://gist.github.com/">
-              {__('Visit GitHub Gist Site', '@@text_domain')}
+              {__('Visit GitHub Gist Site', 'ghostkit')}
             </ExternalLink>
           </Placeholder>
         ) : null}

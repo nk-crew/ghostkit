@@ -40,7 +40,7 @@ export default function BlockEdit(props) {
   const defaultCustom = (
     <TextControl
       type="number"
-      label={__('Default', '@@text_domain')}
+      label={__('Default', 'ghostkit')}
       value={defaultVal}
       onChange={(val) => setAttributes({ default: val })}
       step={step}
@@ -57,10 +57,10 @@ export default function BlockEdit(props) {
         <PanelBody>
           <FieldDefaultSettings {...props} defaultCustom={defaultCustom} />
         </PanelBody>
-        <PanelBody title={__('Number Settings', '@@text_domain')}>
+        <PanelBody title={__('Number Settings', 'ghostkit')}>
           <TextControl
             type="number"
-            label={__('Min', '@@text_domain')}
+            label={__('Min', 'ghostkit')}
             value={min}
             onChange={(val) => setAttributes({ min: val })}
             step={step}
@@ -68,7 +68,7 @@ export default function BlockEdit(props) {
           />
           <TextControl
             type="number"
-            label={__('Max', '@@text_domain')}
+            label={__('Max', 'ghostkit')}
             value={max}
             onChange={(val) => setAttributes({ max: val })}
             step={step}
@@ -76,7 +76,7 @@ export default function BlockEdit(props) {
           />
           <TextControl
             type="number"
-            label={__('Step', '@@text_domain')}
+            label={__('Step', 'ghostkit')}
             value={step}
             onChange={(val) => setAttributes({ step: val })}
           />

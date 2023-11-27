@@ -162,7 +162,7 @@ export default function BlockEdit(props) {
               >
                 <RichText
                   tagName="span"
-                  placeholder={__('Tab label', '@@text_domain')}
+                  placeholder={__('Tab label', 'ghostkit')}
                   value={title}
                   onFocus={() => setAttributes({ tabActive: slug })}
                   onChange={(value) => {
@@ -172,7 +172,7 @@ export default function BlockEdit(props) {
                 />
                 <RemoveButton
                   show={isSelectedBlockInRoot}
-                  tooltipText={__('Remove tab?', '@@text_domain')}
+                  tooltipText={__('Remove tab?', 'ghostkit')}
                   onRemove={() => {
                     removeTab(i);
                   }}
@@ -181,7 +181,7 @@ export default function BlockEdit(props) {
             );
           })}
           {isSelectedBlockInRoot ? (
-            <Tooltip text={__('Add Tab', '@@text_domain')}>
+            <Tooltip text={__('Add Tab', 'ghostkit')}>
               <Button
                 icon={
                   <svg

@@ -44,11 +44,11 @@ export class Plugin extends Component {
       <Fragment>
         {PluginSidebarMoreMenuItem ? (
           <PluginSidebarMoreMenuItem target="ghostkit">
-            {__('Ghost Kit', '@@text_domain')}
+            {__('Ghost Kit', 'ghostkit')}
           </PluginSidebarMoreMenuItem>
         ) : null}
         {PluginSidebar ? (
-          <PluginSidebar name="ghostkit" title={__('Ghost Kit', '@@text_domain')}>
+          <PluginSidebar name="ghostkit" title={__('Ghost Kit', 'ghostkit')}>
             <PanelBody className="plugin-ghostkit-panel">
               <Button
                 className="plugin-ghostkit-panel-button"
@@ -58,7 +58,7 @@ export class Plugin extends Component {
                 }}
               >
                 {getIcon('plugin-typography')}
-                {__('Typography', '@@text_domain')}
+                {__('Typography', 'ghostkit')}
               </Button>
               <Button
                 className="plugin-ghostkit-panel-button"
@@ -68,7 +68,7 @@ export class Plugin extends Component {
                 }}
               >
                 {getIcon('plugin-custom-code')}
-                {__('CSS & JavaScript', '@@text_domain')}
+                {__('CSS & JavaScript', 'ghostkit')}
               </Button>
               {GHOSTKIT.allowTemplates && (
                 <Button
@@ -79,7 +79,7 @@ export class Plugin extends Component {
                   }}
                 >
                   {getIcon('plugin-templates')}
-                  {__('Templates', '@@text_domain')}
+                  {__('Templates', 'ghostkit')}
                 </Button>
               )}
               {GHOSTKIT.allowPluginColorPalette ? (
@@ -91,7 +91,7 @@ export class Plugin extends Component {
                   }}
                 >
                   {getIcon('plugin-color-palette')}
-                  {__('Color Palette', '@@text_domain')}
+                  {__('Color Palette', 'ghostkit')}
                 </Button>
               ) : null}
               {GHOSTKIT.allowPluginCustomizer ? (
@@ -103,7 +103,7 @@ export class Plugin extends Component {
                   }}
                 >
                   {getIcon('plugin-customizer')}
-                  {__('Customizer', '@@text_domain')}
+                  {__('Customizer', 'ghostkit')}
                 </Button>
               ) : null}
             </PanelBody>

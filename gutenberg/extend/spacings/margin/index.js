@@ -40,7 +40,7 @@ function SpacingsMarginTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Margin', '@@text_domain')}
+      label={__('Margin', 'ghostkit')}
       hasValue={() => !!hasMargin}
       onDeselect={() => {
         resetStyles(allMargins, true);
@@ -50,7 +50,7 @@ function SpacingsMarginTools(props) {
       <BaseControl
         label={
           <>
-            {__('Margin', '@@text_domain')}
+            {__('Margin', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 let isActive = false;
@@ -68,17 +68,17 @@ function SpacingsMarginTools(props) {
       >
         <div>
           {allMargins.map((marginName) => {
-            let label = __('Top', '@@text_domain');
+            let label = __('Top', 'ghostkit');
 
             switch (marginName) {
               case 'margin-right':
-                label = __('Right', '@@text_domain');
+                label = __('Right', 'ghostkit');
                 break;
               case 'margin-bottom':
-                label = __('Bottom', '@@text_domain');
+                label = __('Bottom', 'ghostkit');
                 break;
               case 'margin-left':
-                label = __('Left', '@@text_domain');
+                label = __('Left', 'ghostkit');
                 break;
               // no default
             }

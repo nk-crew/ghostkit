@@ -40,7 +40,7 @@ export default function BlockEdit(props) {
   const defaultCustom = (
     <TextControl
       type="date"
-      label={__('Default', '@@text_domain')}
+      label={__('Default', 'ghostkit')}
       value={defaultVal}
       onChange={(val) => setAttributes({ default: val })}
       max={max}
@@ -56,17 +56,17 @@ export default function BlockEdit(props) {
         <PanelBody>
           <FieldDefaultSettings {...props} defaultCustom={defaultCustom} />
         </PanelBody>
-        <PanelBody title={__('Date Settings', '@@text_domain')}>
+        <PanelBody title={__('Date Settings', 'ghostkit')}>
           <TextControl
             type="date"
-            label={__('Min', '@@text_domain')}
+            label={__('Min', 'ghostkit')}
             value={min}
             onChange={(val) => setAttributes({ min: val })}
             max={max}
           />
           <TextControl
             type="date"
-            label={__('Max', '@@text_domain')}
+            label={__('Max', 'ghostkit')}
             value={max}
             onChange={(val) => setAttributes({ max: val })}
             min={min}

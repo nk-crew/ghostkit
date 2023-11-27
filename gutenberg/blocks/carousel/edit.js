@@ -129,9 +129,9 @@ export default function BlockEdit(props) {
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__('Settings', '@@text_domain')}>
+        <PanelBody title={__('Settings', 'ghostkit')}>
           <RangeControl
-            label={__('Slides', '@@text_domain')}
+            label={__('Slides', 'ghostkit')}
             value={slidesCount}
             onChange={updateSlidesCount}
             min={2}
@@ -141,7 +141,7 @@ export default function BlockEdit(props) {
           {effect !== 'fade' ? (
             <>
               <RangeControl
-                label={__('Slides per view', '@@text_domain')}
+                label={__('Slides per view', 'ghostkit')}
                 value={slidesPerView}
                 onChange={(value) => setAttributes({ slidesPerView: value })}
                 min={1}
@@ -149,7 +149,7 @@ export default function BlockEdit(props) {
                 allowCustomMax
               />
               <RangeControl
-                label={__('Gap', '@@text_domain')}
+                label={__('Gap', 'ghostkit')}
                 value={gap}
                 onChange={(value) => setAttributes({ gap: value })}
                 min={0}
@@ -161,20 +161,20 @@ export default function BlockEdit(props) {
             false
           )}
           <ToggleGroup
-            label={__('Effect', '@@text_domain')}
+            label={__('Effect', 'ghostkit')}
             value={effect}
             options={[
               {
                 value: 'slide',
-                label: __('Slide', '@@text_domain'),
+                label: __('Slide', 'ghostkit'),
               },
               {
                 value: 'coverflow',
-                label: __('Coverflow', '@@text_domain'),
+                label: __('Coverflow', 'ghostkit'),
               },
               {
                 value: 'fade',
-                label: __('Fade', '@@text_domain'),
+                label: __('Fade', 'ghostkit'),
               },
             ]}
             onChange={(value) => {
@@ -186,7 +186,7 @@ export default function BlockEdit(props) {
           <div style={{ borderTop: '1px solid #E0E0E0', marginBottom: '16px' }} />
 
           <RangeControl
-            label={__('Speed (seconds)', '@@text_domain')}
+            label={__('Speed (seconds)', 'ghostkit')}
             suffix="s&nbsp;"
             value={speed}
             onChange={(value) => setAttributes({ speed: value })}
@@ -196,7 +196,7 @@ export default function BlockEdit(props) {
             allowCustomMax
           />
           <RangeControl
-            label={__('Autoplay (seconds)', '@@text_domain')}
+            label={__('Autoplay (seconds)', 'ghostkit')}
             value={autoplay}
             onChange={(value) => setAttributes({ autoplay: value })}
             min={0}
@@ -206,7 +206,7 @@ export default function BlockEdit(props) {
           />
           {autoplay ? (
             <ToggleControl
-              label={__('Pause autoplay on mouse over', '@@text_domain')}
+              label={__('Pause autoplay on mouse over', 'ghostkit')}
               checked={!!autoplayHoverPause}
               onChange={(val) => setAttributes({ autoplayHoverPause: val })}
             />
@@ -215,28 +215,28 @@ export default function BlockEdit(props) {
           <div style={{ borderTop: '1px solid #E0E0E0', marginBottom: '16px' }} />
 
           <ToggleControl
-            label={__('Centered Slides', '@@text_domain')}
+            label={__('Centered Slides', 'ghostkit')}
             checked={!!centeredSlides}
             onChange={(val) => setAttributes({ centeredSlides: val })}
           />
           <ToggleControl
-            label={__('Loop', '@@text_domain')}
+            label={__('Loop', 'ghostkit')}
             checked={!!loop}
             onChange={(val) => setAttributes({ loop: val })}
           />
           <ToggleControl
-            label={__('Free Scroll', '@@text_domain')}
+            label={__('Free Scroll', 'ghostkit')}
             checked={!!freeScroll}
             onChange={(val) => setAttributes({ freeScroll: val })}
           />
           <ToggleControl
-            label={__('Fade Edges', '@@text_domain')}
+            label={__('Fade Edges', 'ghostkit')}
             checked={!!fadeEdges}
             onChange={(val) => setAttributes({ fadeEdges: val })}
           />
           {fadeEdges && (
             <NumberControl
-              label={__('Fade Edges Size', '@@text_domain')}
+              label={__('Fade Edges Size', 'ghostkit')}
               suffix="%&nbsp;"
               value={fadeEdgesSize}
               onChange={(val) => setAttributes({ fadeEdgesSize: parseFloat(val) })}
@@ -248,22 +248,22 @@ export default function BlockEdit(props) {
             />
           )}
         </PanelBody>
-        <PanelBody title={__('Arrow', '@@text_domain')}>
+        <PanelBody title={__('Arrow', 'ghostkit')}>
           <ToggleControl
-            label={__('Show', '@@text_domain')}
+            label={__('Show', 'ghostkit')}
             checked={!!showArrows}
             onChange={(val) => setAttributes({ showArrows: val })}
           />
           {showArrows ? (
             <>
               <IconPicker
-                label={__('Prev icon', '@@text_domain')}
+                label={__('Prev icon', 'ghostkit')}
                 value={arrowPrevIcon}
                 onChange={(value) => setAttributes({ arrowPrevIcon: value })}
                 insideInspector
               />
               <IconPicker
-                label={__('Next icon', '@@text_domain')}
+                label={__('Next icon', 'ghostkit')}
                 value={arrowNextIcon}
                 onChange={(value) => setAttributes({ arrowNextIcon: value })}
                 insideInspector
@@ -273,15 +273,15 @@ export default function BlockEdit(props) {
             ''
           )}
         </PanelBody>
-        <PanelBody title={__('Bullets', '@@text_domain')}>
+        <PanelBody title={__('Bullets', 'ghostkit')}>
           <ToggleControl
-            label={__('Show', '@@text_domain')}
+            label={__('Show', 'ghostkit')}
             checked={!!showBullets}
             onChange={(val) => setAttributes({ showBullets: val })}
           />
           {showBullets ? (
             <ToggleControl
-              label={__('Dynamic', '@@text_domain')}
+              label={__('Dynamic', 'ghostkit')}
               checked={!!dynamicBullets}
               onChange={(val) => setAttributes({ dynamicBullets: val })}
             />

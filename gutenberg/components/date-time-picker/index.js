@@ -32,7 +32,7 @@ export default function DateTimePicker(props) {
                 settings.timezone.string ||
                 `UTC${settings.timezone.offset}`
               }`
-            : __('Select Date', '@@text_domain')}
+            : __('Select Date', 'ghostkit')}
         </Button>
         {isPickerOpen ? (
           <Popover

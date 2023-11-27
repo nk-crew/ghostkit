@@ -68,7 +68,7 @@ class Customizer extends Component {
       label += (label ? ' > ' : '') + opt.section.title;
     }
 
-    label = label || __('Uncategorized', '@@text_domain');
+    label = label || __('Uncategorized', 'ghostkit');
     slug = slug || 'uncategorized';
 
     return {
@@ -233,7 +233,7 @@ class Customizer extends Component {
         className="ghostkit-plugin-customizer-modal"
         position="top"
         size="md"
-        title={__('Customizer', '@@text_domain')}
+        title={__('Customizer', 'ghostkit')}
         onRequestClose={() => {
           updateMeta({ ghostkit_customizer_options: encodeURI(JSON.stringify(options)) });
           onRequestClose();
@@ -250,7 +250,7 @@ class Customizer extends Component {
         {Array.isArray(customizerOptionsSelect) && customizerOptionsSelect.length ? (
           <Fragment>
             <p className="ghostkit-help-text">
-              {__('Override Customizer options for the current post.', '@@text_domain')}
+              {__('Override Customizer options for the current post.', 'ghostkit')}
             </p>
             <Select
               value=""
@@ -260,7 +260,7 @@ class Customizer extends Component {
                 });
               }}
               options={customizerOptionsSelect}
-              placeholder={__('--- Select Option ---', '@@text_domain')}
+              placeholder={__('--- Select Option ---', 'ghostkit')}
               menuPosition="fixed"
               grouped
             />
@@ -270,9 +270,9 @@ class Customizer extends Component {
         )}
         {Array.isArray(customizerOptionsSelect) && !customizerOptionsSelect.length ? (
           <div className="ghostkit-customizer-info">
-            {__('No customizer options found. You can manually open ', '@@text_domain')}
-            <strong>{__('Appearance > Customize', '@@text_domain')}</strong>
-            {__(', and the list will be available here.', '@@text_domain')}
+            {__('No customizer options found. You can manually open ', 'ghostkit')}
+            <strong>{__('Appearance > Customize', 'ghostkit')}</strong>
+            {__(', and the list will be available here.', 'ghostkit')}
           </div>
         ) : (
           ''
@@ -391,7 +391,7 @@ class Customizer extends Component {
                     <small className="ghostkit-customizer-list-info-id">{opt.id}</small>
                     {opt.default || typeof opt.default === 'boolean' ? (
                       <small className="ghostkit-customizer-list-info-default">
-                        {__('Default:', '@@text_domain')}{' '}
+                        {__('Default:', 'ghostkit')}{' '}
                         <span>
                           {typeof opt.default === 'boolean' ? opt.default.toString() : opt.default}
                         </span>
@@ -466,7 +466,7 @@ export class Plugin extends Component {
               this.setState({ isModalOpen: true });
             }}
           >
-            {__('Customizer', '@@text_domain')}
+            {__('Customizer', 'ghostkit')}
           </PluginMoreMenuItem>
         ) : null}
         {isModalOpen ? (

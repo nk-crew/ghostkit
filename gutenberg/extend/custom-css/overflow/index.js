@@ -40,7 +40,7 @@ function CustomCSSOverflowTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Overflow', '@@text_domain')}
+      label={__('Overflow', 'ghostkit')}
       hasValue={() => !!hasOverflow}
       onSelect={() => {
         if (!hasStyle('overflow-x') || !hasStyle('overflow-y')) {
@@ -58,7 +58,7 @@ function CustomCSSOverflowTools(props) {
       <BaseControl
         label={
           <>
-            {__('Overflow', '@@text_domain')}
+            {__('Overflow', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('overflow-x', checkMedia) || hasStyle('overflow-y', checkMedia);
@@ -69,7 +69,7 @@ function CustomCSSOverflowTools(props) {
       >
         <Grid columns={2}>
           <SelectControl
-            help={__('X', '@@text_domain')}
+            help={__('X', 'ghostkit')}
             value={getStyle('overflow-x', device)}
             onChange={(val) => {
               setStyles({ 'overflow-x': val }, device);
@@ -77,28 +77,28 @@ function CustomCSSOverflowTools(props) {
             options={[
               {
                 value: 'hidden',
-                label: __('Hidden', '@@text_domain'),
+                label: __('Hidden', 'ghostkit'),
               },
               {
                 value: 'visible',
-                label: __('Visible', '@@text_domain'),
+                label: __('Visible', 'ghostkit'),
               },
               {
                 value: 'clip',
-                label: __('Clip', '@@text_domain'),
+                label: __('Clip', 'ghostkit'),
               },
               {
                 value: 'scroll',
-                label: __('Scroll', '@@text_domain'),
+                label: __('Scroll', 'ghostkit'),
               },
               {
                 value: 'auto',
-                label: __('Auto', '@@text_domain'),
+                label: __('Auto', 'ghostkit'),
               },
             ]}
           />
           <SelectControl
-            help={__('Y', '@@text_domain')}
+            help={__('Y', 'ghostkit')}
             value={getStyle('overflow-y', device)}
             onChange={(val) => {
               setStyles({ 'overflow-y': val }, device);
@@ -106,23 +106,23 @@ function CustomCSSOverflowTools(props) {
             options={[
               {
                 value: 'hidden',
-                label: __('Hidden', '@@text_domain'),
+                label: __('Hidden', 'ghostkit'),
               },
               {
                 value: 'visible',
-                label: __('Visible', '@@text_domain'),
+                label: __('Visible', 'ghostkit'),
               },
               {
                 value: 'clip',
-                label: __('Clip', '@@text_domain'),
+                label: __('Clip', 'ghostkit'),
               },
               {
                 value: 'scroll',
-                label: __('Scroll', '@@text_domain'),
+                label: __('Scroll', 'ghostkit'),
               },
               {
                 value: 'auto',
-                label: __('Auto', '@@text_domain'),
+                label: __('Auto', 'ghostkit'),
               },
             ]}
           />

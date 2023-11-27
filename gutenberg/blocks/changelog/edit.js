@@ -43,21 +43,21 @@ export default function BlockEdit(props) {
             values: [
               <li key="list-item-1">
                 <span className="ghostkit-badge" style={{ backgroundColor: '#4ab866' }}>
-                  {__('Added', '@@text_domain')}
+                  {__('Added', 'ghostkit')}
                 </span>
-                {__('Something', '@@text_domain')}
+                {__('Something', 'ghostkit')}
               </li>,
               <li key="list-item-2">
                 <span className="ghostkit-badge" style={{ backgroundColor: '#0366d6' }}>
-                  {__('Fixed', '@@text_domain')}
+                  {__('Fixed', 'ghostkit')}
                 </span>
-                {__('Something', '@@text_domain')}
+                {__('Something', 'ghostkit')}
               </li>,
               <li key="list-item-3">
                 <span className="ghostkit-badge" style={{ backgroundColor: '#0366d6' }}>
-                  {__('Improved', '@@text_domain')}
+                  {__('Improved', 'ghostkit')}
                 </span>
-                {__('Something', '@@text_domain')}
+                {__('Something', 'ghostkit')}
               </li>,
             ],
           },
@@ -72,7 +72,7 @@ export default function BlockEdit(props) {
         <RichText
           inlineToolbar
           tagName="span"
-          placeholder={__('1.0.0', '@@text_domain')}
+          placeholder={__('1.0.0', 'ghostkit')}
           value={version}
           onChange={(value) => setAttributes({ version: value })}
         />
@@ -81,7 +81,7 @@ export default function BlockEdit(props) {
         <RichText
           inlineToolbar
           tagName="h2"
-          placeholder={__('18 September 2019', '@@text_domain')}
+          placeholder={__('18 September 2019', 'ghostkit')}
           value={date}
           onChange={(value) => setAttributes({ date: value })}
           style={{ margin: 0 }}

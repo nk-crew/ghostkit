@@ -15,10 +15,10 @@ class GhostKit_Reusable_Widget extends WP_Widget {
     public function __construct() {
         parent::__construct(
             'ghostkit_reusable_widget',
-            esc_html__( 'Reusable Block', '@@text_domain' ),
+            esc_html__( 'Reusable Block', 'ghostkit' ),
             array(
                 'classname'   => 'ghostkit-reusable-widget',
-                'description' => esc_html__( 'Display Gutenberg Reusable Blocks.', '@@text_domain' ),
+                'description' => esc_html__( 'Display Gutenberg Reusable Blocks.', 'ghostkit' ),
             )
         );
     }
@@ -79,7 +79,7 @@ class GhostKit_Reusable_Widget extends WP_Widget {
         ?>
 
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', '@@text_domain' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'ghostkit' ); ?></label>
             <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
         </p>
 
@@ -87,9 +87,9 @@ class GhostKit_Reusable_Widget extends WP_Widget {
         if ( ! empty( $blocks ) ) {
             ?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'block' ) ); ?>"><?php echo esc_attr__( 'Select Block:', '@@text_domain' ); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'block' ) ); ?>"><?php echo esc_attr__( 'Select Block:', 'ghostkit' ); ?></label>
                 <select class="widefat gkt-reusable-block-select" id="<?php echo esc_attr( $this->get_field_id( 'block' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'block' ) ); ?>">
-                    <option value="" disabled <?php selected( '', $selected_block ); ?>><?php echo esc_html__( '--- Select block ---', '@@text_domain' ); ?></option>
+                    <option value="" disabled <?php selected( '', $selected_block ); ?>><?php echo esc_html__( '--- Select block ---', 'ghostkit' ); ?></option>
                     <?php
                     foreach ( $blocks as $block ) {
                         ?>
@@ -104,15 +104,15 @@ class GhostKit_Reusable_Widget extends WP_Widget {
             <?php
         } else {
             ?>
-            <p><?php echo esc_attr__( 'No reusable blocks found.', '@@text_domain' ); ?></p>
+            <p><?php echo esc_attr__( 'No reusable blocks found.', 'ghostkit' ); ?></p>
             <?php
         }
         ?>
         <p class="gkt-reusable-block-edit-button" style="display: none" data-admin-url="<?php echo esc_url( get_admin_url() ); ?>">
-            <label for="<?php echo esc_attr( $this->get_field_id( 'edit_button' ) ); ?>"><?php esc_attr_e( 'Edit:', '@@text_domain' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'edit_button' ) ); ?>"><?php esc_attr_e( 'Edit:', 'ghostkit' ); ?></label>
             <br>
             <a class="button" id="<?php echo esc_attr( $this->get_field_id( 'edit_button' ) ); ?>" href="" target="_blank">
-                <?php esc_attr_e( 'Edit Reusable Block', '@@text_domain' ); ?>
+                <?php esc_attr_e( 'Edit Reusable Block', 'ghostkit' ); ?>
             </a>
         </p>
         <?php

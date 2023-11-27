@@ -7,5 +7,5 @@ import { registerBlockStyle } from '@wordpress/blocks';
 
 registerBlockStyle('core/heading', {
   name: 'numbered',
-  label: __('Numbered', '@@text_domain'),
+  label: __('Numbered', 'ghostkit'),
 });

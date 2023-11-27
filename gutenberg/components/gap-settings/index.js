@@ -27,24 +27,24 @@ export default function GapSettings(props) {
   const { gap, gapCustom, gapVerticalCustom, allowVerticalGap, onChange } = props;
 
   return (
-    <BaseControl label={__('Gap', '@@text_domain')} className="ghostkit-components-gap-settings">
+    <BaseControl label={__('Gap', 'ghostkit')} className="ghostkit-components-gap-settings">
       <ToggleGroup
         value={gap}
         options={[
           {
-            label: __('None', '@@text_domain'),
+            label: __('None', 'ghostkit'),
             value: 'no',
           },
           {
-            label: __('S', '@@text_domain'),
+            label: __('S', 'ghostkit'),
             value: 'sm',
           },
           {
-            label: __('M', '@@text_domain'),
+            label: __('M', 'ghostkit'),
             value: 'md',
           },
           {
-            label: __('L', '@@text_domain'),
+            label: __('L', 'ghostkit'),
             value: 'lg',
           },
           {
@@ -90,7 +90,7 @@ export default function GapSettings(props) {
         <div className="ghostkit-components-gap-settings-custom">
           <TextControl
             type="number"
-            help={allowVerticalGap ? __('Horizontal', '@@text_domain') : ''}
+            help={allowVerticalGap ? __('Horizontal', 'ghostkit') : ''}
             value={gapCustom}
             onChange={(value) =>
               onChange({ gapCustom: value === '' ? undefined : parseFloat(value) })
@@ -100,7 +100,7 @@ export default function GapSettings(props) {
           {allowVerticalGap ? (
             <TextControl
               type="number"
-              help={__('Vertical', '@@text_domain')}
+              help={__('Vertical', 'ghostkit')}
               placeholder={gapCustom}
               value={gapVerticalCustom}
               onChange={(value) =>

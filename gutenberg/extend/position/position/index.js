@@ -36,7 +36,7 @@ function PositionPositionTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Position', '@@text_domain')}
+      label={__('Position', 'ghostkit')}
       hasValue={() => !!hasPosition}
       onSelect={() => {
         if (!hasStyle('position')) {
@@ -53,7 +53,7 @@ function PositionPositionTools(props) {
           <Notice status="info" isDismissible={false}>
             {__(
               'Please note! Custom positioning is not considered best practice for responsive web design and should not be used too frequently.',
-              '@@text_domain'
+              'ghostkit'
             )}
           </Notice>
           <br />
@@ -62,7 +62,7 @@ function PositionPositionTools(props) {
       <SelectControl
         label={
           <>
-            {__('Position', '@@text_domain')}
+            {__('Position', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('position', checkMedia);
@@ -77,23 +77,23 @@ function PositionPositionTools(props) {
         options={[
           {
             value: '',
-            label: __('Default', '@@text_domain'),
+            label: __('Default', 'ghostkit'),
           },
           {
             value: 'absolute',
-            label: __('Absolute', '@@text_domain'),
+            label: __('Absolute', 'ghostkit'),
           },
           {
             value: 'fixed',
-            label: __('Fixed', '@@text_domain'),
+            label: __('Fixed', 'ghostkit'),
           },
           {
             value: 'relative',
-            label: __('Relative', '@@text_domain'),
+            label: __('Relative', 'ghostkit'),
           },
           {
             value: 'sticky',
-            label: __('Sticky', '@@text_domain'),
+            label: __('Sticky', 'ghostkit'),
           },
         ]}
       />

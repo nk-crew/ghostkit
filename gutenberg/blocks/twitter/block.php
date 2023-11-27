@@ -168,7 +168,7 @@ class GhostKit_Twitter_Block {
                                         <h2 class="ghostkit-twitter-profile-fullname">
                                             <a href="<?php echo esc_url( $url ); ?>" target="_blank"><?php echo esc_html( $profile['name'] ); ?></a>
                                             <?php if ( $profile['verified'] ) : ?>
-                                                <span class="ghostkit-twitter-profile-verified"><?php echo esc_html__( 'Verified account', '@@text_domain' ); ?></span>
+                                                <span class="ghostkit-twitter-profile-verified"><?php echo esc_html__( 'Verified account', 'ghostkit' ); ?></span>
                                             <?php endif; ?>
                                         </h2>
                                         <h3 class="ghostkit-twitter-profile-username">
@@ -179,13 +179,13 @@ class GhostKit_Twitter_Block {
                                 <?php if ( $attributes['showProfileStats'] ) : ?>
                                     <div class="ghostkit-twitter-profile-stats">
                                         <div>
-                                            <strong><?php echo esc_html( $profile['statuses_count_short'] ); ?></strong> <span><?php echo esc_html__( 'Tweets', '@@text_domain' ); ?></span>
+                                            <strong><?php echo esc_html( $profile['statuses_count_short'] ); ?></strong> <span><?php echo esc_html__( 'Tweets', 'ghostkit' ); ?></span>
                                         </div>
                                         <div>
-                                            <strong><?php echo esc_html( $profile['friends_count_short'] ); ?></strong> <span><?php echo esc_html__( 'Following', '@@text_domain' ); ?></span>
+                                            <strong><?php echo esc_html( $profile['friends_count_short'] ); ?></strong> <span><?php echo esc_html__( 'Following', 'ghostkit' ); ?></span>
                                         </div>
                                         <div>
-                                            <strong><?php echo esc_html( $profile['followers_count_short'] ); ?></strong> <span><?php echo esc_html__( 'Followers', '@@text_domain' ); ?></span>
+                                            <strong><?php echo esc_html( $profile['followers_count_short'] ); ?></strong> <span><?php echo esc_html__( 'Followers', 'ghostkit' ); ?></span>
                                         </div>
                                     </div>
                                 <?php endif; ?>
@@ -242,7 +242,7 @@ class GhostKit_Twitter_Block {
                                                 <a href="https://twitter.com/<?php echo esc_attr( $old_item['user']['screen_name'] ); ?>/" target="_blank">
                                                     <strong><?php echo esc_html( $old_item['user']['name'] ); ?></strong>
                                                 </a>
-                                                <?php echo esc_html__( 'Retweeted', '@@text_domain' ); ?>
+                                                <?php echo esc_html__( 'Retweeted', 'ghostkit' ); ?>
                                             </div>
                                         <?php endif; ?>
                                         <?php if ( $attributes['showFeedName'] || $attributes['showFeedDate'] ) : ?>
@@ -252,7 +252,7 @@ class GhostKit_Twitter_Block {
                                                         <a href="https://twitter.com/<?php echo esc_attr( $item['user']['screen_name'] ); ?>/" target="_blank">
                                                             <strong><?php echo esc_html( $item['user']['name'] ); ?></strong>
                                                             <?php if ( $item['user']['verified'] ) : ?>
-                                                                <span class="ghostkit-twitter-item-meta-name-verified"><?php echo esc_html__( 'Verified account', '@@text_domain' ); ?></span>
+                                                                <span class="ghostkit-twitter-item-meta-name-verified"><?php echo esc_html__( 'Verified account', 'ghostkit' ); ?></span>
                                                             <?php endif; ?>
                                                             <span>@<?php echo esc_html( $item['user']['screen_name'] ); ?></span>
                                                         </a>

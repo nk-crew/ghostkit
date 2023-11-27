@@ -368,7 +368,7 @@ class GhostKit_Fonts {
     public function add_default_site_fonts( $fonts ) {
 
         $fonts['default'] = array(
-            'name'  => __( 'Default Fonts Site', '@@text_domain' ),
+            'name'  => __( 'Default Fonts Site', 'ghostkit' ),
             'fonts' => array(
                 $this->get_default_site_font(),
             ),
@@ -425,7 +425,7 @@ class GhostKit_Fonts {
         $result[] = $this->get_default_site_font();
 
         $fonts['google-fonts'] = array(
-            'name'  => esc_attr__( 'Google Fonts', '@@text_domain' ),
+            'name'  => esc_attr__( 'Google Fonts', 'ghostkit' ),
             'fonts' => $result,
         );
 

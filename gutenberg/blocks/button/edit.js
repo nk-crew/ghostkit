@@ -94,7 +94,7 @@ export default function BlockEdit(props) {
       templateInsertUpdatesSelection: true,
       renderAppender: isSelectedBlockInRoot
         ? () => (
-            <Tooltip text={__('Add Button', '@@text_domain')}>
+            <Tooltip text={__('Add Button', 'ghostkit')}>
               <Button
                 className="block-list-appender__toggle block-editor-button-block-appender"
                 icon={
@@ -139,7 +139,7 @@ export default function BlockEdit(props) {
             }}
             allowVerticalGap
           />
-          <BaseControl label={__('Align', '@@text_domain')}>
+          <BaseControl label={__('Align', 'ghostkit')}>
             <div>
               <BlockAlignmentToolbar
                 value={align}

@@ -96,19 +96,19 @@ export default function BlockEdit(props) {
         <ToolbarGroup>
           <ToolbarButton
             icon={getIcon('icon-vertical-top')}
-            title={__('ItemsVertical Start', '@@text_domain')}
+            title={__('ItemsVertical Start', 'ghostkit')}
             onClick={() => setAttributes({ verticalAlign: '' })}
             isActive={verticalAlign === ''}
           />
           <ToolbarButton
             icon={getIcon('icon-vertical-center')}
-            title={__('ItemsVertical Center', '@@text_domain')}
+            title={__('ItemsVertical Center', 'ghostkit')}
             onClick={() => setAttributes({ verticalAlign: 'center' })}
             isActive={verticalAlign === 'center'}
           />
           <ToolbarButton
             icon={getIcon('icon-vertical-bottom')}
-            title={__('ItemsVertical End', '@@text_domain')}
+            title={__('ItemsVertical End', 'ghostkit')}
             onClick={() => setAttributes({ verticalAlign: 'end' })}
             isActive={verticalAlign === 'end'}
           />
@@ -116,31 +116,31 @@ export default function BlockEdit(props) {
       </BlockControls>
       <InspectorControls>
         <PanelBody>
-          <BaseControl label={__('Vertical align', '@@text_domain')}>
+          <BaseControl label={__('Vertical align', 'ghostkit')}>
             <div>
-              <Toolbar label={__('Vertical align', '@@text_domain')}>
+              <Toolbar label={__('Vertical align', 'ghostkit')}>
                 <ToolbarButton
                   icon={getIcon('icon-vertical-top')}
-                  title={__('ItemsVertical Start', '@@text_domain')}
+                  title={__('ItemsVertical Start', 'ghostkit')}
                   onClick={() => setAttributes({ verticalAlign: '' })}
                   isActive={verticalAlign === ''}
                 />
                 <ToolbarButton
                   icon={getIcon('icon-vertical-center')}
-                  title={__('ItemsVertical Center', '@@text_domain')}
+                  title={__('ItemsVertical Center', 'ghostkit')}
                   onClick={() => setAttributes({ verticalAlign: 'center' })}
                   isActive={verticalAlign === 'center'}
                 />
                 <ToolbarButton
                   icon={getIcon('icon-vertical-bottom')}
-                  title={__('ItemsVertical End', '@@text_domain')}
+                  title={__('ItemsVertical End', 'ghostkit')}
                   onClick={() => setAttributes({ verticalAlign: 'end' })}
                   isActive={verticalAlign === 'end'}
                 />
               </Toolbar>
             </div>
           </BaseControl>
-          <BaseControl label={__('Horizontal align', '@@text_domain')}>
+          <BaseControl label={__('Horizontal align', 'ghostkit')}>
             <div>
               <AlignmentToolbar
                 value={horizontalAlign}
@@ -182,7 +182,7 @@ export default function BlockEdit(props) {
                 insertPricingItem();
               }}
             >
-              {__('Add Pricing Table', '@@text_domain')}
+              {__('Add Pricing Table', 'ghostkit')}
             </Button>
           </div>
         ) : null}

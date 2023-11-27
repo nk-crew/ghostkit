@@ -28,7 +28,7 @@ import { hasBlockSupport } from '@wordpress/blocks';
 const optionPresets = [
   {
     value: '',
-    label: __('Custom', '@@text_domain'),
+    label: __('Custom', 'ghostkit'),
   },
   ...Object.keys(PRESETS).map((value) => {
     return {
@@ -51,7 +51,7 @@ function CustomCSSClipPathTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Clip Path', '@@text_domain')}
+      label={__('Clip Path', 'ghostkit')}
       hasValue={() => !!hasClipPath}
       onSelect={() => {
         if (!hasStyle('clip-path')) {
@@ -66,7 +66,7 @@ function CustomCSSClipPathTools(props) {
       <SelectControl
         label={
           <>
-            {__('Clip Path', '@@text_domain')}
+            {__('Clip Path', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('clip-path', checkMedia);

@@ -50,9 +50,9 @@ export default function BlockEdit(props) {
         <PanelBody>
           <FieldDefaultSettings {...props} />
         </PanelBody>
-        <PanelBody title={__('Email Confirmation', '@@text_domain')}>
+        <PanelBody title={__('Email Confirmation', 'ghostkit')}>
           <ToggleControl
-            label={__('Yes', '@@text_domain')}
+            label={__('Yes', 'ghostkit')}
             checked={emailConfirmation}
             onChange={() => {
               if (emailConfirmation) {
@@ -60,9 +60,9 @@ export default function BlockEdit(props) {
               } else {
                 setAttributes({
                   emailConfirmation: !emailConfirmation,
-                  description: description || __('Email', '@@text_domain'),
+                  description: description || __('Email', 'ghostkit'),
                   descriptionConfirmation:
-                    descriptionConfirmation || __('Confirm Email', '@@text_domain'),
+                    descriptionConfirmation || __('Confirm Email', 'ghostkit'),
                 });
               }
             }}
@@ -70,12 +70,12 @@ export default function BlockEdit(props) {
           {emailConfirmation ? (
             <Fragment>
               <TextControl
-                label={__('Placeholder', '@@text_domain')}
+                label={__('Placeholder', 'ghostkit')}
                 value={placeholderConfirmation}
                 onChange={(val) => setAttributes({ placeholderConfirmation: val })}
               />
               <TextControl
-                label={__('Default', '@@text_domain')}
+                label={__('Default', 'ghostkit')}
                 value={defaultConfirmation}
                 onChange={(val) => setAttributes({ defaultConfirmation: val })}
               />
@@ -109,7 +109,7 @@ export default function BlockEdit(props) {
                 tagName="small"
                 className="ghostkit-form-field-description"
                 value={descriptionConfirmation}
-                placeholder={__('Write description…', '@@text_domain')}
+                placeholder={__('Write description…', 'ghostkit')}
                 onChange={(val) => setAttributes({ descriptionConfirmation: val })}
               />
             </div>

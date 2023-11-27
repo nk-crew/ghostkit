@@ -31,11 +31,11 @@ const TEMPLATE = [
   ['ghostkit/form-field-email', { slug: 'field_email', required: true }],
   [
     'ghostkit/form-field-text',
-    { slug: 'field_subject', label: __('Subject', '@@text_domain'), required: true },
+    { slug: 'field_subject', label: __('Subject', 'ghostkit'), required: true },
   ],
   [
     'ghostkit/form-field-textarea',
-    { slug: 'field_message', label: __('Message', '@@text_domain'), required: true },
+    { slug: 'field_message', label: __('Message', 'ghostkit'), required: true },
   ],
   ['ghostkit/form-submit-button'],
 ];
@@ -201,31 +201,31 @@ export default function BlockEdit(props) {
   return (
     <Fragment>
       <InspectorControls>
-        <PanelBody title={__('Mail', '@@text_domain')}>
+        <PanelBody title={__('Mail', 'ghostkit')}>
           {mailAllow ? (
             <Fragment>
               <TextControl
-                label={__('Send To Email Address', '@@text_domain')}
+                label={__('Send To Email Address', 'ghostkit')}
                 value={mailTo}
                 onChange={(val) => setAttributes({ mailTo: val })}
               />
               <TextControl
-                label={__('Subject', '@@text_domain')}
+                label={__('Subject', 'ghostkit')}
                 value={mailSubject}
                 onChange={(val) => setAttributes({ mailSubject: val })}
               />
               <TextControl
-                label={__('From', '@@text_domain')}
+                label={__('From', 'ghostkit')}
                 value={mailFrom}
                 onChange={(val) => setAttributes({ mailFrom: val })}
               />
               <TextControl
-                label={__('Reply To', '@@text_domain')}
+                label={__('Reply To', 'ghostkit')}
                 value={mailReplyTo}
                 onChange={(val) => setAttributes({ mailReplyTo: val })}
               />
               <TextareaControl
-                label={__('Message', '@@text_domain')}
+                label={__('Message', 'ghostkit')}
                 value={mailMessage}
                 onChange={(val) => setAttributes({ mailMessage: val })}
               />
@@ -234,29 +234,29 @@ export default function BlockEdit(props) {
             ''
           )}
           <BaseControl
-            label={__('Send Email', '@@text_domain')}
+            label={__('Send Email', 'ghostkit')}
             help={__(
               "In case if you don't want to receive email messages from this form, you may disable sending emails functionality."
             )}
           >
             <ToggleControl
-              Label={__('Yes', '@@text_domain')}
+              Label={__('Yes', 'ghostkit')}
               checked={!!mailAllow}
               onChange={() => setAttributes({ mailAllow: !mailAllow })}
             />
           </BaseControl>
         </PanelBody>
-        <PanelBody title={__('Confirmation', '@@text_domain')}>
+        <PanelBody title={__('Confirmation', 'ghostkit')}>
           <ToggleGroup
-            label={__('Type', '@@text_domain')}
+            label={__('Type', 'ghostkit')}
             value={confirmationType}
             options={[
               {
-                label: __('Message', '@@text_domain'),
+                label: __('Message', 'ghostkit'),
                 value: 'message',
               },
               {
-                label: __('Redirect', '@@text_domain'),
+                label: __('Redirect', 'ghostkit'),
                 value: 'redirect',
               },
             ]}
@@ -268,7 +268,7 @@ export default function BlockEdit(props) {
 
           {!confirmationType || confirmationType === 'message' ? (
             <TextareaControl
-              label={__('Message', '@@text_domain')}
+              label={__('Message', 'ghostkit')}
               value={confirmationMessage}
               onChange={(val) => setAttributes({ confirmationMessage: val })}
             />
@@ -277,7 +277,7 @@ export default function BlockEdit(props) {
           )}
           {confirmationType === 'redirect' ? (
             <TextControl
-              label={__('Redirect URL', '@@text_domain')}
+              label={__('Redirect URL', 'ghostkit')}
               value={confirmationRedirect}
               onChange={(val) => setAttributes({ confirmationRedirect: val })}
             />

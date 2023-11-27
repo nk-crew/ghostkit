@@ -49,7 +49,7 @@ export default function BackgroundColor(props) {
             {
               colorValue: videoBackgroundColor,
               gradientValue: videoBackgroundGradient,
-              label: __('Video Background', '@@text_domain'),
+              label: __('Video Background', 'ghostkit'),
               onColorChange: (val) => {
                 setAttributes({ videoBackgroundColor: val });
               },
@@ -76,7 +76,7 @@ export default function BackgroundColor(props) {
             {
               colorValue: fullscreenVideoBackgroundColor,
               gradientValue: fullscreenVideoBackgroundGradient,
-              label: __('Video Fullscreen Background', '@@text_domain'),
+              label: __('Video Fullscreen Background', 'ghostkit'),
               onColorChange: (val) => {
                 setAttributes({ fullscreenVideoBackgroundColor: val });
               },
@@ -103,7 +103,7 @@ export default function BackgroundColor(props) {
             {
               colorValue: fullscreenBackgroundColor,
               gradientValue: fullscreenBackgroundGradient,
-              label: __('Fullscreen Background', '@@text_domain'),
+              label: __('Fullscreen Background', 'ghostkit'),
               onColorChange: (val) => {
                 setAttributes({ fullscreenBackgroundColor: val });
               },

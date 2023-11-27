@@ -71,14 +71,14 @@ export default function BlockEdit(props) {
         <InspectorControls>
           <PanelBody>
             <SelectControl
-              label={__('Play Animation On', '@@text_domain')}
+              label={__('Play Animation On', 'ghostkit')}
               value={trigger}
               options={[
-                { label: __('Page Load', '@@text_domain'), value: '' },
-                { label: __('Viewport', '@@text_domain'), value: 'viewport' },
-                { label: __('Hover', '@@text_domain'), value: 'hover' },
-                { label: __('Click', '@@text_domain'), value: 'click' },
-                { label: __('Scroll', '@@text_domain'), value: 'scroll' },
+                { label: __('Page Load', 'ghostkit'), value: '' },
+                { label: __('Viewport', 'ghostkit'), value: 'viewport' },
+                { label: __('Hover', 'ghostkit'), value: 'hover' },
+                { label: __('Click', 'ghostkit'), value: 'click' },
+                { label: __('Scroll', 'ghostkit'), value: 'scroll' },
               ]}
               onChange={(value) => setAttributes({ trigger: value })}
             />
@@ -93,14 +93,14 @@ export default function BlockEdit(props) {
                   max={10}
                 />
                 <ToggleControl
-                  label={__('Loop', '@@text_domain')}
+                  label={__('Loop', 'ghostkit')}
                   checked={!!loop}
                   onChange={() => setAttributes({ loop: !loop })}
                 />
               </>
             ) : null}
             <ToggleControl
-              label={__('Reverse', '@@text_domain')}
+              label={__('Reverse', 'ghostkit')}
               checked={direction === -1}
               onChange={() => {
                 setAttributes({
@@ -109,7 +109,7 @@ export default function BlockEdit(props) {
               }}
             />
             <UnitControl
-              label={__('Width', '@@text_domain')}
+              label={__('Width', 'ghostkit')}
               value={width}
               onChange={(val) => setAttributes({ width: val })}
               onUnitChange={(unit) => setIsWidthPercent(unit === '%')}
@@ -124,7 +124,7 @@ export default function BlockEdit(props) {
             />
           </PanelBody>
           <PanelBody>
-            <TextControl label={__('Lottie File', '@@text_domain')} value={fileUrl} disabled />
+            <TextControl label={__('Lottie File', 'ghostkit')} value={fileUrl} disabled />
             <Button
               isSecondary
               onClick={() => {
@@ -136,7 +136,7 @@ export default function BlockEdit(props) {
                 });
               }}
             >
-              {__('Clear', '@@text_domain')}
+              {__('Clear', 'ghostkit')}
             </Button>
           </PanelBody>
         </InspectorControls>
@@ -168,8 +168,8 @@ export default function BlockEdit(props) {
           <MediaPlaceholder
             icon="format-image"
             labels={{
-              title: __('Lottie JSON', '@@text_domain'),
-              name: __('lottie', '@@text_domain'),
+              title: __('Lottie JSON', 'ghostkit'),
+              name: __('lottie', 'ghostkit'),
               instructions: __('Upload a JSON file or pick one from your media library.'),
             }}
             onSelect={(file) => {

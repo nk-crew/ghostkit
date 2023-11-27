@@ -44,7 +44,7 @@ function GhostKitExtensionDisplayInspector(original, { props }) {
           label={
             <>
               <span className="ghostkit-ext-icon">{getIcon('extension-display')}</span>
-              <span>{__('Display Conditions', '@@text_domain')}</span>
+              <span>{__('Display Conditions', 'ghostkit')}</span>
             </>
           }
         >

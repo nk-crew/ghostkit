@@ -146,8 +146,8 @@ export default function BlockEdit(props) {
     return (
       <Placeholder
         icon={getIcon('block-grid')}
-        label={__('Advanced Columns', '@@text_domain')}
-        instructions={__('Select one layout to get started.', '@@text_domain')}
+        label={__('Advanced Columns', 'ghostkit')}
+        instructions={__('Select one layout to get started.', 'ghostkit')}
         className="ghostkit-select-layout"
       >
         <div className="ghostkit-grid-layout-preview">
@@ -181,7 +181,7 @@ export default function BlockEdit(props) {
               setIsTemplatesModalOpen(true);
             }}
           >
-            {__('Select Template', '@@text_domain')}
+            {__('Select Template', 'ghostkit')}
           </Button>
         )}
         {isTemplatesModalOpen || props.attributes.isTemplatesModalOnly ? (
@@ -265,19 +265,19 @@ export default function BlockEdit(props) {
           <ToolbarGroup>
             <ToolbarButton
               icon={getIcon('icon-vertical-top')}
-              title={__('Content Vertical Start', '@@text_domain')}
+              title={__('Content Vertical Start', 'ghostkit')}
               onClick={() => setAttributes({ verticalAlign: '' })}
               isActive={verticalAlign === ''}
             />
             <ToolbarButton
               icon={getIcon('icon-vertical-center')}
-              title={__('Content Vertical Center', '@@text_domain')}
+              title={__('Content Vertical Center', 'ghostkit')}
               onClick={() => setAttributes({ verticalAlign: 'center' })}
               isActive={verticalAlign === 'center'}
             />
             <ToolbarButton
               icon={getIcon('icon-vertical-bottom')}
-              title={__('Content Vertical End', '@@text_domain')}
+              title={__('Content Vertical End', 'ghostkit')}
               onClick={() => setAttributes({ verticalAlign: 'end' })}
               isActive={verticalAlign === 'end'}
             />
@@ -288,7 +288,7 @@ export default function BlockEdit(props) {
         <ApplyFilters name="ghostkit.editor.controls" attribute="columns" props={props}>
           <PanelBody>
             <RangeControl
-              label={__('Columns', '@@text_domain')}
+              label={__('Columns', 'ghostkit')}
               value={columnsCount}
               onChange={(value) => updateColumns(value)}
               min={1}
@@ -302,22 +302,22 @@ export default function BlockEdit(props) {
         <InspectorControls>
           <PanelBody>
             <ToggleGroup
-              label={__('Vertical alignment', '@@text_domain')}
+              label={__('Vertical alignment', 'ghostkit')}
               value={verticalAlign}
               options={[
                 {
                   icon: getIcon('icon-vertical-top'),
-                  label: __('Top', '@@text_domain'),
+                  label: __('Top', 'ghostkit'),
                   value: '',
                 },
                 {
                   icon: getIcon('icon-vertical-center'),
-                  label: __('Center', '@@text_domain'),
+                  label: __('Center', 'ghostkit'),
                   value: 'center',
                 },
                 {
                   icon: getIcon('icon-vertical-bottom'),
-                  label: __('Bottom', '@@text_domain'),
+                  label: __('Bottom', 'ghostkit'),
                   value: 'end',
                 },
               ]}
@@ -328,32 +328,32 @@ export default function BlockEdit(props) {
               isAdaptiveWidth
             />
             <ToggleGroup
-              label={__('Horizontal alignment', '@@text_domain')}
+              label={__('Horizontal alignment', 'ghostkit')}
               value={horizontalAlign}
               options={[
                 {
                   icon: getIcon('icon-horizontal-start'),
-                  label: __('Start', '@@text_domain'),
+                  label: __('Start', 'ghostkit'),
                   value: '',
                 },
                 {
                   icon: getIcon('icon-horizontal-center'),
-                  label: __('Center', '@@text_domain'),
+                  label: __('Center', 'ghostkit'),
                   value: 'center',
                 },
                 {
                   icon: getIcon('icon-horizontal-end'),
-                  label: __('End', '@@text_domain'),
+                  label: __('End', 'ghostkit'),
                   value: 'end',
                 },
                 {
                   icon: getIcon('icon-horizontal-around'),
-                  label: __('Around', '@@text_domain'),
+                  label: __('Around', 'ghostkit'),
                   value: 'around',
                 },
                 {
                   icon: getIcon('icon-horizontal-between'),
-                  label: __('Space Between', '@@text_domain'),
+                  label: __('Space Between', 'ghostkit'),
                   value: 'between',
                 },
               ]}

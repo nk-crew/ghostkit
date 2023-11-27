@@ -110,22 +110,22 @@ function IconPickerDropdown(props) {
         render: (
           <Fragment key="form">
             <TextControl
-              label={__('Search Icon', '@@text_domain')}
+              label={__('Search Icon', 'ghostkit')}
               value={maybeDecode(search)}
               onChange={(searchVal) => setSearch(maybeEncode(searchVal))}
-              placeholder={__('Type to Search...', '@@text_domain')}
+              placeholder={__('Type to Search...', 'ghostkit')}
               autoComplete="off"
               autoFocus
             />
             <div className="ghostkit-component-icon-picker-input-output">
               {customizeIcon ? (
                 <TextareaControl
-                  label={__('Icon Output', '@@text_domain')}
+                  label={__('Icon Output', 'ghostkit')}
                   value={value}
                   onChange={(newData) => {
                     onChange(newData);
                   }}
-                  placeholder={__('Icon Output', '@@text_domain')}
+                  placeholder={__('Icon Output', 'ghostkit')}
                   autoComplete="off"
                 />
               ) : (
@@ -137,11 +137,11 @@ function IconPickerDropdown(props) {
                     marginRight: 5,
                   }}
                 >
-                  {__('Customize Icon', '@@text_domain')}
+                  {__('Customize Icon', 'ghostkit')}
                 </Button>
               )}
               <Button isSmall isSecondary disabled={!value} onClick={() => onChange('')}>
-                {__('Reset', '@@text_domain')}
+                {__('Reset', 'ghostkit')}
               </Button>
             </div>
           </Fragment>
@@ -287,7 +287,7 @@ function IconPickerDropdown(props) {
     if (rows.length === 1) {
       rows.push({
         key: 'icons',
-        render: __('No icons found.', '@@text_domain'),
+        render: __('No icons found.', 'ghostkit'),
       });
     }
 

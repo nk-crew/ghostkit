@@ -53,7 +53,7 @@ function getGoogleFontWeightsByFamily(fontFamily) {
     Object.keys(widths).forEach((key) => {
       const weight = {
         value: widths[key].replace('i', ''),
-        label: __(widths[key].replace('i', ''), '@@text_domain'),
+        label: __(widths[key].replace('i', ''), 'ghostkit'),
       };
 
       if (widths[key].indexOf('i') === -1) {
@@ -101,14 +101,14 @@ class GoogleFonts extends Component {
     if (fontWeights.normal.length > 0) {
       styleOptions.push({
         value: 'normal',
-        label: __('Normal', '@@text_domain'),
+        label: __('Normal', 'ghostkit'),
       });
     }
 
     if (fontWeights.italic.length > 0) {
       styleOptions.push({
         value: 'italic',
-        label: __('Italic', '@@text_domain'),
+        label: __('Italic', 'ghostkit'),
       });
     }
     return {
@@ -137,7 +137,7 @@ class GoogleFonts extends Component {
       <div className="editor-styles-wrapper">
         <div className="ghostkit-settings-fonts-google-form">
           {!isEdit ? (
-            <BaseControl label={__('Font', '@@text_domain')}>
+            <BaseControl label={__('Font', 'ghostkit')}>
               <Select
                 value={{
                   value: name,
@@ -174,13 +174,13 @@ class GoogleFonts extends Component {
                   });
                 }}
                 options={fontFamilyOptions}
-                placeholder={__('--- Select ---', '@@text_domain')}
+                placeholder={__('--- Select ---', 'ghostkit')}
               />
             </BaseControl>
           ) : null}
           <SelectControl
             multiple
-            label={__('Weight', '@@text_domain')}
+            label={__('Weight', 'ghostkit')}
             value={weight}
             onChange={(val) => {
               this.setState({
@@ -190,7 +190,7 @@ class GoogleFonts extends Component {
             options={fontWeightOptions}
           />
           <SelectControl
-            label={__('Style', '@@text_domain')}
+            label={__('Style', 'ghostkit')}
             value={style}
             onChange={(val) => {
               this.setState({
@@ -240,20 +240,20 @@ class GoogleFonts extends Component {
                     error: '',
                     isEdit: false,
                     editKey: null,
-                    notice: __('The font has been successfully edited', '@@text_domain'),
+                    notice: __('The font has been successfully edited', 'ghostkit'),
                   });
                 } else if (!this.state.name) {
                   this.setState({
-                    error: __('You should specify the `Name` to add new font.', '@@text_domain'),
+                    error: __('You should specify the `Name` to add new font.', 'ghostkit'),
                   });
                 } else if (findFont) {
                   this.setState({
-                    error: __('The font has already been added with style.', '@@text_domain'),
+                    error: __('The font has already been added with style.', 'ghostkit'),
                   });
                 }
               }}
             >
-              {__('Edit Font', '@@text_domain')}
+              {__('Edit Font', 'ghostkit')}
             </Button>
           ) : (
             <Button
@@ -294,19 +294,19 @@ class GoogleFonts extends Component {
                   });
                 } else if (!this.state.name) {
                   this.setState({
-                    error: __('You should specify the `Name` to add new font.', '@@text_domain'),
+                    error: __('You should specify the `Name` to add new font.', 'ghostkit'),
                   });
                 } else if (findFont) {
                   this.setState({
                     error: __(
                       'The font has already been added. To edit, use the font edit button in the table.',
-                      '@@text_domain'
+                      'ghostkit'
                     ),
                   });
                 }
               }}
             >
-              {__('Add Font', '@@text_domain')}
+              {__('Add Font', 'ghostkit')}
             </Button>
           )}
         </div>
@@ -329,10 +329,10 @@ class GoogleFonts extends Component {
             <table className="widefat fixed striped">
               <thead>
                 <tr>
-                  <td>{__('Font Family', '@@text_domain')}</td>
-                  <td>{__('Font Weights', '@@text_domain')}</td>
-                  <td>{__('Font Style', '@@text_domain')}</td>
-                  <td>{__('Actions', '@@text_domain')}</td>
+                  <td>{__('Font Family', 'ghostkit')}</td>
+                  <td>{__('Font Weights', 'ghostkit')}</td>
+                  <td>{__('Font Style', 'ghostkit')}</td>
+                  <td>{__('Actions', 'ghostkit')}</td>
                 </tr>
               </thead>
               <tbody>
@@ -369,7 +369,7 @@ class GoogleFonts extends Component {
                             });
                           }}
                         >
-                          {__('Remove', '@@text_domain')}
+                          {__('Remove', 'ghostkit')}
                         </Button>
                         &nbsp;|&nbsp;
                         <Button
@@ -393,7 +393,7 @@ class GoogleFonts extends Component {
                             });
                           }}
                         >
-                          {__('Edit', '@@text_domain')}
+                          {__('Edit', 'ghostkit')}
                         </Button>
                       </td>
                     </tr>

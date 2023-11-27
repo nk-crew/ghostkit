@@ -72,14 +72,14 @@ class ColorPaletteModal extends Component {
         className="ghostkit-plugin-color-palette-modal"
         position="top"
         size="md"
-        title={__('Color Palette', '@@text_domain')}
+        title={__('Color Palette', 'ghostkit')}
         onRequestClose={() => {
           updateColorPalette(colors, true);
           onRequestClose();
         }}
         icon={getIcon('plugin-color-palette')}
       >
-        <h4>{__('Default Colors', '@@text_domain')}</h4>
+        <h4>{__('Default Colors', 'ghostkit')}</h4>
         <div className="ghostkit-plugin-color-palette-list ghostkit-plugin-color-palette-list-default">
           {colors.map((data) => {
             if (/^ghostkit-color-/g.test(data.slug)) {
@@ -98,7 +98,7 @@ class ColorPaletteModal extends Component {
           })}
         </div>
 
-        <h4>{__('Custom Colors', '@@text_domain')}</h4>
+        <h4>{__('Custom Colors', 'ghostkit')}</h4>
         <div className="ghostkit-plugin-color-palette-list">
           {colors.map((data, i) => {
             if (!/^ghostkit-color-/g.test(data.slug)) {
@@ -123,7 +123,7 @@ class ColorPaletteModal extends Component {
                 afterDropdownContent={
                   <Fragment>
                     <TextControl
-                      label={__('Name', '@@text_domain')}
+                      label={__('Name', 'ghostkit')}
                       value={data.name}
                       onChange={(value) => {
                         const newColors = colors.map((thisData) => ({
@@ -156,7 +156,7 @@ class ColorPaletteModal extends Component {
                         isSecondary
                         isSmall
                       >
-                        {__('Remove', '@@text_domain')}
+                        {__('Remove', 'ghostkit')}
                       </Button>
                     </BaseControl>
                   </Fragment>
@@ -167,7 +167,7 @@ class ColorPaletteModal extends Component {
           <div className="ghostkit-plugin-color-palette-list-add-new components-base-control ghostkit-component-color-picker-wrapper">
             <div className="components-base-control__field">
               <div className="components-color-palette__item-wrapper components-circular-option-picker__option-wrapper">
-                <Tooltip text={__('Add Custom Color', '@@text_domain')}>
+                <Tooltip text={__('Add Custom Color', 'ghostkit')}>
                   <button
                     type="button"
                     className="components-color-palette__item components-circular-option-picker__option"
@@ -177,7 +177,7 @@ class ColorPaletteModal extends Component {
                         {
                           slug: this.getUniqueSlug('ghostkit-color-blue'),
                           color: '#0366d6',
-                          name: __('Blue', '@@text_domain'),
+                          name: __('Blue', 'ghostkit'),
                         },
                       ]);
                     }}
@@ -251,7 +251,7 @@ export class Plugin extends Component {
               this.setState({ isModalOpen: true });
             }}
           >
-            {__('Color Palette', '@@text_domain')}
+            {__('Color Palette', 'ghostkit')}
           </PluginMoreMenuItem>
         ) : null}
         {isModalOpen ? (

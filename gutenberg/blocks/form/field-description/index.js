@@ -27,7 +27,7 @@ export default function FieldDescription(props) {
       tagName="small"
       className="ghostkit-form-field-description"
       value={description}
-      placeholder={__('Write description…', '@@text_domain')}
+      placeholder={__('Write description…', 'ghostkit')}
       onChange={(val) => setAttributes({ description: val })}
     />
   );

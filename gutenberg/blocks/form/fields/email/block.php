@@ -31,7 +31,7 @@ class GhostKit_Form_Field_Email_Block {
                 'attributes'      => GhostKit_Form_Field_Attributes::get_block_attributes(
                     array(
                         'label' => array(
-                            'default' => esc_html__( 'Email', '@@text_domain' ),
+                            'default' => esc_html__( 'Email', 'ghostkit' ),
                         ),
                         'emailConfirmation' => array(
                             'type' => 'boolean',

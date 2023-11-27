@@ -155,7 +155,7 @@ export function SpringControls(props) {
       ? [
           {
             value: 'custom',
-            label: __('-- Presets --', '@@text_domain'),
+            label: __('-- Presets --', 'ghostkit'),
           },
         ]
       : []),
@@ -200,7 +200,7 @@ export function SpringControls(props) {
       <SpringEditor value={value} />
       <Grid columns={3}>
         <NumberControl
-          label={__('Stiffness', '@@text_domain')}
+          label={__('Stiffness', 'ghostkit')}
           value={value?.stiffness}
           onChange={(val) => updateValue({ stiffness: parseFloat(val) })}
           min={1}
@@ -208,7 +208,7 @@ export function SpringControls(props) {
           step={1}
         />
         <NumberControl
-          label={__('Damping', '@@text_domain')}
+          label={__('Damping', 'ghostkit')}
           value={value?.damping}
           onChange={(val) => updateValue({ damping: parseFloat(val) })}
           min={0}
@@ -216,7 +216,7 @@ export function SpringControls(props) {
           step={0.1}
         />
         <NumberControl
-          label={__('Mass', '@@text_domain')}
+          label={__('Mass', 'ghostkit')}
           value={value?.mass}
           onChange={(val) => updateValue({ mass: parseFloat(val) })}
           min={0}
@@ -226,7 +226,7 @@ export function SpringControls(props) {
       </Grid>
       {enableDelayControl && (
         <NumberControl
-          label={__('Delay', '@@text_domain')}
+          label={__('Delay', 'ghostkit')}
           suffix="s&nbsp;"
           value={value?.delay || 0}
           onChange={(val) => updateValue({ delay: parseFloat(val) })}
@@ -238,7 +238,7 @@ export function SpringControls(props) {
         />
       )}
       <TransitionPreview
-        label={__('Preview', '@@text_domain')}
+        label={__('Preview', 'ghostkit')}
         options={{
           type: 'spring',
           stiffness: value?.stiffness,

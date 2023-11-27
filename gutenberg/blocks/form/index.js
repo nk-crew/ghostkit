@@ -34,15 +34,15 @@ export const settings = {
         attributes: {
           required: true,
           nameFields: 'first-last',
-          description: __('First', '@@text_domain'),
-          descriptionLast: __('Last', '@@text_domain'),
+          description: __('First', 'ghostkit'),
+          descriptionLast: __('Last', 'ghostkit'),
         },
       },
       {
         name: 'ghostkit/form-field-textarea',
         attributes: {
-          label: __('Message', '@@text_domain'),
-          placeholder: __('Write your message here...', '@@text_domain'),
+          label: __('Message', 'ghostkit'),
+          placeholder: __('Write your message here...', 'ghostkit'),
         },
       },
       {

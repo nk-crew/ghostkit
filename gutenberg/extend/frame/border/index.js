@@ -123,7 +123,7 @@ function FrameBorderTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Border', '@@text_domain')}
+      label={__('Border', 'ghostkit')}
       hasValue={() => !!hasBorder}
       onSelect={() => {
         setStyles({
@@ -140,7 +140,7 @@ function FrameBorderTools(props) {
       <BaseControl
         label={
           <>
-            {__('Border', '@@text_domain')}
+            {__('Border', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 return hasStyle('border-style', checkMedia, isHover && hoverSelector);
@@ -180,7 +180,7 @@ function FrameBorderTools(props) {
           />
           <InputDrag
             value={getStyle('border-width', device, isHover && hoverSelector)}
-            placeholder={__('Width', '@@text_domain')}
+            placeholder={__('Width', 'ghostkit')}
             onChange={(value) =>
               setStyles({ 'border-width': value }, device, isHover && hoverSelector)
             }

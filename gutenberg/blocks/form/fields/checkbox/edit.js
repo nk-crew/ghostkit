@@ -62,7 +62,7 @@ export default function BlockEdit(props) {
         <PanelBody>
           <FieldDefaultSettings {...props} defaultCustom={' '} placeholderCustom={' '} />
           <ToggleControl
-            label={__('Inline', '@@text_domain')}
+            label={__('Inline', 'ghostkit')}
             checked={inline}
             onChange={() => setAttributes({ inline: !inline })}
           />

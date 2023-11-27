@@ -38,7 +38,7 @@ export default function BlockEdit(props) {
 
   const defaultCustom = (
     <TextareaControl
-      label={__('Default', '@@text_domain')}
+      label={__('Default', 'ghostkit')}
       value={defaultVal}
       onChange={(val) => setAttributes({ default: val })}
     />

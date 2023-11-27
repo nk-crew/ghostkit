@@ -65,34 +65,34 @@ export default function BlockEdit(props) {
         <ToolbarGroup>
           <ToolbarDropdownMenu
             icon="info"
-            label={__('Type', '@@text_domain')}
+            label={__('Type', 'ghostkit')}
             controls={[
               {
-                title: __('Primary', '@@text_domain'),
+                title: __('Primary', 'ghostkit'),
                 icon: 'editor-help',
                 isActive: color === '#2E77C3',
                 onClick: () => setAttributes({ color: '#2E77C3' }),
               },
               {
-                title: __('Success', '@@text_domain'),
+                title: __('Success', 'ghostkit'),
                 icon: 'marker',
                 isActive: color === '#22CF6E',
                 onClick: () => setAttributes({ color: '#22CF6E' }),
               },
               {
-                title: __('Danger', '@@text_domain'),
+                title: __('Danger', 'ghostkit'),
                 icon: 'dismiss',
                 isActive: color === '#DC3232',
                 onClick: () => setAttributes({ color: '#DC3232' }),
               },
               {
-                title: __('Warning', '@@text_domain'),
+                title: __('Warning', 'ghostkit'),
                 icon: 'warning',
                 isActive: color === '#E47F3B',
                 onClick: () => setAttributes({ color: '#E47F3B' }),
               },
               {
-                title: __('Info', '@@text_domain'),
+                title: __('Info', 'ghostkit'),
                 icon: 'info',
                 isActive: color === '#2DC7E8',
                 onClick: () => setAttributes({ color: '#2DC7E8' }),
@@ -104,14 +104,14 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <IconPicker
-            label={__('Icon', '@@text_domain')}
+            label={__('Icon', 'ghostkit')}
             value={icon}
             onChange={(value) => setAttributes({ icon: value })}
             insideInspector
           />
           {icon ? (
             <RangeControl
-              label={__('Icon Size', '@@text_domain')}
+              label={__('Icon Size', 'ghostkit')}
               value={iconSize}
               onChange={(value) => setAttributes({ iconSize: value })}
               min={20}
@@ -127,7 +127,7 @@ export default function BlockEdit(props) {
         </PanelBody>
         <PanelBody>
           <ToggleControl
-            label={__('Dismiss button', '@@text_domain')}
+            label={__('Dismiss button', 'ghostkit')}
             checked={!!hideButton}
             onChange={(val) => setAttributes({ hideButton: val })}
           />
@@ -135,7 +135,7 @@ export default function BlockEdit(props) {
         <PanelBody
           title={
             <>
-              {__('Colors', '@@text_domain')}
+              {__('Colors', 'ghostkit')}
               <ColorIndicator colorValue={color} />
             </>
           }
@@ -146,12 +146,12 @@ export default function BlockEdit(props) {
             tabs={[
               {
                 name: 'normal',
-                title: __('Normal', '@@text_domain'),
+                title: __('Normal', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
               {
                 name: 'hover',
-                title: __('Hover', '@@text_domain'),
+                title: __('Hover', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
             ]}
@@ -165,7 +165,7 @@ export default function BlockEdit(props) {
                   props={props}
                 >
                   <ColorPicker
-                    label={__('Color', '@@text_domain')}
+                    label={__('Color', 'ghostkit')}
                     value={isHover ? hoverColor : color}
                     onChange={(val) =>
                       setAttributes(isHover ? { hoverColor: val } : { color: val })

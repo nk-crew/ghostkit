@@ -37,7 +37,7 @@ export default function BlockEdit(props) {
     <div {...blockProps}>
       <Placeholder
         icon={getIcon('block-widgetized-area')}
-        label={__('Widgetized Area', '@@text_domain')}
+        label={__('Widgetized Area', 'ghostkit')}
       >
         <SelectControl
           value={id}
@@ -45,7 +45,7 @@ export default function BlockEdit(props) {
           options={(() => {
             const sidebars = [
               {
-                label: __('--- Select Sidebar ---', '@@text_domain'),
+                label: __('--- Select Sidebar ---', 'ghostkit'),
                 value: '',
               },
             ];

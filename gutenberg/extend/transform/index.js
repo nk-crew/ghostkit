@@ -76,7 +76,7 @@ function GhostKitExtensionTransformInspector(original, { props }) {
           label={
             <>
               <span className="ghostkit-ext-icon">{getIcon('extension-transform')}</span>
-              <span>{__('Transform', '@@text_domain')}</span>
+              <span>{__('Transform', 'ghostkit')}</span>
             </>
           }
           resetAll={() => {

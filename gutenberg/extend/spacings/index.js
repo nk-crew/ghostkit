@@ -51,7 +51,7 @@ function GhostKitExtensionSpacingsInspector(original, { props }) {
           label={
             <>
               <span className="ghostkit-ext-icon">{getIcon('extension-spacings')}</span>
-              <span>{__('Spacings', '@@text_domain')}</span>
+              <span>{__('Spacings', 'ghostkit')}</span>
             </>
           }
           resetAll={() => {

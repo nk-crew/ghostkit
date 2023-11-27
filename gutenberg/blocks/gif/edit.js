@@ -160,7 +160,7 @@ export default function BlockEdit(props) {
       <form className="ghostkit-gif-input-container" onSubmit={onFormSubmit}>
         <TextControl
           className="ghostkit-gif-input"
-          placeholder={__('Enter search terms, e.g. cat...', '@@text_domain')}
+          placeholder={__('Enter search terms, e.g. cat...', 'ghostkit')}
           onChange={(val) => setAttributes({ searchText: val })}
           value={searchText}
         />
@@ -170,7 +170,7 @@ export default function BlockEdit(props) {
             onFormSubmit(e);
           }}
         >
-          {__('Search', '@@text_domain')}
+          {__('Search', 'ghostkit')}
         </Button>
       </form>
       {loading ? <Spinner /> : ''}
@@ -214,7 +214,7 @@ export default function BlockEdit(props) {
           </svg>
         </PanelBody>
         {url ? (
-          <PanelBody title={__('Image settings', '@@text_domain')}>
+          <PanelBody title={__('Image settings', 'ghostkit')}>
             {inputFields}
             <TextareaControl
               label={__('Alt text (alternative text)')}
@@ -223,9 +223,9 @@ export default function BlockEdit(props) {
               help={
                 <Fragment>
                   <ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
-                    {__('Describe the purpose of the image', '@@text_domain')}
+                    {__('Describe the purpose of the image', 'ghostkit')}
                   </ExternalLink>
-                  {__('Leave empty if the image is purely decorative.', '@@text_domain')}
+                  {__('Leave empty if the image is purely decorative.', 'ghostkit')}
                 </Fragment>
               }
             />
@@ -239,8 +239,8 @@ export default function BlockEdit(props) {
           <Placeholder
             className="ghostkit-gif-placeholder"
             icon={getIcon('block-gif')}
-            label={__('GIF', '@@text_domain')}
-            instructions={__('Search for a term or paste a Giphy URL', '@@text_domain')}
+            label={__('GIF', 'ghostkit')}
+            instructions={__('Search for a term or paste a Giphy URL', 'ghostkit')}
           >
             {inputFields}
           </Placeholder>

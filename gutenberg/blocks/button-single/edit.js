@@ -126,12 +126,12 @@ export default function BlockEdit(props) {
   const colorsTabs = [
     {
       name: 'normal',
-      title: __('Normal', '@@text_domain'),
+      title: __('Normal', 'ghostkit'),
       className: 'ghostkit-control-tabs-tab',
     },
     {
       name: 'hover',
-      title: __('Hover', '@@text_domain'),
+      title: __('Hover', 'ghostkit'),
       className: 'ghostkit-control-tabs-tab',
     },
   ];
@@ -139,7 +139,7 @@ export default function BlockEdit(props) {
   if (focusOutlineWeight && focusOutlineColor) {
     colorsTabs.push({
       name: 'focus',
-      title: __('Focus', '@@text_domain'),
+      title: __('Focus', 'ghostkit'),
       className: 'ghostkit-control-tabs-tab',
     });
   }
@@ -164,7 +164,7 @@ export default function BlockEdit(props) {
         </PanelBody>
         <PanelBody>
           <RangeControl
-            label={__('Corner Radius', '@@text_domain')}
+            label={__('Corner Radius', 'ghostkit')}
             value={borderRadius}
             min={0}
             max={50}
@@ -172,7 +172,7 @@ export default function BlockEdit(props) {
             allowCustomMax
           />
           <RangeControl
-            label={__('Border Size', '@@text_domain')}
+            label={__('Border Size', 'ghostkit')}
             value={borderWeight}
             min={0}
             max={6}
@@ -180,7 +180,7 @@ export default function BlockEdit(props) {
             allowCustomMax
           />
           <RangeControl
-            label={__('Focus Outline Size', '@@text_domain')}
+            label={__('Focus Outline Size', 'ghostkit')}
             value={focusOutlineWeight}
             min={0}
             max={6}
@@ -190,14 +190,14 @@ export default function BlockEdit(props) {
         </PanelBody>
         <PanelBody>
           <IconPicker
-            label={__('Icon', '@@text_domain')}
+            label={__('Icon', 'ghostkit')}
             value={icon}
             onChange={(value) => setAttributes({ icon: value })}
             insideInspector
           />
           {icon ? (
             <ToggleControl
-              label={__('Show Icon Only', '@@text_domain')}
+              label={__('Show Icon Only', 'ghostkit')}
               checked={!!hideText}
               onChange={(val) => setAttributes({ hideText: val })}
             />
@@ -206,16 +206,16 @@ export default function BlockEdit(props) {
           )}
           {icon && !hideText ? (
             <SelectControl
-              label={__('Icon Position', '@@text_domain')}
+              label={__('Icon Position', 'ghostkit')}
               value={iconPosition}
               options={[
                 {
                   value: 'left',
-                  label: __('Left', '@@text_domain'),
+                  label: __('Left', 'ghostkit'),
                 },
                 {
                   value: 'right',
-                  label: __('Right', '@@text_domain'),
+                  label: __('Right', 'ghostkit'),
                 },
               ]}
               onChange={(value) => setAttributes({ iconPosition: value })}
@@ -227,7 +227,7 @@ export default function BlockEdit(props) {
         <PanelBody
           title={
             <Fragment>
-              {__('Colors', '@@text_domain')}
+              {__('Colors', 'ghostkit')}
               <ColorIndicator colorValue={color} />
               <ColorIndicator colorValue={textColor} />
               {borderWeight ? <ColorIndicator colorValue={borderColor} /> : ''}
@@ -259,7 +259,7 @@ export default function BlockEdit(props) {
                     props={props}
                   >
                     <ColorPicker
-                      label={__('Outline', '@@text_domain')}
+                      label={__('Outline', 'ghostkit')}
                       value={focusOutlineColor}
                       onChange={(val) => setAttributes({ focusOutlineColor: val })}
                       alpha
@@ -276,7 +276,7 @@ export default function BlockEdit(props) {
                     props={props}
                   >
                     <ColorPicker
-                      label={__('Background', '@@text_domain')}
+                      label={__('Background', 'ghostkit')}
                       value={isHover ? hoverColor : color}
                       onChange={(val) =>
                         setAttributes(isHover ? { hoverColor: val } : { color: val })
@@ -291,7 +291,7 @@ export default function BlockEdit(props) {
                     props={props}
                   >
                     <ColorPicker
-                      label={__('Text', '@@text_domain')}
+                      label={__('Text', 'ghostkit')}
                       value={isHover ? hoverTextColor : textColor}
                       onChange={(val) =>
                         setAttributes(isHover ? { hoverTextColor: val } : { textColor: val })
@@ -306,7 +306,7 @@ export default function BlockEdit(props) {
                       props={props}
                     >
                       <ColorPicker
-                        label={__('Border', '@@text_domain')}
+                        label={__('Border', 'ghostkit')}
                         value={isHover ? hoverBorderColor : borderColor}
                         onChange={(val) =>
                           setAttributes(isHover ? { hoverBorderColor: val } : { borderColor: val })
@@ -352,7 +352,7 @@ export default function BlockEdit(props) {
       ) : null}
       {!hideText ? (
         <RichText
-          placeholder={__('Write text…', '@@text_domain')}
+          placeholder={__('Write text…', 'ghostkit')}
           value={text}
           onChange={(value) => setAttributes({ text: value })}
           isSelected={isSelected}

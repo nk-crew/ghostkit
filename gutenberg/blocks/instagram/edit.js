@@ -82,7 +82,7 @@ export default function BlockEdit(props) {
           <>
             <PanelBody>
               <RangeControl
-                label={__('Photos Number', '@@text_domain')}
+                label={__('Photos Number', 'ghostkit')}
                 value={count}
                 onChange={(value) => setAttributes({ count: value })}
                 min={1}
@@ -90,7 +90,7 @@ export default function BlockEdit(props) {
                 allowCustomMax
               />
               <RangeControl
-                label={__('Columns', '@@text_domain')}
+                label={__('Columns', 'ghostkit')}
                 value={columns}
                 onChange={(value) => setAttributes({ columns: value })}
                 min={1}
@@ -107,22 +107,22 @@ export default function BlockEdit(props) {
                 }}
               />
             </PanelBody>
-            <PanelBody title={__('Profile Info', '@@text_domain')}>
+            <PanelBody title={__('Profile Info', 'ghostkit')}>
               <ToggleControl
-                label={__('Show Profile Info', '@@text_domain')}
+                label={__('Show Profile Info', 'ghostkit')}
                 checked={!!attributes.showProfile}
                 onChange={(val) => setAttributes({ showProfile: val })}
               />
               {attributes.showProfile ? (
                 <>
                   <ToggleControl
-                    label={__('Show Avatar', '@@text_domain')}
+                    label={__('Show Avatar', 'ghostkit')}
                     checked={!!showProfileAvatar}
                     onChange={(val) => setAttributes({ showProfileAvatar: val })}
                   />
                   {showProfileAvatar ? (
                     <RangeControl
-                      label={__('Avatar Size', '@@text_domain')}
+                      label={__('Avatar Size', 'ghostkit')}
                       value={profileAvatarSize}
                       onChange={(value) => setAttributes({ profileAvatarSize: value })}
                       min={30}
@@ -134,22 +134,22 @@ export default function BlockEdit(props) {
                     ''
                   )}
                   <ToggleControl
-                    label={__('Show Name', '@@text_domain')}
+                    label={__('Show Name', 'ghostkit')}
                     checked={!!showProfileName}
                     onChange={(val) => setAttributes({ showProfileName: val })}
                   />
                   <ToggleControl
-                    label={__('Show Stats', '@@text_domain')}
+                    label={__('Show Stats', 'ghostkit')}
                     checked={!!showProfileStats}
                     onChange={(val) => setAttributes({ showProfileStats: val })}
                   />
                   <ToggleControl
-                    label={__('Show BIO', '@@text_domain')}
+                    label={__('Show BIO', 'ghostkit')}
                     checked={!!showProfileBio}
                     onChange={(val) => setAttributes({ showProfileBio: val })}
                   />
                   <ToggleControl
-                    label={__('Show Website', '@@text_domain')}
+                    label={__('Show Website', 'ghostkit')}
                     checked={!!showProfileWebsite}
                     onChange={(val) => setAttributes({ showProfileWebsite: val })}
                   />
@@ -163,9 +163,9 @@ export default function BlockEdit(props) {
           ''
         )}
 
-        <PanelBody title={__('API Data', '@@text_domain')} initialOpen={!accessToken}>
+        <PanelBody title={__('API Data', 'ghostkit')} initialOpen={!accessToken}>
           <TextControl
-            placeholder={__('Access Token', '@@text_domain')}
+            placeholder={__('Access Token', 'ghostkit')}
             value={accessToken}
             onChange={(value) => setAttributes({ accessToken: value })}
           />
@@ -173,7 +173,7 @@ export default function BlockEdit(props) {
             <em>
               {__(
                 'A valid Access Token is required to use Instagram feed. How to get token',
-                '@@text_domain'
+                'ghostkit'
               )}{' '}
               <ExternalLink href="http://instagram.pixelunion.net/">
                 http://instagram.pixelunion.net/
@@ -209,15 +209,15 @@ export default function BlockEdit(props) {
                 <div className="ghostkit-instagram-profile-stats">
                   <div>
                     <strong>{instagramProfile.data.counts.media}</strong>{' '}
-                    <span>{__('Posts', '@@text_domain')}</span>
+                    <span>{__('Posts', 'ghostkit')}</span>
                   </div>
                   <div>
                     <strong>{instagramProfile.data.counts.followed_by}</strong>{' '}
-                    <span>{__('Followers', '@@text_domain')}</span>
+                    <span>{__('Followers', 'ghostkit')}</span>
                   </div>
                   <div>
                     <strong>{instagramProfile.data.counts.follows}</strong>{' '}
-                    <span>{__('Following', '@@text_domain')}</span>
+                    <span>{__('Following', 'ghostkit')}</span>
                   </div>
                 </div>
               ) : (
@@ -275,10 +275,10 @@ export default function BlockEdit(props) {
         {!accessToken ? (
           <Placeholder
             icon={getIcon('block-instagram')}
-            label={__('Instagram', '@@text_domain')}
+            label={__('Instagram', 'ghostkit')}
             instructions={__(
               'A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector.',
-              '@@text_domain'
+              'ghostkit'
             )}
             className={className}
           />

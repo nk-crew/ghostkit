@@ -186,8 +186,8 @@ class TypographySettings extends Component {
               const advancedData = this.state.advanced[key];
               const advancedLabel =
                 advancedData === true
-                  ? __('Hide Advanced', '@@text_domain')
-                  : __('Show Advanced', '@@text_domain');
+                  ? __('Hide Advanced', 'ghostkit')
+                  : __('Show Advanced', 'ghostkit');
 
               if (typographyList[key].childOf === '') {
                 return (
@@ -220,7 +220,7 @@ class TypographySettings extends Component {
               <div>
                 {__(
                   'You are using FSE theme. Typography settings have been moved to block settings',
-                  '@@text_domain'
+                  'ghostkit'
                 )}
               </div>
             ) : (

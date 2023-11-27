@@ -268,7 +268,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_custom_fonts_permission() {
         if ( ! current_user_can( 'edit_theme_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -281,7 +281,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_custom_fonts_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -294,7 +294,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_customizer_permission() {
         if ( ! current_user_can( 'edit_theme_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change Customizer options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change Customizer options.', 'ghostkit' ), true );
         }
         return true;
     }
@@ -351,7 +351,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_custom_code_permission() {
         if ( ! current_user_can( 'edit_theme_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -364,7 +364,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_custom_code_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -377,7 +377,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_color_palette_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -390,7 +390,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function get_custom_typography_permission() {
         if ( ! current_user_can( 'edit_theme_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -403,7 +403,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_custom_typography_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -416,7 +416,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_google_maps_api_key_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -429,7 +429,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_google_recaptcha_keys_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -442,7 +442,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_disabled_blocks_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -455,7 +455,7 @@ class GhostKit_Rest extends WP_REST_Controller {
      */
     public function update_settings_permission() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', '@@text_domain' ), true );
+            return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change options.', 'ghostkit' ), true );
         }
 
         return true;
@@ -473,7 +473,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( is_array( $fonts ) ) {
             return $this->success( $fonts );
         } else {
-            return $this->error( 'no_fonts', __( 'Custom fonts not found.', '@@text_domain' ) );
+            return $this->error( 'no_fonts', __( 'Custom fonts not found.', 'ghostkit' ) );
         }
     }
 
@@ -512,7 +512,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( ! empty( $options ) ) {
             return $this->success( $options );
         } else {
-            return $this->error( 'no_options_found', __( 'Options not found.', '@@text_domain' ) );
+            return $this->error( 'no_options_found', __( 'Options not found.', 'ghostkit' ) );
         }
     }
 
@@ -531,7 +531,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         $div_tag = $request->get_param( 'div_tag' );
 
         if ( ! $id ) {
-            return $this->error( 'no_id_found', __( 'Provide image ID.', '@@text_domain' ) );
+            return $this->error( 'no_id_found', __( 'Provide image ID.', 'ghostkit' ) );
         }
 
         $attr = isset( $attr ) && $attr && is_array( $attr ) ? $attr : array();
@@ -589,7 +589,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( isset( $image ) && $image ) {
             return $this->success( $image );
         } else {
-            return $this->error( 'no_image_found', __( 'Image not found.', '@@text_domain' ) );
+            return $this->error( 'no_image_found', __( 'Image not found.', 'ghostkit' ) );
         }
     }
 
@@ -607,7 +607,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         $access_token     = $request->get_param( 'access_token' );
 
         if ( ! $access_token ) {
-            return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', '@@text_domain' ) );
+            return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', 'ghostkit' ) );
         }
 
         $hash = md5(
@@ -645,7 +645,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( $result ) {
             return $this->success( $result );
         } else {
-            return $this->error( 'no_instagram_data_loaded', __( 'Instagram data failed to load.', '@@text_domain' ) );
+            return $this->error( 'no_instagram_data_loaded', __( 'Instagram data failed to load.', 'ghostkit' ) );
         }
     }
 
@@ -662,7 +662,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         $access_token     = $request->get_param( 'access_token' );
 
         if ( ! $access_token ) {
-            return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', '@@text_domain' ) );
+            return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', 'ghostkit' ) );
         }
 
         $hash = md5(
@@ -699,7 +699,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( $result ) {
             return $this->success( $result );
         } else {
-            return $this->error( 'no_instagram_data_loaded', __( 'Instagram data failed to load.', '@@text_domain' ) );
+            return $this->error( 'no_instagram_data_loaded', __( 'Instagram data failed to load.', 'ghostkit' ) );
         }
     }
 
@@ -721,19 +721,19 @@ class GhostKit_Rest extends WP_REST_Controller {
         $screen_name         = $request->get_param( 'screen_name' );
 
         if ( ! $consumer_key ) {
-            return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', '@@text_domain' ) );
+            return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', 'ghostkit' ) );
         }
         if ( ! $consumer_secret ) {
-            return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', '@@text_domain' ) );
+            return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', 'ghostkit' ) );
         }
         if ( ! $access_token ) {
-            return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', '@@text_domain' ) );
+            return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', 'ghostkit' ) );
         }
         if ( ! $access_token_secret ) {
-            return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', '@@text_domain' ) );
+            return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', 'ghostkit' ) );
         }
         if ( ! $screen_name ) {
-            return $this->error( 'no_screen_name_found', __( 'Provide Username.', '@@text_domain' ) );
+            return $this->error( 'no_screen_name_found', __( 'Provide Username.', 'ghostkit' ) );
         }
 
         $api_data_ready = $consumer_key && $consumer_secret && $access_token && $access_token_secret;
@@ -805,7 +805,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( $result ) {
             return $this->success( $result );
         } else {
-            return $this->error( 'no_twitter_data_loaded', __( 'Twitter data failed to load.', '@@text_domain' ) );
+            return $this->error( 'no_twitter_data_loaded', __( 'Twitter data failed to load.', 'ghostkit' ) );
         }
     }
 
@@ -833,19 +833,19 @@ class GhostKit_Rest extends WP_REST_Controller {
         $api_data_ready = $consumer_key && $consumer_secret && $access_token && $access_token_secret;
 
         if ( ! $consumer_key ) {
-            return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', '@@text_domain' ) );
+            return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', 'ghostkit' ) );
         }
         if ( ! $consumer_secret ) {
-            return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', '@@text_domain' ) );
+            return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', 'ghostkit' ) );
         }
         if ( ! $access_token ) {
-            return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', '@@text_domain' ) );
+            return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', 'ghostkit' ) );
         }
         if ( ! $access_token_secret ) {
-            return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', '@@text_domain' ) );
+            return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', 'ghostkit' ) );
         }
         if ( ! $screen_name ) {
-            return $this->error( 'no_screen_name_found', __( 'Provide Username.', '@@text_domain' ) );
+            return $this->error( 'no_screen_name_found', __( 'Provide Username.', 'ghostkit' ) );
         }
 
         $hash = md5(
@@ -951,7 +951,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( $result ) {
             return $this->success( $result );
         } else {
-            return $this->error( 'no_twitter_data_loaded', __( 'Twitter data failed to load.', '@@text_domain' ) );
+            return $this->error( 'no_twitter_data_loaded', __( 'Twitter data failed to load.', 'ghostkit' ) );
         }
     }
 
@@ -1114,21 +1114,21 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( $diff_date / 60 < 1 ) {
             // seconds.
             // translators: %d - seconds.
-            $date = sprintf( esc_html__( '%ds', '@@text_domain' ), intval( $diff_date % 60 ) );
+            $date = sprintf( esc_html__( '%ds', 'ghostkit' ), intval( $diff_date % 60 ) );
         } elseif ( $diff_date / 60 < 60 ) {
             // minutes.
             // translators: %d - minutes.
-            $date = sprintf( esc_html__( '%dm', '@@text_domain' ), intval( $diff_date / 60 ) );
+            $date = sprintf( esc_html__( '%dm', 'ghostkit' ), intval( $diff_date / 60 ) );
         } elseif ( $diff_date / 3600 < 24 ) {
             // hours.
             // translators: %d - hours.
-            $date = sprintf( esc_html__( '%dh', '@@text_domain' ), intval( $diff_date / 3600 ) );
+            $date = sprintf( esc_html__( '%dh', 'ghostkit' ), intval( $diff_date / 3600 ) );
         } elseif ( gmdate( 'Y' ) === gmdate( 'Y', $date ) ) {
             // current year.
-            $date = gmdate( esc_html__( 'M j', '@@text_domain' ), $date );
+            $date = gmdate( esc_html__( 'M j', 'ghostkit' ), $date );
         } else {
             // past years.
-            $date = gmdate( esc_html__( 'Y M j', '@@text_domain' ), $date );
+            $date = gmdate( esc_html__( 'Y M j', 'ghostkit' ), $date );
         }
 
         $tweet['date_formatted'] = $date;
@@ -1577,7 +1577,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( is_array( $templates ) ) {
             return $this->success( $templates );
         } else {
-            return $this->error( 'no_templates', __( 'Templates not found.', '@@text_domain' ) );
+            return $this->error( 'no_templates', __( 'Templates not found.', 'ghostkit' ) );
         }
     }
 
@@ -1667,7 +1667,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( is_array( $template_data ) ) {
             return $this->success( $template_data );
         } else {
-            return $this->error( 'no_template_data', __( 'Template data not found.', '@@text_domain' ) );
+            return $this->error( 'no_template_data', __( 'Template data not found.', 'ghostkit' ) );
         }
     }
 
@@ -1682,7 +1682,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( is_array( $custom_code ) ) {
             return $this->success( $custom_code );
         } else {
-            return $this->error( 'no_custom_code', __( 'Custom code not found.', '@@text_domain' ) );
+            return $this->error( 'no_custom_code', __( 'Custom code not found.', 'ghostkit' ) );
         }
     }
 
@@ -1732,7 +1732,7 @@ class GhostKit_Rest extends WP_REST_Controller {
         if ( is_array( $typography ) ) {
             return $this->success( $typography );
         } else {
-            return $this->error( 'no_typography', __( 'Typography not found.', '@@text_domain' ) );
+            return $this->error( 'no_typography', __( 'Typography not found.', 'ghostkit' ) );
         }
     }
 

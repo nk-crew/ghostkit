@@ -642,7 +642,7 @@ class TypographyModal extends Component {
         className="ghostkit-plugin-typography-modal"
         position="top"
         size="md"
-        title={__('Typography', '@@text_domain')}
+        title={__('Typography', 'ghostkit')}
         onRequestClose={() => {
           const local = this.props.meta || {};
           const global = this.props.customTypography || {};
@@ -675,7 +675,7 @@ class TypographyModal extends Component {
           <div>
             {__(
               'You are using FSE theme. Typography settings have been moved to block settings',
-              '@@text_domain'
+              'ghostkit'
             )}
           </div>
         ) : (
@@ -688,10 +688,10 @@ class TypographyModal extends Component {
                   <Tooltip
                     text={__(
                       'All changes will be applied on the current page only.',
-                      '@@text_domain'
+                      'ghostkit'
                     )}
                   >
-                    <span>{__('Local', '@@text_domain')}</span>
+                    <span>{__('Local', 'ghostkit')}</span>
                   </Tooltip>
                 ),
                 className: 'ghostkit-control-tabs-tab',
@@ -699,8 +699,8 @@ class TypographyModal extends Component {
               {
                 name: 'global',
                 title: (
-                  <Tooltip text={__('All changes will be applied site wide.', '@@text_domain')}>
-                    <span>{__('Global', '@@text_domain')}</span>
+                  <Tooltip text={__('All changes will be applied site wide.', 'ghostkit')}>
+                    <span>{__('Global', 'ghostkit')}</span>
                   </Tooltip>
                 ),
                 className: 'ghostkit-control-tabs-tab',
@@ -720,8 +720,8 @@ class TypographyModal extends Component {
                     const advancedData = this.state[isGlobal ? 'globalAdvanced' : 'advanced'][key];
                     const advancedLabel =
                       advancedData === true
-                        ? __('Hide Advanced', '@@text_domain')
-                        : __('Show Advanced', '@@text_domain');
+                        ? __('Hide Advanced', 'ghostkit')
+                        : __('Show Advanced', 'ghostkit');
 
                     if (typographyList[key].childOf === '') {
                       return (
@@ -844,7 +844,7 @@ export class Plugin extends Component {
               this.setState({ isModalOpen: true });
             }}
           >
-            {__('Typography', '@@text_domain')}
+            {__('Typography', 'ghostkit')}
           </PluginMoreMenuItem>
         ) : null}
         {isModalOpen ? (

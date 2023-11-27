@@ -31,7 +31,7 @@ class GhostKit_Form_Field_Phone_Block {
                 'attributes'      => GhostKit_Form_Field_Attributes::get_block_attributes(
                     array(
                         'label' => array(
-                            'default' => esc_html__( 'Phone', '@@text_domain' ),
+                            'default' => esc_html__( 'Phone', 'ghostkit' ),
                         ),
                     )
                 ),

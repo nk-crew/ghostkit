@@ -35,7 +35,7 @@ function ToolbarTemplates() {
     return (
       <ToolbarButton
         className="components-button components-icon-button"
-        aria-label={__('Add Template', '@@text_domain')}
+        aria-label={__('Add Template', 'ghostkit')}
         onClick={() => {
           insertBlocks(
             createBlock('ghostkit/grid', {
@@ -45,7 +45,7 @@ function ToolbarTemplates() {
         }}
       >
         {getIcon('plugin-templates')}
-        {__('Templates Library', '@@text_domain')}
+        {__('Templates Library', 'ghostkit')}
       </ToolbarButton>
     );
   }

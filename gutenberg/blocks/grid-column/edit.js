@@ -35,15 +35,15 @@ import { useSelect } from '@wordpress/data';
 const getDefaultColumnSizes = function () {
   const result = [
     {
-      label: __('Inherit from larger', '@@text_domain'),
+      label: __('Inherit from larger', 'ghostkit'),
       value: '',
     },
     {
-      label: __('Auto', '@@text_domain'),
+      label: __('Auto', 'ghostkit'),
       value: 'auto',
     },
     {
-      label: __('Grow', '@@text_domain'),
+      label: __('Grow', 'ghostkit'),
       value: 'grow',
     },
   ];
@@ -51,7 +51,7 @@ const getDefaultColumnSizes = function () {
   for (let k = 1; k <= 12; k += 1) {
     result.push({
       label: sprintf(
-        k === 1 ? __('%d Column (%s)', '@@text_domain') : __('%d Columns (%s)', '@@text_domain'),
+        k === 1 ? __('%d Column (%s)', 'ghostkit') : __('%d Columns (%s)', 'ghostkit'),
         k,
         `${Math.round(((100 * k) / 12) * 100) / 100}%`
       ),
@@ -71,15 +71,15 @@ const getDefaultColumnSizes = function () {
 const getDefaultColumnOrders = function (columns = 12) {
   const result = [
     {
-      label: __('Inherit from larger', '@@text_domain'),
+      label: __('Inherit from larger', 'ghostkit'),
       value: '',
     },
     {
-      label: __('Auto', '@@text_domain'),
+      label: __('Auto', 'ghostkit'),
       value: 'auto',
     },
     {
-      label: __('First', '@@text_domain'),
+      label: __('First', 'ghostkit'),
       value: 'first',
     },
   ];
@@ -92,7 +92,7 @@ const getDefaultColumnOrders = function (columns = 12) {
   }
 
   result.push({
-    label: __('Last', '@@text_domain'),
+    label: __('Last', 'ghostkit'),
     value: 'last',
   });
 
@@ -153,7 +153,7 @@ export default function BlockEdit(props) {
             <SelectControl
               label={
                 <>
-                  {__('Size', '@@text_domain')}
+                  {__('Size', 'ghostkit')}
                   <ResponsiveToggle
                     checkActive={(checkMedia) => {
                       return !!attributes[`${checkMedia}_size`];
@@ -172,7 +172,7 @@ export default function BlockEdit(props) {
             <SelectControl
               label={
                 <>
-                  {__('Order', '@@text_domain')}
+                  {__('Order', 'ghostkit')}
                   <ResponsiveToggle
                     checkActive={(checkMedia) => {
                       return !!attributes[`${checkMedia}_order`];
@@ -191,7 +191,7 @@ export default function BlockEdit(props) {
             <ToggleGroup
               label={
                 <>
-                  {__('Vertical Alignment', '@@text_domain')}
+                  {__('Vertical Alignment', 'ghostkit')}
                   <ResponsiveToggle
                     checkActive={(checkMedia) => {
                       return !!attributes[`${checkMedia}_verticalAlign`];
@@ -203,17 +203,17 @@ export default function BlockEdit(props) {
               options={[
                 {
                   icon: getIcon('icon-vertical-top'),
-                  label: __('Top', '@@text_domain'),
+                  label: __('Top', 'ghostkit'),
                   value: '',
                 },
                 {
                   icon: getIcon('icon-vertical-center'),
-                  label: __('Center', '@@text_domain'),
+                  label: __('Center', 'ghostkit'),
                   value: 'center',
                 },
                 {
                   icon: getIcon('icon-vertical-bottom'),
-                  label: __('Bottom', '@@text_domain'),
+                  label: __('Bottom', 'ghostkit'),
                   value: 'end',
                 },
               ]}
@@ -226,15 +226,15 @@ export default function BlockEdit(props) {
         </ApplyFilters>
         <PanelBody>
           <ToggleGroup
-            label={__('Sticky Content', '@@text_domain')}
+            label={__('Sticky Content', 'ghostkit')}
             value={stickyContent}
             options={[
               {
-                label: __('Top', '@@text_domain'),
+                label: __('Top', 'ghostkit'),
                 value: 'top',
               },
               {
-                label: __('Bottom', '@@text_domain'),
+                label: __('Bottom', 'ghostkit'),
                 value: 'bottom',
               },
             ]}
@@ -245,7 +245,7 @@ export default function BlockEdit(props) {
           />
           {stickyContent ? (
             <RangeControl
-              label={__('Sticky Offset', '@@text_domain')}
+              label={__('Sticky Offset', 'ghostkit')}
               value={stickyContentOffset}
               onChange={(value) => setAttributes({ stickyContentOffset: value })}
               allowCustomMax

@@ -40,7 +40,7 @@ function PositionMinMaxWidthTools(props) {
 
   return (
     <ToolsPanelItem
-      label={__('Min Max Width', '@@text_domain')}
+      label={__('Min Max Width', 'ghostkit')}
       hasValue={() => !!hasMinMaxWidth}
       onDeselect={() => {
         resetStyles(allProps, true);
@@ -50,7 +50,7 @@ function PositionMinMaxWidthTools(props) {
       <InputGroup
         label={
           <>
-            {__('Min Max Width', '@@text_domain')}
+            {__('Min Max Width', 'ghostkit')}
             <ResponsiveToggle
               checkActive={(checkMedia) => {
                 let isActive = false;
@@ -66,10 +66,10 @@ function PositionMinMaxWidthTools(props) {
         }
       >
         {allProps.map((propName) => {
-          let label = __('Min', '@@text_domain');
+          let label = __('Min', 'ghostkit');
 
           if (propName === 'max-width') {
-            label = __('Max', '@@text_domain');
+            label = __('Max', 'ghostkit');
           }
 
           let value = getStyle(propName, device);

@@ -54,21 +54,21 @@ export default function BlockEdit(props) {
       <InspectorControls>
         <PanelBody>
           <RangeControl
-            label={__('Height', '@@text_domain')}
+            label={__('Height', 'ghostkit')}
             value={height || ''}
             onChange={(value) => setAttributes({ height: value })}
             min={1}
             allowCustomMax
           />
           <RangeControl
-            label={__('Percent', '@@text_domain')}
+            label={__('Percent', 'ghostkit')}
             value={percent || ''}
             onChange={(value) => setAttributes({ percent: value })}
             min={0}
             max={100}
           />
           <RangeControl
-            label={__('Corner Radius', '@@text_domain')}
+            label={__('Corner Radius', 'ghostkit')}
             value={borderRadius}
             min={0}
             max={10}
@@ -78,19 +78,19 @@ export default function BlockEdit(props) {
         </PanelBody>
         <PanelBody>
           <ToggleControl
-            label={__('Show Count', '@@text_domain')}
+            label={__('Show Count', 'ghostkit')}
             checked={!!showCount}
             onChange={(val) => setAttributes({ showCount: val })}
           />
           {showCount ? (
             <>
               <TextControl
-                label={__('Count Prefix', '@@text_domain')}
+                label={__('Count Prefix', 'ghostkit')}
                 value={countPrefix}
                 onChange={(value) => setAttributes({ countPrefix: value })}
               />
               <TextControl
-                label={__('Count Suffix', '@@text_domain')}
+                label={__('Count Suffix', 'ghostkit')}
                 value={countSuffix}
                 onChange={(value) => setAttributes({ countSuffix: value })}
               />
@@ -99,12 +99,12 @@ export default function BlockEdit(props) {
             ''
           )}
           <ToggleControl
-            label={__('Striped', '@@text_domain')}
+            label={__('Striped', 'ghostkit')}
             checked={!!striped}
             onChange={(val) => setAttributes({ striped: val })}
           />
           <ToggleControl
-            label={__('Animate in viewport', '@@text_domain')}
+            label={__('Animate in viewport', 'ghostkit')}
             checked={!!animateInViewport}
             onChange={(val) => setAttributes({ animateInViewport: val })}
           />
@@ -112,7 +112,7 @@ export default function BlockEdit(props) {
         <PanelBody
           title={
             <>
-              {__('Colors', '@@text_domain')}
+              {__('Colors', 'ghostkit')}
               <ColorIndicator colorValue={color} />
               <ColorIndicator colorValue={backgroundColor} />
             </>
@@ -124,12 +124,12 @@ export default function BlockEdit(props) {
             tabs={[
               {
                 name: 'normal',
-                title: __('Normal', '@@text_domain'),
+                title: __('Normal', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
               {
                 name: 'hover',
-                title: __('Hover', '@@text_domain'),
+                title: __('Hover', 'ghostkit'),
                 className: 'ghostkit-control-tabs-tab',
               },
             ]}
@@ -144,7 +144,7 @@ export default function BlockEdit(props) {
                     props={props}
                   >
                     <ColorPicker
-                      label={__('Bar', '@@text_domain')}
+                      label={__('Bar', 'ghostkit')}
                       value={isHover ? hoverColor : color}
                       onChange={(val) =>
                         setAttributes(isHover ? { hoverColor: val } : { color: val })
@@ -159,7 +159,7 @@ export default function BlockEdit(props) {
                     props={props}
                   >
                     <ColorPicker
-                      label={__('Background', '@@text_domain')}
+                      label={__('Background', 'ghostkit')}
                       value={isHover ? hoverBackgroundColor : backgroundColor}
                       onChange={(val) =>
                         setAttributes(
@@ -182,7 +182,7 @@ export default function BlockEdit(props) {
             inlineToolbar
             tagName="div"
             className="ghostkit-progress-caption"
-            placeholder={__('Write caption…', '@@text_domain')}
+            placeholder={__('Write caption…', 'ghostkit')}
             value={caption}
             onChange={(newCaption) => setAttributes({ caption: newCaption })}
           />

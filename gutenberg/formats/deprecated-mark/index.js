@@ -17,7 +17,7 @@ import { toggleFormat } from '@wordpress/rich-text';
 export const name = 'ghostkit/mark';
 
 export const settings = {
-  title: __('Highlight', '@@text_domain'),
+  title: __('Highlight', 'ghostkit'),
   tagName: 'mark',
   className: 'ghostkit-highlight',
   edit: function HighlightFormat(props) {
@@ -42,7 +42,7 @@ export const settings = {
         <RichTextToolbarButton
           shortcutCharacter="m"
           shortcutType="access"
-          title={__('Highlight', '@@text_domain')}
+          title={__('Highlight', 'ghostkit')}
           icon={getIcon('icon-felt-pen')}
           onClick={() => toggleMark()}
           isActive={isActive}

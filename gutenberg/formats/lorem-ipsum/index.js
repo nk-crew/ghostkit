@@ -18,7 +18,7 @@ const MAX_LENGTH = 9;
 export const name = 'ghostkit/lorem-ipsum';
 
 export const settings = {
-  title: __('Lorem Ipsum', '@@text_domain'),
+  title: __('Lorem Ipsum', 'ghostkit'),
   tagName: 'span',
   className: 'ghostkit-lorem-ipsum',
   // eslint-disable-next-line no-underscore-dangle

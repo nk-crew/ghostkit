@@ -53,7 +53,7 @@ function GhostKitExtensionCustomCSSInspector(original, { props }) {
           label={
             <>
               <span className="ghostkit-ext-icon">{getIcon('extension-custom-css')}</span>
-              <span>{__('Custom CSS', '@@text_domain')}</span>
+              <span>{__('Custom CSS', 'ghostkit')}</span>
             </>
           }
           resetAll={() => {

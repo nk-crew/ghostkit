@@ -108,7 +108,7 @@ export default function BlockEdit(props) {
       [
         'ghostkit/button-single',
         {
-          text: __('Submit', '@@text_domain'),
+          text: __('Submit', 'ghostkit'),
           tagName: 'button',
           focusOutlineWeight: 2,
         },
@@ -129,7 +129,7 @@ export default function BlockEdit(props) {
       </BlockControls>
       <InspectorControls>
         <PanelBody>
-          <BaseControl label={__('Align', '@@text_domain')}>
+          <BaseControl label={__('Align', 'ghostkit')}>
             <div>
               <BlockAlignmentToolbar
                 value={align}

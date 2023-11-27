@@ -5,11 +5,11 @@ import { __ } from '@wordpress/i18n';
 
 export const EXTENSIONS = {
   effects: {
-    label: __('Effects', '@@text_domain'),
+    label: __('Effects', 'ghostkit'),
     attributes: ['effects'],
   },
   position: {
-    label: __('Position', '@@text_domain'),
+    label: __('Position', 'ghostkit'),
     styles: [
       'position',
       'top',
@@ -28,7 +28,7 @@ export const EXTENSIONS = {
     selectors: [''],
   },
   spacings: {
-    label: __('Spacings', '@@text_domain'),
+    label: __('Spacings', 'ghostkit'),
     styles: [
       'padding-top',
       'padding-right',
@@ -43,7 +43,7 @@ export const EXTENSIONS = {
     selectors: [''],
   },
   frame: {
-    label: __('Frame', '@@text_domain'),
+    label: __('Frame', 'ghostkit'),
     styles: [
       'border-style',
       'border-width',
@@ -58,7 +58,7 @@ export const EXTENSIONS = {
     selectors: ['', '&:hover'],
   },
   transform: {
-    label: __('Transform', '@@text_domain'),
+    label: __('Transform', 'ghostkit'),
     styles: [
       '--gkt-transform-perspective',
       '--gkt-transform-x',
@@ -76,7 +76,7 @@ export const EXTENSIONS = {
     selectors: ['', '&:hover'],
   },
   customCSS: {
-    label: __('Custom CSS', '@@text_domain'),
+    label: __('Custom CSS', 'ghostkit'),
     styles: [
       'opacity',
       'overflow-x',
