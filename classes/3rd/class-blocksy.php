@@ -2,7 +2,7 @@
 /**
  * Blocksy theme.
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

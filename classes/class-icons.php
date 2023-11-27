@@ -2,7 +2,7 @@
 /**
  * Icons for icon picker component
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

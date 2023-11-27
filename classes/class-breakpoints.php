@@ -2,7 +2,7 @@
 /**
  * Breakpoints
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 if ( ! function_exists( 'is_plugin_active' ) ) {
@@ -69,7 +69,7 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
          *
          * @var string
          */
-        protected $plugin_name = '@@plugin_name';
+        protected $plugin_name = 'ghostkit';
 
         /**
          * Plugin version.

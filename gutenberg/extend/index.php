@@ -2,7 +2,7 @@
 /**
  * Extensions for blocks
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

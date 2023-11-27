@@ -2,7 +2,7 @@
 /**
  * Fonts for typography component
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase

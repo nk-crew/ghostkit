@@ -2,7 +2,7 @@
 /**
  * Parse blocks from content and widgets
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

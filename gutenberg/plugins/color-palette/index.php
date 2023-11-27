@@ -2,7 +2,7 @@
 /**
  * Custom color palette plugin
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**
@@ -81,7 +81,7 @@ class GhostKit_Color_Palette_Plugin {
             }
 
             if ( $custom_css ) {
-                wp_register_style( 'ghostkit-color-palette', false, array(), '@@plugin_version' );
+                wp_register_style( 'ghostkit-color-palette', false, array(), GHOSTKIT_VERSION );
                 wp_enqueue_style( 'ghostkit-color-palette' );
                 wp_add_inline_style( 'ghostkit-color-palette', $custom_css );
             }

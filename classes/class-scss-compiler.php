@@ -2,7 +2,7 @@
 /**
  * Scss Compiler
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

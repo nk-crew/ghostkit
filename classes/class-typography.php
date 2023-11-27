@@ -2,7 +2,7 @@
 /**
  * Typography
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

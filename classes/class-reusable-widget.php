@@ -2,7 +2,7 @@
 /**
  * Widget for reusable blocks
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

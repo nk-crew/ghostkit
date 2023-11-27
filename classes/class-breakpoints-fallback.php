@@ -2,7 +2,7 @@
 /**
  * Fallback for old Breakpoints used in Ghost Kit PRO v1.6.2 to prevent PHP error.
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
@@ -51,7 +51,7 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
          *
          * @var string
          */
-        protected $plugin_name = '@@plugin_name';
+        protected $plugin_name = 'ghostkit';
 
         /**
          * Plugin version.

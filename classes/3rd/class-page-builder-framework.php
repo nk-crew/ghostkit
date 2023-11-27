@@ -2,7 +2,7 @@
 /**
  * Page Builder Framework theme.
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

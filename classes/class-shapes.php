@@ -2,7 +2,7 @@
 /**
  * Shapes for Shape Divider block
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

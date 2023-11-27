@@ -2,7 +2,7 @@
 /**
  * Rank Math plugin.
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

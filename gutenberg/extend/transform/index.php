@@ -2,7 +2,7 @@
 /**
  * Transform Extension.
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

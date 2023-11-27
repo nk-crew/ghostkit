@@ -5,7 +5,7 @@
  * We have to look at all scss files in our plugin and replace modules syntax,
  * because SCSSPHP does not support it yet.
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 /**

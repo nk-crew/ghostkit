@@ -2,7 +2,7 @@
 /**
  * Fonts API: Google Fonts provider.
  *
- * @package @@plugin_name
+ * @package ghostkit
  */
 
 if ( ! class_exists( 'Ghostkit_Fonts_Google_Provider' ) && class_exists( 'WP_Fonts_Provider' ) ) {
