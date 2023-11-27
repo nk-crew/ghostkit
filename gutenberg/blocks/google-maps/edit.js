@@ -14,7 +14,7 @@ import ImagePicker from '../../components/image-picker';
 import RangeControl from '../../components/range-control';
 import { maybeEncode, maybeDecode } from '../../utils/encode-decode';
 
-import IconMarker from './icons/marker.svg';
+import { ReactComponent as IconMarker } from './icons/marker.svg';
 import styles from './map-styles';
 import MapBlock from './map-block';
 import SearchBox from './search-box';

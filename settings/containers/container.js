@@ -7,7 +7,7 @@ import classnames from 'classnames/dedupe';
  * Internal dependencies
  */
 import getPages from '../pages';
-import Logo from '../../gutenberg/icons/ghostkit-text-logo.svg';
+import { ReactComponent as Logo } from'../../gutenberg/icons/ghostkit-text-logo.svg';
 
 /**
  * WordPress dependencies

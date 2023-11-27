@@ -31,7 +31,7 @@ import './plugins';
 /**
  * Icon
  */
-import GhostKitLogoIcon from './icons/ghostkit-logo.svg';
+import { ReactComponent as GhostKitLogoIcon } from './icons/ghostkit-logo.svg';
 
 /**
  * Disable Blocks
