@@ -15,11 +15,13 @@ import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem
 } from '@wordpress/components';
 
-const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
-
 import { hasBlockSupport } from '@wordpress/blocks';
 
+const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
+
 const { pro } = window.GHOSTKIT;
+
+const { version } = window.ghostkitVariables;
 
 function ProTransitionTools() {
   return (
@@ -41,7 +43,7 @@ function ProTransitionTools() {
           <ProNote.Button
             target="_blank"
             rel="noopener noreferrer"
-            href="https://ghostkit.io/extensions/custom-css/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_transition&utm_content=@@plugin_version"
+            href={`https://ghostkit.io/extensions/custom-css/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_transition&utm_content=${version}`}
           >
             {__('Read More', 'ghostkit')}
           </ProNote.Button>

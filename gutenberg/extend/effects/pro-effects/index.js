@@ -23,6 +23,8 @@ const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
 const { pro } = window.GHOSTKIT;
 
+const { version } = window.ghostkitVariables;
+
 const PRESETS = {
   mouseHover: {
     label: __('Mouse Hover', 'ghostkit'),
@@ -58,7 +60,7 @@ function EffectsProTools() {
             <ProNote.Button
               target="_blank"
               rel="noopener noreferrer"
-              href="https://ghostkit.io/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=@@plugin_version"
+              href={`https://ghostkit.io/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=${version}`}
             >
               {__('Read More', 'ghostkit')}
             </ProNote.Button>

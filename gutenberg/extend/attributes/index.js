@@ -17,6 +17,8 @@ import { InspectorControls } from '@wordpress/block-editor';
 
 const { pro } = window.GHOSTKIT;
 
+const { version } = window.ghostkitVariables;
+
 /**
  * Add inspector controls.
  */
@@ -51,7 +53,7 @@ function ProAttributesControls() {
       <ProNote.Button
         target="_blank"
         rel="noopener noreferrer"
-        href="https://ghostkit.io/extensions/attributes/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_attributes&utm_content=@@plugin_version"
+        href={`https://ghostkit.io/extensions/attributes/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_attributes&utm_content=${version}`}
       >
         {__('Read More', 'ghostkit')}
       </ProNote.Button>

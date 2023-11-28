@@ -19,6 +19,8 @@ import { applyFilters } from '@wordpress/hooks';
 
 const { GHOSTKIT } = window;
 
+const { version } = window.ghostkitVariables;
+
 /**
  * Get Default Font
  * @param {string} fontFamily - Current Font.
@@ -295,7 +297,7 @@ export default class Typography extends Component {
                   'Adobe Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
                   'ghostkit'
                 )}
-                <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=adobe_fonts&utm_content=@@plugin_version">
+                <ExternalLink href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=adobe_fonts&utm_content=${version}`}>
                   https://ghostkit.io/pricing/
                 </ExternalLink>
               </div>
@@ -308,7 +310,7 @@ export default class Typography extends Component {
                   'Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
                   'ghostkit'
                 )}
-                <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=custom_fonts&utm_content=@@plugin_version">
+                <ExternalLink href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=custom_fonts&utm_content=${version}`}>
                   https://ghostkit.io/pricing/
                 </ExternalLink>
               </div>

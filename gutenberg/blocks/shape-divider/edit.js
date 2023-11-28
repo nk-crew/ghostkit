@@ -30,6 +30,8 @@ import { InspectorControls, BlockControls, useBlockProps } from '@wordpress/bloc
 
 const { GHOSTKIT } = window;
 
+const { version } = window.ghostkitVariables;
+
 const { shapes } = GHOSTKIT;
 
 function getShapeData(svg) {
@@ -147,7 +149,7 @@ export default function BlockEdit(props) {
                 <ProNote.Button
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://ghostkit.io/shape-divider/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_shapes&utm_content=@@plugin_version"
+                  href={ `https://ghostkit.io/shape-divider/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_shapes&utm_content=${version}` }
                 >
                   {__('Read More', 'ghostkit')}
                 </ProNote.Button>

@@ -23,6 +23,8 @@ const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
 const { pro } = window.GHOSTKIT;
 
+const { version } = window.ghostkitVariables;
+
 const PRESETS = {
   translate: {
     label: __('Translate', 'ghostkit'),
@@ -61,7 +63,7 @@ function TransformProTools() {
             <ProNote.Button
               target="_blank"
               rel="noopener noreferrer"
-              href="https://ghostkit.io/extensions/transform/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_transform&utm_content=@@plugin_version"
+              href={`https://ghostkit.io/extensions/transform/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_transform&utm_content=${version}`}
             >
               {__('Read More', 'ghostkit')}
             </ProNote.Button>

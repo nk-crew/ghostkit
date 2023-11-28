@@ -28,7 +28,7 @@ const { merge } = window.lodash;
 
 import apiFetch from '@wordpress/api-fetch';
 
-const { isFseTheme, typographyExist, fontsApiExist } = window.ghostkitVariables;
+const { isFseTheme, typographyExist, fontsApiExist, version } = window.ghostkitVariables;
 
 let reloadPage = false;
 
@@ -97,7 +97,7 @@ class FontsSettings extends Component {
                         'Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
                         'ghostkit'
                       )}
-                      <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=fonts&utm_content=@@plugin_version">
+                      <ExternalLink href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=fonts&utm_content=${version}`}>
                         https://ghostkit.io/pricing/
                       </ExternalLink>
                     </div>
@@ -110,7 +110,7 @@ class FontsSettings extends Component {
                       'Adobe Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
                       'ghostkit'
                     )}
-                    <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=fonts&utm_content=@@plugin_version">
+                    <ExternalLink href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=fonts&utm_content=${version}`}>
                       https://ghostkit.io/pricing/
                     </ExternalLink>
                   </div>
@@ -124,7 +124,7 @@ class FontsSettings extends Component {
               'Adobe and Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
               'ghostkit'
             )}
-            <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=fonts&utm_content=@@plugin_version">
+            <ExternalLink href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=fonts&utm_content=${version}`}>
               https://ghostkit.io/pricing/
             </ExternalLink>
           </div>

@@ -30,6 +30,7 @@ import {
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 const NumberControl = StableNumberControl || ExperimentalNumberControl;
 const Grid = StableGrid || ExperimentalGrid;
+const { version } = window.ghostkitVariables;
 
 import { hasBlockSupport } from '@wordpress/blocks';
 
@@ -194,7 +195,7 @@ function EffectsRevealTools(props) {
           <ProNote.Button
             target="_blank"
             rel="noopener noreferrer"
-            href="https://ghostkit.io/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=@@plugin_version"
+            href={`https://ghostkit.io/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=${version}`}
           >
             {__('Read More', 'ghostkit')}
           </ProNote.Button>

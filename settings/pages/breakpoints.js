@@ -10,6 +10,8 @@ import { ExternalLink } from '@wordpress/components';
 
 import { __ } from '@wordpress/i18n';
 
+const { version } = window.ghostkitVariables;
+
 export default function BreakpointSettings(props) {
   return (
     <ApplyFilters name="ghostkit.breakpoints.settings" props={props}>
@@ -18,7 +20,7 @@ export default function BreakpointSettings(props) {
           'Breakpoints available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
           'ghostkit'
         )}
-        <ExternalLink href="https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=breakpoints&utm_content=@@plugin_version">
+        <ExternalLink href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=breakpoints&utm_content=${version}`}>
           https://ghostkit.io/pricing/
         </ExternalLink>
       </div>
