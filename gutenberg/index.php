@@ -6,27 +6,27 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 /**
  * Register all blocks.
  */
 function ghostkit_register_blocks() {
-    // Find all json and php files of blocks.
-    $all_block_json = glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/block.json' );
-    $all_block_php  = glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/block.php' );
+	// Find all json and php files of blocks.
+	$all_block_json = glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/block.json' );
+	$all_block_php  = glob( ghostkit()->plugin_path . 'gutenberg/blocks/*/block.php' );
 
-    foreach ( $all_block_json as $path ) {
-        $php_file_path = str_replace( '.json', '.php', $path );
-        $there_is_php  = in_array( $php_file_path, $all_block_php, true );
+	foreach ( $all_block_json as $path ) {
+		$php_file_path = str_replace( '.json', '.php', $path );
+		$there_is_php  = in_array( $php_file_path, $all_block_php, true );
 
-        // Don't register block if there is php file,
-        // which already should contains the registration code.
-        if ( ! $there_is_php ) {
-            register_block_type_from_metadata( $path );
-        }
-    }
+		// Don't register block if there is php file,
+		// which already should contains the registration code.
+		if ( ! $there_is_php ) {
+			register_block_type_from_metadata( $path );
+		}
+	}
 }
 add_action( 'init', 'ghostkit_register_blocks' );
 
