@@ -3,10 +3,10 @@
 .publish
 .git
 .idea
-/src/languages/*
 /node_modules
 /vendor
 /dist
+/dist-zip
 npm-debug.log
 .phpcs.xml
 phpcs.xml
