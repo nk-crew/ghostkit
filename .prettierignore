@@ -2,7 +2,12 @@
 **/*.scss
 **/*.html
 **/*.php
+**/*.yml
 node_modules
+assets/vendor
 dist
+dist-zip
 vendor
 vendors
+build
+composer-libraries
