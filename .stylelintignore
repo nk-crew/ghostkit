@@ -4,6 +4,9 @@
 **/*.build.css
 **/gutenberg/wordpress/**/*.scss
 node_modules
+assets/vendor
 dist
+duist-zip
+build
 vendor
 vendors
