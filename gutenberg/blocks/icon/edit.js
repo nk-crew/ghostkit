@@ -3,53 +3,52 @@
  */
 import classnames from 'classnames/dedupe';
 
-/**
- * Internal dependencies
- */
-import IconPicker from '../../components/icon-picker';
-
-import EditBlockControls from './edit/block-controls';
-import EditInspectorControls from './edit/inspector-controls';
-import ColorControls from './edit/color-controls';
-
+import { useBlockProps } from '@wordpress/block-editor';
 /**
  * WordPress dependencies
  */
 import { applyFilters } from '@wordpress/hooks';
-import { useBlockProps } from '@wordpress/block-editor';
 
-export default function BlockEdit(props) {
-  const { attributes, setAttributes, isSelected, clientId } = props;
-  const { flipV, flipH } = attributes;
+/**
+ * Internal dependencies
+ */
+import IconPicker from '../../components/icon-picker';
+import EditBlockControls from './edit/block-controls';
+import ColorControls from './edit/color-controls';
+import EditInspectorControls from './edit/inspector-controls';
 
-  let { className = '' } = props;
+export default function BlockEdit( props ) {
+	const { attributes, setAttributes, isSelected, clientId } = props;
+	const { flipV, flipH } = attributes;
 
-  className = classnames(
-    'ghostkit-icon',
-    {
-      'ghostkit-icon-flip-vertical': flipV,
-      'ghostkit-icon-flip-horizontal': flipH,
-    },
-    className
-  );
+	let { className = '' } = props;
 
-  className = applyFilters('ghostkit.editor.className', className, props);
+	className = classnames(
+		'ghostkit-icon',
+		{
+			'ghostkit-icon-flip-vertical': flipV,
+			'ghostkit-icon-flip-horizontal': flipH,
+		},
+		className
+	);
 
-  const blockProps = useBlockProps({ className });
+	className = applyFilters( 'ghostkit.editor.className', className, props );
 
-  return (
-    <>
-      <EditInspectorControls attributes={attributes} setAttributes={setAttributes} />
-      <ColorControls attributes={attributes} setAttributes={setAttributes} clientId={clientId} />
-      <EditBlockControls
-        attributes={attributes}
-        setAttributes={setAttributes}
-        isSelected={isSelected}
-      />
+	const blockProps = useBlockProps( { className } );
 
-      <span {...blockProps}>
-        <IconPicker.Preview tag="div" name={attributes.icon} className="ghostkit-icon-inner" />
-      </span>
-    </>
-  );
+	return (
+		<>
+			<EditInspectorControls attributes={ attributes } setAttributes={ setAttributes } />
+			<ColorControls attributes={ attributes } setAttributes={ setAttributes } clientId={ clientId } />
+			<EditBlockControls
+				attributes={ attributes }
+				setAttributes={ setAttributes }
+				isSelected={ isSelected }
+			/>
+
+			<span { ...blockProps }>
+				<IconPicker.Preview tag="div" name={ attributes.icon } className="ghostkit-icon-inner" />
+			</span>
+		</>
+	);
 }

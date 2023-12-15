@@ -17,21 +17,21 @@ import sortObject from '../../../utils/sort-object';
 import * as styles from '../../../utils/styles';
 
 export function get() {
-  return {
-    arrayMove,
-    camelCaseToDash,
-    classesReplacer,
-    compactObject,
-    dashCaseToTitle,
-    encodeDecode,
-    getIcon,
-    getParents,
-    getSiblings,
-    getSlug,
-    getUniqueSlug,
-    merge,
-    round,
-    sortObject,
-    styles,
-  };
+	return {
+		arrayMove,
+		camelCaseToDash,
+		classesReplacer,
+		compactObject,
+		dashCaseToTitle,
+		encodeDecode,
+		getIcon,
+		getParents,
+		getSiblings,
+		getSlug,
+		getUniqueSlug,
+		merge,
+		round,
+		sortObject,
+		styles,
+	};
 }

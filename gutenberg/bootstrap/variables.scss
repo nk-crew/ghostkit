@@ -5,11 +5,11 @@
 // adapting to different screen sizes, for use in media queries.
 
 $grid-breakpoints: (
-  xs: 0,
-  xl: $media-lg,
-  lg: $media-md,
-  md: $media-sm,
-  sm: $media-xs,
+	xs: 0,
+	xl: $media-lg,
+	lg: $media-md,
+	md: $media-sm,
+	sm: $media-xs,
 ) !default;
 
 @include _assert-descending($grid-breakpoints, "$grid-breakpoints");
@@ -19,10 +19,10 @@ $grid-breakpoints: (
 // Define the maximum width of `.container` for different screen sizes.
 
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1140px
+	sm: 540px,
+	md: 720px,
+	lg: 960px,
+	xl: 1140px
 ) !default;
 
 @include _assert-ascending($container-max-widths, "$container-max-widths");

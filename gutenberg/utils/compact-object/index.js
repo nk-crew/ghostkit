@@ -5,22 +5,22 @@
  *
  * @param {Object} obj - object to work with.
  *
- * @returns {Object}
+ * @return {Object}
  */
-export default function compactObject(obj) {
-  if (typeof obj !== 'object') {
-    return obj;
-  }
+export default function compactObject( obj ) {
+	if ( typeof obj !== 'object' ) {
+		return obj;
+	}
 
-  return Object.keys(obj).reduce(function (accumulator, key) {
-    const isObject = typeof obj[key] === 'object';
-    const value = isObject ? compactObject(obj[key]) : obj[key];
-    const isEmptyObject = isObject && !Object.keys(value).length;
+	return Object.keys( obj ).reduce( function( accumulator, key ) {
+		const isObject = typeof obj[ key ] === 'object';
+		const value = isObject ? compactObject( obj[ key ] ) : obj[ key ];
+		const isEmptyObject = isObject && ! Object.keys( value ).length;
 
-    if (value === undefined || isEmptyObject) {
-      return accumulator;
-    }
+		if ( value === undefined || isEmptyObject ) {
+			return accumulator;
+		}
 
-    return Object.assign(accumulator, { [key]: value });
-  }, {});
+		return Object.assign( accumulator, { [ key ]: value } );
+	}, {} );
 }

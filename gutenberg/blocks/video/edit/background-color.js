@@ -1,125 +1,126 @@
+/* eslint-disable indent */
 /**
  * Internal dependencies
  */
-import { hasClass } from '../../../utils/classes-replacer';
-
+import {
+	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
+	InspectorControls,
+} from '@wordpress/block-editor';
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-  InspectorControls,
-  __experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
-  __experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
-} from '@wordpress/block-editor';
 
-export default function BackgroundColor(props) {
-  const { attributes, setAttributes, className, clientId } = props;
-  const {
-    type,
-    clickAction,
+import { hasClass } from '../../../utils/classes-replacer';
 
-    videoBackgroundColor,
-    videoBackgroundGradient,
+export default function BackgroundColor( props ) {
+	const { attributes, setAttributes, className, clientId } = props;
+	const {
+		type,
+		clickAction,
 
-    fullscreenVideoBackgroundColor,
-    fullscreenVideoBackgroundGradient,
+		videoBackgroundColor,
+		videoBackgroundGradient,
 
-    fullscreenBackgroundColor,
-    fullscreenBackgroundGradient,
-  } = attributes;
+		fullscreenVideoBackgroundColor,
+		fullscreenVideoBackgroundGradient,
 
-  const colorGradientSettings = useMultipleOriginColorsAndGradients();
-  const hasColor = colorGradientSettings.hasColorsOrGradients;
-  const hasIconOnly = hasClass(className, 'is-style-icon-only');
+		fullscreenBackgroundColor,
+		fullscreenBackgroundGradient,
+	} = attributes;
 
-  const hasVideoPlain = type === 'video' && clickAction === 'plain' && !hasIconOnly;
-  const hasVideoFullscreen = type === 'video' && clickAction === 'fullscreen';
-  const hasFullscreen = clickAction === 'fullscreen';
+	const colorGradientSettings = useMultipleOriginColorsAndGradients();
+	const hasColor = colorGradientSettings.hasColorsOrGradients;
+	const hasIconOnly = hasClass( className, 'is-style-icon-only' );
 
-  return (hasColor && hasVideoPlain) ||
-    (hasColor && hasVideoFullscreen) ||
-    (hasColor && type === 'yt_vm_video' && hasFullscreen) ? (
-    <InspectorControls group="color">
-      {/* Video plain background. */}
-      {hasVideoPlain && (
-        <ColorGradientSettingsDropdown
-          __experimentalIsRenderedInSidebar
-          settings={[
-            {
-              colorValue: videoBackgroundColor,
-              gradientValue: videoBackgroundGradient,
-              label: __('Video Background', 'ghostkit'),
-              onColorChange: (val) => {
-                setAttributes({ videoBackgroundColor: val });
-              },
-              onGradientChange: (val) => {
-                setAttributes({ videoBackgroundGradient: val });
-              },
-              isShownByDefault: true,
-              resetAllFilter: () => ({
-                videoBackgroundColor: undefined,
-                videoBackgroundGradient: undefined,
-              }),
-            },
-          ]}
-          panelId={clientId}
-          {...colorGradientSettings}
-        />
-      )}
+	const hasVideoPlain = type === 'video' && clickAction === 'plain' && ! hasIconOnly;
+	const hasVideoFullscreen = type === 'video' && clickAction === 'fullscreen';
+	const hasFullscreen = clickAction === 'fullscreen';
 
-      {/* Video fullscreen background. */}
-      {hasVideoFullscreen && (
-        <ColorGradientSettingsDropdown
-          __experimentalIsRenderedInSidebar
-          settings={[
-            {
-              colorValue: fullscreenVideoBackgroundColor,
-              gradientValue: fullscreenVideoBackgroundGradient,
-              label: __('Video Fullscreen Background', 'ghostkit'),
-              onColorChange: (val) => {
-                setAttributes({ fullscreenVideoBackgroundColor: val });
-              },
-              onGradientChange: (val) => {
-                setAttributes({ fullscreenVideoBackgroundGradient: val });
-              },
-              isShownByDefault: true,
-              resetAllFilter: () => ({
-                fullscreenVideoBackgroundColor: undefined,
-                fullscreenVideoBackgroundGradient: undefined,
-              }),
-            },
-          ]}
-          panelId={clientId}
-          {...colorGradientSettings}
-        />
-      )}
+	return ( hasColor && hasVideoPlain ) ||
+    ( hasColor && hasVideoFullscreen ) ||
+    ( hasColor && type === 'yt_vm_video' && hasFullscreen ) ? (
+	<InspectorControls group="color">
+		{ /* Video plain background. */ }
+		{ hasVideoPlain && (
+		<ColorGradientSettingsDropdown
+			__experimentalIsRenderedInSidebar
+			settings={ [
+							{
+								colorValue: videoBackgroundColor,
+								gradientValue: videoBackgroundGradient,
+								label: __( 'Video Background', 'ghostkit' ),
+								onColorChange: ( val ) => {
+									setAttributes( { videoBackgroundColor: val } );
+								},
+								onGradientChange: ( val ) => {
+									setAttributes( { videoBackgroundGradient: val } );
+								},
+								isShownByDefault: true,
+								resetAllFilter: () => ( {
+									videoBackgroundColor: undefined,
+									videoBackgroundGradient: undefined,
+								} ),
+							},
+						] }
+			panelId={ clientId }
+			{ ...colorGradientSettings }
+					/>
+				) }
 
-      {/* Fullscreen background. */}
-      {hasFullscreen && (
-        <ColorGradientSettingsDropdown
-          __experimentalIsRenderedInSidebar
-          settings={[
-            {
-              colorValue: fullscreenBackgroundColor,
-              gradientValue: fullscreenBackgroundGradient,
-              label: __('Fullscreen Background', 'ghostkit'),
-              onColorChange: (val) => {
-                setAttributes({ fullscreenBackgroundColor: val });
-              },
-              onGradientChange: (val) => {
-                setAttributes({ fullscreenBackgroundGradient: val });
-              },
-              isShownByDefault: true,
-              resetAllFilter: () => ({
-                fullscreenBackgroundColor: undefined,
-              }),
-            },
-          ]}
-          panelId={clientId}
-          {...colorGradientSettings}
-        />
-      )}
-    </InspectorControls>
-  ) : null;
+		{ /* Video fullscreen background. */ }
+		{ hasVideoFullscreen && (
+		<ColorGradientSettingsDropdown
+			__experimentalIsRenderedInSidebar
+			settings={ [
+							{
+								colorValue: fullscreenVideoBackgroundColor,
+								gradientValue: fullscreenVideoBackgroundGradient,
+								label: __( 'Video Fullscreen Background', 'ghostkit' ),
+								onColorChange: ( val ) => {
+									setAttributes( { fullscreenVideoBackgroundColor: val } );
+								},
+								onGradientChange: ( val ) => {
+									setAttributes( { fullscreenVideoBackgroundGradient: val } );
+								},
+								isShownByDefault: true,
+								resetAllFilter: () => ( {
+									fullscreenVideoBackgroundColor: undefined,
+									fullscreenVideoBackgroundGradient: undefined,
+								} ),
+							},
+						] }
+			panelId={ clientId }
+			{ ...colorGradientSettings }
+					/>
+				) }
+
+		{ /* Fullscreen background. */ }
+		{ hasFullscreen && (
+		<ColorGradientSettingsDropdown
+			__experimentalIsRenderedInSidebar
+			settings={ [
+							{
+								colorValue: fullscreenBackgroundColor,
+								gradientValue: fullscreenBackgroundGradient,
+								label: __( 'Fullscreen Background', 'ghostkit' ),
+								onColorChange: ( val ) => {
+									setAttributes( { fullscreenBackgroundColor: val } );
+								},
+								onGradientChange: ( val ) => {
+									setAttributes( { fullscreenBackgroundGradient: val } );
+								},
+								isShownByDefault: true,
+								resetAllFilter: () => ( {
+									fullscreenBackgroundColor: undefined,
+								} ),
+							},
+						] }
+			panelId={ clientId }
+			{ ...colorGradientSettings }
+					/>
+				) }
+	</InspectorControls>
+		) : null;
 }

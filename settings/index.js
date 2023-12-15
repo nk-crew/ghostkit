@@ -5,13 +5,13 @@
 /**
  * Internal dependencies
  */
+import { render } from '@wordpress/element';
+
 import Container from './containers/container';
 
-import { render  } from '@wordpress/element';
-
-window.addEventListener('load', () => {
-  render(
-    <Container data={window.ghostkitSettingsData} />,
-    document.querySelector('.ghostkit-admin-page')
-  );
-});
+window.addEventListener( 'load', () => {
+	render(
+		<Container data={ window.ghostkitSettingsData } />,
+		document.querySelector( '.ghostkit-admin-page' )
+	);
+} );

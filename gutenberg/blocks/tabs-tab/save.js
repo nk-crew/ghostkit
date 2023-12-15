@@ -8,24 +8,26 @@ const { name } = metadata;
 /**
  * WordPress dependencies
  */
-import { applyFilters } from '@wordpress/hooks';
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * Block Save Class.
+ *
+ * @param props
  */
-export default function BlockEdit(props) {
-  const { slug } = props.attributes;
+export default function BlockEdit( props ) {
+	const { slug } = props.attributes;
 
-  let className = 'ghostkit-tab';
+	let className = 'ghostkit-tab';
 
-  className = applyFilters('ghostkit.blocks.className', className, {
-    ...{ name },
-    ...props,
-  });
+	className = applyFilters( 'ghostkit.blocks.className', className, {
+		...{ name },
+		...props,
+	} );
 
-  const blockProps = useBlockProps.save({ className, 'data-tab': slug });
-  const innerBlockProps = useInnerBlocksProps.save(blockProps);
+	const blockProps = useBlockProps.save( { className, 'data-tab': slug } );
+	const innerBlockProps = useInnerBlocksProps.save( blockProps );
 
-  return <div {...innerBlockProps} />;
+	return <div { ...innerBlockProps } />;
 }

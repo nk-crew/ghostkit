@@ -1,92 +1,90 @@
 /**
  * Internal dependencies
  */
-import Select from '../select';
-
-import PRESETS from './presets';
-
 /**
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-
 import { __ } from '@wordpress/i18n';
 
-export default function TransitionPresetsControl(props) {
-  const { label, value, onChange } = props;
+import Select from '../select';
+import PRESETS from './presets';
 
-  const [preset, setPreset] = useState();
+export default function TransitionPresetsControl( props ) {
+	const { label, value, onChange } = props;
 
-  // Find default preset
-  useEffect(() => {
-    let newPreset = 'custom';
+	const [ preset, setPreset ] = useState();
 
-    const currentReveal = { ...(value || {}) };
+	// Find default preset
+	useEffect( () => {
+		let newPreset = 'custom';
 
-    // Remove transition from the comparison.
-    if (currentReveal?.transition) {
-      delete currentReveal.transition;
-    }
+		const currentReveal = { ...( value || {} ) };
 
-    Object.keys(PRESETS).forEach((slug) => {
-      const presetData = { ...PRESETS[slug].data };
+		// Remove transition from the comparison.
+		if ( currentReveal?.transition ) {
+			delete currentReveal.transition;
+		}
 
-      // Remove transition from the comparison.
-      if (presetData?.transition) {
-        delete presetData.transition;
-      }
+		Object.keys( PRESETS ).forEach( ( slug ) => {
+			const presetData = { ...PRESETS[ slug ].data };
 
-      if (JSON.stringify(currentReveal) === JSON.stringify(presetData)) {
-        newPreset = slug;
-      }
-    });
+			// Remove transition from the comparison.
+			if ( presetData?.transition ) {
+				delete presetData.transition;
+			}
 
-    setPreset(newPreset);
-  }, [preset, value]);
+			if ( JSON.stringify( currentReveal ) === JSON.stringify( presetData ) ) {
+				newPreset = slug;
+			}
+		} );
 
-  const presetOptions = [
-    ...(preset === 'custom'
-      ? [
-          {
-            value: 'custom',
-            label: __('-- Presets --', 'ghostkit'),
-          },
-        ]
-      : []),
-    ...Object.keys(PRESETS).map((name) => {
-      return {
-        value: name,
-        label: PRESETS[name].label,
-        icon: PRESETS[name].icon,
-      };
-    }),
-  ];
+		setPreset( newPreset );
+	}, [ preset, value ] );
 
-  const presetValue = {
-    value: preset,
-    label: preset,
-  };
+	const presetOptions = [
+		...( preset === 'custom'
+			? [
+				{
+					value: 'custom',
+					label: __( '-- Presets --', 'ghostkit' ),
+				},
+			]
+			: [] ),
+		...Object.keys( PRESETS ).map( ( name ) => {
+			return {
+				value: name,
+				label: PRESETS[ name ].label,
+				icon: PRESETS[ name ].icon,
+			};
+		} ),
+	];
 
-  // Find actual label.
-  if (presetValue.value) {
-    presetOptions.forEach((presetData) => {
-      if (presetValue.value === presetData.value) {
-        presetValue.label = presetData.label;
-      }
-    });
-  }
+	const presetValue = {
+		value: preset,
+		label: preset,
+	};
 
-  return (
-    <Select
-      label={label}
-      value={presetValue}
-      onChange={(val) => {
-        if (PRESETS?.[val.value]?.data) {
-          onChange(PRESETS[val.value].data);
-        }
-      }}
-      options={presetOptions}
-      isSearchable={false}
-    />
-  );
+	// Find actual label.
+	if ( presetValue.value ) {
+		presetOptions.forEach( ( presetData ) => {
+			if ( presetValue.value === presetData.value ) {
+				presetValue.label = presetData.label;
+			}
+		} );
+	}
+
+	return (
+		<Select
+			label={ label }
+			value={ presetValue }
+			onChange={ ( val ) => {
+				if ( PRESETS?.[ val.value ]?.data ) {
+					onChange( PRESETS[ val.value ].data );
+				}
+			} }
+			options={ presetOptions }
+			isSearchable={ false }
+		/>
+	);
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * Internal dependencies
  */
@@ -13,48 +14,48 @@ const { events } = window.GHOSTKIT;
  * Prepare TOCs click to link.
  */
 function initSmoothScroll() {
-  events.on(document, 'click', '.ghostkit-toc a', (e) => {
-    e.preventDefault();
+	events.on( document, 'click', '.ghostkit-toc a', ( e ) => {
+		e.preventDefault();
 
-    const $el = e.delegateTarget;
+		const $el = e.delegateTarget;
 
-    if (!$el || !$el.hash) {
-      return;
-    }
+		if ( ! $el || ! $el.hash ) {
+			return;
+		}
 
-    const offsetEl = document.getElementById(maybeDecode($el.hash).substring(1));
+		const offsetEl = document.getElementById( maybeDecode( $el.hash ).substring( 1 ) );
 
-    if (!offsetEl) {
-      return;
-    }
+		if ( ! offsetEl ) {
+			return;
+		}
 
-    let { top } = offsetEl.getBoundingClientRect();
+		let { top } = offsetEl.getBoundingClientRect();
 
-    // Get offset from CSS.
-    const scrollPadding = parseFloat(getComputedStyle($html)['scroll-padding-top']);
+		// Get offset from CSS.
+		const scrollPadding = parseFloat( getComputedStyle( $html )[ 'scroll-padding-top' ] );
 
-    if (scrollPadding) {
-      top -= scrollPadding;
-    } else {
-      const $adminBar = document.getElementById('wpadminbar');
+		if ( scrollPadding ) {
+			top -= scrollPadding;
+		} else {
+			const $adminBar = document.getElementById( 'wpadminbar' );
 
-      // Admin bar offset.
-      if ($adminBar && getComputedStyle($adminBar).position === 'fixed') {
-        top -= $adminBar.getBoundingClientRect().height;
-      }
-    }
+			// Admin bar offset.
+			if ( $adminBar && getComputedStyle( $adminBar ).position === 'fixed' ) {
+				top -= $adminBar.getBoundingClientRect().height;
+			}
+		}
 
-    // Limit max offset.
-    top = Math.max(0, top);
+		// Limit max offset.
+		top = Math.max( 0, top );
 
-    window.scrollTo({
-      top,
-      behavior: 'smooth',
-    });
-  });
+		window.scrollTo( {
+			top,
+			behavior: 'smooth',
+		} );
+	} );
 }
 
 // If smooth scroll enabled in CSS, we don't need to run it with JS.
-if (!('scrollBehavior' in $html.style) || getComputedStyle($html)['scroll-behavior'] !== 'smooth') {
-  initSmoothScroll();
+if ( ! ( 'scrollBehavior' in $html.style ) || getComputedStyle( $html )[ 'scroll-behavior' ] !== 'smooth' ) {
+	initSmoothScroll();
 }

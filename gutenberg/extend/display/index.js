@@ -3,64 +3,64 @@
  */
 import './screenSize';
 
-import getIcon from '../../utils/get-icon';
-import ApplyFilters from '../../components/apply-filters';
-
+import { InspectorControls } from '@wordpress/block-editor';
+import { hasBlockSupport } from '@wordpress/blocks';
+import {
+	__experimentalToolsPanel as ExperimentalToolsPanel,
+	__stableToolsPanel as StableToolsPanel,
+} from '@wordpress/components';
+import { addFilter } from '@wordpress/hooks';
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
 
-import { addFilter } from '@wordpress/hooks';
-
-import { hasBlockSupport } from '@wordpress/blocks';
-
-import { InspectorControls } from '@wordpress/block-editor';
-
-import {
-  __stableToolsPanel as StableToolsPanel,
-  __experimentalToolsPanel as ExperimentalToolsPanel,
-} from '@wordpress/components';
+import ApplyFilters from '../../components/apply-filters';
+import getIcon from '../../utils/get-icon';
 
 const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
 
 /**
  * Add inspector controls.
+ *
+ * @param original
+ * @param root0
+ * @param root0.props
  */
-function GhostKitExtensionDisplayInspector(original, { props }) {
-  const { name } = props;
+function GhostKitExtensionDisplayInspector( original, { props } ) {
+	const { name } = props;
 
-  const hasDisplaySupport = hasBlockSupport(name, ['ghostkit', 'display']);
+	const hasDisplaySupport = hasBlockSupport( name, [ 'ghostkit', 'display' ] );
 
-  if (!hasDisplaySupport) {
-    return original;
-  }
+	if ( ! hasDisplaySupport ) {
+		return original;
+	}
 
-  return (
-    <>
-      {original}
-      <InspectorControls group="styles">
-        <ToolsPanel
-          label={
-            <>
-              <span className="ghostkit-ext-icon">{getIcon('extension-display')}</span>
-              <span>{__('Display Conditions', 'ghostkit')}</span>
-            </>
-          }
-        >
-          <div className="ghostkit-tools-panel-display">
-            <ApplyFilters name="ghostkit.extension.display.tools" props={props} />
-          </div>
-        </ToolsPanel>
-      </InspectorControls>
-    </>
-  );
+	return (
+		<>
+			{ original }
+			<InspectorControls group="styles">
+				<ToolsPanel
+					label={
+						<>
+							<span className="ghostkit-ext-icon">{ getIcon( 'extension-display' ) }</span>
+							<span>{ __( 'Display Conditions', 'ghostkit' ) }</span>
+						</>
+					}
+				>
+					<div className="ghostkit-tools-panel-display">
+						<ApplyFilters name="ghostkit.extension.display.tools" props={ props } />
+					</div>
+				</ToolsPanel>
+			</InspectorControls>
+		</>
+	);
 }
 
 // Init filters.
 addFilter(
-  'ghostkit.editor.extensions',
-  'ghostkit/extension/display/inspector',
-  GhostKitExtensionDisplayInspector,
-  17
+	'ghostkit.editor.extensions',
+	'ghostkit/extension/display/inspector',
+	GhostKitExtensionDisplayInspector,
+	17
 );

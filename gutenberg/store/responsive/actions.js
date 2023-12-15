@@ -1,6 +1,6 @@
-export function setDevice(device) {
-  return {
-    type: 'SET_DEVICE',
-    device,
-  };
+export function setDevice( device ) {
+	return {
+		type: 'SET_DEVICE',
+		device,
+	};
 }

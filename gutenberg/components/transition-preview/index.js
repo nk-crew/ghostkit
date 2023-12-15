@@ -2,87 +2,89 @@
  * WordPress dependencies
  */
 import { BaseControl, Button } from '@wordpress/components';
-import { useCallback, useEffect, useRef } from '@wordpress/element';
 import { useDebounce } from '@wordpress/compose';
+import { useCallback, useEffect, useRef } from '@wordpress/element';
 
 const {
-  Motion: { animate, spring },
+	Motion: { animate, spring },
 } = window;
 
-export default function TransitionPreview(props) {
-  const { label, options } = props;
-  const buttonRef = useRef();
-  const buttonSquareRef = useRef();
-  const animationRef = useRef();
+export default function TransitionPreview( props ) {
+	const { label, options } = props;
+	const buttonRef = useRef();
+	const buttonSquareRef = useRef();
+	const animationRef = useRef();
 
-  // Reset animation.
-  function resetAnimation() {
-    if (animationRef?.current) {
-      animationRef.current.stop();
-    }
+	// Reset animation.
+	function resetAnimation() {
+		if ( animationRef?.current ) {
+			animationRef.current.stop();
+		}
 
-    if (buttonSquareRef.current) {
-      animationRef.current = animate(buttonSquareRef.current, { x: 0 }, { duration: 0 });
-    }
-  }
+		if ( buttonSquareRef.current ) {
+			animationRef.current = animate( buttonSquareRef.current, { x: 0 }, { duration: 0 } );
+		}
+	}
 
-  // Run animation.
-  function runAnimation(opts) {
-    resetAnimation();
+	// Run animation.
+	function runAnimation( opts ) {
+		resetAnimation();
 
-    setTimeout(() => {
-      if (buttonRef.current && buttonSquareRef.current) {
-        const animationOptions = {};
+		setTimeout( () => {
+			if ( buttonRef.current && buttonSquareRef.current ) {
+				const animationOptions = {};
 
-        if (opts?.type === 'easing') {
-          animationOptions.easing = opts.easing;
-          animationOptions.duration = opts.duration;
-        } else if (opts?.type === 'spring') {
-          animationOptions.easing = spring({
-            stiffness: opts.stiffness,
-            damping: opts.damping,
-            mass: opts.mass,
-          });
-        }
+				if ( opts?.type === 'easing' ) {
+					animationOptions.easing = opts.easing;
+					animationOptions.duration = opts.duration;
+				} else if ( opts?.type === 'spring' ) {
+					animationOptions.easing = spring( {
+						stiffness: opts.stiffness,
+						damping: opts.damping,
+						mass: opts.mass,
+					} );
+				}
 
-        const computedStyle = getComputedStyle(buttonRef.current);
-        let translateX = buttonRef.current.clientWidth;
-        translateX -= buttonSquareRef.current.clientWidth;
-        translateX -=
-          parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
+				// eslint-disable-next-line no-undef
+				const computedStyle = getComputedStyle( buttonRef.current );
+				let translateX = buttonRef.current.clientWidth;
+				translateX -= buttonSquareRef.current.clientWidth;
+				translateX -=
+          parseFloat( computedStyle.paddingLeft ) + parseFloat( computedStyle.paddingRight );
 
-        animationRef.current = animate(
-          buttonSquareRef.current,
-          {
-            x: `${translateX}px`,
-          },
-          animationOptions
-        );
-      }
-    }, 1);
-  }
+				animationRef.current = animate(
+					buttonSquareRef.current,
+					{
+						x: `${ translateX }px`,
+					},
+					animationOptions
+				);
+			}
+		}, 1 );
+	}
 
-  const runAnimationDebounce = useCallback(useDebounce(runAnimation, 1000), []);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const runAnimationDebounce = useCallback( useDebounce( runAnimation, 1000 ), [] );
 
-  useEffect(() => {
-    // Reset animation.
-    resetAnimation();
+	useEffect( () => {
+		// Reset animation.
+		resetAnimation();
 
-    runAnimationDebounce(options);
-  }, [buttonRef, buttonSquareRef, options, runAnimationDebounce]);
+		runAnimationDebounce( options );
+	}, [ buttonRef, buttonSquareRef, options, runAnimationDebounce ] );
 
-  return (
-    <BaseControl label={label} className="ghostkit-component-transition-preview-wrapper">
-      <Button
-        className="ghostkit-component-transition-preview"
-        ref={buttonRef}
-        onClick={(e) => {
-          e.preventDefault();
-          runAnimation(options);
-        }}
-      >
-        <span ref={buttonSquareRef} />
-      </Button>
-    </BaseControl>
-  );
+	return (
+		<BaseControl id={ label } label={ label } className="ghostkit-component-transition-preview-wrapper">
+			<Button
+				className="ghostkit-component-transition-preview"
+				ref={ buttonRef }
+				onClick={ ( e ) => {
+					e.preventDefault();
+					runAnimation( options );
+				} }
+			>
+				<span ref={ buttonSquareRef } />
+			</Button>
+		</BaseControl>
+	);
 }

@@ -1,55 +1,55 @@
 .ghostkit-component-input-group-wrapper {
-  display: flex;
+	display: flex;
 
-  // Place items in a row.
-  > div + div {
-    margin-left: -1px;
-  }
+	// Place items in a row.
+	> div + div {
+		margin-left: -1px;
+	}
 
-  > div:focus-within {
-    z-index: 1;
-  }
+	> div:focus-within {
+		z-index: 1;
+	}
 
-  > div:first-of-type input {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
+	> div:first-of-type input {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
 
-  > div:first-of-type ~ div:not(:last-of-type) input {
-    border-radius: 0;
-  }
+	> div:first-of-type ~ div:not(:last-of-type) input {
+		border-radius: 0;
+	}
 
-  > div:last-of-type input {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
+	> div:last-of-type input {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
 
-  // Better help styles.
-  .components-base-control__help {
-    margin-top: -6px;
-    font-size: 9px;
-    font-weight: 500;
-    text-align: center;
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
+	// Better help styles.
+	.components-base-control__help {
+		margin-top: -6px;
+		font-size: 9px;
+		font-weight: 500;
+		text-align: center;
+		text-transform: uppercase;
+		opacity: 0.7;
+	}
 
-  // Important toggle.
-  > div {
-    position: relative;
+	// Important toggle.
+	> div {
+		position: relative;
 
-    .ghostkit-control-important-toggle {
-      position: absolute;
-      top: 6px;
-      right: 1px;
-      opacity: 0;
-    }
+		.ghostkit-control-important-toggle {
+			position: absolute;
+			top: 6px;
+			right: 1px;
+			opacity: 0;
+		}
 
-    &:hover .ghostkit-control-important-toggle,
-    &:has(input:focus) .ghostkit-control-important-toggle,
-    .ghostkit-control-important-toggle:focus,
-    .ghostkit-control-important-toggle.is-active {
-      opacity: 1;
-    }
-  }
+		&:hover .ghostkit-control-important-toggle,
+		&:has(input:focus) .ghostkit-control-important-toggle,
+		.ghostkit-control-important-toggle:focus,
+		.ghostkit-control-important-toggle.is-active {
+			opacity: 1;
+		}
+	}
 }

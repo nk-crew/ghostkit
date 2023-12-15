@@ -1,48 +1,48 @@
 @import "../../variables";
 
 .ghostkit-pro-component-note-inner {
-  padding: 20px;
-  text-align: left;
-  background-color: $light-gray-300;
-  border-radius: 4px;
+	padding: 20px;
+	text-align: left;
+	background-color: $light-gray-300;
+	border-radius: 4px;
 
-  h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 16px;
-    text-transform: none;
-  }
+	h3 {
+		margin-top: 0;
+		margin-bottom: 15px;
+		font-size: 16px;
+		text-transform: none;
+	}
 
-  ul {
-    list-style: none;
+	ul {
+		list-style: none;
 
-    li::before {
-      display: inline;
-      margin-bottom: 5px;
-      content: "- ";
-    }
-  }
+		li::before {
+			display: inline;
+			margin-bottom: 5px;
+			content: "- ";
+		}
+	}
 }
 
 .ghostkit-pro-component-note-button {
-  display: inline-block;
-  padding: 7px 15px;
-  margin-top: 5px;
-  text-decoration: none;
-  background: linear-gradient(-45deg, #5c39a7, #528be6);
-  border-radius: 3px;
-  transition: 0.2s filter, 0.2s transform;
+	display: inline-block;
+	padding: 7px 15px;
+	margin-top: 5px;
+	text-decoration: none;
+	background: linear-gradient(-45deg, #5c39a7, #528be6);
+	border-radius: 3px;
+	transition: 0.2s filter, 0.2s transform;
 
-  &,
-  &:hover,
-  &:focus,
-  &:active {
-    color: #fff;
-  }
+	&,
+	&:hover,
+	&:focus,
+	&:active {
+		color: #fff;
+	}
 
-  &:hover,
-  &:focus {
-    filter: contrast(1.5) drop-shadow(0 3px 3px rgba(#528be6, 30%));
-    transform: translateY(-1px);
-  }
+	&:hover,
+	&:focus {
+		filter: contrast(1.5) drop-shadow(0 3px 3px rgba(#528be6, 30%));
+		transform: translateY(-1px);
+	}
 }

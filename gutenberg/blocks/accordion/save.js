@@ -13,30 +13,32 @@ const { name } = metadata;
 /**
  * WordPress dependencies
  */
-import { applyFilters } from '@wordpress/hooks';
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * Block Save Class.
+ *
+ * @param props
  */
-export default function BlockSave(props) {
-  const { itemsCount, collapseOne } = props.attributes;
+export default function BlockSave( props ) {
+	const { itemsCount, collapseOne } = props.attributes;
 
-  let className = classnames(
-    'ghostkit-accordion',
-    `ghostkit-accordion-${itemsCount}`,
-    collapseOne ? 'ghostkit-accordion-collapse-one' : ''
-  );
+	let className = classnames(
+		'ghostkit-accordion',
+		`ghostkit-accordion-${ itemsCount }`,
+		collapseOne ? 'ghostkit-accordion-collapse-one' : ''
+	);
 
-  className = applyFilters('ghostkit.blocks.className', className, {
-    ...{
-      name,
-    },
-    ...props,
-  });
+	className = applyFilters( 'ghostkit.blocks.className', className, {
+		...{
+			name,
+		},
+		...props,
+	} );
 
-  const blockProps = useBlockProps.save({ className });
-  const innerBlockProps = useInnerBlocksProps.save(blockProps);
+	const blockProps = useBlockProps.save( { className } );
+	const innerBlockProps = useInnerBlocksProps.save( blockProps );
 
-  return <div {...innerBlockProps} />;
+	return <div { ...innerBlockProps } />;
 }

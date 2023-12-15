@@ -8,12 +8,12 @@
  * @param {string} str - camel-cased string.
  * @return {string} - new dashed string.
  */
-export default function camelCaseToDash(str) {
-  if (typeof str !== 'string') {
-    return str;
-  }
+export default function camelCaseToDash( str ) {
+	if ( typeof str !== 'string' ) {
+		return str;
+	}
 
-  str = str.replace(/[a-z]([A-Z])+/g, (m) => `${m[0]}-${m.substring(1)}`);
+	str = str.replace( /[a-z]([A-Z])+/g, ( m ) => `${ m[ 0 ] }-${ m.substring( 1 ) }` );
 
-  return str && str.toLowerCase ? str.toLowerCase() : str;
+	return str && str.toLowerCase ? str.toLowerCase() : str;
 }

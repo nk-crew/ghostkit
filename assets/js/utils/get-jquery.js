@@ -1,7 +1,7 @@
 export default function getjQuery() {
-  if (window.jQuery) {
-    return window.jQuery;
-  }
+	if ( window.jQuery ) {
+		return window.jQuery;
+	}
 
-  return null;
+	return null;
 }

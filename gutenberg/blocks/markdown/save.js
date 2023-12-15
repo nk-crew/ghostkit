@@ -4,27 +4,29 @@
 import classnames from 'classnames/dedupe';
 
 /**
- * Internal dependencies
- */
-import MDRender from './render';
-
-/**
  * WordPress dependencies
  */
 import { useBlockProps } from '@wordpress/block-editor';
 
 /**
- * Block Save Class.
+ * Internal dependencies
  */
-export default function BlockSave(props) {
-  const { attributes } = props;
-  const { content } = attributes;
+import MDRender from './render';
 
-  let { className } = attributes;
+/**
+ * Block Save Class.
+ *
+ * @param props
+ */
+export default function BlockSave( props ) {
+	const { attributes } = props;
+	const { content } = attributes;
 
-  className = classnames('ghostkit-markdown', className);
+	let { className } = attributes;
 
-  const blockProps = useBlockProps.save({ className });
+	className = classnames( 'ghostkit-markdown', className );
 
-  return <MDRender content={content} {...blockProps} />;
+	const blockProps = useBlockProps.save( { className } );
+
+	return <MDRender content={ content } { ...blockProps } />;
 }

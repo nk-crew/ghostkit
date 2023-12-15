@@ -4,23 +4,23 @@
 @import "../../variables";
 
 .ghostkit-toolbar-responsive {
-  // Hide Gutenberg preview dropdown.
-  ~ .block-editor-post-preview__dropdown {
-    display: none;
-  }
+	// Hide Gutenberg preview dropdown.
+	~ .block-editor-post-preview__dropdown {
+		display: none;
+	}
 
-  // Hide toggle on small screen.
-  @media screen and (max-width: 600px) {
-    display: none;
-  }
+	// Hide toggle on small screen.
+	@media screen and (max-width: 600px) {
+		display: none;
+	}
 }
 
 .ghostkit-toolbar-responsive__button-toggle svg,
 .ghostkit-toolbar-responsive__dropdown-content .components-menu-item__button svg {
-  width: 22px;
-  height: auto;
+	width: 22px;
+	height: auto;
 }
 
 .ghostkit-toolbar-responsive__dropdown-content .components-menu-item__button.is-active {
-  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+	color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
 }

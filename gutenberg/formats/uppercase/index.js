@@ -1,48 +1,45 @@
 /**
  * Internal dependencies
  */
-import getIcon from '../../utils/get-icon';
-
+import { RichTextShortcut, RichTextToolbarButton } from '@wordpress/block-editor';
+import { Fragment } from '@wordpress/element';
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-
-import { Fragment } from '@wordpress/element';
-
-import { RichTextToolbarButton, RichTextShortcut } from '@wordpress/block-editor';
-
 import { toggleFormat } from '@wordpress/rich-text';
+
+import getIcon from '../../utils/get-icon';
 
 export const name = 'ghostkit/uppercase';
 
 export const settings = {
-  title: __('Uppercase', 'ghostkit'),
-  tagName: 'span',
-  className: 'ghostkit-text-uppercase',
-  edit: function BadgeFormat(props) {
-    const { value, onChange, isActive } = props;
+	title: __( 'Uppercase', 'ghostkit' ),
+	tagName: 'span',
+	className: 'ghostkit-text-uppercase',
+	edit: function BadgeFormat( props ) {
+		const { value, onChange, isActive } = props;
 
-    function toggleUppercase() {
-      onChange(
-        toggleFormat(value, {
-          type: name,
-        })
-      );
-    }
+		function toggleUppercase() {
+			onChange(
+				toggleFormat( value, {
+					type: name,
+				} )
+			);
+		}
 
-    return (
-      <Fragment>
-        <RichTextShortcut type="access" character="u" onUse={() => toggleUppercase()} />
-        <RichTextToolbarButton
-          shortcutCharacter="u"
-          shortcutType="access"
-          title={__('Uppercase', 'ghostkit')}
-          icon={getIcon('icon-text-uppercase')}
-          onClick={() => toggleUppercase()}
-          isActive={isActive}
-        />
-      </Fragment>
-    );
-  },
+		return (
+			<Fragment>
+				<RichTextShortcut type="access" character="u" onUse={ () => toggleUppercase() } />
+				<RichTextToolbarButton
+					shortcutCharacter="u"
+					shortcutType="access"
+					title={ __( 'Uppercase', 'ghostkit' ) }
+					icon={ getIcon( 'icon-text-uppercase' ) }
+					onClick={ () => toggleUppercase() }
+					isActive={ isActive }
+				/>
+			</Fragment>
+		);
+	},
 };

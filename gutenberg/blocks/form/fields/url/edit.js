@@ -3,49 +3,48 @@
  */
 import classnames from 'classnames/dedupe';
 
-/**
- * Internal dependencies
- */
-import FieldLabel from '../../field-label';
-import FieldDescription from '../../field-description';
-import { getFieldAttributes, FieldDefaultSettings } from '../../field-attributes';
-
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { PanelBody, TextControl } from '@wordpress/components';
+import { Fragment } from '@wordpress/element';
 /**
  * WordPress dependencies
  */
 import { applyFilters } from '@wordpress/hooks';
 
-import { Fragment } from '@wordpress/element';
-
-import { PanelBody, TextControl } from '@wordpress/components';
-
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { FieldDefaultSettings, getFieldAttributes } from '../../field-attributes';
+import FieldDescription from '../../field-description';
+/**
+ * Internal dependencies
+ */
+import FieldLabel from '../../field-label';
 
 /**
  * Block Edit Class.
+ *
+ * @param props
  */
-export default function BlockEdit(props) {
-  const { attributes } = props;
+export default function BlockEdit( props ) {
+	const { attributes } = props;
 
-  let { className = '' } = props;
+	let { className = '' } = props;
 
-  className = classnames('ghostkit-form-field ghostkit-form-field-url', className);
-  className = applyFilters('ghostkit.editor.className', className, props);
+	className = classnames( 'ghostkit-form-field ghostkit-form-field-url', className );
+	className = applyFilters( 'ghostkit.editor.className', className, props );
 
-  const blockProps = useBlockProps({ className });
+	const blockProps = useBlockProps( { className } );
 
-  return (
-    <Fragment>
-      <InspectorControls>
-        <PanelBody>
-          <FieldDefaultSettings {...props} />
-        </PanelBody>
-      </InspectorControls>
-      <div {...blockProps}>
-        <FieldLabel {...props} />
-        <TextControl type="url" {...getFieldAttributes(attributes)} />
-        <FieldDescription {...props} />
-      </div>
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			<InspectorControls>
+				<PanelBody>
+					<FieldDefaultSettings { ...props } />
+				</PanelBody>
+			</InspectorControls>
+			<div { ...blockProps }>
+				<FieldLabel { ...props } />
+				<TextControl type="url" { ...getFieldAttributes( attributes ) } />
+				<FieldDescription { ...props } />
+			</div>
+		</Fragment>
+	);
 }
