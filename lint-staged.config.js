@@ -11,6 +11,8 @@ function excludeVendor( lint ) {
 			'!**/dist-zip/**/*',
 			'!**/composer-libraries/**/*',
 			'!**/assets/vendor/**/*',
+			'!**/tests/themes/**/*',
+			'!**/tests/plugins/**/*',
 		] );
 
 		if ( files && files.length ) {

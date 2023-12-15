@@ -7,6 +7,7 @@
 /vendor
 /dist
 /dist-zip
+/tests/e2e/artifacts
 npm-debug.log
 .phpcs.xml
 phpcs.xml
