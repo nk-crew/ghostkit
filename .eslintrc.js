@@ -27,6 +27,7 @@ module.exports = {
 		'jsdoc/no-undefined-types': 0,
 		'jsdoc/require-param-type': 0,
 		'jsdoc/require-returns-description': 0,
+		'jsdoc/check-tag-names': 0,
 		'react-hooks/rules-of-hooks': 0,
 		'jsdoc/check-param-names': 0,
 		'simple-import-sort/imports': ['error', groups],
