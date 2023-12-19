@@ -2,7 +2,7 @@
 /**
  * Tests for SampleTest
  *
- * @package Visual Portfolio
+ * @package ghostkit
  */
 
 /**
