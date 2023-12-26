@@ -5,7 +5,7 @@
  * Use :where selector to add possibility to easily overwrite these styles. https://css-tricks.com/almanac/selectors/w/where/
  */
 :where(:root) {
-  --gkt-blocks-margin-bottom: 28px;
+	--gkt-blocks-margin-bottom: 28px;
 }
 
 :where(
@@ -29,7 +29,9 @@
 .ghostkit-instagram,
 .ghostkit-twitter,
 .ghostkit-toc,
-.ghostkit-form
+.ghostkit-form,
+.ghostkit-form-field,
+.ghostkit-form-submit-button
 ) {
-  margin-bottom: var(--gkt-blocks-margin-bottom);
+	margin-bottom: var(--gkt-blocks-margin-bottom);
 }
