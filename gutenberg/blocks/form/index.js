@@ -1,9 +1,3 @@
-/**
- * Internal dependencies
- */
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import getIcon from '../../utils/get-icon';
@@ -16,7 +10,7 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-form', true ),
+	icon: getIcon('block-form', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/contact-form/',
 	},
@@ -33,15 +27,15 @@ export const settings = {
 				attributes: {
 					required: true,
 					nameFields: 'first-last',
-					description: __( 'First', 'ghostkit' ),
-					descriptionLast: __( 'Last', 'ghostkit' ),
+					description: __('First', 'ghostkit'),
+					descriptionLast: __('Last', 'ghostkit'),
 				},
 			},
 			{
 				name: 'ghostkit/form-field-textarea',
 				attributes: {
-					label: __( 'Message', 'ghostkit' ),
-					placeholder: __( 'Write your message here…', 'ghostkit' ),
+					label: __('Message', 'ghostkit'),
+					placeholder: __('Write your message here…', 'ghostkit'),
 				},
 			},
 			{

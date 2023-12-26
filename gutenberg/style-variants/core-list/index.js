@@ -1,7 +1,5 @@
 /* eslint-disable max-classes-per-file */
-/**
- * Internal dependencies
- */
+
 import ColorPicker from '../../components/color-picker';
 import EditorStyles from '../../components/editor-styles';
 import IconPicker from '../../components/icon-picker';
@@ -16,9 +14,6 @@ import {
 	replaceClass,
 } from '../../utils/classes-replacer';
 
-/**
- * WordPress dependencies
- */
 const { merge } = window.lodash;
 
 import { InspectorControls } from '@wordpress/block-editor';
@@ -33,18 +28,18 @@ import { __ } from '@wordpress/i18n';
 /**
  * Register additional list styles.
  */
-registerBlockStyle( 'core/list', {
+registerBlockStyle('core/list', {
 	name: 'styled',
-	label: __( 'Styled', 'ghostkit' ),
-} );
-registerBlockStyle( 'core/list', {
+	label: __('Styled', 'ghostkit'),
+});
+registerBlockStyle('core/list', {
 	name: 'icon',
-	label: __( 'Icon', 'ghostkit' ),
-} );
-registerBlockStyle( 'core/list', {
+	label: __('Icon', 'ghostkit'),
+});
+registerBlockStyle('core/list', {
 	name: 'none',
-	label: __( 'None', 'ghostkit' ),
-} );
+	label: __('None', 'ghostkit'),
+});
 
 /**
  * Icon Lists Extension.
@@ -58,14 +53,14 @@ registerBlockStyle( 'core/list', {
  *
  * @return {Object} Filtered block settings.
  */
-function addAttribute( blockSettings, name ) {
-	if ( name === 'core/list' ) {
-		if ( ! blockSettings.attributes.ghostkitListIcon ) {
+function addAttribute(blockSettings, name) {
+	if (name === 'core/list') {
+		if (!blockSettings.attributes.ghostkitListIcon) {
 			blockSettings.attributes.ghostkitListIcon = {
 				type: 'string',
 			};
 		}
-		if ( ! blockSettings.attributes.ghostkitListIconColor ) {
+		if (!blockSettings.attributes.ghostkitListIconColor) {
 			blockSettings.attributes.ghostkitListIconColor = {
 				type: 'string',
 			};
@@ -85,16 +80,16 @@ const COLUMNS_COUNT_MAX = 6;
  *
  * @return {string} columns value.
  */
-function getCurrentColumns( className, screen ) {
-	if ( ! screen ) {
-		for ( let k = 1; COLUMNS_COUNT_MAX >= k; k += 1 ) {
-			if ( hasClass( className, `ghostkit-list-columns-${ k }` ) ) {
-				return `${ k }`;
+function getCurrentColumns(className, screen) {
+	if (!screen) {
+		for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
+			if (hasClass(className, `ghostkit-list-columns-${k}`)) {
+				return `${k}`;
 			}
 		}
 	}
 
-	return getActiveClass( className, `ghostkit-list-columns-${ screen }`, true );
+	return getActiveClass(className, `ghostkit-list-columns-${screen}`, true);
 }
 
 /**
@@ -102,7 +97,7 @@ function getCurrentColumns( className, screen ) {
  *
  * @param props
  */
-function GhostKitListColumns( props ) {
+function GhostKitListColumns(props) {
 	const { attributes, setAttributes } = props;
 	const { className } = attributes;
 
@@ -113,27 +108,37 @@ function GhostKitListColumns( props ) {
 	 *
 	 * @param {string} val - value for columns count.
 	 */
-	function updateColumns( val ) {
+	function updateColumns(val) {
 		let newClassName = className;
 
-		if ( device ) {
-			newClassName = replaceClass( newClassName, `ghostkit-list-columns-${ device }`, val );
+		if (device) {
+			newClassName = replaceClass(
+				newClassName,
+				`ghostkit-list-columns-${device}`,
+				val
+			);
 
 			// eslint-disable-next-line no-console
-			console.log( val );
+			console.log(val);
 		} else {
-			for ( let k = 1; COLUMNS_COUNT_MAX >= k; k += 1 ) {
-				newClassName = removeClass( newClassName, `ghostkit-list-columns-${ k }` );
+			for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
+				newClassName = removeClass(
+					newClassName,
+					`ghostkit-list-columns-${k}`
+				);
 			}
 
-			if ( val ) {
-				newClassName = addClass( newClassName, `ghostkit-list-columns-${ val }` );
+			if (val) {
+				newClassName = addClass(
+					newClassName,
+					`ghostkit-list-columns-${val}`
+				);
 			}
 		}
 
-		setAttributes( {
+		setAttributes({
 			className: newClassName,
-		} );
+		});
 	}
 
 	// add new display controls.
@@ -143,20 +148,26 @@ function GhostKitListColumns( props ) {
 				<RangeControl
 					label={
 						<>
-							{ __( 'Columns Count', 'ghostkit' ) }
+							{__('Columns Count', 'ghostkit')}
 							<ResponsiveToggle
-								checkActive={ ( checkMedia ) => {
-									return !! getCurrentColumns( className, checkMedia );
-								} }
+								checkActive={(checkMedia) => {
+									return !!getCurrentColumns(
+										className,
+										checkMedia
+									);
+								}}
 							/>
 						</>
 					}
-					value={ parseInt( getCurrentColumns( className, device ), 10 ) || null }
-					onChange={ ( value ) => {
-						updateColumns( value );
-					} }
-					min={ 1 }
-					max={ COLUMNS_COUNT_MAX }
+					value={
+						parseInt(getCurrentColumns(className, device), 10) ||
+						null
+					}
+					onChange={(value) => {
+						updateColumns(value);
+					}}
+					min={1}
+					max={COLUMNS_COUNT_MAX}
 				/>
 			</PanelBody>
 		</InspectorControls>
@@ -168,34 +179,38 @@ function GhostKitListColumns( props ) {
  *
  * @param props
  */
-function GhostKitListStartAndReversedCustomStyles( props ) {
+function GhostKitListStartAndReversedCustomStyles(props) {
 	const { attributes, clientId } = props;
 	const { start, reversed: isReversed } = attributes;
 
 	const { itemsCount } = useSelect(
-		( select ) => {
-			const { getBlockCount } = select( 'core/block-editor' );
+		(select) => {
+			const { getBlockCount } = select('core/block-editor');
 
 			return {
-				itemsCount: getBlockCount( clientId ),
+				itemsCount: getBlockCount(clientId),
 			};
 		},
-		[ clientId ]
+		[clientId]
 	);
 
 	let styles = '';
 
-	if ( isReversed ) {
-		styles += `counter-reset: li ${ ( start || itemsCount ) + 1 }`;
-	} else if ( start ) {
-		styles += `counter-reset: li ${ start - 1 }`;
+	if (isReversed) {
+		styles += `counter-reset: li ${(start || itemsCount) + 1}`;
+	} else if (start) {
+		styles += `counter-reset: li ${start - 1}`;
 	}
 
-	if ( ! styles ) {
+	if (!styles) {
 		return null;
 	}
 
-	return <EditorStyles styles={ `[data-block="${ clientId }"].wp-block { ${ styles } }` } />;
+	return (
+		<EditorStyles
+			styles={`[data-block="${clientId}"].wp-block { ${styles} }`}
+		/>
+	);
 }
 
 /**
@@ -206,22 +221,23 @@ function GhostKitListStartAndReversedCustomStyles( props ) {
  *
  * @return {string} Wrapped component.
  */
-const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) => {
-	function GhostKitIconListWrapper( props ) {
+const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
+	function GhostKitIconListWrapper(props) {
 		const { setAttributes, attributes } = props;
 
-		const { ghostkitListIcon, ghostkitListIconColor, className } = attributes;
+		const { ghostkitListIcon, ghostkitListIconColor, className } =
+			attributes;
 
-		if ( props.name !== 'core/list' ) {
-			return <OriginalComponent { ...props } />;
+		if (props.name !== 'core/list') {
+			return <OriginalComponent {...props} />;
 		}
 
-		if ( ! hasClass( className, 'is-style-icon' ) ) {
+		if (!hasClass(className, 'is-style-icon')) {
 			return (
 				<Fragment>
-					<OriginalComponent { ...props } />
-					<GhostKitListColumns { ...props } />
-					<GhostKitListStartAndReversedCustomStyles { ...props } />
+					<OriginalComponent {...props} />
+					<GhostKitListColumns {...props} />
+					<GhostKitListStartAndReversedCustomStyles {...props} />
 				</Fragment>
 			);
 		}
@@ -229,20 +245,27 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 		// add new display controls.
 		return (
 			<Fragment>
-				<OriginalComponent { ...props } />
-				<GhostKitListColumns { ...props } />
+				<OriginalComponent {...props} />
+				<GhostKitListColumns {...props} />
 				<InspectorControls>
-					<PanelBody title={ __( 'Icon Settings', 'ghostkit' ) } initialOpen>
+					<PanelBody
+						title={__('Icon Settings', 'ghostkit')}
+						initialOpen
+					>
 						<IconPicker
-							label={ __( 'Icon', 'ghostkit' ) }
-							value={ ghostkitListIcon }
-							onChange={ ( value ) => setAttributes( { ghostkitListIcon: value } ) }
+							label={__('Icon', 'ghostkit')}
+							value={ghostkitListIcon}
+							onChange={(value) =>
+								setAttributes({ ghostkitListIcon: value })
+							}
 							insideInspector
 						/>
 						<ColorPicker
-							label={ __( 'Color', 'ghostkit' ) }
-							value={ ghostkitListIconColor }
-							onChange={ ( val ) => setAttributes( { ghostkitListIconColor: val } ) }
+							label={__('Color', 'ghostkit')}
+							value={ghostkitListIconColor}
+							onChange={(val) =>
+								setAttributes({ ghostkitListIconColor: val })
+							}
 							alpha
 						/>
 					</PanelBody>
@@ -252,7 +275,7 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
 	}
 
 	return GhostKitIconListWrapper;
-}, 'withInspectorControl' );
+}, 'withInspectorControl');
 
 /**
  * Add custom styles to element in editor.
@@ -262,32 +285,47 @@ const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) =
  *
  * @return {Object} Additional element styles object.
  */
-function addEditorCustomStyles( customStyles, props ) {
+function addEditorCustomStyles(customStyles, props) {
 	const result = {};
 
-	if ( props.name !== 'core/list' || ! hasClass( props.attributes.className, 'is-style-icon' ) ) {
+	if (
+		props.name !== 'core/list' ||
+		!hasClass(props.attributes.className, 'is-style-icon')
+	) {
 		return customStyles;
 	}
 
-	if ( props.attributes.ghostkitListIcon ) {
-		result[
-			'--gkt-icon-lists--decoration'
-		] = `url('data:image/svg+xml;utf8,${ props.attributes.ghostkitListIcon }')`;
+	if (props.attributes.ghostkitListIcon) {
+		result['--gkt-icon-lists--decoration'] =
+			`url('data:image/svg+xml;utf8,${props.attributes.ghostkitListIcon}')`;
 	}
-	if ( props.attributes.ghostkitListIconColor ) {
-		result[ '--gkt-icon-lists--decoration__color' ] = props.attributes.ghostkitListIconColor;
+	if (props.attributes.ghostkitListIconColor) {
+		result['--gkt-icon-lists--decoration__color'] =
+			props.attributes.ghostkitListIconColor;
 	}
 
-	if ( props.attributes.ghostkitListIcon || props.attributes.ghostkitListIconColor ) {
-		customStyles = merge( customStyles, result );
+	if (
+		props.attributes.ghostkitListIcon ||
+		props.attributes.ghostkitListIconColor
+	) {
+		customStyles = merge(customStyles, result);
 	}
 
 	return customStyles;
 }
 
 // Init filters.
-addFilter( 'blocks.registerBlockType', 'ghostkit/core-list/additional-attributes', addAttribute );
-addFilter( 'editor.BlockEdit', 'ghostkit/core-list/additional-attributes', withInspectorControl, 9 );
+addFilter(
+	'blocks.registerBlockType',
+	'ghostkit/core-list/additional-attributes',
+	addAttribute
+);
+addFilter(
+	'editor.BlockEdit',
+	'ghostkit/core-list/additional-attributes',
+	withInspectorControl,
+	9
+);
 addFilter(
 	'ghostkit.blocks.customStyles',
 	'ghostkit/core-list/editor-custom-styles',

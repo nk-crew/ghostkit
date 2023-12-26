@@ -1,15 +1,10 @@
 /* eslint-disable max-classes-per-file */
-/**
- * Internal dependencies
- */
+
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { Fragment } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import RangeControl from '../../components/range-control';
@@ -33,16 +28,20 @@ const COLUMNS_COUNT_MAX = 6;
  *
  * @return {string} columns value.
  */
-function getCurrentColumns( className, screen ) {
-	if ( ! screen ) {
-		for ( let k = 1; COLUMNS_COUNT_MAX >= k; k += 1 ) {
-			if ( hasClass( className, `ghostkit-paragraph-columns-${ k }` ) ) {
-				return `${ k }`;
+function getCurrentColumns(className, screen) {
+	if (!screen) {
+		for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
+			if (hasClass(className, `ghostkit-paragraph-columns-${k}`)) {
+				return `${k}`;
 			}
 		}
 	}
 
-	return getActiveClass( className, `ghostkit-paragraph-columns-${ screen }`, true );
+	return getActiveClass(
+		className,
+		`ghostkit-paragraph-columns-${screen}`,
+		true
+	);
 }
 
 /**
@@ -50,7 +49,7 @@ function getCurrentColumns( className, screen ) {
  *
  * @param props
  */
-function GhostKitParagraphColumns( props ) {
+function GhostKitParagraphColumns(props) {
 	const { attributes, setAttributes } = props;
 	const { className } = attributes;
 
@@ -62,24 +61,34 @@ function GhostKitParagraphColumns( props ) {
 	 * @param {string} screen - name of screen size.
 	 * @param {string} val    - value for columns count.
 	 */
-	function updateColumns( screen, val ) {
+	function updateColumns(screen, val) {
 		let newClassName = className;
 
-		if ( screen ) {
-			newClassName = replaceClass( newClassName, `ghostkit-paragraph-columns-${ screen }`, val );
+		if (screen) {
+			newClassName = replaceClass(
+				newClassName,
+				`ghostkit-paragraph-columns-${screen}`,
+				val
+			);
 		} else {
-			for ( let k = 1; COLUMNS_COUNT_MAX >= k; k += 1 ) {
-				newClassName = removeClass( newClassName, `ghostkit-paragraph-columns-${ k }` );
+			for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
+				newClassName = removeClass(
+					newClassName,
+					`ghostkit-paragraph-columns-${k}`
+				);
 			}
 
-			if ( val ) {
-				newClassName = addClass( newClassName, `ghostkit-paragraph-columns-${ val }` );
+			if (val) {
+				newClassName = addClass(
+					newClassName,
+					`ghostkit-paragraph-columns-${val}`
+				);
 			}
 		}
 
-		setAttributes( {
+		setAttributes({
 			className: newClassName,
-		} );
+		});
 	}
 
 	// add new display controls.
@@ -89,18 +98,21 @@ function GhostKitParagraphColumns( props ) {
 				<RangeControl
 					label={
 						<>
-							{ __( 'Columns Count', 'ghostkit' ) }
+							{__('Columns Count', 'ghostkit')}
 							<ResponsiveToggle
-								checkActive={ ( checkMedia ) => {
-									return !! getCurrentColumns( className, checkMedia );
-								} }
+								checkActive={(checkMedia) => {
+									return !!getCurrentColumns(
+										className,
+										checkMedia
+									);
+								}}
 							/>
 						</>
 					}
-					value={ parseInt( getCurrentColumns( className, device ), 10 ) }
-					onChange={ ( value ) => updateColumns( device, value ) }
-					min={ 1 }
-					max={ COLUMNS_COUNT_MAX }
+					value={parseInt(getCurrentColumns(className, device), 10)}
+					onChange={(value) => updateColumns(device, value)}
+					min={1}
+					max={COLUMNS_COUNT_MAX}
 				/>
 			</PanelBody>
 		</InspectorControls>
@@ -115,25 +127,25 @@ function GhostKitParagraphColumns( props ) {
  *
  * @return {string} Wrapped component.
  */
-const withInspectorControl = createHigherOrderComponent( ( OriginalComponent ) => {
-	function GhostKitParagraphWrapper( props ) {
+const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
+	function GhostKitParagraphWrapper(props) {
 		const { name } = props;
 
-		if ( name !== 'core/paragraph' ) {
-			return <OriginalComponent { ...props } />;
+		if (name !== 'core/paragraph') {
+			return <OriginalComponent {...props} />;
 		}
 
 		// add new display controls.
 		return (
 			<Fragment>
-				<OriginalComponent { ...props } />
-				<GhostKitParagraphColumns { ...props } />
+				<OriginalComponent {...props} />
+				<GhostKitParagraphColumns {...props} />
 			</Fragment>
 		);
 	}
 
 	return GhostKitParagraphWrapper;
-}, 'withInspectorControl' );
+}, 'withInspectorControl');
 
 // Init filters.
 addFilter(

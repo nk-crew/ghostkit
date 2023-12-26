@@ -1,6 +1,3 @@
-/**
- * WordPress dependencies
- */
 import { useCachedTruthy } from '@wordpress/block-editor';
 import { Popover } from '@wordpress/components';
 import { useAnchor } from '@wordpress/rich-text';
@@ -12,22 +9,22 @@ import { useAnchor } from '@wordpress/rich-text';
  *
  * @param props
  */
-export default function BadgePopover( props ) {
+export default function BadgePopover(props) {
 	const { children, contentRef, settings } = props;
 
 	const popoverAnchor = useCachedTruthy(
-		useAnchor( {
+		useAnchor({
 			editableContentElement: contentRef.current,
 			settings,
-		} )
+		})
 	);
 
 	return (
 		<Popover
 			className="ghostkit-format-badge-popover ghostkit-component-color-picker__dropdown-content"
-			anchor={ popoverAnchor }
+			anchor={popoverAnchor}
 		>
-			{ children }
+			{children}
 		</Popover>
 	);
 }

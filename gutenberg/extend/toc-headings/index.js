@@ -1,16 +1,7 @@
-/**
- * External dependencies
- */
 import { debounce } from 'throttle-debounce';
 
-/**
- * WordPress dependencies
- */
 import { select, subscribe } from '@wordpress/data';
 
-/**
- * Internal dependencies
- */
 import { getSlug } from '../../utils/get-unique-slug';
 
 /**
@@ -20,24 +11,24 @@ import { getSlug } from '../../utils/get-unique-slug';
  *
  * @return {Array} toc block data.
  */
-function getTOC( blocks = false ) {
+function getTOC(blocks = false) {
 	let result = false;
 
-	if ( ! blocks ) {
-		const { getBlocks } = select( 'core/block-editor' );
+	if (!blocks) {
+		const { getBlocks } = select('core/block-editor');
 
 		blocks = getBlocks();
 	}
 
-	blocks.forEach( ( block ) => {
-		if ( ! result ) {
-			if ( block.name === 'ghostkit/table-of-contents' ) {
+	blocks.forEach((block) => {
+		if (!result) {
+			if (block.name === 'ghostkit/table-of-contents') {
 				result = block;
-			} else if ( block.innerBlocks && block.innerBlocks.length ) {
-				result = getTOC( block.innerBlocks );
+			} else if (block.innerBlocks && block.innerBlocks.length) {
+				result = getTOC(block.innerBlocks);
 			}
 		}
-	} );
+	});
 
 	return result;
 }
@@ -49,22 +40,22 @@ function getTOC( blocks = false ) {
  *
  * @return {Array} toc block data.
  */
-function getHeadings( blocks = false ) {
+function getHeadings(blocks = false) {
 	let result = [];
 
-	if ( ! blocks ) {
-		const { getBlocks } = select( 'core/block-editor' );
+	if (!blocks) {
+		const { getBlocks } = select('core/block-editor');
 
 		blocks = getBlocks();
 	}
 
-	blocks.forEach( ( block ) => {
-		if ( block.name === 'core/heading' ) {
-			result.push( block );
-		} else if ( block.innerBlocks && block.innerBlocks.length ) {
-			result = [ ...result, ...getHeadings( block.innerBlocks ) ];
+	blocks.forEach((block) => {
+		if (block.name === 'core/heading') {
+			result.push(block);
+		} else if (block.innerBlocks && block.innerBlocks.length) {
+			result = [...result, ...getHeadings(block.innerBlocks)];
 		}
-	} );
+	});
 
 	return result;
 }
@@ -77,57 +68,57 @@ let prevHeadings = '';
 function updateHeadingIDs() {
 	const tocBlock = getTOC();
 
-	if ( ! tocBlock ) {
+	if (!tocBlock) {
 		return;
 	}
 
 	const headings = getHeadings();
 
-	if ( prevHeadings && prevHeadings === JSON.stringify( headings ) ) {
+	if (prevHeadings && prevHeadings === JSON.stringify(headings)) {
 		return;
 	}
 
 	const collisionCollector = {};
 
-	headings.forEach( ( block ) => {
+	headings.forEach((block) => {
 		let { anchor } = block.attributes;
 
 		const { content } = block.attributes;
 
 		// create new
-		if ( content && ! anchor ) {
-			anchor = getSlug( content );
+		if (content && !anchor) {
+			anchor = getSlug(content);
 			block.attributes.anchor = anchor;
 		}
 
 		// check collisions.
-		if ( anchor ) {
-			if ( typeof collisionCollector[ anchor ] !== 'undefined' ) {
-				collisionCollector[ anchor ] += 1;
-				anchor += `-${ collisionCollector[ anchor ] }`;
+		if (anchor) {
+			if (typeof collisionCollector[anchor] !== 'undefined') {
+				collisionCollector[anchor] += 1;
+				anchor += `-${collisionCollector[anchor]}`;
 				block.attributes.anchor = anchor;
 			} else {
-				collisionCollector[ anchor ] = 1;
+				collisionCollector[anchor] = 1;
 			}
 		}
-	} );
+	});
 
-	prevHeadings = JSON.stringify( headings );
+	prevHeadings = JSON.stringify(headings);
 }
 
-const updateHeadingIDsDebounce = debounce( 300, updateHeadingIDs );
+const updateHeadingIDsDebounce = debounce(300, updateHeadingIDs);
 
 /**
  * Subscribe to all editor changes.
  * We don't need to run this code in WordPress >= 5.9, as anchors already adds automatically.
  */
 if (
-// eslint-disable-next-line no-underscore-dangle
-	! wp.blockEditor.__experimentalBlockPatternSetup &&
-  ! wp.blockEditor.BlockPatternSetup &&
-  ! wp.blockEditor.blockPatternSetup
+	// eslint-disable-next-line no-underscore-dangle
+	!wp.blockEditor.__experimentalBlockPatternSetup &&
+	!wp.blockEditor.BlockPatternSetup &&
+	!wp.blockEditor.blockPatternSetup
 ) {
-	subscribe( () => {
+	subscribe(() => {
 		updateHeadingIDsDebounce();
-	} );
+	});
 }

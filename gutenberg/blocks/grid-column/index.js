@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import '../grid/awb-fallback';
 
 import getIcon from '../../utils/get-icon';
@@ -9,42 +6,40 @@ import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 
-/**
- * WordPress dependencies
- */
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-grid-column', true ),
+	icon: getIcon('block-grid-column', true),
 	ghostkit: {
-		customStylesCallback( attributes ) {
+		customStylesCallback(attributes) {
 			const { stickyContent, stickyContentOffset } = attributes;
 
 			const styles = {
 				'--gkt-grid--column-sticky__offset': undefined,
-				...getBackgroundStyles( attributes ),
+				...getBackgroundStyles(attributes),
 			};
 
 			// Sticky styles.
 			if (
 				stickyContent &&
-        typeof stickyContentOffset !== 'undefined' &&
-        stickyContentOffset !== ''
+				typeof stickyContentOffset !== 'undefined' &&
+				stickyContentOffset !== ''
 			) {
-				styles[ '--gkt-grid--column-sticky__offset' ] = `${ stickyContentOffset }px`;
+				styles['--gkt-grid--column-sticky__offset'] =
+					`${stickyContentOffset}px`;
 			}
 
 			return styles;
 		},
-		customStylesFilter( styles, data, isEditor, attributes ) {
+		customStylesFilter(styles, data, isEditor, attributes) {
 			// change custom styles in Editor.
-			if ( isEditor && attributes?.ghostkit?.id ) {
+			if (isEditor && attributes?.ghostkit?.id) {
 				// background.
 				styles = styles.replace(
 					// eslint-disable-next-line prefer-regex-literals
-					new RegExp( '> .nk-awb .jarallax-img', 'g' ),
+					new RegExp('> .nk-awb .jarallax-img', 'g'),
 					'> .awb-gutenberg-preview-block .jarallax-img'
 				);
 			}

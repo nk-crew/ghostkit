@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import deprecated from './deprecated';
@@ -13,20 +10,26 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-counter-box', true ),
+	icon: getIcon('block-counter-box', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/number-box/',
-		customStylesCallback( attributes ) {
+		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-counter-box--number__font-size': undefined,
-				'--gkt-counter-box--number__color': attributes.numberColor || undefined,
+				'--gkt-counter-box--number__color':
+					attributes.numberColor || undefined,
 				'&:hover': {
-					'--gkt-counter-box--number__color': attributes.hoverNumberColor || undefined,
+					'--gkt-counter-box--number__color':
+						attributes.hoverNumberColor || undefined,
 				},
 			};
 
-			if ( typeof attributes.numberSize !== 'undefined' && attributes.numberSize !== '' ) {
-				styles[ '--gkt-counter-box--number__font-size' ] = `${ attributes.numberSize }px`;
+			if (
+				typeof attributes.numberSize !== 'undefined' &&
+				attributes.numberSize !== ''
+			) {
+				styles['--gkt-counter-box--number__font-size'] =
+					`${attributes.numberSize}px`;
 			}
 
 			return styles;
@@ -46,7 +49,7 @@ export const settings = {
 				name: 'core/paragraph',
 				attributes: {
 					content:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+						'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
 				},
 			},
 		],

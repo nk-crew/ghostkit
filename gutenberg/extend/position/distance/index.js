@@ -1,14 +1,8 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ImportantToggle from '../../../components/important-toggle';
@@ -22,97 +16,115 @@ const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
 import { hasBlockSupport } from '@wordpress/blocks';
 
-const allDistances = [ 'top', 'right', 'bottom', 'left' ];
+const allDistances = ['top', 'right', 'bottom', 'left'];
 
-function PositionDistanceTools( props ) {
-	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles( props );
+function PositionDistanceTools(props) {
+	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
 	const { device, allDevices } = useResponsive();
 
 	let hasDistance = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-		allDistances.forEach( ( thisDistance ) => {
-			hasDistance = hasDistance || hasStyle( thisDistance, thisDevice );
-		} );
-	} );
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+		allDistances.forEach((thisDistance) => {
+			hasDistance = hasDistance || hasStyle(thisDistance, thisDevice);
+		});
+	});
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Distance', 'ghostkit' ) }
-			hasValue={ () => !! hasDistance }
-			onDeselect={ () => {
-				resetStyles( allDistances, true );
-			} }
-			isShownByDefault={ false }
+			label={__('Distance', 'ghostkit')}
+			hasValue={() => !!hasDistance}
+			onDeselect={() => {
+				resetStyles(allDistances, true);
+			}}
+			isShownByDefault={false}
 		>
 			<InputGroup
 				label={
 					<>
-						{ __( 'Distance', 'ghostkit' ) }
+						{__('Distance', 'ghostkit')}
 						<ResponsiveToggle
-							checkActive={ ( checkMedia ) => {
+							checkActive={(checkMedia) => {
 								let isActive = false;
 
-								allDistances.forEach( ( thisDistance ) => {
-									isActive = isActive || hasStyle( thisDistance, checkMedia );
-								} );
+								allDistances.forEach((thisDistance) => {
+									isActive =
+										isActive ||
+										hasStyle(thisDistance, checkMedia);
+								});
 
 								return isActive;
-							} }
+							}}
 						/>
 					</>
 				}
 			>
-				{ allDistances.map( ( distanceName ) => {
-					let label = __( 'Top', 'ghostkit' );
+				{allDistances.map((distanceName) => {
+					let label = __('Top', 'ghostkit');
 
-					switch ( distanceName ) {
+					switch (distanceName) {
 						case 'right':
-							label = __( 'Right', 'ghostkit' );
+							label = __('Right', 'ghostkit');
 							break;
 						case 'bottom':
-							label = __( 'Bottom', 'ghostkit' );
+							label = __('Bottom', 'ghostkit');
 							break;
 						case 'left':
-							label = __( 'Left', 'ghostkit' );
+							label = __('Left', 'ghostkit');
 							break;
-            // no default
+						// no default
 					}
 
-					let value = getStyle( distanceName, device );
+					let value = getStyle(distanceName, device);
 
-					const withImportant = / !important$/.test( value );
-					if ( withImportant ) {
-						value = value.replace( / !important$/, '' );
+					const withImportant = / !important$/.test(value);
+					if (withImportant) {
+						value = value.replace(/ !important$/, '');
 					}
 
 					return (
-						<div key={ distanceName }>
+						<div key={distanceName}>
 							<InputDrag
-								help={ label }
-								value={ value }
+								help={label}
+								value={value}
 								placeholder="-"
-								onChange={ ( val ) => {
-									const newValue = val ? `${ val }${ withImportant ? ' !important' : '' }` : undefined;
+								onChange={(val) => {
+									const newValue = val
+										? `${val}${
+												withImportant
+													? ' !important'
+													: ''
+											}`
+										: undefined;
 
-									setStyles( { [ distanceName ]: newValue }, device );
-								} }
+									setStyles(
+										{ [distanceName]: newValue },
+										device
+									);
+								}}
 								autoComplete="off"
 							/>
 							<ImportantToggle
-								onClick={ ( newWithImportant ) => {
-									if ( value ) {
-										const newValue = `${ value }${ newWithImportant ? ' !important' : '' }`;
+								onClick={(newWithImportant) => {
+									if (value) {
+										const newValue = `${value}${
+											newWithImportant
+												? ' !important'
+												: ''
+										}`;
 
-										setStyles( { [ distanceName ]: newValue }, device );
+										setStyles(
+											{ [distanceName]: newValue },
+											device
+										);
 									}
-								} }
-								isActive={ withImportant }
+								}}
+								isActive={withImportant}
 							/>
 						</div>
 					);
-				} ) }
+				})}
 			</InputGroup>
 		</ToolsPanelItem>
 	);
@@ -121,17 +133,21 @@ function PositionDistanceTools( props ) {
 addFilter(
 	'ghostkit.extension.position.tools',
 	'ghostkit/extension/position/tools/distance',
-	( children, { props } ) => {
-		const hasDistanceSupport = hasBlockSupport( props.name, [ 'ghostkit', 'position', 'distance' ] );
+	(children, { props }) => {
+		const hasDistanceSupport = hasBlockSupport(props.name, [
+			'ghostkit',
+			'position',
+			'distance',
+		]);
 
-		if ( ! hasDistanceSupport ) {
+		if (!hasDistanceSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<PositionDistanceTools { ...props } />
+				{children}
+				<PositionDistanceTools {...props} />
 			</>
 		);
 	}

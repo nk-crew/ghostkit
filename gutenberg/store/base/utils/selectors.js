@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import arrayMove from '../../../utils/array-move';
 import camelCaseToDash from '../../../utils/camel-case-to-dash';
 import * as classesReplacer from '../../../utils/classes-replacer';

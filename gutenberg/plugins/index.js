@@ -1,9 +1,3 @@
-/**
- * Internal dependencies
- */
-/**
- * WordPress dependencies
- */
 import { registerPlugin } from '@wordpress/plugins';
 
 import * as colorPalette from './color-palette';
@@ -19,18 +13,27 @@ const { GHOSTKIT } = window;
 /**
  * Register plugins
  */
-[ ghostkit, templates, typography, customCode, colorPalette, customizer, editorIframeResize ].forEach(
-	( { name, icon, Plugin } ) => {
-		if ( name === 'ghostkit-color-palette' && ! GHOSTKIT.allowPluginColorPalette ) {
-			return;
-		}
-		if ( name === 'ghostkit-customizer' && ! GHOSTKIT.allowPluginCustomizer ) {
-			return;
-		}
-
-		registerPlugin( name, {
-			icon,
-			render: Plugin,
-		} );
+[
+	ghostkit,
+	templates,
+	typography,
+	customCode,
+	colorPalette,
+	customizer,
+	editorIframeResize,
+].forEach(({ name, icon, Plugin }) => {
+	if (
+		name === 'ghostkit-color-palette' &&
+		!GHOSTKIT.allowPluginColorPalette
+	) {
+		return;
 	}
-);
+	if (name === 'ghostkit-customizer' && !GHOSTKIT.allowPluginCustomizer) {
+		return;
+	}
+
+	registerPlugin(name, {
+		icon,
+		render: Plugin,
+	});
+});

@@ -1,37 +1,42 @@
-/**
- * WordPress dependencies
- */
 import apiFetch from '@wordpress/api-fetch';
 
-export function API_FETCH( { request } ) {
+export function API_FETCH({ request }) {
 	// create iframe with customizer url to prepare customizer data.
 	async function maybeGetCustomizerData() {
-		const promise = new Promise( ( resolve ) => {
-			const iframe = document.createElement( 'iframe' );
+		const promise = new Promise((resolve) => {
+			const iframe = document.createElement('iframe');
 			iframe.style.display = 'none';
 			iframe.onload = () => {
-				iframe.parentNode.removeChild( iframe );
+				iframe.parentNode.removeChild(iframe);
 				resolve();
 			};
-			iframe.src = `${ window.GHOSTKIT.adminUrl }customize.php`;
-			document.body.appendChild( iframe );
-		} );
+			iframe.src = `${window.GHOSTKIT.adminUrl}customize.php`;
+			document.body.appendChild(iframe);
+		});
 
 		return promise;
 	}
 
-	return apiFetch( request )
-		.catch( async ( fetchedData ) => {
+	return apiFetch(request)
+		.catch(async (fetchedData) => {
 			// try to get customizer data.
-			if ( fetchedData && fetchedData.error && fetchedData.error_code === 'no_options_found' ) {
+			if (
+				fetchedData &&
+				fetchedData.error &&
+				fetchedData.error_code === 'no_options_found'
+			) {
 				await maybeGetCustomizerData();
-				return apiFetch( request );
+				return apiFetch(request);
 			}
 
 			return fetchedData;
-		} )
-		.catch( ( fetchedData ) => {
-			if ( fetchedData && fetchedData.error && fetchedData.error_code === 'no_options_found' ) {
+		})
+		.catch((fetchedData) => {
+			if (
+				fetchedData &&
+				fetchedData.error &&
+				fetchedData.error_code === 'no_options_found'
+			) {
 				return {
 					response: {},
 					error: false,
@@ -40,11 +45,11 @@ export function API_FETCH( { request } ) {
 			}
 
 			return false;
-		} )
-		.then( ( fetchedData ) => {
-			if ( fetchedData && fetchedData.success && fetchedData.response ) {
+		})
+		.then((fetchedData) => {
+			if (fetchedData && fetchedData.success && fetchedData.response) {
 				return fetchedData.response;
 			}
 			return {};
-		} );
+		});
 }

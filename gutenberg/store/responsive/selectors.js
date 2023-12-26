@@ -1,3 +1,3 @@
-export function getDevice( state ) {
+export function getDevice(state) {
 	return state.device;
 }

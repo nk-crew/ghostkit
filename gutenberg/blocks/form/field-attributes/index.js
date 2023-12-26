@@ -1,6 +1,3 @@
-/**
- * WordPress dependencies
- */
 import { TextControl, ToggleControl } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -12,7 +9,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @return {Object} attributes list.
  */
-export function getFieldAttributes( attributes ) {
+export function getFieldAttributes(attributes) {
 	const allowedAttributes = [
 		'id',
 		'placeholder',
@@ -27,23 +24,23 @@ export function getFieldAttributes( attributes ) {
 	const result = {
 		// prevent input focus.
 		tabIndex: -1,
-		onFocus( e ) {
+		onFocus(e) {
 			e.target.blur();
 		},
 	};
 
-	Object.keys( attributes ).forEach( ( k ) => {
-		let val = attributes[ k ];
+	Object.keys(attributes).forEach((k) => {
+		let val = attributes[k];
 
-		if ( typeof val !== 'undefined' ) {
-			if ( k === 'slug' ) {
+		if (typeof val !== 'undefined') {
+			if (k === 'slug') {
 				k = 'id';
 			}
 
-			if ( allowedAttributes.indexOf( k ) !== -1 ) {
+			if (allowedAttributes.indexOf(k) !== -1) {
 				// boolean value.
-				if ( typeof val === 'boolean' ) {
-					if ( val ) {
+				if (typeof val === 'boolean') {
+					if (val) {
 						val = k;
 					} else {
 						val = false;
@@ -51,16 +48,16 @@ export function getFieldAttributes( attributes ) {
 				}
 
 				// default attribute.
-				if ( k === 'default' ) {
+				if (k === 'default') {
 					k = 'value';
 				}
 
-				if ( val !== false ) {
-					result[ k ] = val;
+				if (val !== false) {
+					result[k] = val;
 				}
 			}
 		}
-	} );
+	});
 
 	return result;
 }
@@ -70,7 +67,7 @@ export function getFieldAttributes( attributes ) {
  *
  * @param props
  */
-export function FieldDefaultSettings( props ) {
+export function FieldDefaultSettings(props) {
 	const {
 		attributes,
 		setAttributes,
@@ -96,54 +93,59 @@ export function FieldDefaultSettings( props ) {
 
 	const hideLabelControl = hideLabelCustom || (
 		<ToggleControl
-			label={ __( 'Hide Label', 'ghostkit' ) }
-			checked={ hideLabel }
-			onChange={ () => setAttributes( { hideLabel: ! hideLabel } ) }
+			label={__('Hide Label', 'ghostkit')}
+			checked={hideLabel}
+			onChange={() => setAttributes({ hideLabel: !hideLabel })}
 		/>
 	);
 
 	const hideDescriptionControl = hideDescriptionCustom || (
 		<ToggleControl
-			label={ __( 'Hide Description', 'ghostkit' ) }
-			checked={ hideDescription }
-			onChange={ () => setAttributes( { hideDescription: ! hideDescription } ) }
+			label={__('Hide Description', 'ghostkit')}
+			checked={hideDescription}
+			onChange={() =>
+				setAttributes({ hideDescription: !hideDescription })
+			}
 		/>
 	);
 
 	return (
 		<Fragment>
-			{ slugCustom || (
+			{slugCustom || (
 				<TextControl
-					label={ __( 'Slug', 'ghostkit' ) }
-					help={ __( 'Slug is used in form field [name] attribute.', 'ghostkit' ) }
-					value={ slug }
-					onChange={ () => {} }
+					label={__('Slug', 'ghostkit')}
+					help={__(
+						'Slug is used in form field [name] attribute.',
+						'ghostkit'
+					)}
+					value={slug}
+					onChange={() => {}}
 					readOnly
 				/>
-			) }
-			{ placeholderCustom || (
+			)}
+			{placeholderCustom || (
 				<TextControl
-					label={ __( 'Placeholder', 'ghostkit' ) }
-					value={ placeholder }
-					onChange={ ( val ) => setAttributes( { placeholder: val } ) }
+					label={__('Placeholder', 'ghostkit')}
+					value={placeholder}
+					onChange={(val) => setAttributes({ placeholder: val })}
 				/>
-			) }
-			{ defaultCustom || (
+			)}
+			{defaultCustom || (
 				<TextControl
-					label={ __( 'Default', 'ghostkit' ) }
-					value={ defaultVal }
-					onChange={ ( val ) => setAttributes( { default: val } ) }
+					label={__('Default', 'ghostkit')}
+					value={defaultVal}
+					onChange={(val) => setAttributes({ default: val })}
 				/>
-			) }
-			{ requiredCustom || (
+			)}
+			{requiredCustom || (
 				<ToggleControl
-					label={ __( 'Required', 'ghostkit' ) }
-					checked={ required }
-					onChange={ () => setAttributes( { required: ! required } ) }
+					label={__('Required', 'ghostkit')}
+					checked={required}
+					onChange={() => setAttributes({ required: !required })}
 				/>
-			) }
-			{ label ? hideLabelControl : '' }
-			{ description ? hideDescriptionControl : '' }
+			)}
+			{label ? hideLabelControl : ''}
+			{description ? hideDescriptionControl : ''}
 		</Fragment>
 	);
 }

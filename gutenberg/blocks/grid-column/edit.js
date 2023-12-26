@@ -1,9 +1,11 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-import { InnerBlocks, InspectorControls, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import {
+	InnerBlocks,
+	InspectorControls,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 import { PanelBody, SelectControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { Fragment } from '@wordpress/element';
@@ -15,9 +17,6 @@ import RangeControl from '../../components/range-control';
 import ResponsiveToggle from '../../components/responsive-toggle';
 import ToggleGroup from '../../components/toggle-group';
 import useResponsive from '../../hooks/use-responsive';
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import getColClass from './get-col-class';
 
@@ -26,32 +25,34 @@ import getColClass from './get-col-class';
  *
  * @return {Array} array for Select.
  */
-const getDefaultColumnSizes = function() {
+const getDefaultColumnSizes = function () {
 	const result = [
 		{
-			label: __( 'Inherit from larger', 'ghostkit' ),
+			label: __('Inherit from larger', 'ghostkit'),
 			value: '',
 		},
 		{
-			label: __( 'Auto', 'ghostkit' ),
+			label: __('Auto', 'ghostkit'),
 			value: 'auto',
 		},
 		{
-			label: __( 'Grow', 'ghostkit' ),
+			label: __('Grow', 'ghostkit'),
 			value: 'grow',
 		},
 	];
 
-	for ( let k = 1; k <= 12; k += 1 ) {
-		result.push( {
+	for (let k = 1; k <= 12; k += 1) {
+		result.push({
 			// eslint-disable-next-line @wordpress/valid-sprintf
 			label: sprintf(
-				k === 1 ? __( '%d Column (%s)', 'ghostkit' ) : __( '%d Columns (%s)', 'ghostkit' ),
+				k === 1
+					? __('%d Column (%s)', 'ghostkit')
+					: __('%d Columns (%s)', 'ghostkit'),
 				k,
-				`${ Math.round( ( ( 100 * k ) / 12 ) * 100 ) / 100 }%`
+				`${Math.round(((100 * k) / 12) * 100) / 100}%`
 			),
 			value: k,
-		} );
+		});
 	}
 	return result;
 };
@@ -63,33 +64,33 @@ const getDefaultColumnSizes = function() {
  *
  * @return {Array} array for Select.
  */
-const getDefaultColumnOrders = function( columns = 12 ) {
+const getDefaultColumnOrders = function (columns = 12) {
 	const result = [
 		{
-			label: __( 'Inherit from larger', 'ghostkit' ),
+			label: __('Inherit from larger', 'ghostkit'),
 			value: '',
 		},
 		{
-			label: __( 'Auto', 'ghostkit' ),
+			label: __('Auto', 'ghostkit'),
 			value: 'auto',
 		},
 		{
-			label: __( 'First', 'ghostkit' ),
+			label: __('First', 'ghostkit'),
 			value: 'first',
 		},
 	];
 
-	for ( let k = 1; k <= columns; k += 1 ) {
-		result.push( {
+	for (let k = 1; k <= columns; k += 1) {
+		result.push({
 			label: k,
 			value: k,
-		} );
+		});
 	}
 
-	result.push( {
-		label: __( 'Last', 'ghostkit' ),
+	result.push({
+		label: __('Last', 'ghostkit'),
 		value: 'last',
-	} );
+	});
 
 	return result;
 };
@@ -99,7 +100,7 @@ const getDefaultColumnOrders = function( columns = 12 ) {
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { clientId, attributes, setAttributes } = props;
 
 	const { stickyContent, stickyContentOffset } = attributes;
@@ -107,28 +108,36 @@ export default function BlockEdit( props ) {
 	const { device } = useResponsive();
 
 	const { hasChildBlocks } = useSelect(
-		( select ) => {
-			const blockEditor = select( 'core/block-editor' );
+		(select) => {
+			const blockEditor = select('core/block-editor');
 
 			return {
-				hasChildBlocks: blockEditor ? blockEditor.getBlockOrder( clientId ).length > 0 : false,
+				hasChildBlocks: blockEditor
+					? blockEditor.getBlockOrder(clientId).length > 0
+					: false,
 			};
 		},
-		[ clientId ]
+		[clientId]
 	);
 
 	// background
-	const background = applyFilters( 'ghostkit.editor.grid-column.background', '', props );
+	const background = applyFilters(
+		'ghostkit.editor.grid-column.background',
+		'',
+		props
+	);
 
-	const blockProps = useBlockProps( {
-		className: classnames( props.attributes.className, getColClass( props ) ),
-	} );
+	const blockProps = useBlockProps({
+		className: classnames(props.attributes.className, getColClass(props)),
+	});
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{ className: 'ghostkit-col-content' },
 		{
 			templateLock: false,
-			renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+			renderAppender: hasChildBlocks
+				? undefined
+				: InnerBlocks.ButtonBlockAppender,
 		}
 	);
 
@@ -136,125 +145,141 @@ export default function BlockEdit( props ) {
 	let orderName = 'order';
 	let verticalAlignName = 'verticalAlign';
 
-	if ( device ) {
-		sizeName = `${ device }_${ sizeName }`;
-		orderName = `${ device }_${ orderName }`;
-		verticalAlignName = `${ device }_${ verticalAlignName }`;
+	if (device) {
+		sizeName = `${device}_${sizeName}`;
+		orderName = `${device}_${orderName}`;
+		verticalAlignName = `${device}_${verticalAlignName}`;
 	}
 
 	return (
-		<div { ...blockProps }>
+		<div {...blockProps}>
 			<InspectorControls>
-				<ApplyFilters name="ghostkit.editor.controls" attribute="columnSettings" props={ props }>
+				<ApplyFilters
+					name="ghostkit.editor.controls"
+					attribute="columnSettings"
+					props={props}
+				>
 					<PanelBody>
 						<SelectControl
 							label={
 								<>
-									{ __( 'Size', 'ghostkit' ) }
+									{__('Size', 'ghostkit')}
 									<ResponsiveToggle
-										checkActive={ ( checkMedia ) => {
-											return !! attributes[ `${ checkMedia }_size` ];
-										} }
+										checkActive={(checkMedia) => {
+											return !!attributes[
+												`${checkMedia}_size`
+											];
+										}}
 									/>
 								</>
 							}
-							value={ attributes[ sizeName ] }
-							onChange={ ( value ) => {
-								setAttributes( {
-									[ sizeName ]: value,
-								} );
-							} }
-							options={ getDefaultColumnSizes() }
+							value={attributes[sizeName]}
+							onChange={(value) => {
+								setAttributes({
+									[sizeName]: value,
+								});
+							}}
+							options={getDefaultColumnSizes()}
 						/>
 						<SelectControl
 							label={
 								<>
-									{ __( 'Order', 'ghostkit' ) }
+									{__('Order', 'ghostkit')}
 									<ResponsiveToggle
-										checkActive={ ( checkMedia ) => {
-											return !! attributes[ `${ checkMedia }_order` ];
-										} }
+										checkActive={(checkMedia) => {
+											return !!attributes[
+												`${checkMedia}_order`
+											];
+										}}
 									/>
 								</>
 							}
-							value={ attributes[ orderName ] }
-							onChange={ ( value ) => {
-								setAttributes( {
-									[ orderName ]: value,
-								} );
-							} }
-							options={ getDefaultColumnOrders() }
+							value={attributes[orderName]}
+							onChange={(value) => {
+								setAttributes({
+									[orderName]: value,
+								});
+							}}
+							options={getDefaultColumnOrders()}
 						/>
 						<ToggleGroup
 							label={
 								<>
-									{ __( 'Vertical Alignment', 'ghostkit' ) }
+									{__('Vertical Alignment', 'ghostkit')}
 									<ResponsiveToggle
-										checkActive={ ( checkMedia ) => {
-											return !! attributes[ `${ checkMedia }_verticalAlign` ];
-										} }
+										checkActive={(checkMedia) => {
+											return !!attributes[
+												`${checkMedia}_verticalAlign`
+											];
+										}}
 									/>
 								</>
 							}
-							value={ attributes[ verticalAlignName ] }
-							options={ [
+							value={attributes[verticalAlignName]}
+							options={[
 								{
-									icon: getIcon( 'icon-vertical-top' ),
-									label: __( 'Top', 'ghostkit' ),
+									icon: getIcon('icon-vertical-top'),
+									label: __('Top', 'ghostkit'),
 									value: '',
 								},
 								{
-									icon: getIcon( 'icon-vertical-center' ),
-									label: __( 'Center', 'ghostkit' ),
+									icon: getIcon('icon-vertical-center'),
+									label: __('Center', 'ghostkit'),
 									value: 'center',
 								},
 								{
-									icon: getIcon( 'icon-vertical-bottom' ),
-									label: __( 'Bottom', 'ghostkit' ),
+									icon: getIcon('icon-vertical-bottom'),
+									label: __('Bottom', 'ghostkit'),
 									value: 'end',
 								},
-							] }
-							onChange={ ( value ) => {
-								setAttributes( { [ verticalAlignName ]: value } );
-							} }
+							]}
+							onChange={(value) => {
+								setAttributes({ [verticalAlignName]: value });
+							}}
 							isDeselectable
 						/>
 					</PanelBody>
 				</ApplyFilters>
 				<PanelBody>
 					<ToggleGroup
-						label={ __( 'Sticky Content', 'ghostkit' ) }
-						value={ stickyContent }
-						options={ [
+						label={__('Sticky Content', 'ghostkit')}
+						value={stickyContent}
+						options={[
 							{
-								label: __( 'Top', 'ghostkit' ),
+								label: __('Top', 'ghostkit'),
 								value: 'top',
 							},
 							{
-								label: __( 'Bottom', 'ghostkit' ),
+								label: __('Bottom', 'ghostkit'),
 								value: 'bottom',
 							},
-						] }
-						onChange={ ( value ) => {
-							setAttributes( { stickyContent: value } );
-						} }
+						]}
+						onChange={(value) => {
+							setAttributes({ stickyContent: value });
+						}}
 						isDeselectable
 					/>
-					{ stickyContent ? (
+					{stickyContent ? (
 						<RangeControl
-							label={ __( 'Sticky Offset', 'ghostkit' ) }
-							value={ stickyContentOffset }
-							onChange={ ( value ) => setAttributes( { stickyContentOffset: value } ) }
+							label={__('Sticky Offset', 'ghostkit')}
+							value={stickyContentOffset}
+							onChange={(value) =>
+								setAttributes({ stickyContentOffset: value })
+							}
 							allowCustomMax
 						/>
-					) : null }
+					) : null}
 				</PanelBody>
 				<div className="ghostkit-background-controls">
-					<ApplyFilters name="ghostkit.editor.controls" attribute="background" props={ props } />
+					<ApplyFilters
+						name="ghostkit.editor.controls"
+						attribute="background"
+						props={props}
+					/>
 				</div>
 			</InspectorControls>
-			{ background }
-			<div { ...innerBlocksProps } />
+			{background}
+			<div {...innerBlocksProps} />
 		</div>
 	);
 }

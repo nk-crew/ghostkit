@@ -1,11 +1,11 @@
-export function apiFetch( request ) {
+export function apiFetch(request) {
 	return {
 		type: 'API_FETCH',
 		request,
 	};
 }
 
-export function setInstagramFeed( query, feed ) {
+export function setInstagramFeed(query, feed) {
 	return {
 		type: 'SET_INSTAGRAM_FEED',
 		query,
@@ -13,7 +13,7 @@ export function setInstagramFeed( query, feed ) {
 	};
 }
 
-export function setInstagramProfile( query, profile ) {
+export function setInstagramProfile(query, profile) {
 	return {
 		type: 'SET_INSTAGRAM_PROFILE',
 		query,

@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
@@ -12,7 +9,7 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-accordion', true ),
+	icon: getIcon('block-accordion', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/accordion/',
 	},
@@ -30,7 +27,7 @@ export const settings = {
 						name: 'core/paragraph',
 						attributes: {
 							content:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
 						},
 					},
 				],

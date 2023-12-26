@@ -1,10 +1,4 @@
-/**
- * Internal dependencies
- */
 import { Button } from '@wordpress/components';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import getIcon from '../../utils/get-icon';
@@ -15,7 +9,7 @@ import ActiveIndicator from '../active-indicator';
  *
  * @param props
  */
-export default function ElementStateToggle( props ) {
+export default function ElementStateToggle(props) {
 	const {
 		isHover,
 		onChange,
@@ -27,13 +21,13 @@ export default function ElementStateToggle( props ) {
 	return (
 		<Button
 			className="ghostkit-control-element-state-toggle"
-			onClick={ () => {
-				onChange( ! isHover );
-			} }
+			onClick={() => {
+				onChange(!isHover);
+			}}
 		>
-			{ getIcon( 'icon-pointer' ) }
-			{ checkActive() && <ActiveIndicator /> }
-			{ isHover && <span>{ __( ':hover', 'ghostkit' ) }</span> }
+			{getIcon('icon-pointer')}
+			{checkActive() && <ActiveIndicator />}
+			{isHover && <span>{__(':hover', 'ghostkit')}</span>}
 		</Button>
 	);
 }

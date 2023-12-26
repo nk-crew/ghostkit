@@ -1,11 +1,11 @@
-export function apiFetch( request ) {
+export function apiFetch(request) {
 	return {
 		type: 'API_FETCH',
 		request,
 	};
 }
 
-export function setImageTagData( query, image ) {
+export function setImageTagData(query, image) {
 	return {
 		type: 'SET_IMAGE_TAG_DATA',
 		query,

@@ -1,22 +1,16 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
-import { FieldDefaultSettings, getFieldAttributes } from '../../field-attributes';
+import {
+	FieldDefaultSettings,
+	getFieldAttributes,
+} from '../../field-attributes';
 import FieldDescription from '../../field-description';
-/**
- * Internal dependencies
- */
 import FieldLabel from '../../field-label';
 import FieldOptions from '../../field-options';
 
@@ -25,7 +19,7 @@ import FieldOptions from '../../field-options';
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected } = props;
 
 	const { multiple } = attributes;
@@ -34,11 +28,14 @@ export default function BlockEdit( props ) {
 
 	let { className = '' } = props;
 
-	className = classnames( 'ghostkit-form-field ghostkit-form-field-select', className );
+	className = classnames(
+		'ghostkit-form-field ghostkit-form-field-select',
+		className
+	);
 
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = applyFilters('ghostkit.editor.className', className, props);
 
-	if ( ! options || ! options.length ) {
+	if (!options || !options.length) {
 		options = [
 			{
 				label: '',
@@ -50,77 +47,84 @@ export default function BlockEdit( props ) {
 
 	let selectVal = multiple ? [] : '';
 
-	options.forEach( ( data ) => {
-		if ( multiple && data.selected ) {
-			selectVal.push( data.value );
-		} else if ( ! multiple && ! selectVal && data.selected ) {
+	options.forEach((data) => {
+		if (multiple && data.selected) {
+			selectVal.push(data.value);
+		} else if (!multiple && !selectVal && data.selected) {
 			selectVal = data.value;
 		}
-	} );
+	});
 
-	const blockProps = useBlockProps( { className } );
+	const blockProps = useBlockProps({ className });
 
 	return (
 		<Fragment>
 			<InspectorControls>
 				<PanelBody>
-					<FieldDefaultSettings { ...props } defaultCustom={ ' ' } placeholderCustom={ ' ' } />
+					<FieldDefaultSettings
+						{...props}
+						defaultCustom={' '}
+						placeholderCustom={' '}
+					/>
 					<ToggleControl
-						label={ __( 'Multiple', 'ghostkit' ) }
-						checked={ multiple }
-						onChange={ () => {
-							if ( multiple ) {
-								const newOptions = [ ...options ];
+						label={__('Multiple', 'ghostkit')}
+						checked={multiple}
+						onChange={() => {
+							if (multiple) {
+								const newOptions = [...options];
 								let singleSelected = false;
 
-								newOptions.forEach( ( data, i ) => {
-									if ( data.selected ) {
-										if ( singleSelected ) {
-											newOptions[ i ].selected = false;
+								newOptions.forEach((data, i) => {
+									if (data.selected) {
+										if (singleSelected) {
+											newOptions[i].selected = false;
 										}
 
 										singleSelected = true;
 									}
-								} );
+								});
 
-								setAttributes( {
-									multiple: ! multiple,
+								setAttributes({
+									multiple: !multiple,
 									options: newOptions,
-								} );
+								});
 							} else {
-								setAttributes( { multiple: ! multiple } );
+								setAttributes({ multiple: !multiple });
 							}
-						} }
+						}}
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...blockProps }>
-				<FieldLabel { ...props } />
+			<div {...blockProps}>
+				<FieldLabel {...props} />
 
-				{ isSelected ? (
+				{isSelected ? (
 					<FieldOptions
-						options={ options }
-						multiple={ multiple }
-						onChange={ ( val ) => setAttributes( { options: val } ) }
+						options={options}
+						multiple={multiple}
+						onChange={(val) => setAttributes({ options: val })}
 					/>
 				) : (
 					<SelectControl
-						{ ...getFieldAttributes( attributes ) }
-						value={ selectVal }
-						options={ ( () => {
-							if ( ! multiple ) {
+						{...getFieldAttributes(attributes)}
+						value={selectVal}
+						options={(() => {
+							if (!multiple) {
 								let addNullOption = true;
 
-								Object.keys( options ).forEach( ( data ) => {
-									if ( data.selected ) {
+								Object.keys(options).forEach((data) => {
+									if (data.selected) {
 										addNullOption = false;
 									}
-								} );
+								});
 
-								if ( addNullOption ) {
+								if (addNullOption) {
 									return [
 										{
-											label: __( '--- Select ---', 'ghostkit' ),
+											label: __(
+												'--- Select ---',
+												'ghostkit'
+											),
 											value: '',
 											selected: true,
 										},
@@ -130,11 +134,11 @@ export default function BlockEdit( props ) {
 							}
 
 							return options;
-						} )() }
+						})()}
 					/>
-				) }
+				)}
 
-				<FieldDescription { ...props } />
+				<FieldDescription {...props} />
 			</div>
 		</Fragment>
 	);

@@ -1,21 +1,15 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, TextControl } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 
-import { FieldDefaultSettings, getFieldAttributes } from '../../field-attributes';
+import {
+	FieldDefaultSettings,
+	getFieldAttributes,
+} from '../../field-attributes';
 import FieldDescription from '../../field-description';
-/**
- * Internal dependencies
- */
 import FieldLabel from '../../field-label';
 
 /**
@@ -23,27 +17,30 @@ import FieldLabel from '../../field-label';
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes } = props;
 
 	let { className = '' } = props;
 
-	className = classnames( 'ghostkit-form-field ghostkit-form-field-text', className );
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = classnames(
+		'ghostkit-form-field ghostkit-form-field-text',
+		className
+	);
+	className = applyFilters('ghostkit.editor.className', className, props);
 
-	const blockProps = useBlockProps( { className } );
+	const blockProps = useBlockProps({ className });
 
 	return (
 		<Fragment>
 			<InspectorControls>
 				<PanelBody>
-					<FieldDefaultSettings { ...props } />
+					<FieldDefaultSettings {...props} />
 				</PanelBody>
 			</InspectorControls>
-			<div { ...blockProps }>
-				<FieldLabel { ...props } />
-				<TextControl { ...getFieldAttributes( attributes ) } />
-				<FieldDescription { ...props } />
+			<div {...blockProps}>
+				<FieldLabel {...props} />
+				<TextControl {...getFieldAttributes(attributes)} />
+				<FieldDescription {...props} />
 			</div>
 		</Fragment>
 	);

@@ -1,16 +1,10 @@
 import classnames from 'classnames/dedupe';
 
 import { Button, Tooltip } from '@wordpress/components';
-/**
- * WordPress dependencies
- */
 import { __, sprintf } from '@wordpress/i18n';
 
 import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
-/**
- * Internal dependencies
- */
 import ActiveIndicator from '../active-indicator';
 
 /**
@@ -18,7 +12,7 @@ import ActiveIndicator from '../active-indicator';
  *
  * @param props
  */
-export default function ResponsiveTabPanel( props ) {
+export default function ResponsiveTabPanel(props) {
 	const { children } = props;
 
 	// Fallback for deprecated filledTabs prop.
@@ -28,57 +22,60 @@ export default function ResponsiveTabPanel( props ) {
 
 	const tabs = [];
 	const icons = [
-		getIcon( 'tabs-mobile' ),
-		getIcon( 'tabs-tablet' ),
-		getIcon( 'tabs-laptop' ),
-		getIcon( 'tabs-desktop' ),
-		getIcon( 'tabs-tv' ),
+		getIcon('tabs-mobile'),
+		getIcon('tabs-tablet'),
+		getIcon('tabs-laptop'),
+		getIcon('tabs-desktop'),
+		getIcon('tabs-tv'),
 	];
 
-	[ ...Object.keys( allDevices ), '' ].forEach( ( name, i ) => {
-		tabs.unshift( {
+	[...Object.keys(allDevices), ''].forEach((name, i) => {
+		tabs.unshift({
 			name,
 			title: (
 				<Tooltip
 					text={
-						! name
-							? __( 'All devices', 'ghostkit' )
+						!name
+							? __('All devices', 'ghostkit')
 							: sprintf(
-								__( 'Devices with screen width <= %s', 'ghostkit' ),
-								`${ allDevices[ name ] }px`
-							)
+									__(
+										'Devices with screen width <= %s',
+										'ghostkit'
+									),
+									`${allDevices[name]}px`
+								)
 					}
 				>
 					<span className="ghostkit-control-tabs-icon">
-						{ icons[ i ] }
-						{ active && active[ name ] ? <ActiveIndicator /> : '' }
+						{icons[i]}
+						{active && active[name] ? <ActiveIndicator /> : ''}
 					</span>
 				</Tooltip>
 			),
-		} );
-	} );
+		});
+	});
 
 	return (
 		<div className="ghostkit-control-tabs ghostkit-control-tabs-wide">
 			<div className="components-tab-panel__tabs">
-				{ tabs.map( ( data ) => {
+				{tabs.map((data) => {
 					return (
 						<Button
-							key={ data.name }
-							className={ classnames(
+							key={data.name}
+							className={classnames(
 								'ghostkit-control-tabs-tab',
 								data.name === device && 'is-active'
-							) }
-							onClick={ () => {
-								setDevice( data.name );
-							} }
+							)}
+							onClick={() => {
+								setDevice(data.name);
+							}}
 						>
-							{ data.title }
+							{data.title}
 						</Button>
 					);
-				} ) }
+				})}
 			</div>
-			{ children( { name: device } ) }
+			{children({ name: device })}
 		</div>
 	);
 }

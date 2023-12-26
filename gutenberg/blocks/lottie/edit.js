@@ -1,7 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-/**
- * External dependencies
- */
+
 import classnames from 'classnames/dedupe';
 
 import {
@@ -13,22 +11,20 @@ import {
 	ToggleControl,
 	UnitControl as StableUnitControl,
 } from '@wordpress/components';
-/**
- * WordPress dependencies
- */
 import { useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
-/**
- * Internal dependencies
- */
 import RangeControl from '../../components/range-control';
 import PreviewLottie from './preview-lottie';
 
 const UnitControl = StableUnitControl || ExperimentalUnitControl;
 
-import { InspectorControls, MediaPlaceholder, useBlockProps } from '@wordpress/block-editor';
+import {
+	InspectorControls,
+	MediaPlaceholder,
+	useBlockProps,
+} from '@wordpress/block-editor';
 
 /**
  * Block Edit Class.
@@ -37,152 +33,203 @@ import { InspectorControls, MediaPlaceholder, useBlockProps } from '@wordpress/b
  *
  * @return {JSX} component.
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected } = props;
 
 	let { className = '' } = props;
 
-	const { fileUrl, fileWidth, fileHeight, trigger, loop, direction, speed, width } = attributes;
+	const {
+		fileUrl,
+		fileWidth,
+		fileHeight,
+		trigger,
+		loop,
+		direction,
+		speed,
+		width,
+	} = attributes;
 
-	const [ isWidthPercent, setIsWidthPercent ] = useState( width.endsWith( '%' ) );
+	const [isWidthPercent, setIsWidthPercent] = useState(width.endsWith('%'));
 
-	className = classnames( 'ghostkit-lottie', className );
+	className = classnames('ghostkit-lottie', className);
 
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = applyFilters('ghostkit.editor.className', className, props);
 
-	const blockProps = useBlockProps( {
+	const blockProps = useBlockProps({
 		className,
 		'data-trigger': trigger,
 		style:
-      fileWidth && fileHeight
-      	? {
-      		'--gkt-lottie__ar': `${ fileWidth } / ${ fileHeight }`,
-      		'--gkt-lottie__width': width,
-      	}
-      	: {},
-	} );
+			fileWidth && fileHeight
+				? {
+						'--gkt-lottie__ar': `${fileWidth} / ${fileHeight}`,
+						'--gkt-lottie__width': width,
+					}
+				: {},
+	});
 
 	return (
 		<>
-			{ fileUrl ? (
+			{fileUrl ? (
 				<InspectorControls>
 					<PanelBody>
 						<SelectControl
-							label={ __( 'Play Animation On', 'ghostkit' ) }
-							value={ trigger }
-							options={ [
-								{ label: __( 'Page Load', 'ghostkit' ), value: '' },
-								{ label: __( 'Viewport', 'ghostkit' ), value: 'viewport' },
-								{ label: __( 'Hover', 'ghostkit' ), value: 'hover' },
-								{ label: __( 'Click', 'ghostkit' ), value: 'click' },
-								{ label: __( 'Scroll', 'ghostkit' ), value: 'scroll' },
-							] }
-							onChange={ ( value ) => setAttributes( { trigger: value } ) }
+							label={__('Play Animation On', 'ghostkit')}
+							value={trigger}
+							options={[
+								{
+									label: __('Page Load', 'ghostkit'),
+									value: '',
+								},
+								{
+									label: __('Viewport', 'ghostkit'),
+									value: 'viewport',
+								},
+								{
+									label: __('Hover', 'ghostkit'),
+									value: 'hover',
+								},
+								{
+									label: __('Click', 'ghostkit'),
+									value: 'click',
+								},
+								{
+									label: __('Scroll', 'ghostkit'),
+									value: 'scroll',
+								},
+							]}
+							onChange={(value) =>
+								setAttributes({ trigger: value })
+							}
 						/>
-						{ trigger !== 'scroll' ? (
+						{trigger !== 'scroll' ? (
 							<>
 								<RangeControl
-									label={ __( 'Speed', 'otter-blocks' ) }
-									value={ speed }
-									onChange={ ( val ) => setAttributes( { speed: val } ) }
-									step={ 0.1 }
-									min={ 0 }
-									max={ 10 }
+									label={__('Speed', 'otter-blocks')}
+									value={speed}
+									onChange={(val) =>
+										setAttributes({ speed: val })
+									}
+									step={0.1}
+									min={0}
+									max={10}
 								/>
 								<ToggleControl
-									label={ __( 'Loop', 'ghostkit' ) }
-									checked={ !! loop }
-									onChange={ () => setAttributes( { loop: ! loop } ) }
+									label={__('Loop', 'ghostkit')}
+									checked={!!loop}
+									onChange={() =>
+										setAttributes({ loop: !loop })
+									}
 								/>
 							</>
-						) : null }
+						) : null}
 						<ToggleControl
-							label={ __( 'Reverse', 'ghostkit' ) }
-							checked={ direction === -1 }
-							onChange={ () => {
-								setAttributes( {
+							label={__('Reverse', 'ghostkit')}
+							checked={direction === -1}
+							onChange={() => {
+								setAttributes({
 									direction: direction === 1 ? -1 : 1,
-								} );
-							} }
+								});
+							}}
 						/>
 						<UnitControl
-							label={ __( 'Width', 'ghostkit' ) }
-							value={ width }
-							onChange={ ( val ) => setAttributes( { width: val } ) }
-							onUnitChange={ ( unit ) => setIsWidthPercent( unit === '%' ) }
+							label={__('Width', 'ghostkit')}
+							value={width}
+							onChange={(val) => setAttributes({ width: val })}
+							onUnitChange={(unit) =>
+								setIsWidthPercent(unit === '%')
+							}
 							labelPosition="edge"
 							__unstableInputWidth="70px"
-							units={ [
+							units={[
 								{ value: 'px', label: 'px' },
 								{ value: '%', label: '%' },
-							] }
-							min={ 0 }
-							max={ isWidthPercent ? 100 : Infinity }
+							]}
+							min={0}
+							max={isWidthPercent ? 100 : Infinity}
 						/>
 					</PanelBody>
 					<PanelBody>
-						<TextControl label={ __( 'Lottie File', 'ghostkit' ) } value={ fileUrl } disabled />
+						<TextControl
+							label={__('Lottie File', 'ghostkit')}
+							value={fileUrl}
+							disabled
+						/>
 						<Button
 							isSecondary
-							onClick={ () => {
-								setAttributes( {
+							onClick={() => {
+								setAttributes({
 									fileId: undefined,
 									fileUrl: undefined,
 									fileWidth: undefined,
 									fileHeight: undefined,
-								} );
-							} }
+								});
+							}}
 						>
-							{ __( 'Clear', 'ghostkit' ) }
+							{__('Clear', 'ghostkit')}
 						</Button>
 					</PanelBody>
 				</InspectorControls>
-			) : null }
-			<div { ...blockProps }>
-				{ fileUrl ? (
+			) : null}
+			<div {...blockProps}>
+				{fileUrl ? (
 					<PreviewLottie
-						url={ fileUrl }
-						trigger={ trigger }
-						speed={ speed }
-						loop={ loop }
-						direction={ direction }
-						isSelected={ isSelected }
-						onLoad={ ( e ) => {
+						url={fileUrl}
+						trigger={trigger}
+						speed={speed}
+						loop={loop}
+						direction={direction}
+						isSelected={isSelected}
+						onLoad={(e) => {
 							// eslint-disable-next-line no-underscore-dangle
-							const newWidth = e?.target?._lottie?.animationData?.w;
+							const newWidth =
+								e?.target?._lottie?.animationData?.w;
 							// eslint-disable-next-line no-underscore-dangle
-							const newHeight = e?.target?._lottie?.animationData?.h;
+							const newHeight =
+								e?.target?._lottie?.animationData?.h;
 
-							if ( newWidth && newHeight && ( newWidth !== fileWidth || newHeight !== fileHeight ) ) {
-								setAttributes( {
+							if (
+								newWidth &&
+								newHeight &&
+								(newWidth !== fileWidth ||
+									newHeight !== fileHeight)
+							) {
+								setAttributes({
 									fileWidth: newWidth,
 									fileHeight: newHeight,
-								} );
+								});
 							}
-						} }
+						}}
 					/>
 				) : (
 					<MediaPlaceholder
 						icon="format-image"
-						labels={ {
-							title: __( 'Lottie JSON', 'ghostkit' ),
-							name: __( 'lottie', 'ghostkit' ),
-							instructions: __( 'Upload a JSON file or pick one from your media library.' ),
-						} }
-						onSelect={ ( file ) => {
-							setAttributes( { fileId: file.id, fileUrl: file.url } );
-						} }
-						onSelectURL={ ( url ) => {
-							setAttributes( { fileId: undefined, fileUrl: url } );
-						} }
-						accept={ [ 'application/json' ] }
-						allowedTypes={ [ 'application/json' ] }
+						labels={{
+							title: __('Lottie JSON', 'ghostkit'),
+							name: __('lottie', 'ghostkit'),
+							instructions: __(
+								'Upload a JSON file or pick one from your media library.'
+							),
+						}}
+						onSelect={(file) => {
+							setAttributes({
+								fileId: file.id,
+								fileUrl: file.url,
+							});
+						}}
+						onSelectURL={(url) => {
+							setAttributes({ fileId: undefined, fileUrl: url });
+						}}
+						accept={['application/json']}
+						allowedTypes={['application/json']}
 						disableMaxUploadErrorMessages
-						onError={ () => {
-							setAttributes( { fileId: undefined, fileUrl: undefined } );
-						} }
+						onError={() => {
+							setAttributes({
+								fileId: undefined,
+								fileUrl: undefined,
+							});
+						}}
 					/>
-				) }
+				)}
 			</div>
 		</>
 	);

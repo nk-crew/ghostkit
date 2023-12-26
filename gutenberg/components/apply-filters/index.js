@@ -1,6 +1,3 @@
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 
 /**
@@ -8,8 +5,8 @@ import { applyFilters } from '@wordpress/hooks';
  *
  * @param props
  */
-export default function ApplyFilters( props ) {
+export default function ApplyFilters(props) {
 	const { name, children } = props;
 
-	return applyFilters( name, children || '', props );
+	return applyFilters(name, children || '', props);
 }

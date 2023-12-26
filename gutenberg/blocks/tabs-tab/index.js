@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
@@ -11,8 +8,8 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-tab', true ),
-	getEditWrapperProps( attributes ) {
+	icon: getIcon('block-tab', true),
+	getEditWrapperProps(attributes) {
 		return { 'data-tab': attributes.slug };
 	},
 	edit,

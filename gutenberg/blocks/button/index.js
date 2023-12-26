@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
@@ -12,10 +9,10 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-buttons', true ),
+	icon: getIcon('block-buttons', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/button/',
-		customStylesCallback( attributes ) {
+		customStylesCallback(attributes) {
 			const { gap, gapCustom, gapVerticalCustom } = attributes;
 
 			const styles = {
@@ -24,19 +21,20 @@ export const settings = {
 			};
 
 			// Custom Gap.
-			if ( gap === 'custom' ) {
-				if ( typeof gapCustom !== 'undefined' ) {
+			if (gap === 'custom') {
+				if (typeof gapCustom !== 'undefined') {
 					// we need to use `%` unit because of conflict with complex calc() and 0 value.
 					const unit = gapCustom ? 'px' : '%';
 
-					styles[ '--gkt-button__gap' ] = `${ gapCustom }${ unit }`;
+					styles['--gkt-button__gap'] = `${gapCustom}${unit}`;
 				}
 
-				if ( typeof gapVerticalCustom !== 'undefined' ) {
+				if (typeof gapVerticalCustom !== 'undefined') {
 					// we need to use `%` unit because of conflict with complex calc() and 0 value.
 					const unit = gapVerticalCustom ? 'px' : '%';
 
-					styles[ '--gkt-button__gap-vertical' ] = `${ gapVerticalCustom }${ unit }`;
+					styles['--gkt-button__gap-vertical'] =
+						`${gapVerticalCustom}${unit}`;
 				}
 			}
 

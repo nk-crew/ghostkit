@@ -1,31 +1,25 @@
-/**
- * Internal dependencies
- */
 import { BlockSettingsMenuControls } from '@wordpress/block-editor';
 import { hasBlockSupport, serialize } from '@wordpress/blocks';
 import { Dropdown, MenuGroup, MenuItem } from '@wordpress/components';
 import { useCopyToClipboard } from '@wordpress/compose';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 
 import { EXTENSIONS } from '../constants';
 import usePasteExtensions from './use-paste-extensions';
 
-function CopyMenuItem( { blocks, onCopy, children } ) {
-	const ref = useCopyToClipboard( () => serialize( blocks ), onCopy );
+function CopyMenuItem({ blocks, onCopy, children }) {
+	const ref = useCopyToClipboard(() => serialize(blocks), onCopy);
 
-	return <MenuItem ref={ ref }>{ children }</MenuItem>;
+	return <MenuItem ref={ref}>{children}</MenuItem>;
 }
 
-function blocksHasSupport( blocks, support ) {
-	return blocks.every( ( block ) => {
-		return !! block && hasBlockSupport( block.name, support );
-	} );
+function blocksHasSupport(blocks, support) {
+	return blocks.every((block) => {
+		return !!block && hasBlockSupport(block.name, support);
+	});
 }
 
 /**
@@ -35,47 +29,52 @@ function blocksHasSupport( blocks, support ) {
  * @param root0
  * @param root0.props
  */
-function GhostKitExtensionCopyPaste( original, { props } ) {
+function GhostKitExtensionCopyPaste(original, { props }) {
 	const { name, clientId } = props;
 
-	const hasExtensionsSupport = hasBlockSupport( name, [ 'ghostkit' ] );
+	const hasExtensionsSupport = hasBlockSupport(name, ['ghostkit']);
 
-	const { createSuccessNotice } = useDispatch( noticesStore );
-	const { getBlocksByClientId } = useSelect( ( select ) => {
-		return select( 'core/block-editor' );
-	} );
+	const { createSuccessNotice } = useDispatch(noticesStore);
+	const { getBlocksByClientId } = useSelect((select) => {
+		return select('core/block-editor');
+	});
 
 	const pasteExtensions = usePasteExtensions();
 
-	if ( ! hasExtensionsSupport ) {
+	if (!hasExtensionsSupport) {
 		return original;
 	}
 
 	return (
 		<>
-			{ original }
+			{original}
 			<BlockSettingsMenuControls>
-				{ ( menuProps ) => {
-					if ( menuProps.firstBlockClientId !== clientId ) {
+				{(menuProps) => {
+					if (menuProps.firstBlockClientId !== clientId) {
 						return null;
 					}
 
-					const blocks = getBlocksByClientId( menuProps.selectedClientIds );
+					const blocks = getBlocksByClientId(
+						menuProps.selectedClientIds
+					);
 
-					const canCopyExtensions = blocksHasSupport( blocks, 'ghostkit' );
+					const canCopyExtensions = blocksHasSupport(
+						blocks,
+						'ghostkit'
+					);
 
-					if ( ! canCopyExtensions ) {
+					if (!canCopyExtensions) {
 						return null;
 					}
 
 					return (
 						<MenuGroup
 							className="ghostkit-block-actions-copy-paste"
-							label={ __( 'Ghost Kit', 'ghostkit' ) }
+							label={__('Ghost Kit', 'ghostkit')}
 						>
 							<CopyMenuItem
-								blocks={ blocks }
-								onCopy={ () => {
+								blocks={blocks}
+								onCopy={() => {
 									createSuccessNotice(
 										sprintf(
 											// Translators: %d: Number of blocks being copied.
@@ -90,22 +89,22 @@ function GhostKitExtensionCopyPaste( original, { props } ) {
 											type: 'snackbar',
 										}
 									);
-								} }
+								}}
 							>
-								{ __( 'Copy extensions', 'ghostkit' ) }
+								{__('Copy extensions', 'ghostkit')}
 							</CopyMenuItem>
 
 							<Dropdown
 								className="ghostkit-block-actions-dropdown-paste"
-								popoverProps={ {
+								popoverProps={{
 									placement: 'right-start',
 									offset: 36,
 									shift: true,
-								} }
-								renderToggle={ ( { isOpen, onToggle } ) => (
+								}}
+								renderToggle={({ isOpen, onToggle }) => (
 									<MenuItem
-										onClick={ onToggle }
-										aria-expanded={ isOpen }
+										onClick={onToggle}
+										aria-expanded={isOpen}
 										icon={
 											<svg
 												width="24"
@@ -121,40 +120,53 @@ function GhostKitExtensionCopyPaste( original, { props } ) {
 											</svg>
 										}
 									>
-										{ __( 'Paste extensions', 'ghostkit' ) }
+										{__('Paste extensions', 'ghostkit')}
 									</MenuItem>
-								) }
-								renderContent={ () => (
+								)}
+								renderContent={() => (
 									<MenuGroup className="ghostkit-block-actions-dropdown-paste-menu">
 										<MenuItem
-											onClick={ () => {
-												pasteExtensions( blocks );
-											} }
+											onClick={() => {
+												pasteExtensions(blocks);
+											}}
 										>
-											{ __( 'Paste All', 'ghostkit' ) }
+											{__('Paste All', 'ghostkit')}
 										</MenuItem>
-										{ Object.keys( EXTENSIONS ).map( ( extName ) => {
-											if ( ! blocksHasSupport( blocks, [ 'ghostkit', extName ] ) ) {
-												return null;
-											}
+										{Object.keys(EXTENSIONS).map(
+											(extName) => {
+												if (
+													!blocksHasSupport(blocks, [
+														'ghostkit',
+														extName,
+													])
+												) {
+													return null;
+												}
 
-											return (
-												<MenuItem
-													key={ extName }
-													onClick={ () => {
-														pasteExtensions( blocks, extName );
-													} }
-												>
-													{ EXTENSIONS[ extName ].label }
-												</MenuItem>
-											);
-										} ) }
+												return (
+													<MenuItem
+														key={extName}
+														onClick={() => {
+															pasteExtensions(
+																blocks,
+																extName
+															);
+														}}
+													>
+														{
+															EXTENSIONS[extName]
+																.label
+														}
+													</MenuItem>
+												);
+											}
+										)}
 									</MenuGroup>
-								) }
+								)}
 							/>
 						</MenuGroup>
 					);
-				} }
+				}}
 			</BlockSettingsMenuControls>
 		</>
 	);

@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import './padding';
 import './margin';
 
@@ -11,9 +8,6 @@ import {
 	__stableToolsPanel as StableToolsPanel,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
@@ -32,34 +26,39 @@ const allSpacings = EXTENSIONS.spacings.styles;
  * @param root0
  * @param root0.props
  */
-function GhostKitExtensionSpacingsInspector( original, { props } ) {
+function GhostKitExtensionSpacingsInspector(original, { props }) {
 	const { name } = props;
 
-	const hasSpacingsSupport = hasBlockSupport( name, [ 'ghostkit', 'spacings' ] );
+	const hasSpacingsSupport = hasBlockSupport(name, ['ghostkit', 'spacings']);
 
-	if ( ! hasSpacingsSupport ) {
+	if (!hasSpacingsSupport) {
 		return original;
 	}
 
-	const { resetStyles } = useStyles( props );
+	const { resetStyles } = useStyles(props);
 
 	return (
 		<>
-			{ original }
+			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
 					label={
 						<>
-							<span className="ghostkit-ext-icon">{ getIcon( 'extension-spacings' ) }</span>
-							<span>{ __( 'Spacings', 'ghostkit' ) }</span>
+							<span className="ghostkit-ext-icon">
+								{getIcon('extension-spacings')}
+							</span>
+							<span>{__('Spacings', 'ghostkit')}</span>
 						</>
 					}
-					resetAll={ () => {
-						resetStyles( allSpacings, true );
-					} }
+					resetAll={() => {
+						resetStyles(allSpacings, true);
+					}}
 				>
 					<div className="ghostkit-tools-panel-spacings">
-						<ApplyFilters name="ghostkit.extension.spacings.tools" props={ props } />
+						<ApplyFilters
+							name="ghostkit.extension.spacings.tools"
+							props={props}
+						/>
 					</div>
 				</ToolsPanel>
 			</InspectorControls>

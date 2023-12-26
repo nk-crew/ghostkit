@@ -1,6 +1,3 @@
-/**
- * WordPress dependencies
- */
 import { Button, TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -9,55 +6,58 @@ import { __ } from '@wordpress/i18n';
  *
  * @param props
  */
-export default function FieldOptions( props ) {
+export default function FieldOptions(props) {
 	const { options, onChange, multiple } = props;
 
 	return (
 		<div className="ghostkit-field-options">
-			{ options.map( ( data, i ) => {
-				const fieldName = `option-${ i }`;
+			{options.map((data, i) => {
+				const fieldName = `option-${i}`;
 				return (
-					<div className="ghostkit-field-options-item" key={ fieldName }>
+					<div
+						className="ghostkit-field-options-item"
+						key={fieldName}
+					>
 						<input
-							type={ multiple ? 'checkbox' : 'radio' }
-							checked={ data.selected }
-							onClick={ () => {
-								const newOpts = [ ...options ];
+							type={multiple ? 'checkbox' : 'radio'}
+							checked={data.selected}
+							onClick={() => {
+								const newOpts = [...options];
 
-								newOpts[ i ].selected = ! data.selected;
+								newOpts[i].selected = !data.selected;
 
-								if ( ! multiple ) {
-									newOpts.forEach( ( newData, k ) => {
-										if ( i !== k ) {
-											newOpts[ k ].selected = false;
+								if (!multiple) {
+									newOpts.forEach((newData, k) => {
+										if (i !== k) {
+											newOpts[k].selected = false;
 										}
-									} );
+									});
 								}
 
-								onChange( newOpts );
-							} }
+								onChange(newOpts);
+							}}
 						/>
 						<TextControl
-							placeholder={ __( 'Write label…', 'ghostkit' ) }
-							value={ data.value }
-							onChange={ ( newVal ) => {
-								const newOpts = [ ...options ];
+							placeholder={__('Write label…', 'ghostkit')}
+							value={data.value}
+							onChange={(newVal) => {
+								const newOpts = [...options];
 
-								newOpts[ i ].value = newVal;
-								newOpts[ i ].label = newVal;
+								newOpts[i].value = newVal;
+								newOpts[i].label = newVal;
 
-								onChange( newOpts );
-							} }
+								onChange(newOpts);
+							}}
 						/>
 						<Button
-							onClick={ () => {
-								if ( options.length > 1 ) {
-									const newOpts = [ ...options ];
-									newOpts.splice( i, 1 );
+							onClick={() => {
+								if (options.length > 1) {
+									const newOpts = [...options];
+									newOpts.splice(i, 1);
 
-									onChange( newOpts );
+									onChange(newOpts);
 								}
-							} }
+							}}
 							className="components-icon-button"
 						>
 							<svg
@@ -75,18 +75,18 @@ export default function FieldOptions( props ) {
 						</Button>
 					</div>
 				);
-			} ) }
+			})}
 			<Button
-				onClick={ () => {
-					onChange( [
+				onClick={() => {
+					onChange([
 						...options,
 						{
 							value: '',
 							label: '',
 							selected: false,
 						},
-					] );
-				} }
+					]);
+				}}
 				className="components-icon-button"
 			>
 				<svg
@@ -99,8 +99,8 @@ export default function FieldOptions( props ) {
 				>
 					<path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z" />
 				</svg>
-        &nbsp;
-				{ __( 'Add Option', 'ghostkit' ) }
+				&nbsp;
+				{__('Add Option', 'ghostkit')}
 			</Button>
 		</div>
 	);

@@ -1,23 +1,14 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
 import { useBlockProps } from '@wordpress/block-editor';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 
-/**
- * Internal dependencies
- */
 import IconPicker from '../../components/icon-picker';
 import EditBlockControls from './edit/block-controls';
 import ColorControls from './edit/color-controls';
 import EditInspectorControls from './edit/inspector-controls';
 
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId } = props;
 	const { flipV, flipH } = attributes;
 
@@ -32,22 +23,33 @@ export default function BlockEdit( props ) {
 		className
 	);
 
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = applyFilters('ghostkit.editor.className', className, props);
 
-	const blockProps = useBlockProps( { className } );
+	const blockProps = useBlockProps({ className });
 
 	return (
 		<>
-			<EditInspectorControls attributes={ attributes } setAttributes={ setAttributes } />
-			<ColorControls attributes={ attributes } setAttributes={ setAttributes } clientId={ clientId } />
+			<EditInspectorControls
+				attributes={attributes}
+				setAttributes={setAttributes}
+			/>
+			<ColorControls
+				attributes={attributes}
+				setAttributes={setAttributes}
+				clientId={clientId}
+			/>
 			<EditBlockControls
-				attributes={ attributes }
-				setAttributes={ setAttributes }
-				isSelected={ isSelected }
+				attributes={attributes}
+				setAttributes={setAttributes}
+				isSelected={isSelected}
 			/>
 
-			<span { ...blockProps }>
-				<IconPicker.Preview tag="div" name={ attributes.icon } className="ghostkit-icon-inner" />
+			<span {...blockProps}>
+				<IconPicker.Preview
+					tag="div"
+					name={attributes.icon}
+					className="ghostkit-icon-inner"
+				/>
 			</span>
 		</>
 	);

@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import './border';
 import './borderRadius';
 import './shadow';
@@ -12,9 +9,6 @@ import {
 	__stableToolsPanel as StableToolsPanel,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
@@ -33,34 +27,39 @@ const allFrameProps = EXTENSIONS.frame.styles;
  * @param root0
  * @param root0.props
  */
-function GhostKitExtensionFrameInspector( original, { props } ) {
+function GhostKitExtensionFrameInspector(original, { props }) {
 	const { name } = props;
 
-	const hasFrameSupport = hasBlockSupport( name, [ 'ghostkit', 'frame' ] );
+	const hasFrameSupport = hasBlockSupport(name, ['ghostkit', 'frame']);
 
-	if ( ! hasFrameSupport ) {
+	if (!hasFrameSupport) {
 		return original;
 	}
 
-	const { resetStyles } = useStyles( props );
+	const { resetStyles } = useStyles(props);
 
 	return (
 		<>
-			{ original }
+			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
 					label={
 						<>
-							<span className="ghostkit-ext-icon">{ getIcon( 'extension-frame' ) }</span>
-							<span>{ __( 'Frame', 'ghostkit' ) }</span>
+							<span className="ghostkit-ext-icon">
+								{getIcon('extension-frame')}
+							</span>
+							<span>{__('Frame', 'ghostkit')}</span>
 						</>
 					}
-					resetAll={ () => {
-						resetStyles( allFrameProps, true, [ '', '&:hover' ] );
-					} }
+					resetAll={() => {
+						resetStyles(allFrameProps, true, ['', '&:hover']);
+					}}
 				>
 					<div className="ghostkit-tools-panel-frame">
-						<ApplyFilters name="ghostkit.extension.frame.tools" props={ props } />
+						<ApplyFilters
+							name="ghostkit.extension.frame.tools"
+							props={props}
+						/>
 					</div>
 				</ToolsPanel>
 			</InspectorControls>

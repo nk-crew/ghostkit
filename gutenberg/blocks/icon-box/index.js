@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import deprecated from './deprecated';
@@ -13,20 +10,26 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-icon-box', true ),
+	icon: getIcon('block-icon-box', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/icon-box/',
-		customStylesCallback( attributes ) {
+		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-icon-box--icon__font-size': undefined,
-				'--gkt-icon-box--icon__color': attributes.iconColor || undefined,
+				'--gkt-icon-box--icon__color':
+					attributes.iconColor || undefined,
 				'&:hover': {
-					'--gkt-icon-box--icon__color': attributes.hoverIconColor || undefined,
+					'--gkt-icon-box--icon__color':
+						attributes.hoverIconColor || undefined,
 				},
 			};
 
-			if ( typeof attributes.iconSize !== 'undefined' && attributes.iconSize !== '' ) {
-				styles[ '--gkt-icon-box--icon__font-size' ] = `${ attributes.iconSize }px`;
+			if (
+				typeof attributes.iconSize !== 'undefined' &&
+				attributes.iconSize !== ''
+			) {
+				styles['--gkt-icon-box--icon__font-size'] =
+					`${attributes.iconSize}px`;
 			}
 
 			return styles;
@@ -46,7 +49,7 @@ export const settings = {
 				name: 'core/paragraph',
 				attributes: {
 					content:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+						'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
 				},
 			},
 		],

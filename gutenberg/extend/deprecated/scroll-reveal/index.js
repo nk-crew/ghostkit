@@ -1,24 +1,22 @@
-/**
- * Internal dependencies
- */
 import { hasBlockSupport } from '@wordpress/blocks';
-/**
- * WordPress dependencies
- */
 import { addFilter } from '@wordpress/hooks';
 
 import parseSRConfig from './parse-sr-config';
 
-export default function migrate( props ) {
+export default function migrate(props) {
 	const { name, attributes } = props;
 	const { ghostkitSR } = attributes;
 
 	const result = {};
 
-	const hasNewRevealSupport = hasBlockSupport( name, [ 'ghostkit', 'effects', 'reveal' ] );
+	const hasNewRevealSupport = hasBlockSupport(name, [
+		'ghostkit',
+		'effects',
+		'reveal',
+	]);
 
 	// Migration to new effects attribute.
-	if ( hasNewRevealSupport && ghostkitSR ) {
+	if (hasNewRevealSupport && ghostkitSR) {
 		const newSrData = {
 			effect: '',
 			direction: '',
@@ -30,16 +28,16 @@ export default function migrate( props ) {
 
 		// parse data from string.
 		// fade-right;duration:500;delay:1000;distance:60px;scale:0.8
-		const data = ghostkitSR.split( ';' );
+		const data = ghostkitSR.split(';');
 
-		let effect = data[ 0 ];
-		if ( effect ) {
-			let direction = effect.split( '-' );
-			if ( direction.length === 2 ) {
+		let effect = data[0];
+		if (effect) {
+			let direction = effect.split('-');
+			if (direction.length === 2) {
 				// eslint-disable-next-line prefer-destructuring
-				effect = direction[ 0 ];
+				effect = direction[0];
 				// eslint-disable-next-line prefer-destructuring
-				direction = direction[ 1 ];
+				direction = direction[1];
 			} else {
 				direction = '';
 			}
@@ -48,29 +46,29 @@ export default function migrate( props ) {
 			newSrData.direction = direction;
 
 			// replace other data config.
-			if ( data.length > 1 ) {
-				data.forEach( ( item ) => {
-					const itemData = item.split( ':' );
-					if ( itemData.length === 2 ) {
-						const revealName = itemData[ 0 ];
-						const val = itemData[ 1 ];
-						newSrData[ revealName ] = val;
+			if (data.length > 1) {
+				data.forEach((item) => {
+					const itemData = item.split(':');
+					if (itemData.length === 2) {
+						const revealName = itemData[0];
+						const val = itemData[1];
+						newSrData[revealName] = val;
 					}
-				} );
+				});
 			}
 
-			newSrData.distance = parseFloat( newSrData.distance );
-			newSrData.scale = parseFloat( newSrData.scale );
-			newSrData.duration = parseFloat( newSrData.duration );
-			newSrData.delay = parseFloat( newSrData.delay );
+			newSrData.distance = parseFloat(newSrData.distance);
+			newSrData.scale = parseFloat(newSrData.scale);
+			newSrData.duration = parseFloat(newSrData.duration);
+			newSrData.delay = parseFloat(newSrData.delay);
 		}
 
 		const ghostkitData = {
-			...( attributes?.ghostkit || {} ),
+			...(attributes?.ghostkit || {}),
 		};
 
-		if ( ! ghostkitData?.effects?.reveal ) {
-			const parsedConfig = parseSRConfig( ghostkitSR );
+		if (!ghostkitData?.effects?.reveal) {
+			const parsedConfig = parseSRConfig(ghostkitSR);
 
 			const newAnimationData = {
 				x: parsedConfig.x,
@@ -85,7 +83,7 @@ export default function migrate( props ) {
 				},
 			};
 
-			if ( ! ghostkitData?.effects ) {
+			if (!ghostkitData?.effects) {
 				ghostkitData.effects = {};
 			}
 
@@ -112,12 +110,16 @@ export default function migrate( props ) {
  *
  * @return {Object} Filtered props applied to save element.
  */
-function addSaveProps( extraProps, blockType, attributes ) {
-	if ( attributes.ghostkitSR ) {
-		extraProps[ 'data-ghostkit-sr' ] = attributes.ghostkitSR;
+function addSaveProps(extraProps, blockType, attributes) {
+	if (attributes.ghostkitSR) {
+		extraProps['data-ghostkit-sr'] = attributes.ghostkitSR;
 	}
 
 	return extraProps;
 }
 
-addFilter( 'blocks.getSaveContent.extraProps', 'ghostkit/sr/save-props', addSaveProps );
+addFilter(
+	'blocks.getSaveContent.extraProps',
+	'ghostkit/sr/save-props',
+	addSaveProps
+);

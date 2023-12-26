@@ -1,13 +1,7 @@
-/**
- * WordPress dependencies
- */
 import { DropdownMenu, SelectControl } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-/**
- * Internal dependencies
- */
 const { jQuery } = window;
 
 const cache = {};
@@ -17,86 +11,86 @@ const cache = {};
  *
  * @param props
  */
-export default function GistFilesSelect( props ) {
+export default function GistFilesSelect(props) {
 	const { url, label, value, onChange, isToolbar, className } = props;
 
-	const [ items, setItems ] = useState( [ '' ] );
+	const [items, setItems] = useState(['']);
 
-	function updateStateItems( newItems ) {
-		if ( items.toString() !== newItems.toString() ) {
-			setItems( newItems );
+	function updateStateItems(newItems) {
+		if (items.toString() !== newItems.toString()) {
+			setItems(newItems);
 		}
 	}
 
 	// Mounted and updated
-	useEffect( () => {
+	useEffect(() => {
 		let checkUrl = url;
 
-		const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec( checkUrl );
+		const match = /^https:\/\/gist.github.com?.+\/(.+)/g.exec(checkUrl);
 
-		if ( match && typeof match[ 1 ] !== 'undefined' ) {
-			checkUrl = `https://gist.github.com/${ match[ 1 ].split( '#' )[ 0 ] }.json`;
+		if (match && typeof match[1] !== 'undefined') {
+			checkUrl = `https://gist.github.com/${match[1].split('#')[0]}.json`;
 		} else {
 			return;
 		}
 
 		// request the json version of this gist
-		jQuery.ajax( {
+		jQuery.ajax({
 			url: checkUrl,
 			// data: data,
 			dataType: 'jsonp',
 			timeout: 20000,
 			// eslint-disable-next-line consistent-return
 			beforeSend() {
-				if ( cache[ checkUrl ] ) {
+				if (cache[checkUrl]) {
 					// loading the response from cache and preventing the ajax call
-					cache[ checkUrl ].then(
-						( response ) => {
-							updateStateItems( [ '' ].concat( response.files ) );
+					cache[checkUrl].then(
+						(response) => {
+							updateStateItems([''].concat(response.files));
 						},
 						() => {
-							updateStateItems( [ '' ] );
+							updateStateItems(['']);
 						}
 					);
 					return false;
 				}
 
 				// saving the promise for the requested json as a proxy for the actual response
-				cache[ checkUrl ] = jQuery.Deferred();
+				cache[checkUrl] = jQuery.Deferred();
 			},
-			success( response ) {
-				if ( cache[ checkUrl ] ) {
-					cache[ checkUrl ].resolve( response );
+			success(response) {
+				if (cache[checkUrl]) {
+					cache[checkUrl].resolve(response);
 				}
-				updateStateItems( [ '' ].concat( response.files ) );
+				updateStateItems([''].concat(response.files));
 			},
 			error() {
-				updateStateItems( [ '' ] );
+				updateStateItems(['']);
 			},
-		} );
-	} );
+		});
+	});
 
 	return isToolbar ? (
 		<DropdownMenu
 			icon="media-default"
-			label={ label }
-			controls={ items.map( ( item ) => ( {
-				title: item || __( 'Show all files', 'ghostkit' ),
+			label={label}
+			controls={items.map((item) => ({
+				title: item || __('Show all files', 'ghostkit'),
 				isActive: item === value,
-				onClick: () => onChange( item ),
-			} ) ) }
-			className={ className }
+				onClick: () => onChange(item),
+			}))}
+			className={className}
 		/>
 	) : (
 		<SelectControl
-			label={ label }
-			value={ value }
-			options={ items.map( ( item ) => ( {
+			label={label}
+			value={value}
+			options={items.map((item) => ({
 				value: item,
-				label: item || __( 'Show all files', 'ghostkit' ),
-			} ) ) }
-			onChange={ onChange }
-			className={ className }
+				label: item || __('Show all files', 'ghostkit'),
+			}))}
+			onChange={onChange}
+			className={className}
 		/>
 	);
 }

@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalNumberControl as ExperimentalNumberControl,
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
@@ -8,9 +5,6 @@ import {
 	__stableToolsPanelItem as StableToolsPanelItem,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ResponsiveToggle from '../../../components/responsive-toggle';
@@ -22,41 +16,41 @@ const NumberControl = StableNumberControl || ExperimentalNumberControl;
 
 import { hasBlockSupport } from '@wordpress/blocks';
 
-function PositionZIndexTools( props ) {
-	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles( props );
+function PositionZIndexTools(props) {
+	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
 	const { device, allDevices } = useResponsive();
 
 	let hasZIndex = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-		hasZIndex = hasZIndex || hasStyle( 'z-index', thisDevice );
-	} );
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+		hasZIndex = hasZIndex || hasStyle('z-index', thisDevice);
+	});
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'zIndex', 'ghostkit' ) }
-			hasValue={ () => !! hasZIndex }
-			onDeselect={ () => {
-				resetStyles( [ 'z-index' ], true );
-			} }
-			isShownByDefault={ false }
+			label={__('zIndex', 'ghostkit')}
+			hasValue={() => !!hasZIndex}
+			onDeselect={() => {
+				resetStyles(['z-index'], true);
+			}}
+			isShownByDefault={false}
 		>
 			<NumberControl
 				label={
 					<>
-						{ __( 'zIndex', 'ghostkit' ) }
+						{__('zIndex', 'ghostkit')}
 						<ResponsiveToggle
-							checkActive={ ( checkMedia ) => {
-								return hasStyle( 'z-index', checkMedia );
-							} }
+							checkActive={(checkMedia) => {
+								return hasStyle('z-index', checkMedia);
+							}}
 						/>
 					</>
 				}
-				value={ getStyle( 'z-index', device ) }
-				onChange={ ( val ) => {
-					setStyles( { 'z-index': val }, device );
-				} }
+				value={getStyle('z-index', device)}
+				onChange={(val) => {
+					setStyles({ 'z-index': val }, device);
+				}}
 				labelPosition="edge"
 				__unstableInputWidth="70px"
 			/>
@@ -67,17 +61,21 @@ function PositionZIndexTools( props ) {
 addFilter(
 	'ghostkit.extension.position.tools',
 	'ghostkit/extension/position/tools/zIndex',
-	( children, { props } ) => {
-		const hasZIndexSupport = hasBlockSupport( props.name, [ 'ghostkit', 'position', 'zIndex' ] );
+	(children, { props }) => {
+		const hasZIndexSupport = hasBlockSupport(props.name, [
+			'ghostkit',
+			'position',
+			'zIndex',
+		]);
 
-		if ( ! hasZIndexSupport ) {
+		if (!hasZIndexSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<PositionZIndexTools { ...props } />
+				{children}
+				<PositionZIndexTools {...props} />
 			</>
 		);
 	}

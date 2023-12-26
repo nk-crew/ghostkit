@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import './deprecated';
 import './attributes';
 import './styles';
@@ -17,9 +14,6 @@ import './block-actions-copy-paste';
 
 import { hasBlockSupport } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose';
-/**
- * WordPress dependencies
- */
 import { addFilter } from '@wordpress/hooks';
 
 import ApplyFilters from '../components/apply-filters';
@@ -31,33 +25,41 @@ import ApplyFilters from '../components/apply-filters';
  *
  * @return {string} Wrapped component.
  */
-const withGhostKitExtensions = createHigherOrderComponent( ( OriginalComponent ) => {
-	function GhostKitExtensionsWrapper( props ) {
-		const hasExtensionsSupport = hasBlockSupport( props.name, [ 'ghostkit' ] );
+const withGhostKitExtensions = createHigherOrderComponent(
+	(OriginalComponent) => {
+		function GhostKitExtensionsWrapper(props) {
+			const hasExtensionsSupport = hasBlockSupport(props.name, [
+				'ghostkit',
+			]);
 
-		if ( ! hasExtensionsSupport ) {
-			return <OriginalComponent { ...props } />;
+			if (!hasExtensionsSupport) {
+				return <OriginalComponent {...props} />;
+			}
+
+			return (
+				<>
+					<OriginalComponent {...props} />
+					{/*
+					 * Used priorities:
+					 * 11 - Effects
+					 * 12 - Position
+					 * 13 - Spacings
+					 * 14 - Frame
+					 * 15 - Transform
+					 * 16 - Custom CSS
+					 * 17 - Display Conditions
+					 */}
+					<ApplyFilters
+						name="ghostkit.editor.extensions"
+						props={props}
+					/>
+				</>
+			);
 		}
 
-		return (
-			<>
-				<OriginalComponent { ...props } />
-				{ /*
-         * Used priorities:
-         * 11 - Effects
-         * 12 - Position
-         * 13 - Spacings
-         * 14 - Frame
-         * 15 - Transform
-         * 16 - Custom CSS
-         * 17 - Display Conditions
-         */ }
-				<ApplyFilters name="ghostkit.editor.extensions" props={ props } />
-			</>
-		);
-	}
+		return GhostKitExtensionsWrapper;
+	},
+	'withGhostKitExtensions'
+);
 
-	return GhostKitExtensionsWrapper;
-}, 'withGhostKitExtensions' );
-
-addFilter( 'editor.BlockEdit', 'ghostkit/extensions', withGhostKitExtensions );
+addFilter('editor.BlockEdit', 'ghostkit/extensions', withGhostKitExtensions);

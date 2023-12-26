@@ -1,6 +1,3 @@
-/**
- * External dependencies
- */
 // eslint-disable-next-line simple-import-sort/imports
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-css';
@@ -15,23 +12,23 @@ import 'ace-builds/src-noconflict/ext-language_tools';
  *
  * @param props
  */
-export default function CodeEditor( props ) {
+export default function CodeEditor(props) {
 	const { setOptions = {}, editorProps = {}, ...restProps } = props;
 
 	return (
 		<AceEditor
 			className="ghostkit-component-code-editor"
 			theme="textmate"
-			onLoad={ ( editor ) => {
-				editor.renderer.setScrollMargin( 16, 16, 16, 16 );
-				editor.renderer.setPadding( 16 );
-			} }
-			fontSize={ 12 }
+			onLoad={(editor) => {
+				editor.renderer.setScrollMargin(16, 16, 16, 16);
+				editor.renderer.setPadding(16);
+			}}
+			fontSize={12}
 			showPrintMargin
 			showGutter
-			highlightActiveLine={ false }
+			highlightActiveLine={false}
 			width="100%"
-			setOptions={ {
+			setOptions={{
 				enableBasicAutocompletion: true,
 				enableLiveAutocompletion: true,
 				enableSnippets: true,
@@ -43,12 +40,12 @@ export default function CodeEditor( props ) {
 				useWorker: false,
 
 				...setOptions,
-			} }
-			editorProps={ {
+			}}
+			editorProps={{
 				$blockScrolling: Infinity,
 				...editorProps,
-			} }
-			{ ...restProps }
+			}}
+			{...restProps}
 		/>
 	);
 }

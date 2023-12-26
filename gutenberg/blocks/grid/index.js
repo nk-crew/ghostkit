@@ -1,11 +1,5 @@
-/**
- * Internal dependencies
- */
 import './awb-fallback';
 
-/**
- * WordPress dependencies
- */
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 
@@ -21,44 +15,48 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-grid', true ),
+	icon: getIcon('block-grid', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/grid/',
-		customStylesCallback( attributes ) {
+		customStylesCallback(attributes) {
 			const { gap, gapCustom, gapVerticalCustom } = attributes;
 
 			const styles = {
 				'--gkt-grid__gap': undefined,
 				'--gkt-grid__gap-vertical': undefined,
-				...getBackgroundStyles( attributes ),
+				...getBackgroundStyles(attributes),
 			};
 
 			// Custom Gap.
-			if ( gap === 'custom' ) {
-				if ( typeof gapCustom !== 'undefined' && gapCustom !== '' ) {
+			if (gap === 'custom') {
+				if (typeof gapCustom !== 'undefined' && gapCustom !== '') {
 					// we need to use `%` unit because of conflict with complex calc() and 0 value.
 					const unit = gapCustom ? 'px' : '%';
 
-					styles[ '--gkt-grid__gap' ] = `${ gapCustom }${ unit }`;
+					styles['--gkt-grid__gap'] = `${gapCustom}${unit}`;
 				}
 
-				if ( typeof gapVerticalCustom !== 'undefined' && gapVerticalCustom !== '' ) {
+				if (
+					typeof gapVerticalCustom !== 'undefined' &&
+					gapVerticalCustom !== ''
+				) {
 					// we need to use `%` unit because of conflict with complex calc() and 0 value.
 					const unit = gapVerticalCustom ? 'px' : '%';
 
-					styles[ '--gkt-grid__gap-vertical' ] = `${ gapVerticalCustom }${ unit }`;
+					styles['--gkt-grid__gap-vertical'] =
+						`${gapVerticalCustom}${unit}`;
 				}
 			}
 
 			return styles;
 		},
-		customStylesFilter( styles, data, isEditor, attributes ) {
+		customStylesFilter(styles, data, isEditor, attributes) {
 			// change custom styles in Editor.
-			if ( isEditor && attributes?.ghostkit?.id ) {
+			if (isEditor && attributes?.ghostkit?.id) {
 				// background.
 				styles = styles.replace(
 					// eslint-disable-next-line prefer-regex-literals
-					new RegExp( '> .nk-awb .jarallax-img', 'g' ),
+					new RegExp('> .nk-awb .jarallax-img', 'g'),
 					'> .awb-gutenberg-preview-block .jarallax-img'
 				);
 			}
@@ -77,7 +75,7 @@ export const settings = {
 						name: 'core/paragraph',
 						attributes: {
 							content:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
 						},
 					},
 				],
@@ -89,7 +87,7 @@ export const settings = {
 						name: 'core/paragraph',
 						attributes: {
 							content:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
 						},
 					},
 				],
@@ -108,16 +106,24 @@ export const settings = {
  * @return {Function}                Wrapped component
  */
 export const withClasses = createHigherOrderComponent(
-	( BlockListBlock ) =>
-		function( props ) {
+	(BlockListBlock) =>
+		function (props) {
 			const { name: blockName } = props;
 
-			if ( blockName === 'ghostkit/grid' && props.attributes.isTemplatesModalOnly ) {
-				return <BlockListBlock { ...props } data-ghostkit-grid-templates-modal-only="true" />;
+			if (
+				blockName === 'ghostkit/grid' &&
+				props.attributes.isTemplatesModalOnly
+			) {
+				return (
+					<BlockListBlock
+						{...props}
+						data-ghostkit-grid-templates-modal-only="true"
+					/>
+				);
 			}
 
-			return <BlockListBlock { ...props } />;
+			return <BlockListBlock {...props} />;
 		}
 );
 
-addFilter( 'editor.BlockListBlock', 'ghostkit/grid/with-classes', withClasses );
+addFilter('editor.BlockListBlock', 'ghostkit/grid/with-classes', withClasses);

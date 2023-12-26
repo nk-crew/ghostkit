@@ -1,14 +1,13 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-import { InspectorControls, RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import {
+	InspectorControls,
+	RichText,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 import { BaseControl, PanelBody, ToggleControl } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -17,7 +16,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected } = props;
 
 	const {
@@ -44,9 +43,9 @@ export default function BlockEdit( props ) {
 		showPopular ? 'ghostkit-pricing-table-item-popular' : ''
 	);
 
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = applyFilters('ghostkit.editor.className', className, props);
 
-	const blockProps = useBlockProps( { className } );
+	const blockProps = useBlockProps({ className });
 	const innerBlocksProps = useInnerBlocksProps(
 		{
 			className: 'ghostkit-pricing-table-item-button-wrapper',
@@ -69,149 +68,184 @@ export default function BlockEdit( props ) {
 				],
 			],
 			templateLock: 'all',
-			allowedBlocks: [ 'ghostkit/button' ],
+			allowedBlocks: ['ghostkit/button'],
 		}
 	);
 
 	return (
-		<div { ...blockProps }>
+		<div {...blockProps}>
 			<InspectorControls>
 				<PanelBody>
 					<BaseControl>
 						<ToggleControl
-							label={ __( 'Show Popular Badge', 'ghostkit' ) }
-							checked={ !! showPopular }
-							onChange={ ( value ) => setAttributes( { showPopular: value } ) }
+							label={__('Show Popular Badge', 'ghostkit')}
+							checked={!!showPopular}
+							onChange={(value) =>
+								setAttributes({ showPopular: value })
+							}
 						/>
 						<ToggleControl
-							label={ __( 'Show Title', 'ghostkit' ) }
-							checked={ !! showTitle }
-							onChange={ ( value ) => setAttributes( { showTitle: value } ) }
+							label={__('Show Title', 'ghostkit')}
+							checked={!!showTitle}
+							onChange={(value) =>
+								setAttributes({ showTitle: value })
+							}
 						/>
 						<ToggleControl
-							label={ __( 'Show Price', 'ghostkit' ) }
-							checked={ !! showPrice }
-							onChange={ ( value ) => setAttributes( { showPrice: value } ) }
+							label={__('Show Price', 'ghostkit')}
+							checked={!!showPrice}
+							onChange={(value) =>
+								setAttributes({ showPrice: value })
+							}
 						/>
-						{ showPrice ? (
+						{showPrice ? (
 							<Fragment>
 								<ToggleControl
-									label={ __( 'Show Price Currency', 'ghostkit' ) }
-									checked={ !! showPriceCurrency }
-									onChange={ ( value ) => setAttributes( { showPriceCurrency: value } ) }
+									label={__(
+										'Show Price Currency',
+										'ghostkit'
+									)}
+									checked={!!showPriceCurrency}
+									onChange={(value) =>
+										setAttributes({
+											showPriceCurrency: value,
+										})
+									}
 								/>
 								<ToggleControl
-									label={ __( 'Show Price Repeat', 'ghostkit' ) }
-									checked={ !! showPriceRepeat }
-									onChange={ ( value ) => setAttributes( { showPriceRepeat: value } ) }
+									label={__('Show Price Repeat', 'ghostkit')}
+									checked={!!showPriceRepeat}
+									onChange={(value) =>
+										setAttributes({
+											showPriceRepeat: value,
+										})
+									}
 								/>
 							</Fragment>
 						) : (
 							''
-						) }
+						)}
 						<ToggleControl
-							label={ __( 'Show Description', 'ghostkit' ) }
-							checked={ !! showDescription }
-							onChange={ ( value ) => setAttributes( { showDescription: value } ) }
+							label={__('Show Description', 'ghostkit')}
+							checked={!!showDescription}
+							onChange={(value) =>
+								setAttributes({ showDescription: value })
+							}
 						/>
 						<ToggleControl
-							label={ __( 'Show Features', 'ghostkit' ) }
-							checked={ !! showFeatures }
-							onChange={ ( value ) => setAttributes( { showFeatures: value } ) }
+							label={__('Show Features', 'ghostkit')}
+							checked={!!showFeatures}
+							onChange={(value) =>
+								setAttributes({ showFeatures: value })
+							}
 						/>
 						<ToggleControl
-							label={ __( 'Show Button', 'ghostkit' ) }
-							checked={ !! showButton }
-							onChange={ ( value ) => setAttributes( { showButton: value } ) }
+							label={__('Show Button', 'ghostkit')}
+							checked={!!showButton}
+							onChange={(value) =>
+								setAttributes({ showButton: value })
+							}
 						/>
 					</BaseControl>
 				</PanelBody>
 			</InspectorControls>
 			<div className="ghostkit-pricing-table-item">
-				{ showTitle ? (
+				{showTitle ? (
 					<RichText
 						inlineToolbar
 						tagName="h3"
 						className="ghostkit-pricing-table-item-title"
-						onChange={ ( val ) => setAttributes( { title: val } ) }
-						value={ title }
-						placeholder={ __( 'Plan', 'ghostkit' ) }
+						onChange={(val) => setAttributes({ title: val })}
+						value={title}
+						placeholder={__('Plan', 'ghostkit')}
 						withoutInteractiveFormatting
 					/>
-				) : null }
-				{ showPrice ? (
+				) : null}
+				{showPrice ? (
 					<div className="ghostkit-pricing-table-item-price">
-						{ showPriceCurrency && ( ! RichText.isEmpty( priceCurrency ) || isSelected ) ? (
+						{showPriceCurrency &&
+						(!RichText.isEmpty(priceCurrency) || isSelected) ? (
 							<div className="ghostkit-pricing-table-item-price-currency">
 								<RichText
 									inlineToolbar
 									tagName="div"
-									onChange={ ( val ) => setAttributes( { priceCurrency: val } ) }
-									value={ priceCurrency }
-									placeholder={ __( '$', 'ghostkit' ) }
+									onChange={(val) =>
+										setAttributes({ priceCurrency: val })
+									}
+									value={priceCurrency}
+									placeholder={__('$', 'ghostkit')}
 									withoutInteractiveFormatting
 								/>
 							</div>
-						) : null }
+						) : null}
 						<div className="ghostkit-pricing-table-item-price-amount">
 							<RichText
 								inlineToolbar
 								tagName="div"
-								onChange={ ( val ) => setAttributes( { price: val } ) }
-								value={ price }
+								onChange={(val) =>
+									setAttributes({ price: val })
+								}
+								value={price}
 								placeholder="77"
 								withoutInteractiveFormatting
 							/>
 						</div>
-						{ showPriceRepeat && ( ! RichText.isEmpty( priceRepeat ) || isSelected ) ? (
+						{showPriceRepeat &&
+						(!RichText.isEmpty(priceRepeat) || isSelected) ? (
 							<div className="ghostkit-pricing-table-item-price-repeat">
 								<RichText
 									inlineToolbar
 									tagName="div"
-									onChange={ ( val ) => setAttributes( { priceRepeat: val } ) }
-									value={ priceRepeat }
-									placeholder={ __( '/mo', 'ghostkit' ) }
+									onChange={(val) =>
+										setAttributes({ priceRepeat: val })
+									}
+									value={priceRepeat}
+									placeholder={__('/mo', 'ghostkit')}
 									withoutInteractiveFormatting
 								/>
 							</div>
-						) : null }
+						) : null}
 					</div>
-				) : null }
-				{ showDescription && ( ! RichText.isEmpty( description ) || isSelected ) ? (
+				) : null}
+				{showDescription &&
+				(!RichText.isEmpty(description) || isSelected) ? (
 					<RichText
 						inlineToolbar
 						tagName="div"
 						className="ghostkit-pricing-table-item-description"
-						onChange={ ( val ) => setAttributes( { description: val } ) }
-						value={ description }
-						placeholder={ __( 'Description', 'ghostkit' ) }
+						onChange={(val) => setAttributes({ description: val })}
+						value={description}
+						placeholder={__('Description', 'ghostkit')}
 						withoutInteractiveFormatting
 					/>
-				) : null }
-				{ showFeatures && ( ! RichText.isEmpty( features ) || isSelected ) ? (
+				) : null}
+				{showFeatures && (!RichText.isEmpty(features) || isSelected) ? (
 					<RichText
 						inlineToolbar
 						tagName="ul"
 						multiline="li"
 						className="ghostkit-pricing-table-item-features"
-						onChange={ ( val ) => setAttributes( { features: val } ) }
-						value={ features }
-						placeholder={ __( 'Add features', 'ghostkit' ) }
+						onChange={(val) => setAttributes({ features: val })}
+						value={features}
+						placeholder={__('Add features', 'ghostkit')}
 					/>
-				) : null }
-				{ showButton ? <div { ...innerBlocksProps } /> : null }
-				{ showPopular && ( ! RichText.isEmpty( popularText ) || isSelected ) ? (
+				) : null}
+				{showButton ? <div {...innerBlocksProps} /> : null}
+				{showPopular &&
+				(!RichText.isEmpty(popularText) || isSelected) ? (
 					<div className="ghostkit-pricing-table-item-popular-badge">
 						<RichText
 							inlineToolbar
 							tagName="div"
-							onChange={ ( val ) => setAttributes( { popularText: val } ) }
-							value={ popularText }
-							placeholder={ __( 'Popular', 'ghostkit' ) }
+							onChange={(val) =>
+								setAttributes({ popularText: val })
+							}
+							value={popularText}
+							placeholder={__('Popular', 'ghostkit')}
 							withoutInteractiveFormatting
 						/>
 					</div>
-				) : null }
+				) : null}
 			</div>
 		</div>
 	);

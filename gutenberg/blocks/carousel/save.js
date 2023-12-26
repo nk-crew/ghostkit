@@ -1,20 +1,8 @@
-/**
- * External dependencies
- */
 import classNames from 'classnames';
 
-import {
-	useBlockProps,
-	useInnerBlocksProps,
-} from '@wordpress/block-editor';
-/**
- * WordPress dependencies
- */
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 
-/**
- * Internal dependencies
- */
 import IconPicker from '../../components/icon-picker';
 import metadata from './block.json';
 const { name } = metadata;
@@ -24,7 +12,7 @@ const { name } = metadata;
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const {
 		effect,
 		speed,
@@ -43,20 +31,24 @@ export default function BlockSave( props ) {
 		gap,
 	} = props.attributes;
 
-	let className = classNames( 'ghostkit-carousel', fadeEdges && 'ghostkit-carousel-fade-edges' );
+	let className = classNames(
+		'ghostkit-carousel',
+		fadeEdges && 'ghostkit-carousel-fade-edges'
+	);
 
-	className = applyFilters( 'ghostkit.blocks.className', className, {
+	className = applyFilters('ghostkit.blocks.className', className, {
 		...{
 			name,
 		},
 		...props,
-	} );
+	});
 
 	const dataAttrs = {
 		'data-effect': effect,
 		'data-speed': speed,
 		'data-autoplay': autoplay,
-		'data-autoplay-hover-pause': autoplay && autoplayHoverPause ? 'true' : null,
+		'data-autoplay-hover-pause':
+			autoplay && autoplayHoverPause ? 'true' : null,
 		'data-slides-per-view': slidesPerView,
 		'data-centered-slides': centeredSlides ? 'true' : 'false',
 		'data-loop': loop ? 'true' : 'false',
@@ -67,30 +59,32 @@ export default function BlockSave( props ) {
 		'data-gap': gap,
 	};
 
-	const blockProps = useBlockProps.save( { className, ...dataAttrs } );
-	const innerBlockProps = useInnerBlocksProps.save( { className: 'ghostkit-carousel-items' } );
+	const blockProps = useBlockProps.save({ className, ...dataAttrs });
+	const innerBlockProps = useInnerBlocksProps.save({
+		className: 'ghostkit-carousel-items',
+	});
 
 	return (
-		<div { ...blockProps }>
-			<div { ...innerBlockProps } />
-			{ arrowPrevIcon ? (
+		<div {...blockProps}>
+			<div {...innerBlockProps} />
+			{arrowPrevIcon ? (
 				<IconPicker.Render
-					name={ arrowPrevIcon }
+					name={arrowPrevIcon}
 					tag="div"
 					className="ghostkit-carousel-arrow-prev-icon"
 				/>
 			) : (
 				''
-			) }
-			{ arrowNextIcon ? (
+			)}
+			{arrowNextIcon ? (
 				<IconPicker.Render
-					name={ arrowNextIcon }
+					name={arrowNextIcon}
 					tag="div"
 					className="ghostkit-carousel-arrow-next-icon"
 				/>
 			) : (
 				''
-			) }
+			)}
 		</div>
 	);
 }

@@ -1,22 +1,14 @@
 /* eslint-disable indent */
-/**
- * External dependencies
- */
+
 import { debounce } from 'throttle-debounce';
 
 import apiFetch from '@wordpress/api-fetch';
 import { Button, Spinner } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
-/**
- * WordPress dependencies
- */
 import { Component, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-/**
- * Internal dependencies
- */
 import Typography from '../../gutenberg/components/typography';
 import {
 	getCustomTypographyList,
@@ -26,18 +18,22 @@ import {
 const { isFseTheme, typographyExist, fontsApiExist } = window.ghostkitVariables;
 
 class TypographySettings extends Component {
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			customTypography: false,
 			advanced: {},
 		};
 
-		this.maybePrepareTypographyData = this.maybePrepareTypographyData.bind( this );
-		this.getPlaceholders = this.getPlaceholders.bind( this );
-		this.updateTypography = this.updateTypography.bind( this );
-		this.updateTypographyDebounce = debounce( 1000, this.updateTypographyDebounce.bind( this ) );
+		this.maybePrepareTypographyData =
+			this.maybePrepareTypographyData.bind(this);
+		this.getPlaceholders = this.getPlaceholders.bind(this);
+		this.updateTypography = this.updateTypography.bind(this);
+		this.updateTypographyDebounce = debounce(
+			1000,
+			this.updateTypographyDebounce.bind(this)
+		);
 	}
 
 	componentDidMount() {
@@ -53,13 +49,13 @@ class TypographySettings extends Component {
 	 *
 	 * @param {int} key - Typography identifier.
 	 */
-	onClickAdvanced( key ) {
-		this.setState( ( prevState ) => ( {
+	onClickAdvanced(key) {
+		this.setState((prevState) => ({
 			advanced: {
 				...prevState.advanced,
-				[ key ]: ! prevState.advanced[ key ],
+				[key]: !prevState.advanced[key],
 			},
-		} ) );
+		}));
 	}
 
 	/**
@@ -88,16 +84,18 @@ class TypographySettings extends Component {
 	 * @param {boolean} isGlobal       - Flag of global customization.
 	 * @return {Array} - Array with child typography objects.
 	 */
-	getChildrenTypography( typographyList, key ) {
+	getChildrenTypography(typographyList, key) {
 		const childTypographies = [];
 
-		Object.keys( typographyList ).forEach( ( childKey ) => {
-			if ( typographyList[ childKey ].childOf === key ) {
+		Object.keys(typographyList).forEach((childKey) => {
+			if (typographyList[childKey].childOf === key) {
 				childTypographies.push(
-					<div key={ childKey }>{ this.getTypographyComponent( typographyList, childKey ) }</div>
+					<div key={childKey}>
+						{this.getTypographyComponent(typographyList, childKey)}
+					</div>
 				);
 			}
-		} );
+		});
 
 		return childTypographies;
 	}
@@ -110,23 +108,23 @@ class TypographySettings extends Component {
 	 * @param {boolean} isGlobal       - Flag of global customization.
 	 * @return {*} - Typography Object.
 	 */
-	getTypographyComponent( typographyList, key ) {
+	getTypographyComponent(typographyList, key) {
 		const placeholders = this.getPlaceholders();
 
 		return this.state.customTypography !== false ? (
 			<Typography
-				onChange={ ( opt ) => {
-					this.updateTypography( opt, typographyList, key );
-				} }
-				fontFamily={ typographyList[ key ].fontFamily }
-				fontFamilyCategory={ typographyList[ key ].fontFamilyCategory }
-				fontWeight={ typographyList[ key ].fontWeight }
-				fontSize={ typographyList[ key ].fontSize }
-				lineHeight={ typographyList[ key ].lineHeight }
-				letterSpacing={ typographyList[ key ].letterSpacing }
-				label={ typographyList[ key ].label }
-				placeholders={ placeholders }
-				childOf={ typographyList[ key ].childOf }
+				onChange={(opt) => {
+					this.updateTypography(opt, typographyList, key);
+				}}
+				fontFamily={typographyList[key].fontFamily}
+				fontFamilyCategory={typographyList[key].fontFamilyCategory}
+				fontWeight={typographyList[key].fontWeight}
+				fontSize={typographyList[key].fontSize}
+				lineHeight={typographyList[key].lineHeight}
+				letterSpacing={typographyList[key].letterSpacing}
+				label={typographyList[key].label}
+				placeholders={placeholders}
+				childOf={typographyList[key].childOf}
 			/>
 		) : (
 			<Spinner />
@@ -136,23 +134,30 @@ class TypographySettings extends Component {
 	maybePrepareTypographyData() {
 		const { customTypography = {} } = this.props;
 
-		if ( customTypography && this.state.customTypography === false ) {
-			this.setState( {
-				customTypography: getCustomTypographyList( customTypography.ghostkit_typography, true ) || '',
+		if (customTypography && this.state.customTypography === false) {
+			this.setState({
+				customTypography:
+					getCustomTypographyList(
+						customTypography.ghostkit_typography,
+						true
+					) || '',
 				advanced: getInitialAdvancedState(
-					getCustomTypographyList( customTypography.ghostkit_typography, true )
+					getCustomTypographyList(
+						customTypography.ghostkit_typography,
+						true
+					)
 				),
-			} );
+			});
 		}
 	}
 
-	updateTypography( opt, typographyList, key ) {
+	updateTypography(opt, typographyList, key) {
 		this.setState(
 			{
 				customTypography: {
 					...typographyList,
-					[ key ]: {
-						...typographyList[ key ],
+					[key]: {
+						...typographyList[key],
 						...opt,
 					},
 				},
@@ -164,99 +169,121 @@ class TypographySettings extends Component {
 	}
 
 	updateTypographyDebounce() {
-		this.props.updateTypography( {
+		this.props.updateTypography({
 			ghostkit_typography: this.state.customTypography,
-		} );
+		});
 	}
 
 	render() {
-		const typographyList = getCustomTypographyList( this.state.customTypography, true );
+		const typographyList = getCustomTypographyList(
+			this.state.customTypography,
+			true
+		);
 
 		return (
 			<div className="ghostkit-settings-content-wrapper ghostkit-settings-typography">
-				{ typographyList &&
-        Object.keys( typographyList ).length &&
-        ( ! isFseTheme || ! fontsApiExist || typographyExist ) ? (
-	<Fragment>
-		{ Object.keys( typographyList ).map( ( key ) => {
-								const advancedData = this.state.advanced[ key ];
-								const advancedLabel =
-									advancedData === true
-										? __( 'Hide Advanced', 'ghostkit' )
-										: __( 'Show Advanced', 'ghostkit' );
+				{typographyList &&
+				Object.keys(typographyList).length &&
+				(!isFseTheme || !fontsApiExist || typographyExist) ? (
+					<Fragment>
+						{Object.keys(typographyList).map((key) => {
+							const advancedData = this.state.advanced[key];
+							const advancedLabel =
+								advancedData === true
+									? __('Hide Advanced', 'ghostkit')
+									: __('Show Advanced', 'ghostkit');
 
-								if ( typographyList[ key ].childOf === '' ) {
-									return (
-										<div className="ghostkit-typography-container" key={ key }>
-											{ this.getTypographyComponent( typographyList, key ) }
-											{ typeof advancedData !== 'undefined' ? (
-												<div className="ghostkit-typography-advanced">
-													<Button
-														isSecondary
-														onClick={ () => this.onClickAdvanced( key ) }
-														className="ghostkit-typography-advanced-button"
-													>
-														{ advancedLabel }
-													</Button>
-												</div>
-											) : (
-												''
-											) }
-											{ advancedData ? this.getChildrenTypography( typographyList, key ) : '' }
-										</div>
-									);
-								}
+							if (typographyList[key].childOf === '') {
+								return (
+									<div
+										className="ghostkit-typography-container"
+										key={key}
+									>
+										{this.getTypographyComponent(
+											typographyList,
+											key
+										)}
+										{typeof advancedData !== 'undefined' ? (
+											<div className="ghostkit-typography-advanced">
+												<Button
+													isSecondary
+													onClick={() =>
+														this.onClickAdvanced(
+															key
+														)
+													}
+													className="ghostkit-typography-advanced-button"
+												>
+													{advancedLabel}
+												</Button>
+											</div>
+										) : (
+											''
+										)}
+										{advancedData
+											? this.getChildrenTypography(
+													typographyList,
+													key
+												)
+											: ''}
+									</div>
+								);
+							}
 
-								return '';
-							} ) }
-	</Fragment>
-					) : (
-						<div>
-							{ isFseTheme && fontsApiExist && ! typographyExist ? (
-								<div>
-									{ __(
-										'You are using FSE theme. Typography settings have been moved to block settings',
-										'ghostkit'
-									) }
-								</div>
-							) : (
-								''
-							) }
-						</div>
-					) }
+							return '';
+						})}
+					</Fragment>
+				) : (
+					<div>
+						{isFseTheme && fontsApiExist && !typographyExist ? (
+							<div>
+								{__(
+									'You are using FSE theme. Typography settings have been moved to block settings',
+									'ghostkit'
+								)}
+							</div>
+						) : (
+							''
+						)}
+					</div>
+				)}
 			</div>
 		);
 	}
 }
 
-export default compose( [
-	withSelect( ( select ) => {
-		const customTypography = select( 'ghostkit/plugins/typography' ).getCustomTypography();
+export default compose([
+	withSelect((select) => {
+		const customTypography = select(
+			'ghostkit/plugins/typography'
+		).getCustomTypography();
 
 		try {
-			customTypography.ghostkit_typography = JSON.parse( customTypography.ghostkit_typography );
+			customTypography.ghostkit_typography = JSON.parse(
+				customTypography.ghostkit_typography
+			);
 			// eslint-disable-next-line no-empty
-		} catch ( e ) {}
+		} catch (e) {}
 
 		return {
 			customTypography,
 		};
-	} ),
-	withDispatch( ( dispatch ) => ( {
-		updateTypography( value ) {
+	}),
+	withDispatch((dispatch) => ({
+		updateTypography(value) {
 			value = {
-				ghostkit_typography: JSON.stringify( value.ghostkit_typography ),
+				ghostkit_typography: JSON.stringify(value.ghostkit_typography),
 			};
 
-			dispatch( 'ghostkit/plugins/typography' ).setCustomTypography( value );
+			dispatch('ghostkit/plugins/typography').setCustomTypography(value);
 
-			apiFetch( {
+			apiFetch({
 				path: '/ghostkit/v1/update_custom_typography',
 				method: 'POST',
 				data: {
 					data: value,
 				},
-			} );
+			});
 		},
-	} ) ),
-] )( TypographySettings );
+	})),
+])(TypographySettings);

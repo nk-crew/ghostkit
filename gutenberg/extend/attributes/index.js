@@ -1,12 +1,6 @@
-/**
- * Internal dependencies
- */
 import { InspectorControls } from '@wordpress/block-editor';
 import { hasBlockSupport } from '@wordpress/blocks';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
@@ -23,20 +17,26 @@ const { version } = window.ghostkitVariables;
  * @param root0
  * @param root0.props
  */
-function GhostKitExtensionAttributesInspector( original, { props } ) {
+function GhostKitExtensionAttributesInspector(original, { props }) {
 	const { name } = props;
 
-	const hasAttributesSupport = hasBlockSupport( name, [ 'ghostkit', 'attributes' ] );
+	const hasAttributesSupport = hasBlockSupport(name, [
+		'ghostkit',
+		'attributes',
+	]);
 
-	if ( ! hasAttributesSupport ) {
+	if (!hasAttributesSupport) {
 		return original;
 	}
 
 	return (
 		<>
-			{ original }
+			{original}
 			<InspectorControls group="advanced">
-				<ApplyFilters name="ghostkit.extension.attributes.controls" props={ props } />
+				<ApplyFilters
+					name="ghostkit.extension.attributes.controls"
+					props={props}
+				/>
 			</InspectorControls>
 		</>
 	);
@@ -44,19 +44,19 @@ function GhostKitExtensionAttributesInspector( original, { props } ) {
 
 function ProAttributesControls() {
 	return (
-		<ProNote title={ __( 'Attributes', 'ghostkit' ) }>
+		<ProNote title={__('Attributes', 'ghostkit')}>
 			<p>
-				{ __(
+				{__(
 					'Adding custom attributes to block available in the Ghost Kit Pro plugin only.',
 					'ghostkit'
-				) }
+				)}
 			</p>
 			<ProNote.Button
 				target="_blank"
 				rel="noopener noreferrer"
-				href={ `https://ghostkit.io/extensions/attributes/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_attributes&utm_content=${ version }` }
+				href={`https://ghostkit.io/extensions/attributes/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_attributes&utm_content=${version}`}
 			>
-				{ __( 'Read More', 'ghostkit' ) }
+				{__('Read More', 'ghostkit')}
 			</ProNote.Button>
 		</ProNote>
 	);
@@ -71,15 +71,15 @@ addFilter(
 addFilter(
 	'ghostkit.extension.attributes.controls',
 	'ghostkit/extension/attributes/controls',
-	( children, { props } ) => {
-		if ( pro ) {
+	(children, { props }) => {
+		if (pro) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<ProAttributesControls { ...props } />
+				{children}
+				<ProAttributesControls {...props} />
 			</>
 		);
 	}

@@ -1,22 +1,20 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-/**
- * Internal dependencies
- */
+
 import { BaseControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import DropdownPicker from '../dropdown-picker';
 import ToggleGroup from '../toggle-group';
-import { EasingBezierEditor, EasingControls } from '../transition-easing-controls';
+import {
+	EasingBezierEditor,
+	EasingControls,
+} from '../transition-easing-controls';
 import EASING_DEFAULT from '../transition-easing-controls/default';
 import { SpringControls, SpringEditor } from '../transition-spring-controls';
 import SPRING_DEFAULT from '../transition-spring-controls/default';
 
-export default function TransitionSelector( props ) {
+export default function TransitionSelector(props) {
 	const {
 		label,
 		value,
@@ -27,10 +25,10 @@ export default function TransitionSelector( props ) {
 		allowReset = false,
 	} = props;
 
-	const [ isOpenTransition, setIsOpenTransition ] = useState( false );
+	const [isOpenTransition, setIsOpenTransition] = useState(false);
 
 	let easingValue = value?.easing;
-	if ( ! easingValue || easingValue.length !== 4 ) {
+	if (!easingValue || easingValue.length !== 4) {
 		easingValue = EASING_DEFAULT.easing;
 	}
 
@@ -38,18 +36,18 @@ export default function TransitionSelector( props ) {
 	const resetButton = allowReset && value && (
 		<span
 			className="ghostkit-component-transition-selector-reset"
-			onClick={ ( e ) => {
+			onClick={(e) => {
 				// Reset.
 				e.preventDefault();
 				e.stopPropagation();
 
-				setIsOpenTransition( false );
+				setIsOpenTransition(false);
 
-				onChange( undefined );
-			} }
-			onKeyDown={ () => {} }
+				onChange(undefined);
+			}}
+			onKeyDown={() => {}}
 			role="button"
-			tabIndex={ 0 }
+			tabIndex={0}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -64,20 +62,20 @@ export default function TransitionSelector( props ) {
 		</span>
 	);
 
-	if ( value?.type === 'easing' ) {
+	if (value?.type === 'easing') {
 		buttonLabel = (
 			<>
-				<EasingBezierEditor variant="preview" value={ easingValue } />
-				{ __( 'Easing', 'ghostkit' ) }
-				{ resetButton }
+				<EasingBezierEditor variant="preview" value={easingValue} />
+				{__('Easing', 'ghostkit')}
+				{resetButton}
 			</>
 		);
-	} else if ( value?.type === 'spring' ) {
+	} else if (value?.type === 'spring') {
 		buttonLabel = (
 			<>
-				<SpringEditor variant="preview" value={ value } />
-				{ __( 'Spring', 'ghostkit' ) }
-				{ resetButton }
+				<SpringEditor variant="preview" value={value} />
+				{__('Spring', 'ghostkit')}
+				{resetButton}
 			</>
 		);
 	} else {
@@ -85,93 +83,96 @@ export default function TransitionSelector( props ) {
 			<>
 				<SpringEditor
 					variant="preview"
-					value={ {
+					value={{
 						type: 'spring',
 						stiffness: 930,
 						damping: 40,
 						mass: 6,
 						delay: 0,
-					} }
+					}}
 					backgroundColor="#c3c3c3"
 				/>
-				{ __( 'Add…', 'ghostkit' ) }
+				{__('Add…', 'ghostkit')}
 			</>
 		);
 	}
 
-	if ( ! enableEasing && ! enableSpring ) {
+	if (!enableEasing && !enableSpring) {
 		return false;
 	}
 
 	return (
-		<BaseControl id={ label } label={ label }>
+		<BaseControl id={label} label={label}>
 			<DropdownPicker
-				label={ buttonLabel }
+				label={buttonLabel}
 				className="ghostkit-component-transition-selector"
 				contentClassName="ghostkit-component-transition-selector-content"
-				isOpenTransition={ isOpenTransition }
-				onToggle={ ( isOpen ) => {
-					setIsOpenTransition( isOpen );
-				} }
-				onClick={ ( onToggle ) => {
+				isOpenTransition={isOpenTransition}
+				onToggle={(isOpen) => {
+					setIsOpenTransition(isOpen);
+				}}
+				onClick={(onToggle) => {
 					// Toggle dropdown.
-					if ( value?.type === 'spring' || value?.type === 'easing' ) {
+					if (value?.type === 'spring' || value?.type === 'easing') {
 						onToggle();
 
 						// Add spring transition.
 					} else {
-						const addTransition = { type: 'spring', ...SPRING_DEFAULT };
+						const addTransition = {
+							type: 'spring',
+							...SPRING_DEFAULT,
+						};
 
 						delete addTransition.label;
 
-						onChange( addTransition );
+						onChange(addTransition);
 					}
-				} }
+				}}
 			>
-				{ enableEasing && enableSpring && (
+				{enableEasing && enableSpring && (
 					<ToggleGroup
-						value={ value?.type || 'spring' }
-						options={ [
+						value={value?.type || 'spring'}
+						options={[
 							{
-								label: __( 'Easing', 'ghostkit' ),
+								label: __('Easing', 'ghostkit'),
 								value: 'easing',
 							},
 							{
-								label: __( 'Spring', 'ghostkit' ),
+								label: __('Spring', 'ghostkit'),
 								value: 'spring',
 							},
-						] }
-						onChange={ ( val ) => {
+						]}
+						onChange={(val) => {
 							const defaultTransition =
-                val === 'easing'
-                	? { type: 'easing', ...EASING_DEFAULT }
-                	: { type: 'spring', ...SPRING_DEFAULT };
+								val === 'easing'
+									? { type: 'easing', ...EASING_DEFAULT }
+									: { type: 'spring', ...SPRING_DEFAULT };
 
 							delete defaultTransition.label;
 
-							onChange( defaultTransition );
-						} }
+							onChange(defaultTransition);
+						}}
 						isBlock
 					/>
-				) }
-				{ enableSpring && value?.type !== 'easing' && (
+				)}
+				{enableSpring && value?.type !== 'easing' && (
 					<SpringControls
-						value={ value }
-						onChange={ ( val ) => {
-							onChange( val );
-						} }
-						enableDelayControl={ enableDelayControl }
+						value={value}
+						onChange={(val) => {
+							onChange(val);
+						}}
+						enableDelayControl={enableDelayControl}
 					/>
-				) }
-				{ enableEasing && value?.type === 'easing' && (
+				)}
+				{enableEasing && value?.type === 'easing' && (
 					<EasingControls
-						value={ value }
-						onChange={ ( val ) => {
-							onChange( val );
-						} }
-						enableDelayControl={ enableDelayControl }
+						value={value}
+						onChange={(val) => {
+							onChange(val);
+						}}
+						enableDelayControl={enableDelayControl}
 					/>
-				) }
+				)}
 			</DropdownPicker>
 		</BaseControl>
 	);

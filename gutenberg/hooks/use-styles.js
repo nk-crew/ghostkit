@@ -2,14 +2,14 @@ import * as styleUtils from '../utils/styles';
 
 const { cloneDeep } = window.lodash;
 
-export default function useStyles( props ) {
+export default function useStyles(props) {
 	const { attributes, setAttributes } = props;
 
 	const ghostkitData = attributes?.ghostkit || {};
 	const styles = ghostkitData?.styles || {};
 
 	function getStyles() {
-		return styleUtils.prepareStyles( styles );
+		return styleUtils.prepareStyles(styles);
 	}
 
 	/**
@@ -21,8 +21,8 @@ export default function useStyles( props ) {
 	 *
 	 * @return {any}
 	 */
-	function getStyle( name, device = false, selector = false ) {
-		return styleUtils.getStyle( styles, name, device, selector );
+	function getStyle(name, device = false, selector = false) {
+		return styleUtils.getStyle(styles, name, device, selector);
 	}
 
 	/**
@@ -34,8 +34,8 @@ export default function useStyles( props ) {
 	 *
 	 * @return {boolean}
 	 */
-	function hasStyle( name, device = false, selector = false ) {
-		return styleUtils.hasStyle( styles, name, device, selector );
+	function hasStyle(name, device = false, selector = false) {
+		return styleUtils.hasStyle(styles, name, device, selector);
 	}
 
 	/**
@@ -47,10 +47,10 @@ export default function useStyles( props ) {
 	 * @param {string} selector  - optional custom selector.
 	 *
 	 */
-	function setStyles( newStyles, device = false, selector = false ) {
-		const clonedGhostkitData = cloneDeep( ghostkitData );
+	function setStyles(newStyles, device = false, selector = false) {
+		const clonedGhostkitData = cloneDeep(ghostkitData);
 
-		if ( typeof clonedGhostkitData?.styles === 'undefined' ) {
+		if (typeof clonedGhostkitData?.styles === 'undefined') {
 			clonedGhostkitData.styles = {};
 		}
 
@@ -63,13 +63,17 @@ export default function useStyles( props ) {
 
 		clonedGhostkitData.styles = updatedStyles;
 
-		setAttributes( { ghostkit: clonedGhostkitData } );
+		setAttributes({ ghostkit: clonedGhostkitData });
 	}
 
-	function resetStyles( resetProps, withResponsive = false, selectors = [ '' ] ) {
-		const result = styleUtils.getStylesToReset( resetProps, withResponsive, selectors );
+	function resetStyles(resetProps, withResponsive = false, selectors = ['']) {
+		const result = styleUtils.getStylesToReset(
+			resetProps,
+			withResponsive,
+			selectors
+		);
 
-		setStyles( result );
+		setStyles(result);
 	}
 
 	return {

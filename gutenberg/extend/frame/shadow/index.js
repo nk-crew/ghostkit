@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
@@ -9,9 +6,6 @@ import {
 } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ColorPicker from '../../../components/color-picker';
@@ -37,23 +31,23 @@ const hoverSelector = '&:hover';
  *
  * @return {string} string with pixels.
  */
-function addPixelsToString( str ) {
+function addPixelsToString(str) {
 	// add pixels.
-	if ( typeof str === 'string' && str !== '0' && /^[0-9.-]*$/.test( str ) ) {
+	if (typeof str === 'string' && str !== '0' && /^[0-9.-]*$/.test(str)) {
 		str += 'px';
 	}
 
 	return str;
 }
 
-function parseShadowString( str ) {
-	if ( str ) {
-		let parsedShadow = maybeDecode( str ).split( / (?![^(]*\))/ );
+function parseShadowString(str) {
+	if (str) {
+		let parsedShadow = maybeDecode(str).split(/ (?![^(]*\))/);
 
-		if ( parsedShadow && parsedShadow.length === 5 ) {
+		if (parsedShadow && parsedShadow.length === 5) {
 			// Is first item color.
-			if ( /^(#|rgb|hsl)/.test( parsedShadow[ 0 ] ) ) {
-				parsedShadow = arrayMove( parsedShadow, 0, 5 );
+			if (/^(#|rgb|hsl)/.test(parsedShadow[0])) {
+				parsedShadow = arrayMove(parsedShadow, 0, 5);
 			}
 
 			return parsedShadow;
@@ -68,51 +62,51 @@ function parseShadowString( str ) {
  *
  * @param props
  */
-function FrameShadowTools( props ) {
-	const [ isHover, setIsHover ] = useState( false );
+function FrameShadowTools(props) {
+	const [isHover, setIsHover] = useState(false);
 
-	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles( props );
+	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 	const { device, allDevices } = useResponsive();
 
-	const [ x, setX ] = useState();
-	const [ y, setY ] = useState();
-	const [ blur, setBlur ] = useState();
-	const [ spread, setSpread ] = useState();
-	const [ color, setColor ] = useState();
+	const [x, setX] = useState();
+	const [y, setY] = useState();
+	const [blur, setBlur] = useState();
+	const [spread, setSpread] = useState();
+	const [color, setColor] = useState();
 
 	// Prepare current shadow state.
-	useEffect( () => {
+	useEffect(() => {
 		const parsedShadow = parseShadowString(
-			getStyle( 'box-shadow', device, isHover && hoverSelector )
+			getStyle('box-shadow', device, isHover && hoverSelector)
 		);
 
-		if ( parsedShadow && parsedShadow.length === 5 ) {
-			setX( parsedShadow[ 0 ] );
-			setY( parsedShadow[ 1 ] );
-			setBlur( parsedShadow[ 2 ] );
-			setSpread( parsedShadow[ 3 ] );
-			setColor( parsedShadow[ 4 ] );
+		if (parsedShadow && parsedShadow.length === 5) {
+			setX(parsedShadow[0]);
+			setY(parsedShadow[1]);
+			setBlur(parsedShadow[2]);
+			setSpread(parsedShadow[3]);
+			setColor(parsedShadow[4]);
 		} else {
-			setX( undefined );
-			setY( undefined );
-			setBlur( undefined );
-			setSpread( undefined );
-			setColor( undefined );
+			setX(undefined);
+			setY(undefined);
+			setBlur(undefined);
+			setSpread(undefined);
+			setColor(undefined);
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ device, isHover ] );
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [device, isHover]);
 
 	// Update shadow.
-	useEffect( () => {
+	useEffect(() => {
 		if (
 			typeof x === 'undefined' &&
-      typeof y === 'undefined' &&
-      typeof blur === 'undefined' &&
-      typeof spread === 'undefined' &&
-      typeof color === 'undefined'
+			typeof y === 'undefined' &&
+			typeof blur === 'undefined' &&
+			typeof spread === 'undefined' &&
+			typeof color === 'undefined'
 		) {
 			// Reset.
-			if ( getStyle( 'box-shadow', device, isHover && hoverSelector ) ) {
+			if (getStyle('box-shadow', device, isHover && hoverSelector)) {
 				setStyles(
 					{
 						'box-shadow': undefined,
@@ -127,109 +121,114 @@ function FrameShadowTools( props ) {
 
 		setStyles(
 			{
-				'box-shadow': `${ addPixelsToString( x || 0 ) } ${ addPixelsToString(
+				'box-shadow': `${addPixelsToString(x || 0)} ${addPixelsToString(
 					y || 0
-				) } ${ addPixelsToString( blur || 0 ) } ${ addPixelsToString( spread || 0 ) } ${ color || '#000' }`,
+				)} ${addPixelsToString(blur || 0)} ${addPixelsToString(
+					spread || 0
+				)} ${color || '#000'}`,
 			},
 			device,
 			isHover && hoverSelector
 		);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ x, y, blur, spread, color ] );
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [x, y, blur, spread, color]);
 
 	let hasShadow = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
 		hasShadow =
-      hasShadow ||
-      hasStyle( 'box-shadow', thisDevice ) ||
-      hasStyle( 'box-shadow', thisDevice, hoverSelector );
-	} );
+			hasShadow ||
+			hasStyle('box-shadow', thisDevice) ||
+			hasStyle('box-shadow', thisDevice, hoverSelector);
+	});
 
-	const baseControlLabel = <>
-		{ __( 'Shadow', 'ghostkit' ) }
-		<ResponsiveToggle
-			checkActive={ ( checkMedia ) => {
-				return hasStyle( 'box-shadow', checkMedia, isHover && hoverSelector );
-			} }
-		/>
-		<ElementStateToggle
-			isHover={ isHover }
-			onChange={ () => {
-				setIsHover( ! isHover );
-			} }
-			checkActive={ () => {
-				return hasStyle( 'box-shadow', device, hoverSelector );
-			} }
-		/>
-	</>;
+	const baseControlLabel = (
+		<>
+			{__('Shadow', 'ghostkit')}
+			<ResponsiveToggle
+				checkActive={(checkMedia) => {
+					return hasStyle(
+						'box-shadow',
+						checkMedia,
+						isHover && hoverSelector
+					);
+				}}
+			/>
+			<ElementStateToggle
+				isHover={isHover}
+				onChange={() => {
+					setIsHover(!isHover);
+				}}
+				checkActive={() => {
+					return hasStyle('box-shadow', device, hoverSelector);
+				}}
+			/>
+		</>
+	);
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Shadow', 'ghostkit' ) }
-			hasValue={ () => !! hasShadow }
-			onDeselect={ () => {
-				resetStyles( [ 'box-shadow' ], true, [ '', '&:hover' ] );
+			label={__('Shadow', 'ghostkit')}
+			hasValue={() => !!hasShadow}
+			onDeselect={() => {
+				resetStyles(['box-shadow'], true, ['', '&:hover']);
 
-				setX( undefined );
-				setY( undefined );
-				setBlur( undefined );
-				setSpread( undefined );
-				setColor( undefined );
-			} }
-			isShownByDefault={ false }
+				setX(undefined);
+				setY(undefined);
+				setBlur(undefined);
+				setSpread(undefined);
+				setColor(undefined);
+			}}
+			isShownByDefault={false}
 		>
-			<BaseControl
-				id={ baseControlLabel }
-				label={ baseControlLabel }
-			>
+			<BaseControl id={baseControlLabel} label={baseControlLabel}>
 				<div className="ghostkit-control-box-shadow">
-					<Tooltip text={ __( 'Color', 'ghostkit' ) }>
+					<Tooltip text={__('Color', 'ghostkit')}>
 						<div>
 							<ColorPicker
-								value={ color }
-								onChange={ ( val ) => {
-									setColor( val );
-								} }
+								value={color}
+								onChange={(val) => {
+									setColor(val);
+								}}
 								alpha
 							/>
 						</div>
 					</Tooltip>
 					<InputGroup>
 						<InputDrag
-							help={ __( 'X', 'ghostkit' ) }
-							value={ x }
-							onChange={ ( val ) => {
-								setX( val || 0 );
-							} }
-							startDistance={ 1 }
+							help={__('X', 'ghostkit')}
+							value={x}
+							onChange={(val) => {
+								setX(val || 0);
+							}}
+							startDistance={1}
 							autoComplete="off"
 						/>
 						<InputDrag
-							help={ __( 'Y', 'ghostkit' ) }
-							value={ y }
-							onChange={ ( val ) => {
-								setY( val || 0 );
-							} }
-							startDistance={ 1 }
+							help={__('Y', 'ghostkit')}
+							value={y}
+							onChange={(val) => {
+								setY(val || 0);
+							}}
+							startDistance={1}
 							autoComplete="off"
 						/>
 						<InputDrag
-							help={ __( 'Blur', 'ghostkit' ) }
-							value={ blur }
-							onChange={ ( val ) => {
-								setBlur( val || 0 );
-							} }
-							startDistance={ 1 }
+							help={__('Blur', 'ghostkit')}
+							value={blur}
+							onChange={(val) => {
+								setBlur(val || 0);
+							}}
+							startDistance={1}
 							autoComplete="off"
 						/>
 						<InputDrag
-							help={ __( 'Spread', 'ghostkit' ) }
-							value={ spread }
-							onChange={ ( val ) => {
-								setSpread( val || 0 );
-							} }
-							startDistance={ 1 }
+							help={__('Spread', 'ghostkit')}
+							value={spread}
+							onChange={(val) => {
+								setSpread(val || 0);
+							}}
+							startDistance={1}
 							autoComplete="off"
 						/>
 					</InputGroup>
@@ -242,17 +241,21 @@ function FrameShadowTools( props ) {
 addFilter(
 	'ghostkit.extension.frame.tools',
 	'ghostkit/extension/frame/tools/shadow',
-	( children, { props } ) => {
-		const hasShadowSupport = hasBlockSupport( props.name, [ 'ghostkit', 'frame', 'shadow' ] );
+	(children, { props }) => {
+		const hasShadowSupport = hasBlockSupport(props.name, [
+			'ghostkit',
+			'frame',
+			'shadow',
+		]);
 
-		if ( ! hasShadowSupport ) {
+		if (!hasShadowSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<FrameShadowTools { ...props } />
+				{children}
+				<FrameShadowTools {...props} />
 			</>
 		);
 	}

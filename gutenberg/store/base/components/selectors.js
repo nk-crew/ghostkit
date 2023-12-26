@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import ActiveIndicator from '../../../components/active-indicator';
 import ApplyFilters from '../../../components/apply-filters';
 import CodeEditor from '../../../components/code-editor';

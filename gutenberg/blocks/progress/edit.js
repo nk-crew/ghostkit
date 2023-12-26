@@ -1,22 +1,24 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-/**
- * External dependencies
- */
+
 import classnames from 'classnames/dedupe';
 
-import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
-import { PanelBody, ResizableBox, TabPanel, TextControl, ToggleControl } from '@wordpress/components';
-/**
- * WordPress dependencies
- */
+import {
+	InspectorControls,
+	RichText,
+	useBlockProps,
+} from '@wordpress/block-editor';
+import {
+	PanelBody,
+	ResizableBox,
+	TabPanel,
+	TextControl,
+	ToggleControl,
+} from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
 import ColorIndicator from '../../components/color-indicator';
-/**
- * Internal dependencies
- */
 import ColorPicker from '../../components/color-picker';
 import RangeControl from '../../components/range-control';
 
@@ -25,7 +27,7 @@ import RangeControl from '../../components/range-control';
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected, toggleSelection } = props;
 
 	let { className = '' } = props;
@@ -46,111 +48,125 @@ export default function BlockEdit( props ) {
 		hoverBackgroundColor,
 	} = attributes;
 
-	className = classnames( 'ghostkit-progress', className );
+	className = classnames('ghostkit-progress', className);
 
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = applyFilters('ghostkit.editor.className', className, props);
 
-	const blockProps = useBlockProps( { className } );
+	const blockProps = useBlockProps({ className });
 
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody>
 					<RangeControl
-						label={ __( 'Height', 'ghostkit' ) }
-						value={ height || '' }
-						onChange={ ( value ) => setAttributes( { height: value } ) }
-						min={ 1 }
+						label={__('Height', 'ghostkit')}
+						value={height || ''}
+						onChange={(value) => setAttributes({ height: value })}
+						min={1}
 						allowCustomMax
 					/>
 					<RangeControl
-						label={ __( 'Percent', 'ghostkit' ) }
-						value={ percent || '' }
-						onChange={ ( value ) => setAttributes( { percent: value } ) }
-						min={ 0 }
-						max={ 100 }
+						label={__('Percent', 'ghostkit')}
+						value={percent || ''}
+						onChange={(value) => setAttributes({ percent: value })}
+						min={0}
+						max={100}
 					/>
 					<RangeControl
-						label={ __( 'Corner Radius', 'ghostkit' ) }
-						value={ borderRadius }
-						min={ 0 }
-						max={ 10 }
-						onChange={ ( value ) => setAttributes( { borderRadius: value } ) }
+						label={__('Corner Radius', 'ghostkit')}
+						value={borderRadius}
+						min={0}
+						max={10}
+						onChange={(value) =>
+							setAttributes({ borderRadius: value })
+						}
 						allowCustomMax
 					/>
 				</PanelBody>
 				<PanelBody>
 					<ToggleControl
-						label={ __( 'Show Count', 'ghostkit' ) }
-						checked={ !! showCount }
-						onChange={ ( val ) => setAttributes( { showCount: val } ) }
+						label={__('Show Count', 'ghostkit')}
+						checked={!!showCount}
+						onChange={(val) => setAttributes({ showCount: val })}
 					/>
-					{ showCount ? (
+					{showCount ? (
 						<>
 							<TextControl
-								label={ __( 'Count Prefix', 'ghostkit' ) }
-								value={ countPrefix }
-								onChange={ ( value ) => setAttributes( { countPrefix: value } ) }
+								label={__('Count Prefix', 'ghostkit')}
+								value={countPrefix}
+								onChange={(value) =>
+									setAttributes({ countPrefix: value })
+								}
 							/>
 							<TextControl
-								label={ __( 'Count Suffix', 'ghostkit' ) }
-								value={ countSuffix }
-								onChange={ ( value ) => setAttributes( { countSuffix: value } ) }
+								label={__('Count Suffix', 'ghostkit')}
+								value={countSuffix}
+								onChange={(value) =>
+									setAttributes({ countSuffix: value })
+								}
 							/>
 						</>
 					) : (
 						''
-					) }
+					)}
 					<ToggleControl
-						label={ __( 'Striped', 'ghostkit' ) }
-						checked={ !! striped }
-						onChange={ ( val ) => setAttributes( { striped: val } ) }
+						label={__('Striped', 'ghostkit')}
+						checked={!!striped}
+						onChange={(val) => setAttributes({ striped: val })}
 					/>
 					<ToggleControl
-						label={ __( 'Animate in viewport', 'ghostkit' ) }
-						checked={ !! animateInViewport }
-						onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
+						label={__('Animate in viewport', 'ghostkit')}
+						checked={!!animateInViewport}
+						onChange={(val) =>
+							setAttributes({ animateInViewport: val })
+						}
 					/>
 				</PanelBody>
 				<PanelBody
 					title={
 						<>
-							{ __( 'Colors', 'ghostkit' ) }
-							<ColorIndicator colorValue={ color } />
-							<ColorIndicator colorValue={ backgroundColor } />
+							{__('Colors', 'ghostkit')}
+							<ColorIndicator colorValue={color} />
+							<ColorIndicator colorValue={backgroundColor} />
 						</>
 					}
-					initialOpen={ false }
+					initialOpen={false}
 				>
 					<TabPanel
 						className="ghostkit-control-tabs ghostkit-control-tabs-wide"
-						tabs={ [
+						tabs={[
 							{
 								name: 'normal',
-								title: __( 'Normal', 'ghostkit' ),
+								title: __('Normal', 'ghostkit'),
 								className: 'ghostkit-control-tabs-tab',
 							},
 							{
 								name: 'hover',
-								title: __( 'Hover', 'ghostkit' ),
+								title: __('Hover', 'ghostkit'),
 								className: 'ghostkit-control-tabs-tab',
 							},
-						] }
+						]}
 					>
-						{ ( tabData ) => {
+						{(tabData) => {
 							const isHover = tabData.name === 'hover';
 							return (
 								<>
 									<ApplyFilters
 										name="ghostkit.editor.controls"
-										attribute={ isHover ? 'hoverColor' : 'color' }
-										props={ props }
+										attribute={
+											isHover ? 'hoverColor' : 'color'
+										}
+										props={props}
 									>
 										<ColorPicker
-											label={ __( 'Bar', 'ghostkit' ) }
-											value={ isHover ? hoverColor : color }
-											onChange={ ( val ) =>
-												setAttributes( isHover ? { hoverColor: val } : { color: val } )
+											label={__('Bar', 'ghostkit')}
+											value={isHover ? hoverColor : color}
+											onChange={(val) =>
+												setAttributes(
+													isHover
+														? { hoverColor: val }
+														: { color: val }
+												)
 											}
 											alpha
 											gradient
@@ -158,15 +174,31 @@ export default function BlockEdit( props ) {
 									</ApplyFilters>
 									<ApplyFilters
 										name="ghostkit.editor.controls"
-										attribute={ isHover ? 'hoverBackgroundColor' : 'backgroundColor' }
-										props={ props }
+										attribute={
+											isHover
+												? 'hoverBackgroundColor'
+												: 'backgroundColor'
+										}
+										props={props}
 									>
 										<ColorPicker
-											label={ __( 'Background', 'ghostkit' ) }
-											value={ isHover ? hoverBackgroundColor : backgroundColor }
-											onChange={ ( val ) =>
+											label={__('Background', 'ghostkit')}
+											value={
+												isHover
+													? hoverBackgroundColor
+													: backgroundColor
+											}
+											onChange={(val) =>
 												setAttributes(
-													isHover ? { hoverBackgroundColor: val } : { backgroundColor: val }
+													isHover
+														? {
+																hoverBackgroundColor:
+																	val,
+															}
+														: {
+																backgroundColor:
+																	val,
+															}
 												)
 											}
 											alpha
@@ -175,87 +207,96 @@ export default function BlockEdit( props ) {
 									</ApplyFilters>
 								</>
 							);
-						} }
+						}}
 					</TabPanel>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...blockProps }>
-				{ ! RichText.isEmpty( caption ) || isSelected ? (
+			<div {...blockProps}>
+				{!RichText.isEmpty(caption) || isSelected ? (
 					<RichText
 						inlineToolbar
 						tagName="div"
 						className="ghostkit-progress-caption"
-						placeholder={ __( 'Write caption…', 'ghostkit' ) }
-						value={ caption }
-						onChange={ ( newCaption ) => setAttributes( { caption: newCaption } ) }
+						placeholder={__('Write caption…', 'ghostkit')}
+						value={caption}
+						onChange={(newCaption) =>
+							setAttributes({ caption: newCaption })
+						}
 					/>
 				) : (
 					''
-				) }
-				{ showCount ? (
-					<div className="ghostkit-progress-bar-count" style={ { width: `${ percent }%` } }>
+				)}
+				{showCount ? (
+					<div
+						className="ghostkit-progress-bar-count"
+						style={{ width: `${percent}%` }}
+					>
 						<div>
-							{ countPrefix }
-							{ percent }
-							{ countSuffix }
+							{countPrefix}
+							{percent}
+							{countSuffix}
 						</div>
 					</div>
 				) : (
 					''
-				) }
+				)}
 				<ResizableBox
-					className={ classnames( { 'is-selected': isSelected } ) }
-					size={ {
+					className={classnames({ 'is-selected': isSelected })}
+					size={{
 						width: '100%',
 						height,
-					} }
+					}}
 					minWidth="0%"
 					maxWidth="100%"
 					minHeight="1"
-					enable={ { bottom: true } }
-					onResizeStart={ () => {
-						toggleSelection( false );
-					} }
-					onResizeStop={ ( event, direction, elt, delta ) => {
-						setAttributes( {
-							height: parseInt( height + delta.height, 10 ),
-						} );
-						toggleSelection( true );
-					} }
+					enable={{ bottom: true }}
+					onResizeStart={() => {
+						toggleSelection(false);
+					}}
+					onResizeStop={(event, direction, elt, delta) => {
+						setAttributes({
+							height: parseInt(height + delta.height, 10),
+						});
+						toggleSelection(true);
+					}}
 				>
 					<div
-						className={ classnames( {
+						className={classnames({
 							'ghostkit-progress-wrap': true,
 							'ghostkit-progress-bar-striped': striped,
-						} ) }
+						})}
 					>
 						<ResizableBox
-							className={ classnames( 'ghostkit-progress-bar', { 'is-selected': isSelected } ) }
-							size={ { width: `${ percent }%` } }
+							className={classnames('ghostkit-progress-bar', {
+								'is-selected': isSelected,
+							})}
+							size={{ width: `${percent}%` }}
 							minWidth="0%"
 							maxWidth="100%"
 							minHeight="100%"
 							maxHeight="100%"
-							enable={ { right: true } }
-							onResizeStart={ () => {
-								toggleSelection( false );
-							} }
-							onResizeStop={ ( event, direction, elt, delta ) => {
-								setAttributes( {
+							enable={{ right: true }}
+							onResizeStart={() => {
+								toggleSelection(false);
+							}}
+							onResizeStop={(event, direction, elt, delta) => {
+								setAttributes({
 									percent: Math.min(
 										100,
 										Math.max(
 											0,
 											percent +
-                        parseInt(
-                        	( 100 * delta.width ) / elt.parentNode.getBoundingClientRect().width,
-                        	10
-                        )
+												parseInt(
+													(100 * delta.width) /
+														elt.parentNode.getBoundingClientRect()
+															.width,
+													10
+												)
 										)
 									),
-								} );
-								toggleSelection( true );
-							} }
+								});
+								toggleSelection(true);
+							}}
 						/>
 					</div>
 				</ResizableBox>

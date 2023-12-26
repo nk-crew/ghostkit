@@ -13,8 +13,8 @@ const allDevices = { ...window.ghostkitVariables.media_sizes };
  *
  * @return {Object}
  */
-export function prepareStyles( styles ) {
-	return maybeDecode( styles );
+export function prepareStyles(styles) {
+	return maybeDecode(styles);
 }
 
 /**
@@ -27,20 +27,20 @@ export function prepareStyles( styles ) {
  *
  * @return {any}
  */
-export function getStyle( styles, name, device = false, selector = false ) {
+export function getStyle(styles, name, device = false, selector = false) {
 	let result;
-	let processStyles = prepareStyles( styles );
+	let processStyles = prepareStyles(styles);
 
-	if ( device ) {
-		processStyles = processStyles?.[ `media_${ device }` ];
+	if (device) {
+		processStyles = processStyles?.[`media_${device}`];
 	}
 
-	if ( selector ) {
-		processStyles = processStyles?.[ selector ];
+	if (selector) {
+		processStyles = processStyles?.[selector];
 	}
 
-	if ( typeof processStyles?.[ name ] !== 'undefined' ) {
-		result = processStyles?.[ name ];
+	if (typeof processStyles?.[name] !== 'undefined') {
+		result = processStyles?.[name];
 	}
 
 	return result;
@@ -56,8 +56,8 @@ export function getStyle( styles, name, device = false, selector = false ) {
  *
  * @return {boolean}
  */
-export function hasStyle( styles, name, device = false, selector = false ) {
-	return typeof getStyle( styles, name, device, selector ) !== 'undefined';
+export function hasStyle(styles, name, device = false, selector = false) {
+	return typeof getStyle(styles, name, device, selector) !== 'undefined';
 }
 
 /**
@@ -71,16 +71,21 @@ export function hasStyle( styles, name, device = false, selector = false ) {
  *
  * @return {boolean}
  */
-export function getUpdatedStyles( styles, newStyles, device = false, selector = false ) {
+export function getUpdatedStyles(
+	styles,
+	newStyles,
+	device = false,
+	selector = false
+) {
 	let result;
 
-	if ( selector ) {
-		newStyles = { [ selector ]: newStyles };
+	if (selector) {
+		newStyles = { [selector]: newStyles };
 	}
 
-	if ( device ) {
+	if (device) {
 		result = {};
-		result[ `media_${ device }` ] = newStyles;
+		result[`media_${device}`] = newStyles;
 	} else {
 		result = newStyles;
 	}
@@ -93,13 +98,13 @@ export function getUpdatedStyles( styles, newStyles, device = false, selector = 
 			media_md: {},
 			media_sm: {},
 		},
-		maybeDecode( styles ),
+		maybeDecode(styles),
 		result
 	);
 
-	const cleanResult = compactObject( result );
+	const cleanResult = compactObject(result);
 
-	return maybeEncode( cleanResult );
+	return maybeEncode(cleanResult);
 }
 
 /**
@@ -109,42 +114,49 @@ export function getUpdatedStyles( styles, newStyles, device = false, selector = 
  * @param {boolean}  withResponsive - reset responsive styles.
  * @param {Selector} selectors      - reset styles in custom selectors set.
  */
-export function getStylesToReset( resetProps, withResponsive = false, selectors = [ '' ] ) {
+export function getStylesToReset(
+	resetProps,
+	withResponsive = false,
+	selectors = ['']
+) {
 	const result = {};
 
-	selectors.forEach( ( selector ) => {
-		if ( selector ) {
-			result[ selector ] = {};
+	selectors.forEach((selector) => {
+		if (selector) {
+			result[selector] = {};
 		}
-	} );
+	});
 
-	[ '', ...( withResponsive ? Object.keys( allDevices ) : [] ) ].forEach( ( thisDevice ) => {
-		if ( thisDevice ) {
-			result[ `media_${ thisDevice }` ] = {};
+	['', ...(withResponsive ? Object.keys(allDevices) : [])].forEach(
+		(thisDevice) => {
+			if (thisDevice) {
+				result[`media_${thisDevice}`] = {};
 
-			selectors.forEach( ( selector ) => {
-				if ( selector ) {
-					result[ `media_${ thisDevice }` ][ selector ] = {};
-				}
-			} );
-		}
-
-		resetProps.forEach( ( thisProp ) => {
-			selectors.forEach( ( selector ) => {
-				if ( thisDevice ) {
-					if ( selector ) {
-						result[ `media_${ thisDevice }` ][ selector ][ thisProp ] = undefined;
-					} else {
-						result[ `media_${ thisDevice }` ][ thisProp ] = undefined;
+				selectors.forEach((selector) => {
+					if (selector) {
+						result[`media_${thisDevice}`][selector] = {};
 					}
-				} else if ( selector ) {
-					result[ selector ][ thisProp ] = undefined;
-				} else {
-					result[ thisProp ] = undefined;
-				}
-			} );
-		} );
-	} );
+				});
+			}
+
+			resetProps.forEach((thisProp) => {
+				selectors.forEach((selector) => {
+					if (thisDevice) {
+						if (selector) {
+							result[`media_${thisDevice}`][selector][thisProp] =
+								undefined;
+						} else {
+							result[`media_${thisDevice}`][thisProp] = undefined;
+						}
+					} else if (selector) {
+						result[selector][thisProp] = undefined;
+					} else {
+						result[thisProp] = undefined;
+					}
+				});
+			});
+		}
+	);
 
 	return result;
 }
@@ -161,38 +173,56 @@ export function getSpecificPropsFromStyles(
 	styles,
 	findProps,
 	withResponsive = false,
-	selectors = [ '' ]
+	selectors = ['']
 ) {
 	// Firs of all, prepare reset styles.
-	const result = getStylesToReset( findProps, withResponsive, selectors );
+	const result = getStylesToReset(findProps, withResponsive, selectors);
 
-	const decodedStyles = maybeDecode( styles || {} );
+	const decodedStyles = maybeDecode(styles || {});
 
-	[ '', ...( withResponsive ? Object.keys( allDevices ) : [] ) ].forEach( ( thisDevice ) => {
-		findProps.forEach( ( thisProp ) => {
-			selectors.forEach( ( selector ) => {
-				if ( thisDevice ) {
-					if ( selector ) {
-						if (
-							typeof decodedStyles?.[ `media_${ thisDevice }` ]?.[ selector ]?.[ thisProp ] !== 'undefined'
+	['', ...(withResponsive ? Object.keys(allDevices) : [])].forEach(
+		(thisDevice) => {
+			findProps.forEach((thisProp) => {
+				selectors.forEach((selector) => {
+					if (thisDevice) {
+						if (selector) {
+							if (
+								typeof decodedStyles?.[`media_${thisDevice}`]?.[
+									selector
+								]?.[thisProp] !== 'undefined'
+							) {
+								result[`media_${thisDevice}`][selector][
+									thisProp
+								] =
+									decodedStyles[`media_${thisDevice}`][
+										selector
+									][thisProp];
+							}
+						} else if (
+							typeof decodedStyles?.[`media_${thisDevice}`]?.[
+								thisProp
+							] !== 'undefined'
 						) {
-							result[ `media_${ thisDevice }` ][ selector ][ thisProp ] =
-                decodedStyles[ `media_${ thisDevice }` ][ selector ][ thisProp ];
+							result[`media_${thisDevice}`][thisProp] =
+								decodedStyles[`media_${thisDevice}`][thisProp];
 						}
-					} else if ( typeof decodedStyles?.[ `media_${ thisDevice }` ]?.[ thisProp ] !== 'undefined' ) {
-						result[ `media_${ thisDevice }` ][ thisProp ] =
-              decodedStyles[ `media_${ thisDevice }` ][ thisProp ];
+					} else if (selector) {
+						if (
+							typeof decodedStyles?.[selector]?.[thisProp] !==
+							'undefined'
+						) {
+							result[selector][thisProp] =
+								decodedStyles[selector][thisProp];
+						}
+					} else if (
+						typeof decodedStyles?.[thisProp] !== 'undefined'
+					) {
+						result[thisProp] = decodedStyles[thisProp];
 					}
-				} else if ( selector ) {
-					if ( typeof decodedStyles?.[ selector ]?.[ thisProp ] !== 'undefined' ) {
-						result[ selector ][ thisProp ] = decodedStyles[ selector ][ thisProp ];
-					}
-				} else if ( typeof decodedStyles?.[ thisProp ] !== 'undefined' ) {
-					result[ thisProp ] = decodedStyles[ thisProp ];
-				}
-			} );
-		} );
-	} );
+				});
+			});
+		}
+	);
 
-	return maybeEncode( result );
+	return maybeEncode(result);
 }

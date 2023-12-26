@@ -27,9 +27,6 @@ import './plugins';
  */
 import './disable-blocks';
 
-/**
- * Internal dependencies
- */
 import { updateCategory } from '@wordpress/blocks';
 
 /**
@@ -40,6 +37,6 @@ import { ReactComponent as GhostKitLogoIcon } from './icons/ghostkit-logo.svg';
 /**
  * Add category icon.
  */
-updateCategory( 'ghostkit', {
+updateCategory('ghostkit', {
 	icon: <GhostKitLogoIcon />,
-} );
+});

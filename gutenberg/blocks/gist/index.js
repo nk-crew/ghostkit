@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
@@ -12,7 +9,7 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-gist', true ),
+	icon: getIcon('block-gist', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/github-gist/',
 	},

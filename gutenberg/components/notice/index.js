@@ -1,11 +1,5 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-/**
- * WordPress dependencies
- */
 import { Notice as WPNotice } from '@wordpress/components';
 
 /**
@@ -13,8 +7,13 @@ import { Notice as WPNotice } from '@wordpress/components';
  *
  * @param props
  */
-export default function Notice( props ) {
+export default function Notice(props) {
 	const { className, ...allProps } = props;
 
-	return <WPNotice className={ classnames( 'ghostkit-component-notice', className ) } { ...allProps } />;
+	return (
+		<WPNotice
+			className={classnames('ghostkit-component-notice', className)}
+			{...allProps}
+		/>
+	);
 }

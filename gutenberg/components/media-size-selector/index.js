@@ -1,10 +1,13 @@
-import { __experimentalUnitControl, SelectControl } from '@wordpress/components';
+import {
+	__experimentalUnitControl,
+	SelectControl,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 const UnitControl = __experimentalUnitControl;
 
-export default function MediaSizeSelector( props ) {
+export default function MediaSizeSelector(props) {
 	const {
 		attributes,
 		hasAspectRatio = true,
@@ -19,8 +22,8 @@ export default function MediaSizeSelector( props ) {
 
 	const options = [];
 
-	if ( hasOriginalOption ) {
-		options.push( { label: 'Original', value: '' } );
+	if (hasOriginalOption) {
+		options.push({ label: 'Original', value: '' });
 	}
 
 	options.push(
@@ -34,86 +37,89 @@ export default function MediaSizeSelector( props ) {
 		{ label: 'Tall - 9:16', value: '9:16' }
 	);
 
-	if ( width && height ) {
-		options.push( { label: 'Custom', value: 'custom', hidden: true } );
+	if (width && height) {
+		options.push({ label: 'Custom', value: 'custom', hidden: true });
 	}
 
-	const editorSettings = useSelect( ( select ) => {
-		return select( 'core/block-editor' ).getSettings();
-	} );
+	const editorSettings = useSelect((select) => {
+		return select('core/block-editor').getSettings();
+	});
 
-	const [ customAspectRatio, setCustomAspectRatio ] = useState( false );
+	const [customAspectRatio, setCustomAspectRatio] = useState(false);
 
-	useEffect( () => {
-		setCustomAspectRatio( width && height ? 'custom' : false );
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [] );
+	useEffect(() => {
+		setCustomAspectRatio(width && height ? 'custom' : false);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-	const handleAspectRatioChange = ( val ) => {
-		setCustomAspectRatio( false );
+	const handleAspectRatioChange = (val) => {
+		setCustomAspectRatio(false);
 
-		const { label } = options.find( ( opt ) => opt.value === val );
-		onChangeAspectRatio( val, label );
+		const { label } = options.find((opt) => opt.value === val);
+		onChangeAspectRatio(val, label);
 
-		if ( width && height ) {
-			onChangeHeight( '' );
+		if (width && height) {
+			onChangeHeight('');
 		}
 	};
 
-	const handleWidthChange = ( val ) => {
-		onChangeWidth( parseFloat( val ) ? val : '' );
-		setCustomAspectRatio( val && height ? 'custom' : false );
+	const handleWidthChange = (val) => {
+		onChangeWidth(parseFloat(val) ? val : '');
+		setCustomAspectRatio(val && height ? 'custom' : false);
 	};
 
-	const handleHeightChange = ( val ) => {
-		onChangeHeight( parseFloat( val ) ? val : '' );
-		setCustomAspectRatio( width && val ? 'custom' : false );
+	const handleHeightChange = (val) => {
+		onChangeHeight(parseFloat(val) ? val : '');
+		setCustomAspectRatio(width && val ? 'custom' : false);
 	};
 
 	return (
 		<>
-			{ /* Aspect ratio. */ }
-			{ hasAspectRatio && (
+			{/* Aspect ratio. */}
+			{hasAspectRatio && (
 				<SelectControl
-					label={ __( 'Aspect Ratio', 'ghostkit' ) }
-					value={ customAspectRatio || aspectRatio }
-					onChange={ handleAspectRatioChange }
-					options={ options }
+					label={__('Aspect Ratio', 'ghostkit')}
+					value={customAspectRatio || aspectRatio}
+					onChange={handleAspectRatioChange}
+					options={options}
 				/>
-			) }
-			{ /* Width and height. */ }
-			{ hasSizeSelectors && (
+			)}
+			{/* Width and height. */}
+			{hasSizeSelectors && (
 				<>
-					<div style={ { display: 'flex', gap: 10 } }>
+					<div style={{ display: 'flex', gap: 10 }}>
 						<UnitControl
-							value={ width }
-							placeholder={ __( 'Auto', 'ghostkit' ) }
-							label={ __( 'Width', 'ghostkit' ) }
-							onChange={ handleWidthChange }
+							value={width}
+							placeholder={__('Auto', 'ghostkit')}
+							label={__('Width', 'ghostkit')}
+							onChange={handleWidthChange}
 						/>
 						<UnitControl
-							value={ height }
-							placeholder={ __( 'Auto', 'ghostkit' ) }
-							label={ __( 'Height', 'ghostkit' ) }
-							onChange={ handleHeightChange }
+							value={height}
+							placeholder={__('Auto', 'ghostkit')}
+							label={__('Height', 'ghostkit')}
+							onChange={handleHeightChange}
 						/>
 					</div>
-					{ ! resolution && <div style={ { marginTop: '-22px' } } /> }
+					{!resolution && <div style={{ marginTop: '-22px' }} />}
 				</>
-			) }
-			{ /* Resolution. */ }
-			{ resolution && editorSettings?.imageSizes ? (
+			)}
+			{/* Resolution. */}
+			{resolution && editorSettings?.imageSizes ? (
 				<SelectControl
-					label={ __( 'Resolution', 'ghostkit' ) }
-					help={ __( 'Select the size of the source image.', 'ghostkit' ) }
-					value={ resolution }
-					onChange={ onChangeResolution }
-					options={ editorSettings.imageSizes.map( ( imgSize ) => ( {
+					label={__('Resolution', 'ghostkit')}
+					help={__(
+						'Select the size of the source image.',
+						'ghostkit'
+					)}
+					value={resolution}
+					onChange={onChangeResolution}
+					options={editorSettings.imageSizes.map((imgSize) => ({
 						value: imgSize.slug,
 						label: imgSize.name,
-					} ) ) }
+					}))}
 				/>
-			) : null }
+			) : null}
 		</>
 	);
 }

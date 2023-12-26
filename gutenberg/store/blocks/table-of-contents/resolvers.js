@@ -1,12 +1,9 @@
-/**
- * Internal dependencies
- */
 import * as actions from './actions';
 import prepareQuery from './prepare-query';
 
-export function* getTOC( data ) {
-	const query = prepareQuery( data );
-	const toc = yield actions.apiFetch( { path: query } );
+export function* getTOC(data) {
+	const query = prepareQuery(data);
+	const toc = yield actions.apiFetch({ path: query });
 
-	return actions.setTOC( query, toc );
+	return actions.setTOC(query, toc);
 }

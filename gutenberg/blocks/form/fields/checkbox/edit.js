@@ -1,22 +1,16 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
-import { FieldDefaultSettings, getFieldAttributes } from '../../field-attributes';
+import {
+	FieldDefaultSettings,
+	getFieldAttributes,
+} from '../../field-attributes';
 import FieldDescription from '../../field-description';
-/**
- * Internal dependencies
- */
 import FieldLabel from '../../field-label';
 import FieldOptions from '../../field-options';
 
@@ -25,7 +19,7 @@ import FieldOptions from '../../field-options';
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected } = props;
 
 	const { slug, inline } = attributes;
@@ -40,9 +34,9 @@ export default function BlockEdit( props ) {
 		className
 	);
 
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = applyFilters('ghostkit.editor.className', className, props);
 
-	if ( ! options || ! options.length ) {
+	if (!options || !options.length) {
 		options = [
 			{
 				label: '',
@@ -52,54 +46,58 @@ export default function BlockEdit( props ) {
 		];
 	}
 
-	const blockProps = useBlockProps( { className } );
+	const blockProps = useBlockProps({ className });
 
 	return (
 		<Fragment>
 			<InspectorControls>
 				<PanelBody>
-					<FieldDefaultSettings { ...props } defaultCustom={ ' ' } placeholderCustom={ ' ' } />
+					<FieldDefaultSettings
+						{...props}
+						defaultCustom={' '}
+						placeholderCustom={' '}
+					/>
 					<ToggleControl
-						label={ __( 'Inline', 'ghostkit' ) }
-						checked={ inline }
-						onChange={ () => setAttributes( { inline: ! inline } ) }
+						label={__('Inline', 'ghostkit')}
+						checked={inline}
+						onChange={() => setAttributes({ inline: !inline })}
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...blockProps }>
-				<FieldLabel { ...props } />
+			<div {...blockProps}>
+				<FieldLabel {...props} />
 
-				{ isSelected ? (
+				{isSelected ? (
 					<FieldOptions
-						options={ options }
-						onChange={ ( val ) => setAttributes( { options: val } ) }
+						options={options}
+						onChange={(val) => setAttributes({ options: val })}
 						multiple
 					/>
 				) : (
 					<div className="ghostkit-form-field-checkbox-items">
-						{ options.map( ( data, i ) => {
-							const itemName = `${ slug }-item-${ i }`;
+						{options.map((data, i) => {
+							const itemName = `${slug}-item-${i}`;
 
 							return (
 								<label
-									key={ itemName }
-									htmlFor={ itemName }
+									key={itemName}
+									htmlFor={itemName}
 									className="ghostkit-form-field-checkbox-item"
 								>
 									<input
 										type="checkbox"
-										checked={ data.selected }
-										onChange={ () => {} }
-										{ ...getFieldAttributes( attributes ) }
+										checked={data.selected}
+										onChange={() => {}}
+										{...getFieldAttributes(attributes)}
 									/>
-									{ data.label }
+									{data.label}
 								</label>
 							);
-						} ) }
+						})}
 					</div>
-				) }
+				)}
 
-				<FieldDescription { ...props } />
+				<FieldDescription {...props} />
 			</div>
 		</Fragment>
 	);

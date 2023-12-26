@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import { ReactComponent as blockAccordion } from './block-accordion.svg';
 import { ReactComponent as blockAccordionCollapse } from './block-accordion-collapse.svg';
 import { ReactComponent as blockAccordionItem } from './block-accordion-item.svg';

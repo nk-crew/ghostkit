@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import useResponsive from '../../../hooks/use-responsive';
 import useStyles from '../../../hooks/use-styles';
 

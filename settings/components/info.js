@@ -1,5 +1,5 @@
-export default function( props ) {
+export default function (props) {
 	const { children } = props;
 
-	return <div className="ghostkit-settings-info">{ children }</div>;
+	return <div className="ghostkit-settings-info">{children}</div>;
 }

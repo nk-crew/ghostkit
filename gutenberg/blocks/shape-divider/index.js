@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
@@ -11,10 +8,10 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-shape-divider', true ),
+	icon: getIcon('block-shape-divider', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/shape-divider/',
-		customStylesCallback( attributes ) {
+		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-shape-divider__color': attributes.color || undefined,
 				svg: {
@@ -47,29 +44,34 @@ export const settings = {
 				},
 			};
 
-			Object.keys( attributes ).forEach( ( key ) => {
-				if ( typeof attributes[ key ] !== 'undefined' && attributes[ key ] !== '' ) {
-					let prefix = key.split( '_' )[ 0 ];
-					let type = key.split( '_' )[ 1 ];
+			Object.keys(attributes).forEach((key) => {
+				if (
+					typeof attributes[key] !== 'undefined' &&
+					attributes[key] !== ''
+				) {
+					let prefix = key.split('_')[0];
+					let type = key.split('_')[1];
 
-					if ( ! type ) {
+					if (!type) {
 						type = prefix;
 						prefix = '';
 					}
 
-					if ( type && ( type === 'height' || type === 'width' ) ) {
-						if ( type === 'height' && prefix ) {
-							styles[ `media_${ prefix }` ].svg.height = `${ attributes[ key ] }px`;
-						} else if ( type === 'height' ) {
-							styles.svg.height = `${ attributes[ key ] }px`;
-						} else if ( type === 'width' && prefix ) {
-							styles[ `media_${ prefix }` ].svg.width = `${ attributes[ key ] }%`;
-						} else if ( type === 'width' ) {
-							styles.svg.width = `${ attributes[ key ] }%`;
+					if (type && (type === 'height' || type === 'width')) {
+						if (type === 'height' && prefix) {
+							styles[`media_${prefix}`].svg.height =
+								`${attributes[key]}px`;
+						} else if (type === 'height') {
+							styles.svg.height = `${attributes[key]}px`;
+						} else if (type === 'width' && prefix) {
+							styles[`media_${prefix}`].svg.width =
+								`${attributes[key]}%`;
+						} else if (type === 'width') {
+							styles.svg.width = `${attributes[key]}%`;
 						}
 					}
 				}
-			} );
+			});
 
 			return styles;
 		},

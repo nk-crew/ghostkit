@@ -1,11 +1,5 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-/**
- * WordPress dependencies
- */
 import { ColorIndicator as WPColorIndicator } from '@wordpress/components';
 
 /**
@@ -13,10 +7,13 @@ import { ColorIndicator as WPColorIndicator } from '@wordpress/components';
  *
  * @param props
  */
-export default function ColorIndicator( props ) {
+export default function ColorIndicator(props) {
 	const { className } = props;
 
 	return (
-		<WPColorIndicator { ...props } className={ classnames( 'ghostkit-color-indicator', className ) } />
+		<WPColorIndicator
+			{...props}
+			className={classnames('ghostkit-color-indicator', className)}
+		/>
 	);
 }

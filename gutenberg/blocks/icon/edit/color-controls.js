@@ -1,6 +1,3 @@
-/**
- * WordPress dependencies
- */
 import {
 	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
@@ -8,7 +5,7 @@ import {
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
-export default function ColorControls( props ) {
+export default function ColorControls(props) {
 	const { attributes, setAttributes, clientId } = props;
 	const { color, backgroundColor, backgroundGradient } = attributes;
 
@@ -18,37 +15,37 @@ export default function ColorControls( props ) {
 		<InspectorControls group="color">
 			<ColorGradientSettingsDropdown
 				__experimentalIsRenderedInSidebar
-				settings={ [
+				settings={[
 					{
 						colorValue: color,
-						label: __( 'Icon', 'ghostkit' ),
-						onColorChange: ( val ) => {
-							setAttributes( { color: val } );
+						label: __('Icon', 'ghostkit'),
+						onColorChange: (val) => {
+							setAttributes({ color: val });
 						},
 						isShownByDefault: true,
-						resetAllFilter: () => ( {
+						resetAllFilter: () => ({
 							color: undefined,
-						} ),
+						}),
 					},
 					{
 						colorValue: backgroundColor,
 						gradientValue: backgroundGradient,
-						label: __( 'Background', 'ghostkit' ),
-						onColorChange: ( val ) => {
-							setAttributes( { backgroundColor: val } );
+						label: __('Background', 'ghostkit'),
+						onColorChange: (val) => {
+							setAttributes({ backgroundColor: val });
 						},
-						onGradientChange: ( val ) => {
-							setAttributes( { backgroundGradient: val } );
+						onGradientChange: (val) => {
+							setAttributes({ backgroundGradient: val });
 						},
 						isShownByDefault: true,
-						resetAllFilter: () => ( {
+						resetAllFilter: () => ({
 							backgroundColor: undefined,
 							backgroundGradient: undefined,
-						} ),
+						}),
 					},
-				] }
-				panelId={ clientId }
-				{ ...colorGradientSettings }
+				]}
+				panelId={clientId}
+				{...colorGradientSettings}
 			/>
 		</InspectorControls>
 	) : null;

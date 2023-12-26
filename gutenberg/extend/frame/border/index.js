@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
@@ -8,9 +5,6 @@ import {
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ColorPicker from '../../../components/color-picker';
@@ -28,7 +22,7 @@ import { hasBlockSupport } from '@wordpress/blocks';
 
 const hoverSelector = '&:hover';
 
-const allBorderProps = [ 'border-style', 'border-width', 'border-color' ];
+const allBorderProps = ['border-style', 'border-width', 'border-color'];
 
 const borderStyles = [
 	{
@@ -100,90 +94,118 @@ const borderStyles = [
 	},
 ];
 
-function FrameBorderTools( props ) {
-	const [ isHover, setIsHover ] = useState( false );
+function FrameBorderTools(props) {
+	const [isHover, setIsHover] = useState(false);
 
-	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles( props );
+	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 	const { device, allDevices } = useResponsive();
 
 	let hasBorder = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-		allBorderProps.forEach( ( thisProp ) => {
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+		allBorderProps.forEach((thisProp) => {
 			hasBorder =
-        hasBorder ||
-        hasStyle( thisProp, thisDevice ) ||
-        hasStyle( thisProp, thisDevice, hoverSelector );
-		} );
-	} );
+				hasBorder ||
+				hasStyle(thisProp, thisDevice) ||
+				hasStyle(thisProp, thisDevice, hoverSelector);
+		});
+	});
 
-	const borderStyle = getStyle( 'border-style', device, isHover && hoverSelector );
+	const borderStyle = getStyle(
+		'border-style',
+		device,
+		isHover && hoverSelector
+	);
 
-	const baseControlLabel = <>
-		{ __( 'Border', 'ghostkit' ) }
-		<ResponsiveToggle
-			checkActive={ ( checkMedia ) => {
-				return hasStyle( 'border-style', checkMedia, isHover && hoverSelector );
-			} }
-		/>
-		<ElementStateToggle
-			isHover={ isHover }
-			onChange={ () => {
-				setIsHover( ! isHover );
-			} }
-			checkActive={ () => {
-				return hasStyle( 'border-style', device, hoverSelector );
-			} }
-		/>
-	</>;
+	const baseControlLabel = (
+		<>
+			{__('Border', 'ghostkit')}
+			<ResponsiveToggle
+				checkActive={(checkMedia) => {
+					return hasStyle(
+						'border-style',
+						checkMedia,
+						isHover && hoverSelector
+					);
+				}}
+			/>
+			<ElementStateToggle
+				isHover={isHover}
+				onChange={() => {
+					setIsHover(!isHover);
+				}}
+				checkActive={() => {
+					return hasStyle('border-style', device, hoverSelector);
+				}}
+			/>
+		</>
+	);
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Border', 'ghostkit' ) }
-			hasValue={ () => !! hasBorder }
-			onSelect={ () => {
-				setStyles( {
+			label={__('Border', 'ghostkit')}
+			hasValue={() => !!hasBorder}
+			onSelect={() => {
+				setStyles({
 					'border-style': 'solid',
 					'border-width': '1px',
 					'border-color': '#000',
-				} );
-			} }
-			onDeselect={ () => {
-				resetStyles( allBorderProps, true, [ '', '&:hover' ] );
-			} }
-			isShownByDefault={ false }
+				});
+			}}
+			onDeselect={() => {
+				resetStyles(allBorderProps, true, ['', '&:hover']);
+			}}
+			isShownByDefault={false}
 		>
-			<BaseControl
-				id={ baseControlLabel }
-				label={ baseControlLabel }
-			>
+			<BaseControl id={baseControlLabel} label={baseControlLabel}>
 				<div className="ghostkit-control-border-row">
 					<ColorPicker
-						value={ maybeDecode( getStyle( 'border-color', device, isHover && hoverSelector ) ) }
-						onChange={ ( value ) =>
-							setStyles( { 'border-color': value }, device, isHover && hoverSelector )
+						value={maybeDecode(
+							getStyle(
+								'border-color',
+								device,
+								isHover && hoverSelector
+							)
+						)}
+						onChange={(value) =>
+							setStyles(
+								{ 'border-color': value },
+								device,
+								isHover && hoverSelector
+							)
 						}
 						alpha
 					/>
 					<ToggleGroup
-						value={ borderStyle }
-						options={ borderStyles }
-						onChange={ ( value ) => {
+						value={borderStyle}
+						options={borderStyles}
+						onChange={(value) => {
 							setStyles(
-								{ 'border-style': value === 'none' ? '' : value },
+								{
+									'border-style':
+										value === 'none' ? '' : value,
+								},
 								device,
 								isHover && hoverSelector
 							);
-						} }
+						}}
 						isBlock
 					/>
 					<InputDrag
-						value={ getStyle( 'border-width', device, isHover && hoverSelector ) }
-						placeholder={ __( 'Width', 'ghostkit' ) }
-						onChange={ ( value ) =>
-							setStyles( { 'border-width': value }, device, isHover && hoverSelector )
+						value={getStyle(
+							'border-width',
+							device,
+							isHover && hoverSelector
+						)}
+						placeholder={__('Width', 'ghostkit')}
+						onChange={(value) =>
+							setStyles(
+								{ 'border-width': value },
+								device,
+								isHover && hoverSelector
+							)
 						}
-						startDistance={ 1 }
+						startDistance={1}
 						autoComplete="off"
 					/>
 				</div>
@@ -195,17 +217,21 @@ function FrameBorderTools( props ) {
 addFilter(
 	'ghostkit.extension.frame.tools',
 	'ghostkit/extension/frame/tools/border',
-	( children, { props } ) => {
-		const hasBorderSupport = hasBlockSupport( props.name, [ 'ghostkit', 'frame', 'border' ] );
+	(children, { props }) => {
+		const hasBorderSupport = hasBlockSupport(props.name, [
+			'ghostkit',
+			'frame',
+			'border',
+		]);
 
-		if ( ! hasBorderSupport ) {
+		if (!hasBorderSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<FrameBorderTools { ...props } />
+				{children}
+				<FrameBorderTools {...props} />
 			</>
 		);
 	}

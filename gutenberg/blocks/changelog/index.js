@@ -1,9 +1,3 @@
-/**
- * Internal dependencies
- */
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import getIcon from '../../utils/get-icon';
@@ -16,7 +10,7 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-changelog', true ),
+	icon: getIcon('block-changelog', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/changelog/',
 	},
@@ -31,22 +25,31 @@ export const settings = {
 				attributes: {
 					values: [
 						<li key="list-item-1">
-							<span className="ghostkit-badge" style={ { backgroundColor: '#4ab866' } }>
-								{ __( 'Added', 'ghostkit' ) }
+							<span
+								className="ghostkit-badge"
+								style={{ backgroundColor: '#4ab866' }}
+							>
+								{__('Added', 'ghostkit')}
 							</span>
-							{ __( 'Something', 'ghostkit' ) }
+							{__('Something', 'ghostkit')}
 						</li>,
 						<li key="list-item-2">
-							<span className="ghostkit-badge" style={ { backgroundColor: '#0366d6' } }>
-								{ __( 'Fixed', 'ghostkit' ) }
+							<span
+								className="ghostkit-badge"
+								style={{ backgroundColor: '#0366d6' }}
+							>
+								{__('Fixed', 'ghostkit')}
 							</span>
-							{ __( 'Something', 'ghostkit' ) }
+							{__('Something', 'ghostkit')}
 						</li>,
 						<li key="list-item-3">
-							<span className="ghostkit-badge" style={ { backgroundColor: '#63656b' } }>
-								{ __( 'Changed', 'ghostkit' ) }
+							<span
+								className="ghostkit-badge"
+								style={{ backgroundColor: '#63656b' }}
+							>
+								{__('Changed', 'ghostkit')}
 							</span>
-							{ __( 'Something', 'ghostkit' ) }
+							{__('Something', 'ghostkit')}
 						</li>,
 					],
 				},

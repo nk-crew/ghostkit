@@ -1,53 +1,47 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 import selectStyles from 'gutenberg-react-select-styles';
 import Select, { components } from 'react-select';
 import { AutoSizer, List } from 'react-virtualized';
 
-/**
- * WordPress dependencies
- */
 const rowHeight = 26;
 
-function MenuList( props ) {
+function MenuList(props) {
 	const { children, maxHeight } = props;
 
-	if ( ! children.length ) {
+	if (!children.length) {
 		return null;
 	}
 
 	return (
 		<AutoSizer disableHeight>
-			{ ( { width } ) => {
+			{({ width }) => {
 				return (
 					<List
-						height={ maxHeight }
-						rowCount={ children.length }
-						rowHeight={ rowHeight }
+						height={maxHeight}
+						rowCount={children.length}
+						rowHeight={rowHeight}
 						// eslint-disable-next-line react/no-unstable-nested-components
-						rowRenderer={ ( { index, key, style } ) => {
+						rowRenderer={({ index, key, style }) => {
 							return (
-								<div key={ key } style={ style }>
-									{ children[ index ] }
+								<div key={key} style={style}>
+									{children[index]}
 								</div>
 							);
-						} }
-						width={ width }
+						}}
+						width={width}
 					/>
 				);
-			} }
+			}}
 		</AutoSizer>
 	);
 }
 
 const { Option: DefaultOption } = components;
-function Option( props ) {
+function Option(props) {
 	return (
-		<DefaultOption { ...props }>
-			{ props?.data?.icon || '' }
-			{ props.data.label }
+		<DefaultOption {...props}>
+			{props?.data?.icon || ''}
+			{props.data.label}
 		</DefaultOption>
 	);
 }
@@ -57,15 +51,15 @@ function Option( props ) {
  *
  * @param props
  */
-export default function SelectComponent( props ) {
+export default function SelectComponent(props) {
 	const { className, ...restProps } = props;
 
 	const selectProps = {
-		...( props.grouped
+		...(props.grouped
 			? {
-				groupHeaderHeight: 50,
-			}
-			: {} ),
+					groupHeaderHeight: 50,
+				}
+			: {}),
 		...restProps,
 	};
 
@@ -74,12 +68,12 @@ export default function SelectComponent( props ) {
 
 	return (
 		<Select
-			styles={ {
+			styles={{
 				...selectStyles,
-				option( styles, state ) {
-					const newStyles = selectStyles.option( styles, state );
+				option(styles, state) {
+					const newStyles = selectStyles.option(styles, state);
 
-					newStyles[ '> svg' ] = {
+					newStyles['> svg'] = {
 						width: '24px',
 						height: 'auto',
 						marginRight: '5px',
@@ -87,10 +81,10 @@ export default function SelectComponent( props ) {
 
 					return newStyles;
 				},
-			} }
-			components={ { ...( withVirtualized ? { MenuList } : {} ), Option } }
-			className={ classnames( 'ghostkit-control-select', className ) }
-			{ ...selectProps }
+			}}
+			components={{ ...(withVirtualized ? { MenuList } : {}), Option }}
+			className={classnames('ghostkit-control-select', className)}
+			{...selectProps}
 		/>
 	);
 }

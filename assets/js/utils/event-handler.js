@@ -24,7 +24,7 @@ const customEvents = {
 	mouseleave: 'mouseout',
 };
 
-const nativeEvents = new Set( [
+const nativeEvents = new Set([
 	'click',
 	'dblclick',
 	'mouseup',
@@ -71,7 +71,7 @@ const nativeEvents = new Set( [
 	'error',
 	'abort',
 	'scroll',
-] );
+]);
 
 /**
  * Public methods
@@ -83,66 +83,70 @@ const EventHandler = {};
  * Private methods
  */
 
-function hydrateObj( obj, meta = {} ) {
-	for ( const [ key, value ] of Object.entries( meta ) ) {
+function hydrateObj(obj, meta = {}) {
+	for (const [key, value] of Object.entries(meta)) {
 		try {
-			obj[ key ] = value;
+			obj[key] = value;
 		} catch {
-			Object.defineProperty( obj, key, {
+			Object.defineProperty(obj, key, {
 				configurable: true,
 				get() {
 					return value;
 				},
-			} );
+			});
 		}
 	}
 
 	return obj;
 }
 
-function makeEventUid( element, uid ) {
-	return ( uid && `${ uid }::${ uidEvent++ }` ) || element.uidEvent || uidEvent++;
+function makeEventUid(element, uid) {
+	return (uid && `${uid}::${uidEvent++}`) || element.uidEvent || uidEvent++;
 }
 
-function getElementEvents( element ) {
-	const uid = makeEventUid( element );
+function getElementEvents(element) {
+	const uid = makeEventUid(element);
 
 	element.uidEvent = uid;
-	eventRegistry[ uid ] = eventRegistry[ uid ] || {};
+	eventRegistry[uid] = eventRegistry[uid] || {};
 
-	return eventRegistry[ uid ];
+	return eventRegistry[uid];
 }
 
-function bootstrapHandler( element, fn ) {
-	return function handler( event ) {
-		hydrateObj( event, { delegateTarget: element } );
+function bootstrapHandler(element, fn) {
+	return function handler(event) {
+		hydrateObj(event, { delegateTarget: element });
 
-		if ( handler.oneOff ) {
-			EventHandler.off( element, event.type, fn );
+		if (handler.oneOff) {
+			EventHandler.off(element, event.type, fn);
 		}
 
-		return fn.apply( element, [ event ] );
+		return fn.apply(element, [event]);
 	};
 }
 
-function bootstrapDelegationHandler( element, selector, fn ) {
-	return function handler( event ) {
-		const domElements = element.querySelectorAll( selector );
+function bootstrapDelegationHandler(element, selector, fn) {
+	return function handler(event) {
+		const domElements = element.querySelectorAll(selector);
 
-		for ( let { target } = event; target && target !== this; target = target.parentNode ) {
+		for (
+			let { target } = event;
+			target && target !== this;
+			target = target.parentNode
+		) {
 			// eslint-disable-next-line no-restricted-syntax
-			for ( const domElement of domElements ) {
-				if ( domElement !== target ) {
+			for (const domElement of domElements) {
+				if (domElement !== target) {
 					continue;
 				}
 
-				hydrateObj( event, { delegateTarget: target } );
+				hydrateObj(event, { delegateTarget: target });
 
-				if ( handler.oneOff ) {
-					EventHandler.off( element, event.type, selector, fn );
+				if (handler.oneOff) {
+					EventHandler.off(element, event.type, selector, fn);
 				}
 
-				return fn.apply( target, [ event ] );
+				return fn.apply(target, [event]);
 			}
 		}
 
@@ -150,33 +154,43 @@ function bootstrapDelegationHandler( element, selector, fn ) {
 	};
 }
 
-function findHandler( events, callable, delegationSelector = null ) {
-	return Object.values( events ).find(
-		( event ) => event.callable === callable && event.delegationSelector === delegationSelector
+function findHandler(events, callable, delegationSelector = null) {
+	return Object.values(events).find(
+		(event) =>
+			event.callable === callable &&
+			event.delegationSelector === delegationSelector
 	);
 }
 
-function getTypeEvent( event ) {
+function getTypeEvent(event) {
 	// allow to get the native events from namespaced events ('click.ghostkit.button' --> 'click')
-	event = event.replace( stripNameRegex, '' );
-	return customEvents[ event ] || event;
+	event = event.replace(stripNameRegex, '');
+	return customEvents[event] || event;
 }
 
-function normalizeParameters( originalTypeEvent, handler, delegationFunction ) {
+function normalizeParameters(originalTypeEvent, handler, delegationFunction) {
 	const isDelegated = typeof handler === 'string';
 	// TODO: tooltip passes `false` instead of selector, so we need to check
-	const callable = isDelegated ? delegationFunction : handler || delegationFunction;
-	let typeEvent = getTypeEvent( originalTypeEvent );
+	const callable = isDelegated
+		? delegationFunction
+		: handler || delegationFunction;
+	let typeEvent = getTypeEvent(originalTypeEvent);
 
-	if ( ! nativeEvents.has( typeEvent ) ) {
+	if (!nativeEvents.has(typeEvent)) {
 		typeEvent = originalTypeEvent;
 	}
 
-	return [ isDelegated, callable, typeEvent ];
+	return [isDelegated, callable, typeEvent];
 }
 
-function addHandler( element, originalTypeEvent, handler, delegationFunction, oneOff ) {
-	let [ isDelegated, callable, typeEvent ] = normalizeParameters(
+function addHandler(
+	element,
+	originalTypeEvent,
+	handler,
+	delegationFunction,
+	oneOff
+) {
+	let [isDelegated, callable, typeEvent] = normalizeParameters(
 		originalTypeEvent,
 		handler,
 		delegationFunction
@@ -184,65 +198,84 @@ function addHandler( element, originalTypeEvent, handler, delegationFunction, on
 
 	// in case of mouseenter or mouseleave wrap the handler within a function that checks for its DOM position
 	// this prevents the handler from being dispatched the same way as mouseover or mouseout does
-	if ( originalTypeEvent in customEvents ) {
-		const wrapFunction = ( fn ) => {
-			return function( event ) {
+	if (originalTypeEvent in customEvents) {
+		const wrapFunction = (fn) => {
+			return function (event) {
 				if (
-					! event.relatedTarget ||
-          ( event.relatedTarget !== event.delegateTarget &&
-            ! event.delegateTarget.contains( event.relatedTarget ) )
+					!event.relatedTarget ||
+					(event.relatedTarget !== event.delegateTarget &&
+						!event.delegateTarget.contains(event.relatedTarget))
 				) {
-					return fn.call( this, event );
+					return fn.call(this, event);
 				}
 
 				return false;
 			};
 		};
 
-		callable = wrapFunction( callable );
+		callable = wrapFunction(callable);
 	}
 
-	const events = getElementEvents( element );
-	const handlers = events[ typeEvent ] || ( events[ typeEvent ] = {} );
-	const previousFunction = findHandler( handlers, callable, isDelegated ? handler : null );
+	const events = getElementEvents(element);
+	const handlers = events[typeEvent] || (events[typeEvent] = {});
+	const previousFunction = findHandler(
+		handlers,
+		callable,
+		isDelegated ? handler : null
+	);
 
-	if ( previousFunction ) {
+	if (previousFunction) {
 		previousFunction.oneOff = previousFunction.oneOff && oneOff;
 
 		return;
 	}
 
-	const uid = makeEventUid( callable, originalTypeEvent.replace( namespaceRegex, '' ) );
+	const uid = makeEventUid(
+		callable,
+		originalTypeEvent.replace(namespaceRegex, '')
+	);
 	const fn = isDelegated
-		? bootstrapDelegationHandler( element, handler, callable )
-		: bootstrapHandler( element, callable );
+		? bootstrapDelegationHandler(element, handler, callable)
+		: bootstrapHandler(element, callable);
 
 	fn.delegationSelector = isDelegated ? handler : null;
 	fn.callable = callable;
 	fn.oneOff = oneOff;
 	fn.uidEvent = uid;
-	handlers[ uid ] = fn;
+	handlers[uid] = fn;
 
-	element.addEventListener( typeEvent, fn, isDelegated );
+	element.addEventListener(typeEvent, fn, isDelegated);
 }
 
-function removeHandler( element, events, typeEvent, handler, delegationSelector ) {
-	const fn = findHandler( events[ typeEvent ], handler, delegationSelector );
+function removeHandler(
+	element,
+	events,
+	typeEvent,
+	handler,
+	delegationSelector
+) {
+	const fn = findHandler(events[typeEvent], handler, delegationSelector);
 
-	if ( ! fn ) {
+	if (!fn) {
 		return;
 	}
 
-	element.removeEventListener( typeEvent, fn, Boolean( delegationSelector ) );
-	delete events[ typeEvent ][ fn.uidEvent ];
+	element.removeEventListener(typeEvent, fn, Boolean(delegationSelector));
+	delete events[typeEvent][fn.uidEvent];
 }
 
-function removeNamespacedHandlers( element, events, typeEvent, namespace ) {
-	const storeElementEvent = events[ typeEvent ] || {};
+function removeNamespacedHandlers(element, events, typeEvent, namespace) {
+	const storeElementEvent = events[typeEvent] || {};
 
-	for ( const [ handlerKey, event ] of Object.entries( storeElementEvent ) ) {
-		if ( handlerKey.includes( namespace ) ) {
-			removeHandler( element, events, typeEvent, event.callable, event.delegationSelector );
+	for (const [handlerKey, event] of Object.entries(storeElementEvent)) {
+		if (handlerKey.includes(namespace)) {
+			removeHandler(
+				element,
+				events,
+				typeEvent,
+				event.callable,
+				event.delegationSelector
+			);
 		}
 	}
 }
@@ -251,77 +284,106 @@ function removeNamespacedHandlers( element, events, typeEvent, namespace ) {
  * Public methods
  */
 
-EventHandler.on = function( element, event, handler, delegationFunction ) {
-	if ( typeof event !== 'string' || ! element ) {
+EventHandler.on = function (element, event, handler, delegationFunction) {
+	if (typeof event !== 'string' || !element) {
 		return;
 	}
 
-	event.split( ' ' ).forEach( ( originalTypeEvent ) => {
-		addHandler( element, originalTypeEvent, handler, delegationFunction, false );
-	} );
+	event.split(' ').forEach((originalTypeEvent) => {
+		addHandler(
+			element,
+			originalTypeEvent,
+			handler,
+			delegationFunction,
+			false
+		);
+	});
 };
 
-EventHandler.one = function( element, event, handler, delegationFunction ) {
-	if ( typeof event !== 'string' || ! element ) {
+EventHandler.one = function (element, event, handler, delegationFunction) {
+	if (typeof event !== 'string' || !element) {
 		return;
 	}
 
-	event.split( ' ' ).forEach( ( originalTypeEvent ) => {
-		addHandler( element, originalTypeEvent, handler, delegationFunction, true );
-	} );
+	event.split(' ').forEach((originalTypeEvent) => {
+		addHandler(
+			element,
+			originalTypeEvent,
+			handler,
+			delegationFunction,
+			true
+		);
+	});
 };
 
-EventHandler.off = function( element, event, handler, delegationFunction ) {
-	if ( typeof originalTypeEvent !== 'string' || ! element ) {
+EventHandler.off = function (element, event, handler, delegationFunction) {
+	if (typeof originalTypeEvent !== 'string' || !element) {
 		return;
 	}
 
-	event.split( ' ' ).forEach( ( originalTypeEvent ) => {
+	event.split(' ').forEach((originalTypeEvent) => {
 		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
-		const [ isDelegated, callable, typeEvent ] = normalizeParameters(
+		const [isDelegated, callable, typeEvent] = normalizeParameters(
 			originalTypeEvent,
 			handler,
 			delegationFunction
 		);
 		const inNamespace = typeEvent !== originalTypeEvent;
-		const events = getElementEvents( element );
-		const storeElementEvent = events[ typeEvent ] || {};
+		const events = getElementEvents(element);
+		const storeElementEvent = events[typeEvent] || {};
 
-		if ( typeof callable !== 'undefined' ) {
+		if (typeof callable !== 'undefined') {
 			// Simplest case: handler is passed, remove that listener ONLY.
-			if ( ! Object.keys( storeElementEvent ).length ) {
+			if (!Object.keys(storeElementEvent).length) {
 				return;
 			}
 
-			removeHandler( element, events, typeEvent, callable, isDelegated ? handler : null );
+			removeHandler(
+				element,
+				events,
+				typeEvent,
+				callable,
+				isDelegated ? handler : null
+			);
 			return;
 		}
 
-		const isNamespace = originalTypeEvent.startsWith( '.' );
+		const isNamespace = originalTypeEvent.startsWith('.');
 
-		if ( isNamespace ) {
-			for ( const elementEvent of Object.keys( events ) ) {
-				removeNamespacedHandlers( element, events, elementEvent, originalTypeEvent.slice( 1 ) );
+		if (isNamespace) {
+			for (const elementEvent of Object.keys(events)) {
+				removeNamespacedHandlers(
+					element,
+					events,
+					elementEvent,
+					originalTypeEvent.slice(1)
+				);
 			}
 		}
 
-		for ( const [ keyHandlers, evt ] of Object.entries( storeElementEvent ) ) {
-			const handlerKey = keyHandlers.replace( stripUidRegex, '' );
+		for (const [keyHandlers, evt] of Object.entries(storeElementEvent)) {
+			const handlerKey = keyHandlers.replace(stripUidRegex, '');
 
-			if ( ! inNamespace || originalTypeEvent.includes( handlerKey ) ) {
-				removeHandler( element, events, typeEvent, evt.callable, evt.delegationSelector );
+			if (!inNamespace || originalTypeEvent.includes(handlerKey)) {
+				removeHandler(
+					element,
+					events,
+					typeEvent,
+					evt.callable,
+					evt.delegationSelector
+				);
 			}
 		}
-	} );
+	});
 };
 
-EventHandler.trigger = function( element, event, args ) {
-	if ( typeof event !== 'string' || ! element ) {
+EventHandler.trigger = function (element, event, args) {
+	if (typeof event !== 'string' || !element) {
 		return null;
 	}
 
 	const $ = getjQuery();
-	const typeEvent = getTypeEvent( event );
+	const typeEvent = getTypeEvent(event);
 	const inNamespace = event !== typeEvent;
 
 	let jQueryEvent = null;
@@ -329,26 +391,29 @@ EventHandler.trigger = function( element, event, args ) {
 	let nativeDispatch = true;
 	let defaultPrevented = false;
 
-	if ( inNamespace && $ ) {
-		jQueryEvent = $.Event( event, args );
+	if (inNamespace && $) {
+		jQueryEvent = $.Event(event, args);
 
-		$( element ).trigger( jQueryEvent );
-		bubbles = ! jQueryEvent.isPropagationStopped();
-		nativeDispatch = ! jQueryEvent.isImmediatePropagationStopped();
+		$(element).trigger(jQueryEvent);
+		bubbles = !jQueryEvent.isPropagationStopped();
+		nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
 		defaultPrevented = jQueryEvent.isDefaultPrevented();
 	}
 
-	const evt = hydrateObj( new Event( event, { bubbles, cancelable: true } ), args );
+	const evt = hydrateObj(
+		new Event(event, { bubbles, cancelable: true }),
+		args
+	);
 
-	if ( defaultPrevented ) {
+	if (defaultPrevented) {
 		evt.preventDefault();
 	}
 
-	if ( nativeDispatch ) {
-		element.dispatchEvent( evt );
+	if (nativeDispatch) {
+		element.dispatchEvent(evt);
 	}
 
-	if ( evt.defaultPrevented && jQueryEvent ) {
+	if (evt.defaultPrevented && jQueryEvent) {
 		jQueryEvent.preventDefault();
 	}
 

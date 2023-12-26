@@ -1,24 +1,14 @@
-/**
- * Internal dependencies
- */
 import compactObject from '../../utils/compact-object';
 import merge from '../../utils/merge';
 import { getSpecificPropsFromStyles } from '../../utils/styles';
 import { EXTENSIONS } from '../constants';
 
-/**
- * WordPress dependencies
- */
 const { cloneDeep } = window.lodash;
 import { getBlockType, hasBlockSupport, parse } from '@wordpress/blocks';
 import { useDispatch, useRegistry } from '@wordpress/data';
 import { useCallback } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
-
-/**
- * Internal dependencies
- */
 
 /**
  * Determine if the copied text looks like serialized blocks or not.
@@ -28,18 +18,18 @@ import { store as noticesStore } from '@wordpress/notices';
  * @param {string} text The copied text.
  * @return {boolean} True if the text looks like serialized blocks, false otherwise.
  */
-function hasSerializedBlocks( text ) {
+function hasSerializedBlocks(text) {
 	try {
-		const blocks = parse( text, {
+		const blocks = parse(text, {
 			__unstableSkipMigrationLogs: true,
 			__unstableSkipAutop: true,
-		} );
-		if ( blocks.length === 1 && blocks[ 0 ].name === 'core/freeform' ) {
+		});
+		if (blocks.length === 1 && blocks[0].name === 'core/freeform') {
 			// It's likely that the text is just plain text and not serialized blocks.
 			return false;
 		}
 		return true;
-	} catch ( err ) {
+	} catch (err) {
 		// Parsing error, the text is not serialized blocks.
 		// (Even though that it technically won't happen)
 		return false;
@@ -55,11 +45,15 @@ function hasSerializedBlocks( text ) {
  *
  * @return {Object} the filtered attributes object.
  */
-function getGhostkitAttributes( sourceBlock, targetBlock, selectedExtension = '' ) {
+function getGhostkitAttributes(
+	sourceBlock,
+	targetBlock,
+	selectedExtension = ''
+) {
 	// Copy all extensions.
-	if ( ! selectedExtension ) {
+	if (!selectedExtension) {
 		return {
-			ghostkit: cloneDeep( sourceBlock?.attributes?.ghostkit || {} ),
+			ghostkit: cloneDeep(sourceBlock?.attributes?.ghostkit || {}),
 		};
 	}
 
@@ -67,14 +61,16 @@ function getGhostkitAttributes( sourceBlock, targetBlock, selectedExtension = ''
 
 	// Only apply the attribute if both blocks support it.
 	if (
-		hasBlockSupport( sourceBlock.name, [ 'ghostkit', selectedExtension ] ) &&
-    hasBlockSupport( targetBlock.name, [ 'ghostkit', selectedExtension ] )
+		hasBlockSupport(sourceBlock.name, ['ghostkit', selectedExtension]) &&
+		hasBlockSupport(targetBlock.name, ['ghostkit', selectedExtension])
 	) {
-		attributes.ghostkit = cloneDeep( targetBlock?.attributes?.ghostkit || {} );
+		attributes.ghostkit = cloneDeep(
+			targetBlock?.attributes?.ghostkit || {}
+		);
 
 		// Extension with styles.
-		if ( EXTENSIONS[ selectedExtension ]?.styles ) {
-			if ( ! attributes?.ghostkit?.styles ) {
+		if (EXTENSIONS[selectedExtension]?.styles) {
+			if (!attributes?.ghostkit?.styles) {
 				attributes.ghostkit.styles = {};
 			}
 
@@ -82,20 +78,23 @@ function getGhostkitAttributes( sourceBlock, targetBlock, selectedExtension = ''
 				attributes.ghostkit.styles,
 				getSpecificPropsFromStyles(
 					sourceBlock?.attributes?.ghostkit?.styles || {},
-					EXTENSIONS[ selectedExtension ].styles,
-					EXTENSIONS[ selectedExtension ].responsive,
-					EXTENSIONS[ selectedExtension ].selectors
+					EXTENSIONS[selectedExtension].styles,
+					EXTENSIONS[selectedExtension].responsive,
+					EXTENSIONS[selectedExtension].selectors
 				)
 			);
 
-			attributes.ghostkit.styles = compactObject( attributes.ghostkit.styles );
+			attributes.ghostkit.styles = compactObject(
+				attributes.ghostkit.styles
+			);
 		}
 
 		// Extension with attributes.
-		if ( EXTENSIONS[ selectedExtension ]?.attributes ) {
-			EXTENSIONS[ selectedExtension ].attributes.forEach( ( attrName ) => {
-				attributes.ghostkit[ attrName ] = sourceBlock?.attributes?.ghostkit?.[ attrName ] || undefined;
-			} );
+		if (EXTENSIONS[selectedExtension]?.attributes) {
+			EXTENSIONS[selectedExtension].attributes.forEach((attrName) => {
+				attributes.ghostkit[attrName] =
+					sourceBlock?.attributes?.ghostkit?.[attrName] || undefined;
+			});
 		}
 	}
 
@@ -117,15 +116,23 @@ function recursivelyUpdateBlockAttributes(
 	updateBlockAttributes,
 	selectedExtension = ''
 ) {
-	for ( let index = 0; index < Math.min( sourceBlocks.length, targetBlocks.length ); index += 1 ) {
+	for (
+		let index = 0;
+		index < Math.min(sourceBlocks.length, targetBlocks.length);
+		index += 1
+	) {
 		updateBlockAttributes(
-			targetBlocks[ index ].clientId,
-			getGhostkitAttributes( sourceBlocks[ index ], targetBlocks[ index ], selectedExtension )
+			targetBlocks[index].clientId,
+			getGhostkitAttributes(
+				sourceBlocks[index],
+				targetBlocks[index],
+				selectedExtension
+			)
 		);
 
 		recursivelyUpdateBlockAttributes(
-			targetBlocks[ index ].innerBlocks,
-			sourceBlocks[ index ].innerBlocks,
+			targetBlocks[index].innerBlocks,
+			sourceBlocks[index].innerBlocks,
 			updateBlockAttributes,
 			selectedExtension
 		);
@@ -139,16 +146,17 @@ function recursivelyUpdateBlockAttributes(
  */
 export default function usePasteExtensions() {
 	const registry = useRegistry();
-	const { updateBlockAttributes } = useDispatch( 'core/block-editor' );
-	const { createSuccessNotice, createWarningNotice, createErrorNotice } = useDispatch( noticesStore );
+	const { updateBlockAttributes } = useDispatch('core/block-editor');
+	const { createSuccessNotice, createWarningNotice, createErrorNotice } =
+		useDispatch(noticesStore);
 
 	return useCallback(
-		async ( targetBlocks, selectedExtension ) => {
+		async (targetBlocks, selectedExtension) => {
 			let html = '';
 			try {
 				// `http:` sites won't have the clipboard property on navigator.
 				// (with the exception of localhost.)
-				if ( ! window.navigator.clipboard ) {
+				if (!window.navigator.clipboard) {
 					createErrorNotice(
 						__(
 							'Unable to paste extensions. This feature is only available on secure (https) sites in supporting browsers.',
@@ -160,7 +168,7 @@ export default function usePasteExtensions() {
 				}
 
 				html = await window.navigator.clipboard.readText();
-			} catch ( error ) {
+			} catch (error) {
 				// Possibly the permission is denied.
 				createErrorNotice(
 					__(
@@ -175,7 +183,7 @@ export default function usePasteExtensions() {
 			}
 
 			// Abort if the copied text is empty or doesn't look like serialized blocks.
-			if ( ! html || ! hasSerializedBlocks( html ) ) {
+			if (!html || !hasSerializedBlocks(html)) {
 				createWarningNotice(
 					__(
 						"Unable to paste extensions. Block extensions couldn't be found within the copied content.",
@@ -188,35 +196,35 @@ export default function usePasteExtensions() {
 				return;
 			}
 
-			const copiedBlocks = parse( html );
+			const copiedBlocks = parse(html);
 
-			if ( copiedBlocks.length === 1 ) {
+			if (copiedBlocks.length === 1) {
 				// Apply extensions of the block to all the target blocks.
-				registry.batch( () => {
+				registry.batch(() => {
 					recursivelyUpdateBlockAttributes(
 						targetBlocks,
-						targetBlocks.map( () => copiedBlocks[ 0 ] ),
+						targetBlocks.map(() => copiedBlocks[0]),
 						updateBlockAttributes,
 						selectedExtension
 					);
-				} );
+				});
 			} else {
-				registry.batch( () => {
+				registry.batch(() => {
 					recursivelyUpdateBlockAttributes(
 						targetBlocks,
 						copiedBlocks,
 						updateBlockAttributes,
 						selectedExtension
 					);
-				} );
+				});
 			}
 
-			if ( targetBlocks.length === 1 ) {
-				const title = getBlockType( targetBlocks[ 0 ].name )?.title;
+			if (targetBlocks.length === 1) {
+				const title = getBlockType(targetBlocks[0].name)?.title;
 				createSuccessNotice(
 					sprintf(
 						// Translators: Name of the block being pasted, e.g. "Paragraph".
-						__( 'Pasted extensions to %s.' ),
+						__('Pasted extensions to %s.'),
 						title
 					),
 					{ type: 'snackbar' }
@@ -225,7 +233,7 @@ export default function usePasteExtensions() {
 				createSuccessNotice(
 					sprintf(
 						// Translators: The number of the blocks.
-						__( 'Pasted extensions to %d blocks.' ),
+						__('Pasted extensions to %d blocks.'),
 						targetBlocks.length
 					),
 					{ type: 'snackbar' }

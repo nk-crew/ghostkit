@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import './reveal';
 import './pro-effects';
 
@@ -14,9 +11,6 @@ import {
 	ToolbarDropdownMenu,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
@@ -31,40 +25,45 @@ const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
  * @param root0
  * @param root0.props
  */
-function GhostKitExtensionEffectsInspector( original, { props } ) {
+function GhostKitExtensionEffectsInspector(original, { props }) {
 	const { name, attributes, setAttributes } = props;
 
-	const hasEffectsSupport = hasBlockSupport( name, [ 'ghostkit', 'effects' ] );
+	const hasEffectsSupport = hasBlockSupport(name, ['ghostkit', 'effects']);
 
-	if ( ! hasEffectsSupport ) {
+	if (!hasEffectsSupport) {
 		return original;
 	}
 
 	return (
 		<>
-			{ original }
+			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
 					label={
 						<>
-							<span className="ghostkit-ext-icon">{ getIcon( 'extension-sr' ) }</span>
-							<span>{ __( 'Effects', 'ghostkit' ) }</span>
+							<span className="ghostkit-ext-icon">
+								{getIcon('extension-sr')}
+							</span>
+							<span>{__('Effects', 'ghostkit')}</span>
 						</>
 					}
-					resetAll={ () => {
+					resetAll={() => {
 						const ghostkitData = {
-							...( attributes?.ghostkit || {} ),
+							...(attributes?.ghostkit || {}),
 						};
 
-						if ( typeof ghostkitData?.effects !== 'undefined' ) {
+						if (typeof ghostkitData?.effects !== 'undefined') {
 							delete ghostkitData?.effects;
 
-							setAttributes( { ghostkit: ghostkitData } );
+							setAttributes({ ghostkit: ghostkitData });
 						}
-					} }
+					}}
 				>
 					<div className="ghostkit-tools-panel-effects">
-						<ApplyFilters name="ghostkit.extension.effects.tools" props={ props } />
+						<ApplyFilters
+							name="ghostkit.extension.effects.tools"
+							props={props}
+						/>
 					</div>
 				</ToolsPanel>
 			</InspectorControls>
@@ -79,62 +78,70 @@ function GhostKitExtensionEffectsInspector( original, { props } ) {
  * @param root0
  * @param root0.props
  */
-function GhostKitExtensionEffectsToolbar( original, { props } ) {
+function GhostKitExtensionEffectsToolbar(original, { props }) {
 	const { name, attributes, setAttributes } = props;
 
-	const hasEffectsSupport = hasBlockSupport( name, [ 'ghostkit', 'effects' ] );
+	const hasEffectsSupport = hasBlockSupport(name, ['ghostkit', 'effects']);
 
-	if ( ! hasEffectsSupport ) {
+	if (!hasEffectsSupport) {
 		return original;
 	}
 
 	const hasEffects = attributes?.ghostkit?.effects;
 
-	if ( ! hasEffects ) {
+	if (!hasEffects) {
 		return original;
 	}
 
 	return (
 		<>
-			{ original }
+			{original}
 			<BlockControls group="other">
 				<ToolbarDropdownMenu
-					icon={ getIcon( 'extension-sr' ) }
-					label={ __( 'Effects', 'ghostkit' ) }
-					menuProps={ {
+					icon={getIcon('extension-sr')}
+					label={__('Effects', 'ghostkit')}
+					menuProps={{
 						style: { width: '260px' },
-					} }
-					popoverProps={ { focusOnMount: false } }
+					}}
+					popoverProps={{ focusOnMount: false }}
 				>
-					{ () => (
+					{() => (
 						<>
 							<MenuGroup>
-								{ __(
+								{__(
 									'There are effects added to the current block. To change these options open the "Effects" block settings panel.',
 									'ghostkit'
-								) }
+								)}
 							</MenuGroup>
 							<MenuGroup>
-								{ __( 'Reset all effects of the current block:', 'ghostkit' ) }
+								{__(
+									'Reset all effects of the current block:',
+									'ghostkit'
+								)}
 								<Button
 									variant="link"
-									onClick={ () => {
+									onClick={() => {
 										const ghostkitData = {
-											...( attributes?.ghostkit || {} ),
+											...(attributes?.ghostkit || {}),
 										};
 
-										if ( typeof ghostkitData?.effects !== 'undefined' ) {
+										if (
+											typeof ghostkitData?.effects !==
+											'undefined'
+										) {
 											delete ghostkitData?.effects;
 
-											setAttributes( { ghostkit: ghostkitData } );
+											setAttributes({
+												ghostkit: ghostkitData,
+											});
 										}
-									} }
+									}}
 								>
-									{ __( 'Reset All', 'ghostkit' ) }
+									{__('Reset All', 'ghostkit')}
 								</Button>
 							</MenuGroup>
 						</>
-					) }
+					)}
 				</ToolbarDropdownMenu>
 			</BlockControls>
 		</>

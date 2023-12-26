@@ -7,19 +7,19 @@ const dCache = {};
  * @param {string} str - decoded string.
  * @return {string} - new encoded string.
  */
-export function maybeEncode( str ) {
+export function maybeEncode(str) {
 	// return cached string.
-	if ( eCache[ str ] ) {
-		return eCache[ str ];
+	if (eCache[str]) {
+		return eCache[str];
 	}
 
 	let result = {};
 
 	// Object
-	if ( typeof str === 'object' ) {
-		Object.keys( str ).forEach( ( k ) => {
-			result[ maybeEncode( k ) ] = maybeEncode( str[ k ] );
-		} );
+	if (typeof str === 'object') {
+		Object.keys(str).forEach((k) => {
+			result[maybeEncode(k)] = maybeEncode(str[k]);
+		});
 
 		return result;
 	}
@@ -27,21 +27,21 @@ export function maybeEncode( str ) {
 	// String
 	result = str;
 
-	if ( typeof result === 'string' ) {
+	if (typeof result === 'string') {
 		try {
 			// Because of these replacements, some attributes can't be exported to XML without being broken. So, we need to replace it manually with something safe.
 			// https://github.com/WordPress/gutenberg/blob/88645e4b268acf5746e914159e3ce790dcb1665a/packages/blocks/src/api/serializer.js#L246-L271
-			result = result.replace( /--/gm, '_u002d__u002d_' );
+			result = result.replace(/--/gm, '_u002d__u002d_');
 
-			result = encodeURIComponent( result );
-		} catch ( e ) {
+			result = encodeURIComponent(result);
+		} catch (e) {
 			// eslint-disable-next-line
       console.warn(e);
 		}
 	}
 
 	// save to cache.
-	eCache[ str ] = result;
+	eCache[str] = result;
 
 	return result;
 }
@@ -52,23 +52,23 @@ export function maybeEncode( str ) {
  * @param {string} str - decoded string.
  * @return {string} - new encoded string.
  */
-export function maybeDecode( str ) {
+export function maybeDecode(str) {
 	// return cached string.
-	if ( dCache[ str ] ) {
-		return dCache[ str ];
+	if (dCache[str]) {
+		return dCache[str];
 	}
 
 	let result = {};
 
-	if ( Array.isArray( str ) ) {
+	if (Array.isArray(str)) {
 		result = [];
 	}
 
 	// Object
-	if ( typeof str === 'object' ) {
-		Object.keys( str ).forEach( ( k ) => {
-			result[ maybeDecode( k ) ] = maybeDecode( str[ k ] );
-		} );
+	if (typeof str === 'object') {
+		Object.keys(str).forEach((k) => {
+			result[maybeDecode(k)] = maybeDecode(str[k]);
+		});
 
 		return result;
 	}
@@ -76,21 +76,21 @@ export function maybeDecode( str ) {
 	// String
 	result = str;
 
-	if ( typeof result === 'string' ) {
+	if (typeof result === 'string') {
 		try {
-			result = decodeURIComponent( result );
+			result = decodeURIComponent(result);
 
 			// Because of these replacements, some attributes can't be exported to XML without being broken. So, we need to replace it manually with something safe.
 			// https://github.com/WordPress/gutenberg/blob/88645e4b268acf5746e914159e3ce790dcb1665a/packages/blocks/src/api/serializer.js#L246-L271
-			result = result.replace( /_u002d__u002d_/gm, '--' );
-		} catch ( e ) {
+			result = result.replace(/_u002d__u002d_/gm, '--');
+		} catch (e) {
 			// eslint-disable-next-line
       console.warn(e);
 		}
 	}
 
 	// save to cache.
-	dCache[ str ] = result;
+	dCache[str] = result;
 
 	return result;
 }

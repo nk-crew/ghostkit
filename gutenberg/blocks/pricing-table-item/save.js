@@ -1,17 +1,12 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-import { RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-/**
- * WordPress dependencies
- */
+import {
+	RichText,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 
-/**
- * Internal dependencies
- */
 import metadata from './block.json';
 
 const { name } = metadata;
@@ -21,7 +16,7 @@ const { name } = metadata;
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const {
 		popularText,
 		title,
@@ -46,78 +41,81 @@ export default function BlockSave( props ) {
 		showPopular ? 'ghostkit-pricing-table-item-popular' : ''
 	);
 
-	className = applyFilters( 'ghostkit.blocks.className', className, {
+	className = applyFilters('ghostkit.blocks.className', className, {
 		...{
 			name,
 		},
 		...props,
-	} );
+	});
 
-	const blockProps = useBlockProps.save( { className: 'ghostkit-pricing-table-item-wrap' } );
-	const innerBlocksProps = useInnerBlocksProps.save( {
+	const blockProps = useBlockProps.save({
+		className: 'ghostkit-pricing-table-item-wrap',
+	});
+	const innerBlocksProps = useInnerBlocksProps.save({
 		className: 'ghostkit-pricing-table-item-button-wrapper',
-	} );
+	});
 
 	return (
-		<div { ...blockProps }>
-			<div className={ className }>
-				{ showTitle && ! RichText.isEmpty( title ) ? (
+		<div {...blockProps}>
+			<div className={className}>
+				{showTitle && !RichText.isEmpty(title) ? (
 					<RichText.Content
 						tagName="h3"
 						className="ghostkit-pricing-table-item-title"
-						value={ title }
+						value={title}
 					/>
-				) : null }
+				) : null}
 
-				{ showPrice && ! RichText.isEmpty( price ) ? (
+				{showPrice && !RichText.isEmpty(price) ? (
 					<div className="ghostkit-pricing-table-item-price">
-						{ showPriceCurrency && ! RichText.isEmpty( priceCurrency ) ? (
+						{showPriceCurrency &&
+						!RichText.isEmpty(priceCurrency) ? (
 							<RichText.Content
 								tagName="span"
 								className="ghostkit-pricing-table-item-price-currency"
-								value={ priceCurrency }
+								value={priceCurrency}
 							/>
-						) : null }
+						) : null}
 						<RichText.Content
 							tagName="span"
 							className="ghostkit-pricing-table-item-price-amount"
-							value={ price }
+							value={price}
 						/>
-						{ showPriceRepeat && ! RichText.isEmpty( priceRepeat ) ? (
+						{showPriceRepeat && !RichText.isEmpty(priceRepeat) ? (
 							<RichText.Content
 								tagName="span"
 								className="ghostkit-pricing-table-item-price-repeat"
-								value={ priceRepeat }
+								value={priceRepeat}
 							/>
-						) : null }
+						) : null}
 					</div>
-				) : null }
+				) : null}
 
-				{ showDescription && ! RichText.isEmpty( description ) ? (
+				{showDescription && !RichText.isEmpty(description) ? (
 					<RichText.Content
 						tagName="div"
 						className="ghostkit-pricing-table-item-description"
-						value={ description }
+						value={description}
 					/>
-				) : null }
+				) : null}
 
-				{ showFeatures && ! RichText.isEmpty( features ) ? (
+				{showFeatures && !RichText.isEmpty(features) ? (
 					<RichText.Content
 						tagName="ul"
 						className="ghostkit-pricing-table-item-features"
-						value={ features }
+						value={features}
 					/>
-				) : null }
+				) : null}
 
-				{ showButton ? <div { ...innerBlocksProps } /> : null }
+				{showButton ? <div {...innerBlocksProps} /> : null}
 
-				{ showPopular && ! RichText.isEmpty( popularText ) ? (
+				{showPopular && !RichText.isEmpty(popularText) ? (
 					<RichText.Content
 						tagName="div"
 						className="ghostkit-pricing-table-item-popular-badge"
-						value={ popularText }
+						value={popularText}
 					/>
-				) : null }
+				) : null}
 			</div>
 		</div>
 	);

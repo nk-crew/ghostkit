@@ -10,7 +10,7 @@
  * @param {HTMLElement} elementRef - The element whose context we want to return.
  * @return {Object}                 - The current document (`currentDoc`) and window (`currentWindow`) contexts.
  */
-export function getLoadContext( elementRef ) {
+export function getLoadContext(elementRef) {
 	const currentDoc = elementRef.ownerDocument;
 	const currentWindow = currentDoc.defaultView || currentDoc.parentWindow;
 
@@ -29,39 +29,44 @@ export function getLoadContext( elementRef ) {
  * @param {HTMLElement} elementRef - A reference for an element within the current block.
  * @param {Object}      callback   - Callback for js resources to be called when script loaded.
  */
-export function loadBlockEditorAssets( type, resourceId, elementRef, callback = () => {} ) {
-	const { currentDoc } = getLoadContext( elementRef );
-	const currentHead = currentDoc.getElementsByTagName( 'head' )[ 0 ];
+export function loadBlockEditorAssets(
+	type,
+	resourceId,
+	elementRef,
+	callback = () => {}
+) {
+	const { currentDoc } = getLoadContext(elementRef);
+	const currentHead = currentDoc.getElementsByTagName('head')[0];
 
-	const parentDocElement = document.getElementById( resourceId );
+	const parentDocElement = document.getElementById(resourceId);
 
-	if ( ! parentDocElement ) {
+	if (!parentDocElement) {
 		return;
 	}
 
-	const currentDocElement = currentDoc.getElementById( resourceId );
+	const currentDocElement = currentDoc.getElementById(resourceId);
 
 	// Already exists.
-	if ( currentDocElement ) {
+	if (currentDocElement) {
 		callback();
 
 		return;
 	}
 
-	if ( type === 'js' ) {
-		const scriptEl = currentDoc.createElement( 'script' );
+	if (type === 'js') {
+		const scriptEl = currentDoc.createElement('script');
 		scriptEl.id = resourceId;
 		scriptEl.type = 'text/javascript';
 		scriptEl.src = parentDocElement.src;
 		scriptEl.onload = callback;
-		currentHead.appendChild( scriptEl );
+		currentHead.appendChild(scriptEl);
 	}
 
-	if ( type === 'css' ) {
-		const styleEl = currentDoc.createElement( 'link' );
+	if (type === 'css') {
+		const styleEl = currentDoc.createElement('link');
 		styleEl.id = resourceId;
 		styleEl.rel = 'stylesheet';
 		styleEl.href = parentDocElement.href;
-		currentHead.appendChild( styleEl );
+		currentHead.appendChild(styleEl);
 	}
 }

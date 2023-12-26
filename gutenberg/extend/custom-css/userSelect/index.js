@@ -1,15 +1,9 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
 	SelectControl,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ResponsiveToggle from '../../../components/responsive-toggle';
@@ -20,56 +14,56 @@ const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
 import { hasBlockSupport } from '@wordpress/blocks';
 
-function CustomCSSUserSelectTools( props ) {
-	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles( props );
+function CustomCSSUserSelectTools(props) {
+	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
 	const { device, allDevices } = useResponsive();
 
 	let hasUserSelect = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-		hasUserSelect = hasUserSelect || hasStyle( 'user-select', thisDevice );
-	} );
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+		hasUserSelect = hasUserSelect || hasStyle('user-select', thisDevice);
+	});
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'User Select', 'ghostkit' ) }
-			hasValue={ () => !! hasUserSelect }
-			onSelect={ () => {
-				if ( ! hasStyle( 'user-select' ) ) {
-					setStyles( { 'user-select': 'none' } );
+			label={__('User Select', 'ghostkit')}
+			hasValue={() => !!hasUserSelect}
+			onSelect={() => {
+				if (!hasStyle('user-select')) {
+					setStyles({ 'user-select': 'none' });
 				}
-			} }
-			onDeselect={ () => {
-				resetStyles( [ 'user-select' ], true );
-			} }
-			isShownByDefault={ false }
+			}}
+			onDeselect={() => {
+				resetStyles(['user-select'], true);
+			}}
+			isShownByDefault={false}
 		>
 			<SelectControl
 				label={
 					<>
-						{ __( 'User Select', 'ghostkit' ) }
+						{__('User Select', 'ghostkit')}
 						<ResponsiveToggle
-							checkActive={ ( checkMedia ) => {
-								return hasStyle( 'user-select', checkMedia );
-							} }
+							checkActive={(checkMedia) => {
+								return hasStyle('user-select', checkMedia);
+							}}
 						/>
 					</>
 				}
-				value={ getStyle( 'user-select', device ) }
-				onChange={ ( val ) => {
-					setStyles( { 'user-select': val }, device );
-				} }
-				options={ [
+				value={getStyle('user-select', device)}
+				onChange={(val) => {
+					setStyles({ 'user-select': val }, device);
+				}}
+				options={[
 					{
 						value: 'none',
-						label: __( 'None', 'ghostkit' ),
+						label: __('None', 'ghostkit'),
 					},
 					{
 						value: 'auto',
-						label: __( 'Auto', 'ghostkit' ),
+						label: __('Auto', 'ghostkit'),
 					},
-				] }
+				]}
 			/>
 		</ToolsPanelItem>
 	);
@@ -78,21 +72,21 @@ function CustomCSSUserSelectTools( props ) {
 addFilter(
 	'ghostkit.extension.customCSS.tools',
 	'ghostkit/extension/customCSS/tools/userSelect',
-	( children, { props } ) => {
-		const hasUserSelectSupport = hasBlockSupport( props.name, [
+	(children, { props }) => {
+		const hasUserSelectSupport = hasBlockSupport(props.name, [
 			'ghostkit',
 			'customCSS',
 			'userSelect',
-		] );
+		]);
 
-		if ( ! hasUserSelectSupport ) {
+		if (!hasUserSelectSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<CustomCSSUserSelectTools { ...props } />
+				{children}
+				<CustomCSSUserSelectTools {...props} />
 			</>
 		);
 	}

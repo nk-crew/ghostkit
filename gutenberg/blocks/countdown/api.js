@@ -1,8 +1,7 @@
+/* eslint-disable no-bitwise */
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable no-param-reassign */
-/**
- * WordPress dependencies
- */
+
 import { _n } from '@wordpress/i18n';
 
 /**
@@ -16,7 +15,7 @@ import { _n } from '@wordpress/i18n';
  *
  * @return {Object|number}
  */
-export default ( () => {
+export default (() => {
 	const MILLISECONDS = 0x001;
 	const SECONDS = 0x002;
 	const MINUTES = 0x004;
@@ -28,13 +27,24 @@ export default ( () => {
 	// eslint-disable-next-line no-bitwise
 	const DEFAULTS = YEARS | MONTHS | DAYS | HOURS | MINUTES | SECONDS;
 	// eslint-disable-next-line no-bitwise
-	const ALL = YEARS | MONTHS | WEEKS | DAYS | HOURS | MINUTES | SECONDS | MILLISECONDS;
+	const ALL =
+		YEARS |
+		MONTHS |
+		WEEKS |
+		DAYS |
+		HOURS |
+		MINUTES |
+		SECONDS |
+		MILLISECONDS;
 	const MILLISECONDS_PER_SECOND = 1000;
 	const SECONDS_PER_MINUTE = 60;
 	const MINUTES_PER_HOUR = 60;
 	const HOURS_PER_DAY = 24;
 	const MILLISECONDS_PER_DAY =
-    HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
+		HOURS_PER_DAY *
+		MINUTES_PER_HOUR *
+		SECONDS_PER_MINUTE *
+		MILLISECONDS_PER_SECOND;
 	const DAYS_PER_WEEK = 7;
 	const MONTHS_PER_YEAR = 12;
 
@@ -47,14 +57,14 @@ export default ( () => {
 	 * @param {number} shift number of months to shift
 	 * @return {number} number of days shifted
 	 */
-	function borrowMonths( ref, shift ) {
+	function borrowMonths(ref, shift) {
 		const prevTime = ref.getTime();
 
 		// increment month by shift
-		ref.setMonth( ref.getMonth() + shift );
+		ref.setMonth(ref.getMonth() + shift);
 
 		// this is the trickiest since months vary in length
-		return Math.round( ( ref.getTime() - prevTime ) / MILLISECONDS_PER_DAY );
+		return Math.round((ref.getTime() - prevTime) / MILLISECONDS_PER_DAY);
 	}
 
 	/**
@@ -62,15 +72,15 @@ export default ( () => {
 	 * @param {Date} ref reference date
 	 * @return {number} number of days
 	 */
-	function daysPerMonth( ref ) {
+	function daysPerMonth(ref) {
 		const a = ref.getTime();
 
 		// increment month by 1
-		const b = new Date( a );
-		b.setMonth( ref.getMonth() + 1 );
+		const b = new Date(a);
+		b.setMonth(ref.getMonth() + 1);
 
 		// this is the trickiest since months vary in length
-		return Math.round( ( b.getTime() - a ) / MILLISECONDS_PER_DAY );
+		return Math.round((b.getTime() - a) / MILLISECONDS_PER_DAY);
 	}
 
 	/**
@@ -78,15 +88,15 @@ export default ( () => {
 	 * @param {Date} ref reference date
 	 * @return {number} number of days
 	 */
-	function daysPerYear( ref ) {
+	function daysPerYear(ref) {
 		const a = ref.getTime();
 
 		// increment year by 1
-		const b = new Date( a );
-		b.setFullYear( ref.getFullYear() + 1 );
+		const b = new Date(a);
+		b.setFullYear(ref.getFullYear() + 1);
 
 		// this is the trickiest since years (periodically) vary in length
-		return Math.round( ( b.getTime() - a ) / MILLISECONDS_PER_DAY );
+		return Math.round((b.getTime() - a) / MILLISECONDS_PER_DAY);
 	}
 
 	/**
@@ -98,61 +108,61 @@ export default ( () => {
 	 *
 	 * @return {Date} result date.
 	 */
-	function addToDate( ts, date ) {
+	function addToDate(ts, date) {
 		date =
-      date instanceof Date || ( date !== null && Number.isFinite( date ) )
-      	? new Date( +date )
-      	: new Date();
+			date instanceof Date || (date !== null && Number.isFinite(date))
+				? new Date(+date)
+				: new Date();
 
-		if ( ! ts ) {
+		if (!ts) {
 			return date;
 		}
 
 		// if there is a value field, use it directly
 		let value = +ts.value || 0;
-		if ( value ) {
-			date.setTime( date.getTime() + value );
+		if (value) {
+			date.setTime(date.getTime() + value);
 			return date;
 		}
 
 		value = +ts.milliseconds || 0;
-		if ( value ) {
-			date.setMilliseconds( date.getMilliseconds() + value );
+		if (value) {
+			date.setMilliseconds(date.getMilliseconds() + value);
 		}
 
 		value = +ts.seconds || 0;
-		if ( value ) {
-			date.setSeconds( date.getSeconds() + value );
+		if (value) {
+			date.setSeconds(date.getSeconds() + value);
 		}
 
 		value = +ts.minutes || 0;
-		if ( value ) {
-			date.setMinutes( date.getMinutes() + value );
+		if (value) {
+			date.setMinutes(date.getMinutes() + value);
 		}
 
 		value = +ts.hours || 0;
-		if ( value ) {
-			date.setHours( date.getHours() + value );
+		if (value) {
+			date.setHours(date.getHours() + value);
 		}
 
 		value = +ts.weeks || 0;
-		if ( value ) {
+		if (value) {
 			value *= DAYS_PER_WEEK;
 		}
 
 		value += +ts.days || 0;
-		if ( value ) {
-			date.setDate( date.getDate() + value );
+		if (value) {
+			date.setDate(date.getDate() + value);
 		}
 
 		value = +ts.months || 0;
-		if ( value ) {
-			date.setMonth( date.getMonth() + value );
+		if (value) {
+			date.setMonth(date.getMonth() + value);
 		}
 
 		value += +ts.years || 0;
-		if ( value ) {
-			date.setFullYear( date.getFullYear() + value );
+		if (value) {
+			date.setFullYear(date.getFullYear() + value);
 		}
 
 		return date;
@@ -174,61 +184,67 @@ export default ( () => {
 	 * @param {Timespan} ts     time span
 	 * @param {string}   toUnit unit name
 	 */
-	function rippleRounded( ts, toUnit ) {
-		switch ( toUnit ) {
+	function rippleRounded(ts, toUnit) {
+		switch (toUnit) {
 			case 'seconds':
-				if ( ts.seconds !== SECONDS_PER_MINUTE || Number.isNaN( ts.minutes ) ) {
+				if (
+					ts.seconds !== SECONDS_PER_MINUTE ||
+					Number.isNaN(ts.minutes)
+				) {
 					return;
 				}
 				// ripple seconds up to minutes
 				ts.minutes += 1;
 				ts.seconds = 0;
 
-				/* falls through */
+			/* falls through */
 			case 'minutes':
-				if ( ts.minutes !== MINUTES_PER_HOUR || Number.isNaN( ts.hours ) ) {
+				if (ts.minutes !== MINUTES_PER_HOUR || Number.isNaN(ts.hours)) {
 					return;
 				}
 				// ripple minutes up to hours
 				ts.hours += 1;
 				ts.minutes = 0;
 
-				/* falls through */
+			/* falls through */
 			case 'hours':
-				if ( ts.hours !== HOURS_PER_DAY || Number.isNaN( ts.days ) ) {
+				if (ts.hours !== HOURS_PER_DAY || Number.isNaN(ts.days)) {
 					return;
 				}
 				// ripple hours up to days
 				ts.days += 1;
 				ts.hours = 0;
 
-				/* falls through */
+			/* falls through */
 			case 'days':
-				if ( ts.days !== DAYS_PER_WEEK || Number.isNaN( ts.weeks ) ) {
+				if (ts.days !== DAYS_PER_WEEK || Number.isNaN(ts.weeks)) {
 					return;
 				}
 				// ripple days up to weeks
 				ts.weeks += 1;
 				ts.days = 0;
 
-				/* falls through */
+			/* falls through */
 			case 'weeks':
-				if ( ts.weeks !== daysPerMonth( ts.refMonth ) / DAYS_PER_WEEK || Number.isNaN( ts.months ) ) {
+				if (
+					ts.weeks !== daysPerMonth(ts.refMonth) / DAYS_PER_WEEK ||
+					Number.isNaN(ts.months)
+				) {
 					return;
 				}
 				// ripple weeks up to months
 				ts.months += 1;
 				ts.weeks = 0;
 
-				/* falls through */
+			/* falls through */
 			case 'months':
-				if ( ts.months !== MONTHS_PER_YEAR || Number.isNaN( ts.years ) ) {
+				if (ts.months !== MONTHS_PER_YEAR || Number.isNaN(ts.years)) {
 					return;
 				}
 				// ripple months up to years
 				ts.years += 1;
 				ts.months = 0;
-      // no default
+			// no default
 		}
 	}
 
@@ -244,22 +260,22 @@ export default ( () => {
 	 * @param {number}   digits     max number of decimal digits to output
 	 * @return {number} new fractional value
 	 */
-	function fraction( ts, frac, fromUnit, toUnit, conversion, digits ) {
-		if ( ts[ fromUnit ] >= 0 ) {
-			frac += ts[ fromUnit ];
-			delete ts[ fromUnit ];
+	function fraction(ts, frac, fromUnit, toUnit, conversion, digits) {
+		if (ts[fromUnit] >= 0) {
+			frac += ts[fromUnit];
+			delete ts[fromUnit];
 		}
 
 		frac /= conversion;
-		if ( frac + 1 <= 1 ) {
+		if (frac + 1 <= 1) {
 			// drop if below machine epsilon
 			return 0;
 		}
 
-		if ( ts[ toUnit ] >= 0 ) {
+		if (ts[toUnit] >= 0) {
 			// ensure does not have more than specified number of digits
-			ts[ toUnit ] = +( ts[ toUnit ] + frac ).toFixed( digits );
-			rippleRounded( ts, toUnit );
+			ts[toUnit] = +(ts[toUnit] + frac).toFixed(digits);
+			rippleRounded(ts, toUnit);
 			return 0;
 		}
 
@@ -273,34 +289,55 @@ export default ( () => {
 	 * @param {Timespan} ts     timespan
 	 * @param {number}   digits max number of decimal digits to output
 	 */
-	function fractional( ts, digits ) {
-		let frac = fraction( ts, 0, 'milliseconds', 'seconds', MILLISECONDS_PER_SECOND, digits );
-		if ( ! frac ) {
+	function fractional(ts, digits) {
+		let frac = fraction(
+			ts,
+			0,
+			'milliseconds',
+			'seconds',
+			MILLISECONDS_PER_SECOND,
+			digits
+		);
+		if (!frac) {
 			return;
 		}
 
-		frac = fraction( ts, frac, 'seconds', 'minutes', SECONDS_PER_MINUTE, digits );
-		if ( ! frac ) {
+		frac = fraction(
+			ts,
+			frac,
+			'seconds',
+			'minutes',
+			SECONDS_PER_MINUTE,
+			digits
+		);
+		if (!frac) {
 			return;
 		}
 
-		frac = fraction( ts, frac, 'minutes', 'hours', MINUTES_PER_HOUR, digits );
-		if ( ! frac ) {
+		frac = fraction(ts, frac, 'minutes', 'hours', MINUTES_PER_HOUR, digits);
+		if (!frac) {
 			return;
 		}
 
-		frac = fraction( ts, frac, 'hours', 'days', HOURS_PER_DAY, digits );
-		if ( ! frac ) {
+		frac = fraction(ts, frac, 'hours', 'days', HOURS_PER_DAY, digits);
+		if (!frac) {
 			return;
 		}
 
-		frac = fraction( ts, frac, 'days', 'weeks', DAYS_PER_WEEK, digits );
-		if ( ! frac ) {
+		frac = fraction(ts, frac, 'days', 'weeks', DAYS_PER_WEEK, digits);
+		if (!frac) {
 			return;
 		}
 
-		frac = fraction( ts, frac, 'weeks', 'months', daysPerMonth( ts.refMonth ) / DAYS_PER_WEEK, digits );
-		if ( ! frac ) {
+		frac = fraction(
+			ts,
+			frac,
+			'weeks',
+			'months',
+			daysPerMonth(ts.refMonth) / DAYS_PER_WEEK,
+			digits
+		);
+		if (!frac) {
 			return;
 		}
 
@@ -309,16 +346,16 @@ export default ( () => {
 			frac,
 			'months',
 			'years',
-			daysPerYear( ts.refMonth ) / daysPerMonth( ts.refMonth ),
+			daysPerYear(ts.refMonth) / daysPerMonth(ts.refMonth),
 			digits
 		);
-		if ( ! frac ) {
+		if (!frac) {
 			return;
 		}
 
 		// should never reach this with remaining fractional value
-		if ( frac ) {
-			throw new Error( 'Fractional unit overflow' );
+		if (frac) {
+			throw new Error('Fractional unit overflow');
 		}
 	}
 
@@ -328,77 +365,77 @@ export default ( () => {
 	 * @private
 	 * @param {Timespan} ts timespan
 	 */
-	function ripple( ts ) {
+	function ripple(ts) {
 		let x;
 
-		if ( ts.milliseconds < 0 ) {
+		if (ts.milliseconds < 0) {
 			// ripple seconds down to milliseconds
-			x = ceil( -ts.milliseconds / MILLISECONDS_PER_SECOND );
+			x = ceil(-ts.milliseconds / MILLISECONDS_PER_SECOND);
 			ts.seconds -= x;
 			ts.milliseconds += x * MILLISECONDS_PER_SECOND;
-		} else if ( ts.milliseconds >= MILLISECONDS_PER_SECOND ) {
+		} else if (ts.milliseconds >= MILLISECONDS_PER_SECOND) {
 			// ripple milliseconds up to seconds
-			ts.seconds += floor( ts.milliseconds / MILLISECONDS_PER_SECOND );
+			ts.seconds += floor(ts.milliseconds / MILLISECONDS_PER_SECOND);
 			ts.milliseconds %= MILLISECONDS_PER_SECOND;
 		}
 
-		if ( ts.seconds < 0 ) {
+		if (ts.seconds < 0) {
 			// ripple minutes down to seconds
-			x = ceil( -ts.seconds / SECONDS_PER_MINUTE );
+			x = ceil(-ts.seconds / SECONDS_PER_MINUTE);
 			ts.minutes -= x;
 			ts.seconds += x * SECONDS_PER_MINUTE;
-		} else if ( ts.seconds >= SECONDS_PER_MINUTE ) {
+		} else if (ts.seconds >= SECONDS_PER_MINUTE) {
 			// ripple seconds up to minutes
-			ts.minutes += floor( ts.seconds / SECONDS_PER_MINUTE );
+			ts.minutes += floor(ts.seconds / SECONDS_PER_MINUTE);
 			ts.seconds %= SECONDS_PER_MINUTE;
 		}
 
-		if ( ts.minutes < 0 ) {
+		if (ts.minutes < 0) {
 			// ripple hours down to minutes
-			x = ceil( -ts.minutes / MINUTES_PER_HOUR );
+			x = ceil(-ts.minutes / MINUTES_PER_HOUR);
 			ts.hours -= x;
 			ts.minutes += x * MINUTES_PER_HOUR;
-		} else if ( ts.minutes >= MINUTES_PER_HOUR ) {
+		} else if (ts.minutes >= MINUTES_PER_HOUR) {
 			// ripple minutes up to hours
-			ts.hours += floor( ts.minutes / MINUTES_PER_HOUR );
+			ts.hours += floor(ts.minutes / MINUTES_PER_HOUR);
 			ts.minutes %= MINUTES_PER_HOUR;
 		}
 
-		if ( ts.hours < 0 ) {
+		if (ts.hours < 0) {
 			// ripple days down to hours
-			x = ceil( -ts.hours / HOURS_PER_DAY );
+			x = ceil(-ts.hours / HOURS_PER_DAY);
 			ts.days -= x;
 			ts.hours += x * HOURS_PER_DAY;
-		} else if ( ts.hours >= HOURS_PER_DAY ) {
+		} else if (ts.hours >= HOURS_PER_DAY) {
 			// ripple hours up to days
-			ts.days += floor( ts.hours / HOURS_PER_DAY );
+			ts.days += floor(ts.hours / HOURS_PER_DAY);
 			ts.hours %= HOURS_PER_DAY;
 		}
 
-		while ( ts.days < 0 ) {
+		while (ts.days < 0) {
 			// NOTE: never actually seen this loop more than once
 
 			// ripple months down to days
 			ts.months -= 1;
-			ts.days += borrowMonths( ts.refMonth, 1 );
+			ts.days += borrowMonths(ts.refMonth, 1);
 		}
 
 		// weeks is always zero here
 
-		if ( ts.days >= DAYS_PER_WEEK ) {
+		if (ts.days >= DAYS_PER_WEEK) {
 			// ripple days up to weeks
-			ts.weeks += floor( ts.days / DAYS_PER_WEEK );
+			ts.weeks += floor(ts.days / DAYS_PER_WEEK);
 			ts.days %= DAYS_PER_WEEK;
 		}
 
-		if ( ts.months < 0 ) {
+		if (ts.months < 0) {
 			// ripple years down to months
-			x = ceil( -ts.months / MONTHS_PER_YEAR );
+			x = ceil(-ts.months / MONTHS_PER_YEAR);
 			ts.years -= x;
 			ts.months += x * MONTHS_PER_YEAR;
-		} else if ( ts.months >= MONTHS_PER_YEAR ) {
+		} else if (ts.months >= MONTHS_PER_YEAR) {
 			// ripple months up to years
-			ts.years += floor( ts.months / MONTHS_PER_YEAR );
+			ts.years += floor(ts.months / MONTHS_PER_YEAR);
 			ts.months %= MONTHS_PER_YEAR;
 		}
 	}
@@ -412,85 +449,85 @@ export default ( () => {
 	 * @param {number}   max    number of labels to output
 	 * @param {number}   digits max number of decimal digits to output
 	 */
-	function pruneUnits( ts, units, max, digits ) {
+	function pruneUnits(ts, units, max, digits) {
 		let count = 0;
 
 		// eslint-disable-next-line no-bitwise
-		if ( ! ( units & YEARS ) || count >= max ) {
+		if (!(units & YEARS) || count >= max) {
 			// ripple years down to months
 			ts.months += ts.years * MONTHS_PER_YEAR;
 			delete ts.years;
-		} else if ( ts.years ) {
+		} else if (ts.years) {
 			count += 1;
 		}
 
 		// eslint-disable-next-line no-bitwise
-		if ( ! ( units & MONTHS ) || count >= max ) {
+		if (!(units & MONTHS) || count >= max) {
 			// ripple months down to days
-			if ( ts.months ) {
-				ts.days += borrowMonths( ts.refMonth, ts.months );
+			if (ts.months) {
+				ts.days += borrowMonths(ts.refMonth, ts.months);
 			}
 			delete ts.months;
 
-			if ( ts.days >= DAYS_PER_WEEK ) {
+			if (ts.days >= DAYS_PER_WEEK) {
 				// ripple day overflow back up to weeks
-				ts.weeks += floor( ts.days / DAYS_PER_WEEK );
+				ts.weeks += floor(ts.days / DAYS_PER_WEEK);
 				ts.days %= DAYS_PER_WEEK;
 			}
-		} else if ( ts.months ) {
+		} else if (ts.months) {
 			count += 1;
 		}
 
 		// eslint-disable-next-line no-bitwise
-		if ( ! ( units & WEEKS ) || count >= max ) {
+		if (!(units & WEEKS) || count >= max) {
 			// ripple weeks down to days
 			ts.days += ts.weeks * DAYS_PER_WEEK;
 			delete ts.weeks;
-		} else if ( ts.weeks ) {
+		} else if (ts.weeks) {
 			count += 1;
 		}
 
 		// eslint-disable-next-line no-bitwise
-		if ( ! ( units & DAYS ) || count >= max ) {
+		if (!(units & DAYS) || count >= max) {
 			// ripple days down to hours
 			ts.hours += ts.days * HOURS_PER_DAY;
 			delete ts.days;
-		} else if ( ts.days ) {
+		} else if (ts.days) {
 			count += 1;
 		}
 
 		// eslint-disable-next-line no-bitwise
-		if ( ! ( units & HOURS ) || count >= max ) {
+		if (!(units & HOURS) || count >= max) {
 			// ripple hours down to minutes
 			ts.minutes += ts.hours * MINUTES_PER_HOUR;
 			delete ts.hours;
-		} else if ( ts.hours ) {
+		} else if (ts.hours) {
 			count += 1;
 		}
 
 		// eslint-disable-next-line no-bitwise
-		if ( ! ( units & MINUTES ) || count >= max ) {
+		if (!(units & MINUTES) || count >= max) {
 			// ripple minutes down to seconds
 			ts.seconds += ts.minutes * SECONDS_PER_MINUTE;
 			delete ts.minutes;
-		} else if ( ts.minutes ) {
+		} else if (ts.minutes) {
 			count += 1;
 		}
 
 		// eslint-disable-next-line no-bitwise
-		if ( ! ( units & SECONDS ) || count >= max ) {
+		if (!(units & SECONDS) || count >= max) {
 			// ripple seconds down to milliseconds
 			ts.milliseconds += ts.seconds * MILLISECONDS_PER_SECOND;
 			delete ts.seconds;
-		} else if ( ts.seconds ) {
+		} else if (ts.seconds) {
 			count += 1;
 		}
 
 		// nothing to ripple milliseconds down to
 		// so ripple back up to smallest existing unit as a fractional value
 		// eslint-disable-next-line no-bitwise
-		if ( ! ( units & MILLISECONDS ) || count >= max ) {
-			fractional( ts, digits );
+		if (!(units & MILLISECONDS) || count >= max) {
+			fractional(ts, digits);
 		}
 	}
 
@@ -507,7 +544,7 @@ export default ( () => {
 	 *
 	 * @return {Timespan} timespan
 	 */
-	function populate( ts, start, end, units, max, digits ) {
+	function populate(ts, start, end, units, max, digits) {
 		const now = new Date();
 
 		start = start || now;
@@ -518,7 +555,7 @@ export default ( () => {
 		ts.units = units;
 
 		ts.value = end.getTime() - start.getTime();
-		if ( ts.value < 0 ) {
+		if (ts.value < 0) {
 			// swap if reversed
 			const tmp = end;
 			end = start;
@@ -526,7 +563,14 @@ export default ( () => {
 		}
 
 		// reference month for determining days in month
-		ts.refMonth = new Date( start.getFullYear(), start.getMonth(), 15, 12, 0, 0 );
+		ts.refMonth = new Date(
+			start.getFullYear(),
+			start.getMonth(),
+			15,
+			12,
+			0,
+			0
+		);
 		try {
 			// reset to initial deltas
 			ts.years = end.getFullYear() - start.getFullYear();
@@ -538,8 +582,8 @@ export default ( () => {
 			ts.seconds = end.getSeconds() - start.getSeconds();
 			ts.milliseconds = end.getMilliseconds() - start.getMilliseconds();
 
-			ripple( ts );
-			pruneUnits( ts, units, max, digits );
+			ripple(ts);
+			pruneUnits(ts, units, max, digits);
 		} finally {
 			delete ts.refMonth;
 		}
@@ -554,39 +598,46 @@ export default ( () => {
 	 * @param {number} units the units to populate
 	 * @return {number} milliseconds to delay
 	 */
-	function getDelay( units = [] ) {
-		if ( units.indexOf( 'milliseconds' ) !== -1 ) {
+	function getDelay(units = []) {
+		if (units.indexOf('milliseconds') !== -1) {
 			// refresh very quickly
 			return MILLISECONDS_PER_SECOND / 30; // 30Hz
 		}
 
-		if ( units.indexOf( 'seconds' ) !== -1 ) {
+		if (units.indexOf('seconds') !== -1) {
 			// refresh every second
 			return MILLISECONDS_PER_SECOND; // 1Hz
 		}
 
-		if ( units.indexOf( 'minutes' ) !== -1 ) {
+		if (units.indexOf('minutes') !== -1) {
 			// refresh every minute
 			return MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE;
 		}
 
-		if ( units.indexOf( 'hours' ) !== -1 ) {
+		if (units.indexOf('hours') !== -1) {
 			// refresh hourly
-			return MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOUR;
+			return (
+				MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOUR
+			);
 		}
 
-		if ( units.indexOf( 'days' ) !== -1 ) {
+		if (units.indexOf('days') !== -1) {
 			// refresh daily
-			return MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOUR * HOURS_PER_DAY;
+			return (
+				MILLISECONDS_PER_SECOND *
+				SECONDS_PER_MINUTE *
+				MINUTES_PER_HOUR *
+				HOURS_PER_DAY
+			);
 		}
 
 		// refresh the rest weekly
 		return (
 			MILLISECONDS_PER_SECOND *
-      SECONDS_PER_MINUTE *
-      MINUTES_PER_HOUR *
-      HOURS_PER_DAY *
-      DAYS_PER_WEEK
+			SECONDS_PER_MINUTE *
+			MINUTES_PER_HOUR *
+			HOURS_PER_DAY *
+			DAYS_PER_WEEK
 		);
 	}
 
@@ -597,17 +648,17 @@ export default ( () => {
 	 *
 	 * @return {number} units data.
 	 */
-	function unitsListToData( unitsList ) {
+	function unitsListToData(unitsList) {
 		// eslint-disable-next-line no-bitwise
 		let units = ~ALL;
 
-		unitsList.forEach( ( unit ) => {
+		unitsList.forEach((unit) => {
 			// eslint-disable-next-line no-use-before-define
-			if ( countdown[ unit.toUpperCase() ] ) {
+			if (countdown[unit.toUpperCase()]) {
 				// eslint-disable-next-line no-bitwise, no-use-before-define
-				units |= countdown[ unit.toUpperCase() ];
+				units |= countdown[unit.toUpperCase()];
 			}
-		} );
+		});
 
 		// ensure some units or use defaults
 		units = +units || DEFAULTS;
@@ -626,24 +677,24 @@ export default ( () => {
 	 *
 	 * @return {Timespan} timespan
 	 */
-	function countdown( start, end, unitsList, digits ) {
+	function countdown(start, end, unitsList, digits) {
 		// max must be positive
 		const max = unitsList.length > 0 ? unitsList.length : NaN;
 
 		// clamp digits to an integer between [0, 20]
-		if ( digits > 0 ) {
-			digits = digits < 20 ? Math.round( digits ) : 20;
+		if (digits > 0) {
+			digits = digits < 20 ? Math.round(digits) : 20;
 		} else {
 			digits = 0;
 		}
 
 		// ensure start date
 		let startTS = null;
-		if ( ! ( start instanceof Date ) ) {
-			if ( start !== null && Number.isFinite( start ) ) {
-				start = new Date( +start );
+		if (!(start instanceof Date)) {
+			if (start !== null && Number.isFinite(start)) {
+				start = new Date(+start);
 			} else {
-				if ( typeof startTS === 'object' ) {
+				if (typeof startTS === 'object') {
 					startTS = start;
 				}
 				start = null;
@@ -652,11 +703,11 @@ export default ( () => {
 
 		// ensure end date
 		let endTS = null;
-		if ( ! ( end instanceof Date ) ) {
-			if ( end !== null && Number.isFinite( end ) ) {
-				end = new Date( +end );
+		if (!(end instanceof Date)) {
+			if (end !== null && Number.isFinite(end)) {
+				end = new Date(+end);
 			} else {
-				if ( typeof end === 'object' ) {
+				if (typeof end === 'object') {
 					endTS = end;
 				}
 				end = null;
@@ -664,21 +715,21 @@ export default ( () => {
 		}
 
 		// must wait to interpret timespans until after resolving dates
-		if ( startTS ) {
-			start = addToDate( startTS, end );
+		if (startTS) {
+			start = addToDate(startTS, end);
 		}
-		if ( endTS ) {
-			end = addToDate( endTS, start );
+		if (endTS) {
+			end = addToDate(endTS, start);
 		}
 
-		if ( ! start && ! end ) {
+		if (!start && !end) {
 			// used for unit testing
 			return new Timespan();
 		}
 
-		const units = unitsListToData( unitsList );
+		const units = unitsListToData(unitsList);
 
-		return populate( new Timespan(), start, end, units, max, digits );
+		return populate(new Timespan(), start, end, units, max, digits);
 	}
 
 	countdown.MILLISECONDS = MILLISECONDS;
@@ -694,35 +745,35 @@ export default ( () => {
 
 	countdown.getDelay = getDelay;
 
-	countdown.formatUnit = ( number, label ) => {
+	countdown.formatUnit = (number, label) => {
 		// prepare label.
-		switch ( label ) {
+		switch (label) {
 			case 'years':
-				label = _n( 'Year', 'Years', number, 'ghostkit' );
+				label = _n('Year', 'Years', number, 'ghostkit');
 				break;
 			case 'months':
-				label = _n( 'Month', 'Months', number, 'ghostkit' );
+				label = _n('Month', 'Months', number, 'ghostkit');
 				break;
 			case 'weeks':
-				label = _n( 'Week', 'Weeks', number, 'ghostkit' );
+				label = _n('Week', 'Weeks', number, 'ghostkit');
 				break;
 			case 'days':
-				label = _n( 'Day', 'Days', number, 'ghostkit' );
+				label = _n('Day', 'Days', number, 'ghostkit');
 				break;
 			case 'hours':
-				label = _n( 'Hour', 'Hours', number, 'ghostkit' );
+				label = _n('Hour', 'Hours', number, 'ghostkit');
 				break;
 			case 'minutes':
-				label = _n( 'Minute', 'Minutes', number, 'ghostkit' );
+				label = _n('Minute', 'Minutes', number, 'ghostkit');
 				break;
 			case 'seconds':
-				label = _n( 'Second', 'Seconds', number, 'ghostkit' );
+				label = _n('Second', 'Seconds', number, 'ghostkit');
 				break;
-      // no default
+			// no default
 		}
 
 		// additional 0 for number.
-		number = `${ number < 10 ? '0' : '' }${ number }`;
+		number = `${number < 10 ? '0' : ''}${number}`;
 
 		return {
 			number,
@@ -731,4 +782,4 @@ export default ( () => {
 	};
 
 	return countdown;
-} )();
+})();

@@ -1,7 +1,5 @@
 /* eslint-disable max-classes-per-file */
-/**
- * External dependencies
- */
+
 import { ColorPalette } from '@wordpress/block-editor';
 import {
 	BaseControl,
@@ -15,9 +13,6 @@ import {
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
-/**
- * WordPress dependencies
- */
 import { Component, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -28,17 +23,17 @@ import getIcon from '../../utils/get-icon';
 const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 class Customizer extends Component {
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			jsonOptions: false,
 		};
 
-		this.getOptionCategory = this.getOptionCategory.bind( this );
-		this.getSelectedOptions = this.getSelectedOptions.bind( this );
-		this.getSelectValues = this.getSelectValues.bind( this );
-		this.updateOptions = this.updateOptions.bind( this );
+		this.getOptionCategory = this.getOptionCategory.bind(this);
+		this.getSelectedOptions = this.getSelectedOptions.bind(this);
+		this.getSelectValues = this.getSelectValues.bind(this);
+		this.updateOptions = this.updateOptions.bind(this);
 	}
 
 	/**
@@ -48,20 +43,20 @@ class Customizer extends Component {
 	 * @return {{slug: string, label: string}} - slug and label.
 	 */
 	// eslint-disable-next-line class-methods-use-this
-	getOptionCategory( opt ) {
+	getOptionCategory(opt) {
 		let slug = '';
 		let label = '';
 
-		if ( opt.panel && opt.panel.id ) {
+		if (opt.panel && opt.panel.id) {
 			slug = opt.panel.id;
 			label = opt.panel.title;
 		}
-		if ( opt.section && opt.section.id ) {
+		if (opt.section && opt.section.id) {
 			slug += opt.section.id;
-			label += ( label ? ' > ' : '' ) + opt.section.title;
+			label += (label ? ' > ' : '') + opt.section.title;
 		}
 
-		label = label || __( 'Uncategorized', 'ghostkit' );
+		label = label || __('Uncategorized', 'ghostkit');
 		slug = slug || 'uncategorized';
 
 		return {
@@ -80,45 +75,45 @@ class Customizer extends Component {
 
 		let options = meta.ghostkit_customizer_options;
 
-		if ( ! this.state.jsonOptions ) {
+		if (!this.state.jsonOptions) {
 			try {
-				options = JSON.parse( decodeURI( options ) );
-			} catch ( e ) {
+				options = JSON.parse(decodeURI(options));
+			} catch (e) {
 				options = [];
 			}
 		} else {
 			options = this.state.jsonOptions;
 		}
 
-		if ( customizerOptions ) {
-			Object.keys( customizerOptions ).forEach( ( k ) => {
-				const opt = customizerOptions[ k ];
-				options.forEach( ( val, n ) => {
-					if ( options[ n ] && options[ n ].id === opt.id ) {
+		if (customizerOptions) {
+			Object.keys(customizerOptions).forEach((k) => {
+				const opt = customizerOptions[k];
+				options.forEach((val, n) => {
+					if (options[n] && options[n].id === opt.id) {
 						const choices = [];
 
-						if ( opt.choices && Object.keys( opt.choices ).length ) {
-							choices.push( {
+						if (opt.choices && Object.keys(opt.choices).length) {
+							choices.push({
 								value: '',
 								label: '',
-							} );
-							Object.keys( opt.choices ).forEach( ( name ) => {
-								choices.push( {
+							});
+							Object.keys(opt.choices).forEach((name) => {
+								choices.push({
 									value: name,
-									label: `${ opt.choices[ name ] } [${ name }]`,
-								} );
-							} );
+									label: `${opt.choices[name]} [${name}]`,
+								});
+							});
 						}
 
-						options[ n ].label = opt.label || opt.id;
-						options[ n ].default = opt.default;
-						options[ n ].type = opt.type;
-						options[ n ].choices = choices;
-						options[ n ].category = this.getOptionCategory( opt );
-						options[ n ].control_type = opt.control_type;
+						options[n].label = opt.label || opt.id;
+						options[n].default = opt.default;
+						options[n].type = opt.type;
+						options[n].choices = choices;
+						options[n].category = this.getOptionCategory(opt);
+						options[n].control_type = opt.control_type;
 					}
-				} );
-			} );
+				});
+			});
 		}
 
 		return options;
@@ -134,46 +129,54 @@ class Customizer extends Component {
 
 		let result = false;
 
-		if ( customizerOptions ) {
+		if (customizerOptions) {
 			result = [];
 			const groupedList = {};
 
-			Object.keys( customizerOptions ).forEach( ( k ) => {
-				const val = customizerOptions[ k ];
+			Object.keys(customizerOptions).forEach((k) => {
+				const val = customizerOptions[k];
 				let prevent = false;
 
 				// disable some options
 				if (
 					val.id === 'active_theme' ||
-          ( val.panel && val.panel.id && val.panel.id === 'widgets' ) ||
-          ( val.panel && val.panel.id && val.panel.id === 'nav_menus' ) ||
-          ( ! val.panel && val.type === 'option' && /^widget_/.test( val.id ) ) ||
-          ( ! val.panel && val.type === 'option' && /^sidebars_widgets\[/.test( val.id ) ) ||
-          ( ! val.panel && val.type === 'option' && /^nav_menus_/.test( val.id ) )
+					(val.panel && val.panel.id && val.panel.id === 'widgets') ||
+					(val.panel &&
+						val.panel.id &&
+						val.panel.id === 'nav_menus') ||
+					(!val.panel &&
+						val.type === 'option' &&
+						/^widget_/.test(val.id)) ||
+					(!val.panel &&
+						val.type === 'option' &&
+						/^sidebars_widgets\[/.test(val.id)) ||
+					(!val.panel &&
+						val.type === 'option' &&
+						/^nav_menus_/.test(val.id))
 				) {
 					prevent = true;
 				}
 
-				if ( ! prevent ) {
-					const category = this.getOptionCategory( val );
+				if (!prevent) {
+					const category = this.getOptionCategory(val);
 
-					if ( typeof groupedList[ category.slug ] === 'undefined' ) {
-						groupedList[ category.slug ] = {
+					if (typeof groupedList[category.slug] === 'undefined') {
+						groupedList[category.slug] = {
 							label: category.label,
 							options: [],
 						};
 					}
 
-					groupedList[ category.slug ].options.push( {
+					groupedList[category.slug].options.push({
 						label: val.label || val.id,
 						value: val.id,
-					} );
+					});
 				}
-			} );
+			});
 
-			Object.keys( groupedList ).forEach( ( k ) => {
-				result.push( groupedList[ k ] );
-			} );
+			Object.keys(groupedList).forEach((k) => {
+				result.push(groupedList[k]);
+			});
 		}
 
 		return result;
@@ -185,34 +188,34 @@ class Customizer extends Component {
 	 * @param {string} value - new option value
 	 * @param {Object} opt   - option data.
 	 */
-	updateOptions( value, opt ) {
+	updateOptions(value, opt) {
 		let options = this.getSelectedOptions();
 
 		// remove option.
-		if ( value === null ) {
-			options = options.filter( ( item ) => item.id !== opt.id );
+		if (value === null) {
+			options = options.filter((item) => item.id !== opt.id);
 
 			// add/update option
 		} else {
 			let updated = false;
-			options.forEach( ( val, k ) => {
-				if ( options[ k ] && options[ k ].id === opt.id ) {
-					options[ k ].value = value;
+			options.forEach((val, k) => {
+				if (options[k] && options[k].id === opt.id) {
+					options[k].value = value;
 					updated = true;
 				}
-			} );
+			});
 
-			if ( ! updated ) {
-				options.unshift( {
+			if (!updated) {
+				options.unshift({
 					id: opt.id,
 					value,
-				} );
+				});
 			}
 		}
 
-		this.setState( {
+		this.setState({
 			jsonOptions: options,
-		} );
+		});
 	}
 
 	render() {
@@ -226,69 +229,92 @@ class Customizer extends Component {
 				className="ghostkit-plugin-customizer-modal"
 				position="top"
 				size="md"
-				title={ __( 'Customizer', 'ghostkit' ) }
-				onRequestClose={ () => {
-					updateMeta( { ghostkit_customizer_options: encodeURI( JSON.stringify( options ) ) } );
+				title={__('Customizer', 'ghostkit')}
+				onRequestClose={() => {
+					updateMeta({
+						ghostkit_customizer_options: encodeURI(
+							JSON.stringify(options)
+						),
+					});
 					onRequestClose();
-				} }
-				icon={ getIcon( 'plugin-customizer' ) }
+				}}
+				icon={getIcon('plugin-customizer')}
 			>
-				{ ! customizerOptionsSelect ? (
+				{!customizerOptionsSelect ? (
 					<div className="ghostkit-customizer-spinner">
 						<Spinner />
 					</div>
 				) : (
 					''
-				) }
-				{ Array.isArray( customizerOptionsSelect ) && customizerOptionsSelect.length ? (
+				)}
+				{Array.isArray(customizerOptionsSelect) &&
+				customizerOptionsSelect.length ? (
 					<Fragment>
 						<p className="ghostkit-help-text">
-							{ __( 'Override Customizer options for the current post.', 'ghostkit' ) }
+							{__(
+								'Override Customizer options for the current post.',
+								'ghostkit'
+							)}
 						</p>
 						<Select
 							value=""
-							onChange={ ( opt ) => {
-								this.updateOptions( '', {
+							onChange={(opt) => {
+								this.updateOptions('', {
 									id: opt.value,
-								} );
-							} }
-							options={ customizerOptionsSelect }
-							placeholder={ __( '--- Select Option ---', 'ghostkit' ) }
+								});
+							}}
+							options={customizerOptionsSelect}
+							placeholder={__(
+								'--- Select Option ---',
+								'ghostkit'
+							)}
 							menuPosition="fixed"
 							grouped
 						/>
 					</Fragment>
 				) : (
 					''
-				) }
-				{ Array.isArray( customizerOptionsSelect ) && ! customizerOptionsSelect.length ? (
+				)}
+				{Array.isArray(customizerOptionsSelect) &&
+				!customizerOptionsSelect.length ? (
 					<div className="ghostkit-customizer-info">
-						{ __( 'No customizer options found. You can manually open ', 'ghostkit' ) }
-						<strong>{ __( 'Appearance > Customize', 'ghostkit' ) }</strong>
-						{ __( ', and the list will be available here.', 'ghostkit' ) }
+						{__(
+							'No customizer options found. You can manually open ',
+							'ghostkit'
+						)}
+						<strong>
+							{__('Appearance > Customize', 'ghostkit')}
+						</strong>
+						{__(
+							', and the list will be available here.',
+							'ghostkit'
+						)}
 					</div>
 				) : (
 					''
-				) }
-				{ Array.isArray( options ) && options.length ? (
+				)}
+				{Array.isArray(options) && options.length ? (
 					<div className="ghostkit-customizer-list">
-						{ options.map( ( opt ) => {
+						{options.map((opt) => {
 							let control = '';
 
 							// Kirki support.
-							switch ( opt.control_type ) {
+							switch (opt.control_type) {
 								case 'kirki-color':
 									control = (
 										<BaseControl
-											label={ opt.label || opt.id }
-											id={ opt.id }
+											label={opt.label || opt.id}
+											id={opt.id}
 											className="ghostkit-customizer-list-field"
 										>
 											<ColorPalette
-												value={ opt.value }
-												onChange={ ( value ) => {
-													this.updateOptions( value, opt );
-												} }
+												value={opt.value}
+												onChange={(value) => {
+													this.updateOptions(
+														value,
+														opt
+													);
+												}}
 											/>
 										</BaseControl>
 									);
@@ -299,26 +325,26 @@ class Customizer extends Component {
 										max: '',
 										step: '',
 									};
-									if ( opt.choices && opt.choices ) {
-										if ( opt.choices.min ) {
+									if (opt.choices && opt.choices) {
+										if (opt.choices.min) {
 											sliderAttrs.min = opt.choices.min;
 										}
-										if ( opt.choices.max ) {
+										if (opt.choices.max) {
 											sliderAttrs.max = opt.choices.max;
 										}
-										if ( opt.choices.step ) {
+										if (opt.choices.step) {
 											sliderAttrs.step = opt.choices.step;
 										}
 									}
 									control = (
 										<RangeControl
-											label={ opt.label || opt.id }
-											value={ opt.value }
-											onChange={ ( value ) => {
-												this.updateOptions( value, opt );
-											} }
+											label={opt.label || opt.id}
+											value={opt.value}
+											onChange={(value) => {
+												this.updateOptions(value, opt);
+											}}
 											className="ghostkit-customizer-list-field"
-											{ ...sliderAttrs }
+											{...sliderAttrs}
 										/>
 									);
 									break;
@@ -326,11 +352,14 @@ class Customizer extends Component {
 								case 'kirki-toggle':
 									control = (
 										<ToggleControl
-											label={ opt.label || opt.id }
-											checked={ opt.value === 'on' }
-											onChange={ ( value ) => {
-												this.updateOptions( value ? 'on' : 'off', opt );
-											} }
+											label={opt.label || opt.id}
+											checked={opt.value === 'on'}
+											onChange={(value) => {
+												this.updateOptions(
+													value ? 'on' : 'off',
+													opt
+												);
+											}}
 											className="ghostkit-customizer-list-field"
 										/>
 									);
@@ -338,39 +367,45 @@ class Customizer extends Component {
 								case 'kirki-editor':
 									control = (
 										<TextareaControl
-											label={ opt.label || opt.id }
-											value={ opt.value }
-											onChange={ ( value ) => {
-												this.updateOptions( value, opt );
-											} }
+											label={opt.label || opt.id}
+											value={opt.value}
+											onChange={(value) => {
+												this.updateOptions(value, opt);
+											}}
 											className="ghostkit-customizer-list-field"
 										/>
 									);
 									break;
 								case 'kirki-image':
 									opt.choices = [];
-									// fallthrough
+								// fallthrough
 								default:
-									if ( opt.choices && opt.choices.length ) {
+									if (opt.choices && opt.choices.length) {
 										control = (
 											<SelectControl
-												label={ opt.label || opt.id }
-												value={ opt.value }
-												options={ opt.choices }
-												onChange={ ( value ) => {
-													this.updateOptions( value, opt );
-												} }
+												label={opt.label || opt.id}
+												value={opt.value}
+												options={opt.choices}
+												onChange={(value) => {
+													this.updateOptions(
+														value,
+														opt
+													);
+												}}
 												className="ghostkit-customizer-list-field"
 											/>
 										);
 									} else {
 										control = (
 											<TextControl
-												label={ opt.label || opt.id }
-												value={ opt.value }
-												onChange={ ( value ) => {
-													this.updateOptions( value, opt );
-												} }
+												label={opt.label || opt.id}
+												value={opt.value}
+												onChange={(value) => {
+													this.updateOptions(
+														value,
+														opt
+													);
+												}}
 												className="ghostkit-customizer-list-field"
 											/>
 										);
@@ -379,59 +414,68 @@ class Customizer extends Component {
 							}
 
 							return (
-								<div key={ opt.id }>
-									{ control }
+								<div key={opt.id}>
+									{control}
 									<div className="ghostkit-customizer-list-info">
-										<small className="ghostkit-customizer-list-info-id">{ opt.id }</small>
-										{ opt.default || typeof opt.default === 'boolean' ? (
+										<small className="ghostkit-customizer-list-info-id">
+											{opt.id}
+										</small>
+										{opt.default ||
+										typeof opt.default === 'boolean' ? (
 											<small className="ghostkit-customizer-list-info-default">
-												{ __( 'Default:', 'ghostkit' ) }{ ' ' }
+												{__('Default:', 'ghostkit')}{' '}
 												<span>
-													{ typeof opt.default === 'boolean' ? opt.default.toString() : opt.default }
+													{typeof opt.default ===
+													'boolean'
+														? opt.default.toString()
+														: opt.default}
 												</span>
 											</small>
 										) : (
 											''
-										) }
+										)}
 									</div>
-									{ /* eslint-disable-next-line react/button-has-type */ }
+									{/* eslint-disable-next-line react/button-has-type */}
 									<button
 										className="ghostkit-customizer-list-remove"
-										onClick={ ( e ) => {
+										onClick={(e) => {
 											e.preventDefault();
-											this.updateOptions( null, opt );
-										} }
+											this.updateOptions(null, opt);
+										}}
 									>
 										<span className="dashicons dashicons-no-alt" />
 									</button>
 								</div>
 							);
-						} ) }
+						})}
 					</div>
 				) : (
 					''
-				) }
+				)}
 			</Modal>
 		);
 	}
 }
 
-const CustomizerModalWithSelect = compose( [
-	withSelect( ( select ) => {
-		const currentMeta = select( 'core/editor' ).getCurrentPostAttribute( 'meta' );
-		const editedMeta = select( 'core/editor' ).getEditedPostAttribute( 'meta' );
+const CustomizerModalWithSelect = compose([
+	withSelect((select) => {
+		const currentMeta =
+			select('core/editor').getCurrentPostAttribute('meta');
+		const editedMeta = select('core/editor').getEditedPostAttribute('meta');
 
 		return {
 			meta: { ...currentMeta, ...editedMeta },
-			customizerOptions: select( 'ghostkit/plugins/customizer' ).getCustomizerData(),
+			customizerOptions: select(
+				'ghostkit/plugins/customizer'
+			).getCustomizerData(),
 		};
-	} ),
-	withDispatch( ( dispatch ) => ( {
-		updateMeta( value ) {
-			dispatch( 'core/editor' ).editPost( { meta: value } );
+	}),
+	withDispatch((dispatch) => ({
+		updateMeta(value) {
+			dispatch('core/editor').editPost({ meta: value });
 		},
-	} ) ),
-] )( Customizer );
+	})),
+])(Customizer);
 
 export { CustomizerModalWithSelect as CustomizerModal };
 
@@ -440,8 +484,8 @@ export const name = 'ghostkit-customizer';
 export const icon = null;
 
 export class Plugin extends Component {
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			isModalOpen: false,
@@ -453,21 +497,25 @@ export class Plugin extends Component {
 
 		return (
 			<Fragment>
-				{ PluginMoreMenuItem ? (
+				{PluginMoreMenuItem ? (
 					<PluginMoreMenuItem
-						icon={ null }
-						onClick={ () => {
-							this.setState( { isModalOpen: true } );
-						} }
+						icon={null}
+						onClick={() => {
+							this.setState({ isModalOpen: true });
+						}}
 					>
-						{ __( 'Customizer', 'ghostkit' ) }
+						{__('Customizer', 'ghostkit')}
 					</PluginMoreMenuItem>
-				) : null }
-				{ isModalOpen ? (
-					<CustomizerModalWithSelect onRequestClose={ () => this.setState( { isModalOpen: false } ) } />
+				) : null}
+				{isModalOpen ? (
+					<CustomizerModalWithSelect
+						onRequestClose={() =>
+							this.setState({ isModalOpen: false })
+						}
+					/>
 				) : (
 					''
-				) }
+				)}
 			</Fragment>
 		);
 	}

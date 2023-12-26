@@ -1,14 +1,8 @@
-/**
- * External dependencies
- */
 import slugify from 'slugify';
 import striptags from 'striptags';
 
-/**
- * WordPress dependencies
- */
 import { select } from '@wordpress/data';
-const { getBlocks } = select( 'core/block-editor' );
+const { getBlocks } = select('core/block-editor');
 
 /**
  * Get all block IDs.
@@ -18,30 +12,31 @@ const { getBlocks } = select( 'core/block-editor' );
  *
  * @return {Array} block anchors and slugs array.
  */
-function getAllSlugs( excludeId, blocks = 'none' ) {
+function getAllSlugs(excludeId, blocks = 'none') {
 	let slugs = [];
 
-	if ( blocks === 'none' ) {
+	if (blocks === 'none') {
 		blocks = getBlocks();
 	}
 
-	blocks.forEach( ( block ) => {
-		if ( block.clientId !== excludeId && block.attributes ) {
-			if ( block.attributes.anchor ) {
-				slugs.push( block.attributes.anchor );
+	blocks.forEach((block) => {
+		if (block.clientId !== excludeId && block.attributes) {
+			if (block.attributes.anchor) {
+				slugs.push(block.attributes.anchor);
 			}
 			if (
-				( block.name === 'ghostkit/tabs-tab-v2' || block.name === 'ghostkit/accordion-item' ) &&
-        block.attributes.slug
+				(block.name === 'ghostkit/tabs-tab-v2' ||
+					block.name === 'ghostkit/accordion-item') &&
+				block.attributes.slug
 			) {
-				slugs.push( block.attributes.slug );
+				slugs.push(block.attributes.slug);
 			}
 		}
 
-		if ( block.innerBlocks && block.innerBlocks.length ) {
-			slugs = [ ...slugs, ...getAllSlugs( excludeId, block.innerBlocks ) ];
+		if (block.innerBlocks && block.innerBlocks.length) {
+			slugs = [...slugs, ...getAllSlugs(excludeId, block.innerBlocks)];
 		}
-	} );
+	});
 
 	return slugs;
 }
@@ -54,14 +49,14 @@ function getAllSlugs( excludeId, blocks = 'none' ) {
  *
  * @return {boolean} is unique.
  */
-function isUniqueSlug( slug, slugs ) {
+function isUniqueSlug(slug, slugs) {
 	let isUnique = true;
 
-	slugs.forEach( ( thisSlug ) => {
-		if ( thisSlug === slug ) {
+	slugs.forEach((thisSlug) => {
+		if (thisSlug === slug) {
 			isUnique = false;
 		}
-	} );
+	});
 
 	return isUnique;
 }
@@ -73,12 +68,12 @@ function isUniqueSlug( slug, slugs ) {
  *
  * @return {string} slug.
  */
-export function getSlug( title ) {
-	return slugify( striptags( title ), {
+export function getSlug(title) {
+	return slugify(striptags(title), {
 		replacement: '-',
 		remove: /[*_+~()'"!?/\-—–−:@^|&#.,;%<>{}]/g,
 		lower: true,
-	} );
+	});
 }
 
 /**
@@ -89,16 +84,16 @@ export function getSlug( title ) {
  *
  * @return {string} slug.
  */
-export default function getUniqueSlug( title, excludeBlockId ) {
+export default function getUniqueSlug(title, excludeBlockId) {
 	let newSlug = '';
 	let i = 0;
-	const allSlugs = getAllSlugs( excludeBlockId );
+	const allSlugs = getAllSlugs(excludeBlockId);
 
-	while ( ! newSlug || ! isUniqueSlug( newSlug, allSlugs ) ) {
-		if ( newSlug ) {
+	while (!newSlug || !isUniqueSlug(newSlug, allSlugs)) {
+		if (newSlug) {
 			i += 1;
 		}
-		newSlug = `${ getSlug( title ) }${ i ? `-${ i }` : '' }`;
+		newSlug = `${getSlug(title)}${i ? `-${i}` : ''}`;
 	}
 
 	return newSlug;

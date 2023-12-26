@@ -1,17 +1,8 @@
-/**
- * External dependencies
- */
 import { BaseControl, TextControl } from '@wordpress/components';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ToggleGroup from '../toggle-group';
 
-/**
- * Internal dependencies
- */
 const GAP_VALUES = {
 	no: 0,
 	sm: 15,
@@ -24,28 +15,33 @@ const GAP_VALUES = {
  *
  * @param props
  */
-export default function GapSettings( props ) {
-	const { gap, gapCustom, gapVerticalCustom, allowVerticalGap, onChange } = props;
+export default function GapSettings(props) {
+	const { gap, gapCustom, gapVerticalCustom, allowVerticalGap, onChange } =
+		props;
 
 	return (
-		<BaseControl id={ __( 'Gap', 'ghostkit' ) } label={ __( 'Gap', 'ghostkit' ) } className="ghostkit-components-gap-settings">
+		<BaseControl
+			id={__('Gap', 'ghostkit')}
+			label={__('Gap', 'ghostkit')}
+			className="ghostkit-components-gap-settings"
+		>
 			<ToggleGroup
-				value={ gap }
-				options={ [
+				value={gap}
+				options={[
 					{
-						label: __( 'None', 'ghostkit' ),
+						label: __('None', 'ghostkit'),
 						value: 'no',
 					},
 					{
-						label: __( 'S', 'ghostkit' ),
+						label: __('S', 'ghostkit'),
 						value: 'sm',
 					},
 					{
-						label: __( 'M', 'ghostkit' ),
+						label: __('M', 'ghostkit'),
 						value: 'md',
 					},
 					{
-						label: __( 'L', 'ghostkit' ),
+						label: __('L', 'ghostkit'),
 						value: 'lg',
 					},
 					{
@@ -67,51 +63,67 @@ export default function GapSettings( props ) {
 						),
 						value: 'custom',
 					},
-				] }
-				onChange={ ( value ) => {
+				]}
+				onChange={(value) => {
 					const result = {
 						gap: value,
 					};
 
 					// Add current predefined gap to custom value.
-					if ( value === 'custom' && gap !== 'custom' && typeof GAP_VALUES[ gap ] !== 'undefined' ) {
-						result.gapCustom = GAP_VALUES[ gap ];
+					if (
+						value === 'custom' &&
+						gap !== 'custom' &&
+						typeof GAP_VALUES[gap] !== 'undefined'
+					) {
+						result.gapCustom = GAP_VALUES[gap];
 					}
 
 					// Reset vertical gap when use predefined value.
-					if ( value !== 'custom' ) {
+					if (value !== 'custom') {
 						result.gapVerticalCustom = undefined;
 					}
 
-					onChange( result );
-				} }
+					onChange(result);
+				}}
 				isBlock
 			/>
-			{ gap === 'custom' ? (
+			{gap === 'custom' ? (
 				<div className="ghostkit-components-gap-settings-custom">
 					<TextControl
 						type="number"
-						help={ allowVerticalGap ? __( 'Horizontal', 'ghostkit' ) : '' }
-						value={ gapCustom }
-						onChange={ ( value ) =>
-							onChange( { gapCustom: value === '' ? undefined : parseFloat( value ) } )
+						help={
+							allowVerticalGap ? __('Horizontal', 'ghostkit') : ''
 						}
-						min={ 0 }
+						value={gapCustom}
+						onChange={(value) =>
+							onChange({
+								gapCustom:
+									value === ''
+										? undefined
+										: parseFloat(value),
+							})
+						}
+						min={0}
 					/>
-					{ allowVerticalGap ? (
+					{allowVerticalGap ? (
 						<TextControl
 							type="number"
-							help={ __( 'Vertical', 'ghostkit' ) }
-							placeholder={ gapCustom }
-							value={ gapVerticalCustom }
-							onChange={ ( value ) =>
-								onChange( { gapVerticalCustom: value === '' ? undefined : parseFloat( value ) } )
+							help={__('Vertical', 'ghostkit')}
+							placeholder={gapCustom}
+							value={gapVerticalCustom}
+							onChange={(value) =>
+								onChange({
+									gapVerticalCustom:
+										value === ''
+											? undefined
+											: parseFloat(value),
+								})
 							}
-							min={ 0 }
+							min={0}
 						/>
-					) : null }
+					) : null}
 				</div>
-			) : null }
+			) : null}
 		</BaseControl>
 	);
 }

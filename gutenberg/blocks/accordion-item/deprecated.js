@@ -1,19 +1,11 @@
 /* eslint-disable max-classes-per-file */
-/**
- * External dependencies
- */
+
 import classnames from 'classnames/dedupe';
 
 import { InnerBlocks, RichText } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 
-/**
- * Internal dependencies
- */
 import metadata from './block.json';
 
 const { name } = metadata;
@@ -32,20 +24,27 @@ export default [
 					active ? 'ghostkit-accordion-item-active' : ''
 				);
 
-				className = applyFilters( 'ghostkit.blocks.className', className, {
-					...{
-						name,
-					},
-					...this.props,
-				} );
+				className = applyFilters(
+					'ghostkit.blocks.className',
+					className,
+					{
+						...{
+							name,
+						},
+						...this.props,
+					}
+				);
 
 				return (
-					<div className={ className }>
-						<a href={ `#${ slug }` } className="ghostkit-accordion-item-heading">
+					<div className={className}>
+						<a
+							href={`#${slug}`}
+							className="ghostkit-accordion-item-heading"
+						>
 							<RichText.Content
 								className="ghostkit-accordion-item-label"
 								tagName="span"
-								value={ heading }
+								value={heading}
 							/>
 							<span className="ghostkit-accordion-item-collapse">
 								<svg

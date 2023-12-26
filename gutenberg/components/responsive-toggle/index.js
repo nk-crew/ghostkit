@@ -2,16 +2,10 @@ import classnames from 'classnames/dedupe';
 
 import { Button, Tooltip } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
-/**
- * WordPress dependencies
- */
 import { __, sprintf } from '@wordpress/i18n';
 
 import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
-/**
- * Internal dependencies
- */
 import ActiveIndicator from '../active-indicator';
 
 /**
@@ -19,110 +13,118 @@ import ActiveIndicator from '../active-indicator';
  *
  * @param props
  */
-export default function ResponsiveToggle( props ) {
+export default function ResponsiveToggle(props) {
 	const {
 		checkActive = () => {
 			return false;
 		},
 	} = props;
 
-	const [ isOpen, setIsOpen ] = useState( false );
+	const [isOpen, setIsOpen] = useState(false);
 
 	const { allDevices, device, setDevice } = useResponsive();
 
-	useEffect( () => {
-		function handleClickOutside( event ) {
-			if ( ! event.target.closest( '.ghostkit-control-responsive-toggle' ) ) {
-				setIsOpen( false );
+	useEffect(() => {
+		function handleClickOutside(event) {
+			if (!event.target.closest('.ghostkit-control-responsive-toggle')) {
+				setIsOpen(false);
 			}
 		}
 
-		document.addEventListener( 'click', handleClickOutside );
+		document.addEventListener('click', handleClickOutside);
 
 		return () => {
-			document.removeEventListener( 'click', handleClickOutside );
+			document.removeEventListener('click', handleClickOutside);
 		};
-	} );
+	});
 
 	const items = [];
 	const icons = [
-		getIcon( 'tabs-mobile' ),
-		getIcon( 'tabs-tablet' ),
-		getIcon( 'tabs-laptop' ),
-		getIcon( 'tabs-desktop' ),
-		getIcon( 'tabs-tv' ),
+		getIcon('tabs-mobile'),
+		getIcon('tabs-tablet'),
+		getIcon('tabs-laptop'),
+		getIcon('tabs-desktop'),
+		getIcon('tabs-tv'),
 	];
 
-	let selectedIcon = icons[ icons.length - 1 ];
+	let selectedIcon = icons[icons.length - 1];
 	let translateY = '0';
 	let withActiveResponsive = false;
 
-	[ ...Object.keys( allDevices ), '' ].forEach( ( name, i ) => {
-		if ( name === device ) {
-			selectedIcon = icons[ i ];
-			translateY = `${ ( 100 * ( 1 + i - icons.length ) ) / icons.length }%`;
+	[...Object.keys(allDevices), ''].forEach((name, i) => {
+		if (name === device) {
+			selectedIcon = icons[i];
+			translateY = `${(100 * (1 + i - icons.length)) / icons.length}%`;
 
 			// Additional transform for gap.
-			translateY = `calc(${ translateY } + ${ icons.length - i - 1 }px)`;
+			translateY = `calc(${translateY} + ${icons.length - i - 1}px)`;
 		}
 
-		const isActive = name && checkActive && checkActive( name );
+		const isActive = name && checkActive && checkActive(name);
 
 		withActiveResponsive = withActiveResponsive || isActive;
 
-		items.unshift( {
+		items.unshift({
 			name,
 			title: (
 				<Tooltip
 					text={
-						! name
-							? __( 'All devices', 'ghostkit' )
+						!name
+							? __('All devices', 'ghostkit')
 							: sprintf(
-								__( 'Devices with screen width <= %s', 'ghostkit' ),
-								`${ allDevices[ name ] }px`
-							)
+									__(
+										'Devices with screen width <= %s',
+										'ghostkit'
+									),
+									`${allDevices[name]}px`
+								)
 					}
 				>
 					<span className="ghostkit-control-responsive-toggle-icon">
-						{ icons[ i ] }
-						{ isActive && <ActiveIndicator /> }
+						{icons[i]}
+						{isActive && <ActiveIndicator />}
 					</span>
 				</Tooltip>
 			),
-		} );
-	} );
+		});
+	});
 
 	return (
 		<div className="ghostkit-control-responsive-toggle">
 			<Button
 				className="ghostkit-control-responsive-toggle-button"
-				onClick={ () => {
-					setIsOpen( true );
-				} }
+				onClick={() => {
+					setIsOpen(true);
+				}}
 			>
-				{ selectedIcon }
-				{ withActiveResponsive && <ActiveIndicator /> }
+				{selectedIcon}
+				{withActiveResponsive && <ActiveIndicator />}
 			</Button>
 			<div
-				className={ classnames( 'ghostkit-control-responsive-toggle-dropdown', isOpen && 'is-open' ) }
-				style={ {
-					transform: `translateY(${ translateY })`,
-				} }
+				className={classnames(
+					'ghostkit-control-responsive-toggle-dropdown',
+					isOpen && 'is-open'
+				)}
+				style={{
+					transform: `translateY(${translateY})`,
+				}}
 			>
-				{ items.map( ( data ) => {
+				{items.map((data) => {
 					return (
 						<Button
-							key={ data.name }
-							className={ classnames( data.name === device && 'is-active' ) }
-							onClick={ () => {
-								setDevice( data.name );
-								setIsOpen( false );
-							} }
+							key={data.name}
+							className={classnames(
+								data.name === device && 'is-active'
+							)}
+							onClick={() => {
+								setDevice(data.name);
+								setIsOpen(false);
+							}}
 						>
-							{ data.title }
+							{data.title}
 						</Button>
 					);
-				} ) }
+				})}
 			</div>
 		</div>
 	);

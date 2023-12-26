@@ -1,6 +1,3 @@
-/**
- * WordPress dependencies
- */
 import { RichText } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
@@ -9,16 +6,16 @@ import { __ } from '@wordpress/i18n';
  *
  * @param props
  */
-export default function FieldDescription( props ) {
+export default function FieldDescription(props) {
 	const { attributes, setAttributes, isSelected } = props;
 
 	const { description, hideDescription } = attributes;
 
-	if ( ! description && ! isSelected ) {
+	if (!description && !isSelected) {
 		return null;
 	}
 
-	if ( hideDescription && ! isSelected ) {
+	if (hideDescription && !isSelected) {
 		return null;
 	}
 
@@ -27,9 +24,9 @@ export default function FieldDescription( props ) {
 			inlineToolbar
 			tagName="small"
 			className="ghostkit-form-field-description"
-			value={ description }
-			placeholder={ __( 'Write description…', 'ghostkit' ) }
-			onChange={ ( val ) => setAttributes( { description: val } ) }
+			value={description}
+			placeholder={__('Write description…', 'ghostkit')}
+			onChange={(val) => setAttributes({ description: val })}
 		/>
 	);
 }

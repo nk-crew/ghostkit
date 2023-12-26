@@ -1,15 +1,9 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
 	SelectControl,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ResponsiveToggle from '../../../components/responsive-toggle';
@@ -20,184 +14,184 @@ const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
 import { hasBlockSupport } from '@wordpress/blocks';
 
-function CustomCSSCursorTools( props ) {
-	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles( props );
+function CustomCSSCursorTools(props) {
+	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
 	const { device, allDevices } = useResponsive();
 
 	let hasCursor = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-		hasCursor = hasCursor || hasStyle( 'cursor', thisDevice );
-	} );
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+		hasCursor = hasCursor || hasStyle('cursor', thisDevice);
+	});
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Cursor', 'ghostkit' ) }
-			hasValue={ () => !! hasCursor }
-			onSelect={ () => {
-				if ( ! hasStyle( 'cursor' ) ) {
-					setStyles( { cursor: 'default' } );
+			label={__('Cursor', 'ghostkit')}
+			hasValue={() => !!hasCursor}
+			onSelect={() => {
+				if (!hasStyle('cursor')) {
+					setStyles({ cursor: 'default' });
 				}
-			} }
-			onDeselect={ () => {
-				resetStyles( [ 'cursor' ], true );
-			} }
-			isShownByDefault={ false }
+			}}
+			onDeselect={() => {
+				resetStyles(['cursor'], true);
+			}}
+			isShownByDefault={false}
 		>
 			<SelectControl
 				label={
 					<>
-						{ __( 'Cursor', 'ghostkit' ) }
+						{__('Cursor', 'ghostkit')}
 						<ResponsiveToggle
-							checkActive={ ( checkMedia ) => {
-								return hasStyle( 'cursor', checkMedia );
-							} }
+							checkActive={(checkMedia) => {
+								return hasStyle('cursor', checkMedia);
+							}}
 						/>
 					</>
 				}
-				value={ getStyle( 'cursor', device ) }
-				onChange={ ( val ) => {
-					setStyles( { cursor: val }, device );
-				} }
-				options={ [
+				value={getStyle('cursor', device)}
+				onChange={(val) => {
+					setStyles({ cursor: val }, device);
+				}}
+				options={[
 					{
 						value: 'default',
-						label: __( 'Default', 'ghostkit' ),
+						label: __('Default', 'ghostkit'),
 					},
 					{
 						value: 'pointer',
-						label: __( 'Pointer', 'ghostkit' ),
+						label: __('Pointer', 'ghostkit'),
 					},
 					{
 						value: 'not-allowed',
-						label: __( 'Not Allowed', 'ghostkit' ),
+						label: __('Not Allowed', 'ghostkit'),
 					},
 					{
 						value: 'progress',
-						label: __( 'Progress', 'ghostkit' ),
+						label: __('Progress', 'ghostkit'),
 					},
 					{
 						value: 'move',
-						label: __( 'Move', 'ghostkit' ),
+						label: __('Move', 'ghostkit'),
 					},
 					{
 						value: 'grab',
-						label: __( 'Grab', 'ghostkit' ),
+						label: __('Grab', 'ghostkit'),
 					},
 					{
 						value: 'grabbing',
-						label: __( 'Grabbing', 'ghostkit' ),
+						label: __('Grabbing', 'ghostkit'),
 					},
 					{
 						value: 'zoom-in',
-						label: __( 'Zoom In', 'ghostkit' ),
+						label: __('Zoom In', 'ghostkit'),
 					},
 					{
 						value: 'zoom-out',
-						label: __( 'Zoom Out', 'ghostkit' ),
+						label: __('Zoom Out', 'ghostkit'),
 					},
 					{
 						value: 'copy',
-						label: __( 'Copy', 'ghostkit' ),
+						label: __('Copy', 'ghostkit'),
 					},
 					{
 						value: 'no-drop',
-						label: __( 'No Drop', 'ghostkit' ),
+						label: __('No Drop', 'ghostkit'),
 					},
 					{
 						value: 'context-menu',
-						label: __( 'Context Menu', 'ghostkit' ),
+						label: __('Context Menu', 'ghostkit'),
 					},
 					{
 						value: 'help',
-						label: __( 'Help', 'ghostkit' ),
+						label: __('Help', 'ghostkit'),
 					},
 					{
 						value: 'wait',
-						label: __( 'Wait', 'ghostkit' ),
+						label: __('Wait', 'ghostkit'),
 					},
 					{
 						value: 'cell',
-						label: __( 'Cell', 'ghostkit' ),
+						label: __('Cell', 'ghostkit'),
 					},
 					{
 						value: 'crosshair',
-						label: __( 'Crosshair', 'ghostkit' ),
+						label: __('Crosshair', 'ghostkit'),
 					},
 					{
 						value: 'alias',
-						label: __( 'Alias', 'ghostkit' ),
+						label: __('Alias', 'ghostkit'),
 					},
 					{
 						value: 'text',
-						label: __( 'Text', 'ghostkit' ),
+						label: __('Text', 'ghostkit'),
 					},
 					{
 						value: 'vertical-text',
-						label: __( 'Vertical Text', 'ghostkit' ),
+						label: __('Vertical Text', 'ghostkit'),
 					},
 					{
 						value: 'copy',
-						label: __( 'Copy', 'ghostkit' ),
+						label: __('Copy', 'ghostkit'),
 					},
 					{
 						value: 'nw-resize',
-						label: __( 'NW Resize', 'ghostkit' ),
+						label: __('NW Resize', 'ghostkit'),
 					},
 					{
 						value: 'n-resize',
-						label: __( 'N Resize', 'ghostkit' ),
+						label: __('N Resize', 'ghostkit'),
 					},
 					{
 						value: 'e-resize',
-						label: __( 'E Resize', 'ghostkit' ),
+						label: __('E Resize', 'ghostkit'),
 					},
 					{
 						value: 'se-resize',
-						label: __( 'SE Resize', 'ghostkit' ),
+						label: __('SE Resize', 'ghostkit'),
 					},
 					{
 						value: 's-resize',
-						label: __( 'S Resize', 'ghostkit' ),
+						label: __('S Resize', 'ghostkit'),
 					},
 					{
 						value: 'sw-resize',
-						label: __( 'SW Resize', 'ghostkit' ),
+						label: __('SW Resize', 'ghostkit'),
 					},
 					{
 						value: 'w-resize',
-						label: __( 'W Resize', 'ghostkit' ),
+						label: __('W Resize', 'ghostkit'),
 					},
 					{
 						value: 'ew-resize',
-						label: __( 'EW Resize', 'ghostkit' ),
+						label: __('EW Resize', 'ghostkit'),
 					},
 					{
 						value: 'ns-resize',
-						label: __( 'NS Resize', 'ghostkit' ),
+						label: __('NS Resize', 'ghostkit'),
 					},
 					{
 						value: 'nwse-resize',
-						label: __( 'NWSE Resize', 'ghostkit' ),
+						label: __('NWSE Resize', 'ghostkit'),
 					},
 					{
 						value: 'nesw-resize',
-						label: __( 'NESW Resize', 'ghostkit' ),
+						label: __('NESW Resize', 'ghostkit'),
 					},
 					{
 						value: 'col-resize',
-						label: __( 'Col Resize', 'ghostkit' ),
+						label: __('Col Resize', 'ghostkit'),
 					},
 					{
 						value: 'row-resize',
-						label: __( 'Row Resize', 'ghostkit' ),
+						label: __('Row Resize', 'ghostkit'),
 					},
 					{
 						value: 'none',
-						label: __( 'None', 'ghostkit' ),
+						label: __('None', 'ghostkit'),
 					},
-				] }
+				]}
 			/>
 		</ToolsPanelItem>
 	);
@@ -206,17 +200,21 @@ function CustomCSSCursorTools( props ) {
 addFilter(
 	'ghostkit.extension.customCSS.tools',
 	'ghostkit/extension/customCSS/tools/cursor',
-	( children, { props } ) => {
-		const hasCursorSupport = hasBlockSupport( props.name, [ 'ghostkit', 'customCSS', 'cursor' ] );
+	(children, { props }) => {
+		const hasCursorSupport = hasBlockSupport(props.name, [
+			'ghostkit',
+			'customCSS',
+			'cursor',
+		]);
 
-		if ( ! hasCursorSupport ) {
+		if (!hasCursorSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<CustomCSSCursorTools { ...props } />
+				{children}
+				<CustomCSSCursorTools {...props} />
 			</>
 		);
 	}

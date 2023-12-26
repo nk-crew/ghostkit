@@ -1,9 +1,3 @@
-/**
- * WordPress dependencies
- */
-/**
- * Internal dependencies
- */
 import {
 	RichText,
 	useBlockProps,
@@ -20,34 +14,44 @@ const { name } = metadata;
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const { version, date } = props.attributes;
 
 	let className = 'ghostkit-changelog';
 
-	className = applyFilters( 'ghostkit.blocks.className', className, {
+	className = applyFilters('ghostkit.blocks.className', className, {
 		...{
 			name,
 		},
 		...props,
-	} );
+	});
 
-	const blockProps = useBlockProps.save( { className } );
-	const innerBlockProps = useInnerBlocksProps.save( { className: 'ghostkit-changelog-more' } );
+	const blockProps = useBlockProps.save({ className });
+	const innerBlockProps = useInnerBlocksProps.save({
+		className: 'ghostkit-changelog-more',
+	});
 
 	return (
-		<div { ...blockProps }>
-			{ ! RichText.isEmpty( version ) ? (
-				<RichText.Content tagName="span" className="ghostkit-changelog-version" value={ version } />
+		<div {...blockProps}>
+			{!RichText.isEmpty(version) ? (
+				<RichText.Content
+					tagName="span"
+					className="ghostkit-changelog-version"
+					value={version}
+				/>
 			) : (
 				''
-			) }
-			{ ! RichText.isEmpty( date ) ? (
-				<RichText.Content tagName="h2" className="ghostkit-changelog-date" value={ date } />
+			)}
+			{!RichText.isEmpty(date) ? (
+				<RichText.Content
+					tagName="h2"
+					className="ghostkit-changelog-date"
+					value={date}
+				/>
 			) : (
 				''
-			) }
-			<div { ...innerBlockProps } />
+			)}
+			<div {...innerBlockProps} />
 		</div>
 	);
 }

@@ -5,7 +5,7 @@
  *
  * @return {Object} Styles object.
  */
-export default function getBackgroundStyles( attributes ) {
+export default function getBackgroundStyles(attributes) {
 	const {
 		awb_image: image,
 		awb_imageBackgroundSize: imageBackgroundSize,
@@ -14,7 +14,7 @@ export default function getBackgroundStyles( attributes ) {
 
 	const styles = {};
 
-	styles[ '> .nk-awb .jarallax-img' ] = {
+	styles['> .nk-awb .jarallax-img'] = {
 		'object-fit': undefined,
 		'object-position': undefined,
 		'background-repeat': undefined,
@@ -25,22 +25,26 @@ export default function getBackgroundStyles( attributes ) {
 	};
 
 	// <img> tag with object-fit style
-	if ( image ) {
-		if ( imageBackgroundSize !== 'pattern' ) {
-			if ( imageBackgroundSize ) {
-				styles[ '> .nk-awb .jarallax-img' ][ 'object-fit' ] = imageBackgroundSize;
+	if (image) {
+		if (imageBackgroundSize !== 'pattern') {
+			if (imageBackgroundSize) {
+				styles['> .nk-awb .jarallax-img']['object-fit'] =
+					imageBackgroundSize;
 			}
-			if ( imageBackgroundPosition ) {
-				styles[ '> .nk-awb .jarallax-img' ][ 'object-position' ] = imageBackgroundPosition;
+			if (imageBackgroundPosition) {
+				styles['> .nk-awb .jarallax-img']['object-position'] =
+					imageBackgroundPosition;
 			}
 
 			// background image with pattern size
 		} else {
-			if ( imageBackgroundSize ) {
-				styles[ '> .nk-awb .jarallax-img' ][ 'background-repeat' ] = 'repeat';
+			if (imageBackgroundSize) {
+				styles['> .nk-awb .jarallax-img']['background-repeat'] =
+					'repeat';
 			}
-			if ( imageBackgroundSize ) {
-				styles[ '> .nk-awb .jarallax-img' ][ 'background-position' ] = imageBackgroundPosition;
+			if (imageBackgroundSize) {
+				styles['> .nk-awb .jarallax-img']['background-position'] =
+					imageBackgroundPosition;
 			}
 		}
 	}

@@ -1,22 +1,22 @@
 /* eslint-disable react/no-danger */
-/**
- * External dependencies
- */
+
 import classnames from 'classnames/dedupe';
 
 import { InspectorControls } from '@wordpress/block-editor';
-import { ExternalLink, PanelBody, Placeholder, SelectControl, Spinner, TextControl, ToggleControl } from '@wordpress/components';
+import {
+	ExternalLink,
+	PanelBody,
+	Placeholder,
+	SelectControl,
+	Spinner,
+	TextControl,
+	ToggleControl,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { Fragment } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
-/**
- * Internal dependencies
- */
 import RangeControl from '../../components/range-control';
 import getIcon from '../../utils/get-icon';
 
@@ -25,7 +25,7 @@ import getIcon from '../../utils/get-icon';
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { setAttributes, attributes } = props;
 
 	let { className } = props;
@@ -59,11 +59,15 @@ export default function BlockEdit( props ) {
 		showProfileLocation,
 	} = attributes;
 
-	const { twitterFeed, twitterProfile } = useSelect( ( select ) => {
+	const { twitterFeed, twitterProfile } = useSelect((select) => {
 		const APIDataReady =
-      consumerKey && consumerSecret && accessToken && accessTokenSecret && userName;
+			consumerKey &&
+			consumerSecret &&
+			accessToken &&
+			accessTokenSecret &&
+			userName;
 
-		if ( ! APIDataReady ) {
+		if (!APIDataReady) {
 			return false;
 		}
 
@@ -76,210 +80,287 @@ export default function BlockEdit( props ) {
 		};
 
 		return {
-			twitterFeed: select( 'ghostkit/blocks/twitter' ).getTwitterFeed( {
+			twitterFeed: select('ghostkit/blocks/twitter').getTwitterFeed({
 				count,
 				exclude_replies: showReplies ? 'false' : 'true',
 				include_rts: showRetweets ? 'true' : 'false',
 				tweet_mode_extended: feedTextMode === 'full' ? 'true' : 'false',
 				...apiKeys,
-			} ),
-			twitterProfile: select( 'ghostkit/blocks/twitter' ).getTwitterProfile( apiKeys ),
+			}),
+			twitterProfile: select('ghostkit/blocks/twitter').getTwitterProfile(
+				apiKeys
+			),
 		};
-	} )( BlockEdit );
+	})(BlockEdit);
 
-	className = classnames( 'ghostkit-twitter', className );
+	className = classnames('ghostkit-twitter', className);
 
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = applyFilters('ghostkit.editor.className', className, props);
 
 	const APIDataReady =
-    consumerKey && consumerSecret && accessToken && accessTokenSecret && userName;
+		consumerKey &&
+		consumerSecret &&
+		accessToken &&
+		accessTokenSecret &&
+		userName;
 
 	return (
 		<Fragment>
 			<InspectorControls>
-				{ APIDataReady ? (
+				{APIDataReady ? (
 					<Fragment>
 						<PanelBody>
 							<TextControl
-								placeholder={ __( 'Username', 'ghostkit' ) }
-								value={ userName }
-								onChange={ ( value ) => setAttributes( { userName: value } ) }
+								placeholder={__('Username', 'ghostkit')}
+								value={userName}
+								onChange={(value) =>
+									setAttributes({ userName: value })
+								}
 							/>
 						</PanelBody>
-						<PanelBody title={ __( 'Feed', 'ghostkit' ) }>
+						<PanelBody title={__('Feed', 'ghostkit')}>
 							<RangeControl
-								label={ __( 'Tweets Number', 'ghostkit' ) }
-								value={ count }
-								onChange={ ( value ) => setAttributes( { count: value } ) }
-								min={ 1 }
-								max={ 20 }
+								label={__('Tweets Number', 'ghostkit')}
+								value={count}
+								onChange={(value) =>
+									setAttributes({ count: value })
+								}
+								min={1}
+								max={20}
 							/>
 							<ToggleControl
-								label={ __( 'Show Replies', 'ghostkit' ) }
-								checked={ !! showReplies }
-								onChange={ ( value ) => setAttributes( { showReplies: value } ) }
+								label={__('Show Replies', 'ghostkit')}
+								checked={!!showReplies}
+								onChange={(value) =>
+									setAttributes({ showReplies: value })
+								}
 							/>
 							<ToggleControl
-								label={ __( 'Show Retweets', 'ghostkit' ) }
-								checked={ !! showRetweets }
-								onChange={ ( value ) => setAttributes( { showRetweets: value } ) }
+								label={__('Show Retweets', 'ghostkit')}
+								checked={!!showRetweets}
+								onChange={(value) =>
+									setAttributes({ showRetweets: value })
+								}
 							/>
 							<ToggleControl
-								label={ __( 'Show Avatar', 'ghostkit' ) }
-								checked={ !! showFeedAvatar }
-								onChange={ ( value ) => setAttributes( { showFeedAvatar: value } ) }
+								label={__('Show Avatar', 'ghostkit')}
+								checked={!!showFeedAvatar}
+								onChange={(value) =>
+									setAttributes({ showFeedAvatar: value })
+								}
 							/>
-							{ showFeedAvatar ? (
+							{showFeedAvatar ? (
 								<RangeControl
-									label={ __( 'Avatar Size', 'ghostkit' ) }
-									value={ feedAvatarSize }
-									onChange={ ( value ) => setAttributes( { feedAvatarSize: value } ) }
-									min={ 10 }
-									max={ 100 }
+									label={__('Avatar Size', 'ghostkit')}
+									value={feedAvatarSize}
+									onChange={(value) =>
+										setAttributes({ feedAvatarSize: value })
+									}
+									min={10}
+									max={100}
 									allowCustomMin
 									allowCustomMax
 								/>
 							) : (
 								''
-							) }
+							)}
 							<ToggleControl
-								label={ __( 'Show Name', 'ghostkit' ) }
-								checked={ !! showFeedName }
-								onChange={ ( value ) => setAttributes( { showFeedName: value } ) }
+								label={__('Show Name', 'ghostkit')}
+								checked={!!showFeedName}
+								onChange={(value) =>
+									setAttributes({ showFeedName: value })
+								}
 							/>
 							<ToggleControl
-								label={ __( 'Show Date', 'ghostkit' ) }
-								checked={ !! showFeedDate }
-								onChange={ ( value ) => setAttributes( { showFeedDate: value } ) }
+								label={__('Show Date', 'ghostkit')}
+								checked={!!showFeedDate}
+								onChange={(value) =>
+									setAttributes({ showFeedDate: value })
+								}
 							/>
 							<ToggleControl
-								label={ __( 'Show Actions', 'ghostkit' ) }
-								checked={ !! showFeedActions }
-								onChange={ ( value ) => setAttributes( { showFeedActions: value } ) }
+								label={__('Show Actions', 'ghostkit')}
+								checked={!!showFeedActions}
+								onChange={(value) =>
+									setAttributes({ showFeedActions: value })
+								}
 							/>
 							<SelectControl
-								label={ __( 'Text Mode', 'ghostkit' ) }
-								value={ feedTextMode }
-								options={ [
+								label={__('Text Mode', 'ghostkit')}
+								value={feedTextMode}
+								options={[
 									{
 										value: '',
-										label: __( 'Short', 'ghostkit' ),
+										label: __('Short', 'ghostkit'),
 									},
 									{
 										value: 'full',
-										label: __( 'Full', 'ghostkit' ),
+										label: __('Full', 'ghostkit'),
 									},
-								] }
-								onChange={ ( value ) => setAttributes( { feedTextMode: value } ) }
+								]}
+								onChange={(value) =>
+									setAttributes({ feedTextMode: value })
+								}
 							/>
 							<SelectControl
-								label={ __( 'Convert Text Links', 'ghostkit' ) }
-								value={ feedTextConvertLinks }
-								options={ [
+								label={__('Convert Text Links', 'ghostkit')}
+								value={feedTextConvertLinks}
+								options={[
 									{
 										value: 'links_media',
-										label: __( 'Links + Media', 'ghostkit' ),
+										label: __('Links + Media', 'ghostkit'),
 									},
 									{
 										value: 'links',
-										label: __( 'Links', 'ghostkit' ),
+										label: __('Links', 'ghostkit'),
 									},
 									{
 										value: 'no',
-										label: __( 'No Convert', 'ghostkit' ),
+										label: __('No Convert', 'ghostkit'),
 									},
-								] }
-								onChange={ ( value ) => setAttributes( { feedTextConvertLinks: value } ) }
+								]}
+								onChange={(value) =>
+									setAttributes({
+										feedTextConvertLinks: value,
+									})
+								}
 							/>
 						</PanelBody>
-						<PanelBody title={ __( 'Profile', 'ghostkit' ) }>
+						<PanelBody title={__('Profile', 'ghostkit')}>
 							<ToggleControl
-								label={ __( 'Show Profile', 'ghostkit' ) }
-								checked={ !! showProfile }
-								onChange={ ( value ) => setAttributes( { showProfile: value } ) }
+								label={__('Show Profile', 'ghostkit')}
+								checked={!!showProfile}
+								onChange={(value) =>
+									setAttributes({ showProfile: value })
+								}
 							/>
-							{ showProfile ? (
+							{showProfile ? (
 								<Fragment>
 									<ToggleControl
-										label={ __( 'Show Avatar', 'ghostkit' ) }
-										checked={ !! showProfileAvatar }
-										onChange={ ( value ) => setAttributes( { showProfileAvatar: value } ) }
+										label={__('Show Avatar', 'ghostkit')}
+										checked={!!showProfileAvatar}
+										onChange={(value) =>
+											setAttributes({
+												showProfileAvatar: value,
+											})
+										}
 									/>
-									{ showProfileAvatar ? (
+									{showProfileAvatar ? (
 										<RangeControl
-											label={ __( 'Avatar Size', 'ghostkit' ) }
-											value={ profileAvatarSize }
-											onChange={ ( value ) => setAttributes( { profileAvatarSize: value } ) }
-											min={ 30 }
-											max={ 150 }
+											label={__(
+												'Avatar Size',
+												'ghostkit'
+											)}
+											value={profileAvatarSize}
+											onChange={(value) =>
+												setAttributes({
+													profileAvatarSize: value,
+												})
+											}
+											min={30}
+											max={150}
 											allowCustomMin
 											allowCustomMax
 										/>
 									) : (
 										''
-									) }
+									)}
 									<ToggleControl
-										label={ __( 'Show Name', 'ghostkit' ) }
-										checked={ !! showProfileName }
-										onChange={ ( value ) => setAttributes( { showProfileName: value } ) }
+										label={__('Show Name', 'ghostkit')}
+										checked={!!showProfileName}
+										onChange={(value) =>
+											setAttributes({
+												showProfileName: value,
+											})
+										}
 									/>
 									<ToggleControl
-										label={ __( 'Show Stats', 'ghostkit' ) }
-										checked={ !! showProfileStats }
-										onChange={ ( value ) => setAttributes( { showProfileStats: value } ) }
+										label={__('Show Stats', 'ghostkit')}
+										checked={!!showProfileStats}
+										onChange={(value) =>
+											setAttributes({
+												showProfileStats: value,
+											})
+										}
 									/>
 									<ToggleControl
-										label={ __( 'Show Description', 'ghostkit' ) }
-										checked={ !! showProfileDescription }
-										onChange={ ( value ) => setAttributes( { showProfileDescription: value } ) }
+										label={__(
+											'Show Description',
+											'ghostkit'
+										)}
+										checked={!!showProfileDescription}
+										onChange={(value) =>
+											setAttributes({
+												showProfileDescription: value,
+											})
+										}
 									/>
 									<ToggleControl
-										label={ __( 'Show Website', 'ghostkit' ) }
-										checked={ !! showProfileWebsite }
-										onChange={ ( value ) => setAttributes( { showProfileWebsite: value } ) }
+										label={__('Show Website', 'ghostkit')}
+										checked={!!showProfileWebsite}
+										onChange={(value) =>
+											setAttributes({
+												showProfileWebsite: value,
+											})
+										}
 									/>
 									<ToggleControl
-										label={ __( 'Show Location', 'ghostkit' ) }
-										checked={ !! showProfileLocation }
-										onChange={ ( value ) => setAttributes( { showProfileLocation: value } ) }
+										label={__('Show Location', 'ghostkit')}
+										checked={!!showProfileLocation}
+										onChange={(value) =>
+											setAttributes({
+												showProfileLocation: value,
+											})
+										}
 									/>
 								</Fragment>
 							) : (
 								''
-							) }
+							)}
 						</PanelBody>
 					</Fragment>
 				) : (
 					''
-				) }
+				)}
 
-				<PanelBody title={ __( 'API Data', 'ghostkit' ) } initialOpen={ ! APIDataReady }>
+				<PanelBody
+					title={__('API Data', 'ghostkit')}
+					initialOpen={!APIDataReady}
+				>
 					<TextControl
-						placeholder={ __( 'Consumer Key', 'ghostkit' ) }
-						value={ consumerKey }
-						onChange={ ( value ) => setAttributes( { consumerKey: value } ) }
+						placeholder={__('Consumer Key', 'ghostkit')}
+						value={consumerKey}
+						onChange={(value) =>
+							setAttributes({ consumerKey: value })
+						}
 					/>
 					<TextControl
-						placeholder={ __( 'Consumer Secret', 'ghostkit' ) }
-						value={ consumerSecret }
-						onChange={ ( value ) => setAttributes( { consumerSecret: value } ) }
+						placeholder={__('Consumer Secret', 'ghostkit')}
+						value={consumerSecret}
+						onChange={(value) =>
+							setAttributes({ consumerSecret: value })
+						}
 					/>
 					<TextControl
-						placeholder={ __( 'Access Token', 'ghostkit' ) }
-						value={ accessToken }
-						onChange={ ( value ) => setAttributes( { accessToken: value } ) }
+						placeholder={__('Access Token', 'ghostkit')}
+						value={accessToken}
+						onChange={(value) =>
+							setAttributes({ accessToken: value })
+						}
 					/>
 					<TextControl
-						placeholder={ __( 'Access Token Secret', 'ghostkit' ) }
-						value={ accessTokenSecret }
-						onChange={ ( value ) => setAttributes( { accessTokenSecret: value } ) }
+						placeholder={__('Access Token Secret', 'ghostkit')}
+						value={accessTokenSecret}
+						onChange={(value) =>
+							setAttributes({ accessTokenSecret: value })
+						}
 					/>
 					<p>
 						<em>
-							{ __(
+							{__(
 								'A valid API data is required to use Twitter feed. How to get it',
 								'ghostkit'
-							) }{ ' ' }
+							)}{' '}
 							<ExternalLink href="http://www.gabfirethemes.com/create-twitter-api-key/">
 								http://www.gabfirethemes.com/create-twitter-api-key/
 							</ExternalLink>
@@ -287,231 +368,299 @@ export default function BlockEdit( props ) {
 					</p>
 				</PanelBody>
 			</InspectorControls>
-			<div className={ className }>
-				{ APIDataReady && showProfile && twitterProfile ? (
+			<div className={className}>
+				{APIDataReady && showProfile && twitterProfile ? (
 					<div className="ghostkit-twitter-profile">
-						{ showProfileAvatar && twitterProfile.profile_images_https ? (
+						{showProfileAvatar &&
+						twitterProfile.profile_images_https ? (
 							<div className="ghostkit-twitter-profile-avatar">
-								<ExternalLink href={ `https://twitter.com/${ twitterProfile.screen_name }/` }>
+								<ExternalLink
+									href={`https://twitter.com/${twitterProfile.screen_name}/`}
+								>
 									<img
-										src={ twitterProfile.profile_images_https.original }
-										alt={ twitterProfile.fullName }
-										width={ profileAvatarSize }
-										height={ profileAvatarSize }
+										src={
+											twitterProfile.profile_images_https
+												.original
+										}
+										alt={twitterProfile.fullName}
+										width={profileAvatarSize}
+										height={profileAvatarSize}
 									/>
 								</ExternalLink>
 							</div>
 						) : (
 							''
-						) }
+						)}
 						<div className="ghostkit-twitter-profile-side">
-							{ showProfileName && twitterProfile.name ? (
+							{showProfileName && twitterProfile.name ? (
 								<div className="ghostkit-twitter-profile-name">
 									<h2 className="ghostkit-twitter-profile-fullname">
-										<ExternalLink href={ `https://twitter.com/${ twitterProfile.screen_name }/` }>
-											{ twitterProfile.name }
+										<ExternalLink
+											href={`https://twitter.com/${twitterProfile.screen_name}/`}
+										>
+											{twitterProfile.name}
 										</ExternalLink>
-										{ twitterProfile.verified ? (
+										{twitterProfile.verified ? (
 											<span className="ghostkit-twitter-profile-verified">
-												{ __( 'Verified account', 'ghostkit' ) }
+												{__(
+													'Verified account',
+													'ghostkit'
+												)}
 											</span>
 										) : (
 											''
-										) }
+										)}
 									</h2>
 									<h3 className="ghostkit-twitter-profile-username">
-										<ExternalLink href={ `https://twitter.com/${ twitterProfile.screen_name }/` }>
-											@{ twitterProfile.screen_name }
+										<ExternalLink
+											href={`https://twitter.com/${twitterProfile.screen_name}/`}
+										>
+											@{twitterProfile.screen_name}
 										</ExternalLink>
 									</h3>
 								</div>
 							) : (
 								''
-							) }
-							{ showProfileStats ? (
+							)}
+							{showProfileStats ? (
 								<div className="ghostkit-twitter-profile-stats">
 									<div>
-										<strong>{ twitterProfile.statuses_count_short }</strong>{ ' ' }
-										<span>{ __( 'Tweets', 'ghostkit' ) }</span>
+										<strong>
+											{
+												twitterProfile.statuses_count_short
+											}
+										</strong>{' '}
+										<span>{__('Tweets', 'ghostkit')}</span>
 									</div>
 									<div>
-										<strong>{ twitterProfile.friends_count_short }</strong>{ ' ' }
-										<span>{ __( 'Following', 'ghostkit' ) }</span>
+										<strong>
+											{twitterProfile.friends_count_short}
+										</strong>{' '}
+										<span>
+											{__('Following', 'ghostkit')}
+										</span>
 									</div>
 									<div>
-										<strong>{ twitterProfile.followers_count_short }</strong>{ ' ' }
-										<span>{ __( 'Followers', 'ghostkit' ) }</span>
+										<strong>
+											{
+												twitterProfile.followers_count_short
+											}
+										</strong>{' '}
+										<span>
+											{__('Followers', 'ghostkit')}
+										</span>
 									</div>
 								</div>
 							) : (
 								''
-							) }
-							{ showProfileDescription && twitterProfile.description_entitled ? (
-							// eslint-disable-next-line react/no-danger
+							)}
+							{showProfileDescription &&
+							twitterProfile.description_entitled ? (
+								// eslint-disable-next-line react/no-danger
 								<div
 									className="ghostkit-twitter-profile-description"
-									dangerouslySetInnerHTML={ { __html: twitterProfile.description_entitled } }
+									dangerouslySetInnerHTML={{
+										__html: twitterProfile.description_entitled,
+									}}
 								/>
 							) : (
 								''
-							) }
-							{ showProfileWebsite && twitterProfile.url_entitled ? (
-							// eslint-disable-next-line react/no-danger
+							)}
+							{showProfileWebsite &&
+							twitterProfile.url_entitled ? (
+								// eslint-disable-next-line react/no-danger
 								<div
 									className="ghostkit-twitter-profile-website"
-									dangerouslySetInnerHTML={ {
-										__html: `<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.348 7.40994L14.378 5.37894C14.9421 4.82384 15.7027 4.51411 16.4941 4.51724C17.2855 4.52037 18.0436 4.8361 18.6033 5.39565C19.163 5.9552 19.4789 6.71324 19.4822 7.50465C19.4855 8.29606 19.176 9.05672 18.621 9.62094L15.621 12.6209C15.3171 12.9248 14.9514 13.1598 14.5488 13.3101C14.1462 13.4604 13.7159 13.5224 13.2873 13.492C12.8586 13.4616 12.4414 13.3394 12.064 13.1337C11.6867 12.928 11.3579 12.6437 11.1 12.2999C10.9804 12.1408 10.8025 12.0357 10.6054 12.0077C10.4083 11.9798 10.2081 12.0313 10.049 12.1509C9.8899 12.2705 9.7848 12.4484 9.75686 12.6455C9.72892 12.8426 9.78041 13.0428 9.90003 13.2019C10.2869 13.7176 10.7801 14.1442 11.3462 14.4527C11.9123 14.7612 12.5381 14.9445 13.1812 14.9901C13.8243 15.0357 14.4697 14.9426 15.0737 14.7171C15.6777 14.4915 16.2262 14.1388 16.682 13.6829L19.682 10.6829C20.1082 10.2669 20.4475 9.77059 20.6804 9.22251C20.9133 8.67443 21.0351 8.08558 21.0387 7.49008C21.0423 6.89459 20.9277 6.30429 20.7016 5.75342C20.4754 5.20254 20.1421 4.70204 19.721 4.28092C19.3 3.8598 18.7995 3.52644 18.2487 3.30016C17.6978 3.07388 17.1076 2.95919 16.5121 2.96273C15.9166 2.96626 15.3277 3.08796 14.7796 3.32077C14.2315 3.55357 13.735 3.89285 13.319 4.31894L11.289 6.34894C11.1523 6.49033 11.0766 6.67975 11.0782 6.8764C11.0799 7.07305 11.1586 7.26119 11.2976 7.40032C11.4366 7.53944 11.6247 7.6184 11.8213 7.6202C12.018 7.62201 12.2075 7.5465 12.349 7.40994H12.348ZM5.37803 14.3789L8.37803 11.3789C8.68201 11.0747 9.04784 10.8395 9.45072 10.689C9.8536 10.5386 10.2841 10.4766 10.713 10.5071C11.142 10.5377 11.5593 10.6601 11.9369 10.866C12.3144 11.072 12.6432 11.3567 12.901 11.7009C13.0206 11.86 13.1985 11.9651 13.3956 11.9931C13.5927 12.021 13.7929 11.9695 13.952 11.8499C14.1111 11.7303 14.2162 11.5524 14.2442 11.3553C14.2721 11.1582 14.2206 10.958 14.101 10.7989C13.7141 10.2832 13.2209 9.85667 12.6548 9.54816C12.0887 9.23965 11.4629 9.05638 10.8198 9.01077C10.1767 8.96516 9.5313 9.05827 8.92731 9.28379C8.32332 9.50932 7.77485 9.862 7.31903 10.3179L4.31803 13.3179C3.47411 14.1618 3 15.3064 3 16.4999C3 17.6934 3.47411 18.838 4.31803 19.6819C5.16195 20.5258 6.30655 20.9999 7.50003 20.9999C8.69351 20.9999 9.83811 20.5258 10.682 19.6819L12.712 17.6519C12.8487 17.5105 12.9244 17.3211 12.9228 17.1245C12.9211 16.9278 12.8424 16.7397 12.7034 16.6005C12.5644 16.4614 12.3763 16.3824 12.1796 16.3806C11.983 16.3788 11.7935 16.4543 11.652 16.5909L9.62203 18.6209C9.34432 18.9032 9.01346 19.1278 8.64854 19.2816C8.28361 19.4354 7.89184 19.5155 7.49582 19.5172C7.09981 19.5188 6.70738 19.442 6.34118 19.2913C5.97498 19.1405 5.64225 18.9187 5.36219 18.6387C5.08212 18.3588 4.86027 18.0261 4.70942 17.6599C4.55857 17.2937 4.48171 16.9013 4.48328 16.5053C4.48484 16.1093 4.5648 15.7175 4.71854 15.3525C4.87228 14.9876 5.09676 14.6567 5.37903 14.3789H5.37803Z" fill="currentColor"/></svg> ${ twitterProfile.url_entitled }`,
-									} }
+									dangerouslySetInnerHTML={{
+										__html: `<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.348 7.40994L14.378 5.37894C14.9421 4.82384 15.7027 4.51411 16.4941 4.51724C17.2855 4.52037 18.0436 4.8361 18.6033 5.39565C19.163 5.9552 19.4789 6.71324 19.4822 7.50465C19.4855 8.29606 19.176 9.05672 18.621 9.62094L15.621 12.6209C15.3171 12.9248 14.9514 13.1598 14.5488 13.3101C14.1462 13.4604 13.7159 13.5224 13.2873 13.492C12.8586 13.4616 12.4414 13.3394 12.064 13.1337C11.6867 12.928 11.3579 12.6437 11.1 12.2999C10.9804 12.1408 10.8025 12.0357 10.6054 12.0077C10.4083 11.9798 10.2081 12.0313 10.049 12.1509C9.8899 12.2705 9.7848 12.4484 9.75686 12.6455C9.72892 12.8426 9.78041 13.0428 9.90003 13.2019C10.2869 13.7176 10.7801 14.1442 11.3462 14.4527C11.9123 14.7612 12.5381 14.9445 13.1812 14.9901C13.8243 15.0357 14.4697 14.9426 15.0737 14.7171C15.6777 14.4915 16.2262 14.1388 16.682 13.6829L19.682 10.6829C20.1082 10.2669 20.4475 9.77059 20.6804 9.22251C20.9133 8.67443 21.0351 8.08558 21.0387 7.49008C21.0423 6.89459 20.9277 6.30429 20.7016 5.75342C20.4754 5.20254 20.1421 4.70204 19.721 4.28092C19.3 3.8598 18.7995 3.52644 18.2487 3.30016C17.6978 3.07388 17.1076 2.95919 16.5121 2.96273C15.9166 2.96626 15.3277 3.08796 14.7796 3.32077C14.2315 3.55357 13.735 3.89285 13.319 4.31894L11.289 6.34894C11.1523 6.49033 11.0766 6.67975 11.0782 6.8764C11.0799 7.07305 11.1586 7.26119 11.2976 7.40032C11.4366 7.53944 11.6247 7.6184 11.8213 7.6202C12.018 7.62201 12.2075 7.5465 12.349 7.40994H12.348ZM5.37803 14.3789L8.37803 11.3789C8.68201 11.0747 9.04784 10.8395 9.45072 10.689C9.8536 10.5386 10.2841 10.4766 10.713 10.5071C11.142 10.5377 11.5593 10.6601 11.9369 10.866C12.3144 11.072 12.6432 11.3567 12.901 11.7009C13.0206 11.86 13.1985 11.9651 13.3956 11.9931C13.5927 12.021 13.7929 11.9695 13.952 11.8499C14.1111 11.7303 14.2162 11.5524 14.2442 11.3553C14.2721 11.1582 14.2206 10.958 14.101 10.7989C13.7141 10.2832 13.2209 9.85667 12.6548 9.54816C12.0887 9.23965 11.4629 9.05638 10.8198 9.01077C10.1767 8.96516 9.5313 9.05827 8.92731 9.28379C8.32332 9.50932 7.77485 9.862 7.31903 10.3179L4.31803 13.3179C3.47411 14.1618 3 15.3064 3 16.4999C3 17.6934 3.47411 18.838 4.31803 19.6819C5.16195 20.5258 6.30655 20.9999 7.50003 20.9999C8.69351 20.9999 9.83811 20.5258 10.682 19.6819L12.712 17.6519C12.8487 17.5105 12.9244 17.3211 12.9228 17.1245C12.9211 16.9278 12.8424 16.7397 12.7034 16.6005C12.5644 16.4614 12.3763 16.3824 12.1796 16.3806C11.983 16.3788 11.7935 16.4543 11.652 16.5909L9.62203 18.6209C9.34432 18.9032 9.01346 19.1278 8.64854 19.2816C8.28361 19.4354 7.89184 19.5155 7.49582 19.5172C7.09981 19.5188 6.70738 19.442 6.34118 19.2913C5.97498 19.1405 5.64225 18.9187 5.36219 18.6387C5.08212 18.3588 4.86027 18.0261 4.70942 17.6599C4.55857 17.2937 4.48171 16.9013 4.48328 16.5053C4.48484 16.1093 4.5648 15.7175 4.71854 15.3525C4.87228 14.9876 5.09676 14.6567 5.37903 14.3789H5.37803Z" fill="currentColor"/></svg> ${twitterProfile.url_entitled}`,
+									}}
 								/>
 							) : (
 								''
-							) }
-							{ showProfileLocation && twitterProfile.location ? (
-							// eslint-disable-next-line react/no-danger
+							)}
+							{showProfileLocation && twitterProfile.location ? (
+								// eslint-disable-next-line react/no-danger
 								<div
 									className="ghostkit-twitter-profile-location"
-									dangerouslySetInnerHTML={ {
-										__html: `<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.2806 20.6368C5.98328 13.2316 5 12.4715 5 9.75C5 6.02207 8.13399 3 12 3C15.866 3 19 6.02207 19 9.75C19 12.4715 18.0167 13.2316 12.7194 20.6368C12.3718 21.1211 11.6282 21.121 11.2806 20.6368ZM12 12.5625C13.6108 12.5625 14.9167 11.3033 14.9167 9.75C14.9167 8.19669 13.6108 6.9375 12 6.9375C10.3892 6.9375 9.08333 8.19669 9.08333 9.75C9.08333 11.3033 10.3892 12.5625 12 12.5625Z" fill="currentColor"/></svg> ${ twitterProfile.location }`,
-									} }
+									dangerouslySetInnerHTML={{
+										__html: `<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.2806 20.6368C5.98328 13.2316 5 12.4715 5 9.75C5 6.02207 8.13399 3 12 3C15.866 3 19 6.02207 19 9.75C19 12.4715 18.0167 13.2316 12.7194 20.6368C12.3718 21.1211 11.6282 21.121 11.2806 20.6368ZM12 12.5625C13.6108 12.5625 14.9167 11.3033 14.9167 9.75C14.9167 8.19669 13.6108 6.9375 12 6.9375C10.3892 6.9375 9.08333 8.19669 9.08333 9.75C9.08333 11.3033 10.3892 12.5625 12 12.5625Z" fill="currentColor"/></svg> ${twitterProfile.location}`,
+									}}
 								/>
 							) : (
 								''
-							) }
+							)}
 						</div>
 					</div>
 				) : (
 					''
-				) }
-				{ APIDataReady && twitterFeed ? (
+				)}
+				{APIDataReady && twitterFeed ? (
 					<div className="ghostkit-twitter-items">
-						{ twitterFeed.map( ( item, i ) => {
+						{twitterFeed.map((item, i) => {
 							const oldItem = item;
 							let isRetweet = false;
 
-							if ( item.retweeted_status ) {
+							if (item.retweeted_status) {
 								item = item.retweeted_status;
 								isRetweet = true;
 							}
 
-							const itemName = `twitter-item-${ i }`;
+							const itemName = `twitter-item-${i}`;
 
 							return (
-								<div className="ghostkit-twitter-item" key={ itemName }>
-									{ showFeedAvatar ? (
+								<div
+									className="ghostkit-twitter-item"
+									key={itemName}
+								>
+									{showFeedAvatar ? (
 										<div className="ghostkit-twitter-item-avatar">
-											{ isRetweet ? <br /> : '' }
-											<ExternalLink href={ `https://twitter.com/${ item.user.screen_name }/` }>
+											{isRetweet ? <br /> : ''}
+											<ExternalLink
+												href={`https://twitter.com/${item.user.screen_name}/`}
+											>
 												<img
-													src={ item.user.profile_images_https.bigger }
-													alt={ item.user.screen_name }
-													width={ feedAvatarSize }
-													height={ feedAvatarSize }
+													src={
+														item.user
+															.profile_images_https
+															.bigger
+													}
+													alt={item.user.screen_name}
+													width={feedAvatarSize}
+													height={feedAvatarSize}
 												/>
 											</ExternalLink>
 										</div>
 									) : (
 										''
-									) }
+									)}
 									<div className="ghostkit-twitter-item-content">
-										{ isRetweet ? (
+										{isRetweet ? (
 											<div className="ghostkit-twitter-item-retweeted">
-												{ /* eslint-disable-next-line react/no-danger */ }
+												{/* eslint-disable-next-line react/no-danger */}
 												<span
 													className="ghostkit-twitter-item-retweeted-icon"
-													dangerouslySetInnerHTML={ {
-														__html:
-                              '<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16L19 19L16 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6L15.6667 6C16.5507 6 17.3986 6.30436 18.0237 6.84614C18.6488 7.38791 19 8.12271 19 8.88889L19 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 9L5 6L8 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19L8.33333 19C7.44928 19 6.60143 18.6956 5.97631 18.1539C5.35119 17.6121 5 16.8773 5 16.1111L5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-													} }
+													dangerouslySetInnerHTML={{
+														__html: '<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16L19 19L16 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6L15.6667 6C16.5507 6 17.3986 6.30436 18.0237 6.84614C18.6488 7.38791 19 8.12271 19 8.88889L19 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 9L5 6L8 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19L8.33333 19C7.44928 19 6.60143 18.6956 5.97631 18.1539C5.35119 17.6121 5 16.8773 5 16.1111L5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+													}}
 												/>
-												<ExternalLink href={ `https://twitter.com/${ oldItem.user.screen_name }/` }>
-													<strong>{ oldItem.user.name }</strong>
+												<ExternalLink
+													href={`https://twitter.com/${oldItem.user.screen_name}/`}
+												>
+													<strong>
+														{oldItem.user.name}
+													</strong>
 												</ExternalLink>
-												{ __( 'Retweeted', 'ghostkit' ) }
+												{__('Retweeted', 'ghostkit')}
 											</div>
 										) : (
 											''
-										) }
-										{ showFeedName || showFeedDate ? (
+										)}
+										{showFeedName || showFeedDate ? (
 											<div className="ghostkit-twitter-item-meta">
-												{ showFeedName ? (
+												{showFeedName ? (
 													<div className="ghostkit-twitter-item-meta-name">
-														<ExternalLink href={ `https://twitter.com/${ item.user.screen_name }/` }>
-															<strong>{ item.user.name }</strong>{ ' ' }
-															{ item.user.verified ? (
+														<ExternalLink
+															href={`https://twitter.com/${item.user.screen_name}/`}
+														>
+															<strong>
+																{item.user.name}
+															</strong>{' '}
+															{item.user
+																.verified ? (
 																<span className="ghostkit-twitter-item-meta-name-verified">
-																	{ __( 'Verified account', 'ghostkit' ) }
+																	{__(
+																		'Verified account',
+																		'ghostkit'
+																	)}
 																</span>
 															) : (
 																''
-															) }{ ' ' }
-															<span>@{ item.user.screen_name }</span>
+															)}{' '}
+															<span>
+																@
+																{
+																	item.user
+																		.screen_name
+																}
+															</span>
 														</ExternalLink>
 													</div>
 												) : (
 													''
-												) }
-												{ showFeedDate ? (
+												)}
+												{showFeedDate ? (
 													<div className="ghostkit-twitter-item-meta-date">
 														<ExternalLink
-															href={ `https://twitter.com/${ item.user.screen_name }/status/${ item.id_str }` }
+															href={`https://twitter.com/${item.user.screen_name}/status/${item.id_str}`}
 														>
-															{ item.date_formatted }
+															{
+																item.date_formatted
+															}
 														</ExternalLink>
 													</div>
 												) : (
 													''
-												) }
+												)}
 											</div>
 										) : (
 											''
-										) }
-										{ feedTextConvertLinks === 'links_media' ? (
-										// eslint-disable-next-line react/no-danger
+										)}
+										{feedTextConvertLinks ===
+										'links_media' ? (
+											// eslint-disable-next-line react/no-danger
 											<div
 												className="ghostkit-twitter-item-text"
-												dangerouslySetInnerHTML={ { __html: item.text_entitled } }
+												dangerouslySetInnerHTML={{
+													__html: item.text_entitled,
+												}}
 											/>
 										) : (
 											''
-										) }
-										{ feedTextConvertLinks === 'links' ? (
-										// eslint-disable-next-line react/no-danger
+										)}
+										{feedTextConvertLinks === 'links' ? (
+											// eslint-disable-next-line react/no-danger
 											<div
 												className="ghostkit-twitter-item-text"
-												dangerouslySetInnerHTML={ { __html: item.text_entitled_no_media } }
+												dangerouslySetInnerHTML={{
+													__html: item.text_entitled_no_media,
+												}}
 											/>
 										) : (
 											''
-										) }
-										{ feedTextConvertLinks !== 'links_media' && feedTextConvertLinks !== 'links' ? (
-										// eslint-disable-next-line react/no-danger
+										)}
+										{feedTextConvertLinks !==
+											'links_media' &&
+										feedTextConvertLinks !== 'links' ? (
+											// eslint-disable-next-line react/no-danger
 											<div
 												className="ghostkit-twitter-item-text"
-												dangerouslySetInnerHTML={ { __html: item.text } }
+												dangerouslySetInnerHTML={{
+													__html: item.text,
+												}}
 											/>
 										) : (
 											''
-										) }
-										{ showFeedActions ? (
+										)}
+										{showFeedActions ? (
 											<div className="ghostkit-twitter-item-actions">
 												<div className="ghostkit-twitter-item-actions-retweet">
-													{ /* eslint-disable-next-line jsx-a11y/control-has-associated-label, react/no-danger */ }
+													{/* eslint-disable-next-line jsx-a11y/control-has-associated-label, react/no-danger */}
 													<a
-														href={ `https://twitter.com/${ item.user.screen_name }/status/${ item.id_str }` }
+														href={`https://twitter.com/${item.user.screen_name}/status/${item.id_str}`}
 														target="_blank"
 														rel="noopener noreferrer"
-														dangerouslySetInnerHTML={ {
+														dangerouslySetInnerHTML={{
 															__html: `<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16L19 19L16 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6L15.6667 6C16.5507 6 17.3986 6.30436 18.0237 6.84614C18.6488 7.38791 19 8.12271 19 8.88889L19 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 9L5 6L8 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19L8.33333 19C7.44928 19 6.60143 18.6956 5.97631 18.1539C5.35119 17.6121 5 16.8773 5 16.1111L5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>${
 																item.retweet_count_short
-																	? `<span>${ item.retweet_count_short }</span>`
+																	? `<span>${item.retweet_count_short}</span>`
 																	: ''
 															}`,
-														} }
+														}}
 													/>
 												</div>
 												<div className="ghostkit-twitter-item-actions-like">
 													<ExternalLink
-														href={ `https://twitter.com/${ item.user.screen_name }/status/${ item.id_str }` }
+														href={`https://twitter.com/${item.user.screen_name}/status/${item.id_str}`}
 													>
 														<svg
 															className="ghostkit-svg-icon"
@@ -526,45 +675,49 @@ export default function BlockEdit( props ) {
 																fill="currentColor"
 															/>
 														</svg>
-														{ item.favorite_count_short ? (
-															<span>{ item.favorite_count_short }</span>
+														{item.favorite_count_short ? (
+															<span>
+																{
+																	item.favorite_count_short
+																}
+															</span>
 														) : (
 															''
-														) }
+														)}
 													</ExternalLink>
 												</div>
 											</div>
 										) : (
 											''
-										) }
+										)}
 									</div>
 								</div>
 							);
-						} ) }
+						})}
 					</div>
 				) : (
 					''
-				) }
-				{ APIDataReady && ! twitterFeed ? (
+				)}
+				{APIDataReady && !twitterFeed ? (
 					<div className="ghostkit-twitter-spinner">
 						<Spinner />
 					</div>
 				) : (
 					''
-				) }
-				{ ! APIDataReady ? (
+				)}
+				{!APIDataReady ? (
 					<Placeholder
-						icon={ getIcon( 'block-twitter' ) }
-						label={ __( 'Twitter', 'ghostkit' ) }
-						instructions={ __(
+						icon={getIcon('block-twitter')}
+						label={__('Twitter', 'ghostkit')}
+						instructions={__(
 							'A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.',
 							'ghostkit'
-						) }
-						className={ className }
+						)}
+						className={className}
 					/>
 				) : (
 					''
-				) }
+				)}
 			</div>
 		</Fragment>
 	);

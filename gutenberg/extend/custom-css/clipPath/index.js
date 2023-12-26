@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
@@ -8,9 +5,6 @@ import {
 	TextareaControl,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ResponsiveToggle from '../../../components/responsive-toggle';
@@ -25,64 +19,64 @@ import { hasBlockSupport } from '@wordpress/blocks';
 const optionPresets = [
 	{
 		value: '',
-		label: __( 'Custom', 'ghostkit' ),
+		label: __('Custom', 'ghostkit'),
 	},
-	...Object.keys( PRESETS ).map( ( value ) => {
+	...Object.keys(PRESETS).map((value) => {
 		return {
 			value,
-			label: PRESETS[ value ],
+			label: PRESETS[value],
 		};
-	} ),
+	}),
 ];
 
-function CustomCSSClipPathTools( props ) {
-	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles( props );
+function CustomCSSClipPathTools(props) {
+	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
 	const { device, allDevices } = useResponsive();
 
 	let hasClipPath = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-		hasClipPath = hasClipPath || hasStyle( 'clip-path', thisDevice );
-	} );
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+		hasClipPath = hasClipPath || hasStyle('clip-path', thisDevice);
+	});
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Clip Path', 'ghostkit' ) }
-			hasValue={ () => !! hasClipPath }
-			onSelect={ () => {
-				if ( ! hasStyle( 'clip-path' ) ) {
-					setStyles( { 'clip-path': optionPresets[ 1 ].value } );
+			label={__('Clip Path', 'ghostkit')}
+			hasValue={() => !!hasClipPath}
+			onSelect={() => {
+				if (!hasStyle('clip-path')) {
+					setStyles({ 'clip-path': optionPresets[1].value });
 				}
-			} }
-			onDeselect={ () => {
-				resetStyles( [ 'clip-path' ], true );
-			} }
-			isShownByDefault={ false }
+			}}
+			onDeselect={() => {
+				resetStyles(['clip-path'], true);
+			}}
+			isShownByDefault={false}
 		>
 			<SelectControl
 				label={
 					<>
-						{ __( 'Clip Path', 'ghostkit' ) }
+						{__('Clip Path', 'ghostkit')}
 						<ResponsiveToggle
-							checkActive={ ( checkMedia ) => {
-								return hasStyle( 'clip-path', checkMedia );
-							} }
+							checkActive={(checkMedia) => {
+								return hasStyle('clip-path', checkMedia);
+							}}
 						/>
 					</>
 				}
-				value={ getStyle( 'clip-path', device ) }
-				onChange={ ( val ) => {
-					setStyles( { 'clip-path': val }, device );
-				} }
-				options={ optionPresets }
+				value={getStyle('clip-path', device)}
+				onChange={(val) => {
+					setStyles({ 'clip-path': val }, device);
+				}}
+				options={optionPresets}
 			/>
 			<br />
 			<TextareaControl
-				value={ getStyle( 'clip-path', device ) }
-				onChange={ ( val ) => {
-					setStyles( { 'clip-path': val }, device );
-				} }
+				value={getStyle('clip-path', device)}
+				onChange={(val) => {
+					setStyles({ 'clip-path': val }, device);
+				}}
 			/>
 		</ToolsPanelItem>
 	);
@@ -91,17 +85,21 @@ function CustomCSSClipPathTools( props ) {
 addFilter(
 	'ghostkit.extension.customCSS.tools',
 	'ghostkit/extension/customCSS/tools/clipPath',
-	( children, { props } ) => {
-		const hasClipPathSupport = hasBlockSupport( props.name, [ 'ghostkit', 'customCSS', 'clipPath' ] );
+	(children, { props }) => {
+		const hasClipPathSupport = hasBlockSupport(props.name, [
+			'ghostkit',
+			'customCSS',
+			'clipPath',
+		]);
 
-		if ( ! hasClipPathSupport ) {
+		if (!hasClipPathSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<CustomCSSClipPathTools { ...props } />
+				{children}
+				<CustomCSSClipPathTools {...props} />
 			</>
 		);
 	}

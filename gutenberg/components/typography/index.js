@@ -1,10 +1,10 @@
-/**
- * Internal dependencies
- */
-import { DropdownMenu, ExternalLink, MenuGroup, MenuItem, Tooltip } from '@wordpress/components';
-/**
- * WordPress dependencies
- */
+import {
+	DropdownMenu,
+	ExternalLink,
+	MenuGroup,
+	MenuItem,
+	Tooltip,
+} from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
@@ -24,8 +24,8 @@ const { version } = window.ghostkitVariables;
  * @param {string} fontFamily - Current Font.
  * @return {*} - Current font or default label if font is empty.
  */
-function getDefaultFont( fontFamily ) {
-	return fontFamily === '' ? __( 'Default Site Font', 'ghostkit' ) : fontFamily;
+function getDefaultFont(fontFamily) {
+	return fontFamily === '' ? __('Default Site Font', 'ghostkit') : fontFamily;
 }
 
 /**
@@ -34,29 +34,32 @@ function getDefaultFont( fontFamily ) {
  * @param {string} category - Font Family Category.
  * @return {*[]} - Fonts List.
  */
-function getFonts( category = 'google-fonts' ) {
+function getFonts(category = 'google-fonts') {
 	const { fonts } = GHOSTKIT;
 
 	const fontList = [];
 
-	Object.keys( fonts ).forEach( ( fontFamilyCategory ) => {
-		Object.keys( fonts[ fontFamilyCategory ].fonts ).forEach( ( fontKey ) => {
-			const fontData = fonts[ fontFamilyCategory ].fonts[ fontKey ];
+	Object.keys(fonts).forEach((fontFamilyCategory) => {
+		Object.keys(fonts[fontFamilyCategory].fonts).forEach((fontKey) => {
+			const fontData = fonts[fontFamilyCategory].fonts[fontKey];
 			let fontValue = fontData.name;
 
-			if ( fontFamilyCategory === 'default' ) {
+			if (fontFamilyCategory === 'default') {
 				fontValue = '';
 			}
 
-			if ( category === fontFamilyCategory || fontFamilyCategory === 'default' ) {
-				fontList.push( {
+			if (
+				category === fontFamilyCategory ||
+				fontFamilyCategory === 'default'
+			) {
+				fontList.push({
 					value: fontValue,
 					label: fontData.label || fontData.name,
 					fontFamilyCategory,
-				} );
+				});
 			}
-		} );
-	} );
+		});
+	});
 
 	return fontList;
 }
@@ -67,68 +70,68 @@ function getFonts( category = 'google-fonts' ) {
  * @param {string} weight - Weight Value.
  * @return {string} - Weight Label.
  */
-function getFontWeightLabel( weight ) {
+function getFontWeightLabel(weight) {
 	let label = '';
 
-	switch ( weight ) {
+	switch (weight) {
 		case '':
-			label = __( 'Default', 'ghostkit' );
+			label = __('Default', 'ghostkit');
 			break;
 		case '100':
-			label = __( 'Thin', 'ghostkit' );
+			label = __('Thin', 'ghostkit');
 			break;
 		case '100i':
-			label = __( 'Thin Italic', 'ghostkit' );
+			label = __('Thin Italic', 'ghostkit');
 			break;
 		case '200':
-			label = __( 'Extra Light', 'ghostkit' );
+			label = __('Extra Light', 'ghostkit');
 			break;
 		case '200i':
-			label = __( 'Extra Light Italic', 'ghostkit' );
+			label = __('Extra Light Italic', 'ghostkit');
 			break;
 		case '300':
-			label = __( 'Light', 'ghostkit' );
+			label = __('Light', 'ghostkit');
 			break;
 		case '300i':
-			label = __( 'Light Italic', 'ghostkit' );
+			label = __('Light Italic', 'ghostkit');
 			break;
 		case '400':
-			label = __( 'Regular', 'ghostkit' );
+			label = __('Regular', 'ghostkit');
 			break;
 		case '400i':
-			label = __( 'Regular Italic', 'ghostkit' );
+			label = __('Regular Italic', 'ghostkit');
 			break;
 		case '500':
-			label = __( 'Medium', 'ghostkit' );
+			label = __('Medium', 'ghostkit');
 			break;
 		case '500i':
-			label = __( 'Medium Italic', 'ghostkit' );
+			label = __('Medium Italic', 'ghostkit');
 			break;
 		case '600':
-			label = __( 'Semi Bold', 'ghostkit' );
+			label = __('Semi Bold', 'ghostkit');
 			break;
 		case '600i':
-			label = __( 'Semi Bold Italic', 'ghostkit' );
+			label = __('Semi Bold Italic', 'ghostkit');
 			break;
 		case '700':
-			label = __( 'Bold', 'ghostkit' );
+			label = __('Bold', 'ghostkit');
 			break;
 		case '700i':
-			label = __( 'Bold Italic', 'ghostkit' );
+			label = __('Bold Italic', 'ghostkit');
 			break;
 		case '800':
-			label = __( 'Extra Bold', 'ghostkit' );
+			label = __('Extra Bold', 'ghostkit');
 			break;
 		case '800i':
-			label = __( 'Extra Bold Italic', 'ghostkit' );
+			label = __('Extra Bold Italic', 'ghostkit');
 			break;
 		case '900':
-			label = __( 'Black', 'ghostkit' );
+			label = __('Black', 'ghostkit');
 			break;
 		case '900i':
-			label = __( 'Black Italic', 'ghostkit' );
+			label = __('Black Italic', 'ghostkit');
 			break;
-    // no default
+		// no default
 	}
 
 	return label;
@@ -141,26 +144,34 @@ function getFontWeightLabel( weight ) {
  * @param {string} fontFamilyCategory - font fontFamilyCategory.
  * @return {Array} - all font widths.
  */
-function getFontWeights( font, fontFamilyCategory ) {
+function getFontWeights(font, fontFamilyCategory) {
 	const { fonts } = GHOSTKIT;
 
 	const fontWeights = [];
 
 	if (
 		font !== '' &&
-    fontFamilyCategory !== '' &&
-    typeof font !== 'undefined' &&
-    typeof fontFamilyCategory !== 'undefined' &&
-    typeof fonts[ fontFamilyCategory ] !== 'undefined'
+		fontFamilyCategory !== '' &&
+		typeof font !== 'undefined' &&
+		typeof fontFamilyCategory !== 'undefined' &&
+		typeof fonts[fontFamilyCategory] !== 'undefined'
 	) {
-		Object.keys( fonts[ fontFamilyCategory ].fonts ).forEach( ( fontKey ) => {
-			if ( fonts[ fontFamilyCategory ].fonts[ fontKey ].name === font ) {
-				Object.keys( fonts[ fontFamilyCategory ].fonts[ fontKey ].widths ).forEach( ( widthKey ) => {
-					const width = fonts[ fontFamilyCategory ].fonts[ fontKey ].widths[ widthKey ];
-					fontWeights.push( { value: width, label: getFontWeightLabel( width ) } );
-				} );
+		Object.keys(fonts[fontFamilyCategory].fonts).forEach((fontKey) => {
+			if (fonts[fontFamilyCategory].fonts[fontKey].name === font) {
+				Object.keys(
+					fonts[fontFamilyCategory].fonts[fontKey].widths
+				).forEach((widthKey) => {
+					const width =
+						fonts[fontFamilyCategory].fonts[fontKey].widths[
+							widthKey
+						];
+					fontWeights.push({
+						value: width,
+						label: getFontWeightLabel(width),
+					});
+				});
 			}
-		} );
+		});
 	}
 
 	return fontWeights;
@@ -173,7 +184,10 @@ export default class Typography extends Component {
 	render() {
 		let { fontFamilyCategory } = this.props;
 
-		fontFamilyCategory = fontFamilyCategory === 'default' ? 'google-fonts' : fontFamilyCategory;
+		fontFamilyCategory =
+			fontFamilyCategory === 'default'
+				? 'google-fonts'
+				: fontFamilyCategory;
 
 		const {
 			onChange,
@@ -185,152 +199,191 @@ export default class Typography extends Component {
 			lineHeight,
 			letterSpacing,
 			childOf,
-			fontWeights = getFontWeights( getDefaultFont( fontFamily ), fontFamilyCategory ),
+			fontWeights = getFontWeights(
+				getDefaultFont(fontFamily),
+				fontFamilyCategory
+			),
 		} = this.props;
 
-		const fontsIcon = `icon-typography-${ fontFamilyCategory }`;
+		const fontsIcon = `icon-typography-${fontFamilyCategory}`;
 		const allowFontSelectors = applyFilters(
 			'ghostkit.typography.allow.fonts',
-			fontFamilyCategory !== 'adobe-fonts' && fontFamilyCategory !== 'custom-fonts',
+			fontFamilyCategory !== 'adobe-fonts' &&
+				fontFamilyCategory !== 'custom-fonts',
 			fontFamilyCategory
 		);
 		const fontFamilyValue = {
 			value: fontFamily,
-			label: getDefaultFont( fontFamily ),
+			label: getDefaultFont(fontFamily),
 			fontFamilyCategory,
 		};
-		const fontWeightValue = { value: fontWeight, label: getFontWeightLabel( fontWeight ) };
+		const fontWeightValue = {
+			value: fontWeight,
+			label: getFontWeightLabel(fontWeight),
+		};
 		const fontSizeValue = typeof fontSize === 'undefined' ? '' : fontSize;
-		const fontFamilies = getFonts( fontFamilyCategory );
+		const fontFamilies = getFonts(fontFamilyCategory);
 
 		// Find actual label.
-		if ( fontFamilyValue.value ) {
-			fontFamilies.forEach( ( familyData ) => {
-				if ( fontFamilyValue.value === familyData.value ) {
+		if (fontFamilyValue.value) {
+			fontFamilies.forEach((familyData) => {
+				if (fontFamilyValue.value === familyData.value) {
 					fontFamilyValue.label = familyData.label;
 				}
-			} );
+			});
 		}
 
 		return (
 			<div
-				className={ `ghostkit-typography${
-					childOf ? ` ghostkit-typography-child ghostkit-typography-child-of-${ childOf }` : ''
-				}` }
+				className={`ghostkit-typography${
+					childOf
+						? ` ghostkit-typography-child ghostkit-typography-child-of-${childOf}`
+						: ''
+				}`}
 			>
-				<h4>{ label }</h4>
+				<h4>{label}</h4>
 				<div className="ghostkit-control-typography">
-					{ typeof fontFamilyCategory !== 'undefined' ? (
+					{typeof fontFamilyCategory !== 'undefined' ? (
 						<DropdownMenu
-							icon={ getIcon( fontsIcon, false ) }
-							label={ __( 'Font Family Category', 'ghostkit' ) }
-							popoverProps={ {
+							icon={getIcon(fontsIcon, false)}
+							label={__('Font Family Category', 'ghostkit')}
+							popoverProps={{
 								position: 'bottom right',
-							} }
-							menuProps={ {
-								className: 'ghostkit-typography-font-category-control-menu',
-							} }
-							toggleProps={ {
-								className: 'ghostkit-typography-font-category-control-toggle',
-							} }
+							}}
+							menuProps={{
+								className:
+									'ghostkit-typography-font-category-control-menu',
+							}}
+							toggleProps={{
+								className:
+									'ghostkit-typography-font-category-control-toggle',
+							}}
 							hasArrowIndicator
 						>
-							{ ( { onClose } ) => (
+							{({ onClose }) => (
 								<MenuGroup>
 									<MenuItem
-										icon={ getIcon( 'icon-typography-google-fonts', false ) }
-										onClick={ () => {
-											onChange( {
-												fontFamilyCategory: 'google-fonts',
+										icon={getIcon(
+											'icon-typography-google-fonts',
+											false
+										)}
+										onClick={() => {
+											onChange({
+												fontFamilyCategory:
+													'google-fonts',
 												fontFamily: '',
 												fontWeight: '',
-											} );
+											});
 											onClose();
-										} }
+										}}
 									>
-										{ __( 'Google Fonts', 'ghostkit' ) }
+										{__('Google Fonts', 'ghostkit')}
 									</MenuItem>
 									<MenuItem
-										icon={ getIcon( 'icon-typography-adobe-fonts', false ) }
-										onClick={ () => {
-											onChange( {
-												fontFamilyCategory: 'adobe-fonts',
+										icon={getIcon(
+											'icon-typography-adobe-fonts',
+											false
+										)}
+										onClick={() => {
+											onChange({
+												fontFamilyCategory:
+													'adobe-fonts',
 												fontFamily: '',
 												fontWeight: '',
-											} );
+											});
 											onClose();
-										} }
+										}}
 									>
-										{ __( 'Adobe Fonts', 'ghostkit' ) }
+										{__('Adobe Fonts', 'ghostkit')}
 										<span className="ghostkit-typography-badge-pro">
-											{ __( 'PRO', 'ghostkit' ) }
+											{__('PRO', 'ghostkit')}
 										</span>
 									</MenuItem>
 									<MenuItem
-										icon={ getIcon( 'icon-typography-custom-fonts', false ) }
-										onClick={ () => {
-											onChange( {
-												fontFamilyCategory: 'custom-fonts',
+										icon={getIcon(
+											'icon-typography-custom-fonts',
+											false
+										)}
+										onClick={() => {
+											onChange({
+												fontFamilyCategory:
+													'custom-fonts',
 												fontFamily: '',
 												fontWeight: '',
-											} );
+											});
 											onClose();
-										} }
+										}}
 									>
-										{ __( 'Custom Fonts', 'ghostkit' ) }
+										{__('Custom Fonts', 'ghostkit')}
 										<span className="ghostkit-typography-badge-pro">
-											{ __( 'PRO', 'ghostkit' ) }
+											{__('PRO', 'ghostkit')}
 										</span>
 									</MenuItem>
 								</MenuGroup>
-							) }
+							)}
 						</DropdownMenu>
 					) : (
 						''
-					) }
-					<ApplyFilters name="ghostkit.typography.fontFamilySelector.info" props={ this.props }>
-						{ fontFamilyCategory === 'adobe-fonts' ? (
+					)}
+					<ApplyFilters
+						name="ghostkit.typography.fontFamilySelector.info"
+						props={this.props}
+					>
+						{fontFamilyCategory === 'adobe-fonts' ? (
 							<div className="ghostkit-typography-information-control ghostkit-typography-font-control">
-								{ __(
+								{__(
 									'Adobe Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
 									'ghostkit'
-								) }
-								<ExternalLink href={ `https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=adobe_fonts&utm_content=${ version }` }>
+								)}
+								<ExternalLink
+									href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=adobe_fonts&utm_content=${version}`}
+								>
 									https://ghostkit.io/pricing/
 								</ExternalLink>
 							</div>
 						) : (
 							''
-						) }
-						{ fontFamilyCategory === 'custom-fonts' ? (
+						)}
+						{fontFamilyCategory === 'custom-fonts' ? (
 							<div className="ghostkit-typography-information-control ghostkit-typography-font-control">
-								{ __(
+								{__(
 									'Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ',
 									'ghostkit'
-								) }
-								<ExternalLink href={ `https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=custom_fonts&utm_content=${ version }` }>
+								)}
+								<ExternalLink
+									href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=custom_fonts&utm_content=${version}`}
+								>
 									https://ghostkit.io/pricing/
 								</ExternalLink>
 							</div>
 						) : (
 							''
-						) }
+						)}
 					</ApplyFilters>
-					{ typeof fontFamily !== 'undefined' && allowFontSelectors ? (
+					{typeof fontFamily !== 'undefined' && allowFontSelectors ? (
 						<div className="ghostkit-typography-font-control">
-							<Tooltip text={ __( 'Font Family', 'ghostkit' ) }>
+							<Tooltip text={__('Font Family', 'ghostkit')}>
 								<div>
 									<Select
-										value={ fontFamilyValue }
-										onChange={ ( opt ) => {
-											onChange( {
-												fontFamily: opt && opt.value ? opt.value : '',
-												fontWeight: opt && opt.value ? '400' : '',
+										value={fontFamilyValue}
+										onChange={(opt) => {
+											onChange({
+												fontFamily:
+													opt && opt.value
+														? opt.value
+														: '',
+												fontWeight:
+													opt && opt.value
+														? '400'
+														: '',
 												fontFamilyCategory,
-											} );
-										} }
-										options={ fontFamilies }
-										placeholder={ __( '--- Select Font Family ---', 'ghostkit' ) }
+											});
+										}}
+										options={fontFamilies}
+										placeholder={__(
+											'--- Select Font Family ---',
+											'ghostkit'
+										)}
 										className="ghostkit-typography-font-selector"
 										menuPosition="fixed"
 									/>
@@ -339,20 +392,26 @@ export default class Typography extends Component {
 						</div>
 					) : (
 						''
-					) }
-					{ typeof fontWeight !== 'undefined' && allowFontSelectors ? (
+					)}
+					{typeof fontWeight !== 'undefined' && allowFontSelectors ? (
 						<div className="ghostkit-typography-weight-control">
-							<Tooltip text={ __( 'Font Weight', 'ghostkit' ) }>
+							<Tooltip text={__('Font Weight', 'ghostkit')}>
 								<div>
 									<Select
-										value={ fontWeightValue }
-										onChange={ ( opt ) => {
-											onChange( {
-												fontWeight: opt && opt.value ? opt.value : '',
-											} );
-										} }
-										options={ fontWeights }
-										placeholder={ __( '--- Select Weight ---', 'ghostkit' ) }
+										value={fontWeightValue}
+										onChange={(opt) => {
+											onChange({
+												fontWeight:
+													opt && opt.value
+														? opt.value
+														: '',
+											});
+										}}
+										options={fontWeights}
+										placeholder={__(
+											'--- Select Weight ---',
+											'ghostkit'
+										)}
 										className="ghostkit-typography-weight-selector"
 										classNamePrefix="ghostkit-typography-weight-selector"
 										menuPosition="fixed"
@@ -362,21 +421,23 @@ export default class Typography extends Component {
 						</div>
 					) : (
 						''
-					) }
-					{ typeof fontSize !== 'undefined' ? (
+					)}
+					{typeof fontSize !== 'undefined' ? (
 						<div className="ghostkit-typography-size-control">
-							<Tooltip text={ __( 'Font Size', 'ghostkit' ) }>
+							<Tooltip text={__('Font Size', 'ghostkit')}>
 								<div>
 									<InputDrag
-										value={ fontSizeValue }
-										placeholder={ placeholders[ 'font-size' ] }
-										onChange={ ( value ) => {
-											onChange( {
+										value={fontSizeValue}
+										placeholder={placeholders['font-size']}
+										onChange={(value) => {
+											onChange({
 												fontSize: value,
-											} );
-										} }
+											});
+										}}
 										autoComplete="off"
-										icon={ getIcon( 'icon-typography-font-size' ) }
+										icon={getIcon(
+											'icon-typography-font-size'
+										)}
 										defaultUnit="px"
 									/>
 								</div>
@@ -384,52 +445,60 @@ export default class Typography extends Component {
 						</div>
 					) : (
 						''
-					) }
-					{ typeof lineHeight !== 'undefined' ? (
+					)}
+					{typeof lineHeight !== 'undefined' ? (
 						<div className="ghostkit-typography-line-control">
-							<Tooltip text={ __( 'Line Height', 'ghostkit' ) }>
+							<Tooltip text={__('Line Height', 'ghostkit')}>
 								<div>
 									<InputDrag
-										value={ lineHeight }
-										placeholder={ placeholders[ 'line-height' ] }
-										onChange={ ( value ) => {
-											onChange( {
+										value={lineHeight}
+										placeholder={
+											placeholders['line-height']
+										}
+										onChange={(value) => {
+											onChange({
 												lineHeight: value,
-											} );
-										} }
+											});
+										}}
 										autoComplete="off"
-										icon={ getIcon( 'icon-typography-line-height' ) }
-										step={ 0.1 }
+										icon={getIcon(
+											'icon-typography-line-height'
+										)}
+										step={0.1}
 									/>
 								</div>
 							</Tooltip>
 						</div>
 					) : (
 						''
-					) }
-					{ typeof letterSpacing !== 'undefined' ? (
+					)}
+					{typeof letterSpacing !== 'undefined' ? (
 						<div className="ghostkit-typography-letter-control">
-							<Tooltip text={ __( 'Letter Spacing', 'ghostkit' ) }>
+							<Tooltip text={__('Letter Spacing', 'ghostkit')}>
 								<div>
 									<InputDrag
-										value={ letterSpacing }
-										placeholder={ placeholders[ 'letter-spacing' ] }
-										onChange={ ( value ) => {
-											onChange( {
+										value={letterSpacing}
+										placeholder={
+											placeholders['letter-spacing']
+										}
+										onChange={(value) => {
+											onChange({
 												letterSpacing: value,
-											} );
-										} }
+											});
+										}}
 										autoComplete="off"
-										icon={ getIcon( 'icon-typography-letter-spacing' ) }
+										icon={getIcon(
+											'icon-typography-letter-spacing'
+										)}
 										defaultUnit="em"
-										step={ 0.01 }
+										step={0.01}
 									/>
 								</div>
 							</Tooltip>
 						</div>
 					) : (
 						''
-					) }
+					)}
 				</div>
 			</div>
 		);

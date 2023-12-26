@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import './position';
 import './distance';
 import './width';
@@ -16,9 +13,6 @@ import {
 	__stableToolsPanel as StableToolsPanel,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
@@ -37,34 +31,39 @@ const allPositionProps = EXTENSIONS.position.styles;
  * @param root0
  * @param root0.props
  */
-function GhostKitExtensionPositionInspector( original, { props } ) {
+function GhostKitExtensionPositionInspector(original, { props }) {
 	const { name } = props;
 
-	const hasPositionSupport = hasBlockSupport( name, [ 'ghostkit', 'position' ] );
+	const hasPositionSupport = hasBlockSupport(name, ['ghostkit', 'position']);
 
-	if ( ! hasPositionSupport ) {
+	if (!hasPositionSupport) {
 		return original;
 	}
 
-	const { resetStyles } = useStyles( props );
+	const { resetStyles } = useStyles(props);
 
 	return (
 		<>
-			{ original }
+			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
 					label={
 						<>
-							<span className="ghostkit-ext-icon">{ getIcon( 'extension-position' ) }</span>
-							<span>{ __( 'Position', 'ghostkit' ) }</span>
+							<span className="ghostkit-ext-icon">
+								{getIcon('extension-position')}
+							</span>
+							<span>{__('Position', 'ghostkit')}</span>
 						</>
 					}
-					resetAll={ () => {
-						resetStyles( allPositionProps, true );
-					} }
+					resetAll={() => {
+						resetStyles(allPositionProps, true);
+					}}
 				>
 					<div className="ghostkit-tools-panel-position">
-						<ApplyFilters name="ghostkit.extension.position.tools" props={ props } />
+						<ApplyFilters
+							name="ghostkit.extension.position.tools"
+							props={props}
+						/>
 					</div>
 				</ToolsPanel>
 			</InspectorControls>

@@ -1,40 +1,43 @@
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 import transforms from './transforms';
 
-/**
- * External dependencies
- */
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-divider', true ),
+	icon: getIcon('block-divider', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/divider/',
-		customStylesCallback( attributes ) {
+		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-divider__border-width': undefined,
 				'--gkt-divider__border-color': attributes.color,
 				'--gkt-divider--icon__font-size': undefined,
 				'--gkt-divider--icon__color': attributes.iconColor,
 				'&:hover': {
-					'--gkt-divider__border-color': attributes.hoverColor || undefined,
-					'--gkt-divider--icon__color': attributes.hoverIconColor || undefined,
+					'--gkt-divider__border-color':
+						attributes.hoverColor || undefined,
+					'--gkt-divider--icon__color':
+						attributes.hoverIconColor || undefined,
 				},
 			};
 
-			if ( typeof attributes.size !== 'undefined' && attributes.size !== '' ) {
-				styles[ '--gkt-divider__border-width' ] = `${ attributes.size }px`;
+			if (
+				typeof attributes.size !== 'undefined' &&
+				attributes.size !== ''
+			) {
+				styles['--gkt-divider__border-width'] = `${attributes.size}px`;
 			}
-			if ( typeof attributes.iconSize !== 'undefined' && attributes.iconSize !== '' ) {
-				styles[ '--gkt-divider--icon__font-size' ] = `${ attributes.iconSize }px`;
+			if (
+				typeof attributes.iconSize !== 'undefined' &&
+				attributes.iconSize !== ''
+			) {
+				styles['--gkt-divider--icon__font-size'] =
+					`${attributes.iconSize}px`;
 			}
 
 			return styles;

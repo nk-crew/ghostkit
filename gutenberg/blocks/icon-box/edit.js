@@ -1,22 +1,27 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-import { BlockControls, InnerBlocks, InspectorControls, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-import { BaseControl, PanelBody, TabPanel, ToggleControl, Toolbar, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import {
+	BlockControls,
+	InnerBlocks,
+	InspectorControls,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
+import {
+	BaseControl,
+	PanelBody,
+	TabPanel,
+	ToggleControl,
+	Toolbar,
+	ToolbarButton,
+	ToolbarGroup,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
 import ColorIndicator from '../../components/color-indicator';
-/**
- * Internal dependencies
- */
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
 import RangeControl from '../../components/range-control';
@@ -29,7 +34,7 @@ import getIcon from '../../utils/get-icon';
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId } = props;
 
 	let { className = '' } = props;
@@ -49,211 +54,261 @@ export default function BlockEdit( props ) {
 	} = attributes;
 
 	const hasChildBlocks = useSelect(
-		( select ) => {
-			const blockEditor = select( 'core/block-editor' );
+		(select) => {
+			const blockEditor = select('core/block-editor');
 
-			return blockEditor ? blockEditor.getBlockOrder( clientId ).length > 0 : false;
+			return blockEditor
+				? blockEditor.getBlockOrder(clientId).length > 0
+				: false;
 		},
-		[ clientId ]
+		[clientId]
 	);
 
-	className = classnames( 'ghostkit-icon-box', className );
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = classnames('ghostkit-icon-box', className);
+	className = applyFilters('ghostkit.editor.className', className, props);
 
 	const classNameIcon = classnames(
 		'ghostkit-icon-box-icon',
-		`ghostkit-icon-box-icon-align-${ iconPosition || 'left' }`,
-		iconPosition === 'top' ? `ghostkit-icon-box-icon-top-align-${ iconAlign || 'center' }` : ''
+		`ghostkit-icon-box-icon-align-${iconPosition || 'left'}`,
+		iconPosition === 'top'
+			? `ghostkit-icon-box-icon-top-align-${iconAlign || 'center'}`
+			: ''
 	);
 
-	const blockProps = useBlockProps( { className } );
+	const blockProps = useBlockProps({ className });
 	const innerBlockProps = useInnerBlocksProps(
 		{ className: 'ghostkit-icon-box-content' },
 		{
-			renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+			renderAppender: hasChildBlocks
+				? undefined
+				: InnerBlocks.ButtonBlockAppender,
 			templateLock: false,
 		}
 	);
-	const iconPassionLabel = __( 'Icon Position', 'ghostkit' );
+	const iconPassionLabel = __('Icon Position', 'ghostkit');
 
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody>
 					<IconPicker
-						label={ __( 'Icon', 'ghostkit' ) }
-						value={ icon }
-						onChange={ ( value ) => setAttributes( { icon: value } ) }
+						label={__('Icon', 'ghostkit')}
+						value={icon}
+						onChange={(value) => setAttributes({ icon: value })}
 						insideInspector
 					/>
-					{ icon ? (
+					{icon ? (
 						<>
 							<RangeControl
-								label={ __( 'Icon Size', 'ghostkit' ) }
-								value={ iconSize }
-								onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-								min={ 20 }
+								label={__('Icon Size', 'ghostkit')}
+								value={iconSize}
+								onChange={(value) =>
+									setAttributes({ iconSize: value })
+								}
+								min={20}
 								beforeIcon="editor-textcolor"
 								afterIcon="editor-textcolor"
 								allowCustomMin
 								allowCustomMax
 							/>
-							<BaseControl id={ iconPassionLabel } label={ iconPassionLabel }>
+							<BaseControl
+								id={iconPassionLabel}
+								label={iconPassionLabel}
+							>
 								<div>
-									<Toolbar label={ iconPassionLabel }>
+									<Toolbar label={iconPassionLabel}>
 										<ToolbarButton
 											icon="align-center"
-											title={ __( 'Top', 'ghostkit' ) }
-											onClick={ () => setAttributes( { iconPosition: 'top' } ) }
-											isActive={ iconPosition === 'top' }
+											title={__('Top', 'ghostkit')}
+											onClick={() =>
+												setAttributes({
+													iconPosition: 'top',
+												})
+											}
+											isActive={iconPosition === 'top'}
 										/>
 										<ToolbarButton
 											icon="align-left"
-											title={ __( 'Left', 'ghostkit' ) }
-											onClick={ () => setAttributes( { iconPosition: 'left' } ) }
-											isActive={ iconPosition === 'left' }
+											title={__('Left', 'ghostkit')}
+											onClick={() =>
+												setAttributes({
+													iconPosition: 'left',
+												})
+											}
+											isActive={iconPosition === 'left'}
 										/>
 										<ToolbarButton
 											icon="align-right"
-											title={ __( 'Right', 'ghostkit' ) }
-											onClick={ () => setAttributes( { iconPosition: 'right' } ) }
-											isActive={ iconPosition === 'right' }
+											title={__('Right', 'ghostkit')}
+											onClick={() =>
+												setAttributes({
+													iconPosition: 'right',
+												})
+											}
+											isActive={iconPosition === 'right'}
 										/>
 									</Toolbar>
 								</div>
 							</BaseControl>
-							{ iconPosition === 'top' ? (
+							{iconPosition === 'top' ? (
 								<ToggleGroup
-									label={ __( 'Icon Alignment', 'ghostkit' ) }
-									value={ iconAlign || 'center' }
-									options={ [
+									label={__('Icon Alignment', 'ghostkit')}
+									value={iconAlign || 'center'}
+									options={[
 										{
-											icon: getIcon( 'icon-horizontal-start' ),
-											label: __( 'Start', 'ghostkit' ),
+											icon: getIcon(
+												'icon-horizontal-start'
+											),
+											label: __('Start', 'ghostkit'),
 											value: 'left',
 										},
 										{
-											icon: getIcon( 'icon-horizontal-center' ),
-											label: __( 'Center', 'ghostkit' ),
+											icon: getIcon(
+												'icon-horizontal-center'
+											),
+											label: __('Center', 'ghostkit'),
 											value: 'center',
 										},
 										{
-											icon: getIcon( 'icon-horizontal-end' ),
-											label: __( 'End', 'ghostkit' ),
+											icon: getIcon(
+												'icon-horizontal-end'
+											),
+											label: __('End', 'ghostkit'),
 											value: 'right',
 										},
-									] }
-									onChange={ ( value ) => {
-										setAttributes( { iconAlign: value } );
-									} }
+									]}
+									onChange={(value) => {
+										setAttributes({ iconAlign: value });
+									}}
 								/>
-							) : null }
+							) : null}
 						</>
-					) : null }
+					) : null}
 				</PanelBody>
-				{ ! showContent || icon ? (
+				{!showContent || icon ? (
 					<PanelBody>
 						<ToggleControl
-							label={ __( 'Show Content', 'ghostkit' ) }
-							checked={ !! showContent }
-							onChange={ ( val ) => setAttributes( { showContent: val } ) }
+							label={__('Show Content', 'ghostkit')}
+							checked={!!showContent}
+							onChange={(val) =>
+								setAttributes({ showContent: val })
+							}
 						/>
 					</PanelBody>
-				) : null }
+				) : null}
 				<PanelBody
 					title={
 						<>
-							{ __( 'Colors', 'ghostkit' ) }
-							<ColorIndicator colorValue={ iconColor } />
+							{__('Colors', 'ghostkit')}
+							<ColorIndicator colorValue={iconColor} />
 						</>
 					}
-					initialOpen={ false }
+					initialOpen={false}
 				>
 					<TabPanel
 						className="ghostkit-control-tabs ghostkit-control-tabs-wide"
-						tabs={ [
+						tabs={[
 							{
 								name: 'normal',
-								title: __( 'Normal', 'ghostkit' ),
+								title: __('Normal', 'ghostkit'),
 								className: 'ghostkit-control-tabs-tab',
 							},
 							{
 								name: 'hover',
-								title: __( 'Hover', 'ghostkit' ),
+								title: __('Hover', 'ghostkit'),
 								className: 'ghostkit-control-tabs-tab',
 							},
-						] }
+						]}
 					>
-						{ ( tabData ) => {
+						{(tabData) => {
 							const isHover = tabData.name === 'hover';
 							return (
 								<ApplyFilters
 									name="ghostkit.editor.controls"
-									attribute={ isHover ? 'hoverIconColor' : 'iconColor' }
-									props={ props }
+									attribute={
+										isHover ? 'hoverIconColor' : 'iconColor'
+									}
+									props={props}
 								>
 									<ColorPicker
-										label={ __( 'Icon', 'ghostkit' ) }
-										value={ isHover ? hoverIconColor : iconColor }
-										onChange={ ( val ) =>
-											setAttributes( isHover ? { hoverIconColor: val } : { iconColor: val } )
+										label={__('Icon', 'ghostkit')}
+										value={
+											isHover ? hoverIconColor : iconColor
+										}
+										onChange={(val) =>
+											setAttributes(
+												isHover
+													? { hoverIconColor: val }
+													: { iconColor: val }
+											)
 										}
 										alpha
 										gradient
 									/>
 								</ApplyFilters>
 							);
-						} }
+						}}
 					</TabPanel>
 				</PanelBody>
 			</InspectorControls>
 			<URLPicker
-				url={ url }
-				rel={ rel }
-				ariaLabel={ ariaLabel }
-				target={ target }
-				onChange={ ( data ) => {
-					setAttributes( data );
-				} }
-				isSelected={ isSelected }
+				url={url}
+				rel={rel}
+				ariaLabel={ariaLabel}
+				target={target}
+				onChange={(data) => {
+					setAttributes(data);
+				}}
+				isSelected={isSelected}
 				toolbarSettings
 				inspectorSettings
 			/>
-			{ icon ? (
+			{icon ? (
 				<BlockControls>
 					<ToolbarGroup>
 						<ToolbarButton
 							icon="align-center"
-							title={ __( 'Top', 'ghostkit' ) }
-							onClick={ () => setAttributes( { iconPosition: 'top' } ) }
-							isActive={ iconPosition === 'top' }
+							title={__('Top', 'ghostkit')}
+							onClick={() =>
+								setAttributes({ iconPosition: 'top' })
+							}
+							isActive={iconPosition === 'top'}
 						/>
 						<ToolbarButton
 							icon="align-left"
-							title={ __( 'Left', 'ghostkit' ) }
-							onClick={ () => setAttributes( { iconPosition: 'left' } ) }
-							isActive={ iconPosition === 'left' }
+							title={__('Left', 'ghostkit')}
+							onClick={() =>
+								setAttributes({ iconPosition: 'left' })
+							}
+							isActive={iconPosition === 'left'}
 						/>
 						<ToolbarButton
 							icon="align-right"
-							title={ __( 'Right', 'ghostkit' ) }
-							onClick={ () => setAttributes( { iconPosition: 'right' } ) }
-							isActive={ iconPosition === 'right' }
+							title={__('Right', 'ghostkit')}
+							onClick={() =>
+								setAttributes({ iconPosition: 'right' })
+							}
+							isActive={iconPosition === 'right'}
 						/>
 					</ToolbarGroup>
 				</BlockControls>
-			) : null }
-			<div { ...blockProps }>
-				{ icon ? (
-					<div className={ classNameIcon }>
+			) : null}
+			<div {...blockProps}>
+				{icon ? (
+					<div className={classNameIcon}>
 						<IconPicker.Dropdown
-							onChange={ ( value ) => setAttributes( { icon: value } ) }
-							value={ icon }
-							renderToggle={ ( { onToggle } ) => <IconPicker.Preview onClick={ onToggle } name={ icon } /> }
+							onChange={(value) => setAttributes({ icon: value })}
+							value={icon}
+							renderToggle={({ onToggle }) => (
+								<IconPicker.Preview
+									onClick={onToggle}
+									name={icon}
+								/>
+							)}
 						/>
 					</div>
-				) : null }
-				{ showContent ? <div { ...innerBlockProps } /> : null }
+				) : null}
+				{showContent ? <div {...innerBlockProps} /> : null}
 			</div>
 		</>
 	);

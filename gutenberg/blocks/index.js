@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import { registerBlockType } from '@wordpress/blocks';
 
 import * as accordion from './accordion';
@@ -56,7 +53,7 @@ import * as widgetizedArea from './widgetized-area';
  */
 
 // Previously we used the jQuery's 'ready' event, but it was conflicting with PublishPress Blocks plugin.
-document.addEventListener( 'DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 	[
 		grid,
 		gridColumn,
@@ -105,7 +102,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		formFieldRadio,
 		formFieldHidden,
 		formSubmitButton,
-	].forEach( ( { name, settings } ) => {
-		registerBlockType( name, settings );
-	} );
-} );
+	].forEach(({ name, settings }) => {
+		registerBlockType(name, settings);
+	});
+});

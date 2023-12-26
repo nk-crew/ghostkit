@@ -1,20 +1,20 @@
 // parse data from Scroll Reveal string.
 // fade-right;duration:500;delay:1000
-export default function parseSRConfig( data ) {
-	data = data.split( ';' );
+export default function parseSRConfig(data) {
+	data = data.split(';');
 
-	let effect = data[ 0 ];
+	let effect = data[0];
 	let distance = 50;
 	let scale = 1;
-	let origin = effect.split( '-' );
+	let origin = effect.split('-');
 
-	if ( origin.length === 2 ) {
+	if (origin.length === 2) {
 		// eslint-disable-next-line prefer-destructuring
-		effect = origin[ 0 ];
+		effect = origin[0];
 		// eslint-disable-next-line prefer-destructuring
-		origin = origin[ 1 ];
+		origin = origin[1];
 
-		switch ( origin ) {
+		switch (origin) {
 			case 'up':
 				origin = 'bottom';
 				break;
@@ -27,14 +27,14 @@ export default function parseSRConfig( data ) {
 			case 'left':
 				origin = 'left';
 				break;
-      // no default
+			// no default
 		}
 	} else {
 		origin = 'center';
 		distance = 0;
 	}
 
-	if ( effect === 'zoom' ) {
+	if (effect === 'zoom') {
 		scale = 0.9;
 	}
 
@@ -46,43 +46,43 @@ export default function parseSRConfig( data ) {
 		scale,
 		duration: 900,
 		delay: 0,
-		easing: [ 0.5, 0, 0, 1 ],
+		easing: [0.5, 0, 0, 1],
 	};
 
 	// replace other data config.
-	if ( data.length > 1 ) {
-		data.forEach( ( item ) => {
-			const itemData = item.split( ':' );
-			if ( itemData.length === 2 ) {
+	if (data.length > 1) {
+		data.forEach((item) => {
+			const itemData = item.split(':');
+			if (itemData.length === 2) {
 				// eslint-disable-next-line prefer-destructuring
-				config[ itemData[ 0 ] ] = itemData[ 1 ];
+				config[itemData[0]] = itemData[1];
 			}
-		} );
+		});
 	}
 
-	if ( config.distance && origin ) {
-		switch ( origin ) {
+	if (config.distance && origin) {
+		switch (origin) {
 			case 'bottom':
-				config.y = parseFloat( config.distance );
+				config.y = parseFloat(config.distance);
 				break;
 			case 'top':
-				config.y = -parseFloat( config.distance );
+				config.y = -parseFloat(config.distance);
 				break;
 			case 'right':
-				config.x = parseFloat( config.distance );
+				config.x = parseFloat(config.distance);
 				break;
 			case 'left':
-				config.x = -parseFloat( config.distance );
+				config.x = -parseFloat(config.distance);
 				break;
-      // no default
+			// no default
 		}
 	}
 
 	delete config.distance;
 
-	config.scale = parseFloat( config.scale );
-	config.duration = parseFloat( config.duration ) / 1000;
-	config.delay = parseFloat( config.delay ) / 1000;
+	config.scale = parseFloat(config.scale);
+	config.duration = parseFloat(config.duration) / 1000;
+	config.delay = parseFloat(config.delay) / 1000;
 
 	return config;
 }

@@ -1,9 +1,3 @@
-/**
- * Internal dependencies
- */
-/**
- * WordPress dependencies
- */
 import { createBlock } from '@wordpress/blocks';
 
 import getUniqueSlug from '../../utils/get-unique-slug';
@@ -12,26 +6,29 @@ export default {
 	from: [
 		{
 			type: 'block',
-			blocks: [ 'ghostkit/accordion' ],
-			transform( attrs, innerBlocks ) {
+			blocks: ['ghostkit/accordion'],
+			transform(attrs, innerBlocks) {
 				const tabsData = [];
 				let tabActive = '';
 
-				innerBlocks.forEach( ( item ) => {
-					const slug = getUniqueSlug( `tab-${ item.attributes.heading }`, item.clientId );
+				innerBlocks.forEach((item) => {
+					const slug = getUniqueSlug(
+						`tab-${item.attributes.heading}`,
+						item.clientId
+					);
 
-					if ( ! tabActive && item.attributes.active ) {
+					if (!tabActive && item.attributes.active) {
 						tabActive = slug;
 					}
 
-					tabsData.push( {
+					tabsData.push({
 						slug,
 						title: item.attributes.heading,
-					} );
-				} );
+					});
+				});
 
-				if ( ! tabActive ) {
-					tabActive = tabsData[ 0 ].slug;
+				if (!tabActive) {
+					tabActive = tabsData[0].slug;
 				}
 
 				return createBlock(
@@ -40,13 +37,13 @@ export default {
 						tabsData,
 						tabActive,
 					},
-					tabsData.map( ( tab, i ) =>
+					tabsData.map((tab, i) =>
 						createBlock(
 							'ghostkit/tabs-tab-v2',
 							{
 								slug: tab.slug,
 							},
-							innerBlocks[ i ] ? innerBlocks[ i ].innerBlocks : ''
+							innerBlocks[i] ? innerBlocks[i].innerBlocks : ''
 						)
 					)
 				);

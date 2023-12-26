@@ -1,7 +1,7 @@
-function reducer( state = { device: '' }, action = {} ) {
-	switch ( action.type ) {
+function reducer(state = { device: '' }, action = {}) {
+	switch (action.type) {
 		case 'SET_DEVICE':
-			if ( state.device !== action.device ) {
+			if (state.device !== action.device) {
 				return {
 					...state,
 					device: action.device,
@@ -9,7 +9,7 @@ function reducer( state = { device: '' }, action = {} ) {
 			}
 
 			break;
-    // no default
+		// no default
 	}
 
 	return state;

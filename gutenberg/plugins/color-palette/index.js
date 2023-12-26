@@ -1,16 +1,16 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable max-classes-per-file */
-/**
- * Internal dependencies
- */
+
 import apiFetch from '@wordpress/api-fetch';
-import { BaseControl, Button, TextControl, Tooltip } from '@wordpress/components';
+import {
+	BaseControl,
+	Button,
+	TextControl,
+	Tooltip,
+} from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
-/**
- * WordPress dependencies
- */
 import { Component, Fragment } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -22,39 +22,39 @@ import { getSlug } from '../../utils/get-unique-slug';
 const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 class ColorPaletteModal extends Component {
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 
-		this.isUniqueSlug = this.isUniqueSlug.bind( this );
-		this.getUniqueSlug = this.getUniqueSlug.bind( this );
+		this.isUniqueSlug = this.isUniqueSlug.bind(this);
+		this.getUniqueSlug = this.getUniqueSlug.bind(this);
 	}
 
-	getUniqueSlug( name ) {
+	getUniqueSlug(name) {
 		let newSlug = '';
 		let i = 0;
 
-		name = name.replace( /-/g, ' ' );
+		name = name.replace(/-/g, ' ');
 
-		while ( ! newSlug || ! this.isUniqueSlug( newSlug ) ) {
-			if ( newSlug ) {
+		while (!newSlug || !this.isUniqueSlug(newSlug)) {
+			if (newSlug) {
 				i += 1;
 			}
-			newSlug = `${ getSlug( name ) }${ i ? `-${ i }` : '' }`;
+			newSlug = `${getSlug(name)}${i ? `-${i}` : ''}`;
 		}
 
 		return newSlug;
 	}
 
-	isUniqueSlug( slug ) {
+	isUniqueSlug(slug) {
 		const { colors } = this.props;
 
 		let isUnique = true;
 
-		colors.forEach( ( color ) => {
-			if ( color.slug === slug ) {
+		colors.forEach((color) => {
+			if (color.slug === slug) {
 				isUnique = false;
 			}
-		} );
+		});
 
 		return isUnique;
 	}
@@ -67,77 +67,91 @@ class ColorPaletteModal extends Component {
 				className="ghostkit-plugin-color-palette-modal"
 				position="top"
 				size="md"
-				title={ __( 'Color Palette', 'ghostkit' ) }
-				onRequestClose={ () => {
-					updateColorPalette( colors, true );
+				title={__('Color Palette', 'ghostkit')}
+				onRequestClose={() => {
+					updateColorPalette(colors, true);
 					onRequestClose();
-				} }
-				icon={ getIcon( 'plugin-color-palette' ) }
+				}}
+				icon={getIcon('plugin-color-palette')}
 			>
-				<h4>{ __( 'Default Colors', 'ghostkit' ) }</h4>
+				<h4>{__('Default Colors', 'ghostkit')}</h4>
 				<div className="ghostkit-plugin-color-palette-list ghostkit-plugin-color-palette-list-default">
-					{ colors.map( ( data ) => {
-						if ( /^ghostkit-color-/g.test( data.slug ) ) {
+					{colors.map((data) => {
+						if (/^ghostkit-color-/g.test(data.slug)) {
 							return null;
 						}
 
 						return (
 							<ColorPicker
-								key={ data.slug }
-								value={ data.color }
-								hint={ data.name }
-								colorPalette={ false }
-								onChange={ () => {} }
+								key={data.slug}
+								value={data.color}
+								hint={data.name}
+								colorPalette={false}
+								onChange={() => {}}
 							/>
 						);
-					} ) }
+					})}
 				</div>
 
-				<h4>{ __( 'Custom Colors', 'ghostkit' ) }</h4>
+				<h4>{__('Custom Colors', 'ghostkit')}</h4>
 				<div className="ghostkit-plugin-color-palette-list">
-					{ colors.map( ( data, i ) => {
-						if ( ! /^ghostkit-color-/g.test( data.slug ) ) {
+					{colors.map((data, i) => {
+						if (!/^ghostkit-color-/g.test(data.slug)) {
 							return null;
 						}
 
-						const colorName = `palette-item-${ i }`;
+						const colorName = `palette-item-${i}`;
 
 						return (
 							<ColorPicker
-								key={ colorName }
-								value={ data.color }
-								hint={ data.name }
-								colorPalette={ false }
-								onChange={ ( value ) => {
-									const newColors = colors.map( ( thisData ) => ( {
-										...thisData,
-										color: data.slug === thisData.slug ? value : thisData.color,
-									} ) );
-									updateColorPalette( newColors );
-								} }
+								key={colorName}
+								value={data.color}
+								hint={data.name}
+								colorPalette={false}
+								onChange={(value) => {
+									const newColors = colors.map(
+										(thisData) => ({
+											...thisData,
+											color:
+												data.slug === thisData.slug
+													? value
+													: thisData.color,
+										})
+									);
+									updateColorPalette(newColors);
+								}}
 								afterDropdownContent={
 									<Fragment>
 										<TextControl
-											label={ __( 'Name', 'ghostkit' ) }
-											value={ data.name }
-											onChange={ ( value ) => {
-												const newColors = colors.map( ( thisData ) => ( {
-													...thisData,
-													slug:
-                            data.slug === thisData.slug
-                            	? this.getUniqueSlug( `ghostkit-color-${ value }` )
-                            	: thisData.slug,
-													name: data.slug === thisData.slug ? value : thisData.name,
-												} ) );
-												updateColorPalette( newColors );
-											} }
-											style={ { marginTop: 0 } }
+											label={__('Name', 'ghostkit')}
+											value={data.name}
+											onChange={(value) => {
+												const newColors = colors.map(
+													(thisData) => ({
+														...thisData,
+														slug:
+															data.slug ===
+															thisData.slug
+																? this.getUniqueSlug(
+																		`ghostkit-color-${value}`
+																	)
+																: thisData.slug,
+														name:
+															data.slug ===
+															thisData.slug
+																? value
+																: thisData.name,
+													})
+												);
+												updateColorPalette(newColors);
+											}}
+											style={{ marginTop: 0 }}
 										/>
 										<BaseControl>
 											<Button
-												onClick={ () => {
+												onClick={() => {
 													if (
-													// eslint-disable-next-line no-alert
+														// eslint-disable-next-line no-alert
 														window.confirm(
 															sprintf(
 																__(
@@ -149,42 +163,56 @@ class ColorPaletteModal extends Component {
 															)
 														)
 													) {
-														const newColors = colors.filter(
-															( thisData ) => data.slug !== thisData.slug
+														const newColors =
+															colors.filter(
+																(thisData) =>
+																	data.slug !==
+																	thisData.slug
+															);
+														updateColorPalette(
+															newColors
 														);
-														updateColorPalette( newColors );
 													}
-												} }
+												}}
 												isSecondary
 												isSmall
 											>
-												{ __( 'Remove', 'ghostkit' ) }
+												{__('Remove', 'ghostkit')}
 											</Button>
 										</BaseControl>
 									</Fragment>
 								}
 							/>
 						);
-					} ) }
+					})}
 					<div className="ghostkit-plugin-color-palette-list-add-new components-base-control ghostkit-component-color-picker-wrapper">
 						<div className="components-base-control__field">
 							<div className="components-color-palette__item-wrapper components-circular-option-picker__option-wrapper">
-								<Tooltip text={ __( 'Add Custom Color', 'ghostkit' ) }>
+								<Tooltip
+									text={__('Add Custom Color', 'ghostkit')}
+								>
 									<button
 										type="button"
 										className="components-color-palette__item components-circular-option-picker__option"
-										onClick={ () => {
-											updateColorPalette( [
+										onClick={() => {
+											updateColorPalette([
 												...colors,
 												{
-													slug: this.getUniqueSlug( 'ghostkit-color-blue' ),
+													slug: this.getUniqueSlug(
+														'ghostkit-color-blue'
+													),
 													color: '#0366d6',
-													name: __( 'Blue', 'ghostkit' ),
+													name: __(
+														'Blue',
+														'ghostkit'
+													),
 												},
-											] );
-										} }
+											]);
+										}}
 									>
-										<span className="components-color-palette__custom-color-gradient">+</span>
+										<span className="components-color-palette__custom-color-gradient">
+											+
+										</span>
 									</button>
 								</Tooltip>
 							</div>
@@ -196,35 +224,37 @@ class ColorPaletteModal extends Component {
 	}
 }
 
-const ColorPaletteModalWithSelect = compose( [
-	withSelect( ( select ) => {
-		const { getSettings } = select( 'core/block-editor' );
+const ColorPaletteModalWithSelect = compose([
+	withSelect((select) => {
+		const { getSettings } = select('core/block-editor');
 		const settings = getSettings();
 
 		return {
 			colors: settings.colors || [],
 		};
-	} ),
-	withDispatch( ( dispatch ) => ( {
-		updateColorPalette( newColors, ajaxSave ) {
-			const { updateSettings } = dispatch( 'core/block-editor' );
+	}),
+	withDispatch((dispatch) => ({
+		updateColorPalette(newColors, ajaxSave) {
+			const { updateSettings } = dispatch('core/block-editor');
 
-			updateSettings( { colors: newColors } );
+			updateSettings({ colors: newColors });
 
-			if ( ajaxSave ) {
-				const customColors = newColors.filter( ( data ) => /^ghostkit-color-/g.test( data.slug ) );
+			if (ajaxSave) {
+				const customColors = newColors.filter((data) =>
+					/^ghostkit-color-/g.test(data.slug)
+				);
 
-				apiFetch( {
+				apiFetch({
 					path: '/ghostkit/v1/update_color_palette',
 					method: 'POST',
 					data: {
 						data: customColors,
 					},
-				} );
+				});
 			}
 		},
-	} ) ),
-] )( ColorPaletteModal );
+	})),
+])(ColorPaletteModal);
 
 export { ColorPaletteModalWithSelect as ColorPaletteModal };
 
@@ -233,8 +263,8 @@ export const name = 'ghostkit-color-palette';
 export const icon = null;
 
 export class Plugin extends Component {
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			isModalOpen: false,
@@ -246,23 +276,25 @@ export class Plugin extends Component {
 
 		return (
 			<Fragment>
-				{ PluginMoreMenuItem ? (
+				{PluginMoreMenuItem ? (
 					<PluginMoreMenuItem
-						icon={ null }
-						onClick={ () => {
-							this.setState( { isModalOpen: true } );
-						} }
+						icon={null}
+						onClick={() => {
+							this.setState({ isModalOpen: true });
+						}}
 					>
-						{ __( 'Color Palette', 'ghostkit' ) }
+						{__('Color Palette', 'ghostkit')}
 					</PluginMoreMenuItem>
-				) : null }
-				{ isModalOpen ? (
+				) : null}
+				{isModalOpen ? (
 					<ColorPaletteModalWithSelect
-						onRequestClose={ () => this.setState( { isModalOpen: false } ) }
+						onRequestClose={() =>
+							this.setState({ isModalOpen: false })
+						}
 					/>
 				) : (
 					''
-				) }
+				)}
 			</Fragment>
 		);
 	}

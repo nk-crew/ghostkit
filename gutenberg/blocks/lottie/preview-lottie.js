@@ -1,7 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-/**
- * WordPress dependencies
- */
+
 import { useEffect, useRef } from '@wordpress/element';
 
 import { loadBlockEditorAssets } from '../../utils/block-editor-asset-loader';
@@ -11,45 +9,53 @@ import { loadBlockEditorAssets } from '../../utils/block-editor-asset-loader';
  *
  * @param props
  */
-export default function PreviewLottie( props ) {
-	const { url, trigger, speed, loop, direction, isSelected, onLoad = () => {} } = props;
+export default function PreviewLottie(props) {
+	const {
+		url,
+		trigger,
+		speed,
+		loop,
+		direction,
+		isSelected,
+		onLoad = () => {},
+	} = props;
 
-	const lottieRef = useRef( null );
+	const lottieRef = useRef(null);
 
 	// Load assets.
-	useEffect( () => {
+	useEffect(() => {
 		const element = lottieRef.current;
 
-		function loadCallback( e ) {
-			onLoad( e );
+		function loadCallback(e) {
+			onLoad(e);
 		}
 
-		element.addEventListener( 'load', loadCallback );
+		element.addEventListener('load', loadCallback);
 
-		loadBlockEditorAssets( 'js', 'lottie-player-js', element );
+		loadBlockEditorAssets('js', 'lottie-player-js', element);
 
 		return () => {
-			element.removeEventListener( 'load', loadCallback );
+			element.removeEventListener('load', loadCallback);
 		};
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ lottieRef ] );
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [lottieRef]);
 
 	return (
 		<lottie-player
-			key={ `lottie-${ trigger }-${ speed }-${ loop }-${ direction }` }
-			ref={ lottieRef }
-			src={ url }
-			direction={ direction }
+			key={`lottie-${trigger}-${speed}-${loop}-${direction}`}
+			ref={lottieRef}
+			src={url}
+			direction={direction}
 			background="transparent"
 			mode="normal"
-			{ ...( trigger !== 'scroll' ? { speed } : {} ) }
-			{ ...( trigger !== 'scroll' && loop ? { loop: 'loop' } : {} ) }
-			{ ...( ! trigger || isSelected ? { autoplay: 'autoplay' } : {} ) }
-			{ ...( trigger === 'hover' ? { hover: 'hover' } : {} ) }
-			style={ {
+			{...(trigger !== 'scroll' ? { speed } : {})}
+			{...(trigger !== 'scroll' && loop ? { loop: 'loop' } : {})}
+			{...(!trigger || isSelected ? { autoplay: 'autoplay' } : {})}
+			{...(trigger === 'hover' ? { hover: 'hover' } : {})}
+			style={{
 				width: '100%',
 				height: 'auto',
-			} }
+			}}
 		/>
 	);
 }

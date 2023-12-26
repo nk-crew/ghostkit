@@ -1,10 +1,4 @@
-/**
- * Internal dependencies
- */
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 
 import IconPicker from '../../components/icon-picker';
@@ -16,26 +10,36 @@ const { name } = metadata;
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const { icon, hideButton } = props.attributes;
 
 	let className = 'ghostkit-alert';
 
-	className = applyFilters( 'ghostkit.blocks.className', className, {
+	className = applyFilters('ghostkit.blocks.className', className, {
 		...{
 			name,
 		},
 		...props,
-	} );
+	});
 
-	const blockProps = useBlockProps.save( { className } );
-	const innerBlockProps = useInnerBlocksProps.save( { className: 'ghostkit-alert-content' } );
+	const blockProps = useBlockProps.save({ className });
+	const innerBlockProps = useInnerBlocksProps.save({
+		className: 'ghostkit-alert-content',
+	});
 
 	return (
-		<div { ...blockProps }>
-			{ icon ? <IconPicker.Render name={ icon } tag="div" className="ghostkit-alert-icon" /> : '' }
-			<div { ...innerBlockProps } />
-			{ hideButton ? (
+		<div {...blockProps}>
+			{icon ? (
+				<IconPicker.Render
+					name={icon}
+					tag="div"
+					className="ghostkit-alert-icon"
+				/>
+			) : (
+				''
+			)}
+			<div {...innerBlockProps} />
+			{hideButton ? (
 				<div className="ghostkit-alert-hide-button">
 					<svg
 						className="ghostkit-svg-icon"
@@ -53,7 +57,7 @@ export default function BlockSave( props ) {
 				</div>
 			) : (
 				''
-			) }
+			)}
 		</div>
 	);
 }

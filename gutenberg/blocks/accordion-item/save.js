@@ -1,17 +1,12 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-import { RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-/**
- * WordPress dependencies
- */
+import {
+	RichText,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 
-/**
- * Internal dependencies
- */
 import metadata from './block.json';
 
 const { name } = metadata;
@@ -21,7 +16,7 @@ const { name } = metadata;
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const { attributes } = props;
 	const { heading, active, slug, titleTag } = attributes;
 
@@ -30,30 +25,30 @@ export default function BlockSave( props ) {
 		active ? 'ghostkit-accordion-item-active' : ''
 	);
 
-	className = applyFilters( 'ghostkit.blocks.className', className, {
+	className = applyFilters('ghostkit.blocks.className', className, {
 		...{
 			name,
 		},
 		...props,
-	} );
+	});
 
 	const TitleTag = titleTag || 'div';
 
-	const blockProps = useBlockProps.save( {
+	const blockProps = useBlockProps.save({
 		className,
-	} );
-	const innerBlocksProps = useInnerBlocksProps.save( {
+	});
+	const innerBlocksProps = useInnerBlocksProps.save({
 		className: 'ghostkit-accordion-item-content',
-	} );
+	});
 
 	return (
-		<div { ...blockProps }>
+		<div {...blockProps}>
 			<TitleTag className="ghostkit-accordion-item-heading">
-				<a href={ `#${ slug }` }>
+				<a href={`#${slug}`}>
 					<RichText.Content
 						className="ghostkit-accordion-item-label"
 						tagName="span"
-						value={ heading }
+						value={heading}
 					/>
 					<span className="ghostkit-accordion-item-collapse">
 						<svg
@@ -72,7 +67,7 @@ export default function BlockSave( props ) {
 					</span>
 				</a>
 			</TitleTag>
-			<div { ...innerBlocksProps } />
+			<div {...innerBlocksProps} />
 		</div>
 	);
 }

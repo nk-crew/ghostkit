@@ -1,14 +1,8 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ResponsiveToggle from '../../../components/responsive-toggle';
@@ -33,18 +27,20 @@ import { hasBlockSupport } from '@wordpress/blocks';
  *
  * @return {Array} array for Select.
  */
-const getDefaultDisplay = function( screen = '' ) {
+const getDefaultDisplay = function (screen = '') {
 	return [
 		{
-			label: ! screen ? __( 'Default', 'ghostkit' ) : __( 'Inherit', 'ghostkit' ),
+			label: !screen
+				? __('Default', 'ghostkit')
+				: __('Inherit', 'ghostkit'),
 			value: '',
 		},
 		{
-			label: __( 'Show', 'ghostkit' ),
+			label: __('Show', 'ghostkit'),
 			value: 'block',
 		},
 		{
-			label: __( 'Hide', 'ghostkit' ),
+			label: __('Hide', 'ghostkit'),
 			value: 'none',
 		},
 	];
@@ -58,20 +54,20 @@ const getDefaultDisplay = function( screen = '' ) {
  *
  * @return {string} display value.
  */
-function getCurrentDisplay( className, screen ) {
-	if ( ! screen ) {
-		if ( hasClass( className, 'ghostkit-d-none' ) ) {
+function getCurrentDisplay(className, screen) {
+	if (!screen) {
+		if (hasClass(className, 'ghostkit-d-none')) {
 			return 'none';
 		}
-		if ( hasClass( className, 'ghostkit-d-block' ) ) {
+		if (hasClass(className, 'ghostkit-d-block')) {
 			return 'block';
 		}
 	}
 
-	return getActiveClass( className, `ghostkit-d-${ screen }`, true );
+	return getActiveClass(className, `ghostkit-d-${screen}`, true);
 }
 
-function DisplayScreenSizeTools( props ) {
+function DisplayScreenSizeTools(props) {
 	const { attributes, setAttributes } = props;
 	const { className } = attributes;
 
@@ -79,9 +75,10 @@ function DisplayScreenSizeTools( props ) {
 
 	let hasDisplayScreenSize = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-		hasDisplayScreenSize = hasDisplayScreenSize || getCurrentDisplay( className, thisDevice );
-	} );
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+		hasDisplayScreenSize =
+			hasDisplayScreenSize || getCurrentDisplay(className, thisDevice);
+	});
 
 	/**
 	 * Update display object.
@@ -89,70 +86,92 @@ function DisplayScreenSizeTools( props ) {
 	 * @param {string} screen - name of screen size.
 	 * @param {string} val    - value for new display.
 	 */
-	function updateDisplay( screen, val ) {
+	function updateDisplay(screen, val) {
 		let newClassName = className;
 
-		if ( screen ) {
-			newClassName = replaceClass( newClassName, `ghostkit-d-${ screen }`, val );
+		if (screen) {
+			newClassName = replaceClass(
+				newClassName,
+				`ghostkit-d-${screen}`,
+				val
+			);
 		} else {
-			newClassName = removeClass( newClassName, 'ghostkit-d-none' );
-			newClassName = removeClass( newClassName, 'ghostkit-d-block' );
+			newClassName = removeClass(newClassName, 'ghostkit-d-none');
+			newClassName = removeClass(newClassName, 'ghostkit-d-block');
 
-			if ( val ) {
-				newClassName = addClass( newClassName, `ghostkit-d-${ val }` );
+			if (val) {
+				newClassName = addClass(newClassName, `ghostkit-d-${val}`);
 			}
 		}
 
-		setAttributes( {
+		setAttributes({
 			className: newClassName,
-		} );
+		});
 	}
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Screen Size', 'ghostkit' ) }
-			hasValue={ () => !! hasDisplayScreenSize }
-			onDeselect={ () => {
+			label={__('Screen Size', 'ghostkit')}
+			hasValue={() => !!hasDisplayScreenSize}
+			onDeselect={() => {
 				let newClassName = className;
 
-				[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-					if ( thisDevice ) {
-						newClassName = removeClass( newClassName, `ghostkit-d-${ thisDevice }-none` );
-						newClassName = removeClass( newClassName, `ghostkit-d-${ thisDevice }-block` );
+				['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+					if (thisDevice) {
+						newClassName = removeClass(
+							newClassName,
+							`ghostkit-d-${thisDevice}-none`
+						);
+						newClassName = removeClass(
+							newClassName,
+							`ghostkit-d-${thisDevice}-block`
+						);
 					} else {
-						newClassName = removeClass( newClassName, 'ghostkit-d-none' );
-						newClassName = removeClass( newClassName, 'ghostkit-d-block' );
+						newClassName = removeClass(
+							newClassName,
+							'ghostkit-d-none'
+						);
+						newClassName = removeClass(
+							newClassName,
+							'ghostkit-d-block'
+						);
 					}
-				} );
+				});
 
-				setAttributes( {
+				setAttributes({
 					className: newClassName,
-				} );
-			} }
-			isShownByDefault={ false }
+				});
+			}}
+			isShownByDefault={false}
 		>
 			<ToggleGroup
 				label={
 					<>
-						{ __( 'Screen Size', 'ghostkit' ) }
+						{__('Screen Size', 'ghostkit')}
 						<ResponsiveToggle
-							checkActive={ ( checkMedia ) => {
+							checkActive={(checkMedia) => {
 								return (
-									hasClass( className, `ghostkit-d-${ checkMedia }-none` ) ||
-                  hasClass( className, `ghostkit-d-${ checkMedia }-block` )
+									hasClass(
+										className,
+										`ghostkit-d-${checkMedia}-none`
+									) ||
+									hasClass(
+										className,
+										`ghostkit-d-${checkMedia}-block`
+									)
 								);
-							} }
+							}}
 						/>
 					</>
 				}
-				value={ getCurrentDisplay( className, device ) }
-				options={ getDefaultDisplay( device ).map( ( val ) => ( {
+				value={getCurrentDisplay(className, device)}
+				options={getDefaultDisplay(device).map((val) => ({
 					value: val.value,
 					label: val.label,
-				} ) ) }
-				onChange={ ( value ) => {
-					updateDisplay( device, value );
-				} }
+				}))}
+				onChange={(value) => {
+					updateDisplay(device, value);
+				}}
 				isBlock
 			/>
 		</ToolsPanelItem>
@@ -162,22 +181,26 @@ function DisplayScreenSizeTools( props ) {
 addFilter(
 	'ghostkit.extension.display.tools',
 	'ghostkit/extension/display/tools/screenSize',
-	( children, { props } ) => {
-		const hasDisplayScreenSizeSupport = hasBlockSupport( props.name, [
+	(children, { props }) => {
+		const hasDisplayScreenSizeSupport = hasBlockSupport(props.name, [
 			'ghostkit',
 			'display',
 			'screenSize',
-		] );
-		const hasCustomClassNameSupport = hasBlockSupport( props.name, 'customClassName', true );
+		]);
+		const hasCustomClassNameSupport = hasBlockSupport(
+			props.name,
+			'customClassName',
+			true
+		);
 
-		if ( ! hasDisplayScreenSizeSupport || ! hasCustomClassNameSupport ) {
+		if (!hasDisplayScreenSizeSupport || !hasCustomClassNameSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<DisplayScreenSizeTools { ...props } />
+				{children}
+				<DisplayScreenSizeTools {...props} />
 			</>
 		);
 	}

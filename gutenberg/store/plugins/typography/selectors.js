@@ -1,7 +1,7 @@
-export function getCustomTypography( state ) {
+export function getCustomTypography(state) {
 	return state.data;
 }
 
-export function updateCustomTypography( state ) {
+export function updateCustomTypography(state) {
 	return state.data;
 }

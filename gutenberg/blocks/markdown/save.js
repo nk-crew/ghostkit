@@ -1,16 +1,7 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-/**
- * WordPress dependencies
- */
 import { useBlockProps } from '@wordpress/block-editor';
 
-/**
- * Internal dependencies
- */
 import MDRender from './render';
 
 /**
@@ -18,15 +9,15 @@ import MDRender from './render';
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const { attributes } = props;
 	const { content } = attributes;
 
 	let { className } = attributes;
 
-	className = classnames( 'ghostkit-markdown', className );
+	className = classnames('ghostkit-markdown', className);
 
-	const blockProps = useBlockProps.save( { className } );
+	const blockProps = useBlockProps.save({ className });
 
-	return <MDRender content={ content } { ...blockProps } />;
+	return <MDRender content={content} {...blockProps} />;
 }

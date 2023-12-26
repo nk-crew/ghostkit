@@ -1,5 +1,5 @@
 export default function getjQuery() {
-	if ( window.jQuery ) {
+	if (window.jQuery) {
 		return window.jQuery;
 	}
 

@@ -1,15 +1,9 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
 	BaseControl,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ImportantToggle from '../../../components/important-toggle';
@@ -22,102 +16,126 @@ const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
 import { hasBlockSupport } from '@wordpress/blocks';
 
-const allMargins = [ 'margin-top', 'margin-right', 'margin-bottom', 'margin-left' ];
+const allMargins = [
+	'margin-top',
+	'margin-right',
+	'margin-bottom',
+	'margin-left',
+];
 
-function SpacingsMarginTools( props ) {
-	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles( props );
+function SpacingsMarginTools(props) {
+	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
 	const { device, allDevices } = useResponsive();
 
-	const baseControlLabel = <>
-		{ __( 'Margin', 'ghostkit' ) }
-		<ResponsiveToggle
-			checkActive={ ( checkMedia ) => {
-				let isActive = false;
+	const baseControlLabel = (
+		<>
+			{__('Margin', 'ghostkit')}
+			<ResponsiveToggle
+				checkActive={(checkMedia) => {
+					let isActive = false;
 
-				allMargins.forEach( ( thisMargin ) => {
-					isActive = isActive || hasStyle( thisMargin, checkMedia );
-				} );
+					allMargins.forEach((thisMargin) => {
+						isActive = isActive || hasStyle(thisMargin, checkMedia);
+					});
 
-				return isActive;
-			} }
-		/>
-	</>;
+					return isActive;
+				}}
+			/>
+		</>
+	);
 
 	let hasMargin = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-		allMargins.forEach( ( thisMargin ) => {
-			hasMargin = hasMargin || hasStyle( thisMargin, thisDevice );
-		} );
-	} );
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+		allMargins.forEach((thisMargin) => {
+			hasMargin = hasMargin || hasStyle(thisMargin, thisDevice);
+		});
+	});
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Margin', 'ghostkit' ) }
-			hasValue={ () => !! hasMargin }
-			onDeselect={ () => {
-				resetStyles( allMargins, true );
-			} }
-			isShownByDefault={ false }
+			label={__('Margin', 'ghostkit')}
+			hasValue={() => !!hasMargin}
+			onDeselect={() => {
+				resetStyles(allMargins, true);
+			}}
+			isShownByDefault={false}
 		>
 			<BaseControl
-				id={ baseControlLabel }
-				label={ baseControlLabel }
+				id={baseControlLabel}
+				label={baseControlLabel}
 				className="ghostkit-tools-panel-spacings-row"
 			>
 				<div>
-					{ allMargins.map( ( marginName ) => {
-						let label = __( 'Top', 'ghostkit' );
+					{allMargins.map((marginName) => {
+						let label = __('Top', 'ghostkit');
 
-						switch ( marginName ) {
+						switch (marginName) {
 							case 'margin-right':
-								label = __( 'Right', 'ghostkit' );
+								label = __('Right', 'ghostkit');
 								break;
 							case 'margin-bottom':
-								label = __( 'Bottom', 'ghostkit' );
+								label = __('Bottom', 'ghostkit');
 								break;
 							case 'margin-left':
-								label = __( 'Left', 'ghostkit' );
+								label = __('Left', 'ghostkit');
 								break;
-              // no default
+							// no default
 						}
 
-						let value = getStyle( marginName, device );
+						let value = getStyle(marginName, device);
 
-						const withImportant = / !important$/.test( value );
-						if ( withImportant ) {
-							value = value.replace( / !important$/, '' );
+						const withImportant = / !important$/.test(value);
+						if (withImportant) {
+							value = value.replace(/ !important$/, '');
 						}
 
 						return (
-							<div key={ marginName } className="ghostkit-tools-panel-spacings-item">
+							<div
+								key={marginName}
+								className="ghostkit-tools-panel-spacings-item"
+							>
 								<InputDrag
-									help={ label }
-									value={ value }
+									help={label}
+									value={value}
 									placeholder="-"
-									onChange={ ( val ) => {
+									onChange={(val) => {
 										const newValue = val
-											? `${ val }${ withImportant ? ' !important' : '' }`
+											? `${val}${
+													withImportant
+														? ' !important'
+														: ''
+												}`
 											: undefined;
 
-										setStyles( { [ marginName ]: newValue }, device );
-									} }
+										setStyles(
+											{ [marginName]: newValue },
+											device
+										);
+									}}
 									autoComplete="off"
 								/>
 								<ImportantToggle
-									onClick={ ( newWithImportant ) => {
-										if ( value ) {
-											const newValue = `${ value }${ newWithImportant ? ' !important' : '' }`;
+									onClick={(newWithImportant) => {
+										if (value) {
+											const newValue = `${value}${
+												newWithImportant
+													? ' !important'
+													: ''
+											}`;
 
-											setStyles( { [ marginName ]: newValue }, device );
+											setStyles(
+												{ [marginName]: newValue },
+												device
+											);
 										}
-									} }
-									isActive={ withImportant }
+									}}
+									isActive={withImportant}
 								/>
 							</div>
 						);
-					} ) }
+					})}
 				</div>
 			</BaseControl>
 		</ToolsPanelItem>
@@ -127,17 +145,21 @@ function SpacingsMarginTools( props ) {
 addFilter(
 	'ghostkit.extension.spacings.tools',
 	'ghostkit/extension/spacings/tools/margin',
-	( children, { props } ) => {
-		const hasMarginSupport = hasBlockSupport( props.name, [ 'ghostkit', 'spacings', 'margin' ] );
+	(children, { props }) => {
+		const hasMarginSupport = hasBlockSupport(props.name, [
+			'ghostkit',
+			'spacings',
+			'margin',
+		]);
 
-		if ( ! hasMarginSupport ) {
+		if (!hasMarginSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<SpacingsMarginTools { ...props } />
+				{children}
+				<SpacingsMarginTools {...props} />
 			</>
 		);
 	}

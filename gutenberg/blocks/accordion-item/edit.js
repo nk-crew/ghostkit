@@ -1,21 +1,18 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-import { BlockControls, InnerBlocks, RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import {
+	BlockControls,
+	InnerBlocks,
+	RichText,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEffect, useRef } from '@wordpress/element';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import getUniqueSlug from '../../utils/get-unique-slug';
 
@@ -24,38 +21,38 @@ import getUniqueSlug from '../../utils/get-unique-slug';
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes, context, clientId } = props;
 	const { heading, slug, active, titleTag } = attributes;
 
 	const didMountRef = useRef();
 
-	const contextTitleTag = context[ 'ghostkit/collapseTitleTag' ] || 'div';
+	const contextTitleTag = context['ghostkit/collapseTitleTag'] || 'div';
 
-	useEffect( () => {
+	useEffect(() => {
 		// Did update.
 		// Update item slug.
-		if ( didMountRef.current ) {
-			const newSlug = getUniqueSlug( `accordion ${ heading }`, clientId );
+		if (didMountRef.current) {
+			const newSlug = getUniqueSlug(`accordion ${heading}`, clientId);
 
-			setAttributes( {
+			setAttributes({
 				slug: newSlug,
-			} );
+			});
 
 			// Did mount.
 		} else {
 			didMountRef.current = true;
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ heading, slug ] );
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [heading, slug]);
 
 	// Update title tag.
-	useEffect( () => {
-		if ( titleTag !== contextTitleTag ) {
-			setAttributes( { titleTag: contextTitleTag } );
+	useEffect(() => {
+		if (titleTag !== contextTitleTag) {
+			setAttributes({ titleTag: contextTitleTag });
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ contextTitleTag, titleTag ] );
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [contextTitleTag, titleTag]);
 
 	let className = classnames(
 		attributes.className,
@@ -63,30 +60,34 @@ export default function BlockEdit( props ) {
 		active ? 'ghostkit-accordion-item-active' : ''
 	);
 
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = applyFilters('ghostkit.editor.className', className, props);
 
 	const { hasChildBlocks } = useSelect(
-		( select ) => {
-			const blockEditor = select( 'core/block-editor' );
+		(select) => {
+			const blockEditor = select('core/block-editor');
 
 			return {
-				hasChildBlocks: blockEditor ? blockEditor.getBlockOrder( clientId ).length > 0 : false,
+				hasChildBlocks: blockEditor
+					? blockEditor.getBlockOrder(clientId).length > 0
+					: false,
 			};
 		},
-		[ clientId ]
+		[clientId]
 	);
 
 	const TitleTag = titleTag || 'div';
 
-	const blockProps = useBlockProps( {
+	const blockProps = useBlockProps({
 		className,
-	} );
+	});
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{ className: 'ghostkit-accordion-item-content' },
 		{
 			templateLock: false,
-			renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+			renderAppender: hasChildBlocks
+				? undefined
+				: InnerBlocks.ButtonBlockAppender,
 		}
 	);
 
@@ -95,29 +96,29 @@ export default function BlockEdit( props ) {
 			<BlockControls>
 				<ToolbarGroup>
 					<ToolbarButton
-						icon={ getIcon( 'block-accordion-collapse' ) }
-						label={ __( 'Collapse', 'ghostkit' ) }
-						onClick={ () => setAttributes( { active: ! active } ) }
-						isActive={ active }
+						icon={getIcon('block-accordion-collapse')}
+						label={__('Collapse', 'ghostkit')}
+						onClick={() => setAttributes({ active: !active })}
+						isActive={active}
 					/>
 				</ToolbarGroup>
 			</BlockControls>
-			<div { ...blockProps }>
+			<div {...blockProps}>
 				<TitleTag className="ghostkit-accordion-item-heading">
 					<RichText
 						tagName="div"
 						className="ghostkit-accordion-item-label"
-						placeholder={ __( 'Write label…', 'ghostkit' ) }
-						value={ heading }
-						onChange={ ( value ) => {
-							setAttributes( { heading: value } );
-						} }
+						placeholder={__('Write label…', 'ghostkit')}
+						value={heading}
+						onChange={(value) => {
+							setAttributes({ heading: value });
+						}}
 						withoutInteractiveFormatting
 					/>
-					{ /* eslint-disable-next-line react/button-has-type */ }
+					{/* eslint-disable-next-line react/button-has-type */}
 					<button
 						className="ghostkit-accordion-item-collapse"
-						onClick={ () => setAttributes( { active: ! active } ) }
+						onClick={() => setAttributes({ active: !active })}
 					>
 						<svg
 							className="ghostkit-svg-icon"
@@ -134,7 +135,7 @@ export default function BlockEdit( props ) {
 						</svg>
 					</button>
 				</TitleTag>
-				<div { ...innerBlocksProps } />
+				<div {...innerBlocksProps} />
 			</div>
 		</>
 	);

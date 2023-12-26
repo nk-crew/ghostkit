@@ -1,3 +1,3 @@
-export function getCustomizerData( state ) {
+export function getCustomizerData(state) {
 	return state.data;
 }

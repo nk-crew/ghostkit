@@ -1,22 +1,16 @@
-/**
- * Internal dependencies
- */
 import camelCaseToDash from '../../../utils/camel-case-to-dash';
 
-/**
- * WordPress dependencies
- */
 const { merge, cloneDeep } = window.lodash;
 
-function fixStylesPropNames( styles ) {
-	if ( typeof styles === 'object' ) {
-		const clonedStyles = cloneDeep( styles );
+function fixStylesPropNames(styles) {
+	if (typeof styles === 'object') {
+		const clonedStyles = cloneDeep(styles);
 
 		const result = {};
 
-		Object.keys( clonedStyles ).forEach( ( k ) => {
-			result[ camelCaseToDash( k ) ] = fixStylesPropNames( clonedStyles[ k ] );
-		} );
+		Object.keys(clonedStyles).forEach((k) => {
+			result[camelCaseToDash(k)] = fixStylesPropNames(clonedStyles[k]);
+		});
 
 		return result;
 	}
@@ -29,7 +23,7 @@ function fixStylesPropNames( styles ) {
  *
  * @param props
  */
-export default function migrate( props ) {
+export default function migrate(props) {
 	const { attributes } = props;
 	const {
 		ghostkitId,
@@ -46,12 +40,12 @@ export default function migrate( props ) {
 	// Migration to new attribute.
 	if (
 		ghostkitId ||
-    ghostkitClassname ||
-    ghostkitStyles ||
-    ghostkitCustomCSS ||
-    ghostkitPosition ||
-    ghostkitSpacings ||
-    ghostkitFrame
+		ghostkitClassname ||
+		ghostkitStyles ||
+		ghostkitCustomCSS ||
+		ghostkitPosition ||
+		ghostkitSpacings ||
+		ghostkitFrame
 	) {
 		// Clean old attributes.
 		result.ghostkitId = undefined;
@@ -62,16 +56,16 @@ export default function migrate( props ) {
 		result.ghostkitSpacings = undefined;
 		result.ghostkitFrame = undefined;
 
-		const ghostkitData = cloneDeep( attributes?.ghostkit || {} );
+		const ghostkitData = cloneDeep(attributes?.ghostkit || {});
 
 		// ID.
-		if ( ghostkitId && ! ghostkitData?.id ) {
+		if (ghostkitId && !ghostkitData?.id) {
 			ghostkitData.id = ghostkitId;
 		}
 
 		// Custom CSS.
-		if ( ghostkitCustomCSS && ! ghostkitData?.styles?.custom ) {
-			if ( typeof ghostkitData?.styles === 'undefined' ) {
+		if (ghostkitCustomCSS && !ghostkitData?.styles?.custom) {
+			if (typeof ghostkitData?.styles === 'undefined') {
 				ghostkitData.styles = {};
 			}
 
@@ -79,19 +73,22 @@ export default function migrate( props ) {
 		}
 
 		// Styles.
-		if ( ghostkitStyles && Object.keys( ghostkitStyles ).length ) {
-			if ( typeof ghostkitData?.styles === 'undefined' ) {
+		if (ghostkitStyles && Object.keys(ghostkitStyles).length) {
+			if (typeof ghostkitData?.styles === 'undefined') {
 				ghostkitData.styles = {};
 			}
 
-			Object.keys( ghostkitStyles ).forEach( ( k ) => {
-				ghostkitData.styles = merge( ghostkitData.styles, ghostkitStyles[ k ] );
-			} );
+			Object.keys(ghostkitStyles).forEach((k) => {
+				ghostkitData.styles = merge(
+					ghostkitData.styles,
+					ghostkitStyles[k]
+				);
+			});
 		}
 
 		// Convert styles props to dash-case.
-		if ( ghostkitData.styles ) {
-			ghostkitData.styles = fixStylesPropNames( ghostkitData.styles );
+		if (ghostkitData.styles) {
+			ghostkitData.styles = fixStylesPropNames(ghostkitData.styles);
 		}
 
 		result.ghostkit = ghostkitData;

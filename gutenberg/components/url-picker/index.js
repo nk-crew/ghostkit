@@ -1,15 +1,20 @@
-/**
- * WordPress dependencies
- */
-import { __experimentalLinkControl as LinkControl, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { KeyboardShortcuts, PanelBody, Popover, TextControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import {
+	__experimentalLinkControl as LinkControl,
+	BlockControls,
+	InspectorControls,
+} from '@wordpress/block-editor';
+import {
+	KeyboardShortcuts,
+	PanelBody,
+	Popover,
+	TextControl,
+	ToolbarButton,
+	ToolbarGroup,
+} from '@wordpress/components';
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
 
-/**
- * Internal dependencies
- */
 const NEW_TAB_REL = 'noreferrer noopener';
 
 /**
@@ -17,8 +22,8 @@ const NEW_TAB_REL = 'noreferrer noopener';
  *
  * @param props
  */
-export default function URLPicker( props ) {
-	const [ toolbarSettingsOpened, setToolbarSettingsOpened ] = useState( false );
+export default function URLPicker(props) {
+	const [toolbarSettingsOpened, setToolbarSettingsOpened] = useState(false);
 	const {
 		rel,
 		target,
@@ -30,7 +35,7 @@ export default function URLPicker( props ) {
 		isSelected,
 	} = props;
 
-	function onChange( data ) {
+	function onChange(data) {
 		const newData = {
 			rel,
 			target,
@@ -39,56 +44,61 @@ export default function URLPicker( props ) {
 			...data,
 		};
 
-		if ( target !== newData.target ) {
+		if (target !== newData.target) {
 			let updatedRel = newData.rel;
 
-			if ( newData.target && ! newData.rel ) {
+			if (newData.target && !newData.rel) {
 				updatedRel = NEW_TAB_REL;
-			} else if ( ! newData.target && newData.rel === NEW_TAB_REL ) {
+			} else if (!newData.target && newData.rel === NEW_TAB_REL) {
 				updatedRel = undefined;
 			}
 
 			newData.rel = updatedRel;
 		}
 
-		props.onChange( newData );
+		props.onChange(newData);
 	}
 
-	function toggleToolbarSettings( open ) {
-		setToolbarSettingsOpened( typeof open !== 'undefined' ? open : ! toolbarSettingsOpened );
+	function toggleToolbarSettings(open) {
+		setToolbarSettingsOpened(
+			typeof open !== 'undefined' ? open : !toolbarSettingsOpened
+		);
 	}
 
 	function linkControl() {
 		return (
 			<LinkControl
 				className="wp-block-navigation-link__inline-link-input"
-				value={ {
+				value={{
 					url,
 					opensInNewTab: target === '_blank',
-				} }
-				onChange={ ( { url: newURL = '', opensInNewTab: newOpensInNewTab } ) => {
-					onChange( {
+				}}
+				onChange={({
+					url: newURL = '',
+					opensInNewTab: newOpensInNewTab,
+				}) => {
+					onChange({
 						url: newURL,
 						target: newOpensInNewTab ? '_blank' : '',
-					} );
-				} }
-				onRemove={ () => {
-					onChange( {
+					});
+				}}
+				onRemove={() => {
+					onChange({
 						url: '',
 						target: '',
 						rel: '',
-					} );
-					toggleToolbarSettings( false );
-				} }
+					});
+					toggleToolbarSettings(false);
+				}}
 			/>
 		);
 	}
 
 	return (
 		<Fragment>
-			{ toolbarSettings ? (
+			{toolbarSettings ? (
 				<Fragment>
-					<BlockControls group={ blockControlsGroup }>
+					<BlockControls group={blockControlsGroup}>
 						<ToolbarGroup>
 							<ToolbarButton
 								name="link"
@@ -105,56 +115,60 @@ export default function URLPicker( props ) {
 										<path d="M15.6 7.2H14v1.5h1.6c2 0 3.7 1.7 3.7 3.7s-1.7 3.7-3.7 3.7H14v1.5h1.6c2.8 0 5.2-2.3 5.2-5.2 0-2.9-2.3-5.2-5.2-5.2zM4.7 12.4c0-2 1.7-3.7 3.7-3.7H10V7.2H8.4c-2.9 0-5.2 2.3-5.2 5.2 0 2.9 2.3 5.2 5.2 5.2H10v-1.5H8.4c-2 0-3.7-1.7-3.7-3.7zm4.6.9h5.3v-1.5H9.3v1.5z" />
 									</svg>
 								}
-								title={ __( 'Link' ) }
-								shortcut={ displayShortcut.primary( 'k' ) }
-								onClick={ () => toggleToolbarSettings() }
+								title={__('Link')}
+								shortcut={displayShortcut.primary('k')}
+								onClick={() => toggleToolbarSettings()}
 							/>
 						</ToolbarGroup>
 					</BlockControls>
-					{ isSelected && (
+					{isSelected && (
 						<KeyboardShortcuts
 							bindGlobal
-							shortcuts={ {
-								[ rawShortcut.primary( 'k' ) ]: toggleToolbarSettings,
-							} }
+							shortcuts={{
+								[rawShortcut.primary('k')]:
+									toggleToolbarSettings,
+							}}
 						/>
-					) }
-					{ toolbarSettingsOpened ? (
-						<Popover position="bottom center" onClose={ () => toggleToolbarSettings( false ) }>
-							{ linkControl() }
+					)}
+					{toolbarSettingsOpened ? (
+						<Popover
+							position="bottom center"
+							onClose={() => toggleToolbarSettings(false)}
+						>
+							{linkControl()}
 						</Popover>
-					) : null }
+					) : null}
 				</Fragment>
-			) : null }
-			{ inspectorSettings ? (
+			) : null}
+			{inspectorSettings ? (
 				<InspectorControls>
 					<PanelBody
-						title={ __( 'Link Settings' ) }
-						initialOpen={ false }
+						title={__('Link Settings')}
+						initialOpen={false}
 						className="ghostkit-components-url-picker-inspector"
 					>
-						{ linkControl() }
+						{linkControl()}
 						<TextControl
-							label={ __( 'Link Rel' ) }
-							value={ rel || '' }
-							onChange={ ( val ) => {
-								onChange( {
+							label={__('Link Rel')}
+							value={rel || ''}
+							onChange={(val) => {
+								onChange({
 									rel: val,
-								} );
-							} }
+								});
+							}}
 						/>
 						<TextControl
-							label={ __( 'Accessible Label' ) }
-							value={ ariaLabel || '' }
-							onChange={ ( val ) => {
-								onChange( {
+							label={__('Accessible Label')}
+							value={ariaLabel || ''}
+							onChange={(val) => {
+								onChange({
 									ariaLabel: val,
-								} );
-							} }
+								});
+							}}
 						/>
 					</PanelBody>
 				</InspectorControls>
-			) : null }
+			) : null}
 		</Fragment>
 	);
 }

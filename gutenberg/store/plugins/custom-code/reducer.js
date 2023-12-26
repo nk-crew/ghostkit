@@ -1,15 +1,12 @@
-/**
- * WordPress dependencies
- */
 const { merge } = window.lodash;
 
-function reducer( state = { data: false }, action = {} ) {
-	switch ( action.type ) {
+function reducer(state = { data: false }, action = {}) {
+	switch (action.type) {
 		case 'SET_CUSTOM_CODE':
-			if ( action.data ) {
-				if ( state.data ) {
+			if (action.data) {
+				if (state.data) {
 					return {
-						data: merge( state.data, action.data ),
+						data: merge(state.data, action.data),
 					};
 				}
 				return {
@@ -17,7 +14,7 @@ function reducer( state = { data: false }, action = {} ) {
 				};
 			}
 			break;
-    // no default
+		// no default
 	}
 
 	return state;

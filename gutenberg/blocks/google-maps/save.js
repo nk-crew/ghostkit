@@ -1,16 +1,7 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 
-/**
- * Internal dependencies
- */
 import { maybeDecode } from '../../utils/encode-decode';
 import metadata from './block.json';
 
@@ -23,7 +14,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const {
 		height,
 		zoom,
@@ -44,16 +35,16 @@ export default function BlockSave( props ) {
 	let className = 'ghostkit-google-maps';
 
 	// add full height classname.
-	if ( fullHeight ) {
-		className = classnames( className, 'ghostkit-google-maps-fullheight' );
+	if (fullHeight) {
+		className = classnames(className, 'ghostkit-google-maps-fullheight');
 	}
 
-	className = applyFilters( 'ghostkit.blocks.className', className, {
+	className = applyFilters('ghostkit.blocks.className', className, {
 		...{
 			name,
 		},
 		...props,
-	} );
+	});
 
 	const attrs = {
 		className,
@@ -67,30 +58,36 @@ export default function BlockSave( props ) {
 		'data-show-fullscreen-button': showFullscreenButton ? 'true' : 'false',
 		'data-option-scroll-wheel': optionScrollWheel ? 'true' : 'false',
 		'data-option-draggable': optionDraggable ? 'true' : 'false',
-		'data-styles': maybeDecode( styleCustom ),
+		'data-styles': maybeDecode(styleCustom),
 	};
 
-	if ( gestureHandling !== 'greedy' ) {
-		attrs[ 'data-gesture-handling' ] = gestureHandling;
+	if (gestureHandling !== 'greedy') {
+		attrs['data-gesture-handling'] = gestureHandling;
 	}
 
-	const blockProps = useBlockProps.save( attrs );
+	const blockProps = useBlockProps.save(attrs);
 
 	return (
-		<div { ...blockProps }>
-			{ markers
-				? markers.map( ( marker, i ) => {
-					const markerData = {
-						'data-lat': marker.lat,
-						'data-lng': marker.lng,
-						'data-address': marker.address,
-					};
+		<div {...blockProps}>
+			{markers
+				? markers.map((marker, i) => {
+						const markerData = {
+							'data-lat': marker.lat,
+							'data-lng': marker.lng,
+							'data-address': marker.address,
+						};
 
-					const markerName = `marker-${ i }`;
+						const markerName = `marker-${i}`;
 
-					return <div key={ markerName } className="ghostkit-google-maps-marker" { ...markerData } />;
-				} )
-				: '' }
+						return (
+							<div
+								key={markerName}
+								className="ghostkit-google-maps-marker"
+								{...markerData}
+							/>
+						);
+					})
+				: ''}
 		</div>
 	);
 }

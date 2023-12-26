@@ -1,14 +1,11 @@
-/**
- * Internal dependencies
- */
 import { createBlock } from '@wordpress/blocks';
 
 export default {
 	from: [
 		{
 			type: 'block',
-			blocks: [ 'ghostkit/counter-box' ],
-			transform( attrs, innerBlocks ) {
+			blocks: ['ghostkit/counter-box'],
+			transform(attrs, innerBlocks) {
 				return createBlock(
 					'ghostkit/icon-box',
 					{
@@ -24,8 +21,8 @@ export default {
 		},
 		{
 			type: 'block',
-			blocks: [ 'ghostkit/alert' ],
-			transform( attrs, innerBlocks ) {
+			blocks: ['ghostkit/alert'],
+			transform(attrs, innerBlocks) {
 				return createBlock(
 					'ghostkit/icon-box',
 					{

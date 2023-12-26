@@ -1,16 +1,7 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-/**
- * WordPress dependencies
- */
 import { BaseControl, Button, Dropdown } from '@wordpress/components';
 
-/**
- * Internal dependencies
- */
 import ColorPalette from '../color-palette';
 
 /**
@@ -18,7 +9,7 @@ import ColorPalette from '../color-palette';
  *
  * @param props
  */
-export default function ColorPicker( props ) {
+export default function ColorPicker(props) {
 	const {
 		value,
 		onChange,
@@ -34,40 +25,44 @@ export default function ColorPicker( props ) {
 			<Dropdown
 				className="ghostkit-component-color-picker__dropdown"
 				contentClassName="ghostkit-component-color-picker__dropdown-content"
-				popoverProps={ {
+				popoverProps={{
 					placement: 'left-start',
 					offset: 36,
 					shift: true,
-				} }
-				renderToggle={ ( { isOpen, onToggle } ) => (
+				}}
+				renderToggle={({ isOpen, onToggle }) => (
 					<Button
-						className={ classnames(
+						className={classnames(
 							'ghostkit-component-color-toggle',
-							isOpen ? 'ghostkit-component-color-toggle-active' : ''
-						) }
-						onClick={ onToggle }
+							isOpen
+								? 'ghostkit-component-color-toggle-active'
+								: ''
+						)}
+						onClick={onToggle}
 					>
 						<span
 							className="ghostkit-component-color-toggle-indicator"
-							style={ { background: value || '' } }
+							style={{ background: value || '' }}
 						/>
-						<span className="ghostkit-component-color-toggle-label">{ label }</span>
+						<span className="ghostkit-component-color-toggle-label">
+							{label}
+						</span>
 					</Button>
-				) }
-				renderContent={ () => (
+				)}
+				renderContent={() => (
 					<div className="ghostkit-component-color-picker">
 						<ColorPalette
-							value={ value }
-							palette={ colorPalette }
-							alpha={ alpha }
-							gradient={ gradient }
-							onChange={ ( color ) => {
-								onChange( color || '' );
-							} }
+							value={value}
+							palette={colorPalette}
+							alpha={alpha}
+							gradient={gradient}
+							onChange={(color) => {
+								onChange(color || '');
+							}}
 						/>
-						{ afterDropdownContent || '' }
+						{afterDropdownContent || ''}
 					</div>
-				) }
+				)}
 			/>
 		</BaseControl>
 	);

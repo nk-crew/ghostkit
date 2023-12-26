@@ -1,19 +1,14 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-/**
- * Internal dependencies
- */
 import metadata from './block.json';
 
 const { name } = metadata;
 
-/**
- * WordPress dependencies
- */
-import { RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import {
+	RichText,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 
 /**
@@ -21,7 +16,7 @@ import { applyFilters } from '@wordpress/hooks';
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const {
 		tabActive,
 		trigger,
@@ -33,36 +28,41 @@ export default function BlockSave( props ) {
 	let className = classnames(
 		'ghostkit-tabs',
 		buttonsVerticalAlign ? 'ghostkit-tabs-buttons-vertical' : '',
-		trigger ? `ghostkit-tabs-buttons-trigger-${ trigger }` : ''
+		trigger ? `ghostkit-tabs-buttons-trigger-${trigger}` : ''
 	);
 
-	className = applyFilters( 'ghostkit.blocks.className', className, {
+	className = applyFilters('ghostkit.blocks.className', className, {
 		...{ name },
 		...props,
-	} );
+	});
 
-	const blockProps = useBlockProps.save( { className, 'data-tab-active': tabActive } );
-	const innerBlockProps = useInnerBlocksProps.save( { className: 'ghostkit-tabs-content' } );
+	const blockProps = useBlockProps.save({
+		className,
+		'data-tab-active': tabActive,
+	});
+	const innerBlockProps = useInnerBlocksProps.save({
+		className: 'ghostkit-tabs-content',
+	});
 
 	return (
-		<div { ...blockProps }>
+		<div {...blockProps}>
 			<div
-				className={ classnames(
+				className={classnames(
 					'ghostkit-tabs-buttons',
-					`ghostkit-tabs-buttons-align-${ buttonsAlign }`
-				) }
+					`ghostkit-tabs-buttons-align-${buttonsAlign}`
+				)}
 			>
-				{ tabsData.map( ( tabData ) => (
+				{tabsData.map((tabData) => (
 					<RichText.Content
 						tagName="a"
-						href={ `#${ tabData.slug }` }
+						href={`#${tabData.slug}`}
 						className="ghostkit-tabs-buttons-item"
-						key={ `tab_button_${ tabData.slug }` }
-						value={ tabData.title }
+						key={`tab_button_${tabData.slug}`}
+						value={tabData.title}
 					/>
-				) ) }
+				))}
 			</div>
-			<div { ...innerBlockProps } />
+			<div {...innerBlockProps} />
 		</div>
 	);
 }

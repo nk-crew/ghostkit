@@ -1,6 +1,3 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
 import {
@@ -22,17 +19,11 @@ import {
 	ToolbarGroup,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
 import ColorIndicator from '../../components/color-indicator';
-/**
- * Internal dependencies
- */
 import ColorPicker from '../../components/color-picker';
 import RangeControl from '../../components/range-control';
 import ToggleGroup from '../../components/toggle-group';
@@ -44,18 +35,20 @@ import getIcon from '../../utils/get-icon';
  *
  * @param props
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId } = props;
 
 	let { className = '' } = props;
 
 	const hasChildBlocks = useSelect(
-		( select ) => {
-			const blockEditor = select( 'core/block-editor' );
+		(select) => {
+			const blockEditor = select('core/block-editor');
 
-			return blockEditor ? blockEditor.getBlockOrder( clientId ).length > 0 : false;
+			return blockEditor
+				? blockEditor.getBlockOrder(clientId).length > 0
+				: false;
 		},
-		[ clientId ]
+		[clientId]
 	);
 
 	const {
@@ -74,166 +67,201 @@ export default function BlockEdit( props ) {
 		rel,
 	} = attributes;
 
-	className = classnames( 'ghostkit-counter-box', className );
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = classnames('ghostkit-counter-box', className);
+	className = applyFilters('ghostkit.editor.className', className, props);
 
 	const classNameNumber = classnames(
 		'ghostkit-counter-box-number',
-		`ghostkit-counter-box-number-align-${ numberPosition || 'left' }`,
+		`ghostkit-counter-box-number-align-${numberPosition || 'left'}`,
 		numberPosition === 'top'
-			? `ghostkit-counter-box-number-top-align-${ numberAlign || 'center' }`
+			? `ghostkit-counter-box-number-top-align-${numberAlign || 'center'}`
 			: ''
 	);
 
-	const blockProps = useBlockProps( { className } );
+	const blockProps = useBlockProps({ className });
 	const innerBlockProps = useInnerBlocksProps(
 		{ className: 'ghostkit-counter-box-content' },
 		{
-			renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+			renderAppender: hasChildBlocks
+				? undefined
+				: InnerBlocks.ButtonBlockAppender,
 			templateLock: false,
 		}
 	);
-	const numberPositionLabel = __( 'Number Position', 'ghostkit' );
+	const numberPositionLabel = __('Number Position', 'ghostkit');
 
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody>
 					<RangeControl
-						label={ __( 'Number Size', 'ghostkit' ) }
-						value={ numberSize }
-						onChange={ ( value ) => setAttributes( { numberSize: value } ) }
+						label={__('Number Size', 'ghostkit')}
+						value={numberSize}
+						onChange={(value) =>
+							setAttributes({ numberSize: value })
+						}
 						beforeIcon="editor-textcolor"
 						afterIcon="editor-textcolor"
 						allowCustomMax
 					/>
-					<BaseControl id={ numberPositionLabel } label={ numberPositionLabel }>
+					<BaseControl
+						id={numberPositionLabel}
+						label={numberPositionLabel}
+					>
 						<div>
-							<Toolbar label={ numberPositionLabel }>
+							<Toolbar label={numberPositionLabel}>
 								<ToolbarButton
 									icon="align-center"
-									title={ __( 'Top', 'ghostkit' ) }
-									onClick={ () => setAttributes( { numberPosition: 'top' } ) }
-									isActive={ numberPosition === 'top' }
+									title={__('Top', 'ghostkit')}
+									onClick={() =>
+										setAttributes({ numberPosition: 'top' })
+									}
+									isActive={numberPosition === 'top'}
 								/>
 								<ToolbarButton
 									icon="align-left"
-									title={ __( 'Left', 'ghostkit' ) }
-									onClick={ () => setAttributes( { numberPosition: 'left' } ) }
-									isActive={ numberPosition === 'left' }
+									title={__('Left', 'ghostkit')}
+									onClick={() =>
+										setAttributes({
+											numberPosition: 'left',
+										})
+									}
+									isActive={numberPosition === 'left'}
 								/>
 								<ToolbarButton
 									icon="align-right"
-									title={ __( 'Right', 'ghostkit' ) }
-									onClick={ () => setAttributes( { numberPosition: 'right' } ) }
-									isActive={ numberPosition === 'right' }
+									title={__('Right', 'ghostkit')}
+									onClick={() =>
+										setAttributes({
+											numberPosition: 'right',
+										})
+									}
+									isActive={numberPosition === 'right'}
 								/>
 							</Toolbar>
 						</div>
 					</BaseControl>
-					{ numberPosition === 'top' ? (
+					{numberPosition === 'top' ? (
 						<ToggleGroup
-							label={ __( 'Number Alignment', 'ghostkit' ) }
-							value={ numberAlign || 'center' }
-							options={ [
+							label={__('Number Alignment', 'ghostkit')}
+							value={numberAlign || 'center'}
+							options={[
 								{
-									icon: getIcon( 'icon-horizontal-start' ),
-									label: __( 'Start', 'ghostkit' ),
+									icon: getIcon('icon-horizontal-start'),
+									label: __('Start', 'ghostkit'),
 									value: 'left',
 								},
 								{
-									icon: getIcon( 'icon-horizontal-center' ),
-									label: __( 'Center', 'ghostkit' ),
+									icon: getIcon('icon-horizontal-center'),
+									label: __('Center', 'ghostkit'),
 									value: 'center',
 								},
 								{
-									icon: getIcon( 'icon-horizontal-end' ),
-									label: __( 'End', 'ghostkit' ),
+									icon: getIcon('icon-horizontal-end'),
+									label: __('End', 'ghostkit'),
 									value: 'right',
 								},
-							] }
-							onChange={ ( value ) => {
-								setAttributes( { numberAlign: value } );
-							} }
+							]}
+							onChange={(value) => {
+								setAttributes({ numberAlign: value });
+							}}
 						/>
-					) : null }
+					) : null}
 				</PanelBody>
 				<PanelBody>
 					<ToggleControl
-						label={ __( 'Show Content', 'ghostkit' ) }
-						checked={ !! showContent }
-						onChange={ ( val ) => setAttributes( { showContent: val } ) }
+						label={__('Show Content', 'ghostkit')}
+						checked={!!showContent}
+						onChange={(val) => setAttributes({ showContent: val })}
 					/>
 					<ToggleControl
-						label={ __( 'Animate in viewport', 'ghostkit' ) }
-						checked={ !! animateInViewport }
-						onChange={ ( val ) => setAttributes( { animateInViewport: val } ) }
+						label={__('Animate in viewport', 'ghostkit')}
+						checked={!!animateInViewport}
+						onChange={(val) =>
+							setAttributes({ animateInViewport: val })
+						}
 					/>
-					{ animateInViewport ? (
+					{animateInViewport ? (
 						<TextControl
-							label={ __( 'Animate from', 'ghostkit' ) }
+							label={__('Animate from', 'ghostkit')}
 							type="number"
-							value={ animateInViewportFrom }
-							onChange={ ( value ) => setAttributes( { animateInViewportFrom: parseInt( value, 10 ) } ) }
+							value={animateInViewportFrom}
+							onChange={(value) =>
+								setAttributes({
+									animateInViewportFrom: parseInt(value, 10),
+								})
+							}
 						/>
-					) : null }
+					) : null}
 				</PanelBody>
 				<PanelBody
 					title={
 						<>
-							{ __( 'Colors', 'ghostkit' ) }
-							<ColorIndicator colorValue={ numberColor } />
+							{__('Colors', 'ghostkit')}
+							<ColorIndicator colorValue={numberColor} />
 						</>
 					}
-					initialOpen={ false }
+					initialOpen={false}
 				>
 					<TabPanel
 						className="ghostkit-control-tabs ghostkit-control-tabs-wide"
-						tabs={ [
+						tabs={[
 							{
 								name: 'normal',
-								title: __( 'Normal', 'ghostkit' ),
+								title: __('Normal', 'ghostkit'),
 								className: 'ghostkit-control-tabs-tab',
 							},
 							{
 								name: 'hover',
-								title: __( 'Hover', 'ghostkit' ),
+								title: __('Hover', 'ghostkit'),
 								className: 'ghostkit-control-tabs-tab',
 							},
-						] }
+						]}
 					>
-						{ ( tabData ) => {
+						{(tabData) => {
 							const isHover = tabData.name === 'hover';
 							return (
 								<ApplyFilters
 									name="ghostkit.editor.controls"
-									attribute={ isHover ? 'hoverNumberColor' : 'numberColor' }
-									props={ props }
+									attribute={
+										isHover
+											? 'hoverNumberColor'
+											: 'numberColor'
+									}
+									props={props}
 								>
 									<ColorPicker
-										label={ __( 'Color', 'ghostkit' ) }
-										value={ isHover ? hoverNumberColor : numberColor }
-										onChange={ ( val ) =>
-											setAttributes( isHover ? { hoverNumberColor: val } : { numberColor: val } )
+										label={__('Color', 'ghostkit')}
+										value={
+											isHover
+												? hoverNumberColor
+												: numberColor
+										}
+										onChange={(val) =>
+											setAttributes(
+												isHover
+													? { hoverNumberColor: val }
+													: { numberColor: val }
+											)
 										}
 										alpha
 										gradient
 									/>
 								</ApplyFilters>
 							);
-						} }
+						}}
 					</TabPanel>
 				</PanelBody>
 			</InspectorControls>
 			<URLPicker
-				url={ url }
-				rel={ rel }
-				ariaLabel={ ariaLabel }
-				target={ target }
-				onChange={ ( data ) => {
-					setAttributes( data );
-				} }
-				isSelected={ isSelected }
+				url={url}
+				rel={rel}
+				ariaLabel={ariaLabel}
+				target={target}
+				onChange={(data) => {
+					setAttributes(data);
+				}}
+				isSelected={isSelected}
 				toolbarSettings
 				inspectorSettings
 			/>
@@ -241,37 +269,41 @@ export default function BlockEdit( props ) {
 				<ToolbarGroup>
 					<ToolbarButton
 						icon="align-center"
-						title={ __( 'Top', 'ghostkit' ) }
-						onClick={ () => setAttributes( { numberPosition: 'top' } ) }
-						isActive={ numberPosition === 'top' }
+						title={__('Top', 'ghostkit')}
+						onClick={() => setAttributes({ numberPosition: 'top' })}
+						isActive={numberPosition === 'top'}
 					/>
 					<ToolbarButton
 						icon="align-left"
-						title={ __( 'Left', 'ghostkit' ) }
-						onClick={ () => setAttributes( { numberPosition: 'left' } ) }
-						isActive={ numberPosition === 'left' }
+						title={__('Left', 'ghostkit')}
+						onClick={() =>
+							setAttributes({ numberPosition: 'left' })
+						}
+						isActive={numberPosition === 'left'}
 					/>
 					<ToolbarButton
 						icon="align-right"
-						title={ __( 'Right', 'ghostkit' ) }
-						onClick={ () => setAttributes( { numberPosition: 'right' } ) }
-						isActive={ numberPosition === 'right' }
+						title={__('Right', 'ghostkit')}
+						onClick={() =>
+							setAttributes({ numberPosition: 'right' })
+						}
+						isActive={numberPosition === 'right'}
 					/>
 				</ToolbarGroup>
 			</BlockControls>
-			<div { ...blockProps }>
-				<div className={ classNameNumber }>
+			<div {...blockProps}>
+				<div className={classNameNumber}>
 					<RichText
 						inlineToolbar
 						tagName="div"
 						className="ghostkit-counter-box-number-wrap"
-						placeholder={ __( 'Write number…', 'ghostkit' ) }
-						value={ number }
-						onChange={ ( value ) => setAttributes( { number: value } ) }
+						placeholder={__('Write number…', 'ghostkit')}
+						value={number}
+						onChange={(value) => setAttributes({ number: value })}
 						withoutInteractiveFormatting
 					/>
 				</div>
-				{ showContent ? <div { ...innerBlockProps } /> : null }
+				{showContent ? <div {...innerBlockProps} /> : null}
 			</div>
 		</>
 	);

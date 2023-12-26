@@ -3,17 +3,17 @@
  *
  * @param props
  */
-export default function ProNote( props ) {
+export default function ProNote(props) {
 	const { title, children, contentBefore = '', contentAfter = '' } = props;
 
 	return (
 		<div className="ghostkit-pro-component-note">
-			{ contentBefore }
+			{contentBefore}
 			<div className="ghostkit-pro-component-note-inner">
-				{ title ? <h3>{ title }</h3> : '' }
-				{ children ? <div>{ children }</div> : '' }
+				{title ? <h3>{title}</h3> : ''}
+				{children ? <div>{children}</div> : ''}
 			</div>
-			{ contentAfter }
+			{contentAfter}
 		</div>
 	);
 }
@@ -23,12 +23,12 @@ export default function ProNote( props ) {
  *
  * @param props
  */
-ProNote.Button = function ProNoteButton( props ) {
+ProNote.Button = function ProNoteButton(props) {
 	const { children } = props;
 
 	return (
-		<a className="ghostkit-pro-component-note-button" { ...props }>
-			{ children }
+		<a className="ghostkit-pro-component-note-button" {...props}>
+			{children}
 		</a>
 	);
 };

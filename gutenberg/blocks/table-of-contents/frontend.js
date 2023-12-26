@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
-/**
- * Internal dependencies
- */
+
 import { maybeDecode } from '../../utils/encode-decode';
 
 /**
@@ -14,48 +12,55 @@ const { events } = window.GHOSTKIT;
  * Prepare TOCs click to link.
  */
 function initSmoothScroll() {
-	events.on( document, 'click', '.ghostkit-toc a', ( e ) => {
+	events.on(document, 'click', '.ghostkit-toc a', (e) => {
 		e.preventDefault();
 
 		const $el = e.delegateTarget;
 
-		if ( ! $el || ! $el.hash ) {
+		if (!$el || !$el.hash) {
 			return;
 		}
 
-		const offsetEl = document.getElementById( maybeDecode( $el.hash ).substring( 1 ) );
+		const offsetEl = document.getElementById(
+			maybeDecode($el.hash).substring(1)
+		);
 
-		if ( ! offsetEl ) {
+		if (!offsetEl) {
 			return;
 		}
 
 		let { top } = offsetEl.getBoundingClientRect();
 
 		// Get offset from CSS.
-		const scrollPadding = parseFloat( getComputedStyle( $html )[ 'scroll-padding-top' ] );
+		const scrollPadding = parseFloat(
+			getComputedStyle($html)['scroll-padding-top']
+		);
 
-		if ( scrollPadding ) {
+		if (scrollPadding) {
 			top -= scrollPadding;
 		} else {
-			const $adminBar = document.getElementById( 'wpadminbar' );
+			const $adminBar = document.getElementById('wpadminbar');
 
 			// Admin bar offset.
-			if ( $adminBar && getComputedStyle( $adminBar ).position === 'fixed' ) {
+			if ($adminBar && getComputedStyle($adminBar).position === 'fixed') {
 				top -= $adminBar.getBoundingClientRect().height;
 			}
 		}
 
 		// Limit max offset.
-		top = Math.max( 0, top );
+		top = Math.max(0, top);
 
-		window.scrollTo( {
+		window.scrollTo({
 			top,
 			behavior: 'smooth',
-		} );
-	} );
+		});
+	});
 }
 
 // If smooth scroll enabled in CSS, we don't need to run it with JS.
-if ( ! ( 'scrollBehavior' in $html.style ) || getComputedStyle( $html )[ 'scroll-behavior' ] !== 'smooth' ) {
+if (
+	!('scrollBehavior' in $html.style) ||
+	getComputedStyle($html)['scroll-behavior'] !== 'smooth'
+) {
 	initSmoothScroll();
 }

@@ -1,24 +1,21 @@
-/**
- * WordPress dependencies
- */
 import { createBlock } from '@wordpress/blocks';
 
 export default {
 	from: [
 		{
 			type: 'block',
-			blocks: [ 'core/separator' ],
+			blocks: ['core/separator'],
 			transform() {
-				return createBlock( 'ghostkit/divider' );
+				return createBlock('ghostkit/divider');
 			},
 		},
 	],
 	to: [
 		{
 			type: 'block',
-			blocks: [ 'core/separator' ],
+			blocks: ['core/separator'],
 			transform() {
-				return createBlock( 'core/separator' );
+				return createBlock('core/separator');
 			},
 		},
 	],

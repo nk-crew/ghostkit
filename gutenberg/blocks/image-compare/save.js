@@ -1,11 +1,5 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-/**
- * WordPress dependencies
- */
 import { RichText, useBlockProps } from '@wordpress/block-editor';
 
 /**
@@ -13,7 +7,7 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const { attributes } = props;
 	const {
 		direction,
@@ -38,7 +32,7 @@ export default function BlockSave( props ) {
 		afterHeight,
 	} = attributes;
 
-	if ( ! beforeUrl || ! afterUrl ) {
+	if (!beforeUrl || !afterUrl) {
 		return null;
 	}
 
@@ -47,51 +41,53 @@ export default function BlockSave( props ) {
 	className = classnames(
 		'ghostkit-image-compare',
 		direction === 'vertical' ? 'ghostkit-image-compare-vertical' : false,
-		trigger ? `ghostkit-image-compare-trigger-${ trigger }` : false,
-		showLabels && labelAlign ? `ghostkit-image-compare-labels-align-${ labelAlign }` : false,
+		trigger ? `ghostkit-image-compare-trigger-${trigger}` : false,
+		showLabels && labelAlign
+			? `ghostkit-image-compare-labels-align-${labelAlign}`
+			: false,
 		className
 	);
 
-	const blockProps = useBlockProps.save( { className } );
+	const blockProps = useBlockProps.save({ className });
 
 	return (
-		<figure { ...blockProps }>
+		<figure {...blockProps}>
 			<div className="ghostkit-image-compare-images">
 				<div className="ghostkit-image-compare-image-before">
 					<img
-						src={ beforeUrl }
-						alt={ beforeAlt }
-						className={ beforeId ? `wp-image-${ beforeId }` : null }
-						width={ beforeWidth }
-						height={ beforeHeight }
+						src={beforeUrl}
+						alt={beforeAlt}
+						className={beforeId ? `wp-image-${beforeId}` : null}
+						width={beforeWidth}
+						height={beforeHeight}
 					/>
-					{ showLabels && ! RichText.isEmpty( labelBeforeText ) ? (
+					{showLabels && !RichText.isEmpty(labelBeforeText) ? (
 						<RichText.Content
 							tagName="div"
 							className="ghostkit-image-compare-image-label ghostkit-image-compare-image-before-label"
-							value={ labelBeforeText }
+							value={labelBeforeText}
 						/>
 					) : (
 						''
-					) }
+					)}
 				</div>
 				<div className="ghostkit-image-compare-image-after">
 					<img
-						src={ afterUrl }
-						alt={ afterAlt }
-						className={ afterId ? `wp-image-${ afterId }` : null }
-						width={ afterWidth }
-						height={ afterHeight }
+						src={afterUrl}
+						alt={afterAlt}
+						className={afterId ? `wp-image-${afterId}` : null}
+						width={afterWidth}
+						height={afterHeight}
 					/>
-					{ showLabels && ! RichText.isEmpty( labelAfterText ) ? (
+					{showLabels && !RichText.isEmpty(labelAfterText) ? (
 						<RichText.Content
 							tagName="div"
 							className="ghostkit-image-compare-image-label ghostkit-image-compare-image-after-label"
-							value={ labelAfterText }
+							value={labelAfterText}
 						/>
 					) : (
 						''
-					) }
+					)}
 				</div>
 				<div className="ghostkit-image-compare-images-divider">
 					<div className="ghostkit-image-compare-images-divider-button-arrow-left">
@@ -126,15 +122,15 @@ export default function BlockSave( props ) {
 					</div>
 				</div>
 			</div>
-			{ ! RichText.isEmpty( caption ) ? (
+			{!RichText.isEmpty(caption) ? (
 				<RichText.Content
 					className="ghostkit-image-compare-caption"
 					tagName="figcaption"
-					value={ caption }
+					value={caption}
 				/>
 			) : (
 				''
-			) }
+			)}
 		</figure>
 	);
 }

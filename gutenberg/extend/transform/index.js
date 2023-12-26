@@ -1,9 +1,3 @@
-/**
- * External dependencies
- */
-/**
- * Internal dependencies
- */
 import './pro-transforms';
 
 import { throttle } from 'throttle-debounce';
@@ -17,9 +11,6 @@ import {
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
 import { addFilter, applyFilters } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
@@ -32,16 +23,16 @@ const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
 
 const allProps = EXTENSIONS.transform.styles;
 
-const keyExists = ( obj, key ) => {
+const keyExists = (obj, key) => {
 	let result = false;
 
-	if ( typeof obj === 'object' ) {
-		if ( key in obj ) {
+	if (typeof obj === 'object') {
+		if (key in obj) {
 			result = true;
 		} else {
-			Object.keys( obj ).forEach( ( k ) => {
-				result = result || keyExists( obj[ k ], key );
-			} );
+			Object.keys(obj).forEach((k) => {
+				result = result || keyExists(obj[k], key);
+			});
 		}
 	}
 
@@ -55,34 +46,42 @@ const keyExists = ( obj, key ) => {
  * @param root0
  * @param root0.props
  */
-function GhostKitExtensionTransformInspector( original, { props } ) {
+function GhostKitExtensionTransformInspector(original, { props }) {
 	const { name } = props;
 
-	const hasTransformSupport = hasBlockSupport( name, [ 'ghostkit', 'transform' ] );
+	const hasTransformSupport = hasBlockSupport(name, [
+		'ghostkit',
+		'transform',
+	]);
 
-	if ( ! hasTransformSupport ) {
+	if (!hasTransformSupport) {
 		return original;
 	}
 
-	const { resetStyles } = useStyles( props );
+	const { resetStyles } = useStyles(props);
 
 	return (
 		<>
-			{ original }
+			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
 					label={
 						<>
-							<span className="ghostkit-ext-icon">{ getIcon( 'extension-transform' ) }</span>
-							<span>{ __( 'Transform', 'ghostkit' ) }</span>
+							<span className="ghostkit-ext-icon">
+								{getIcon('extension-transform')}
+							</span>
+							<span>{__('Transform', 'ghostkit')}</span>
 						</>
 					}
-					resetAll={ () => {
-						resetStyles( allProps, true, [ '', '&:hover' ] );
-					} }
+					resetAll={() => {
+						resetStyles(allProps, true, ['', '&:hover']);
+					}}
 				>
 					<div className="ghostkit-tools-panel-transform">
-						<ApplyFilters name="ghostkit.extension.transform.tools" props={ props } />
+						<ApplyFilters
+							name="ghostkit.extension.transform.tools"
+							props={props}
+						/>
 					</div>
 				</ToolsPanel>
 			</InspectorControls>
@@ -90,17 +89,17 @@ function GhostKitExtensionTransformInspector( original, { props } ) {
 	);
 }
 
-function CustomClassComponent( props ) {
+function CustomClassComponent(props) {
 	const { setAttributes, attributes } = props;
 
-	const { getStyles } = useStyles( props );
+	const { getStyles } = useStyles(props);
 
 	let hasTransform = false;
 
 	const styles = getStyles();
-	allProps.forEach( ( transformProp ) => {
-		hasTransform = hasTransform || keyExists( styles, transformProp );
-	} );
+	allProps.forEach((transformProp) => {
+		hasTransform = hasTransform || keyExists(styles, transformProp);
+	});
 
 	function onUpdate() {
 		let { className } = attributes;
@@ -110,36 +109,39 @@ function CustomClassComponent( props ) {
 			hasTransform,
 			props
 		);
-		const hasTransformClassName = hasClass( className, 'ghostkit-has-transform' );
+		const hasTransformClassName = hasClass(
+			className,
+			'ghostkit-has-transform'
+		);
 
-		if ( allowTransformClassName && ! hasTransformClassName ) {
-			className = addClass( className, 'ghostkit-has-transform' );
+		if (allowTransformClassName && !hasTransformClassName) {
+			className = addClass(className, 'ghostkit-has-transform');
 
-			setAttributes( { className } );
-		} else if ( ! allowTransformClassName && hasTransformClassName ) {
-			className = removeClass( className, 'ghostkit-has-transform' );
+			setAttributes({ className });
+		} else if (!allowTransformClassName && hasTransformClassName) {
+			className = removeClass(className, 'ghostkit-has-transform');
 
-			setAttributes( { className } );
+			setAttributes({ className });
 		}
 	}
 
-	const onUpdateThrottle = throttle( 60, onUpdate );
+	const onUpdateThrottle = throttle(60, onUpdate);
 
-	const didMountRef = useRef( false );
+	const didMountRef = useRef(false);
 
-	useEffect( () => {
+	useEffect(() => {
 		// Did update.
-		if ( didMountRef.current ) {
+		if (didMountRef.current) {
 			onUpdateThrottle();
 
 			// Did mount.
 		} else {
 			didMountRef.current = true;
 
-			onUpdate( true );
+			onUpdate(true);
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ attributes ] );
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [attributes]);
 
 	return null;
 }
@@ -153,12 +155,12 @@ function CustomClassComponent( props ) {
  * @return {string} Wrapped component.
  */
 const withNewAttrs = createHigherOrderComponent(
-	( BlockEdit ) =>
-		function( props ) {
+	(BlockEdit) =>
+		function (props) {
 			return (
 				<>
-					<BlockEdit { ...props } />
-					<CustomClassComponent { ...props } />
+					<BlockEdit {...props} />
+					<CustomClassComponent {...props} />
 				</>
 			);
 		},
@@ -172,4 +174,8 @@ addFilter(
 	GhostKitExtensionTransformInspector,
 	15
 );
-addFilter( 'editor.BlockEdit', 'ghostkit/extension/transform/classname', withNewAttrs );
+addFilter(
+	'editor.BlockEdit',
+	'ghostkit/extension/transform/classname',
+	withNewAttrs
+);

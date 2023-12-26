@@ -1,10 +1,4 @@
-/**
- * Internal dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import Blocks from './blocks';
@@ -14,31 +8,31 @@ import Fonts from './fonts';
 import Icons from './icons';
 import Typography from './typography';
 
-export default function() {
-	return applyFilters( 'ghostkit.settings.pages', {
+export default function () {
+	return applyFilters('ghostkit.settings.pages', {
 		blocks: {
-			label: __( 'Blocks', 'ghostkit' ),
+			label: __('Blocks', 'ghostkit'),
 			block: Blocks,
 		},
 		icons: {
-			label: __( 'Icons', 'ghostkit' ),
+			label: __('Icons', 'ghostkit'),
 			block: Icons,
 		},
 		typography: {
-			label: __( 'Typography', 'ghostkit' ),
+			label: __('Typography', 'ghostkit'),
 			block: Typography,
 		},
 		fonts: {
-			label: __( 'Fonts', 'ghostkit' ),
+			label: __('Fonts', 'ghostkit'),
 			block: Fonts,
 		},
 		breakpoints: {
-			label: __( 'Breakpoints', 'ghostkit' ),
+			label: __('Breakpoints', 'ghostkit'),
 			block: Breakpoints,
 		},
 		css_js: {
-			label: __( 'CSS & JavaScript', 'ghostkit' ),
+			label: __('CSS & JavaScript', 'ghostkit'),
 			block: CssJs,
 		},
-	} );
+	});
 }

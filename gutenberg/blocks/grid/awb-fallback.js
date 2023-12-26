@@ -1,16 +1,16 @@
 /* eslint-disable react/no-danger */
-/**
- * Internal dependencies
- */
+
 import { MediaUpload } from '@wordpress/block-editor';
 import { hasBlockSupport } from '@wordpress/blocks';
-import { Button, ExternalLink, PanelBody, SelectControl } from '@wordpress/components';
+import {
+	Button,
+	ExternalLink,
+	PanelBody,
+	SelectControl,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { Fragment, useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ColorIndicator from '../../components/color-indicator';
@@ -26,18 +26,21 @@ import { maybeDecode, maybeEncode } from '../../utils/encode-decode';
  * @param {Object} blockSettings Original block settings
  * @return {Object}               Filtered block settings
  */
-export function addAttribute( blockSettings ) {
-	if ( blockSettings.name === 'ghostkit/grid' || blockSettings.name === 'ghostkit/grid-column' ) {
+export function addAttribute(blockSettings) {
+	if (
+		blockSettings.name === 'ghostkit/grid' ||
+		blockSettings.name === 'ghostkit/grid-column'
+	) {
 		blockSettings.supports.awb = true;
 	}
 
 	let allow = false;
 
-	if ( hasBlockSupport( blockSettings, 'awb', false ) ) {
+	if (hasBlockSupport(blockSettings, 'awb', false)) {
 		allow = true;
 	}
 
-	if ( allow ) {
+	if (allow) {
 		blockSettings.attributes.awb_type = {
 			type: 'string',
 			default: 'color',
@@ -84,33 +87,33 @@ export function addAttribute( blockSettings ) {
  * @param {Object}   media         - media data.
  * @param {Function} setAttributes - function to set attributes on the block.
  */
-function onImageSelect( media, setAttributes ) {
-	setAttributes( {
+function onImageSelect(media, setAttributes) {
+	setAttributes({
 		image: '',
 		imageSizes: '',
-	} );
+	});
 
 	wp.media
-		.attachment( media.id )
+		.attachment(media.id)
 		.fetch()
-		.then( ( data ) => {
-			if ( data && data.sizes ) {
+		.then((data) => {
+			if (data && data.sizes) {
 				const { url } =
-          data.sizes[ 'post-thumbnail' ] ||
-          data.sizes.medium ||
-          data.sizes.medium_large ||
-          data.sizes.full;
-				if ( url ) {
-					setAttributes( {
+					data.sizes['post-thumbnail'] ||
+					data.sizes.medium ||
+					data.sizes.medium_large ||
+					data.sizes.full;
+				if (url) {
+					setAttributes({
 						image: media.id,
 						imageSizes: data.sizes,
-					} );
+					});
 				}
 			}
-		} );
+		});
 }
 
-function BackgroundControlsInspector( props ) {
+function BackgroundControlsInspector(props) {
 	const { attributes, setAttributes: wpSetAttributes } = props;
 
 	const {
@@ -124,18 +127,18 @@ function BackgroundControlsInspector( props ) {
 		awb_imageBackgroundPosition: imageBackgroundPosition,
 	} = attributes;
 
-	function setAttributes( attr ) {
+	function setAttributes(attr) {
 		const newAttrs = {};
 
-		Object.keys( attr ).forEach( ( k ) => {
-			newAttrs[ `awb_${ k }` ] = attr[ k ];
-		} );
+		Object.keys(attr).forEach((k) => {
+			newAttrs[`awb_${k}`] = attr[k];
+		});
 
-		wpSetAttributes( newAttrs );
+		wpSetAttributes(newAttrs);
 	}
 
-	const { fetchedImageTag } = useSelect( ( select ) => {
-		if ( ! image ) {
+	const { fetchedImageTag } = useSelect((select) => {
+		if (!image) {
 			return false;
 		}
 
@@ -148,170 +151,187 @@ function BackgroundControlsInspector( props ) {
 		};
 
 		// background image with pattern size
-		if ( imageBackgroundSize === 'pattern' ) {
+		if (imageBackgroundSize === 'pattern') {
 			data.div_tag = true;
 		}
 
 		return {
-			fetchedImageTag: select( 'ghostkit/base/images' ).getImageTagData( data ),
+			fetchedImageTag: select('ghostkit/base/images').getImageTagData(
+				data
+			),
 		};
-	} );
+	});
 
 	// Mounted and updated.
-	useEffect( () => {
+	useEffect(() => {
 		// set image tag to attribute
-		if ( fetchedImageTag && maybeEncode( fetchedImageTag ) !== imageTag ) {
-			setAttributes( { imageTag: maybeEncode( fetchedImageTag ) } );
+		if (fetchedImageTag && maybeEncode(fetchedImageTag) !== imageTag) {
+			setAttributes({ imageTag: maybeEncode(fetchedImageTag) });
 		}
-	} );
+	});
 
 	return (
-		<PanelBody title={ __( 'Background', 'ghostkit' ) } initialOpen={ false }>
+		<PanelBody title={__('Background', 'ghostkit')} initialOpen={false}>
 			<ToggleGroup
-				value={ type === 'video' || type === 'yt_vm_video' ? 'yt_vm_video' : type }
-				options={ [
+				value={
+					type === 'video' || type === 'yt_vm_video'
+						? 'yt_vm_video'
+						: type
+				}
+				options={[
 					{
-						label: __( 'Color', 'ghostkit' ),
+						label: __('Color', 'ghostkit'),
 						value: 'color',
 					},
 					{
-						label: __( 'Image', 'ghostkit' ),
+						label: __('Image', 'ghostkit'),
 						value: 'image',
 					},
 					{
-						label: __( 'Video', 'ghostkit' ),
+						label: __('Video', 'ghostkit'),
 						value: 'yt_vm_video',
 					},
-				] }
-				onChange={ ( value ) => {
-					setAttributes( { type: value } );
-				} }
+				]}
+				onChange={(value) => {
+					setAttributes({ type: value });
+				}}
 			/>
 
-			{ type === 'image' ? (
-				<PanelBody title={ __( 'Image', 'ghostkit' ) } initialOpen={ type === 'image' }>
-					{ /* Select Image */ }
-					{ ! image || ! imageTag ? (
+			{type === 'image' ? (
+				<PanelBody
+					title={__('Image', 'ghostkit')}
+					initialOpen={type === 'image'}
+				>
+					{/* Select Image */}
+					{!image || !imageTag ? (
 						<MediaUpload
-							onSelect={ ( media ) => {
-								onImageSelect( media, setAttributes );
-							} }
-							allowedTypes={ [ 'image' ] }
-							value={ image }
-							render={ ( { open } ) => (
-								<Button onClick={ open } isPrimary>
-									{ __( 'Select image', 'ghostkit' ) }
+							onSelect={(media) => {
+								onImageSelect(media, setAttributes);
+							}}
+							allowedTypes={['image']}
+							value={image}
+							render={({ open }) => (
+								<Button onClick={open} isPrimary>
+									{__('Select image', 'ghostkit')}
 								</Button>
-							) }
+							)}
 						/>
 					) : (
 						''
-					) }
+					)}
 
-					{ image && imageTag ? (
+					{image && imageTag ? (
 						<Fragment>
 							<FocalPointPicker
-								value={ imageBackgroundPosition }
-								image={ maybeDecode( imageTag ) }
-								onChange={ ( v ) => setAttributes( { imageBackgroundPosition: v } ) }
+								value={imageBackgroundPosition}
+								image={maybeDecode(imageTag)}
+								onChange={(v) =>
+									setAttributes({
+										imageBackgroundPosition: v,
+									})
+								}
 							/>
-							{ imageSizes ? (
+							{imageSizes ? (
 								<SelectControl
-									label={ __( 'Size', 'ghostkit' ) }
-									value={ imageSize }
-									options={ ( () => {
+									label={__('Size', 'ghostkit')}
+									value={imageSize}
+									options={(() => {
 										const result = [];
-										Object.keys( imageSizes ).forEach( ( k ) => {
-											result.push( {
+										Object.keys(imageSizes).forEach((k) => {
+											result.push({
 												value: k,
-												label: dashCaseToTitle( k ),
-											} );
-										} );
+												label: dashCaseToTitle(k),
+											});
+										});
 										return result;
-									} )() }
-									onChange={ ( v ) => setAttributes( { imageSize: v } ) }
+									})()}
+									onChange={(v) =>
+										setAttributes({ imageSize: v })
+									}
 								/>
 							) : (
 								''
-							) }
+							)}
 							<SelectControl
-								label={ __( 'Background size', 'ghostkit' ) }
-								value={ imageBackgroundSize }
-								options={ [
+								label={__('Background size', 'ghostkit')}
+								value={imageBackgroundSize}
+								options={[
 									{
-										label: __( 'Cover', 'ghostkit' ),
+										label: __('Cover', 'ghostkit'),
 										value: 'cover',
 									},
 									{
-										label: __( 'Contain', 'ghostkit' ),
+										label: __('Contain', 'ghostkit'),
 										value: 'contain',
 									},
 									{
-										label: __( 'Pattern', 'ghostkit' ),
+										label: __('Pattern', 'ghostkit'),
 										value: 'pattern',
 									},
-								] }
-								onChange={ ( v ) => setAttributes( { imageBackgroundSize: v } ) }
+								]}
+								onChange={(v) =>
+									setAttributes({ imageBackgroundSize: v })
+								}
 							/>
 							<Button
 								isLink
-								onClick={ ( e ) => {
-									setAttributes( {
+								onClick={(e) => {
+									setAttributes({
 										image: '',
 										imageTag: '',
 										imageSizes: '',
-									} );
+									});
 									e.preventDefault();
-								} }
+								}}
 							>
-								{ __( 'Remove image', 'ghostkit' ) }
+								{__('Remove image', 'ghostkit')}
 							</Button>
 						</Fragment>
 					) : (
 						''
-					) }
+					)}
 				</PanelBody>
 			) : (
 				''
-			) }
+			)}
 
-			{ type === 'color' ? (
+			{type === 'color' ? (
 				<ColorPicker
-					label={ __( 'Background Color', 'ghostkit' ) }
-					value={ color }
-					onChange={ ( val ) => setAttributes( { color: val } ) }
+					label={__('Background Color', 'ghostkit')}
+					value={color}
+					onChange={(val) => setAttributes({ color: val })}
 					alpha
 				/>
 			) : (
 				<PanelBody
 					title={
 						<Fragment>
-							{ __( 'Overlay', 'ghostkit' ) }
-							<ColorIndicator colorValue={ color } />
+							{__('Overlay', 'ghostkit')}
+							<ColorIndicator colorValue={color} />
 						</Fragment>
 					}
-					initialOpen={ type === 'color' }
+					initialOpen={type === 'color'}
 				>
 					<ColorPicker
-						label={ __( 'Background Color', 'ghostkit' ) }
-						value={ color }
-						onChange={ ( val ) => setAttributes( { color: val } ) }
+						label={__('Background Color', 'ghostkit')}
+						value={color}
+						onChange={(val) => setAttributes({ color: val })}
 						alpha
 					/>
 				</PanelBody>
-			) }
+			)}
 
 			<p>
-				{ __(
+				{__(
 					'Install AWB plugin to set video backgrounds and images with parallax support.',
 					'ghostkit'
-				) }
+				)}
 			</p>
 			<ExternalLink
 				className="components-button is-button is-secondary is-small"
 				href="https://wordpress.org/plugins/advanced-backgrounds/"
 			>
-				{ __( 'Install', 'ghostkit' ) }
+				{__('Install', 'ghostkit')}
 			</ExternalLink>
 		</PanelBody>
 	);
@@ -325,9 +345,12 @@ function BackgroundControlsInspector( props ) {
  *
  * @return {Object} Control.
  */
-function addBackgroundControls( Control, props ) {
-	if ( props.attribute === 'background' && hasBlockSupport( props.props.name, 'awb', false ) ) {
-		return <BackgroundControlsInspector { ...props.props } />;
+function addBackgroundControls(Control, props) {
+	if (
+		props.attribute === 'background' &&
+		hasBlockSupport(props.props.name, 'awb', false)
+	) {
+		return <BackgroundControlsInspector {...props.props} />;
 	}
 
 	return Control;
@@ -341,32 +364,45 @@ function addBackgroundControls( Control, props ) {
  *
  * @return {Object} Control.
  */
-function addEditorBackground( background, props ) {
-	if ( hasBlockSupport( props.name, 'awb', false ) ) {
-		const { awb_color: color, awb_type: type, awb_imageTag: imageTag } = props.attributes;
+function addEditorBackground(background, props) {
+	if (hasBlockSupport(props.name, 'awb', false)) {
+		const {
+			awb_color: color,
+			awb_type: type,
+			awb_imageTag: imageTag,
+		} = props.attributes;
 
 		let addBackground = false;
 
-		if ( type === 'color' && color ) {
+		if (type === 'color' && color) {
 			addBackground = true;
 		}
 
-		if ( type === 'image' && ( color || imageTag ) ) {
+		if (type === 'image' && (color || imageTag)) {
 			addBackground = true;
 		}
 
-		if ( addBackground ) {
+		if (addBackground) {
 			return (
 				<div className="awb-gutenberg-preview-block">
-					{ color ? <div className="nk-awb-overlay" style={ { 'background-color': color } } /> : '' }
-					{ type === 'image' && imageTag ? (
+					{color ? (
 						<div
-							className="nk-awb-inner"
-							dangerouslySetInnerHTML={ { __html: maybeDecode( imageTag ) } }
+							className="nk-awb-overlay"
+							style={{ 'background-color': color }}
 						/>
 					) : (
 						''
-					) }
+					)}
+					{type === 'image' && imageTag ? (
+						<div
+							className="nk-awb-inner"
+							dangerouslySetInnerHTML={{
+								__html: maybeDecode(imageTag),
+							}}
+						/>
+					) : (
+						''
+					)}
 				</div>
 			);
 		}
@@ -385,8 +421,8 @@ function addEditorBackground( background, props ) {
  *
  * @return {Object} Filtered props applied to save element.
  */
-function addSaveBackground( background, props ) {
-	if ( hasBlockSupport( props.name, 'awb', false ) ) {
+function addSaveBackground(background, props) {
+	if (hasBlockSupport(props.name, 'awb', false)) {
 		const {
 			awb_color: color,
 			awb_type: type,
@@ -398,45 +434,57 @@ function addSaveBackground( background, props ) {
 
 		let addBackground = false;
 
-		if ( type === 'color' && color ) {
+		if (type === 'color' && color) {
 			addBackground = true;
 		}
 
-		if ( type === 'image' && ( color || imageTag ) ) {
+		if (type === 'image' && (color || imageTag)) {
 			addBackground = true;
 		}
 
-		if ( addBackground ) {
+		if (addBackground) {
 			const dataAttrs = {
 				'data-awb-type': type,
 			};
 
-			if ( type === 'image' ) {
-				if ( imageBackgroundSize ) {
-					dataAttrs[ 'data-awb-image-background-size' ] = imageBackgroundSize;
+			if (type === 'image') {
+				if (imageBackgroundSize) {
+					dataAttrs['data-awb-image-background-size'] =
+						imageBackgroundSize;
 				}
-				if ( imageBackgroundPosition ) {
-					dataAttrs[ 'data-awb-image-background-position' ] = imageBackgroundPosition;
+				if (imageBackgroundPosition) {
+					dataAttrs['data-awb-image-background-position'] =
+						imageBackgroundPosition;
 				}
 			}
 
 			// Fix style tag background.
-			if ( type === 'image' && imageTag ) {
-				imageTag = maybeDecode( imageTag );
+			if (type === 'image' && imageTag) {
+				imageTag = maybeDecode(imageTag);
 
-				imageTag = imageTag.replace( 'url(&quot;', "url('" );
-				imageTag = imageTag.replace( '&quot;);', "');" );
+				imageTag = imageTag.replace('url(&quot;', "url('");
+				imageTag = imageTag.replace('&quot;);', "');");
 			}
 
 			return (
 				<div className="nk-awb">
-					<div className="nk-awb-wrap" { ...dataAttrs }>
-						{ color ? <div className="nk-awb-overlay" style={ { 'background-color': color } } /> : '' }
-						{ type === 'image' && imageTag ? (
-							<div className="nk-awb-inner" dangerouslySetInnerHTML={ { __html: imageTag } } />
+					<div className="nk-awb-wrap" {...dataAttrs}>
+						{color ? (
+							<div
+								className="nk-awb-overlay"
+								style={{ 'background-color': color }}
+							/>
 						) : (
 							''
-						) }
+						)}
+						{type === 'image' && imageTag ? (
+							<div
+								className="nk-awb-inner"
+								dangerouslySetInnerHTML={{ __html: imageTag }}
+							/>
+						) : (
+							''
+						)}
 					</div>
 				</div>
 			);
@@ -448,7 +496,11 @@ function addSaveBackground( background, props ) {
 	return background;
 }
 
-addFilter( 'blocks.registerBlockType', 'ghostkit/grid/awb/additional-attributes', addAttribute );
+addFilter(
+	'blocks.registerBlockType',
+	'ghostkit/grid/awb/additional-attributes',
+	addAttribute
+);
 addFilter(
 	'ghostkit.editor.controls',
 	'ghostkit/grid/awb/addBackgroundControls',
@@ -464,7 +516,11 @@ addFilter(
 	'ghostkit/grid-column/awb/addEditorBackground',
 	addEditorBackground
 );
-addFilter( 'ghostkit.blocks.grid.background', 'ghostkit/grid/addSaveBackground', addSaveBackground );
+addFilter(
+	'ghostkit.blocks.grid.background',
+	'ghostkit/grid/addSaveBackground',
+	addSaveBackground
+);
 addFilter(
 	'ghostkit.blocks.grid-column.background',
 	'ghostkit/grid-column/addSaveBackground',

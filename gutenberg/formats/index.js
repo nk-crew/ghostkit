@@ -1,9 +1,3 @@
-/**
- * Internal dependencies
- */
-/**
- * WordPress dependencies
- */
 import { registerFormatType } from '@wordpress/rich-text';
 
 import * as badge from './badge';
@@ -15,6 +9,6 @@ import * as uppercase from './uppercase';
 /**
  * Register formats
  */
-[ uppercase, badge, loremIpsum, deprecatedMark ].forEach( ( { name, settings } ) => {
-	registerFormatType( name, settings );
-} );
+[uppercase, badge, loremIpsum, deprecatedMark].forEach(({ name, settings }) => {
+	registerFormatType(name, settings);
+});

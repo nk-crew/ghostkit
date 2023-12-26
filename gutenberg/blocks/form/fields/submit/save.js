@@ -1,17 +1,8 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 
-/**
- * Internal dependencies
- */
 import metadata from './block.json';
 
 const { name } = metadata;
@@ -21,23 +12,25 @@ const { name } = metadata;
  *
  * @param props
  */
-export default function BlockSave( props ) {
+export default function BlockSave(props) {
 	const { align } = props.attributes;
 
 	let className = classnames(
 		'ghostkit-form-submit-button',
-		align && align !== 'none' ? `ghostkit-form-submit-button-align-${ align }` : false
+		align && align !== 'none'
+			? `ghostkit-form-submit-button-align-${align}`
+			: false
 	);
 
-	className = applyFilters( 'ghostkit.blocks.className', className, {
+	className = applyFilters('ghostkit.blocks.className', className, {
 		...{
 			name,
 		},
 		...props,
-	} );
+	});
 
-	const blockProps = useBlockProps.save( { className } );
-	const innerBlocksProps = useInnerBlocksProps.save( blockProps );
+	const blockProps = useBlockProps.save({ className });
+	const innerBlocksProps = useInnerBlocksProps.save(blockProps);
 
-	return <div { ...innerBlocksProps } />;
+	return <div {...innerBlocksProps} />;
 }

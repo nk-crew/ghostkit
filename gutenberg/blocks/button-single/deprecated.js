@@ -1,17 +1,8 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
 import { RichText, useBlockProps } from '@wordpress/block-editor';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 
-/**
- * Internal dependencies
- */
 import IconPicker from '../../components/icon-picker';
 import metadata from './block.json';
 
@@ -102,7 +93,7 @@ export default [
 				default: 'rgba(3, 102, 214, 0.5)',
 			},
 		},
-		save: function BlockSave( props ) {
+		save: function BlockSave(props) {
 			const {
 				tagName,
 				text,
@@ -119,63 +110,66 @@ export default [
 
 			let className = classnames(
 				'ghostkit-button',
-				size ? `ghostkit-button-${ size }` : '',
+				size ? `ghostkit-button-${size}` : '',
 				hideText ? 'ghostkit-button-icon-only' : ''
 			);
 
 			// focus outline
-			if ( focusOutlineWeight && focusOutlineColor ) {
-				className = classnames( className, 'ghostkit-button-with-outline' );
+			if (focusOutlineWeight && focusOutlineColor) {
+				className = classnames(
+					className,
+					'ghostkit-button-with-outline'
+				);
 			}
 
-			className = applyFilters( 'ghostkit.blocks.className', className, {
+			className = applyFilters('ghostkit.blocks.className', className, {
 				...{
 					name,
 				},
 				...props,
-			} );
+			});
 
 			const result = [];
 
-			if ( ! hideText ) {
+			if (!hideText) {
 				result.push(
 					<RichText.Content
 						tagName="span"
 						className="ghostkit-button-text"
-						value={ text }
+						value={text}
 						key="button-text"
 					/>
 				);
 			}
 
 			// add icon.
-			if ( icon ) {
+			if (icon) {
 				result.unshift(
 					<IconPicker.Render
-						name={ icon }
+						name={icon}
 						tag="span"
-						className={ `ghostkit-button-icon ghostkit-button-icon-${
+						className={`ghostkit-button-icon ghostkit-button-icon-${
 							iconPosition === 'right' ? 'right' : 'left'
-						}` }
+						}`}
 						key="button-icon"
 					/>
 				);
 			}
 
-			const Tag = tagName || ( url ? 'a' : 'span' );
+			const Tag = tagName || (url ? 'a' : 'span');
 
-			const blockProps = useBlockProps.save( {
+			const blockProps = useBlockProps.save({
 				className,
-				...( Tag === 'a'
+				...(Tag === 'a'
 					? {
-						href: url,
-						target: target || false,
-						rel: rel || false,
-					}
-					: {} ),
-			} );
+							href: url,
+							target: target || false,
+							rel: rel || false,
+						}
+					: {}),
+			});
 
-			return <Tag { ...blockProps }>{ result }</Tag>;
+			return <Tag {...blockProps}>{result}</Tag>;
 		},
 	},
 ];

@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__experimentalUnitControl as ExperimentalUnitControl,
@@ -8,9 +5,6 @@ import {
 	__stableUnitControl as StableUnitControl,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import ResponsiveToggle from '../../../components/responsive-toggle';
@@ -22,52 +16,52 @@ const UnitControl = StableUnitControl || ExperimentalUnitControl;
 
 import { hasBlockSupport } from '@wordpress/blocks';
 
-function PositionHeightTools( props ) {
-	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles( props );
+function PositionHeightTools(props) {
+	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
 
 	const { device, allDevices } = useResponsive();
 
 	let hasHeight = false;
 
-	[ '', ...Object.keys( allDevices ) ].forEach( ( thisDevice ) => {
-		hasHeight = hasHeight || hasStyle( 'height', thisDevice );
-	} );
+	['', ...Object.keys(allDevices)].forEach((thisDevice) => {
+		hasHeight = hasHeight || hasStyle('height', thisDevice);
+	});
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Height', 'ghostkit' ) }
-			hasValue={ () => !! hasHeight }
-			onDeselect={ () => {
-				resetStyles( [ 'height' ], true );
-			} }
-			isShownByDefault={ false }
+			label={__('Height', 'ghostkit')}
+			hasValue={() => !!hasHeight}
+			onDeselect={() => {
+				resetStyles(['height'], true);
+			}}
+			isShownByDefault={false}
 		>
 			<UnitControl
 				label={
 					<>
-						{ __( 'Height', 'ghostkit' ) }
+						{__('Height', 'ghostkit')}
 						<ResponsiveToggle
-							checkActive={ ( checkMedia ) => {
-								return hasStyle( 'height', checkMedia );
-							} }
+							checkActive={(checkMedia) => {
+								return hasStyle('height', checkMedia);
+							}}
 						/>
 					</>
 				}
-				value={ getStyle( 'height', device ) }
-				onChange={ ( val ) => {
-					setStyles( { height: val }, device );
-				} }
+				value={getStyle('height', device)}
+				onChange={(val) => {
+					setStyles({ height: val }, device);
+				}}
 				labelPosition="edge"
 				__unstableInputWidth="70px"
-				units={ [
+				units={[
 					{ value: 'px', label: 'px' },
 					{ value: '%', label: '%' },
 					{ value: 'em', label: 'em' },
 					{ value: 'rem', label: 'rem' },
 					{ value: 'vw', label: 'vw' },
 					{ value: 'vh', label: 'vh' },
-				] }
-				min={ 0 }
+				]}
+				min={0}
 			/>
 		</ToolsPanelItem>
 	);
@@ -76,17 +70,21 @@ function PositionHeightTools( props ) {
 addFilter(
 	'ghostkit.extension.position.tools',
 	'ghostkit/extension/position/tools/height',
-	( children, { props } ) => {
-		const hasHeightSupport = hasBlockSupport( props.name, [ 'ghostkit', 'position', 'height' ] );
+	(children, { props }) => {
+		const hasHeightSupport = hasBlockSupport(props.name, [
+			'ghostkit',
+			'position',
+			'height',
+		]);
 
-		if ( ! hasHeightSupport ) {
+		if (!hasHeightSupport) {
 			return children;
 		}
 
 		return (
 			<>
-				{ children }
-				<PositionHeightTools { ...props } />
+				{children}
+				<PositionHeightTools {...props} />
 			</>
 		);
 	}

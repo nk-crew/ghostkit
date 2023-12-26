@@ -1,13 +1,7 @@
-/**
- * Internal dependencies
- */
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { PostPreviewButton } from '@wordpress/editor';
 import { render } from '@wordpress/element';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 
 import useResponsive from '../../hooks/use-responsive';
@@ -21,42 +15,42 @@ export const name = 'gkt-editor-iframe-resize';
 function IframeResponsiveStyles() {
 	const { device, allDevices } = useResponsive();
 
-	if ( ! device ) {
+	if (!device) {
 		return null;
 	}
 
-	let width = allDevices[ device ];
+	let width = allDevices[device];
 	let height = '100%';
 	let marginVertical = '0px';
 
-	if ( device === 'sm' ) {
+	if (device === 'sm') {
 		// Set smaller width for mobile screen.
-		if ( width > 375 ) {
+		if (width > 375) {
 			width = 375;
 		}
 
-		height = `${ ( width * 16 ) / 7.5 }px`;
+		height = `${(width * 16) / 7.5}px`;
 		marginVertical = '36px';
-	} else if ( device === 'md' || device === 'lg' ) {
-		height = `${ ( width * 3 ) / 4 }px`;
+	} else if (device === 'md' || device === 'lg') {
+		height = `${(width * 3) / 4}px`;
 		marginVertical = '36px';
 	}
 
 	return (
 		<style
 			// eslint-disable-next-line react/no-danger
-			dangerouslySetInnerHTML={ {
+			dangerouslySetInnerHTML={{
 				__html: `
           .edit-post-visual-editor__content-area > div {
-            width: ${ width }px !important;
-            height: ${ height } !important;
-            margin: ${ marginVertical } auto !important;
+            width: ${width}px !important;
+            height: ${height} !important;
+            margin: ${marginVertical} auto !important;
             border-radius: 2px !important;
             border: 1px solid rgb(221, 221, 221) !important;
             overflow-y: auto !important;
           }
         `,
-			} }
+			}}
 		/>
 	);
 }
@@ -64,101 +58,103 @@ function IframeResponsiveStyles() {
 function ResponsiveToggleDropdown() {
 	const { device, setDevice, allDevices } = useResponsive();
 
-	const { hasActiveMetaboxes, isViewable } = useSelect( ( select ) => {
-		const { getEditedPostAttribute } = select( 'core/editor' );
-		const { getPostType } = select( 'core' );
-		const postType = getPostType( getEditedPostAttribute( 'type' ) );
+	const { hasActiveMetaboxes, isViewable } = useSelect((select) => {
+		const { getEditedPostAttribute } = select('core/editor');
+		const { getPostType } = select('core');
+		const postType = getPostType(getEditedPostAttribute('type'));
 
 		return {
-			hasActiveMetaboxes: select( 'core/edit-post' ).hasMetaBoxes(),
+			hasActiveMetaboxes: select('core/edit-post').hasMetaBoxes(),
 			isViewable: postType?.viewable ?? false,
 		};
-	}, [] );
+	}, []);
 
 	const items = [];
 	const icons = [
-		getIcon( 'tabs-mobile' ),
-		getIcon( 'tabs-tablet' ),
-		getIcon( 'tabs-laptop' ),
-		getIcon( 'tabs-desktop' ),
-		getIcon( 'tabs-tv' ),
+		getIcon('tabs-mobile'),
+		getIcon('tabs-tablet'),
+		getIcon('tabs-laptop'),
+		getIcon('tabs-desktop'),
+		getIcon('tabs-tv'),
 	];
 
-	let selectedIcon = icons[ icons.length - 1 ];
+	let selectedIcon = icons[icons.length - 1];
 
-	[ ...Object.keys( allDevices ), '' ].forEach( ( deviceName, i ) => {
-		if ( deviceName === device ) {
-			selectedIcon = icons[ i ];
+	[...Object.keys(allDevices), ''].forEach((deviceName, i) => {
+		if (deviceName === device) {
+			selectedIcon = icons[i];
 		}
 
-		let title = __( 'Desktop', 'ghostkit' );
+		let title = __('Desktop', 'ghostkit');
 
-		switch ( deviceName ) {
+		switch (deviceName) {
 			case 'sm':
-				title = __( 'Mobile', 'ghostkit' );
+				title = __('Mobile', 'ghostkit');
 				break;
 			case 'md':
-				title = __( 'Mobile Landscape', 'ghostkit' );
+				title = __('Mobile Landscape', 'ghostkit');
 				break;
 			case 'lg':
-				title = __( 'Tablet', 'ghostkit' );
+				title = __('Tablet', 'ghostkit');
 				break;
 			case 'xl':
-				title = __( 'Laptop', 'ghostkit' );
+				title = __('Laptop', 'ghostkit');
 				break;
-      // no default
+			// no default
 		}
 
-		items.unshift( {
+		items.unshift({
 			name: deviceName,
-			icon: icons[ i ],
+			icon: icons[i],
 			title,
-		} );
-	} );
+		});
+	});
 
 	return (
 		<>
 			<DropdownMenu
 				className="ghostkit-toolbar-responsive__dropdown"
-				popoverProps={ {
+				popoverProps={{
 					className: 'ghostkit-toolbar-responsive__dropdown-content',
 					placement: 'bottom-end',
-				} }
-				toggleProps={ {
+				}}
+				toggleProps={{
 					className: 'ghostkit-toolbar-responsive__button-toggle',
-				} }
-				menuProps={ {
-					'aria-label': __( 'View options', 'ghostkit' ),
-				} }
-				icon={ selectedIcon }
-				label={ __( 'Responsive Preview', 'ghostkit' ) }
+				}}
+				menuProps={{
+					'aria-label': __('View options', 'ghostkit'),
+				}}
+				icon={selectedIcon}
+				label={__('Responsive Preview', 'ghostkit')}
 			>
-				{ ( { onClose } ) => (
+				{({ onClose }) => (
 					<>
 						<MenuGroup>
-							{ items.map( ( data ) => {
+							{items.map((data) => {
 								return (
 									<MenuItem
-										key={ data.name }
-										className={ device === data.name && 'is-active' }
-										onClick={ () => setDevice( data.name ) }
-										icon={ data.icon }
+										key={data.name}
+										className={
+											device === data.name && 'is-active'
+										}
+										onClick={() => setDevice(data.name)}
+										icon={data.icon}
 									>
-										{ data.title }
+										{data.title}
 									</MenuItem>
 								);
-							} ) }
+							})}
 						</MenuGroup>
-						{ isViewable && (
+						{isViewable && (
 							<MenuGroup>
 								<div className="edit-post-header-preview__grouping-external">
 									<PostPreviewButton
 										className="edit-post-header-preview__button-external"
 										role="menuitem"
-										forceIsAutosaveable={ hasActiveMetaboxes }
+										forceIsAutosaveable={hasActiveMetaboxes}
 										textContent={
 											<>
-												{ __( 'Preview in new tab' ) }
+												{__('Preview in new tab')}
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
 													viewBox="0 0 24 24"
@@ -171,23 +167,23 @@ function ResponsiveToggleDropdown() {
 												</svg>
 											</>
 										}
-										onPreview={ onClose }
+										onPreview={onClose}
 									/>
 								</div>
 							</MenuGroup>
-						) }
+						)}
 					</>
-				) }
+				)}
 			</DropdownMenu>
 			<style
 				// eslint-disable-next-line react/no-danger
-				dangerouslySetInnerHTML={ {
+				dangerouslySetInnerHTML={{
 					__html: `
           .interface-interface-skeleton__header {
             z-index: 91;
           }
         `,
-				} }
+				}}
 			/>
 		</>
 	);
@@ -197,24 +193,24 @@ function ResponsiveToggleDropdown() {
  * Add dropdown toggle to toolbar.
  */
 function ToolbarResponsiveToggle() {
-	const checkElement = async ( selector ) => {
-		while ( document.querySelector( selector ) === null ) {
+	const checkElement = async (selector) => {
+		while (document.querySelector(selector) === null) {
 			// eslint-disable-next-line no-promise-executor-return, no-await-in-loop, no-undef
-			await new Promise( ( resolve ) => requestAnimationFrame( resolve ) );
+			await new Promise((resolve) => requestAnimationFrame(resolve));
 		}
-		return document.querySelector( selector );
+		return document.querySelector(selector);
 	};
 
-	checkElement( '.edit-post-header__settings' ).then( ( $toolbar ) => {
-		if ( ! $toolbar.querySelector( '.ghostkit-toolbar-responsive' ) ) {
-			const $toolbarPlace = document.createElement( 'div' );
-			$toolbarPlace.classList.add( 'ghostkit-toolbar-responsive' );
+	checkElement('.edit-post-header__settings').then(($toolbar) => {
+		if (!$toolbar.querySelector('.ghostkit-toolbar-responsive')) {
+			const $toolbarPlace = document.createElement('div');
+			$toolbarPlace.classList.add('ghostkit-toolbar-responsive');
 
-			$toolbar.prepend( $toolbarPlace );
+			$toolbar.prepend($toolbarPlace);
 
-			render( <ResponsiveToggleDropdown />, $toolbarPlace );
+			render(<ResponsiveToggleDropdown />, $toolbarPlace);
 		}
-	} );
+	});
 
 	return null;
 }

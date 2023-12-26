@@ -1,6 +1,3 @@
-/**
- * Internal dependencies
- */
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
@@ -11,17 +8,22 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	icon: getIcon( 'block-carousel', true ),
+	icon: getIcon('block-carousel', true),
 	ghostkit: {
 		previewUrl: 'https://ghostkit.io/blocks/carousel/',
-		customStylesCallback( attributes ) {
+		customStylesCallback(attributes) {
 			const { fadeEdges, fadeEdgesSize } = attributes;
 			const styles = {
 				'--gkt-carousel--fade-edges__size': undefined,
 			};
 
-			if ( fadeEdges && typeof fadeEdgesSize !== 'undefined' && fadeEdgesSize !== '' ) {
-				styles[ '--gkt-carousel--fade-edges__size' ] = `${ fadeEdgesSize }%`;
+			if (
+				fadeEdges &&
+				typeof fadeEdgesSize !== 'undefined' &&
+				fadeEdgesSize !== ''
+			) {
+				styles['--gkt-carousel--fade-edges__size'] =
+					`${fadeEdgesSize}%`;
 			}
 
 			return styles;

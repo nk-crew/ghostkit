@@ -1,43 +1,40 @@
-/**
- * WordPress dependencies
- */
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-export default function EditInspectorControls( { attributes, setAttributes } ) {
+export default function EditInspectorControls({ attributes, setAttributes }) {
 	const { trigger, buttonsAlign, buttonsVerticalAlign } = attributes;
 
 	return (
 		<InspectorControls>
 			<PanelBody>
 				<SelectControl
-					label={ __( 'Select Tab Trigger', 'ghostkit' ) }
-					value={ trigger }
-					options={ [
+					label={__('Select Tab Trigger', 'ghostkit')}
+					value={trigger}
+					options={[
 						{
 							value: '',
-							label: __( 'Click', 'ghostkit' ),
+							label: __('Click', 'ghostkit'),
 						},
 						{
 							value: 'hover',
-							label: __( 'Hover', 'ghostkit' ),
+							label: __('Hover', 'ghostkit'),
 						},
-					] }
-					onChange={ ( val ) => {
-						setAttributes( { trigger: val } );
-					} }
+					]}
+					onChange={(val) => {
+						setAttributes({ trigger: val });
+					}}
 				/>
 				<ToggleControl
-					label={ __( 'Vertical Tabs', 'ghostkit' ) }
-					checked={ !! buttonsVerticalAlign }
-					onChange={ ( val ) => {
-						setAttributes( { buttonsVerticalAlign: val } );
+					label={__('Vertical Tabs', 'ghostkit')}
+					checked={!!buttonsVerticalAlign}
+					onChange={(val) => {
+						setAttributes({ buttonsVerticalAlign: val });
 
-						if ( val && buttonsAlign === 'stretch' ) {
-							setAttributes( { buttonsAlign: 'start' } );
+						if (val && buttonsAlign === 'stretch') {
+							setAttributes({ buttonsAlign: 'start' });
 						}
-					} }
+					}}
 				/>
 			</PanelBody>
 		</InspectorControls>

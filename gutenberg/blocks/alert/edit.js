@@ -1,22 +1,25 @@
-/**
- * External dependencies
- */
 import classnames from 'classnames/dedupe';
 
-import { BlockControls, InnerBlocks, InspectorControls, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-import { PanelBody, TabPanel, ToggleControl, ToolbarDropdownMenu, ToolbarGroup } from '@wordpress/components';
+import {
+	BlockControls,
+	InnerBlocks,
+	InspectorControls,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
+import {
+	PanelBody,
+	TabPanel,
+	ToggleControl,
+	ToolbarDropdownMenu,
+	ToolbarGroup,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-/**
- * WordPress dependencies
- */
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
 import ColorIndicator from '../../components/color-indicator';
-/**
- * Internal dependencies
- */
 import ColorPicker from '../../components/color-picker';
 import IconPicker from '../../components/icon-picker';
 import RangeControl from '../../components/range-control';
@@ -28,33 +31,37 @@ import RangeControl from '../../components/range-control';
  *
  * @return {JSX} component.
  */
-export default function BlockEdit( props ) {
+export default function BlockEdit(props) {
 	const { attributes, setAttributes } = props;
 	let { className = '' } = props;
 
 	const { color, hoverColor, icon, iconSize, hideButton } = attributes;
 
 	const hasChildBlocks = useSelect(
-		( select ) => {
-			const blockEditor = select( 'core/block-editor' );
+		(select) => {
+			const blockEditor = select('core/block-editor');
 
-			return blockEditor ? blockEditor.getBlockOrder( props.clientId ).length > 0 : false;
+			return blockEditor
+				? blockEditor.getBlockOrder(props.clientId).length > 0
+				: false;
 		},
-		[ props.clientId ]
+		[props.clientId]
 	);
 
-	className = classnames( 'ghostkit-alert', className );
+	className = classnames('ghostkit-alert', className);
 
-	className = applyFilters( 'ghostkit.editor.className', className, props );
+	className = applyFilters('ghostkit.editor.className', className, props);
 
-	const blockProps = useBlockProps( { className } );
+	const blockProps = useBlockProps({ className });
 
 	const innerBlockProps = useInnerBlocksProps(
 		{
 			className: 'ghostkit-alert-content',
 		},
 		{
-			renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+			renderAppender: hasChildBlocks
+				? undefined
+				: InnerBlocks.ButtonBlockAppender,
 			templateLock: false,
 		}
 	);
@@ -65,57 +72,64 @@ export default function BlockEdit( props ) {
 				<ToolbarGroup>
 					<ToolbarDropdownMenu
 						icon="info"
-						label={ __( 'Type', 'ghostkit' ) }
-						controls={ [
+						label={__('Type', 'ghostkit')}
+						controls={[
 							{
-								title: __( 'Primary', 'ghostkit' ),
+								title: __('Primary', 'ghostkit'),
 								icon: 'editor-help',
 								isActive: color === '#2E77C3',
-								onClick: () => setAttributes( { color: '#2E77C3' } ),
+								onClick: () =>
+									setAttributes({ color: '#2E77C3' }),
 							},
 							{
-								title: __( 'Success', 'ghostkit' ),
+								title: __('Success', 'ghostkit'),
 								icon: 'marker',
 								isActive: color === '#22CF6E',
-								onClick: () => setAttributes( { color: '#22CF6E' } ),
+								onClick: () =>
+									setAttributes({ color: '#22CF6E' }),
 							},
 							{
-								title: __( 'Danger', 'ghostkit' ),
+								title: __('Danger', 'ghostkit'),
 								icon: 'dismiss',
 								isActive: color === '#DC3232',
-								onClick: () => setAttributes( { color: '#DC3232' } ),
+								onClick: () =>
+									setAttributes({ color: '#DC3232' }),
 							},
 							{
-								title: __( 'Warning', 'ghostkit' ),
+								title: __('Warning', 'ghostkit'),
 								icon: 'warning',
 								isActive: color === '#E47F3B',
-								onClick: () => setAttributes( { color: '#E47F3B' } ),
+								onClick: () =>
+									setAttributes({ color: '#E47F3B' }),
 							},
 							{
-								title: __( 'Info', 'ghostkit' ),
+								title: __('Info', 'ghostkit'),
 								icon: 'info',
 								isActive: color === '#2DC7E8',
-								onClick: () => setAttributes( { color: '#2DC7E8' } ),
+								onClick: () =>
+									setAttributes({ color: '#2DC7E8' }),
 							},
-						] }
+						]}
 					/>
 				</ToolbarGroup>
 			</BlockControls>
 			<InspectorControls>
 				<PanelBody>
 					<IconPicker
-						label={ __( 'Icon', 'ghostkit' ) }
-						value={ icon }
-						onChange={ ( value ) => setAttributes( { icon: value } ) }
+						label={__('Icon', 'ghostkit')}
+						value={icon}
+						onChange={(value) => setAttributes({ icon: value })}
 						insideInspector
 					/>
-					{ icon ? (
+					{icon ? (
 						<RangeControl
-							label={ __( 'Icon Size', 'ghostkit' ) }
-							value={ iconSize }
-							onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-							min={ 20 }
-							max={ 100 }
+							label={__('Icon Size', 'ghostkit')}
+							value={iconSize}
+							onChange={(value) =>
+								setAttributes({ iconSize: value })
+							}
+							min={20}
+							max={100}
 							beforeIcon="editor-textcolor"
 							afterIcon="editor-textcolor"
 							allowCustomMin
@@ -123,75 +137,84 @@ export default function BlockEdit( props ) {
 						/>
 					) : (
 						''
-					) }
+					)}
 				</PanelBody>
 				<PanelBody>
 					<ToggleControl
-						label={ __( 'Dismiss button', 'ghostkit' ) }
-						checked={ !! hideButton }
-						onChange={ ( val ) => setAttributes( { hideButton: val } ) }
+						label={__('Dismiss button', 'ghostkit')}
+						checked={!!hideButton}
+						onChange={(val) => setAttributes({ hideButton: val })}
 					/>
 				</PanelBody>
 				<PanelBody
 					title={
 						<>
-							{ __( 'Colors', 'ghostkit' ) }
-							<ColorIndicator colorValue={ color } />
+							{__('Colors', 'ghostkit')}
+							<ColorIndicator colorValue={color} />
 						</>
 					}
-					initialOpen={ false }
+					initialOpen={false}
 				>
 					<TabPanel
 						className="ghostkit-control-tabs ghostkit-control-tabs-wide"
-						tabs={ [
+						tabs={[
 							{
 								name: 'normal',
-								title: __( 'Normal', 'ghostkit' ),
+								title: __('Normal', 'ghostkit'),
 								className: 'ghostkit-control-tabs-tab',
 							},
 							{
 								name: 'hover',
-								title: __( 'Hover', 'ghostkit' ),
+								title: __('Hover', 'ghostkit'),
 								className: 'ghostkit-control-tabs-tab',
 							},
-						] }
+						]}
 					>
-						{ ( tabData ) => {
+						{(tabData) => {
 							const isHover = tabData.name === 'hover';
 							return (
 								<ApplyFilters
 									name="ghostkit.editor.controls"
-									attribute={ isHover ? 'hoverColor' : 'color' }
-									props={ props }
+									attribute={isHover ? 'hoverColor' : 'color'}
+									props={props}
 								>
 									<ColorPicker
-										label={ __( 'Color', 'ghostkit' ) }
-										value={ isHover ? hoverColor : color }
-										onChange={ ( val ) =>
-											setAttributes( isHover ? { hoverColor: val } : { color: val } )
+										label={__('Color', 'ghostkit')}
+										value={isHover ? hoverColor : color}
+										onChange={(val) =>
+											setAttributes(
+												isHover
+													? { hoverColor: val }
+													: { color: val }
+											)
 										}
 										alpha
 									/>
 								</ApplyFilters>
 							);
-						} }
+						}}
 					</TabPanel>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...blockProps }>
-				{ icon ? (
+			<div {...blockProps}>
+				{icon ? (
 					<div className="ghostkit-alert-icon">
 						<IconPicker.Dropdown
-							onChange={ ( value ) => setAttributes( { icon: value } ) }
-							value={ icon }
-							renderToggle={ ( { onToggle } ) => <IconPicker.Preview onClick={ onToggle } name={ icon } /> }
+							onChange={(value) => setAttributes({ icon: value })}
+							value={icon}
+							renderToggle={({ onToggle }) => (
+								<IconPicker.Preview
+									onClick={onToggle}
+									name={icon}
+								/>
+							)}
 						/>
 					</div>
 				) : (
 					''
-				) }
-				<div { ...innerBlockProps } />
-				{ hideButton ? (
+				)}
+				<div {...innerBlockProps} />
+				{hideButton ? (
 					<div className="ghostkit-alert-hide-button">
 						<svg
 							className="ghostkit-svg-icon"
@@ -209,7 +232,7 @@ export default function BlockEdit( props ) {
 					</div>
 				) : (
 					''
-				) }
+				)}
 			</div>
 		</>
 	);
