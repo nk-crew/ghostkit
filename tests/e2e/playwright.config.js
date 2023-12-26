@@ -5,24 +5,24 @@ import { fileURLToPath } from 'url';
 
 const STORAGE_STATE_PATH =
 	process.env.STORAGE_STATE_PATH ||
-	path.join( process.cwd(), 'artifacts/storage-states/admin.json' );
+	path.join(process.cwd(), 'artifacts/storage-states/admin.json');
 
-const config = defineConfig( {
+const config = defineConfig({
 	reporter: process.env.CI
-		? [ [ 'github' ], [ './config/flaky-tests-reporter.js' ] ]
+		? [['github'], ['./config/flaky-tests-reporter.js']]
 		: 'list',
-	forbidOnly: !! process.env.CI,
+	forbidOnly: !!process.env.CI,
 	workers: 1,
 	retries: process.env.CI ? 2 : 0,
-	timeout: parseInt( process.env.TIMEOUT || '', 10 ) || 100_000, // Defaults to 100 seconds.
+	timeout: parseInt(process.env.TIMEOUT || '', 10) || 100_000, // Defaults to 100 seconds.
 	// Don't report slow test "files", as we will be running our tests in serial.
 	reportSlowTests: null,
-	testDir: fileURLToPath( new URL( './specs', `file:${ __filename }` ).href ),
-	outputDir: path.join( process.cwd(), 'artifacts/test-results' ),
+	testDir: fileURLToPath(new URL('./specs', `file:${__filename}`).href),
+	outputDir: path.join(process.cwd(), 'artifacts/test-results'),
 	snapshotPathTemplate:
 		'{testDir}/{testFileDir}/__snapshots__/{arg}-{projectName}{ext}',
 	globalSetup: fileURLToPath(
-		new URL( './config/global-setup.js', `file:${ __filename }` ).href
+		new URL('./config/global-setup.js', `file:${__filename}`).href
 	),
 	use: {
 		baseURL: process.env.WP_BASE_URL || 'http://localhost:8889',
@@ -52,13 +52,13 @@ const config = defineConfig( {
 	projects: [
 		{
 			name: 'chromium',
-			use: { ...devices[ 'Desktop Chrome' ] },
+			use: { ...devices['Desktop Chrome'] },
 			grepInvert: /-chromium/,
 		},
 		{
 			name: 'webkit',
 			use: {
-				...devices[ 'Desktop Safari' ],
+				...devices['Desktop Safari'],
 				/**
 				 * Headless webkit won't receive dataTransfer with custom types in the
 				 * drop event on Linux. The solution is to use `xvfb-run` to run the tests.
@@ -74,11 +74,11 @@ const config = defineConfig( {
 		},
 		{
 			name: 'firefox',
-			use: { ...devices[ 'Desktop Firefox' ] },
+			use: { ...devices['Desktop Firefox'] },
 			grep: /@firefox/,
 			grepInvert: /-firefox/,
 		},
 	],
-} );
+});
 
 export default config;
