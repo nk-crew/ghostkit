@@ -16,7 +16,6 @@ const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').ma
 events.on(document, 'init.blocks.gkt', () => {
   document.querySelectorAll('[data-gkt-effects]').forEach(function ($element) {
     if (isReducedMotion) {
-      $element.classList.remove('ghostkit-effects-reveal');
       $element.removeAttribute('data-gkt-effects');
       return;
     }
