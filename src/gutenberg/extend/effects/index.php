@@ -88,7 +88,9 @@ class GhostKit_Extension_Effects {
 
     /**
      * Add styles using JS for effects reveal feature.
-     * As we need to hide blocks, we should make sure that JS is enabled in the browser.
+     * As we need to hide blocks, we should make sure that
+     *  1. JS is enabled in the browser.
+     *  2. User has not set reduced motion in the OS settings.
      */
     public function add_reveal_styles() {
         ?>
@@ -99,9 +101,11 @@ class GhostKit_Extension_Effects {
             }
         </style>
         <script>
-            document.documentElement.classList.add(
-                'ghostkit-effects-enabled'
-            );
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.documentElement.classList.add(
+                    'ghostkit-effects-enabled'
+                );
+            }
         </script>
         <?php
     }
