@@ -7,9 +7,12 @@ import apiFetch from '@wordpress/api-fetch';
 import {
 	BlockControls,
 	InspectorControls,
+	MediaUpload,
+	RichText,
 	useBlockProps,
 } from '@wordpress/block-editor';
 import {
+	BaseControl,
 	Button,
 	Dropdown,
 	ExternalLink,
@@ -25,7 +28,7 @@ import { Fragment, useEffect, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
-import ApplyFilters from '../../components/apply-filters';
+import DropdownPicker from '../../components/dropdown-picker';
 import ImagePicker from '../../components/image-picker';
 import RangeControl from '../../components/range-control';
 import { maybeDecode, maybeEncode } from '../../utils/encode-decode';
@@ -40,6 +43,9 @@ const { GHOSTKIT } = window;
 const mapsUrl = `${GHOSTKIT.googleMapsAPIUrl}&libraries=geometry,drawing,places`;
 let geocoder = false;
 
+const MIN_MARKER_WIDTH = 10;
+const MAX_MARKER_WIDTH = 100;
+
 function getStyles(string) {
 	let result = [];
 
@@ -50,6 +56,136 @@ function getStyles(string) {
 	}
 
 	return result;
+}
+
+function MarkerSettings(props) {
+	const {
+		googleMapURL,
+		title,
+		address,
+		addresses,
+		lat,
+		lng,
+		iconImageURL,
+		iconImageCustomWidth,
+		infoWindowText,
+		onChange,
+	} = props;
+
+	const previewIcon = iconImageURL ? (
+		<img src={iconImageURL} width={iconImageCustomWidth} alt="" />
+	) : (
+		<img
+			src="https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi3_hdpi.png"
+			width="27"
+			alt=""
+		/>
+	);
+
+	return (
+		<>
+			<TextControl
+				label={__('Title', 'ghostkit')}
+				value={title}
+				onChange={(value) => {
+					onChange({ title: value });
+				}}
+			/>
+			<SearchBox
+				googleMapURL={googleMapURL}
+				label={__('Address', 'ghostkit')}
+				value={address || addresses[lat + lng] || ''}
+				onChange={(value) => {
+					if (value && value[0]) {
+						onChange({
+							address: value[0].formatted_address,
+							lat: value[0].geometry.location.lat(),
+							lng: value[0].geometry.location.lng(),
+						});
+					}
+				}}
+				className="ghostkit-google-maps-search-box"
+			/>
+			<div className="ghostkit-google-maps-marker-options-content-icon">
+				{previewIcon}
+				<MediaUpload
+					onSelect={(media) => {
+						if (!media || !media.url) {
+							return;
+						}
+
+						onChange({
+							iconImageID: media.id,
+							iconImageURL: media.url,
+							iconImageCustomWidth: Math.min(
+								MAX_MARKER_WIDTH,
+								media.width
+							),
+							iconImageWidth: media.width,
+							iconImageHeight: media.height,
+						});
+					}}
+					allowedTypes={['image']}
+					value={iconImageURL || false}
+					render={({ open }) => (
+						<Button variant="secondary" onClick={open}>
+							{__('Change Icon', '@@text_domain')}
+						</Button>
+					)}
+				/>
+			</div>
+			{iconImageCustomWidth ? (
+				<div>
+					<Button
+						className="ghostkit-google-maps-icon-reset"
+						isSmall
+						onClick={() => {
+							onChange({
+								iconImageID: '',
+								iconImageURL: '',
+								iconImageCustomWidth: '',
+								iconImageWidth: '',
+								iconImageHeight: '',
+							});
+						}}
+					>
+						{__('Reset Icon to Default', '@@text_domain')}
+					</Button>
+				</div>
+			) : null}
+			{iconImageCustomWidth ? (
+				<div>
+					<RangeControl
+						label={__('Marker Width', '@@text_domain')}
+						value={iconImageCustomWidth}
+						onChange={(val) =>
+							onChange({ iconImageCustomWidth: val })
+						}
+						min={MIN_MARKER_WIDTH}
+						max={MAX_MARKER_WIDTH}
+					/>
+				</div>
+			) : null}
+			<BaseControl
+				label={__('Info Window Text', '@@text_domain')}
+				className="ghostkit-google-maps-marker-options-content-info-window-text"
+				id="ghostkit-google-maps-marker-content-info-window-text"
+			>
+				<RichText
+					value={infoWindowText}
+					multiline
+					placeholder={__('Write text…', '@@text_domain')}
+					onChange={(val) => {
+						onChange({ infoWindowText: val });
+					}}
+					onRemove={() => {
+						onChange({ infoWindowText: '' });
+					}}
+					keepPlaceholderOnFocus
+				/>
+			</BaseControl>
+		</>
+	);
 }
 
 /**
@@ -226,44 +362,33 @@ export default function BlockEdit(props) {
 		return (
 			<MapBlock
 				key={mapID + markers.length}
-				googleMapURL={`${mapsUrl}&key=${maybeEncode(apiKey)}`}
-				loadingElement={<div style={{ height: '100%' }} />}
-				mapElement={<div style={{ height: '100%' }} />}
-				containerElement={
-					<div
-						className="ghostkit-google-maps-wrap"
-						style={{ minHeight: '100%' }}
-					/>
-				}
+				apiUrl={`${mapsUrl}&key=${maybeEncode(apiKey)}`}
 				markers={markers}
-				zoom={zoom}
-				center={{ lat, lng }}
+				onChangeMarkers={(newMarkers) => {
+					setAttributes({ markers: newMarkers });
+				}}
 				options={{
 					styles: styleCustom ? getStyles(styleCustom) : [],
+					zoom,
+					center: { lat, lng },
 					zoomControl: showZoomButtons,
+					zoomControlOpt: {
+						style: 'DEFAULT',
+						position: 'RIGHT_BOTTOM',
+					},
 					mapTypeControl: showMapTypeButtons,
 					streetViewControl: showStreetViewButton,
 					fullscreenControl: showFullscreenButton,
 					gestureHandling: 'cooperative',
+					scrollwheel: false,
 					draggable: optionDraggable,
+					onZoomChange: debounce(500, (val) =>
+						setAttributes({ zoom: val })
+					),
+					onCenterChange: debounce(500, (val) =>
+						setAttributes({ lat: val.lat(), lng: val.lng() })
+					),
 				}}
-				defaultZoom={zoom}
-				defaultCenter={{ lat, lng }}
-				defaultOptions={{
-					styles: styleCustom ? getStyles(styleCustom) : [],
-					zoomControl: showZoomButtons,
-					mapTypeControl: showMapTypeButtons,
-					streetViewControl: showStreetViewButton,
-					fullscreenControl: showFullscreenButton,
-					gestureHandling: 'cooperative',
-					draggable: optionDraggable,
-				}}
-				onZoomChanged={debounce(500, (val) =>
-					setAttributes({ zoom: val })
-				)}
-				onCenterChanged={debounce(500, (val) =>
-					setAttributes({ lat: val.lat(), lng: val.lng() })
-				)}
 			/>
 		);
 	}
@@ -296,7 +421,7 @@ export default function BlockEdit(props) {
 					<ToolbarButton
 						icon={getIcon('icon-marker')}
 						title={__('Add Marker', 'ghostkit')}
-						onClick={() => () => {
+						onClick={() => {
 							setAttributes({
 								markers: [
 									...markers,
@@ -372,73 +497,60 @@ export default function BlockEdit(props) {
 							{markers && markers.length > 0 ? (
 								<ul className="ghostkit-google-maps-markers">
 									{markers.map((marker, index) => (
-										// eslint-disable-next-line react/no-array-index-key
-										<li key={index}>
-											<SearchBox
-												googleMapURL={`${mapsUrl}&key=${maybeEncode(
-													apiKey
-												)}`}
-												placeholder={__(
-													'Enter address',
-													'ghostkit'
-												)}
-												value={
-													marker.address ||
-													addresses[
-														marker.lat + marker.lng
-													] ||
-													''
+										<DropdownPicker
+											key={index}
+											label={
+												marker.title ||
+												__('Marker', 'ghostkit')
+											}
+											contentClassName="ghostkit-component-google-maps-markers"
+										>
+											<MarkerSettings
+												index={index}
+												googleMapURL={`${mapsUrl}&key=${maybeEncode(apiKey)}`}
+												address={marker.address}
+												addresses={addresses}
+												lat={marker.lat}
+												lng={marker.lng}
+												title={marker.title}
+												iconImageURL={
+													marker.iconImageURL
 												}
-												onChange={(value) => {
-													if (value && value[0]) {
-														markers[index].address =
-															value[0].formatted_address;
-														markers[index].lat =
-															value[0].geometry.location.lat();
-														markers[index].lng =
-															value[0].geometry.location.lng();
+												iconImageCustomWidth={
+													marker.iconImageCustomWidth
+												}
+												infoWindowText={
+													marker.infoWindowText
+												}
+												onChange={(newAttrs) => {
+													const newMarkers =
+														Object.assign(
+															[],
+															markers
+														);
 
-														setAttributes({
-															markers:
-																Object.assign(
-																	[],
-																	markers
-																),
-														});
-													}
-												}}
-												className="ghostkit-google-maps-search-box"
-											/>
-											<ApplyFilters
-												name="ghostkit.editor.controls"
-												attribute="additionalMarkerOptions"
-												marker={marker}
-												props={props}
-												setMarkerOptions={(
-													newMarkerOptions
-												) => {
-													markers[index] = {
-														...markers[index],
-														...newMarkerOptions,
+													newMarkers[index] = {
+														...newMarkers[index],
+														...newAttrs,
 													};
 
 													setAttributes({
-														markers: Object.assign(
-															[],
-															markers
-														),
+														markers: newMarkers,
 													});
 												}}
 											/>
 											<Button
 												onClick={() => {
-													markers.splice(index, 1);
-
-													setAttributes({
-														markers: Object.assign(
+													const newMarkers =
+														Object.assign(
 															[],
 															markers
-														),
+														);
+
+													newMarkers.splice(index, 1);
+
+													setAttributes({
+														markers: newMarkers,
 													});
 												}}
 												className="ghostkit-google-maps-marker-remove"
@@ -448,7 +560,7 @@ export default function BlockEdit(props) {
 													'ghostkit'
 												)}
 											</Button>
-										</li>
+										</DropdownPicker>
 									))}
 								</ul>
 							) : null}

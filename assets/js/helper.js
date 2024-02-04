@@ -19,7 +19,6 @@ const {
 
 	googleMapsAPIKey,
 	googleMapsAPIUrl,
-	googleMapsLibrary,
 
 	googleReCaptchaAPISiteKey,
 	googleReCaptchaAPISecretKey,
@@ -76,7 +75,6 @@ const GHOSTKIT = {
 
 	googleMapsAPIKey,
 	googleMapsAPIUrl,
-	googleMapsLibrary,
 
 	googleReCaptchaAPISiteKey,
 	googleReCaptchaAPISecretKey,

@@ -16,8 +16,9 @@
 	}
 }
 
-.ghostkit-google-maps-wrap {
-	height: 1px;
+.ghostkit-google-maps-wrap .components-resizable-box__container > div {
+	width: 100%;
+	height: 100%;
 }
 
 .ghostkit-google-maps-search {
@@ -64,30 +65,52 @@
 
 // markers
 .ghostkit-google-maps-markers {
-	li {
-		margin-bottom: 15px;
+	.ghostkit-component-dropdown-picker-wrapper,
+	.ghostkit-component-dropdown-picker-wrapper > div {
+		margin-bottom: 0;
+	}
+	.ghostkit-component-dropdown-picker-wrapper + .ghostkit-component-dropdown-picker-wrapper .components-button {
+		border-top: none;
+	}
+}
+.ghostkit-google-maps-marker-remove {
+	float: right;
+	padding: 0;
+	font-size: 10px;
+	color: #b9b9b9;
+	box-shadow: none !important;
 
-		&::after {
-			display: block;
-			padding-top: 15px;
-			margin-right: -16px;
-			margin-left: -16px;
-			clear: both;
-			content: "";
-			border-bottom: 1px solid #efefef;
-		}
+	&:hover,
+	&:focus {
+		color: #e73535;
+	}
+}
+.ghostkit-component-google-maps-markers {
+	> .components-popover__content {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
 	}
 
-	.ghostkit-google-maps-marker-remove {
-		float: right;
-		padding: 0;
-		font-size: 10px;
-		color: #b9b9b9;
-		box-shadow: none !important;
+	// icon
+	.ghostkit-google-maps-marker-options-content-icon {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-		&:hover,
-		&:focus {
-			color: #e73535;
+	.ghostkit-google-maps-icon-reset {
+		float: right;
+	}
+
+	// info window
+	.ghostkit-google-maps-marker-options-content-info-window-text .editor-rich-text {
+		padding: 10px;
+		border: 1px solid #e8e8e8;
+
+		p:last-child {
+			margin-bottom: 0;
 		}
 	}
 }

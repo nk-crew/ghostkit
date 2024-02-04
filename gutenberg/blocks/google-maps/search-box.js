@@ -1,59 +1,48 @@
-import { withScriptjs } from 'react-google-maps';
-import { compose, withHandlers, withProps, withState } from 'recompose';
-
-const {
-	StandaloneSearchBox,
-} = require('react-google-maps/lib/components/places/StandaloneSearchBox');
-
 import { TextControl } from '@wordpress/components';
+import { useEffect, useRef, useState } from '@wordpress/element';
 
 /*
  * Search Box Component.
  */
-export default compose(
-	withState('value', 'setValue', (props) => props.value),
-	withProps({
-		loadingElement: <div />,
-		containerElement: <div />,
-	}),
-	withHandlers(() => {
-		const refs = {
-			searchBox: undefined,
-		};
+export default function SearchBox(props) {
+	const { label, placeholder, className, onChange } = props;
 
-		return {
-			onSearchBoxMounted: () => (ref) => {
-				refs.searchBox = ref;
-			},
-			onPlacesChanged: (props) => () => {
-				const places = refs.searchBox.getPlaces();
+	const inputRef = useRef(null);
+	const [value, setValue] = useState('');
 
-				if (props.onChange) {
-					props.onChange(places);
+	useEffect(() => {
+		if (!inputRef?.current || !window?.google?.maps?.places) {
+			return;
+		}
 
-					if (places && places[0]) {
-						props.setValue(places[0].formatted_address);
-					}
+		const searchBox = new window.google.maps.places.SearchBox(
+			inputRef.current
+		);
+
+		searchBox.addListener('places_changed', () => {
+			const places = searchBox.getPlaces();
+
+			if (onChange) {
+				onChange(places);
+
+				if (places && places[0]) {
+					setValue(places[0].formatted_address);
 				}
-			},
-		};
-	}),
-	withScriptjs
-)((props) => (
-	<div data-standalone-searchbox="" className={props.className}>
-		<StandaloneSearchBox
-			ref={props.onSearchBoxMounted}
-			bounds={props.bounds}
-			onPlacesChanged={props.onPlacesChanged}
-		>
+			}
+		});
+	}, [inputRef, onChange]);
+
+	return (
+		<div className={className}>
 			<TextControl
-				label={props.label}
-				placeholder={props.placeholder}
-				value={props.value}
+				ref={inputRef}
+				label={label}
+				placeholder={placeholder}
+				value={value}
 				onChange={(val) => {
-					props.setValue(val);
+					setValue(val);
 				}}
 			/>
-		</StandaloneSearchBox>
-	</div>
-));
+		</div>
+	);
+}

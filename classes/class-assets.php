@@ -456,9 +456,6 @@ class GhostKit_Assets {
 			'timezone'                    => $timezone,
 			'googleMapsAPIKey'            => get_option( 'ghostkit_google_maps_api_key' ),
 			'googleMapsAPIUrl'            => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
-			'googleMapsLibrary'           => apply_filters( 'gkt_enqueue_plugin_gmaps', true ) ? array(
-				'url' => ghostkit()->plugin_url . 'assets/vendor/gmaps/gmaps.min.js?ver=0.4.25',
-			) : false,
 			'googleReCaptchaAPISiteKey'   => get_option( 'ghostkit_google_recaptcha_api_site_key' ),
 			'googleReCaptchaAPISecretKey' => is_admin() ? get_option( 'ghostkit_google_recaptcha_api_secret_key' ) : '',
 			'sidebars'                    => $sidebars,

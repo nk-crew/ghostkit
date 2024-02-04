@@ -1,64 +1,80 @@
-import {
-	GoogleMap,
-	Marker,
-	withGoogleMap,
-	withScriptjs,
-} from 'react-google-maps';
-import { compose, withHandlers, withProps } from 'recompose';
+import { useEffect, useRef, useState } from '@wordpress/element';
 
-import ApplyFilters from '../../components/apply-filters';
+import { addMarker, InitGoogleMaps } from './gmaps-api';
 
-/*
- * Map Block Component.
- */
-export default compose(
-	withProps({
-		loadingElement: <div style={{ height: '100%' }} />,
-		mapElement: <div style={{ height: '100%' }} />,
-	}),
-	withHandlers(() => {
-		const refs = {
-			map: undefined,
-		};
+export default function MapBlock(props) {
+	const { apiUrl, options, markers, onChangeMarkers } = props;
 
-		return {
-			onMapMounted: () => (ref) => {
-				refs.map = ref;
-			},
-			onZoomChanged: (props) => () => {
-				props.onZoomChanged(refs.map.getZoom());
-			},
-			onCenterChanged: (props) => () => {
-				props.onCenterChanged(refs.map.getCenter());
-			},
-		};
-	}),
-	withScriptjs,
-	withGoogleMap
-)((props) => (
-	<GoogleMap
-		ref={props.onMapMounted}
-		markers={props.markers}
-		zoom={props.zoom}
-		center={props.center}
-		options={props.options}
-		defaultZoom={props.defaultZoom}
-		defaultCenter={props.defaultCenter}
-		defaultOptions={props.defaultOptions}
-		onZoomChanged={props.onZoomChanged}
-		onCenterChanged={props.onCenterChanged}
-	>
-		{props.markers.map((marker, index) => (
-			<ApplyFilters
-				// eslint-disable-next-line react/no-array-index-key
-				key={index}
-				name="ghostkit.editor"
-				attribute="mapMarker"
-				marker={marker}
-				props={props}
-			>
-				<Marker position={{ lat: marker.lat, lng: marker.lng }} />
-			</ApplyFilters>
-		))}
-	</GoogleMap>
-));
+	const [instance, setInstance] = useState(null);
+	const mapRef = useRef(null);
+	const markersRef = useRef(null);
+
+	// Load Google Maps API and initialize the map
+	useEffect(() => {
+		if (!mapRef.current) {
+			return;
+		}
+
+		if (!instance) {
+			InitGoogleMaps(
+				mapRef.current,
+				{ apiUrl, ...options },
+				(newInstance) => {
+					setInstance(newInstance);
+				}
+			);
+		} else {
+			instance.setOptions(options);
+		}
+	}, [apiUrl, instance, options]);
+
+	// Add markers to the map.
+	useEffect(() => {
+		if (!instance || !markers || !markers.length) {
+			return;
+		}
+
+		// Reset old markers.
+		if (markersRef.current?.length) {
+			markersRef.current.forEach((marker) => {
+				marker.setMap(null);
+			});
+		}
+
+		markersRef.current = [];
+
+		markers.forEach((markerData, i) => {
+			const { marker } = addMarker({
+				map: instance,
+				lat: markerData.lat,
+				lng: markerData.lng,
+				title: markerData.title,
+				description: markerData.infoWindowText,
+				draggable: true,
+			});
+
+			markersRef.current.push(marker);
+
+			// Drag markers.
+			window.google.maps.event.addListener(marker, 'dragend', (event) => {
+				const lat = event.latLng.lat();
+				const lng = event.latLng.lng();
+
+				const newMarkers = Object.assign([], markers);
+
+				newMarkers[i].lat = lat;
+				newMarkers[i].lng = lng;
+
+				onChangeMarkers(newMarkers);
+			});
+		});
+	}, [apiUrl, instance, options, markers, onChangeMarkers]);
+
+	return (
+		<div
+			ref={mapRef}
+			className="ghostkit-google-maps-wrap"
+			style={{ minHeight: '100%' }}
+		/>
+	);
+}

@@ -1,13 +1,12 @@
 import classnames from 'classnames/dedupe';
 
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 
 import { maybeDecode } from '../../utils/encode-decode';
 import metadata from './block.json';
 
 const { name } = metadata;
-
-import { useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Block Save Class.
@@ -71,11 +70,48 @@ export default function BlockSave(props) {
 		<div {...blockProps}>
 			{markers
 				? markers.map((marker, i) => {
+						const thereIsIcon =
+							marker.iconImageURL &&
+							marker.iconImageCustomWidth &&
+							marker.iconImageWidth &&
+							marker.iconImageHeight;
+
 						const markerData = {
+							'data-title': marker.title,
 							'data-lat': marker.lat,
 							'data-lng': marker.lng,
 							'data-address': marker.address,
 						};
+
+						if (thereIsIcon) {
+							const iconImageCustomHeight =
+								marker.iconImageCustomWidth *
+								(marker.iconImageHeight /
+									marker.iconImageWidth);
+
+							markerData['data-icon-url'] = marker.iconImageURL;
+							markerData['data-icon-width'] =
+								marker.iconImageCustomWidth;
+							markerData['data-icon-height'] =
+								iconImageCustomHeight;
+						}
+
+						if (
+							marker.infoWindowText &&
+							!RichText.isEmpty(marker.infoWindowText)
+						) {
+							markerData.children = (
+								<div
+									key="ghostkit-pro-google-maps-marker-info-window-text"
+									className="ghostkit-pro-google-maps-marker-info-window-text"
+									style={{ display: 'none' }}
+								>
+									<RichText.Content
+										value={marker.infoWindowText}
+									/>
+								</div>
+							);
+						}
 
 						const markerName = `marker-${i}`;
 
