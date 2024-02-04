@@ -92,8 +92,6 @@
 		"raf-schd": "^4.0.3",
 		"react": "16.8.0",
 		"react-ace": "^10.1.0",
-		"react-lazyload": "^3.2.0",
-		"react-masonry-component": "^6.3.0",
 		"react-select": "^5.7.5",
 		"react-virtualized": "^9.22.5",
 		"scriptjs": "^2.5.9",

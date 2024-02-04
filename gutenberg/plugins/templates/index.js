@@ -1,8 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
 import classnames from 'classnames/dedupe';
-import LazyLoad from 'react-lazyload';
-import Masonry from 'react-masonry-component';
 
 import apiFetch from '@wordpress/api-fetch';
 import { parse } from '@wordpress/blocks';
@@ -387,15 +385,7 @@ class TemplatesModal extends Component {
 												</div>
 											</div>
 											{this.state.error}
-											<Masonry
-												className="ghostkit-plugin-templates-list"
-												elementType="ul"
-												disableImagesLoaded={false}
-												updateOnEachImageLoad
-												options={{
-													transitionDuration: 0,
-												}}
-											>
+											<ul className="ghostkit-plugin-templates-list">
 												{currentTemplates.map(
 													(template) => {
 														const withThumb =
@@ -495,21 +485,15 @@ class TemplatesModal extends Component {
 																			) : (
 																				''
 																			)}
-																			<LazyLoad
-																				overflow
-																				offset={
-																					100
+																			<img
+																				src={
+																					template.thumbnail
 																				}
-																			>
-																				<img
-																					src={
-																						template.thumbnail
-																					}
-																					alt={
-																						template.title
-																					}
-																				/>
-																			</LazyLoad>
+																				alt={
+																					template.title
+																				}
+																				loading="lazy"
+																			/>
 																		</div>
 																	) : (
 																		''
@@ -524,7 +508,7 @@ class TemplatesModal extends Component {
 														);
 													}
 												)}
-											</Masonry>
+											</ul>
 											{tabType === 'local' ? (
 												<ExternalLink
 													className="components-button is-button is-primary"
