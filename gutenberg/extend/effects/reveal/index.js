@@ -203,7 +203,7 @@ function EffectsRevealTools(props) {
 					value={getValue('transition', DEFAULTS.transition)}
 					onChange={(val) => updateValue({ transition: val })}
 				/>
-				<ProNote title={__('Pro Settings', 'ghostkit')}>
+				<ProNote title={__('Pro Settings', 'ghostkit')} collapsed>
 					<p>
 						{__(
 							'Advanced reveal settings are available in the Ghost Kit Pro plugin only:',
