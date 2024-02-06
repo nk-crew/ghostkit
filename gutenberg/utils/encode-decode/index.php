@@ -35,7 +35,7 @@ function ghostkit_encode( $str ) {
 		$str = str_replace( '--', '_u002d__u002d_', $str );
 
         // phpcs:ignore
-        $str = urlencode( $str );
+        $str = rawurlencode( $str );
 	}
 
 	return $str;
@@ -62,7 +62,9 @@ function ghostkit_decode( $str ) {
 
 	// String.
 	if ( is_string( $str ) ) {
-		$str = urldecode( $str );
+		// Previously we used urldecode() function, but it doesn't work properly with `+` character.
+		// For example, there styles will be broken: width: calc( 100% + 20px );.
+		$str = rawurldecode( $str );
 
 		// Because of these replacements, some attributes can't be exported to XML without being broken. So, we need to replace it manually with something safe.
 		// https://github.com/WordPress/gutenberg/blob/88645e4b268acf5746e914159e3ce790dcb1665a/packages/blocks/src/api/serializer.js#L246-L271 .

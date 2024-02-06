@@ -3,10 +3,15 @@
  *
  * @since v3.1.0
  */
-
+/**
+ * Internal dependencies
+ */
 import migrateSR from './scroll-reveal';
 import migrateStyles from './styles';
 
+/**
+ * WordPress dependencies
+ */
 const { merge } = window.lodash;
 
 import { createHigherOrderComponent } from '@wordpress/compose';

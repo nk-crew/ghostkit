@@ -292,6 +292,19 @@ You can extend Gutenberg blocks save attributes using core hooks. Read more here
 
 ## Changelog ##
 
+= 3.1.2 =
+
+* improved Styles component to use useCallback
+* fixed possibility to add custom classes when our `ghostkit-custom-...` class added
+* fixed missing `+` symbol in custom CSS
+* fixed blocks enqueue method in Ghost Kit settings pages
+
+= 3.1.1 =
+
+* fixed migration to new Ghost Kit attributes from deprecated blocks (mostly from Core blocks, which has deprecated attributes)
+* changed ProNote component in Reveal effect to collapsed version to not overwhelm effect settings panel
+* changed Spring transition defaults
+
 = 3.1.0 =
 
 Deprecated changes:

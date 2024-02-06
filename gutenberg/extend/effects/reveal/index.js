@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import DropdownPicker from '../../../components/dropdown-picker';
 import EditorStyles from '../../../components/editor-styles';
 import ProNote from '../../../components/pro-note';
@@ -5,6 +8,9 @@ import TransitionPresetsControl from '../../../components/transition-presets-con
 import TransitionSelector from '../../../components/transition-selector';
 import DEFAULTS from './defaults';
 
+/**
+ * WordPress dependencies
+ */
 const { cloneDeep } = window.lodash;
 
 import {
@@ -105,20 +111,14 @@ function EffectsRevealTools(props) {
 				<EditorStyles
 					styles={`
               [data-block="${clientId}"] {
-                transform: translateX(${getValue(
-					'x',
-					DEFAULTS.x
-				)}px) translateY(${getValue(
+                transform: translateX(${getValue('x', DEFAULTS.x)}px) translateY(${getValue(
 					'y',
 					DEFAULTS.y
-				)}px) scale(${getValue(
-					'scale',
-					DEFAULTS.scale
-				)}) rotate(${getValue('rotate', DEFAULTS.rotate)}deg);
-                opacity: ${Math.max(
-					0.1,
-					getValue('opacity', DEFAULTS.opacity)
-				)};
+				)}px) scale(${getValue('scale', DEFAULTS.scale)}) rotate(${getValue(
+					'rotate',
+					DEFAULTS.rotate
+				)}deg);
+                opacity: ${Math.max(0.1, getValue('opacity', DEFAULTS.opacity))};
               }
             `}
 				/>
