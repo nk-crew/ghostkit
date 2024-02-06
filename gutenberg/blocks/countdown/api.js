@@ -9,9 +9,7 @@ import { _n } from '@wordpress/i18n';
  * Thanks https://github.com/mckamey/countdownjs/.
  *
  * @public
- * @param {function(Object)|Date|number} start the starting date
- * @param {function(Object)|Date|number} end   the ending date
- * @param {number}                       units the units to populate
+ * @param {number} units the units to populate
  *
  * @return {Object|number}
  */

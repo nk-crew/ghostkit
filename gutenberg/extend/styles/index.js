@@ -283,6 +283,7 @@ function CustomStylesComponent(props) {
 				setAttributes(newAttrs);
 			}
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[blockSettings, attributes, ghostkit, props, className, setAttributes]
 	);
 
@@ -301,6 +302,7 @@ function CustomStylesComponent(props) {
 
 			onUpdate(true);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [attributes]);
 
 	let styles = '';

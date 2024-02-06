@@ -45,7 +45,6 @@ export default function useStyles(props) {
 	 * @param          newStyles
 	 * @param {string} device    - responsive device.
 	 * @param {string} selector  - optional custom selector.
-	 *
 	 */
 	function setStyles(newStyles, device = false, selector = false) {
 		const clonedGhostkitData = cloneDeep(ghostkitData);
