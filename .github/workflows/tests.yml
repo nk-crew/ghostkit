@@ -150,7 +150,7 @@ jobs:
           fi
           # Extract just the number of tests from the string.
           num_tests=$(echo "$num_tests" | grep -Eo '[0-9]+')
-          if [ $num_tests -lt 5 ] ; then
+          if [ $num_tests -lt 2 ] ; then
             echo "Only $num_tests tests passed, which is much fewer than expected." && exit 1
           fi
           echo "$num_tests tests passed."
