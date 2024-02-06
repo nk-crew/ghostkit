@@ -120,7 +120,7 @@ events.on(document, 'init.blocks.gkt', () => {
 						if (!loaded) {
 							$this.classList.add('ghostkit-video-loading');
 
-							api.getIframe(($iframe) => {
+							api.getVideo(($iframe) => {
 								// Add iframe.
 								const $parent = $iframe.parentNode;
 
@@ -222,7 +222,7 @@ events.on(document, 'init.blocks.gkt', () => {
 					} else if (!loaded) {
 						$this.classList.add('ghostkit-video-loading');
 
-						api.getIframe(($iframe) => {
+						api.getVideo(($iframe) => {
 							const $parent = $iframe.parentNode;
 
 							// Add iframe.
