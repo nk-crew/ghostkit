@@ -5,7 +5,8 @@
 
 .ghostkit-toolbar-responsive {
 	// Hide Gutenberg preview dropdown.
-	~ .block-editor-post-preview__dropdown {
+	~ .block-editor-post-preview__dropdown,
+	~ .editor-preview-dropdown {
 		display: none;
 	}
 

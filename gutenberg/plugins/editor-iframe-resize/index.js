@@ -41,15 +41,16 @@ function IframeResponsiveStyles() {
 			// eslint-disable-next-line react/no-danger
 			dangerouslySetInnerHTML={{
 				__html: `
-          .edit-post-visual-editor__content-area > div {
-            width: ${width}px !important;
-            height: ${height} !important;
-            margin: ${marginVertical} auto !important;
-            border-radius: 2px !important;
-            border: 1px solid rgb(221, 221, 221) !important;
-            overflow-y: auto !important;
-          }
-        `,
+				.edit-post-visual-editor__content-area > div,
+				.edit-post-visual-editor > div {
+					width: ${width}px !important;
+					height: ${height} !important;
+					margin: ${marginVertical} auto !important;
+					border-radius: 2px !important;
+					border: 1px solid rgb(221, 221, 221) !important;
+					overflow-y: auto !important;
+				}
+				`,
 			}}
 		/>
 	);
