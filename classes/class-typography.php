@@ -19,63 +19,6 @@ class GhostKit_Typography {
 	}
 
 	/**
-	 * Check if typography settings exist.
-	 *
-	 * @return bool
-	 */
-	public static function typography_exist() {
-		$result = get_transient( 'ghostkit_typography_exist' );
-
-		if ( ! $result ) {
-			global $wpdb;
-			// When caching, we have to write a string so that the function does not call requests every time the page is loaded.
-			$result                            = 'false';
-			$typography_prepeare_styles        = array();
-			$global_typography_prepeare_styles = array();
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$local_typography = $wpdb->query(
-				$wpdb->prepare(
-					"SELECT * FROM `{$wpdb->prefix}postmeta` WHERE (`meta_key` LIKE %s) LIMIT 50",
-					'%ghostkit_typography%'
-				)
-			);
-			/**
-			 * Comparing the global typography with the default.
-			 * If the global typography differs from the default, then it is original.
-			 * In this case, the custom typography is exist.
-			 */
-			$global_typography  = get_option( 'ghostkit_typography', array() );
-			$default_typography = apply_filters( 'gkt_custom_typography', array() );
-			if ( self::is_exist( $default_typography ) && self::is_exist( $global_typography ) && self::is_exist( $global_typography['ghostkit_typography'] ) ) {
-				foreach ( $default_typography as $key => $typography ) {
-					if ( self::is_exist( $typography['output'] ) ) {
-						$typography_prepeare_styles[ $key ] = array(
-							'style-properties' => $typography['defaults'],
-							'output'           => $typography['output'],
-						);
-					}
-				}
-
-				// Global custom Typography.
-				if ( self::is_exist( $global_typography ) && self::is_exist( $global_typography['ghostkit_typography'] ) ) {
-					$global_typography_prepeare_styles = self::get_typography_values( $global_typography['ghostkit_typography'], $typography_prepeare_styles );
-				}
-			}
-
-			if (
-				$local_typography > 0 &&
-				$typography_prepeare_styles !== $global_typography_prepeare_styles
-			) {
-				$result = true;
-			}
-
-			set_transient( 'ghostkit_typography_exist', $result );
-		}
-
-		return true === $result;
-	}
-
-	/**
 	 * Enqueue Typography assets to editor and front end.
 	 */
 	public function enqueue_typography_assets() {
