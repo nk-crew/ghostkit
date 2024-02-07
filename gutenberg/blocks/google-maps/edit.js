@@ -406,67 +406,67 @@ export default function BlockEdit(props) {
 
 	return (
 		<Fragment>
-			<BlockControls>
-				<ToolbarGroup>
-					<ToolbarButton
-						icon={getIcon('icon-fullheight')}
-						title={__('Full Height', 'ghostkit')}
-						onClick={() =>
-							setAttributes({ fullHeight: !fullHeight })
-						}
-						isActive={fullHeight}
-					/>
-				</ToolbarGroup>
-				<ToolbarGroup>
-					<ToolbarButton
-						icon={getIcon('icon-marker')}
-						title={__('Add Marker', 'ghostkit')}
-						onClick={() => {
-							setAttributes({
-								markers: [
-									...markers,
-									...[
-										{
-											lat,
-											lng,
-										},
+			{apiKey ? (
+				<BlockControls>
+					<ToolbarGroup>
+						<ToolbarButton
+							icon={getIcon('icon-fullheight')}
+							title={__('Full Height', 'ghostkit')}
+							onClick={() =>
+								setAttributes({ fullHeight: !fullHeight })
+							}
+							isActive={fullHeight}
+						/>
+					</ToolbarGroup>
+					<ToolbarGroup>
+						<ToolbarButton
+							icon={getIcon('icon-marker')}
+							title={__('Add Marker', 'ghostkit')}
+							onClick={() => {
+								setAttributes({
+									markers: [
+										...markers,
+										...[
+											{
+												lat,
+												lng,
+											},
+										],
 									],
-								],
-							});
-						}}
-					/>
-					<Dropdown
-						renderToggle={({ onToggle }) => (
-							<Button
-								label={__('Style', 'ghostkit')}
-								icon={getIcon('icon-map')}
-								className="components-toolbar__control"
-								onClick={onToggle}
-							/>
-						)}
-						renderContent={() => (
-							<div
-								style={{
-									minWidth: 260,
-								}}
-							>
-								{getStylesPicker()}
-							</div>
-						)}
-					/>
-				</ToolbarGroup>
-			</BlockControls>
+								});
+							}}
+						/>
+						<Dropdown
+							renderToggle={({ onToggle }) => (
+								<Button
+									label={__('Style', 'ghostkit')}
+									icon={getIcon('icon-map')}
+									className="components-toolbar__control"
+									onClick={onToggle}
+								/>
+							)}
+							renderContent={() => (
+								<div
+									style={{
+										minWidth: 260,
+									}}
+								>
+									{getStylesPicker()}
+								</div>
+							)}
+						/>
+					</ToolbarGroup>
+				</BlockControls>
+			) : null}
+			<InspectorControls group="styles">
+				<PanelBody title={__('Styles', 'ghostkit')}>
+					{getStylesPicker()}
+				</PanelBody>
+			</InspectorControls>
 			<InspectorControls>
 				{apiKey ? (
 					<Fragment>
 						<PanelBody>
-							<ToggleControl
-								label={__('Full Height', 'ghostkit')}
-								checked={!!fullHeight}
-								onChange={(val) =>
-									setAttributes({ fullHeight: val })
-								}
-							/>
 							<RangeControl
 								label={
 									fullHeight
@@ -582,9 +582,6 @@ export default function BlockEdit(props) {
 							>
 								{__('+ Add Marker', 'ghostkit')}
 							</Button>
-						</PanelBody>
-						<PanelBody title={__('Style', 'ghostkit')}>
-							{getStylesPicker()}
 						</PanelBody>
 						<PanelBody title={__('Options', 'ghostkit')}>
 							<ToggleControl

@@ -5,18 +5,7 @@
 
 /* Fullheight */
 .ghostkit-google-maps-fullheight {
-	height: 100vh;
-
-	body.admin-bar & {
-		height: calc(100vh - #{$admin-bar-height});
-
-		@include break-medium() {
-			height: calc(100vh - #{$admin-bar-height-big});
-		}
-		@include break-small() {
-			height: 100vh;
-		}
-	}
+	height: calc(100vh - var(--wp-admin--admin-bar--height, 0px));
 }
 
 .ghostkit-google-maps {

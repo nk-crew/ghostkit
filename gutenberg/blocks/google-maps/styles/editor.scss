@@ -6,14 +6,7 @@
 // Fullheight
 .ghostkit-google-maps-fullheight .ghostkit-google-maps-wrap,
 .ghostkit-google-maps-fullheight .ghostkit-google-maps-placeholder {
-	height: calc(100vh - #{$admin-bar-height + $header-height + $default-block-margin});
-
-	@include break-medium() {
-		height: calc(100vh - #{$admin-bar-height + $header-height + $default-block-margin});
-	}
-	@include break-small() {
-		height: calc(100vh - #{$header-height + $default-block-margin});
-	}
+	height: 100vh;
 }
 
 .ghostkit-google-maps-wrap .components-resizable-box__container > div {
