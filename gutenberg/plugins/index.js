@@ -23,12 +23,11 @@ const { GHOSTKIT } = window;
 	editorIframeResize,
 ].forEach(({ name, icon, Plugin }) => {
 	if (
-		name === 'ghostkit-color-palette' &&
-		!GHOSTKIT.allowPluginColorPalette
+		(name === 'ghostkit-color-palette' &&
+			!GHOSTKIT.allowPluginColorPalette) ||
+		(name === 'ghostkit-customizer' && !GHOSTKIT.allowPluginCustomizer) ||
+		(name === 'ghostkit-templates' && !GHOSTKIT.allowTemplates)
 	) {
-		return;
-	}
-	if (name === 'ghostkit-customizer' && !GHOSTKIT.allowPluginCustomizer) {
 		return;
 	}
 
