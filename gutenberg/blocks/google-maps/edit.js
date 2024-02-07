@@ -129,7 +129,7 @@ function MarkerSettings(props) {
 					value={iconImageURL || false}
 					render={({ open }) => (
 						<Button variant="secondary" onClick={open}>
-							{__('Change Icon', '@@text_domain')}
+							{__('Change Icon', 'ghostkit')}
 						</Button>
 					)}
 				/>
@@ -149,14 +149,14 @@ function MarkerSettings(props) {
 							});
 						}}
 					>
-						{__('Reset Icon to Default', '@@text_domain')}
+						{__('Reset Icon to Default', 'ghostkit')}
 					</Button>
 				</div>
 			) : null}
 			{iconImageCustomWidth ? (
 				<div>
 					<RangeControl
-						label={__('Marker Width', '@@text_domain')}
+						label={__('Marker Width', 'ghostkit')}
 						value={iconImageCustomWidth}
 						onChange={(val) =>
 							onChange({ iconImageCustomWidth: val })
@@ -167,14 +167,14 @@ function MarkerSettings(props) {
 				</div>
 			) : null}
 			<BaseControl
-				label={__('Info Window Text', '@@text_domain')}
+				label={__('Info Window Text', 'ghostkit')}
 				className="ghostkit-google-maps-marker-options-content-info-window-text"
 				id="ghostkit-google-maps-marker-content-info-window-text"
 			>
 				<RichText
 					value={infoWindowText}
 					multiline
-					placeholder={__('Write text…', '@@text_domain')}
+					placeholder={__('Write text…', 'ghostkit')}
 					onChange={(val) => {
 						onChange({ infoWindowText: val });
 					}}
