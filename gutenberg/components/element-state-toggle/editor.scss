@@ -1,0 +1,28 @@
+@import "../../variables";
+
+.ghostkit-control-element-state-toggle {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: auto;
+	padding: 0;
+
+	.components-base-control__label > &,
+	.components-input-control__label > & {
+		margin-left: 8px;
+		vertical-align: bottom;
+	}
+
+	> svg {
+		display: block;
+		width: 18px;
+		height: auto;
+	}
+
+	> span {
+		margin-left: 2px;
+		font-size: 12px;
+		font-weight: 500;
+	}
+}

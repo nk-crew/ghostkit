@@ -1,0 +1,65 @@
+@import "../../variables";
+
+.ghostkit-component-color-picker-wrapper:has(+ .ghostkit-component-color-picker-wrapper) {
+	margin-bottom: -9px;
+
+	.ghostkit-component-color-toggle {
+		border-bottom: none;
+	}
+}
+
+.ghostkit-component-color-toggle {
+	position: relative;
+	width: 100%;
+	height: auto;
+	padding: 10px 12px;
+	margin-bottom: 0;
+	border: 1px solid rgba(0, 0, 0, 10%);
+	border-radius: 0;
+
+	&.ghostkit-component-color-toggle-active {
+		color: var(--wp-admin-theme-color);
+		background-color: #f0f0f0;
+	}
+
+	.ghostkit-component-color-toggle-indicator {
+		position: relative;
+		display: block;
+		width: 20px;
+		height: 20px;
+		padding: 0;
+		margin-right: 8px;
+		color: transparent;
+		cursor: pointer;
+		background: linear-gradient(-45deg, transparent 48%, #ddd 0, #ddd 52%, transparent 0);
+		border: none;
+		border-radius: 50%;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 20%);
+	}
+
+	.ghostkit-component-color-toggle-label {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+
+// Dropdown.
+.ghostkit-component-color-picker__dropdown {
+	display: block;
+	width: 100%;
+}
+
+.ghostkit-component-color-picker__dropdown-content {
+	.components-popover__content {
+		width: 260px;
+		padding: 16px;
+	}
+
+	.components-tab-panel__tabs {
+		margin-top: -16px;
+		margin-right: -16px;
+		margin-bottom: 16px;
+		margin-left: -16px;
+	}
+}

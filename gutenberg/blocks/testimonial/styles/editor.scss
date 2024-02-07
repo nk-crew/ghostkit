@@ -1,0 +1,41 @@
+/**
+ * Editor Styles
+ */
+@import "./variables";
+@import "./style";
+
+.ghostkit-testimonial {
+	// Photo.
+	&-photo button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: var(--gkt-testimonial--photo__width);
+		background-color: $light-gray-200;
+
+		&:hover,
+		&:focus,
+		&:not(:disabled, [aria-disabled="true"]):focus {
+			background-color: $light-gray-300;
+			box-shadow: none;
+		}
+	}
+
+	// Meta.
+	&-source .editor-rich-text__tinymce.mce-content-body {
+		line-height: 1;
+	}
+}
+
+// Example.
+.block-editor-inserter__preview {
+	.ghostkit-testimonial-photo {
+		margin-top: 10px;
+	}
+
+	.ghostkit-testimonial-content .block-editor-block-list__layout {
+		margin-right: 0;
+		margin-left: 20px;
+	}
+}

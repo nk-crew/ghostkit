@@ -1,0 +1,216 @@
+@use "sass:math";
+
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+@import "./icon-only";
+
+@mixin setPaddingAspectRatio($width, $height) {
+	&[data-video-aspect-ratio="#{$width}-#{$height}"]::before,
+	&[data-video-aspect-ratio="#{$width}:#{$height}"]::before,
+	&-aspect-ratio-#{$width}-#{$height}::before {
+		padding-top: #{math.div($height, $width) * 100%};
+	}
+}
+
+.ghostkit-video {
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	background-color: var(--gkt-video__background-color);
+
+	// Aspect Ratio.
+	&::before {
+		display: block;
+		width: 100%;
+		padding-top: 56.25%;
+		content: "";
+	}
+
+	@each $width, $height in (16:9, 21:9, 4:3, 3:2, 1:1, 2:3, 9:16) {
+		@include setPaddingAspectRatio($width, $height);
+	}
+
+	@include setPaddingAspectRatio(3, 4);
+
+	// poster
+	&-poster {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	// play icon
+	&-play-icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--gkt-video--play-icon__width);
+		height: var(--gkt-video--play-icon__height);
+		margin-top: calc(var(--gkt-video--play-icon__width) / -2);
+		margin-left: calc(var(--gkt-video--play-icon__height) / -2);
+		font-size: var(--gkt-video--play-icon__font-size);
+		color: var(--gkt-video--play-icon__color);
+		background-color: var(--gkt-video--play-icon__background-color);
+		border-radius: var(--gkt-video--play-icon__border-radius);
+		box-shadow: var(--gkt-video--play-icon__box-shadow);
+		opacity: 1;
+		transition: var(--gkt-video__transition-duration) transform var(--gkt-video__transition-easing), var(--gkt-video__transition-duration) box-shadow var(--gkt-video__transition-easing), var(--gkt-video__transition-duration) opacity var(--gkt-video__transition-easing);
+	}
+
+	&:hover &-play-icon,
+	&:focus &-play-icon {
+		box-shadow: var(--gkt-video--play-icon-hover__box-shadow);
+		transform: var(--gkt-video--play-icon-hover__transform);
+	}
+
+	&-loading &-play-icon,
+	&-playing &-play-icon {
+		opacity: 0;
+	}
+
+	// loading icon
+	&-loading-icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 3;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--gkt-video--loading-icon__width);
+		height: var(--gkt-video--loading-icon__height);
+		margin-top: calc(var(--gkt-video--loading-icon__width) / -2);
+		margin-left: calc(var(--gkt-video--loading-icon__height) / -2);
+		font-size: var(--gkt-video--loading-icon__font-size);
+		color: var(--gkt-video--loading-icon__color);
+		background-color: var(--gkt-video--loading-icon__background-color);
+		border-radius: var(--gkt-video--loading-icon__border-radius);
+		box-shadow: var(--gkt-video--loading-icon__box-shadow);
+		opacity: 0;
+		transition: var(--gkt-video__transition-duration) opacity var(--gkt-video__transition-easing);
+	}
+
+	&-loading &-loading-icon {
+		opacity: 1;
+	}
+	// prevent animation when hidden.
+	&:not(&-loading) &-spinner {
+		animation: none;
+	}
+
+	// Fullscreen close icon
+	&-fullscreen-close-icon {
+		display: none;
+	}
+
+	// video frame
+	&-frame {
+		position: absolute;
+		top: 0;
+		left: 100%;
+		z-index: 4;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		transition: var(--gkt-video__transition-duration) opacity var(--gkt-video__transition-easing), 0s var(--gkt-video__transition-duration) left;
+
+		iframe,
+		video {
+			width: 100%;
+			height: 100%;
+
+			// fix for some themes.
+			visibility: visible;
+		}
+	}
+
+	&-playing &-frame {
+		left: 0;
+		opacity: 1;
+		transition: var(--gkt-video__transition-duration) opacity var(--gkt-video__transition-easing), 0s left;
+	}
+
+	// Fullscreen video
+	&-fullscreen {
+		position: fixed;
+		top: var(--wp-admin--admin-bar--height, 0);
+		left: 0;
+		z-index: 1500;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: calc(100% - var(--wp-admin--admin-bar--height, 0px));
+		background-color: var(--gkt-video-fullscreen__background-color);
+
+		// fixed top position when WP admin bar showed.
+		@media screen and (max-width: 600px) {
+			body.admin-bar & {
+				top: 0;
+				height: 100%;
+			}
+		}
+
+		&-frame {
+			position: relative;
+			z-index: 1;
+			width: 90%;
+			max-width: calc((90vh - var(--wp-admin--admin-bar--height, 0px)) * var(--gkt-fullscreen-video__aspect-ratio-width) / var(--gkt-fullscreen-video__aspect-ratio-height));
+			height: calc(90vw * var(--gkt-fullscreen-video__aspect-ratio-height) / var(--gkt-fullscreen-video__aspect-ratio-width));
+			max-height: 90%;
+
+			// fixed top position when WP admin bar showed.
+			@media screen and (max-width: 600px) {
+				body.admin-bar & {
+					max-width: calc(100vh * var(--gkt-fullscreen-video__aspect-ratio-width) / var(--gkt-fullscreen-video__aspect-ratio-height));
+				}
+			}
+
+			iframe,
+			video {
+				width: 100%;
+				height: 100%;
+			}
+
+			video {
+				background: var(--gkt-fullscreen-video--video__background);
+			}
+		}
+
+		&-close {
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 2;
+			width: var(--gkt-video-fullscreen--close-button__width);
+			height: var(--gkt-video-fullscreen--close-button__height);
+			font-size: var(--gkt-video-fullscreen--close-button__font-size);
+			line-height: var(--gkt-video-fullscreen--close-button__height);
+			color: var(--gkt-video-fullscreen--close-button__color);
+			text-align: center;
+			cursor: pointer;
+			opacity: var(--gkt-video-fullscreen--close-button__opacity);
+			transition: var(--gkt-video-fullscreen__transition-duration) opacity var(--gkt-video-fullscreen__transition-easing);
+
+			&:hover,
+			&:focus {
+				opacity: var(--gkt-video-fullscreen--close-button-hover__opacity);
+			}
+		}
+	}
+}

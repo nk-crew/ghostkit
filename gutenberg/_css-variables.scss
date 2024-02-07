@@ -1,0 +1,24 @@
+/**
+ * Global CSS Variables
+ */
+:root {
+	// Main colors.
+	--gkt-color-brand: #{$color-brand};
+	--gkt-color-dark-gray: #{$color-dark-gray};
+	--gkt-color-light-gray: #{$color-light-gray};
+	--gkt-color-light-gray-darken: #{$color-light-gray-darken};
+
+	// Additional colors.
+	--gkt-color-primary: #{$color-primary};
+	--gkt-color-success: #{$color-success};
+	--gkt-color-danger: #{$color-danger};
+	--gkt-color-warning: #{$color-warning};
+	--gkt-color-info: #{$color-info};
+
+	// Radius.
+	--gkt-border-radius: 5px;
+
+	// Transitions.
+	--gkt-transition-duration: 0.2s;
+	--gkt-transition-easing: ease-in-out;
+}

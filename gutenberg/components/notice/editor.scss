@@ -1,0 +1,21 @@
+@import "../../variables";
+
+.ghostkit-component-notice {
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 24px;
+	margin-left: 0;
+
+	&.is-info {
+		color: $blue-50;
+		background-color: rgba($blue-30, 0.1);
+
+		p {
+			color: inherit;
+		}
+	}
+
+	p:last-of-type {
+		margin-bottom: 0 !important;
+	}
+}

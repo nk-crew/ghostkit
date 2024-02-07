@@ -1,0 +1,224 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+// Rows
+// Rows contain and clear the floats of your columns.
+.ghostkit-grid-inner {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: var(--gkt-grid__gap-vertical);
+	justify-content: var(--gkt-grid__justify-content);
+	margin-left: calc(-1 * var(--gkt-grid__gap));
+}
+
+// Fixes conflict with AWB backgrounds and gaps.
+// @thanks https://github.com/nk-crew/ghostkit/issues/104
+.ghostkit-grid,
+.ghostkit-col {
+	padding-top: 0.02px;
+}
+
+// Columns
+// Common styles for small and large grid columns
+// Common properties for all breakpoints
+.ghostkit-col {
+	position: relative;
+	display: flex;
+	flex: var(--gkt-grid--column__flex);
+	// Fix for previous columns implementation without .ghostkit-col-content
+	flex-wrap: wrap;
+	order: var(--gkt-grid--column__order);
+	width: var(--gkt-grid--column__width);
+	max-width: var(--gkt-grid--column__max-width);
+	min-height: 1px; // Prevent columns from collapsing when empty
+	margin-left: var(--gkt-grid__gap);
+}
+
+.ghostkit-col-content {
+	align-self: var(--gkt-grid--column__align-self);
+	width: 100%;
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+	@include media-breakpoint-down($breakpoint) {
+		/* stylelint-disable-next-line function-no-unknown */
+		$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+		// Auto flexbox columns
+		.ghostkit-col#{$infix} {
+			--gkt-grid--column__flex: 0 0 auto;
+			--gkt-grid--column__width: auto;
+			--gkt-grid--column__max-width: 100%;
+		}
+
+		// Grow flexbox columns
+		.ghostkit-col#{$infix}-grow {
+			--gkt-grid--column__flex: 1 0 0;
+			--gkt-grid--column__width: 100%;
+			--gkt-grid--column__max-width: none;
+		}
+
+		// col size.
+		@for $i from 1 through $grid-columns {
+			.ghostkit-col#{$infix}-#{$i} {
+				--gkt-grid--column__size: calc(100% * (#{$i} / #{$grid-columns}));
+				--gkt-grid--column__size-with-gap: calc(var(--gkt-grid--column__size) - var(--gkt-grid__gap));
+				--gkt-grid--column__flex: 0 0 var(--gkt-grid--column__size-with-gap);
+				--gkt-grid--column__width: var(--gkt-grid--column__size-with-gap);
+				--gkt-grid--column__max-width: var(--gkt-grid--column__size-with-gap);
+			}
+		}
+
+		// col order.
+		.ghostkit-col-order#{$infix}-first {
+			--gkt-grid--column__order: -1;
+		}
+		.ghostkit-col-order#{$infix}-last {
+			--gkt-grid--column__order: #{$grid-columns + 1};
+		}
+
+		@for $i from 0 through $grid-columns {
+			.ghostkit-col-order#{$infix}-#{$i} {
+				--gkt-grid--column__order: #{$i};
+			}
+		}
+	}
+}
+
+// Vertical align.
+.ghostkit-grid-align-items-start {
+	--gkt-grid--column__align-self: flex-start;
+}
+
+.ghostkit-grid-align-items-center {
+	--gkt-grid--column__align-self: center;
+}
+
+.ghostkit-grid-align-items-end {
+	--gkt-grid--column__align-self: flex-end;
+}
+
+// Vertical align column.
+@each $breakpoint in map-keys($grid-breakpoints) {
+	@include media-breakpoint-down($breakpoint) {
+		/* stylelint-disable-next-line function-no-unknown */
+		$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+		.ghostkit-col-align-self#{$infix}-start {
+			--gkt-grid--column__align-self: flex-start;
+		}
+		.ghostkit-col-align-self#{$infix}-center {
+			--gkt-grid--column__align-self: center;
+		}
+		.ghostkit-col-align-self#{$infix}-end {
+			--gkt-grid--column__align-self: flex-end;
+		}
+	}
+}
+
+// Horizontal align.
+.ghostkit-grid-justify-content-center {
+	--gkt-grid__justify-content: center;
+}
+
+.ghostkit-grid-justify-content-end {
+	--gkt-grid__justify-content: flex-end;
+}
+
+.ghostkit-grid-justify-content-around {
+	--gkt-grid__justify-content: space-around;
+}
+
+.ghostkit-grid-justify-content-between {
+	--gkt-grid__justify-content: space-between;
+}
+
+// Gaps.
+@each $name, $size in $grid-gaps {
+	.ghostkit-grid-gap-#{$name} {
+		--gkt-grid__gap: #{$size};
+	}
+}
+
+// Columns Sticky.
+.ghostkit-col-sticky-top > .ghostkit-col-content {
+	position: sticky;
+	top: var(--gkt-grid--column-sticky__offset);
+}
+
+.ghostkit-col-sticky-bottom {
+	display: flex;
+	flex-direction: column;
+
+	> .ghostkit-col-content {
+		position: sticky;
+		bottom: var(--gkt-grid--column-sticky__offset);
+		margin-top: auto;
+	}
+}
+
+// AWB backgrounds
+.ghostkit-grid-with-bg,
+.ghostkit-col-with-bg {
+	position: relative;
+	z-index: 0;
+
+	> .nk-awb {
+		&,
+		.nk-awb-inner,
+		.nk-awb-overlay,
+		.nk-awb-wrap {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: -99;
+			margin: 0;
+		}
+
+		.nk-awb-wrap {
+			overflow: hidden;
+		}
+
+		/* Fix for Safari */
+		.nk-awb-overlay {
+			z-index: 0;
+		}
+
+		/* Background sizes */
+		.nk-awb-inner {
+			z-index: -100;
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+			background-size: cover;
+		}
+
+		[data-awb-image-background-size="contain"] > .nk-awb-inner {
+			background-size: contain;
+		}
+
+		[data-awb-image-background-size="pattern"] > .nk-awb-inner {
+			background-repeat: repeat;
+			background-size: auto;
+		}
+
+		/* Image sizes */
+		.nk-awb-inner > .jarallax-img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -100;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			object-fit: cover;
+		}
+
+		[data-awb-image-background-size="contain"] > .nk-awb-inner > .jarallax-img {
+			object-fit: contain;
+		}
+	}
+}

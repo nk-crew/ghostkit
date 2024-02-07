@@ -1,0 +1,112 @@
+@import "../../variables";
+
+/**
+ * Typography Component CSS
+ */
+.ghostkit-control-typography {
+	display: flex;
+	flex-wrap: wrap;
+
+	.ghostkit-typography-font-control {
+		flex: 1;
+		min-width: 50%;
+		max-width: 100%;
+		padding-right: 20px;
+	}
+
+	.ghostkit-typography-weight-control {
+		flex: 1 0 33.3%;
+		max-width: 33%;
+	}
+
+	.ghostkit-typography-size-control,
+	.ghostkit-typography-line-control,
+	.ghostkit-typography-letter-control {
+		flex: 1;
+		min-width: 33.3%;
+		max-width: 100%;
+	}
+
+	.ghostkit-typography-font-control ~ .ghostkit-typography-size-control,
+	.ghostkit-typography-weight-control ~ .ghostkit-typography-size-control,
+	.ghostkit-typography-font-control ~ .ghostkit-typography-line-control,
+	.ghostkit-typography-weight-control ~ .ghostkit-typography-line-control,
+	.ghostkit-typography-font-control ~ .ghostkit-typography-letter-control,
+	.ghostkit-typography-weight-control ~ .ghostkit-typography-letter-control {
+		margin-top: 20px;
+	}
+
+	.ghostkit-typography-size-control + .ghostkit-typography-line-control,
+	.ghostkit-typography-line-control + .ghostkit-typography-letter-control {
+		padding-left: 20px;
+	}
+
+	// Information control.
+	.ghostkit-typography-information-control.ghostkit-typography-font-control {
+		flex: 1 0 80%;
+		padding-right: 0;
+		padding-left: 20px;
+		font-style: italic;
+		color: $light-gray-900;
+	}
+
+	// Category control.
+	.ghostkit-typography-font-category-control-toggle {
+		height: 32px;
+		border: 1px solid $dark-gray-200;
+
+		&:hover,
+		&:focus {
+			border-color: $dark-gray-500;
+			box-shadow: none !important;
+		}
+
+		svg {
+			width: 19px;
+			height: auto;
+			margin: 0 4px;
+		}
+	}
+}
+
+.ghostkit-typography-font-category-control-menu {
+	svg {
+		width: 19px;
+		height: auto;
+		margin: 0 4px;
+	}
+
+	.components-popover:not(.is-mobile) .components-popover__content {
+		min-width: 200px;
+	}
+
+	.components-menu-group {
+		padding: 0;
+
+		.components-button svg {
+			margin-right: 10px !important;
+			margin-left: 5px !important;
+		}
+	}
+
+	.components-menu-item__button {
+		display: flex;
+
+		.components-menu-items__item-icon {
+			order: -1;
+		}
+	}
+}
+
+.ghostkit-typography-badge-pro {
+	height: 14px;
+	padding: 0 5px;
+	margin-left: auto;
+	font-size: 8px;
+	font-weight: 600;
+	line-height: 14px;
+	color: #fff;
+	text-align: center;
+	background-color: $blue-wordpress-700;
+	border-radius: 10px;
+}

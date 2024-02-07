@@ -1,0 +1,20 @@
+/**
+ * Frontend Styles
+ */
+@import "../../variables";
+
+/**
+ * Columns.
+ */
+$paragraph_columns_max: 6 !default;
+@each $breakpoint in map-keys($grid-breakpoints) {
+	@include media-breakpoint-down($breakpoint) {
+		$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+		@for $i from 1 through $paragraph_columns_max {
+			.ghostkit-paragraph-columns#{$infix}-#{ $i } {
+				column-count: $i;
+			}
+		}
+	}
+}

@@ -1,9 +1,0 @@
-@import "../../variables";
-@import "./style";
-
-.ghostkit-tools-panel-transform {
-  display: flex;
-  flex-direction: column;
-  grid-column: 1 / -1;
-  gap: 15px;
-}

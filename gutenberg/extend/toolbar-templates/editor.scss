@@ -1,0 +1,10 @@
+@import "../../variables";
+
+// Button in Toolbar.
+.ghostkit-toolbar-templates {
+	white-space: nowrap;
+
+	.components-button {
+		gap: 6px;
+	}
+}

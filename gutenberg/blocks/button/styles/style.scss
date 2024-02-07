@@ -1,0 +1,107 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-button-wrapper-inner {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: var(--gkt-button__gap-vertical);
+	column-gap: var(--gkt-button__gap);
+	align-items: var(--gkt-button__align-items);
+	justify-content: var(--gkt-button__justify-content);
+
+	// why we need this https://wordpress.org/support/topic/buttons-alignment-issues/
+	clear: both;
+}
+
+.ghostkit-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--gkt-button__padding-v) var(--gkt-button__padding-h);
+	margin: 0;
+	font-size: var(--gkt-button__font-size);
+	line-height: var(--gkt-button__line-height);
+	color: var(--gkt-button__color);
+	text-align: center;
+	text-decoration: none !important;
+	white-space: nowrap;
+	cursor: pointer;
+	background-color: var(--gkt-button__background-color);
+	border: var(--gkt-button__border-width) solid var(--gkt-button__border-color);
+	border-radius: var(--gkt-button__border-radius);
+	outline: var(--gkt-button__outline);
+	box-shadow: var(--gkt-button__box-shadow);
+	transition: var(--gkt-button__transition-duration) background-color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) border-color var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) opacity var(--gkt-button__transition-easing), var(--gkt-button__transition-duration) box-shadow var(--gkt-button__transition-easing);
+
+	&:hover {
+		color: var(--gkt-button-hover__color);
+		background-color: var(--gkt-button-hover__background-color);
+		border: var(--gkt-button-hover__border-width) solid var(--gkt-button-hover__border-color);
+		box-shadow: var(--gkt-button-hover__box-shadow);
+	}
+
+	&:focus,
+	&:active {
+		color: var(--gkt-button-focus__color);
+		background-color: var(--gkt-button-focus__background-color);
+		border: var(--gkt-button-focus__border-width) solid var(--gkt-button-focus__border-color);
+		box-shadow: var(--gkt-button-focus__box-shadow);
+	}
+
+	// Icon.
+	&-icon-left {
+		margin-right: var(--gkt-button--icon__offset);
+	}
+
+	&-icon-right {
+		order: 2;
+		margin-left: var(--gkt-button--icon__offset);
+	}
+
+	&-icon-only {
+		padding: var(--gkt-button-icon-only__padding-v) var(--gkt-button-icon-only__padding-h);
+
+		.ghostkit-button-icon {
+			margin: 0;
+		}
+	}
+
+	// Sizes.
+	&-xs {
+		font-size: var(--gkt-button-xs__font-size);
+	}
+
+	&-sm {
+		font-size: var(--gkt-button-sm__font-size);
+	}
+
+	&-lg {
+		font-size: var(--gkt-button-lg__font-size);
+	}
+
+	&-xl {
+		font-size: var(--gkt-button-xl__font-size);
+	}
+
+	// Align.
+	&-wrapper-align-left {
+		--gkt-button__justify-content: flex-start;
+	}
+
+	&-wrapper-align-right {
+		--gkt-button__justify-content: flex-end;
+	}
+
+	&-wrapper-align-center {
+		--gkt-button__justify-content: center;
+	}
+
+	// Gaps.
+	@each $name, $size in $grid-gaps {
+		&-wrapper-gap-#{$name} {
+			--gkt-button__gap: #{$size};
+		}
+	}
+}

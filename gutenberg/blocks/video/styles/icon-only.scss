@@ -1,0 +1,31 @@
+/**
+ * Icon Only Style.
+ */
+.ghostkit-video.is-style-icon-only {
+	height: var(--gkt-video--play-icon__height);
+	margin-right: auto;
+	margin-left: auto;
+	overflow: unset;
+	background-color: transparent;
+
+	&::before {
+		content: none;
+	}
+
+	&.ghostkit-video-style-icon-only-align-left {
+		.ghostkit-video-play-icon,
+		.ghostkit-video-loading-icon {
+			left: 0;
+			margin-left: 0;
+		}
+	}
+
+	&.ghostkit-video-style-icon-only-align-right {
+		.ghostkit-video-play-icon,
+		.ghostkit-video-loading-icon {
+			right: 0;
+			left: auto;
+			margin-left: 0;
+		}
+	}
+}

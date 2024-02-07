@@ -1,0 +1,76 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-counter-box {
+	display: flex;
+	flex-wrap: wrap;
+	padding: var(--gkt-counter-box__padding-v) var(--gkt-counter-box__padding-h);
+	border: var(--gkt-counter-box__border-width) solid var(--gkt-counter-box__border-color);
+	border-radius: var(--gkt-counter-box__border-radius);
+
+	// With link.
+	&-with-link {
+		position: relative;
+	}
+
+	&-link span {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	// Number.
+	&-number {
+		display: flex;
+		font-size: var(--gkt-counter-box--number__font-size);
+		color: var(--gkt-counter-box--number__color);
+		transition: var(--gkt-counter-box__transition-duration) color var(--gkt-counter-box__transition-easing);
+
+		~ .ghostkit-counter-box-content {
+			padding-left: var(--gkt-counter-box--number__offset);
+		}
+	}
+
+	&-number-align-right {
+		order: 2;
+		padding-right: 0;
+
+		~ .ghostkit-counter-box-content {
+			padding-right: var(--gkt-counter-box--number__offset);
+			padding-left: 0;
+		}
+	}
+
+	&-number-align-top {
+		flex: 100%;
+		justify-content: center;
+		padding-right: 0;
+
+		~ .ghostkit-counter-box-content {
+			flex: 100%;
+			padding-top: var(--gkt-counter-box--number__offset);
+			padding-left: 0;
+		}
+	}
+
+	&-number-top-align-left {
+		justify-content: flex-start;
+	}
+
+	&-number-top-align-center {
+		justify-content: center;
+	}
+
+	&-number-top-align-right {
+		justify-content: flex-end;
+	}
+
+	// Content.
+	&-content {
+		flex: 1;
+	}
+}

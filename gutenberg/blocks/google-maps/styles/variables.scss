@@ -1,0 +1,15 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-google-maps {
+	--gkt-google-maps__background-color: var(--gkt-color-light-gray);
+
+	// Placeholder Icon.
+	--gkt-google-maps--placeholder-icon__width: 36px;
+	--gkt-google-maps--placeholder-icon__height: 36px;
+	// stylelint-disable-next-line function-url-quotes
+	--gkt-google-maps--placeholder-icon__background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.15087 16.7692C8.40185 26.1755 17.1041 33.3352 17.8772 33.9562C17.9131 33.985 17.9513 33.985 17.9872 33.9562C18.7603 33.3352 27.4625 26.1755 29.7135 16.7692C31.4516 9.50628 25.001 2 17.9322 2C10.8634 2 4.97273 9.38462 6.15087 16.7692Z" fill="%23191E23"/><ellipse cx="17.9322" cy="14.5385" rx="4.71253" ry="4.92308" fill="white"/></svg>');
+	--gkt-google-maps--placeholder-icon__opacity: 0.3;
+}

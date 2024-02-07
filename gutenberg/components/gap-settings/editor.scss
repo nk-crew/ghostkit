@@ -1,0 +1,27 @@
+@import "../../variables";
+
+.ghostkit-components-gap-settings-custom {
+	display: flex;
+
+	> .components-base-control {
+		flex: 1;
+		margin-bottom: 0 !important;
+	}
+
+	.components-base-control__help {
+		margin-bottom: 0 !important;
+	}
+
+	> .components-base-control:first-child {
+		input {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		& ~ .components-base-control input {
+			border-left: none;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+	}
+}

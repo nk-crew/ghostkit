@@ -1,0 +1,18 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-gist {
+	.blob-wrapper {
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.blob-num {
+		border: none;
+	}
+
+	table {
+		table-layout: initial;
+	}
+}

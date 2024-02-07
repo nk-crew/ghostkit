@@ -1,0 +1,53 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-countdown {
+	display: flex;
+	flex-wrap: wrap;
+
+	// Align.
+	&-units-align-left {
+		justify-content: flex-start;
+	}
+
+	&-units-align-center {
+		justify-content: center;
+	}
+
+	&-units-align-right {
+		justify-content: flex-end;
+	}
+
+	// Single unit.
+	&-unit {
+		flex: 0 0 auto;
+		min-width: var(--gkt-countdown--unit__min-width);
+		padding: var(--gkt-countdown--unit__padding-v) var(--gkt-countdown--unit__padding-h);
+		text-align: center;
+
+		span {
+			display: block;
+		}
+	}
+
+	// Unit number.
+	&-unit-number {
+		font-size: var(--gkt-countdown--unit-number__font-size);
+		font-weight: var(--gkt-countdown--unit-number__font-weight);
+		color: var(--gkt-countdown--unit-number__color);
+	}
+
+	// Unit label.
+	&-unit-label {
+		font-size: var(--gkt-countdown--unit-label__font-size);
+		color: var(--gkt-countdown--unit-label__color);
+	}
+
+	// Expire action.
+	&-expire-action {
+		display: none;
+		width: 100%;
+	}
+}

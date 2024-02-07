@@ -1,0 +1,30 @@
+/**
+ * Radio.
+ */
+.ghostkit-tabs.is-style-radio {
+	--gkt-tabs--buttons__gap: 0.5em 2em;
+	--gkt-tabs--button__padding-v: 0;
+	--gkt-tabs--button__padding-h: 0;
+	--gkt-tabs--button__border-width: 0;
+	--gkt-tabs--button__border-radius: 0;
+
+	.ghostkit-tabs-buttons-item {
+		display: flex;
+		gap: var(--gkt-tabs-radio--button__gap);
+		align-items: center;
+
+		&::before {
+			flex: 0 0 auto;
+			width: var(--gkt-tabs-radio--button--radio__width);
+			height: var(--gkt-tabs-radio--button--radio__height);
+			content: "";
+			border: var(--gkt-tabs-radio--button--radio__border-width) solid var(--gkt-tabs-radio--button--radio__border-color);
+			border-radius: 50%;
+		}
+	}
+
+	.ghostkit-tabs-buttons-item-active::before {
+		background-image: radial-gradient(circle at 50% center, var(--gkt-tabs-radio--button-active--dot__color) 0%, var(--gkt-tabs-radio--button-active--dot__color) var(--gkt-tabs-radio--button--dot__size), transparent calc(var(--gkt-tabs-radio--button--dot__size) + 0.5px));
+		border-color: var(--gkt-tabs-radio--button-active--radio__border-color);
+	}
+}

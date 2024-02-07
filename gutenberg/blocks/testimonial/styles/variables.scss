@@ -1,0 +1,43 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-testimonial {
+	// Icon.
+	--gkt-testimonial--icon__top: 0.75em;
+	--gkt-testimonial--icon__left: 0.75em;
+	--gkt-testimonial--icon__font-size: 1.5em;
+	--gkt-testimonial--icon__opacity: 0.15;
+	--gkt-testimonial--icon-content__offset: 3.5em;
+
+	// Content.
+	--gkt-testimonial--content__padding-v: 1.5em;
+	--gkt-testimonial--content__padding-h: 1.5em;
+	--gkt-testimonial--content__margin-bottom: 1em;
+	--gkt-testimonial--content__background-color: var(--gkt-color-light-gray);
+	--gkt-testimonial--content__border-radius: var(--gkt-border-radius);
+
+	// Meta.
+	--gkt-testimonial--meta__offset: 1em;
+
+	// Photo.
+	--gkt-testimonial--photo__width: 50px;
+	--gkt-testimonial--photo__border-radius: 25px;
+
+	// Name.
+	--gkt-testimonial--name__line-height: 1.6;
+	--gkt-testimonial--name-source__margin-top: 0.2em;
+
+	// Source.
+	--gkt-testimonial--source__font-size: 0.85em;
+	--gkt-testimonial--source__line-height: 1;
+	--gkt-testimonial--source__opacity: 0.5;
+
+	// Stars.
+	--gkt-testimonial--stars__line-height: 1;
+	--gkt-testimonial--stars__height: 1em;
+	--gkt-testimonial--stars-front__color: #fdcf27;
+	--gkt-testimonial--stars-back__color: var(--gkt-color-light-gray);
+	--gkt-testimonial--stars-mobile__margin-top: 1em;
+}

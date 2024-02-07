@@ -1,0 +1,20 @@
+/**
+ * Editor Styles
+ */
+@import "./variables";
+
+.editor-styles-wrapper {
+	/* stylelint-disable-next-line no-invalid-position-at-import-rule */
+	@import "./style";
+}
+
+// loading spinner.
+.ghostkit-twitter-spinner {
+	width: 100%;
+	margin-bottom: 13px;
+
+	> span {
+		float: left;
+		margin: 0;
+	}
+}

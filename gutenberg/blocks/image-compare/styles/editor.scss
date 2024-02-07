@@ -1,0 +1,22 @@
+/**
+ * Editor Variables
+ */
+@import "./variables";
+@import "./style";
+
+.ghostkit-image-compare-placeholder .components-placeholder__fieldset {
+	display: flex;
+	flex-wrap: wrap;
+
+	> .components-placeholder {
+		flex: 1;
+		box-shadow: none;
+	}
+}
+
+// Disable transitions.
+.ghostkit-image-compare-image-before,
+.ghostkit-image-compare-image-after,
+.ghostkit-image-compare-images-divider {
+	transition-duration: 0s;
+}

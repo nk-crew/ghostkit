@@ -1,0 +1,31 @@
+/**
+ * Admin Styles.
+ */
+@import "../../../gutenberg/variables";
+
+/*
+ * Go Pro menu link
+ */
+#adminmenu a[href*="admin.php?page=ghostkit_go_pro"],
+.wp-list-table.plugins a[href*="admin.php?page=ghostkit_go_pro"] {
+	font-weight: 700;
+	color: $color-success;
+
+	.dashicons {
+		transition: none;
+	}
+
+	&:hover,
+	&:focus {
+		color: $color-success;
+		filter: contrast(1.1) brightness(1.2);
+	}
+}
+
+/**
+ * Admin menu icon.
+ */
+#adminmenu .toplevel_page_ghostkit > .wp-menu-image.svg {
+	filter: brightness(1.3);
+	background-size: 16px auto;
+}

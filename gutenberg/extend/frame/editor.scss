@@ -1,0 +1,84 @@
+@import "../../variables";
+
+.ghostkit-tools-panel-frame {
+	display: flex;
+	flex-direction: column;
+	grid-column: 1 / -1;
+	gap: 15px;
+}
+
+// Border.
+.ghostkit-control-border-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.ghostkit-control-toggle-group {
+		width: 60%;
+
+		.components-toggle-group-control {
+			min-height: 30px;
+		}
+	}
+
+	.ghostkit-component-color-toggle {
+		padding: 0;
+		margin-top: 4px;
+		background: none;
+		border: none;
+	}
+
+	.ghostkit-component-input-drag {
+		max-width: 62px;
+	}
+}
+
+// Shadow
+.ghostkit-control-box-shadow {
+	display: flex;
+	align-items: flex-start;
+
+	> div:first-child {
+		margin-right: auto;
+	}
+
+	.ghostkit-component-color-toggle {
+		padding: 0;
+		margin-top: 5px;
+		background: none;
+		border: none;
+	}
+}
+
+// Border Radius.
+.ghostkit-control-radius {
+	display: flex;
+
+	> div + div {
+		margin-left: -1px;
+	}
+
+	> div:focus-within {
+		z-index: 1;
+	}
+
+	.ghostkit-control-radius-tl input {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	.ghostkit-control-radius-tr input,
+	.ghostkit-control-radius-br input {
+		border-radius: 0;
+	}
+
+	.ghostkit-control-radius-bl input {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	.components-base-control,
+	.components-base-control__field {
+		margin-bottom: 0 !important;
+	}
+}

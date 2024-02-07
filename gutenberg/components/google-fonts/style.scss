@@ -1,0 +1,44 @@
+.ghostkit-settings-fonts-google-form {
+	padding: 15px;
+	margin-top: 25px;
+	background-color: #f9f9f9;
+	border: 1px solid #ccd0d4;
+}
+
+.ghostkit-settings-fonts-google-input-group {
+	display: flex;
+	flex-wrap: wrap;
+
+	.components-base-control__field {
+		margin-bottom: 0;
+	}
+
+	> .components-base-control {
+		flex: 1;
+
+		input {
+			min-height: 32px;
+			max-height: 32px;
+			border-right: none;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+
+	> .components-button {
+		height: 32px;
+		min-height: 32px;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+}
+
+.ghostkit-settings-fonts-google-form-error {
+	margin-bottom: 0.8em;
+	color: var(--gkt-color-danger);
+}
+
+.ghostkit-settings-fonts-google-form-notice {
+	margin-bottom: 0.8em;
+	color: var(--gkt-color-info);
+}

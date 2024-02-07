@@ -1,0 +1,298 @@
+/**
+ * Editor Styles.
+ */
+@import "./variables";
+@import "./css-variables";
+
+/**
+ * Components.
+ */
+@import "./components/active-indicator/editor";
+@import "./components/code-editor/editor";
+@import "./components/color-indicator/editor";
+@import "./components/color-picker/editor";
+@import "./components/date-time-picker/editor";
+@import "./components/dropdown-picker/editor";
+@import "./components/element-state-toggle/editor";
+@import "./components/gap-settings/editor";
+@import "./components/icon-picker/editor";
+@import "./components/image-picker/editor";
+@import "./components/important-toggle/editor";
+@import "./components/input-drag/editor";
+@import "./components/input-group/editor";
+@import "./components/modal/editor";
+@import "./components/notice/editor";
+@import "./components/pro-note/editor";
+@import "./components/range-control/editor";
+@import "./components/remove-button/editor";
+@import "./components/responsive-tab-panel/editor";
+@import "./components/responsive-toggle/editor";
+@import "./components/select/editor";
+@import "./components/toggle-group/editor";
+@import "./components/transition-selector/editor";
+@import "./components/transition-preview/editor";
+@import "./components/typography/editor";
+@import "./components/url-picker/editor";
+
+/**
+ * Extensions.
+ */
+@import "./extend/deprecated/editor";
+@import "./extend/block-actions-copy-paste/editor";
+@import "./extend/effects/editor";
+@import "./extend/custom-css/editor";
+@import "./extend/frame/editor";
+@import "./extend/position/editor";
+@import "./extend/display/editor";
+@import "./extend/spacings/editor";
+@import "./extend/toolbar-templates/editor";
+@import "./extend/transform/editor";
+
+/**
+ * Formats.
+ */
+@import "./formats/badge/editor";
+@import "./formats/uppercase/style";
+
+/**
+ * Plugins.
+ */
+@import "./plugins/color-palette/editor";
+@import "./plugins/custom-code/editor";
+@import "./plugins/customizer/editor";
+@import "./plugins/editor-iframe-resize/editor";
+@import "./plugins/ghostkit/editor";
+@import "./plugins/templates/editor";
+@import "./plugins/typography/editor";
+
+/**
+* Style Variant.
+*/
+@import "./style-variants/core-heading/editor";
+@import "./style-variants/core-list/editor";
+@import "./style-variants/core-paragraph/editor";
+
+/**
+* SVG Icons.
+*/
+@import "./svg-icons/style";
+
+/**
+ * Blocks.
+ */
+@import "./blocks/accordion/styles/editor";
+@import "./blocks/alert/styles/editor";
+@import "./blocks/button/styles/editor";
+@import "./blocks/carousel/styles/editor";
+@import "./blocks/changelog/styles/editor";
+@import "./blocks/countdown/styles/editor";
+@import "./blocks/counter-box/styles/editor";
+@import "./blocks/divider/styles/editor";
+@import "./blocks/form/styles/editor";
+@import "./blocks/gif/styles/editor";
+@import "./blocks/gist/styles/editor";
+@import "./blocks/google-maps/styles/editor";
+@import "./blocks/grid/styles/editor";
+@import "./blocks/icon/styles/editor";
+@import "./blocks/icon-box/styles/editor";
+@import "./blocks/image-compare/styles/editor";
+@import "./blocks/instagram/styles/editor";
+@import "./blocks/lottie/styles/editor";
+@import "./blocks/pricing-table/styles/editor";
+@import "./blocks/progress/styles/editor";
+@import "./blocks/shape-divider/styles/editor";
+@import "./blocks/table-of-contents/styles/editor";
+@import "./blocks/tabs/styles/editor";
+@import "./blocks/testimonial/styles/editor";
+@import "./blocks/twitter/styles/editor";
+@import "./blocks/video/styles/editor";
+
+.ghostkit-help-text {
+	font-size: 90%;
+	font-style: italic;
+	color: #a0a0a0;
+}
+
+.ghostkit-code {
+	background: #eef0f3;
+	border-radius: 3px;
+}
+
+/**
+ * Disable width limitation for inner blocks.
+ */
+.ghostkit-alert,
+.ghostkit-icon-box,
+.ghostkit-counter-box,
+.ghostkit-accordion,
+.ghostkit-tabs-content,
+.ghostkit-changelog,
+.ghostkit-form,
+.ghostkit-grid > .block-editor-inner-blocks > .block-editor-block-list__layout {
+	.wp-block {
+		max-width: none;
+		margin-right: 0;
+		margin-left: 0;
+	}
+}
+
+/**
+ * Grid for controls.
+ */
+.ghostkit-grid-controls {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -10px;
+
+	> * {
+		flex: 1;
+		min-width: 80px;
+		margin: 0 10px !important;
+	}
+}
+
+/**
+ * Better appender styles for blocks:
+ * - Grid
+ * - Alert
+ * - Counter Box
+ * - Icon Box
+ * - Testimonial
+ * - Tabs
+ * - Accordion
+ * - Carousel
+ */
+.ghostkit-grid-inner > .block-editor-block-list__block:not(.is-selected) > .ghostkit-col-content > .block-list-appender:only-child,
+[data-type="ghostkit/alert"]:not(.is-selected) > .ghostkit-alert > .ghostkit-alert-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/counter-box"]:not(.is-selected) > .ghostkit-counter-box > .ghostkit-counter-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/icon-box"]:not(.is-selected) > .ghostkit-icon-box > .ghostkit-icon-box-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/testimonial"]:not(.is-selected) > .ghostkit-testimonial > .ghostkit-testimonial-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/tabs-tab-v2"]:not(.is-selected) > .ghostkit-tab > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/accordion-item"]:not(.is-selected) > .ghostkit-accordion-item > .ghostkit-accordion-item-content > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child,
+[data-type="ghostkit/carousel-slide"]:not(.is-selected) > .ghostkit-carousel-slide > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender:only-child {
+	pointer-events: none;
+
+	&::after {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		pointer-events: none;
+		content: "";
+		border: 1px dashed;
+		border-radius: 2px;
+	}
+
+	.block-editor-inserter {
+		visibility: hidden;
+	}
+}
+
+/**
+ * Extensions icon in panel body
+ */
+.components-panel__body-toggle > .ghostkit-ext-icon {
+	position: absolute;
+	top: 50%;
+	display: block;
+	transform: translateY(-50%);
+
+	svg {
+		display: block;
+	}
+
+	+ span {
+		margin-left: 35px;
+	}
+}
+
+/**
+ * Extensions icon in tools panel
+ */
+.components-tools-panel-header > h2 {
+	> .ghostkit-ext-icon {
+		position: absolute;
+		margin-top: -4px;
+
+		+ span {
+			margin-left: 35px;
+		}
+	}
+}
+
+/**
+ * Tabs Control.
+ */
+.ghostkit-control-tabs {
+	> .components-tab-panel__tabs {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 15px;
+		border-bottom: 1px solid $light-gray-400;
+
+		// single tab
+		> .ghostkit-control-tabs-tab {
+			padding: 9px 11px;
+			padding-bottom: 11px;
+			margin: 0;
+			margin-bottom: -1px;
+			color: #555d66;
+			cursor: pointer;
+			background: none;
+			border: none;
+			border-bottom: 2px solid transparent;
+			border-radius: 0;
+			outline-offset: -1px;
+
+			svg {
+				display: block;
+				width: auto;
+				height: 1.4em;
+			}
+
+			&.is-active {
+				position: relative;
+				z-index: 1;
+				border-bottom: 2px solid $blue-medium-focus;
+			}
+		}
+	}
+
+	// wide
+	&.ghostkit-control-tabs-wide > .components-tab-panel__tabs > .ghostkit-control-tabs-tab {
+		flex: 1;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.ghostkit-control-tabs-separator {
+		padding: 15px;
+		margin-right: -15px;
+		margin-left: -15px;
+		border-top: 1px solid $light-gray-400;
+
+		&:first-child {
+			margin-top: -16px;
+		}
+	}
+}
+
+/**
+ * Input drag component cursor.
+ */
+.ghostkit-component-input-drag {
+	input {
+		cursor: n-resize;
+	}
+}
+
+// TODO: remove this fix when Gutenberg fixes this.
+.components-select-control select[multiple].components-select-control__input {
+	height: auto;
+	padding-right: 8px;
+
+	~ .components-input-control__suffix {
+		display: none;
+	}
+}

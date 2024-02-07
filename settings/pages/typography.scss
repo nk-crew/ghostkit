@@ -1,0 +1,19 @@
+@import "../../gutenberg/variables";
+
+.ghostkit-settings-typography {
+	.ghostkit-typography-container:first-child > .ghostkit-typography > h4 {
+		margin-top: 0;
+	}
+
+	.ghostkit-typography-container {
+		padding-right: 25px;
+		padding-left: 25px;
+		margin-right: -25px;
+		margin-left: -25px;
+	}
+
+	.components-spinner {
+		float: none;
+		margin-left: 0;
+	}
+}

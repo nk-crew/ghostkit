@@ -1,0 +1,9 @@
+@import "../../gutenberg/variables";
+
+.ghostkit-settings-info {
+	padding: 20px;
+	color: $dark-gray-500;
+	background-color: rgba($dark-gray-500, 0.1);
+	border-left: 4px solid $dark-gray-500;
+	border-radius: 4px;
+}

@@ -1,0 +1,45 @@
+/**
+ * GAPS for Grid, Buttons, Instagram, Pricing Table.
+ */
+$grid-gaps: (
+	no: 0%,
+	sm: 15px,
+	md: 30px,
+	lg: 45px
+) !default;
+
+// Breakpoints.
+$media-xs: 576px !default;
+$media-sm: 768px !default;
+$media-md: 992px !default;
+$media-lg: 1200px !default;
+
+/**
+ * Bootstrap.
+ */
+@import "./bootstrap/functions";
+@import "./bootstrap/variables";
+@import "./bootstrap/grid";
+@import "./bootstrap/breakpoints";
+
+/**
+ * WordPress.
+ */
+/* stylelint-disable-next-line scss/at-import-partial-extension */
+@import "./wordpress/base-styles/colors.native";
+@import "./wordpress/base-styles/variables";
+@import "./wordpress/base-styles/breakpoints";
+@import "./wordpress/base-styles/mixins";
+
+// Main Colors.
+$color-brand: #2e1645 !default;
+$color-dark-gray: #32373c !default;
+$color-light-gray: #f3f4f5 !default;
+$color-light-gray-darken: #d7dbde !default;
+
+// Additional Colors.
+$color-primary: #0366d6 !default;
+$color-success: #4ab866 !default;
+$color-danger: #d94f4f !default;
+$color-warning: #f0b849 !default;
+$color-info: #2ebef5 !default;

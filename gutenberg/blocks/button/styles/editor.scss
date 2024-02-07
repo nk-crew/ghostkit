@@ -1,0 +1,48 @@
+/**
+ * Editor Styles
+ */
+@import "./style";
+
+.ghostkit-button-wrapper {
+	.blocks-rich-text__tinymce {
+		cursor: text;
+	}
+
+	// add new button
+	.block-list-appender__toggle {
+		min-width: unset;
+
+		&.has-icon svg {
+			margin: 0;
+		}
+	}
+}
+
+.ghostkit-button {
+	.editor-rich-text__tinymce {
+		// stylelint-disable-next-line declaration-property-unit-allowed-list
+		line-height: 1em;
+	}
+
+	// States for color change preview.
+	&.ghostkit-button-is-normal-state {
+		color: var(--gkt-button__color);
+		background-color: var(--gkt-button__background-color);
+		border: var(--gkt-button__border-width) solid var(--gkt-button__border-color);
+		box-shadow: var(--gkt-button__box-shadow);
+	}
+
+	&.ghostkit-button-is-hover-state {
+		color: var(--gkt-button-hover__color);
+		background-color: var(--gkt-button-hover__background-color);
+		border: var(--gkt-button-hover__border-width) solid var(--gkt-button-hover__border-color);
+		box-shadow: var(--gkt-button-hover__box-shadow);
+	}
+
+	&.ghostkit-button-is-focus-state {
+		color: var(--gkt-button-focus__color);
+		background-color: var(--gkt-button-focus__background-color);
+		border: var(--gkt-button-focus__border-width) solid var(--gkt-button-focus__border-color);
+		box-shadow: var(--gkt-button-focus__box-shadow);
+	}
+}

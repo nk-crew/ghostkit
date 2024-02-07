@@ -1,0 +1,71 @@
+@import "../../gutenberg/variables";
+
+.ghostkit-admin-head {
+	padding: 5px 20px;
+	margin: -35px;
+	margin-bottom: 35px;
+	background-color: #fff;
+	border-bottom: 1px solid $color-light-gray-darken;
+
+	svg {
+		display: block;
+		width: auto;
+		height: 20px;
+		color: #000;
+	}
+}
+
+.ghostkit-admin-head-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.ghostkit-admin-content {
+	max-width: 1000px;
+	margin: 0 auto;
+
+	> h2 {
+		margin-bottom: 35px;
+		font-size: 1.8em;
+		font-weight: 400;
+	}
+}
+
+.ghostkit-admin-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	margin-left: 15px;
+	list-style: none;
+
+	> li {
+		margin: 0;
+	}
+
+	button {
+		position: relative;
+		padding: 10px;
+		margin: 0 2px;
+		font-size: 1.1em;
+		cursor: pointer;
+		background: none;
+		border: none;
+		outline: none;
+
+		&:hover {
+			color: var(--wp-admin-theme-color);
+		}
+
+		&.ghostkit-admin-tabs-button-active::after {
+			position: absolute;
+			right: 0;
+			bottom: -5px;
+			left: 0;
+			display: block;
+			height: 3px;
+			content: "";
+			background-color: var(--wp-admin-theme-color);
+		}
+	}
+}

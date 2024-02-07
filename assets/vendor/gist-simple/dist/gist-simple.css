@@ -1,0 +1,46 @@
+.gist-simple .gist-simple-wrap {
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 1em;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  color: #333;
+  text-align: left;
+  background: #fff;
+}
+
+.gist-simple-loading-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  margin: 0 auto;
+  padding: 1.2em;
+}
+.gist-simple-loading-icon > i {
+  display: inline-block;
+  width: 0.25em;
+  height: 0.25em;
+  margin: 0 calc(0.25em / 2 * 1);
+  border-radius: 50%;
+  opacity: 0.2;
+  background-color: currentColor;
+  animation: gist-simple-loading-blink 1.4s infinite both;
+}
+.gist-simple-loading-icon > i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.gist-simple-loading-icon > i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes gist-simple-loading-blink {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 1;
+  }
+}

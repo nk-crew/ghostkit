@@ -1,0 +1,32 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-shape-divider {
+	z-index: var(--gkt-shape-divider__z-index);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	color: var(--gkt-shape-divider__color);
+
+	svg {
+		display: block;
+		flex: 0 0 auto;
+		min-width: 100%;
+	}
+
+	// Rotate
+	&-flip-vertical svg {
+		transform: scaleY(-1);
+	}
+
+	&-flip-horizontal svg {
+		transform: scaleX(-1);
+	}
+
+	&-flip-vertical.ghostkit-shape-divider-flip-horizontal svg {
+		transform: scaleY(-1) scaleX(-1);
+	}
+}

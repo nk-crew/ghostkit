@@ -1,0 +1,114 @@
+@import "../../variables";
+
+// Transition selector.
+.ghostkit-component-transition-selector {
+	.ghostkit-component-dropdown-picker-toggle {
+		min-height: 30px;
+		padding: 3px;
+		border-color: #949494;
+		border-radius: 4px;
+
+		.ghostkit-component-dropdown-picker-toggle-label {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			width: 100%;
+
+			> .ghostkit-component-bezier-editor,
+			> .ghostkit-component-spring-editor {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 24px;
+				height: 24px;
+				overflow: hidden;
+				background-color: var(--wp-admin-theme-color);
+				border-radius: 2px;
+			}
+		}
+
+		.ghostkit-component-transition-selector-reset {
+			display: inline-block;
+			width: 15px;
+			height: 15px;
+			margin-right: 5px;
+			margin-left: auto;
+			overflow: hidden;
+			color: #000;
+			cursor: pointer;
+			background-color: #f9f5f5;
+			border-radius: 2px;
+
+			&:hover,
+			&:focus {
+				background-color: #e5e5e5;
+			}
+
+			svg {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+}
+
+.ghostkit-component-transition-selector-content {
+	> .components-popover__content > * + * {
+		margin-top: 16px;
+	}
+
+	.ghostkit-control-toggle-group {
+		margin-bottom: 20px;
+	}
+}
+
+// Bezier and Spring editor.
+.ghostkit-component-bezier-editor,
+.ghostkit-component-spring-editor {
+	position: relative;
+
+	> svg {
+		border: 1px solid #949494;
+		border-radius: 4px;
+	}
+}
+
+.ghostkit-component-bezier-editor-preview,
+.ghostkit-component-spring-editor-preview {
+	> svg {
+		border: none;
+		border-radius: 0;
+	}
+}
+
+// Bezier controls.
+.ghostkit-component-easing-controls-bezier > .components-base-control__field {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+
+	> .components-base-control {
+		width: 25%;
+
+		&:not(:last-child) {
+			margin-right: -1px;
+			border-right: 0;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+
+	> .components-base-control__label {
+		width: 100%;
+	}
+}
+
+// Spring controls.
+.ghostkit-component-spring-editor-duration {
+	position: absolute;
+	right: 12px;
+	bottom: 10px;
+	font-size: 10px;
+	font-weight: 500;
+	color: #9a9a9a;
+}

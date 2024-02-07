@@ -1,0 +1,47 @@
+.ghostkit-image-compare {
+	cursor: pointer;
+}
+
+.ghostkit-image-compare-images {
+	position: relative;
+	overflow: hidden;
+
+	img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+}
+
+.ghostkit-image-compare-image-before,
+.ghostkit-image-compare-image-after {
+	transition: var(--gkt-image-compare__transition-duration) clip-path var(--gkt-image-compare__transition-easing);
+}
+
+.ghostkit-image-compare-image-before {
+	clip-path: polygon(var(--gkt-image-compare__position) 0, var(--gkt-image-compare__position) 100%, 0 100%, 0 0);
+
+	.ghostkit-image-compare-vertical & {
+		clip-path: polygon(100% 0, 100% var(--gkt-image-compare__position), 0 var(--gkt-image-compare__position), 0 0);
+	}
+}
+
+.ghostkit-image-compare-image-after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	clip-path: polygon(100% 0, 100% 100%, var(--gkt-image-compare__position) 100%, var(--gkt-image-compare__position) 0);
+
+	.ghostkit-image-compare-vertical & {
+		clip-path: polygon(100% var(--gkt-image-compare__position), 100% 100%, 0 100%, 0 var(--gkt-image-compare__position));
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}

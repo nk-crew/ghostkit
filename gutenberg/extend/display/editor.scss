@@ -1,0 +1,28 @@
+@import "../../variables";
+
+.ghostkit-tools-panel-display {
+	grid-column: 1/-1;
+}
+
+// Classes for visual styling hidden blocks
+@each $breakpoint in map-keys($grid-breakpoints) {
+	@include media-breakpoint-down($breakpoint) {
+		$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+		.ghostkit-d#{$infix}-none {
+			filter: opacity(0.4) saturate(0);
+
+			&::after {
+				background-image: linear-gradient(45deg, rgba(0, 0, 0, 15%) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 15%) 50%, rgba(0, 0, 0, 15%) 75%, transparent 75%, transparent);
+				background-size: 6px 6px;
+			}
+		}
+		.ghostkit-d#{$infix}-block {
+			filter: none;
+
+			&::after {
+				background-image: none;
+			}
+		}
+	}
+}

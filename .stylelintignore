@@ -1,9 +1,14 @@
 **/*.js
 **/*.jsx
 **/*.min.css
+**/*style.css
+**/*style-rtl.css
 **/*.build.css
 **/gutenberg/wordpress/**/*.scss
 node_modules
+assets/vendor
 dist
+dist-zip
+build
 vendor
 vendors

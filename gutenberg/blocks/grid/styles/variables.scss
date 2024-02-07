@@ -1,0 +1,22 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-grid {
+	--gkt-grid__gap: 15px;
+	--gkt-grid__gap-vertical: var(--gkt-grid__gap);
+	--gkt-grid__justify-content: flex-start;
+
+	// Column.
+	--gkt-grid--column__align-self: flex-start;
+	--gkt-grid--column__size: 100%;
+	--gkt-grid--column__size-with-gap: calc(var(--gkt-grid--column__size) - var(--gkt-grid__gap));
+	--gkt-grid--column__order: initial;
+	--gkt-grid--column__flex: 0 0 var(--gkt-grid--column__size-with-gap);
+	--gkt-grid--column__width: var(--gkt-grid--column__size-with-gap);
+	--gkt-grid--column__max-width: var(--gkt-grid--column__size-with-gap);
+
+	// Columns Sticky.
+	--gkt-grid--column-sticky__offset: 0;
+}

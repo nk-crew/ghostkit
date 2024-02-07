@@ -1,0 +1,41 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-alert {
+	display: flex;
+	flex-wrap: wrap;
+	padding: var(--gkt-alert__padding-v) var(--gkt-alert__padding-h);
+	border: var(--gkt-alert__border-width) solid var(--gkt-alert__border-color);
+	border-left-width: var(--gkt-alert__border-left-width);
+	border-radius: var(--gkt-alert__border-radius);
+	transition: var(--gkt-alert__transition-duration) border-color var(--gkt-alert__transition-easing);
+
+	&-icon {
+		display: flex;
+		padding: var(--gkt-alert--icon__padding);
+		padding-right: var(--gkt-alert--icon__padding-right);
+		font-size: var(--gkt-alert--icon__font-size);
+		color: var(--gkt-alert--icon__color);
+		transition: var(--gkt-alert__transition-duration) color var(--gkt-alert__transition-easing);
+	}
+
+	&-content {
+		flex: 1;
+	}
+
+	&-hide-button {
+		display: flex;
+		padding-left: var(--gkt-alert--hide-button__padding-left);
+		font-size: var(--gkt-alert--hide-button__font-size);
+		cursor: pointer;
+		opacity: 1;
+		transition: var(--gkt-alert__transition-duration) opacity var(--gkt-alert__transition-easing);
+
+		&:hover,
+		&:focus {
+			opacity: var(--gkt-alert--hide-button__hover__opacity);
+		}
+	}
+}

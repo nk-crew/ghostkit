@@ -1,0 +1,124 @@
+/**
+ * Editor Styles
+ */
+@import "./style";
+
+// Hide Grid block if inserted for templates modal only.
+[data-ghostkit-grid-templates-modal-only] {
+	display: none;
+}
+
+// Background AWB
+.ghostkit-grid > .awb-gutenberg-preview-block,
+.ghostkit-col > .awb-gutenberg-preview-block {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	pointer-events: none;
+	transition: 0.15s border ease-in-out;
+
+	// fix for AWB border style.
+	&:empty {
+		border: none;
+	}
+
+	> .nk-awb-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	// fixed for some default themes styles
+	> .nk-awb-inner > img,
+	> .nk-awb-inner > div,
+	> div {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+// Example.
+.block-editor-inserter__preview .ghostkit-col-content .block-editor-block-list__layout {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+// Fix for displaying block appender.
+.block-editor-block-list__block .ghostkit-col-content > .block-list-appender .block-editor-inserter__toggle.components-button {
+	display: block;
+}
+
+// Layouts selector.
+.ghostkit-select-layout {
+	padding: 25px;
+
+	.components-placeholder__fieldset > em {
+		margin-bottom: 25px;
+	}
+
+	.ghostkit-grid-layout-preview {
+		box-sizing: border-box;
+		display: flex;
+		flex-wrap: wrap;
+		// justify-content: center;
+		margin-right: -7px;
+		margin-left: -7px;
+
+		.ghostkit-grid-layout-preview-btn {
+			--gkt-grid__gap: 0%;
+
+			box-sizing: border-box;
+			display: flex;
+			width: 85px;
+			padding: 0;
+			margin-right: 7px;
+			margin-bottom: 14px;
+			margin-left: 7px;
+			overflow: hidden;
+			cursor: pointer;
+			background: none;
+			border: 2px solid rgba($dark-gray-500, 0.75);
+			border-radius: 4px;
+			transition: 0.15s border-color, 0.15s background-color;
+
+			.ghostkit-col {
+				box-sizing: border-box;
+				height: 40px;
+				border-right: 2px solid rgba($dark-gray-500, 0.75);
+				transition: 0.15s border-color;
+
+				&:last-of-type {
+					border-right: none;
+				}
+			}
+
+			&:hover,
+			&:focus {
+				background-color: #fff;
+				border-color: $dark-gray-500;
+
+				.ghostkit-col {
+					border-color: $dark-gray-500;
+				}
+			}
+		}
+	}
+
+	// templates button.
+	.components-button.is-primary {
+		height: 35px;
+		padding: 0 15px;
+		margin-top: 10px;
+		font-size: 14px;
+	}
+}
+
+// Background controls.
+.ghostkit-background-controls {
+	> .components-panel__body > .components-panel__body {
+		border: 1px solid #e0e0e0;
+	}
+}

@@ -1,0 +1,38 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-image-compare {
+	--gkt-image-compare__position: 50%;
+
+	// Divider.
+	--gkt-image-compare--divider__width: 3px;
+	--gkt-image-compare--divider__background-color: #fff;
+
+	// Divider Icon.
+	--gkt-image-compare--divider-icons__font-size: 1.3em;
+	--gkt-image-compare--divider-icons__offset: 0.3em;
+	--gkt-image-compare--divider-icons__color: #000;
+	--gkt-image-compare--divider-hover-icons__offset: 0.35em;
+
+	// Divider Button.
+	--gkt-image-compare--divider-button__width: 50px;
+	--gkt-image-compare--divider-button__height: 50px;
+	--gkt-image-compare--divider-button__background-color: var(--gkt-image-compare--divider__background-color);
+
+	// Labels.
+	--gkt-image-compare--label__backdrop-filter: brightness(0.75) blur(10px);
+	--gkt-image-compare--label__offset: 10px;
+	--gkt-image-compare--label__max-width: 30%;
+	--gkt-image-compare--label__padding: 0.3em 1.6em;
+	--gkt-image-compare--label__font-size: 0.8em;
+	--gkt-image-compare--label__text-align: center;
+	--gkt-image-compare--label__color: #fff;
+	--gkt-image-compare--label__background-color: rgba(255, 255, 255, 30%);
+	--gkt-image-compare--label__border-radius: 3px;
+
+	// Transitions.
+	--gkt-image-compare__transition-duration: var(--gkt-transition-duration);
+	--gkt-image-compare__transition-easing: var(--gkt-transition-easing);
+}

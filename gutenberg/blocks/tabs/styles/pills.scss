@@ -1,0 +1,18 @@
+/**
+ * Pills.
+ */
+.ghostkit-tabs.is-style-pills .ghostkit-tabs-buttons {
+	border: none;
+
+	&-item {
+		margin-bottom: 0;
+		border: none;
+		border-radius: var(--gkt-tabs-pills--button__border-radius);
+
+		// stylelint-disable-next-line selector-max-class
+		&-active {
+			color: var(--gkt-tabs-pills--button-active__color);
+			background-color: var(--gkt-tabs-pills--button-active__background-color);
+		}
+	}
+}

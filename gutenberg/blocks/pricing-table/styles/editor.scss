@@ -1,0 +1,17 @@
+/**
+ * Editor Styles
+ */
+@import "./style";
+
+.ghostkit-pricing-table {
+	// fix for negative margins.
+	&::after {
+		margin-top: var(--gkt-pricing-table__gap);
+	}
+}
+
+.ghostkit-pricing-table-add-item {
+	width: 100%;
+	padding-top: var(--gkt-pricing-table__gap);
+	padding-left: var(--gkt-pricing-table__gap);
+}

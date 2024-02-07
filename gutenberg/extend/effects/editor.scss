@@ -1,0 +1,11 @@
+@import "../../variables";
+
+@import "./reveal/editor";
+
+.ghostkit-tools-panel-effects {
+	grid-column: 1 / -1;
+
+	.components-tools-panel-item:has(+ .components-tools-panel-item) .ghostkit-component-dropdown-picker-toggle {
+		border-bottom: none;
+	}
+}

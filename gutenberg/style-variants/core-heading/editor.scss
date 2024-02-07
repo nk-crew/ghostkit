@@ -1,0 +1,67 @@
+/**
+ * Editor Styles
+ */
+@import "./variables";
+
+@mixin printHeadingNumbered($level) {
+	$selector: "";
+	$content: "";
+
+	h#{$level}.is-style-numbered {
+		@if $level + 1 <= 6 {
+			counter-reset: h#{$level + 1};
+		}
+
+		counter-increment: h#{$level};
+	}
+
+	@for $i from $level through 2 {
+		@if $selector != "" {
+			$selector: " ~ " + $selector;
+		}
+		@if $content != "" {
+			$content: " \".\" " + $content;
+		}
+
+		$selector: "h#{$i}.is-style-numbered" + $selector;
+		$content: "counter(h#{$i})" + $content;
+
+		#{$selector}::before {
+			content: #{$content};
+		}
+	}
+}
+
+.editor-styles-wrapper {
+	.is-style-numbered::before {
+		margin: 0;
+		margin-right: var(--gkt-numbered-headings__margin-right);
+	}
+
+	// Styled h2
+	h2.is-style-numbered::before {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--gkt-numbered-headings--h2-number__width);
+		height: var(--gkt-numbered-headings--h2-number__height);
+		line-height: var(--gkt-numbered-headings--h2-number__line-height);
+		color: var(--gkt-numbered-headings--h2-number__color);
+		background-color: var(--gkt-numbered-headings--h2-number__background-color);
+		border-radius: var(--gkt-numbered-headings--h2-number__border-radius);
+	}
+
+	counter-reset: h2;
+
+	// Add numbers
+	@include printHeadingNumbered(2);
+	@include printHeadingNumbered(3);
+	@include printHeadingNumbered(4);
+	@include printHeadingNumbered(5);
+	@include printHeadingNumbered(6);
+
+	// Numbers for Styles selector preview
+	.editor-block-styles__item & .is-style-numbered::before {
+		content: "1";
+	}
+}

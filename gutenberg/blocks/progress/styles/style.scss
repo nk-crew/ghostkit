@@ -1,0 +1,69 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-progress {
+	// Caption.
+	&-caption {
+		display: block;
+		margin-bottom: var(--gkt-progress--caption__margin-bottom);
+		font-size: var(--gkt-progress--caption__font-size);
+	}
+
+	// Bar count.
+	&-bar-count {
+		position: relative;
+
+		> div {
+			position: absolute;
+			right: 0;
+			bottom: 100%;
+			padding: var(--gkt-progress--count__padding-v) var(--gkt-progress--count__padding-h);
+			margin-bottom: calc(0.2em + var(--gkt-progress--count-arrow__size));
+			font-size: var(--gkt-progress--count__font-size);
+			color: var(--gkt-progress--count__color);
+			white-space: nowrap;
+			background-color: var(--gkt-progress--count__background-color);
+			border-radius: var(--gkt-progress--count__border-radius);
+			transform: translateX(50%);
+
+			&::after {
+				position: absolute;
+				top: 100%;
+				left: 50%;
+				display: block;
+				width: 0;
+				height: 0;
+				margin-left: calc(-1 * var(--gkt-progress--count-arrow__size));
+				content: "";
+				border-top: var(--gkt-progress--count-arrow__size) solid var(--gkt-progress--count__background-color);
+				border-right: var(--gkt-progress--count-arrow__size) solid transparent;
+				border-left: var(--gkt-progress--count-arrow__size) solid transparent;
+			}
+		}
+	}
+
+	// Wrapper.
+	&-wrap {
+		height: var(--gkt-progress__height);
+		overflow: hidden;
+		background-color: var(--gkt-progress__background-color);
+		border-radius: var(--gkt-progress__border-radius);
+		transition: var(--gkt-progress__transition-duration) background-color var(--gkt-progress__transition-easing);
+	}
+
+	// Bar.
+	&-bar {
+		width: var(--gkt-progress--bar__width);
+		height: 100%;
+		background-color: var(--gkt-progress--bar__background-color);
+		transition: var(--gkt-progress__transition-duration) background-color var(--gkt-progress__transition-easing);
+	}
+
+	// Striped.
+	&-bar-striped &-bar {
+		background-image: var(--gkt-progress--bar-striped__background-image);
+		background-size: var(--gkt-progress--bar-striped__background-size);
+	}
+}

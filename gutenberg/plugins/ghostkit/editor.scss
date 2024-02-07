@@ -1,0 +1,63 @@
+/**
+ * Editor Styles
+ */
+@import "../../variables";
+
+.interface-pinned-items .components-button .ghostkit-plugin-icon svg {
+	display: block;
+}
+
+.interface-pinned-items .components-button:not(.is-toggled, .is-pressed) .ghostkit-plugin-icon svg {
+	color: $color-brand;
+}
+
+.plugin-ghostkit-panel {
+	.plugin-ghostkit-panel-button {
+		display: block;
+		flex-shrink: 0;
+		width: 100%;
+		height: auto;
+		padding: 15px 10px;
+		margin-bottom: 16px;
+		overflow: hidden;
+		color: inherit;
+		text-align: center;
+		cursor: pointer;
+		background: none;
+		border: 1px solid;
+		border-radius: 4px;
+		transition: 0.2s color, 0.2s background-color, 0.2s border-color, 0.2s box-shadow;
+
+		&,
+		&:hover,
+		&:focus,
+		&:focus:enabled,
+		&:active,
+		&:active:enabled {
+			border-color: rgba(79, 89, 105, 20%);
+			box-shadow: none;
+		}
+
+		&:hover,
+		&:active,
+		&:active:enabled {
+			color: $dark-gray-900;
+			background-color: $light-gray-100;
+		}
+
+		&:focus,
+		&:focus:enabled {
+			color: $dark-gray-900;
+			border-color: $blue-wordpress-700;
+			box-shadow: 0 0 0 2px $blue-medium-focus;
+		}
+
+		svg {
+			display: block;
+			margin: 0 auto;
+			margin-top: 3px;
+			margin-bottom: 10px;
+			text-align: center;
+		}
+	}
+}

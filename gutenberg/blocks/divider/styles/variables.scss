@@ -1,0 +1,21 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-divider {
+	--gkt-divider__padding-v: 0.75em;
+	--gkt-divider__padding-h: 0;
+	--gkt-divider__border-width: 1px;
+	--gkt-divider__border-color: var(--gkt-color-dark-gray);
+
+	// Icon.
+	--gkt-divider--icon__padding-v: 0;
+	--gkt-divider--icon__padding-h: 1em;
+	--gkt-divider--icon__font-size: 1em;
+	--gkt-divider--icon__color: var(--gkt-color-dark-gray);
+
+	// Transitions.
+	--gkt-divider__transition-duration: var(--gkt-transition-duration);
+	--gkt-divider__transition-easing: var(--gkt-transition-easing);
+}

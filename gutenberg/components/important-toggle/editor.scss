@@ -1,0 +1,17 @@
+@import "../../variables";
+
+.ghostkit-control-important-toggle {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 18px;
+	padding: 2px;
+	text-align: center;
+	background: #e6e6e6;
+
+	&.is-active {
+		color: #fff;
+		background-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+	}
+}

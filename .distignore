@@ -1,0 +1,28 @@
+# Directories to ignore
+/.git
+/.cache
+/.github
+/.husky
+/.vscode
+/.wordpress-org
+/artifacts
+/dist-zip
+/node_modules
+/tests
+/vendor
+
+# Files to ignore
+/.*
+/composer.json
+/composer.lock
+/gulpfile.js
+/LICENSE.txt
+/lint-staged.config.js
+/package-lock.json
+/package.json
+/phpcs.xml
+/phpcs.xml.dist
+/phpunit.xml
+/phpunit.xml.dist
+/README.md
+/webpack.config.js

@@ -1,0 +1,53 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-form {
+	// Fields.
+	--gkt-form--field__font-family: inherit;
+	--gkt-form--field__font-size: 1em;
+	--gkt-form--field__min-height: 1.7em;
+
+	// Fields Label.
+	--gkt-form--field-label__margin-bottom: 0.5em;
+	--gkt-form--field-label-required-mark__margin-left: 0.5em;
+	--gkt-form--field-label-required-mark__color: var(--gkt-color-danger);
+
+	// Fields Description.
+	--gkt-form--field-description__margin-top: 0.5em;
+	--gkt-form--field-description__line-height: 1;
+	--gkt-form--field-description__opacity: 0.5;
+
+	// Fields Row.
+	--gkt-form--field-row__template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	--gkt-form--field-row__gap: 30px;
+
+	// Name Field with Middle Name Row.
+	--gkt-form--field-name-row-with-middle__template-columns: 1.5fr 1fr 1.5fr;
+
+	// Radio Field.
+	--gkt-form--field-radio-inline__margin-right: 1.2em;
+
+	// Checkbox Field.
+	--gkt-form--field-checkbox-inline__margin-right: 1.2em;
+
+	// Textarea Field.
+	--gkt-form--field-textarea__min-height: 7em;
+
+	// Errors.
+	--gkt-form--errors__margin-top: 0.5em;
+	--gkt-form--errors__font-size: 0.75em;
+	--gkt-form--errors__line-height: 0.75em;
+	--gkt-form--errors__color: var(--gkt-color-danger);
+	--gkt-form--field-success__border-color: var(--gkt-color-success);
+	--gkt-form--field-error__border-color: var(--gkt-color-danger);
+
+	// Alert.
+	--gkt-form--alert-success__color: var(--gkt-color-success);
+	--gkt-form--alert-error__color: var(--gkt-color-danger);
+
+	// Transitions.
+	--gkt-form__transition-duration: var(--gkt-transition-duration);
+	--gkt-form__transition-easing: var(--gkt-transition-easing);
+}

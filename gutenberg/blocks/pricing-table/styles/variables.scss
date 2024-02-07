@@ -1,0 +1,41 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-pricing-table {
+	--gkt-pricing-table__gap: 15px;
+	--gkt-pricing-table__align-items: flex-start;
+	--gkt-pricing-table__columns: 1;
+
+	// Item.
+	--gkt-pricing-table--item__padding-v: 2.2em;
+	--gkt-pricing-table--item__padding-h: 1.65em;
+	--gkt-pricing-table--item__border-width: 1px;
+	--gkt-pricing-table--item__border-color: var(--gkt-color-light-gray-darken);
+	--gkt-pricing-table--item__border-radius: var(--gkt-border-radius);
+
+	// Elements.
+	--gkt-pricing-table--elements__gap: 2.2em;
+
+	// Popular Badge.
+	--gkt-pricing-table--popular-badge__top: 1.2em;
+	--gkt-pricing-table--popular-badge__padding-v: 0.15em;
+	--gkt-pricing-table--popular-badge__padding-h: 1.1em;
+	--gkt-pricing-table--popular-badge__font-size: 0.8em;
+	--gkt-pricing-table--popular-badge__color: #fff;
+	--gkt-pricing-table--popular-badge__background-color: var(--gkt-color-primary);
+
+	// Title.
+	--gkt-pricing-table--title__font-size: 1em;
+
+	// Price.
+	--gkt-pricing-table--price-amount__font-size: 3.5em;
+	--gkt-pricing-table--price-amount__line-height: 1.3em;
+	--gkt-pricing-table--price-repeat__font-size: 0.8em;
+	--gkt-pricing-table--price-repeat__opacity: 0.7;
+
+	// Features.
+	--gkt-pricing-table--features__font-size: 0.9em;
+	--gkt-pricing-table--features-items__gap: 0.5em;
+}

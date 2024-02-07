@@ -1,0 +1,34 @@
+@use "sass:map";
+
+// Grid breakpoints
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: (
+	xs: 0,
+	xl: $media-lg,
+	lg: $media-md,
+	md: $media-sm,
+	sm: $media-xs,
+) !default;
+
+@include _assert-descending($grid-breakpoints, "$grid-breakpoints");
+@include _assert-starts-at-zero($grid-breakpoints);
+
+// Grid containers
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-widths: (
+	sm: 540px,
+	md: 720px,
+	lg: 960px,
+	xl: 1140px
+) !default;
+
+@include _assert-ascending($container-max-widths, "$container-max-widths");
+
+// Grid columns
+// Set the number of columns and specify the width of the gutters.
+
+$grid-columns:      12 !default;
+$grid-gutter-width: map.get($grid-gaps, md) !default;

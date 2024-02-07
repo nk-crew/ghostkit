@@ -1,0 +1,137 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-carousel {
+	// Display better styles before JS init.
+	&:not(.ghostkit-carousel-ready) {
+		&[data-effect="slide"] {
+			.ghostkit-carousel-items {
+				display: flex;
+			}
+			@for $i from 1 through 10 {
+				&[data-slides-per-view="#{$i}"] .ghostkit-carousel-slide:nth-child(#{$i}) ~ div {
+					display: none;
+				}
+			}
+		}
+
+		&[data-effect="fade"] .ghostkit-carousel-slide:not(:first-child) {
+			display: none;
+		}
+	}
+
+	// Fade edges.
+	&-fade-edges {
+		mask-image: linear-gradient(to right, rgba(0, 0, 0, 0%) 0%, #000 var(--gkt-carousel--fade-edges__size), #000 calc(100% - var(--gkt-carousel--fade-edges__size)), rgba(0, 0, 0, 0%) 100%);
+	}
+
+	// Arrows.
+	&-arrow {
+		position: absolute;
+		top: 50%;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--gkt-carousel--arrows__width);
+		height: var(--gkt-carousel--arrows__height);
+		margin-top: calc(var(--gkt-carousel--arrows__height) / -2);
+		font-size: var(--gkt-carousel--arrows__font-size);
+		color: var(--gkt-carousel--arrows__color);
+		cursor: pointer;
+		background-color: var(--gkt-carousel--arrows__background-color);
+		border-radius: var(--gkt-carousel--arrows__border-radius);
+		box-shadow: var(--gkt-carousel--arrows__box-shadow);
+		opacity: var(--gkt-carousel--arrows__opacity);
+		transition: var(--gkt-carousel__transition-duration) opacity var(--gkt-carousel__transition-easing), var(--gkt-carousel__transition-duration) box-shadow var(--gkt-carousel__transition-easing), var(--gkt-carousel__transition-duration) transform var(--gkt-carousel__transition-easing);
+
+		// additional element to make the buttons clickable also in outside.
+		&::after {
+			position: absolute;
+			top: -10px;
+			right: -10px;
+			bottom: -10px;
+			left: -10px;
+			display: block;
+			content: "";
+		}
+
+		&:hover,
+		&:focus {
+			box-shadow: var(--gkt-carousel--arrows-hover__box-shadow);
+			opacity: var(--gkt-carousel--arrows-hover__opacity);
+			transform: var(--gkt-carousel--arrows-hover__transform);
+		}
+	}
+
+	&-arrow-prev {
+		left: var(--gkt-carousel--arrows__offset);
+	}
+
+	&-arrow-next {
+		right: var(--gkt-carousel--arrows__offset);
+	}
+
+	// Arrow icons.
+	&-arrow-prev-icon,
+	&-arrow-next-icon {
+		display: none;
+	}
+
+	// Bullets.
+	[data-show-bullets="true"] &-items {
+		padding-bottom: var(--gkt-carousel--bullets__margin-top);
+	}
+
+	[data-show-bullets="true"] &-arrow {
+		transform: translateY(calc(var(--gkt-carousel--bullets__margin-top) / -2));
+	}
+
+	&-bullets {
+		position: absolute;
+		bottom: 0;
+		z-index: 1;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		text-align: center;
+
+		&.swiper-pagination-bullets-dynamic {
+			font-size: inherit;
+		}
+
+		.swiper-pagination-bullet {
+			position: relative;
+			width: var(--gkt-carousel--bullets__width);
+			height: var(--gkt-carousel--bullets__height);
+			margin: 0 calc(var(--gkt-carousel--bullets__gap) / 2);
+			cursor: pointer;
+			background-color: var(--gkt-carousel--bullets__background-color);
+			border-radius: var(--gkt-carousel--bullets__border-radius);
+			opacity: var(--gkt-carousel--bullets__opacity);
+			transition: var(--gkt-carousel__transition-duration) opacity var(--gkt-carousel__transition-easing);
+
+			&:hover,
+			&:focus {
+				opacity: var(--gkt-carousel--bullets-hover__opacity);
+			}
+
+			&.swiper-pagination-bullet-active {
+				opacity: var(--gkt-carousel--bullets-active__opacity);
+			}
+
+			// additional element to make the buttons clickable also in outside.
+			&::after {
+				position: absolute;
+				top: -4px;
+				right: -4px;
+				bottom: -4px;
+				left: -4px;
+				display: block;
+				content: "";
+			}
+		}
+	}
+}

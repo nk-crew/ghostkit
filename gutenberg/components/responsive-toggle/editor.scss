@@ -1,0 +1,78 @@
+@import "../../variables";
+
+.ghostkit-control-responsive-toggle {
+	position: relative;
+	display: inline-flex;
+
+	.components-base-control__label:has(&),
+	.components-input-control__label:has(&) {
+		overflow: visible !important;
+	}
+
+	.components-base-control__label > &,
+	.components-input-control__label > & {
+		margin-left: 8px;
+		vertical-align: bottom;
+	}
+
+	> .components-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: auto;
+		padding: 0;
+
+		svg {
+			display: block;
+			width: 18px;
+			height: auto;
+		}
+	}
+}
+
+.ghostkit-control-responsive-toggle-icon,
+.ghostkit-control-responsive-toggle-button {
+	// Relative position for active toggle.
+	position: relative;
+}
+
+.ghostkit-control-responsive-toggle-dropdown {
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	z-index: 5;
+	display: none;
+	flex-direction: column;
+	gap: 2px;
+	width: auto;
+	padding: 2px;
+	background-color: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 5%);
+
+	&.is-open {
+		display: flex;
+	}
+
+	> .components-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 22px;
+		height: 22px;
+		padding: 0;
+		border-radius: 2px;
+
+		&.is-active {
+			color: #fff;
+			background-color: #000;
+		}
+
+		svg {
+			display: block;
+			width: 18px;
+			height: auto;
+		}
+	}
+}

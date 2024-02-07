@@ -1,0 +1,52 @@
+/**
+ * Editor Styles
+ */
+@import "./variables";
+
+.ghostkit-carousel {
+	--gkt-carousel-gap: 20px;
+	--gkt-carousel-slides-per-view: 2;
+
+	position: relative;
+	padding-bottom: 10px;
+	overflow-x: auto;
+	overflow-y: hidden;
+
+	> .block-editor-inner-blocks > .block-editor-block-list__layout {
+		display: flex;
+		gap: var(--gkt-carousel-gap);
+		margin: 0;
+
+		> .wp-block {
+			--gkt-carousel-slide-width: calc(100% / var(--gkt-carousel-slides-per-view) - var(--gkt-carousel-gap) * (var(--gkt-carousel-slides-per-view) - 1) / var(--gkt-carousel-slides-per-view));
+
+			flex: 0 0 var(--gkt-carousel-slide-width);
+			min-width: var(--gkt-carousel-slide-width);
+			max-width: var(--gkt-carousel-slide-width);
+			margin: 0;
+			background-color: rgba(126, 126, 126, 5%);
+
+			&:last-of-type {
+				margin-right: 0;
+			}
+		}
+
+		> .block-list-appender {
+			min-width: auto;
+		}
+	}
+
+	// Fade edges.
+	&-fade-edges {
+		mask-image: linear-gradient(to right, rgba(0, 0, 0, 0%) 0%, #000 var(--gkt-carousel--fade-edges__size), #000 calc(100% - var(--gkt-carousel--fade-edges__size)), rgba(0, 0, 0, 0%) 100%);
+	}
+}
+
+// Example.
+.block-editor-inserter__preview .ghostkit-carousel-slide .block-editor-block-list__layout {
+	margin: 0;
+
+	.wp-block-image {
+		margin: 0;
+	}
+}

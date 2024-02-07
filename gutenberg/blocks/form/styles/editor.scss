@@ -1,0 +1,89 @@
+/**
+ * Editor Styles
+ */
+@import "./variables";
+@import "./style";
+
+.ghostkit-form {
+	> .block-editor-inserter {
+		display: block;
+		margin-top: 20px;
+	}
+
+	// Reset field default styles.
+	&-field > .components-base-control,
+	&-field-row > div > .components-base-control {
+		font-family: inherit;
+		font-size: 1em;
+	}
+
+	&-field-description {
+		margin-bottom: 0;
+	}
+
+	&-field-label > .block-editor-rich-text {
+		display: inline-block;
+	}
+
+	// Disable pointer events.
+	&-field .components-text-control__input,
+	&-field .components-select-control__input,
+	&-field .components-textarea-control__input,
+	&-field &-field-checkbox-item,
+	&-field &-field-radio-item {
+		pointer-events: none;
+	}
+
+	// Fix for Select field width.
+	&-field .components-select-control__input {
+		max-width: none;
+	}
+
+	// Submit button.
+	&-submit-button > .block-editor-inner-blocks > .block-editor-block-list__layout {
+		display: flex;
+		justify-content: var(--gkt-button__align-items);
+
+		> .wp-block {
+			margin: 0;
+		}
+	}
+}
+
+// Options component.
+.ghostkit-field-options-item {
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px;
+
+	> [type="radio"],
+	> [type="checkbox"] {
+		margin-bottom: 0;
+	}
+
+	> .components-base-control {
+		flex: 1;
+	}
+
+	> .components-button {
+		height: 30px;
+		padding-top: 4px;
+		padding-right: 0;
+		padding-bottom: 4px;
+		margin-left: 3px;
+	}
+
+	.components-base-control__field {
+		margin-bottom: 0;
+	}
+
+	.components-text-control__input {
+		pointer-events: inherit;
+	}
+}
+
+.ghostkit-field-options > .components-button {
+	padding-top: 0;
+	padding-left: 16px;
+	margin-top: -4px;
+}

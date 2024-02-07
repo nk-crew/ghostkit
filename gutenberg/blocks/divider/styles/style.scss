@@ -1,0 +1,61 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-divider {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: var(--gkt-divider__padding-v) var(--gkt-divider__padding-h);
+
+	&::before,
+	&::after {
+		display: block;
+		flex: 1;
+		max-width: 50%;
+		content: "";
+		border-bottom: var(--gkt-divider__border-width) solid var(--gkt-divider__border-color);
+		transition: var(--gkt-divider__transition-duration) border-color var(--gkt-divider__transition-easing);
+	}
+
+	&:not(.ghostkit-divider-with-icon) {
+		&::before {
+			max-width: 100%;
+		}
+
+		&::after {
+			display: none;
+		}
+	}
+
+	// Types.
+	&-type-solid::before,
+	&-type-solid::after {
+		border-bottom-style: solid;
+	}
+
+	&-type-dashed::before,
+	&-type-dashed::after {
+		border-bottom-style: dashed;
+	}
+
+	&-type-dotted::before,
+	&-type-dotted::after {
+		border-bottom-style: dotted;
+	}
+
+	&-type-double::before,
+	&-type-double::after {
+		border-bottom-style: double;
+	}
+
+	// Icon.
+	&-icon {
+		display: flex;
+		padding: var(--gkt-divider--icon__padding-v) var(--gkt-divider--icon__padding-h);
+		font-size: var(--gkt-divider--icon__font-size);
+		color: var(--gkt-divider--icon__color);
+		transition: var(--gkt-divider__transition-duration) color var(--gkt-divider__transition-easing);
+	}
+}

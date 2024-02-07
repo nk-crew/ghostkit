@@ -1,0 +1,54 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-button-wrapper {
+	--gkt-button__gap: 15px;
+	--gkt-button__gap-vertical: var(--gkt-button__gap);
+	--gkt-button__align-items: flex-start;
+	--gkt-button__justify-content: flex-start;
+}
+
+.ghostkit-button {
+	--gkt-button__padding-v: 0.75em;
+	--gkt-button__padding-h: 1em;
+	--gkt-button__line-height: 1em;
+	--gkt-button__color: #fff;
+	--gkt-button__background-color: var(--gkt-color-primary);
+	--gkt-button__border-width: 0%;
+	--gkt-button__border-color: var(--gkt-color-primary);
+	--gkt-button__border-radius: var(--gkt-border-radius);
+	--gkt-button__outline: none;
+	--gkt-button__box-shadow: none;
+
+	// Hover.
+	--gkt-button-hover__color: #fff;
+	--gkt-button-hover__background-color: var(--gkt-color-dark-gray);
+	--gkt-button-hover__border-width: var(--gkt-button__border-width);
+	--gkt-button-hover__border-color: var(--gkt-button__border-color);
+	--gkt-button-hover__box-shadow: var(--gkt-button__box-shadow);
+
+	// Focus.
+	--gkt-button-focus__color: var(--gkt-button-hover__color);
+	--gkt-button-focus__background-color: var(--gkt-button-hover__background-color);
+	--gkt-button-focus__border-width: var(--gkt-button-hover__border-width);
+	--gkt-button-focus__border-color: var(--gkt-button-hover__border-color);
+	--gkt-button-focus__box-shadow: var(--gkt-button-hover__box-shadow);
+
+	// Sizes.
+	--gkt-button-xs__font-size: 0.8em;
+	--gkt-button-sm__font-size: 0.85em;
+	--gkt-button__font-size: 1em;
+	--gkt-button-lg__font-size: 1.15em;
+	--gkt-button-xl__font-size: 1.3em;
+
+	// Icon.
+	--gkt-button-icon-only__padding-v: var(--gkt-button__padding-v);
+	--gkt-button-icon-only__padding-h: var(--gkt-button__padding-v);
+	--gkt-button--icon__offset: 10px;
+
+	// Transitions.
+	--gkt-button__transition-duration: var(--gkt-transition-duration);
+	--gkt-button__transition-easing: var(--gkt-transition-easing);
+}

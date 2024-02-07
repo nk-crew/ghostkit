@@ -1,0 +1,45 @@
+@import "../../variables";
+
+// Prepare better styles for Inspector.
+.ghostkit-components-url-picker-inspector .block-editor-link-control {
+	min-width: 0;
+
+	// Search Item.
+	.block-editor-link-control__search-item.is-current {
+		padding: 0;
+		padding-bottom: 16px;
+	}
+
+	// Additional Settings.
+	.block-editor-link-control__tools {
+		padding: 0;
+		padding-top: 16px;
+		padding-bottom: 10px;
+	}
+
+	// Search Input.
+	.block-editor-link-control__search-input {
+		margin: 0;
+		margin-bottom: 16px;
+
+		.components-base-control__field {
+			margin-bottom: 0;
+		}
+
+		input[type="text"] {
+			width: 100%;
+			margin: 0;
+		}
+	}
+
+	.block-editor-link-control__search-actions {
+		top: 4px;
+		right: 4px;
+	}
+
+	// Search Results.
+	.block-editor-link-control__search-results {
+		padding: 0;
+		margin-top: 24px;
+	}
+}

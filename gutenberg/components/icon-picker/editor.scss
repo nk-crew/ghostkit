@@ -1,0 +1,159 @@
+@import "../../variables";
+
+.ghostkit-component-icon-picker-wrapper:has(+ .ghostkit-component-icon-picker-wrapper) {
+	margin-bottom: -9px;
+
+	.ghostkit-component-icon-picker-toggle {
+		border-bottom: none;
+	}
+}
+
+.ghostkit-component-icon-picker-toggle {
+	position: relative;
+	width: 100%;
+	height: auto;
+	padding: 10px 12px;
+	margin-bottom: 0;
+	border: 1px solid rgba(0, 0, 0, 10%);
+	border-radius: 0;
+
+	&.ghostkit-component-icon-picker-toggle-active {
+		color: var(--wp-admin-theme-color);
+		background-color: #f0f0f0;
+	}
+
+	.ghostkit-component-icon-picker-toggle-indicator {
+		position: relative;
+		display: flex;
+		width: 20px;
+		min-height: 20px;
+		margin-right: 8px;
+
+		&:empty {
+			background-color: #e4e4e4;
+			border-radius: 4px;
+		}
+
+		svg {
+			width: 100%;
+			height: auto;
+			fill: none;
+		}
+	}
+
+	.ghostkit-component-icon-picker-toggle-label {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+
+.ghostkit-component-icon-picker-wrapper {
+	.components-dropdown {
+		display: block;
+	}
+}
+
+.ghostkit-component-icon-picker-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	padding: 0;
+	font-size: 15px;
+	text-align: center;
+	border-radius: 4px;
+
+	&.ghostkit-component-icon-picker-preview {
+		cursor: pointer;
+		border: 1px solid transparent;
+		transition: 0.15s background-color, 0.15s border-color;
+
+		&:hover,
+		&.hover {
+			background-color: $light-gray-200;
+			border-color: $light-gray-200;
+		}
+
+		&.hover:hover {
+			background-color: $light-gray-500;
+			border-color: $light-gray-500;
+		}
+
+		&.ghostkit-component-icon-picker-button-active {
+			background-color: #fff;
+			border-color: $blue-medium-focus;
+		}
+	}
+}
+
+.ghostkit-component-icon-picker-preview-clickable {
+	cursor: pointer;
+}
+
+.ghostkit-component-icon-picker {
+	.components-base-control {
+		// fix hidden right part of inputs.
+		padding-right: 2px;
+
+		+ .components-base-control {
+			margin-top: 15px;
+			margin-bottom: 0;
+		}
+	}
+
+	.ghostkit-component-icon-picker-list-wrap {
+		padding: 15px;
+
+		.ReactVirtualized__Grid__innerScrollContainer > div {
+			padding-bottom: 10px;
+		}
+	}
+
+	.ghostkit-component-icon-picker-list-panel-toggle {
+		border-bottom: none;
+
+		&.is-opened > .components-panel__body-title {
+			margin-bottom: -16px;
+		}
+	}
+
+	.ghostkit-component-icon-picker-list {
+		display: flex;
+		flex-wrap: wrap;
+		margin-left: -10px;
+
+		> * {
+			width: calc(33.33% - 10px);
+			max-width: calc(33.33% - 10px);
+			margin-left: 10px;
+		}
+
+		.ghostkit-component-icon-picker-button {
+			width: 100%;
+			height: 55px;
+			font-size: 20px;
+		}
+	}
+}
+
+// add max height to popover.
+.ghostkit-component-icon-picker-content > .components-popover__content {
+	overflow-y: hidden !important;
+
+	.ghostkit-component-icon-picker-sizer {
+		min-width: 280px;
+		height: 50vh;
+		max-height: 400px;
+	}
+
+	.ghostkit-component-icon-picker {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+}

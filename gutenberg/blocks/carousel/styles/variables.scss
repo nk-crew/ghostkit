@@ -1,0 +1,37 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-carousel {
+	--gkt-carousel--fade-edges__size: 12%;
+
+	// Arrows.
+	--gkt-carousel--arrows__width: 2.2em;
+	--gkt-carousel--arrows__height: 2.2em;
+	--gkt-carousel--arrows__offset: 0.5em;
+	--gkt-carousel--arrows__font-size: 0.9em;
+	--gkt-carousel--arrows__color: var(--gkt-color-dark-gray);
+	--gkt-carousel--arrows__background-color: #fff;
+	--gkt-carousel--arrows__border-radius: 50%;
+	--gkt-carousel--arrows__box-shadow: 0 0 10px 4px rgba(0, 0, 0, 4%), 0 0 1px 1px rgba(0, 0, 0, 2%);
+	--gkt-carousel--arrows__opacity: 0.5;
+	--gkt-carousel--arrows-hover__box-shadow: 0 2px 10px 4px rgba(0, 0, 0, 4%), 0 0 1px 1px rgba(0, 0, 0, 2%);
+	--gkt-carousel--arrows-hover__opacity: 1;
+	--gkt-carousel--arrows-hover__transform: translateY(-1px);
+
+	// Bullets.
+	--gkt-carousel--bullets__width: 0.4em;
+	--gkt-carousel--bullets__height: 0.4em;
+	--gkt-carousel--bullets__margin-top: 25px;
+	--gkt-carousel--bullets__gap: 0.8em;
+	--gkt-carousel--bullets__background-color: var(--gkt-color-dark-gray);
+	--gkt-carousel--bullets__border-radius: 50%;
+	--gkt-carousel--bullets__opacity: 0.2;
+	--gkt-carousel--bullets-hover__opacity: 0.5;
+	--gkt-carousel--bullets-active__opacity: 1;
+
+	// Transitions.
+	--gkt-carousel__transition-duration: var(--gkt-transition-duration);
+	--gkt-carousel__transition-easing: var(--gkt-transition-easing);
+}

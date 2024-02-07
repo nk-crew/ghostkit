@@ -1,0 +1,33 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-progress {
+	--gkt-progress__height: 15px;
+	--gkt-progress__border-radius: var(--gkt-border-radius);
+	--gkt-progress__background-color: var(--gkt-color-light-gray);
+
+	// Caption.
+	--gkt-progress--caption__margin-bottom: 0.3em;
+	--gkt-progress--caption__font-size: 0.85em;
+
+	// Count.
+	--gkt-progress--count__padding-v: 0.1em;
+	--gkt-progress--count__padding-h: 0.7em;
+	--gkt-progress--count__font-size: 0.6em;
+	--gkt-progress--count__border-radius: 1em;
+	--gkt-progress--count__color: #fff;
+	--gkt-progress--count__background-color: var(--gkt-color-dark-gray);
+	--gkt-progress--count-arrow__size: 0.35em;
+
+	// Bar.
+	--gkt-progress--bar__width: 0;
+	--gkt-progress--bar__background-color: var(--gkt-color-primary);
+	--gkt-progress--bar-striped__background-image: linear-gradient(45deg, rgba(255, 255, 255, 10%) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 10%) 50%, rgba(255, 255, 255, 10%) 75%, transparent 75%, transparent);
+	--gkt-progress--bar-striped__background-size: 15px 15px;
+
+	// Transitions.
+	--gkt-progress__transition-duration: var(--gkt-transition-duration);
+	--gkt-progress__transition-easing: var(--gkt-transition-easing);
+}

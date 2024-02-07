@@ -1,0 +1,17 @@
+/**
+ * Editor Styles
+ */
+@import "./variables";
+@import "./style";
+
+// preview image with background pattern in Inspector Controls
+.components-panel .ghostkit-gutenberg-media-upload > div {
+	height: 150px;
+}
+
+.ghostkit-video-toolbar-url .components-base-control__field {
+	display: flex;
+	align-items: center;
+	width: 300px;
+	margin: 7px;
+}

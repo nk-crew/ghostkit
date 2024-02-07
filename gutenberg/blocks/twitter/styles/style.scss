@@ -1,0 +1,261 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-twitter {
+	// fix for negative margins.
+	&::after {
+		display: block;
+		height: 0.01px;
+		clear: both;
+		content: "";
+	}
+
+	// Verified badge.
+	&-item-meta-name-verified,
+	&-profile-verified {
+		font-size: 0;
+
+		&::before {
+			display: inline-block;
+			width: var(--gkt-twitter--verified-badge__width);
+			height: var(--gkt-twitter--verified-badge__height);
+			content: "";
+			background-image: var(--gkt-twitter--verified-badge__background-image);
+		}
+	}
+
+	&-profile-verified::before {
+		width: calc(2px + var(--gkt-twitter--verified-badge__width));
+		height: calc(2px + var(--gkt-twitter--verified-badge__height));
+	}
+
+	// Profile.
+	&-profile {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: var(--gkt-twitter--profile__margin-bottom);
+
+		// Avatar.
+		&-avatar img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+			margin: 0;
+			border-radius: var(--gkt-twitter--profile-avatar__border-radius);
+		}
+
+		// Side.
+		&-side {
+			flex: 1;
+			max-width: 100%;
+		}
+
+		&-avatar + .ghostkit-twitter-profile-side {
+			margin-left: var(--gkt-twitter--profile-avatar__offset);
+		}
+
+		// Name.
+		&-name {
+			a {
+				color: inherit;
+				text-decoration: none;
+				border-bottom: none;
+
+				&:hover,
+				&:focus {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		& .ghostkit-twitter-profile-fullname {
+			margin: 0;
+			font-size: var(--gkt-twitter--profile-name__font-size);
+		}
+
+		& .ghostkit-twitter-profile-username {
+			margin: 0;
+			font-size: var(--gkt-twitter--profile-username__font-size);
+			font-weight: var(--gkt-twitter--profile-username__font-weight);
+			opacity: var(--gkt-twitter--profile-username__font-opacity);
+		}
+
+		// Stats.
+		&-stats {
+			display: flex;
+			flex-wrap: wrap;
+
+			> div {
+				margin-right: var(--gkt-twitter--profile-stats__gap);
+
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+
+		// Elements gap.
+		div + &-stats,
+		div + &-description,
+		div + &-website,
+		div + &-location {
+			margin-top: var(--gkt-twitter--profile-elements__gap);
+		}
+
+		// Display line breaks in profile description
+		&-description {
+			white-space: pre-wrap;
+		}
+	}
+
+	// Items.
+	&-item {
+		display: flex;
+		margin-bottom: var(--gkt-twitter--tweet__margin-bottom);
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		// Content.
+		&-content {
+			flex: 1;
+
+			img {
+				max-width: 100%;
+				margin-top: var(--gkt-twitter--tweet-content-img__margin-top);
+				border: var(--gkt-twitter--tweet-content-img__border-width) solid var(--gkt-twitter--tweet-content-img__border-color);
+				border-radius: var(--gkt-twitter--tweet-content-img__border-radius);
+			}
+		}
+
+		// Avatar.
+		&-avatar {
+			margin-right: var(--gkt-twitter--tweet-avatar__margin-right);
+
+			img {
+				height: auto;
+				border-radius: var(--gkt-twitter--tweet-avatar__border-radius);
+			}
+		}
+
+		// Retweeted
+		&-retweeted {
+			position: relative;
+			font-size: var(--gkt-twitter--tweet-retweeted__font-size);
+			opacity: var(--gkt-twitter--tweet-retweeted__opacity);
+
+			&-icon {
+				position: absolute;
+				right: 100%;
+				width: 1em;
+				margin-right: var(--gkt-twitter--tweet-retweeted-icon__margin-right);
+			}
+
+			a {
+				color: inherit;
+				text-decoration: none;
+				border-bottom: none;
+
+				&:hover,
+				&:focus {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		// Meta.
+		&-meta {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+
+			// Meta Name.
+			&-name {
+				a {
+					color: inherit;
+					text-decoration: var(--gkt-twitter--tweet-name__text-decoration);
+					border-bottom: none;
+
+					&:hover strong,
+					&:focus strong {
+						text-decoration: var(--gkt-twitter--tweet-name-hover__text-decoration);
+					}
+				}
+
+				span:last-child {
+					opacity: var(--gkt-twitter--tweet-username__opacity);
+				}
+
+				// Meta Date Separator.
+				+ .ghostkit-twitter-item-meta-date::before {
+					margin: var(--gkt-twitter--tweet-date-separator__margin-v) var(--gkt-twitter--tweet-date-separator__margin-h);
+					font-size: var(--gkt-twitter--tweet-date-separator__font-size);
+					content: var(--gkt-twitter--tweet-date-separator__content);
+				}
+			}
+
+			// Meta Date.
+			&-date {
+				display: flex;
+				align-items: center;
+				opacity: var(--gkt-twitter--tweet-date__opacity);
+
+				a {
+					color: inherit;
+					text-decoration: var(--gkt-twitter--tweet-date__text-decoration);
+					border-bottom: none;
+
+					&:hover,
+					&:focus {
+						text-decoration: var(--gkt-twitter--tweet-date-hover__text-decoration);
+					}
+				}
+			}
+		}
+
+		// Actions.
+		&-actions {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			font-size: var(--gkt-twitter--tweet-actions__font-size);
+
+			> div {
+				margin-right: var(--gkt-twitter--tweet-actions__gap);
+			}
+
+			> div:last-child {
+				margin-right: 0;
+			}
+
+			a {
+				color: inherit;
+				text-decoration: none;
+				border-bottom: none;
+				opacity: var(--gkt-twitter--tweet-actions-link__opacity);
+
+				&:hover,
+				&:focus {
+					opacity: var(--gkt-twitter--tweet-actions-link-hover__opacity);
+				}
+			}
+
+			span {
+				margin-left: var(--gkt-twitter--tweet-actions-label__offset);
+			}
+		}
+
+		// Display line breaks in tweet text.
+		&-text {
+			white-space: pre-wrap;
+		}
+
+		div + &-text,
+		div + &-actions {
+			margin-top: var(--gkt-twitter--tweet-elements__gap);
+		}
+	}
+}

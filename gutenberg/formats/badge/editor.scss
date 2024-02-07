@@ -1,0 +1,16 @@
+@import "./variables";
+@import "./style";
+
+// fix badge background color on focus.
+.block-editor-rich-text__editable:focus [data-rich-text-format-boundary].ghostkit-badge:not([style]) {
+	background-color: #6a6c75;
+}
+
+// active badge color indicator.
+.ghostkit-format-badge-button__indicator {
+	position: absolute;
+	bottom: 7px;
+	left: 13px;
+	width: 20px;
+	height: 4px;
+}

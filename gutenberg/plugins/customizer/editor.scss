@@ -1,0 +1,133 @@
+/**
+ * Editor Styles
+ */
+@import "../../variables";
+
+.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) .ghostkit-customizer-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) .ghostkit-customizer-plugin-icon svg *,
+.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-customizer-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-customizer-plugin-icon svg *,
+.edit-post-pinned-plugins .components-icon-button:hover .ghostkit-customizer-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button:hover .ghostkit-customizer-plugin-icon svg * {
+	stroke: initial !important;
+}
+
+.ghostkit-plugin-customizer-modal {
+	// no items found info block.
+	.ghostkit-customizer-info {
+		width: 100%;
+		max-width: 300px;
+		margin-right: auto;
+		margin-bottom: 13px;
+		color: #0085ba;
+	}
+
+	// loading spinner.
+	.ghostkit-customizer-spinner {
+		width: 100%;
+		margin-bottom: 13px;
+
+		> span {
+			float: left;
+			margin: 0;
+		}
+	}
+
+	.components-placeholder__fieldset {
+		z-index: 21;
+	}
+
+	// items list.
+	.ghostkit-customizer-list {
+		width: 100%;
+		margin-top: 10px;
+
+		> div {
+			position: relative;
+			padding: 16px;
+			margin-top: -1px;
+			margin-right: -16px;
+			margin-left: -16px;
+			transition: 0.2s background-color;
+
+			&:hover {
+				background-color: #f9f9f9;
+			}
+
+			.ghostkit-customizer-list-field {
+				width: 100%;
+				margin-bottom: 0;
+			}
+
+			.ghostkit-customizer-list-info {
+				display: flex;
+
+				> * {
+					max-width: 60%;
+				}
+
+				> * + * {
+					margin-left: 15px;
+				}
+			}
+
+			.ghostkit-customizer-list-info-id {
+				word-break: break-word;
+				opacity: 0.3;
+			}
+
+			.ghostkit-customizer-list-info-default {
+				margin-left: auto;
+				word-break: break-word;
+				opacity: 0.3;
+
+				span {
+					font-weight: 700;
+				}
+			}
+
+			.ghostkit-customizer-list-remove {
+				position: absolute;
+				top: 14px;
+				right: 16px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 15px;
+				height: 15px;
+				color: #fff;
+				cursor: pointer;
+				visibility: hidden;
+				background: #eaeaea;
+				border: none;
+				border-radius: 50%;
+				opacity: 0;
+				transition: 0.2s opacity, 0.2s visibility, 0.2s background-color;
+
+				&:hover {
+					background-color: #ff4340;
+				}
+
+				span {
+					width: 10px;
+					height: 10px;
+					font-size: 10px;
+				}
+			}
+
+			&:hover .ghostkit-customizer-list-remove {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+
+		// controls
+		.components-toggle-control {
+			margin-bottom: 0;
+		}
+
+		.components-color-palette {
+			margin-bottom: -10px;
+		}
+	}
+}

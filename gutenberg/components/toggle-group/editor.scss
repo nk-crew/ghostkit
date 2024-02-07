@@ -1,0 +1,16 @@
+@import "../../variables";
+
+.ghostkit-control-toggle-group {
+	> div {
+		margin-bottom: -10px;
+	}
+
+	[aria-checked="false"] {
+		color: #000;
+	}
+
+	button[disabled] {
+		background-color: #b7b7b7;
+		opacity: 0.4;
+	}
+}

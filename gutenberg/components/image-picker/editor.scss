@@ -1,0 +1,83 @@
+@import "../../variables";
+
+.ghostkit-component-image-picker {
+	--ghostkit-component-image-picker-item-size: 50%;
+
+	&.ghostkit-component-image-picker-3 {
+		--ghostkit-component-image-picker-item-size: 33.33%;
+	}
+
+	&.ghostkit-component-image-picker-4 {
+		--ghostkit-component-image-picker-item-size: 25%;
+	}
+
+	&.ghostkit-component-image-picker-5 {
+		--ghostkit-component-image-picker-item-size: 20%;
+	}
+
+	&.ghostkit-component-image-picker-6 {
+		--ghostkit-component-image-picker-item-size: 16.66%;
+	}
+
+	.components-base-control__field {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		> .components-base-control__label {
+			min-width: 100%;
+		}
+	}
+
+	.ghostkit-component-image-picker-item {
+		display: flex;
+		flex-direction: column;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: flex-start;
+		width: calc(var(--ghostkit-component-image-picker-item-size) - 4px);
+		padding: 4px;
+		margin: 4px 0;
+		overflow: hidden;
+		color: inherit;
+		cursor: pointer;
+		background: none;
+		border: none;
+		border-radius: 4px;
+
+		&:hover {
+			color: $dark-gray-900;
+			background: $light-gray-100;
+		}
+
+		&.ghostkit-component-image-picker-item-active {
+			color: $dark-gray-900;
+			outline: 2px solid transparent;
+			outline-offset: -2px;
+			box-shadow: 0 0 0 2px $dark-gray-500;
+		}
+
+		&:focus {
+			color: $dark-gray-900;
+			outline: 2px solid transparent;
+			outline-offset: -2px;
+			box-shadow: 0 0 0 2px $blue-medium-focus;
+		}
+
+		svg,
+		img {
+			display: block;
+			width: 100%;
+			height: auto;
+			border: 1px solid rgba($dark-gray-500, 0.2);
+			border-radius: 4px;
+			outline: 1px solid transparent;
+		}
+
+		span {
+			display: block;
+			padding: 4px 2px;
+			text-align: center;
+		}
+	}
+}

@@ -1,0 +1,19 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-instagram {
+	// Profile.
+	--gkt-instagram--profile__margin-bottom: 2.5em;
+	--gkt-instagram--profile-avatar__border-radius: 50%;
+	--gkt-instagram--profile-avatar__offset: 1.5em;
+	--gkt-instagram--profile-elements__gap: 1.2em;
+	--gkt-instagram--profile-name__font-size: 1.4em;
+	--gkt-instagram--profile-stats__gap: 1.2em;
+	--gkt-instagram--profile-bio-title__margin-bottom: 0.5em;
+
+	// Photos.
+	--gkt-instagram--photos__gap: 15px;
+	--gkt-instagram--photos__columns: 1;
+}

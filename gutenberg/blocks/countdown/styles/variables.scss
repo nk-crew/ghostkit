@@ -1,0 +1,20 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-countdown {
+	// Unit.
+	--gkt-countdown--unit__min-width: 6.2em;
+	--gkt-countdown--unit__padding-v: 0.7em;
+	--gkt-countdown--unit__padding-h: 1.4em;
+
+	// Unit Number.
+	--gkt-countdown--unit-number__font-weight: 700;
+	--gkt-countdown--unit-number__font-size: 2em;
+	--gkt-countdown--unit-number__color: var(--gkt-color-primary);
+
+	// Unit Label.
+	--gkt-countdown--unit-label__font-size: 1em;
+	--gkt-countdown--unit-label__color: inherit;
+}

@@ -1,0 +1,128 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-testimonial {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	padding: 0;
+
+	// With link.
+	&-with-link {
+		position: relative;
+	}
+
+	&-link span {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	// Icon.
+	&-icon {
+		position: absolute;
+		top: var(--gkt-testimonial--icon__top);
+		left: var(--gkt-testimonial--icon__left);
+		font-size: var(--gkt-testimonial--icon__font-size);
+		opacity: var(--gkt-testimonial--icon__opacity);
+
+		+ .ghostkit-testimonial-content {
+			padding-left: var(--gkt-testimonial--icon-content__offset);
+		}
+	}
+
+	// Content.
+	&-content {
+		flex: 100%;
+		padding: var(--gkt-testimonial--content__padding-v) var(--gkt-testimonial--content__padding-h);
+		margin-bottom: var(--gkt-testimonial--content__margin-bottom);
+		background-color: var(--gkt-testimonial--content__background-color);
+		border-radius: var(--gkt-testimonial--content__border-radius);
+	}
+
+	// Photo.
+	&-photo {
+		width: var(--gkt-testimonial--photo__width);
+		overflow: hidden;
+		border-radius: var(--gkt-testimonial--photo__border-radius);
+
+		img {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+
+		+ .ghostkit-testimonial-meta,
+		+ .ghostkit-testimonial-stars {
+			margin-left: var(--gkt-testimonial--meta__offset);
+		}
+	}
+
+	// Meta.
+	&-meta {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+
+		+ .ghostkit-testimonial-stars {
+			margin-left: var(--gkt-testimonial--meta__offset);
+		}
+	}
+
+	&-name {
+		line-height: var(--gkt-testimonial--name__line-height);
+	}
+
+	&-source {
+		font-size: var(--gkt-testimonial--source__font-size);
+		line-height: var(--gkt-testimonial--source__line-height);
+		opacity: var(--gkt-testimonial--source__opacity);
+	}
+
+	&-name + &-source {
+		margin-top: var(--gkt-testimonial--name-source__margin-top);
+	}
+
+	// Stars.
+	&-stars {
+		line-height: var(--gkt-testimonial--stars__line-height);
+
+		&-wrap {
+			position: relative;
+			display: inline-block;
+		}
+
+		&-front,
+		&-back {
+			height: var(--gkt-testimonial--stars__height);
+			overflow: hidden;
+			white-space: nowrap;
+		}
+
+		&-front {
+			position: absolute;
+			color: var(--gkt-testimonial--stars-front__color);
+		}
+
+		&-back {
+			color: var(--gkt-testimonial--stars-back__color);
+		}
+	}
+
+	@include media-breakpoint-down(md) {
+		&-stars {
+			flex: 100%;
+			margin-top: var(--gkt-testimonial--stars-mobile__margin-top);
+		}
+
+		&-meta + &-stars,
+		&-photo + &-stars {
+			margin-left: 0;
+		}
+	}
+}

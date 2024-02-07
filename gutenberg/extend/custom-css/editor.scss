@@ -1,0 +1,118 @@
+@import "../../variables";
+
+.ghostkit-tools-panel-custom-css {
+	display: flex;
+	flex-direction: column;
+	grid-column: 1 / -1;
+	gap: 15px;
+}
+
+.ghostkit-control-pre-custom-css {
+	padding: 20px;
+	background-color: $light-gray-400;
+}
+
+// Custom CSS Dropdown.
+.ghostkit-extension-customCSS-custom__dropdown {
+	display: block;
+	width: 100%;
+}
+
+.ghostkit-extension-customCSS-custom__dropdown-content {
+	.components-popover__content {
+		width: 500px;
+		padding: 16px;
+	}
+
+	.components-tab-panel__tabs {
+		margin-top: -16px;
+		margin-right: -16px;
+		margin-bottom: 16px;
+		margin-left: -16px;
+	}
+}
+
+.ghostkit-extension-customCSS-custom__dropdown-content-toggle {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: auto;
+	padding: 0;
+	cursor: pointer;
+
+	> span {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 110px;
+		height: 34px;
+		margin-top: -17px;
+		margin-left: -55px;
+		font-size: 13px;
+		font-weight: 400;
+		color: #fff;
+		background-color: var(--wp-admin-theme-color);
+		border-radius: 3px;
+		transition: 0.2s background-color;
+	}
+
+	.ace_editor {
+		box-shadow: 0 0 0 1px #b3b3b3;
+		transition: 0.2s box-shadow;
+	}
+
+	.ace_scroller {
+		filter: blur(0);
+		opacity: 0.2;
+		transition: 0.2s filter;
+	}
+
+	.ace_scroller,
+	.ace_scrollbar {
+		overflow: hidden;
+	}
+
+	.ghostkit-component-code-editor {
+		pointer-events: none;
+	}
+
+	&:hover,
+	&:focus {
+		> span {
+			background-color: var(--wp-admin-theme-color-darker-10);
+		}
+
+		.ace_editor {
+			box-shadow: 0 0 0 1px var(--wp-admin-theme-color-darker-10);
+		}
+
+		.ace_scroller {
+			filter: blur(2px);
+		}
+	}
+
+	&-active,
+	&-active:hover,
+	&-active:focus {
+		> span {
+			background-color: var(--wp-admin-theme-color-darker-10);
+		}
+
+		.ace_editor {
+			box-shadow: 0 0 0 2px var(--wp-admin-theme-color-darker-10);
+		}
+
+		.ace_scroller {
+			filter: blur(2px);
+		}
+	}
+}
+
+// Fixes z-index of autocomplete.
+.ace_editor.ace_autocomplete {
+	z-index: 1000000;
+}

@@ -1,0 +1,6 @@
+@import "../../variables";
+
+.ghostkit-has-transform {
+	transform: perspective(var(--gkt-transform-perspective, none)) translateX(var(--gkt-transform-x, 0)) translateY(var(--gkt-transform-y, 0)) scale(var(--gkt-transform-scale, 1)) rotate(var(--gkt-transform-rotate, 0deg)) rotateX(var(--gkt-transform-rotate-x, 0deg)) rotateY(var(--gkt-transform-rotate-y, 0deg)) rotateZ(var(--gkt-transform-rotate-z, 0deg)) skewX(var(--gkt-transform-skew-x, 0deg)) skewY(var(--gkt-transform-skew-y, 0deg));
+	transform-origin: var(--gkt-transform-origin, 50% 50%);
+}

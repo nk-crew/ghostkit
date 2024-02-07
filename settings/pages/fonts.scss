@@ -1,0 +1,46 @@
+.ghostkit-settings-content-wrapper.ghostkit-settings-fonts {
+	.ghostkit-settings-fonts-tabs > .components-tab-panel__tabs {
+		margin-top: -25px;
+		margin-right: -25px;
+		margin-left: -25px;
+
+		.components-tab-panel__tabs-item > span {
+			display: flex;
+			align-items: center;
+
+			svg {
+				width: 20px;
+				height: auto;
+				margin-right: 8px;
+			}
+		}
+	}
+
+	ol.is-style-styled {
+		margin-top: 25px;
+		margin-left: 0;
+		font-family: inherit;
+		font-size: 1em;
+
+		> li::before {
+			width: 2em;
+			height: 2em;
+		}
+	}
+}
+
+.ghostkit-settings-fonts-loading {
+	pointer-events: none;
+
+	.components-spinner {
+		position: absolute;
+		top: 15px;
+		right: 5px;
+		margin-top: 0;
+		opacity: 1;
+
+		~ * {
+			opacity: 0.3;
+		}
+	}
+}

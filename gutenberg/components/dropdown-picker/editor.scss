@@ -1,0 +1,46 @@
+@import "../../variables";
+
+.ghostkit-component-dropdown-picker-toggle {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: auto;
+	min-height: 40px;
+	padding: 10px 12px;
+	margin-bottom: 0;
+	border: 1px solid rgba(0, 0, 0, 15%);
+	border-radius: 0;
+
+	&.ghostkit-component-dropdown-picker-toggle-active {
+		color: var(--wp-admin-theme-color);
+		background-color: #f0f0f0;
+	}
+
+	.ghostkit-component-dropdown-picker-toggle-label {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+
+// Dropdown.
+.ghostkit-component-dropdown-picker__dropdown {
+	display: block;
+	width: 100%;
+}
+
+.ghostkit-component-dropdown-picker__dropdown-content {
+	.components-popover__content {
+		width: 260px;
+		padding: 16px;
+	}
+
+	.components-tab-panel__tabs {
+		margin-top: -16px;
+		margin-right: -16px;
+		margin-bottom: 16px;
+		margin-left: -16px;
+	}
+}

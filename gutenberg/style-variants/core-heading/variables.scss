@@ -1,0 +1,16 @@
+/**
+ * Block Variables
+ */
+@import "../../variables";
+
+.is-style-numbered {
+	--gkt-numbered-headings__margin-right: 0.4em;
+
+	// Number.
+	--gkt-numbered-headings--h2-number__width: 1.6em;
+	--gkt-numbered-headings--h2-number__height: 1.6em;
+	--gkt-numbered-headings--h2-number__line-height: 1;
+	--gkt-numbered-headings--h2-number__color: #fff;
+	--gkt-numbered-headings--h2-number__background-color: var(--gkt-color-dark-gray);
+	--gkt-numbered-headings--h2-number__border-radius: 50%;
+}

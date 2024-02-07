@@ -1,0 +1,179 @@
+/**
+ * Editor Styles
+ */
+@import "../../variables";
+
+.ghostkit-plugin-templates-modal-notice.components-notice {
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-right: -15px;
+	margin-bottom: 15px;
+	margin-left: -15px;
+
+	h3 {
+		font-size: 14px;
+	}
+}
+
+.ghostkit-plugin-templates-modal {
+	&.ghostkit-plugin-templates-modal-hide-header .components-modal__content > .components-modal__header:first-of-type {
+		display: none;
+	}
+
+	.components-modal__header {
+		border-bottom: none;
+	}
+
+	// loading while trying to insert selected template.
+	&.ghostkit-plugin-templates-modal-loading {
+		.ghostkit-control-tabs {
+			pointer-events: none;
+			opacity: 0.3;
+		}
+
+		.ghostkit-plugin-templates-modal-loading-spinner {
+			position: absolute;
+			top: 14px;
+			right: 50px;
+			z-index: 10;
+
+			.components-spinner {
+				float: none;
+				margin-left: 0;
+			}
+		}
+	}
+
+	// row.
+	.ghostkit-plugin-templates-categories-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	// categories.
+	.ghostkit-plugin-templates-categories-select {
+		max-width: 170px;
+		margin-bottom: 10px;
+	}
+
+	// count.
+	.ghostkit-plugin-templates-count {
+		max-width: 170px;
+		margin-bottom: 20px;
+		opacity: 0.7;
+	}
+
+	// items background.
+	.components-tab-panel__tab-content {
+		padding: 15px 16px;
+		margin: -15px -16px;
+		background-color: $light-gray-100;
+	}
+}
+
+// missing blocks.
+.ghostkit-templates-missing-block-alert.ghostkit-alert {
+	margin-bottom: 20px;
+	border-left-color: var(--gkt-color-danger);
+
+	.ghostkit-templates-missing-block-additional {
+		width: 100%;
+	}
+
+	.ghostkit-templates-missing-block-additional,
+	.ghostkit-templates-missing-block-additional .components-button {
+		margin-top: 10px;
+	}
+}
+
+.ghostkit-plugin-templates-spinner .components-spinner {
+	float: none;
+	margin-left: 0;
+}
+
+.ghostkit-plugin-templates-list {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0;
+	margin-top: -15px;
+	margin-left: -15px;
+	list-style: none;
+
+	> .ghostkit-plugin-templates-list-item {
+		flex: 0 0 33.33%;
+		width: 33.33%;
+		padding-top: 15px;
+		padding-left: 15px;
+
+		@media screen and (max-width: 840px) {
+			flex: 0 0 50%;
+			width: 50%;
+		}
+
+		@media screen and (max-width: 450px) {
+			flex: 0 0 100%;
+			width: 100%;
+		}
+
+		> button {
+			display: block;
+			width: 100%;
+			padding: 0;
+			cursor: pointer;
+			background: none;
+			background-color: #fff;
+			border: none;
+			border-radius: 4px;
+			box-shadow: 0 0 0 1px $light-gray-300;
+			transition: 0.2s border-color, 0.2s box-shadow;
+
+			&:hover,
+			&:focus,
+			&:active {
+				box-shadow: 0 0 0 2px $blue-medium-focus;
+			}
+
+			.ghostkit-plugin-templates-list-item-image {
+				position: relative;
+				display: block;
+
+				img {
+					display: block;
+					width: 100%;
+					height: auto;
+					border-top-left-radius: 4px;
+					border-top-right-radius: 4px;
+				}
+
+				.ghostkit-plugin-templates-list-item-image-sizer {
+					width: 100%;
+
+					+ img,
+					+ .lazyload-wrapper img {
+						position: absolute;
+						top: 0;
+						left: 0;
+						height: 100%;
+					}
+				}
+			}
+		}
+
+		.ghostkit-plugin-templates-list-item-title {
+			padding: 10px;
+			font-size: 10px;
+			font-weight: 600;
+			text-transform: uppercase;
+			border-top: 1px solid $light-gray-100;
+		}
+
+		&.ghostkit-plugin-templates-list-item-no-thumb > button {
+			padding: 20px 10px;
+			text-align: center;
+			background-color: $light-gray-200;
+			border: 1px solid $light-gray-300;
+		}
+	}
+}

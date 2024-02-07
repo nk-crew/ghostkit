@@ -1,0 +1,37 @@
+/*
+ * Fallback for Non-FSE themes, which will add blocks margin bottom.
+ * We removed these styles in the v3 - https://github.com/nk-crew/ghostkit/commit/d4544839eee8656315823e1f4dd535f9574cacd4
+ *
+ * Use :where selector to add possibility to easily overwrite these styles. https://css-tricks.com/almanac/selectors/w/where/
+ */
+:where(:root) {
+	--gkt-blocks-margin-bottom: 28px;
+}
+
+:where(
+.ghostkit-progress,
+.ghostkit-button-wrapper,
+.ghostkit-icon-box,
+.ghostkit-image-compare,
+.ghostkit-tabs,
+.ghostkit-accordion,
+.ghostkit-countdown,
+.ghostkit-counter-box,
+.ghostkit-alert,
+.ghostkit-carousel,
+.ghostkit-video,
+.ghostkit-testimonial,
+.ghostkit-gist,
+.ghostkit-google-maps,
+.ghostkit-changelog,
+.ghostkit-pricing-table,
+.ghostkit-widgetized-area,
+.ghostkit-instagram,
+.ghostkit-twitter,
+.ghostkit-toc,
+.ghostkit-form,
+.ghostkit-form-field,
+.ghostkit-form-submit-button
+) {
+	margin-bottom: var(--gkt-blocks-margin-bottom);
+}

@@ -1,0 +1,56 @@
+/**
+ * GhostKit Settings Styles.
+ */
+@import "../gutenberg/variables";
+
+@import "./components/info";
+@import "./containers/container";
+@import "./pages/blocks";
+@import "./pages/css-js";
+@import "./pages/icons";
+@import "./pages/typography";
+
+/**
+ * Admin Menu Icon
+ */
+body.toplevel_page_ghostkit {
+	// prevent content jumping
+	overflow-y: scroll;
+
+	&,
+	#wpcontent {
+		background-color: $light-gray-100;
+	}
+}
+
+.ghostkit-admin-page {
+	padding: 35px;
+	margin-left: -20px;
+
+	.ghostkit-settings-content-wrapper {
+		position: relative;
+		max-width: 770px;
+		padding: 25px;
+		background-color: #fff;
+		border-radius: 4px;
+		box-shadow: 0 0 0 1px $light-gray-400;
+		transition: 0.2s opacity;
+
+		> .components-base-control:last-child,
+		> .components-base-control:last-child > .components-base-control__field {
+			margin-bottom: 0;
+		}
+	}
+
+	// Inputs.
+	.components-text-control__input {
+		border-radius: 4px;
+		box-shadow: 0 0 0 transparent;
+		transition: box-shadow 0.1s linear;
+	}
+
+	&,
+	* {
+		box-sizing: border-box;
+	}
+}

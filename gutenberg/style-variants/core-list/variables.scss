@@ -1,0 +1,57 @@
+/**
+ * Block Variables
+ */
+@import "../../variables";
+
+// Styled.
+.is-style-styled {
+	// Li Items.
+	--gkt-styled-lists--items__line-height: 1.5;
+	--gkt-styled-lists--items__gap: 0.5em;
+
+	// Inner Lists.
+	--gkt-styled-lists--inner-lists__padding-v: 1em;
+	--gkt-styled-lists--inner-lists__padding-h: 0;
+
+	// Numbered Lists.
+	--gkt-styled-lists-numbered__padding-left: 2em;
+	--gkt-styled-lists-numbered--decoration__top: 0;
+	--gkt-styled-lists-numbered--decoration__left: 0;
+	--gkt-styled-lists-numbered--decoration__width: 2em;
+	--gkt-styled-lists-numbered--decoration__height: 2em;
+	--gkt-styled-lists-numbered--decoration__font-size: 0.7em;
+	--gkt-styled-lists-numbered--decoration__font-weight: 600;
+	--gkt-styled-lists-numbered--decoration__line-height: 1;
+	--gkt-styled-lists-numbered--decoration__color: #fff;
+	--gkt-styled-lists-numbered--decoration__background-color: var(--gkt-color-dark-gray);
+	--gkt-styled-lists-numbered--decoration__border-radius: 50%;
+
+	// Dotted Lists.
+	--gkt-styled-lists-dotted__padding-left: 2em;
+	--gkt-styled-lists-dotted--decoration__top: 0.65em;
+	--gkt-styled-lists-dotted--decoration__left: 0.9em;
+	--gkt-styled-lists-dotted--decoration__width: 0.2em;
+	--gkt-styled-lists-dotted--decoration__height: 0.2em;
+	--gkt-styled-lists-dotted--decoration__background-color: var(--gkt-color-dark-gray);
+}
+
+// Icon.
+.is-style-icon {
+	// Li Items.
+	--gkt-icon-lists--items__line-height: 1.5;
+	--gkt-icon-lists--items__padding-left: 2em;
+	--gkt-icon-lists--items__gap: 0.5em;
+
+	// Inner Lists.
+	--gkt-icon-lists--inner-lists__padding-v: 1em;
+	--gkt-icon-lists--inner-lists__padding-h: 0;
+
+	// Decoration
+	// stylelint-disable-next-line function-url-quotes
+	--gkt-icon-lists--decoration: url('data:image/svg+xml;utf8,<svg class="ghostkit-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.6724 2.66808C12.5461 2.41207 12.2853 2.25 11.9998 2.25C11.7144 2.25 11.4536 2.41207 11.3273 2.66808L8.56287 8.26941L2.38143 9.16762C2.09892 9.20868 1.86421 9.40656 1.77599 9.67807C1.68777 9.94958 1.76134 10.2476 1.96577 10.4469L6.4387 14.8069L5.38279 20.9634C5.33453 21.2448 5.45019 21.5291 5.68115 21.6969C5.91211 21.8647 6.21831 21.8869 6.471 21.754L11.9998 18.8473L17.5287 21.754C17.7814 21.8869 18.0876 21.8647 18.3185 21.6969C18.5495 21.5291 18.6652 21.2448 18.6169 20.9634L17.561 14.8069L22.0339 10.4469C22.2383 10.2476 22.3119 9.94958 22.2237 9.67807C22.1355 9.40656 21.9008 9.20868 21.6183 9.16762L15.4368 8.26941L12.6724 2.66808Z" fill="currentColor"/></svg>');
+	--gkt-icon-lists--decoration__top: 0;
+	--gkt-icon-lists--decoration__left: 0;
+	--gkt-icon-lists--decoration__width: 1.5em;
+	--gkt-icon-lists--decoration__height: 1.5em;
+	--gkt-icon-lists--decoration__color: var(--gkt-color-brand);
+}

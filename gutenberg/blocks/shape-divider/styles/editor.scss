@@ -1,0 +1,28 @@
+/**
+ * Editor Styles
+ */
+@import "./variables";
+@import "./style";
+
+.ghostkit-shape-divider-control-styles {
+	.ghostkit-component-image-picker-item svg {
+		width: 100%;
+		height: 40px;
+	}
+
+	.ghostkit-shape-divider-control-styles-item-default-arrow svg,
+	.ghostkit-shape-divider-control-styles-item-default-arrow-curve svg {
+		width: 300%;
+		height: 9px;
+	}
+}
+
+// Remove top and bottom margins
+[data-type="ghostkit/shape-divider"].wp-block {
+	margin-top: -$default-block-margin;
+	margin-bottom: -$default-block-margin;
+
+	+ [data-type="ghostkit/shape-divider"] {
+		margin-top: $default-block-margin;
+	}
+}

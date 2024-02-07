@@ -1,0 +1,15 @@
+@import "../../variables";
+
+.ghostkit-components-date-time-picker .components-base-control__field {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.components-base-control__label {
+		margin-bottom: 0;
+	}
+}
+
+.ghostkit-components-date-time-picker-popover .components-datetime {
+	padding: 15px;
+}

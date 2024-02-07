@@ -1,0 +1,34 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-icon {
+	display: grid;
+
+	svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	// Rotate
+	&-flip-vertical svg {
+		transform: scaleY(-1);
+	}
+
+	&-flip-horizontal svg {
+		transform: scaleX(-1);
+	}
+
+	&-flip-vertical.ghostkit-icon-flip-horizontal svg {
+		transform: scaleY(-1) scaleX(-1);
+	}
+}
+
+.ghostkit-icon-inner {
+	justify-self: var(--gkt-icon__justify);
+	width: var(--gkt-icon__width);
+	color: var(--gkt-icon__color);
+	background: var(--gkt-icon__background);
+}

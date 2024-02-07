@@ -1,0 +1,114 @@
+/**
+ * Editor Additional Styles.
+ */
+@import "../../../gutenberg/variables";
+
+.ghostkit-help-text {
+	font-size: 90%;
+	font-style: italic;
+	color: #a0a0a0;
+}
+
+.ghostkit-code {
+	background: #eef0f3;
+	border-radius: 3px;
+}
+
+/**
+ * Grid for controls.
+ */
+.ghostkit-grid-controls {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -10px;
+
+	> * {
+		flex: 1;
+		min-width: 80px;
+		margin: 0 10px !important;
+	}
+}
+
+/**
+ * Extensions icon in panel body
+ */
+.components-panel__body-toggle > .ghostkit-ext-icon {
+	position: absolute;
+	top: 50%;
+	display: block;
+	transform: translateY(-50%);
+
+	svg {
+		display: block;
+	}
+
+	+ span {
+		margin-left: 35px;
+	}
+}
+
+/**
+ * Tabs Control.
+ */
+.ghostkit-control-tabs {
+	> .components-tab-panel__tabs {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 15px;
+		border-bottom: 1px solid $light-gray-400;
+
+		// single tab
+		> .ghostkit-control-tabs-tab {
+			padding: 9px 11px;
+			padding-bottom: 11px;
+			margin: 0;
+			margin-bottom: -1px;
+			color: #555d66;
+			cursor: pointer;
+			background: none;
+			border: none;
+			border-bottom: 2px solid transparent;
+			border-radius: 0;
+			outline-offset: -1px;
+
+			svg {
+				display: block;
+				width: auto;
+				height: 1.4em;
+			}
+
+			&.is-active {
+				position: relative;
+				z-index: 1;
+				border-bottom: 2px solid $blue-medium-focus;
+			}
+		}
+	}
+
+	// wide
+	&.ghostkit-control-tabs-wide > .components-tab-panel__tabs > .ghostkit-control-tabs-tab {
+		flex: 1;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.ghostkit-control-tabs-separator {
+		padding: 15px;
+		margin-right: -15px;
+		margin-left: -15px;
+		border-top: 1px solid $light-gray-400;
+
+		&:first-child {
+			margin-top: -16px;
+		}
+	}
+}
+
+/**
+ *
+ */
+.ghostkit-component-input-drag {
+	input {
+		cursor: n-resize;
+	}
+}

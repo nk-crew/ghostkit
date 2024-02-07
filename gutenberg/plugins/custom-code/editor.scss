@@ -1,0 +1,19 @@
+/**
+ * Editor Styles
+ */
+@import "../../variables";
+
+.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) .ghostkit-custom-code-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button:not(.is-toggled) .ghostkit-custom-code-plugin-icon svg *,
+.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-custom-code-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button.is-toggled .ghostkit-custom-code-plugin-icon svg *,
+.edit-post-pinned-plugins .components-icon-button:hover .ghostkit-custom-code-plugin-icon svg,
+.edit-post-pinned-plugins .components-icon-button:hover .ghostkit-custom-code-plugin-icon svg * {
+	stroke: initial !important;
+}
+
+.ghostkit-plugin-custom-code-modal {
+	.components-modal__header {
+		border-bottom: none;
+	}
+}

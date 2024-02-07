@@ -1,0 +1,38 @@
+/**
+ * Block Variables
+ */
+@import "../../../variables";
+
+.ghostkit-changelog {
+	// Version Badge.
+	--gkt-changelog--version-badge__min-width: 3.6em;
+	--gkt-changelog--version-badge__padding-v: 0.1em;
+	--gkt-changelog--version-badge__padding-h: 0.6em;
+	--gkt-changelog--version-badge__font-weight: 600;
+	--gkt-changelog--version-badge__color: #fff;
+	--gkt-changelog--version-badge__background-color: var(--gkt-color-dark-gray);
+	--gkt-changelog--version-badge__border-radius: 1em;
+
+	// Date.
+	--gkt-changelog--date__margin-left: 1em;
+	--gkt-changelog--date__font-size: 1em;
+
+	// Line.
+	--gkt-changelog--line__top: 2.5em;
+	--gkt-changelog--line__left: calc(var(--gkt-changelog--version-badge__min-width) / 2);
+	--gkt-changelog--line__width: 3px;
+	--gkt-changelog--line__background-color: var(--gkt-color-dark-gray);
+	--gkt-changelog--line__border-radius: 1em;
+	--gkt-changelog--line__opacity: 0.2;
+
+	// Content.
+	--gkt-changelog--content__margin-top: 1.5em;
+	--gkt-changelog--content-lists__margin-bottom: 1em;
+
+	// Content Badges.
+	--gkt-changelog--content-badges__min-width: 6.5em;
+	--gkt-changelog--content-badges__margin-right: 1em;
+	--gkt-changelog--content-badges__font-size: 0.65em;
+	--gkt-changelog--content-badges__font-weight: 600;
+	--gkt-changelog--content-badges__text-transform: uppercase;
+}

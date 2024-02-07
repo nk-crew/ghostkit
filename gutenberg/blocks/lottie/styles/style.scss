@@ -1,0 +1,9 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-lottie {
+	width: var(--gkt-lottie__width);
+	aspect-ratio: var(--gkt-lottie__ar);
+}

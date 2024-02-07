@@ -1,0 +1,119 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-instagram {
+	// fix for negative margins.
+	&::after {
+		display: block;
+		height: 0.01px;
+		clear: both;
+		content: "";
+	}
+
+	// Profile.
+	&-profile {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: var(--gkt-instagram--profile__margin-bottom);
+
+		// Avatar.
+		&-avatar img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+			margin: 0;
+			border-radius: var(--gkt-instagram--profile-avatar__border-radius);
+		}
+
+		&-side {
+			flex: 1;
+			max-width: 100%;
+		}
+
+		&-avatar + &-side {
+			margin-left: var(--gkt-instagram--profile-avatar__offset);
+		}
+
+		// Name.
+		&-name {
+			font-size: var(--gkt-instagram--profile-name__font-size);
+
+			a {
+				text-decoration: none;
+				border-bottom: none;
+
+				&:hover,
+				&:focus {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		// Stats.
+		&-stats {
+			display: flex;
+			flex-wrap: wrap;
+
+			> div {
+				margin-right: var(--gkt-instagram--profile-stats__gap);
+
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+
+		// BIO.
+		& &-bio h2 {
+			margin: 0;
+			margin-bottom: var(--gkt-instagram--profile-bio-title__margin-bottom);
+			font-size: inherit;
+		}
+
+		// Elements Gap.
+		div + &-stats,
+		div + &-bio,
+		div + &-website {
+			margin-top: var(--gkt-instagram--profile-elements__gap);
+		}
+	}
+
+	// Items.
+	&-items {
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: calc(-1 * var(--gkt-instagram--photos__gap));
+		margin-left: calc(-1 * var(--gkt-instagram--photos__gap));
+	}
+
+	&-item {
+		flex: 0 0 calc(100% / var(--gkt-instagram--photos__columns) - var(--gkt-instagram--photos__gap));
+		max-width: calc(100% / var(--gkt-instagram--photos__columns) - var(--gkt-instagram--photos__gap));
+		margin-top: var(--gkt-instagram--photos__gap);
+		margin-left: var(--gkt-instagram--photos__gap);
+
+		img {
+			display: block;
+			width: 100%;
+			max-width: 100%;
+			height: auto;
+			margin: 0;
+		}
+	}
+
+	// Columns.
+	@for $i from 2 through 10 {
+		&-columns-#{$i} {
+			--gkt-instagram--photos__columns: #{$i};
+		}
+	}
+
+	// Gaps.
+	@each $name, $size in $grid-gaps {
+		&-gap-#{$name} {
+			--gkt-instagram--photos__gap: #{$size};
+		}
+	}
+}

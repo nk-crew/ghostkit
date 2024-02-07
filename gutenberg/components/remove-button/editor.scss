@@ -1,0 +1,93 @@
+@import "../../variables";
+
+.ghostkit-component-remove-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	padding: 0 !important;
+	margin-top: -10px;
+	margin-right: -10px;
+	color: #fff;
+	background-color: $dark-gray-500;
+	border-radius: 50%;
+	opacity: 0.7;
+	transition: 0.2s opacity, 0.2s background-color;
+
+	&:hover,
+	&:focus {
+		color: #fff;
+		background-color: var(--gkt-color-brand);
+		opacity: 1;
+	}
+
+	svg {
+		flex: 0 0 auto;
+		width: auto;
+		height: 0.8em;
+	}
+}
+
+.ghostkit-component-remove-button-confirm {
+	.ghostkit-component-remove-button-confirm-yep,
+	.ghostkit-component-remove-button-confirm-nope {
+		padding: 0;
+		margin-left: 5px;
+
+		&:hover,
+		&:focus {
+			text-decoration: underline;
+		}
+
+		&,
+		&:focus {
+			background: none;
+			box-shadow: none;
+		}
+	}
+
+	.ghostkit-component-remove-button-confirm-yep,
+	.ghostkit-component-remove-button-confirm-yep:focus {
+		color: #df5454;
+	}
+
+	.ghostkit-component-remove-button-confirm-nope,
+	.ghostkit-component-remove-button-confirm-nope:focus {
+		color: #999;
+	}
+
+	&.components-popover {
+		&::before {
+			border-color: transparent;
+		}
+
+		&.is-top::after {
+			border-top-color: $dark-gray-900;
+		}
+
+		&.is-bottom::after {
+			border-bottom-color: $dark-gray-900;
+		}
+	}
+
+	.components-popover__content {
+		padding: 4px 12px;
+		color: $white;
+		white-space: nowrap;
+		background: $dark-gray-900;
+		border-width: 0;
+	}
+
+	&:not(.is-mobile) .components-popover__content {
+		min-width: 0;
+	}
+
+	.components-tooltip__shortcut {
+		display: block;
+		color: $dark-gray-200;
+		text-align: center;
+	}
+}

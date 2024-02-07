@@ -1,0 +1,164 @@
+/**
+ * Frontend Styles
+ */
+@import "./variables";
+
+.ghostkit-form {
+	&-field-label {
+		display: inline-block;
+		margin-bottom: var(--gkt-form--field-label__margin-bottom);
+
+		.required {
+			margin-left: var(--gkt-form--field-label-required-mark__margin-left);
+			color: var(--gkt-form--field-label-required-mark__color);
+		}
+
+		&-hidden {
+			position: absolute;
+			left: -99999px;
+		}
+	}
+
+	&-field-description {
+		display: block;
+		margin-top: var(--gkt-form--field-description__margin-top);
+		line-height: var(--gkt-form--field-description__line-height);
+		opacity: var(--gkt-form--field-description__opacity);
+
+		&-hidden {
+			position: absolute;
+			left: -99999px;
+		}
+	}
+
+	// Row
+	&-field-row {
+		display: grid;
+		grid-template-columns: var(--gkt-form--field-row__template-columns);
+		gap: var(--gkt-form--field-row__gap);
+
+		@include media-breakpoint-down(md) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	// Field Name
+	&-field-name-with-middle &-field-row {
+		grid-template-columns: var(--gkt-form--field-name-row-with-middle__template-columns);
+
+		@include media-breakpoint-down(md) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	// Fields default sizes.
+	&-field {
+		input:not([type="checkbox"], [type="radio"]),
+		textarea,
+		select {
+			width: 100%;
+			max-width: 100%;
+			min-height: var(--gkt-form--field__min-height);
+			font-family: var(--gkt-form--field__font-family);
+			font-size: var(--gkt-form--field__font-size);
+		}
+
+		textarea {
+			min-height: var(--gkt-form--field-textarea__min-height);
+		}
+	}
+
+	// Field Radio
+	&-field-radio &-field-radio-item {
+		display: block;
+	}
+
+	// Field Radio Inline
+	&-field-radio-inline &-field-radio-item {
+		display: inline-block;
+		margin-right: var(--gkt-form--field-radio-inline__margin-right);
+	}
+
+	// Field Checkbox
+	&-field-checkbox &-field-checkbox-item {
+		display: block;
+	}
+
+	// Field Checkbox Inline
+	&-field-checkbox-inline &-field-checkbox-item {
+		display: inline-block;
+		margin-right: var(--gkt-form--field-checkbox-inline__margin-right);
+	}
+
+	// Submit Button
+	&-submit-button {
+		--gkt-button__gap: 0%;
+		--gkt-button__align-items: flex-start;
+		--gkt-button__justify-content: flex-start;
+
+		display: flex;
+		justify-content: var(--gkt-button__align-items);
+	}
+
+	&-submit-button-align-left {
+		--gkt-button__align-items: flex-start;
+	}
+
+	&-submit-button-align-right {
+		--gkt-button__align-items: flex-end;
+	}
+
+	&-submit-button-align-center {
+		--gkt-button__align-items: center;
+	}
+
+	// Alert
+	.ghostkit-alert-form-success {
+		--gkt-alert__border-color: var(--gkt-form--alert-success__color);
+	}
+
+	.ghostkit-alert-form-error {
+		--gkt-alert__border-color: var(--gkt-form--alert-error__color);
+	}
+
+	// Form validation.
+	&-was-validated {
+		input:valid,
+		select:valid,
+		textarea:valid {
+			border-color: var(--gkt-form--field-success__border-color);
+		}
+
+		input:invalid,
+		select:invalid,
+		textarea:invalid {
+			border-color: var(--gkt-form--field-error__border-color);
+		}
+	}
+
+	.ghostkit-form-field-error {
+		padding: 0;
+		margin: 0;
+		margin-top: var(--gkt-form--errors__margin-top);
+		font-family: inherit;
+		font-size: var(--gkt-form--errors__font-size);
+		line-height: var(--gkt-form--errors__line-height);
+		color: var(--gkt-form--errors__color);
+
+		&:empty,
+		&[aria-hidden="true"] {
+			display: none;
+		}
+	}
+
+	// Honeypot field.
+	[name="ghostkit_verify_email"] {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		width: 0;
+		height: 0;
+		opacity: 0;
+	}
+}
