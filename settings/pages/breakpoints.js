@@ -14,9 +14,9 @@ export default function BreakpointSettings(props) {
 					'ghostkit'
 				)}
 				<ExternalLink
-					href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=breakpoints&utm_content=${version}`}
+					href={`https://www.ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=breakpoints&utm_content=${version}`}
 				>
-					https://ghostkit.io/pricing/
+					https://www.ghostkit.io/pricing/
 				</ExternalLink>
 			</div>
 		</ApplyFilters>

@@ -336,9 +336,9 @@ export default class Typography extends Component {
 									'ghostkit'
 								)}
 								<ExternalLink
-									href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=adobe_fonts&utm_content=${version}`}
+									href={`https://www.ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=adobe_fonts&utm_content=${version}`}
 								>
-									https://ghostkit.io/pricing/
+									https://www.ghostkit.io/pricing/
 								</ExternalLink>
 							</div>
 						) : (
@@ -351,9 +351,9 @@ export default class Typography extends Component {
 									'ghostkit'
 								)}
 								<ExternalLink
-									href={`https://ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=custom_fonts&utm_content=${version}`}
+									href={`https://www.ghostkit.io/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=custom_fonts&utm_content=${version}`}
 								>
-									https://ghostkit.io/pricing/
+									https://www.ghostkit.io/pricing/
 								</ExternalLink>
 							</div>
 						) : (

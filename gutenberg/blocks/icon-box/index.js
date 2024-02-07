@@ -12,7 +12,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-icon-box', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/icon-box/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/icon/',
 		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-icon-box--icon__font-size': undefined,

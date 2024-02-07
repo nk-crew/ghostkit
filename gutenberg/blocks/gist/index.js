@@ -11,7 +11,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-gist', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/github-gist/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/github-gist/',
 	},
 	example: {
 		attributes: {

@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-image-compare', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/image-compare/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/image-compare/',
 		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-image-compare__position': undefined,

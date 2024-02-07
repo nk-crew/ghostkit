@@ -11,7 +11,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-alert', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/alert/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/alert/',
 		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-alert__border-color': attributes.color || undefined,

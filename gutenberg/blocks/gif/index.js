@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-gif', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/gif/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/gif/',
 	},
 	edit,
 	save,

@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-progress', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/progress/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/progress/',
 		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-progress__height': undefined,

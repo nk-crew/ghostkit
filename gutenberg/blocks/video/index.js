@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
 export const settings = {
 	icon: getIcon('block-video', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/video/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/video/',
 		customStylesCallback(attributes) {
 			const { videoBackgroundColor, videoBackgroundGradient } =
 				attributes;

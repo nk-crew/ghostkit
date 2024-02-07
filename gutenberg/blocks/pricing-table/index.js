@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-pricing-table', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/pricing-tables/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/pricing-table/',
 		customStylesCallback(attributes) {
 			const { gap, gapCustom } = attributes;
 

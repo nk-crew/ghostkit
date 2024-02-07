@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-instagram', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/instagram/',
+		// previewUrl: 'https://www.ghostkit.io/docs/blocks/instagram/',
 		customStylesCallback(attributes) {
 			const { gap, gapCustom } = attributes;
 

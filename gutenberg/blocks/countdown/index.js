@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-countdown', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/countdown/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/countdown/',
 		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-countdown--unit-number__font-size': undefined,

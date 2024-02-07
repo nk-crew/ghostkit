@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-twitter', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/twitter/',
+		// previewUrl: 'https://www.ghostkit.io/docs/blocks/twitter/',
 	},
 	edit,
 	save,

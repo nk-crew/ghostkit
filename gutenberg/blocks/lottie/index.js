@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-lottie', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/lottie/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/lottie/',
 	},
 	example: {
 		attributes: {

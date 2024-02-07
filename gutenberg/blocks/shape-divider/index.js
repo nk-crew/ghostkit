@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-shape-divider', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/shape-divider/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/shape-divider/',
 		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-shape-divider__color': attributes.color || undefined,

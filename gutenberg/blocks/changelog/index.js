@@ -12,7 +12,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-changelog', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/changelog/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/changelog/',
 	},
 	example: {
 		attributes: {

@@ -2,7 +2,7 @@
 
 * Contributors: nko
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
-* Donate link: https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
+* Donate link: https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
 * Requires at least: 6.2
 * Tested up to: 6.4
 * Requires PHP: 7.2
@@ -19,7 +19,7 @@ Ghost Kit is the powerful page building experience for WordPress.
 
 **Ghost Kit is the powerful page building experience for WordPress.** Ghost Kit provides a large collection of Gutenberg Blocks, Motion Effects and Extensions. With this collection, you will gain more control over content just like with popular page builders.
 
-[See Live Demo](https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [Documentation](https://ghostkit.io/docs/getting-started/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [GitHub](https://github.com/nk-crew/ghostkit/)
+[See Live Demo](https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [Documentation](https://www.ghostkit.io/docs/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [GitHub](https://github.com/nk-crew/ghostkit/)
 
 We created this blocks collection for our own needs - create different multipurpose sites and themes. This is a professional collection and extensions with responsive grid system helps us and will help you as well, **Ghost Kit will boost your development speed**.
 
@@ -29,91 +29,88 @@ Gutenberg is good tool for basic websites, but when you need something advanced,
 
 #### 🧱 Blocks ####
 
-* [**Advanced Columns Block**](https://ghostkit.io/blocks/grid/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Advanced Columns Block**](https://www.ghostkit.io/docs/blocks/advanced-columns/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.
 
-* [**Progress Block**](https://ghostkit.io/blocks/progress/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Progress Block**](https://www.ghostkit.io/docs/blocks/progress/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Show the progress of your work, skills or earnings.
 
-* [**Button Block**](https://ghostkit.io/blocks/button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Button Block**](https://www.ghostkit.io/docs/blocks/button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Change important links to buttons to get more click rate.
 
-* [**Circle Button Block**](https://ghostkit.io/blocks/circle-button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Circle Button Block**](https://www.ghostkit.io/docs/blocks/circle-button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Circle button with circular text.
 
-* [**Shape Divider Block**](https://ghostkit.io/blocks/shape-divider/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Shape Divider Block**](https://www.ghostkit.io/docs/blocks/shape-divider/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Add SVG shapes between your sections.
 
-* [**Divider Block**](https://ghostkit.io/blocks/divider/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Divider Block**](https://www.ghostkit.io/docs/blocks/divider/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Divide your long texts and blocks.
 
-* [**Alert Block**](https://ghostkit.io/blocks/alert/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Alert Block**](https://www.ghostkit.io/docs/blocks/alert/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Provide contextual feedback messages for user actions.
 
-* [**Icon Block**](https://ghostkit.io/blocks/icon-box/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Icon Block**](https://www.ghostkit.io/docs/blocks/icon/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Icons are one of the best visual replacement for text descriptions.
 
-* [**Number Box Block**](https://ghostkit.io/blocks/number-box/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Number Box Block**](https://www.ghostkit.io/docs/blocks/number-box/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Show your progress and rewards using counting numbers.
 
-* [**Accordion Block**](https://ghostkit.io/blocks/accordion/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Accordion Block**](https://www.ghostkit.io/docs/blocks/accordion/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Toggle the visibility of content across your project.
 
-* [**Tabs Block**](https://ghostkit.io/blocks/tabs/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Tabs Block**](https://www.ghostkit.io/docs/blocks/tabs/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Separate content on the tabs with titles.
 
-* [**Toggle Content Block**](https://ghostkit.io/blocks/toggle-content/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Toggle Content Block**](https://www.ghostkit.io/docs/blocks/toggle-content/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Switch content by clicking on toggle button.
 
-* [**Countdown Block**](https://ghostkit.io/blocks/countdown/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Countdown Block**](https://www.ghostkit.io/docs/blocks/countdown/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Display countdown for you upcoming events.
 
-* [**Video Block**](https://ghostkit.io/blocks/video/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Video Block**](https://www.ghostkit.io/docs/blocks/video/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.
 
-* [**Image Compare Block**](https://ghostkit.io/blocks/image-compare/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Image Compare Block**](https://www.ghostkit.io/docs/blocks/image-compare/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Compare two images with a slider.
 
-* [**Image Scroller Block**](https://ghostkit.io/blocks/image-scroller/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Image Scroller Block**](https://www.ghostkit.io/docs/blocks/image-scroller/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Scroll tall images with hover or mouse scroll.
 
-* [**Interactive Links Block**](https://ghostkit.io/blocks/interactive-links/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Interactive Links Block**](https://www.ghostkit.io/docs/blocks/interactive-links/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Interactive links with media displayed on hover.
 
-* [**Magnifying Image Block**](https://ghostkit.io/blocks/magnifying-image/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Magnifying Image Block**](https://www.ghostkit.io/docs/blocks/magnifying-image/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Image block with magnifying glass effect.
 
-* [**Carousel Block**](https://ghostkit.io/blocks/carousel/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Carousel Block**](https://www.ghostkit.io/docs/blocks/carousel/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Carousel for any type of content – images or other blocks.
 
-* [**Marquee Block**](https://ghostkit.io/blocks/marquee/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Marquee Block**](https://www.ghostkit.io/docs/blocks/marquee/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Scroll text and blocks in a marquee effect.
 
-* [**Pricing Table Block**](https://ghostkit.io/blocks/pricing-tables/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Pricing Table Block**](https://www.ghostkit.io/docs/blocks/pricing-table/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Sell your products or services and show all features.
 
-* [**Testimonial Block**](https://ghostkit.io/blocks/testimonial/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Testimonial Block**](https://www.ghostkit.io/docs/blocks/testimonial/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Show how your users love your products and what saying.
 
-* [**Twitter Block**](https://ghostkit.io/blocks/twitter/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Show Twitter feed and user data.
-
-* [**GIF Block**](https://ghostkit.io/blocks/gif/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**GIF Block**](https://www.ghostkit.io/docs/blocks/gif/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Search for and insert an animated image from Giphy.
 
-* [**Contact Form Block**](https://ghostkit.io/blocks/contact-form/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Contact Form Block**](https://www.ghostkit.io/docs/blocks/form/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Add contact form to your page with reCaptcha.
 
-* [**Google Maps Block**](https://ghostkit.io/blocks/google-maps/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Google Maps Block**](https://www.ghostkit.io/docs/blocks/google-maps/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Show maps with custom styles, markers and settings.
 
-* [**GitHub Gist Block**](https://ghostkit.io/blocks/github-gist/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**GitHub Gist Block**](https://www.ghostkit.io/docs/blocks/github-gist/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Embed code parts form GitHub Gist to your site or documentation.
 
-* [**Changelog Block**](https://ghostkit.io/blocks/changelog/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Changelog Block**](https://www.ghostkit.io/docs/blocks/changelog/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Show the changes log of your product.
 
-* [**Table of Contents Block**](https://ghostkit.io/blocks/table-of-contents/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [**Table of Contents Block**](https://www.ghostkit.io/docs/blocks/table-of-contents/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Automatically generate a table of contents by parsing page headers in content.
 
 * **Markdown Block**
@@ -124,22 +121,22 @@ Select registered sidebars and put it in any place.
 
 #### ⚙️ Extensions ####
 
-* [**Effects**](https://ghostkit.io/extensions/effects/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+* [**Effects**](https://www.ghostkit.io/docs/extensions/effects/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 Add stunning visual effects and interactivity to Ghost Kit and Core blocks. You can can easily add reveal animations, scroll effects, mouse move/hover/press effects and loop animations.
 
-* [**Position**](https://ghostkit.io/extensions/position/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+* [**Position**](https://www.ghostkit.io/docs/extensions/position/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 Change block position to absolute or fixed and move it with offset in Ghost Kit and Core blocks.
 
-* [**Spacings**](https://ghostkit.io/extensions/spacings/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+* [**Spacings**](https://www.ghostkit.io/docs/extensions/spacings/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 Easily add spacings to Ghost Kit and Core blocks.
 
-* [**Display**](https://ghostkit.io/extensions/display/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+* [**Display**](https://www.ghostkit.io/docs/extensions/display-conditions/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 Show and hide blocks Ghost Kit and Core blocks on different screen sizes.
 
-* [**Frame**](https://ghostkit.io/extensions/frame/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+* [**Frame**](https://www.ghostkit.io/docs/extensions/frame/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 Add borders, shadows and corner radius to Ghost Kit and Core blocks on different screen sizes.
 
-* [**Custom CSS & JavaScript**](https://ghostkit.io/extensions/custom-css-js/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+* [**Custom CSS & JavaScript**](https://www.ghostkit.io/docs/extensions/custom-css-js/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
 This extension is available on all pages and let you add custom CSS and JavaScript for the current page and globally site wide.
 
 ### 📄 Typography ###
@@ -165,24 +162,29 @@ By default you can change typography for the following elements:
 
 Add custom colors to Gutenberg color palette.
 
+### 📝 Extended Core Blocks ###
+
+Ghost Kit enhances all WordPress blocks by providing additional functionalities, but it also offers special extensions for specific blocks.
+
+* [Headings](https://www.ghostkit.io/docs/core-blocks/heading/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=core-blocks)
+* [Lists](https://www.ghostkit.io/docs/core-blocks/list/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=core-blocks)
+* [Paragraph](https://www.ghostkit.io/docs/core-blocks/paragraph/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=core-blocks)
+
 ### 📝 Content Formatting ###
 
-See demo page with content formatting [https://ghostkit.io/content-formatting/](https://ghostkit.io/content-formatting/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+See demo page with content formatting [https://www.ghostkit.io/docs/formats/](https://www.ghostkit.io/docs/formats/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
 
-* [Numbered Headings](https://ghostkit.io/content-formatting/numered-headings/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Dotted Lists](https://ghostkit.io/content-formatting/lists/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Styled Lists](https://ghostkit.io/content-formatting/lists/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Custom Icon Lists](https://ghostkit.io/content-formatting/lists/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Badges](https://ghostkit.io/content-formatting/badges/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Animated Text](https://ghostkit.io/content-formatting/animated-text/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Tooltip](https://ghostkit.io/content-formatting/tooltip/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Text Stroke](https://ghostkit.io/content-formatting/stroke/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Spoiler](https://ghostkit.io/content-formatting/spoiler/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Lorem Ipsum Generator](https://ghostkit.io/content-formatting/lorem-ipsum-generator/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Animated Text](https://www.ghostkit.io/docs/formats/animated-text/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Badges](https://www.ghostkit.io/docs/formats/badge/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Lorem Ipsum Generator](https://www.ghostkit.io/docs/formats/lorem-ipsum-generator/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Spoiler](https://www.ghostkit.io/docs/formats/spoiler/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Stroke](https://www.ghostkit.io/docs/formats/stroke/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Tooltip](https://www.ghostkit.io/docs/formats/tooltip/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+* [Uppercase](https://www.ghostkit.io/docs/formats/tooltip/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
 
 ### 🔥 Ghost Kit Pro ###
 
-> Ghost Kit plugin is also available in a professional version which includes more features and blocks! [**Learn more about Ghost Kit Pro**](https://ghostkit.io/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=pro)
+> Ghost Kit plugin is also available in a professional version which includes more features and blocks! [**Learn more about Ghost Kit Pro**](https://www.ghostkit.io/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=pro)
 >
 > In order to maintain the free version of the plugin on an ongoing basis, and to provide quick and effective support for free, we offer a Pro version of the plugin. The Pro version allows you to:
 
@@ -218,7 +220,7 @@ See demo page with content formatting [https://ghostkit.io/content-formatting/](
 
 ### 🏳️ Multilingual ##
 
-Ghost Kit adds a new layer of compatibility for [WPML](https://wpml.org/). All blocks are compatible with it and ready for translation. [https://ghostkit.io/docs/multilingual/](https://ghostkit.io/docs/multilingual/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=multilingual)
+Ghost Kit adds a new layer of compatibility for [WPML](https://wpml.org/). All blocks are compatible with it and ready for translation. [https://www.ghostkit.io/docs/languages/multilingual/](https://www.ghostkit.io/docs/languages/multilingual/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=multilingual)
 
 ## Installation ##
 
@@ -236,35 +238,9 @@ The manual installation method involves downloading our Ghost Kit plugin and upl
 
 ### Documentation ####
 
-[https://ghostkit.io/docs/getting-started/](https://ghostkit.io/docs/getting-started/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
+The plugin documentation provides a comprehensive source of information on blocks, extensions, actions, filters, events, and more for developers. It is a valuable resource for finding all the relevant details you may need.
 
-### How to disable enqueued plugins (JS, CSS) on frontend ####
-
-[https://ghostkit.io/docs/php-filters/gkt_enqueue_/](https://ghostkit.io/docs/php-filters/gkt_enqueue_/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
-
-### How to extend typography settings ####
-
-[https://ghostkit.io/docs/php-filters/gkt_custom_typography/](https://ghostkit.io/docs/php-filters/gkt_custom_typography/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
-
-### How to extend shapes in Shape Divider block ####
-
-[https://ghostkit.io/docs/php-filters/gkt_shapes_list/](https://ghostkit.io/docs/php-filters/gkt_shapes_list/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
-
-### How to extend icons in icon picker list ####
-
-[https://ghostkit.io/docs/php-filters/gkt_icons_list/](https://ghostkit.io/docs/php-filters/gkt_icons_list/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
-
-### How to extend existing blocks ####
-
-You should use default Gutenberg hooks to extend blocks functionality. Read more here: <https://wordpress.org/gutenberg/handbook/designers-developers/developers/filters/block-filters/#block-style-variations>
-
-### How to extend existing blocks classnames ####
-
-You can extend Gutenberg blocks save attributes using core hooks. Read more here: <https://developer.wordpress.org/block-editor/developers/filters/block-filters/#blocks-getsavecontent-extraprops>
-
-### JS frontend events ####
-
-[https://ghostkit.io/docs/js-events/](https://ghostkit.io/docs/js-events/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
+[https://www.ghostkit.io/docs/getting-started/](https://www.ghostkit.io/docs/getting-started/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
 
 ## Screenshots ##
 
@@ -367,7 +343,7 @@ There are a lot of changes in v3, before updating it on production, we recommend
   * added simple fallbacks where possible
   * added instance to the `prepared.googleMaps` event
   * remove events `afterInit`, `beforeInit.blocks`, `afterInit.blocks`
-  * new JS events documented here - <https://ghostkit.io/docs/js-events/>
+  * new JS events documented here - <https://www.ghostkit.io/docs/developers/js-events/>
 * remove main GhostKit class from JS
 * removed Variants feature, use native Gutenberg Styles instead. This feature was introduced in first versions of Ghost Kit, but Gutenberg added their Styles feature, which is widely used now and our Variants no longer needed
 * removed custom bottom margin from all Ghost Kit blocks in FSE themes only (this change may impact your existing sites)
@@ -612,7 +588,7 @@ Changes:
 
 = 2.15.0 =
 
-* added Image Compare block [https://ghostkit.io/blocks/image-compare/](https://ghostkit.io/blocks/image-compare/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
+* added Image Compare block [https://www.ghostkit.io/docs/blocks/image-compare/](https://www.ghostkit.io/docs/blocks/image-compare/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
 * added style "Icon Only" to Video block
 * added Reusable Blocks admin menu item
 * improved Button block states in editor. Display Hover or Focus styles, when you switch color tabs in Inspector
@@ -726,7 +702,7 @@ Changes:
 * fixed blocks custom styles for number attributes (wrong styles when a variable is undefined or == 0)
 * fixed PHP notice - Trying to access array offset on value of type bool
 * fixed Tabs and Accordion items hash parse with Japanese/Chinese/... characters
-* removed all defaults from blocks - easily change defaults using CSS variables now - [https://ghostkit.io/docs/css-variables/](https://ghostkit.io/docs/css-variables/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
+* removed all defaults from blocks - easily change defaults using CSS variables now - [https://www.ghostkit.io/docs/developers/css-variables/](https://www.ghostkit.io/docs/developers/css-variables/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
 * removed hard-coded box-shadow from buttons, use CSS variable instead
 
 = 2.10.2 =
@@ -741,7 +717,7 @@ Changes:
 
 * ! breaking change ! - all styles now uses CSS Variables. No more IE browser supported
 * added WordPress 5.4 compatibility
-* added better possibilities for extending/changing blocks styles (thanks to CSS Variables) [https://ghostkit.io/docs/css-variables/](https://ghostkit.io/docs/css-variables/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
+* added better possibilities for extending/changing blocks styles (thanks to CSS Variables) [https://www.ghostkit.io/docs/developers/css-variables/](https://www.ghostkit.io/docs/developers/css-variables/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
 * added custom gap option for Grid, Buttons, Instagram and Pricing Table blocks
 * added Grid vertical Gap by default
 * improved styles for nested styled lists
@@ -783,7 +759,7 @@ Changes:
 Note: there may be breaking changes. Try to re-save pages if you see issues on the frontend.
 
 * loading blocks assets conditionally only when block added on the page (better pages performance)
-* added Form block [https://ghostkit.io/blocks/contact-form/](https://ghostkit.io/blocks/contact-form/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
+* added Form block [https://www.ghostkit.io/docs/blocks/form/](https://www.ghostkit.io/docs/blocks/form/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
 * added URL options to testimonial block
 * added styled inner lists in table of contents block
 * added "Add Template" button in editor Toolbar
@@ -805,9 +781,9 @@ Note: there may be breaking changes. Try to re-save pages if you see issues on t
 = 2.8.0 =
 
 * added Adobe Fonts in Pro version
-* added Shape Divider block [https://ghostkit.io/blocks/shape-divider/](https://ghostkit.io/blocks/shape-divider/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
-* added Frame extension (border, shadow, radius) [https://ghostkit.io/extensions/frame/](https://ghostkit.io/extensions/frame/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
-* added Color Palette plugin to extend default Gutenberg color palette [https://ghostkit.io/extensions/color-palette/](https://ghostkit.io/extensions/color-palette/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
+* added Shape Divider block [https://www.ghostkit.io/docs/blocks/shape-divider/](https://www.ghostkit.io/docs/blocks/shape-divider/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
+* added Frame extension (border, shadow, radius) [https://www.ghostkit.io/docs/extensions/frame/](https://www.ghostkit.io/docs/extensions/frame/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog)
+* added Color Palette plugin to extend default Gutenberg color palette
 * added possibility to activate Tabs and Accordions on hash change
 * added visual styles in editor for hidden blocks that used Display extension
 * improved Table of Contents block reload after headings change (no jumping in the editor anymore)
@@ -1039,7 +1015,7 @@ Note: there may be breaking changes. Try to re-save pages if you see issues on t
 * added controls to show/hide Pricing Table price/currency/repeat items
 * added 'ghostkit' attribute with plugin parameters support for blocks (3rd-party blocks may be extended with Ghost Kit Extensions)
 * added :focus styles outline for Button block
-* added [Ghost Kit Pro](https://ghostkit.io/pricing/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog) support
+* added [Ghost Kit Pro](https://www.ghostkit.io/pricing/?utm_source=wordpress.org&utm_medium=changelog&utm_campaign=changelog) support
 * added 'inserter' and 'reusable' attributes with 'false' value in inner blocks
 * added icon in Ghost Kit blocks category
 * improved Grid block columns and row hovering styles

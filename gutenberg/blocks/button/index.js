@@ -11,7 +11,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-buttons', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/button/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/button/',
 		customStylesCallback(attributes) {
 			const { gap, gapCustom, gapVerticalCustom } = attributes;
 

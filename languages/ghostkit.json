@@ -14,10 +14,28 @@
          "Ghost Kit Team": [
             ""
          ],
-         "https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline": [
+         "https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline": [
             ""
          ],
          "Go Pro": [
+            ""
+         ],
+         "Satisfied using Ghost Kit?": [
+            ""
+         ],
+         "Hey, we noticed you've been using %s for more than two weeks now - that's awesome!": [
+            ""
+         ],
+         "Could you please do us a BIG favor and give it a rating on WordPress.org to help us spread the word and boost our motivation?": [
+            ""
+         ],
+         "Yes, you deserve it": [
+            ""
+         ],
+         "No, maybe later": [
+            ""
+         ],
+         "I already did": [
             ""
          ],
          "Default Fonts Site": [
@@ -615,10 +633,10 @@
          "Display content after expiration:": [
             ""
          ],
-         "Number Size": [
+         "Number Position": [
             ""
          ],
-         "Number Position": [
+         "Number Size": [
             ""
          ],
          "Top": [
@@ -783,7 +801,7 @@
          "These emails should match.": [
             ""
          ],
-         "Write your message here...": [
+         "Write your message here…": [
             ""
          ],
          "Google reCAPTCHA": [
@@ -801,7 +819,7 @@
          "Generate Keys": [
             ""
          ],
-         "Enter search terms, e.g. cat...": [
+         "Enter search terms, e.g. cat…": [
             ""
          ],
          "Search": [
@@ -846,6 +864,24 @@
          "Show all files": [
             ""
          ],
+         "Title": [
+            ""
+         ],
+         "Address": [
+            ""
+         ],
+         "Change Icon": [
+            ""
+         ],
+         "Reset Icon to Default": [
+            ""
+         ],
+         "Marker Width": [
+            ""
+         ],
+         "Info Window Text": [
+            ""
+         ],
          "Enter Style JSON": [
             ""
          ],
@@ -876,7 +912,7 @@
          "Markers": [
             ""
          ],
-         "Enter address": [
+         "Marker": [
             ""
          ],
          "Remove Marker": [
@@ -1092,6 +1128,12 @@
          "Width": [
             ""
          ],
+         "Horizontal Align": [
+            ""
+         ],
+         "Vertical Align": [
+            ""
+         ],
          "Vertical": [
             ""
          ],
@@ -1117,12 +1159,6 @@
             ""
          ],
          "Show Labels": [
-            ""
-         ],
-         "Horizontal Align": [
-            ""
-         ],
-         "Vertical Align": [
             ""
          ],
          "Before Image Settings": [
@@ -1239,7 +1275,7 @@
          "lottie": [
             ""
          ],
-         "Write your _Markdown_ **here**...": [
+         "Write your _Markdown_ **here**…": [
             ""
          ],
          "Markdown": [
@@ -1665,7 +1701,7 @@
          "Search Icon": [
             ""
          ],
-         "Type to Search...": [
+         "Type to Search…": [
             ""
          ],
          "Icon Output": [
@@ -1752,7 +1788,7 @@
          "Spring": [
             ""
          ],
-         "Add...": [
+         "Add…": [
             ""
          ],
          "Stiffness": [
@@ -2229,6 +2265,9 @@
          "Custom Colors": [
             ""
          ],
+         "Remove color \"%1$s\" with name \"%2$s\"?": [
+            ""
+         ],
          "Add Custom Color": [
             ""
          ],
@@ -2325,7 +2364,7 @@
          "My Templates": [
             ""
          ],
-         "Coming Soon...": [
+         "Coming Soon…": [
             ""
          ],
          "No templates found.": [
@@ -2392,6 +2431,9 @@
             ""
          ],
          "Adobe and Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ": [
+            ""
+         ],
+         "plugin name inside the review notice\u0004Ghost Kit": [
             ""
          ],
          "Post Type General Name\u0004Templates": [

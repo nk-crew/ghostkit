@@ -158,7 +158,7 @@ export default function BlockEdit(props) {
 								<ProNote.Button
 									target="_blank"
 									rel="noopener noreferrer"
-									href={`https://ghostkit.io/shape-divider/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_shapes&utm_content=${version}`}
+									href={`https://www.ghostkit.io/docs/blocks/shape-divider/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_shapes&utm_content=${version}`}
 								>
 									{__('Read More', 'ghostkit')}
 								</ProNote.Button>

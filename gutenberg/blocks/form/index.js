@@ -12,7 +12,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-form', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/contact-form/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/form/',
 	},
 	example: {
 		innerBlocks: [

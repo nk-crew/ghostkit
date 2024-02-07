@@ -4,7 +4,7 @@
  * Description:  Page Builder Blocks and Extensions for Gutenberg
  * Version:      3.1.2
  * Author:       Ghost Kit Team
- * Author URI:   https://ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
+ * Author URI:   https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
  * License:      GPLv2 or later
  * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:  ghostkit
@@ -418,7 +418,7 @@ class GhostKit {
 	 * @return string
 	 */
 	public function go_pro_link() {
-		return 'https://ghostkit.io/pricing/';
+		return 'https://www.ghostkit.io/pricing/';
 	}
 
 	/**

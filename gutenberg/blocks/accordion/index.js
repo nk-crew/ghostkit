@@ -11,7 +11,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-accordion', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/accordion/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/accordion/',
 	},
 	example: {
 		innerBlocks: [

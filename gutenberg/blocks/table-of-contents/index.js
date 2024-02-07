@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-table-of-contents', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/table-of-contents/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/table-of-contents/',
 	},
 	edit,
 	save,

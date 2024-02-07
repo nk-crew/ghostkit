@@ -11,7 +11,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-divider', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/divider/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/divider/',
 		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-divider__border-width': undefined,

@@ -17,7 +17,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-grid', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/grid/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/advanced-columns/',
 		customStylesCallback(attributes) {
 			const { gap, gapCustom, gapVerticalCustom } = attributes;
 

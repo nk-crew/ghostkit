@@ -12,7 +12,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-testimonial', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/testimonial/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/testimonial/',
 	},
 	example: {
 		attributes: {

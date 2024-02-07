@@ -12,7 +12,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-counter-box', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/number-box/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/number-box/',
 		customStylesCallback(attributes) {
 			const styles = {
 				'--gkt-counter-box--number__font-size': undefined,

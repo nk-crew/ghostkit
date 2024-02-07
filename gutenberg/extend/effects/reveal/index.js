@@ -218,7 +218,7 @@ function EffectsRevealTools(props) {
 					<ProNote.Button
 						target="_blank"
 						rel="noopener noreferrer"
-						href={`https://ghostkit.io/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=${version}`}
+						href={`https://www.ghostkit.io/docs/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=${version}`}
 					>
 						{__('Read More', 'ghostkit')}
 					</ProNote.Button>

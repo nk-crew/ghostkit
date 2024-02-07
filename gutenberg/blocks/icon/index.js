@@ -9,7 +9,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-icon', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/icon/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/icon/',
 		customStylesCallback(attributes) {
 			const {
 				justify,

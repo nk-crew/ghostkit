@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-google-maps', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/google-maps/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/google-maps/',
 	},
 	edit,
 	save,

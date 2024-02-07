@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-carousel', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/carousel/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/carousel/',
 		customStylesCallback(attributes) {
 			const { fadeEdges, fadeEdgesSize } = attributes;
 			const styles = {

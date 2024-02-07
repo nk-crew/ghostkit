@@ -10,7 +10,7 @@ export { metadata, name };
 export const settings = {
 	icon: getIcon('block-tabs', true),
 	ghostkit: {
-		previewUrl: 'https://ghostkit.io/blocks/tabs/',
+		previewUrl: 'https://www.ghostkit.io/docs/blocks/tabs/',
 	},
 	edit,
 	save,
