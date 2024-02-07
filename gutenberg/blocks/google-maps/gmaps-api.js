@@ -37,6 +37,9 @@ export function InitGoogleMaps(element, options, callback) {
 					lng: markerData.lng,
 					title: markerData.title,
 					description: markerData.infoWindowText,
+					iconURL: markerData.iconUrl,
+					iconWidth: markerData.iconWidth,
+					iconHeight: markerData.iconHeight,
 				});
 			});
 		}
@@ -65,7 +68,26 @@ export function InitGoogleMaps(element, options, callback) {
 }
 
 export function addMarker(data) {
-	const { map, lat, lng, title, description, icon, ...rest } = data;
+	const {
+		map,
+		lat,
+		lng,
+		title,
+		description,
+		iconURL,
+		iconWidth,
+		iconHeight,
+		...rest
+	} = data;
+
+	let icon = null;
+	const thereIsIcon = iconURL && iconWidth && iconHeight;
+	if (thereIsIcon) {
+		icon = {
+			url: iconURL,
+			scaledSize: new window.google.maps.Size(iconWidth, iconHeight),
+		};
+	}
 
 	const position = new window.google.maps.LatLng(lat, lng);
 

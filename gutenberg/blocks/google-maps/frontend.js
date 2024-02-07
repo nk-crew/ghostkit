@@ -43,21 +43,6 @@ events.on(document, 'init.blocks.gkt', () => {
 						':scope .ghostkit-pro-google-maps-marker-info-window-text'
 					);
 
-					// icon
-					if (
-						markerData.iconUrl &&
-						markerData.iconWidth &&
-						markerData.iconHeight
-					) {
-						markerData.icon = {
-							url: markerData.iconUrl,
-							scaledSize: new window.google.maps.Size(
-								markerData.iconWidth,
-								markerData.iconHeight
-							),
-						};
-					}
-
 					// info window
 					if ($infoWindow) {
 						markerData.infoWindowText = $infoWindow.innerHTML;

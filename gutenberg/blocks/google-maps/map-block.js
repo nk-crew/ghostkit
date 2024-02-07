@@ -44,12 +44,33 @@ export default function MapBlock(props) {
 		markersRef.current = [];
 
 		markers.forEach((markerData, i) => {
+			const thereIsIcon =
+				markerData.iconImageURL &&
+				markerData.iconImageCustomWidth &&
+				markerData.iconImageWidth &&
+				markerData.iconImageHeight;
+			let iconURL = null;
+			let iconWidth = null;
+			let iconHeight = null;
+			if (thereIsIcon) {
+				const iconImageCustomHeight =
+					markerData.iconImageCustomWidth *
+					(markerData.iconImageHeight / markerData.iconImageWidth);
+
+				iconURL = markerData.iconImageURL;
+				iconWidth = markerData.iconImageCustomWidth;
+				iconHeight = iconImageCustomHeight;
+			}
+
 			const { marker } = addMarker({
 				map: instance,
 				lat: markerData.lat,
 				lng: markerData.lng,
 				title: markerData.title,
 				description: markerData.infoWindowText,
+				iconURL,
+				iconWidth,
+				iconHeight,
 				draggable: true,
 			});
 
