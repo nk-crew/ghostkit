@@ -101,53 +101,25 @@ class GhostKit {
 		$this->plugin_path = plugin_dir_path( __FILE__ );
 		$this->plugin_url  = plugin_dir_url( __FILE__ );
 
-		// settings.
 		require_once $this->plugin_path . 'settings/index.php';
-
-		// additional blocks php.
 		require_once $this->plugin_path . 'gutenberg/index.php';
 
-		// rest.
 		require_once $this->plugin_path . 'classes/class-rest.php';
-
-		// parse blocks.
 		require_once $this->plugin_path . 'classes/class-parse-blocks.php';
-
-		// assets.
 		require_once $this->plugin_path . 'classes/class-assets.php';
-
-		// reusable widget.
 		require_once $this->plugin_path . 'classes/class-reusable-widget.php';
-
-		// icons.
 		require_once $this->plugin_path . 'classes/class-icons.php';
-
-		// shapes.
 		require_once $this->plugin_path . 'classes/class-shapes.php';
-
-		// typography.
 		require_once $this->plugin_path . 'classes/class-typography.php';
-
-		// fonts.
 		require_once $this->plugin_path . 'classes/class-fonts.php';
-
-		// templates.
 		require_once $this->plugin_path . 'classes/class-templates.php';
-
-		// scss compiler.
 		require_once $this->plugin_path . 'classes/class-scss-replace-modules.php';
 		require_once $this->plugin_path . 'classes/class-scss-compiler.php';
-
-		// breakpoints background.
 		require_once $this->plugin_path . 'classes/class-breakpoints-background.php';
-
-		// breakpoints.
 		require_once $this->plugin_path . 'classes/class-breakpoints.php';
+		require_once $this->plugin_path . 'classes/class-ask-review.php';
 
-		// utils encode/decode.
 		require_once $this->plugin_path . 'gutenberg/utils/encode-decode/index.php';
-
-		// Extensions.
 		require_once $this->plugin_path . 'gutenberg/extend/index.php';
 
 		// 3rd.

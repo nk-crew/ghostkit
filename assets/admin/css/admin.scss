@@ -29,3 +29,57 @@
 	filter: brightness(1.3);
 	background-size: 16px auto;
 }
+
+.dashicons-ghostkit {
+	background-image: url(../../../../assets/images/admin-icon.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 18px;
+	opacity: 0.6;
+}
+
+/**
+ * Admin Notices
+ */
+.gkt-admin-notice {
+	display: flex;
+	padding: 0;
+	border: none;
+	border-left: 4px solid #000;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 15%);
+
+	h3 {
+		margin-top: 10px;
+		margin-bottom: 12px;
+		font-size: 16px;
+
+		svg {
+			display: inline-block;
+			width: 1.3em;
+			height: 1.3em;
+			margin-right: 0.2em;
+			vertical-align: -0.28em;
+		}
+	}
+
+	.gkt-admin-notice-icon {
+		display: flex;
+		justify-content: center;
+		width: 50px;
+		min-width: 50px;
+		padding-top: 14px;
+		background-color: rgba(0, 0, 0, 5%);
+	}
+
+	.dashicons-ghostkit {
+		display: block;
+		width: 22px;
+		height: 22px;
+		background-size: 22px;
+		opacity: 1;
+	}
+
+	.gkt-admin-notice-content {
+		padding: 6px 16px;
+	}
+}
