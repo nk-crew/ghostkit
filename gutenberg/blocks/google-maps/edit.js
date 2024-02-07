@@ -181,7 +181,6 @@ function MarkerSettings(props) {
 					onRemove={() => {
 						onChange({ infoWindowText: '' });
 					}}
-					keepPlaceholderOnFocus
 				/>
 			</BaseControl>
 		</>
