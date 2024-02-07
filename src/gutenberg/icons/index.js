@@ -8,6 +8,7 @@ import blockAccordionCollapse from './block-accordion-collapse.svg';
 import blockAlert from './block-alert.svg';
 import blockButtons from './block-buttons.svg';
 import blockButton from './block-button.svg';
+import blockCard from './block-card.svg';
 import blockCarousel from './block-carousel.svg';
 import blockCarouselSlide from './block-carousel-slide.svg';
 import blockChangelog from './block-changelog.svg';
@@ -118,6 +119,7 @@ export default {
   'block-alert': blockAlert,
   'block-buttons': blockButtons,
   'block-button': blockButton,
+  'block-card': blockCard,
   'block-carousel': blockCarousel,
   'block-carousel-slide': blockCarouselSlide,
   'block-changelog': blockChangelog,
