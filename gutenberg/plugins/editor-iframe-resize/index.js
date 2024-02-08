@@ -1,7 +1,10 @@
+import { throttle } from 'lodash';
+
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { subscribe, useSelect } from '@wordpress/data';
+import domReady from '@wordpress/dom-ready';
 import { PostPreviewButton } from '@wordpress/editor';
-import { render } from '@wordpress/element';
+import { createRoot } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import useResponsive from '../../hooks/use-responsive';
@@ -190,37 +193,49 @@ function ResponsiveToggleDropdown() {
 	);
 }
 
+export function Plugin() {
+	return <IframeResponsiveStyles />;
+}
+
 /**
  * Add dropdown toggle to toolbar.
  */
-function ToolbarResponsiveToggle() {
-	const checkElement = async (selector) => {
-		while (document.querySelector(selector) === null) {
-			// eslint-disable-next-line no-promise-executor-return, no-await-in-loop, no-undef
-			await new Promise((resolve) => requestAnimationFrame(resolve));
-		}
-		return document.querySelector(selector);
+const TOOLBAR_TOGGLE_CONTAINER_CLASS = 'ghostkit-toolbar-responsive';
+
+const mountEditorToolbarToggle = () => {
+	const createToggle = (postHeader) => {
+		const toggleContainer = document.createElement('div');
+		toggleContainer.classList.add(TOOLBAR_TOGGLE_CONTAINER_CLASS);
+
+		postHeader.prepend(toggleContainer);
+
+		const root = createRoot(toggleContainer);
+		root.render(<ResponsiveToggleDropdown />);
 	};
 
-	checkElement('.edit-post-header__settings').then(($toolbar) => {
-		if (!$toolbar.querySelector('.ghostkit-toolbar-responsive')) {
-			const $toolbarPlace = document.createElement('div');
-			$toolbarPlace.classList.add('ghostkit-toolbar-responsive');
+	// Always check if toggle is inserted, because post header sometimes gets unmounted.
+	subscribe(
+		throttle(
+			() => {
+				// Check if toggle exists already.
+				if (
+					document.querySelector(`.${TOOLBAR_TOGGLE_CONTAINER_CLASS}`)
+				) {
+					return;
+				}
 
-			$toolbar.prepend($toolbarPlace);
+				const postHeader = document.querySelector(
+					'.edit-post-header__settings'
+				);
 
-			render(<ResponsiveToggleDropdown />, $toolbarPlace);
-		}
-	});
-
-	return null;
-}
-
-export function Plugin() {
-	return (
-		<>
-			<ToolbarResponsiveToggle />
-			<IframeResponsiveStyles />
-		</>
+				if (postHeader) {
+					createToggle(postHeader);
+				}
+			},
+			200,
+			{ trailing: true }
+		)
 	);
-}
+};
+
+domReady(mountEditorToolbarToggle);
