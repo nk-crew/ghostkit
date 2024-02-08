@@ -389,13 +389,11 @@ class GhostKit_Assets {
 		}
 
 		// Google reCaptcha.
-		if ( apply_filters( 'gkt_enqueue_google_recaptcha', true ) ) {
-			$recaptcha_site_key   = get_option( 'ghostkit_google_recaptcha_api_site_key' );
-			$recaptcha_secret_key = get_option( 'ghostkit_google_recaptcha_api_secret_key' );
+		$recaptcha_site_key   = get_option( 'ghostkit_google_recaptcha_api_site_key' );
+		$recaptcha_secret_key = get_option( 'ghostkit_google_recaptcha_api_secret_key' );
 
-			if ( $recaptcha_site_key && $recaptcha_secret_key ) {
-				wp_register_script( 'google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . esc_attr( $recaptcha_site_key ), array(), '3.0.0', true );
-			}
+		if ( apply_filters( 'gkt_enqueue_google_recaptcha', true ) && $recaptcha_site_key && $recaptcha_secret_key ) {
+			wp_register_script( 'google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . esc_attr( $recaptcha_site_key ), array(), '3.0.0', true );
 		}
 
 		// Get all sidebars.
@@ -459,8 +457,8 @@ class GhostKit_Assets {
 			'timezone'                    => $timezone,
 			'googleMapsAPIKey'            => get_option( 'ghostkit_google_maps_api_key' ),
 			'googleMapsAPIUrl'            => 'https://maps.googleapis' . $gmaps_suffix . '/maps/api/js?v=3.exp&language=' . esc_attr( $gmaps_locale ),
-			'googleReCaptchaAPISiteKey'   => get_option( 'ghostkit_google_recaptcha_api_site_key' ),
-			'googleReCaptchaAPISecretKey' => is_admin() ? get_option( 'ghostkit_google_recaptcha_api_secret_key' ) : '',
+			'googleReCaptchaAPISiteKey'   => $recaptcha_site_key,
+			'googleReCaptchaAPISecretKey' => is_admin() ? $recaptcha_secret_key : '',
 			'sidebars'                    => $sidebars,
 			'icons'                       => is_admin() ? apply_filters( 'gkt_icons_list', array() ) : array(),
 			'shapes'                      => is_admin() ? apply_filters( 'gkt_shapes_list', array() ) : array(),

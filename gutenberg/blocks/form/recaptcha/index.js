@@ -7,6 +7,21 @@ import { __ } from '@wordpress/i18n';
 
 const { GHOSTKIT } = window;
 
+const initialOpen =
+	!GHOSTKIT.googleReCaptchaAPISiteKey ||
+	!GHOSTKIT.googleReCaptchaAPISecretKey;
+
+const saveAPIKeys = debounce(1500, (newSiteKey, newSecretKey) => {
+	apiFetch({
+		path: '/ghostkit/v1/update_google_recaptcha_keys',
+		method: 'POST',
+		data: {
+			site_key: newSiteKey,
+			secret_key: newSecretKey,
+		},
+	});
+});
+
 /**
  * Block Settings Class.
  */
@@ -18,33 +33,17 @@ export default function BlockSettings() {
 		GHOSTKIT.googleReCaptchaAPISecretKey
 	);
 
-	const saveAPIKeys = debounce(3000, () => {
-		if (
-			GHOSTKIT.googleReCaptchaAPISiteKey !== apiSiteKey ||
-			GHOSTKIT.googleReCaptchaAPISecretKey !== apiSecretKey
-		) {
-			apiFetch({
-				path: '/ghostkit/v1/update_google_recaptcha_keys',
-				method: 'POST',
-				data: {
-					site_key: apiSiteKey,
-					secret_key: apiSecretKey,
-				},
-			});
-		}
-	});
-
 	return (
 		<PanelBody
 			title={__('Google reCAPTCHA', 'ghostkit')}
-			initialOpen={!(apiSiteKey && apiSecretKey)}
+			initialOpen={initialOpen}
 		>
 			<TextControl
 				label={__('Site Key', 'ghostkit')}
 				value={apiSiteKey}
 				onChange={(value) => {
 					setApiSiteKey(value);
-					saveAPIKeys();
+					saveAPIKeys(value, apiSecretKey);
 				}}
 			/>
 			<TextControl
@@ -52,7 +51,7 @@ export default function BlockSettings() {
 				value={apiSecretKey}
 				onChange={(value) => {
 					setApiSecretKey(value);
-					saveAPIKeys();
+					saveAPIKeys(apiSiteKey, value);
 				}}
 			/>
 			<p>
