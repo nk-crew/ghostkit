@@ -66,32 +66,18 @@ const withGhostKitExtensions = createHigherOrderComponent(
  * Add `ghostkit` attribute to deprecated blocks settings.
  *
  * @param {Object} blockSettings Original block settings.
- * @param {string} name          Original block name.
  *
  * @return {Object} Filtered block settings.
  */
-function addAttribute(blockSettings, name) {
-	if (!hasBlockSupport(name, 'ghostkit')) {
-		return blockSettings;
+function addAttribute(blockSettings) {
+	// Add attribute to All blocks.
+	// Previously we used hasBlockSupport function, but it's not working correctly for all blocks
+	// and leads to issues with blocks that are not registered yet (probably in deprecated block variations).
+	if (blockSettings.attributes && !blockSettings.attributes.ghostkit) {
+		blockSettings.attributes.ghostkit = {
+			type: 'object',
+		};
 	}
-
-	// prepare settings of block + deprecated blocks.
-	const eachSettings = [blockSettings];
-	if (blockSettings.deprecated && blockSettings.deprecated.length) {
-		blockSettings.deprecated.forEach((item) => {
-			eachSettings.push(item);
-		});
-	}
-
-	eachSettings.forEach((settings) => {
-		if (settings.attributes) {
-			if (!settings.attributes.ghostkit) {
-				settings.attributes.ghostkit = {
-					type: 'object',
-				};
-			}
-		}
-	});
 
 	return blockSettings;
 }
