@@ -1,4 +1,4 @@
-const { merge } = window.lodash;
+import { merge } from 'lodash';
 
 function reducer(state = { data: false }, action = {}) {
 	switch (action.type) {

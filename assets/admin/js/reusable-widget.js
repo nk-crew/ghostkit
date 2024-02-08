@@ -1,4 +1,4 @@
-const { jQuery: $ } = window;
+import $ from 'jquery';
 
 function updateReusableBlockLinks($widgets) {
 	if (!$widgets) {

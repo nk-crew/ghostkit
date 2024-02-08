@@ -1,14 +1,15 @@
-import compactObject from '../../utils/compact-object';
-import merge from '../../utils/merge';
-import { getSpecificPropsFromStyles } from '../../utils/styles';
-import { EXTENSIONS } from '../constants';
+import { cloneDeep } from 'lodash';
 
-const { cloneDeep } = window.lodash;
 import { getBlockType, hasBlockSupport, parse } from '@wordpress/blocks';
 import { useDispatch, useRegistry } from '@wordpress/data';
 import { useCallback } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
+
+import compactObject from '../../utils/compact-object';
+import merge from '../../utils/merge';
+import { getSpecificPropsFromStyles } from '../../utils/styles';
+import { EXTENSIONS } from '../constants';
 
 /**
  * Determine if the copied text looks like serialized blocks or not.

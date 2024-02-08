@@ -72,12 +72,14 @@ class GhostKit_Settings {
         // phpcs:ignore
         do_action( 'enqueue_block_editor_assets' );
 
+        // phpcs:ignore
+        do_action( 'enqueue_block_assets' );
+
 		// Ghost Kit Settings.
 		GhostKit_Assets::enqueue_script(
 			'ghostkit-settings',
 			'build/settings/index',
-			array( 'ghostkit-helper', 'lodash', 'wp-api', 'wp-api-request' ),
-			filemtime( ghostkit()->plugin_path . 'build/settings/index.js' )
+			array( 'ghostkit-helper' )
 		);
 
 		wp_localize_script(

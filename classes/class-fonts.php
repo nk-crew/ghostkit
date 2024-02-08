@@ -28,13 +28,17 @@ class GhostKit_Fonts {
 	public function enqueue_fonts() {
 		// enqueue fonts.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all_fonts_assets' ), 12 );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_all_fonts_assets' ), 12 );
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_all_fonts_assets' ), 12 );
 	}
 
 	/**
 	 * Enqueue frontend & editor assets
 	 */
 	public function enqueue_all_fonts_assets() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		$fonts = $this->get_font_loader_list();
 
 		if ( ( is_admin() || ! empty( $fonts ) ) && isset( $fonts['google-fonts'] ) && ! empty( $fonts['google-fonts'] ) ) {

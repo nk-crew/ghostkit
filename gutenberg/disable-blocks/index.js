@@ -1,6 +1,7 @@
+import $ from 'jquery';
+
 import { unregisterBlockType } from '@wordpress/blocks';
 const {
-	jQuery: $,
 	GHOSTKIT,
 	_wpLoadBlockEditor: wpLoadBlockEditor,
 	_wpLoadGutenbergEditor: wpLoadGutenbergEditor,

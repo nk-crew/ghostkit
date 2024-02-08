@@ -1,11 +1,5 @@
-/**
- * External dependencies.
- */
 import classnames from 'classnames/dedupe';
 
-/**
- * WordPress dependencies.
- */
 import { BaseControl } from '@wordpress/components';
 
 /**

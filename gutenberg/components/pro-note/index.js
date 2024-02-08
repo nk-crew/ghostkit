@@ -1,19 +1,9 @@
-/**
- * External dependencies.
- */
 import classnames from 'classnames/dedupe';
 
-/**
- * Internal dependencies.
- */
+import { Button } from '@wordpress/components';
+import { useState } from '@wordpress/element';
+
 import getIcon from '../../utils/get-icon';
-
-/**
- * WordPress dependencies.
- */
-const { useState } = wp.element;
-
-const { Button } = wp.components;
 
 /**
  * Component

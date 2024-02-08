@@ -75,7 +75,7 @@ class GhostKit_Reusable_Widget extends WP_Widget {
 			)
 		);
 
-		GhostKit_Assets::enqueue_script( 'ghostkit-admin-reusable-widget', 'build/assets/admin/js/reusable-widget', array( 'jquery' ), null, false );
+		GhostKit_Assets::enqueue_script( 'ghostkit-admin-reusable-widget', 'build/assets/admin/js/reusable-widget', array(), null, false );
 		?>
 
 		<p>

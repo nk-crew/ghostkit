@@ -1,6 +1,6 @@
-import camelCaseToDash from '../../../utils/camel-case-to-dash';
+import { cloneDeep, merge } from 'lodash';
 
-const { merge, cloneDeep } = window.lodash;
+import camelCaseToDash from '../../../utils/camel-case-to-dash';
 
 function fixStylesPropNames(styles) {
 	if (typeof styles === 'object') {

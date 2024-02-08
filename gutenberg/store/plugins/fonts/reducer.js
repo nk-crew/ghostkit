@@ -1,4 +1,4 @@
-const { merge } = window.lodash;
+import { merge } from 'lodash';
 
 import { applyFilters } from '@wordpress/hooks';
 

@@ -1,7 +1,3 @@
-/**
- * Ghost Kit Settings Page
- */
-
 import { render } from '@wordpress/element';
 
 import Container from './containers/container';

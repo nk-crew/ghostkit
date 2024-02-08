@@ -151,7 +151,7 @@ class GhostKit {
 		add_filter( 'block_categories_all', array( $this, 'block_categories_all' ), 9999 );
 
 		// we need to enqueue the main script earlier to let 3rd-party plugins add custom styles support.
-		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ), 9 );
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ), 9 );
 
 		// add support for excerpts to some blocks.
 		add_filter( 'excerpt_allowed_blocks', array( $this, 'excerpt_allowed_blocks' ) );
@@ -212,11 +212,15 @@ class GhostKit {
 	/**
 	 * Enqueue editor assets
 	 */
-	public function enqueue_block_editor_assets() {
+	public function enqueue_block_assets() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		global $current_screen;
 
 		$css_deps = array();
-		$js_deps  = array( 'ghostkit-helper', 'wp-date', 'underscore', 'lodash', 'jquery' );
+		$js_deps  = array( 'ghostkit-helper' );
 
 		// Fix for Widgets screen.
 		if ( isset( $current_screen->id ) && 'widgets' === $current_screen->id ) {
@@ -267,8 +271,7 @@ class GhostKit {
 		GhostKit_Assets::enqueue_script(
 			'ghostkit-editor',
 			'build/gutenberg/index',
-			$js_deps,
-			filemtime( plugin_dir_path( __FILE__ ) . 'build/gutenberg/index.js' )
+			$js_deps
 		);
 	}
 

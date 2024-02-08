@@ -1,4 +1,4 @@
-const { compact, map } = window.lodash;
+import { compact, map } from 'lodash';
 
 import { transformStyles } from '@wordpress/block-editor';
 import { useMemo } from '@wordpress/element';

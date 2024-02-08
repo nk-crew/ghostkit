@@ -3,20 +3,14 @@
  *
  * @since v3.1.0
  */
-/**
- * Internal dependencies
- */
-import migrateSR from './scroll-reveal';
-import migrateStyles from './styles';
-
-/**
- * WordPress dependencies
- */
-const { merge } = window.lodash;
+import { merge } from 'lodash';
 
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
+
+import migrateSR from './scroll-reveal';
+import migrateStyles from './styles';
 
 function DeprecatedExtensions(props) {
 	const { setAttributes } = props;

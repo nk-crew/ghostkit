@@ -1,33 +1,22 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-
-/**
- * External dependencies
- */
 import deepEqual from 'deep-equal';
+import { cloneDeep } from 'lodash';
 import shorthash from 'shorthash';
 import { throttle } from 'throttle-debounce';
-
-import EditorStyles from '../../components/editor-styles';
-import { hasClass, replaceClass } from '../../utils/classes-replacer';
-import { maybeDecode, maybeEncode } from '../../utils/encode-decode';
-/**
- * Internal dependencies
- */
-// We can't use lodash merge, because it skip the specified undefined value
-// which we use to reset styles.
-import merge from '../../utils/merge';
-import getStyles from './get-styles';
-
-/**
- * WordPress dependencies
- */
-const { cloneDeep } = window.lodash;
 
 import { getBlockSupport, getBlockType } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
 import { useCallback, useEffect, useRef } from '@wordpress/element';
 import { addFilter, applyFilters } from '@wordpress/hooks';
+
+import EditorStyles from '../../components/editor-styles';
+import { hasClass, replaceClass } from '../../utils/classes-replacer';
+import { maybeDecode, maybeEncode } from '../../utils/encode-decode';
+// We can't use lodash merge, because it skip the specified undefined value
+// which we use to reset styles.
+import merge from '../../utils/merge';
+import getStyles from './get-styles';
 
 function cleanBlockCustomStyles(styles) {
 	const newStyles = {};

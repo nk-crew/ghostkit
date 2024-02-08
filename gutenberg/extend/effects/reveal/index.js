@@ -1,17 +1,4 @@
-/**
- * Internal dependencies
- */
-import DropdownPicker from '../../../components/dropdown-picker';
-import EditorStyles from '../../../components/editor-styles';
-import ProNote from '../../../components/pro-note';
-import TransitionPresetsControl from '../../../components/transition-presets-control';
-import TransitionSelector from '../../../components/transition-selector';
-import DEFAULTS from './defaults';
-
-/**
- * WordPress dependencies
- */
-const { cloneDeep } = window.lodash;
+import { cloneDeep } from 'lodash';
 
 import {
 	__experimentalGrid as ExperimentalGrid,
@@ -23,6 +10,13 @@ import {
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+
+import DropdownPicker from '../../../components/dropdown-picker';
+import EditorStyles from '../../../components/editor-styles';
+import ProNote from '../../../components/pro-note';
+import TransitionPresetsControl from '../../../components/transition-presets-control';
+import TransitionSelector from '../../../components/transition-selector';
+import DEFAULTS from './defaults';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 const NumberControl = StableNumberControl || ExperimentalNumberControl;

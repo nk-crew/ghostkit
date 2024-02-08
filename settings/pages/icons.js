@@ -1,11 +1,9 @@
+import { merge } from 'lodash';
 import { debounce } from 'throttle-debounce';
-
-import { Component, Fragment } from '@wordpress/element';
-
-const { merge } = window.lodash;
 
 import apiFetch from '@wordpress/api-fetch';
 import { ToggleControl } from '@wordpress/components';
+import { Component, Fragment } from '@wordpress/element';
 
 const { GHOSTKIT } = window;
 

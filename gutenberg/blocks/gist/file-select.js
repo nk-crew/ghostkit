@@ -1,8 +1,8 @@
+import $ from 'jquery';
+
 import { DropdownMenu, SelectControl } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-
-const { jQuery } = window;
 
 const cache = {};
 
@@ -35,7 +35,7 @@ export default function GistFilesSelect(props) {
 		}
 
 		// request the json version of this gist
-		jQuery.ajax({
+		$.ajax({
 			url: checkUrl,
 			// data: data,
 			dataType: 'jsonp',
@@ -56,7 +56,7 @@ export default function GistFilesSelect(props) {
 				}
 
 				// saving the promise for the requested json as a proxy for the actual response
-				cache[checkUrl] = jQuery.Deferred();
+				cache[checkUrl] = $.Deferred();
 			},
 			success(response) {
 				if (cache[checkUrl]) {

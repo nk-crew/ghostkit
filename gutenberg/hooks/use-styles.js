@@ -1,6 +1,6 @@
-import * as styleUtils from '../utils/styles';
+import { cloneDeep } from 'lodash';
 
-const { cloneDeep } = window.lodash;
+import * as styleUtils from '../utils/styles';
 
 export default function useStyles(props) {
 	const { attributes, setAttributes } = props;
