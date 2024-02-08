@@ -24,6 +24,14 @@ const vendorFiles = [
 		destination: 'assets/vendor/gist-simple/dist/gist-simple.min.js.map',
 	},
 	{
+		source: 'node_modules/ivent/dist/ivent.min.js',
+		destination: 'assets/vendor/ivent/dist/ivent.min.js',
+	},
+	{
+		source: 'node_modules/ivent/dist/ivent.min.js.map',
+		destination: 'assets/vendor/ivent/dist/ivent.min.js.map',
+	},
+	{
 		source: 'node_modules/jarallax/dist/jarallax-video.min.js',
 		destination: 'assets/vendor/jarallax/dist/jarallax-video.min.js',
 	},

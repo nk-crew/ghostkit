@@ -231,15 +231,20 @@ class GhostKit {
 			}
 		}
 
-		// Jarallax.
-		if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
-			$js_deps[] = 'jarallax';
-			$js_deps[] = 'jarallax-video';
+		// Ivent.
+		if ( apply_filters( 'gkt_enqueue_plugin_ivent', true ) ) {
+			$js_deps[] = 'ivent';
 		}
 
 		// Motion.
 		if ( apply_filters( 'gkt_enqueue_plugin_motion', true ) ) {
 			$js_deps[] = 'motion';
+		}
+
+		// Jarallax.
+		if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
+			$js_deps[] = 'jarallax';
+			$js_deps[] = 'jarallax-video';
 		}
 
 		// Luxon.

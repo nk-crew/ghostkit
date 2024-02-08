@@ -347,6 +347,11 @@ class GhostKit_Assets {
 			$js_deps[] = 'motion';
 		}
 
+		// Ivent.
+		if ( apply_filters( 'gkt_enqueue_plugin_ivent', true ) ) {
+			self::register_script( 'ivent', 'assets/vendor/ivent/dist/ivent.min', array(), '0.2.0' );
+		}
+
 		// Jarallax.
 		if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
 			self::register_script( 'jarallax', 'assets/vendor/jarallax/dist/jarallax.min', array(), '2.0.1' );
@@ -407,7 +412,8 @@ class GhostKit_Assets {
 		// helper script.
 		self::register_script(
 			'ghostkit-helper',
-			'build/assets/js/helper'
+			'build/assets/js/helper',
+			array( 'ivent' )
 		);
 
 		// Google Maps prepare localization as in WordPress settings.

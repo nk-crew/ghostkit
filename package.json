@@ -82,6 +82,7 @@
 		"deep-equal": "^2.2.3",
 		"gist-simple": "^2.0.1",
 		"gutenberg-react-select-styles": "0.0.2",
+		"ivent": "^0.2.0",
 		"jarallax": "^2.2.0",
 		"lorem-ipsum": "^2.0.8",
 		"luxon": "^3.4.4",

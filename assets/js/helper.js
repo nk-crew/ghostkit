@@ -1,5 +1,6 @@
-import EventHandler from './utils/event-handler';
 import Instance from './utils/instance';
+
+const { ivent } = window;
 
 const {
 	version,
@@ -93,7 +94,7 @@ const GHOSTKIT = {
 	/**
 	 * Events helper functions.
 	 */
-	events: EventHandler,
+	events: ivent,
 
 	/**
 	 * Check for block support GhostKit features.
