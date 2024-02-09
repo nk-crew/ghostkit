@@ -33,6 +33,11 @@ const numberOfDecimal = (number) =>
 		? number.toString().split('.').pop().length
 		: 0;
 
+function fixRounding(value, precision) {
+	const power = Math.pow(10, precision || 0);
+	return Math.round(value * power) / power;
+}
+
 /**
  * Component
  *
@@ -106,12 +111,13 @@ export default function InputDrag(props) {
 			return;
 		}
 
-		const numbersOfDigit = numberOfDecimal(newVal);
 		newVal = valueObj.num + newVal;
 
-		// conversion for decimal steps
-		if (numbersOfDigit > 0) {
-			newVal = +newVal.toFixed(numbersOfDigit);
+		// Fix rounding problem after multiplication.
+		// https://stackoverflow.com/questions/9993266/javascript-multiply-not-precise
+		const decimals = numberOfDecimal(newVal);
+		if (decimals > 10) {
+			newVal = fixRounding(newVal, decimals - 1);
 		}
 
 		onChange(newVal + valueObj.unit);
