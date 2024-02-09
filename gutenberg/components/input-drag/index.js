@@ -1,9 +1,9 @@
+import { useDrag } from '@use-gesture/react';
 import classnames from 'classnames/dedupe';
 
 import { TextControl } from '@wordpress/components';
-import { Component } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 
-const minDistanceToStart = 5;
 const units = [
 	'px',
 	'%',
@@ -34,39 +34,34 @@ const numberOfDecimal = (number) =>
 		: 0;
 
 /**
- * Component Class
+ * Component
+ *
+ * @param {*} props component props.
+ * @return {*}
  */
-export default class InputDrag extends Component {
-	constructor(props) {
-		super(props);
+export default function InputDrag(props) {
+	const {
+		label,
+		help,
+		icon,
+		placeholder,
+		value,
+		onChange,
+		step,
+		defaultUnit,
+		autoComplete,
+		className,
+	} = props;
 
-		this.parseValue = this.parseValue.bind(this);
-		this.reset = this.reset.bind(this);
-		this.mouseUp = this.mouseUp.bind(this);
-		this.mouseDown = this.mouseDown.bind(this);
-		this.mouseMove = this.mouseMove.bind(this);
-		this.keyDown = this.keyDown.bind(this);
+	const inputRef = useRef();
 
-		this.reset();
-	}
-
-	componentDidMount() {
-		document.addEventListener('mouseup', this.mouseUp, false);
-		document.addEventListener('mousemove', this.mouseMove, false);
-	}
-
-	componentWillUnmount() {
-		document.removeEventListener('mouseup', this.mouseUp, false);
-		document.removeEventListener('mousemove', this.mouseMove, false);
-	}
-
-	parseValue() {
-		let valueNum = parseFloat(this.props.value);
+	function parseValue() {
+		let valueNum = parseFloat(value);
 		let unit = '';
 
 		// check if value contains units and save it.
-		if (this.props.value !== `${valueNum}`) {
-			const matchUnit = (this.props.value || '').match(
+		if (value !== `${valueNum}`) {
+			const matchUnit = (value || '').match(
 				new RegExp(`${valueNum}(${units.join('|')})`, 'i')
 			);
 
@@ -78,185 +73,101 @@ export default class InputDrag extends Component {
 
 		if (Number.isNaN(valueNum)) {
 			valueNum = 0;
-			if (typeof this.props.defaultUnit !== 'undefined') {
-				unit = this.props.defaultUnit;
+			if (typeof defaultUnit !== 'undefined') {
+				unit = defaultUnit;
 			}
 		}
 
 		return {
 			num: valueNum,
 			unit,
-			full: this.props.value,
+			full: value,
 		};
 	}
 
-	reset() {
-		this.initialPosition = 0;
-		this.initialValue = 0;
-		this.initialUnit = '';
-		this.initialShiftKey = 0;
+	function onChangeWithKey(distance, shiftKey) {
+		let newVal = distance;
+		const shiftVal = 10;
 
-		// states
-		// 0 - none
-		// 1 - retrieving value
-		// 2 - change value
-		this.dragState = 0;
-	}
-
-	mouseDown(e) {
-		this.initialPosition = {
-			x: e.pageX,
-			y: e.pageY,
-		};
-		const valueObj = this.parseValue();
-
-		this.initialValue = valueObj.num;
-		this.initialUnit = valueObj.unit;
-
-		if (e.shiftKey) {
-			this.initialShiftKey = 1;
+		if (step) {
+			newVal *= step;
+		}
+		if (shiftKey) {
+			newVal *= shiftVal;
 		}
 
-		this.dragState = 1;
-	}
-
-	mouseUp() {
-		this.reset();
-	}
-
-	mouseMove(e) {
-		const startDistance = this.props.startDistance || minDistanceToStart;
-
-		switch (this.dragState) {
-			// check for drag position
-			case 1:
-				if (
-					Math.abs(this.initialPosition.x - e.pageX) > startDistance
-				) {
-					this.reset();
-				} else if (
-					Math.abs(this.initialPosition.y - e.pageY) > startDistance
-				) {
-					this.dragState = 2;
-				}
-
-				break;
-			// change input value.
-			case 2: {
-				e.preventDefault();
-				let step = 1;
-				let shiftKeyMultiple = 10;
-
-				if (
-					typeof this.props.step !== 'undefined' &&
-					!Number.isNaN(this.props.step)
-				) {
-					step = this.props.step;
-					shiftKeyMultiple *= step;
-				}
-
-				const numbersOfDigit = numberOfDecimal(step);
-				let mouseValue =
-					this.initialValue +
-					(this.initialPosition.y - e.pageY) *
-						(this.initialShiftKey ? shiftKeyMultiple : step);
-
-				// conversion for decimal steps
-				if (numbersOfDigit > 0) {
-					mouseValue = +mouseValue.toFixed(numbersOfDigit);
-				}
-
-				this.props.onChange(mouseValue + this.initialUnit);
-				break;
-			}
-			// no default
-		}
-	}
-
-	keyDown(e) {
-		if (this.initialPosition || (e.keyCode !== 40 && e.keyCode !== 38)) {
-			return;
-		}
-
-		e.preventDefault();
-
-		const valueObj = this.parseValue();
-		let newVal = 1;
-		let shiftVal = 10;
-
-		if (
-			typeof this.props.step !== 'undefined' &&
-			!Number.isNaN(this.props.step)
-		) {
-			newVal = this.props.step;
-			if (e.shiftKey) {
-				shiftVal *= this.props.step;
-			}
-		}
-
+		const valueObj = parseValue();
 		const numbersOfDigit = numberOfDecimal(newVal);
-		let keyDown = valueObj.num - newVal;
-		let keyUp = valueObj.num + newVal;
 
-		if (e.shiftKey) {
-			keyDown = valueObj.num - shiftVal;
-			keyUp = valueObj.num + shiftVal;
-		}
+		newVal = valueObj.num + newVal;
 
 		// conversion for decimal steps
 		if (numbersOfDigit > 0) {
-			keyDown = +keyDown.toFixed(numbersOfDigit);
-			keyUp = +keyUp.toFixed(numbersOfDigit);
+			newVal = +newVal.toFixed(numbersOfDigit);
 		}
 
+		onChange(newVal + valueObj.unit);
+	}
+
+	function keyDown(e) {
 		switch (e.keyCode) {
 			// down.
 			case 40:
-				this.props.onChange(keyDown + valueObj.unit);
+				e.preventDefault();
+				onChangeWithKey(-1, e.shiftKey);
 				break;
 			// up.
 			case 38:
-				this.props.onChange(keyUp + valueObj.unit);
+				e.preventDefault();
+				onChangeWithKey(1, e.shiftKey);
 				break;
 			// no default
 		}
 	}
 
-	render() {
-		const {
-			value,
-			label,
-			help,
-			onChange,
-			icon,
-			placeholder,
-			autoComplete,
-			className,
-		} = this.props;
+	const dragGestureProps = useDrag(
+		(dragProps) => {
+			const { event, dragging, _direction, shiftKey } = dragProps;
 
-		let classHasIcon = 'ghostkit-component-input-drag-no-icon';
+			if (!dragging) {
+				return;
+			}
 
-		if (typeof icon !== 'undefined') {
-			classHasIcon = 'ghostkit-component-input-drag-has-icon';
+			event.stopPropagation();
+
+			onChangeWithKey(-1 * _direction[1], shiftKey);
+		},
+		{
+			axis: 'y',
+			threshold: 10,
+			enabled: true,
+			pointer: { capture: false },
 		}
+	);
 
-		return (
-			<div className={classnames(classHasIcon, className)}>
-				{icon}
-				<TextControl
-					label={label}
-					help={help}
-					placeholder={placeholder}
-					value={value || ''}
-					onMouseDown={this.mouseDown}
-					onKeyDown={this.keyDown}
-					onChange={(val) => {
-						onChange(val);
-					}}
-					className="ghostkit-component-input-drag"
-					autoComplete={autoComplete}
-				/>
-			</div>
-		);
+	let classHasIcon = 'ghostkit-component-input-drag-no-icon';
+
+	if (typeof icon !== 'undefined') {
+		classHasIcon = 'ghostkit-component-input-drag-has-icon';
 	}
+
+	return (
+		<div className={classnames(classHasIcon, className)}>
+			{icon}
+			<TextControl
+				{...dragGestureProps()}
+				ref={inputRef}
+				label={label}
+				help={help}
+				placeholder={placeholder}
+				value={value || ''}
+				onKeyDown={keyDown}
+				onChange={(val) => {
+					onChange(val);
+				}}
+				className="ghostkit-component-input-drag"
+				autoComplete={autoComplete}
+			/>
+		</div>
+	);
 }

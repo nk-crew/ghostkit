@@ -205,7 +205,6 @@ function FrameBorderTools(props) {
 								isHover && hoverSelector
 							)
 						}
-						startDistance={1}
 						autoComplete="off"
 					/>
 				</div>

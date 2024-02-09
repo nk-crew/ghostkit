@@ -201,7 +201,6 @@ function FrameShadowTools(props) {
 							onChange={(val) => {
 								setX(val || 0);
 							}}
-							startDistance={1}
 							autoComplete="off"
 						/>
 						<InputDrag
@@ -210,7 +209,6 @@ function FrameShadowTools(props) {
 							onChange={(val) => {
 								setY(val || 0);
 							}}
-							startDistance={1}
 							autoComplete="off"
 						/>
 						<InputDrag
@@ -219,7 +217,6 @@ function FrameShadowTools(props) {
 							onChange={(val) => {
 								setBlur(val || 0);
 							}}
-							startDistance={1}
 							autoComplete="off"
 						/>
 						<InputDrag
@@ -228,7 +225,6 @@ function FrameShadowTools(props) {
 							onChange={(val) => {
 								setSpread(val || 0);
 							}}
-							startDistance={1}
 							autoComplete="off"
 						/>
 					</InputGroup>

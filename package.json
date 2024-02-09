@@ -76,6 +76,7 @@
 	"dependencies": {
 		"@giphy/js-fetch-api": "^5.3.0",
 		"@lottiefiles/lottie-player": "^2.0.3",
+		"@use-gesture/react": "^10.3.0",
 		"ace-builds": "^1.32.5",
 		"bezier-easing-editor": "^0.8.0",
 		"classnames": "^2.5.1",
