@@ -35,36 +35,27 @@ export default function BlockEdit(props) {
 					'core/list',
 					{
 						className: 'is-style-none',
-						values: [
-							<li key="list-item-1">
-								<span
-									className="ghostkit-badge"
-									style={{ backgroundColor: '#4ab866' }}
-								>
-									{__('Added', 'ghostkit')}
-								</span>
-								{__('Something', 'ghostkit')}
-							</li>,
-							<li key="list-item-2">
-								<span
-									className="ghostkit-badge"
-									style={{ backgroundColor: '#0366d6' }}
-								>
-									{__('Fixed', 'ghostkit')}
-								</span>
-								{__('Something', 'ghostkit')}
-							</li>,
-							<li key="list-item-3">
-								<span
-									className="ghostkit-badge"
-									style={{ backgroundColor: '#0366d6' }}
-								>
-									{__('Improved', 'ghostkit')}
-								</span>
-								{__('Something', 'ghostkit')}
-							</li>,
-						],
 					},
+					[
+						[
+							'core/list-item',
+							{
+								content: `<span class="ghostkit-badge" style="background: #4ab866">${__('Added', 'ghostkit')}</span>${__('Something', 'ghostkit')}`,
+							},
+						],
+						[
+							'core/list-item',
+							{
+								content: `<span class="ghostkit-badge" style="background: #0366d6">${__('Fixed', 'ghostkit')}</span>${__('Something', 'ghostkit')}`,
+							},
+						],
+						[
+							'core/list-item',
+							{
+								content: `<span class="ghostkit-badge" style="background: #4ab866">${__('Improved', 'ghostkit')}</span>${__('Something', 'ghostkit')}`,
+							},
+						],
+					],
 				],
 			],
 		}
@@ -85,7 +76,7 @@ export default function BlockEdit(props) {
 				<RichText
 					inlineToolbar
 					tagName="h2"
-					placeholder={__('18 September 2019', 'ghostkit')}
+					placeholder={new Date().toLocaleDateString()}
 					value={date}
 					onChange={(value) => setAttributes({ date: value })}
 					style={{ margin: 0 }}

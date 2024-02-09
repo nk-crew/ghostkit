@@ -17,42 +17,34 @@ export const settings = {
 	example: {
 		attributes: {
 			version: '1.0.0',
-			date: '19 August 2077',
+			date: new Date().toLocaleDateString(),
 		},
 		innerBlocks: [
 			{
 				name: 'core/list',
 				attributes: {
-					values: [
-						<li key="list-item-1">
-							<span
-								className="ghostkit-badge"
-								style={{ backgroundColor: '#4ab866' }}
-							>
-								{__('Added', 'ghostkit')}
-							</span>
-							{__('Something', 'ghostkit')}
-						</li>,
-						<li key="list-item-2">
-							<span
-								className="ghostkit-badge"
-								style={{ backgroundColor: '#0366d6' }}
-							>
-								{__('Fixed', 'ghostkit')}
-							</span>
-							{__('Something', 'ghostkit')}
-						</li>,
-						<li key="list-item-3">
-							<span
-								className="ghostkit-badge"
-								style={{ backgroundColor: '#63656b' }}
-							>
-								{__('Changed', 'ghostkit')}
-							</span>
-							{__('Something', 'ghostkit')}
-						</li>,
-					],
+					className: 'is-style-none',
 				},
+				innerBlocks: [
+					{
+						name: 'core/list-item',
+						attributes: {
+							content: `<span class="ghostkit-badge" style="background: #4ab866">${__('Added', 'ghostkit')}</span>${__('Something', 'ghostkit')}`,
+						},
+					},
+					{
+						name: 'core/list-item',
+						attributes: {
+							content: `<span class="ghostkit-badge" style="background: #0366d6">${__('Fixed', 'ghostkit')}</span>${__('Something', 'ghostkit')}`,
+						},
+					},
+					{
+						name: 'core/list-item',
+						attributes: {
+							content: `<span class="ghostkit-badge" style="background: #4ab866">${__('Improved', 'ghostkit')}</span>${__('Something', 'ghostkit')}`,
+						},
+					},
+				],
 			},
 		],
 	},
