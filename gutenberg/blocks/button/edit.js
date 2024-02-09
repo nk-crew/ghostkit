@@ -82,9 +82,9 @@ export default function BlockEdit(props) {
 		},
 		{
 			allowedBlocks: [buttonBlockName],
-			__experimentalDirectInsert: true,
 			template: [[buttonBlockName]],
 			orientation: 'horizontal',
+			directInsert: true,
 			templateInsertUpdatesSelection: true,
 			renderAppender: isSelectedBlockInRoot
 				? () => (
