@@ -85,7 +85,7 @@ export default function InputDrag(props) {
 		};
 	}
 
-	function onChangeWithKey(distance, shiftKey) {
+	function onDragChange(distance, shiftKey) {
 		let newVal = distance;
 		const shiftVal = 10;
 
@@ -97,8 +97,16 @@ export default function InputDrag(props) {
 		}
 
 		const valueObj = parseValue();
-		const numbersOfDigit = numberOfDecimal(newVal);
 
+		// If value differs from full value, then do nothing.
+		// It may be for example when used value such as:
+		// - calc(10px)
+		// - var(--var-name)
+		if (`${valueObj.num}${valueObj.unit}` !== valueObj.full) {
+			return;
+		}
+
+		const numbersOfDigit = numberOfDecimal(newVal);
 		newVal = valueObj.num + newVal;
 
 		// conversion for decimal steps
@@ -114,12 +122,12 @@ export default function InputDrag(props) {
 			// down.
 			case 40:
 				e.preventDefault();
-				onChangeWithKey(-1, e.shiftKey);
+				onDragChange(-1, e.shiftKey);
 				break;
 			// up.
 			case 38:
 				e.preventDefault();
-				onChangeWithKey(1, e.shiftKey);
+				onDragChange(1, e.shiftKey);
 				break;
 			// no default
 		}
@@ -135,7 +143,7 @@ export default function InputDrag(props) {
 
 			event.stopPropagation();
 
-			onChangeWithKey(-1 * _direction[1], shiftKey);
+			onDragChange(-1 * _direction[1], shiftKey);
 		},
 		{
 			axis: 'y',
