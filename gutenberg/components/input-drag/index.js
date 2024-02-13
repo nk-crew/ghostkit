@@ -107,7 +107,10 @@ export default function InputDrag(props) {
 		// It may be for example when used value such as:
 		// - calc(10px)
 		// - var(--var-name)
-		if (`${valueObj.num}${valueObj.unit}` !== valueObj.full) {
+		if (
+			typeof valueObj.full !== 'undefined' &&
+			`${valueObj.num}${valueObj.unit}` !== valueObj.full
+		) {
 			return;
 		}
 
