@@ -34,10 +34,38 @@
 		opacity: 0.7;
 	}
 
-	// Important toggle.
+	// When input expanded, hide help text and make input transparent for siblings.
+	&:has(.ghostkit-component-input-drag-expand) > div:not(:has(.ghostkit-component-input-drag-expand)) {
+		.components-base-control__help {
+			font-size: 0;
+
+			&::first-letter {
+				font-size: 9px;
+			}
+		}
+		input {
+			color: transparent;
+			padding-left: 2px;
+			padding-right: 2px;
+		}
+	}
+
 	> div {
 		position: relative;
+		width: 100%;
+		transition: width 0.2s ease;
 
+		input {
+			text-align: center;
+			transition: padding 0.2s ease;
+		}
+
+		// Expand width when input focused.
+		&:has(.ghostkit-component-input-drag-expand) {
+			width: 1000%;
+		}
+
+		// Important toggle.
 		.ghostkit-control-important-toggle {
 			position: absolute;
 			top: 6px;

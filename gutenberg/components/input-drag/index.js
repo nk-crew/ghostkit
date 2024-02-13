@@ -2,7 +2,7 @@ import { useDrag } from '@use-gesture/react';
 import classnames from 'classnames/dedupe';
 
 import { TextControl } from '@wordpress/components';
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 
 const units = [
 	'px',
@@ -51,14 +51,16 @@ export default function InputDrag(props) {
 		icon,
 		placeholder,
 		value,
-		onChange,
 		step,
 		defaultUnit,
+		expandOnFocus,
 		autoComplete,
 		className,
+		onChange,
 	} = props;
 
 	const inputRef = useRef();
+	const [isFocused, setIsFocused] = useState(false);
 
 	function parseValue() {
 		let valueNum = parseFloat(value);
@@ -169,7 +171,17 @@ export default function InputDrag(props) {
 	}
 
 	return (
-		<div className={classnames(classHasIcon, className)}>
+		<div
+			className={classnames(
+				classHasIcon,
+				isFocused &&
+					expandOnFocus &&
+					value &&
+					value.length >= expandOnFocus &&
+					'ghostkit-component-input-drag-expand',
+				className
+			)}
+		>
 			{icon}
 			<TextControl
 				{...dragGestureProps()}
@@ -181,6 +193,12 @@ export default function InputDrag(props) {
 				onKeyDown={keyDown}
 				onChange={(val) => {
 					onChange(val);
+				}}
+				onFocus={() => {
+					setIsFocused(true);
+				}}
+				onBlur={() => {
+					setIsFocused(false);
 				}}
 				className="ghostkit-component-input-drag"
 				autoComplete={autoComplete}

@@ -70,6 +70,7 @@ function PositionDistanceTools(props) {
 				}
 				withResponsive
 				withImportant
+				expandOnFocus={6}
 			/>
 		</ToolsPanelItem>
 	);

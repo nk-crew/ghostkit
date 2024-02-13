@@ -62,6 +62,7 @@ function PositionMinMaxWidthTools(props) {
 				}
 				withResponsive
 				withImportant
+				expandOnFocus={17}
 			/>
 		</ToolsPanelItem>
 	);

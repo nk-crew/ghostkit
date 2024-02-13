@@ -80,6 +80,7 @@ function FrameBorderRadiusTools(props) {
 						isHover && hoverSelector
 					)
 				}
+				expandOnFocus={6}
 				withResponsive
 				withState
 			/>

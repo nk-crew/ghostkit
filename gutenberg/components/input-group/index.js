@@ -45,6 +45,7 @@ export default function InputGroup(props) {
 		withResponsive,
 		withState,
 		withImportant,
+		expandOnFocus,
 		className,
 		...restProps
 	} = props;
@@ -127,6 +128,7 @@ export default function InputGroup(props) {
 										isHover
 									);
 								}}
+								expandOnFocus={expandOnFocus}
 								autoComplete="off"
 							/>
 							{withImportant && typeof value !== 'undefined' && (
