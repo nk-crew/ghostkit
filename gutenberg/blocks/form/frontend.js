@@ -174,7 +174,8 @@ events.on(document, 'submit', '.ghostkit-form', (e) => {
 	}
 });
 
-events.on(document, 'blur', '.ghostkit-form', (e) => {
+// Check validity on blur only for forms that were submitted and are invalid.
+events.on(document, 'blur', '.ghostkit-form-was-validated', (e) => {
 	e.target.checkValidity();
 });
 
