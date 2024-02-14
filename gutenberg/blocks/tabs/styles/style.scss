@@ -36,6 +36,7 @@
 	&-item {
 		padding: var(--gkt-tabs--button__padding-v) var(--gkt-tabs--button__padding-h);
 		margin-bottom: calc(-1 * var(--gkt-tabs--button__border-width));
+		font: inherit;
 		font-size: var(--gkt-tabs--button__font-size);
 		font-weight: var(--gkt-tabs--button__font-weight);
 		color: inherit;
