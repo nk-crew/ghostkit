@@ -38,7 +38,6 @@ export default function BlockSave(props) {
 
 	const blockProps = useBlockProps.save({
 		className,
-		'data-tab-active': tabActive,
 	});
 	const innerBlockProps = useInnerBlocksProps.save({
 		className: 'ghostkit-tabs-content',
@@ -51,12 +50,26 @@ export default function BlockSave(props) {
 					'ghostkit-tabs-buttons',
 					`ghostkit-tabs-buttons-align-${buttonsAlign}`
 				)}
+				role="tablist"
+				aria-orientation={
+					buttonsVerticalAlign ? 'vertical' : 'horizontal'
+				}
 			>
 				{tabsData.map((tabData) => (
 					<RichText.Content
-						tagName="a"
-						href={`#${tabData.slug}`}
-						className="ghostkit-tabs-buttons-item"
+						tagName="button"
+						className={classnames(
+							'ghostkit-tabs-buttons-item',
+							tabActive === tabData.slug &&
+								'ghostkit-tabs-buttons-item-active'
+						)}
+						type="button"
+						role="tab"
+						data-tab={tabData.slug}
+						aria-controls={tabData.slug}
+						aria-selected={
+							tabActive === tabData.slug ? 'true' : false
+						}
 						key={`tab_button_${tabData.slug}`}
 						value={tabData.title}
 					/>

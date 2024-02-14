@@ -1,3 +1,5 @@
+import classnames from 'classnames/dedupe';
+
 import metadata from './block.json';
 
 const { name } = metadata;
@@ -10,17 +12,23 @@ import { applyFilters } from '@wordpress/hooks';
  *
  * @param props
  */
-export default function BlockEdit(props) {
-	const { slug } = props.attributes;
+export default function BlockSave(props) {
+	const { slug, active } = props.attributes;
 
-	let className = 'ghostkit-tab';
+	let className = classnames('ghostkit-tab', active && 'ghostkit-tab-active');
 
 	className = applyFilters('ghostkit.blocks.className', className, {
 		...{ name },
 		...props,
 	});
 
-	const blockProps = useBlockProps.save({ className, 'data-tab': slug });
+	const blockProps = useBlockProps.save({
+		className,
+		tabIndex: 0,
+		role: 'tabpanel',
+		'aria-labelledby': slug,
+		'data-tab': slug,
+	});
 	const innerBlockProps = useInnerBlocksProps.save(blockProps);
 
 	return <div {...innerBlockProps} />;

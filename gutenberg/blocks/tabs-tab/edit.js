@@ -6,6 +6,7 @@ import {
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 
 /**
@@ -14,9 +15,20 @@ import { applyFilters } from '@wordpress/hooks';
  * @param props
  */
 export default function BlockEdit(props) {
-	const { clientId } = props;
+	const { clientId, attributes, setAttributes, context } = props;
+	const { slug, active } = attributes;
+	const { 'ghostkit/tabActive': tabActive } = context;
+
 	let { className = '' } = props;
-	const { slug } = props.attributes;
+
+	// Update active state.
+	useEffect(() => {
+		if (tabActive === slug && !active) {
+			setAttributes({ active: true });
+		} else if (tabActive !== slug && active) {
+			setAttributes({ active: false });
+		}
+	}, [active, setAttributes, slug, tabActive]);
 
 	const hasChildBlocks = useSelect(
 		(select) => {
@@ -29,11 +41,21 @@ export default function BlockEdit(props) {
 		[clientId]
 	);
 
-	className = classnames(className, 'ghostkit-tab');
+	className = classnames(
+		className,
+		'ghostkit-tab',
+		tabActive === slug && 'ghostkit-tab-active'
+	);
 
 	className = applyFilters('ghostkit.editor.className', className, props);
 
-	const blockProps = useBlockProps({ className, 'data-tab': slug });
+	const blockProps = useBlockProps({
+		className,
+		tabIndex: 0,
+		role: 'tabpanel',
+		'aria-labelledby': slug,
+		'data-tab': slug,
+	});
 
 	const innerBlockProps = useInnerBlocksProps(blockProps, {
 		renderAppender: hasChildBlocks

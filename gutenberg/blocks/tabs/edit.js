@@ -11,7 +11,6 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
-import EditorStyles from '../../components/editor-styles';
 import RemoveButton from '../../components/remove-button';
 import getUniqueSlug from '../../utils/get-unique-slug';
 import EditBlockControls from './edit/block-controls';
@@ -130,7 +129,6 @@ export default function BlockEdit(props) {
 
 	const blockProps = useBlockProps({
 		className,
-		'data-tab-active': tabActive,
 	});
 	const innerBlockProps = useInnerBlocksProps(
 		{ className: 'ghostkit-tabs-content' },
@@ -158,6 +156,10 @@ export default function BlockEdit(props) {
 						'ghostkit-tabs-buttons',
 						`ghostkit-tabs-buttons-align-${buttonsAlign}`
 					)}
+					role="tablist"
+					aria-orientation={
+						buttonsVerticalAlign ? 'vertical' : 'horizontal'
+					}
 				>
 					{tabsData.map((tabData, i) => {
 						const { slug, title } = tabData;
@@ -168,10 +170,10 @@ export default function BlockEdit(props) {
 							<div
 								className={classnames(
 									'ghostkit-tabs-buttons-item',
-									selected
-										? 'ghostkit-tabs-buttons-item-active'
-										: ''
+									selected &&
+										'ghostkit-tabs-buttons-item-active'
 								)}
+								role="tab"
 								key={tabName}
 							>
 								<RichText
@@ -247,18 +249,6 @@ export default function BlockEdit(props) {
 				</div>
 				<div {...innerBlockProps} />
 			</div>
-
-			<EditorStyles
-				styles={
-					// We need to add styles for `> .wp-block` because this wrapper added by Gutenberg when used Wide or Full alignment.
-					// Thanks to https://github.com/nk-crew/ghostkit/issues/123.
-					`
-          [data-block="${clientId}"] > .ghostkit-tabs-content > [data-tab="${tabActive}"] {
-            display: block;
-          }
-          `
-				}
-			/>
 		</>
 	);
 }

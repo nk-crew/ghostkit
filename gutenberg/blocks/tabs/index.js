@@ -1,5 +1,6 @@
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
+import deprecated from './deprecated';
 import edit from './edit';
 import save from './save';
 import transforms from './transforms';
@@ -15,4 +16,5 @@ export const settings = {
 	edit,
 	save,
 	transforms,
+	deprecated,
 };

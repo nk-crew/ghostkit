@@ -36,6 +36,7 @@
 	&-item {
 		padding: var(--gkt-tabs--button__padding-v) var(--gkt-tabs--button__padding-h);
 		margin-bottom: calc(-1 * var(--gkt-tabs--button__border-width));
+		font-size: var(--gkt-tabs--button__font-size);
 		font-weight: var(--gkt-tabs--button__font-weight);
 		color: inherit;
 		text-decoration: none;
@@ -43,6 +44,7 @@
 		border: var(--gkt-tabs--button__border-width) solid transparent;
 		border-top-left-radius: var(--gkt-tabs--button__border-radius);
 		border-top-right-radius: var(--gkt-tabs--button__border-radius);
+		cursor: var(--gkt-tabs--button__cursor);
 		opacity: var(--gkt-tabs--button__opacity);
 		transition: var(--gkt-tabs__transition-duration) border-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) background-color var(--gkt-tabs__transition-easing), var(--gkt-tabs__transition-duration) opacity var(--gkt-tabs__transition-easing);
 
@@ -67,25 +69,10 @@
 
 // Tab.
 .ghostkit-tab {
-	position: absolute;
-	width: 100%;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0 0 0 0);
-	border: 0;
-	opacity: 0;
-	transition: var(--gkt-tabs__transition-duration) opacity var(--gkt-tabs__transition-easing);
+	display: none;
 
 	&-active {
-		position: static;
-		width: auto;
-		height: auto;
-		margin: 0;
-		overflow: visible;
-		clip: auto;
-		opacity: 1;
+		display: block;
 	}
 }
 

@@ -81,8 +81,11 @@
 	}
 }
 
-.ghostkit-tabs-content [data-tab] {
+.ghostkit-tabs-content .ghostkit-tab {
 	display: none;
+}
+.ghostkit-tabs-content .ghostkit-tab-active {
+	display: block;
 }
 
 // Vertical tabs.
