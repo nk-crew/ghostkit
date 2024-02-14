@@ -29,10 +29,15 @@ function getTabByName($tabs, tabName) {
 	// Legacy tab name.
 	if (!$button) {
 		$button = $tabs.querySelector(
+			`:scope > .ghostkit-tabs-buttons > [href="#${tabNameEncoded}"]`
+		);
+	}
+	if (!$button) {
+		$button = $tabs.querySelector(
 			`:scope > .ghostkit-tabs-buttons > [href="${tabNameEncoded}"]`
 		);
 	}
-	if (!$button && !/^#/g.test(tabName)) {
+	if (!$button) {
 		$button = $tabs.querySelector(
 			`:scope > .ghostkit-tabs-buttons > [href="#tab-${tabNameEncoded}"]`
 		);
