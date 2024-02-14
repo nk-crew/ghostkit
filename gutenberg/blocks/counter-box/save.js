@@ -36,12 +36,10 @@ export default function BlockSave(props) {
 
 	let className = classnames(
 		'ghostkit-counter-box',
-		url ? 'ghostkit-counter-box-with-link' : ''
+		url && 'ghostkit-counter-box-with-link'
 	);
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 
@@ -75,7 +73,7 @@ export default function BlockSave(props) {
 				<RichText.Content
 					tagName="div"
 					className={`ghostkit-counter-box-number-wrap${
-						animateInViewport ? ' ghostkit-count-up' : ''
+						animateInViewport && ' ghostkit-count-up'
 					}`}
 					value={number}
 					{...{

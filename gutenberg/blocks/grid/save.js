@@ -26,9 +26,7 @@ export default function BlockSave(props) {
 
 	// background
 	const background = applyFilters('ghostkit.blocks.grid.background', '', {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 
@@ -37,9 +35,7 @@ export default function BlockSave(props) {
 	}
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 

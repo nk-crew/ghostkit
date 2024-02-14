@@ -40,7 +40,7 @@ export default function BlockEdit(props) {
 
 	let className = classnames(
 		'ghostkit-pricing-table-item-wrap',
-		showPopular ? 'ghostkit-pricing-table-item-popular' : ''
+		showPopular && 'ghostkit-pricing-table-item-popular'
 	);
 
 	className = applyFilters('ghostkit.editor.className', className, props);

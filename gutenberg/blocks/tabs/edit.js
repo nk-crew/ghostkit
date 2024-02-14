@@ -122,7 +122,7 @@ export default function BlockEdit(props) {
 	className = classnames(
 		className,
 		'ghostkit-tabs',
-		buttonsVerticalAlign ? 'ghostkit-tabs-buttons-vertical' : ''
+		buttonsVerticalAlign && 'ghostkit-tabs-buttons-vertical'
 	);
 
 	className = applyFilters('ghostkit.editor.className', className, props);

@@ -30,7 +30,7 @@ export default function BlockEdit(props) {
 
 	className = classnames(
 		'ghostkit-form-field ghostkit-form-field-checkbox',
-		inline ? 'ghostkit-form-field-checkbox-inline' : '',
+		inline && 'ghostkit-form-field-checkbox-inline',
 		className
 	);
 

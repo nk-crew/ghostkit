@@ -190,7 +190,7 @@ export default function BlockEdit(props) {
 					{__('Search', 'ghostkit')}
 				</Button>
 			</form>
-			{loading ? <Spinner /> : ''}
+			{loading && <Spinner />}
 			{!loading && results && results.length > 1 && (
 				<div className="ghostkit-gif-thumbnails-container">
 					{results.map((thumbnail) => {

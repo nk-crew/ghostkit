@@ -38,13 +38,11 @@ export default function BlockSave(props) {
 
 	let className = classnames(
 		'ghostkit-pricing-table-item',
-		showPopular ? 'ghostkit-pricing-table-item-popular' : ''
+		showPopular && 'ghostkit-pricing-table-item-popular'
 	);
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 

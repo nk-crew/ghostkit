@@ -26,9 +26,7 @@ export default function BlockSave(props) {
 	let className = 'ghostkit-progress';
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 
@@ -60,14 +58,14 @@ export default function BlockSave(props) {
 			<div
 				className={classnames(
 					'ghostkit-progress-wrap',
-					striped ? 'ghostkit-progress-bar-striped' : ''
+					striped && 'ghostkit-progress-bar-striped'
 				)}
 			>
 				{/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
 				<div
 					className={classnames(
 						'ghostkit-progress-bar',
-						animateInViewport ? 'ghostkit-count-up' : ''
+						animateInViewport && 'ghostkit-count-up'
 					)}
 					role="progressbar"
 					aria-valuenow={percent}

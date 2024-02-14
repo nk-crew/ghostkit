@@ -14,9 +14,7 @@ export default function BlockSave(props) {
 	let className = 'ghostkit-carousel-slide';
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 

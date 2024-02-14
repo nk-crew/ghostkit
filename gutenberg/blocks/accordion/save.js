@@ -18,13 +18,11 @@ export default function BlockSave(props) {
 	let className = classnames(
 		'ghostkit-accordion',
 		`ghostkit-accordion-${itemsCount}`,
-		collapseOne ? 'ghostkit-accordion-collapse-one' : ''
+		collapseOne && 'ghostkit-accordion-collapse-one'
 	);
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 

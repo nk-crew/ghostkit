@@ -98,16 +98,14 @@ export default [
 
 				let className = classnames(
 					'ghostkit-testimonial',
-					url ? 'ghostkit-testimonial-with-link' : ''
+					url && 'ghostkit-testimonial-with-link'
 				);
 
 				className = applyFilters(
 					'ghostkit.blocks.className',
 					className,
 					{
-						...{
-							name,
-						},
+						name,
 						...this.props,
 					}
 				);

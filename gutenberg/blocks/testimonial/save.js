@@ -39,7 +39,7 @@ export default function BlockSave(props) {
 
 	let className = classnames(
 		'ghostkit-testimonial',
-		url ? 'ghostkit-testimonial-with-link' : ''
+		url && 'ghostkit-testimonial-with-link'
 	);
 
 	className = applyFilters('ghostkit.blocks.className', className, {

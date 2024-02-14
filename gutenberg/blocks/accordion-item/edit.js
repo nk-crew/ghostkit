@@ -57,7 +57,7 @@ export default function BlockEdit(props) {
 	let className = classnames(
 		attributes.className,
 		'ghostkit-accordion-item',
-		active ? 'ghostkit-accordion-item-active' : ''
+		active && 'ghostkit-accordion-item-active'
 	);
 
 	className = applyFilters('ghostkit.editor.className', className, props);

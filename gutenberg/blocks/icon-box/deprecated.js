@@ -53,15 +53,13 @@ export default [
 
 				let className = classnames(
 					'ghostkit-icon-box',
-					url ? 'ghostkit-icon-box-with-link' : ''
+					url && 'ghostkit-icon-box-with-link'
 				);
 				className = applyFilters(
 					'ghostkit.blocks.className',
 					className,
 					{
-						...{
-							name,
-						},
+						name,
 						...this.props,
 					}
 				);

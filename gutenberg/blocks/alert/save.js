@@ -16,9 +16,7 @@ export default function BlockSave(props) {
 	let className = 'ghostkit-alert';
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 

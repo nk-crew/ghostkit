@@ -70,8 +70,8 @@ export default function BlockEdit(props) {
 
 	className = classnames(
 		'ghostkit-instagram',
-		gap ? `ghostkit-instagram-gap-${gap}` : '',
-		columns ? `ghostkit-instagram-columns-${columns}` : '',
+		gap && `ghostkit-instagram-gap-${gap}`,
+		columns && `ghostkit-instagram-columns-${columns}`,
 		className
 	);
 

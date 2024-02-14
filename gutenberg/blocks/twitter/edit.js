@@ -514,7 +514,7 @@ export default function BlockEdit(props) {
 								>
 									{showFeedAvatar ? (
 										<div className="ghostkit-twitter-item-avatar">
-											{isRetweet ? <br /> : ''}
+											{isRetweet && <br />}
 											<ExternalLink
 												href={`https://twitter.com/${item.user.screen_name}/`}
 											>

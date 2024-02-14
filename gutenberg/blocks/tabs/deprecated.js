@@ -26,8 +26,8 @@ export default [
 
 			let className = classnames(
 				'ghostkit-tabs',
-				buttonsVerticalAlign ? 'ghostkit-tabs-buttons-vertical' : '',
-				trigger ? `ghostkit-tabs-buttons-trigger-${trigger}` : ''
+				buttonsVerticalAlign && 'ghostkit-tabs-buttons-vertical',
+				trigger && `ghostkit-tabs-buttons-trigger-${trigger}`
 			);
 
 			className = applyFilters('ghostkit.blocks.className', className, {

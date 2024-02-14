@@ -22,13 +22,11 @@ export default function BlockSave(props) {
 
 	let className = classnames(
 		'ghostkit-accordion-item',
-		active ? 'ghostkit-accordion-item-active' : ''
+		active && 'ghostkit-accordion-item-active'
 	);
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 

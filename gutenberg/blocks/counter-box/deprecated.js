@@ -72,15 +72,13 @@ export default [
 
 				let className = classnames(
 					'ghostkit-counter-box',
-					url ? 'ghostkit-counter-box-with-link' : ''
+					url && 'ghostkit-counter-box-with-link'
 				);
 				className = applyFilters(
 					'ghostkit.blocks.className',
 					className,
 					{
-						...{
-							name,
-						},
+						name,
 						...this.props,
 					}
 				);

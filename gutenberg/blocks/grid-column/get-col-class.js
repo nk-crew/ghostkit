@@ -30,7 +30,7 @@ export default function getColClass(props) {
 					type === 'order' ||
 					type === 'verticalAlign')
 			) {
-				prefix = prefix ? `-${prefix}` : '';
+				prefix = prefix && `-${prefix}`;
 
 				switch (type) {
 					case 'size':

@@ -110,8 +110,8 @@ export default [
 
 			let className = classnames(
 				'ghostkit-button',
-				size ? `ghostkit-button-${size}` : '',
-				hideText ? 'ghostkit-button-icon-only' : ''
+				size && `ghostkit-button-${size}`,
+				hideText && 'ghostkit-button-icon-only'
 			);
 
 			// focus outline
@@ -123,9 +123,7 @@ export default [
 			}
 
 			className = applyFilters('ghostkit.blocks.className', className, {
-				...{
-					name,
-				},
+				name,
 				...props,
 			});
 

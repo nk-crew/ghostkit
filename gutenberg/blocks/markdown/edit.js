@@ -69,7 +69,7 @@ export default function BlockEdit(props) {
 					<ToolbarButton
 						className={classnames(
 							'components-button components-tab-button',
-							activeTab === 'editor' ? 'is-pressed' : ''
+							activeTab === 'editor' && 'is-pressed'
 						)}
 						onClick={() => setActiveTab('editor')}
 					>
@@ -78,7 +78,7 @@ export default function BlockEdit(props) {
 					<ToolbarButton
 						className={classnames(
 							'components-button components-tab-button',
-							activeTab === 'preview' ? 'is-pressed' : ''
+							activeTab === 'preview' && 'is-pressed'
 						)}
 						onClick={() => setActiveTab('preview')}
 					>

@@ -31,8 +31,8 @@ export default function BlockSave(props) {
 
 	let className = classnames(
 		'ghostkit-button',
-		size ? `ghostkit-button-${size}` : '',
-		hideText ? 'ghostkit-button-icon-only' : ''
+		size && `ghostkit-button-${size}`,
+		hideText && 'ghostkit-button-icon-only'
 	);
 
 	// focus outline
@@ -41,9 +41,7 @@ export default function BlockSave(props) {
 	}
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 

@@ -106,11 +106,11 @@ export default function BlockEdit(props) {
 
 	className = classnames(
 		'ghostkit-button',
-		size ? `ghostkit-button-${size}` : '',
-		hideText ? 'ghostkit-button-icon-only' : '',
-		isNormalState ? 'ghostkit-button-is-normal-state' : '',
-		isHoveredState ? 'ghostkit-button-is-hover-state' : '',
-		isFocusedState ? 'ghostkit-button-is-focus-state' : '',
+		size && `ghostkit-button-${size}`,
+		hideText && 'ghostkit-button-icon-only',
+		isNormalState && 'ghostkit-button-is-normal-state',
+		isHoveredState && 'ghostkit-button-is-hover-state',
+		isFocusedState && 'ghostkit-button-is-focus-state',
 		className
 	);
 

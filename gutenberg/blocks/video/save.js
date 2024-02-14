@@ -53,9 +53,7 @@ export default function BlockSave(props) {
 		'ghostkit.blocks.className',
 		resultAttrs.className,
 		{
-			...{
-				name,
-			},
+			name,
 			...props,
 		}
 	);

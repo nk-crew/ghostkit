@@ -19,13 +19,11 @@ export default function BlockSave(props) {
 
 	let className = classnames(
 		'ghostkit-countdown',
-		unitsAlign ? `ghostkit-countdown-units-align-${unitsAlign}` : ''
+		unitsAlign && `ghostkit-countdown-units-align-${unitsAlign}`
 	);
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 

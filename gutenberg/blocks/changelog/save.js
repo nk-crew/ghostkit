@@ -20,9 +20,7 @@ export default function BlockSave(props) {
 	let className = 'ghostkit-changelog';
 
 	className = applyFilters('ghostkit.blocks.className', className, {
-		...{
-			name,
-		},
+		name,
 		...props,
 	});
 

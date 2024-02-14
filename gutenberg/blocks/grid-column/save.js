@@ -21,9 +21,7 @@ export default function BlockSave(props) {
 		'ghostkit.blocks.grid-column.background',
 		'',
 		{
-			...{
-				name,
-			},
+			name,
 			...props,
 		}
 	);

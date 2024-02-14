@@ -140,7 +140,7 @@ export default function BlockEdit(props) {
 
 	className = classnames(
 		'ghostkit-countdown',
-		unitsAlign ? `ghostkit-countdown-units-align-${unitsAlign}` : '',
+		unitsAlign && `ghostkit-countdown-units-align-${unitsAlign}`,
 		className
 	);
 
