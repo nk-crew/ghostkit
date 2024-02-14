@@ -15,13 +15,20 @@
 	}
 
 	a.ghostkit-accordion-item-heading,
-	.ghostkit-accordion-item-heading > a {
+	.ghostkit-accordion-item-heading > a,
+	.ghostkit-accordion-item-heading > button {
 		position: relative;
 		display: flex;
+		cursor: pointer;
+		width: 100%;
 		gap: var(--gkt-accordion--heading__gap);
+		font: inherit;
+		line-height: inherit;
 		align-items: center;
 		padding: var(--gkt-accordion--heading__padding-v) var(--gkt-accordion--heading__padding-h);
 		color: inherit;
+		background-color: transparent;
+		border: none;
 		text-decoration: none;
 	}
 

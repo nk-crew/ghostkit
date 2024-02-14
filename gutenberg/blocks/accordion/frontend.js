@@ -20,9 +20,16 @@ let pageHash = location.hash;
 const ANIMATION_SPEED = 300;
 
 function show($item, animationSpeed, cb) {
+	const $button = $item.querySelector(
+		'.ghostkit-accordion-item-heading > button'
+	);
 	const $content = $item.querySelector('.ghostkit-accordion-item-content');
 
 	$item.classList.add('ghostkit-accordion-item-active');
+
+	if ($button) {
+		$button.setAttribute('aria-expanded', 'true');
+	}
 
 	const contentStyles = getComputedStyle($content);
 
@@ -62,6 +69,9 @@ function show($item, animationSpeed, cb) {
 }
 
 function hide($item, animationSpeed, cb) {
+	const $button = $item.querySelector(
+		'.ghostkit-accordion-item-heading > button'
+	);
 	const $content = $item.querySelector('.ghostkit-accordion-item-content');
 
 	const contentStyles = getComputedStyle($content);
@@ -101,6 +111,10 @@ function hide($item, animationSpeed, cb) {
 	$item.gktAccordion.animation = animation;
 
 	$item.classList.remove('ghostkit-accordion-item-active');
+
+	if ($button) {
+		$button.setAttribute('aria-expanded', 'false');
+	}
 }
 
 /**
@@ -183,9 +197,17 @@ events.on(document, 'init.blocks.gkt', () => {
 			// activate by page hash
 			if (pageHash) {
 				const pageHashEncoded = maybeDecode(pageHash);
-				const $activeAccordion = $this.querySelector(
-					`:scope > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading > [href="${pageHashEncoded}"]`
+
+				let $activeAccordion = $this.querySelector(
+					`:scope > [data-accordion="${pageHashEncoded.replace('#', '')}"]:not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading > button`
 				);
+
+				// Legacy.
+				if (!$activeAccordion) {
+					$activeAccordion = $this.querySelector(
+						`:scope > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading > [href="${pageHashEncoded}"]`
+					);
+				}
 
 				if ($activeAccordion) {
 					toggleAccordionItem($activeAccordion, 0);
@@ -228,7 +250,8 @@ const handlerActivateItem = () => {
 	// Activate accordion item.
 	document
 		.querySelectorAll(
-			`.ghostkit-accordion-ready > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading > [href="${pageHashEncoded}"]`
+			`.ghostkit-accordion-ready > [data-accordion="${pageHashEncoded.replace('#', '')}"]:not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading > button,
+			.ghostkit-accordion-ready > :not(.ghostkit-accordion-item-active) > .ghostkit-accordion-item-heading > [href="${pageHashEncoded}"]`
 		)
 		.forEach(($this) => {
 			toggleAccordionItem($this, ANIMATION_SPEED);

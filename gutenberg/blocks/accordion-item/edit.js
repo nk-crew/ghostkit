@@ -79,10 +79,14 @@ export default function BlockEdit(props) {
 
 	const blockProps = useBlockProps({
 		className,
+		'data-accordion': slug,
 	});
 
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: 'ghostkit-accordion-item-content' },
+		{
+			id: `${slug}-content`,
+			className: 'ghostkit-accordion-item-content',
+		},
 		{
 			templateLock: false,
 			renderAppender: hasChildBlocks
@@ -107,6 +111,7 @@ export default function BlockEdit(props) {
 				<TitleTag className="ghostkit-accordion-item-heading">
 					<RichText
 						tagName="div"
+						id={`${slug}-button`}
 						className="ghostkit-accordion-item-label"
 						placeholder={__('Write label…', 'ghostkit')}
 						value={heading}

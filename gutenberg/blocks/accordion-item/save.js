@@ -34,15 +34,24 @@ export default function BlockSave(props) {
 
 	const blockProps = useBlockProps.save({
 		className,
+		'data-accordion': slug,
 	});
 	const innerBlocksProps = useInnerBlocksProps.save({
+		id: `${slug}-content`,
 		className: 'ghostkit-accordion-item-content',
+		role: 'region',
+		'aria-labelledby': `${slug}-button`,
 	});
 
 	return (
 		<div {...blockProps}>
 			<TitleTag className="ghostkit-accordion-item-heading">
-				<a href={`#${slug}`}>
+				<button
+					type="button"
+					id={`${slug}-button`}
+					aria-expanded={active ? 'true' : 'false'}
+					aria-controls={`${slug}-content`}
+				>
 					<RichText.Content
 						className="ghostkit-accordion-item-label"
 						tagName="span"
@@ -63,7 +72,7 @@ export default function BlockSave(props) {
 							/>
 						</svg>
 					</span>
-				</a>
+				</button>
 			</TitleTag>
 			<div {...innerBlocksProps} />
 		</div>
