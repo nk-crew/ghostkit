@@ -58,6 +58,7 @@ export default function BlockSave(props) {
 				{tabsData.map((tabData) => (
 					<RichText.Content
 						tagName="button"
+						id={`${tabData.slug}-button`}
 						className={classnames(
 							'ghostkit-tabs-buttons-item',
 							tabActive === tabData.slug &&
@@ -66,7 +67,7 @@ export default function BlockSave(props) {
 						type="button"
 						role="tab"
 						data-tab={tabData.slug}
-						aria-controls={tabData.slug}
+						aria-controls={`${tabData.slug}-content`}
 						aria-selected={
 							tabActive === tabData.slug ? 'true' : false
 						}

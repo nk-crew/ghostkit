@@ -168,6 +168,7 @@ export default function BlockEdit(props) {
 
 						return (
 							<div
+								id={`${slug}-button`}
 								className={classnames(
 									'ghostkit-tabs-buttons-item',
 									selected &&

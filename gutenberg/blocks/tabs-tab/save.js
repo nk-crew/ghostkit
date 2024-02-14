@@ -26,7 +26,7 @@ export default function BlockSave(props) {
 		className,
 		tabIndex: 0,
 		role: 'tabpanel',
-		'aria-labelledby': slug,
+		'aria-labelledby': `${slug}-button`,
 		'data-tab': slug,
 	});
 	const innerBlockProps = useInnerBlocksProps.save(blockProps);

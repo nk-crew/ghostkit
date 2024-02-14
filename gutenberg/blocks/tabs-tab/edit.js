@@ -16,7 +16,7 @@ import { applyFilters } from '@wordpress/hooks';
  */
 export default function BlockEdit(props) {
 	const { clientId, attributes, setAttributes, context } = props;
-	const { slug, active } = attributes;
+	const { slug, active, anchor } = attributes;
 	const { 'ghostkit/tabActive': tabActive } = context;
 
 	let { className = '' } = props;
@@ -29,6 +29,13 @@ export default function BlockEdit(props) {
 			setAttributes({ active: false });
 		}
 	}, [active, setAttributes, slug, tabActive]);
+
+	// Update anchor.
+	useEffect(() => {
+		if (anchor !== `${slug}-content`) {
+			setAttributes({ anchor: `${slug}-content` });
+		}
+	}, [slug, anchor, setAttributes]);
 
 	const hasChildBlocks = useSelect(
 		(select) => {
