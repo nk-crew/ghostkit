@@ -48,7 +48,9 @@ const ALLOWED_BLOCKS = [
 	'core/heading',
 	'core/list',
 	'core/divider',
+	'core/columns',
 	'ghostkit/divider',
+	'ghostkit/grid',
 ];
 
 /**
