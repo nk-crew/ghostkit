@@ -4,7 +4,7 @@ import {
 	DateTimePicker as WPDateTimePicker,
 	Popover,
 } from '@wordpress/components';
-import { dateI18n, getSettings } from '@wordpress/data';
+import { dateI18n, getSettings } from '@wordpress/date';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
