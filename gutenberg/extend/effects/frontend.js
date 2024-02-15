@@ -1,3 +1,4 @@
+import round from '../../utils/round';
 import DEFAULTS from './reveal/defaults';
 
 const {
@@ -170,6 +171,7 @@ events.on(document, 'init.blocks.gkt', () => {
 				) || 0;
 			let $progressCountBadgeWrap;
 			let $progressCountBadge;
+			let digits = 0;
 
 			// prepare mask.
 			let mask = '';
@@ -200,6 +202,12 @@ events.on(document, 'init.blocks.gkt', () => {
 			} else {
 				// eslint-disable-next-line no-template-curly-in-string
 				$counter.textContent = mask.replace('${val}', from);
+
+				// Calculate digits after the decimal point.
+				digits = Math.max(
+					(`${from}`.split('.')?.[1] || '').length,
+					(`${to}`.split('.')?.[1] || '').length
+				);
 			}
 
 			const config = {
@@ -219,7 +227,7 @@ events.on(document, 'init.blocks.gkt', () => {
 						// eslint-disable-next-line no-template-curly-in-string
 						$counter.textContent = mask.replace(
 							'${val}',
-							Math.ceil(position)
+							round(position, digits)
 						);
 					}
 				},
