@@ -67,7 +67,7 @@ export default function BlockEdit(props) {
 	const blockProps = useBlockProps({ className });
 
 	return (
-		<>
+		<div {...blockProps}>
 			<InspectorControls>
 				<PanelBody>
 					<SelectControl
@@ -134,7 +134,7 @@ export default function BlockEdit(props) {
 				</PanelBody>
 			</InspectorControls>
 			{headings && headings.length ? (
-				<div {...blockProps}>
+				<>
 					{!RichText.isEmpty(title) || isSelected ? (
 						<RichText
 							inlineToolbar
@@ -160,7 +160,7 @@ export default function BlockEdit(props) {
 							</div>
 						</Disabled>
 					) : null}
-				</div>
+				</>
 			) : (
 				<Placeholder
 					icon={getIcon('block-table-of-contents')}
@@ -169,9 +169,8 @@ export default function BlockEdit(props) {
 						'Start adding Heading blocks to create a table of contents. Headings with HTML anchors will be linked here.',
 						'ghostkit'
 					)}
-					{...blockProps}
 				/>
 			)}
-		</>
+		</div>
 	);
 }
