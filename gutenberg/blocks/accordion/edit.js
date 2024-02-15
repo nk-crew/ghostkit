@@ -92,6 +92,10 @@ export default function BlockEdit(props) {
 								label: __('Default (<div>)', 'ghostkit'),
 							},
 							{
+								value: 'h1',
+								label: __('<h1>', 'ghostkit'),
+							},
+							{
 								value: 'h2',
 								label: __('<h2>', 'ghostkit'),
 							},
