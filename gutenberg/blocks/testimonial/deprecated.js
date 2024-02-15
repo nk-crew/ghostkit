@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-
 import classnames from 'classnames/dedupe';
 
 import { InnerBlocks, RichText } from '@wordpress/block-editor';
@@ -121,18 +119,14 @@ export default [
 							>
 								<span />
 							</a>
-						) : (
-							''
-						)}
+						) : null}
 						{icon ? (
 							<IconPicker.Render
 								name={icon}
 								tag="div"
 								className="ghostkit-testimonial-icon"
 							/>
-						) : (
-							''
-						)}
+						) : null}
 						<div className="ghostkit-testimonial-content">
 							<InnerBlocks.Content />
 						</div>
@@ -148,9 +142,7 @@ export default [
 									height={photoHeight}
 								/>
 							</div>
-						) : (
-							''
-						)}
+						) : null}
 						{!RichText.isEmpty(attributes.name) ||
 						!RichText.isEmpty(source) ? (
 							<div className="ghostkit-testimonial-meta">
@@ -160,20 +152,14 @@ export default [
 											value={attributes.name}
 										/>
 									</div>
-								) : (
-									''
-								)}
+								) : null}
 								{!RichText.isEmpty(source) ? (
 									<div className="ghostkit-testimonial-source">
 										<RichText.Content value={source} />
 									</div>
-								) : (
-									''
-								)}
+								) : null}
 							</div>
-						) : (
-							''
-						)}
+						) : null}
 						{typeof stars === 'number' && starsIcon ? (
 							<div className="ghostkit-testimonial-stars">
 								<div className="ghostkit-testimonial-stars-wrap">
@@ -198,9 +184,7 @@ export default [
 									</div>
 								</div>
 							</div>
-						) : (
-							''
-						)}
+						) : null}
 					</div>
 				);
 			}

@@ -10,7 +10,7 @@ import {
 } from '@wordpress/block-editor';
 import { BaseControl, PanelBody } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { Fragment, useEffect } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -118,7 +118,7 @@ export default function BlockEdit(props) {
 	});
 
 	return (
-		<Fragment>
+		<>
 			<BlockControls>
 				<BlockAlignmentToolbar
 					value={align}
@@ -146,6 +146,6 @@ export default function BlockEdit(props) {
 				</PanelBody>
 			</InspectorControls>
 			<div {...innerBlockProps} />
-		</Fragment>
+		</>
 	);
 }

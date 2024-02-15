@@ -1,11 +1,9 @@
-/* eslint-disable max-classes-per-file */
-
 import apiFetch from '@wordpress/api-fetch';
 import { TabPanel, Tooltip } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import CodeEditor from '../../components/code-editor';
@@ -163,7 +161,7 @@ class CustomCodeModal extends Component {
 						const isGlobal = tabData.name === 'global';
 
 						return (
-							<Fragment>
+							<>
 								<h4>{__('CSS', 'ghostkit')}</h4>
 								<CodeEditor
 									mode="css"
@@ -239,7 +237,7 @@ class CustomCodeModal extends Component {
 									minLines={5}
 									height="300px"
 								/>
-							</Fragment>
+							</>
 						);
 					}}
 				</TabPanel>
@@ -299,7 +297,7 @@ export class Plugin extends Component {
 		const { isModalOpen } = this.state;
 
 		return (
-			<Fragment>
+			<>
 				{PluginMoreMenuItem ? (
 					<PluginMoreMenuItem
 						icon={null}
@@ -316,10 +314,8 @@ export class Plugin extends Component {
 							this.setState({ isModalOpen: false })
 						}
 					/>
-				) : (
-					''
-				)}
-			</Fragment>
+				) : null}
+			</>
 		);
 	}
 }

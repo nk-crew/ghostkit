@@ -151,9 +151,7 @@ export default function BlockEdit(props) {
 											allowCustomMin
 											allowCustomMax
 										/>
-									) : (
-										''
-									)}
+									) : null}
 									<ToggleControl
 										label={__('Show Name', 'ghostkit')}
 										checked={!!showProfileName}
@@ -191,14 +189,10 @@ export default function BlockEdit(props) {
 										}
 									/>
 								</>
-							) : (
-								''
-							)}
+							) : null}
 						</PanelBody>
 					</>
-				) : (
-					''
-				)}
+				) : null}
 
 				<PanelBody
 					title={__('API Data', 'ghostkit')}
@@ -240,18 +234,14 @@ export default function BlockEdit(props) {
 									height={profileAvatarSize}
 								/>
 							</div>
-						) : (
-							''
-						)}
+						) : null}
 						<div className="ghostkit-instagram-profile-side">
 							{showProfileName &&
 							instagramProfile.data.username ? (
 								<div className="ghostkit-instagram-profile-name">
 									{instagramProfile.data.username}
 								</div>
-							) : (
-								''
-							)}
+							) : null}
 							{showProfileStats &&
 							instagramProfile.data.counts ? (
 								<div className="ghostkit-instagram-profile-stats">
@@ -284,17 +274,13 @@ export default function BlockEdit(props) {
 										</span>
 									</div>
 								</div>
-							) : (
-								''
-							)}
+							) : null}
 							{showProfileBio && instagramProfile.data.bio ? (
 								<div className="ghostkit-instagram-profile-bio">
 									<h2>{instagramProfile.data.full_name}</h2>
 									<div>{instagramProfile.data.bio}</div>
 								</div>
-							) : (
-								''
-							)}
+							) : null}
 							{showProfileWebsite &&
 							instagramProfile.data.website ? (
 								<div className="ghostkit-instagram-profile-website">
@@ -302,14 +288,10 @@ export default function BlockEdit(props) {
 										{instagramProfile.data.website}
 									</a>
 								</div>
-							) : (
-								''
-							)}
+							) : null}
 						</div>
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 				{accessToken && instagramFeed && instagramFeed.data ? (
 					<div className="ghostkit-instagram-items">
 						{instagramFeed.data.map((item, i) => {
@@ -341,16 +323,12 @@ export default function BlockEdit(props) {
 							);
 						})}
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 				{accessToken && (!instagramFeed || !instagramFeed.data) ? (
 					<div className="ghostkit-instagram-spinner">
 						<Spinner />
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 				{!accessToken ? (
 					<Placeholder
 						icon={getIcon('block-instagram')}
@@ -361,9 +339,7 @@ export default function BlockEdit(props) {
 						)}
 						className={className}
 					/>
-				) : (
-					''
-				)}
+				) : null}
 			</div>
 		</>
 	);

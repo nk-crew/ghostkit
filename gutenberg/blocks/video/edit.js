@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-
 import classnames from 'classnames/dedupe';
 
 import { useBlockProps } from '@wordpress/block-editor';

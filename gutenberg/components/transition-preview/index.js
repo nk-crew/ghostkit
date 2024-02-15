@@ -46,8 +46,9 @@ export default function TransitionPreview(props) {
 					});
 				}
 
-				// eslint-disable-next-line no-undef
-				const computedStyle = getComputedStyle(buttonRef.current);
+				const computedStyle = window.getComputedStyle(
+					buttonRef.current
+				);
 				let translateX = buttonRef.current.clientWidth;
 				translateX -= buttonSquareRef.current.clientWidth;
 				translateX -=

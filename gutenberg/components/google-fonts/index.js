@@ -57,8 +57,7 @@ function getGoogleFontWeightsByFamily(fontFamily) {
 		Object.keys(widths).forEach((key) => {
 			const weight = {
 				value: widths[key].replace('i', ''),
-				// eslint-disable-next-line @wordpress/i18n-no-variables
-				label: __(widths[key].replace('i', ''), 'ghostkit'),
+				label: widths[key].replace('i', ''),
 			};
 
 			if (widths[key].indexOf('i') === -1) {
@@ -99,7 +98,6 @@ class GoogleFonts extends Component {
 		this.setState({ isLoading: false });
 	}
 
-	// eslint-disable-next-line class-methods-use-this
 	getFontWeightAndStyleOptions(fontFamily, fontStyle = 'normal') {
 		const styleOptions = [];
 		const fontWeights = getGoogleFontWeightsByFamily(fontFamily);
@@ -393,7 +391,7 @@ class GoogleFonts extends Component {
 				{!isEdit ? this.renderEditor() : ''}
 				{customFonts.google &&
 				Object.keys(customFonts.google).length ? (
-					<Fragment>
+					<>
 						<br />
 						<table className="widefat fixed striped">
 							<thead>
@@ -514,17 +512,13 @@ class GoogleFonts extends Component {
 													{this.renderEditor()}
 												</td>
 											</tr>
-										) : (
-											''
-										)}
+										) : null}
 									</Fragment>
 								))}
 							</tbody>
 						</table>
-					</Fragment>
-				) : (
-					''
-				)}
+					</>
+				) : null}
 			</div>
 		);
 	}

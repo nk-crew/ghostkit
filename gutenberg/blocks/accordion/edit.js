@@ -52,8 +52,7 @@ export default function BlockEdit(props) {
 				itemsCount: count,
 			});
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [count, itemsCount]);
+	}, [count, itemsCount, setAttributes]);
 
 	const { insertBlock } = useDispatch('core/block-editor');
 

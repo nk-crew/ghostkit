@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-
 import { merge } from 'lodash';
 
 import { InspectorControls } from '@wordpress/block-editor';
@@ -7,7 +5,6 @@ import { registerBlockStyle } from '@wordpress/blocks';
 import { PanelBody } from '@wordpress/components';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
-import { Fragment } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -117,9 +114,6 @@ function GhostKitListColumns(props) {
 				`ghostkit-list-columns-${device}`,
 				val
 			);
-
-			// eslint-disable-next-line no-console
-			console.log(val);
 		} else {
 			for (let k = 1; COLUMNS_COUNT_MAX >= k; k += 1) {
 				newClassName = removeClass(
@@ -234,17 +228,17 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 
 		if (!hasClass(className, 'is-style-icon')) {
 			return (
-				<Fragment>
+				<>
 					<OriginalComponent {...props} />
 					<GhostKitListColumns {...props} />
 					<GhostKitListStartAndReversedCustomStyles {...props} />
-				</Fragment>
+				</>
 			);
 		}
 
 		// add new display controls.
 		return (
-			<Fragment>
+			<>
 				<OriginalComponent {...props} />
 				<GhostKitListColumns {...props} />
 				<InspectorControls>
@@ -270,7 +264,7 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 						/>
 					</PanelBody>
 				</InspectorControls>
-			</Fragment>
+			</>
 		);
 	}
 

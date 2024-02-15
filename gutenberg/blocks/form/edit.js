@@ -15,7 +15,7 @@ import {
 	ToggleControl,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { Fragment, useEffect } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -216,11 +216,11 @@ export default function BlockEdit(props) {
 	});
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody title={__('Mail', 'ghostkit')}>
 					{mailAllow ? (
-						<Fragment>
+						<>
 							<TextControl
 								label={__('Send To Email Address', 'ghostkit')}
 								value={mailTo}
@@ -256,10 +256,8 @@ export default function BlockEdit(props) {
 									setAttributes({ mailMessage: val })
 								}
 							/>
-						</Fragment>
-					) : (
-						''
-					)}
+						</>
+					) : null}
 					<BaseControl
 						id={__('Send Email', 'ghostkit')}
 						label={__('Send Email', 'ghostkit')}
@@ -304,9 +302,7 @@ export default function BlockEdit(props) {
 								setAttributes({ confirmationMessage: val })
 							}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 					{confirmationType === 'redirect' ? (
 						<TextControl
 							label={__('Redirect URL', 'ghostkit')}
@@ -315,9 +311,7 @@ export default function BlockEdit(props) {
 								setAttributes({ confirmationRedirect: val })
 							}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</PanelBody>
 				<RecaptchaSettings />
 			</InspectorControls>
@@ -325,10 +319,8 @@ export default function BlockEdit(props) {
 				{children}
 				{isSelectedBlockInRoot ? (
 					<InnerBlocks.ButtonBlockAppender />
-				) : (
-					''
-				)}
+				) : null}
 			</div>
-		</Fragment>
+		</>
 	);
 }

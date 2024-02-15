@@ -67,9 +67,7 @@ export default function BlockSave(props) {
 							className="ghostkit-image-compare-image-label ghostkit-image-compare-image-before-label"
 							value={labelBeforeText}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</div>
 				<div className="ghostkit-image-compare-image-after">
 					<img
@@ -85,9 +83,7 @@ export default function BlockSave(props) {
 							className="ghostkit-image-compare-image-label ghostkit-image-compare-image-after-label"
 							value={labelAfterText}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</div>
 				<div className="ghostkit-image-compare-images-divider">
 					<div className="ghostkit-image-compare-images-divider-button-arrow-left">
@@ -128,9 +124,7 @@ export default function BlockSave(props) {
 					tagName="figcaption"
 					value={caption}
 				/>
-			) : (
-				''
-			)}
+			) : null}
 		</figure>
 	);
 }

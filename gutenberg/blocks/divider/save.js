@@ -36,9 +36,7 @@ export default function BlockSave(props) {
 					tag="div"
 					className="ghostkit-divider-icon"
 				/>
-			) : (
-				''
-			)}
+			) : null}
 		</div>
 	);
 }

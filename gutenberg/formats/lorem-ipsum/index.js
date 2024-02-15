@@ -15,7 +15,6 @@ export const settings = {
 	title: __('Lorem Ipsum', 'ghostkit'),
 	tagName: 'span',
 	className: 'ghostkit-lorem-ipsum',
-	// eslint-disable-next-line no-underscore-dangle
 	__unstableInputRule(value) {
 		const { start, text } = value;
 		const characterBefore = text[start - 1];

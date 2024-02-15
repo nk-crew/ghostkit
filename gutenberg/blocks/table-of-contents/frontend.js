@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import { maybeDecode } from '../../utils/encode-decode';
 
 /**
@@ -33,7 +31,7 @@ function initSmoothScroll() {
 
 		// Get offset from CSS.
 		const scrollPadding = parseFloat(
-			getComputedStyle($html)['scroll-padding-top']
+			window.getComputedStyle($html)['scroll-padding-top']
 		);
 
 		if (scrollPadding) {
@@ -42,7 +40,10 @@ function initSmoothScroll() {
 			const $adminBar = document.getElementById('wpadminbar');
 
 			// Admin bar offset.
-			if ($adminBar && getComputedStyle($adminBar).position === 'fixed') {
+			if (
+				$adminBar &&
+				window.getComputedStyle($adminBar).position === 'fixed'
+			) {
 				top -= $adminBar.getBoundingClientRect().height;
 			}
 		}
@@ -60,7 +61,7 @@ function initSmoothScroll() {
 // If smooth scroll enabled in CSS, we don't need to run it with JS.
 if (
 	!('scrollBehavior' in $html.style) ||
-	getComputedStyle($html)['scroll-behavior'] !== 'smooth'
+	window.getComputedStyle($html)['scroll-behavior'] !== 'smooth'
 ) {
 	initSmoothScroll();
 }

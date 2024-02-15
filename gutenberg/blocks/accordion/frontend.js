@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import { maybeDecode } from '../../utils/encode-decode';
 import getSiblings from '../../utils/get-siblings';
 
@@ -31,7 +29,7 @@ function show($item, animationSpeed, cb) {
 		$button.setAttribute('aria-expanded', 'true');
 	}
 
-	const contentStyles = getComputedStyle($content);
+	const contentStyles = window.getComputedStyle($content);
 
 	const endHeight = contentStyles.height;
 	const endPaddingTop = contentStyles.paddingTop;
@@ -74,7 +72,7 @@ function hide($item, animationSpeed, cb) {
 	);
 	const $content = $item.querySelector('.ghostkit-accordion-item-content');
 
-	const contentStyles = getComputedStyle($content);
+	const contentStyles = window.getComputedStyle($content);
 
 	const startPaddingTop = contentStyles.paddingTop;
 	const startPaddingBottom = contentStyles.paddingBottom;

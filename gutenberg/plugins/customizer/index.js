@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-
 import { ColorPalette } from '@wordpress/block-editor';
 import {
 	BaseControl,
@@ -13,7 +11,7 @@ import {
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import Modal from '../../components/modal';
@@ -42,7 +40,6 @@ class Customizer extends Component {
 	 * @param {Object} opt - option data.
 	 * @return {{slug: string, label: string}} - slug and label.
 	 */
-	// eslint-disable-next-line class-methods-use-this
 	getOptionCategory(opt) {
 		let slug = '';
 		let label = '';
@@ -244,12 +241,10 @@ class Customizer extends Component {
 					<div className="ghostkit-customizer-spinner">
 						<Spinner />
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 				{Array.isArray(customizerOptionsSelect) &&
 				customizerOptionsSelect.length ? (
-					<Fragment>
+					<>
 						<p className="ghostkit-help-text">
 							{__(
 								'Override Customizer options for the current post.',
@@ -271,10 +266,8 @@ class Customizer extends Component {
 							menuPosition="fixed"
 							grouped
 						/>
-					</Fragment>
-				) : (
-					''
-				)}
+					</>
+				) : null}
 				{Array.isArray(customizerOptionsSelect) &&
 				!customizerOptionsSelect.length ? (
 					<div className="ghostkit-customizer-info">
@@ -290,9 +283,7 @@ class Customizer extends Component {
 							'ghostkit'
 						)}
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 				{Array.isArray(options) && options.length ? (
 					<div className="ghostkit-customizer-list">
 						{options.map((opt) => {
@@ -431,11 +422,8 @@ class Customizer extends Component {
 														: opt.default}
 												</span>
 											</small>
-										) : (
-											''
-										)}
+										) : null}
 									</div>
-									{/* eslint-disable-next-line react/button-has-type */}
 									<button
 										className="ghostkit-customizer-list-remove"
 										onClick={(e) => {
@@ -449,9 +437,7 @@ class Customizer extends Component {
 							);
 						})}
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 			</Modal>
 		);
 	}
@@ -496,7 +482,7 @@ export class Plugin extends Component {
 		const { isModalOpen } = this.state;
 
 		return (
-			<Fragment>
+			<>
 				{PluginMoreMenuItem ? (
 					<PluginMoreMenuItem
 						icon={null}
@@ -513,10 +499,8 @@ export class Plugin extends Component {
 							this.setState({ isModalOpen: false })
 						}
 					/>
-				) : (
-					''
-				)}
-			</Fragment>
+				) : null}
+			</>
 		);
 	}
 }

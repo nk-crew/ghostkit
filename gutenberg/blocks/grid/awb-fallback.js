@@ -1,5 +1,3 @@
-/* eslint-disable react/no-danger */
-
 import { MediaUpload } from '@wordpress/block-editor';
 import { hasBlockSupport } from '@wordpress/blocks';
 import {
@@ -9,7 +7,7 @@ import {
 	SelectControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { Fragment, useEffect } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -216,12 +214,10 @@ function BackgroundControlsInspector(props) {
 								</Button>
 							)}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 
 					{image && imageTag ? (
-						<Fragment>
+						<>
 							<FocalPointPicker
 								value={imageBackgroundPosition}
 								image={maybeDecode(imageTag)}
@@ -249,9 +245,7 @@ function BackgroundControlsInspector(props) {
 										setAttributes({ imageSize: v })
 									}
 								/>
-							) : (
-								''
-							)}
+							) : null}
 							<SelectControl
 								label={__('Background size', 'ghostkit')}
 								value={imageBackgroundSize}
@@ -286,14 +280,10 @@ function BackgroundControlsInspector(props) {
 							>
 								{__('Remove image', 'ghostkit')}
 							</Button>
-						</Fragment>
-					) : (
-						''
-					)}
+						</>
+					) : null}
 				</PanelBody>
-			) : (
-				''
-			)}
+			) : null}
 
 			{type === 'color' ? (
 				<ColorPicker
@@ -305,10 +295,10 @@ function BackgroundControlsInspector(props) {
 			) : (
 				<PanelBody
 					title={
-						<Fragment>
+						<>
 							{__('Overlay', 'ghostkit')}
 							<ColorIndicator colorValue={color} />
-						</Fragment>
+						</>
 					}
 					initialOpen={type === 'color'}
 				>
@@ -390,9 +380,7 @@ function addEditorBackground(background, props) {
 							className="nk-awb-overlay"
 							style={{ 'background-color': color }}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 					{type === 'image' && imageTag ? (
 						<div
 							className="nk-awb-inner"
@@ -400,9 +388,7 @@ function addEditorBackground(background, props) {
 								__html: maybeDecode(imageTag),
 							}}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</div>
 			);
 		}
@@ -474,17 +460,13 @@ function addSaveBackground(background, props) {
 								className="nk-awb-overlay"
 								style={{ 'background-color': color }}
 							/>
-						) : (
-							''
-						)}
+						) : null}
 						{type === 'image' && imageTag ? (
 							<div
 								className="nk-awb-inner"
 								dangerouslySetInnerHTML={{ __html: imageTag }}
 							/>
-						) : (
-							''
-						)}
+						) : null}
 					</div>
 				</div>
 			);

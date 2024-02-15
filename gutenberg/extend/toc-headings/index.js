@@ -113,7 +113,6 @@ const updateHeadingIDsDebounce = debounce(300, updateHeadingIDs);
  * We don't need to run this code in WordPress >= 5.9, as anchors already adds automatically.
  */
 if (
-	// eslint-disable-next-line no-underscore-dangle
 	!wp.blockEditor.__experimentalBlockPatternSetup &&
 	!wp.blockEditor.BlockPatternSetup &&
 	!wp.blockEditor.blockPatternSetup

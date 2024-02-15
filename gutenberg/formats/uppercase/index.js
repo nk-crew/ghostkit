@@ -2,7 +2,6 @@ import {
 	RichTextShortcut,
 	RichTextToolbarButton,
 } from '@wordpress/block-editor';
-import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { toggleFormat } from '@wordpress/rich-text';
 
@@ -26,7 +25,7 @@ export const settings = {
 		}
 
 		return (
-			<Fragment>
+			<>
 				<RichTextShortcut
 					type="access"
 					character="u"
@@ -40,7 +39,7 @@ export const settings = {
 					onClick={() => toggleUppercase()}
 					isActive={isActive}
 				/>
-			</Fragment>
+			</>
 		);
 	},
 };

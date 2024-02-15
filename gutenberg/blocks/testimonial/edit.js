@@ -1,5 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-
 import classnames from 'classnames/dedupe';
 
 import {
@@ -279,9 +277,7 @@ export default function BlockEdit(props) {
 							}
 							insideInspector
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</PanelBody>
 			</InspectorControls>
 			<URLPicker
@@ -310,9 +306,7 @@ export default function BlockEdit(props) {
 							)}
 						/>
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 				<div className="ghostkit-testimonial-content">
 					<div {...innerBlockProps} />
 				</div>
@@ -330,9 +324,7 @@ export default function BlockEdit(props) {
 								</Button>
 							)}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 
 					{photoId ? (
 						<MediaUpload
@@ -358,9 +350,7 @@ export default function BlockEdit(props) {
 								</a>
 							)}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</div>
 				<div className="ghostkit-testimonial-meta">
 					<RichText
@@ -402,9 +392,7 @@ export default function BlockEdit(props) {
 							</div>
 						</div>
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 			</div>
 		</>
 	);

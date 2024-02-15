@@ -55,7 +55,6 @@ export const settings = {
 			if (isEditor && attributes?.ghostkit?.id) {
 				// background.
 				styles = styles.replace(
-					// eslint-disable-next-line prefer-regex-literals
 					new RegExp('> .nk-awb .jarallax-img', 'g'),
 					'> .awb-gutenberg-preview-block .jarallax-img'
 				);

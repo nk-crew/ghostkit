@@ -1,6 +1,6 @@
 import classnames from 'classnames/dedupe';
 
-import { Fragment, useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import { ReactComponent as Logo } from '../../gutenberg/icons/ghostkit-text-logo.svg';
@@ -73,7 +73,6 @@ export default function Container(props) {
 	Object.keys(pages).forEach((k) => {
 		resultTabs.push(
 			<li key={k}>
-				{/* eslint-disable-next-line react/button-has-type */}
 				<button
 					className={classnames(
 						'ghostkit-admin-tabs-button',
@@ -95,15 +94,15 @@ export default function Container(props) {
 		const NewBlock = pages[activePage].block;
 
 		resultContent = (
-			<Fragment>
+			<>
 				<h2>{pages[activePage].label}</h2>
 				<NewBlock data={data} />
-			</Fragment>
+			</>
 		);
 	}
 
 	return (
-		<Fragment>
+		<>
 			<div className="ghostkit-admin-head">
 				<div className="ghostkit-admin-head-wrap">
 					<a
@@ -116,6 +115,6 @@ export default function Container(props) {
 				</div>
 			</div>
 			<div className="ghostkit-admin-content">{resultContent}</div>
-		</Fragment>
+		</>
 	);
 }

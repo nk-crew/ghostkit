@@ -337,8 +337,7 @@ events.on(document, 'init.blocks.gkt', () => {
 						config: videoObserverData,
 					});
 
-					// eslint-disable-next-line no-undef
-					const videoObserver = new IntersectionObserver(
+					const videoObserver = new window.IntersectionObserver(
 						videoObserverData.callback,
 						videoObserverData.options
 					);

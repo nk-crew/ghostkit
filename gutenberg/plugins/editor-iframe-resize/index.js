@@ -41,7 +41,6 @@ function IframeResponsiveStyles() {
 
 	return (
 		<style
-			// eslint-disable-next-line react/no-danger
 			dangerouslySetInnerHTML={{
 				__html: `
 				.edit-post-visual-editor__content-area > div,
@@ -180,13 +179,12 @@ function ResponsiveToggleDropdown() {
 				)}
 			</DropdownMenu>
 			<style
-				// eslint-disable-next-line react/no-danger
 				dangerouslySetInnerHTML={{
 					__html: `
-          .interface-interface-skeleton__header {
-            z-index: 91;
-          }
-        `,
+					.interface-interface-skeleton__header {
+						z-index: 91;
+					}
+					`,
 				}}
 			/>
 		</>

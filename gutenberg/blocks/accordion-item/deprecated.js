@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-
 import classnames from 'classnames/dedupe';
 
 import {

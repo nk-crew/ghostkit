@@ -19,7 +19,6 @@ function ToolbarTemplates() {
 		return null;
 	}
 
-	// eslint-disable-next-line react/no-unstable-nested-components
 	function LibraryButton() {
 		return (
 			<ToolbarButton
@@ -41,8 +40,9 @@ function ToolbarTemplates() {
 
 	const checkElement = async (selector) => {
 		while (document.querySelector(selector) === null) {
-			// eslint-disable-next-line no-promise-executor-return, no-await-in-loop, no-undef
-			await new Promise((resolve) => requestAnimationFrame(resolve));
+			await new Promise((resolve) =>
+				window.requestAnimationFrame(resolve)
+			);
 		}
 		return document.querySelector(selector);
 	};

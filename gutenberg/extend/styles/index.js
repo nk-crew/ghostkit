@@ -1,4 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
 import deepEqual from 'deep-equal';
 import { cloneDeep } from 'lodash';
 import shorthash from 'shorthash';

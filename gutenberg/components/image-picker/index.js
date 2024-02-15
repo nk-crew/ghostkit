@@ -20,7 +20,6 @@ export default function ImagePicker(props) {
 			)}
 		>
 			{options.map((option) => (
-				// eslint-disable-next-line react/button-has-type
 				<button
 					key={`image-pircker-${option.value}`}
 					onClick={() => {

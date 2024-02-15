@@ -2,7 +2,6 @@ import { createBlock } from '@wordpress/blocks';
 
 // parse youtube ID
 function getYoutubeID(ytUrl) {
-	// eslint-disable-next-line no-useless-escape
 	const regExp =
 		/.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
 	const match = ytUrl.match(regExp);
@@ -11,7 +10,6 @@ function getYoutubeID(ytUrl) {
 
 // parse vimeo ID
 function getVimeoID(vmUrl) {
-	// eslint-disable-next-line no-useless-escape
 	const regExp =
 		/https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
 	const match = vmUrl.match(regExp);

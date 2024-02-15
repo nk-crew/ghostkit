@@ -19,7 +19,6 @@ class GhostKitFallbackClass {
 		self.prepareFallbackCustomStyles = self.deprecatedWarning.bind(self);
 	}
 
-	// eslint-disable-next-line class-methods-use-this
 	deprecatedWarning() {
 		// eslint-disable-next-line no-console
 		console.warn(

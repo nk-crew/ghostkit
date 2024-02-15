@@ -15,7 +15,7 @@ import {
 	TextareaControl,
 	TextControl,
 } from '@wordpress/components';
-import { Fragment, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import getIcon from '../../utils/get-icon';
@@ -167,7 +167,7 @@ export default function BlockEdit(props) {
 	}
 
 	const inputFields = (
-		<Fragment>
+		<>
 			<form
 				className="ghostkit-gif-input-container"
 				onSubmit={onFormSubmit}
@@ -214,7 +214,7 @@ export default function BlockEdit(props) {
 					})}
 				</div>
 			)}
-		</Fragment>
+		</>
 	);
 
 	className = classnames('ghostkit-gif', className);
@@ -222,7 +222,7 @@ export default function BlockEdit(props) {
 	const blockProps = useBlockProps({ className });
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody className="components-panel__body-gif-branding">
 					<svg
@@ -241,7 +241,7 @@ export default function BlockEdit(props) {
 							value={alt}
 							onChange={(val) => setAttributes({ alt: val })}
 							help={
-								<Fragment>
+								<>
 									<ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
 										{__(
 											'Describe the purpose of the image',
@@ -252,13 +252,11 @@ export default function BlockEdit(props) {
 										'Leave empty if the image is purely decorative.',
 										'ghostkit'
 									)}
-								</Fragment>
+								</>
 							}
 						/>
 					</PanelBody>
-				) : (
-					''
-				)}
+				) : null}
 			</InspectorControls>
 			<figure {...blockProps}>
 				{!url ? (
@@ -274,7 +272,7 @@ export default function BlockEdit(props) {
 						{inputFields}
 					</Placeholder>
 				) : (
-					<Fragment>
+					<>
 						<img
 							src={url}
 							srcSet={srcset}
@@ -298,9 +296,9 @@ export default function BlockEdit(props) {
 									value={caption}
 								/>
 							)}
-					</Fragment>
+					</>
 				)}
 			</figure>
-		</Fragment>
+		</>
 	);
 }

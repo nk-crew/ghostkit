@@ -20,7 +20,6 @@ function MenuList(props) {
 						height={maxHeight}
 						rowCount={children.length}
 						rowHeight={rowHeight}
-						// eslint-disable-next-line react/no-unstable-nested-components
 						rowRenderer={({ index, key, style }) => {
 							return (
 								<div key={key} style={style}>

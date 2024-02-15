@@ -6,7 +6,6 @@ import {
 	useBlockProps,
 } from '@wordpress/block-editor';
 import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -44,7 +43,7 @@ export default function BlockEdit(props) {
 	const blockProps = useBlockProps({ className });
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody>
 					<FieldDefaultSettings {...props} />
@@ -71,7 +70,7 @@ export default function BlockEdit(props) {
 						}}
 					/>
 					{emailConfirmation ? (
-						<Fragment>
+						<>
 							<TextControl
 								label={__('Placeholder', 'ghostkit')}
 								value={placeholderConfirmation}
@@ -88,10 +87,8 @@ export default function BlockEdit(props) {
 									setAttributes({ defaultConfirmation: val })
 								}
 							/>
-						</Fragment>
-					) : (
-						''
-					)}
+						</>
+					) : null}
 				</PanelBody>
 			</InspectorControls>
 			<div {...blockProps}>
@@ -137,15 +134,15 @@ export default function BlockEdit(props) {
 						</div>
 					</div>
 				) : (
-					<Fragment>
+					<>
 						<TextControl
 							type="email"
 							{...getFieldAttributes(attributes)}
 						/>
 						<FieldDescription {...props} />
-					</Fragment>
+					</>
 				)}
 			</div>
-		</Fragment>
+		</>
 	);
 }

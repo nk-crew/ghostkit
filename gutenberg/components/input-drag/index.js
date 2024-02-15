@@ -73,7 +73,6 @@ export default function InputDrag(props) {
 			);
 
 			if (matchUnit && matchUnit[1]) {
-				// eslint-disable-next-line prefer-destructuring
 				unit = matchUnit[1];
 			}
 		}

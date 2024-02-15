@@ -71,18 +71,14 @@ export default function BlockSave(props) {
 					tag="div"
 					className="ghostkit-carousel-arrow-prev-icon"
 				/>
-			) : (
-				''
-			)}
+			) : null}
 			{arrowNextIcon ? (
 				<IconPicker.Render
 					name={arrowNextIcon}
 					tag="div"
 					className="ghostkit-carousel-arrow-next-icon"
 				/>
-			) : (
-				''
-			)}
+			) : null}
 		</div>
 	);
 }

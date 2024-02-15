@@ -51,8 +51,7 @@ export default function BlockEdit(props) {
 				count: block.innerBlocks.length,
 			});
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [block?.innerBlocks?.length]);
+	}, [block, block?.innerBlocks?.length, count, setAttributes]);
 
 	/**
 	 * Insert a single button.

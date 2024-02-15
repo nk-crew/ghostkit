@@ -38,9 +38,7 @@ export default function BlockSave(props) {
 				<div className="ghostkit-progress-caption">
 					<RichText.Content value={caption} />
 				</div>
-			) : (
-				''
-			)}
+			) : null}
 			{showCount ? (
 				<div
 					className="ghostkit-progress-bar-count"
@@ -52,16 +50,13 @@ export default function BlockSave(props) {
 						<span>{countSuffix}</span>
 					</div>
 				</div>
-			) : (
-				''
-			)}
+			) : null}
 			<div
 				className={classnames(
 					'ghostkit-progress-wrap',
 					striped && 'ghostkit-progress-bar-striped'
 				)}
 			>
-				{/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
 				<div
 					className={classnames(
 						'ghostkit-progress-bar',

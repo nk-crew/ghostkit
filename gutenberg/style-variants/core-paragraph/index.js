@@ -1,9 +1,6 @@
-/* eslint-disable max-classes-per-file */
-
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { createHigherOrderComponent } from '@wordpress/compose';
-import { Fragment } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -137,10 +134,10 @@ const withInspectorControl = createHigherOrderComponent((OriginalComponent) => {
 
 		// add new display controls.
 		return (
-			<Fragment>
+			<>
 				<OriginalComponent {...props} />
 				<GhostKitParagraphColumns {...props} />
-			</Fragment>
+			</>
 		);
 	}
 

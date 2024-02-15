@@ -12,10 +12,8 @@ import TokenList from '@wordpress/token-list';
 export function getActiveClass(className, namespace, suffixOnly) {
 	const list = new TokenList(className);
 
-	// eslint-disable-next-line no-restricted-syntax
 	for (const activeClass of list.values()) {
 		if (activeClass.indexOf(`${namespace}-`) === -1) {
-			// eslint-disable-next-line no-continue
 			continue;
 		}
 
@@ -43,7 +41,6 @@ export function replaceClass(className, namespace, newClass) {
 	const namespaceRegExp = new RegExp(`${namespace}-`);
 
 	// remove classes with the same namespace.
-	// eslint-disable-next-line no-restricted-syntax
 	for (const activeClass of list.values()) {
 		if (namespaceRegExp.test(activeClass)) {
 			list.remove(activeClass);
@@ -88,7 +85,6 @@ export function removeClass(className, classToRemove) {
 	const list = new TokenList(className);
 
 	// remove classes with the same namespace.
-	// eslint-disable-next-line no-restricted-syntax
 	for (const activeClass of list.values()) {
 		if (classToRemove === activeClass) {
 			list.remove(activeClass);
@@ -110,7 +106,6 @@ export function hasClass(className, checkClassName) {
 	const list = new TokenList(className);
 
 	// remove classes with the same namespace.
-	// eslint-disable-next-line no-restricted-syntax
 	for (const activeClass of list.values()) {
 		if (checkClassName === activeClass) {
 			return true;

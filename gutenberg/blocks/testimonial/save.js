@@ -64,18 +64,14 @@ export default function BlockSave(props) {
 				>
 					<span />
 				</a>
-			) : (
-				''
-			)}
+			) : null}
 			{icon ? (
 				<IconPicker.Render
 					name={icon}
 					tag="div"
 					className="ghostkit-testimonial-icon"
 				/>
-			) : (
-				''
-			)}
+			) : null}
 			<div {...innerBlockProps} />
 			{photoUrl ? (
 				<div className="ghostkit-testimonial-photo">
@@ -87,29 +83,21 @@ export default function BlockSave(props) {
 						height={photoHeight}
 					/>
 				</div>
-			) : (
-				''
-			)}
+			) : null}
 			{!RichText.isEmpty(attributes.name) || !RichText.isEmpty(source) ? (
 				<div className="ghostkit-testimonial-meta">
 					{!RichText.isEmpty(attributes.name) ? (
 						<div className="ghostkit-testimonial-name">
 							<RichText.Content value={attributes.name} />
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 					{!RichText.isEmpty(source) ? (
 						<div className="ghostkit-testimonial-source">
 							<RichText.Content value={source} />
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 				</div>
-			) : (
-				''
-			)}
+			) : null}
 			{typeof stars === 'number' && starsIcon ? (
 				<div className="ghostkit-testimonial-stars">
 					<div className="ghostkit-testimonial-stars-wrap">
@@ -132,9 +120,7 @@ export default function BlockSave(props) {
 						</div>
 					</div>
 				</div>
-			) : (
-				''
-			)}
+			) : null}
 		</div>
 	);
 }

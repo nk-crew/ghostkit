@@ -6,7 +6,6 @@ import {
 	useBlockProps,
 } from '@wordpress/block-editor';
 import { PanelBody, SelectControl, TextControl } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -54,7 +53,7 @@ export default function BlockEdit(props) {
 	const blockProps = useBlockProps({ className });
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody>
 					<FieldDefaultSettings {...props} />
@@ -104,7 +103,7 @@ export default function BlockEdit(props) {
 						}}
 					/>
 					{nameFields === 'first-middle-last' ? (
-						<Fragment>
+						<>
 							<TextControl
 								label={__('Middle Placeholder', 'ghostkit')}
 								value={placeholderMiddle}
@@ -119,13 +118,11 @@ export default function BlockEdit(props) {
 									setAttributes({ defaultMiddle: val })
 								}
 							/>
-						</Fragment>
-					) : (
-						''
-					)}
+						</>
+					) : null}
 					{nameFields === 'first-middle-last' ||
 					nameFields === 'first-last' ? (
-						<Fragment>
+						<>
 							<TextControl
 								label={__('Last Placeholder', 'ghostkit')}
 								value={placeholderLast}
@@ -140,10 +137,8 @@ export default function BlockEdit(props) {
 									setAttributes({ defaultLast: val })
 								}
 							/>
-						</Fragment>
-					) : (
-						''
-					)}
+						</>
+					) : null}
 				</PanelBody>
 			</InspectorControls>
 			<div {...blockProps}>
@@ -189,9 +184,7 @@ export default function BlockEdit(props) {
 									}
 								/>
 							</div>
-						) : (
-							''
-						)}
+						) : null}
 						{nameFields === 'first-middle-last' ||
 						nameFields === 'first-last' ? (
 							<div className="ghostkit-form-field-name-last">
@@ -220,20 +213,18 @@ export default function BlockEdit(props) {
 									}
 								/>
 							</div>
-						) : (
-							''
-						)}
+						) : null}
 					</div>
 				) : (
-					<Fragment>
+					<>
 						<TextControl
 							type="email"
 							{...getFieldAttributes(attributes)}
 						/>
 						<FieldDescription {...props} />
-					</Fragment>
+					</>
 				)}
 			</div>
-		</Fragment>
+		</>
 	);
 }

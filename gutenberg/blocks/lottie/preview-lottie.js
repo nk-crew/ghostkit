@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import { useEffect, useRef } from '@wordpress/element';
 
 import { loadBlockEditorAssets } from '../../utils/block-editor-asset-loader';

@@ -22,9 +22,7 @@ export default (() => {
 	const WEEKS = 0x020;
 	const MONTHS = 0x040;
 	const YEARS = 0x080;
-	// eslint-disable-next-line no-bitwise
 	const DEFAULTS = YEARS | MONTHS | DAYS | HOURS | MINUTES | SECONDS;
-	// eslint-disable-next-line no-bitwise
 	const ALL =
 		YEARS |
 		MONTHS |
@@ -450,7 +448,6 @@ export default (() => {
 	function pruneUnits(ts, units, max, digits) {
 		let count = 0;
 
-		// eslint-disable-next-line no-bitwise
 		if (!(units & YEARS) || count >= max) {
 			// ripple years down to months
 			ts.months += ts.years * MONTHS_PER_YEAR;
@@ -459,7 +456,6 @@ export default (() => {
 			count += 1;
 		}
 
-		// eslint-disable-next-line no-bitwise
 		if (!(units & MONTHS) || count >= max) {
 			// ripple months down to days
 			if (ts.months) {
@@ -476,7 +472,6 @@ export default (() => {
 			count += 1;
 		}
 
-		// eslint-disable-next-line no-bitwise
 		if (!(units & WEEKS) || count >= max) {
 			// ripple weeks down to days
 			ts.days += ts.weeks * DAYS_PER_WEEK;
@@ -485,7 +480,6 @@ export default (() => {
 			count += 1;
 		}
 
-		// eslint-disable-next-line no-bitwise
 		if (!(units & DAYS) || count >= max) {
 			// ripple days down to hours
 			ts.hours += ts.days * HOURS_PER_DAY;
@@ -494,7 +488,6 @@ export default (() => {
 			count += 1;
 		}
 
-		// eslint-disable-next-line no-bitwise
 		if (!(units & HOURS) || count >= max) {
 			// ripple hours down to minutes
 			ts.minutes += ts.hours * MINUTES_PER_HOUR;
@@ -503,7 +496,6 @@ export default (() => {
 			count += 1;
 		}
 
-		// eslint-disable-next-line no-bitwise
 		if (!(units & MINUTES) || count >= max) {
 			// ripple minutes down to seconds
 			ts.seconds += ts.minutes * SECONDS_PER_MINUTE;
@@ -512,7 +504,6 @@ export default (() => {
 			count += 1;
 		}
 
-		// eslint-disable-next-line no-bitwise
 		if (!(units & SECONDS) || count >= max) {
 			// ripple seconds down to milliseconds
 			ts.milliseconds += ts.seconds * MILLISECONDS_PER_SECOND;
@@ -523,7 +514,6 @@ export default (() => {
 
 		// nothing to ripple milliseconds down to
 		// so ripple back up to smallest existing unit as a fractional value
-		// eslint-disable-next-line no-bitwise
 		if (!(units & MILLISECONDS) || count >= max) {
 			fractional(ts, digits);
 		}
@@ -647,13 +637,10 @@ export default (() => {
 	 * @return {number} units data.
 	 */
 	function unitsListToData(unitsList) {
-		// eslint-disable-next-line no-bitwise
 		let units = ~ALL;
 
 		unitsList.forEach((unit) => {
-			// eslint-disable-next-line no-use-before-define
 			if (countdown[unit.toUpperCase()]) {
-				// eslint-disable-next-line no-bitwise, no-use-before-define
 				units |= countdown[unit.toUpperCase()];
 			}
 		});

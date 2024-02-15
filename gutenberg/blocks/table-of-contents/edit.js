@@ -13,7 +13,7 @@ import {
 	Spinner,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { Fragment, RawHTML, useRef } from '@wordpress/element';
+import { RawHTML, useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -67,7 +67,7 @@ export default function BlockEdit(props) {
 	const blockProps = useBlockProps({ className });
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody>
 					<SelectControl
@@ -172,6 +172,6 @@ export default function BlockEdit(props) {
 					{...blockProps}
 				/>
 			)}
-		</Fragment>
+		</>
 	);
 }

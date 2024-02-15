@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-
 import classnames from 'classnames/dedupe';
 import { debounce } from 'throttle-debounce';
 
@@ -24,7 +22,7 @@ import {
 	ToolbarButton,
 	ToolbarGroup,
 } from '@wordpress/components';
-import { Fragment, useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -303,7 +301,7 @@ export default function BlockEdit(props) {
 
 	function getStylesPicker() {
 		return (
-			<Fragment>
+			<>
 				<ImagePicker
 					value={maybeDecode(style)}
 					options={styles}
@@ -329,7 +327,7 @@ export default function BlockEdit(props) {
 					}}
 				/>
 				{style === 'custom' ? (
-					<Fragment>
+					<>
 						<TextareaControl
 							placeholder={__('Enter Style JSON', 'ghostkit')}
 							value={maybeDecode(styleCustom)}
@@ -351,9 +349,9 @@ export default function BlockEdit(props) {
 								.
 							</em>
 						</p>
-					</Fragment>
+					</>
 				) : null}
-			</Fragment>
+			</>
 		);
 	}
 
@@ -404,7 +402,7 @@ export default function BlockEdit(props) {
 	const blockProps = useBlockProps({ className });
 
 	return (
-		<Fragment>
+		<>
 			{apiKey ? (
 				<BlockControls>
 					<ToolbarGroup>
@@ -464,7 +462,7 @@ export default function BlockEdit(props) {
 			</InspectorControls>
 			<InspectorControls>
 				{apiKey ? (
-					<Fragment>
+					<>
 						<PanelBody>
 							<RangeControl
 								label={
@@ -687,7 +685,7 @@ export default function BlockEdit(props) {
 								/>
 							) : null}
 						</PanelBody>
-					</Fragment>
+					</>
 				) : null}
 				<PanelBody
 					title={__('API Key', 'ghostkit')}
@@ -727,7 +725,7 @@ export default function BlockEdit(props) {
 
 			<div {...blockProps}>
 				{apiKey ? (
-					<Fragment>
+					<>
 						{fullHeight ? (
 							getMapPreview()
 						) : (
@@ -796,7 +794,7 @@ export default function BlockEdit(props) {
 								</div>
 							</div>
 						) : null}
-					</Fragment>
+					</>
 				) : (
 					<div
 						className="ghostkit-google-maps-placeholder"
@@ -824,6 +822,6 @@ export default function BlockEdit(props) {
 					</div>
 				)}
 			</div>
-		</Fragment>
+		</>
 	);
 }

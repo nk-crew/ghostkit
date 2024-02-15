@@ -322,9 +322,7 @@ export default class Typography extends Component {
 								</MenuGroup>
 							)}
 						</DropdownMenu>
-					) : (
-						''
-					)}
+					) : null}
 					<ApplyFilters
 						name="ghostkit.typography.fontFamilySelector.info"
 						props={this.props}
@@ -341,9 +339,7 @@ export default class Typography extends Component {
 									https://www.ghostkit.io/pricing/
 								</ExternalLink>
 							</div>
-						) : (
-							''
-						)}
+						) : null}
 						{fontFamilyCategory === 'custom-fonts' ? (
 							<div className="ghostkit-typography-information-control ghostkit-typography-font-control">
 								{__(
@@ -356,9 +352,7 @@ export default class Typography extends Component {
 									https://www.ghostkit.io/pricing/
 								</ExternalLink>
 							</div>
-						) : (
-							''
-						)}
+						) : null}
 					</ApplyFilters>
 					{typeof fontFamily !== 'undefined' && allowFontSelectors ? (
 						<div className="ghostkit-typography-font-control">
@@ -390,9 +384,7 @@ export default class Typography extends Component {
 								</div>
 							</Tooltip>
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 					{typeof fontWeight !== 'undefined' && allowFontSelectors ? (
 						<div className="ghostkit-typography-weight-control">
 							<Tooltip text={__('Font Weight', 'ghostkit')}>
@@ -419,9 +411,7 @@ export default class Typography extends Component {
 								</div>
 							</Tooltip>
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 					{typeof fontSize !== 'undefined' ? (
 						<div className="ghostkit-typography-size-control">
 							<Tooltip text={__('Font Size', 'ghostkit')}>
@@ -443,9 +433,7 @@ export default class Typography extends Component {
 								</div>
 							</Tooltip>
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 					{typeof lineHeight !== 'undefined' ? (
 						<div className="ghostkit-typography-line-control">
 							<Tooltip text={__('Line Height', 'ghostkit')}>
@@ -469,9 +457,7 @@ export default class Typography extends Component {
 								</div>
 							</Tooltip>
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 					{typeof letterSpacing !== 'undefined' ? (
 						<div className="ghostkit-typography-letter-control">
 							<Tooltip text={__('Letter Spacing', 'ghostkit')}>
@@ -496,9 +482,7 @@ export default class Typography extends Component {
 								</div>
 							</Tooltip>
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 				</div>
 			</div>
 		);

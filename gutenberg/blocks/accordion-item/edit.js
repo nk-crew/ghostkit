@@ -51,8 +51,7 @@ export default function BlockEdit(props) {
 		if (titleTag !== contextTitleTag) {
 			setAttributes({ titleTag: contextTitleTag });
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [contextTitleTag, titleTag]);
+	}, [contextTitleTag, setAttributes, titleTag]);
 
 	let className = classnames(
 		attributes.className,
@@ -120,7 +119,6 @@ export default function BlockEdit(props) {
 						}}
 						withoutInteractiveFormatting
 					/>
-					{/* eslint-disable-next-line react/button-has-type */}
 					<button
 						className="ghostkit-accordion-item-collapse"
 						onClick={() => setAttributes({ active: !active })}

@@ -151,9 +151,7 @@ export default function BlockEdit(props) {
 							allowCustomMin
 							allowCustomMax
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</PanelBody>
 				<PanelBody
 					title={
@@ -162,9 +160,7 @@ export default function BlockEdit(props) {
 							<ColorIndicator colorValue={color} />
 							{icon ? (
 								<ColorIndicator colorValue={iconColor} />
-							) : (
-								''
-							)}
+							) : null}
 						</>
 					}
 					initialOpen={false}
@@ -238,9 +234,7 @@ export default function BlockEdit(props) {
 												alpha
 											/>
 										</ApplyFilters>
-									) : (
-										''
-									)}
+									) : null}
 								</>
 							);
 						}}
@@ -261,9 +255,7 @@ export default function BlockEdit(props) {
 							)}
 						/>
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 			</div>
 		</>
 	);

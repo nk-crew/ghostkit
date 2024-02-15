@@ -1,13 +1,11 @@
-/* eslint-disable */
-
 import { __ } from '@wordpress/i18n';
 
-import ImgStyleDefault from './style-default.png';
 import ImgStyleBright from './style-bright.png';
-import ImgStyleLight from './style-light.png';
-import ImgStyleDark from './style-dark.png';
-import ImgStylePaleDawn from './style-pale-dawn.png';
 import ImgStyleCustom from './style-custom.png';
+import ImgStyleDark from './style-dark.png';
+import ImgStyleDefault from './style-default.png';
+import ImgStyleLight from './style-light.png';
+import ImgStylePaleDawn from './style-pale-dawn.png';
 
 export default [
 	{

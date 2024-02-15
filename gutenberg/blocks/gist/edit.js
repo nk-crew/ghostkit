@@ -8,7 +8,7 @@ import {
 	TextControl,
 	ToggleControl,
 } from '@wordpress/components';
-import { Fragment, useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -118,7 +118,7 @@ export default function BlockEdit(props) {
 	const blockProps = useBlockProps({ className });
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody>
 					<TextControl
@@ -196,6 +196,6 @@ export default function BlockEdit(props) {
 					/>
 				) : null}
 			</div>
-		</Fragment>
+		</>
 	);
 }

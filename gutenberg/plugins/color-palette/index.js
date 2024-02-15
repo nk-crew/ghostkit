@@ -1,6 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-/* eslint-disable max-classes-per-file */
-
 import apiFetch from '@wordpress/api-fetch';
 import {
 	BaseControl,
@@ -11,7 +8,7 @@ import {
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
 import ColorPicker from '../../components/color-picker';
@@ -121,7 +118,7 @@ class ColorPaletteModal extends Component {
 									updateColorPalette(newColors);
 								}}
 								afterDropdownContent={
-									<Fragment>
+									<>
 										<TextControl
 											label={__('Name', 'ghostkit')}
 											value={data.name}
@@ -180,7 +177,7 @@ class ColorPaletteModal extends Component {
 												{__('Remove', 'ghostkit')}
 											</Button>
 										</BaseControl>
-									</Fragment>
+									</>
 								}
 							/>
 						);
@@ -275,7 +272,7 @@ export class Plugin extends Component {
 		const { isModalOpen } = this.state;
 
 		return (
-			<Fragment>
+			<>
 				{PluginMoreMenuItem ? (
 					<PluginMoreMenuItem
 						icon={null}
@@ -292,10 +289,8 @@ export class Plugin extends Component {
 							this.setState({ isModalOpen: false })
 						}
 					/>
-				) : (
-					''
-				)}
-			</Fragment>
+				) : null}
+			</>
 		);
 	}
 }

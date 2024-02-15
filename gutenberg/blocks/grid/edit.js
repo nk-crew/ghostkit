@@ -15,7 +15,7 @@ import {
 	ToolbarGroup,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { Fragment, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -208,9 +208,7 @@ export default function BlockEdit(props) {
 							}
 						}}
 					/>
-				) : (
-					''
-				)}
+				) : null}
 			</Placeholder>
 		);
 	}
@@ -404,9 +402,7 @@ export default function BlockEdit(props) {
 						/>
 					</PanelBody>
 				</InspectorControls>
-			) : (
-				''
-			)}
+			) : null}
 			<InspectorControls>
 				<div className="ghostkit-background-controls">
 					<ApplyFilters
@@ -417,10 +413,10 @@ export default function BlockEdit(props) {
 				</div>
 			</InspectorControls>
 			{columnsCount > 0 ? (
-				<Fragment>
+				<>
 					{background}
 					<div className="ghostkit-grid-inner">{children}</div>
-				</Fragment>
+				</>
 			) : (
 				getLayoutsSelector()
 			)}

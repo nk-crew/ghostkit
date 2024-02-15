@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-
 import classnames from 'classnames/dedupe';
 
 import apiFetch from '@wordpress/api-fetch';
@@ -177,9 +175,7 @@ class TemplatesModal extends Component {
 						<div className="ghostkit-plugin-templates-modal-loading-spinner">
 							<Spinner />
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 					<button
 						type="button"
 						aria-label="Close dialog"
@@ -316,19 +312,17 @@ class TemplatesModal extends Component {
 								this.getSelectedCategory(tabType);
 
 							return (
-								<Fragment>
+								<>
 									{currentTemplates === false ? (
 										<div className="ghostkit-plugin-templates-spinner">
 											<Spinner />
 										</div>
-									) : (
-										''
-									)}
+									) : null}
 									{currentTemplates &&
 									!currentTemplates.length ? (
 										<div>
 											{tabType === 'local' ? (
-												<Fragment>
+												<>
 													<p
 														style={{
 															marginTop: 0,
@@ -350,7 +344,7 @@ class TemplatesModal extends Component {
 															'ghostkit'
 														)}
 													</ExternalLink>
-												</Fragment>
+												</>
 											) : (
 												__(
 													'No templates found.',
@@ -358,9 +352,7 @@ class TemplatesModal extends Component {
 												)
 											)}
 										</div>
-									) : (
-										''
-									)}
+									) : null}
 									{currentTemplates &&
 									currentTemplates.length ? (
 										<Fragment
@@ -413,7 +405,6 @@ class TemplatesModal extends Component {
 																	template.id
 																}
 															>
-																{/* eslint-disable-next-line react/button-has-type */}
 																<button
 																	onClick={() => {
 																		this.setState(
@@ -482,9 +473,7 @@ class TemplatesModal extends Component {
 																						}%`,
 																					}}
 																				/>
-																			) : (
-																				''
-																			)}
+																			) : null}
 																			<img
 																				src={
 																					template.thumbnail
@@ -495,9 +484,7 @@ class TemplatesModal extends Component {
 																				loading="lazy"
 																			/>
 																		</div>
-																	) : (
-																		''
-																	)}
+																	) : null}
 																	<div className="ghostkit-plugin-templates-list-item-title">
 																		{
 																			template.title
@@ -521,20 +508,14 @@ class TemplatesModal extends Component {
 														'ghostkit'
 													)}
 												</ExternalLink>
-											) : (
-												''
-											)}
+											) : null}
 										</Fragment>
-									) : (
-										''
-									)}
-								</Fragment>
+									) : null}
+								</>
 							);
 						}}
 					</TabPanel>
-				) : (
-					''
-				)}
+				) : null}
 			</Modal>
 		);
 	}
@@ -605,13 +586,9 @@ function checkMissingBlocks(data) {
 								>
 									{__('Install Plugin', 'ghostkit')}
 								</ExternalLink>
-							) : (
-								''
-							)}
+							) : null}
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 				</div>
 			);
 		});
@@ -688,7 +665,7 @@ export class Plugin extends Component {
 		const { isModalOpen } = this.state;
 
 		return (
-			<Fragment>
+			<>
 				{PluginMoreMenuItem ? (
 					<PluginMoreMenuItem
 						icon={null}
@@ -705,10 +682,8 @@ export class Plugin extends Component {
 							this.setState({ isModalOpen: false })
 						}
 					/>
-				) : (
-					''
-				)}
-			</Fragment>
+				) : null}
+			</>
 		);
 	}
 }

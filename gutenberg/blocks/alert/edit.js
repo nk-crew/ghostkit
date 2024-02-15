@@ -135,9 +135,7 @@ export default function BlockEdit(props) {
 							allowCustomMin
 							allowCustomMax
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</PanelBody>
 				<PanelBody>
 					<ToggleControl
@@ -210,9 +208,7 @@ export default function BlockEdit(props) {
 							)}
 						/>
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 				<div {...innerBlockProps} />
 				{hideButton ? (
 					<div className="ghostkit-alert-hide-button">
@@ -230,9 +226,7 @@ export default function BlockEdit(props) {
 							/>
 						</svg>
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 			</div>
 		</>
 	);

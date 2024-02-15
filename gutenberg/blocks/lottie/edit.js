@@ -1,5 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-
 import classnames from 'classnames/dedupe';
 
 import {
@@ -180,10 +178,8 @@ export default function BlockEdit(props) {
 						direction={direction}
 						isSelected={isSelected}
 						onLoad={(e) => {
-							// eslint-disable-next-line no-underscore-dangle
 							const newWidth =
 								e?.target?._lottie?.animationData?.w;
-							// eslint-disable-next-line no-underscore-dangle
 							const newHeight =
 								e?.target?._lottie?.animationData?.h;
 

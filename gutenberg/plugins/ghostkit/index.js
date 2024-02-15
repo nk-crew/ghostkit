@@ -3,7 +3,7 @@ import {
 	PluginSidebar,
 	PluginSidebarMoreMenuItem as StablePluginSidebarMoreMenuItem,
 } from '@wordpress/edit-post';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import getIcon from '../../utils/get-icon';
@@ -36,7 +36,7 @@ export class Plugin extends Component {
 		const { isModalOpen } = this.state;
 
 		return (
-			<Fragment>
+			<>
 				{PluginSidebarMoreMenuItem ? (
 					<PluginSidebarMoreMenuItem target="ghostkit">
 						{__('Ghost Kit', 'ghostkit')}
@@ -152,7 +152,7 @@ export class Plugin extends Component {
 						}
 					/>
 				) : null}
-			</Fragment>
+			</>
 		);
 	}
 }

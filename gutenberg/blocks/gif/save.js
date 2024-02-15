@@ -31,9 +31,7 @@ export default function BlockSave(props) {
 					tagName="figcaption"
 					value={caption}
 				/>
-			) : (
-				''
-			)}
+			) : null}
 		</figure>
 	);
 }

@@ -11,7 +11,7 @@ import {
 	ToolbarButton,
 	ToolbarGroup,
 } from '@wordpress/components';
-import { Fragment, useEffect } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -116,7 +116,6 @@ export default function BlockEdit(props) {
 									style={{
 										'--gkt-shape-divider__color': color,
 									}}
-									// eslint-disable-next-line react/no-danger
 									dangerouslySetInnerHTML={{
 										__html: shape.svg,
 									}}
@@ -199,7 +198,7 @@ export default function BlockEdit(props) {
 	}
 
 	return (
-		<Fragment>
+		<>
 			<BlockControls>
 				<ToolbarGroup>
 					{shapeData.allow_flip_vertical ? (
@@ -323,6 +322,6 @@ export default function BlockEdit(props) {
 			</InspectorControls>
 
 			<div {...blockProps} />
-		</Fragment>
+		</>
 	);
 }

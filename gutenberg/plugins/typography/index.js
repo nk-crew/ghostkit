@@ -1,12 +1,9 @@
-/* eslint-disable indent */
-/* eslint-disable max-classes-per-file */
-
 import apiFetch from '@wordpress/api-fetch';
 import { Button, TabPanel, Tooltip } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -891,7 +888,7 @@ class TypographyModal extends Component {
 						);
 
 						return (
-							<Fragment>
+							<>
 								{Object.keys(typographyList).map((key) => {
 									const advancedData =
 										this.state[
@@ -932,9 +929,7 @@ class TypographyModal extends Component {
 															{advancedLabel}
 														</Button>
 													</div>
-												) : (
-													''
-												)}
+												) : null}
 
 												{advancedData === true
 													? this.getChildrenTypography(
@@ -949,7 +944,7 @@ class TypographyModal extends Component {
 
 									return null;
 								})}
-							</Fragment>
+							</>
 						);
 					}}
 				</TabPanel>
@@ -971,21 +966,18 @@ const TypographyModalWithSelect = compose([
 			currentMeta.ghostkit_typography = JSON.parse(
 				currentMeta.ghostkit_typography
 			);
-			// eslint-disable-next-line no-empty
 		} catch (e) {}
 
 		try {
 			editedMeta.ghostkit_typography = JSON.parse(
 				editedMeta.ghostkit_typography
 			);
-			// eslint-disable-next-line no-empty
 		} catch (e) {}
 
 		try {
 			customTypography.ghostkit_typography = JSON.parse(
 				customTypography.ghostkit_typography
 			);
-			// eslint-disable-next-line no-empty
 		} catch (e) {}
 
 		const typographyData = {
@@ -1044,7 +1036,7 @@ export class Plugin extends Component {
 		const { isModalOpen } = this.state;
 
 		return (
-			<Fragment>
+			<>
 				{PluginMoreMenuItem ? (
 					<PluginMoreMenuItem
 						icon={null}
@@ -1061,10 +1053,8 @@ export class Plugin extends Component {
 							this.setState({ isModalOpen: false })
 						}
 					/>
-				) : (
-					''
-				)}
-			</Fragment>
+				) : null}
+			</>
 		);
 	}
 }

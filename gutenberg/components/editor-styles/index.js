@@ -29,7 +29,6 @@ export default function EditorStyles(props) {
 
 	return (
 		<style
-			// eslint-disable-next-line react/no-danger
 			dangerouslySetInnerHTML={{
 				__html: renderStyles,
 			}}

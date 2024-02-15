@@ -68,8 +68,7 @@ export default function BlockEdit(props) {
 				count: itemsCount,
 			});
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [count, itemsCount]);
+	}, [count, itemsCount, setAttributes]);
 
 	className = classnames(
 		className,

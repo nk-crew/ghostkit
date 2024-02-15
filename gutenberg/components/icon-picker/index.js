@@ -1,6 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-/* eslint-disable react/no-unstable-nested-components */
-
 import 'react-virtualized/styles.css';
 
 import classnames from 'classnames/dedupe';
@@ -362,10 +359,10 @@ function IconPickerDropdown(props) {
 		);
 
 		return (
-			<Fragment>
+			<>
 				<div className="ghostkit-component-icon-picker-sizer" />
 				<div className="ghostkit-component-icon-picker">{result}</div>
-			</Fragment>
+			</>
 		);
 	}
 
@@ -486,9 +483,7 @@ IconPicker.Preview = function (props) {
 			tabIndex={0}
 			alwaysRender={alwaysRender}
 		/>
-	) : (
-		''
-	);
+	) : null;
 };
 
 // render icon.

@@ -46,7 +46,6 @@ function parseImageUrl(image) {
 	let src = /<img\s[^>]*?src\s*=\s*['"]([^'"]*?)['"][^>]*?>/g.exec(image);
 
 	if (src && src[1]) {
-		// eslint-disable-next-line prefer-destructuring
 		imgCache[image] = src[1];
 		return src[1];
 	}

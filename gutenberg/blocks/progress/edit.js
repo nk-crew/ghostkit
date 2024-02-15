@@ -1,5 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-
 import classnames from 'classnames/dedupe';
 
 import {
@@ -106,9 +104,7 @@ export default function BlockEdit(props) {
 								}
 							/>
 						</>
-					) : (
-						''
-					)}
+					) : null}
 					<ToggleControl
 						label={__('Striped', 'ghostkit')}
 						checked={!!striped}
@@ -223,9 +219,7 @@ export default function BlockEdit(props) {
 							setAttributes({ caption: newCaption })
 						}
 					/>
-				) : (
-					''
-				)}
+				) : null}
 				{showCount ? (
 					<div
 						className="ghostkit-progress-bar-count"
@@ -237,9 +231,7 @@ export default function BlockEdit(props) {
 							{countSuffix}
 						</div>
 					</div>
-				) : (
-					''
-				)}
+				) : null}
 				<ResizableBox
 					className={classnames({ 'is-selected': isSelected })}
 					size={{

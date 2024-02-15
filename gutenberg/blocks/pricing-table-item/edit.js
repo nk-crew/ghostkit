@@ -7,7 +7,6 @@ import {
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { BaseControl, PanelBody, ToggleControl } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -99,7 +98,7 @@ export default function BlockEdit(props) {
 							}
 						/>
 						{showPrice ? (
-							<Fragment>
+							<>
 								<ToggleControl
 									label={__(
 										'Show Price Currency',
@@ -121,10 +120,8 @@ export default function BlockEdit(props) {
 										})
 									}
 								/>
-							</Fragment>
-						) : (
-							''
-						)}
+							</>
+						) : null}
 						<ToggleControl
 							label={__('Show Description', 'ghostkit')}
 							checked={!!showDescription}

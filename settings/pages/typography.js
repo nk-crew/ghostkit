@@ -1,12 +1,10 @@
-/* eslint-disable indent */
-
 import { debounce } from 'throttle-debounce';
 
 import apiFetch from '@wordpress/api-fetch';
 import { Button, Spinner } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import Typography from '../../gutenberg/components/typography';
@@ -63,7 +61,6 @@ class TypographySettings extends Component {
 	 * @param {boolean} isGlobal - Flag of global customization.
 	 * @return {Object} - Placeholders Object.
 	 */
-	// eslint-disable-next-line class-methods-use-this
 	getPlaceholders() {
 		const placeholders = {
 			'font-size': '-',
@@ -181,7 +178,7 @@ class TypographySettings extends Component {
 		return (
 			<div className="ghostkit-settings-content-wrapper ghostkit-settings-typography">
 				{typographyList && Object.keys(typographyList).length ? (
-					<Fragment>
+					<>
 						{Object.keys(typographyList).map((key) => {
 							const advancedData = this.state.advanced[key];
 							const advancedLabel =
@@ -213,9 +210,7 @@ class TypographySettings extends Component {
 													{advancedLabel}
 												</Button>
 											</div>
-										) : (
-											''
-										)}
+										) : null}
 										{advancedData
 											? this.getChildrenTypography(
 													typographyList,
@@ -228,7 +223,7 @@ class TypographySettings extends Component {
 
 							return '';
 						})}
-					</Fragment>
+					</>
 				) : null}
 			</div>
 		);
@@ -245,7 +240,6 @@ export default compose([
 			customTypography.ghostkit_typography = JSON.parse(
 				customTypography.ghostkit_typography
 			);
-			// eslint-disable-next-line no-empty
 		} catch (e) {}
 
 		return {

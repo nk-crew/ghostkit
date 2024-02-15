@@ -37,18 +37,14 @@ export default function BlockSave(props) {
 					className="ghostkit-changelog-version"
 					value={version}
 				/>
-			) : (
-				''
-			)}
+			) : null}
 			{!RichText.isEmpty(date) ? (
 				<RichText.Content
 					tagName="h2"
 					className="ghostkit-changelog-date"
 					value={date}
 				/>
-			) : (
-				''
-			)}
+			) : null}
 			<div {...innerBlockProps} />
 		</div>
 	);

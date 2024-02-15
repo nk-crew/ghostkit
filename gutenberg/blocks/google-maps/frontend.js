@@ -27,7 +27,6 @@ events.on(document, 'init.blocks.gkt', () => {
 
 			try {
 				styles = JSON.parse($this.getAttribute('data-styles'));
-				// eslint-disable-next-line no-empty
 			} catch (evt) {}
 
 			const $markers = $this.querySelectorAll(
@@ -55,7 +54,6 @@ events.on(document, 'init.blocks.gkt', () => {
 			} else if ($this.getAttribute('data-markers')) {
 				try {
 					markers = JSON.parse($this.getAttribute('data-markers'));
-					// eslint-disable-next-line no-empty
 				} catch (evt) {}
 			}
 

@@ -11,7 +11,7 @@ import {
 	ToolbarButton,
 	ToolbarGroup,
 } from '@wordpress/components';
-import { Fragment, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
 
@@ -95,9 +95,9 @@ export default function URLPicker(props) {
 	}
 
 	return (
-		<Fragment>
+		<>
 			{toolbarSettings ? (
-				<Fragment>
+				<>
 					<BlockControls group={blockControlsGroup}>
 						<ToolbarGroup>
 							<ToolbarButton
@@ -138,7 +138,7 @@ export default function URLPicker(props) {
 							{linkControl()}
 						</Popover>
 					) : null}
-				</Fragment>
+				</>
 			) : null}
 			{inspectorSettings ? (
 				<InspectorControls>
@@ -169,6 +169,6 @@ export default function URLPicker(props) {
 					</PanelBody>
 				</InspectorControls>
 			) : null}
-		</Fragment>
+		</>
 	);
 }

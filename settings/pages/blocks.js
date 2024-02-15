@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-
 import classnames from 'classnames/dedupe';
 import { merge } from 'lodash';
 import { debounce } from 'throttle-debounce';
@@ -90,7 +88,6 @@ export default class Blocks extends Component {
 		return result;
 	}
 
-	// eslint-disable-next-line class-methods-use-this
 	getBlocksCategories() {
 		const categories = getCategories();
 		const result = [];
@@ -106,7 +103,6 @@ export default class Blocks extends Component {
 		return result;
 	}
 
-	// eslint-disable-next-line class-methods-use-this
 	getBlocksFromCategory(category) {
 		const result = {};
 
@@ -204,7 +200,6 @@ export default class Blocks extends Component {
 					<h3>
 						<span
 							className="ghostkit-settings-blocks-item-icon"
-							// eslint-disable-next-line react/no-danger
 							dangerouslySetInnerHTML={{ __html: block.icon }}
 						/>
 						{block.title}
@@ -213,18 +208,14 @@ export default class Blocks extends Component {
 						<div className="ghostkit-settings-blocks-item-description">
 							{block.description}
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 					{block.ghostkit && block.ghostkit.previewUrl ? (
 						<div className="ghostkit-settings-blocks-item-preview-url">
 							<a href={block.ghostkit.previewUrl}>
 								{__('Preview', 'ghostkit')}
 							</a>
 						</div>
-					) : (
-						''
-					)}
+					) : null}
 					<Tooltip
 						text={
 							this.getDisabledBlock(block)
@@ -251,7 +242,6 @@ export default class Blocks extends Component {
 				this.getBlocksFromCategory(cat.slug)
 			);
 			let categoryButton = (
-				/* eslint-disable-next-line react/button-has-type */
 				<button
 					className={classnames(
 						'ghostkit-settings-blocks-categories-button',
@@ -268,9 +258,7 @@ export default class Blocks extends Component {
 					{cat.title}
 					{disabledCurrentCount ? (
 						<span className="ghostkit-settings-blocks-categories-button-indicator" />
-					) : (
-						''
-					)}
+					) : null}
 				</button>
 			);
 

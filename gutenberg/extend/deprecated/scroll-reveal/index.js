@@ -34,9 +34,7 @@ export default function migrate(props) {
 		if (effect) {
 			let direction = effect.split('-');
 			if (direction.length === 2) {
-				// eslint-disable-next-line prefer-destructuring
 				effect = direction[0];
-				// eslint-disable-next-line prefer-destructuring
 				direction = direction[1];
 			} else {
 				direction = '';

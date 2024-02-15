@@ -21,7 +21,7 @@ import {
 	ToolbarGroup,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { Fragment, useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -166,7 +166,7 @@ export default function BlockEdit(props) {
 	);
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody>
 					<DateTimePicker
@@ -310,9 +310,7 @@ export default function BlockEdit(props) {
 
 					<div {...innerBlockProps} />
 				</div>
-			) : (
-				''
-			)}
-		</Fragment>
+			) : null}
+		</>
 	);
 }

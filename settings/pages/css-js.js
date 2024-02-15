@@ -4,7 +4,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { Spinner } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import CodeEditor from '../../gutenberg/components/code-editor';
@@ -84,7 +84,7 @@ class CssJs extends Component {
 		return (
 			<div className="ghostkit-settings-content-wrapper ghostkit-settings-css-js">
 				{icons && Object.keys(icons).length ? (
-					<Fragment>
+					<>
 						<h4 style={{ marginTop: 0 }}>
 							{__('CSS', 'ghostkit')}
 						</h4>
@@ -105,7 +105,7 @@ class CssJs extends Component {
 						<h4>{__('JavaScript', 'ghostkit')}</h4>
 						{this.state.customJSHead !== false &&
 						this.state.customJSFoot !== false ? (
-							<Fragment>
+							<>
 								<p className="ghostkit-help-text">
 									{__(
 										'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.',
@@ -150,14 +150,12 @@ class CssJs extends Component {
 									minLines={5}
 									height="300px"
 								/>
-							</Fragment>
+							</>
 						) : (
 							<Spinner />
 						)}
-					</Fragment>
-				) : (
-					''
-				)}
+					</>
+				) : null}
 			</div>
 		);
 	}

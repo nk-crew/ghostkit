@@ -263,19 +263,13 @@ export default function BlockInspectorControls(props) {
 						>
 							{videoMp4 ? (
 								<source src={videoMp4} type="video/mp4" />
-							) : (
-								''
-							)}
+							) : null}
 							{videoOgv ? (
 								<source src={videoOgv} type="video/ogg" />
-							) : (
-								''
-							)}
+							) : null}
 							{videoWebm ? (
 								<source src={videoWebm} type="video/webm" />
-							) : (
-								''
-							)}
+							) : null}
 						</video>
 						<span>
 							{videoMp4?.substring(videoMp4.lastIndexOf('/') + 1)}

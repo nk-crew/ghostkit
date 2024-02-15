@@ -1,5 +1,3 @@
-/* eslint-disable react/no-danger */
-
 import { addCompleter } from 'ace-builds/src-noconflict/ext-language_tools';
 import classnames from 'classnames/dedupe';
 

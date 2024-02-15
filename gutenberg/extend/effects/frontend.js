@@ -176,11 +176,9 @@ events.on(document, 'init.blocks.gkt', () => {
 			// prepare mask.
 			let mask = '';
 			if (!isProgress) {
-				// eslint-disable-next-line no-template-curly-in-string
 				mask = $counter.textContent.replace(to, '${val}');
 			}
 			if (!/\${val}/.test(mask)) {
-				// eslint-disable-next-line no-template-curly-in-string
 				mask = '${val}';
 			}
 
@@ -200,7 +198,6 @@ events.on(document, 'init.blocks.gkt', () => {
 
 				$counter.style.width = '0%';
 			} else {
-				// eslint-disable-next-line no-template-curly-in-string
 				$counter.textContent = mask.replace('${val}', from);
 
 				// Calculate digits after the decimal point.
@@ -224,7 +221,6 @@ events.on(document, 'init.blocks.gkt', () => {
 								Math.ceil(position);
 						}
 					} else {
-						// eslint-disable-next-line no-template-curly-in-string
 						$counter.textContent = mask.replace(
 							'${val}',
 							round(position, digits)

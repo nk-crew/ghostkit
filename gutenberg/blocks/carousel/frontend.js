@@ -212,7 +212,6 @@ events.on(document, 'init.blocks.gkt', () => {
 			events.trigger($carousel, 'init.carousel.gkt', { options });
 
 			// init swiper
-			// eslint-disable-next-line no-new
 			new window.Swiper($carousel, options);
 
 			events.trigger($carousel, 'inited.carousel.gkt', { options });

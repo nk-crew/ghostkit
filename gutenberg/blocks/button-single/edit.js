@@ -11,7 +11,7 @@ import {
 	TabPanel,
 	ToggleControl,
 } from '@wordpress/components';
-import { Fragment, useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -205,9 +205,7 @@ export default function BlockEdit(props) {
 							checked={!!hideText}
 							onChange={(val) => setAttributes({ hideText: val })}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 					{icon && !hideText ? (
 						<SelectControl
 							label={__('Icon Position', 'ghostkit')}
@@ -226,29 +224,23 @@ export default function BlockEdit(props) {
 								setAttributes({ iconPosition: value })
 							}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</PanelBody>
 				<PanelBody
 					title={
-						<Fragment>
+						<>
 							{__('Colors', 'ghostkit')}
 							<ColorIndicator colorValue={color} />
 							<ColorIndicator colorValue={textColor} />
 							{borderWeight ? (
 								<ColorIndicator colorValue={borderColor} />
-							) : (
-								''
-							)}
+							) : null}
 							{focusOutlineWeight && focusOutlineColor ? (
 								<ColorIndicator
 									colorValue={focusOutlineColor}
 								/>
-							) : (
-								''
-							)}
-						</Fragment>
+							) : null}
+						</>
 					}
 					initialOpen={false}
 				>
@@ -285,7 +277,7 @@ export default function BlockEdit(props) {
 							}
 
 							return (
-								<Fragment>
+								<>
 									<ApplyFilters
 										name="ghostkit.editor.controls"
 										attribute={
@@ -369,10 +361,8 @@ export default function BlockEdit(props) {
 												alpha
 											/>
 										</ApplyFilters>
-									) : (
-										''
-									)}
-								</Fragment>
+									) : null}
+								</>
 							);
 						}}
 					</TabPanel>

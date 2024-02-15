@@ -2,7 +2,6 @@ import classnames from 'classnames/dedupe';
 
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, TextControl } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 
 import {
@@ -31,7 +30,7 @@ export default function BlockEdit(props) {
 	const blockProps = useBlockProps({ className });
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody>
 					<FieldDefaultSettings {...props} />
@@ -42,6 +41,6 @@ export default function BlockEdit(props) {
 				<TextControl type="url" {...getFieldAttributes(attributes)} />
 				<FieldDescription {...props} />
 			</div>
-		</Fragment>
+		</>
 	);
 }

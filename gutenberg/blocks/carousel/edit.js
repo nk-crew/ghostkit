@@ -151,9 +151,7 @@ export default function BlockEdit(props) {
 								allowCustomMax
 							/>
 						</>
-					) : (
-						false
-					)}
+					) : null}
 					<ToggleGroup
 						label={__('Effect', 'ghostkit')}
 						value={effect}
@@ -288,9 +286,7 @@ export default function BlockEdit(props) {
 								insideInspector
 							/>
 						</>
-					) : (
-						''
-					)}
+					) : null}
 				</PanelBody>
 				<PanelBody title={__('Bullets', 'ghostkit')}>
 					<ToggleControl
@@ -306,9 +302,7 @@ export default function BlockEdit(props) {
 								setAttributes({ dynamicBullets: val })
 							}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</PanelBody>
 			</InspectorControls>
 			<div {...blockProps}>

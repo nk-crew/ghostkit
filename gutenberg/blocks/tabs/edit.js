@@ -244,9 +244,7 @@ export default function BlockEdit(props) {
 								}}
 							/>
 						</Tooltip>
-					) : (
-						''
-					)}
+					) : null}
 				</div>
 				<div {...innerBlockProps} />
 			</div>

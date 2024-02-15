@@ -1,5 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-
 import classnames from 'classnames/dedupe';
 
 import {
@@ -103,9 +101,7 @@ export default function BlockEdit(props) {
 				width={attributes[`${type}Width`]}
 				height={attributes[`${type}Height`]}
 			/>
-		) : (
-			false
-		);
+		) : null;
 	};
 
 	const updateImageData = (
@@ -329,9 +325,7 @@ export default function BlockEdit(props) {
 								</Button>
 							)}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 
 					{beforeId ? (
 						<>
@@ -428,9 +422,7 @@ export default function BlockEdit(props) {
 								}
 							/>
 						</>
-					) : (
-						''
-					)}
+					) : null}
 				</PanelBody>
 				<PanelBody title={__('After Image Settings', 'ghostkit')}>
 					{!afterId ? (
@@ -446,9 +438,7 @@ export default function BlockEdit(props) {
 								</Button>
 							)}
 						/>
-					) : (
-						''
-					)}
+					) : null}
 
 					{afterId ? (
 						<>
@@ -545,9 +535,7 @@ export default function BlockEdit(props) {
 								}
 							/>
 						</>
-					) : (
-						''
-					)}
+					) : null}
 				</PanelBody>
 			</InspectorControls>
 

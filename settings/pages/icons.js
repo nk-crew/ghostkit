@@ -3,7 +3,7 @@ import { debounce } from 'throttle-debounce';
 
 import apiFetch from '@wordpress/api-fetch';
 import { ToggleControl } from '@wordpress/components';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 
 const { GHOSTKIT } = window;
 
@@ -67,7 +67,7 @@ class Icons extends Component {
 		return (
 			<div className="ghostkit-settings-content-wrapper ghostkit-settings-icons">
 				{icons && Object.keys(icons).length ? (
-					<Fragment>
+					<>
 						{Object.keys(icons).map((k) => (
 							<ToggleControl
 								key={k}
@@ -84,10 +84,8 @@ class Icons extends Component {
 								}}
 							/>
 						))}
-					</Fragment>
-				) : (
-					''
-				)}
+					</>
+				) : null}
 			</div>
 		);
 	}

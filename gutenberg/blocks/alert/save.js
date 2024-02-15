@@ -33,9 +33,7 @@ export default function BlockSave(props) {
 					tag="div"
 					className="ghostkit-alert-icon"
 				/>
-			) : (
-				''
-			)}
+			) : null}
 			<div {...innerBlockProps} />
 			{hideButton ? (
 				<div className="ghostkit-alert-hide-button">
@@ -53,9 +51,7 @@ export default function BlockSave(props) {
 						/>
 					</svg>
 				</div>
-			) : (
-				''
-			)}
+			) : null}
 		</div>
 	);
 }

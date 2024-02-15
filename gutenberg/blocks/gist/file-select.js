@@ -40,7 +40,6 @@ export default function GistFilesSelect(props) {
 			// data: data,
 			dataType: 'jsonp',
 			timeout: 20000,
-			// eslint-disable-next-line consistent-return
 			beforeSend() {
 				if (cache[checkUrl]) {
 					// loading the response from cache and preventing the ajax call

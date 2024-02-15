@@ -9,9 +9,7 @@ export default function parseSRConfig(data) {
 	let origin = effect.split('-');
 
 	if (origin.length === 2) {
-		// eslint-disable-next-line prefer-destructuring
 		effect = origin[0];
-		// eslint-disable-next-line prefer-destructuring
 		origin = origin[1];
 
 		switch (origin) {
@@ -54,7 +52,6 @@ export default function parseSRConfig(data) {
 		data.forEach((item) => {
 			const itemData = item.split(':');
 			if (itemData.length === 2) {
-				// eslint-disable-next-line prefer-destructuring
 				config[itemData[0]] = itemData[1];
 			}
 		});
