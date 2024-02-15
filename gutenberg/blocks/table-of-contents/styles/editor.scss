@@ -4,6 +4,10 @@
 @import "./variables";
 @import "./style";
 
+.ghostkit-toc {
+	min-height: 26px;
+}
+
 // loading spinner.
 .ghostkit-toc-spinner {
 	position: absolute;

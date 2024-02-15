@@ -17,7 +17,10 @@ export default function getAllHeadings(blocks, allowedHeaders) {
 			) {
 				headings.push({
 					level: block.attributes.level,
-					content: block.attributes.content,
+					content:
+						block.attributes?.content?.originalHTML ||
+						block.attributes?.content ||
+						'',
 					// in preview we don't need to create proper anchors
 					// anchor: block.attributes.anchor,
 					anchor: '',
