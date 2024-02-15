@@ -65,17 +65,20 @@ export default function BlockEdit(props) {
 
 	className = applyFilters('ghostkit.editor.className', className, props);
 
-	const blockProps = useBlockProps({
-		className,
-	});
+	const blockProps = useBlockProps();
 
-	const innerBlocksProps = useInnerBlocksProps(blockProps, {
-		allowedBlocks: [accordionItemBlockName],
-		template: [[accordionItemBlockName], [accordionItemBlockName]],
-	});
+	const innerBlocksProps = useInnerBlocksProps(
+		{
+			className,
+		},
+		{
+			allowedBlocks: [accordionItemBlockName],
+			template: [[accordionItemBlockName], [accordionItemBlockName]],
+		}
+	);
 
 	return (
-		<>
+		<div {...blockProps}>
 			<InspectorControls>
 				<PanelBody>
 					<ToggleControl
@@ -147,6 +150,6 @@ export default function BlockEdit(props) {
 					</Button>
 				</div>
 			) : null}
-		</>
+		</div>
 	);
 }
