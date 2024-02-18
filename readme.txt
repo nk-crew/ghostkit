@@ -6,7 +6,7 @@
 * Requires at least: 6.2
 * Tested up to: 6.4
 * Requires PHP: 7.2
-* Stable tag: 3.1.2
+* Stable tag: 3.2.0
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -88,6 +88,9 @@ Carousel for any type of content – images or other blocks.
 
 * [**Marquee Block**](https://www.ghostkit.io/docs/blocks/marquee/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Scroll text and blocks in a marquee effect.
+
+* [**Code Highlight Block**](https://www.ghostkit.io/docs/blocks/code/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+Display code snippets with syntax highlighting
 
 * [**Pricing Table Block**](https://www.ghostkit.io/docs/blocks/pricing-table/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 Sell your products or services and show all features.
@@ -189,6 +192,7 @@ See demo page with content formatting [https://www.ghostkit.io/docs/formats/](ht
 > In order to maintain the free version of the plugin on an ongoing basis, and to provide quick and effective support for free, we offer a Pro version of the plugin. The Pro version allows you to:
 
 * More Blocks
+  * Code Highlight block
   * Marquee block
   * Interactive Links block
   * Magnifying Image block
@@ -268,20 +272,86 @@ The plugin documentation provides a comprehensive source of information on block
 
 ## Changelog ##
 
-= 3.1.2 =
+= 3.2.0 - Feb 18, 2024 =
+
+> There are significant changes to the following blocks: `Google Maps`, `Tabs`, and `Accordion`.
+> Old blocks will work correctly, but after this update, it is highly recommended to do the following steps:
+> 1. Open page in editor where these blocks are used
+> 2. Make any change in content (add and remove paragraph)
+> 3. Click on the Update button to re-save the page.
+>
+> For Pro users:
+> It is required to **update the Ghost Kit Pro plugin first**.
+> The `Ghost Kit v3.2.0` is compatible with `Ghost Kit Pro v2.2.0` and newer.
+
+#### Free:
+
+* reworked Google Maps block:
+  * added support for custom markers and info window text
+  * moved map styles to Styles tab
+  * simplified Full Height map styles to use `--wp-admin--admin-bar--height` variable
+  * removed dependency on 3rd-party library - use Google Maps API directly
+* reworked Tabs block:
+  * improved WCAG compatibility
+  * added `aria-selected`, `aria-labelledby`, `aria-controls`, and `aria-orientation` attributes
+  * changed tab from `&lt;a>` tag to `&lt>button>`
+  * changed hidden tab content to `display: none`
+  * on screen readers use arrow keys to switch tabs
+  * tab content is focusable
+* reworked Accordion block:
+  * added h1 title tag support
+  * improved WCAG compatibility
+  * changed heading from `&lt;a>` tag to `&lt>button>`
+  * added `aria-selected`, `aria-labelledby`, `aria-controls`, and `aria-orientation` attributes
+  * fixed  click on Add Accordion Item button in editor
+* added support for text color in Badge format
+* added support for Columns blocks inside the Form block
+* improved InputDrag and InputGroup components - expand the input when value is large (for example, when you add the CSS variable in Padding or Margin extension)
+* improved Form block validation - check validity on blur only for forms that were submitted and are invalid
+* fixed rare problem when extensions resets after block transformation from deprecated version
+* fixed displaying hidden elements if user has enabled reduced motion
+* fixed displaying deprecated Templates feature in the editor Options dropdown
+* fixed responsive toggle in editor toolbar in the latest Gutenberg
+* fixed form reCaptcha keys saving method (sometimes the secret key was not saved properly)
+* fixed Changelog block uses deprecated default template
+* fixed Number Box block decimal numbers animation
+* fixed Table of Contents block selection when no headings available on the page
+* fixed Table of Contents block rendering heading content in the latest Gutenberg
+* fixed enqueue assets for iframe - use `enqueue_block_assets`
+* changed internal EventHandler to `ivent` library
+* removed support for deprecated Fonts API
+* dev version improvements:
+  * added unit and e2e tests
+  * changed build structure to official `wp-scripts`
+  * better assets enqueue version and dependencies
+* minor changes
+
+#### Pro:
+
+* Pro plugin v2.2.0
+* added Code Highlight block <https://www.ghostkit.io/docs/blocks/code/>
+* added support for alpha channel in Stroke format color
+* added support for `ivent` library used in the free plugin
+* fixed Magnifying Image block side view z-index
+* fixed wrong gap calculation in Marquee block
+* fixed enqueue assets for iframe - use `enqueue_block_assets`
+* removed Google Maps extension → added to the Free plugin
+* removed support for deprecated Fonts API
+
+= 3.1.2 - Nov 23, 2023 =
 
 * improved Styles component to use useCallback
 * fixed possibility to add custom classes when our `ghostkit-custom-...` class added
 * fixed missing `+` symbol in custom CSS
 * fixed blocks enqueue method in Ghost Kit settings pages
 
-= 3.1.1 =
+= 3.1.1 - Nov 16, 2023 =
 
 * fixed migration to new Ghost Kit attributes from deprecated blocks (mostly from Core blocks, which has deprecated attributes)
 * changed ProNote component in Reveal effect to collapsed version to not overwhelm effect settings panel
 * changed Spring transition defaults
 
-= 3.1.0 =
+= 3.1.0 - Nov 12, 2023 =
 
 Deprecated changes:
 
@@ -325,17 +395,17 @@ Changes:
 * fixed Tabs block active tab in editor
 * fixed usage of custom db prefix to get saved typography settings
 
-= 3.0.2 =
+= 3.0.2 - Sep 28, 2023 =
 
 * fixed form with recaptcha JS submit error
 * fixed Typography Select control dropdown position when placed inside Modal
 * fixed custom styles background processing error
 
-= 3.0.1 =
+= 3.0.1 - Sep 27, 2023 =
 
 * fixed rare error on some operating systems, which does not contain the GLOB_BRACE constant
 
-= 3.0.0 =
+= 3.0.0 - Sep 26, 2023 =
 
 There are a lot of changes in v3, before updating it on production, we recommend test it in staging site first. Look at some of the breaking changes:
 
@@ -399,7 +469,7 @@ Changes:
 * deprecated Highlight text format, use core Highlight format instead
 * a lot of minor changes
 
-= 2.25.0 =
+= 2.25.0 - Jan 4, 2023 =
 
 * added JS events `prepareCountersObserver` and `prepareVideoObserver`
 * improved Carousel displaying in editor (added slides per view and gap styles)
@@ -412,12 +482,12 @@ Changes:
 * disabled Color Palette Plugin from the Block Based themes (custom colors can be added in Appearance → Editor → Styles → Colors → Palette)
 * minor changes
 
-= 2.24.1 =
+= 2.24.1 - Sep 29, 2022 =
 
 * fixed custom Gap settings save number value instead of string
 * changed Tested up to in readme
 
-= 2.24.0 =
+= 2.24.0 - Sep 24, 2022 =
 
 * added Vertical Gap support to Grid and Buttons blocks
 * added horizontal align option for top icon/number in the Icon and Number boxes
@@ -439,12 +509,12 @@ Changes:
 * fixed rest call permission check
 * minor changes
 
-= 2.23.2 =
+= 2.23.2 - Jul 28, 2022 =
 
 * fixed Countdown block wrong date with UTC timezone settings
 * fixed Countdown block possible DatePicker error, when invalid date specified
 
-= 2.23.0 =
+= 2.23.0 - Jul 27, 2022 =
 
 * ! Important - breaking change - changed `Auto` Grid Column to flex Auto width (depends on the content width). To restore previous behavior use `Grow` column size
 * added Grow size for Grid Columns
@@ -455,13 +525,13 @@ Changes:
 * fixed Countdown block dependency of the user's time zone. Now used timezone setting from the WordPress site
 * removed `will-change` styles usage
 
-= 2.22.3 =
+= 2.22.3 - Feb 17, 2022 =
 
 * fixed Video block play action
 * removed blocks categories fallback used for WP < 5.5
 * minor changes
 
-= 2.22.2 =
+= 2.22.2 - Feb 14, 2022 =
 
 * improved method to enqueue block assets and custom styles in block themes (we no more need to parse content of the posts, we can make everything inside block render)
 * improved styles for nested panels in grid background settings
@@ -470,7 +540,7 @@ Changes:
 * fixed custom styles re-rendering in editor when interacting with editor elements (better performance)
 * fixed updating custom styles attributes on editor load
 
-= 2.22.0 =
+= 2.22.0 - Feb 7, 2022 =
 
 * !important - dropped IE support
 * added support for WordPress 5.9
@@ -484,7 +554,7 @@ Changes:
 * fixed Video block autoplay after loading when fullscreen already closed
 * a lot of minor changes
 
-= 2.21.0 =
+= 2.21.0 - Dec 1, 2021 =
 
 * !important - removed support for deprecated blocks older than Ghost Kit v2.12. Make sure you re-saved all pages with old blocks versions.
 * added possibility to remove image in Image Compare block
@@ -495,21 +565,21 @@ Changes:
 * fixed XML export problem when block styles use `--` characters
 * removed poster images from the Video block with "Icon Only" style selected
 
-= 2.20.3 =
+= 2.20.3 - Nov 9, 2021 =
 
 * fixed crashing block with Custom CSS
 
-= 2.20.2 =
+= 2.20.2 - Oct 25, 2021 =
 
 * added option "Pause autoplay on mouse over" to carousel block
 * fixed custom CSS compiler error
 * fixed Table of Contents block scroll to anchor JS error when using Chinese headings
 
-= 2.20.1 =
+= 2.20.1 - Oct 17, 2021 =
 
 * fixed icon wrong escaping in the Icon List style
 
-= 2.20.0 =
+= 2.20.0 - Oct 14, 2021 =
 
 * added escaping for SVG icons (fixes conflict with XML content import)
 * added support for WordPress's excerpt in some blocks
@@ -518,11 +588,11 @@ Changes:
 * fixed block assets loading when block used in new block widgets screen
 * fixed conflict with PublishPress Blocks plugin
 
-= 2.19.4 =
+= 2.19.4 - Sep 2, 2021 =
 
 * fixed errors in new Widgets editor
 
-= 2.19.3 =
+= 2.19.3 - Aug 31, 2021 =
 
 * added line breaks for form email texts
 * added support for WP 5.8
@@ -530,16 +600,16 @@ Changes:
 * hidden Slides per view and Gap carousel options when selected Fade effect
 * hidden Carousel slides before JS init to prevent content jumping
 
-= 2.19.2 =
+= 2.19.2 - May 6, 2021 =
 
 * fixed carousel block initial slides count in editor
 * fixed possible error with nested reusable blocks while parse page blocks
 
-= 2.19.1 =
+= 2.19.1 - Apr 3, 2021 =
 
 * fixed warning a non-numeric value encountered conflict with Give plugin
 
-= 2.19.0 =
+= 2.19.0 - Apr 1, 2021 =
 
 * added vendor prefixes to scss files (fixes unprefixed styles generated for custom breakpoints)
 * added dynamic styles for breakpoints generation in background (using CRON)

@@ -365,6 +365,9 @@
          "Default (<div>)": [
             ""
          ],
+         "<h1>": [
+            ""
+         ],
          "<h2>": [
             ""
          ],
@@ -543,12 +546,6 @@
             ""
          ],
          "1.0.0": [
-            ""
-         ],
-         "18 September 2019": [
-            ""
-         ],
-         "Changed": [
             ""
          ],
          "Year": [
@@ -898,6 +895,9 @@
             ""
          ],
          "Style": [
+            ""
+         ],
+         "Styles": [
             ""
          ],
          "Minimal Height": [
@@ -2166,9 +2166,6 @@
          "Replay Animation": [
             ""
          ],
-         "Border Radius": [
-            ""
-         ],
          "TL": [
             ""
          ],
@@ -2181,6 +2178,9 @@
          "BL": [
             ""
          ],
+         "Border Radius": [
+            ""
+         ],
          "Shadow": [
             ""
          ],
@@ -2188,6 +2188,9 @@
             ""
          ],
          "Spread": [
+            ""
+         ],
+         "left": [
             ""
          ],
          "Distance": [
@@ -2383,9 +2386,6 @@
             ""
          ],
          "Install Plugin": [
-            ""
-         ],
-         "You are using FSE theme. Typography settings have been moved to block settings": [
             ""
          ],
          "Hide Advanced": [
