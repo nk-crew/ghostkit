@@ -51,7 +51,6 @@ export default function BlockEdit(props) {
 	});
 
 	className = classnames('ghostkit-toc', className);
-
 	className = applyFilters('ghostkit.editor.className', className, props);
 
 	// Save old toc HTML.
@@ -147,7 +146,14 @@ export default function BlockEdit(props) {
 						/>
 					) : null}
 					{!tocHTML ? (
-						<div className="ghostkit-toc-spinner">
+						<div
+							className={classnames(
+								'ghostkit-toc-spinner',
+								!tocHTML &&
+									!oldTocHTML.current &&
+									'ghostkit-toc-spinner-relative'
+							)}
+						>
 							<Spinner />
 						</div>
 					) : null}

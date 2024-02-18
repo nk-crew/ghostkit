@@ -20,8 +20,12 @@
 		content: "";
 	}
 
-	> span {
+	> span,
+	> svg {
 		float: left;
 		margin: 0;
 	}
+}
+.ghostkit-toc-spinner-relative {
+	position: relative;
 }
