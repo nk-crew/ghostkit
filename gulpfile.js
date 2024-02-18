@@ -29,15 +29,15 @@ const zipPluginName = 'ghostkit';
 const zipDist = 'dist-zip';
 const zipFiles = [
 	'assets/**/*',
+	'build/**/*',
 	'classes/**/*',
 	'composer-libraries/**/*',
 	'gutenberg/**/*',
-	'build/**/*',
 	'languages/**/*',
+	'settings/**/*',
 	'index.php',
 	'class-ghost-kit.php',
 	'LICENSE.txt',
-	'README.md',
 	'readme.txt',
 	'wpml-config.xml',
 ];
