@@ -279,10 +279,6 @@ The plugin documentation provides a comprehensive source of information on block
 > 1. Open page in editor where these blocks are used
 > 2. Make any change in content (add and remove paragraph)
 > 3. Click on the Update button to re-save the page.
->
-> For Pro users:
-> It is required to **update the Ghost Kit Pro plugin first**.
-> The `Ghost Kit v3.2.0` is compatible with `Ghost Kit Pro v2.2.0` and newer.
 
 #### Free:
 

@@ -397,5 +397,14 @@ class GhostKit_Typography {
 		);
 		return $custom_typography;
 	}
+
+	/**
+	 * Fallback for removed method, which was used in the Pro version priori to v2.2.0.
+	 *
+	 * @return bool
+	 */
+	public static function typography_exist() {
+		return false;
+	}
 }
 new GhostKit_Typography();
