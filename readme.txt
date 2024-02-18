@@ -276,8 +276,9 @@ The plugin documentation provides a comprehensive source of information on block
 
 > There are significant changes to the following blocks: `Google Maps`, `Tabs`, and `Accordion`.
 > Old blocks will work correctly, but after this update, it is highly recommended to do the following steps:
+>
 > 1. Open page in editor where these blocks are used
-> 2. Make any change in content (add and remove paragraph)
+> 2. Make any change in content (for ex. add and remove paragraph)
 > 3. Click on the Update button to re-save the page.
 
 #### Free:
@@ -349,7 +350,7 @@ The plugin documentation provides a comprehensive source of information on block
 
 = 3.1.0 - Nov 12, 2023 =
 
-Deprecated changes:
+> Deprecated changes:
 
 * completely reworked block extensions. If you used extensions for your custom blocks, using custom JS, you will need to change it, as an API changed.
 * deprecated Templates extension and will be hidden if there are no custom templates available. It is recommended to use Patterns feature instead
@@ -403,7 +404,7 @@ Changes:
 
 = 3.0.0 - Sep 26, 2023 =
 
-There are a lot of changes in v3, before updating it on production, we recommend test it in staging site first. Look at some of the breaking changes:
+> There are a lot of changes in v3, before updating it on production, we recommend test it in staging site first. Look at some of the breaking changes:
 
 * removed jQuery usage completely:
   * added simple fallbacks where possible
