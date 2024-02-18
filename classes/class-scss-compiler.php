@@ -68,7 +68,7 @@ class GhostKit_Scss_Compiler {
 	 * @return void
 	 */
 	private function scss() {
-		require_once ghostkit()->plugin_path . 'vendor/autoload.php';
+		require_once ghostkit()->plugin_path . 'composer-libraries/vendor/autoload.php';
 
 		$scss = new ScssPhp\ScssPhp\Compiler();
 		$scss->setOutputStyle( ScssPhp\ScssPhp\OutputStyle::COMPRESSED );
