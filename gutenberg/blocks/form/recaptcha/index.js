@@ -61,7 +61,7 @@ export default function BlockSettings() {
 				)}
 			</p>
 			<p>
-				<ExternalLink href="https://g.co/recaptcha/v3">
+				<ExternalLink href="https://www.google.com/recaptcha/about/">
 					{__('Generate Keys', 'ghostkit')}
 				</ExternalLink>
 			</p>
