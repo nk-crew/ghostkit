@@ -239,7 +239,7 @@ class GhostKit_Typography {
 						'selectors' => 'body',
 					),
 					array(
-						'selectors' => '#editor .editor-styles-wrapper, .editor-styles-wrapper p',
+						'selectors' => '.editor-styles-wrapper, .editor-styles-wrapper p',
 						'editor'    => true,
 					),
 				),
@@ -259,7 +259,7 @@ class GhostKit_Typography {
 						'selectors' => '.wp-block-button, .ghostkit-button, .entry .entry-content .wp-block-button .wp-block-button__link',
 					),
 					array(
-						'selectors' => '#editor .editor-styles-wrapper .wp-block-button .wp-block-button__link, #editor .editor-styles-wrapper .ghostkit-button',
+						'selectors' => '.editor-styles-wrapper .wp-block-button .wp-block-button__link, .editor-styles-wrapper .ghostkit-button',
 						'editor'    => true,
 					),
 				),
@@ -275,10 +275,10 @@ class GhostKit_Typography {
 				),
 				'output'   => array(
 					array(
-						'selectors' => 'h1, h1.entry-title, h2, h3, h4, h5, h6',
+						'selectors' => 'h1, h1.entry-title, h2, h3, h4, h5, h6, .wp-block-heading, .wp-block-post-title, h2.wp-block-heading, h3.wp-block-heading, h4.wp-block-heading, h5.wp-block-heading, h6.wp-block-heading, .wp-block-heading',
 					),
 					array(
-						'selectors' => '#editor .editor-styles-wrapper h1, #editor .editor-styles-wrapper h2, #editor .editor-styles-wrapper h3, #editor .editor-styles-wrapper h4, #editor .editor-styles-wrapper h5, #editor .editor-styles-wrapper h6, #editor .editor-styles-wrapper .editor-post-title__block .editor-post-title__input',
+						'selectors' => '.editor-styles-wrapper h1, .editor-styles-wrapper h2, .editor-styles-wrapper h3, .editor-styles-wrapper h4, .editor-styles-wrapper h5, .editor-styles-wrapper h6, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input',
 						'editor'    => true,
 					),
 				),
@@ -293,10 +293,10 @@ class GhostKit_Typography {
 				'child-of' => 'headings',
 				'output'   => array(
 					array(
-						'selectors' => 'h1, h1.entry-title',
+						'selectors' => 'h1, h1.entry-title, h1.wp-block-heading, h1.wp-block-post-title',
 					),
 					array(
-						'selectors' => '#editor .editor-styles-wrapper h1, #editor .editor-styles-wrapper .editor-post-title__block .editor-post-title__input',
+						'selectors' => '.editor-styles-wrapper h1, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input',
 						'editor'    => true,
 					),
 				),
@@ -311,10 +311,10 @@ class GhostKit_Typography {
 				'child-of' => 'headings',
 				'output'   => array(
 					array(
-						'selectors' => 'h2',
+						'selectors' => 'h2, h2.wp-block-heading',
 					),
 					array(
-						'selectors' => '#editor .editor-styles-wrapper h2',
+						'selectors' => '.editor-styles-wrapper h2',
 						'editor'    => true,
 					),
 				),
@@ -329,10 +329,10 @@ class GhostKit_Typography {
 				'child-of' => 'headings',
 				'output'   => array(
 					array(
-						'selectors' => 'h3',
+						'selectors' => 'h3, h3.wp-block-heading',
 					),
 					array(
-						'selectors' => '#editor .editor-styles-wrapper h3',
+						'selectors' => '.editor-styles-wrapper h3',
 						'editor'    => true,
 					),
 				),
@@ -347,10 +347,10 @@ class GhostKit_Typography {
 				'child-of' => 'headings',
 				'output'   => array(
 					array(
-						'selectors' => 'h4',
+						'selectors' => 'h4, h4.wp-block-heading',
 					),
 					array(
-						'selectors' => '#editor .editor-styles-wrapper h4',
+						'selectors' => '.editor-styles-wrapper h4',
 						'editor'    => true,
 					),
 				),
@@ -365,10 +365,10 @@ class GhostKit_Typography {
 				'child-of' => 'headings',
 				'output'   => array(
 					array(
-						'selectors' => 'h5',
+						'selectors' => 'h5, h5.wp-block-heading',
 					),
 					array(
-						'selectors' => '#editor .editor-styles-wrapper h5',
+						'selectors' => '.editor-styles-wrapper h5',
 						'editor'    => true,
 					),
 				),
@@ -383,10 +383,10 @@ class GhostKit_Typography {
 				'child-of' => 'headings',
 				'output'   => array(
 					array(
-						'selectors' => 'h6',
+						'selectors' => 'h6, h6.wp-block-heading',
 					),
 					array(
-						'selectors' => '#editor .editor-styles-wrapper h6',
+						'selectors' => '.editor-styles-wrapper h6',
 						'editor'    => true,
 					),
 				),
