@@ -14,7 +14,6 @@ class GhostKit_Typography {
 	 */
 	public function __construct() {
 		add_filter( 'gkt_custom_typography', array( $this, 'add_default_typography' ), 9 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_typography_assets' ), 100 );
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_typography_assets' ), 100 );
 	}
 
@@ -22,7 +21,6 @@ class GhostKit_Typography {
 	 * Enqueue Typography assets to editor and front end.
 	 */
 	public function enqueue_typography_assets() {
-
 		$typography_css = $this->generate_typography_styles();
 		$css            = ' ';
 

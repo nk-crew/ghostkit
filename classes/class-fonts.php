@@ -26,8 +26,6 @@ class GhostKit_Fonts {
 	 * @return void
 	 */
 	public function enqueue_fonts() {
-		// enqueue fonts.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all_fonts_assets' ), 12 );
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_all_fonts_assets' ), 12 );
 	}
 
