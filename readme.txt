@@ -6,7 +6,7 @@
 * Requires at least: 6.2
 * Tested up to: 6.4
 * Requires PHP: 7.2
-* Stable tag: 3.2.0
+* Stable tag: 3.2.1
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -272,6 +272,10 @@ The plugin documentation provides a comprehensive source of information on block
 
 ## Changelog ##
 
+= 3.2.1 - Feb 19, 2024 =
+
+* fixed typography and fonts loading on frontend
+
 = 3.2.0 - Feb 18, 2024 =
 
 > There are significant changes to the following blocks: `Google Maps`, `Tabs`, and `Accordion`.
@@ -280,6 +284,18 @@ The plugin documentation provides a comprehensive source of information on block
 > 1. Open page in editor where these blocks are used
 > 2. Make any change in content (for ex. add and remove paragraph)
 > 3. Click on the Update button to re-save the page.
+
+#### Pro:
+
+* Pro plugin v2.2.0
+* added Code Highlight block <https://www.ghostkit.io/docs/blocks/code/>
+* added support for alpha channel in Stroke format color
+* added support for `ivent` library used in the free plugin
+* fixed Magnifying Image block side view z-index
+* fixed wrong gap calculation in Marquee block
+* fixed enqueue assets for iframe - use `enqueue_block_assets`
+* removed Google Maps extension → added to the Free plugin
+* removed support for deprecated Fonts API
 
 #### Free:
 
@@ -322,18 +338,6 @@ The plugin documentation provides a comprehensive source of information on block
   * changed build structure to official `wp-scripts`
   * better assets enqueue version and dependencies
 * minor changes
-
-#### Pro:
-
-* Pro plugin v2.2.0
-* added Code Highlight block <https://www.ghostkit.io/docs/blocks/code/>
-* added support for alpha channel in Stroke format color
-* added support for `ivent` library used in the free plugin
-* fixed Magnifying Image block side view z-index
-* fixed wrong gap calculation in Marquee block
-* fixed enqueue assets for iframe - use `enqueue_block_assets`
-* removed Google Maps extension → added to the Free plugin
-* removed support for deprecated Fonts API
 
 = 3.1.2 - Nov 23, 2023 =
 
