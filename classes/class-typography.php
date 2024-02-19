@@ -22,9 +22,6 @@ class GhostKit_Typography {
 	 * Enqueue Typography assets to editor and front end.
 	 */
 	public function enqueue_typography_assets() {
-		if ( ! is_admin() ) {
-			return;
-		}
 
 		$typography_css = $this->generate_typography_styles();
 		$css            = ' ';

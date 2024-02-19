@@ -35,10 +35,6 @@ class GhostKit_Fonts {
 	 * Enqueue frontend & editor assets
 	 */
 	public function enqueue_all_fonts_assets() {
-		if ( ! is_admin() ) {
-			return;
-		}
-
 		$fonts = $this->get_font_loader_list();
 
 		if ( ( is_admin() || ! empty( $fonts ) ) && isset( $fonts['google-fonts'] ) && ! empty( $fonts['google-fonts'] ) ) {
