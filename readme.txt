@@ -6,7 +6,7 @@
 * Requires at least: 6.2
 * Tested up to: 6.4
 * Requires PHP: 7.2
-* Stable tag: 3.2.1
+* Stable tag: 3.2.2
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -271,6 +271,20 @@ The plugin documentation provides a comprehensive source of information on block
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 3.2.2 - Feb 21, 2024 =
+
+#### Pro:
+
+* Pro plugin v2.2.2
+* added transformation from Code and Preformatted blocks to Code Highlight
+* fixed Code block Vesper theme default color
+* fixed Code block None language rendering
+* fixed fonts rendering on frontend
+
+#### Free:
+
+* fixed Pro features Note returns an error and leads the block to crash in the editor
 
 = 3.2.1 - Feb 19, 2024 =
 
