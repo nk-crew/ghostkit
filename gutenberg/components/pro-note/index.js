@@ -5,10 +5,6 @@ import { useState } from '@wordpress/element';
 
 import getIcon from '../../utils/get-icon';
 
-/**
- * Component
- * @param props
- */
 export default function ProNote(props) {
 	const { title, children } = props;
 
@@ -37,3 +33,17 @@ export default function ProNote(props) {
 		</div>
 	);
 }
+
+/**
+ * Button for ProNote
+ * @param props
+ */
+ProNote.Button = function ProNoteButton(props) {
+	const { children } = props;
+
+	return (
+		<a className="ghostkit-pro-component-note-button" {...props}>
+			{children}
+		</a>
+	);
+};
