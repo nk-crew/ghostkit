@@ -45,7 +45,7 @@ test.describe('typography', () => {
 			'admin.php?page=ghostkit&sub_page=typography'
 		);
 
-		const font = 'Abel';
+		const font = 'Inter';
 
 		const wrapper = await setFontSetting('Body', font, page);
 
@@ -110,7 +110,7 @@ test.describe('typography', () => {
 		const verAttribute = googleFontsApiLink.substring(verIndex + 5);
 
 		const googleFontsLinkPredefined =
-			'https://fonts.googleapis.com/css?family=Abel%3A400%7CRaleway%3A400%2C400i%2C700%2C700i%7CJost%3A400%2C400i%2C700%2C700i&display=swap&ver=' +
+			'https://fonts.googleapis.com/css?family=Inter%3A400%2C700%7CRaleway%3A400%2C400i%2C700%2C700i%7CJost%3A400%2C400i%2C700%2C700i&display=swap&ver=' +
 			verAttribute;
 
 		// Added blocks in the page editor.
@@ -156,7 +156,7 @@ test.describe('typography', () => {
 		// Checking whether the configured font matches the paragraph block.
 		await expect(paragraphBlock).toHaveCSS(
 			'font-family',
-			'Abel, sans-serif'
+			'Inter, sans-serif'
 		);
 
 		// Checking whether the configured font matches the button block.
@@ -201,7 +201,7 @@ test.describe('typography', () => {
 		await expect(title).toBeVisible();
 
 		// Checking whether the configured font matches the blocks.
-		await expect(paragraph).toHaveCSS('font-family', 'Abel, sans-serif');
+		await expect(paragraph).toHaveCSS('font-family', 'Inter, sans-serif');
 
 		await expect(button).toHaveCSS('font-family', 'Raleway, sans-serif');
 
