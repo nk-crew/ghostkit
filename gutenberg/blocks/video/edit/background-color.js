@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
 import { hasClass } from '../../../utils/classes-replacer';
 
 export default function BackgroundColor(props) {
-	const { attributes, setAttributes, className, clientId } = props;
+	const { attributes, setAttributes, clientId } = props;
 	const {
 		type,
 		clickAction,
@@ -21,6 +21,8 @@ export default function BackgroundColor(props) {
 
 		fullscreenBackgroundColor,
 		fullscreenBackgroundGradient,
+
+		className,
 	} = attributes;
 
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();

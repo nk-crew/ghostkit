@@ -34,7 +34,7 @@ import {
 const DEFAULT_SIZE_SLUG = 'full';
 
 export default function BlockInspectorControls(props) {
-	const { attributes, setAttributes, className, isSelected } = props;
+	const { attributes, setAttributes, isSelected } = props;
 
 	const {
 		type,
@@ -62,6 +62,8 @@ export default function BlockInspectorControls(props) {
 		clickAction,
 		fullscreenBackgroundColor,
 		fullscreenActionCloseIcon,
+
+		className,
 	} = attributes;
 
 	const { editorSettings, posterImage } = useSelect((select) => {

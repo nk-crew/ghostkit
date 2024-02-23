@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import { useBlockProps } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
@@ -48,8 +46,6 @@ function getVideoPoster(url, cb) {
 export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId } = props;
 
-	let { className = '' } = props;
-
 	const {
 		type,
 		video,
@@ -65,6 +61,8 @@ export default function BlockEdit(props) {
 		posterHeight,
 
 		clickAction,
+
+		className,
 	} = attributes;
 
 	// Mount and update.
@@ -112,11 +110,12 @@ export default function BlockEdit(props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [className]);
 
-	className = classnames('ghostkit-video', className);
-	className = applyFilters('ghostkit.editor.className', className, props);
-
 	const blockProps = useBlockProps({
-		className,
+		className: applyFilters(
+			'ghostkit.editor.className',
+			'ghostkit-video',
+			props
+		),
 		'data-video-aspect-ratio': videoAspectRatio,
 	});
 
@@ -125,13 +124,11 @@ export default function BlockEdit(props) {
 			<BackgroundColor
 				attributes={attributes}
 				setAttributes={setAttributes}
-				className={className}
 				clientId={clientId}
 			/>
 			<BlockInspectorControls
 				attributes={attributes}
 				setAttributes={setAttributes}
-				className={className}
 				isSelected={isSelected}
 			/>
 
