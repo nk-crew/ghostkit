@@ -27,15 +27,8 @@ test.describe('typography', () => {
 
 		await fontInput.press('Enter');
 
-		await new Promise((resolve) => {
-			setTimeout(
-				() =>
-					resolve(
-						'Just wait 1 second for the selected font to be saved in the database after selection'
-					),
-				1000
-			);
-		});
+		// Just wait 1 second for the selected font to be saved in the database after selection.
+		await page.waitForTimeout(1000);
 
 		return wrapper;
 	}
