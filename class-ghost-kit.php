@@ -127,7 +127,6 @@ class GhostKit {
 		require_once $this->plugin_path . 'classes/3rd/class-page-builder-framework.php';
 		require_once $this->plugin_path . 'classes/3rd/class-blocksy.php';
 		require_once $this->plugin_path . 'classes/3rd/class-rank-math.php';
-		require_once $this->plugin_path . 'classes/google-fonts/class-fonts-google-provider.php';
 
 		// Migration.
 		require_once $this->plugin_path . 'classes/class-migration.php';
