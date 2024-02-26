@@ -70,7 +70,7 @@ test.describe('typography', () => {
 			'admin.php?page=ghostkit&sub_page=typography'
 		);
 
-		const font = 'Jost';
+		const font = 'Source Serif 4';
 
 		const wrapper = await setFontSetting('Headings', font, page);
 
@@ -103,7 +103,7 @@ test.describe('typography', () => {
 		const verAttribute = googleFontsApiLink.substring(verIndex + 5);
 
 		const googleFontsLinkPredefined =
-			'https://fonts.googleapis.com/css?family=Inter%3A400%2C700%7CRaleway%3A400%2C400i%2C700%2C700i%7CJost%3A400%2C400i%2C700%2C700i&display=swap&ver=' +
+			'https://fonts.googleapis.com/css?family=Inter%3A400%2C700%7CRaleway%3A400%2C400i%2C700%2C700i%7CSource+Serif+4%3A400%2C400i%2C700%2C700i&display=swap&ver=' +
 			verAttribute;
 
 		// Added blocks in the page editor.
@@ -159,7 +159,10 @@ test.describe('typography', () => {
 		);
 
 		// Checking whether the configured font matches the title block.
-		await expect(titleBlock).toHaveCSS('font-family', 'Jost, sans-serif');
+		await expect(titleBlock).toHaveCSS(
+			'font-family',
+			'"Source Serif 4", sans-serif'
+		);
 
 		// Publish Post.
 		await editor.publishPost();
@@ -198,6 +201,11 @@ test.describe('typography', () => {
 
 		await expect(button).toHaveCSS('font-family', 'Raleway, sans-serif');
 
-		await expect(title).toHaveCSS('font-family', 'Jost, sans-serif');
+		// We have to check font with the "serif" in name and "4",
+		// because it may not load as expected if we forget to add quotes in font-family.
+		await expect(title).toHaveCSS(
+			'font-family',
+			'"Source Serif 4", sans-serif'
+		);
 	});
 });
