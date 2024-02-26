@@ -6,7 +6,7 @@
 * Requires at least: 6.2
 * Tested up to: 6.4
 * Requires PHP: 7.2
-* Stable tag: 3.2.2
+* Stable tag: 3.2.3
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -271,6 +271,12 @@ The plugin documentation provides a comprehensive source of information on block
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 3.2.3 - Feb 26, 2024 =
+
+* fixed loading some Google Fonts with specific names. For example, font "Source Serif 4" was not loaded properly
+* fixed Accordion and Tabs buttons default text align
+* fixed Video block with "icon only" style displaying poster image in editor
 
 = 3.2.2 - Feb 21, 2024 =
 

@@ -2,21 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ghost Kit 3.2.2\n"
+"Project-Id-Version: Ghost Kit 3.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nk-o/ghostkit/issues\n"
 "Last-Translator: nK\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-21T08:19:18+00:00\n"
+"POT-Creation-Date: 2024-02-26T13:09:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
 
 #. Plugin Name of the plugin
 #: class-ghost-kit.php
-#: class-ghost-kit.php:205
+#: class-ghost-kit.php:204
 #: settings/index.php:132
 #: settings/index.php:133
 #: gutenberg/extend/block-actions-copy-paste/index.js:73
@@ -41,7 +41,7 @@ msgstr ""
 msgid "https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline"
 msgstr ""
 
-#: class-ghost-kit.php:418
+#: class-ghost-kit.php:417
 #: settings/index.php:198
 msgid "Go Pro"
 msgstr ""
@@ -376,39 +376,39 @@ msgstr ""
 msgid "Read About Patterns"
 msgstr ""
 
-#: classes/class-typography.php:226
+#: classes/class-typography.php:229
 msgid "Body"
 msgstr ""
 
-#: classes/class-typography.php:246
+#: classes/class-typography.php:249
 msgid "Buttons"
 msgstr ""
 
-#: classes/class-typography.php:266
+#: classes/class-typography.php:269
 msgid "Headings"
 msgstr ""
 
-#: classes/class-typography.php:285
+#: classes/class-typography.php:288
 msgid "H1"
 msgstr ""
 
-#: classes/class-typography.php:303
+#: classes/class-typography.php:306
 msgid "H2"
 msgstr ""
 
-#: classes/class-typography.php:321
+#: classes/class-typography.php:324
 msgid "H3"
 msgstr ""
 
-#: classes/class-typography.php:339
+#: classes/class-typography.php:342
 msgid "H4"
 msgstr ""
 
-#: classes/class-typography.php:357
+#: classes/class-typography.php:360
 msgid "H5"
 msgstr ""
 
-#: classes/class-typography.php:375
+#: classes/class-typography.php:378
 msgid "H6"
 msgstr ""
 
@@ -815,7 +815,7 @@ msgid "Align"
 msgstr ""
 
 #: gutenberg/blocks/carousel/edit.js:122
-#: gutenberg/blocks/video/edit/inspector-controls.js:296
+#: gutenberg/blocks/video/edit/inspector-controls.js:298
 msgid "Settings"
 msgstr ""
 
@@ -867,7 +867,7 @@ msgstr ""
 
 #: gutenberg/blocks/carousel/edit.js:232
 #: gutenberg/blocks/lottie/edit.js:115
-#: gutenberg/blocks/video/edit/inspector-controls.js:442
+#: gutenberg/blocks/video/edit/inspector-controls.js:444
 #: gutenberg/extend/effects/pro-effects/index.js:32
 msgid "Loop"
 msgstr ""
@@ -1367,7 +1367,7 @@ msgstr ""
 #: gutenberg/blocks/image-compare/edit.js:412
 #: gutenberg/blocks/image-compare/edit.js:525
 #: gutenberg/blocks/testimonial/edit.js:246
-#: gutenberg/blocks/video/edit/inspector-controls.js:510
+#: gutenberg/blocks/video/edit/inspector-controls.js:512
 msgid "Describe the purpose of the image"
 msgstr ""
 
@@ -1375,7 +1375,7 @@ msgstr ""
 #: gutenberg/blocks/image-compare/edit.js:417
 #: gutenberg/blocks/image-compare/edit.js:530
 #: gutenberg/blocks/testimonial/edit.js:251
-#: gutenberg/blocks/video/edit/inspector-controls.js:515
+#: gutenberg/blocks/video/edit/inspector-controls.js:517
 msgid "Leave empty if the image is purely decorative."
 msgstr ""
 
@@ -1867,14 +1867,14 @@ msgstr ""
 #: gutenberg/blocks/image-compare/edit.js:324
 #: gutenberg/blocks/image-compare/edit.js:437
 #: gutenberg/blocks/testimonial/edit.js:162
-#: gutenberg/blocks/video/edit/inspector-controls.js:463
+#: gutenberg/blocks/video/edit/inspector-controls.js:465
 msgid "Select Image"
 msgstr ""
 
 #: gutenberg/blocks/image-compare/edit.js:340
 #: gutenberg/blocks/image-compare/edit.js:453
 #: gutenberg/blocks/testimonial/edit.js:178
-#: gutenberg/blocks/video/edit/inspector-controls.js:479
+#: gutenberg/blocks/video/edit/inspector-controls.js:481
 msgid "Click the image to edit or update"
 msgstr ""
 
@@ -1887,7 +1887,7 @@ msgstr ""
 #: gutenberg/blocks/image-compare/edit.js:382
 #: gutenberg/blocks/image-compare/edit.js:495
 #: gutenberg/blocks/testimonial/edit.js:220
-#: gutenberg/blocks/video/edit/inspector-controls.js:524
+#: gutenberg/blocks/video/edit/inspector-controls.js:526
 #: gutenberg/components/media-size-selector/index.js:110
 msgid "Resolution"
 msgstr ""
@@ -1895,7 +1895,7 @@ msgstr ""
 #: gutenberg/blocks/image-compare/edit.js:383
 #: gutenberg/blocks/image-compare/edit.js:496
 #: gutenberg/blocks/testimonial/edit.js:221
-#: gutenberg/blocks/video/edit/inspector-controls.js:525
+#: gutenberg/blocks/video/edit/inspector-controls.js:527
 #: gutenberg/components/media-size-selector/index.js:111
 msgid "Select the size of the source image."
 msgstr ""
@@ -2052,8 +2052,8 @@ msgid "Markdown"
 msgstr ""
 
 #: gutenberg/blocks/markdown/edit.js:85
-#: gutenberg/blocks/video/edit/inspector-controls.js:253
-#: gutenberg/blocks/video/edit/inspector-controls.js:254
+#: gutenberg/blocks/video/edit/inspector-controls.js:255
+#: gutenberg/blocks/video/edit/inspector-controls.js:256
 #: gutenberg/components/transition-easing-controls/index.js:300
 #: gutenberg/components/transition-spring-controls/index.js:240
 #: settings/pages/blocks.js:215
@@ -2432,99 +2432,99 @@ msgstr ""
 msgid "A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector."
 msgstr ""
 
-#: gutenberg/blocks/video/edit/background-color.js:47
+#: gutenberg/blocks/video/edit/background-color.js:49
 msgid "Video Background"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/background-color.js:74
+#: gutenberg/blocks/video/edit/background-color.js:76
 msgid "Video Fullscreen Background"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/background-color.js:108
-#: gutenberg/blocks/video/edit/inspector-controls.js:396
+#: gutenberg/blocks/video/edit/background-color.js:110
+#: gutenberg/blocks/video/edit/inspector-controls.js:398
 msgid "Fullscreen Background"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:159
+#: gutenberg/blocks/video/edit/inspector-controls.js:161
 msgid "YouTube / Vimeo"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:163
+#: gutenberg/blocks/video/edit/inspector-controls.js:165
 msgid "Self Hosted"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:172
+#: gutenberg/blocks/video/edit/inspector-controls.js:174
 msgid "Video URL"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:182
-#: gutenberg/blocks/video/edit/inspector-controls.js:183
+#: gutenberg/blocks/video/edit/inspector-controls.js:184
+#: gutenberg/blocks/video/edit/inspector-controls.js:185
 msgid "Select Video"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:201
+#: gutenberg/blocks/video/edit/inspector-controls.js:203
 msgid "MP4"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:221
+#: gutenberg/blocks/video/edit/inspector-controls.js:223
 msgid "OGV"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:241
+#: gutenberg/blocks/video/edit/inspector-controls.js:243
 msgid "WEBM"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:311
+#: gutenberg/blocks/video/edit/inspector-controls.js:313
 msgid "Volume"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:320
+#: gutenberg/blocks/video/edit/inspector-controls.js:322
 msgid "Play Icon"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:326
+#: gutenberg/blocks/video/edit/inspector-controls.js:328
 msgid "Loading Icon"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:333
-#: gutenberg/blocks/video/edit/inspector-controls.js:334
+#: gutenberg/blocks/video/edit/inspector-controls.js:335
+#: gutenberg/blocks/video/edit/inspector-controls.js:336
 msgid "Icon Align"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:371
+#: gutenberg/blocks/video/edit/inspector-controls.js:373
 msgid "Click Action"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:376
+#: gutenberg/blocks/video/edit/inspector-controls.js:378
 #: gutenberg/blocks/video/index.js:40
 msgid "Plain"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:381
+#: gutenberg/blocks/video/edit/inspector-controls.js:383
 msgid "Fullscreen"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:407
+#: gutenberg/blocks/video/edit/inspector-controls.js:409
 msgid "Fullscreen Close Icon"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:420
+#: gutenberg/blocks/video/edit/inspector-controls.js:422
 msgid "Autoplay"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:421
+#: gutenberg/blocks/video/edit/inspector-controls.js:423
 msgid "Automatically play video when block reaches the viewport. The video will be play muted due to browser Autoplay policy."
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:431
+#: gutenberg/blocks/video/edit/inspector-controls.js:433
 msgid "Autopause"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:432
+#: gutenberg/blocks/video/edit/inspector-controls.js:434
 msgid "Automatically pause video when block out of the viewport."
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:453
+#: gutenberg/blocks/video/edit/inspector-controls.js:455
 msgid "Poster Image"
 msgstr ""
 
