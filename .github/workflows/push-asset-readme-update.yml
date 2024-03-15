@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: WordPress.org plugin asset/readme update
-        uses: 10up/action-wordpress-plugin-asset-update@stable
+        uses: nk-crew/action-wordpress-plugin-asset-update@develop
         env:
           SLUG: ghostkit
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
