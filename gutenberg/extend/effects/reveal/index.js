@@ -23,7 +23,7 @@ const NumberControl = StableNumberControl || ExperimentalNumberControl;
 const Grid = StableGrid || ExperimentalGrid;
 const { version } = window.ghostkitVariables;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 function EffectsRevealTools(props) {
 	const { attributes, setAttributes, clientId } = props;
@@ -226,11 +226,9 @@ addFilter(
 	'ghostkit.extension.effects.tools',
 	'ghostkit/extension/effects/reveal',
 	(children, { props }) => {
-		const hasRevealSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'effects',
-			'reveal',
-		]);
+		const hasRevealSupport =
+			hasBlockSupport(props.name, ['ghostkit', 'effects', 'reveal']) ||
+			getBlockSupport(props.name, ['ghostkit', 'effects']) === true;
 
 		if (!hasRevealSupport) {
 			return children;

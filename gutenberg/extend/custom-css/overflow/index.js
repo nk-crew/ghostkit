@@ -16,7 +16,7 @@ import useStyles from '../../../hooks/use-styles';
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 const Grid = StableGrid || ExperimentalGrid;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 function CustomCSSOverflowTools(props) {
 	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
@@ -133,11 +133,13 @@ addFilter(
 	'ghostkit.extension.customCSS.tools',
 	'ghostkit/extension/customCSS/tools/overflow',
 	(children, { props }) => {
-		const hasOverflowSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'customCSS',
-			'overflow',
-		]);
+		const hasOverflowSupport =
+			hasBlockSupport(props.name, [
+				'ghostkit',
+				'customCSS',
+				'overflow',
+			]) ||
+			getBlockSupport(props.name, ['ghostkit', 'customCSS']) === true;
 
 		if (!hasOverflowSupport) {
 			return children;

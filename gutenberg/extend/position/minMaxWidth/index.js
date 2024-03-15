@@ -11,7 +11,7 @@ import useStyles from '../../../hooks/use-styles';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 const allOptions = [
 	{
@@ -72,11 +72,13 @@ addFilter(
 	'ghostkit.extension.position.tools',
 	'ghostkit/extension/position/tools/min-max-width',
 	(children, { props }) => {
-		const hasMinMaxWidthSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'position',
-			'minMaxWidth',
-		]);
+		const hasMinMaxWidthSupport =
+			hasBlockSupport(props.name, [
+				'ghostkit',
+				'position',
+				'minMaxWidth',
+			]) ||
+			getBlockSupport(props.name, ['ghostkit', 'position']) === true;
 
 		if (!hasMinMaxWidthSupport) {
 			return children;

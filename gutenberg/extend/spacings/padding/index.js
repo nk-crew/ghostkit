@@ -11,7 +11,7 @@ import useStyles from '../../../hooks/use-styles';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 const allOptions = [
 	{
@@ -79,11 +79,9 @@ addFilter(
 	'ghostkit.extension.spacings.tools',
 	'ghostkit/extension/spacings/tools/padding',
 	(children, { props }) => {
-		const hasPaddingSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'spacings',
-			'padding',
-		]);
+		const hasPaddingSupport =
+			hasBlockSupport(props.name, ['ghostkit', 'spacings', 'padding']) ||
+			getBlockSupport(props.name, ['ghostkit', 'spacings']) === true;
 
 		if (!hasPaddingSupport) {
 			return children;

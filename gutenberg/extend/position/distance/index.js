@@ -11,7 +11,7 @@ import useStyles from '../../../hooks/use-styles';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 const allOptions = [
 	{
@@ -80,11 +80,9 @@ addFilter(
 	'ghostkit.extension.position.tools',
 	'ghostkit/extension/position/tools/distance',
 	(children, { props }) => {
-		const hasDistanceSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'position',
-			'distance',
-		]);
+		const hasDistanceSupport =
+			hasBlockSupport(props.name, ['ghostkit', 'position', 'distance']) ||
+			getBlockSupport(props.name, ['ghostkit', 'position']) === true;
 
 		if (!hasDistanceSupport) {
 			return children;

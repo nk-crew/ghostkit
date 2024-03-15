@@ -14,7 +14,7 @@ import useStyles from '../../../hooks/use-styles';
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 const NumberControl = StableNumberControl || ExperimentalNumberControl;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 function PositionZIndexTools(props) {
 	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
@@ -62,11 +62,9 @@ addFilter(
 	'ghostkit.extension.position.tools',
 	'ghostkit/extension/position/tools/zIndex',
 	(children, { props }) => {
-		const hasZIndexSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'position',
-			'zIndex',
-		]);
+		const hasZIndexSupport =
+			hasBlockSupport(props.name, ['ghostkit', 'position', 'zIndex']) ||
+			getBlockSupport(props.name, ['ghostkit', 'position']) === true;
 
 		if (!hasZIndexSupport) {
 			return children;

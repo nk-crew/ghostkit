@@ -12,7 +12,7 @@ import useStyles from '../../../hooks/use-styles';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 function CustomCSSCursorTools(props) {
 	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
@@ -201,11 +201,9 @@ addFilter(
 	'ghostkit.extension.customCSS.tools',
 	'ghostkit/extension/customCSS/tools/cursor',
 	(children, { props }) => {
-		const hasCursorSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'customCSS',
-			'cursor',
-		]);
+		const hasCursorSupport =
+			hasBlockSupport(props.name, ['ghostkit', 'customCSS', 'cursor']) ||
+			getBlockSupport(props.name, ['ghostkit', 'customCSS']) === true;
 
 		if (!hasCursorSupport) {
 			return children;

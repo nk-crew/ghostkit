@@ -11,7 +11,7 @@ import useStyles from '../../../hooks/use-styles';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 const hoverSelector = '&:hover';
 
@@ -92,11 +92,12 @@ addFilter(
 	'ghostkit.extension.frame.tools',
 	'ghostkit/extension/frame/tools/borderRadius',
 	(children, { props }) => {
-		const hasBorderRadiusSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'frame',
-			'borderRadius',
-		]);
+		const hasBorderRadiusSupport =
+			hasBlockSupport(props.name, [
+				'ghostkit',
+				'frame',
+				'borderRadius',
+			]) || getBlockSupport(props.name, ['ghostkit', 'frame']) === true;
 
 		if (!hasBorderRadiusSupport) {
 			return children;

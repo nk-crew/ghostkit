@@ -1,7 +1,7 @@
 import { addCompleter } from 'ace-builds/src-noconflict/ext-language_tools';
 import classnames from 'classnames/dedupe';
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
@@ -190,11 +190,9 @@ addFilter(
 	'ghostkit.extension.customCSS.tools',
 	'ghostkit/extension/customCSS/tools/custom',
 	(children, { props }) => {
-		const hasCustomSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'customCSS',
-			'custom',
-		]);
+		const hasCustomSupport =
+			hasBlockSupport(props.name, ['ghostkit', 'customCSS', 'custom']) ||
+			getBlockSupport(props.name, ['ghostkit', 'customCSS']) === true;
 
 		if (!hasCustomSupport) {
 			return children;

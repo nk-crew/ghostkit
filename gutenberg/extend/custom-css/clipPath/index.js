@@ -14,7 +14,7 @@ import PRESETS from './presets';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 const optionPresets = [
 	{
@@ -86,11 +86,13 @@ addFilter(
 	'ghostkit.extension.customCSS.tools',
 	'ghostkit/extension/customCSS/tools/clipPath',
 	(children, { props }) => {
-		const hasClipPathSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'customCSS',
-			'clipPath',
-		]);
+		const hasClipPathSupport =
+			hasBlockSupport(props.name, [
+				'ghostkit',
+				'customCSS',
+				'clipPath',
+			]) ||
+			getBlockSupport(props.name, ['ghostkit', 'customCSS']) === true;
 
 		if (!hasClipPathSupport) {
 			return children;

@@ -12,7 +12,7 @@ import useStyles from '../../../hooks/use-styles';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 function CustomCSSUserSelectTools(props) {
 	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
@@ -73,11 +73,13 @@ addFilter(
 	'ghostkit.extension.customCSS.tools',
 	'ghostkit/extension/customCSS/tools/userSelect',
 	(children, { props }) => {
-		const hasUserSelectSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'customCSS',
-			'userSelect',
-		]);
+		const hasUserSelectSupport =
+			hasBlockSupport(props.name, [
+				'ghostkit',
+				'customCSS',
+				'userSelect',
+			]) ||
+			getBlockSupport(props.name, ['ghostkit', 'customCSS']) === true;
 
 		if (!hasUserSelectSupport) {
 			return children;

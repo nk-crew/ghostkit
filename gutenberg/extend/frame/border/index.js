@@ -18,7 +18,7 @@ import { maybeDecode } from '../../../utils/encode-decode';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 const hoverSelector = '&:hover';
 
@@ -217,11 +217,9 @@ addFilter(
 	'ghostkit.extension.frame.tools',
 	'ghostkit/extension/frame/tools/border',
 	(children, { props }) => {
-		const hasBorderSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'frame',
-			'border',
-		]);
+		const hasBorderSupport =
+			hasBlockSupport(props.name, ['ghostkit', 'frame', 'border']) ||
+			getBlockSupport(props.name, ['ghostkit', 'frame']) === true;
 
 		if (!hasBorderSupport) {
 			return children;

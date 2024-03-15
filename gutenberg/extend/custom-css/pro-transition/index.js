@@ -1,4 +1,4 @@
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
@@ -52,11 +52,13 @@ addFilter(
 			return children;
 		}
 
-		const hasTransitionSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'customCSS',
-			'transition',
-		]);
+		const hasTransitionSupport =
+			hasBlockSupport(props.name, [
+				'ghostkit',
+				'customCSS',
+				'transition',
+			]) ||
+			getBlockSupport(props.name, ['ghostkit', 'customCSS']) === true;
 
 		if (!hasTransitionSupport) {
 			return children;

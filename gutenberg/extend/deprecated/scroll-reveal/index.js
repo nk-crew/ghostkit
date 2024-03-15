@@ -1,4 +1,4 @@
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 import { addFilter } from '@wordpress/hooks';
 
 import parseSRConfig from './parse-sr-config';
@@ -9,11 +9,9 @@ export default function migrate(props) {
 
 	const result = {};
 
-	const hasNewRevealSupport = hasBlockSupport(name, [
-		'ghostkit',
-		'effects',
-		'reveal',
-	]);
+	const hasNewRevealSupport =
+		hasBlockSupport(name, ['ghostkit', 'effects', 'reveal']) ||
+		getBlockSupport(name, ['ghostkit', 'effects']) === true;
 
 	// Migration to new effects attribute.
 	if (hasNewRevealSupport && ghostkitSR) {

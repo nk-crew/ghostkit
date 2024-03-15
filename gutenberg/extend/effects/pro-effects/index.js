@@ -1,4 +1,4 @@
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
@@ -81,9 +81,10 @@ addFilter(
 			return children;
 		}
 
-		const hasOneOfProEffectsSupport = Object.keys(PRESETS).some((k) =>
-			hasBlockSupport(props.name, ['ghostkit', 'effects', k])
-		);
+		const hasOneOfProEffectsSupport =
+			Object.keys(PRESETS).some((k) =>
+				hasBlockSupport(props.name, ['ghostkit', 'effects', k])
+			) || getBlockSupport(props.name, ['ghostkit', 'effects']) === true;
 
 		if (!hasOneOfProEffectsSupport) {
 			return children;

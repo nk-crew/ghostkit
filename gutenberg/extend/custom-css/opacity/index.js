@@ -12,7 +12,7 @@ import useStyles from '../../../hooks/use-styles';
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 function CustomCSSOpacityTools(props) {
 	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
@@ -71,11 +71,9 @@ addFilter(
 	'ghostkit.extension.customCSS.tools',
 	'ghostkit/extension/customCSS/tools/opacity',
 	(children, { props }) => {
-		const hasOpacitySupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'customCSS',
-			'opacity',
-		]);
+		const hasOpacitySupport =
+			hasBlockSupport(props.name, ['ghostkit', 'customCSS', 'opacity']) ||
+			getBlockSupport(props.name, ['ghostkit', 'customCSS']) === true;
 
 		if (!hasOpacitySupport) {
 			return children;

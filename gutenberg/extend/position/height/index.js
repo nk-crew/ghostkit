@@ -14,7 +14,7 @@ import useStyles from '../../../hooks/use-styles';
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 const UnitControl = StableUnitControl || ExperimentalUnitControl;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 function PositionHeightTools(props) {
 	const { getStyle, hasStyle, setStyles, resetStyles } = useStyles(props);
@@ -71,11 +71,9 @@ addFilter(
 	'ghostkit.extension.position.tools',
 	'ghostkit/extension/position/tools/height',
 	(children, { props }) => {
-		const hasHeightSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'position',
-			'height',
-		]);
+		const hasHeightSupport =
+			hasBlockSupport(props.name, ['ghostkit', 'position', 'height']) ||
+			getBlockSupport(props.name, ['ghostkit', 'position']) === true;
 
 		if (!hasHeightSupport) {
 			return children;

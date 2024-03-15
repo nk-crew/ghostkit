@@ -18,7 +18,7 @@ import {
 
 const ToolsPanelItem = StableToolsPanelItem || ExperimentalToolsPanelItem;
 
-import { hasBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 
 /**
  * Get array for Select element.
@@ -182,11 +182,12 @@ addFilter(
 	'ghostkit.extension.display.tools',
 	'ghostkit/extension/display/tools/screenSize',
 	(children, { props }) => {
-		const hasDisplayScreenSizeSupport = hasBlockSupport(props.name, [
-			'ghostkit',
-			'display',
-			'screenSize',
-		]);
+		const hasDisplayScreenSizeSupport =
+			hasBlockSupport(props.name, [
+				'ghostkit',
+				'display',
+				'screenSize',
+			]) || getBlockSupport(props.name, ['ghostkit', 'display']) === true;
 		const hasCustomClassNameSupport = hasBlockSupport(
 			props.name,
 			'customClassName',
