@@ -281,6 +281,12 @@ ghostkit: {
 }
 ```
 
+= 3.2.3 - Feb 26, 2024 =
+
+* fixed loading some Google Fonts with specific names. For example, font "Source Serif 4" was not loaded properly
+* fixed Accordion and Tabs buttons default text align
+* fixed Video block with "icon only" style displaying poster image in editor
+
 = 3.2.2 - Feb 21, 2024 =
 
 #### Pro:
