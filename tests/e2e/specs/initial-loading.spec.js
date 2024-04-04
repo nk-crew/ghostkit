@@ -2,7 +2,8 @@ import { expect, test } from '@wordpress/e2e-test-utils-playwright';
 
 test.describe('initial loading', () => {
 	test.beforeAll(async ({ requestUtils }) => {
-		await requestUtils.activatePlugin('ghost-kit');
+		const pluginName = process.env.CORE ? 'ghost-kit-pro' : 'ghost-kit';
+		await requestUtils.activatePlugin(pluginName);
 	});
 
 	test('should have ghostkit in admin menu', async ({ page, admin }) => {
