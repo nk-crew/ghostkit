@@ -429,16 +429,6 @@ if ( ! class_exists( 'GhostKit' ) ) :
 		public function go_pro_link() {
 			return 'https://www.ghostkit.io/pricing/';
 		}
-
-		/**
-		 * Fallback function.
-		 *
-		 * @param array $blocks Blocks array with attributes.
-		 * @return string
-		 */
-		public function parse_blocks_css( $blocks ) {
-			return GhostKit_Assets::parse_blocks_css( $blocks );
-		}
 	}
 
 	/**
