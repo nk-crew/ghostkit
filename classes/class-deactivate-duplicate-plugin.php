@@ -1,6 +1,6 @@
 <?php
 /**
- * Checks if another version of Ghostkit/Ghostkit Pro is active and deactivates it.
+ * Checks if another version of Ghost Kit/Ghost Kit Pro is active and deactivates it.
  *
  * @package ghostkit/deactivate-duplicate-plugin
  */
@@ -22,7 +22,7 @@ class GhostKit_Deactivate_Duplicate_Plugin {
 	}
 
 	/**
-	 * Checks if another version of Ghostkit/Ghostkit Pro is active and deactivates it.
+	 * Checks if another version of Ghost Kit/Ghost Kit Pro is active and deactivates it.
 	 * Hooked on `activated_plugin` so other plugin is deactivated when current plugin is activated.
 	 *
 	 * @param string $plugin The plugin being activated.
@@ -58,7 +58,7 @@ class GhostKit_Deactivate_Duplicate_Plugin {
 	}
 
 	/**
-	 * Displays a notice when either Ghostkit or Ghostkit Pro is automatically deactivated.
+	 * Displays a notice when either Ghost Kit or Ghost Kit Pro is automatically deactivated.
 	 */
 	public function plugin_deactivated_notice() {
 		$deactivated_notice_id = (int) get_transient( 'gkt_deactivated_notice_id' );
@@ -66,9 +66,9 @@ class GhostKit_Deactivate_Duplicate_Plugin {
 			return;
 		}
 
-		$message = __( "Ghostkit and Ghostkit Pro should not be active at the same time. We've automatically deactivated Ghostkit.", 'ghostkit' );
+		$message = __( "Ghost Kit and Ghost Kit Pro should not be active at the same time. We've automatically deactivated Ghost Kit.", 'ghostkit' );
 		if ( 2 === $deactivated_notice_id ) {
-			$message = __( "Ghostkit and Ghostkit Pro should not be active at the same time. We've automatically deactivated Ghostkit Pro.", 'ghostkit' );
+			$message = __( "Ghost Kit and Ghost Kit Pro should not be active at the same time. We've automatically deactivated Ghost Kit Pro.", 'ghostkit' );
 		}
 
 		?>
