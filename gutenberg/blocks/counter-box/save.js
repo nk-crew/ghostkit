@@ -73,7 +73,7 @@ export default function BlockSave(props) {
 				<RichText.Content
 					tagName="div"
 					className={`ghostkit-counter-box-number-wrap${
-						animateInViewport && ' ghostkit-count-up'
+						animateInViewport ? ' ghostkit-count-up' : ''
 					}`}
 					value={number}
 					{...{
