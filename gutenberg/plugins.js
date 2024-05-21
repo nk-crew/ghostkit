@@ -1,12 +1,12 @@
 import { registerPlugin } from '@wordpress/plugins';
 
-import * as colorPalette from './color-palette';
-import * as customCode from './custom-code';
-import * as customizer from './customizer';
-import * as editorIframeResize from './editor-iframe-resize';
-import * as ghostkit from './ghostkit';
-import * as templates from './templates';
-import * as typography from './typography';
+import * as colorPalette from './plugins/color-palette';
+import * as customCode from './plugins/custom-code';
+import * as customizer from './plugins/customizer';
+import * as editorIframeResize from './plugins/editor-iframe-resize';
+import * as ghostkit from './plugins/ghostkit';
+import * as templates from './plugins/templates';
+import * as typography from './plugins/typography';
 
 const { GHOSTKIT } = window;
 

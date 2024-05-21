@@ -119,6 +119,8 @@ class GhostKit_Assets {
 	 * @param boolean $in_footer render in footer.
 	 */
 	public static function register_script( $name, $path, $dependencies = array(), $version = null, $in_footer = true ) {
+		global $current_screen;
+
 		$script_data = self::get_asset_file( $path, 'script' );
 
 		if ( ! empty( $dependencies ) ) {
@@ -128,6 +130,17 @@ class GhostKit_Assets {
 					$dependencies
 				)
 			);
+		}
+
+		// Fix for Widgets screen.
+		if ( isset( $current_screen->id ) && 'widgets' === $current_screen->id ) {
+			foreach ( array( 'wp-edit-post', 'wp-editor' ) as $skip ) {
+				$key = array_search( $skip, $script_data['dependencies'], true );
+
+				if ( false !== $key ) {
+					unset( $script_data['dependencies'][ $key ] );
+				}
+			}
 		}
 
 		wp_register_script(

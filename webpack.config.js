@@ -94,6 +94,7 @@ const entryAssetsJs = glob
 		'./assets/admin/js/**.js',
 		'./assets/js/utils/**.js',
 		'./gutenberg/index.js',
+		'./gutenberg/plugins.js',
 		'./gutenberg/blocks/**/frontend.js',
 		'./gutenberg/extend/**/frontend.js',
 		'./gutenberg/style-variants/**/frontend.js',

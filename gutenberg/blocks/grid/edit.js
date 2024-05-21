@@ -15,7 +15,6 @@ import {
 	ToolbarGroup,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -23,10 +22,7 @@ import ApplyFilters from '../../components/apply-filters';
 import GapSettings from '../../components/gap-settings';
 import RangeControl from '../../components/range-control';
 import ToggleGroup from '../../components/toggle-group';
-import { TemplatesModal } from '../../plugins/templates';
 import getIcon from '../../utils/get-icon';
-
-const { GHOSTKIT } = window;
 
 /**
  * Block Edit Class.
@@ -43,8 +39,6 @@ export default function BlockEdit(props) {
 		verticalAlign,
 		horizontalAlign,
 	} = attributes;
-
-	const [isTemplatesModalOpen, setIsTemplatesModalOpen] = useState(false);
 
 	const { removeBlock, replaceInnerBlocks } =
 		useDispatch('core/block-editor');
@@ -130,7 +124,7 @@ export default function BlockEdit(props) {
 	 *
 	 * @return {jsx}.
 	 */
-	function getLayoutsSelector() {
+	function LayoutsSelector() {
 		let layouts = [
 			'12',
 			'6-6',
@@ -148,6 +142,12 @@ export default function BlockEdit(props) {
 			'2-2-2-2-2-2',
 		];
 		layouts = applyFilters('ghostkit.editor.grid.layouts', layouts, props);
+
+		const templatesModal = applyFilters(
+			'ghostkit.editor.grid.templatesModal',
+			'',
+			props
+		);
 
 		return (
 			<Placeholder
@@ -186,29 +186,7 @@ export default function BlockEdit(props) {
 						);
 					})}
 				</div>
-				{GHOSTKIT.allowTemplates && (
-					<Button
-						isPrimary
-						onClick={() => {
-							setIsTemplatesModalOpen(true);
-						}}
-					>
-						{__('Select Template', 'ghostkit')}
-					</Button>
-				)}
-				{isTemplatesModalOpen ||
-				props.attributes.isTemplatesModalOnly ? (
-					<TemplatesModal
-						replaceBlockId={clientId}
-						onRequestClose={() => {
-							setIsTemplatesModalOpen(false);
-
-							if (props.attributes.isTemplatesModalOnly) {
-								removeBlock(clientId);
-							}
-						}}
-					/>
-				) : null}
+				{templatesModal}
 			</Placeholder>
 		);
 	}
@@ -418,7 +396,7 @@ export default function BlockEdit(props) {
 					<div className="ghostkit-grid-inner">{children}</div>
 				</>
 			) : (
-				getLayoutsSelector()
+				<LayoutsSelector />
 			)}
 		</div>
 	);

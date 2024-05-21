@@ -3,6 +3,7 @@ import classnames from 'classnames/dedupe';
 import apiFetch from '@wordpress/api-fetch';
 import { parse } from '@wordpress/blocks';
 import {
+	Button,
 	ExternalLink,
 	Notice,
 	SelectControl,
@@ -11,10 +12,10 @@ import {
 	Tooltip,
 } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-import { withDispatch, withSelect } from '@wordpress/data';
+import { useDispatch, withDispatch, withSelect } from '@wordpress/data';
 import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
-import { Component, Fragment, RawHTML } from '@wordpress/element';
-import { applyFilters } from '@wordpress/hooks';
+import { Component, Fragment, RawHTML, useState } from '@wordpress/element';
+import { addFilter, applyFilters } from '@wordpress/hooks';
 import { __, sprintf } from '@wordpress/i18n';
 
 import Modal from '../../components/modal';
@@ -645,6 +646,46 @@ const TemplatesModalWithSelect = compose([
 		};
 	}),
 ])(TemplatesModal);
+
+addFilter(
+	'ghostkit.editor.grid.templatesModal',
+	'ghostkit/grid/with-template-modal',
+	(result, props) => {
+		const { clientId } = props;
+
+		const [isTemplatesModalOpen, setIsTemplatesModalOpen] = useState(false);
+
+		const { removeBlock } = useDispatch('core/block-editor');
+
+		return (
+			<>
+				{GHOSTKIT.allowTemplates && (
+					<Button
+						isPrimary
+						onClick={() => {
+							setIsTemplatesModalOpen(true);
+						}}
+					>
+						{__('Select Template', 'ghostkit')}
+					</Button>
+				)}
+				{isTemplatesModalOpen ||
+				props.attributes.isTemplatesModalOnly ? (
+					<TemplatesModal
+						replaceBlockId={clientId}
+						onRequestClose={() => {
+							setIsTemplatesModalOpen(false);
+
+							if (props.attributes.isTemplatesModalOnly) {
+								removeBlock(clientId);
+							}
+						}}
+					/>
+				) : null}
+			</>
+		);
+	}
+);
 
 export { TemplatesModalWithSelect as TemplatesModal };
 

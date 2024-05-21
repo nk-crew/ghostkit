@@ -223,15 +223,6 @@ if ( ! class_exists( 'GhostKit' ) ) :
 			$css_deps = array();
 			$js_deps  = array( 'ghostkit-helper' );
 
-			// Fix for Widgets screen.
-			if ( isset( $current_screen->id ) && 'widgets' === $current_screen->id ) {
-				$key = array_search( 'wp-edit-post', $js_deps, true );
-
-				if ( false !== $key ) {
-					unset( $js_deps[ $key ] );
-				}
-			}
-
 			// Ivent.
 			if ( apply_filters( 'gkt_enqueue_plugin_ivent', true ) ) {
 				$js_deps[] = 'ivent';
@@ -279,6 +270,15 @@ if ( ! class_exists( 'GhostKit' ) ) :
 				'build/gutenberg/index',
 				$js_deps
 			);
+
+			// Load plugins in editor only (skip legacy Widgets screen).
+			if ( ! isset( $current_screen->id ) || 'widgets' !== $current_screen->id ) {
+				GhostKit_Assets::enqueue_script(
+					'ghostkit-editor-plugins',
+					'build/gutenberg/plugins',
+					array( 'ghostkit-editor' )
+				);
+			}
 		}
 
 		/**

@@ -19,10 +19,6 @@ import './extend';
  */
 import './style-variants';
 /**
- * Plugins
- */
-import './plugins';
-/**
  * Disable Blocks
  */
 import './disable-blocks';
