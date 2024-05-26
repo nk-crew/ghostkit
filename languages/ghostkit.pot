@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-15T14:57:11+00:00\n"
+"POT-Creation-Date: 2024-05-26T07:49:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
 
 #. Plugin Name of the plugin
 #: class-ghost-kit.php
-#: class-ghost-kit.php:204
+#: class-ghost-kit.php:206
 #: settings/index.php:132
 #: settings/index.php:133
 #: gutenberg/extend/block-actions-copy-paste/index.js:73
@@ -41,7 +41,7 @@ msgstr ""
 msgid "https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline"
 msgstr ""
 
-#: class-ghost-kit.php:417
+#: class-ghost-kit.php:419
 #: settings/index.php:198
 msgid "Go Pro"
 msgstr ""
@@ -75,6 +75,14 @@ msgstr ""
 
 #: classes/class-ask-review.php:90
 msgid "I already did"
+msgstr ""
+
+#: classes/class-deactivate-duplicate-plugin.php:69
+msgid "Ghost Kit and Ghost Kit Pro should not be active at the same time. We've automatically deactivated Ghost Kit."
+msgstr ""
+
+#: classes/class-deactivate-duplicate-plugin.php:71
+msgid "Ghost Kit and Ghost Kit Pro should not be active at the same time. We've automatically deactivated Ghost Kit Pro."
 msgstr ""
 
 #: classes/class-fonts.php:321
@@ -310,8 +318,8 @@ msgstr ""
 #: classes/class-templates.php:100
 #: settings/index.php:189
 #: gutenberg/plugins/ghostkit/index.js:86
-#: gutenberg/plugins/templates/index.js:171
-#: gutenberg/plugins/templates/index.js:676
+#: gutenberg/plugins/templates/index.js:172
+#: gutenberg/plugins/templates/index.js:717
 msgid "Templates"
 msgstr ""
 
@@ -357,22 +365,22 @@ msgid "Categories"
 msgstr ""
 
 #: classes/class-templates.php:164
-#: gutenberg/plugins/templates/index.js:207
+#: gutenberg/plugins/templates/index.js:208
 msgid "Templates Deprecated"
 msgstr ""
 
 #: classes/class-templates.php:168
-#: gutenberg/plugins/templates/index.js:209
+#: gutenberg/plugins/templates/index.js:210
 msgid "Please avoid using the Templates feature. It has been deprecated since Ghost Kit v3.1.0 and will be removed in future updates."
 msgstr ""
 
 #: classes/class-templates.php:172
-#: gutenberg/plugins/templates/index.js:214
+#: gutenberg/plugins/templates/index.js:215
 msgid "To create a block template, you can use the built-in WordPress feature named Patterns."
 msgstr ""
 
 #: classes/class-templates.php:176
-#: gutenberg/plugins/templates/index.js:226
+#: gutenberg/plugins/templates/index.js:227
 msgid "Read About Patterns"
 msgstr ""
 
@@ -547,7 +555,7 @@ msgid "Retweeted"
 msgstr ""
 
 #: settings/index.php:145
-#: gutenberg/plugins/templates/index.js:269
+#: gutenberg/plugins/templates/index.js:270
 #: settings/pages/index.js:14
 msgid "Blocks"
 msgstr ""
@@ -1061,7 +1069,7 @@ msgstr ""
 #: gutenberg/blocks/counter-box/edit.js:272
 #: gutenberg/blocks/grid-column/edit.js:221
 #: gutenberg/blocks/grid-column/edit.js:248
-#: gutenberg/blocks/grid/edit.js:337
+#: gutenberg/blocks/grid/edit.js:315
 #: gutenberg/blocks/icon-box/edit.js:122
 #: gutenberg/blocks/icon-box/edit.js:271
 #: gutenberg/extend/position/distance/index.js:19
@@ -1075,7 +1083,7 @@ msgid "Number Alignment"
 msgstr ""
 
 #: gutenberg/blocks/counter-box/edit.js:151
-#: gutenberg/blocks/grid/edit.js:363
+#: gutenberg/blocks/grid/edit.js:341
 #: gutenberg/blocks/icon-box/edit.js:162
 #: gutenberg/blocks/image-compare/edit.js:282
 msgid "Start"
@@ -1083,15 +1091,15 @@ msgstr ""
 
 #: gutenberg/blocks/counter-box/edit.js:156
 #: gutenberg/blocks/grid-column/edit.js:226
-#: gutenberg/blocks/grid/edit.js:342
-#: gutenberg/blocks/grid/edit.js:368
+#: gutenberg/blocks/grid/edit.js:320
+#: gutenberg/blocks/grid/edit.js:346
 #: gutenberg/blocks/icon-box/edit.js:169
 #: gutenberg/blocks/image-compare/edit.js:292
 msgid "Center"
 msgstr ""
 
 #: gutenberg/blocks/counter-box/edit.js:161
-#: gutenberg/blocks/grid/edit.js:373
+#: gutenberg/blocks/grid/edit.js:351
 #: gutenberg/blocks/icon-box/edit.js:176
 #: gutenberg/blocks/image-compare/edit.js:302
 msgid "End"
@@ -1661,7 +1669,7 @@ msgstr ""
 
 #: gutenberg/blocks/grid-column/edit.js:231
 #: gutenberg/blocks/grid-column/edit.js:252
-#: gutenberg/blocks/grid/edit.js:347
+#: gutenberg/blocks/grid/edit.js:325
 #: gutenberg/extend/position/distance/index.js:27
 #: gutenberg/extend/spacings/margin/index.js:27
 #: gutenberg/extend/spacings/padding/index.js:27
@@ -1734,40 +1742,36 @@ msgstr ""
 msgid "Select one layout to get started."
 msgstr ""
 
-#: gutenberg/blocks/grid/edit.js:196
-msgid "Select Template"
-msgstr ""
-
-#: gutenberg/blocks/grid/edit.js:287
+#: gutenberg/blocks/grid/edit.js:265
 msgid "Content Vertical Start"
 msgstr ""
 
-#: gutenberg/blocks/grid/edit.js:293
+#: gutenberg/blocks/grid/edit.js:271
 msgid "Content Vertical Center"
 msgstr ""
 
-#: gutenberg/blocks/grid/edit.js:301
+#: gutenberg/blocks/grid/edit.js:279
 msgid "Content Vertical End"
 msgstr ""
 
-#: gutenberg/blocks/grid/edit.js:318
+#: gutenberg/blocks/grid/edit.js:296
 #: gutenberg/blocks/instagram/edit.js:99
 msgid "Columns"
 msgstr ""
 
-#: gutenberg/blocks/grid/edit.js:332
+#: gutenberg/blocks/grid/edit.js:310
 msgid "Vertical alignment"
 msgstr ""
 
-#: gutenberg/blocks/grid/edit.js:358
+#: gutenberg/blocks/grid/edit.js:336
 msgid "Horizontal alignment"
 msgstr ""
 
-#: gutenberg/blocks/grid/edit.js:378
+#: gutenberg/blocks/grid/edit.js:356
 msgid "Around"
 msgstr ""
 
-#: gutenberg/blocks/grid/edit.js:383
+#: gutenberg/blocks/grid/edit.js:361
 msgid "Space Between"
 msgstr ""
 
@@ -3392,8 +3396,8 @@ msgid "Padding"
 msgstr ""
 
 #: gutenberg/extend/toolbar-templates/index.js:26
-#: gutenberg/plugins/templates/index.js:342
-#: gutenberg/plugins/templates/index.js:506
+#: gutenberg/plugins/templates/index.js:343
+#: gutenberg/plugins/templates/index.js:507
 msgid "Add Template"
 msgstr ""
 
@@ -3567,65 +3571,69 @@ msgstr ""
 msgid "Responsive Preview"
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:111
+#: gutenberg/plugins/templates/index.js:112
 msgid "-- Select Category --"
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:241
+#: gutenberg/plugins/templates/index.js:242
 msgid "Templates from the theme."
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:248
+#: gutenberg/plugins/templates/index.js:249
 msgid "Theme"
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:264
+#: gutenberg/plugins/templates/index.js:265
 msgid "Simple blocks to construct your page."
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:278
+#: gutenberg/plugins/templates/index.js:279
 msgid "Pre-designed ready to use pages."
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:283
+#: gutenberg/plugins/templates/index.js:284
 msgid "Pages"
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:292
+#: gutenberg/plugins/templates/index.js:293
 msgid "My Templates."
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:295
+#: gutenberg/plugins/templates/index.js:296
 msgid "My Templates"
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:307
+#: gutenberg/plugins/templates/index.js:308
 msgid "Coming Soon…"
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:331
-#: gutenberg/plugins/templates/index.js:349
+#: gutenberg/plugins/templates/index.js:332
+#: gutenberg/plugins/templates/index.js:350
 msgid "No templates found."
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:370
+#: gutenberg/plugins/templates/index.js:371
 msgid "Templates: %s"
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:544
+#: gutenberg/plugins/templates/index.js:545
 msgid "<strong>Advanced Backgrounds</strong> plugin is required to use background image and video blocks."
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:552
+#: gutenberg/plugins/templates/index.js:553
 msgid "<strong>Visual Portfolio</strong> plugin is required to show portfolio layouts."
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:570
+#: gutenberg/plugins/templates/index.js:571
 msgid "%s block is missing."
 msgstr ""
 
-#: gutenberg/plugins/templates/index.js:587
+#: gutenberg/plugins/templates/index.js:588
 msgid "Install Plugin"
+msgstr ""
+
+#: gutenberg/plugins/templates/index.js:669
+msgid "Select Template"
 msgstr ""
 
 #: gutenberg/plugins/typography/index.js:901

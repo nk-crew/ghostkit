@@ -38,6 +38,12 @@
          "I already did": [
             ""
          ],
+         "Ghost Kit and Ghost Kit Pro should not be active at the same time. We've automatically deactivated Ghost Kit.": [
+            ""
+         ],
+         "Ghost Kit and Ghost Kit Pro should not be active at the same time. We've automatically deactivated Ghost Kit Pro.": [
+            ""
+         ],
          "Default Fonts Site": [
             ""
          ],
@@ -1075,9 +1081,6 @@
             ""
          ],
          "Select one layout to get started.": [
-            ""
-         ],
-         "Select Template": [
             ""
          ],
          "Content Vertical Start": [
@@ -2386,6 +2389,9 @@
             ""
          ],
          "Install Plugin": [
+            ""
+         ],
+         "Select Template": [
             ""
          ],
          "Hide Advanced": [
