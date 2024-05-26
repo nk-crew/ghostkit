@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.3.0 - May 26, 2024 =
+
+* **Important**: the Pro plugin is now standalone and no longer requires the free plugin. If you are using Pro plugin v2, do not update the Free plugin to v3.3. Instead, update the Pro plugin and deactivate the Free one.
+* fixed Counter Box saving incorrect class names
+* fixed loading blocks in the legacy Widgets editor
+
 = 3.2.4 - Mar 15, 2024 =
 
 * fixed extensions enable in 3rd-party blocks with config like this:

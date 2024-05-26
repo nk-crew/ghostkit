@@ -6,7 +6,7 @@
 * Requires at least: 6.2
 * Tested up to: 6.5
 * Requires PHP: 7.2
-* Stable tag: 3.2.4
+* Stable tag: 3.3.0
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -271,6 +271,12 @@ The plugin documentation provides a comprehensive source of information on block
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 3.3.0 - May 26, 2024 =
+
+* **Important**: the Pro plugin is now standalone and no longer requires the free plugin. If you are using Pro plugin v2, do not update the Free plugin to v3.3. Instead, update the Pro plugin and deactivate the Free one.
+* fixed Counter Box saving incorrect class names
+* fixed loading blocks in the legacy Widgets editor
 
 = 3.2.4 - Mar 15, 2024 =
 
