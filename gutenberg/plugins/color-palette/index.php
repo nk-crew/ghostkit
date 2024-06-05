@@ -20,7 +20,8 @@ class GhostKit_Color_Palette_Plugin {
 
 				// Don't add custom palette if a block theme is activated.
 				if ( function_exists( 'wp_is_block_theme' ) && ! wp_is_block_theme() ) {
-					add_action( 'after_setup_theme', array( $this, 'add_palette' ), 9999 );
+					$this->add_palette();
+
 					add_action( 'enqueue_block_editor_assets', array( $this, 'add_palette_styles' ) );
 					add_action( 'wp_enqueue_scripts', array( $this, 'add_palette_styles' ) );
 

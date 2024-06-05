@@ -38,8 +38,14 @@
 		flex-wrap: wrap;
 
 		> .ghostkit-component-color-picker-wrapper {
-			margin-right: 10px;
+			margin-right: 5px;
 			margin-bottom: 0;
+
+			.ghostkit-component-color-toggle {
+				padding: 0;
+				border: none;
+				background: none;
+			}
 
 			> .components-base-control__field {
 				margin: 0;

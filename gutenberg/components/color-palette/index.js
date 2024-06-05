@@ -34,7 +34,7 @@ function useColors() {
 export default function ColorPalette(props) {
 	const { value, alpha = false, palette = true, onChange = () => {} } = props;
 
-	const colors = palette ? useColors() : false;
+	const colors = palette ? useColors() : [];
 
 	return (
 		<ApplyFilters name="ghostkit.component.color-palette" props={props}>
