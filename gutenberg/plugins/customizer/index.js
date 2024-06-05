@@ -171,8 +171,19 @@ class Customizer extends Component {
 				}
 			});
 
+			// We can't use groups because of react-virtualized and dynamic height of groups.
+			// Instead add options in a plain list with group headings.
 			Object.keys(groupedList).forEach((k) => {
-				result.push(groupedList[k]);
+				// Group label.
+				result.push({
+					label: `${groupedList[k].label}:`,
+					value: `react-select-group-${k}`,
+					isDisabled: true,
+				});
+
+				groupedList[k].options.forEach((option) => {
+					result.push(option);
+				});
 			});
 		}
 
