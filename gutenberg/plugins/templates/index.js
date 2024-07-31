@@ -671,7 +671,7 @@ addFilter(
 				)}
 				{isTemplatesModalOpen ||
 				props.attributes.isTemplatesModalOnly ? (
-					<TemplatesModal
+					<TemplatesModalWithSelect
 						replaceBlockId={clientId}
 						onRequestClose={() => {
 							setIsTemplatesModalOpen(false);
