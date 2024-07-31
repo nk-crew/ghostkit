@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.3.1 - Jul 31, 2024 =
+
+* migrate Pro plugin from Paddle to LemonSqueezy
+* fixed customizer plugin selector settings rendering
+* fixed Color Palette plugin saving custom colors, displaying default color picker dropdown
+* fixed deprecated Templates modal loading
+
 = 3.3.0 - May 26, 2024 =
 
 * **Important**: the Pro plugin is now standalone and no longer requires the free plugin. If you are using Pro plugin v2, do not update the Free plugin to v3.3. Instead, update the Pro plugin and deactivate the Free one.
