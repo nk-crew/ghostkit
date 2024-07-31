@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-= 3.3.1 - Jul 31, 2024 =
+= 3.3.2 - Jul 31, 2024 =
 
 * migrate Pro plugin from Paddle to LemonSqueezy
 * fixed customizer plugin selector settings rendering
