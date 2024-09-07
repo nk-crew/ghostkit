@@ -4,9 +4,9 @@
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
 * Donate link: https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
 * Requires at least: 6.2
-* Tested up to: 6.5
+* Tested up to: 6.6
 * Requires PHP: 7.2
-* Stable tag: 3.3.2
+* Stable tag: 3.3.3
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -271,6 +271,17 @@ The plugin documentation provides a comprehensive source of information on block
 21. Blocks Extensions
 
 ## Changelog ##
+
+= 3.3.3 - Sep 7, 2024 =
+
+* added escaping to imageTag attribute in the Grid block to prevent xss vulnerability
+
+= 3.3.2 - Jul 31, 2024 =
+
+* migrate Pro plugin from Paddle to LemonSqueezy
+* fixed customizer plugin selector settings rendering
+* fixed Color Palette plugin saving custom colors, displaying default color picker dropdown
+* fixed deprecated Templates modal loading
 
 = 3.3.0 - May 26, 2024 =
 

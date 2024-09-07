@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.3.3 - Sep 7, 2024 =
+
+* added escaping to imageTag attribute in the Grid block to prevent xss vulnerability
+
 = 3.3.2 - Jul 31, 2024 =
 
 * migrate Pro plugin from Paddle to LemonSqueezy
