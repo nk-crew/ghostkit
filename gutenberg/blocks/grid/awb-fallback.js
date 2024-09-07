@@ -15,8 +15,9 @@ import ColorIndicator from '../../components/color-indicator';
 import ColorPicker from '../../components/color-picker';
 import FocalPointPicker from '../../components/focal-point-picker';
 import ToggleGroup from '../../components/toggle-group';
+import cleanImgTag from '../../utils/clean-img-tag';
 import dashCaseToTitle from '../../utils/dash-case-to-title';
-import { maybeDecode, maybeEncode } from '../../utils/encode-decode';
+import { maybeEncode } from '../../utils/encode-decode';
 
 /**
  * Filters registered block settings, extending attributes to include backgrounds.
@@ -220,7 +221,7 @@ function BackgroundControlsInspector(props) {
 						<>
 							<FocalPointPicker
 								value={imageBackgroundPosition}
-								image={maybeDecode(imageTag)}
+								image={cleanImgTag(imageTag)}
 								onChange={(v) =>
 									setAttributes({
 										imageBackgroundPosition: v,
@@ -385,7 +386,7 @@ function addEditorBackground(background, props) {
 						<div
 							className="nk-awb-inner"
 							dangerouslySetInnerHTML={{
-								__html: maybeDecode(imageTag),
+								__html: cleanImgTag(imageTag),
 							}}
 						/>
 					) : null}
@@ -444,12 +445,9 @@ function addSaveBackground(background, props) {
 				}
 			}
 
-			// Fix style tag background.
+			// Prepare safe image output.
 			if (type === 'image' && imageTag) {
-				imageTag = maybeDecode(imageTag);
-
-				imageTag = imageTag.replace('url(&quot;', "url('");
-				imageTag = imageTag.replace('&quot;);', "');");
+				imageTag = cleanImgTag(imageTag);
 			}
 
 			return (
