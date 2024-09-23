@@ -754,10 +754,12 @@ class GhostKit_Assets {
 	 * @return string
 	 */
 	public static function autoptimize_filter_css_exclude( $result ) {
+		$upload_dir = defined( 'UPLOADS' ) ? UPLOADS : 'wp-content/uploads/';
+
 		// By default in Autoptimize excluded folder `wp-content/uploads/`.
 		// We need to check, if this folder is not excluded, then we
 		// don't need to use our hack.
-		if ( $result && strpos( $result, 'wp-content/uploads/' ) === false ) {
+		if ( $result && strpos( $result, $upload_dir ) === false ) {
 			return $result;
 		}
 

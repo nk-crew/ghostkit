@@ -13,8 +13,9 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 $pro_version = false;
 
 if ( is_plugin_active( 'ghostkit-pro/class-ghost-kit-pro.php' ) ) {
+	$ghostkit_wp_content_dir = defined( 'WP_CONTENT_DIR' ) ? WP_CONTENT_DIR : ABSPATH . 'wp-content';
     // phpcs:ignore
-    $pro_data    = get_plugin_data( ABSPATH . 'wp-content/plugins/ghostkit-pro/class-ghost-kit-pro.php' );
+    $pro_data    = get_plugin_data( $ghostkit_wp_content_dir . '/plugins/ghostkit-pro/class-ghost-kit-pro.php' );
     // phpcs:ignore
     $pro_version = isset( $pro_data['Version'] ) ? $pro_data['Version'] : false;
 }
