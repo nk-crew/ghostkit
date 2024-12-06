@@ -22,9 +22,6 @@ jobs:
     if: ${{ github.repository == 'nk-crew/ghostkit' || github.event_name == 'pull_request' }}
     strategy:
       fail-fast: false
-      matrix:
-        part: [1, 2, 3, 4]
-        totalParts: [4]
 
     steps:
       - uses: actions/checkout@v3
