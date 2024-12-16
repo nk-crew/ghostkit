@@ -7,7 +7,7 @@ import {
 } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+import { PluginMoreMenuItem } from '@wordpress/editor';
 import { Component } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -15,8 +15,6 @@ import ColorPicker from '../../components/color-picker';
 import Modal from '../../components/modal';
 import getIcon from '../../utils/get-icon';
 import { getSlug } from '../../utils/get-unique-slug';
-
-const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 class ColorPaletteModal extends Component {
 	constructor(props) {
@@ -143,8 +141,10 @@ class ColorPaletteModal extends Component {
 												updateColorPalette(newColors);
 											}}
 											style={{ marginTop: 0 }}
+											__next40pxDefaultSize
+											__nextHasNoMarginBottom
 										/>
-										<BaseControl>
+										<BaseControl __nextHasNoMarginBottom>
 											<Button
 												onClick={() => {
 													if (
@@ -171,8 +171,7 @@ class ColorPaletteModal extends Component {
 														);
 													}
 												}}
-												isSecondary
-												isSmall
+												variant="secondary"
 											>
 												{__('Remove', 'ghostkit')}
 											</Button>

@@ -10,15 +10,13 @@ import {
 } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+import { PluginMoreMenuItem } from '@wordpress/editor';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import Modal from '../../components/modal';
 import Select from '../../components/select';
 import getIcon from '../../utils/get-icon';
-
-const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 class Customizer extends Component {
 	constructor(props) {
@@ -308,6 +306,7 @@ class Customizer extends Component {
 											label={opt.label || opt.id}
 											id={opt.id}
 											className="ghostkit-customizer-list-field"
+											__nextHasNoMarginBottom
 										>
 											<ColorPalette
 												value={opt.value}
@@ -346,6 +345,8 @@ class Customizer extends Component {
 												this.updateOptions(value, opt);
 											}}
 											className="ghostkit-customizer-list-field"
+											__next40pxDefaultSize
+											__nextHasNoMarginBottom
 											{...sliderAttrs}
 										/>
 									);
@@ -363,6 +364,7 @@ class Customizer extends Component {
 												);
 											}}
 											className="ghostkit-customizer-list-field"
+											__nextHasNoMarginBottom
 										/>
 									);
 									break;
@@ -375,6 +377,7 @@ class Customizer extends Component {
 												this.updateOptions(value, opt);
 											}}
 											className="ghostkit-customizer-list-field"
+											__nextHasNoMarginBottom
 										/>
 									);
 									break;
@@ -395,6 +398,8 @@ class Customizer extends Component {
 													);
 												}}
 												className="ghostkit-customizer-list-field"
+												__next40pxDefaultSize
+												__nextHasNoMarginBottom
 											/>
 										);
 									} else {
@@ -409,6 +414,8 @@ class Customizer extends Component {
 													);
 												}}
 												className="ghostkit-customizer-list-field"
+												__next40pxDefaultSize
+												__nextHasNoMarginBottom
 											/>
 										);
 									}

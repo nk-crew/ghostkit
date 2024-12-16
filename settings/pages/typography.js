@@ -199,7 +199,7 @@ class TypographySettings extends Component {
 										{typeof advancedData !== 'undefined' ? (
 											<div className="ghostkit-typography-advanced">
 												<Button
-													isSecondary
+													variant="secondary"
 													onClick={() =>
 														this.onClickAdvanced(
 															key

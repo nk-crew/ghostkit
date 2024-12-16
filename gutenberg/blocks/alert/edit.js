@@ -134,6 +134,8 @@ export default function BlockEdit(props) {
 							afterIcon="editor-textcolor"
 							allowCustomMin
 							allowCustomMax
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
 						/>
 					) : null}
 				</PanelBody>

@@ -62,6 +62,8 @@ function CustomCSSOpacityTools(props) {
 				max={1}
 				step={0.01}
 				style={{ flex: 1 }}
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
 			/>
 		</ToolsPanelItem>
 	);

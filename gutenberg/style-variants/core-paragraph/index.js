@@ -110,6 +110,8 @@ function GhostKitParagraphColumns(props) {
 					onChange={(value) => updateColumns(device, value)}
 					min={1}
 					max={COLUMNS_COUNT_MAX}
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
 				/>
 			</PanelBody>
 		</InspectorControls>

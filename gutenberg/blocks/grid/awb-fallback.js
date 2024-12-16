@@ -210,7 +210,7 @@ function BackgroundControlsInspector(props) {
 							allowedTypes={['image']}
 							value={image}
 							render={({ open }) => (
-								<Button onClick={open} isPrimary>
+								<Button onClick={open} variant="primary">
 									{__('Select image', 'ghostkit')}
 								</Button>
 							)}
@@ -227,6 +227,7 @@ function BackgroundControlsInspector(props) {
 										imageBackgroundPosition: v,
 									})
 								}
+								__nextHasNoMarginBottom
 							/>
 							{imageSizes ? (
 								<SelectControl
@@ -245,6 +246,8 @@ function BackgroundControlsInspector(props) {
 									onChange={(v) =>
 										setAttributes({ imageSize: v })
 									}
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
 								/>
 							) : null}
 							<SelectControl
@@ -267,6 +270,8 @@ function BackgroundControlsInspector(props) {
 								onChange={(v) =>
 									setAttributes({ imageBackgroundSize: v })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 							<Button
 								isLink

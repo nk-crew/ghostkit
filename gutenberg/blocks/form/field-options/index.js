@@ -48,6 +48,8 @@ export default function FieldOptions(props) {
 
 								onChange(newOpts);
 							}}
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
 						/>
 						<Button
 							onClick={() => {

@@ -299,6 +299,8 @@ export default function BlockEdit(props) {
 							min={1}
 							max={12}
 							allowCustomMax
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
 						/>
 					</PanelBody>
 				</ApplyFilters>

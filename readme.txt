@@ -3,8 +3,8 @@
 * Contributors: nko
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
 * Donate link: https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
-* Requires at least: 6.2
-* Tested up to: 6.6
+* Requires at least: 6.6
+* Tested up to: 6.7
 * Requires PHP: 7.2
 * Stable tag: 3.3.3
 * License: GPLv2 or later

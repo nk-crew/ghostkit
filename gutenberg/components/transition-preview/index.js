@@ -84,6 +84,7 @@ export default function TransitionPreview(props) {
 			id={label}
 			label={label}
 			className="ghostkit-component-transition-preview-wrapper"
+			__nextHasNoMarginBottom
 		>
 			<Button
 				className="ghostkit-component-transition-preview"

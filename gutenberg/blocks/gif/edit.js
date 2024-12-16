@@ -180,9 +180,11 @@ export default function BlockEdit(props) {
 					)}
 					onChange={(val) => setAttributes({ searchText: val })}
 					value={searchText}
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
 				/>
 				<Button
-					isSecondary
+					variant="secondary"
 					onClick={(e) => {
 						onFormSubmit(e);
 					}}
@@ -254,6 +256,7 @@ export default function BlockEdit(props) {
 									)}
 								</>
 							}
+							__nextHasNoMarginBottom
 						/>
 					</PanelBody>
 				) : null}

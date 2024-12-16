@@ -181,7 +181,11 @@ function FrameShadowTools(props) {
 			}}
 			isShownByDefault={false}
 		>
-			<BaseControl id={baseControlLabel} label={baseControlLabel}>
+			<BaseControl
+				id={baseControlLabel}
+				label={baseControlLabel}
+				__nextHasNoMarginBottom
+			>
 				<div className="ghostkit-control-box-shadow">
 					<Tooltip text={__('Color', 'ghostkit')}>
 						<div>

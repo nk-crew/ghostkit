@@ -36,12 +36,19 @@ export default function BlockEdit(props) {
 						label={__('Value', 'ghostkit')}
 						value={defaultVal}
 						onChange={(val) => setAttributes({ default: val })}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 			</InspectorControls>
 			<div {...blockProps}>
 				<FieldLabel {...props} />
-				<TextControl type="text" {...getFieldAttributes(attributes)} />
+				<TextControl
+					type="text"
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					{...getFieldAttributes(attributes)}
+				/>
 			</div>
 		</>
 	);

@@ -145,6 +145,7 @@ class GoogleFonts extends Component {
 						<BaseControl
 							id={__('Font', 'ghostkit')}
 							label={__('Font', 'ghostkit')}
+							__nextHasNoMarginBottom
 						>
 							<Select
 								value={{
@@ -218,6 +219,8 @@ class GoogleFonts extends Component {
 							});
 						}}
 						options={fontWeightOptions}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 					<SelectControl
 						label={__('Style', 'ghostkit')}
@@ -228,6 +231,8 @@ class GoogleFonts extends Component {
 							});
 						}}
 						options={styleOptions}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 					{error ? (
 						<div className="ghostkit-settings-fonts-google-form-error">
@@ -241,7 +246,7 @@ class GoogleFonts extends Component {
 					) : null}
 					{isEdit ? (
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={() => {
 								let findFont = false;
 								Object.keys(customFonts.google).forEach(
@@ -310,7 +315,7 @@ class GoogleFonts extends Component {
 						</Button>
 					) : (
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={() => {
 								let findFont = false;
 								Object.keys(customFonts.google).forEach(

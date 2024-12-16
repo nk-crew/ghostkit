@@ -121,6 +121,8 @@ export default function BlockEdit(props) {
 						onChange={(value) =>
 							setAttributes({ collapseTitleTag: value })
 						}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -128,7 +130,7 @@ export default function BlockEdit(props) {
 			{isSelectedBlockInRoot ? (
 				<div className="ghostkit-accordion-add-item">
 					<Button
-						isSecondary
+						variant="secondary"
 						icon={
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

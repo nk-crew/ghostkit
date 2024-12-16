@@ -157,7 +157,11 @@ function FrameBorderTools(props) {
 			}}
 			isShownByDefault={false}
 		>
-			<BaseControl id={baseControlLabel} label={baseControlLabel}>
+			<BaseControl
+				id={baseControlLabel}
+				label={baseControlLabel}
+				__nextHasNoMarginBottom
+			>
 				<div className="ghostkit-control-border-row">
 					<ColorPicker
 						value={maybeDecode(

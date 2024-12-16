@@ -202,6 +202,7 @@ export function EasingControls(props) {
 				id={__('Bezier', 'ghostkit')}
 				label={__('Bezier', 'ghostkit')}
 				className="ghostkit-component-easing-controls-bezier"
+				__nextHasNoMarginBottom
 			>
 				<NumberControl
 					value={easing[0]}

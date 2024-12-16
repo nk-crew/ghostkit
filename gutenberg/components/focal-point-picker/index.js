@@ -107,6 +107,7 @@ export default function CustomFocalPointPicker(props) {
 					)}%`
 				);
 			}}
+			__nextHasNoMarginBottom
 		/>
 	);
 }

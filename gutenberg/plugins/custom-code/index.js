@@ -2,15 +2,13 @@ import apiFetch from '@wordpress/api-fetch';
 import { TabPanel, Tooltip } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+import { PluginMoreMenuItem } from '@wordpress/editor';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import CodeEditor from '../../components/code-editor';
 import Modal from '../../components/modal';
 import getIcon from '../../utils/get-icon';
-
-const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 class CustomCodeModal extends Component {
 	constructor(props) {

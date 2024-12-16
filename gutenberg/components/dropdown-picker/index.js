@@ -19,7 +19,10 @@ export default function DropdownPicker(props) {
 	} = props;
 
 	return (
-		<BaseControl className="ghostkit-component-dropdown-picker-wrapper">
+		<BaseControl
+			className="ghostkit-component-dropdown-picker-wrapper"
+			__nextHasNoMarginBottom
+		>
 			<Dropdown
 				className={classnames(
 					'ghostkit-component-dropdown-picker__dropdown',

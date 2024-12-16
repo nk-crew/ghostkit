@@ -38,7 +38,11 @@ export default function BlockEdit(props) {
 			</InspectorControls>
 			<div {...blockProps}>
 				<FieldLabel {...props} />
-				<TextControl {...getFieldAttributes(attributes)} />
+				<TextControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					{...getFieldAttributes(attributes)}
+				/>
 				<FieldDescription {...props} />
 			</div>
 		</>

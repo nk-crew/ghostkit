@@ -2,7 +2,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { Button, TabPanel, Tooltip } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+import { PluginMoreMenuItem } from '@wordpress/editor';
 import { Component } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
@@ -10,8 +10,6 @@ import { __ } from '@wordpress/i18n';
 import Modal from '../../components/modal';
 import Typography from '../../components/typography';
 import getIcon from '../../utils/get-icon';
-
-const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 const { GHOSTKIT } = window;
 
@@ -917,7 +915,7 @@ class TypographyModal extends Component {
 												'undefined' ? (
 													<div className="ghostkit-typography-advanced">
 														<Button
-															isSecondary
+															variant="secondary"
 															onClick={() =>
 																this.onClickAdvanced(
 																	key,

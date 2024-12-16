@@ -24,6 +24,7 @@ export default function GapSettings(props) {
 			id={__('Gap', 'ghostkit')}
 			label={__('Gap', 'ghostkit')}
 			className="ghostkit-components-gap-settings"
+			__nextHasNoMarginBottom
 		>
 			<ToggleGroup
 				value={gap}
@@ -104,6 +105,8 @@ export default function GapSettings(props) {
 							})
 						}
 						min={0}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 					{allowVerticalGap ? (
 						<TextControl
@@ -120,6 +123,8 @@ export default function GapSettings(props) {
 								})
 							}
 							min={0}
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
 						/>
 					) : null}
 				</div>

@@ -1,8 +1,5 @@
 import { Button, PanelBody } from '@wordpress/components';
-import {
-	PluginSidebar,
-	PluginSidebarMoreMenuItem as StablePluginSidebarMoreMenuItem,
-} from '@wordpress/edit-post';
+import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/editor';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -12,8 +9,6 @@ import { CustomCodeModal } from '../custom-code';
 import { CustomizerModal } from '../customizer';
 import { TemplatesModal } from '../templates';
 import { TypographyModal } from '../typography';
-
-const PluginSidebarMoreMenuItem = StablePluginSidebarMoreMenuItem || {};
 
 const { GHOSTKIT } = window;
 
