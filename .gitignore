@@ -13,10 +13,7 @@ yarn-error.log*
 /node_modules
 /vendor
 /build/runtime*
-/build/*.hot-update.json
-/build/*.hot-update.js
-/build/*.hot-update.js.map
-/build/*.hot-update.asset.php
+/build/*/*.hot-update.*
 /dist
 /dist-zip
 /tests/e2e/artifacts
