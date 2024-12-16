@@ -223,7 +223,7 @@ const mountEditorToolbarToggle = () => {
 				}
 
 				const postHeader = document.querySelector(
-					'.edit-post-header__settings'
+					'.editor-header__settings, .edit-post-header__settings'
 				);
 
 				if (postHeader) {
