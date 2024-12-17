@@ -80,7 +80,7 @@ const vendorFiles = [
 		destination: 'assets/vendor/lottie-player/dist/lottie-player.js.map',
 	},
 	{
-		source: 'node_modules/motion/dist/motion.min.js',
+		source: 'node_modules/motion/dist/motion.js',
 		destination: 'assets/vendor/motion/dist/motion.min.js',
 	},
 ];
