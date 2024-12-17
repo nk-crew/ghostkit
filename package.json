@@ -88,7 +88,7 @@
 		"lorem-ipsum": "^2.0.8",
 		"luxon": "^3.4.4",
 		"markdown-it": "^14.0.0",
-		"motion": "^10.17.0",
+		"motion": "^11.15.0",
 		"qs": "^6.11.2",
 		"raf-schd": "^4.0.3",
 		"react-ace": "^10.1.0",

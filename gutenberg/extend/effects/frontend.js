@@ -59,43 +59,18 @@ events.on(document, 'init.blocks.gkt', () => {
 
 				// Easing with Cubic Bezier.
 				if (config?.transition?.type === 'easing') {
+					options.type = 'tween';
 					options.duration = config.transition.duration;
 					options.delay = config.transition.delay;
-					options.easing = config.transition.easing;
+					options.ease = config.transition.easing;
 
 					// Easing with Spring.
 				} else if (config?.transition?.type === 'spring') {
+					options.type = spring;
 					options.delay = config.transition.delay;
-					options.easing = spring({
-						stiffness: config.transition.stiffness,
-						damping: config.transition.damping,
-						mass: config.transition.mass,
-					});
-
-					// Fix for Scale and Rotate.
-					// https://github.com/motiondivision/motionone/issues/221
-					if (config.scale !== 1) {
-						options.scale = {
-							easing: spring({
-								stiffness: config.transition.stiffness,
-								damping: config.transition.damping,
-								mass: config.transition.mass,
-								restSpeed: 0.01,
-								restDistance: 0.001,
-							}),
-						};
-					}
-					if (config.rotate !== 0) {
-						options.rotate = {
-							easing: spring({
-								stiffness: config.transition.stiffness,
-								damping: config.transition.damping,
-								mass: config.transition.mass,
-								restSpeed: 1,
-								restDistance: 0.1,
-							}),
-						};
-					}
+					options.stiffness = config.transition.stiffness;
+					options.damping = config.transition.damping;
+					options.mass = config.transition.mass;
 				}
 
 				const keyframes = {};
@@ -129,7 +104,9 @@ events.on(document, 'init.blocks.gkt', () => {
 				// Stop inView listener.
 				eventData.stopInView();
 
-				animate($element, keyframes, options).finished.then(() => {
+				const animation = animate($element, keyframes, options);
+
+				animation.then(() => {
 					events.trigger(
 						$element,
 						'showed.effects.reveal.gkt',
