@@ -1,7 +1,7 @@
 @import "../../variables";
 
 .ghostkit-component-color-picker-wrapper:has(+ .ghostkit-component-color-picker-wrapper) {
-	margin-bottom: -9px;
+	margin-bottom: 0;
 
 	.ghostkit-component-color-toggle {
 		border-bottom: none;
