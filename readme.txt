@@ -263,12 +263,10 @@ The plugin documentation provides a comprehensive source of information on block
 13. Google Maps
 14. Video
 15. Testimonial
-16. Instagram
-17. Twitter
-18. GitHub Gist
-19. Changelog
-20. Pricing Table
-21. Blocks Extensions
+16. GitHub Gist
+17. Changelog
+18. Pricing Table
+19. Blocks Extensions
 
 ## Changelog ##
 
