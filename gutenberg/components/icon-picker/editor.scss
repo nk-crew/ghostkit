@@ -1,7 +1,7 @@
 @import "../../variables";
 
 .ghostkit-component-icon-picker-wrapper:has(+ .ghostkit-component-icon-picker-wrapper) {
-	margin-bottom: -9px;
+	margin-bottom: 0;
 
 	.ghostkit-component-icon-picker-toggle {
 		border-bottom: none;
