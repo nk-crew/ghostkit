@@ -1,29 +1,29 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/table-of-contents",
-  "category": "ghostkit",
-  "title": "Table of Contents",
-  "description": "Summarize your post with a list of headings. Add HTML anchors to Heading blocks to link them here.",
-  "keywords": ["table of contents", "toc", "summary", "document outline"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "align": ["wide", "full"],
-    "multiple": false
-  },
-  "attributes": {
-    "title": {
-      "type": "string",
-      "default": "Table of Contents"
-    },
-    "listStyle": {
-      "type": "string",
-      "default": "ol-styled"
-    },
-    "allowedHeaders": {
-      "type": "array",
-      "default": [2, 3, 4]
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/table-of-contents",
+	"category": "ghostkit",
+	"title": "Table of Contents",
+	"description": "Summarize your post with a list of headings. Add HTML anchors to Heading blocks to link them here.",
+	"keywords": ["table of contents", "toc", "summary", "document outline"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"align": ["wide", "full"],
+		"multiple": false
+	},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Table of Contents"
+		},
+		"listStyle": {
+			"type": "string",
+			"default": "ol-styled"
+		},
+		"allowedHeaders": {
+			"type": "array",
+			"default": [2, 3, 4]
+		}
+	}
 }

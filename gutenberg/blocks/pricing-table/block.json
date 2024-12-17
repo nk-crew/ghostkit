@@ -1,36 +1,36 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/pricing-table",
-  "category": "ghostkit",
-  "title": "Pricing Table",
-  "description": "Sell your products or services and show all features.",
-  "keywords": ["pricing", "table"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "align": ["wide", "full"]
-  },
-  "attributes": {
-    "count": {
-      "type": "number",
-      "default": 2
-    },
-    "gap": {
-      "type": "string",
-      "default": "md"
-    },
-    "gapCustom": {
-      "type": "number"
-    },
-    "verticalAlign": {
-      "type": "string",
-      "default": "center"
-    },
-    "horizontalAlign": {
-      "type": "string",
-      "default": "center"
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/pricing-table",
+	"category": "ghostkit",
+	"title": "Pricing Table",
+	"description": "Sell your products or services and show all features.",
+	"keywords": ["pricing", "table"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"count": {
+			"type": "number",
+			"default": 2
+		},
+		"gap": {
+			"type": "string",
+			"default": "md"
+		},
+		"gapCustom": {
+			"type": "number"
+		},
+		"verticalAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"horizontalAlign": {
+			"type": "string",
+			"default": "center"
+		}
+	}
 }

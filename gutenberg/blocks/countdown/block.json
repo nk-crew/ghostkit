@@ -1,40 +1,40 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/countdown",
-  "category": "ghostkit",
-  "title": "Countdown",
-  "description": "Countdown timer for upcoming event.",
-  "keywords": ["timer", "count", "number"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "align": ["wide", "full"]
-  },
-  "attributes": {
-    "date": {
-      "type": "string"
-    },
-    "units": {
-      "type": "array",
-      "default": ["days", "hours", "minutes", "seconds"]
-    },
-    "unitsAlign": {
-      "type": "string"
-    },
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/countdown",
+	"category": "ghostkit",
+	"title": "Countdown",
+	"description": "Countdown timer for upcoming event.",
+	"keywords": ["timer", "count", "number"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"date": {
+			"type": "string"
+		},
+		"units": {
+			"type": "array",
+			"default": ["days", "hours", "minutes", "seconds"]
+		},
+		"unitsAlign": {
+			"type": "string"
+		},
 
-    "numberFontSize": {
-      "type": "number"
-    },
-    "labelFontSize": {
-      "type": "number"
-    },
-    "numberColor": {
-      "type": "string"
-    },
-    "labelColor": {
-      "type": "string"
-    }
-  }
+		"numberFontSize": {
+			"type": "number"
+		},
+		"labelFontSize": {
+			"type": "number"
+		},
+		"numberColor": {
+			"type": "string"
+		},
+		"labelColor": {
+			"type": "string"
+		}
+	}
 }

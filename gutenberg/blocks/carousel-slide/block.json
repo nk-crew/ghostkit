@@ -1,23 +1,23 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/carousel-slide",
-  "parent": ["ghostkit/carousel"],
-  "category": "ghostkit",
-  "title": "Slide",
-  "description": "A single slide within a carousel block.",
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "reusable": false,
-    "spacing": {
-      "blockGap": true,
-      "__experimentalDefaultControls": {
-        "blockGap": true
-      }
-    },
-    "__experimentalLayout": true,
-    "layout": true
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/carousel-slide",
+	"parent": ["ghostkit/carousel"],
+	"category": "ghostkit",
+	"title": "Slide",
+	"description": "A single slide within a carousel block.",
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"reusable": false,
+		"spacing": {
+			"blockGap": true,
+			"__experimentalDefaultControls": {
+				"blockGap": true
+			}
+		},
+		"__experimentalLayout": true,
+		"layout": true
+	}
 }

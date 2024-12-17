@@ -1,101 +1,105 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/button-single",
-  "parent": ["ghostkit/button", "ghostkit/form", "ghostkit/form-submit-button"],
-  "category": "ghostkit",
-  "title": "Button",
-  "description": "A single button within a buttons wrapper block.",
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "reusable": false
-  },
-  "attributes": {
-    "tagName": {
-      "type": "string"
-    },
-    "url": {
-      "type": "string",
-      "source": "attribute",
-      "selector": "a.ghostkit-button",
-      "attribute": "href"
-    },
-    "ariaLabel": {
-      "type": "string",
-      "source": "attribute",
-      "selector": "a.ghostkit-button",
-      "attribute": "aria-label"
-    },
-    "target": {
-      "type": "string",
-      "source": "attribute",
-      "selector": "a.ghostkit-button",
-      "attribute": "target"
-    },
-    "rel": {
-      "type": "string",
-      "source": "attribute",
-      "selector": "a.ghostkit-button",
-      "attribute": "rel"
-    },
-    "text": {
-      "type": "string",
-      "source": "html",
-      "selector": ".ghostkit-button .ghostkit-button-text",
-      "default": "Button"
-    },
-    "hideText": {
-      "type": "boolean",
-      "default": false
-    },
-    "icon": {
-      "type": "string",
-      "default": ""
-    },
-    "iconPosition": {
-      "type": "string",
-      "default": "left"
-    },
-    "size": {
-      "type": "string",
-      "default": "md"
-    },
-    "color": {
-      "type": "string"
-    },
-    "textColor": {
-      "type": "string"
-    },
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/button-single",
+	"parent": [
+		"ghostkit/button",
+		"ghostkit/form",
+		"ghostkit/form-submit-button"
+	],
+	"category": "ghostkit",
+	"title": "Button",
+	"description": "A single button within a buttons wrapper block.",
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"reusable": false
+	},
+	"attributes": {
+		"tagName": {
+			"type": "string"
+		},
+		"url": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "a.ghostkit-button",
+			"attribute": "href"
+		},
+		"ariaLabel": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "a.ghostkit-button",
+			"attribute": "aria-label"
+		},
+		"target": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "a.ghostkit-button",
+			"attribute": "target"
+		},
+		"rel": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "a.ghostkit-button",
+			"attribute": "rel"
+		},
+		"text": {
+			"type": "string",
+			"source": "html",
+			"selector": ".ghostkit-button .ghostkit-button-text",
+			"default": "Button"
+		},
+		"hideText": {
+			"type": "boolean",
+			"default": false
+		},
+		"icon": {
+			"type": "string",
+			"default": ""
+		},
+		"iconPosition": {
+			"type": "string",
+			"default": "left"
+		},
+		"size": {
+			"type": "string",
+			"default": "md"
+		},
+		"color": {
+			"type": "string"
+		},
+		"textColor": {
+			"type": "string"
+		},
 
-    "borderRadius": {
-      "type": "number"
-    },
-    "borderWeight": {
-      "type": "number"
-    },
-    "borderColor": {
-      "type": "string"
-    },
+		"borderRadius": {
+			"type": "number"
+		},
+		"borderWeight": {
+			"type": "number"
+		},
+		"borderColor": {
+			"type": "string"
+		},
 
-    "focusOutlineWeight": {
-      "type": "number"
-    },
+		"focusOutlineWeight": {
+			"type": "number"
+		},
 
-    "hoverColor": {
-      "type": "string"
-    },
-    "hoverTextColor": {
-      "type": "string"
-    },
-    "hoverBorderColor": {
-      "type": "string"
-    },
+		"hoverColor": {
+			"type": "string"
+		},
+		"hoverTextColor": {
+			"type": "string"
+		},
+		"hoverBorderColor": {
+			"type": "string"
+		},
 
-    "focusOutlineColor": {
-      "type": "string",
-      "default": "rgba(3, 102, 214, 0.5)"
-    }
-  }
+		"focusOutlineColor": {
+			"type": "string",
+			"default": "rgba(3, 102, 214, 0.5)"
+		}
+	}
 }

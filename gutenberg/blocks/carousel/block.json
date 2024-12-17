@@ -1,81 +1,81 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/carousel",
-  "category": "ghostkit",
-  "title": "Carousel",
-  "description": "Carousel for any type of content - images or other blocks.",
-  "keywords": ["carousel", "slider"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "align": ["wide", "full"]
-  },
-  "attributes": {
-    "effect": {
-      "type": "string",
-      "default": "slide"
-    },
-    "speed": {
-      "type": "number",
-      "default": 0.2
-    },
-    "autoplay": {
-      "type": "number",
-      "default": 4
-    },
-    "autoplayHoverPause": {
-      "type": "boolean",
-      "default": false
-    },
-    "slidesPerView": {
-      "type": "number",
-      "default": 3
-    },
-    "centeredSlides": {
-      "type": "boolean",
-      "default": true
-    },
-    "loop": {
-      "type": "boolean",
-      "default": true
-    },
-    "freeScroll": {
-      "type": "boolean",
-      "default": false
-    },
-    "fadeEdges": {
-      "type": "boolean",
-      "default": false
-    },
-    "fadeEdgesSize": {
-      "type": "number",
-      "default": 12
-    },
-    "showArrows": {
-      "type": "boolean",
-      "default": true
-    },
-    "arrowPrevIcon": {
-      "type": "string",
-      "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.7803%2017.7803C14.4874%2018.0732%2014.0126%2018.0732%2013.7197%2017.7803L8.4697%2012.5303C8.1768%2012.2374%208.1768%2011.7626%208.4697%2011.4697L13.7197%206.21967C14.0126%205.92678%2014.4874%205.92678%2014.7803%206.21967C15.0732%206.51256%2015.0732%206.98744%2014.7803%207.28033L10.0607%2012L14.7803%2016.7197C15.0732%2017.0126%2015.0732%2017.4874%2014.7803%2017.7803Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E"
-    },
-    "arrowNextIcon": {
-      "type": "string",
-      "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M9.21967%206.2197C9.51256%205.9268%209.98744%205.9268%2010.2803%206.2197L15.5303%2011.4697C15.8232%2011.7626%2015.8232%2012.2374%2015.5303%2012.5303L10.2803%2017.7803C9.98744%2018.0732%209.51256%2018.0732%209.21967%2017.7803C8.92678%2017.4874%208.92678%2017.0126%209.21967%2016.7197L13.9393%2012L9.21967%207.2803C8.92678%206.9874%208.92678%206.5126%209.21967%206.2197Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E"
-    },
-    "showBullets": {
-      "type": "boolean",
-      "default": true
-    },
-    "dynamicBullets": {
-      "type": "boolean",
-      "default": true
-    },
-    "gap": {
-      "type": "number",
-      "default": 15
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/carousel",
+	"category": "ghostkit",
+	"title": "Carousel",
+	"description": "Carousel for any type of content - images or other blocks.",
+	"keywords": ["carousel", "slider"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"effect": {
+			"type": "string",
+			"default": "slide"
+		},
+		"speed": {
+			"type": "number",
+			"default": 0.2
+		},
+		"autoplay": {
+			"type": "number",
+			"default": 4
+		},
+		"autoplayHoverPause": {
+			"type": "boolean",
+			"default": false
+		},
+		"slidesPerView": {
+			"type": "number",
+			"default": 3
+		},
+		"centeredSlides": {
+			"type": "boolean",
+			"default": true
+		},
+		"loop": {
+			"type": "boolean",
+			"default": true
+		},
+		"freeScroll": {
+			"type": "boolean",
+			"default": false
+		},
+		"fadeEdges": {
+			"type": "boolean",
+			"default": false
+		},
+		"fadeEdgesSize": {
+			"type": "number",
+			"default": 12
+		},
+		"showArrows": {
+			"type": "boolean",
+			"default": true
+		},
+		"arrowPrevIcon": {
+			"type": "string",
+			"default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.7803%2017.7803C14.4874%2018.0732%2014.0126%2018.0732%2013.7197%2017.7803L8.4697%2012.5303C8.1768%2012.2374%208.1768%2011.7626%208.4697%2011.4697L13.7197%206.21967C14.0126%205.92678%2014.4874%205.92678%2014.7803%206.21967C15.0732%206.51256%2015.0732%206.98744%2014.7803%207.28033L10.0607%2012L14.7803%2016.7197C15.0732%2017.0126%2015.0732%2017.4874%2014.7803%2017.7803Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E"
+		},
+		"arrowNextIcon": {
+			"type": "string",
+			"default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M9.21967%206.2197C9.51256%205.9268%209.98744%205.9268%2010.2803%206.2197L15.5303%2011.4697C15.8232%2011.7626%2015.8232%2012.2374%2015.5303%2012.5303L10.2803%2017.7803C9.98744%2018.0732%209.51256%2018.0732%209.21967%2017.7803C8.92678%2017.4874%208.92678%2017.0126%209.21967%2016.7197L13.9393%2012L9.21967%207.2803C8.92678%206.9874%208.92678%206.5126%209.21967%206.2197Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E"
+		},
+		"showBullets": {
+			"type": "boolean",
+			"default": true
+		},
+		"dynamicBullets": {
+			"type": "boolean",
+			"default": true
+		},
+		"gap": {
+			"type": "number",
+			"default": 15
+		}
+	}
 }

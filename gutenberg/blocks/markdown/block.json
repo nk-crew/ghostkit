@@ -1,19 +1,19 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/markdown",
-  "category": "ghostkit",
-  "title": "Markdown",
-  "description": "Lightweight markup language with plain-text-formatting syntax.",
-  "keywords": ["formatting", "markup", "md"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true
-  },
-  "attributes": {
-    "content": {
-      "type": "string"
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/markdown",
+	"category": "ghostkit",
+	"title": "Markdown",
+	"description": "Lightweight markup language with plain-text-formatting syntax.",
+	"keywords": ["formatting", "markup", "md"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true
+	},
+	"attributes": {
+		"content": {
+			"type": "string"
+		}
+	}
 }

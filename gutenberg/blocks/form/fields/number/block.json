@@ -1,15 +1,15 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/form-field-number",
-  "parent": ["ghostkit/form"],
-  "category": "ghostkit",
-  "title": "Number",
-  "description": "Form field number.",
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "reusable": false
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/form-field-number",
+	"parent": ["ghostkit/form"],
+	"category": "ghostkit",
+	"title": "Number",
+	"description": "Form field number.",
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"reusable": false
+	}
 }

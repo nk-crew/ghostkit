@@ -1,15 +1,15 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/form-field-radio",
-  "parent": ["ghostkit/form"],
-  "category": "ghostkit",
-  "title": "Radio",
-  "description": "Form field radio.",
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "reusable": false
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/form-field-radio",
+	"parent": ["ghostkit/form"],
+	"category": "ghostkit",
+	"title": "Radio",
+	"description": "Form field radio.",
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"reusable": false
+	}
 }
