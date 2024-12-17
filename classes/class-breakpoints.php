@@ -5,25 +5,6 @@
  * @package ghostkit
  */
 
-if ( ! function_exists( 'is_plugin_active' ) ) {
-	require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
-
-// phpcs:ignore
-$pro_version = false;
-
-if ( is_plugin_active( 'ghostkit-pro/class-ghost-kit-pro.php' ) ) {
-	$ghostkit_wp_content_dir = defined( 'WP_CONTENT_DIR' ) ? WP_CONTENT_DIR : ABSPATH . 'wp-content';
-    // phpcs:ignore
-    $pro_data    = get_plugin_data( $ghostkit_wp_content_dir . '/plugins/ghostkit-pro/class-ghost-kit-pro.php' );
-    // phpcs:ignore
-    $pro_version = isset( $pro_data['Version'] ) ? $pro_data['Version'] : false;
-}
-
-if ( $pro_version && version_compare( $pro_version, '1.6.2', '<=' ) ) {
-	require_once ghostkit()->plugin_path . 'classes/class-breakpoints-fallback.php';
-}
-
 if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 	/**
 	 * GhostKit_Breakpoints class
