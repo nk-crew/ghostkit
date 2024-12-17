@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-17T13:02:43+00:00\n"
+"POT-Creation-Date: 2024-12-17T17:38:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
@@ -2059,7 +2059,7 @@ msgstr ""
 #: gutenberg/blocks/video/edit/inspector-controls.js:258
 #: gutenberg/blocks/video/edit/inspector-controls.js:259
 #: gutenberg/components/transition-easing-controls/index.js:301
-#: gutenberg/components/transition-spring-controls/index.js:240
+#: gutenberg/components/transition-spring-controls/index.js:245
 #: settings/pages/blocks.js:215
 msgid "Preview"
 msgstr ""
@@ -2693,7 +2693,7 @@ msgstr ""
 
 #: gutenberg/components/transition-easing-controls/index.js:117
 #: gutenberg/components/transition-presets-control/index.js:44
-#: gutenberg/components/transition-spring-controls/index.js:153
+#: gutenberg/components/transition-spring-controls/index.js:158
 msgid "-- Presets --"
 msgstr ""
 
@@ -2707,7 +2707,7 @@ msgid "Duration"
 msgstr ""
 
 #: gutenberg/components/transition-easing-controls/index.js:289
-#: gutenberg/components/transition-spring-controls/index.js:228
+#: gutenberg/components/transition-spring-controls/index.js:233
 msgid "Delay"
 msgstr ""
 
@@ -2779,15 +2779,15 @@ msgstr ""
 msgid "Add…"
 msgstr ""
 
-#: gutenberg/components/transition-spring-controls/index.js:198
+#: gutenberg/components/transition-spring-controls/index.js:203
 msgid "Stiffness"
 msgstr ""
 
-#: gutenberg/components/transition-spring-controls/index.js:208
+#: gutenberg/components/transition-spring-controls/index.js:213
 msgid "Damping"
 msgstr ""
 
-#: gutenberg/components/transition-spring-controls/index.js:218
+#: gutenberg/components/transition-spring-controls/index.js:223
 msgid "Mass"
 msgstr ""
 
