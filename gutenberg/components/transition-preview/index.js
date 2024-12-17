@@ -36,14 +36,14 @@ export default function TransitionPreview(props) {
 				const animationOptions = {};
 
 				if (opts?.type === 'easing') {
-					animationOptions.easing = opts.easing;
+					animationOptions.type = 'tween';
+					animationOptions.ease = opts.easing;
 					animationOptions.duration = opts.duration;
 				} else if (opts?.type === 'spring') {
-					animationOptions.easing = spring({
-						stiffness: opts.stiffness,
-						damping: opts.damping,
-						mass: opts.mass,
-					});
+					animationOptions.type = spring;
+					animationOptions.stiffness = opts.stiffness;
+					animationOptions.damping = opts.damping;
+					animationOptions.mass = opts.mass;
 				}
 
 				const computedStyle = window.getComputedStyle(

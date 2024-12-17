@@ -59,23 +59,28 @@ export function SpringEditor(props) {
 			stiffness: value?.stiffness,
 			damping: value?.damping,
 			mass: value?.mass,
-		}).createAnimation([0, options.framesLength]);
+			keyframes: [0, options.framesLength],
+		});
 
 		const width = options.width - options.padding * 2;
 		const height = options.height - options.padding * 2;
 
-		const points = springData.keyframes.map((val, i) => {
+		const points = [];
+
+		// const step = 10;
+		for (let i = 0; i <= options.framesLength; i++) {
 			const valuePercent =
-				(options.framesLength - val) / options.framesLength;
-			const framesPercent = i / springData.keyframes.length;
+				(options.framesLength - springData.next(i).value) /
+				options.framesLength;
+			const framesPercent = i / options.framesLength;
 			const x = round(framesPercent * width, 4) + options.padding;
 			const y =
 				round((valuePercent * height) / 2, 4) +
 				height / 2 +
 				options.padding;
 
-			return [x, y];
-		});
+			points.push([x, y]);
+		}
 
 		let newPath = `M${options.padding}`;
 
