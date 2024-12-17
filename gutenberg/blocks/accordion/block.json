@@ -1,32 +1,32 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/accordion",
-  "category": "ghostkit",
-  "title": "Accordion",
-  "description": "Toggle the visibility of content across your project.",
-  "keywords": ["accordion", "collapsible", "collapse"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "align": ["wide", "full"]
-  },
-  "attributes": {
-    "itemsCount": {
-      "type": "number",
-      "default": 2
-    },
-    "collapseOne": {
-      "type": "boolean",
-      "default": false
-    },
-    "collapseTitleTag": {
-      "type": "string",
-      "default": "div"
-    }
-  },
-  "providesContext": {
-    "ghostkit/collapseTitleTag": "collapseTitleTag"
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/accordion",
+	"category": "ghostkit",
+	"title": "Accordion",
+	"description": "Toggle the visibility of content across your project.",
+	"keywords": ["accordion", "collapsible", "collapse"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"itemsCount": {
+			"type": "number",
+			"default": 2
+		},
+		"collapseOne": {
+			"type": "boolean",
+			"default": false
+		},
+		"collapseTitleTag": {
+			"type": "string",
+			"default": "div"
+		}
+	},
+	"providesContext": {
+		"ghostkit/collapseTitleTag": "collapseTitleTag"
+	}
 }

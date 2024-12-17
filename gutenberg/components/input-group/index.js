@@ -17,6 +17,7 @@ function InputGroupWithChildren(props) {
 	return (
 		<BaseControl
 			className={classnames('ghostkit-component-input-group', className)}
+			__nextHasNoMarginBottom
 			{...restProps}
 		>
 			<div className="ghostkit-component-input-group-wrapper">
@@ -88,6 +89,7 @@ export default function InputGroup(props) {
 					)}
 				</>
 			}
+			__nextHasNoMarginBottom
 			{...restProps}
 		>
 			<div className="ghostkit-component-input-group-wrapper">

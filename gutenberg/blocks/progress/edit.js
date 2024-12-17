@@ -62,6 +62,8 @@ export default function BlockEdit(props) {
 						onChange={(value) => setAttributes({ height: value })}
 						min={1}
 						allowCustomMax
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 					<RangeControl
 						label={__('Percent', 'ghostkit')}
@@ -69,6 +71,8 @@ export default function BlockEdit(props) {
 						onChange={(value) => setAttributes({ percent: value })}
 						min={0}
 						max={100}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 					<RangeControl
 						label={__('Corner Radius', 'ghostkit')}
@@ -79,6 +83,8 @@ export default function BlockEdit(props) {
 							setAttributes({ borderRadius: value })
 						}
 						allowCustomMax
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 				<PanelBody>
@@ -86,6 +92,7 @@ export default function BlockEdit(props) {
 						label={__('Show Count', 'ghostkit')}
 						checked={!!showCount}
 						onChange={(val) => setAttributes({ showCount: val })}
+						__nextHasNoMarginBottom
 					/>
 					{showCount ? (
 						<>
@@ -95,6 +102,8 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ countPrefix: value })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 							<TextControl
 								label={__('Count Suffix', 'ghostkit')}
@@ -102,6 +111,8 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ countSuffix: value })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 						</>
 					) : null}
@@ -109,6 +120,7 @@ export default function BlockEdit(props) {
 						label={__('Striped', 'ghostkit')}
 						checked={!!striped}
 						onChange={(val) => setAttributes({ striped: val })}
+						__nextHasNoMarginBottom
 					/>
 					<ToggleControl
 						label={__('Animate in viewport', 'ghostkit')}
@@ -116,6 +128,7 @@ export default function BlockEdit(props) {
 						onChange={(val) =>
 							setAttributes({ animateInViewport: val })
 						}
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 				<PanelBody

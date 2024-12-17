@@ -34,6 +34,7 @@ export default function ToggleGroup(props) {
 					'ghostkit-control-toggle-group',
 					props.className
 				)}
+				__nextHasNoMarginBottom
 			>
 				<ToggleGroupControl
 					value={value}
@@ -42,6 +43,8 @@ export default function ToggleGroup(props) {
 					isAdaptiveWidth={isAdaptiveWidth}
 					isDeselectable={isDeselectable}
 					hideLabelFromVision
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
 				>
 					{options.map((option) =>
 						option.icon ? (
@@ -68,13 +71,12 @@ export default function ToggleGroup(props) {
 
 	// Fallback.
 	return (
-		<BaseControl id={label} label={label}>
+		<BaseControl id={label} label={label} __nextHasNoMarginBottom>
 			<ButtonGroup className="ghostkit-control-toggle-group">
 				{options.map((option) => (
 					<Button
 						key={option.value}
-						isSmall
-						isPrimary={value === option.value}
+						variant={value === option.value ? 'primary' : ''}
 						isPressed={value === option.value}
 						disabled={option.disabled}
 						onClick={() => {

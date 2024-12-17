@@ -101,6 +101,8 @@ export default function BlockEdit(props) {
 								setAttributes({ nameFields: val });
 							}
 						}}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 					{nameFields === 'first-middle-last' ? (
 						<>
@@ -110,6 +112,8 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ placeholderMiddle: val })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 							<TextControl
 								label={__('Middle Default', 'ghostkit')}
@@ -117,6 +121,8 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ defaultMiddle: val })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 						</>
 					) : null}
@@ -129,6 +135,8 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ placeholderLast: val })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 							<TextControl
 								label={__('Last Default', 'ghostkit')}
@@ -136,6 +144,8 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ defaultLast: val })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 						</>
 					) : null}
@@ -150,6 +160,8 @@ export default function BlockEdit(props) {
 						<div className="ghostkit-form-field-name-first">
 							<TextControl
 								type="email"
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 								{...getFieldAttributes(attributes)}
 							/>
 							<FieldDescription {...props} />
@@ -158,6 +170,8 @@ export default function BlockEdit(props) {
 							<div className="ghostkit-form-field-name-middle">
 								<TextControl
 									type="email"
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
 									{...getFieldAttributes({
 										slug: attributes.slug
 											? `${attributes.slug}-middle`
@@ -190,6 +204,8 @@ export default function BlockEdit(props) {
 							<div className="ghostkit-form-field-name-last">
 								<TextControl
 									type="email"
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
 									{...getFieldAttributes({
 										slug: attributes.slug
 											? `${attributes.slug}-last`
@@ -219,6 +235,8 @@ export default function BlockEdit(props) {
 					<>
 						<TextControl
 							type="email"
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
 							{...getFieldAttributes(attributes)}
 						/>
 						<FieldDescription {...props} />

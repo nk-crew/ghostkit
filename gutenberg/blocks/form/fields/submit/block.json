@@ -1,21 +1,21 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/form-submit-button",
-  "parent": ["ghostkit/form"],
-  "category": "ghostkit",
-  "title": "Submit Button",
-  "description": "Form submit button.",
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "reusable": false
-  },
-  "attributes": {
-    "align": {
-      "type": "string",
-      "default": "none"
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/form-submit-button",
+	"parent": ["ghostkit/form"],
+	"category": "ghostkit",
+	"title": "Submit Button",
+	"description": "Form submit button.",
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"reusable": false
+	},
+	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "none"
+		}
+	}
 }

@@ -1,44 +1,44 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/divider",
-  "category": "ghostkit",
-  "title": "Divider",
-  "description": "Divide your long texts and blocks.",
-  "keywords": ["divider", "spacer"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "align": ["wide", "full"]
-  },
-  "attributes": {
-    "type": {
-      "type": "string",
-      "default": "solid"
-    },
-    "size": {
-      "type": "number",
-      "default": 2
-    },
-    "icon": {
-      "type": "string",
-      "default": ""
-    },
-    "iconSize": {
-      "type": "number"
-    },
-    "color": {
-      "type": "string"
-    },
-    "iconColor": {
-      "type": "string"
-    },
-    "hoverColor": {
-      "type": "string"
-    },
-    "hoverIconColor": {
-      "type": "string"
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/divider",
+	"category": "ghostkit",
+	"title": "Divider",
+	"description": "Divide your long texts and blocks.",
+	"keywords": ["divider", "spacer"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"type": {
+			"type": "string",
+			"default": "solid"
+		},
+		"size": {
+			"type": "number",
+			"default": 2
+		},
+		"icon": {
+			"type": "string",
+			"default": ""
+		},
+		"iconSize": {
+			"type": "number"
+		},
+		"color": {
+			"type": "string"
+		},
+		"iconColor": {
+			"type": "string"
+		},
+		"hoverColor": {
+			"type": "string"
+		},
+		"hoverIconColor": {
+			"type": "string"
+		}
+	}
 }

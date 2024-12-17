@@ -1,48 +1,48 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/lottie",
-  "category": "ghostkit",
-  "title": "Lottie Animation",
-  "description": "Add Lottie SVG animations.",
-  "keywords": ["lottie", "animation", "svg"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "align": ["wide", "full", "left", "center", "right"]
-  },
-  "attributes": {
-    "fileId": {
-      "type": "number"
-    },
-    "fileUrl": {
-      "type": "string"
-    },
-    "fileWidth": {
-      "type": "number"
-    },
-    "fileHeight": {
-      "type": "number"
-    },
-    "direction": {
-      "type": "number",
-      "default": 1
-    },
-    "trigger": {
-      "type": "string"
-    },
-    "loop": {
-      "type": "boolean",
-      "default": true
-    },
-    "speed": {
-      "type": "number",
-      "default": 1
-    },
-    "width": {
-      "type": "string",
-      "default": "100%"
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/lottie",
+	"category": "ghostkit",
+	"title": "Lottie Animation",
+	"description": "Add Lottie SVG animations.",
+	"keywords": ["lottie", "animation", "svg"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"align": ["wide", "full", "left", "center", "right"]
+	},
+	"attributes": {
+		"fileId": {
+			"type": "number"
+		},
+		"fileUrl": {
+			"type": "string"
+		},
+		"fileWidth": {
+			"type": "number"
+		},
+		"fileHeight": {
+			"type": "number"
+		},
+		"direction": {
+			"type": "number",
+			"default": 1
+		},
+		"trigger": {
+			"type": "string"
+		},
+		"loop": {
+			"type": "boolean",
+			"default": true
+		},
+		"speed": {
+			"type": "number",
+			"default": 1
+		},
+		"width": {
+			"type": "string",
+			"default": "100%"
+		}
+	}
 }

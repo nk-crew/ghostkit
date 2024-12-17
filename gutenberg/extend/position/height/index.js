@@ -52,7 +52,6 @@ function PositionHeightTools(props) {
 					setStyles({ height: val }, device);
 				}}
 				labelPosition="edge"
-				__unstableInputWidth="70px"
 				units={[
 					{ value: 'px', label: 'px' },
 					{ value: '%', label: '%' },
@@ -62,6 +61,9 @@ function PositionHeightTools(props) {
 					{ value: 'vh', label: 'vh' },
 				]}
 				min={0}
+				__unstableInputWidth="70px"
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
 			/>
 		</ToolsPanelItem>
 	);

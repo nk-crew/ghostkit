@@ -106,6 +106,8 @@ export default function BlockEdit(props) {
 							});
 						}}
 						multiple
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 					<SelectControl
 						label={__('List Style', 'ghostkit')}
@@ -129,6 +131,8 @@ export default function BlockEdit(props) {
 							},
 						]}
 						onChange={(val) => setAttributes({ listStyle: val })}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 			</InspectorControls>

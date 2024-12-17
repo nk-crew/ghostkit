@@ -1,33 +1,33 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/changelog",
-  "category": "ghostkit",
-  "title": "Changelog",
-  "description": "Show the changes log of your product.",
-  "keywords": ["changelog", "log"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "align": ["wide", "full"],
-    "spacing": {
-      "blockGap": true,
-      "__experimentalDefaultControls": {
-        "blockGap": true
-      }
-    },
-    "__experimentalLayout": true,
-    "layout": true
-  },
-  "attributes": {
-    "version": {
-      "type": "string",
-      "default": ""
-    },
-    "date": {
-      "type": "string",
-      "default": ""
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/changelog",
+	"category": "ghostkit",
+	"title": "Changelog",
+	"description": "Show the changes log of your product.",
+	"keywords": ["changelog", "log"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"align": ["wide", "full"],
+		"spacing": {
+			"blockGap": true,
+			"__experimentalDefaultControls": {
+				"blockGap": true
+			}
+		},
+		"__experimentalLayout": true,
+		"layout": true
+	},
+	"attributes": {
+		"version": {
+			"type": "string",
+			"default": ""
+		},
+		"date": {
+			"type": "string",
+			"default": ""
+		}
+	}
 }

@@ -1,49 +1,49 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/gif",
-  "category": "ghostkit",
-  "title": "GIF",
-  "description": "Search for and insert an animated image.",
-  "keywords": ["animated", "giphy", "image"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true
-  },
-  "attributes": {
-    "searchText": {
-      "type": "string"
-    },
-    "url": {
-      "attribute": "src",
-      "selector": "img",
-      "source": "attribute",
-      "type": "string"
-    },
-    "srcset": {
-      "attribute": "srcset",
-      "selector": "img",
-      "source": "attribute",
-      "type": "string"
-    },
-    "alt": {
-      "attribute": "alt",
-      "selector": "img",
-      "source": "attribute",
-      "type": "string",
-      "default": ""
-    },
-    "caption": {
-      "type": "string",
-      "source": "html",
-      "selector": "figcaption"
-    },
-    "width": {
-      "type": "number"
-    },
-    "height": {
-      "type": "number"
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/gif",
+	"category": "ghostkit",
+	"title": "GIF",
+	"description": "Search for and insert an animated image.",
+	"keywords": ["animated", "giphy", "image"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true
+	},
+	"attributes": {
+		"searchText": {
+			"type": "string"
+		},
+		"url": {
+			"attribute": "src",
+			"selector": "img",
+			"source": "attribute",
+			"type": "string"
+		},
+		"srcset": {
+			"attribute": "srcset",
+			"selector": "img",
+			"source": "attribute",
+			"type": "string"
+		},
+		"alt": {
+			"attribute": "alt",
+			"selector": "img",
+			"source": "attribute",
+			"type": "string",
+			"default": ""
+		},
+		"caption": {
+			"type": "string",
+			"source": "html",
+			"selector": "figcaption"
+		},
+		"width": {
+			"type": "number"
+		},
+		"height": {
+			"type": "number"
+		}
+	}
 }

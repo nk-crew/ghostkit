@@ -13,15 +13,13 @@ import {
 } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { useDispatch, withDispatch, withSelect } from '@wordpress/data';
-import { PluginMoreMenuItem as StablePluginMoreMenuItem } from '@wordpress/edit-post';
+import { PluginMoreMenuItem } from '@wordpress/editor';
 import { Component, Fragment, RawHTML, useState } from '@wordpress/element';
 import { addFilter, applyFilters } from '@wordpress/hooks';
 import { __, sprintf } from '@wordpress/i18n';
 
 import Modal from '../../components/modal';
 import getIcon from '../../utils/get-icon';
-
-const PluginMoreMenuItem = StablePluginMoreMenuItem || {};
 
 const { GHOSTKIT } = window;
 
@@ -125,6 +123,8 @@ class TemplatesModal extends Component {
 							},
 						}));
 					}}
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
 				/>
 			);
 		}
@@ -661,7 +661,7 @@ addFilter(
 			<>
 				{GHOSTKIT.allowTemplates && (
 					<Button
-						isPrimary
+						variant="primary"
 						onClick={() => {
 							setIsTemplatesModalOpen(true);
 						}}

@@ -60,6 +60,7 @@ export default function BlockEdit(props) {
 						label={__('Inline', 'ghostkit')}
 						checked={inline}
 						onChange={() => setAttributes({ inline: !inline })}
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 			</InspectorControls>

@@ -94,6 +94,8 @@ export default function BlockEdit(props) {
 								min={1}
 								max={20}
 								allowCustomMax
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 							<RangeControl
 								label={__('Columns', 'ghostkit')}
@@ -104,6 +106,8 @@ export default function BlockEdit(props) {
 								min={1}
 								max={8}
 								allowCustomMax
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 						</PanelBody>
 						<PanelBody>
@@ -122,6 +126,7 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ showProfile: val })
 								}
+								__nextHasNoMarginBottom
 							/>
 							{attributes.showProfile ? (
 								<>
@@ -133,6 +138,7 @@ export default function BlockEdit(props) {
 												showProfileAvatar: val,
 											})
 										}
+										__nextHasNoMarginBottom
 									/>
 									{showProfileAvatar ? (
 										<RangeControl
@@ -150,6 +156,8 @@ export default function BlockEdit(props) {
 											max={150}
 											allowCustomMin
 											allowCustomMax
+											__next40pxDefaultSize
+											__nextHasNoMarginBottom
 										/>
 									) : null}
 									<ToggleControl
@@ -160,6 +168,7 @@ export default function BlockEdit(props) {
 												showProfileName: val,
 											})
 										}
+										__nextHasNoMarginBottom
 									/>
 									<ToggleControl
 										label={__('Show Stats', 'ghostkit')}
@@ -169,6 +178,7 @@ export default function BlockEdit(props) {
 												showProfileStats: val,
 											})
 										}
+										__nextHasNoMarginBottom
 									/>
 									<ToggleControl
 										label={__('Show BIO', 'ghostkit')}
@@ -178,6 +188,7 @@ export default function BlockEdit(props) {
 												showProfileBio: val,
 											})
 										}
+										__nextHasNoMarginBottom
 									/>
 									<ToggleControl
 										label={__('Show Website', 'ghostkit')}
@@ -187,6 +198,7 @@ export default function BlockEdit(props) {
 												showProfileWebsite: val,
 											})
 										}
+										__nextHasNoMarginBottom
 									/>
 								</>
 							) : null}
@@ -204,6 +216,8 @@ export default function BlockEdit(props) {
 						onChange={(value) =>
 							setAttributes({ accessToken: value })
 						}
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 					<p>
 						<em>

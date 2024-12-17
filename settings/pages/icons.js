@@ -82,6 +82,7 @@ class Icons extends Component {
 										!this.getSetting(`icon_pack_${k}`, true)
 									);
 								}}
+								__nextHasNoMarginBottom
 							/>
 						))}
 					</>

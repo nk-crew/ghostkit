@@ -1,44 +1,44 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/accordion-item",
-  "parent": ["ghostkit/accordion"],
-  "category": "ghostkit",
-  "title": "Item",
-  "description": "A single item within a accordion block.",
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "align": ["wide", "full"],
-    "reusable": false,
-    "spacing": {
-      "blockGap": true,
-      "__experimentalDefaultControls": {
-        "blockGap": true
-      }
-    },
-    "__experimentalLayout": true,
-    "layout": true
-  },
-  "usesContext": ["ghostkit/collapseTitleTag"],
-  "attributes": {
-    "heading": {
-      "type": "string",
-      "source": "html",
-      "selector": ".ghostkit-accordion-item-label",
-      "default": "Accordion Item"
-    },
-    "titleTag": {
-      "type": "string",
-      "default": "div"
-    },
-    "slug": {
-      "type": "string"
-    },
-    "active": {
-      "type": "boolean",
-      "default": false
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/accordion-item",
+	"parent": ["ghostkit/accordion"],
+	"category": "ghostkit",
+	"title": "Item",
+	"description": "A single item within a accordion block.",
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"align": ["wide", "full"],
+		"reusable": false,
+		"spacing": {
+			"blockGap": true,
+			"__experimentalDefaultControls": {
+				"blockGap": true
+			}
+		},
+		"__experimentalLayout": true,
+		"layout": true
+	},
+	"usesContext": ["ghostkit/collapseTitleTag"],
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"source": "html",
+			"selector": ".ghostkit-accordion-item-label",
+			"default": "Accordion Item"
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "div"
+		},
+		"slug": {
+			"type": "string"
+		},
+		"active": {
+			"type": "boolean",
+			"default": false
+		}
+	}
 }

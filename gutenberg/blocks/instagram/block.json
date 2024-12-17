@@ -1,62 +1,63 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/instagram",
-  "category": "ghostkit",
-  "title": "Instagram",
-  "description": "Show Instagram feed and user data.",
-  "keywords": ["instagram"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "align": ["wide", "full"]
-  },
-  "attributes": {
-    "accessToken": {
-      "type": "string"
-    },
-    "count": {
-      "type": "number",
-      "default": 8
-    },
-    "columns": {
-      "type": "number",
-      "default": 4
-    },
-    "gap": {
-      "type": "string",
-      "default": "sm"
-    },
-    "gapCustom": {
-      "type": "number"
-    },
-    "showProfile": {
-      "type": "boolean",
-      "default": true
-    },
-    "showProfileAvatar": {
-      "type": "boolean",
-      "default": true
-    },
-    "profileAvatarSize": {
-      "type": "number",
-      "default": 70
-    },
-    "showProfileName": {
-      "type": "boolean",
-      "default": true
-    },
-    "showProfileStats": {
-      "type": "boolean",
-      "default": true
-    },
-    "showProfileBio": {
-      "type": "boolean",
-      "default": true
-    },
-    "showProfileWebsite": {
-      "type": "boolean",
-      "default": true
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/instagram",
+	"category": "ghostkit",
+	"title": "Instagram",
+	"description": "Show Instagram feed and user data.",
+	"keywords": ["instagram"],
+	"supports": {
+		"inserter": false,
+		"html": false,
+		"className": false,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"accessToken": {
+			"type": "string"
+		},
+		"count": {
+			"type": "number",
+			"default": 8
+		},
+		"columns": {
+			"type": "number",
+			"default": 4
+		},
+		"gap": {
+			"type": "string",
+			"default": "sm"
+		},
+		"gapCustom": {
+			"type": "number"
+		},
+		"showProfile": {
+			"type": "boolean",
+			"default": true
+		},
+		"showProfileAvatar": {
+			"type": "boolean",
+			"default": true
+		},
+		"profileAvatarSize": {
+			"type": "number",
+			"default": 70
+		},
+		"showProfileName": {
+			"type": "boolean",
+			"default": true
+		},
+		"showProfileStats": {
+			"type": "boolean",
+			"default": true
+		},
+		"showProfileBio": {
+			"type": "boolean",
+			"default": true
+		},
+		"showProfileWebsite": {
+			"type": "boolean",
+			"default": true
+		}
+	}
 }

@@ -42,6 +42,8 @@ export default function SearchBox(props) {
 				onChange={(val) => {
 					setValue(val);
 				}}
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
 			/>
 		</div>
 	);

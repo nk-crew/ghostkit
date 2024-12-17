@@ -25,8 +25,10 @@ export default function EditInspectorControls({ attributes, setAttributes }) {
 					value={width}
 					onChange={(val) => setAttributes({ width: val })}
 					labelPosition="edge"
-					__unstableInputWidth="70px"
 					min={0}
+					__unstableInputWidth="70px"
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
 				/>
 			</PanelBody>
 		</InspectorControls>

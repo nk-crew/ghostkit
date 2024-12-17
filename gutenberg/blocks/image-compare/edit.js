@@ -220,6 +220,8 @@ export default function BlockEdit(props) {
 							min={0}
 							max={100}
 							onChange={(val) => setAttributes({ position: val })}
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
 						/>
 						<ToggleGroupControl
 							label={__('Direction', 'ghostkit')}
@@ -228,6 +230,8 @@ export default function BlockEdit(props) {
 							}
 							value={direction || ''}
 							isBlock
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
 						>
 							<ToggleGroupControlOption
 								value=""
@@ -243,6 +247,8 @@ export default function BlockEdit(props) {
 							onChange={(val) => setAttributes({ trigger: val })}
 							value={trigger || ''}
 							isBlock
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
 						>
 							<ToggleGroupControlOption
 								value=""
@@ -263,11 +269,13 @@ export default function BlockEdit(props) {
 						onChange={(value) =>
 							setAttributes({ showLabels: value })
 						}
+						__nextHasNoMarginBottom
 					/>
 					{showLabels && (
 						<BaseControl
 							id={baseControlLabel}
 							label={baseControlLabel}
+							__nextHasNoMarginBottom
 						>
 							<div>
 								<Toolbar
@@ -320,7 +328,7 @@ export default function BlockEdit(props) {
 							allowedTypes={['image']}
 							value={beforeId}
 							render={({ open }) => (
-								<Button onClick={open} isPrimary>
+								<Button onClick={open} variant="primary">
 									{__('Select Image', 'ghostkit')}
 								</Button>
 							)}
@@ -341,6 +349,7 @@ export default function BlockEdit(props) {
 											'Click the image to edit or update',
 											'ghostkit'
 										)}
+										__nextHasNoMarginBottom
 									>
 										{/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
 										<a
@@ -398,6 +407,8 @@ export default function BlockEdit(props) {
 											label: imgSize.name,
 										})
 									)}
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
 								/>
 							) : null}
 							<TextareaControl
@@ -420,6 +431,7 @@ export default function BlockEdit(props) {
 										)}
 									</>
 								}
+								__nextHasNoMarginBottom
 							/>
 						</>
 					) : null}
@@ -433,7 +445,7 @@ export default function BlockEdit(props) {
 							allowedTypes={['image']}
 							value={afterId}
 							render={({ open }) => (
-								<Button onClick={open} isPrimary>
+								<Button onClick={open} variant="primary">
 									{__('Select Image', 'ghostkit')}
 								</Button>
 							)}
@@ -454,6 +466,7 @@ export default function BlockEdit(props) {
 											'Click the image to edit or update',
 											'ghostkit'
 										)}
+										__nextHasNoMarginBottom
 									>
 										{/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
 										<a
@@ -511,6 +524,8 @@ export default function BlockEdit(props) {
 											label: imgSize.name,
 										})
 									)}
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
 								/>
 							) : null}
 							<TextareaControl
@@ -533,6 +548,7 @@ export default function BlockEdit(props) {
 										)}
 									</>
 								}
+								__nextHasNoMarginBottom
 							/>
 						</>
 					) : null}

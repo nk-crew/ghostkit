@@ -3,8 +3,8 @@
 * Contributors: nko
 * Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
 * Donate link: https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
-* Requires at least: 6.2
-* Tested up to: 6.6
+* Requires at least: 6.6
+* Tested up to: 6.7
 * Requires PHP: 7.2
 * Stable tag: 3.3.3
 * License: GPLv2 or later
@@ -263,12 +263,10 @@ The plugin documentation provides a comprehensive source of information on block
 13. Google Maps
 14. Video
 15. Testimonial
-16. Instagram
-17. Twitter
-18. GitHub Gist
-19. Changelog
-20. Pricing Table
-21. Blocks Extensions
+16. GitHub Gist
+17. Changelog
+18. Pricing Table
+19. Blocks Extensions
 
 ## Changelog ##
 

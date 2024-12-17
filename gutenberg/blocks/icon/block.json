@@ -1,63 +1,63 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/icon",
-  "category": "ghostkit",
-  "title": "Icon",
-  "description": "Insert SVG icons",
-  "keywords": ["icon", "picker", "svg"],
-  "attributes": {
-    "icon": {
-      "type": "string",
-      "default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M16.5965%2015.3206C17.0994%2014.6244%2017.4472%2013.8088%2017.5894%2012.9245H21C20.8198%2014.7391%2020.102%2016.3955%2019.0082%2017.7322L16.5965%2015.3206Z%22%20fill%3D%22currentColor%22%2F%3E%3Cpath%20d%3D%22M15.3206%2016.5965C14.6244%2017.0994%2013.8088%2017.4472%2012.9245%2017.5894V21C14.7391%2020.8198%2016.3955%2020.102%2017.7322%2019.0082L15.3206%2016.5965Z%22%20fill%3D%22currentColor%22%2F%3E%3Cpath%20d%3D%22M12.0223%206.38335C14.8295%206.38335%2017.1576%208.43463%2017.5894%2011.12H21C20.5473%206.5608%2016.7006%203%2012.0223%203C7.03941%203%203%207.03941%203%2012.0223C3%2016.7006%206.5608%2020.5473%2011.12%2021V17.5894C8.43463%2017.1576%206.38335%2014.8295%206.38335%2012.0223C6.38335%208.90798%208.90798%206.38335%2012.0223%206.38335Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E"
-    },
-    "width": {
-      "type": "string",
-      "default": "50px"
-    },
-    "justify": {
-      "type": "string",
-      "default": "center"
-    },
-    "flipH": {
-      "type": "boolean"
-    },
-    "flipV": {
-      "type": "boolean"
-    },
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/icon",
+	"category": "ghostkit",
+	"title": "Icon",
+	"description": "Insert SVG icons",
+	"keywords": ["icon", "picker", "svg"],
+	"attributes": {
+		"icon": {
+			"type": "string",
+			"default": "%3Csvg%20class%3D%22ghostkit-svg-icon%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M16.5965%2015.3206C17.0994%2014.6244%2017.4472%2013.8088%2017.5894%2012.9245H21C20.8198%2014.7391%2020.102%2016.3955%2019.0082%2017.7322L16.5965%2015.3206Z%22%20fill%3D%22currentColor%22%2F%3E%3Cpath%20d%3D%22M15.3206%2016.5965C14.6244%2017.0994%2013.8088%2017.4472%2012.9245%2017.5894V21C14.7391%2020.8198%2016.3955%2020.102%2017.7322%2019.0082L15.3206%2016.5965Z%22%20fill%3D%22currentColor%22%2F%3E%3Cpath%20d%3D%22M12.0223%206.38335C14.8295%206.38335%2017.1576%208.43463%2017.5894%2011.12H21C20.5473%206.5608%2016.7006%203%2012.0223%203C7.03941%203%203%207.03941%203%2012.0223C3%2016.7006%206.5608%2020.5473%2011.12%2021V17.5894C8.43463%2017.1576%206.38335%2014.8295%206.38335%2012.0223C6.38335%208.90798%208.90798%206.38335%2012.0223%206.38335Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E"
+		},
+		"width": {
+			"type": "string",
+			"default": "50px"
+		},
+		"justify": {
+			"type": "string",
+			"default": "center"
+		},
+		"flipH": {
+			"type": "boolean"
+		},
+		"flipV": {
+			"type": "boolean"
+		},
 
-    "color": {
-      "type": "string"
-    },
-    "backgroundColor": {
-      "type": "string"
-    },
-    "backgroundGradient": {
-      "type": "string"
-    },
+		"color": {
+			"type": "string"
+		},
+		"backgroundColor": {
+			"type": "string"
+		},
+		"backgroundGradient": {
+			"type": "string"
+		},
 
-    "url": {
-      "type": "string"
-    },
-    "rel": {
-      "type": "string"
-    },
-    "target": {
-      "type": "string"
-    },
-    "ariaLabel": {
-      "type": "string"
-    }
-  },
-  "supports": {
-    "ghostkit": {
-      "styles": {
-        "customSelector": "& .ghostkit-icon-inner"
-      }
-    },
-    "html": false,
-    "className": false,
-    "anchor": true,
-    "align": ["wide", "full", "left", "center", "right"]
-  }
+		"url": {
+			"type": "string"
+		},
+		"rel": {
+			"type": "string"
+		},
+		"target": {
+			"type": "string"
+		},
+		"ariaLabel": {
+			"type": "string"
+		}
+	},
+	"supports": {
+		"ghostkit": {
+			"styles": {
+				"customSelector": "& .ghostkit-icon-inner"
+			}
+		},
+		"html": false,
+		"className": false,
+		"anchor": true,
+		"align": ["wide", "full", "left", "center", "right"]
+	}
 }

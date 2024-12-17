@@ -82,7 +82,7 @@
 		"classnames": "^2.5.1",
 		"deep-equal": "^2.2.3",
 		"gist-simple": "^2.0.1",
-		"gutenberg-react-select-styles": "0.0.2",
+		"gutenberg-react-select-styles": "^0.0.3",
 		"ivent": "^0.2.0",
 		"jarallax": "^2.2.0",
 		"lorem-ipsum": "^2.0.8",

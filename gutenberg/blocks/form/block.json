@@ -1,23 +1,23 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "ghostkit/form",
-  "category": "ghostkit",
-  "title": "Form",
-  "description": "Add contact form to your page with reCaptcha.",
-  "keywords": ["form", "contact"],
-  "supports": {
-    "html": false,
-    "className": false,
-    "anchor": false,
-    "align": ["wide", "full"],
-    "spacing": {
-      "blockGap": true,
-      "__experimentalDefaultControls": {
-        "blockGap": true
-      }
-    },
-    "__experimentalLayout": true,
-    "layout": true
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ghostkit/form",
+	"category": "ghostkit",
+	"title": "Form",
+	"description": "Add contact form to your page with reCaptcha.",
+	"keywords": ["form", "contact"],
+	"supports": {
+		"html": false,
+		"className": false,
+		"anchor": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"blockGap": true,
+			"__experimentalDefaultControls": {
+				"blockGap": true
+			}
+		},
+		"__experimentalLayout": true,
+		"layout": true
+	}
 }

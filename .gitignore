@@ -12,6 +12,8 @@ yarn-error.log*
 .idea
 /node_modules
 /vendor
+/build/runtime*
+/build/*/*.hot-update.*
 /dist
 /dist-zip
 /tests/e2e/artifacts

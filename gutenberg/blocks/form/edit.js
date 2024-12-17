@@ -227,6 +227,8 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ mailTo: val })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 							<TextControl
 								label={__('Subject', 'ghostkit')}
@@ -234,6 +236,8 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ mailSubject: val })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 							<TextControl
 								label={__('From', 'ghostkit')}
@@ -241,6 +245,8 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ mailFrom: val })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 							<TextControl
 								label={__('Reply To', 'ghostkit')}
@@ -248,6 +254,8 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ mailReplyTo: val })
 								}
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
 							/>
 							<TextareaControl
 								label={__('Message', 'ghostkit')}
@@ -255,6 +263,7 @@ export default function BlockEdit(props) {
 								onChange={(val) =>
 									setAttributes({ mailMessage: val })
 								}
+								__nextHasNoMarginBottom
 							/>
 						</>
 					) : null}
@@ -264,6 +273,7 @@ export default function BlockEdit(props) {
 						help={__(
 							"In case if you don't want to receive email messages from this form, you may disable sending emails functionality."
 						)}
+						__nextHasNoMarginBottom
 					>
 						<ToggleControl
 							Label={__('Yes', 'ghostkit')}
@@ -271,6 +281,7 @@ export default function BlockEdit(props) {
 							onChange={() =>
 								setAttributes({ mailAllow: !mailAllow })
 							}
+							__nextHasNoMarginBottom
 						/>
 					</BaseControl>
 				</PanelBody>
@@ -301,6 +312,7 @@ export default function BlockEdit(props) {
 							onChange={(val) =>
 								setAttributes({ confirmationMessage: val })
 							}
+							__nextHasNoMarginBottom
 						/>
 					) : null}
 					{confirmationType === 'redirect' ? (
@@ -310,6 +322,8 @@ export default function BlockEdit(props) {
 							onChange={(val) =>
 								setAttributes({ confirmationRedirect: val })
 							}
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
 						/>
 					) : null}
 				</PanelBody>
