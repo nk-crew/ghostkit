@@ -33,24 +33,21 @@ function IframeResponsiveStyles() {
 		}
 
 		height = `${(width * 16) / 7.5}px`;
-		marginVertical = '36px';
+		marginVertical = '40px';
 	} else if (device === 'md' || device === 'lg') {
 		height = `${(width * 3) / 4}px`;
-		marginVertical = '36px';
+		marginVertical = '40px';
 	}
 
 	return (
 		<style
 			dangerouslySetInnerHTML={{
 				__html: `
-				.edit-post-visual-editor__content-area > div,
-				.edit-post-visual-editor > div {
+				.block-editor-iframe__container iframe {
 					width: ${width}px !important;
 					height: ${height} !important;
-					margin: ${marginVertical} auto !important;
-					border-radius: 2px !important;
-					border: 1px solid rgb(221, 221, 221) !important;
-					overflow-y: auto !important;
+					margin: ${marginVertical} auto;
+					overflow-y: auto;
 				}
 				`,
 			}}
