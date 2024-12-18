@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-17T17:38:07+00:00\n"
+"POT-Creation-Date: 2024-12-18T11:25:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
@@ -610,39 +610,39 @@ msgstr ""
 msgid "Collapse one item only"
 msgstr ""
 
-#: gutenberg/blocks/accordion/edit.js:89
+#: gutenberg/blocks/accordion/edit.js:90
 msgid "Collapse Title HTML Element"
 msgstr ""
 
-#: gutenberg/blocks/accordion/edit.js:94
+#: gutenberg/blocks/accordion/edit.js:95
 msgid "Default (<div>)"
 msgstr ""
 
-#: gutenberg/blocks/accordion/edit.js:98
+#: gutenberg/blocks/accordion/edit.js:99
 msgid "<h1>"
 msgstr ""
 
-#: gutenberg/blocks/accordion/edit.js:102
+#: gutenberg/blocks/accordion/edit.js:103
 msgid "<h2>"
 msgstr ""
 
-#: gutenberg/blocks/accordion/edit.js:106
+#: gutenberg/blocks/accordion/edit.js:107
 msgid "<h3>"
 msgstr ""
 
-#: gutenberg/blocks/accordion/edit.js:110
+#: gutenberg/blocks/accordion/edit.js:111
 msgid "<h4>"
 msgstr ""
 
-#: gutenberg/blocks/accordion/edit.js:114
+#: gutenberg/blocks/accordion/edit.js:115
 msgid "<h5>"
 msgstr ""
 
-#: gutenberg/blocks/accordion/edit.js:118
+#: gutenberg/blocks/accordion/edit.js:119
 msgid "<h6>"
 msgstr ""
 
-#: gutenberg/blocks/accordion/edit.js:150
+#: gutenberg/blocks/accordion/edit.js:151
 msgid "Add Accordion Item"
 msgstr ""
 
@@ -702,7 +702,7 @@ msgstr ""
 msgid "Dismiss button"
 msgstr ""
 
-#: gutenberg/blocks/alert/edit.js:152
+#: gutenberg/blocks/alert/edit.js:153
 #: gutenberg/blocks/button-single/edit.js:241
 #: gutenberg/blocks/counter-box/edit.js:207
 #: gutenberg/blocks/divider/edit.js:165
@@ -711,7 +711,7 @@ msgstr ""
 msgid "Colors"
 msgstr ""
 
-#: gutenberg/blocks/alert/edit.js:163
+#: gutenberg/blocks/alert/edit.js:164
 #: gutenberg/blocks/button-single/edit.js:127
 #: gutenberg/blocks/counter-box/edit.js:218
 #: gutenberg/blocks/divider/edit.js:179
@@ -721,7 +721,7 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: gutenberg/blocks/alert/edit.js:168
+#: gutenberg/blocks/alert/edit.js:169
 #: gutenberg/blocks/button-single/edit.js:132
 #: gutenberg/blocks/counter-box/edit.js:223
 #: gutenberg/blocks/divider/edit.js:184
@@ -733,7 +733,7 @@ msgstr ""
 msgid "Hover"
 msgstr ""
 
-#: gutenberg/blocks/alert/edit.js:182
+#: gutenberg/blocks/alert/edit.js:183
 #: gutenberg/blocks/counter-box/edit.js:241
 #: gutenberg/blocks/grid/awb-fallback.js:182
 #: gutenberg/blocks/image-compare/edit.js:559

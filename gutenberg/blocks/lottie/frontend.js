@@ -44,9 +44,8 @@ events.on(document, 'init.blocks.gkt', () => {
 			$this.classList.add('ghostkit-lottie-ready');
 
 			scroll(
-				({ y }) => {
+				(progress) => {
 					if (lottieEl?._lottie) {
-						const { progress } = y;
 						const { totalFrames, goToAndStop } = lottieEl._lottie;
 						let newFrame = Math.round(progress * totalFrames);
 

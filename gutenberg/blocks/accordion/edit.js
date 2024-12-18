@@ -84,6 +84,7 @@ export default function BlockEdit(props) {
 						label={__('Collapse one item only', 'ghostkit')}
 						checked={!!collapseOne}
 						onChange={(val) => setAttributes({ collapseOne: val })}
+						__nextHasNoMarginBottom
 					/>
 					<SelectControl
 						label={__('Collapse Title HTML Element', 'ghostkit')}

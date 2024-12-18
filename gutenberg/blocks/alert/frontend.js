@@ -13,7 +13,7 @@ events.on(document, 'click', '.ghostkit-alert-hide-button', (e) => {
 
 	events.trigger(alert, 'close.alert.gkt');
 
-	animate(alert, { opacity: 0 }, { duration: 0.5 }).finished.then(() => {
+	animate(alert, { opacity: 0 }, { duration: 0.5 }).then(() => {
 		alert.style.height = `${alert.offsetHeight}px`;
 		alert.style.paddingTop = '0px';
 		alert.style.paddingBottom = '0px';
@@ -22,7 +22,7 @@ events.on(document, 'click', '.ghostkit-alert-hide-button', (e) => {
 			alert,
 			{ height: 0, marginTop: 0, marginBottom: 0 },
 			{ duration: 0.5 }
-		).finished.then(() => {
+		).then(() => {
 			events.trigger(alert, 'closed.alert.gkt');
 		});
 	});

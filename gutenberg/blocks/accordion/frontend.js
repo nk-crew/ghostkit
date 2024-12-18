@@ -41,9 +41,9 @@ function show($item, animationSpeed, cb) {
 	const animation = animate(
 		$content,
 		{
-			height: ['0px', endHeight],
-			paddingTop: ['0px', endPaddingTop],
-			paddingBottom: ['0px', endPaddingBottom],
+			height: endHeight,
+			paddingTop: endPaddingTop,
+			paddingBottom: endPaddingBottom,
 		},
 		{
 			duration: animationSpeed / 1000,
@@ -51,7 +51,7 @@ function show($item, animationSpeed, cb) {
 		}
 	);
 
-	animation.finished.then(() => {
+	animation.then(() => {
 		// Reset styles.
 		$content.style.display = '';
 		$content.style.overflow = '';
@@ -72,21 +72,15 @@ function hide($item, animationSpeed, cb) {
 	);
 	const $content = $item.querySelector('.ghostkit-accordion-item-content');
 
-	const contentStyles = window.getComputedStyle($content);
-
-	const startPaddingTop = contentStyles.paddingTop;
-	const startPaddingBottom = contentStyles.paddingBottom;
-	const startHeight = contentStyles.height;
-
 	$content.style.display = 'block';
 	$content.style.overflow = 'hidden';
 
 	const animation = animate(
 		$content,
 		{
-			height: [startHeight, '0px'],
-			paddingTop: [startPaddingTop, '0px'],
-			paddingBottom: [startPaddingBottom, '0px'],
+			height: 0,
+			paddingTop: 0,
+			paddingBottom: 0,
 		},
 		{
 			duration: animationSpeed / 1000,
@@ -94,7 +88,7 @@ function hide($item, animationSpeed, cb) {
 		}
 	);
 
-	animation.finished.then(() => {
+	animation.then(() => {
 		// Reset styles.
 		$content.style.display = '';
 		$content.style.overflow = '';
