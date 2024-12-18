@@ -13,11 +13,19 @@ export default function useResponsive() {
 		};
 	});
 
+	const { setDeviceType } = useDispatch('core/editor');
 	const { setDevice } = useDispatch('ghostkit/responsive');
+
+	const setDeviceWithReset = (...args) => {
+		setDevice(...args);
+
+		// Reset default preview device.
+		setDeviceType('Desktop');
+	};
 
 	return {
 		device,
-		setDevice,
+		setDevice: setDeviceWithReset,
 		allDevices,
 	};
 }
