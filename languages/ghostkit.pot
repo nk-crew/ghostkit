@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-18T13:39:46+00:00\n"
+"POT-Creation-Date: 2024-12-18T14:37:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
@@ -3543,31 +3543,31 @@ msgstr ""
 msgid "Default:"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:91
+#: gutenberg/plugins/editor-iframe-resize/index.js:88
 msgid "Desktop"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:95
+#: gutenberg/plugins/editor-iframe-resize/index.js:92
 msgid "Mobile"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:98
+#: gutenberg/plugins/editor-iframe-resize/index.js:95
 msgid "Mobile Landscape"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:101
+#: gutenberg/plugins/editor-iframe-resize/index.js:98
 msgid "Tablet"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:104
+#: gutenberg/plugins/editor-iframe-resize/index.js:101
 msgid "Laptop"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:128
+#: gutenberg/plugins/editor-iframe-resize/index.js:125
 msgid "View options"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:131
+#: gutenberg/plugins/editor-iframe-resize/index.js:128
 msgid "Responsive Preview"
 msgstr ""
 
