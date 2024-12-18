@@ -241,7 +241,7 @@ events.on(document, 'init.blocks.gkt', () => {
 							duration: config.duration,
 							ease: config.easing,
 						}
-					).finished.then(() => {
+					).then(() => {
 						events.trigger($counter, 'counted.counter.gkt', {
 							config,
 						});
