@@ -226,7 +226,7 @@ events.on(document, 'init.blocks.gkt', () => {
 									},
 									{
 										duration: config.duration,
-										easing: config.easing,
+										ease: config.easing,
 									}
 								);
 							}
@@ -239,7 +239,7 @@ events.on(document, 'init.blocks.gkt', () => {
 						},
 						{
 							duration: config.duration,
-							easing: config.easing,
+							ease: config.easing,
 						}
 					).finished.then(() => {
 						events.trigger($counter, 'counted.counter.gkt', {

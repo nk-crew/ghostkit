@@ -47,7 +47,7 @@ function show($item, animationSpeed, cb) {
 		},
 		{
 			duration: animationSpeed / 1000,
-			easing: 'ease-out',
+			easing: 'easeOut',
 		}
 	);
 
@@ -84,7 +84,7 @@ function hide($item, animationSpeed, cb) {
 		},
 		{
 			duration: animationSpeed / 1000,
-			easing: 'ease-out',
+			easing: 'easeOut',
 		}
 	);
 
