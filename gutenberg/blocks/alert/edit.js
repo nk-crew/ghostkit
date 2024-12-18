@@ -144,6 +144,7 @@ export default function BlockEdit(props) {
 						label={__('Dismiss button', 'ghostkit')}
 						checked={!!hideButton}
 						onChange={(val) => setAttributes({ hideButton: val })}
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 				<PanelBody

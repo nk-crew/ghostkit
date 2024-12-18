@@ -355,7 +355,7 @@ class GhostKit_Assets {
 
 		// Motion.
 		if ( apply_filters( 'gkt_enqueue_plugin_motion', true ) ) {
-			self::register_script( 'motion', 'assets/vendor/motion/dist/motion.min', array(), '10.16.2' );
+			self::register_script( 'motion', 'assets/vendor/motion/dist/motion.min', array(), '11.15.0' );
 
 			$js_deps[] = 'motion';
 		}
