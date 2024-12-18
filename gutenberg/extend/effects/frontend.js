@@ -233,15 +233,13 @@ events.on(document, 'init.blocks.gkt', () => {
 						});
 					}
 
-					animate(
-						(progress) => {
+					animate(0, 1, {
+						duration: config.duration,
+						ease: config.easing,
+						onUpdate: (progress) => {
 							config.cb(progress);
 						},
-						{
-							duration: config.duration,
-							ease: config.easing,
-						}
-					).then(() => {
+					}).then(() => {
 						events.trigger($counter, 'counted.counter.gkt', {
 							config,
 						});
