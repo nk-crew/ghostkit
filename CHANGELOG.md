@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.4.0 - Dec 18, 2024 =
+
+* added WordPress 6.7 compatibility fixes
+* significantly improved motion effects performance to prevent memory overload
+* fixed editor slow rendering when first page load and when duplicate blocks without any extensions on blocks
+* fixed displaying responsive toggle in editor header
+* fixed resizing editor preview when switch responsive toggles
+* fixed usage of `wp-content` hardcoded string, use constants if available
+* hidden Twitter and Instagram blocks from inserter as it is deprecated long time ago
+* removed fallback class for Breakpoints, as it is no longer required
+* minor changes
+* **Pro:**
+* changed text domain from `ghostkit-pro` to `ghostkit`
+* fixed displaying message about license activation in the plugins list when the license already active
+* removed Circle Button frontend script, because it is no longer used, as we have Effects extension
+
 = 3.3.3 - Sep 7, 2024 =
 
 * added escaping to imageTag attribute in the Grid block to prevent xss vulnerability

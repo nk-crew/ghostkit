@@ -1,23 +1,23 @@
-# Ghost Kit – Page Builder Blocks & Extensions #
+# Ghost Kit – Page Builder Blocks, Motion Effects & Extensions #
 
 * Contributors: nko
-* Tags: gutenberg, blocks, gutenberg blocks, wordpress blocks, builder
+* Tags: page builder, effects, animation, blocks, gutenberg blocks
 * Donate link: https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
 * Requires at least: 6.6
 * Tested up to: 6.7
 * Requires PHP: 7.2
-* Stable tag: 3.3.3
+* Stable tag: 3.4.0
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
-Ghost Kit is the powerful page building experience for WordPress.
+Create engaging websites using over 25 advanced blocks featuring motion effects, smooth animations, and robust extensions.
 
 ## Description ##
 
-**Gutenberg Blocks and Page Builder Plugin For WordPress**
+**The Ultimate WordPress Page Building Solution**
 ★★★★★<br>
 
-**Ghost Kit is the powerful page building experience for WordPress.** Ghost Kit provides a large collection of Gutenberg Blocks, Motion Effects and Extensions. With this collection, you will gain more control over content just like with popular page builders.
+**Ghost Kit enhances the WordPress editing experience** with a comprehensive collection of Gutenberg blocks, motion effects, and extensions. Create sophisticated, interactive websites using an intuitive interface and extensive customization options. Design engaging layouts, add smooth animations, and extend functionality while maintaining optimal performance. Ghost Kit gives you the precise control you need over your content, making it a powerful alternative to complex page builders.
 
 [See Live Demo](https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [Documentation](https://www.ghostkit.io/docs/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [GitHub](https://github.com/nk-crew/ghostkit/)
 
@@ -269,6 +269,22 @@ The plugin documentation provides a comprehensive source of information on block
 19. Blocks Extensions
 
 ## Changelog ##
+
+= 3.4.0 - Dec 18, 2024 =
+
+* added WordPress 6.7 compatibility fixes
+* significantly improved motion effects performance to prevent memory overload
+* fixed editor slow rendering when first page load and when duplicate blocks without any extensions on blocks
+* fixed displaying responsive toggle in editor header
+* fixed resizing editor preview when switch responsive toggles
+* fixed usage of `wp-content` hardcoded string, use constants if available
+* hidden Twitter and Instagram blocks from inserter as it is deprecated long time ago
+* removed fallback class for Breakpoints, as it is no longer required
+* minor changes
+* **Pro:**
+* changed text domain from `ghostkit-pro` to `ghostkit`
+* fixed displaying message about license activation in the plugins list when the license already active
+* removed Circle Button frontend script, because it is no longer used, as we have Effects extension
 
 = 3.3.3 - Sep 7, 2024 =
 
