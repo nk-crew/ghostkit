@@ -187,7 +187,7 @@ events.on(document, 'init.blocks.gkt', () => {
 			const config = {
 				from,
 				to,
-				duration: 0.8,
+				duration: 1,
 				easing: [0.6, 0, 0.3, 1],
 				cb(progress) {
 					const position = (to - from) * progress + from;
