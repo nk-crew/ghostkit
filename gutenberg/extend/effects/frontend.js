@@ -187,7 +187,7 @@ events.on(document, 'init.blocks.gkt', () => {
 			const config = {
 				from,
 				to,
-				duration: 0.8,
+				duration: 1,
 				easing: [0.6, 0, 0.3, 1],
 				cb(progress) {
 					const position = (to - from) * progress + from;
@@ -233,15 +233,13 @@ events.on(document, 'init.blocks.gkt', () => {
 						});
 					}
 
-					animate(
-						(progress) => {
+					animate(0, 1, {
+						duration: config.duration,
+						ease: config.easing,
+						onUpdate: (progress) => {
 							config.cb(progress);
 						},
-						{
-							duration: config.duration,
-							ease: config.easing,
-						}
-					).then(() => {
+					}).then(() => {
 						events.trigger($counter, 'counted.counter.gkt', {
 							config,
 						});

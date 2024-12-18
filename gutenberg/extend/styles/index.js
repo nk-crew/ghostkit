@@ -231,11 +231,10 @@ function CustomStylesComponent(props) {
 
 			// Reset unused styles and ID.
 			if (reset) {
-				const newClassName = replaceClass(
-					className,
-					'ghostkit-custom',
-					''
-				);
+				// Convert to undefined when empty to prevent unnecessary
+				// rerenders if className remains unchanged.
+				const newClassName =
+					replaceClass(className, 'ghostkit-custom', '') || undefined;
 
 				if (newClassName !== className) {
 					newAttrs.className = !newClassName
