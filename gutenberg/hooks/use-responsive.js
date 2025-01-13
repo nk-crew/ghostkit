@@ -13,14 +13,17 @@ export default function useResponsive() {
 		};
 	});
 
-	const { setDeviceType } = useDispatch('core/editor');
+	// Check if 'core/editor' store is available. It is not available in the Widgets editor.
+	const { setDeviceType } = useDispatch('core/editor') || {};
 	const { setDevice } = useDispatch('ghostkit/responsive');
 
 	const setDeviceWithReset = (...args) => {
 		setDevice(...args);
 
 		// Reset default preview device.
-		setDeviceType('Desktop');
+		if (setDeviceType) {
+			setDeviceType('Desktop');
+		}
 	};
 
 	return {
