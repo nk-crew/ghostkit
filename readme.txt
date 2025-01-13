@@ -274,6 +274,8 @@ The plugin documentation provides a comprehensive source of information on block
 
 * fixed blocks error in Widgets screen because 'core/editor' store is not available
 * updated Google Fonts list
+* **Pro:**
+* changed loading of module script in Code block to `wp_enqueue_script_module`
 
 = 3.4.0 - Dec 18, 2024 =
 
