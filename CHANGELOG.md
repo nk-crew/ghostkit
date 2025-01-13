@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.4.1 - Jan 13, 2025 =
+
+* fixed blocks error in Widgets screen because 'core/editor' store is not available
+* updated Google Fonts list
+
 = 3.4.0 - Dec 18, 2024 =
 
 * added WordPress 6.7 compatibility fixes
