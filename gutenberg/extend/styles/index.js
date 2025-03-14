@@ -5,7 +5,7 @@ import { throttle } from 'throttle-debounce';
 
 import { getBlockSupport, getBlockType } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { useCallback, useEffect, useRef } from '@wordpress/element';
 import { addFilter, applyFilters } from '@wordpress/hooks';
 
@@ -71,9 +71,11 @@ function getAllBlocks(blocks = false) {
  * @param props
  */
 function CustomStylesComponent(props) {
-	const { setAttributes, attributes, clientId, name } = props;
+	const { attributes, clientId, name } = props;
 
 	const { ghostkit, className } = attributes;
+
+	const { updateBlockAttributes } = useDispatch('core/block-editor');
 
 	const customSelector = getBlockSupport(name, [
 		'ghostkit',
@@ -267,11 +269,26 @@ function CustomStylesComponent(props) {
 
 			// Update attributes.
 			if (Object.keys(newAttrs).length) {
-				setAttributes(newAttrs);
+				/**
+				 * IMPORTANT!
+				 * We can't use `setAttributes` here because it is not working correctly
+				 * when we duplicate multiple blocks at once. `updateBlockAttributes` resolves this issue.
+				 *
+				 * @see https://github.com/nk-crew/lazy-blocks/issues/32#issuecomment-2681280713
+				 */
+				updateBlockAttributes(clientId, newAttrs);
 			}
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[blockSettings, attributes, ghostkit, props, className, setAttributes]
+		[
+			blockSettings,
+			attributes,
+			ghostkit,
+			props,
+			className,
+			updateBlockAttributes,
+			clientId,
+		]
 	);
 
 	const onUpdateThrottle = throttle(60, onUpdate);
