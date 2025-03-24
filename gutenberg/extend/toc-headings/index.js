@@ -1,123 +1,157 @@
-import { debounce } from 'throttle-debounce';
-
-import { select, subscribe } from '@wordpress/data';
+import { createHigherOrderComponent } from '@wordpress/compose';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
+import { addFilter } from '@wordpress/hooks';
 
 import { getSlug } from '../../utils/get-unique-slug';
 
+const anchors = {};
+
 /**
- * Get available TOC block.
+ * Returns the text without markup.
  *
- * @param {Array | boolean} blocks blocks array.
+ * @param {string} text The text.
  *
- * @return {Array} toc block data.
+ * @return {string} The text without markup.
  */
-function getTOC(blocks = false) {
-	let result = false;
+const getTextWithoutMarkup = (text) => {
+	const dummyElement = document.createElement('div');
+	dummyElement.innerHTML = text;
+	return dummyElement.innerText;
+};
 
-	if (!blocks) {
-		const { getBlocks } = select('core/block-editor');
+/**
+ * Set the anchor for a heading.
+ *
+ * @param {string}      clientId The block ID.
+ * @param {string|null} anchor   The block anchor.
+ */
+const setAnchor = (clientId, anchor) => {
+	anchors[clientId] = anchor;
+};
 
-		blocks = getBlocks();
+/**
+ * Generate the anchor for a heading.
+ *
+ * @param {string} clientId The block ID.
+ * @param {string} content  The block content.
+ *
+ * @return {string|null} Return the heading anchor.
+ */
+const generateAnchor = (clientId, content) => {
+	const slug = getSlug(getTextWithoutMarkup(content));
+
+	// If slug is empty, then return null.
+	// Returning null instead of an empty string allows us to check again when the content changes.
+	if ('' === slug) {
+		return null;
 	}
 
-	blocks.forEach((block) => {
-		if (!result) {
-			if (block.name === 'ghostkit/table-of-contents') {
-				result = block;
-			} else if (block.innerBlocks && block.innerBlocks.length) {
-				result = getTOC(block.innerBlocks);
+	delete anchors[clientId];
+
+	let anchor = slug;
+	let i = 0;
+
+	// If the anchor already exists in another heading, append -i.
+	while (Object.values(anchors).includes(anchor)) {
+		i += 1;
+		anchor = slug + '-' + i;
+	}
+
+	return anchor;
+};
+
+function CustomBlockIdComponent({ attributes, setAttributes, clientId }) {
+	const { anchor, content } = attributes;
+
+	const { __unstableMarkNextChangeAsNotPersistent } =
+		useDispatch('core/block-editor');
+
+	const { canGenerateAnchors } = useSelect((select) => {
+		const { getGlobalBlockCount, getSettings } =
+			select('core/block-editor');
+		const settings = getSettings();
+
+		// Gutenberg already has anchors generation and we don't need to generate
+		// anchors when Gutenberg can do it.
+		// https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/heading/edit.js
+		const gutenbergCanGenerateAnchors =
+			!!settings.generateAnchors ||
+			getGlobalBlockCount('core/table-of-contents') > 0;
+
+		return {
+			canGenerateAnchors:
+				!gutenbergCanGenerateAnchors &&
+				getGlobalBlockCount('ghostkit/table-of-contents') > 0,
+		};
+	}, []);
+
+	useEffect(() => {
+		if (!canGenerateAnchors) {
+			return;
+		}
+
+		// Initially set anchor for headings that have content but no anchor set.
+		// This is used when transforming a block to heading, or for legacy anchors.
+		if (!anchor && content) {
+			// This side-effect should not create an undo level.
+			if (__unstableMarkNextChangeAsNotPersistent) {
+				__unstableMarkNextChangeAsNotPersistent();
 			}
-		}
-	});
 
-	return result;
+			setAttributes({
+				anchor: generateAnchor(clientId, content),
+			});
+
+			// Remove anchor when content is empty.
+		} else if (anchor && !content) {
+			setAnchor(clientId, null);
+			setAttributes({ anchor: null });
+
+			// Update anchor when content changes.
+		} else if (content && generateAnchor(clientId, content) !== anchor) {
+			setAttributes({ anchor: generateAnchor(clientId, content) });
+		}
+
+		setAnchor(clientId, anchor);
+
+		// Remove anchor map when block unmounts.
+		return () => setAnchor(clientId, null);
+	}, [
+		anchor,
+		content,
+		clientId,
+		canGenerateAnchors,
+		__unstableMarkNextChangeAsNotPersistent,
+		setAttributes,
+	]);
+
+	return null;
 }
 
 /**
- * Get available heading blocks.
+ * Include component with hook to generate ID for each heading block.
  *
- * @param {Array} blocks blocks array.
+ * @param {Function | Component} BlockEdit Original component.
  *
- * @return {Array} toc block data.
+ * @return {string} Wrapped component.
  */
-function getHeadings(blocks = false) {
-	let result = [];
-
-	if (!blocks) {
-		const { getBlocks } = select('core/block-editor');
-
-		blocks = getBlocks();
-	}
-
-	blocks.forEach((block) => {
-		if (block.name === 'core/heading') {
-			result.push(block);
-		} else if (block.innerBlocks && block.innerBlocks.length) {
-			result = [...result, ...getHeadings(block.innerBlocks)];
-		}
-	});
-
-	return result;
-}
-
-let prevHeadings = '';
-
-/**
- * Update heading ID.
- */
-function updateHeadingIDs() {
-	const tocBlock = getTOC();
-
-	if (!tocBlock) {
-		return;
-	}
-
-	const headings = getHeadings();
-
-	if (prevHeadings && prevHeadings === JSON.stringify(headings)) {
-		return;
-	}
-
-	const collisionCollector = {};
-
-	headings.forEach((block) => {
-		let { anchor } = block.attributes;
-
-		const { content } = block.attributes;
-
-		// create new
-		if (content && !anchor) {
-			anchor = getSlug(content);
-			block.attributes.anchor = anchor;
-		}
-
-		// check collisions.
-		if (anchor) {
-			if (typeof collisionCollector[anchor] !== 'undefined') {
-				collisionCollector[anchor] += 1;
-				anchor += `-${collisionCollector[anchor]}`;
-				block.attributes.anchor = anchor;
-			} else {
-				collisionCollector[anchor] = 1;
+const withNewAttrs = createHigherOrderComponent(
+	(BlockEdit) =>
+		function (props) {
+			if (props.name !== 'core/heading') {
+				return <BlockEdit {...props} />;
 			}
-		}
-	});
 
-	prevHeadings = JSON.stringify(headings);
-}
+			return (
+				<>
+					<BlockEdit {...props} />
+					<CustomBlockIdComponent {...props} />
+				</>
+			);
+		},
+	'withNewAttrs'
+);
 
-const updateHeadingIDsDebounce = debounce(300, updateHeadingIDs);
-
-/**
- * Subscribe to all editor changes.
- * We don't need to run this code in WordPress >= 5.9, as anchors already adds automatically.
- */
-if (
-	!wp.blockEditor.__experimentalBlockPatternSetup &&
-	!wp.blockEditor.BlockPatternSetup &&
-	!wp.blockEditor.blockPatternSetup
-) {
-	subscribe(() => {
-		updateHeadingIDsDebounce();
-	});
-}
+// Init filters.
+addFilter('editor.BlockEdit', 'ghostkit/heading/anchors', withNewAttrs);
