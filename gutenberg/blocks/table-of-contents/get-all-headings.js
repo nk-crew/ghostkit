@@ -15,16 +15,17 @@ export default function getAllHeadings(blocks, allowedHeaders) {
 				allowedHeaders.indexOf(block.attributes.level) > -1 &&
 				block?.attributes?.anchor
 			) {
-				headings.push({
-					level: block.attributes.level,
-					content:
-						block.attributes?.content?.originalHTML ||
-						block.attributes?.content ||
-						'',
-					// in preview we don't need to create proper anchors
-					// anchor: block.attributes.anchor,
-					anchor: '',
-				});
+				const content = block.attributes?.content?.toString?.() || '';
+
+				if (content) {
+					headings.push({
+						level: block.attributes.level,
+						content,
+						// in preview we don't need to create proper anchors
+						// anchor: block.attributes.anchor,
+						anchor: '',
+					});
+				}
 			}
 
 			if (block.innerBlocks && block.innerBlocks.length) {
