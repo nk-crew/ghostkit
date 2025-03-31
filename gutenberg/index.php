@@ -30,6 +30,7 @@ function ghostkit_register_blocks() {
 }
 add_action( 'init', 'ghostkit_register_blocks' );
 
+require_once ghostkit()->plugin_path . 'gutenberg/blocks/icon/block.php';
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/widgetized-area/block.php';
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/instagram/block.php';
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/twitter/block.php';
