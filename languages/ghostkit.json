@@ -110,6 +110,9 @@
          "Templates not found.": [
             ""
          ],
+         "Invalid template ID.": [
+            ""
+         ],
          "Template data not found.": [
             ""
          ],
