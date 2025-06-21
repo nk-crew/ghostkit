@@ -1594,6 +1594,11 @@ class GhostKit_Rest extends WP_REST_Controller {
 		$type          = $request->get_param( 'type' );
 		$template_data = false;
 
+		// Validation and security checks.
+		if ( empty( $id ) || ! preg_match( '/^[a-zA-Z0-9_-]+$/', $id ) ) {
+			return $this->error( 'invalid_id', __( 'Invalid template ID.', 'ghostkit' ) );
+		}
+
 		switch ( $type ) {
 			case 'remote':
 				$template_data = get_transient( 'ghostkit_template_' . $type . '_' . $id, false );
