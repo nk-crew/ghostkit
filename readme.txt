@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 6.8
 * Requires PHP: 7.2
-* Stable tag: 3.4.2
+* Stable tag: 3.4.3
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -270,11 +270,14 @@ The plugin documentation provides a comprehensive source of information on block
 
 ## Changelog ##
 
+= 3.4.3 - Jun 21, 2025 =
+
+* fixed always generating heading block anchors even if it not required
+
 = 3.4.2 - Jun 21, 2025 =
 
 * fixed XSS with theme template files
 * fixed block unique ID when duplicating multiple blocks
-* fixed always generating heading block anchors even if it not required
 * fixed displaying TOC heading content in editor
 * fixed Icon block rendering `aria-label` attribute on link
 * **Pro:**
