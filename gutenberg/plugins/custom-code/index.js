@@ -1,5 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
-import { TabPanel, Tooltip } from '@wordpress/components';
+import { Notice, TabPanel, Tooltip } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { PluginMoreMenuItem } from '@wordpress/editor';
@@ -55,7 +55,13 @@ class CustomCodeModal extends Component {
 	}
 
 	render() {
-		const { updateMeta, updateCustomCode, onRequestClose } = this.props;
+		const {
+			updateMeta,
+			updateCustomCode,
+			onRequestClose,
+			canEditCustomJS,
+			canEditGlobalCustomCode,
+		} = this.props;
 
 		return (
 			<Modal
@@ -74,15 +80,17 @@ class CustomCodeModal extends Component {
 						newLocal.ghostkit_custom_css = this.state.customCSS;
 					}
 					if (
+						canEditCustomJS &&
 						this.state.customJSHead !==
-						local.ghostkit_custom_js_head
+							local.ghostkit_custom_js_head
 					) {
 						newLocal.ghostkit_custom_js_head =
 							this.state.customJSHead;
 					}
 					if (
+						canEditCustomJS &&
 						this.state.customJSFoot !==
-						local.ghostkit_custom_js_foot
+							local.ghostkit_custom_js_foot
 					) {
 						newLocal.ghostkit_custom_js_foot =
 							this.state.customJSFoot;
@@ -93,22 +101,25 @@ class CustomCodeModal extends Component {
 
 					// Global
 					if (
+						canEditGlobalCustomCode &&
 						this.state.globalCustomCSS !==
-						global.ghostkit_custom_css
+							global.ghostkit_custom_css
 					) {
 						newGlobal.ghostkit_custom_css =
 							this.state.globalCustomCSS;
 					}
 					if (
+						canEditGlobalCustomCode &&
 						this.state.globalCustomJSHead !==
-						global.ghostkit_custom_js_head
+							global.ghostkit_custom_js_head
 					) {
 						newGlobal.ghostkit_custom_js_head =
 							this.state.globalCustomJSHead;
 					}
 					if (
+						canEditGlobalCustomCode &&
 						this.state.globalCustomJSFoot !==
-						global.ghostkit_custom_js_foot
+							global.ghostkit_custom_js_foot
 					) {
 						newGlobal.ghostkit_custom_js_foot =
 							this.state.globalCustomJSFoot;
@@ -161,80 +172,120 @@ class CustomCodeModal extends Component {
 						return (
 							<>
 								<h4>{__('CSS', 'ghostkit')}</h4>
-								<CodeEditor
-									mode="css"
-									onChange={(value) => {
-										this.setState({
-											[isGlobal
-												? 'globalCustomCSS'
-												: 'customCSS']: value,
-										});
-									}}
-									value={
-										(isGlobal
-											? this.state.globalCustomCSS
-											: this.state.customCSS) || ''
-									}
-									maxLines={20}
-									minLines={5}
-									height="300px"
-								/>
+								{isGlobal && !canEditGlobalCustomCode ? (
+									<Notice
+										status="warning"
+										isDismissible={false}
+									>
+										{__(
+											"You don't have permissions to edit global custom code.",
+											'ghostkit'
+										)}
+									</Notice>
+								) : (
+									<CodeEditor
+										mode="css"
+										onChange={(value) => {
+											this.setState({
+												[isGlobal
+													? 'globalCustomCSS'
+													: 'customCSS']: value,
+											});
+										}}
+										value={
+											(isGlobal
+												? this.state.globalCustomCSS
+												: this.state.customCSS) || ''
+										}
+										maxLines={20}
+										minLines={5}
+										height="300px"
+									/>
+								)}
 
 								<h4>{__('JavaScript', 'ghostkit')}</h4>
-								<p className="ghostkit-help-text">
-									{__(
-										'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.',
-										'ghostkit'
-									)}
-								</p>
-								<p>
-									<code className="ghostkit-code">
-										{'<head>'}
-									</code>{' '}
-									:
-								</p>
-								<CodeEditor
-									mode="javascript"
-									onChange={(value) => {
-										this.setState({
-											[isGlobal
-												? 'globalCustomJSHead'
-												: 'customJSHead']: value,
-										});
-									}}
-									value={
-										(isGlobal
-											? this.state.globalCustomJSHead
-											: this.state.customJSHead) || ''
-									}
-									maxLines={20}
-									minLines={5}
-									height="300px"
-								/>
-								<p>
-									<code className="ghostkit-code">
-										{'<foot>'}
-									</code>{' '}
-									:
-								</p>
-								<CodeEditor
-									mode="javascript"
-									onChange={(value) => {
-										this.setState({
-											[isGlobal
-												? 'globalCustomJSFoot'
-												: 'customJSFoot']: value,
-										});
-									}}
-									value={
-										(isGlobal
-											? this.state.globalCustomJSFoot
-											: this.state.customJSFoot) || ''
-									}
-									maxLines={20}
-									minLines={5}
-									height="300px"
-								/>
+								{(!isGlobal && canEditCustomJS) ||
+								(isGlobal &&
+									canEditGlobalCustomCode &&
+									canEditCustomJS) ? (
+									<>
+										<p className="ghostkit-help-text">
+											{__(
+												'Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.',
+												'ghostkit'
+											)}
+										</p>
+										<p>
+											<code className="ghostkit-code">
+												{'<head>'}
+											</code>{' '}
+											:
+										</p>
+										<CodeEditor
+											mode="javascript"
+											onChange={(value) => {
+												this.setState({
+													[isGlobal
+														? 'globalCustomJSHead'
+														: 'customJSHead']:
+														value,
+												});
+											}}
+											value={
+												(isGlobal
+													? this.state
+															.globalCustomJSHead
+													: this.state
+															.customJSHead) || ''
+											}
+											maxLines={20}
+											minLines={5}
+											height="300px"
+										/>
+										<p>
+											<code className="ghostkit-code">
+												{'<foot>'}
+											</code>{' '}
+											:
+										</p>
+										<CodeEditor
+											mode="javascript"
+											onChange={(value) => {
+												this.setState({
+													[isGlobal
+														? 'globalCustomJSFoot'
+														: 'customJSFoot']:
+														value,
+												});
+											}}
+											value={
+												(isGlobal
+													? this.state
+															.globalCustomJSFoot
+													: this.state
+															.customJSFoot) || ''
+											}
+											maxLines={20}
+											minLines={5}
+											height="300px"
+										/>
+									</>
+								) : (
+									<Notice
+										status="warning"
+										isDismissible={false}
+									>
+										{isGlobal
+											? __(
+													"You don't have permissions to edit global custom code.",
+													'ghostkit'
+												)
+											: __(
+													"You don't have permissions to edit custom JavaScript code.",
+													'ghostkit'
+												)}
+									</Notice>
+								)}
 							</>
 						);
 					}}
@@ -246,16 +297,25 @@ class CustomCodeModal extends Component {
 
 const CustomCodeModalWithSelect = compose([
 	withSelect((select) => {
+		// Check user permissions (from localized variables)
+		const canEditCustomJS =
+			window.ghostkitVariables?.canEditCustomJS ?? true;
+		const canEditGlobalCustomCode =
+			window.ghostkitVariables?.canEditGlobalCustomCode ?? true;
+
 		const currentMeta =
 			select('core/editor').getCurrentPostAttribute('meta');
 		const editedMeta = select('core/editor').getEditedPostAttribute('meta');
-		const customCode = select(
-			'ghostkit/plugins/custom-code'
-		).getCustomCode();
+
+		const customCode = canEditGlobalCustomCode
+			? select('ghostkit/plugins/custom-code').getCustomCode()
+			: false;
 
 		return {
 			meta: { ...currentMeta, ...editedMeta },
 			customCode,
+			canEditCustomJS,
+			canEditGlobalCustomCode,
 		};
 	}),
 	withDispatch((dispatch) => ({
