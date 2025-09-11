@@ -104,7 +104,7 @@ test.describe('typography', () => {
 		const verAttribute = googleFontsApiLink.substring(verIndex + 5);
 
 		const googleFontsLinkPredefined =
-			'https://fonts.googleapis.com/css?family=Inter%3A400%2C700%7CRaleway%3A400%2C400i%2C700%2C700i%7CSource+Serif+4%3A400%2C400i%2C700%2C700i&display=swap&ver=' +
+			'https://fonts.googleapis.com/css?family=Inter%3A400%2C400i%2C700%2C700i%7CRaleway%3A400%2C400i%2C700%2C700i%7CSource+Serif+4%3A400%2C400i%2C700%2C700i&display=swap&ver=' +
 			verAttribute;
 
 		// Added blocks in the page editor.
@@ -119,7 +119,7 @@ test.describe('typography', () => {
 
 		await editor.insertBlock({
 			name: 'core/heading',
-			attributes: { content: 'Just a Title' },
+			attributes: { content: 'Just a Title', anchor: 'just-a-title' },
 		});
 
 		// Checking links to Google fonts
