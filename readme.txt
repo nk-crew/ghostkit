@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 6.8
 * Requires PHP: 7.2
-* Stable tag: 3.4.3
+* Stable tag: 3.4.4
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -269,6 +269,10 @@ The plugin documentation provides a comprehensive source of information on block
 19. Blocks Extensions
 
 ## Changelog ##
+
+= 3.4.4 - Sep 11, 2025 =
+
+* added permission checks to custom JS and CSS in posts meta editor (fixes possible XSS from contributors)
 
 = 3.4.3 - Jun 21, 2025 =
 

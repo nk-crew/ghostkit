@@ -8,13 +8,13 @@
          "Ghost Kit": [
             ""
          ],
+         "https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline": [
+            ""
+         ],
          "Page Builder Blocks and Extensions for Gutenberg": [
             ""
          ],
          "Ghost Kit Team": [
-            ""
-         ],
-         "https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline": [
             ""
          ],
          "Go Pro": [
@@ -2298,10 +2298,16 @@
          "CSS": [
             ""
          ],
+         "You don't have permissions to edit global custom code.": [
+            ""
+         ],
          "JavaScript": [
             ""
          ],
          "Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets.": [
+            ""
+         ],
+         "You don't have permissions to edit custom JavaScript code.": [
             ""
          ],
          "Uncategorized": [

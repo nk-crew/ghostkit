@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.4.4 - Sep 11, 2025 =
+
+* added permission checks to custom JS and CSS in posts meta editor (fixes possible XSS from contributors)
+
 = 3.4.3 - Jun 21, 2025 =
 
 * fixed always generating heading block anchors even if it not required

@@ -2,21 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ghost Kit 3.4.3\n"
+"Project-Id-Version: Ghost Kit 3.4.4\n"
 "Report-Msgid-Bugs-To: https://github.com/nk-o/ghostkit/issues\n"
 "Last-Translator: nK\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-21T13:07:57+00:00\n"
+"POT-Creation-Date: 2025-09-11T08:55:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
 
 #. Plugin Name of the plugin
 #: class-ghost-kit.php
-#: class-ghost-kit.php:200
+#: class-ghost-kit.php:201
 #: settings/index.php:132
 #: settings/index.php:133
 #: gutenberg/extend/block-actions-copy-paste/index.js:73
@@ -24,6 +24,12 @@ msgstr ""
 #: gutenberg/plugins/ghostkit/index.js:43
 #: settings/containers/container.js:110
 msgid "Ghost Kit"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: class-ghost-kit.php
+msgid "https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline"
 msgstr ""
 
 #. Description of the plugin
@@ -36,12 +42,7 @@ msgstr ""
 msgid "Ghost Kit Team"
 msgstr ""
 
-#. Author URI of the plugin
-#: class-ghost-kit.php
-msgid "https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline"
-msgstr ""
-
-#: class-ghost-kit.php:420
+#: class-ghost-kit.php:421
 #: settings/index.php:198
 msgid "Go Pro"
 msgstr ""
@@ -588,8 +589,8 @@ msgid "Breakpoints"
 msgstr ""
 
 #: settings/index.php:180
-#: gutenberg/plugins/custom-code/index.js:65
-#: gutenberg/plugins/custom-code/index.js:306
+#: gutenberg/plugins/custom-code/index.js:71
+#: gutenberg/plugins/custom-code/index.js:366
 #: gutenberg/plugins/ghostkit/index.js:68
 #: settings/pages/index.js:34
 msgid "CSS & JavaScript"
@@ -3478,39 +3479,48 @@ msgstr ""
 msgid "Blue"
 msgstr ""
 
-#: gutenberg/plugins/custom-code/index.js:132
+#: gutenberg/plugins/custom-code/index.js:143
 #: gutenberg/plugins/typography/index.js:852
 msgid "All changes will be applied on the current page only."
 msgstr ""
 
-#: gutenberg/plugins/custom-code/index.js:137
+#: gutenberg/plugins/custom-code/index.js:148
 #: gutenberg/plugins/typography/index.js:857
 msgid "Local"
 msgstr ""
 
-#: gutenberg/plugins/custom-code/index.js:146
+#: gutenberg/plugins/custom-code/index.js:157
 #: gutenberg/plugins/typography/index.js:866
 msgid "All changes will be applied site wide."
 msgstr ""
 
-#: gutenberg/plugins/custom-code/index.js:151
+#: gutenberg/plugins/custom-code/index.js:162
 #: gutenberg/plugins/typography/index.js:871
 msgid "Global"
 msgstr ""
 
-#: gutenberg/plugins/custom-code/index.js:163
+#: gutenberg/plugins/custom-code/index.js:174
 #: settings/pages/css-js.js:89
 msgid "CSS"
 msgstr ""
 
-#: gutenberg/plugins/custom-code/index.js:183
+#: gutenberg/plugins/custom-code/index.js:180
+#: gutenberg/plugins/custom-code/index.js:279
+msgid "You don't have permissions to edit global custom code."
+msgstr ""
+
+#: gutenberg/plugins/custom-code/index.js:206
 #: settings/pages/css-js.js:105
 msgid "JavaScript"
 msgstr ""
 
-#: gutenberg/plugins/custom-code/index.js:185
+#: gutenberg/plugins/custom-code/index.js:213
 #: settings/pages/css-js.js:110
 msgid "Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets."
+msgstr ""
+
+#: gutenberg/plugins/custom-code/index.js:283
+msgid "You don't have permissions to edit custom JavaScript code."
 msgstr ""
 
 #: gutenberg/plugins/customizer/index.js:54
