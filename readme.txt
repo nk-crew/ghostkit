@@ -4,9 +4,9 @@
 * Tags: page builder, effects, animation, blocks, gutenberg blocks
 * Donate link: https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
 * Requires at least: 6.6
-* Tested up to: 6.8
+* Tested up to: 6.9
 * Requires PHP: 7.2
-* Stable tag: 3.4.4
+* Stable tag: 3.4.5
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -269,6 +269,11 @@ The plugin documentation provides a comprehensive source of information on block
 19. Blocks Extensions
 
 ## Changelog ##
+
+= 3.4.5 - Dec 3, 2025 =
+
+* **Pro:**
+* fixed error appear in WordPress 6.9 because of changed behavior of `wp_enqueue_script_module` function
 
 = 3.4.4 - Sep 11, 2025 =
 
