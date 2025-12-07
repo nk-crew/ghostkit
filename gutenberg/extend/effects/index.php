@@ -47,6 +47,7 @@ class GhostKit_Extension_Effects {
 	 * @return string                Filtered block content.
 	 */
 	public function render_block( $block_content, $block, $block_type ) {
+		global $wp_version;
 		$has_effects_support = block_has_support( $block_type, array( 'ghostkit', 'effects' ), null );
 
 		if ( ! $has_effects_support ) {
@@ -74,7 +75,17 @@ class GhostKit_Extension_Effects {
 		if ( $processor->next_tag() ) {
 			$effects_data_string = wp_json_encode( $effects_data );
 
-			$processor->set_attribute( 'data-gkt-effects', esc_attr( $effects_data_string ) );
+			// WP 6.9+ automatically escapes attributes in WP_HTML_Tag_Processor.
+			// For older versions, we need to manually escape to prevent XSS.
+			//
+			// Possible related issues:
+			// - https://github.com/WordPress/wordpress-develop/pull/10591
+			// - https://core.trac.wordpress.org/ticket/64340 .
+			if ( version_compare( $wp_version, '6.9', '<' ) ) {
+				$effects_data_string = esc_attr( $effects_data_string );
+			}
+
+			$processor->set_attribute( 'data-gkt-effects', $effects_data_string );
 
 			if ( ! empty( $effects_data['reveal'] ) ) {
 				$processor->add_class( 'ghostkit-effects-reveal' );
