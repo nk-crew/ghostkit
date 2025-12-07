@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.4.6 - Dec 7, 2025 =
+
+* fixed incorrect double escaping of Effects extension attribute because of WP 6.9 changes
+* **Pro:**
+* fixed incorrect double escaping of Attributes extension attribute because of WP 6.9 changes
+
 = 3.4.5 - Dec 3, 2025 =
 
 * **Pro:**

@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 6.9
 * Requires PHP: 7.2
-* Stable tag: 3.4.5
+* Stable tag: 3.4.6
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -269,6 +269,12 @@ The plugin documentation provides a comprehensive source of information on block
 19. Blocks Extensions
 
 ## Changelog ##
+
+= 3.4.6 - Dec 7, 2025 =
+
+* fixed incorrect double escaping of Effects extension attribute because of WP 6.9 changes
+* **Pro:**
+* fixed incorrect double escaping of Attributes extension attribute because of WP 6.9 changes
 
 = 3.4.5 - Dec 3, 2025 =
 
