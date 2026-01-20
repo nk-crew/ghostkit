@@ -2,7 +2,7 @@
   "require": {
     "scssphp/scssphp": "^1.11",
     "moodlehq/rtlcss-php": "*",
-    "deliciousbrains/wp-background-processing": "^1.1"
+    "deliciousbrains/wp-background-processing": "^1.4"
   },
   "repositories": [
     {

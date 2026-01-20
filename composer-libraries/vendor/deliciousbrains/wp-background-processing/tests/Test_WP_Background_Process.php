@@ -5,6 +5,8 @@
  * @package WP-Background-Processing
  */
 
+require_once __DIR__ . '/fixtures/Test_Batch_Data.php';
+
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
@@ -49,6 +51,25 @@ class Test_WP_Background_Process extends WP_UnitTestCase {
 		$property->setAccessible( true );
 
 		return $property->getValue( $this->wpbp );
+	}
+
+	/**
+	 * Set a property value on WPBP regardless of accessibility.
+	 *
+	 * @param string $name
+	 * @param mixed  $value
+	 *
+	 * @return mixed
+	 */
+	private function setWPBPProperty( string $name, $value ) {
+		try {
+			$property = new ReflectionProperty( 'WP_Background_Process', $name );
+		} catch ( Exception $e ) {
+			return new WP_Error( $e->getCode(), $e->getMessage() );
+		}
+		$property->setAccessible( true );
+
+		return $property->setValue( $this->wpbp, $value );
 	}
 
 	/**
@@ -178,6 +199,41 @@ class Test_WP_Background_Process extends WP_UnitTestCase {
 		$this->assertInstanceOf( 'stdClass', $second_batch );
 		$this->assertNotEquals( $first_batch, $second_batch, '2nd batch returned as 1st deleted' );
 		$this->assertEquals( array( 'more wibble' ), $second_batch->data );
+
+		// Tests using a custom class for the $item.
+		$this->wpbp->delete( $second_batch->key );
+		$batch_data_object = new Test_Batch_Data();
+		$this->wpbp->push_to_queue( $batch_data_object );
+		$this->assertNotEmpty( $this->getWPBPProperty( 'data' ) );
+		$this->assertEquals( array( $batch_data_object ), $this->getWPBPProperty( 'data' ) );
+		$this->wpbp->save();
+		$third_batch = $this->executeWPBPMethod( 'get_batch' );
+		$this->assertCount( 1, $third_batch->data );
+		$this->assertInstanceOf( Test_Batch_Data::class, $third_batch->data[0] );
+
+		// Explicitly set allowed classes to Test_Batch_Data.
+		$this->setWPBPProperty( 'allowed_batch_data_classes', array( Test_Batch_Data::class ) );
+		$third_batch = $this->executeWPBPMethod( 'get_batch' );
+		$this->assertCount( 1, $third_batch->data );
+		$this->assertInstanceOf( Test_Batch_Data::class, $third_batch->data[0] );
+
+		// Allow a different class.
+		$this->setWPBPProperty( 'allowed_batch_data_classes', array( stdClass::class ) );
+		$third_batch = $this->executeWPBPMethod( 'get_batch' );
+		$this->assertCount( 1, $third_batch->data );
+		$this->assertInstanceOf( __PHP_Incomplete_Class::class, $third_batch->data[0] );
+
+		// Disallow all classes.
+		$this->setWPBPProperty( 'allowed_batch_data_classes', false );
+		$third_batch = $this->executeWPBPMethod( 'get_batch' );
+		$this->assertCount( 1, $third_batch->data );
+		$this->assertInstanceOf( __PHP_Incomplete_Class::class, $third_batch->data[0] );
+
+		// Allow everything.
+		$this->setWPBPProperty( 'allowed_batch_data_classes', true );
+		$third_batch = $this->executeWPBPMethod( 'get_batch' );
+		$this->assertCount( 1, $third_batch->data );
+		$this->assertInstanceOf( Test_Batch_Data::class, $third_batch->data[0] );
 	}
 
 	/**
@@ -585,5 +641,32 @@ class Test_WP_Background_Process extends WP_UnitTestCase {
 		$this->assertTrue( $this->wpbp->is_active(), 'cancelling, so still active' );
 		$this->wpbp->maybe_handle();
 		$this->assertFalse( $this->wpbp->is_active(), 'cancel handled, queue emptied, so no longer active' );
+	}
+
+	/**
+	 * Test get_cron_interval.
+	 *
+	 * @return void
+	 */
+	public function test_get_cron_interval() {
+		// Default value.
+		$this->assertEquals( 5, $this->wpbp->get_cron_interval() );
+
+		// Override via property (usually on subclass).
+		$this->wpbp->cron_interval = 3;
+		$this->assertEquals( 3, $this->wpbp->get_cron_interval() );
+
+		// Override via filter.
+		$callback = function ( $interval ) {
+			return 1;
+		};
+		add_filter( $this->getWPBPProperty( 'identifier' ) . '_cron_interval', $callback );
+		$this->assertEquals( 1, $this->wpbp->get_cron_interval() );
+
+		remove_filter( $this->getWPBPProperty( 'identifier' ) . '_cron_interval', $callback );
+		$this->assertEquals( 3, $this->wpbp->get_cron_interval() );
+
+		unset( $this->wpbp->cron_interval );
+		$this->assertEquals( 5, $this->wpbp->get_cron_interval() );
 	}
 }

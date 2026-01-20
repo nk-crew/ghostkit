@@ -101,9 +101,9 @@ abstract class WP_Async_Request {
 		);
 
 		/**
-		 * Filters the post arguments used during an async request.
+		 * Filters the query arguments used during an async request.
 		 *
-		 * @param array $url
+		 * @param array $args
 		 */
 		return apply_filters( $this->identifier . '_query_args', $args );
 	}
@@ -121,7 +121,7 @@ abstract class WP_Async_Request {
 		$url = admin_url( 'admin-ajax.php' );
 
 		/**
-		 * Filters the post arguments used during an async request.
+		 * Filters the query URL used during an async request.
 		 *
 		 * @param string $url
 		 */
@@ -139,7 +139,7 @@ abstract class WP_Async_Request {
 		}
 
 		$args = array(
-			'timeout'   => 0.01,
+			'timeout'   => 5,
 			'blocking'  => false,
 			'body'      => $this->data,
 			'cookies'   => $_COOKIE, // Passing cookies ensures request is performed as initiating user.
