@@ -51,14 +51,13 @@ jobs:
       fail-fast: true
       matrix:
         php:
-          - '7.4'
-          - '8.0'
           - '8.1'
           - '8.2'
+          - '8.3'
         wordpress: [''] # Latest WordPress version.
         include:
           # Test with the previous WP version.
-          - php: '7.4'
+          - php: '8.1'
             wordpress: ${{ needs.compute-previous-wordpress-version.outputs.previous-wordpress-version }}
           - php: '8.2'
             wordpress: ${{ needs.compute-previous-wordpress-version.outputs.previous-wordpress-version }}
@@ -97,6 +96,9 @@ jobs:
         uses: ramsey/composer-install@v2
         with:
           custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
+
+      - name: Install SVN
+        run: sudo apt-get update && sudo apt-get install -y subversion
 
       - name: Npm build
         run: npm run build
@@ -186,7 +188,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.1'
           coverage: none
           tools: cs2pr
 
