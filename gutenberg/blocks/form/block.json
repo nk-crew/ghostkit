@@ -19,5 +19,17 @@
 		},
 		"__experimentalLayout": true,
 		"layout": true
-	}
+	},
+	"style": [
+		"ghostkit",
+		"ghostkit-block-form",
+		"ghostkit-block-alert",
+		"ghostkit-block-button"
+	],
+	"viewScript": [
+		"ghostkit",
+		"ghostkit-block-form",
+		"ghostkit-block-alert",
+		"ghostkit-block-button"
+	]
 }

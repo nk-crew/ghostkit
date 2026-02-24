@@ -57,5 +57,7 @@
 		"rel": {
 			"type": "string"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-icon-box"],
+	"viewScript": ["ghostkit", "ghostkit-block-icon-box"]
 }

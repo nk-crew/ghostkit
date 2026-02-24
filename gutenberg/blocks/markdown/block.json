@@ -15,5 +15,7 @@
 		"content": {
 			"type": "string"
 		}
-	}
+	},
+	"style": ["ghostkit"],
+	"viewScript": ["ghostkit"]
 }

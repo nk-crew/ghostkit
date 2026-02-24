@@ -44,5 +44,7 @@
 			"type": "string",
 			"default": "100%"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-lottie"],
+	"viewScript": ["ghostkit", "ghostkit-block-lottie"]
 }

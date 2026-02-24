@@ -40,5 +40,7 @@
 		"hoverIconColor": {
 			"type": "string"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-divider"],
+	"viewScript": ["ghostkit", "ghostkit-block-divider"]
 }

@@ -40,5 +40,7 @@
 			"type": "boolean",
 			"default": false
 		}
-	}
+	},
+	"style": ["ghostkit"],
+	"viewScript": ["ghostkit"]
 }

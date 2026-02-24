@@ -17,7 +17,6 @@
 			"type": "string",
 			"default": "full"
 		},
-
 		"svg": {
 			"type": "string"
 		},
@@ -29,7 +28,6 @@
 			"type": "boolean",
 			"default": false
 		},
-
 		"sm_height": {
 			"type": "string",
 			"default": ""
@@ -38,7 +36,6 @@
 			"type": "string",
 			"default": ""
 		},
-
 		"md_height": {
 			"type": "string",
 			"default": ""
@@ -47,7 +44,6 @@
 			"type": "string",
 			"default": ""
 		},
-
 		"lg_height": {
 			"type": "string",
 			"default": ""
@@ -56,7 +52,6 @@
 			"type": "string",
 			"default": ""
 		},
-
 		"xl_height": {
 			"type": "string",
 			"default": ""
@@ -65,7 +60,6 @@
 			"type": "string",
 			"default": ""
 		},
-
 		"height": {
 			"type": "string",
 			"default": "150"
@@ -74,9 +68,10 @@
 			"type": "string",
 			"default": "100"
 		},
-
 		"color": {
 			"type": "string"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-shape-divider"],
+	"viewScript": ["ghostkit", "ghostkit-block-shape-divider"]
 }

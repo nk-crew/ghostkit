@@ -46,8 +46,20 @@
 		"ghostkit/tabActive": "tabActive"
 	},
 	"styles": [
-		{ "name": "default", "label": "Tabs", "isDefault": true },
-		{ "name": "pills", "label": "Pills" },
-		{ "name": "radio", "label": "Radio Buttons" }
-	]
+		{
+			"name": "default",
+			"label": "Tabs",
+			"isDefault": true
+		},
+		{
+			"name": "pills",
+			"label": "Pills"
+		},
+		{
+			"name": "radio",
+			"label": "Radio Buttons"
+		}
+	],
+	"style": ["ghostkit", "ghostkit-block-tabs-v2"],
+	"viewScript": ["ghostkit", "ghostkit-block-tabs-v2"]
 }

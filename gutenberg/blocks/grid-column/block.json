@@ -39,7 +39,6 @@
 			"type": "string",
 			"default": ""
 		},
-
 		"md_size": {
 			"type": "string",
 			"default": ""
@@ -52,7 +51,6 @@
 			"type": "string",
 			"default": ""
 		},
-
 		"lg_size": {
 			"type": "string",
 			"default": ""
@@ -65,7 +63,6 @@
 			"type": "string",
 			"default": ""
 		},
-
 		"xl_size": {
 			"type": "string",
 			"default": ""
@@ -78,7 +75,6 @@
 			"type": "string",
 			"default": ""
 		},
-
 		"size": {
 			"type": "string",
 			"default": "auto"
@@ -99,5 +95,7 @@
 			"type": "number",
 			"default": 0
 		}
-	}
+	},
+	"style": ["ghostkit"],
+	"viewScript": ["ghostkit"]
 }

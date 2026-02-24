@@ -26,7 +26,6 @@
 		"trigger": {
 			"type": "string"
 		},
-
 		"beforeId": {
 			"type": "number"
 		},
@@ -52,7 +51,6 @@
 		"beforeSizeSlug": {
 			"type": "string"
 		},
-
 		"afterId": {
 			"type": "number"
 		},
@@ -78,7 +76,6 @@
 		"afterSizeSlug": {
 			"type": "string"
 		},
-
 		"showLabels": {
 			"type": "boolean",
 			"default": false
@@ -99,18 +96,18 @@
 			"type": "string",
 			"default": "end"
 		},
-
 		"colorDivider": {
 			"type": "string"
 		},
 		"colorDividerIcon": {
 			"type": "string"
 		},
-
 		"caption": {
 			"type": "string",
 			"source": "html",
 			"selector": "figcaption"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-image-compare"],
+	"viewScript": ["ghostkit", "ghostkit-block-image-compare"]
 }

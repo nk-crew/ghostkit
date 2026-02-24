@@ -77,5 +77,7 @@
 			"type": "number",
 			"default": 15
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-carousel"],
+	"viewScript": ["ghostkit", "ghostkit-block-carousel"]
 }

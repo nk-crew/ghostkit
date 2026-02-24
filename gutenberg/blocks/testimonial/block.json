@@ -81,5 +81,7 @@
 		"rel": {
 			"type": "string"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-testimonial"],
+	"viewScript": ["ghostkit", "ghostkit-block-testimonial"]
 }

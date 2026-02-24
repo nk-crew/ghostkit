@@ -73,5 +73,7 @@
 			"type": "boolean",
 			"default": false
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-google-maps"],
+	"viewScript": ["ghostkit", "ghostkit-block-google-maps"]
 }

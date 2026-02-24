@@ -23,7 +23,6 @@
 		"unitsAlign": {
 			"type": "string"
 		},
-
 		"numberFontSize": {
 			"type": "number"
 		},
@@ -36,5 +35,7 @@
 		"labelColor": {
 			"type": "string"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-countdown"],
+	"viewScript": ["ghostkit", "ghostkit-block-countdown"]
 }

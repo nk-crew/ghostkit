@@ -62,5 +62,7 @@
 		"hoverBackgroundColor": {
 			"type": "string"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-progress"],
+	"viewScript": ["ghostkit", "ghostkit-block-progress"]
 }

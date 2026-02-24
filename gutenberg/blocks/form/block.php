@@ -47,8 +47,6 @@ class GhostKit_Form_Block {
 
 		add_action( 'init', array( $this, 'init' ) );
 
-		add_action( 'gkt_assets_store', array( $this, 'assets_store' ) );
-
 		add_action( 'gkt_form_email_before_send', array( $this, 'mail_before_send' ) );
 		add_action( 'gkt_form_email_after_send', array( $this, 'mail_after_send' ) );
 
@@ -371,20 +369,6 @@ class GhostKit_Form_Block {
 		}
 
 		return $block_content;
-	}
-
-	/**
-	 * Add Alert block assets.
-	 *
-	 * @param string $name - asset name.
-	 */
-	public function assets_store( $name ) {
-		if ( 'ghostkit-block-form' === $name ) {
-			GhostKit_Assets::store_used_assets( 'ghostkit-block-alert', true, 'style' );
-			GhostKit_Assets::store_used_assets( 'ghostkit-block-alert', true, 'script' );
-			GhostKit_Assets::store_used_assets( 'ghostkit-block-button', true, 'style' );
-			GhostKit_Assets::store_used_assets( 'ghostkit-block-button', true, 'script' );
-		}
 	}
 
 	/**

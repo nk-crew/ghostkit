@@ -59,5 +59,7 @@
 			"type": "boolean",
 			"default": true
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-instagram"],
+	"viewScript": ["ghostkit", "ghostkit-block-instagram"]
 }

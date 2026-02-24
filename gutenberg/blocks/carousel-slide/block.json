@@ -19,5 +19,7 @@
 		},
 		"__experimentalLayout": true,
 		"layout": true
-	}
+	},
+	"style": ["ghostkit"],
+	"viewScript": ["ghostkit"]
 }

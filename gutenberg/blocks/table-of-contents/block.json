@@ -25,5 +25,7 @@
 			"type": "array",
 			"default": [2, 3, 4]
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-table-of-contents"],
+	"viewScript": ["ghostkit", "ghostkit-block-table-of-contents"]
 }

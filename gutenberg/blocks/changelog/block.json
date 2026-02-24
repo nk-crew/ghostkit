@@ -29,5 +29,7 @@
 			"type": "string",
 			"default": ""
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-changelog"],
+	"viewScript": ["ghostkit", "ghostkit-block-changelog"]
 }

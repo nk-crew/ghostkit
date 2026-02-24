@@ -28,5 +28,7 @@
 			"type": "boolean"
 		}
 	},
-	"usesContext": ["ghostkit/tabActive", "ghostkit/buttonsVerticalAlign"]
+	"usesContext": ["ghostkit/tabActive", "ghostkit/buttonsVerticalAlign"],
+	"style": ["ghostkit"],
+	"viewScript": ["ghostkit"]
 }

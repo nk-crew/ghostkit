@@ -33,7 +33,6 @@
 			"type": "number",
 			"default": 3
 		},
-
 		"showReplies": {
 			"type": "boolean",
 			"default": false
@@ -69,7 +68,6 @@
 			"type": "boolean",
 			"default": true
 		},
-
 		"showProfile": {
 			"type": "boolean",
 			"default": true
@@ -102,5 +100,7 @@
 			"type": "boolean",
 			"default": true
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-twitter"],
+	"viewScript": ["ghostkit", "ghostkit-block-twitter"]
 }

@@ -53,6 +53,7 @@ class GhostKit_Assets {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'register_scripts' ) );
+		add_filter( 'render_block', array( $this, 'render_block_enqueue_assets' ), 9, 2 );
 		add_action( 'plugins_loaded', array( $this, 'enqueue_scripts_action' ), 11 );
 		add_action( 'ghostkit_parse_blocks', array( $this, 'maybe_enqueue_blocks_assets' ), 11, 2 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_assets' ), 100 );
@@ -291,21 +292,10 @@ class GhostKit_Assets {
 	 * @param string $location - blocks location [content,widget].
 	 */
 	public static function enqueue( $blocks = array(), $location = 'content' ) {
-		self::store_used_assets( 'ghostkit', true, 'style', 9 );
-		self::store_used_assets( 'ghostkit', true, 'script', 11 );
-
 		$blocks_css = '';
 
 		// Prepare blocks assets.
 		foreach ( $blocks as $block ) {
-			// GhostKit blocks.
-			if ( isset( $block['blockName'] ) && strpos( $block['blockName'], 'ghostkit/' ) === 0 ) {
-				$block_name = preg_replace( '/^ghostkit\//', '', $block['blockName'] );
-
-				self::store_used_assets( 'ghostkit-block-' . $block_name, true, 'style' );
-				self::store_used_assets( 'ghostkit-block-' . $block_name, true, 'script' );
-			}
-
 			// Filter blocks custom CSS.
 			if ( isset( $block['blockName'] ) ) {
 				$custom_styles = apply_filters( 'gkt_block_custom_styles', '', $block );
@@ -324,6 +314,41 @@ class GhostKit_Assets {
 		if ( ! empty( $blocks_css ) && $blocks_css ) {
 			self::store_used_assets( 'ghostkit-blocks-' . $location . '-custom-css', ghostkit()->replace_vars( $blocks_css ), 'custom-css' );
 		}
+	}
+
+	/**
+	 * Enqueue extension and style-variant assets on demand.
+	 *
+	 * @param string $block_content rendered block content.
+	 * @param array  $block block data.
+	 *
+	 * @return string
+	 */
+	public function render_block_enqueue_assets( $block_content, $block ) {
+		if ( ! is_string( $block_content ) || '' === $block_content ) {
+			return $block_content;
+		}
+
+		$has_effects_attrs = ! empty( _wp_array_get( $block, array( 'attrs', 'ghostkit', 'effects' ), false ) );
+
+		if (
+			$has_effects_attrs ||
+			( isset( $block['blockName'] ) && in_array( $block['blockName'], array( 'ghostkit/counter-box', 'ghostkit/progress' ), true ) ) ||
+			false !== strpos( $block_content, 'data-gkt-effects' ) ||
+			false !== strpos( $block_content, 'ghostkit-count-up' )
+		) {
+			if ( wp_script_is( 'ghostkit-extension-effects', 'registered' ) ) {
+				wp_enqueue_script( 'ghostkit-extension-effects' );
+			}
+		}
+
+		if ( false !== strpos( $block_content, 'is-style-styled' ) ) {
+			if ( wp_script_is( 'ghostkit-style-variant-core-list', 'registered' ) ) {
+				wp_enqueue_script( 'ghostkit-style-variant-core-list' );
+			}
+		}
+
+		return $block_content;
 	}
 
 	/**
@@ -537,7 +562,6 @@ class GhostKit_Assets {
 				$ext_script_url,
 				array_unique( $ext_js_deps )
 			);
-			self::store_used_assets( 'ghostkit-extension-' . $ext_name, true, 'script' );
 		}
 
 		// Style Variants.
@@ -551,7 +575,6 @@ class GhostKit_Assets {
 				$ext_script_url,
 				array_unique( $ext_js_deps )
 			);
-			self::store_used_assets( 'ghostkit-style-variant-' . $ext_name, true, 'script' );
 		}
 
 		// Blocks.

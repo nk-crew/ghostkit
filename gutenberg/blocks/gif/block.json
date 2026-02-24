@@ -45,5 +45,7 @@
 		"height": {
 			"type": "number"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-gif"],
+	"viewScript": ["ghostkit", "ghostkit-block-gif"]
 }

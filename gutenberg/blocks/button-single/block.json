@@ -72,7 +72,6 @@
 		"textColor": {
 			"type": "string"
 		},
-
 		"borderRadius": {
 			"type": "number"
 		},
@@ -82,11 +81,9 @@
 		"borderColor": {
 			"type": "string"
 		},
-
 		"focusOutlineWeight": {
 			"type": "number"
 		},
-
 		"hoverColor": {
 			"type": "string"
 		},
@@ -96,10 +93,11 @@
 		"hoverBorderColor": {
 			"type": "string"
 		},
-
 		"focusOutlineColor": {
 			"type": "string",
 			"default": "rgba(3, 102, 214, 0.5)"
 		}
-	}
+	},
+	"style": ["ghostkit"],
+	"viewScript": ["ghostkit"]
 }

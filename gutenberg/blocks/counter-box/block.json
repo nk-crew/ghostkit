@@ -67,5 +67,7 @@
 		"rel": {
 			"type": "string"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-counter-box"],
+	"viewScript": ["ghostkit", "ghostkit-block-counter-box"]
 }

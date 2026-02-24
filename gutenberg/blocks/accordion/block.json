@@ -28,5 +28,7 @@
 	},
 	"providesContext": {
 		"ghostkit/collapseTitleTag": "collapseTitleTag"
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-accordion"],
+	"viewScript": ["ghostkit", "ghostkit-block-accordion"]
 }

@@ -11,5 +11,7 @@
 		"className": false,
 		"anchor": true,
 		"reusable": false
-	}
+	},
+	"style": ["ghostkit"],
+	"viewScript": ["ghostkit"]
 }

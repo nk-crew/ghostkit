@@ -30,5 +30,7 @@
 		"gapCustomVertical": {
 			"type": "number"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-button"],
+	"viewScript": ["ghostkit", "ghostkit-block-button"]
 }

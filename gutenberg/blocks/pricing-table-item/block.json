@@ -53,7 +53,6 @@
 			"selector": ".ghostkit-pricing-table-item-features",
 			"default": "<li>Feature 1</li><li>Feature 2</li>"
 		},
-
 		"showPopular": {
 			"type": "boolean",
 			"default": false
@@ -86,5 +85,7 @@
 			"type": "boolean",
 			"default": true
 		}
-	}
+	},
+	"style": ["ghostkit"],
+	"viewScript": ["ghostkit"]
 }

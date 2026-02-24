@@ -25,7 +25,6 @@
 		"flipV": {
 			"type": "boolean"
 		},
-
 		"color": {
 			"type": "string"
 		},
@@ -35,7 +34,6 @@
 		"backgroundGradient": {
 			"type": "string"
 		},
-
 		"url": {
 			"type": "string"
 		},
@@ -59,5 +57,7 @@
 		"className": false,
 		"anchor": true,
 		"align": ["wide", "full", "left", "center", "right"]
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-icon"],
+	"viewScript": ["ghostkit", "ghostkit-block-icon"]
 }

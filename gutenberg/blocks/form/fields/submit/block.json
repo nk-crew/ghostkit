@@ -17,5 +17,7 @@
 			"type": "string",
 			"default": "none"
 		}
-	}
+	},
+	"style": ["ghostkit"],
+	"viewScript": ["ghostkit"]
 }

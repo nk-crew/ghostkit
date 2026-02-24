@@ -33,5 +33,7 @@
 			"type": "boolean",
 			"default": true
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-gist"],
+	"viewScript": ["ghostkit", "ghostkit-block-gist"]
 }

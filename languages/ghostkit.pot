@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Ghost Kit Team
+# Copyright (C) 2026 Ghost Kit Team
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-07T07:35:58+00:00\n"
+"POT-Creation-Date: 2026-02-24T10:42:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
@@ -425,35 +425,35 @@ msgstr ""
 msgid "H6"
 msgstr ""
 
-#: gutenberg/blocks/form/block.php:114
+#: gutenberg/blocks/form/block.php:112
 msgid "Thank you for contacting us! We will be in touch with you shortly."
 msgstr ""
 
-#: gutenberg/blocks/form/block.php:207
+#: gutenberg/blocks/form/block.php:205
 msgid "Verify your Email"
 msgstr ""
 
-#: gutenberg/blocks/form/block.php:207
+#: gutenberg/blocks/form/block.php:205
 #: gutenberg/blocks/form/fields/email/block.php:34
 #: gutenberg/blocks/form/fields/email/edit.js:64
 msgid "Email"
 msgstr ""
 
-#: gutenberg/blocks/form/block.php:283
+#: gutenberg/blocks/form/block.php:281
 msgid "Your actions look suspicious, the form was not submitted."
 msgstr ""
 
-#: gutenberg/blocks/form/block.php:288
+#: gutenberg/blocks/form/block.php:286
 msgid "Google reCaptcha form verification failed."
 msgstr ""
 
-#: gutenberg/blocks/form/block.php:304
-#: gutenberg/blocks/form/block.php:308
+#: gutenberg/blocks/form/block.php:302
+#: gutenberg/blocks/form/block.php:306
 msgid "Something went wrong while trying to send the form."
 msgstr ""
 
 #. translators: %s - redirect link.
-#: gutenberg/blocks/form/block.php:338
+#: gutenberg/blocks/form/block.php:336
 msgid "Your form is successfully submitted. Redirecting to %s..."
 msgstr ""
 
@@ -690,8 +690,8 @@ msgstr ""
 #: gutenberg/blocks/icon-box/edit.js:238
 #: gutenberg/blocks/icon/edit/color-controls.js:21
 #: gutenberg/blocks/icon/edit/inspector-controls.js:17
-#: gutenberg/blocks/testimonial/edit.js:146
-#: gutenberg/blocks/testimonial/edit.js:279
+#: gutenberg/blocks/testimonial/edit.js:150
+#: gutenberg/blocks/testimonial/edit.js:283
 #: gutenberg/style-variants/core-list/index.js:34
 #: gutenberg/style-variants/core-list/index.js:252
 msgid "Icon"
@@ -731,7 +731,7 @@ msgstr ""
 #: gutenberg/blocks/counter-box/edit.js:223
 #: gutenberg/blocks/divider/edit.js:184
 #: gutenberg/blocks/icon-box/edit.js:222
-#: gutenberg/blocks/image-compare/edit.js:259
+#: gutenberg/blocks/image-compare/edit.js:265
 #: gutenberg/blocks/lottie/edit.js:86
 #: gutenberg/blocks/progress/edit.js:154
 #: gutenberg/blocks/tabs/edit/inspector-controls.js:21
@@ -741,7 +741,7 @@ msgstr ""
 #: gutenberg/blocks/alert/edit.js:183
 #: gutenberg/blocks/counter-box/edit.js:241
 #: gutenberg/blocks/grid/awb-fallback.js:182
-#: gutenberg/blocks/image-compare/edit.js:559
+#: gutenberg/blocks/image-compare/edit.js:565
 #: gutenberg/blocks/shape-divider/edit.js:320
 #: gutenberg/extend/frame/shadow/index.js:190
 #: gutenberg/style-variants/core-list/index.js:260
@@ -828,7 +828,7 @@ msgid "Align"
 msgstr ""
 
 #: gutenberg/blocks/carousel/edit.js:122
-#: gutenberg/blocks/video/edit/inspector-controls.js:302
+#: gutenberg/blocks/video/edit/inspector-controls.js:305
 msgid "Settings"
 msgstr ""
 
@@ -880,7 +880,7 @@ msgstr ""
 
 #: gutenberg/blocks/carousel/edit.js:244
 #: gutenberg/blocks/lottie/edit.js:119
-#: gutenberg/blocks/video/edit/inspector-controls.js:453
+#: gutenberg/blocks/video/edit/inspector-controls.js:456
 #: gutenberg/extend/effects/pro-effects/index.js:32
 msgid "Loop"
 msgstr ""
@@ -1090,7 +1090,7 @@ msgstr ""
 #: gutenberg/blocks/counter-box/edit.js:154
 #: gutenberg/blocks/grid/edit.js:343
 #: gutenberg/blocks/icon-box/edit.js:165
-#: gutenberg/blocks/image-compare/edit.js:290
+#: gutenberg/blocks/image-compare/edit.js:296
 msgid "Start"
 msgstr ""
 
@@ -1099,14 +1099,14 @@ msgstr ""
 #: gutenberg/blocks/grid/edit.js:322
 #: gutenberg/blocks/grid/edit.js:348
 #: gutenberg/blocks/icon-box/edit.js:172
-#: gutenberg/blocks/image-compare/edit.js:300
+#: gutenberg/blocks/image-compare/edit.js:306
 msgid "Center"
 msgstr ""
 
 #: gutenberg/blocks/counter-box/edit.js:164
 #: gutenberg/blocks/grid/edit.js:353
 #: gutenberg/blocks/icon-box/edit.js:179
-#: gutenberg/blocks/image-compare/edit.js:310
+#: gutenberg/blocks/image-compare/edit.js:316
 msgid "End"
 msgstr ""
 
@@ -1156,7 +1156,7 @@ msgid "Size"
 msgstr ""
 
 #: gutenberg/blocks/divider/edit.js:201
-#: gutenberg/blocks/image-compare/edit.js:561
+#: gutenberg/blocks/image-compare/edit.js:567
 msgid "Divider"
 msgstr ""
 
@@ -1377,18 +1377,18 @@ msgid "Image settings"
 msgstr ""
 
 #: gutenberg/blocks/gif/edit.js:248
-#: gutenberg/blocks/image-compare/edit.js:423
-#: gutenberg/blocks/image-compare/edit.js:540
-#: gutenberg/blocks/testimonial/edit.js:249
-#: gutenberg/blocks/video/edit/inspector-controls.js:523
+#: gutenberg/blocks/image-compare/edit.js:429
+#: gutenberg/blocks/image-compare/edit.js:546
+#: gutenberg/blocks/testimonial/edit.js:253
+#: gutenberg/blocks/video/edit/inspector-controls.js:526
 msgid "Describe the purpose of the image"
 msgstr ""
 
 #: gutenberg/blocks/gif/edit.js:253
-#: gutenberg/blocks/image-compare/edit.js:428
-#: gutenberg/blocks/image-compare/edit.js:545
-#: gutenberg/blocks/testimonial/edit.js:254
-#: gutenberg/blocks/video/edit/inspector-controls.js:528
+#: gutenberg/blocks/image-compare/edit.js:434
+#: gutenberg/blocks/image-compare/edit.js:551
+#: gutenberg/blocks/testimonial/edit.js:258
+#: gutenberg/blocks/video/edit/inspector-controls.js:531
 msgid "Leave empty if the image is purely decorative."
 msgstr ""
 
@@ -1818,131 +1818,131 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:189
-#: gutenberg/blocks/image-compare/edit.js:284
+#: gutenberg/blocks/image-compare/edit.js:195
+#: gutenberg/blocks/image-compare/edit.js:290
 msgid "Horizontal Align"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:190
-#: gutenberg/blocks/image-compare/edit.js:285
+#: gutenberg/blocks/image-compare/edit.js:196
+#: gutenberg/blocks/image-compare/edit.js:291
 msgid "Vertical Align"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:199
-#: gutenberg/blocks/image-compare/edit.js:242
+#: gutenberg/blocks/image-compare/edit.js:205
+#: gutenberg/blocks/image-compare/edit.js:248
 #: gutenberg/components/gap-settings/index.js:114
 msgid "Vertical"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:216
+#: gutenberg/blocks/image-compare/edit.js:222
 msgid "General"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:218
+#: gutenberg/blocks/image-compare/edit.js:224
 msgid "Start Position"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:227
+#: gutenberg/blocks/image-compare/edit.js:233
 msgid "Direction"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:238
+#: gutenberg/blocks/image-compare/edit.js:244
 #: gutenberg/components/gap-settings/index.js:96
 msgid "Horizontal"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:246
+#: gutenberg/blocks/image-compare/edit.js:252
 msgid "Trigger"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:255
+#: gutenberg/blocks/image-compare/edit.js:261
 #: gutenberg/blocks/lottie/edit.js:90
 #: gutenberg/blocks/tabs/edit/inspector-controls.js:17
 msgid "Click"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:265
+#: gutenberg/blocks/image-compare/edit.js:271
 msgid "Labels"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:267
+#: gutenberg/blocks/image-compare/edit.js:273
 msgid "Show Labels"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:322
+#: gutenberg/blocks/image-compare/edit.js:328
 msgid "Before Image Settings"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:332
-#: gutenberg/blocks/image-compare/edit.js:449
-#: gutenberg/blocks/testimonial/edit.js:162
-#: gutenberg/blocks/video/edit/inspector-controls.js:475
+#: gutenberg/blocks/image-compare/edit.js:338
+#: gutenberg/blocks/image-compare/edit.js:455
+#: gutenberg/blocks/testimonial/edit.js:166
+#: gutenberg/blocks/video/edit/inspector-controls.js:478
 msgid "Select Image"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:348
-#: gutenberg/blocks/image-compare/edit.js:465
-#: gutenberg/blocks/testimonial/edit.js:178
-#: gutenberg/blocks/video/edit/inspector-controls.js:491
+#: gutenberg/blocks/image-compare/edit.js:354
+#: gutenberg/blocks/image-compare/edit.js:471
+#: gutenberg/blocks/testimonial/edit.js:182
+#: gutenberg/blocks/video/edit/inspector-controls.js:494
 msgid "Click the image to edit or update"
-msgstr ""
-
-#: gutenberg/blocks/image-compare/edit.js:386
-#: gutenberg/blocks/image-compare/edit.js:503
-#: gutenberg/blocks/testimonial/edit.js:216
-msgid "Remove Image"
-msgstr ""
-
-#: gutenberg/blocks/image-compare/edit.js:391
-#: gutenberg/blocks/image-compare/edit.js:508
-#: gutenberg/blocks/testimonial/edit.js:221
-#: gutenberg/blocks/video/edit/inspector-controls.js:538
-#: gutenberg/components/media-size-selector/index.js:116
-msgid "Resolution"
 msgstr ""
 
 #: gutenberg/blocks/image-compare/edit.js:392
 #: gutenberg/blocks/image-compare/edit.js:509
-#: gutenberg/blocks/testimonial/edit.js:222
-#: gutenberg/blocks/video/edit/inspector-controls.js:539
+#: gutenberg/blocks/testimonial/edit.js:220
+msgid "Remove Image"
+msgstr ""
+
+#: gutenberg/blocks/image-compare/edit.js:397
+#: gutenberg/blocks/image-compare/edit.js:514
+#: gutenberg/blocks/testimonial/edit.js:225
+#: gutenberg/blocks/video/edit/inspector-controls.js:541
+#: gutenberg/components/media-size-selector/index.js:116
+msgid "Resolution"
+msgstr ""
+
+#: gutenberg/blocks/image-compare/edit.js:398
+#: gutenberg/blocks/image-compare/edit.js:515
+#: gutenberg/blocks/testimonial/edit.js:226
+#: gutenberg/blocks/video/edit/inspector-controls.js:542
 #: gutenberg/components/media-size-selector/index.js:117
 msgid "Select the size of the source image."
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:439
+#: gutenberg/blocks/image-compare/edit.js:445
 msgid "After Image Settings"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:567
+#: gutenberg/blocks/image-compare/edit.js:573
 msgid "Divider Icon"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:582
+#: gutenberg/blocks/image-compare/edit.js:588
 msgid "Image Compare"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:583
+#: gutenberg/blocks/image-compare/edit.js:589
 msgid "Select images to compare"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:596
+#: gutenberg/blocks/image-compare/edit.js:602
 msgid "Image Before"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:597
-#: gutenberg/blocks/image-compare/edit.js:617
+#: gutenberg/blocks/image-compare/edit.js:603
+#: gutenberg/blocks/image-compare/edit.js:623
 msgid "image"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:616
+#: gutenberg/blocks/image-compare/edit.js:622
 msgid "Image After"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:655
+#: gutenberg/blocks/image-compare/edit.js:661
 msgid "Before label…"
 msgstr ""
 
-#: gutenberg/blocks/image-compare/edit.js:678
+#: gutenberg/blocks/image-compare/edit.js:684
 msgid "After label…"
 msgstr ""
 
@@ -2061,8 +2061,8 @@ msgid "Markdown"
 msgstr ""
 
 #: gutenberg/blocks/markdown/edit.js:85
-#: gutenberg/blocks/video/edit/inspector-controls.js:258
-#: gutenberg/blocks/video/edit/inspector-controls.js:259
+#: gutenberg/blocks/video/edit/inspector-controls.js:261
+#: gutenberg/blocks/video/edit/inspector-controls.js:262
 #: gutenberg/components/transition-easing-controls/index.js:301
 #: gutenberg/components/transition-spring-controls/index.js:245
 #: settings/pages/blocks.js:215
@@ -2333,19 +2333,19 @@ msgstr ""
 msgid "Vertical Tabs"
 msgstr ""
 
-#: gutenberg/blocks/testimonial/edit.js:152
+#: gutenberg/blocks/testimonial/edit.js:156
 msgid "Photo"
 msgstr ""
 
-#: gutenberg/blocks/testimonial/edit.js:265
+#: gutenberg/blocks/testimonial/edit.js:269
 msgid "Stars"
 msgstr ""
 
-#: gutenberg/blocks/testimonial/edit.js:366
+#: gutenberg/blocks/testimonial/edit.js:370
 msgid "Write name…"
 msgstr ""
 
-#: gutenberg/blocks/testimonial/edit.js:374
+#: gutenberg/blocks/testimonial/edit.js:378
 msgid "Write source…"
 msgstr ""
 
@@ -2450,90 +2450,90 @@ msgid "Video Fullscreen Background"
 msgstr ""
 
 #: gutenberg/blocks/video/edit/background-color.js:110
-#: gutenberg/blocks/video/edit/inspector-controls.js:405
+#: gutenberg/blocks/video/edit/inspector-controls.js:408
 msgid "Fullscreen Background"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:161
+#: gutenberg/blocks/video/edit/inspector-controls.js:164
 msgid "YouTube / Vimeo"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:165
+#: gutenberg/blocks/video/edit/inspector-controls.js:168
 msgid "Self Hosted"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:174
+#: gutenberg/blocks/video/edit/inspector-controls.js:177
 msgid "Video URL"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:186
-#: gutenberg/blocks/video/edit/inspector-controls.js:187
+#: gutenberg/blocks/video/edit/inspector-controls.js:189
+#: gutenberg/blocks/video/edit/inspector-controls.js:190
 msgid "Select Video"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:206
+#: gutenberg/blocks/video/edit/inspector-controls.js:209
 msgid "MP4"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:226
+#: gutenberg/blocks/video/edit/inspector-controls.js:229
 msgid "OGV"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:246
+#: gutenberg/blocks/video/edit/inspector-controls.js:249
 msgid "WEBM"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:317
+#: gutenberg/blocks/video/edit/inspector-controls.js:320
 msgid "Volume"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:328
+#: gutenberg/blocks/video/edit/inspector-controls.js:331
 msgid "Play Icon"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:334
+#: gutenberg/blocks/video/edit/inspector-controls.js:337
 msgid "Loading Icon"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:341
-#: gutenberg/blocks/video/edit/inspector-controls.js:342
+#: gutenberg/blocks/video/edit/inspector-controls.js:344
+#: gutenberg/blocks/video/edit/inspector-controls.js:345
 msgid "Icon Align"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:380
+#: gutenberg/blocks/video/edit/inspector-controls.js:383
 msgid "Click Action"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:385
+#: gutenberg/blocks/video/edit/inspector-controls.js:388
 #: gutenberg/blocks/video/index.js:40
 msgid "Plain"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:390
+#: gutenberg/blocks/video/edit/inspector-controls.js:393
 msgid "Fullscreen"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:416
+#: gutenberg/blocks/video/edit/inspector-controls.js:419
 msgid "Fullscreen Close Icon"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:429
+#: gutenberg/blocks/video/edit/inspector-controls.js:432
 msgid "Autoplay"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:430
+#: gutenberg/blocks/video/edit/inspector-controls.js:433
 msgid "Automatically play video when block reaches the viewport. The video will be play muted due to browser Autoplay policy."
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:441
+#: gutenberg/blocks/video/edit/inspector-controls.js:444
 msgid "Autopause"
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:442
+#: gutenberg/blocks/video/edit/inspector-controls.js:445
 msgid "Automatically pause video when block out of the viewport."
 msgstr ""
 
-#: gutenberg/blocks/video/edit/inspector-controls.js:465
+#: gutenberg/blocks/video/edit/inspector-controls.js:468
 msgid "Poster Image"
 msgstr ""
 

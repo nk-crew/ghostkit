@@ -41,5 +41,7 @@
 		"horizontalAlign": {
 			"type": "string"
 		}
-	}
+	},
+	"style": ["ghostkit", "ghostkit-block-grid"],
+	"viewScript": ["ghostkit", "ghostkit-block-grid"]
 }
