@@ -51,11 +51,11 @@
 	}
 
 	// Collapsed.
-	&-active &-collapse {
+	&-active > .ghostkit-accordion-item-heading .ghostkit-accordion-item-collapse {
 		transform: var(--gkt-accordion--heading-collapse-icon-active__transform);
 	}
 
-	&-active &-content {
+	&-active > .ghostkit-accordion-item-content {
 		display: block;
 	}
 }
