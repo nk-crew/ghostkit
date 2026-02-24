@@ -17,7 +17,7 @@
 		"wp-env": "wp-env",
 		"env:start": "wp-env start ",
 		"env:stop": "wp-env stop",
-		"test": "npm-run-all lint test:unit",
+		"test": "npm-run-all lint test:unit:php",
 		"test:e2e": "playwright test --config tests/e2e/playwright.config.js",
 		"test:e2e:ui": "playwright test --config tests/e2e/playwright.config.js --ui",
 		"pretest:unit:php": "wp-env start",
