@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.5.0 - Feb 24, 2026 =
+
+* improve assets loading to native way
+* update wp-background-processing library to fix warnings with Visual Portfolio plugin
+* fixed progress bar viewport animation on mobile
+* fixed nested accordion styles
+* **Pro:**
+* improve assets loading - load only used on the page assets and not all
+* minor changes and fixes
+
 = 3.4.6 - Dec 7, 2025 =
 
 * fixed incorrect double escaping of Effects extension attribute because of WP 6.9 changes

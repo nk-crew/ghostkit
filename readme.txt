@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 6.9
 * Requires PHP: 7.2
-* Stable tag: 3.4.6
+* Stable tag: 3.5.0
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -269,6 +269,16 @@ The plugin documentation provides a comprehensive source of information on block
 19. Blocks Extensions
 
 ## Changelog ##
+
+= 3.5.0 - Feb 24, 2026 =
+
+* improve assets loading to native way
+* update wp-background-processing library to fix warnings with Visual Portfolio plugin
+* fixed progress bar viewport animation on mobile
+* fixed nested accordion styles
+* **Pro:**
+* improve assets loading - load only used on the page assets and not all
+* minor changes and fixes
 
 = 3.4.6 - Dec 7, 2025 =
 
