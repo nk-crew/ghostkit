@@ -58,7 +58,7 @@ export default function BlockEdit(props) {
 	const { hasChildBlocks, editorSettings, photoImage } = useSelect(
 		(select) => {
 			const blockEditor = select('core/block-editor');
-			const { getMedia } = select('core');
+			const { getEntityRecord } = select('core');
 
 			return {
 				hasChildBlocks: blockEditor
@@ -67,7 +67,11 @@ export default function BlockEdit(props) {
 				editorSettings: blockEditor.getSettings(),
 				photoImage:
 					attributes.photoId && isSelected
-						? getMedia(attributes.photoId)
+						? getEntityRecord(
+								'postType',
+								'attachment',
+								attributes.photoId
+							)
 						: null,
 			};
 		}

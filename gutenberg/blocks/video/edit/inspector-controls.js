@@ -68,11 +68,14 @@ export default function BlockInspectorControls(props) {
 
 	const { editorSettings, posterImage } = useSelect((select) => {
 		const { getSettings } = select('core/block-editor');
-		const { getMedia } = select('core');
+		const { getEntityRecord } = select('core');
 
 		return {
 			editorSettings: getSettings(),
-			posterImage: posterId && isSelected ? getMedia(posterId) : null,
+			posterImage:
+				posterId && isSelected
+					? getEntityRecord('postType', 'attachment', posterId)
+					: null,
 		};
 	});
 

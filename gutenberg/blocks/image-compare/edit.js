@@ -73,12 +73,18 @@ export default function BlockEdit(props) {
 
 	const { editorSettings, beforeImage, afterImage } = useSelect((select) => {
 		const { getSettings } = select('core/block-editor');
-		const { getMedia } = select('core');
+		const { getEntityRecord } = select('core');
 
 		return {
 			editorSettings: getSettings(),
-			beforeImage: beforeId && isSelected ? getMedia(beforeId) : null,
-			afterImage: afterId && isSelected ? getMedia(afterId) : null,
+			beforeImage:
+				beforeId && isSelected
+					? getEntityRecord('postType', 'attachment', beforeId)
+					: null,
+			afterImage:
+				afterId && isSelected
+					? getEntityRecord('postType', 'attachment', afterId)
+					: null,
 		};
 	});
 
