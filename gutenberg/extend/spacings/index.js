@@ -12,7 +12,6 @@ import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
 import useStyles from '../../hooks/use-styles';
-import getIcon from '../../utils/get-icon';
 import { EXTENSIONS } from '../constants';
 
 const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
@@ -42,14 +41,8 @@ function GhostKitExtensionSpacingsInspector(original, { props }) {
 			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
-					label={
-						<>
-							<span className="ghostkit-ext-icon">
-								{getIcon('extension-spacings')}
-							</span>
-							<span>{__('Spacings', 'ghostkit')}</span>
-						</>
-					}
+					className="ghostkit-tools-panel-with-icon ghostkit-tools-panel-with-icon-spacings"
+					label={__('Spacings', 'ghostkit')}
 					resetAll={() => {
 						resetStyles(allSpacings, true);
 					}}

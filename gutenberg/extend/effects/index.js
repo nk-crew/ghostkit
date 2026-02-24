@@ -39,14 +39,8 @@ function GhostKitExtensionEffectsInspector(original, { props }) {
 			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
-					label={
-						<>
-							<span className="ghostkit-ext-icon">
-								{getIcon('extension-sr')}
-							</span>
-							<span>{__('Effects', 'ghostkit')}</span>
-						</>
-					}
+					className="ghostkit-tools-panel-with-icon ghostkit-tools-panel-with-icon-effects"
+					label={__('Effects', 'ghostkit')}
 					resetAll={() => {
 						const ghostkitData = {
 							...(attributes?.ghostkit || {}),

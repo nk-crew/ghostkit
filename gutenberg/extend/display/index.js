@@ -10,7 +10,6 @@ import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
-import getIcon from '../../utils/get-icon';
 
 const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
 
@@ -35,14 +34,8 @@ function GhostKitExtensionDisplayInspector(original, { props }) {
 			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
-					label={
-						<>
-							<span className="ghostkit-ext-icon">
-								{getIcon('extension-display')}
-							</span>
-							<span>{__('Display Conditions', 'ghostkit')}</span>
-						</>
-					}
+					className="ghostkit-tools-panel-with-icon ghostkit-tools-panel-with-icon-display"
+					label={__('Display Conditions', 'ghostkit')}
 				>
 					<div className="ghostkit-tools-panel-display">
 						<ApplyFilters

@@ -16,7 +16,6 @@ import { __ } from '@wordpress/i18n';
 import ApplyFilters from '../../components/apply-filters';
 import useStyles from '../../hooks/use-styles';
 import { addClass, hasClass, removeClass } from '../../utils/classes-replacer';
-import getIcon from '../../utils/get-icon';
 import { EXTENSIONS } from '../constants';
 
 const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
@@ -65,14 +64,8 @@ function GhostKitExtensionTransformInspector(original, { props }) {
 			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
-					label={
-						<>
-							<span className="ghostkit-ext-icon">
-								{getIcon('extension-transform')}
-							</span>
-							<span>{__('Transform', 'ghostkit')}</span>
-						</>
-					}
+					className="ghostkit-tools-panel-with-icon ghostkit-tools-panel-with-icon-transform"
+					label={__('Transform', 'ghostkit')}
 					resetAll={() => {
 						resetStyles(allProps, true, ['', '&:hover']);
 					}}

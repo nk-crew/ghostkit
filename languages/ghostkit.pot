@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-24T10:42:14+00:00\n"
+"POT-Creation-Date: 2026-02-24T13:40:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
@@ -2966,36 +2966,36 @@ msgid "Unable to paste extensions. Block extensions couldn't be found within the
 msgstr ""
 
 #: gutenberg/extend/constants.js:5
-#: gutenberg/extend/effects/index.js:47
-#: gutenberg/extend/effects/index.js:102
+#: gutenberg/extend/effects/index.js:43
+#: gutenberg/extend/effects/index.js:96
 msgid "Effects"
 msgstr ""
 
 #: gutenberg/extend/constants.js:9
-#: gutenberg/extend/position/index.js:55
+#: gutenberg/extend/position/index.js:50
 #: gutenberg/extend/position/position/index.js:31
 #: gutenberg/extend/position/position/index.js:57
 msgid "Position"
 msgstr ""
 
 #: gutenberg/extend/constants.js:28
-#: gutenberg/extend/spacings/index.js:50
+#: gutenberg/extend/spacings/index.js:45
 msgid "Spacings"
 msgstr ""
 
 #: gutenberg/extend/constants.js:43
 #: gutenberg/extend/custom-css/clipPath/presets.js:25
-#: gutenberg/extend/frame/index.js:51
+#: gutenberg/extend/frame/index.js:46
 msgid "Frame"
 msgstr ""
 
 #: gutenberg/extend/constants.js:58
-#: gutenberg/extend/transform/index.js:73
+#: gutenberg/extend/transform/index.js:68
 msgid "Transform"
 msgstr ""
 
 #: gutenberg/extend/constants.js:76
-#: gutenberg/extend/custom-css/index.js:58
+#: gutenberg/extend/custom-css/index.js:53
 msgid "Custom CSS"
 msgstr ""
 
@@ -3230,7 +3230,7 @@ msgstr ""
 msgid "User Select"
 msgstr ""
 
-#: gutenberg/extend/display/index.js:43
+#: gutenberg/extend/display/index.js:38
 msgid "Display Conditions"
 msgstr ""
 
@@ -3247,15 +3247,15 @@ msgstr ""
 msgid "Screen Size"
 msgstr ""
 
-#: gutenberg/extend/effects/index.js:111
+#: gutenberg/extend/effects/index.js:105
 msgid "There are effects added to the current block. To change these options open the \"Effects\" block settings panel."
 msgstr ""
 
-#: gutenberg/extend/effects/index.js:117
+#: gutenberg/extend/effects/index.js:111
 msgid "Reset all effects of the current block:"
 msgstr ""
 
-#: gutenberg/extend/effects/index.js:140
+#: gutenberg/extend/effects/index.js:134
 msgid "Reset All"
 msgstr ""
 

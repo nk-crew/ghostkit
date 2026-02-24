@@ -221,6 +221,56 @@
 	}
 }
 
+.ghostkit-tools-panel-with-icon {
+	.components-tools-panel-header > h2 {
+		position: relative;
+		padding-left: 35px;
+
+		&::before {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			display: block;
+			width: 24px;
+			height: 24px;
+			content: "";
+			background-color: currentColor;
+			transform: translateY(-50%);
+			mask-repeat: no-repeat;
+			mask-position: center;
+			mask-size: contain;
+		}
+	}
+
+	&.ghostkit-tools-panel-with-icon-effects .components-tools-panel-header > h2::before {
+		mask-image: url(../../gutenberg/icons/extension-sr.svg);
+	}
+
+	&.ghostkit-tools-panel-with-icon-position .components-tools-panel-header > h2::before {
+		mask-image: url(../../gutenberg/icons/extension-position.svg);
+	}
+
+	&.ghostkit-tools-panel-with-icon-spacings .components-tools-panel-header > h2::before {
+		mask-image: url(../../gutenberg/icons/extension-spacings.svg);
+	}
+
+	&.ghostkit-tools-panel-with-icon-frame .components-tools-panel-header > h2::before {
+		mask-image: url(../../gutenberg/icons/extension-frame.svg);
+	}
+
+	&.ghostkit-tools-panel-with-icon-transform .components-tools-panel-header > h2::before {
+		mask-image: url(../../gutenberg/icons/extension-transform.svg);
+	}
+
+	&.ghostkit-tools-panel-with-icon-custom-css .components-tools-panel-header > h2::before {
+		mask-image: url(../../gutenberg/icons/extension-custom-css.svg);
+	}
+
+	&.ghostkit-tools-panel-with-icon-display .components-tools-panel-header > h2::before {
+		mask-image: url(../../gutenberg/icons/extension-display.svg);
+	}
+}
+
 /**
  * Tabs Control.
  */

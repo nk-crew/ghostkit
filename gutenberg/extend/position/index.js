@@ -17,7 +17,6 @@ import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
 import useStyles from '../../hooks/use-styles';
-import getIcon from '../../utils/get-icon';
 import { EXTENSIONS } from '../constants';
 
 const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
@@ -47,14 +46,8 @@ function GhostKitExtensionPositionInspector(original, { props }) {
 			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
-					label={
-						<>
-							<span className="ghostkit-ext-icon">
-								{getIcon('extension-position')}
-							</span>
-							<span>{__('Position', 'ghostkit')}</span>
-						</>
-					}
+					className="ghostkit-tools-panel-with-icon ghostkit-tools-panel-with-icon-position"
+					label={__('Position', 'ghostkit')}
 					resetAll={() => {
 						resetStyles(allPositionProps, true);
 					}}

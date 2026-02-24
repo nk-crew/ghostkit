@@ -17,7 +17,6 @@ import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
 import useStyles from '../../hooks/use-styles';
-import getIcon from '../../utils/get-icon';
 import { EXTENSIONS } from '../constants';
 
 const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
@@ -50,14 +49,8 @@ function GhostKitExtensionCustomCSSInspector(original, { props }) {
 			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
-					label={
-						<>
-							<span className="ghostkit-ext-icon">
-								{getIcon('extension-custom-css')}
-							</span>
-							<span>{__('Custom CSS', 'ghostkit')}</span>
-						</>
-					}
+					className="ghostkit-tools-panel-with-icon ghostkit-tools-panel-with-icon-custom-css"
+					label={__('Custom CSS', 'ghostkit')}
 					resetAll={() => {
 						resetStyles(allCustomCSS, true);
 					}}

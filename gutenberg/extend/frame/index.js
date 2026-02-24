@@ -13,7 +13,6 @@ import { __ } from '@wordpress/i18n';
 
 import ApplyFilters from '../../components/apply-filters';
 import useStyles from '../../hooks/use-styles';
-import getIcon from '../../utils/get-icon';
 import { EXTENSIONS } from '../constants';
 
 const ToolsPanel = StableToolsPanel || ExperimentalToolsPanel;
@@ -43,14 +42,8 @@ function GhostKitExtensionFrameInspector(original, { props }) {
 			{original}
 			<InspectorControls group="styles">
 				<ToolsPanel
-					label={
-						<>
-							<span className="ghostkit-ext-icon">
-								{getIcon('extension-frame')}
-							</span>
-							<span>{__('Frame', 'ghostkit')}</span>
-						</>
-					}
+					className="ghostkit-tools-panel-with-icon ghostkit-tools-panel-with-icon-frame"
+					label={__('Frame', 'ghostkit')}
 					resetAll={() => {
 						resetStyles(allFrameProps, true, ['', '&:hover']);
 					}}
