@@ -169,26 +169,49 @@ test.describe('typography', () => {
 		await editor.publishPost();
 
 		// Go to published post.
-		await page
+		const viewPageButton = page
 			.locator('.components-button', {
 				hasText: 'View Page',
 			})
-			.first()
-			.click();
+			.first();
+
+		const viewPageHref = await viewPageButton.getAttribute('href');
+
+		let frontendPage = page;
+
+		if (viewPageHref) {
+			await page.goto(viewPageHref);
+			await page.waitForLoadState('domcontentloaded');
+		} else {
+			const popupPromise = page
+				.waitForEvent('popup', { timeout: 3000 })
+				.catch(() => null);
+
+			await viewPageButton.click();
+
+			const popupPage = await popupPromise;
+
+			if (popupPage) {
+				frontendPage = popupPage;
+				await frontendPage.waitForLoadState('domcontentloaded');
+			} else {
+				await page.waitForLoadState('domcontentloaded');
+			}
+		}
 
 		// Frontend.
 		// Checking links to Google fonts
 		await expect(
-			page.locator('#ghostkit-fonts-google-css')
+			frontendPage.locator('#ghostkit-fonts-google-css')
 		).toHaveAttribute('href', googleFontsLinkPredefined);
 
-		const paragraph = page.locator('.wp-block-post-content > p');
+		const paragraph = frontendPage.locator('.wp-block-post-content > p');
 
-		const button = page.locator(
+		const button = frontendPage.locator(
 			'.wp-block-post-content .ghostkit-button-text'
 		);
 
-		const title = page.locator('#just-a-title');
+		const title = frontendPage.locator('#just-a-title');
 
 		// Check visible blocks on editor.
 		await expect(paragraph).toBeVisible();
