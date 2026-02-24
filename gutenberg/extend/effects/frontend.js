@@ -138,6 +138,9 @@ events.on(document, 'init.blocks.gkt', () => {
 			const isProgress = $counter.classList.contains(
 				'ghostkit-progress-bar'
 			);
+			const $progressRoot = isProgress
+				? $counter.closest('.ghostkit-progress')
+				: null;
 			const from =
 				parseFloat($counter.getAttribute('data-count-from')) || 0;
 			const to =
@@ -160,9 +163,9 @@ events.on(document, 'init.blocks.gkt', () => {
 			}
 
 			if (isProgress) {
-				$progressCountBadgeWrap = $counter
-					.closest('.ghostkit-progress')
-					.querySelector('.ghostkit-progress-bar-count');
+				$progressCountBadgeWrap = $progressRoot?.querySelector(
+					'.ghostkit-progress-bar-count'
+				);
 
 				if ($progressCountBadgeWrap) {
 					$progressCountBadge = $progressCountBadgeWrap.querySelector(
@@ -193,6 +196,12 @@ events.on(document, 'init.blocks.gkt', () => {
 					const position = (to - from) * progress + from;
 
 					if (isProgress) {
+						$counter.style.width = `${position}%`;
+
+						if ($progressCountBadgeWrap) {
+							$progressCountBadgeWrap.style.width = `${position}%`;
+						}
+
 						if ($progressCountBadge) {
 							$progressCountBadge.textContent =
 								Math.ceil(position);
@@ -208,30 +217,15 @@ events.on(document, 'init.blocks.gkt', () => {
 
 			events.trigger($counter, 'prepare.counter.gkt', { config });
 
+			const inViewTarget = $progressRoot || $counter;
+
 			// Animate counter.
 			const stopInView = inView(
-				$counter,
+				inViewTarget,
 				() => {
 					stopInView();
 
 					events.trigger($counter, 'count.counter.gkt', { config });
-
-					if (isProgress) {
-						[$counter, $progressCountBadgeWrap].forEach((el) => {
-							if (el) {
-								animate(
-									el,
-									{
-										width: `${to}%`,
-									},
-									{
-										duration: config.duration,
-										ease: config.easing,
-									}
-								);
-							}
-						});
-					}
 
 					animate(0, 1, {
 						duration: config.duration,
