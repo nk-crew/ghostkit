@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.5.1 - Mar 4, 2026 =
+
+* fixed frontend general styles being enqueued in the editor, which caused style conflicts (e.g., issues with the `Display` extension in the editor)
+
 = 3.5.0 - Feb 24, 2026 =
 
 * improve assets loading to native way
