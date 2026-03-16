@@ -117,7 +117,7 @@ gulp.task('zip-clean', () => {
 
 gulp.task('zip-copy-files', () => {
 	return gulp
-		.src(zipFiles, { base: './' })
+		.src(zipFiles, { base: './', encoding: false })
 		.pipe(gulp.dest(`dist-zip/${zipPluginName}`));
 });
 
@@ -126,6 +126,7 @@ gulp.task('zip-pack', () => {
 		.src(`${zipDist}/**/*`, {
 			nodir: true,
 			base: zipDist,
+			encoding: false,
 		})
 		.pipe(zip(`${zipPluginName}.zip`))
 		.pipe(gulp.dest(zipDist));
