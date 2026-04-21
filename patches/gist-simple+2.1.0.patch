@@ -1,0 +1,32 @@
+diff --git a/node_modules/gist-simple/dist/gist-simple.js b/node_modules/gist-simple/dist/gist-simple.js
+index 4ce9dc0..c019e08 100644
+--- a/node_modules/gist-simple/dist/gist-simple.js
++++ b/node_modules/gist-simple/dist/gist-simple.js
+@@ -142,8 +142,10 @@
+    */
+   const LOADED_FLAG = '__gist_simple_css_loaded__';
+   function loadCSS(url, callback, doc = document) {
++    const searchRoot = doc.body || doc.head || doc.documentElement;
++
+     // Already exists.
+-    let el = doc.body.querySelector(`link[href="${url}"]`);
++    let el = searchRoot.querySelector(`link[href="${url}"]`);
+     if (!el) {
+       el = doc.createElement('link');
+       el.href = url;
+diff --git a/node_modules/gist-simple/src/utils/load-css.js b/node_modules/gist-simple/src/utils/load-css.js
+index 0c0cea6..ae2132d 100644
+--- a/node_modules/gist-simple/src/utils/load-css.js
++++ b/node_modules/gist-simple/src/utils/load-css.js
+@@ -4,8 +4,10 @@
+ const LOADED_FLAG = '__gist_simple_css_loaded__';
+ 
+ export default function loadCSS(url, callback, doc = document) {
++  const searchRoot = doc.body || doc.head || doc.documentElement;
++
+   // Already exists.
+-  let el = doc.body.querySelector(`link[href="${url}"]`);
++  let el = searchRoot.querySelector(`link[href="${url}"]`);
+ 
+   if (!el) {
+     el = doc.createElement('link');

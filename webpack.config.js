@@ -16,12 +16,12 @@ const vendorFiles = [
 		destination: 'assets/vendor/gist-simple/dist/gist-simple.css',
 	},
 	{
-		source: 'node_modules/gist-simple/dist/gist-simple.min.js',
-		destination: 'assets/vendor/gist-simple/dist/gist-simple.min.js',
+		source: 'node_modules/gist-simple/dist/gist-simple.js',
+		destination: 'assets/vendor/gist-simple/dist/gist-simple.js',
 	},
 	{
-		source: 'node_modules/gist-simple/dist/gist-simple.min.js.map',
-		destination: 'assets/vendor/gist-simple/dist/gist-simple.min.js.map',
+		source: 'node_modules/gist-simple/dist/gist-simple.js.map',
+		destination: 'assets/vendor/gist-simple/dist/gist-simple.js.map',
 	},
 	{
 		source: 'node_modules/ivent/dist/ivent.min.js',
