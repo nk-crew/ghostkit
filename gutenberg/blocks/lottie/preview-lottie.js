@@ -1,7 +1,5 @@
 import { useEffect, useRef } from '@wordpress/element';
 
-import { loadBlockEditorAssets } from '../../utils/block-editor-asset-loader';
-
 /**
  * Lottie animation preview.
  *
@@ -24,13 +22,15 @@ export default function PreviewLottie(props) {
 	useEffect(() => {
 		const element = lottieRef.current;
 
+		if (!element) {
+			return undefined;
+		}
+
 		function loadCallback(e) {
 			onLoad(e);
 		}
 
 		element.addEventListener('load', loadCallback);
-
-		loadBlockEditorAssets('js', 'lottie-player-js', element);
 
 		return () => {
 			element.removeEventListener('load', loadCallback);

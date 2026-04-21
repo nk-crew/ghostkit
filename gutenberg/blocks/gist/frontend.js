@@ -3,13 +3,14 @@
  */
 const {
 	GHOSTKIT: { events },
-	gistSimple,
 } = window;
 
 /**
  * Prepare Gists.
  */
 events.on(document, 'init.blocks.gkt', () => {
+	const gistSimple = window.gistSimple;
+
 	if (typeof gistSimple === 'undefined') {
 		return;
 	}

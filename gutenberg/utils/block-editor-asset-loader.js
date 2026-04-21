@@ -45,9 +45,41 @@ export function loadBlockEditorAssets(
 	}
 
 	const currentDocElement = currentDoc.getElementById(resourceId);
+	let existingBySource;
+
+	if (type === 'js') {
+		existingBySource = Array.from(
+			currentDoc.querySelectorAll('script')
+		).find((scriptEl) => scriptEl.src === parentDocElement.src);
+	} else {
+		existingBySource = Array.from(
+			currentDoc.querySelectorAll('link[rel="stylesheet"]')
+		).find((linkEl) => linkEl.href === parentDocElement.href);
+	}
 
 	// Already exists.
-	if (currentDocElement) {
+	if (currentDocElement || existingBySource) {
+		const existingElement = currentDocElement || existingBySource;
+
+		if (type === 'js') {
+			if (existingElement.dataset.gktLoaded === 'true') {
+				callback();
+			} else {
+				existingElement.addEventListener('load', callback, {
+					once: true,
+				});
+
+				if (
+					!existingElement.dataset.gktLoaded &&
+					existingElement !== currentDocElement
+				) {
+					callback();
+				}
+			}
+
+			return;
+		}
+
 		callback();
 
 		return;
@@ -58,7 +90,11 @@ export function loadBlockEditorAssets(
 		scriptEl.id = resourceId;
 		scriptEl.type = 'text/javascript';
 		scriptEl.src = parentDocElement.src;
-		scriptEl.onload = callback;
+		scriptEl.dataset.gktLoaded = 'false';
+		scriptEl.onload = () => {
+			scriptEl.dataset.gktLoaded = 'true';
+			callback();
+		};
 		currentHead.appendChild(scriptEl);
 	}
 
