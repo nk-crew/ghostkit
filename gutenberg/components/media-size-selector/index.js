@@ -1,11 +1,13 @@
 import {
-	__experimentalUnitControl,
+	__experimentalUnitControl as ExperimentalUnitControl,
 	SelectControl,
+	UnitControl as StableUnitControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-const UnitControl = __experimentalUnitControl;
+
+const UnitControl = StableUnitControl || ExperimentalUnitControl;
 
 export default function MediaSizeSelector(props) {
 	const {

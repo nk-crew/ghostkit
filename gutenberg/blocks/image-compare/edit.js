@@ -9,8 +9,8 @@ import {
 	useBlockProps,
 } from '@wordpress/block-editor';
 import {
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
+	__experimentalToggleGroupControl as ExperimentalToggleGroupControl,
+	__experimentalToggleGroupControlOption as ExperimentalToggleGroupControlOption,
 	BaseControl,
 	Button,
 	ExternalLink,
@@ -19,6 +19,8 @@ import {
 	SelectControl,
 	TextareaControl,
 	ToggleControl,
+	ToggleGroupControl as StableToggleGroupControl,
+	ToggleGroupControlOption as StableToggleGroupControlOption,
 	Toolbar,
 	ToolbarButton,
 	ToolbarGroup,
@@ -32,6 +34,10 @@ import getIcon from '../../utils/get-icon';
 
 const ALLOWED_MEDIA_TYPES = ['image'];
 const DEFAULT_SIZE_SLUG = 'large';
+const ToggleGroupControl =
+	StableToggleGroupControl || ExperimentalToggleGroupControl;
+const ToggleGroupControlOption =
+	StableToggleGroupControlOption || ExperimentalToggleGroupControlOption;
 
 /**
  * Block Edit Class.

@@ -124,6 +124,7 @@ function EffectsRevealTools(props) {
 				/>
 				<Grid columns={2}>
 					<NumberControl
+						__next40pxDefaultSize
 						label={__('X', 'ghostkit')}
 						value={getValue('x')}
 						placeholder={DEFAULTS.x}
@@ -136,6 +137,7 @@ function EffectsRevealTools(props) {
 						style={{ flex: 1 }}
 					/>
 					<NumberControl
+						__next40pxDefaultSize
 						label={__('Y', 'ghostkit')}
 						value={getValue('y')}
 						placeholder={DEFAULTS.y}
@@ -150,6 +152,7 @@ function EffectsRevealTools(props) {
 				</Grid>
 				<Grid columns={3}>
 					<NumberControl
+						__next40pxDefaultSize
 						label={__('Opacity', 'ghostkit')}
 						value={getValue('opacity')}
 						placeholder={DEFAULTS.opacity}
@@ -165,6 +168,7 @@ function EffectsRevealTools(props) {
 						style={{ flex: 1 }}
 					/>
 					<NumberControl
+						__next40pxDefaultSize
 						label={__('Scale', 'ghostkit')}
 						value={getValue('scale')}
 						placeholder={DEFAULTS.scale}
@@ -179,6 +183,7 @@ function EffectsRevealTools(props) {
 						style={{ flex: 1 }}
 					/>
 					<NumberControl
+						__next40pxDefaultSize
 						label={__('Rotate', 'ghostkit')}
 						value={getValue('rotate')}
 						placeholder={DEFAULTS.rotate}

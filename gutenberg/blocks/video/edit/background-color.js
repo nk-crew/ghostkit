@@ -1,11 +1,22 @@
 import {
-	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
-	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
+	__experimentalColorGradientSettingsDropdown as ExperimentalColorGradientSettingsDropdown,
+	__experimentalUseMultipleOriginColorsAndGradients as experimentalUseMultipleOriginColorsAndGradients,
+	ColorGradientSettingsDropdown as StableColorGradientSettingsDropdown,
 	InspectorControls,
+	useMultipleOriginColorsAndGradients as stableUseMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
+import { Notice } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 import { hasClass } from '../../../utils/classes-replacer';
+
+const ColorGradientSettingsDropdown =
+	StableColorGradientSettingsDropdown ||
+	ExperimentalColorGradientSettingsDropdown;
+const useMultipleOriginColorsAndGradients =
+	stableUseMultipleOriginColorsAndGradients ||
+	experimentalUseMultipleOriginColorsAndGradients ||
+	(() => ({ hasColorsOrGradients: false }));
 
 export default function BackgroundColor(props) {
 	const { attributes, setAttributes, clientId } = props;
@@ -33,10 +44,28 @@ export default function BackgroundColor(props) {
 		type === 'video' && clickAction === 'plain' && !hasIconOnly;
 	const hasVideoFullscreen = type === 'video' && clickAction === 'fullscreen';
 	const hasFullscreen = clickAction === 'fullscreen';
-
-	return (hasColor && hasVideoPlain) ||
+	const shouldRenderControls =
+		(hasColor && hasVideoPlain) ||
 		(hasColor && hasVideoFullscreen) ||
-		(hasColor && type === 'yt_vm_video' && hasFullscreen) ? (
+		(hasColor && type === 'yt_vm_video' && hasFullscreen);
+
+	if (
+		!ColorGradientSettingsDropdown &&
+		(hasVideoPlain || hasVideoFullscreen || hasFullscreen)
+	) {
+		return (
+			<InspectorControls group="color">
+				<Notice status="error" isDismissible={false}>
+					{__(
+						'Background color settings are unavailable because the required Gutenberg color control component is not available in this WordPress installation.',
+						'ghostkit'
+					)}
+				</Notice>
+			</InspectorControls>
+		);
+	}
+
+	return shouldRenderControls ? (
 		<InspectorControls group="color">
 			{/* Video plain background. */}
 			{hasVideoPlain && (
