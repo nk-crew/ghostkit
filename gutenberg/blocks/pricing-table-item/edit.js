@@ -6,9 +6,67 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { BaseControl, PanelBody, ToggleControl } from '@wordpress/components';
+import {
+	BaseControl,
+	PanelBody,
+	TextareaControl,
+	ToggleControl,
+} from '@wordpress/components';
+import { useEffect, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+
+function stripFeatureMarkup(value = '') {
+	if (!value) {
+		return '';
+	}
+
+	const template = document.createElement('template');
+	template.innerHTML = value;
+
+	return template.content.textContent || '';
+}
+
+function getFeatureLines(value = '') {
+	if (!value) {
+		return '';
+	}
+
+	const template = document.createElement('template');
+	template.innerHTML = `<ul>${value}</ul>`;
+
+	const items = Array.from(template.content.querySelectorAll('li'))
+		.map((item) => stripFeatureMarkup(item.innerHTML).trim())
+		.filter(Boolean);
+
+	if (items.length) {
+		return items.join('\n');
+	}
+
+	return stripFeatureMarkup(value)
+		.split(/\r?\n/)
+		.map((line) => line.trim())
+		.filter(Boolean)
+		.join('\n');
+}
+
+function escapeFeatureText(value = '') {
+	return value
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#039;');
+}
+
+function getFeaturesMarkup(value = '') {
+	return value
+		.split(/\r?\n/)
+		.map((line) => line.trim())
+		.filter(Boolean)
+		.map((line) => `<li>${escapeFeatureText(line)}</li>`)
+		.join('');
+}
 
 /**
  * Block Edit Class.
@@ -36,6 +94,18 @@ export default function BlockEdit(props) {
 		showFeatures,
 		showButton,
 	} = attributes;
+
+	const [featuresDraft, setFeaturesDraft] = useState(() =>
+		getFeatureLines(features)
+	);
+
+	useEffect(() => {
+		setFeaturesDraft((currentDraft) =>
+			getFeaturesMarkup(currentDraft) === (features || '')
+				? currentDraft
+				: getFeatureLines(features)
+		);
+	}, [features]);
 
 	let className = classnames(
 		'ghostkit-pricing-table-item-wrap',
@@ -225,14 +295,23 @@ export default function BlockEdit(props) {
 					/>
 				) : null}
 				{showFeatures && (!RichText.isEmpty(features) || isSelected) ? (
-					<RichText
-						inlineToolbar
-						tagName="ul"
-						multiline="li"
+					<TextareaControl
 						className="ghostkit-pricing-table-item-features"
-						onChange={(val) => setAttributes({ features: val })}
-						value={features}
-						placeholder={__('Add features', 'ghostkit')}
+						label={__('Features', 'ghostkit')}
+						value={featuresDraft}
+						onChange={(val) => {
+							setFeaturesDraft(val);
+							setAttributes({
+								features: getFeaturesMarkup(val),
+							});
+						}}
+						placeholder={__('Add one feature per line', 'ghostkit')}
+						help={__(
+							'Each line is saved as a separate list item.',
+							'ghostkit'
+						)}
+						rows={4}
+						__nextHasNoMarginBottom
 					/>
 				) : null}
 				{showButton ? <div {...innerBlocksProps} /> : null}
