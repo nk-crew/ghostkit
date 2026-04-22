@@ -6,13 +6,8 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import {
-	BaseControl,
-	PanelBody,
-	TextareaControl,
-	ToggleControl,
-} from '@wordpress/components';
-import { useEffect, useState } from '@wordpress/element';
+import { BaseControl, PanelBody, ToggleControl } from '@wordpress/components';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
@@ -27,44 +22,38 @@ function stripFeatureMarkup(value = '') {
 	return template.content.textContent || '';
 }
 
-function getFeatureLines(value = '') {
+function hasFeatureContent(value = '') {
+	return !!stripFeatureMarkup(value).trim();
+}
+
+function getFeatureItems(value = '') {
 	if (!value) {
-		return '';
+		return [''];
 	}
 
 	const template = document.createElement('template');
 	template.innerHTML = `<ul>${value}</ul>`;
 
 	const items = Array.from(template.content.querySelectorAll('li'))
-		.map((item) => stripFeatureMarkup(item.innerHTML).trim())
-		.filter(Boolean);
+		.map((item) => item.innerHTML)
+		.filter((item) => hasFeatureContent(item));
 
 	if (items.length) {
-		return items.join('\n');
+		return items;
 	}
 
-	return stripFeatureMarkup(value)
+	const fallbackItems = stripFeatureMarkup(value)
 		.split(/\r?\n/)
 		.map((line) => line.trim())
-		.filter(Boolean)
-		.join('\n');
+		.filter(Boolean);
+
+	return fallbackItems.length ? fallbackItems : [''];
 }
 
-function escapeFeatureText(value = '') {
-	return value
-		.replace(/&/g, '&amp;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;')
-		.replace(/"/g, '&quot;')
-		.replace(/'/g, '&#039;');
-}
-
-function getFeaturesMarkup(value = '') {
-	return value
-		.split(/\r?\n/)
-		.map((line) => line.trim())
-		.filter(Boolean)
-		.map((line) => `<li>${escapeFeatureText(line)}</li>`)
+function getFeaturesMarkup(items = []) {
+	return items
+		.filter((item) => hasFeatureContent(item))
+		.map((item) => `<li>${item}</li>`)
 		.join('');
 }
 
@@ -95,17 +84,52 @@ export default function BlockEdit(props) {
 		showButton,
 	} = attributes;
 
-	const [featuresDraft, setFeaturesDraft] = useState(() =>
-		getFeatureLines(features)
+	const [featureItems, setFeatureItems] = useState(() =>
+		getFeatureItems(features)
 	);
+	const featureItemRefs = useRef([]);
+	const [featureFocusIndex, setFeatureFocusIndex] = useState(null);
 
 	useEffect(() => {
-		setFeaturesDraft((currentDraft) =>
-			getFeaturesMarkup(currentDraft) === (features || '')
-				? currentDraft
-				: getFeatureLines(features)
+		setFeatureItems((currentItems) =>
+			getFeaturesMarkup(currentItems) === (features || '')
+				? currentItems
+				: getFeatureItems(features)
 		);
 	}, [features]);
+
+	useEffect(() => {
+		if (!isSelected) {
+			setFeatureItems(getFeatureItems(features));
+		}
+	}, [features, isSelected]);
+
+	useEffect(() => {
+		if (typeof featureFocusIndex === 'number') {
+			const editable = featureItemRefs.current[
+				featureFocusIndex
+			]?.querySelector('[contenteditable="true"]');
+
+			if (editable) {
+				editable.focus();
+			}
+
+			setFeatureFocusIndex(null);
+		}
+	}, [featureFocusIndex]);
+
+	function updateFeatureItems(nextItems, { focusIndex } = {}) {
+		const normalizedItems = nextItems.length ? nextItems : [''];
+
+		setFeatureItems(normalizedItems);
+		setAttributes({
+			features: getFeaturesMarkup(normalizedItems),
+		});
+
+		if (typeof focusIndex === 'number') {
+			setFeatureFocusIndex(focusIndex);
+		}
+	}
 
 	let className = classnames(
 		'ghostkit-pricing-table-item-wrap',
@@ -140,6 +164,9 @@ export default function BlockEdit(props) {
 			allowedBlocks: ['ghostkit/button'],
 		}
 	);
+
+	const hasRenderedFeatures =
+		showFeatures && (!!getFeaturesMarkup(featureItems) || isSelected);
 
 	return (
 		<div {...blockProps}>
@@ -294,25 +321,63 @@ export default function BlockEdit(props) {
 						withoutInteractiveFormatting
 					/>
 				) : null}
-				{showFeatures && (!RichText.isEmpty(features) || isSelected) ? (
-					<TextareaControl
-						className="ghostkit-pricing-table-item-features"
-						label={__('Features', 'ghostkit')}
-						value={featuresDraft}
-						onChange={(val) => {
-							setFeaturesDraft(val);
-							setAttributes({
-								features: getFeaturesMarkup(val),
-							});
-						}}
-						placeholder={__('Add one feature per line', 'ghostkit')}
-						help={__(
-							'Each line is saved as a separate list item.',
-							'ghostkit'
-						)}
-						rows={4}
-						__nextHasNoMarginBottom
-					/>
+				{hasRenderedFeatures ? (
+					<ul className="ghostkit-pricing-table-item-features">
+						{featureItems.map((item, index) => (
+							<RichText
+								key={index}
+								tagName="li"
+								value={item}
+								onChange={(val) => {
+									const nextItems = [...featureItems];
+									nextItems[index] = val;
+									updateFeatureItems(nextItems);
+								}}
+								onKeyDown={(event) => {
+									const isCurrentItemEmpty =
+										!hasFeatureContent(featureItems[index]);
+
+									if (
+										event.key === 'Enter' &&
+										!event.shiftKey
+									) {
+										event.preventDefault();
+
+										const nextItems = [...featureItems];
+										nextItems.splice(index + 1, 0, '');
+
+										updateFeatureItems(nextItems, {
+											focusIndex: index + 1,
+										});
+									}
+
+									if (
+										event.key === 'Backspace' &&
+										isCurrentItemEmpty &&
+										featureItems.length > 1
+									) {
+										event.preventDefault();
+
+										const nextItems = [...featureItems];
+										nextItems.splice(index, 1);
+
+										updateFeatureItems(nextItems, {
+											focusIndex: Math.max(0, index - 1),
+										});
+									}
+								}}
+								ref={(element) => {
+									featureItemRefs.current[index] = element;
+								}}
+								placeholder={
+									index === 0
+										? __('Add features', 'ghostkit')
+										: __('Add feature', 'ghostkit')
+								}
+								inlineToolbar
+							/>
+						))}
+					</ul>
 				) : null}
 				{showButton ? <div {...innerBlocksProps} /> : null}
 				{showPopular &&
