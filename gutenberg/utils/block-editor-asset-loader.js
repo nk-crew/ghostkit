@@ -35,7 +35,7 @@ export function loadBlockEditorAssets(
 	elementRef,
 	callback = () => {}
 ) {
-	const { currentDoc } = getLoadContext(elementRef);
+	const { currentDoc, currentWindow } = getLoadContext(elementRef);
 	const currentHead = currentDoc.getElementsByTagName('head')[0];
 
 	const parentDocElement = document.getElementById(resourceId);
@@ -62,19 +62,20 @@ export function loadBlockEditorAssets(
 		const existingElement = currentDocElement || existingBySource;
 
 		if (type === 'js') {
-			if (existingElement.dataset.gktLoaded === 'true') {
+			const wasLoaded =
+				existingElement.dataset.gktLoaded === 'true' ||
+				(currentWindow.performance &&
+					existingElement.src &&
+					currentWindow.performance.getEntriesByName(
+						existingElement.src
+					).length > 0);
+
+			if (wasLoaded) {
 				callback();
 			} else {
 				existingElement.addEventListener('load', callback, {
 					once: true,
 				});
-
-				if (
-					!existingElement.dataset.gktLoaded &&
-					existingElement !== currentDocElement
-				) {
-					callback();
-				}
 			}
 
 			return;

@@ -49,10 +49,7 @@ export default function BackgroundColor(props) {
 		(hasColor && hasVideoFullscreen) ||
 		(hasColor && type === 'yt_vm_video' && hasFullscreen);
 
-	if (
-		!ColorGradientSettingsDropdown &&
-		(hasVideoPlain || hasVideoFullscreen || hasFullscreen)
-	) {
+	if (!ColorGradientSettingsDropdown && shouldRenderControls) {
 		return (
 			<InspectorControls group="color">
 				<Notice status="error" isDismissible={false}>
