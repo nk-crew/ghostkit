@@ -3,7 +3,7 @@
 .ghostkit-component-active-indicator {
 	width: 7px;
 	height: 7px;
-	background-color: $blue-medium-focus;
+	background-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
 	border-radius: 7px;
 
 	// Panel toggle.
