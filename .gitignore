@@ -17,8 +17,6 @@ yarn-error.log*
 /dist
 /dist-zip
 /tests/e2e/artifacts
-npm-debug.log
 .spec/
-npm-debug.log
 .phpcs.xml
 phpcs.xml

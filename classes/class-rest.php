@@ -1362,9 +1362,9 @@ class GhostKit_Rest extends WP_REST_Controller {
 	 * @return mixed
 	 */
 	public function get_table_of_contents( WP_REST_Request $request ) {
-		$headings        = $this->sanitize_toc_headings( $request->get_param( 'headings' ) );
-		$allowed_headers = $this->sanitize_toc_allowed_headers( $request->get_param( 'allowedHeaders' ) );
-		$list_style      = $this->sanitize_toc_list_style( $request->get_param( 'listStyle' ) );
+		$headings        = $request->get_param( 'headings' );
+		$allowed_headers = $request->get_param( 'allowedHeaders' );
+		$list_style      = $request->get_param( 'listStyle' );
 
 		$html = '';
 
