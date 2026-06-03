@@ -1,5 +1,35 @@
 import { expect, test } from '@wordpress/e2e-test-utils-playwright';
 
+const EXPECTED_GOOGLE_FONTS_FAMILY =
+	'Inter:400,400i,700,700i|Raleway:400,400i,700,700i|Source Serif 4:400,400i,700,700i';
+
+/**
+ * Normalize Google Fonts CSS URL family param across WP encoding styles.
+ *
+ * @param {string} href Google Fonts stylesheet URL.
+ */
+function normalizeGoogleFontsFamily(href) {
+	const url = new URL(href);
+	const family = url.searchParams.get('family');
+
+	if (!family) {
+		return '';
+	}
+
+	return decodeURIComponent(family.replace(/\+/g, ' '));
+}
+
+/**
+ * @param {string} href Google Fonts stylesheet URL.
+ */
+function expectGoogleFontsHref(href) {
+	const url = new URL(href);
+
+	expect(normalizeGoogleFontsFamily(href)).toBe(EXPECTED_GOOGLE_FONTS_FAMILY);
+	expect(url.searchParams.get('display')).toBe('swap');
+	expect(url.searchParams.get('ver')).toBeTruthy();
+}
+
 test.describe('typography', () => {
 	test.beforeAll(async ({ requestUtils }) => {
 		const pluginName = process.env.CORE ? 'ghost-kit-pro' : 'ghost-kit';
@@ -100,12 +130,7 @@ test.describe('typography', () => {
 
 		const googleFontsApiLink = await googleFontsApi.getAttribute('href');
 
-		const verIndex = googleFontsApiLink.indexOf('&ver=');
-		const verAttribute = googleFontsApiLink.substring(verIndex + 5);
-
-		const googleFontsLinkPredefined =
-			'https://fonts.googleapis.com/css?family=Inter%3A400%2C400i%2C700%2C700i%7CRaleway%3A400%2C400i%2C700%2C700i%7CSource+Serif+4%3A400%2C400i%2C700%2C700i&display=swap&ver=' +
-			verAttribute;
+		expectGoogleFontsHref(googleFontsApiLink);
 
 		// Added blocks in the page editor.
 		await editor.insertBlock({
@@ -125,7 +150,13 @@ test.describe('typography', () => {
 		// Checking links to Google fonts
 		await expect(
 			page.locator('#ghostkit-fonts-google-css')
-		).toHaveAttribute('href', googleFontsLinkPredefined);
+		).toHaveAttribute('href', /.+/);
+
+		expectGoogleFontsHref(
+			await page
+				.locator('#ghostkit-fonts-google-css')
+				.getAttribute('href')
+		);
 
 		// Getting added blocks to page editor.
 		const paragraphBlock = editor.canvas.getByRole('document', {
@@ -203,7 +234,13 @@ test.describe('typography', () => {
 		// Checking links to Google fonts
 		await expect(
 			frontendPage.locator('#ghostkit-fonts-google-css')
-		).toHaveAttribute('href', googleFontsLinkPredefined);
+		).toHaveAttribute('href', /.+/);
+
+		expectGoogleFontsHref(
+			await frontendPage
+				.locator('#ghostkit-fonts-google-css')
+				.getAttribute('href')
+		);
 
 		const paragraph = frontendPage.locator('.wp-block-post-content > p');
 
