@@ -423,7 +423,7 @@ class GhostKit_Assets {
 		// GistEmbed.
 		if ( apply_filters( 'gkt_enqueue_plugin_gist_simple', true ) ) {
 			self::register_style( 'gist-simple', 'assets/vendor/gist-simple/dist/gist-simple', array(), '2.1.0' );
-			self::register_script( 'gist-simple', 'assets/vendor/gist-simple/dist/gist-simple', array(), '2.1.0' );
+			self::register_script( 'gist-simple', 'assets/vendor/gist-simple/dist/gist-simple.min', array(), '2.1.0' );
 		}
 
 		// Google reCaptcha.
