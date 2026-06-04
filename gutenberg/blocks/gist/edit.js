@@ -12,11 +12,22 @@ import { useEffect, useRef, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
-import { loadBlockEditorAssets } from '../../utils/block-editor-asset-loader';
+import {
+	getLoadContext,
+	loadBlockEditorAssets,
+} from '../../utils/block-editor-asset-loader';
 import getIcon from '../../utils/get-icon';
 import GistFilesSelect from './file-select';
 
-const { gistSimple } = window;
+function getGistSimple(element) {
+	if (!element) {
+		return window.gistSimple;
+	}
+
+	const { currentWindow } = getLoadContext(element);
+
+	return currentWindow?.gistSimple || window.gistSimple;
+}
 
 /**
  * Block Edit Class.
@@ -56,6 +67,8 @@ export default function BlockEdit(props) {
 		if (!validUrl) {
 			return;
 		}
+
+		const gistSimple = getGistSimple(gistNode.current);
 
 		if (typeof gistSimple === 'undefined') {
 			// eslint-disable-next-line no-console
@@ -98,8 +111,17 @@ export default function BlockEdit(props) {
 	// Load assets.
 	useEffect(() => {
 		if (gistNode?.current) {
+			loadBlockEditorAssets(
+				'js',
+				'gist-simple-js',
+				gistNode.current,
+				() => {
+					onUpdate();
+				}
+			);
 			loadBlockEditorAssets('css', 'gist-simple-css', gistNode.current);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [gistNode]);
 
 	function urlOnChange(value, timeout = 1000) {

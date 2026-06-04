@@ -7,8 +7,91 @@ import {
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { BaseControl, PanelBody, ToggleControl } from '@wordpress/components';
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+
+function parseFeatureHtml(html = '') {
+	if (!html) {
+		return '';
+	}
+
+	const template = document.createElement('template');
+	template.innerHTML = html;
+
+	return template.content.textContent || '';
+}
+
+function hasFeatureContent(value = '') {
+	return !!parseFeatureHtml(value).trim();
+}
+
+function getFeatureValues(value = '') {
+	if (!value) {
+		return [''];
+	}
+
+	const template = document.createElement('template');
+	template.innerHTML = `<ul>${value}</ul>`;
+
+	const items = Array.from(template.content.querySelectorAll('li'))
+		.map((item) => item.innerHTML)
+		.filter((item) => hasFeatureContent(item));
+
+	if (items.length) {
+		return items;
+	}
+
+	const fallbackItems = parseFeatureHtml(value)
+		.split(/\r?\n/)
+		.map((line) => line.trim())
+		.filter(Boolean);
+
+	return fallbackItems.length ? fallbackItems : [''];
+}
+
+function getFeaturesMarkup(values = []) {
+	return values
+		.filter((item) => hasFeatureContent(item))
+		.map((item) => `<li>${item}</li>`)
+		.join('');
+}
+
+function focusFeatureEditable(node) {
+	if (!node) {
+		return false;
+	}
+
+	const editable =
+		node.contentEditable === 'true'
+			? node
+			: node.querySelector?.('[contenteditable="true"]');
+
+	if (!editable) {
+		return false;
+	}
+
+	editable.focus();
+
+	const range = editable.ownerDocument.createRange();
+	range.selectNodeContents(editable);
+	range.collapse(true);
+
+	const selection = editable.ownerDocument.defaultView?.getSelection();
+
+	if (selection) {
+		selection.removeAllRanges();
+		selection.addRange(range);
+	}
+
+	return true;
+}
 
 /**
  * Block Edit Class.
@@ -36,6 +119,143 @@ export default function BlockEdit(props) {
 		showFeatures,
 		showButton,
 	} = attributes;
+
+	const featureRowIdRef = useRef(0);
+	const featureItemRefs = useRef([]);
+	const [featureFocusIndex, setFeatureFocusIndex] = useState(null);
+
+	const createFeatureRowId = useCallback(() => {
+		featureRowIdRef.current += 1;
+		return `feature-${featureRowIdRef.current}`;
+	}, []);
+
+	const createFeatureRow = useCallback(
+		(value = '') => ({
+			id: createFeatureRowId(),
+			value,
+		}),
+		[createFeatureRowId]
+	);
+
+	const getFeatureRowsFromValues = useCallback(
+		(values, previousRows = []) =>
+			values.map((value, index) => ({
+				id:
+					previousRows[index]?.value === value
+						? previousRows[index].id
+						: createFeatureRowId(),
+				value,
+			})),
+		[createFeatureRowId]
+	);
+
+	const [featureRows, setFeatureRows] = useState(() =>
+		getFeatureRowsFromValues(getFeatureValues(features))
+	);
+
+	useEffect(() => {
+		if (!isSelected) {
+			setFeatureRows(
+				getFeatureRowsFromValues(getFeatureValues(features))
+			);
+			return;
+		}
+
+		setFeatureRows((currentRows) => {
+			const currentMarkup = getFeaturesMarkup(
+				currentRows.map((row) => row.value)
+			);
+
+			if (currentMarkup === (features || '')) {
+				return currentRows;
+			}
+
+			return getFeatureRowsFromValues(
+				getFeatureValues(features),
+				currentRows
+			);
+		});
+	}, [features, isSelected, getFeatureRowsFromValues]);
+
+	useLayoutEffect(() => {
+		if (typeof featureFocusIndex !== 'number') {
+			return;
+		}
+
+		const focusIndex = featureFocusIndex;
+		const focusNode = featureItemRefs.current[focusIndex];
+
+		const attemptFocus = () =>
+			focusFeatureEditable(featureItemRefs.current[focusIndex]);
+
+		if (!attemptFocus()) {
+			const frameWindow = focusNode?.ownerDocument?.defaultView;
+
+			if (frameWindow) {
+				frameWindow.requestAnimationFrame(attemptFocus);
+			}
+		}
+
+		setFeatureFocusIndex(null);
+	}, [featureFocusIndex, featureRows.length]);
+
+	function commitFeatureRows(nextRows, { focusIndex } = {}) {
+		const normalizedRows = nextRows.length
+			? nextRows
+			: [createFeatureRow()];
+
+		setFeatureRows(normalizedRows);
+		setAttributes({
+			features: getFeaturesMarkup(normalizedRows.map((row) => row.value)),
+		});
+
+		if (typeof focusIndex === 'number') {
+			setFeatureFocusIndex(focusIndex);
+		}
+	}
+
+	function updateFeatureRowValue(index, value) {
+		const nextRows = featureRows.map((row, rowIndex) =>
+			rowIndex === index ? { ...row, value } : row
+		);
+
+		commitFeatureRows(nextRows);
+	}
+
+	function insertFeatureRowAfter(index) {
+		const nextRows = [...featureRows];
+		nextRows.splice(index + 1, 0, createFeatureRow());
+
+		commitFeatureRows(nextRows, { focusIndex: index + 1 });
+	}
+
+	function removeFeatureRow(index) {
+		const nextRows = [...featureRows];
+		nextRows.splice(index, 1);
+
+		commitFeatureRows(nextRows, {
+			focusIndex: Math.max(0, index - 1),
+		});
+	}
+
+	function handleFeatureKeyDown(event, index) {
+		const isCurrentRowEmpty = !hasFeatureContent(featureRows[index].value);
+
+		if (event.key === 'Enter' && !event.shiftKey) {
+			event.preventDefault();
+			insertFeatureRowAfter(index);
+			return;
+		}
+
+		if (
+			event.key === 'Backspace' &&
+			isCurrentRowEmpty &&
+			featureRows.length > 1
+		) {
+			event.preventDefault();
+			removeFeatureRow(index);
+		}
+	}
 
 	let className = classnames(
 		'ghostkit-pricing-table-item-wrap',
@@ -70,6 +290,12 @@ export default function BlockEdit(props) {
 			allowedBlocks: ['ghostkit/button'],
 		}
 	);
+
+	const featuresMarkup = getFeaturesMarkup(
+		featureRows.map((row) => row.value)
+	);
+	const hasRenderedFeatures =
+		showFeatures && (!!featuresMarkup || isSelected);
 
 	return (
 		<div {...blockProps}>
@@ -224,16 +450,32 @@ export default function BlockEdit(props) {
 						withoutInteractiveFormatting
 					/>
 				) : null}
-				{showFeatures && (!RichText.isEmpty(features) || isSelected) ? (
-					<RichText
-						inlineToolbar
-						tagName="ul"
-						multiline="li"
-						className="ghostkit-pricing-table-item-features"
-						onChange={(val) => setAttributes({ features: val })}
-						value={features}
-						placeholder={__('Add features', 'ghostkit')}
-					/>
+				{hasRenderedFeatures ? (
+					<ul className="ghostkit-pricing-table-item-features">
+						{featureRows.map((row, index) => (
+							<RichText
+								key={row.id}
+								tagName="li"
+								value={row.value}
+								onChange={(value) =>
+									updateFeatureRowValue(index, value)
+								}
+								onKeyDown={(event) =>
+									handleFeatureKeyDown(event, index)
+								}
+								ref={(element) => {
+									featureItemRefs.current[index] = element;
+								}}
+								placeholder={
+									index === 0
+										? __('Add features', 'ghostkit')
+										: __('Add feature', 'ghostkit')
+								}
+								inlineToolbar
+								withoutInteractiveFormatting
+							/>
+						))}
+					</ul>
 				) : null}
 				{showButton ? <div {...innerBlocksProps} /> : null}
 				{showPopular &&

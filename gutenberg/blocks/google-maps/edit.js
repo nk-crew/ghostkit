@@ -175,7 +175,6 @@ function MarkerSettings(props) {
 			>
 				<RichText
 					value={infoWindowText}
-					multiline
 					placeholder={__('Write text…', 'ghostkit')}
 					onChange={(val) => {
 						onChange({ infoWindowText: val });

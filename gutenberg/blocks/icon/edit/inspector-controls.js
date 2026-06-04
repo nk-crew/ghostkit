@@ -1,11 +1,14 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import {
-	__experimentalUnitControl as UnitControl,
+	__experimentalUnitControl as ExperimentalUnitControl,
 	PanelBody,
+	UnitControl as StableUnitControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 import IconPicker from '../../../components/icon-picker';
+
+const UnitControl = StableUnitControl || ExperimentalUnitControl;
 
 export default function EditInspectorControls({ attributes, setAttributes }) {
 	const { icon, width } = attributes;

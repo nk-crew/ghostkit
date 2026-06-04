@@ -1,7 +1,8 @@
 import {
-	__experimentalLinkControl as LinkControl,
+	__experimentalLinkControl as ExperimentalLinkControl,
 	BlockControls,
 	InspectorControls,
+	LinkControl as StableLinkControl,
 } from '@wordpress/block-editor';
 import {
 	KeyboardShortcuts,
@@ -16,6 +17,11 @@ import { __ } from '@wordpress/i18n';
 import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
 
 const NEW_TAB_REL = 'noreferrer noopener';
+const LinkControl = StableLinkControl || ExperimentalLinkControl;
+const legacyLinkControlClassName = StableLinkControl
+	? ''
+	: 'wp-block-navigation-link__inline-link-input';
+const ghostkitLinkControlClassName = 'ghostkit-components-url-picker-control';
 
 /**
  * Component Class
@@ -65,32 +71,41 @@ export default function URLPicker(props) {
 		);
 	}
 
-	function linkControl() {
+	function linkControl({ isInspector = false } = {}) {
+		const wrapperClassName = [
+			ghostkitLinkControlClassName,
+			isInspector && `${ghostkitLinkControlClassName}-inspector`,
+		]
+			.filter(Boolean)
+			.join(' ');
+
 		return (
-			<LinkControl
-				className="wp-block-navigation-link__inline-link-input"
-				value={{
-					url,
-					opensInNewTab: target === '_blank',
-				}}
-				onChange={({
-					url: newURL = '',
-					opensInNewTab: newOpensInNewTab,
-				}) => {
-					onChange({
-						url: newURL,
-						target: newOpensInNewTab ? '_blank' : '',
-					});
-				}}
-				onRemove={() => {
-					onChange({
-						url: '',
-						target: '',
-						rel: '',
-					});
-					toggleToolbarSettings(false);
-				}}
-			/>
+			<div className={wrapperClassName}>
+				<LinkControl
+					className={legacyLinkControlClassName || undefined}
+					value={{
+						url,
+						opensInNewTab: target === '_blank',
+					}}
+					onChange={({
+						url: newURL = '',
+						opensInNewTab: newOpensInNewTab,
+					}) => {
+						onChange({
+							url: newURL,
+							target: newOpensInNewTab ? '_blank' : '',
+						});
+					}}
+					onRemove={() => {
+						onChange({
+							url: '',
+							target: '',
+							rel: '',
+						});
+						toggleToolbarSettings(false);
+					}}
+				/>
+			</div>
 		);
 	}
 
@@ -147,7 +162,9 @@ export default function URLPicker(props) {
 						initialOpen={false}
 						className="ghostkit-components-url-picker-inspector"
 					>
-						{linkControl()}
+						{linkControl({
+							isInspector: true,
+						})}
 						<TextControl
 							label={__('Link Rel')}
 							value={rel || ''}

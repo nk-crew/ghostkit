@@ -113,6 +113,20 @@ class GhostKit_Rest extends WP_REST_Controller {
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_table_of_contents' ),
+				'args'                => array(
+					'headings'       => array(
+						'default'           => array(),
+						'sanitize_callback' => array( $this, 'sanitize_toc_headings' ),
+					),
+					'allowedHeaders' => array(
+						'default'           => array(),
+						'sanitize_callback' => array( $this, 'sanitize_toc_allowed_headers' ),
+					),
+					'listStyle'      => array(
+						'default'           => 'ol',
+						'sanitize_callback' => array( $this, 'sanitize_toc_list_style' ),
+					),
+				),
 				'permission_callback' => '__return_true',
 			)
 		);
@@ -1269,6 +1283,78 @@ class GhostKit_Rest extends WP_REST_Controller {
 	}
 
 	/**
+	 * Sanitize TOC headings list.
+	 *
+	 * @param mixed $headings request headings.
+	 * @return array
+	 */
+	public function sanitize_toc_headings( $headings ) {
+		if ( ! is_array( $headings ) ) {
+			return array();
+		}
+
+		$sanitized = array();
+
+		foreach ( $headings as $heading ) {
+			if ( ! is_array( $heading ) ) {
+				continue;
+			}
+
+			$level = isset( $heading['level'] ) ? absint( $heading['level'] ) : 0;
+
+			if ( $level < 1 || $level > 6 ) {
+				continue;
+			}
+
+			$sanitized[] = array(
+				'level'   => $level,
+				'content' => isset( $heading['content'] ) ? wp_kses_post( $heading['content'] ) : '',
+				'anchor'  => isset( $heading['anchor'] ) ? sanitize_text_field( $heading['anchor'] ) : '',
+			);
+		}
+
+		return $sanitized;
+	}
+
+	/**
+	 * Sanitize TOC allowed headers list.
+	 *
+	 * @param mixed $allowed_headers request allowed headers.
+	 * @return array
+	 */
+	public function sanitize_toc_allowed_headers( $allowed_headers ) {
+		if ( ! is_array( $allowed_headers ) ) {
+			return array();
+		}
+
+		$sanitized = array_values(
+			array_unique(
+				array_filter(
+					array_map( 'absint', $allowed_headers ),
+					static function( $level ) {
+						return $level >= 1 && $level <= 6;
+					}
+				)
+			)
+		);
+
+		return $sanitized;
+	}
+
+	/**
+	 * Sanitize TOC list style.
+	 *
+	 * @param mixed $list_style request list style.
+	 * @return string
+	 */
+	public function sanitize_toc_list_style( $list_style ) {
+		$list_style = is_string( $list_style ) ? sanitize_text_field( $list_style ) : 'ol';
+		$allowed    = array( 'ol', 'ul', 'ol-styled', 'ul-styled' );
+
+		return in_array( $list_style, $allowed, true ) ? $list_style : 'ol';
+	}
+
+	/**
 	 * Get TOC.
 	 *
 	 * @param WP_REST_Request $request  request object.
@@ -1278,16 +1364,13 @@ class GhostKit_Rest extends WP_REST_Controller {
 	public function get_table_of_contents( WP_REST_Request $request ) {
 		$headings        = $request->get_param( 'headings' );
 		$allowed_headers = $request->get_param( 'allowedHeaders' );
-		$list_style      = $request->get_param( 'listStyle' ) ? $request->get_param( 'listStyle' ) : 'ol';
+		$list_style      = $request->get_param( 'listStyle' );
 
 		$html = '';
 
-		if ( ! $allowed_headers || empty( $allowed_headers ) ) {
+		if ( empty( $allowed_headers ) || empty( $headings ) ) {
 			return $this->success( $html );
 		}
-
-		// covert string values to int.
-		$allowed_headers = array_map( 'intval', $allowed_headers );
 
 		$current_depth      = 6;
 		$numbered_items     = array();

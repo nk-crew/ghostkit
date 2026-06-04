@@ -260,6 +260,7 @@ export default function BlockEdit(props) {
 					/>
 					{fadeEdges && (
 						<NumberControl
+							__next40pxDefaultSize
 							label={__('Fade Edges Size', 'ghostkit')}
 							suffix="%&nbsp;"
 							value={fadeEdgesSize}

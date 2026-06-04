@@ -37,6 +37,7 @@ function PositionZIndexTools(props) {
 			isShownByDefault={false}
 		>
 			<NumberControl
+				__next40pxDefaultSize
 				label={
 					<>
 						{__('zIndex', 'ghostkit')}

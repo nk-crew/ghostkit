@@ -4,7 +4,7 @@
 * Tags: page builder, effects, animation, blocks, gutenberg blocks
 * Donate link: https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
 * Requires at least: 6.6
-* Tested up to: 6.9
+* Tested up to: 7.0
 * Requires PHP: 7.2
 * Stable tag: 3.5.1
 * License: GPLv2 or later

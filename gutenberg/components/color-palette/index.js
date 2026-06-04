@@ -1,8 +1,16 @@
-import { __experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients } from '@wordpress/block-editor';
+import {
+	__experimentalUseMultipleOriginColorsAndGradients as experimentalUseMultipleOriginColorsAndGradients,
+	useMultipleOriginColorsAndGradients as stableUseMultipleOriginColorsAndGradients,
+} from '@wordpress/block-editor';
 import { ColorPalette as WPColorPalette } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 
 import ApplyFilters from '../apply-filters';
+
+const useMultipleOriginColorsAndGradients =
+	stableUseMultipleOriginColorsAndGradients ||
+	experimentalUseMultipleOriginColorsAndGradients ||
+	(() => ({ colors: [], gradients: [], hasColorsOrGradients: false }));
 
 function useColors() {
 	// New way to get colors and gradients.
@@ -45,7 +53,6 @@ export default function ColorPalette(props) {
 				onChange={(val) => {
 					onChange(val);
 				}}
-				__experimentalHasMultipleOrigins
 				__experimentalIsRenderedInSidebar
 			/>
 		</ApplyFilters>

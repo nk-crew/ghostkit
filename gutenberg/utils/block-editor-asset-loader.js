@@ -35,7 +35,7 @@ export function loadBlockEditorAssets(
 	elementRef,
 	callback = () => {}
 ) {
-	const { currentDoc } = getLoadContext(elementRef);
+	const { currentDoc, currentWindow } = getLoadContext(elementRef);
 	const currentHead = currentDoc.getElementsByTagName('head')[0];
 
 	const parentDocElement = document.getElementById(resourceId);
@@ -45,9 +45,42 @@ export function loadBlockEditorAssets(
 	}
 
 	const currentDocElement = currentDoc.getElementById(resourceId);
+	let existingBySource;
+
+	if (type === 'js') {
+		existingBySource = Array.from(
+			currentDoc.querySelectorAll('script')
+		).find((scriptEl) => scriptEl.src === parentDocElement.src);
+	} else {
+		existingBySource = Array.from(
+			currentDoc.querySelectorAll('link[rel="stylesheet"]')
+		).find((linkEl) => linkEl.href === parentDocElement.href);
+	}
 
 	// Already exists.
-	if (currentDocElement) {
+	if (currentDocElement || existingBySource) {
+		const existingElement = currentDocElement || existingBySource;
+
+		if (type === 'js') {
+			const wasLoaded =
+				existingElement.dataset.gktLoaded === 'true' ||
+				(currentWindow.performance &&
+					existingElement.src &&
+					currentWindow.performance.getEntriesByName(
+						existingElement.src
+					).length > 0);
+
+			if (wasLoaded) {
+				callback();
+			} else {
+				existingElement.addEventListener('load', callback, {
+					once: true,
+				});
+			}
+
+			return;
+		}
+
 		callback();
 
 		return;
@@ -58,7 +91,11 @@ export function loadBlockEditorAssets(
 		scriptEl.id = resourceId;
 		scriptEl.type = 'text/javascript';
 		scriptEl.src = parentDocElement.src;
-		scriptEl.onload = callback;
+		scriptEl.dataset.gktLoaded = 'false';
+		scriptEl.onload = () => {
+			scriptEl.dataset.gktLoaded = 'true';
+			callback();
+		};
 		currentHead.appendChild(scriptEl);
 	}
 
