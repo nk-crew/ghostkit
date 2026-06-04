@@ -30,9 +30,20 @@ class GhostKit_Icons_List {
 
         do_action( 'gkt_icons_enqueue_assets' );
 
+        $detected_packs = apply_filters( 'gkt_icons_detected_packs', null );
+
         if ( ! empty( $icons ) ) {
             foreach( $icons as $key => $icon ) {
                 $allow_icon = ! isset( $settings[ 'icon_pack_' . $key ] ) || isset( $settings[ 'icon_pack_' . $key ] ) && $settings[ 'icon_pack_' . $key ];
+
+                if (
+                    null !== $detected_packs
+                    && is_array( $detected_packs )
+                    && ! is_admin()
+                    && ! in_array( $key, $detected_packs, true )
+                ) {
+                    continue;
+                }
 
                 if ( $allow_icon ) {
                     do_action( 'gkt_icons_enqueue_assets__' . $key );
