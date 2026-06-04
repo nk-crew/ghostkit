@@ -280,7 +280,7 @@ class GhostKit_Assets {
 					self::add_custom_css( $name, $data['value'] );
 				}
 
-				self::$stored_assets[ $type ]['value'] = false;
+				self::$stored_assets[ $type ][ $name ]['value'] = false;
 			}
 		}
 	}
@@ -292,6 +292,11 @@ class GhostKit_Assets {
 	 * @param string $location - blocks location [content,widget].
 	 */
 	public static function enqueue( $blocks = array(), $location = 'content' ) {
+		if ( ! empty( $blocks ) && is_array( $blocks ) ) {
+			$detected_assets = GhostKit_Assets_Detector::detect_from_blocks( $blocks, 'parse' );
+			GhostKit_Assets_Detector::store_detected_assets( $detected_assets );
+		}
+
 		$blocks_css = '';
 
 		// Prepare blocks assets.
@@ -317,7 +322,10 @@ class GhostKit_Assets {
 	}
 
 	/**
-	 * Enqueue extension and style-variant assets on demand.
+	 * Enqueue extension, style-variant, and attr-based assets during block render.
+	 *
+	 * Block.json handles are detected at parse-time only; this callback covers
+	 * attrs and rendered HTML markers (e.g. effects, list style variants).
 	 *
 	 * @param string $block_content rendered block content.
 	 * @param array  $block block data.
@@ -325,28 +333,14 @@ class GhostKit_Assets {
 	 * @return string
 	 */
 	public function render_block_enqueue_assets( $block_content, $block ) {
-		if ( ! is_string( $block_content ) || '' === $block_content ) {
+		if ( ! is_array( $block ) ) {
 			return $block_content;
 		}
 
-		$has_effects_attrs = ! empty( _wp_array_get( $block, array( 'attrs', 'ghostkit', 'effects' ), false ) );
+		$content = is_string( $block_content ) ? $block_content : '';
 
-		if (
-			$has_effects_attrs ||
-			( isset( $block['blockName'] ) && in_array( $block['blockName'], array( 'ghostkit/counter-box', 'ghostkit/progress' ), true ) ) ||
-			false !== strpos( $block_content, 'data-gkt-effects' ) ||
-			false !== strpos( $block_content, 'ghostkit-count-up' )
-		) {
-			if ( wp_script_is( 'ghostkit-extension-effects', 'registered' ) ) {
-				wp_enqueue_script( 'ghostkit-extension-effects' );
-			}
-		}
-
-		if ( false !== strpos( $block_content, 'is-style-styled' ) ) {
-			if ( wp_script_is( 'ghostkit-style-variant-core-list', 'registered' ) ) {
-				wp_enqueue_script( 'ghostkit-style-variant-core-list' );
-			}
-		}
+		$detected_assets = GhostKit_Assets_Detector::detect_from_block( $block, 'render', $content );
+		GhostKit_Assets_Detector::enqueue_detected_assets( $detected_assets );
 
 		return $block_content;
 	}

@@ -108,6 +108,7 @@ if ( ! class_exists( 'GhostKit' ) ) :
 
 			require_once $this->plugin_path . 'classes/class-rest.php';
 			require_once $this->plugin_path . 'classes/class-parse-blocks.php';
+			require_once $this->plugin_path . 'classes/class-assets-detector.php';
 			require_once $this->plugin_path . 'classes/class-assets.php';
 			require_once $this->plugin_path . 'classes/class-reusable-widget.php';
 			require_once $this->plugin_path . 'classes/class-icons.php';

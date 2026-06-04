@@ -47,6 +47,9 @@ class GhostKit_Parse_Blocks {
 					// parse blocks from custom locations, that uses 'the_content' filter.
 					add_filter( 'the_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
 					add_filter( 'widget_block_content', 'GhostKit_Parse_Blocks::maybe_parse_blocks_from_custom_location', 8 );
+				} else {
+					// FSE / modern-only: extra sources (e.g. Visual Portfolio) are not in the main query.
+					self::maybe_parse_blocks_from_content_sources();
 				}
 			}
 		);
@@ -84,6 +87,43 @@ class GhostKit_Parse_Blocks {
 			if ( isset( $post->post_content ) ) {
 				self::maybe_parse_blocks( $post->post_content, 'content' );
 			}
+		}
+
+		self::maybe_parse_blocks_from_content_sources();
+	}
+
+	/**
+	 * Parse block content from additional sources (themes, Visual Portfolio, etc.).
+	 *
+	 * Filter `gkt_parse_blocks_content_sources` returns an array of sources:
+	 *
+	 * array(
+	 *     array(
+	 *         'content'  => string,  // Required. Raw post_content–style block markup.
+	 *         'location' => string,  // Optional. Default 'content'. Also 'widget'.
+	 *     ),
+	 * )
+	 *
+	 * Runs on classic themes with post content and on modern-only themes via `wp`.
+	 */
+	public static function maybe_parse_blocks_from_content_sources() {
+		$sources = apply_filters( 'gkt_parse_blocks_content_sources', array() );
+
+		if ( ! is_array( $sources ) || empty( $sources ) ) {
+			return;
+		}
+
+		foreach ( $sources as $source ) {
+			if ( ! is_array( $source ) || empty( $source['content'] ) || ! is_string( $source['content'] ) ) {
+				continue;
+			}
+
+			$location = 'content';
+			if ( ! empty( $source['location'] ) && is_string( $source['location'] ) ) {
+				$location = $source['location'];
+			}
+
+			self::maybe_parse_blocks( $source['content'], $location );
 		}
 	}
 
