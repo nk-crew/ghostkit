@@ -1131,6 +1131,9 @@
          "Flip Vertical": [
             ""
          ],
+         "Color settings are unavailable because the required Gutenberg color control component is not available in this WordPress installation.": [
+            ""
+         ],
          "Width": [
             ""
          ],
@@ -1330,6 +1333,9 @@
             ""
          ],
          "Add features": [
+            ""
+         ],
+         "Add feature": [
             ""
          ],
          "Popular": [
@@ -1558,6 +1564,9 @@
             ""
          ],
          "A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.": [
+            ""
+         ],
+         "Background color settings are unavailable because the required Gutenberg color control component is not available in this WordPress installation.": [
             ""
          ],
          "Video Background": [

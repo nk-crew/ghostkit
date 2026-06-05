@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 7.0
 * Requires PHP: 7.2
-* Stable tag: 3.5.1
+* Stable tag: 3.6.0
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -269,6 +269,26 @@ The plugin documentation provides a comprehensive source of information on block
 19. Blocks Extensions
 
 ## Changelog ##
+
+= 3.6.0 - Jun 5, 2026 =
+
+* added WordPress 7.0 compatibility
+* improved frontend assets detection — centralize block.json handles, extensions, style variants, and effects markers in `GhostKit_Assets_Detector`
+* added `gkt_icons_detected_packs` filter to enqueue only icon packs used on the page
+* added editor filters for responsive preview sizes (`mediaSizes`, `previewWidth`)
+* fixed GitHub Gist block stylesheet lookup and gist-simple script registration in the editor
+* fixed Gist and Lottie block assets loading in the block editor
+* fixed Table of Contents REST request params sanitization
+* fixed URL Picker inspector layout overrides scope in the editor
+* fixed Pricing Table Item features list editing (replaced deprecated RichText multiline)
+* fixed quote to testimonial transform preserving content
+* fixed editor compatibility with stable Gutenberg controls and removed deprecations
+* use WordPress admin theme CSS variables for accent UI colors
+* minor changes and fixes
+* **Pro:**
+* fixed custom Breakpoints styles not loading from uploads on the frontend
+* fixed Breakpoints settings validation when editing values in settings
+* synced editor responsive preview with saved Pro breakpoint widths
 
 = 3.5.1 - Mar 4, 2026 =
 
