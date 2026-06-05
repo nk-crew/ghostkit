@@ -1,8 +1,6 @@
 import { useDispatch, useSelect } from '@wordpress/data';
 
-const { ghostkitVariables } = window;
-
-const allDevices = { ...ghostkitVariables.media_sizes };
+import { getMediaSizes } from '../utils/get-media-sizes';
 
 export default function useResponsive() {
 	const { device } = useSelect((select) => {
@@ -29,6 +27,6 @@ export default function useResponsive() {
 	return {
 		device,
 		setDevice: setDeviceWithReset,
-		allDevices,
+		allDevices: getMediaSizes(),
 	};
 }

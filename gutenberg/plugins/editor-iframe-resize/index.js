@@ -9,6 +9,7 @@ import { __ } from '@wordpress/i18n';
 
 import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
+import { getPreviewWidth } from '../../utils/get-media-sizes';
 
 export const name = 'gkt-editor-iframe-resize';
 
@@ -16,22 +17,22 @@ export const name = 'gkt-editor-iframe-resize';
  * Resize editor iframe based on responsive size selected.
  */
 function IframeResponsiveStyles() {
-	const { device, allDevices } = useResponsive();
+	const { device } = useResponsive();
 
 	if (!device) {
 		return null;
 	}
 
-	let width = allDevices[device];
+	const width = getPreviewWidth(device);
+
+	if (!width) {
+		return null;
+	}
+
 	let height = '100%';
 	let marginVertical = '0px';
 
 	if (device === 'sm') {
-		// Set smaller width for mobile screen.
-		if (width > 375) {
-			width = 375;
-		}
-
 		height = `${(width * 16) / 7.5}px`;
 		marginVertical = '40px';
 	} else if (device === 'md' || device === 'lg') {

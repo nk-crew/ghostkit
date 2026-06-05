@@ -2,9 +2,8 @@
 // which we use to reset styles.
 import compactObject from '../compact-object';
 import { maybeDecode, maybeEncode } from '../encode-decode';
+import { getMediaSizes } from '../get-media-sizes';
 import merge from '../merge';
-
-const allDevices = { ...window.ghostkitVariables.media_sizes };
 
 /**
  * Prepare and decode styles to work with.
@@ -127,7 +126,7 @@ export function getStylesToReset(
 		}
 	});
 
-	['', ...(withResponsive ? Object.keys(allDevices) : [])].forEach(
+	['', ...(withResponsive ? Object.keys(getMediaSizes()) : [])].forEach(
 		(thisDevice) => {
 			if (thisDevice) {
 				result[`media_${thisDevice}`] = {};
@@ -180,7 +179,7 @@ export function getSpecificPropsFromStyles(
 
 	const decodedStyles = maybeDecode(styles || {});
 
-	['', ...(withResponsive ? Object.keys(allDevices) : [])].forEach(
+	['', ...(withResponsive ? Object.keys(getMediaSizes()) : [])].forEach(
 		(thisDevice) => {
 			findProps.forEach((thisProp) => {
 				selectors.forEach((selector) => {
