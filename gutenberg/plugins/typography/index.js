@@ -1,5 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
-import { Button, TabPanel, Tooltip } from '@wordpress/components';
+import { Button, Notice, TabPanel, Tooltip } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { PluginMoreMenuItem } from '@wordpress/editor';
@@ -777,9 +777,13 @@ class TypographyModal extends Component {
 	}
 
 	maybePrepareGlobalTypographyAndAdvanced() {
-		const { customTypography = {} } = this.props;
+		const { customTypography = {}, canEditGlobalTypography } = this.props;
 
-		if (customTypography && this.state.globalCustomTypography === false) {
+		if (
+			canEditGlobalTypography &&
+			customTypography &&
+			this.state.globalCustomTypography === false
+		) {
 			this.setState({
 				globalCustomTypography:
 					getCustomTypographyList(
@@ -797,8 +801,12 @@ class TypographyModal extends Component {
 	}
 
 	render() {
-		const { updateMeta, updateCustomTypography, onRequestClose } =
-			this.props;
+		const {
+			updateMeta,
+			updateCustomTypography,
+			onRequestClose,
+			canEditGlobalTypography,
+		} = this.props;
 
 		return (
 			<Modal
@@ -827,14 +835,18 @@ class TypographyModal extends Component {
 
 					// Global
 					if (
+						canEditGlobalTypography &&
 						this.state.globalCustomTypography !==
-						global.ghostkit_typography
+							global.ghostkit_typography
 					) {
 						newGlobal.ghostkit_typography =
 							this.state.globalCustomTypography;
 					}
 
-					if (Object.keys(newGlobal).length) {
+					if (
+						canEditGlobalTypography &&
+						Object.keys(newGlobal).length
+					) {
 						updateCustomTypography(newGlobal);
 					}
 
@@ -877,6 +889,18 @@ class TypographyModal extends Component {
 				>
 					{(tabData) => {
 						const isGlobal = tabData.name === 'global';
+
+						if (isGlobal && !canEditGlobalTypography) {
+							return (
+								<Notice status="warning" isDismissible={false}>
+									{__(
+										"You don't have permissions to edit global typography.",
+										'ghostkit'
+									)}
+								</Notice>
+							);
+						}
+
 						const setStateTypography = isGlobal
 							? this.state.globalCustomTypography
 							: this.state.customTypography;
@@ -953,12 +977,15 @@ class TypographyModal extends Component {
 
 const TypographyModalWithSelect = compose([
 	withSelect((select) => {
+		const canEditGlobalTypography =
+			window.ghostkitVariables?.canEditGlobalTypography ?? true;
+
 		const currentMeta =
 			select('core/editor').getCurrentPostAttribute('meta');
 		const editedMeta = select('core/editor').getEditedPostAttribute('meta');
-		const customTypography = select(
-			'ghostkit/plugins/typography'
-		).getCustomTypography();
+		const customTypography = canEditGlobalTypography
+			? select('ghostkit/plugins/typography').getCustomTypography()
+			: false;
 
 		try {
 			currentMeta.ghostkit_typography = JSON.parse(
@@ -972,15 +999,18 @@ const TypographyModalWithSelect = compose([
 			);
 		} catch (e) {}
 
-		try {
-			customTypography.ghostkit_typography = JSON.parse(
-				customTypography.ghostkit_typography
-			);
-		} catch (e) {}
+		if (customTypography) {
+			try {
+				customTypography.ghostkit_typography = JSON.parse(
+					customTypography.ghostkit_typography
+				);
+			} catch (e) {}
+		}
 
 		const typographyData = {
 			meta: { ...currentMeta, ...editedMeta },
 			customTypography,
+			canEditGlobalTypography,
 		};
 
 		printFonts(typographyData);

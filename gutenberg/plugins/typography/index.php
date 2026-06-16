@@ -18,6 +18,7 @@ class GhostKit_Typography_Plugin {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'register_meta' ) );
+		add_filter( 'gkt_global_data', array( $this, 'add_typography_capability_data' ) );
 	}
 
 	/**
@@ -33,16 +34,30 @@ class GhostKit_Typography_Plugin {
 	 * @return bool
 	 */
 	public function can_edit_typography_permission( $allowed, $meta_key, $object_id, $user_id, $cap, $caps ) {
-		return ghostkit_rest_meta_auth_allows_unchanged( $meta_key, $object_id, 'edit_theme_options' );
+		return ghostkit_rest_meta_auth_allows_unchanged( $meta_key, $object_id, 'edit_post' );
 	}
 
 	/**
-	 * Simple capability check for typography meta.
+	 * Check if current user can edit global typography.
 	 *
 	 * @return bool
 	 */
-	public function can_edit_typography_simple() {
+	public function can_edit_global_typography_permission() {
 		return current_user_can( 'edit_theme_options' );
+	}
+
+	/**
+	 * Add typography capability data to global variables (admin only).
+	 *
+	 * @param array $global_data Global data array.
+	 * @return array Modified global data array.
+	 */
+	public function add_typography_capability_data( $global_data ) {
+		if ( is_admin() ) {
+			$global_data['canEditGlobalTypography'] = $this->can_edit_global_typography_permission();
+		}
+
+		return $global_data;
 	}
 
 	/**
