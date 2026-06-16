@@ -49,8 +49,9 @@ class GhostKit_Customizer_Plugin {
 	 * Try to find meta data to replace options.
 	 */
 	public function maybe_find_options() {
-		$raw_options          = json_decode( urldecode( get_post_meta( get_queried_object_id(), 'ghostkit_customizer_options', true ) ), true );
-		$this->custom_options = $this->filter_valid_custom_options( $raw_options );
+		$meta_value           = get_post_meta( get_queried_object_id(), 'ghostkit_customizer_options', true );
+		$raw_options          = $this->decode_customizer_options_meta( $meta_value );
+		$this->custom_options = $this->filter_customizer_options_for_context( $raw_options );
 
 		if ( $this->custom_options && ! empty( $this->custom_options ) ) {
 			foreach ( $this->custom_options as $opt ) {
@@ -97,18 +98,14 @@ class GhostKit_Customizer_Plugin {
 			return true;
 		}
 
-		$current_value = get_post_meta( $object_id, $meta_key, true );
-		$new_value     = $this->get_meta_value_from_rest_request( $meta_key );
-
-		if ( null === $new_value ) {
+		if ( ! ghostkit_rest_meta_key_exists_in_request( $meta_key ) ) {
 			return false;
 		}
 
-		if ( $current_value === $new_value ) {
-			return true;
-		}
+		$new_value     = ghostkit_get_meta_value_from_rest_request( $meta_key );
+		$current_value = get_post_meta( $object_id, $meta_key, true );
 
-		return false;
+		return $this->customizer_options_meta_is_unchanged( $current_value, $new_value );
 	}
 
 	/**
@@ -118,31 +115,6 @@ class GhostKit_Customizer_Plugin {
 	 */
 	public function can_edit_customizer_options_simple() {
 		return current_user_can( 'edit_theme_options' );
-	}
-
-	/**
-	 * Helper method to extract meta value from current REST API request.
-	 *
-	 * @param string $meta_key The meta key to look for.
-	 * @return string|null The new meta value from request, or null if not found.
-	 */
-	private function get_meta_value_from_rest_request( $meta_key ) {
-		if ( ! defined( 'REST_REQUEST' ) || ! REST_REQUEST ) {
-			return null;
-		}
-
-		global $wp;
-		if ( ! isset( $wp->query_vars['rest_route'] ) ) {
-			return null;
-		}
-
-		$request_body = json_decode( file_get_contents( 'php://input' ), true );
-
-		if ( ! $request_body || ! isset( $request_body['meta'][ $meta_key ] ) ) {
-			return null;
-		}
-
-		return $request_body['meta'][ $meta_key ];
 	}
 
 	/**
@@ -160,8 +132,8 @@ class GhostKit_Customizer_Plugin {
 			return '';
 		}
 
-		$options   = json_decode( urldecode( $meta_value ), true );
-		$sanitized = $this->filter_valid_custom_options( $options );
+		$options   = $this->decode_customizer_options_meta( $meta_value );
+		$sanitized = $this->filter_customizer_options_for_context( $options );
 
 		if ( empty( $sanitized ) ) {
 			return '';
@@ -171,17 +143,141 @@ class GhostKit_Customizer_Plugin {
 	}
 
 	/**
+	 * Get canonical customizer options from stored meta.
+	 *
+	 * @param mixed $meta_value Stored meta value.
+	 * @return array
+	 */
+	public function get_canonical_customizer_options_from_meta( $meta_value ) {
+		if ( ghostkit_is_empty_meta_value( $meta_value ) ) {
+			return array();
+		}
+
+		if ( ! is_string( $meta_value ) ) {
+			return array();
+		}
+
+		$decoded = $this->decode_customizer_options_meta( $meta_value );
+
+		return $this->filter_customizer_options_for_context( $decoded );
+	}
+
+	/**
+	 * Check whether customizer meta values are semantically unchanged.
+	 *
+	 * @param mixed $current_meta Current stored meta value.
+	 * @param mixed $new_meta     Incoming meta value.
+	 * @return bool
+	 */
+	private function customizer_options_meta_is_unchanged( $current_meta, $new_meta ) {
+		$current_options = $this->sort_customizer_options_for_compare(
+			$this->get_canonical_customizer_options_from_meta( $current_meta )
+		);
+		$new_options     = $this->sort_customizer_options_for_compare(
+			$this->get_canonical_customizer_options_from_meta( $new_meta )
+		);
+
+		return $current_options === $new_options;
+	}
+
+	/**
+	 * Sort customizer options for stable comparison.
+	 *
+	 * @param array $options Canonical customizer options.
+	 * @return array
+	 */
+	private function sort_customizer_options_for_compare( $options ) {
+		if ( ! is_array( $options ) ) {
+			return array();
+		}
+
+		$normalized = array();
+
+		foreach ( $options as $opt ) {
+			if ( ! is_array( $opt ) || empty( $opt['id'] ) ) {
+				continue;
+			}
+
+			$type = isset( $opt['type'] ) ? $opt['type'] : 'theme_mod';
+			$key  = $type . ':' . $opt['id'];
+
+			$normalized[ $key ] = array(
+				'id'    => $opt['id'],
+				'type'  => $type,
+				'value' => isset( $opt['value'] ) ? $opt['value'] : '',
+			);
+		}
+
+		ksort( $normalized );
+
+		return array_values( $normalized );
+	}
+
+	/**
+	 * Decode stored customizer options meta.
+	 *
+	 * @param mixed $meta_value Stored meta value.
+	 * @return array|null
+	 */
+	private function decode_customizer_options_meta( $meta_value ) {
+		if ( ! is_string( $meta_value ) || '' === $meta_value ) {
+			return null;
+		}
+
+		return json_decode( rawurldecode( $meta_value ), true );
+	}
+
+	/**
+	 * Filter customizer options for save or frontend use.
+	 *
+	 * @param mixed $options Decoded customizer options.
+	 * @return array
+	 */
+	private function filter_customizer_options_for_context( $options ) {
+		$allowed_fields = $this->get_allowed_customizer_fields();
+
+		if ( empty( $allowed_fields ) ) {
+			return $this->filter_security_custom_options( $options );
+		}
+
+		return $this->filter_valid_custom_options( $options );
+	}
+
+	/**
+	 * Filter customizer options to only security-safe entries.
+	 *
+	 * Used when the customizer allowlist is unavailable (e.g. block themes).
+	 *
+	 * @param mixed $options Decoded customizer options.
+	 * @return array
+	 */
+	public function filter_security_custom_options( $options ) {
+		return $this->filter_custom_options_by_rules( $options, false );
+	}
+
+	/**
 	 * Filter customizer options to only allowed entries.
 	 *
 	 * @param mixed $options Decoded customizer options.
 	 * @return array
 	 */
 	public function filter_valid_custom_options( $options ) {
+		return $this->filter_custom_options_by_rules( $options, true );
+	}
+
+	/**
+	 * Filter customizer options by security rules and optional allowlist.
+	 *
+	 * @param mixed $options           Decoded customizer options.
+	 * @param bool  $require_allowlist Whether to require allowlisted fields.
+	 * @return array
+	 */
+	private function filter_custom_options_by_rules( $options, $require_allowlist ) {
 		if ( ! is_array( $options ) ) {
 			return array();
 		}
 
-		$allowed_fields = $this->get_allowed_customizer_fields();
+		$allowed_fields = $require_allowlist ? $this->get_allowed_customizer_fields() : array();
 		$sanitized      = array();
 
 		foreach ( $options as $opt ) {
@@ -199,9 +295,11 @@ class GhostKit_Customizer_Plugin {
 				continue;
 			}
 
-			$field_key = $type . ':' . $opt['id'];
-			if ( ! isset( $allowed_fields[ $field_key ] ) ) {
-				continue;
+			if ( $require_allowlist ) {
+				$field_key = $type . ':' . $opt['id'];
+				if ( ! isset( $allowed_fields[ $field_key ] ) ) {
+					continue;
+				}
 			}
 
 			if ( ! isset( $opt['value'] ) || ! is_scalar( $opt['value'] ) ) {
