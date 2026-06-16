@@ -33,22 +33,7 @@ class GhostKit_Typography_Plugin {
 	 * @return bool
 	 */
 	public function can_edit_typography_permission( $allowed, $meta_key, $object_id, $user_id, $cap, $caps ) {
-		if ( $this->can_edit_typography_simple() ) {
-			return true;
-		}
-
-		$current_value = get_post_meta( $object_id, $meta_key, true );
-		$new_value     = $this->get_meta_value_from_rest_request( $meta_key );
-
-		if ( null === $new_value ) {
-			return false;
-		}
-
-		if ( $current_value === $new_value ) {
-			return true;
-		}
-
-		return false;
+		return ghostkit_rest_meta_auth_allows_unchanged( $meta_key, $object_id, 'edit_theme_options' );
 	}
 
 	/**
@@ -58,31 +43,6 @@ class GhostKit_Typography_Plugin {
 	 */
 	public function can_edit_typography_simple() {
 		return current_user_can( 'edit_theme_options' );
-	}
-
-	/**
-	 * Helper method to extract meta value from current REST API request.
-	 *
-	 * @param string $meta_key The meta key to look for.
-	 * @return string|null The new meta value from request, or null if not found.
-	 */
-	private function get_meta_value_from_rest_request( $meta_key ) {
-		if ( ! defined( 'REST_REQUEST' ) || ! REST_REQUEST ) {
-			return null;
-		}
-
-		global $wp;
-		if ( ! isset( $wp->query_vars['rest_route'] ) ) {
-			return null;
-		}
-
-		$request_body = json_decode( file_get_contents( 'php://input' ), true );
-
-		if ( ! $request_body || ! isset( $request_body['meta'][ $meta_key ] ) ) {
-			return null;
-		}
-
-		return $request_body['meta'][ $meta_key ];
 	}
 
 	/**
