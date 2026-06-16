@@ -132,14 +132,37 @@ class GhostKit_Custom_Code_Plugin {
 	/**
 	 * Register meta.
 	 */
+	public function can_edit_custom_css_permission( $allowed, $meta_key, $object_id, $user_id, $cap, $caps ) {
+		if ( $this->can_edit_custom_js_simple() ) {
+			return true;
+		}
+
+		$current_value = get_post_meta( $object_id, $meta_key, true );
+		$new_value     = $this->get_meta_value_from_rest_request( $meta_key );
+
+		if ( null === $new_value ) {
+			return false;
+		}
+
+		if ( $current_value === $new_value ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Register meta.
+	 */
 	public function register_meta() {
 		register_meta(
 			'post',
 			'ghostkit_custom_css',
 			array(
-				'show_in_rest' => true,
-				'single'       => true,
-				'type'         => 'string',
+				'show_in_rest'  => true,
+				'single'        => true,
+				'type'          => 'string',
+				'auth_callback' => array( $this, 'can_edit_custom_css_permission' ),
 			)
 		);
 		register_meta(
