@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 7.0
 * Requires PHP: 7.2
-* Stable tag: 3.6.0
+* Stable tag: 3.6.1
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -269,6 +269,13 @@ The plugin documentation provides a comprehensive source of information on block
 19. Blocks Extensions
 
 ## Changelog ##
+
+= 3.6.1 - Jun 21, 2026 =
+
+* fixed stored XSS from contributors via Customizer post meta (`ghostkit_customizer_options`)
+* hardened Customizer post meta with permission checks, sanitization, and frontend filtering
+* fixed Gutenberg post saves failing when unchanged protected post meta was included in the REST request
+* allow local typography editing for users with `edit_post` on the post; global typography editing requires `edit_theme_options`
 
 = 3.6.0 - Jun 5, 2026 =
 

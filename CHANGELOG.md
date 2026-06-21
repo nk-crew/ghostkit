@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.6.1 - Jun 21, 2026 =
+
+* fixed stored XSS from contributors via Customizer post meta (`ghostkit_customizer_options`)
+* hardened Customizer post meta with permission checks, sanitization, and frontend filtering
+* fixed Gutenberg post saves failing when unchanged protected post meta was included in the REST request
+* allow local typography editing for users with `edit_post` on the post; global typography editing requires `edit_theme_options`
+
 = 3.6.0 - Jun 5, 2026 =
 
 * added WordPress 7.0 compatibility
