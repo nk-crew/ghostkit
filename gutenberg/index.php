@@ -51,6 +51,8 @@ require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/checkbox/bl
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/radio/block.php';
 require_once ghostkit()->plugin_path . 'gutenberg/blocks/form/fields/hidden/block.php';
 
+require_once ghostkit()->plugin_path . 'gutenberg/utils/rest-meta-auth/index.php';
+
 require_once ghostkit()->plugin_path . 'gutenberg/plugins/color-palette/index.php';
 require_once ghostkit()->plugin_path . 'gutenberg/plugins/customizer/index.php';
 require_once ghostkit()->plugin_path . 'gutenberg/plugins/custom-code/index.php';
