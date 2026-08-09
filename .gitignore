@@ -17,6 +17,7 @@ yarn-error.log*
 /dist
 /dist-zip
 /tests/e2e/artifacts
+/flaky-tests
 .spec/
 .phpcs.xml
 phpcs.xml
