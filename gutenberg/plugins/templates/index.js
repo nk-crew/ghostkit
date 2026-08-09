@@ -367,6 +367,7 @@ class TemplatesModal extends Component {
 												<div className="ghostkit-plugin-templates-count">
 													<RawHTML>
 														{sprintf(
+															// translators: %s: number of templates in the current category, wrapped in a <strong> tag.
 															__(
 																'Templates: %s',
 																'ghostkit'
@@ -567,6 +568,7 @@ function checkMissingBlocks(data) {
 				>
 					<RawHTML>
 						{sprintf(
+							// translators: %s: name of the missing block, for example "nk/awb", wrapped in a <strong> tag.
 							__('%s block is missing.', 'ghostkit'),
 							`<strong>${blockName}</strong>`
 						)}

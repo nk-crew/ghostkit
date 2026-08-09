@@ -162,6 +162,7 @@ function CustomCSSCustomTools(props) {
 										'ghostkit'
 									)}
 									dangerouslySetInnerHTML={{
+										// translators: %s: the literal "selector" keyword, wrapped in a <code> tag. Keep it untranslated.
 										__html: __(
 											'Use %s rule to change block styles.',
 											'ghostkit'
