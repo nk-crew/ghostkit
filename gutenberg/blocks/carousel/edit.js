@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	InspectorControls,
 	useBlockProps,
@@ -8,13 +6,14 @@ import {
 import { createBlock } from '@wordpress/blocks';
 import {
 	__experimentalNumberControl as ExperimentalNumberControl,
-	NumberControl as StableNumberControl,
 	PanelBody,
+	NumberControl as StableNumberControl,
 	ToggleControl,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import EditorStyles from '../../components/editor-styles';
 import IconPicker from '../../components/icon-picker';
@@ -335,7 +334,7 @@ export default function BlockEdit(props) {
               --gkt-carousel-gap: ${gap}px;
               --gkt-carousel-slides-per-view: ${
 					effect === 'fade' ? 1 : slidesPerView
-				};
+};
             }
           `}
 			/>

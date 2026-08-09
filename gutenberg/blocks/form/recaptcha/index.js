@@ -1,9 +1,8 @@
-import { debounce } from 'throttle-debounce';
-
 import apiFetch from '@wordpress/api-fetch';
 import { ExternalLink, PanelBody, TextControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { debounce } from 'throttle-debounce';
 
 const { GHOSTKIT } = window;
 

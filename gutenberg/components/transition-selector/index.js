@@ -32,6 +32,7 @@ export default function TransitionSelector(props) {
 
 	let buttonLabel = '';
 	const resetButton = allowReset && value && (
+		// biome-ignore lint/a11y/useSemanticElements: this sits inside the dropdown toggle button, a real <button> would nest interactive controls.
 		<span
 			className="ghostkit-component-transition-selector-reset"
 			onClick={(e) => {

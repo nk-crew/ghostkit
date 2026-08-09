@@ -4,10 +4,10 @@ import './pro-effects';
 import { BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { hasBlockSupport } from '@wordpress/blocks';
 import {
-	__experimentalToolsPanel as ExperimentalToolsPanel,
-	__stableToolsPanel as StableToolsPanel,
 	Button,
+	__experimentalToolsPanel as ExperimentalToolsPanel,
 	MenuGroup,
+	__stableToolsPanel as StableToolsPanel,
 	ToolbarDropdownMenu,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';

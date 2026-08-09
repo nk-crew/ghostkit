@@ -1,10 +1,9 @@
-import { cloneDeep } from 'lodash';
-
 import { getBlockType, hasBlockSupport, parse } from '@wordpress/blocks';
 import { useDispatch, useRegistry } from '@wordpress/data';
 import { useCallback } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
+import { cloneDeep } from 'lodash';
 
 import compactObject from '../../utils/compact-object';
 import merge from '../../utils/merge';
@@ -30,7 +29,7 @@ function hasSerializedBlocks(text) {
 			return false;
 		}
 		return true;
-	} catch (err) {
+	} catch (_err) {
 		// Parsing error, the text is not serialized blocks.
 		// (Even though that it technically won't happen)
 		return false;
@@ -169,7 +168,7 @@ export default function usePasteExtensions() {
 				}
 
 				html = await window.navigator.clipboard.readText();
-			} catch (error) {
+			} catch (_error) {
 				// Possibly the permission is denied.
 				createErrorNotice(
 					__(

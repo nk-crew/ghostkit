@@ -1,11 +1,10 @@
-import { debounce } from 'throttle-debounce';
-
 import apiFetch from '@wordpress/api-fetch';
 import { Spinner } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { debounce } from 'throttle-debounce';
 
 import CodeEditor from '../../gutenberg/components/code-editor';
 

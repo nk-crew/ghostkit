@@ -55,7 +55,7 @@ export const settings = {
 			if (isEditor && attributes?.ghostkit?.id) {
 				// background.
 				styles = styles.replace(
-					new RegExp('> .nk-awb .jarallax-img', 'g'),
+					/> .nk-awb .jarallax-img/g,
 					'> .awb-gutenberg-preview-block .jarallax-img'
 				);
 			}
@@ -105,24 +105,23 @@ export const settings = {
  * @return {Function}                Wrapped component
  */
 export const withClasses = createHigherOrderComponent(
-	(BlockListBlock) =>
-		function (props) {
-			const { name: blockName } = props;
+	(BlockListBlock) => (props) => {
+		const { name: blockName } = props;
 
-			if (
-				blockName === 'ghostkit/grid' &&
-				props.attributes.isTemplatesModalOnly
-			) {
-				return (
-					<BlockListBlock
-						{...props}
-						data-ghostkit-grid-templates-modal-only="true"
-					/>
-				);
-			}
-
-			return <BlockListBlock {...props} />;
+		if (
+			blockName === 'ghostkit/grid' &&
+			props.attributes.isTemplatesModalOnly
+		) {
+			return (
+				<BlockListBlock
+					{...props}
+					data-ghostkit-grid-templates-modal-only="true"
+				/>
+			);
 		}
+
+		return <BlockListBlock {...props} />;
+	}
 );
 
 addFilter('editor.BlockListBlock', 'ghostkit/grid/with-classes', withClasses);

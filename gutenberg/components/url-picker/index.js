@@ -1,6 +1,6 @@
 import {
-	__experimentalLinkControl as ExperimentalLinkControl,
 	BlockControls,
+	__experimentalLinkControl as ExperimentalLinkControl,
 	InspectorControls,
 	LinkControl as StableLinkControl,
 } from '@wordpress/block-editor';

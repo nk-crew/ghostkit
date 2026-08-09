@@ -1,7 +1,7 @@
 import {
+	BaseControl,
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
-	BaseControl,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';

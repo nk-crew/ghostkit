@@ -1,30 +1,32 @@
 {
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit",
+		"source.organizeImports.biome": "explicit",
+		"source.fixAll.stylelint": "explicit"
+	},
 	"editor.defaultFormatter": null,
+	"editor.formatOnSave": true,
 	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[php]": {
-		"editor.defaultFormatter": null,
-		"editor.formatOnSave": false
+		"editor.formatOnSave": false,
+		"editor.defaultFormatter": null
 	},
-	"editor.formatOnSave": true,
 	"scss.validate": false,
 	"css.validate": false,
 	"less.validate": false,
-	"editor.codeActionsOnSave": {
-		"source.fixAll.stylelint": "explicit"
-	},
-	"stylelint.validate": [
-		"css",
-		"scss"
-	],
-	"stylelint.snippet": [
-		"css",
-		"scss"
-	],
-	"[json]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
+	"stylelint.validate": ["css", "scss"],
+	"stylelint.snippet": ["css", "scss"],
 	"search.exclude": {
 		"**/.git": true,
 		"**/node_modules": true,
@@ -33,5 +35,5 @@
 		"**/dist-zip": true,
 		"**/vendor": true,
 		"**/composer-libraries": true
-	},
+	}
 }

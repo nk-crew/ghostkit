@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	InnerBlocks,
 	InspectorControls,
@@ -19,6 +17,7 @@ import {
 import { useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import IconPicker from '../../components/icon-picker';
 import RangeControl from '../../components/range-control';

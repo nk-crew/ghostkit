@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	BlockControls,
 	InnerBlocks,
@@ -12,6 +10,7 @@ import { useSelect } from '@wordpress/data';
 import { useEffect, useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import getIcon from '../../utils/get-icon';
 import getUniqueSlug from '../../utils/get-unique-slug';

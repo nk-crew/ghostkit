@@ -1,5 +1,3 @@
-import { merge } from 'lodash';
-
 import { InspectorControls } from '@wordpress/block-editor';
 import { registerBlockStyle } from '@wordpress/blocks';
 import { PanelBody } from '@wordpress/components';
@@ -7,6 +5,7 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import { merge } from 'lodash';
 
 import ColorPicker from '../../components/color-picker';
 import EditorStyles from '../../components/editor-styles';

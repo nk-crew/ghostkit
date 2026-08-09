@@ -1,17 +1,16 @@
-import { addCompleter } from 'ace-builds/src-noconflict/ext-language_tools';
-import classnames from 'classnames/dedupe';
-
 import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
 import {
-	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
-	__stableToolsPanelItem as StableToolsPanelItem,
 	BaseControl,
 	Button,
 	Dropdown,
+	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
+	__stableToolsPanelItem as StableToolsPanelItem,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import { addCompleter } from 'ace-builds/src-noconflict/ext-language_tools';
+import classnames from 'classnames/dedupe';
 
 import CodeEditor from '../../../components/code-editor';
 import ResponsiveToggle from '../../../components/responsive-toggle';

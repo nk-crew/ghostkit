@@ -1,7 +1,6 @@
-import { compact, map } from 'lodash';
-
 import { transformStyles } from '@wordpress/block-editor';
 import { useMemo } from '@wordpress/element';
+import { compact, map } from 'lodash';
 
 const EDITOR_STYLES_SELECTOR = '.editor-styles-wrapper';
 

@@ -1,8 +1,7 @@
-import classnames from 'classnames/dedupe';
-
 import { Button, Tooltip } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';

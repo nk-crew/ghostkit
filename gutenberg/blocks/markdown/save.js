@@ -1,6 +1,5 @@
-import classnames from 'classnames/dedupe';
-
 import { useBlockProps } from '@wordpress/block-editor';
+import classnames from 'classnames/dedupe';
 
 import MDRender from './render';
 

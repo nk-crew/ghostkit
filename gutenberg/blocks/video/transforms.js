@@ -2,8 +2,7 @@ import { createBlock } from '@wordpress/blocks';
 
 // parse youtube ID
 function getYoutubeID(ytUrl) {
-	const regExp =
-		/.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
+	const regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#&?]*).*/;
 	const match = ytUrl.match(regExp);
 	return match && match[1].length === 11 ? match[1] : false;
 }

@@ -1,8 +1,7 @@
-import classnames from 'classnames/dedupe';
-
 import { InnerBlocks, RichText } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
+import classnames from 'classnames/dedupe';
 
 import IconPicker from '../../components/icon-picker';
 import metadata from './block.json';

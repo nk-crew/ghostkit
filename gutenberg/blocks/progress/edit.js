@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	InspectorControls,
 	RichText,
@@ -14,6 +12,7 @@ import {
 } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import ApplyFilters from '../../components/apply-filters';
 import ColorIndicator from '../../components/color-indicator';

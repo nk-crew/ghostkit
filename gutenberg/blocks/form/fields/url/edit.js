@@ -1,8 +1,7 @@
-import classnames from 'classnames/dedupe';
-
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, TextControl } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
+import classnames from 'classnames/dedupe';
 
 import {
 	FieldDefaultSettings,

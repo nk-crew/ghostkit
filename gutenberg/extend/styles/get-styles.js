@@ -41,10 +41,14 @@ const cssPropsWithPixels = [
  *
  * @param {Object}  data     - styles data.
  * @param {string}  selector - current styles selector (useful for nested styles).
- * @param {boolean} escape   - escape strings to save in database.
+ * @param {boolean} shouldEscape - escape strings to save in database.
  * @return {string} - ready to use styles string.
  */
-export default function getStyles(data = {}, selector = '', escape = true) {
+export default function getStyles(
+	data = {},
+	selector = '',
+	shouldEscape = true
+) {
 	const result = {};
 	let resultCSS = '';
 
@@ -59,7 +63,7 @@ export default function getStyles(data = {}, selector = '', escape = true) {
 				}@media #{ghostkitvar:${key}} { ${getStyles(
 					data[key],
 					selector,
-					escape
+					shouldEscape
 				)} }`;
 
 				// @supports css
@@ -67,7 +71,7 @@ export default function getStyles(data = {}, selector = '', escape = true) {
 				resultCSS += `${resultCSS ? ' ' : ''}${key} { ${getStyles(
 					data[key],
 					selector,
-					escape
+					shouldEscape
 				)} }`;
 
 				// nested selectors.
@@ -86,13 +90,13 @@ export default function getStyles(data = {}, selector = '', escape = true) {
 
 				resultCSS +=
 					(resultCSS ? ' ' : '') +
-					getStyles(data[key], nestedSelector, escape);
+					getStyles(data[key], nestedSelector, shouldEscape);
 			}
 
 			// style properties and values.
 		} else if (typeof data[key] !== 'undefined' && data[key] !== false) {
 			// fix selector > and < usage.
-			if (escape) {
+			if (shouldEscape) {
 				selector = selector.replace(/>/g, '&gt;');
 				selector = selector.replace(/</g, '&lt;');
 			}

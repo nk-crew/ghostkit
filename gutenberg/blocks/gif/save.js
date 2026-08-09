@@ -1,6 +1,5 @@
-import classnames from 'classnames/dedupe';
-
 import { RichText, useBlockProps } from '@wordpress/block-editor';
+import classnames from 'classnames/dedupe';
 
 /**
  * Block Save Class.

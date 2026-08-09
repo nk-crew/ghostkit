@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	InnerBlocks,
 	InspectorControls,
@@ -10,6 +8,7 @@ import { PanelBody, SelectControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { __, sprintf } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import ApplyFilters from '../../components/apply-filters';
 import RangeControl from '../../components/range-control';
@@ -24,7 +23,7 @@ import getColClass from './get-col-class';
  *
  * @return {Array} array for Select.
  */
-const getDefaultColumnSizes = function () {
+const getDefaultColumnSizes = () => {
 	const result = [
 		{
 			label: __('Inherit from larger', 'ghostkit'),
@@ -63,7 +62,7 @@ const getDefaultColumnSizes = function () {
  *
  * @return {Array} array for Select.
  */
-const getDefaultColumnOrders = function (columns = 12) {
+const getDefaultColumnOrders = (columns = 12) => {
 	const result = [
 		{
 			label: __('Inherit from larger', 'ghostkit'),

@@ -100,7 +100,7 @@ const entryAssetsJs = glob
 		'./gutenberg/style-variants/**/frontend.js',
 		'./settings/index.js',
 	])
-	.reduce(function (entries, entry) {
+	.reduce((entries, entry) => {
 		const name = entry.replace('.js', '');
 		entries[name] = path.resolve(process.cwd(), entry);
 		return entries;
@@ -121,7 +121,7 @@ const entryAssetsCss = glob
 		// Exclude file names started with _
 		return !/^_/.test(filename);
 	})
-	.reduce(function (entries, entry) {
+	.reduce((entries, entry) => {
 		const name = entry.replace('.scss', '');
 
 		entries[name] = path.resolve(process.cwd(), entry);

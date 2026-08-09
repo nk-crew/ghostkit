@@ -1,13 +1,12 @@
-import classnames from 'classnames/dedupe';
-import { merge } from 'lodash';
-import { debounce } from 'throttle-debounce';
-
 import apiFetch from '@wordpress/api-fetch';
 import { registerCoreBlocks } from '@wordpress/block-library';
 import { getBlockTypes, getCategories } from '@wordpress/blocks';
 import { Dashicon, ToggleControl, Tooltip } from '@wordpress/components';
 import { Component, createElement, renderToString } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
+import { merge } from 'lodash';
+import { debounce } from 'throttle-debounce';
 
 import Info from '../components/info';
 

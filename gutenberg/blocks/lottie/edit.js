@@ -1,17 +1,16 @@
-import classnames from 'classnames/dedupe';
-
 import {
-	__experimentalUnitControl as ExperimentalUnitControl,
 	Button,
+	__experimentalUnitControl as ExperimentalUnitControl,
 	PanelBody,
 	SelectControl,
+	UnitControl as StableUnitControl,
 	TextControl,
 	ToggleControl,
-	UnitControl as StableUnitControl,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import RangeControl from '../../components/range-control';
 import PreviewLottie from './preview-lottie';

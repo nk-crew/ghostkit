@@ -1,7 +1,6 @@
-import MarkdownIt from 'markdown-it';
-
 import { RawHTML } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import MarkdownIt from 'markdown-it';
 
 /**
  * Module variables

@@ -1,10 +1,11 @@
-import classnames from 'classnames/dedupe';
-
 import { applyFilters } from '@wordpress/hooks';
+import classnames from 'classnames/dedupe';
 
 import IconPicker from '../../components/icon-picker';
 import metadata from './block.json';
+
 const { name } = metadata;
+
 import { useBlockProps } from '@wordpress/block-editor';
 
 /**

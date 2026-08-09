@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	__experimentalGrid as ExperimentalGrid,
 	__experimentalNumberControl as ExperimentalNumberControl,
@@ -8,6 +6,7 @@ import {
 } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import round from '../../utils/round';
 import Select from '../select';
@@ -22,8 +21,7 @@ const {
 	Motion: { spring },
 } = window;
 
-export { DEFAULT };
-export { PRESETS };
+export { DEFAULT, PRESETS };
 
 export function SpringEditor(props) {
 	const { value, variant = '', backgroundColor } = props;

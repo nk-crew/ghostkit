@@ -1,7 +1,7 @@
 import {
+	BaseControl,
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
 	__stableToolsPanelItem as StableToolsPanelItem,
-	BaseControl,
 	Tooltip,
 } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';

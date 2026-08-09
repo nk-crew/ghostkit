@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	BlockControls,
 	InspectorControls,
@@ -9,24 +7,25 @@ import {
 	useBlockProps,
 } from '@wordpress/block-editor';
 import {
-	__experimentalToggleGroupControl as ExperimentalToggleGroupControl,
-	__experimentalToggleGroupControlOption as ExperimentalToggleGroupControlOption,
 	BaseControl,
 	Button,
+	__experimentalToggleGroupControl as ExperimentalToggleGroupControl,
+	__experimentalToggleGroupControlOption as ExperimentalToggleGroupControlOption,
 	ExternalLink,
 	PanelBody,
 	Placeholder,
 	SelectControl,
-	TextareaControl,
-	ToggleControl,
 	ToggleGroupControl as StableToggleGroupControl,
 	ToggleGroupControlOption as StableToggleGroupControlOption,
+	TextareaControl,
+	ToggleControl,
 	Toolbar,
 	ToolbarButton,
 	ToolbarGroup,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import ColorPicker from '../../components/color-picker';
 import RangeControl from '../../components/range-control';

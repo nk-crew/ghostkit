@@ -1,8 +1,8 @@
 import {
 	BaseControl,
 	Button,
-	DateTimePicker as WPDateTimePicker,
 	Popover,
+	DateTimePicker as WPDateTimePicker,
 } from '@wordpress/components';
 import { dateI18n, getSettings } from '@wordpress/date';
 import { useState } from '@wordpress/element';

@@ -3,11 +3,11 @@
  *
  * @since v3.1.0
  */
-import { merge } from 'lodash';
 
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
+import { merge } from 'lodash';
 
 import migrateSR from './scroll-reveal';
 import migrateStyles from './styles';
@@ -50,15 +50,12 @@ function DeprecatedExtensions(props) {
  * @return {string} Wrapped component.
  */
 const withInspectorControl = createHigherOrderComponent(
-	(BlockEdit) =>
-		function (props) {
-			return (
-				<>
-					<BlockEdit {...props} />
-					<DeprecatedExtensions {...props} />
-				</>
-			);
-		},
+	(BlockEdit) => (props) => (
+		<>
+			<BlockEdit {...props} />
+			<DeprecatedExtensions {...props} />
+		</>
+	),
 	'withInspectorControl'
 );
 

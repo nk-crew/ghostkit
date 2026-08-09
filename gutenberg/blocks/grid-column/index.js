@@ -38,7 +38,7 @@ export const settings = {
 			if (isEditor && attributes?.ghostkit?.id) {
 				// background.
 				styles = styles.replace(
-					new RegExp('> .nk-awb .jarallax-img', 'g'),
+					/> .nk-awb .jarallax-img/g,
 					'> .awb-gutenberg-preview-block .jarallax-img'
 				);
 			}

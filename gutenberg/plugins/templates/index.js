@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import apiFetch from '@wordpress/api-fetch';
 import { parse } from '@wordpress/blocks';
 import {
@@ -17,6 +15,7 @@ import { PluginMoreMenuItem } from '@wordpress/editor';
 import { Component, Fragment, RawHTML, useState } from '@wordpress/element';
 import { addFilter, applyFilters } from '@wordpress/hooks';
 import { __, sprintf } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import Modal from '../../components/modal';
 import getIcon from '../../utils/get-icon';

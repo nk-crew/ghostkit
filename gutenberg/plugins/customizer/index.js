@@ -73,7 +73,7 @@ class Customizer extends Component {
 		if (!this.state.jsonOptions) {
 			try {
 				options = JSON.parse(decodeURI(options));
-			} catch (e) {
+			} catch (_e) {
 				options = [];
 			}
 		} else {
@@ -381,9 +381,9 @@ class Customizer extends Component {
 										/>
 									);
 									break;
+								// biome-ignore lint/suspicious/noFallthroughSwitchClause: image controls intentionally reuse the default select control.
 								case 'kirki-image':
 									opt.choices = [];
-								// fallthrough
 								default:
 									if (opt.choices && opt.choices.length) {
 										control = (

@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	InspectorControls,
 	RichText,
@@ -8,6 +6,7 @@ import {
 import { PanelBody, SelectControl, TextControl } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import {
 	FieldDefaultSettings,

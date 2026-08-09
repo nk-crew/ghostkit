@@ -1,7 +1,6 @@
-import classnames from 'classnames/dedupe';
-
 import { useBlockProps } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
+import classnames from 'classnames/dedupe';
 
 import IconPicker from '../../components/icon-picker';
 import EditBlockControls from './edit/block-controls';

@@ -1,5 +1,3 @@
-import { cloneDeep } from 'lodash';
-
 import {
 	__experimentalGrid as ExperimentalGrid,
 	__experimentalNumberControl as ExperimentalNumberControl,
@@ -10,6 +8,7 @@ import {
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import { cloneDeep } from 'lodash';
 
 import DropdownPicker from '../../../components/dropdown-picker';
 import EditorStyles from '../../../components/editor-styles';

@@ -7,8 +7,8 @@
  * - If it fail all 3 times, then it's a **failed** test.
  */
 
+import fs from 'node:fs';
 import filenamify from 'filenamify';
-import fs from 'fs';
 
 // Remove "steps" to prevent stringify circular structure.
 function formatTestResult(testResult) {

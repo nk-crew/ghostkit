@@ -1,6 +1,5 @@
-import classnames from 'classnames/dedupe';
-
 import { applyFilters } from '@wordpress/hooks';
+import classnames from 'classnames/dedupe';
 
 /**
  * Returns the ready to use className for grid column.

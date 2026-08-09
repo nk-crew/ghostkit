@@ -55,7 +55,7 @@ const generateAnchor = (clientId, content) => {
 	// If the anchor already exists in another heading, append -i.
 	while (Object.values(anchors).includes(anchor)) {
 		i += 1;
-		anchor = slug + '-' + i;
+		anchor = `${slug}-${i}`;
 	}
 
 	return anchor;
@@ -137,19 +137,18 @@ function CustomBlockIdComponent({ attributes, setAttributes, clientId }) {
  * @return {string} Wrapped component.
  */
 const withNewAttrs = createHigherOrderComponent(
-	(BlockEdit) =>
-		function (props) {
-			if (props.name !== 'core/heading') {
-				return <BlockEdit {...props} />;
-			}
+	(BlockEdit) => (props) => {
+		if (props.name !== 'core/heading') {
+			return <BlockEdit {...props} />;
+		}
 
-			return (
-				<>
-					<BlockEdit {...props} />
-					<CustomBlockIdComponent {...props} />
-				</>
-			);
-		},
+		return (
+			<>
+				<BlockEdit {...props} />
+				<CustomBlockIdComponent {...props} />
+			</>
+		);
+	},
 	'withNewAttrs'
 );
 

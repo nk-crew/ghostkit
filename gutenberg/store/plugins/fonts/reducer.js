@@ -1,6 +1,5 @@
-import { merge } from 'lodash';
-
 import { applyFilters } from '@wordpress/hooks';
+import { merge } from 'lodash';
 
 function reducer(state = { data: false }, action = {}) {
 	switch (action.type) {

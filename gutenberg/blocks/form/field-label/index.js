@@ -20,7 +20,7 @@ export default function FieldLabel(props) {
 	}
 
 	return (
-		// eslint-disable-next-line jsx-a11y/label-has-associated-control
+		// biome-ignore lint/a11y/noLabelWithoutControl: the editor renders the label text only, the field itself is a separate block.
 		<label className="ghostkit-form-field-label">
 			<RichText
 				inlineToolbar

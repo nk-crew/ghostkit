@@ -14,112 +14,110 @@ const isReducedMotion = window.matchMedia(
  * Effects Reveal.
  */
 events.on(document, 'init.blocks.gkt', () => {
-	document
-		.querySelectorAll('[data-gkt-effects]')
-		.forEach(function ($element) {
-			if (isReducedMotion) {
-				$element.removeAttribute('data-gkt-effects');
-				return;
-			}
-
-			const dataString = $element.getAttribute('data-gkt-effects');
-			let data;
-
-			try {
-				data = JSON.parse(dataString);
-			} catch (e) {
-				data = false;
-			}
-
+	document.querySelectorAll('[data-gkt-effects]').forEach(($element) => {
+		if (isReducedMotion) {
 			$element.removeAttribute('data-gkt-effects');
+			return;
+		}
 
-			if (!data) {
-				return;
+		const dataString = $element.getAttribute('data-gkt-effects');
+		let data;
+
+		try {
+			data = JSON.parse(dataString);
+		} catch (_e) {
+			data = false;
+		}
+
+		$element.removeAttribute('data-gkt-effects');
+
+		if (!data) {
+			return;
+		}
+
+		events.trigger($element, 'prepare.effects.gkt', { data });
+
+		instance.set($element, 'effects', data);
+
+		if (!data?.reveal) {
+			return;
+		}
+
+		const config = {
+			...DEFAULTS,
+			...data.reveal,
+		};
+
+		events.trigger($element, 'prepare.effects.reveal.gkt', { config });
+
+		const stopInView = inView($element, () => {
+			$element.classList.remove('ghostkit-effects-reveal');
+
+			const options = {};
+
+			// Easing with Cubic Bezier.
+			if (config?.transition?.type === 'easing') {
+				options.type = 'tween';
+				options.duration = config.transition.duration;
+				options.delay = config.transition.delay;
+				options.ease = config.transition.easing;
+
+				// Easing with Spring.
+			} else if (config?.transition?.type === 'spring') {
+				options.type = spring;
+				options.delay = config.transition.delay;
+				options.stiffness = config.transition.stiffness;
+				options.damping = config.transition.damping;
+				options.mass = config.transition.mass;
 			}
 
-			events.trigger($element, 'prepare.effects.gkt', { data });
+			const keyframes = {};
 
-			instance.set($element, 'effects', data);
-
-			if (!data?.reveal) {
-				return;
+			if (config.opacity !== 1) {
+				keyframes.opacity = [config.opacity, 1];
+			}
+			if (config.x !== 0) {
+				keyframes.x = [config.x, 0];
+			}
+			if (config.y !== 0) {
+				keyframes.y = [config.y, 0];
+			}
+			if (config.scale !== 1) {
+				keyframes.scale = [config.scale, 1];
+			}
+			if (config.rotate !== 0) {
+				keyframes.rotate = [config.rotate, 0];
 			}
 
-			const config = {
-				...DEFAULTS,
-				...data.reveal,
+			const eventData = {
+				config,
+				keyframes,
+				options,
+				stopInView,
+				leaveCallback: () => {},
 			};
 
-			events.trigger($element, 'prepare.effects.reveal.gkt', { config });
+			events.trigger($element, 'show.effects.reveal.gkt', eventData);
 
-			const stopInView = inView($element, () => {
-				$element.classList.remove('ghostkit-effects-reveal');
+			// Stop inView listener.
+			eventData.stopInView();
 
-				const options = {};
+			const animation = animate($element, keyframes, options);
 
-				// Easing with Cubic Bezier.
-				if (config?.transition?.type === 'easing') {
-					options.type = 'tween';
-					options.duration = config.transition.duration;
-					options.delay = config.transition.delay;
-					options.ease = config.transition.easing;
-
-					// Easing with Spring.
-				} else if (config?.transition?.type === 'spring') {
-					options.type = spring;
-					options.delay = config.transition.delay;
-					options.stiffness = config.transition.stiffness;
-					options.damping = config.transition.damping;
-					options.mass = config.transition.mass;
-				}
-
-				const keyframes = {};
-
-				if (config.opacity !== 1) {
-					keyframes.opacity = [config.opacity, 1];
-				}
-				if (config.x !== 0) {
-					keyframes.x = [config.x, 0];
-				}
-				if (config.y !== 0) {
-					keyframes.y = [config.y, 0];
-				}
-				if (config.scale !== 1) {
-					keyframes.scale = [config.scale, 1];
-				}
-				if (config.rotate !== 0) {
-					keyframes.rotate = [config.rotate, 0];
-				}
-
-				const eventData = {
-					config,
-					keyframes,
-					options,
-					stopInView,
-					leaveCallback: () => {},
-				};
-
-				events.trigger($element, 'show.effects.reveal.gkt', eventData);
-
-				// Stop inView listener.
-				eventData.stopInView();
-
-				const animation = animate($element, keyframes, options);
-
-				animation.then(() => {
-					events.trigger(
-						$element,
-						'showed.effects.reveal.gkt',
-						eventData
-					);
-				});
-
-				// This will fire when the element leaves the viewport
-				return eventData.leaveCallback;
+			animation.then(() => {
+				events.trigger(
+					$element,
+					'showed.effects.reveal.gkt',
+					eventData
+				);
 			});
 
-			events.trigger($element, 'prepared.effects.reveal.gkt', { config });
+			// This will fire when the element leaves the viewport
+			return eventData.leaveCallback;
 		});
+
+		events.trigger($element, 'prepared.effects.reveal.gkt', { config });
+	});
 });
 
 /**
@@ -153,6 +151,7 @@ events.on(document, 'init.blocks.gkt', () => {
 			let $progressCountBadge;
 			let digits = 0;
 
+			// biome-ignore-start lint/suspicious/noTemplateCurlyInString: `${val}` is a literal placeholder token inside the counter mask, not a template literal.
 			// prepare mask.
 			let mask = '';
 			if (!isProgress) {
@@ -214,6 +213,7 @@ events.on(document, 'init.blocks.gkt', () => {
 					}
 				},
 			};
+			// biome-ignore-end lint/suspicious/noTemplateCurlyInString: `${val}` is a literal placeholder token inside the counter mask, not a template literal.
 
 			events.trigger($counter, 'prepare.counter.gkt', { config });
 
