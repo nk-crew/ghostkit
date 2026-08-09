@@ -1,8 +1,8 @@
 import {
 	__experimentalColorGradientSettingsDropdown as ExperimentalColorGradientSettingsDropdown,
 	__experimentalUseMultipleOriginColorsAndGradients as experimentalUseMultipleOriginColorsAndGradients,
-	ColorGradientSettingsDropdown as StableColorGradientSettingsDropdown,
 	InspectorControls,
+	ColorGradientSettingsDropdown as StableColorGradientSettingsDropdown,
 	useMultipleOriginColorsAndGradients as stableUseMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
 import { Notice } from '@wordpress/components';

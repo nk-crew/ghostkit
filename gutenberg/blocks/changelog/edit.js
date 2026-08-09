@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	RichText,
 	useBlockProps,
@@ -7,6 +5,7 @@ import {
 } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 /**
  * Block Edit Class.

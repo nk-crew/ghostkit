@@ -1,6 +1,4 @@
 import { GiphyFetch } from '@giphy/js-fetch-api';
-import classnames from 'classnames/dedupe';
-
 import {
 	InspectorControls,
 	RichText,
@@ -17,6 +15,7 @@ import {
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import getIcon from '../../utils/get-icon';
 

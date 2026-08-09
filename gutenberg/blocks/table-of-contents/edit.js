@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	InspectorControls,
 	RichText,
@@ -16,6 +14,7 @@ import { useSelect } from '@wordpress/data';
 import { RawHTML, useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import getIcon from '../../utils/get-icon';
 import getAllHeadings from './get-all-headings';

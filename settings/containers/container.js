@@ -1,7 +1,6 @@
-import classnames from 'classnames/dedupe';
-
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import { ReactComponent as Logo } from '../../gutenberg/icons/ghostkit-text-logo.svg';
 import getPages from '../pages';

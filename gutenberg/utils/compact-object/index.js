@@ -12,7 +12,7 @@ export default function compactObject(obj) {
 		return obj;
 	}
 
-	return Object.keys(obj).reduce(function (accumulator, key) {
+	return Object.keys(obj).reduce((accumulator, key) => {
 		const isObject = typeof obj[key] === 'object';
 		const value = isObject ? compactObject(obj[key]) : obj[key];
 		const isEmptyObject = isObject && !Object.keys(value).length;

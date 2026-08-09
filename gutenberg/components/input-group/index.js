@@ -1,7 +1,6 @@
-import classnames from 'classnames/dedupe';
-
 import { BaseControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
+import classnames from 'classnames/dedupe';
 
 import useResponsive from '../../hooks/use-responsive';
 import ElementStateToggle from '../element-state-toggle';

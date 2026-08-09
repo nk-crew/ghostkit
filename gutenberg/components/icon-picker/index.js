@@ -441,7 +441,7 @@ export default function IconPicker(props) {
 IconPicker.Dropdown = IconPickerDropdown;
 
 // preview icon.
-IconPicker.Preview = function (props) {
+IconPicker.Preview = (props) => {
 	const { onClick, className, alwaysRender = false } = props;
 
 	let { data, name } = props;
@@ -496,7 +496,7 @@ IconPicker.Preview = function (props) {
 };
 
 // render icon.
-IconPicker.Render = function (props) {
+IconPicker.Render = (props) => {
 	const { tag = 'span', name, alwaysRender = false, ...restProps } = props;
 
 	const Tag = tag;

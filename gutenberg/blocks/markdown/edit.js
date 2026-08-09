@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	BlockControls,
 	PlainText,
@@ -9,6 +7,7 @@ import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import MDRender from './render';
 

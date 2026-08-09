@@ -1,6 +1,3 @@
-import classnames from 'classnames/dedupe';
-import { throttle } from 'throttle-debounce';
-
 import {
 	BlockAlignmentToolbar,
 	BlockControls,
@@ -13,6 +10,8 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
+import { throttle } from 'throttle-debounce';
 
 /**
  * Parse all button blocks.

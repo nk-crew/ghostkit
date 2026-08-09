@@ -1,10 +1,9 @@
 {
-  "recommendations": [
-    "esbenp.prettier-vscode",
-    "streetsidesoftware.code-spell-checker",
-    "editorconfig.editorconfig",
-    "dbaeumer.vscode-eslint",
-    "stylelint.vscode-stylelint",
-    "bmewburn.vscode-intelephense-client"
-  ]
+	"recommendations": [
+		"biomejs.biome",
+		"streetsidesoftware.code-spell-checker",
+		"editorconfig.editorconfig",
+		"stylelint.vscode-stylelint",
+		"bmewburn.vscode-intelephense-client"
+	]
 }

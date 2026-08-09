@@ -1,7 +1,7 @@
+import { select } from '@wordpress/data';
 import slugify from 'slugify';
 import striptags from 'striptags';
 
-import { select } from '@wordpress/data';
 const { getBlocks } = select('core/block-editor');
 
 /**

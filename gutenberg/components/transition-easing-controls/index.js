@@ -1,14 +1,14 @@
 // TODO: check for better implementation - https://codepen.io/osublake/pen/OyPGEo
-import BezierEditor from 'bezier-easing-editor';
-import classnames from 'classnames/dedupe';
 
 import {
+	BaseControl,
 	__experimentalNumberControl as ExperimentalNumberControl,
 	__stableNumberControl as StableNumberControl,
-	BaseControl,
 } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import BezierEditor from 'bezier-easing-editor';
+import classnames from 'classnames/dedupe';
 
 import round from '../../utils/round';
 import Select from '../select';
@@ -18,8 +18,7 @@ import PRESETS from './presets';
 
 const NumberControl = StableNumberControl || ExperimentalNumberControl;
 
-export { DEFAULT };
-export { PRESETS };
+export { DEFAULT, PRESETS };
 
 export function EasingBezierEditor(props) {
 	const { value, onChange, variant = '', backgroundColor } = props;

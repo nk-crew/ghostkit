@@ -1,16 +1,15 @@
-import classnames from 'classnames/dedupe';
-
 import {
-	__experimentalToggleGroupControl as ExperimentalToggleGroupControl,
-	__experimentalToggleGroupControlOption as ExperimentalToggleGroupControlOption,
-	__experimentalToggleGroupControlOptionIcon as ExperimentalToggleGroupControlOptionIcon,
 	BaseControl,
 	Button,
 	ButtonGroup,
+	__experimentalToggleGroupControl as ExperimentalToggleGroupControl,
+	__experimentalToggleGroupControlOption as ExperimentalToggleGroupControlOption,
+	__experimentalToggleGroupControlOptionIcon as ExperimentalToggleGroupControlOptionIcon,
 	ToggleGroupControl as StableToggleGroupControl,
 	ToggleGroupControlOption as StableToggleGroupControlOption,
 	ToggleGroupControlOptionIcon as StableToggleGroupControlOptionIcon,
 } from '@wordpress/components';
+import classnames from 'classnames/dedupe';
 
 const ToggleGroupControl =
 	StableToggleGroupControl || ExperimentalToggleGroupControl;

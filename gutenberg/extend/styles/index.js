@@ -1,13 +1,12 @@
-import deepEqual from 'deep-equal';
-import { cloneDeep } from 'lodash';
-import shorthash from 'shorthash';
-import { throttle } from 'throttle-debounce';
-
 import { getBlockSupport, getBlockType } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useCallback, useEffect, useRef } from '@wordpress/element';
 import { addFilter, applyFilters } from '@wordpress/hooks';
+import deepEqual from 'deep-equal';
+import { cloneDeep } from 'lodash';
+import shorthash from 'shorthash';
+import { throttle } from 'throttle-debounce';
 
 import EditorStyles from '../../components/editor-styles';
 import { hasClass, replaceClass } from '../../utils/classes-replacer';
@@ -366,15 +365,12 @@ function CustomStylesComponent(props) {
  * @return {string} Wrapped component.
  */
 const withNewAttrs = createHigherOrderComponent(
-	(BlockEdit) =>
-		function (props) {
-			return (
-				<>
-					<BlockEdit {...props} />
-					<CustomStylesComponent {...props} />
-				</>
-			);
-		},
+	(BlockEdit) => (props) => (
+		<>
+			<BlockEdit {...props} />
+			<CustomStylesComponent {...props} />
+		</>
+	),
 	'withNewAttrs'
 );
 

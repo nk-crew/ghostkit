@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	InspectorControls,
 	RichText,
@@ -16,6 +14,7 @@ import {
 } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 function parseFeatureHtml(html = '') {
 	if (!html) {

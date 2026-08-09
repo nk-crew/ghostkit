@@ -27,24 +27,20 @@ import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
  *
  * @return {Array} array for Select.
  */
-const getDefaultDisplay = function (screen = '') {
-	return [
-		{
-			label: !screen
-				? __('Default', 'ghostkit')
-				: __('Inherit', 'ghostkit'),
-			value: '',
-		},
-		{
-			label: __('Show', 'ghostkit'),
-			value: 'block',
-		},
-		{
-			label: __('Hide', 'ghostkit'),
-			value: 'none',
-		},
-	];
-};
+const getDefaultDisplay = (screen = '') => [
+	{
+		label: !screen ? __('Default', 'ghostkit') : __('Inherit', 'ghostkit'),
+		value: '',
+	},
+	{
+		label: __('Show', 'ghostkit'),
+		value: 'block',
+	},
+	{
+		label: __('Hide', 'ghostkit'),
+		value: 'none',
+	},
+];
 
 /**
  * Get current display for selected screen size.

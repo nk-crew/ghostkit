@@ -256,7 +256,7 @@ events.on(
 /*
  * Activate tab on hash change.
  */
-events.on(window, 'hashchange', function () {
+events.on(window, 'hashchange', () => {
 	if (window.location.hash === pageHash) {
 		return;
 	}

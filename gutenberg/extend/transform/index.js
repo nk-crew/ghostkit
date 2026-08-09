@@ -1,7 +1,5 @@
 import './pro-transforms';
 
-import { throttle } from 'throttle-debounce';
-
 import { InspectorControls } from '@wordpress/block-editor';
 import { hasBlockSupport } from '@wordpress/blocks';
 import {
@@ -12,6 +10,7 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
 import { addFilter, applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import { throttle } from 'throttle-debounce';
 
 import ApplyFilters from '../../components/apply-filters';
 import useStyles from '../../hooks/use-styles';
@@ -148,15 +147,12 @@ function CustomClassComponent(props) {
  * @return {string} Wrapped component.
  */
 const withNewAttrs = createHigherOrderComponent(
-	(BlockEdit) =>
-		function (props) {
-			return (
-				<>
-					<BlockEdit {...props} />
-					<CustomClassComponent {...props} />
-				</>
-			);
-		},
+	(BlockEdit) => (props) => (
+		<>
+			<BlockEdit {...props} />
+			<CustomClassComponent {...props} />
+		</>
+	),
 	'withNewAttrs'
 );
 

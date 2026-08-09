@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	InnerBlocks,
 	RichText,
@@ -8,6 +6,7 @@ import {
 } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
+import classnames from 'classnames/dedupe';
 
 import metadata from './block.json';
 

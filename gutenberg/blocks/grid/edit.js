@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	BlockControls,
 	InspectorControls,
@@ -17,6 +15,7 @@ import {
 import { useDispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import ApplyFilters from '../../components/apply-filters';
 import GapSettings from '../../components/gap-settings';

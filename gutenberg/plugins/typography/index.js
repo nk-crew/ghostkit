@@ -661,9 +661,10 @@ class TypographyModal extends Component {
 			this.setState((prevState) => ({
 				[isGlobal ? 'globalAdvanced' : 'advanced']: {
 					...prevState[isGlobal ? 'globalAdvanced' : 'advanced'],
-					[key]: !prevState[isGlobal ? 'globalAdvanced' : 'advanced'][
-						key
-					],
+					[key]:
+						!prevState[isGlobal ? 'globalAdvanced' : 'advanced'][
+							key
+						],
 				},
 			}));
 		}
@@ -991,20 +992,20 @@ const TypographyModalWithSelect = compose([
 			currentMeta.ghostkit_typography = JSON.parse(
 				currentMeta.ghostkit_typography
 			);
-		} catch (e) {}
+		} catch (_e) {}
 
 		try {
 			editedMeta.ghostkit_typography = JSON.parse(
 				editedMeta.ghostkit_typography
 			);
-		} catch (e) {}
+		} catch (_e) {}
 
 		if (customTypography) {
 			try {
 				customTypography.ghostkit_typography = JSON.parse(
 					customTypography.ghostkit_typography
 				);
-			} catch (e) {}
+			} catch (_e) {}
 		}
 
 		const typographyData = {

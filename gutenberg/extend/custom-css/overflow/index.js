@@ -1,10 +1,10 @@
 import {
+	BaseControl,
 	__experimentalGrid as ExperimentalGrid,
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
+	SelectControl,
 	__stableGrid as StableGrid,
 	__stableToolsPanelItem as StableToolsPanelItem,
-	BaseControl,
-	SelectControl,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';

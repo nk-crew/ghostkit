@@ -181,6 +181,7 @@ export default (() => {
 	 * @param {string}   toUnit unit name
 	 */
 	function rippleRounded(ts, toUnit) {
+		// biome-ignore-start lint/suspicious/noFallthroughSwitchClause: each unit intentionally ripples up into the next one.
 		switch (toUnit) {
 			case 'seconds':
 				if (
@@ -242,6 +243,7 @@ export default (() => {
 				ts.months = 0;
 			// no default
 		}
+		// biome-ignore-end lint/suspicious/noFallthroughSwitchClause: each unit intentionally ripples up into the next one.
 	}
 
 	/**

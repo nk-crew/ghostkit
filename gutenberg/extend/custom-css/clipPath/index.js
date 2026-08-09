@@ -1,7 +1,7 @@
 import {
 	__experimentalToolsPanelItem as ExperimentalToolsPanelItem,
-	__stableToolsPanelItem as StableToolsPanelItem,
 	SelectControl,
+	__stableToolsPanelItem as StableToolsPanelItem,
 	TextareaControl,
 } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';

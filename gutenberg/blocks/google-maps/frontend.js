@@ -27,7 +27,7 @@ events.on(document, 'init.blocks.gkt', () => {
 
 			try {
 				styles = JSON.parse($this.getAttribute('data-styles'));
-			} catch (evt) {}
+			} catch (_evt) {}
 
 			const $markers = $this.querySelectorAll(
 				'.ghostkit-google-maps-marker'
@@ -54,7 +54,7 @@ events.on(document, 'init.blocks.gkt', () => {
 			} else if ($this.getAttribute('data-markers')) {
 				try {
 					markers = JSON.parse($this.getAttribute('data-markers'));
-				} catch (evt) {}
+				} catch (_evt) {}
 			}
 
 			InitGoogleMaps($this, {

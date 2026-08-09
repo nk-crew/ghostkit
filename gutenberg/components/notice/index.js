@@ -1,6 +1,5 @@
-import classnames from 'classnames/dedupe';
-
 import { Notice as WPNotice } from '@wordpress/components';
+import classnames from 'classnames/dedupe';
 
 /**
  * Component Class

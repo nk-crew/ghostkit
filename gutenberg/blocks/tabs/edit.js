@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	RichText,
 	useBlockProps,
@@ -10,6 +8,7 @@ import { Button, Tooltip } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import RemoveButton from '../../components/remove-button';
 import getUniqueSlug from '../../utils/get-unique-slug';
@@ -167,6 +166,7 @@ export default function BlockEdit(props) {
 						const tabName = `tab_button_${i}`;
 
 						return (
+							// biome-ignore lint/a11y/useFocusableInteractive: focus inside the editor belongs to the nested RichText, not to the tab wrapper.
 							<div
 								id={`${slug}-button`}
 								className={classnames(

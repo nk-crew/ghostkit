@@ -165,7 +165,7 @@ events.on(document, 'mousemove touchmove', (e) => {
 // Disable scroll mobile when touching the block.
 window.addEventListener(
 	'touchstart',
-	function (e) {
+	(e) => {
 		if (!$currentImageCompare) {
 			return;
 		}

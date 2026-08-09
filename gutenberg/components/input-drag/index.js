@@ -1,8 +1,7 @@
 import { useDrag } from '@use-gesture/react';
-import classnames from 'classnames/dedupe';
-
 import { TextControl } from '@wordpress/components';
 import { useRef, useState } from '@wordpress/element';
+import classnames from 'classnames/dedupe';
 
 const units = [
 	'px',
@@ -34,7 +33,7 @@ const numberOfDecimal = (number) =>
 		: 0;
 
 function fixRounding(value, precision) {
-	const power = Math.pow(10, precision || 0);
+	const power = 10 ** (precision || 0);
 	return Math.round(value * power) / power;
 }
 

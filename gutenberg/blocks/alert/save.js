@@ -3,6 +3,7 @@ import { applyFilters } from '@wordpress/hooks';
 
 import IconPicker from '../../components/icon-picker';
 import metadata from './block.json';
+
 const { name } = metadata;
 
 /**

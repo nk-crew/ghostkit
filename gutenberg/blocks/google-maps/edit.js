@@ -1,6 +1,3 @@
-import classnames from 'classnames/dedupe';
-import { debounce } from 'throttle-debounce';
-
 import apiFetch from '@wordpress/api-fetch';
 import {
 	BlockControls,
@@ -25,6 +22,8 @@ import {
 import { useEffect, useState } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
+import { debounce } from 'throttle-debounce';
 
 import DropdownPicker from '../../components/dropdown-picker';
 import ImagePicker from '../../components/image-picker';
@@ -49,7 +48,7 @@ function getStyles(string) {
 
 	try {
 		result = JSON.parse(maybeDecode(string));
-	} catch (e) {
+	} catch (_e) {
 		return [];
 	}
 

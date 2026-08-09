@@ -1,7 +1,6 @@
-import classnames from 'classnames/dedupe';
-
 import { Button } from '@wordpress/components';
 import { useState } from '@wordpress/element';
+import classnames from 'classnames/dedupe';
 
 import getIcon from '../../utils/get-icon';
 

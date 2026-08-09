@@ -1,10 +1,10 @@
-import classNames from 'classnames';
-
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
+import classNames from 'classnames';
 
 import IconPicker from '../../components/icon-picker';
 import metadata from './block.json';
+
 const { name } = metadata;
 
 /**

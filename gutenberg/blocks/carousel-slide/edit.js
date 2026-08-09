@@ -1,5 +1,3 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	InnerBlocks,
 	useBlockProps,
@@ -7,6 +5,7 @@ import {
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
+import classnames from 'classnames/dedupe';
 
 /**
  * Block Edit Class.

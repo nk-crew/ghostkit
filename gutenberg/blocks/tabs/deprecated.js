@@ -1,11 +1,10 @@
-import classnames from 'classnames/dedupe';
-
 import {
 	RichText,
 	useBlockProps,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
+import classnames from 'classnames/dedupe';
 
 import metadata from './block.json';
 

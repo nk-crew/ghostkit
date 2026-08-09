@@ -1,11 +1,10 @@
-import { throttle } from 'lodash';
-
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { subscribe, useSelect } from '@wordpress/data';
 import domReady from '@wordpress/dom-ready';
 import { PostPreviewButton } from '@wordpress/editor';
 import { createRoot } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { throttle } from 'lodash';
 
 import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';

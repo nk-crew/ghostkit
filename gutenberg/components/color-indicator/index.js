@@ -1,6 +1,5 @@
-import classnames from 'classnames/dedupe';
-
 import { ColorIndicator as WPColorIndicator } from '@wordpress/components';
+import classnames from 'classnames/dedupe';
 
 /**
  * Component Class

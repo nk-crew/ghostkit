@@ -1,6 +1,6 @@
+import { unregisterBlockType } from '@wordpress/blocks';
 import $ from 'jquery';
 
-import { unregisterBlockType } from '@wordpress/blocks';
 const {
 	GHOSTKIT,
 	_wpLoadBlockEditor: wpLoadBlockEditor,

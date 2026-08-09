@@ -8,15 +8,13 @@ const { events } = GHOSTKIT;
 
 class GhostKitFallbackClass {
 	constructor() {
-		const self = this;
-
-		self.deprecatedWarning = self.deprecatedWarning.bind(self);
-		self.initBlocks = self.deprecatedWarning.bind(self);
-		self.initBlocksThrottled = self.deprecatedWarning.bind(self);
-		self.prepareSR = self.deprecatedWarning.bind(self);
-		self.prepareCounters = self.deprecatedWarning.bind(self);
-		self.prepareNumberedLists = self.deprecatedWarning.bind(self);
-		self.prepareFallbackCustomStyles = self.deprecatedWarning.bind(self);
+		this.deprecatedWarning = this.deprecatedWarning.bind(this);
+		this.initBlocks = this.deprecatedWarning.bind(this);
+		this.initBlocksThrottled = this.deprecatedWarning.bind(this);
+		this.prepareSR = this.deprecatedWarning.bind(this);
+		this.prepareCounters = this.deprecatedWarning.bind(this);
+		this.prepareNumberedLists = this.deprecatedWarning.bind(this);
+		this.prepareFallbackCustomStyles = this.deprecatedWarning.bind(this);
 	}
 
 	deprecatedWarning() {

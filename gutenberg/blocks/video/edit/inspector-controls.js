@@ -262,7 +262,7 @@ export default function BlockInspectorControls(props) {
 						label={__('Preview', 'ghostkit')}
 						__nextHasNoMarginBottom
 					>
-						{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+						{/* biome-ignore lint/a11y/useMediaCaption: editor-only preview of the selected video, captions are not available here. */}
 						<video
 							controls
 							style={{

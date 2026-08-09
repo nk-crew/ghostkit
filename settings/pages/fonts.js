@@ -3,14 +3,13 @@
  */
 import './fonts.scss';
 
-import { merge } from 'lodash';
-
 import apiFetch from '@wordpress/api-fetch';
 import { ExternalLink } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { merge } from 'lodash';
 
 import ApplyFilters from '../../gutenberg/components/apply-filters';
 

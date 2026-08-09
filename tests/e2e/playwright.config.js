@@ -1,7 +1,7 @@
+import os from 'node:os';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, devices } from '@playwright/test';
-import os from 'os';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
 const STORAGE_STATE_PATH =
 	process.env.STORAGE_STATE_PATH ||
