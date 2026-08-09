@@ -84,6 +84,10 @@ npm run format:css  # Fix CSS code
    npm run test:unit   # Unit tests
    ```
 
+The main checkout is served on the usual 8888 (development) and 8889 (tests). A linked
+`git worktree` gets its own pair derived from its path, so several branches can run side by
+side; `npm run env:ports` prints where the current checkout is served.
+
 ## License
 
 This project is licensed under the GPL-2.0-or-later License - see the [LICENSE](LICENSE.txt) file for details.

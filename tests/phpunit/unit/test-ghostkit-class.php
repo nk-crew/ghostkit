@@ -41,7 +41,12 @@ class GhostkitTest extends WP_UnitTestCase {
 	 * Plugin Url test.
 	 */
 	public function test_plugin_url() {
-		$defined_url = 'http://localhost:8889/wp-content/plugins/var/www/html/wp-content/plugins/ghostkit/';
+		// The plugin is mounted at an absolute path that `plugin_basename()` cannot
+		// shorten to a slug in the test environment, so WordPress appends the whole
+		// path to the plugins URL. Build the expectation with `plugins_url()` rather
+		// than hardcoding a host: the port is derived per checkout and is not always
+		// the default one.
+		$defined_url = plugins_url( '/var/www/html/wp-content/plugins/ghostkit/' );
 		$plugin_url = ghostkit()->plugin_url;
 
 		$this->assertEquals( $defined_url, $plugin_url );
