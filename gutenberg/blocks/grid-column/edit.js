@@ -7,7 +7,7 @@ import {
 import { PanelBody, SelectControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
-import { __, sprintf } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import classnames from 'classnames/dedupe';
 
 import ApplyFilters from '../../components/apply-filters';
@@ -41,11 +41,9 @@ const getDefaultColumnSizes = () => {
 
 	for (let k = 1; k <= 12; k += 1) {
 		result.push({
-			// eslint-disable-next-line @wordpress/valid-sprintf
 			label: sprintf(
-				k === 1
-					? __('%d Column (%s)', 'ghostkit')
-					: __('%d Columns (%s)', 'ghostkit'),
+				// translators: %1$d: number of columns, %2$s: column width in percent.
+				_n('%1$d Column (%2$s)', '%1$d Columns (%2$s)', k, 'ghostkit'),
 				k,
 				`${Math.round(((100 * k) / 12) * 100) / 100}%`
 			),

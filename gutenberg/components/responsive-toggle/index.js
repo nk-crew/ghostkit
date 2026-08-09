@@ -71,6 +71,7 @@ export default function ResponsiveToggle(props) {
 						!name
 							? __('All devices', 'ghostkit')
 							: sprintf(
+									// translators: %s: breakpoint width in pixels, for example "768px".
 									__(
 										'Devices with screen width <= %s',
 										'ghostkit'

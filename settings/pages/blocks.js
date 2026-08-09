@@ -266,6 +266,7 @@ export default class Blocks extends Component {
 				categoryButton = (
 					<Tooltip
 						text={sprintf(
+							// translators: %s: number of disabled blocks in this category.
 							__('Disabled Blocks: %s', 'ghostkit'),
 							disabledCurrentCount
 						)}
@@ -298,7 +299,11 @@ export default class Blocks extends Component {
 					{count ? (
 						<div className="ghostkit-settings-blocks-items-head">
 							<span className="ghostkit-settings-blocks-items-head-count">
-								{sprintf(__('Blocks: %s', 'ghostkit'), count)}
+								{sprintf(
+									// translators: %s: number of blocks in the selected category.
+									__('Blocks: %s', 'ghostkit'),
+									count
+								)}
 							</span>
 							<Tooltip
 								text={
