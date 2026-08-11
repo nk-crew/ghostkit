@@ -61,7 +61,22 @@ async function mockLottieResponse(target) {
 	});
 }
 
-async function publishAndGetFrontendPage(page, editor) {
+/**
+ * Publishes the post and opens its frontend.
+ *
+ * `onPageReady` runs against the new page *before* it navigates. That ordering
+ * is the whole point: Playwright does not buffer `console` or `pageerror` for
+ * listeners attached later, and `goto` resolves on `load`, which already waited
+ * for the async plugin scripts to execute. A listener attached after this
+ * function returned could never see an error thrown during script evaluation --
+ * which is exactly the error these specs exist to catch.
+ *
+ * @param {Object}   page        Playwright page holding the editor.
+ * @param {Object}   editor      Block editor utils.
+ * @param {Function} onPageReady Called with the frontend page before it loads.
+ * @return {Object} The frontend page.
+ */
+async function publishAndGetFrontendPage(page, editor, onPageReady) {
 	await editor.publishPost();
 
 	const viewPageButton = page
@@ -74,14 +89,17 @@ async function publishAndGetFrontendPage(page, editor) {
 
 	if (href) {
 		const frontendPage = await page.context().newPage();
+		onPageReady?.(frontendPage);
+		// No `waitForLoadState('domcontentloaded')` after this: `goto` resolves
+		// on `load`, which is strictly later, so the wait was a no-op.
 		await frontendPage.goto(href);
-		await frontendPage.waitForLoadState('domcontentloaded');
 		return frontendPage;
 	}
 
 	const popupPromise = page.waitForEvent('popup', { timeout: 3000 });
 	await viewPageButton.click();
 	const popupPage = await popupPromise;
+	onPageReady?.(popupPage);
 	await popupPage.waitForLoadState('domcontentloaded');
 
 	return popupPage;
@@ -164,8 +182,18 @@ test.describe('lottie block', () => {
 			},
 		});
 
-		const frontendPage = await publishAndGetFrontendPage(page, editor);
-		const runtimeErrors = trackRuntimeErrors(frontendPage);
+		// Attached through the callback so the listeners exist before the page
+		// navigates. Attaching them to the returned page, as this did, meant the
+		// script had already run and any error was long gone -- `runtimeErrors`
+		// was always empty and the assertion below could not fail.
+		let runtimeErrors = [];
+		const frontendPage = await publishAndGetFrontendPage(
+			page,
+			editor,
+			(frontend) => {
+				runtimeErrors = trackRuntimeErrors(frontend);
+			}
+		);
 
 		await expect(
 			frontendPage.locator('lottie-player').first()
