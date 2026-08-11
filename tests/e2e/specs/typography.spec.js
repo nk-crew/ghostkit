@@ -56,10 +56,24 @@ test.describe('typography', () => {
 
 		await fontInput.fill(font);
 
+		// Wait for the save, not for a guess at how long it takes. The settings
+		// page debounces by exactly 1000ms and then fires the POST without
+		// awaiting it, so `waitForTimeout(1000)` expired as the request was
+		// being issued -- and the `page` fixture closes the page at teardown,
+		// discarding anything still in flight. When it lost that race the
+		// symptom appeared in a later test, as a font mismatch.
+		//
+		// Registered before the keypress: the response is a second away, but the
+		// listener still has to exist before the thing that triggers it.
+		const saved = page.waitForResponse(
+			(response) =>
+				response.url().includes('update_custom_typography') &&
+				response.request().method() === 'POST'
+		);
+
 		await fontInput.press('Enter');
 
-		// Just wait 1 second for the selected font to be saved in the database after selection.
-		await page.waitForTimeout(1000);
+		await saved;
 
 		return wrapper;
 	}
