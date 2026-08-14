@@ -33,6 +33,21 @@ import {
 
 const DEFAULT_SIZE_SLUG = 'full';
 
+/**
+ * The no-cookie host only exists for YouTube, so the toggle is offered only once the URL is one.
+ * VideoWorker owns the URL parsing; without it loaded we simply do not offer the toggle.
+ *
+ * @param {string} url - video URL.
+ * @return {boolean}
+ */
+function isYoutubeUrl(url) {
+	if (!url || typeof window.VideoWorker === 'undefined') {
+		return false;
+	}
+
+	return !!window.VideoWorker.providers.Youtube.parseURL(url);
+}
+
 export default function BlockInspectorControls(props) {
 	const { attributes, setAttributes, isSelected } = props;
 
@@ -44,6 +59,7 @@ export default function BlockInspectorControls(props) {
 		videoWebm,
 		videoAspectRatio,
 		videoVolume,
+		videoYoutubeNoCookie,
 		videoAutoplay,
 		videoAutopause,
 		videoLoop,
@@ -179,6 +195,21 @@ export default function BlockInspectorControls(props) {
 						value={video}
 						onChange={(value) => setAttributes({ video: value })}
 						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					/>
+				)}
+
+				{type === 'yt_vm_video' && isYoutubeUrl(video) && (
+					<ToggleControl
+						label={__('Privacy-Enhanced Mode', 'ghostkit')}
+						help={__(
+							'Load the video from youtube-nocookie.com. YouTube stores no cookies until playback starts, but some visitors are asked to sign in before the video plays.',
+							'ghostkit'
+						)}
+						checked={!!videoYoutubeNoCookie}
+						onChange={(value) =>
+							setAttributes({ videoYoutubeNoCookie: value })
+						}
 						__nextHasNoMarginBottom
 					/>
 				)}

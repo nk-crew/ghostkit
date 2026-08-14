@@ -54,6 +54,10 @@
 			"type": "number",
 			"default": 100
 		},
+		"videoYoutubeNoCookie": {
+			"type": "boolean",
+			"default": false
+		},
 		"videoAutoplay": {
 			"type": "boolean",
 			"default": false

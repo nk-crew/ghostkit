@@ -96,6 +96,11 @@ events.on(document, 'init.blocks.gkt', () => {
 				showContols: 1,
 			};
 
+			// Opt-in privacy-enhanced host. Left unset, VideoWorker keeps its own default.
+			if ($this.getAttribute('data-video-youtube-no-cookie') === 'true') {
+				options.youtubeHost = 'https://www.youtube-nocookie.com';
+			}
+
 			events.trigger($this, 'prepare.videoWorker.gkt', { options });
 
 			const api = new window.VideoWorker(url, options);

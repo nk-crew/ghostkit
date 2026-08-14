@@ -23,6 +23,7 @@ export default function BlockSave(props) {
 		videoWebm,
 		videoAspectRatio,
 		videoVolume,
+		videoYoutubeNoCookie,
 		videoAutoplay,
 		videoAutopause,
 		videoLoop,
@@ -82,6 +83,10 @@ export default function BlockSave(props) {
 	resultAttrs['data-video-aspect-ratio'] = videoAspectRatio;
 	resultAttrs['data-video-volume'] = videoVolume;
 	resultAttrs['data-click-action'] = clickAction;
+
+	if (videoYoutubeNoCookie) {
+		resultAttrs['data-video-youtube-no-cookie'] = 'true';
+	}
 
 	if (clickAction === 'fullscreen') {
 		resultAttrs['data-fullscreen-video-background-color'] =
