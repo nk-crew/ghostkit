@@ -386,8 +386,8 @@ class GhostKit_Assets {
 
 		// Jarallax.
 		if ( apply_filters( 'gkt_enqueue_plugin_jarallax', true ) ) {
-			self::register_script( 'jarallax', 'assets/vendor/jarallax/dist/jarallax.min', array(), '2.0.1' );
-			self::register_script( 'jarallax-video', 'assets/vendor/jarallax/dist/jarallax-video.min', array( 'jarallax' ), '2.0.1' );
+			self::register_script( 'jarallax', 'assets/vendor/jarallax/dist/jarallax.min', array(), '3.1.0' );
+			self::register_script( 'jarallax-video', 'assets/vendor/jarallax/dist/jarallax-video.min', array( 'jarallax' ), '3.1.0' );
 		}
 
 		// Swiper.
