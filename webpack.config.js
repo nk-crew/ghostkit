@@ -8,7 +8,7 @@ const RtlCssPlugin = require('rtlcss-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-const { getWordPressSrcDirectory } = require('@wordpress/scripts/utils');
+const { getProjectSourcePath } = require('@wordpress/scripts/utils');
 
 const vendorFiles = [
 	{
@@ -161,7 +161,7 @@ const newConfig = {
 			patterns: [
 				{
 					from: '**/block.json',
-					context: getWordPressSrcDirectory(),
+					context: getProjectSourcePath(),
 					noErrorOnMissing: true,
 					transform(content, absoluteFrom) {
 						const convertExtension = (p) => {
