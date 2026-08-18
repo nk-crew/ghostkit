@@ -1,6 +1,6 @@
 {
 	"require-dev": {
-		"wp-coding-standards/wpcs": "^2.3",
+		"wp-coding-standards/wpcs": "^3.4",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"wp-cli/i18n-command": "^2.4",
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
