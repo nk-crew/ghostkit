@@ -21,3 +21,7 @@ yarn-error.log*
 .spec/
 .phpcs.xml
 phpcs.xml
+
+# Per-checkout worktrees and dev launch config (see .claude/worktree.json)
+.claude/worktrees/
+.claude/launch.json
