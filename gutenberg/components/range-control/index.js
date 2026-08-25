@@ -34,15 +34,12 @@ export default function CustomRangeControl({
 				id={label}
 				label={label}
 				className="ghostkit-component-range-control"
-				__nextHasNoMarginBottom
 			>
 				<RangeControl
 					{...props}
 					min={min}
 					max={max}
 					withInputField={false}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 				<TextControl
 					type="number"
@@ -61,21 +58,10 @@ export default function CustomRangeControl({
 							props.onChange(result);
 						}
 					}}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 			</BaseControl>
 		);
 	}
 
-	return (
-		<RangeControl
-			{...props}
-			label={label}
-			min={min}
-			max={max}
-			__next40pxDefaultSize
-			__nextHasNoMarginBottom
-		/>
-	);
+	return <RangeControl {...props} label={label} min={min} max={max} />;
 }

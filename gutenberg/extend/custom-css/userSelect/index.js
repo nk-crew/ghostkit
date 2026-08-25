@@ -64,8 +64,6 @@ function CustomCSSUserSelectTools(props) {
 						label: __('Auto', 'ghostkit'),
 					},
 				]}
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
 			/>
 		</ToolsPanelItem>
 	);

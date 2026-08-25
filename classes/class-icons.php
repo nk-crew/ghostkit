@@ -18,7 +18,24 @@ class GhostKit_Icons_List {
 
         // enqueue icons
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_all_icons_assets' ), 12 );
-        add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_all_icons_assets' ), 12 );
+        add_action( 'enqueue_block_assets', array( $this, 'enqueue_editor_icons_assets' ), 12 );
+    }
+
+    /**
+     * Enqueue editor assets.
+     *
+     * Icons are rendered inside the block editor canvas, which is always iframed since
+     * WordPress 7.1. `enqueue_block_assets` is the only hook whose output core copies into
+     * that iframe, so icon packs have to be enqueued from there rather than from
+     * `enqueue_block_editor_assets` (which stays outside the canvas).
+     */
+    public function enqueue_editor_icons_assets() {
+        // The frontend is already covered by the `wp_enqueue_scripts` hook above.
+        if ( ! is_admin() ) {
+            return;
+        }
+
+        $this->enqueue_all_icons_assets();
     }
 
     /**

@@ -24,8 +24,6 @@ export default function EditInspectorControls({ attributes, setAttributes }) {
 					onChange={(val) => {
 						setAttributes({ trigger: val });
 					}}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 				<ToggleControl
 					label={__('Vertical Tabs', 'ghostkit')}
@@ -37,7 +35,6 @@ export default function EditInspectorControls({ attributes, setAttributes }) {
 							setAttributes({ buttonsAlign: 'start' });
 						}
 					}}
-					__nextHasNoMarginBottom
 				/>
 			</PanelBody>
 		</InspectorControls>

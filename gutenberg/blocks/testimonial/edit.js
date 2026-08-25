@@ -182,7 +182,6 @@ export default function BlockEdit(props) {
 											'Click the image to edit or update',
 											'ghostkit'
 										)}
-										__nextHasNoMarginBottom
 									>
 										{/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
 										<a
@@ -236,8 +235,6 @@ export default function BlockEdit(props) {
 											label: imgSize.name,
 										})
 									)}
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
 								/>
 							) : null}
 							<TextareaControl
@@ -260,7 +257,6 @@ export default function BlockEdit(props) {
 										)}
 									</>
 								}
-								__nextHasNoMarginBottom
 							/>
 						</>
 					) : null}
@@ -274,8 +270,6 @@ export default function BlockEdit(props) {
 						beforeIcon="star-filled"
 						allowReset
 						onChange={(value) => setAttributes({ stars: value })}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					{typeof stars === 'number' ? (
 						<IconPicker

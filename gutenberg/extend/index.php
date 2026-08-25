@@ -46,7 +46,7 @@ class GhostKit_Extensions {
 	public static function init() {
 		add_action(
 			'init',
-			function() {
+			function () {
 				// Register the block support.
 				WP_Block_Supports::get_instance()->register(
 					'ghostkit',

@@ -34,7 +34,7 @@ class GhostKit_Widgetized_Area_Block {
 	 */
 	public function init() {
 		register_block_type_from_metadata(
-			dirname( __FILE__ ),
+			__DIR__,
 			array(
 				'render_callback' => array( $this, 'block_render' ),
 			)
@@ -60,7 +60,7 @@ class GhostKit_Widgetized_Area_Block {
 		$class  = isset( $attributes['className'] ) ? $attributes['className'] : '';
 		$class .= ' ghostkit-widgetized-area';
 
-		if ( $attributes['id'] ) {
+		if ( ! empty( $attributes['id'] ) ) {
 			echo '<div class="' . esc_attr( $class ) . '">';
 				dynamic_sidebar( $attributes['id'] );
 			echo '</div>';

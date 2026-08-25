@@ -34,7 +34,6 @@ export default function BlockEdit(props) {
 			label={__('Default', 'ghostkit')}
 			value={defaultVal}
 			onChange={(val) => setAttributes({ default: val })}
-			__nextHasNoMarginBottom
 		/>
 	);
 
@@ -52,10 +51,7 @@ export default function BlockEdit(props) {
 			</InspectorControls>
 			<div {...blockProps}>
 				<FieldLabel {...props} />
-				<TextareaControl
-					__nextHasNoMarginBottom
-					{...getFieldAttributes(attributes)}
-				/>
+				<TextareaControl {...getFieldAttributes(attributes)} />
 				<FieldDescription {...props} />
 			</div>
 		</>

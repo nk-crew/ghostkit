@@ -63,11 +63,7 @@ function CustomCSSOverflowTools(props) {
 			}}
 			isShownByDefault={false}
 		>
-			<BaseControl
-				id={baseControlLabel}
-				label={baseControlLabel}
-				__nextHasNoMarginBottom
-			>
+			<BaseControl id={baseControlLabel} label={baseControlLabel}>
 				<Grid columns={2}>
 					<SelectControl
 						help={__('X', 'ghostkit')}
@@ -97,8 +93,6 @@ function CustomCSSOverflowTools(props) {
 								label: __('Auto', 'ghostkit'),
 							},
 						]}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<SelectControl
 						help={__('Y', 'ghostkit')}
@@ -128,8 +122,6 @@ function CustomCSSOverflowTools(props) {
 								label: __('Auto', 'ghostkit'),
 							},
 						]}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 				</Grid>
 			</BaseControl>

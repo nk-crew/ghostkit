@@ -29,7 +29,7 @@ class GhostKit_Parse_Blocks {
 	public static function init() {
 		add_action(
 			'wp',
-			function() {
+			function () {
 				// Parse methods [classic,modern].
 				$parse_methods = apply_filters( 'gkt_parse_blocks_methods', current_theme_supports( 'block-templates' ) ? array( 'modern' ) : array( 'classic' ) );
 

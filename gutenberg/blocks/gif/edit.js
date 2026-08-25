@@ -179,8 +179,6 @@ export default function BlockEdit(props) {
 					)}
 					onChange={(val) => setAttributes({ searchText: val })}
 					value={searchText}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 				<Button
 					variant="secondary"
@@ -255,7 +253,6 @@ export default function BlockEdit(props) {
 									)}
 								</>
 							}
-							__nextHasNoMarginBottom
 						/>
 					</PanelBody>
 				) : null}

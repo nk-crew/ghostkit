@@ -101,7 +101,7 @@ export default function TransitionSelector(props) {
 	}
 
 	return (
-		<BaseControl id={label} label={label} __nextHasNoMarginBottom>
+		<BaseControl id={label} label={label}>
 			<DropdownPicker
 				label={buttonLabel}
 				className="ghostkit-component-transition-selector"

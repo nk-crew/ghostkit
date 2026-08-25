@@ -1331,7 +1331,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 			array_unique(
 				array_filter(
 					array_map( 'absint', $allowed_headers ),
-					static function( $level ) {
+					static function ( $level ) {
 						return $level >= 1 && $level <= 6;
 					}
 				)
@@ -1386,7 +1386,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 
 		$numbered_items[ $current_depth ] = 0;
 		$numbered_items_min               = $current_depth;
-		for ( $i = 0; $i < $count; $i ++ ) {
+		for ( $i = 0; $i < $count; $i++ ) {
 			if ( $current_depth === (int) $headings[ $i ]['level'] ) {
 				$html .= '<li>';
 			}

@@ -176,8 +176,6 @@ export default function BlockEdit(props) {
 								});
 							}}
 							options={getDefaultColumnSizes()}
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
 						/>
 						<SelectControl
 							label={
@@ -199,8 +197,6 @@ export default function BlockEdit(props) {
 								});
 							}}
 							options={getDefaultColumnOrders()}
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
 						/>
 						<ToggleGroup
 							label={
@@ -267,8 +263,6 @@ export default function BlockEdit(props) {
 								setAttributes({ stickyContentOffset: value })
 							}
 							allowCustomMax
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
 						/>
 					) : null}
 				</PanelBody>

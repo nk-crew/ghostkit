@@ -306,7 +306,6 @@ class Customizer extends Component {
 											label={opt.label || opt.id}
 											id={opt.id}
 											className="ghostkit-customizer-list-field"
-											__nextHasNoMarginBottom
 										>
 											<ColorPalette
 												value={opt.value}
@@ -345,8 +344,6 @@ class Customizer extends Component {
 												this.updateOptions(value, opt);
 											}}
 											className="ghostkit-customizer-list-field"
-											__next40pxDefaultSize
-											__nextHasNoMarginBottom
 											{...sliderAttrs}
 										/>
 									);
@@ -364,7 +361,6 @@ class Customizer extends Component {
 												);
 											}}
 											className="ghostkit-customizer-list-field"
-											__nextHasNoMarginBottom
 										/>
 									);
 									break;
@@ -377,7 +373,6 @@ class Customizer extends Component {
 												this.updateOptions(value, opt);
 											}}
 											className="ghostkit-customizer-list-field"
-											__nextHasNoMarginBottom
 										/>
 									);
 									break;
@@ -398,8 +393,6 @@ class Customizer extends Component {
 													);
 												}}
 												className="ghostkit-customizer-list-field"
-												__next40pxDefaultSize
-												__nextHasNoMarginBottom
 											/>
 										);
 									} else {
@@ -414,8 +407,6 @@ class Customizer extends Component {
 													);
 												}}
 												className="ghostkit-customizer-list-field"
-												__next40pxDefaultSize
-												__nextHasNoMarginBottom
 											/>
 										);
 									}

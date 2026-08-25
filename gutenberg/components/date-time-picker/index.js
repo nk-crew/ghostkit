@@ -28,7 +28,6 @@ export default function DateTimePicker(props) {
 			id={label}
 			label={label}
 			className="ghostkit-components-date-time-picker"
-			__nextHasNoMarginBottom
 		>
 			<div>
 				<Button isLink onClick={() => setIsPickerOpen(!isPickerOpen)}>

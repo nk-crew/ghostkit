@@ -30,8 +30,6 @@ export default function EditInspectorControls({ attributes, setAttributes }) {
 					labelPosition="edge"
 					min={0}
 					__unstableInputWidth="70px"
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 			</PanelBody>
 		</InspectorControls>

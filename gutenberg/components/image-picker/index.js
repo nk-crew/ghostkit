@@ -17,7 +17,6 @@ export default function ImagePicker(props) {
 				'ghostkit-component-image-picker',
 				`ghostkit-component-image-picker-${itemsPerRow}`
 			)}
-			__nextHasNoMarginBottom
 		>
 			{options.map((option) => (
 				<button

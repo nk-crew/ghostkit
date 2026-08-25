@@ -113,7 +113,7 @@ class GhostKit_Form_Block {
 		);
 
 		register_block_type_from_metadata(
-			dirname( __FILE__ ),
+			__DIR__,
 			array(
 				'render_callback' => array( $this, 'block_render' ),
 				'attributes'      => array(
@@ -466,11 +466,11 @@ class GhostKit_Form_Block {
 	/**
 	 * Template string with POST data.
 	 *
-	 * @param string $string - string for template.
+	 * @param string $template - string for template.
 	 *
 	 * @return string
 	 */
-	public function template( $string ) {
+	public function template( $template ) {
 		$all_fields = '';
 
         // phpcs:ignore
@@ -496,7 +496,7 @@ class GhostKit_Form_Block {
 					}
 				}
 
-				$string = str_replace( "{{$name}}", $sanitized_val, $string );
+				$template = str_replace( "{{$name}}", $sanitized_val, $template );
 
 				$all_fields .= '
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="field-row"><tbody>
@@ -507,9 +507,9 @@ class GhostKit_Form_Block {
 			}
 		}
 
-		$string = str_replace( '{all_fields}', $all_fields, $string );
+		$template = str_replace( '{all_fields}', $all_fields, $template );
 
-		return $string;
+		return $template;
 	}
 
 	/**

@@ -300,14 +300,13 @@ export default function BlockEdit(props) {
 		<div {...blockProps}>
 			<InspectorControls>
 				<PanelBody>
-					<BaseControl __nextHasNoMarginBottom>
+					<BaseControl>
 						<ToggleControl
 							label={__('Show Popular Badge', 'ghostkit')}
 							checked={!!showPopular}
 							onChange={(value) =>
 								setAttributes({ showPopular: value })
 							}
-							__nextHasNoMarginBottom
 						/>
 						<ToggleControl
 							label={__('Show Title', 'ghostkit')}
@@ -315,7 +314,6 @@ export default function BlockEdit(props) {
 							onChange={(value) =>
 								setAttributes({ showTitle: value })
 							}
-							__nextHasNoMarginBottom
 						/>
 						<ToggleControl
 							label={__('Show Price', 'ghostkit')}
@@ -323,7 +321,6 @@ export default function BlockEdit(props) {
 							onChange={(value) =>
 								setAttributes({ showPrice: value })
 							}
-							__nextHasNoMarginBottom
 						/>
 						{showPrice ? (
 							<>
@@ -338,7 +335,6 @@ export default function BlockEdit(props) {
 											showPriceCurrency: value,
 										})
 									}
-									__nextHasNoMarginBottom
 								/>
 								<ToggleControl
 									label={__('Show Price Repeat', 'ghostkit')}
@@ -348,7 +344,6 @@ export default function BlockEdit(props) {
 											showPriceRepeat: value,
 										})
 									}
-									__nextHasNoMarginBottom
 								/>
 							</>
 						) : null}
@@ -358,7 +353,6 @@ export default function BlockEdit(props) {
 							onChange={(value) =>
 								setAttributes({ showDescription: value })
 							}
-							__nextHasNoMarginBottom
 						/>
 						<ToggleControl
 							label={__('Show Features', 'ghostkit')}
@@ -366,7 +360,6 @@ export default function BlockEdit(props) {
 							onChange={(value) =>
 								setAttributes({ showFeatures: value })
 							}
-							__nextHasNoMarginBottom
 						/>
 						<ToggleControl
 							label={__('Show Button', 'ghostkit')}
@@ -374,7 +367,6 @@ export default function BlockEdit(props) {
 							onChange={(value) =>
 								setAttributes({ showButton: value })
 							}
-							__nextHasNoMarginBottom
 						/>
 					</BaseControl>
 				</PanelBody>

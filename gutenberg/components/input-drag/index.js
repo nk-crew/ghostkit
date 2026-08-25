@@ -200,8 +200,6 @@ export default function InputDrag(props) {
 				}}
 				className="ghostkit-component-input-drag"
 				autoComplete={autoComplete}
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
 			/>
 		</div>
 	);

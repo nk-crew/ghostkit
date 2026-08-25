@@ -25,7 +25,7 @@ class GhostKit_Form_Field_Number_Block {
 	 */
 	public function init() {
 		register_block_type_from_metadata(
-			dirname( __FILE__ ),
+			__DIR__,
 			array(
 				'render_callback' => array( $this, 'block_render' ),
 				'attributes'      => GhostKit_Form_Field_Attributes::get_block_attributes(

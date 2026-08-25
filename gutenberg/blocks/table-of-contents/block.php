@@ -48,7 +48,7 @@ class GhostKit_TOC_Block {
 	 */
 	public function init() {
 		register_block_type_from_metadata(
-			dirname( __FILE__ ),
+			__DIR__,
 			array(
 				'render_callback' => array( $this, 'block_render' ),
 			)
@@ -82,7 +82,10 @@ class GhostKit_TOC_Block {
 		);
 
 		preg_match_all( '/(<h([1-6]{1})[^>]*>)(.*)<\/h\2>/msuU', $html, $matches, PREG_SET_ORDER );
-		preg_match( '/id=(["\'])(.*?)\1[\s>]/si', $matches[0][1], $matched_ids );
+
+		if ( isset( $matches[0][1] ) ) {
+			preg_match( '/id=(["\'])(.*?)\1[\s>]/si', $matches[0][1], $matched_ids );
+		}
 
 		$content = isset( $matches[0][3] ) ? wp_strip_all_tags( $matches[0][3] ) : '';
 		$id      = isset( $matched_ids[2] ) ? $matched_ids[2] : '';

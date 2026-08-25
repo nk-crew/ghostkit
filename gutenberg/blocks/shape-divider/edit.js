@@ -278,8 +278,6 @@ export default function BlockEdit(props) {
 						min={1}
 						max={700}
 						allowCustomMax
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<RangeControl
 						label={
@@ -310,8 +308,6 @@ export default function BlockEdit(props) {
 						max={400}
 						allowCustomMin
 						allowCustomMax
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 				<PanelBody>

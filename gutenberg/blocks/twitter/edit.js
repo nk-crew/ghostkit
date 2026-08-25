@@ -112,8 +112,6 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ userName: value })
 								}
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
 							/>
 						</PanelBody>
 						<PanelBody title={__('Feed', 'ghostkit')}>
@@ -125,8 +123,6 @@ export default function BlockEdit(props) {
 								}
 								min={1}
 								max={20}
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
 							/>
 							<ToggleControl
 								label={__('Show Replies', 'ghostkit')}
@@ -134,7 +130,6 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ showReplies: value })
 								}
-								__nextHasNoMarginBottom
 							/>
 							<ToggleControl
 								label={__('Show Retweets', 'ghostkit')}
@@ -142,7 +137,6 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ showRetweets: value })
 								}
-								__nextHasNoMarginBottom
 							/>
 							<ToggleControl
 								label={__('Show Avatar', 'ghostkit')}
@@ -150,7 +144,6 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ showFeedAvatar: value })
 								}
-								__nextHasNoMarginBottom
 							/>
 							{showFeedAvatar ? (
 								<RangeControl
@@ -163,8 +156,6 @@ export default function BlockEdit(props) {
 									max={100}
 									allowCustomMin
 									allowCustomMax
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
 								/>
 							) : null}
 							<ToggleControl
@@ -173,7 +164,6 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ showFeedName: value })
 								}
-								__nextHasNoMarginBottom
 							/>
 							<ToggleControl
 								label={__('Show Date', 'ghostkit')}
@@ -181,7 +171,6 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ showFeedDate: value })
 								}
-								__nextHasNoMarginBottom
 							/>
 							<ToggleControl
 								label={__('Show Actions', 'ghostkit')}
@@ -189,7 +178,6 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ showFeedActions: value })
 								}
-								__nextHasNoMarginBottom
 							/>
 							<SelectControl
 								label={__('Text Mode', 'ghostkit')}
@@ -207,8 +195,6 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ feedTextMode: value })
 								}
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
 							/>
 							<SelectControl
 								label={__('Convert Text Links', 'ghostkit')}
@@ -232,8 +218,6 @@ export default function BlockEdit(props) {
 										feedTextConvertLinks: value,
 									})
 								}
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
 							/>
 						</PanelBody>
 						<PanelBody title={__('Profile', 'ghostkit')}>
@@ -243,7 +227,6 @@ export default function BlockEdit(props) {
 								onChange={(value) =>
 									setAttributes({ showProfile: value })
 								}
-								__nextHasNoMarginBottom
 							/>
 							{showProfile ? (
 								<>
@@ -255,7 +238,6 @@ export default function BlockEdit(props) {
 												showProfileAvatar: value,
 											})
 										}
-										__nextHasNoMarginBottom
 									/>
 									{showProfileAvatar ? (
 										<RangeControl
@@ -273,8 +255,6 @@ export default function BlockEdit(props) {
 											max={150}
 											allowCustomMin
 											allowCustomMax
-											__next40pxDefaultSize
-											__nextHasNoMarginBottom
 										/>
 									) : null}
 									<ToggleControl
@@ -285,7 +265,6 @@ export default function BlockEdit(props) {
 												showProfileName: value,
 											})
 										}
-										__nextHasNoMarginBottom
 									/>
 									<ToggleControl
 										label={__('Show Stats', 'ghostkit')}
@@ -295,7 +274,6 @@ export default function BlockEdit(props) {
 												showProfileStats: value,
 											})
 										}
-										__nextHasNoMarginBottom
 									/>
 									<ToggleControl
 										label={__(
@@ -308,7 +286,6 @@ export default function BlockEdit(props) {
 												showProfileDescription: value,
 											})
 										}
-										__nextHasNoMarginBottom
 									/>
 									<ToggleControl
 										label={__('Show Website', 'ghostkit')}
@@ -318,7 +295,6 @@ export default function BlockEdit(props) {
 												showProfileWebsite: value,
 											})
 										}
-										__nextHasNoMarginBottom
 									/>
 									<ToggleControl
 										label={__('Show Location', 'ghostkit')}
@@ -328,7 +304,6 @@ export default function BlockEdit(props) {
 												showProfileLocation: value,
 											})
 										}
-										__nextHasNoMarginBottom
 									/>
 								</>
 							) : null}
@@ -346,8 +321,6 @@ export default function BlockEdit(props) {
 						onChange={(value) =>
 							setAttributes({ consumerKey: value })
 						}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<TextControl
 						placeholder={__('Consumer Secret', 'ghostkit')}
@@ -355,8 +328,6 @@ export default function BlockEdit(props) {
 						onChange={(value) =>
 							setAttributes({ consumerSecret: value })
 						}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<TextControl
 						placeholder={__('Access Token', 'ghostkit')}
@@ -364,8 +335,6 @@ export default function BlockEdit(props) {
 						onChange={(value) =>
 							setAttributes({ accessToken: value })
 						}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<TextControl
 						placeholder={__('Access Token Secret', 'ghostkit')}
@@ -373,8 +342,6 @@ export default function BlockEdit(props) {
 						onChange={(value) =>
 							setAttributes({ accessTokenSecret: value })
 						}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<p>
 						<em>

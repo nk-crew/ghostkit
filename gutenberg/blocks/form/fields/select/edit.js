@@ -90,7 +90,6 @@ export default function BlockEdit(props) {
 								setAttributes({ multiple: !multiple });
 							}
 						}}
-						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -134,8 +133,6 @@ export default function BlockEdit(props) {
 
 							return options;
 						})()}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 				)}
 

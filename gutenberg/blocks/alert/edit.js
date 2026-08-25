@@ -133,8 +133,6 @@ export default function BlockEdit(props) {
 							afterIcon="editor-textcolor"
 							allowCustomMin
 							allowCustomMax
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
 						/>
 					) : null}
 				</PanelBody>
@@ -143,7 +141,6 @@ export default function BlockEdit(props) {
 						label={__('Dismiss button', 'ghostkit')}
 						checked={!!hideButton}
 						onChange={(val) => setAttributes({ hideButton: val })}
-						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 				<PanelBody
