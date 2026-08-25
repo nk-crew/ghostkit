@@ -60,7 +60,7 @@ class GhostKit_Widgetized_Area_Block {
 		$class  = isset( $attributes['className'] ) ? $attributes['className'] : '';
 		$class .= ' ghostkit-widgetized-area';
 
-		if ( $attributes['id'] ) {
+		if ( ! empty( $attributes['id'] ) ) {
 			echo '<div class="' . esc_attr( $class ) . '">';
 				dynamic_sidebar( $attributes['id'] );
 			echo '</div>';

@@ -141,10 +141,8 @@ class ColorPaletteModal extends Component {
 												updateColorPalette(newColors);
 											}}
 											style={{ marginTop: 0 }}
-											__next40pxDefaultSize
-											__nextHasNoMarginBottom
 										/>
-										<BaseControl __nextHasNoMarginBottom>
+										<BaseControl>
 											<Button
 												onClick={() => {
 													if (

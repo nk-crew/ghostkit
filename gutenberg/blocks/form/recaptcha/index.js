@@ -44,8 +44,6 @@ export default function BlockSettings() {
 					setApiSiteKey(value);
 					saveAPIKeys(value, apiSecretKey);
 				}}
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
 			/>
 			<TextControl
 				label={__('Secret Key', 'ghostkit')}
@@ -54,8 +52,6 @@ export default function BlockSettings() {
 					setApiSecretKey(value);
 					saveAPIKeys(apiSiteKey, value);
 				}}
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
 			/>
 			<p>
 				{__(

@@ -51,8 +51,6 @@ export default function BlockEdit(props) {
 
 						return sidebars;
 					})()}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 			</Placeholder>
 		</div>

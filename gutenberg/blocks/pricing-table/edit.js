@@ -132,7 +132,6 @@ export default function BlockEdit(props) {
 					<BaseControl
 						id={__('Vertical align', 'ghostkit')}
 						label={__('Vertical align', 'ghostkit')}
-						__nextHasNoMarginBottom
 					>
 						<div>
 							<Toolbar label={__('Vertical align', 'ghostkit')}>
@@ -174,7 +173,6 @@ export default function BlockEdit(props) {
 					<BaseControl
 						id={__('Horizontal align', 'ghostkit')}
 						label={__('Horizontal align', 'ghostkit')}
-						__nextHasNoMarginBottom
 					>
 						<div>
 							<AlignmentToolbar

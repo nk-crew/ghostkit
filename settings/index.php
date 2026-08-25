@@ -69,11 +69,17 @@ class GhostKit_Settings {
 			'after'
 		);
 
+		// The settings page is not a block editor screen, but it boots the block editor
+		// scripts, so callbacks that check this flag have to see the editor context.
+		add_filter( 'should_load_block_editor_scripts_and_styles', '__return_true' );
+
         // phpcs:ignore
         do_action( 'enqueue_block_editor_assets' );
 
         // phpcs:ignore
         do_action( 'enqueue_block_assets' );
+
+		remove_filter( 'should_load_block_editor_scripts_and_styles', '__return_true' );
 
 		// Ghost Kit Settings.
 		GhostKit_Assets::enqueue_script(

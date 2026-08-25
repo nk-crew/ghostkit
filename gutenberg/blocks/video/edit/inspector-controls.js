@@ -194,8 +194,6 @@ export default function BlockInspectorControls(props) {
 						type="url"
 						value={video}
 						onChange={(value) => setAttributes({ video: value })}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 				)}
 
@@ -210,7 +208,6 @@ export default function BlockInspectorControls(props) {
 						onChange={(value) =>
 							setAttributes({ videoYoutubeNoCookie: value })
 						}
-						__nextHasNoMarginBottom
 					/>
 				)}
 
@@ -219,7 +216,6 @@ export default function BlockInspectorControls(props) {
 					<BaseControl
 						id={__('Select Video', 'ghostkit')}
 						label={__('Select Video', 'ghostkit')}
-						__nextHasNoMarginBottom
 					>
 						<div style={{ display: 'flex', gap: '10px' }}>
 							{!videoMp4 && (
@@ -291,7 +287,6 @@ export default function BlockInspectorControls(props) {
 					<BaseControl
 						id={__('Preview', 'ghostkit')}
 						label={__('Preview', 'ghostkit')}
-						__nextHasNoMarginBottom
 					>
 						{/* biome-ignore lint/a11y/useMediaCaption: editor-only preview of the selected video, captions are not available here. */}
 						<video
@@ -353,8 +348,6 @@ export default function BlockInspectorControls(props) {
 					min={0}
 					max={100}
 					onChange={(val) => setAttributes({ videoVolume: val })}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 
 				{/* Icon settings. */}
@@ -374,7 +367,6 @@ export default function BlockInspectorControls(props) {
 					<BaseControl
 						id={__('Icon Align', 'ghostkit')}
 						label={__('Icon Align', 'ghostkit')}
-						__nextHasNoMarginBottom
 					>
 						<div>
 							<BlockAlignmentToolbar
@@ -469,7 +461,6 @@ export default function BlockInspectorControls(props) {
 							onChange={(value) =>
 								setAttributes({ videoAutoplay: value })
 							}
-							__nextHasNoMarginBottom
 						/>
 						<ToggleControl
 							label={__('Autopause', 'ghostkit')}
@@ -481,7 +472,6 @@ export default function BlockInspectorControls(props) {
 							onChange={(value) =>
 								setAttributes({ videoAutopause: value })
 							}
-							__nextHasNoMarginBottom
 						/>
 						<ToggleControl
 							label={__('Loop', 'ghostkit')}
@@ -489,7 +479,6 @@ export default function BlockInspectorControls(props) {
 							onChange={(value) =>
 								setAttributes({ videoLoop: value })
 							}
-							__nextHasNoMarginBottom
 						/>
 					</>
 				)}
@@ -526,7 +515,6 @@ export default function BlockInspectorControls(props) {
 											'Click the image to edit or update',
 											'ghostkit'
 										)}
-										__nextHasNoMarginBottom
 									>
 										{/* eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-is-valid */}
 										<a
@@ -565,7 +553,6 @@ export default function BlockInspectorControls(props) {
 										)}
 									</>
 								}
-								__nextHasNoMarginBottom
 							/>
 							{editorSettings?.imageSizes ? (
 								<SelectControl
@@ -584,8 +571,6 @@ export default function BlockInspectorControls(props) {
 											label: imgSize.name,
 										})
 									)}
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
 								/>
 							) : null}
 							<div style={{ marginTop: '-10px' }} />

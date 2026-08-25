@@ -62,8 +62,6 @@ function PositionHeightTools(props) {
 				]}
 				min={0}
 				__unstableInputWidth="70px"
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
 			/>
 		</ToolsPanelItem>
 	);

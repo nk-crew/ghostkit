@@ -88,8 +88,6 @@ function PositionPositionTools(props) {
 						label: __('Sticky', 'ghostkit'),
 					},
 				]}
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
 			/>
 		</ToolsPanelItem>
 	);

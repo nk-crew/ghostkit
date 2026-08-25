@@ -84,8 +84,6 @@ export default function MediaSizeSelector(props) {
 					value={customAspectRatio || aspectRatio}
 					onChange={handleAspectRatioChange}
 					options={options}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 			)}
 			{/* Width and height. */}
@@ -97,16 +95,12 @@ export default function MediaSizeSelector(props) {
 							placeholder={__('Auto', 'ghostkit')}
 							label={__('Width', 'ghostkit')}
 							onChange={handleWidthChange}
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
 						/>
 						<UnitControl
 							value={height}
 							placeholder={__('Auto', 'ghostkit')}
 							label={__('Height', 'ghostkit')}
 							onChange={handleHeightChange}
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
 						/>
 					</div>
 					{!resolution && <div style={{ marginTop: '-22px' }} />}
@@ -126,8 +120,6 @@ export default function MediaSizeSelector(props) {
 						value: imgSize.slug,
 						label: imgSize.name,
 					}))}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 			) : null}
 		</>

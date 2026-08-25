@@ -39,8 +39,6 @@ export default function BlockEdit(props) {
 			step={step}
 			max={max}
 			min={min}
-			__next40pxDefaultSize
-			__nextHasNoMarginBottom
 		/>
 	);
 
@@ -63,8 +61,6 @@ export default function BlockEdit(props) {
 						onChange={(val) => setAttributes({ min: val })}
 						step={step}
 						max={max}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<TextControl
 						type="number"
@@ -73,16 +69,12 @@ export default function BlockEdit(props) {
 						onChange={(val) => setAttributes({ max: val })}
 						step={step}
 						min={min}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<TextControl
 						type="number"
 						label={__('Step', 'ghostkit')}
 						value={step}
 						onChange={(val) => setAttributes({ step: val })}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -90,8 +82,6 @@ export default function BlockEdit(props) {
 				<FieldLabel {...props} />
 				<TextControl
 					type="number"
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 					{...getFieldAttributes(attributes)}
 				/>
 				<FieldDescription {...props} />

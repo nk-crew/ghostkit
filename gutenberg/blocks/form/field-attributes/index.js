@@ -95,7 +95,6 @@ export function FieldDefaultSettings(props) {
 			label={__('Hide Label', 'ghostkit')}
 			checked={hideLabel}
 			onChange={() => setAttributes({ hideLabel: !hideLabel })}
-			__nextHasNoMarginBottom
 		/>
 	);
 
@@ -106,7 +105,6 @@ export function FieldDefaultSettings(props) {
 			onChange={() =>
 				setAttributes({ hideDescription: !hideDescription })
 			}
-			__nextHasNoMarginBottom
 		/>
 	);
 
@@ -122,8 +120,6 @@ export function FieldDefaultSettings(props) {
 					value={slug}
 					onChange={() => {}}
 					readOnly
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 			)}
 			{placeholderCustom || (
@@ -131,8 +127,6 @@ export function FieldDefaultSettings(props) {
 					label={__('Placeholder', 'ghostkit')}
 					value={placeholder}
 					onChange={(val) => setAttributes({ placeholder: val })}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 			)}
 			{defaultCustom || (
@@ -140,8 +134,6 @@ export function FieldDefaultSettings(props) {
 					label={__('Default', 'ghostkit')}
 					value={defaultVal}
 					onChange={(val) => setAttributes({ default: val })}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 			)}
 			{requiredCustom || (
@@ -149,7 +141,6 @@ export function FieldDefaultSettings(props) {
 					label={__('Required', 'ghostkit')}
 					checked={required}
 					onChange={() => setAttributes({ required: !required })}
-					__nextHasNoMarginBottom
 				/>
 			)}
 			{label ? hideLabelControl : ''}

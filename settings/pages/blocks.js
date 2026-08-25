@@ -228,7 +228,6 @@ export default class Blocks extends Component {
 								onChange={() => {
 									this.setDisabledBlock(block);
 								}}
-								__nextHasNoMarginBottom
 							/>
 						</div>
 					</Tooltip>
@@ -328,7 +327,6 @@ export default class Blocks extends Component {
 												!(disabledCount !== count)
 											);
 										}}
-										__nextHasNoMarginBottom
 									/>
 								</div>
 							</Tooltip>

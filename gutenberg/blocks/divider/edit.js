@@ -118,8 +118,6 @@ export default function BlockEdit(props) {
 							},
 						]}
 						onChange={(value) => setAttributes({ type: value })}
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<RangeControl
 						label={__('Size', 'ghostkit')}
@@ -130,8 +128,6 @@ export default function BlockEdit(props) {
 						beforeIcon="editor-textcolor"
 						afterIcon="editor-textcolor"
 						allowCustomMax
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 				<PanelBody>
@@ -153,8 +149,6 @@ export default function BlockEdit(props) {
 							afterIcon="editor-textcolor"
 							allowCustomMin
 							allowCustomMax
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
 						/>
 					) : null}
 				</PanelBody>

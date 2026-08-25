@@ -169,8 +169,6 @@ export default function BlockEdit(props) {
 							setAttributes({ borderRadius: value })
 						}
 						allowCustomMax
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<RangeControl
 						label={__('Border Size', 'ghostkit')}
@@ -181,8 +179,6 @@ export default function BlockEdit(props) {
 							setAttributes({ borderWeight: value })
 						}
 						allowCustomMax
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<RangeControl
 						label={__('Focus Outline Size', 'ghostkit')}
@@ -193,8 +189,6 @@ export default function BlockEdit(props) {
 							setAttributes({ focusOutlineWeight: value })
 						}
 						allowCustomMax
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 				<PanelBody>
@@ -209,7 +203,6 @@ export default function BlockEdit(props) {
 							label={__('Show Icon Only', 'ghostkit')}
 							checked={!!hideText}
 							onChange={(val) => setAttributes({ hideText: val })}
-							__nextHasNoMarginBottom
 						/>
 					) : null}
 					{icon && !hideText ? (
@@ -229,8 +222,6 @@ export default function BlockEdit(props) {
 							onChange={(value) =>
 								setAttributes({ iconPosition: value })
 							}
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
 						/>
 					) : null}
 				</PanelBody>

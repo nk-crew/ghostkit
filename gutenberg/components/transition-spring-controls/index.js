@@ -198,7 +198,6 @@ export function SpringControls(props) {
 			<SpringEditor value={value} />
 			<Grid columns={3}>
 				<NumberControl
-					__next40pxDefaultSize
 					label={__('Stiffness', 'ghostkit')}
 					value={value?.stiffness}
 					onChange={(val) =>
@@ -209,7 +208,6 @@ export function SpringControls(props) {
 					step={1}
 				/>
 				<NumberControl
-					__next40pxDefaultSize
 					label={__('Damping', 'ghostkit')}
 					value={value?.damping}
 					onChange={(val) =>
@@ -220,7 +218,6 @@ export function SpringControls(props) {
 					step={0.1}
 				/>
 				<NumberControl
-					__next40pxDefaultSize
 					label={__('Mass', 'ghostkit')}
 					value={value?.mass}
 					onChange={(val) => updateValue({ mass: parseFloat(val) })}
@@ -231,7 +228,6 @@ export function SpringControls(props) {
 			</Grid>
 			{enableDelayControl && (
 				<NumberControl
-					__next40pxDefaultSize
 					label={__('Delay', 'ghostkit')}
 					suffix="s&nbsp;"
 					value={value?.delay || 0}

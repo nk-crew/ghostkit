@@ -89,8 +89,6 @@ export default function GistFilesSelect(props) {
 			}))}
 			onChange={onChange}
 			className={className}
-			__next40pxDefaultSize
-			__nextHasNoMarginBottom
 		/>
 	);
 }

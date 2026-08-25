@@ -77,11 +77,7 @@ function CustomCSSCustomTools(props) {
 			}}
 			isShownByDefault={false}
 		>
-			<BaseControl
-				id={baseControlLabel}
-				label={baseControlLabel}
-				__nextHasNoMarginBottom
-			>
+			<BaseControl id={baseControlLabel} label={baseControlLabel}>
 				<Dropdown
 					className="ghostkit-extension-customCSS-custom__dropdown"
 					contentClassName="ghostkit-extension-customCSS-custom__dropdown-content"
@@ -129,7 +125,6 @@ function CustomCSSCustomTools(props) {
 							<BaseControl
 								id={baseControlLabel}
 								label={baseControlLabel}
-								__nextHasNoMarginBottom
 							/>
 							<CodeEditor
 								mode="css"

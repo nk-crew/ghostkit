@@ -227,7 +227,6 @@ function BackgroundControlsInspector(props) {
 										imageBackgroundPosition: v,
 									})
 								}
-								__nextHasNoMarginBottom
 							/>
 							{imageSizes ? (
 								<SelectControl
@@ -246,8 +245,6 @@ function BackgroundControlsInspector(props) {
 									onChange={(v) =>
 										setAttributes({ imageSize: v })
 									}
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
 								/>
 							) : null}
 							<SelectControl
@@ -270,8 +267,6 @@ function BackgroundControlsInspector(props) {
 								onChange={(v) =>
 									setAttributes({ imageBackgroundSize: v })
 								}
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
 							/>
 							<Button
 								isLink

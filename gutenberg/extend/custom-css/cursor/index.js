@@ -192,8 +192,6 @@ function CustomCSSCursorTools(props) {
 						label: __('None', 'ghostkit'),
 					},
 				]}
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
 			/>
 		</ToolsPanelItem>
 	);

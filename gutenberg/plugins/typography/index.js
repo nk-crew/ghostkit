@@ -16,6 +16,31 @@ const { GHOSTKIT } = window;
 GHOSTKIT.added_fonts = [];
 
 /**
+ * Documents the typography preview has to be printed in.
+ *
+ * Since WordPress 7.1 the post editor canvas is always an iframe with its own document,
+ * so anything appended to the global `document` never reaches the edited content.
+ *
+ * @return {Document[]} - editor chrome document and, when present, the canvas document.
+ */
+function getEditorDocuments() {
+	const documents = [document];
+
+	// Core finds the canvas the same way, see `getEditorRegion()` in `@wordpress/block-editor`.
+	document
+		.querySelectorAll('iframe[name="editor-canvas"]')
+		.forEach((iframe) => {
+			const canvasDoc = iframe.contentDocument;
+
+			if (canvasDoc && !documents.includes(canvasDoc)) {
+				documents.push(canvasDoc);
+			}
+		});
+
+	return documents;
+}
+
+/**
  * Variable to simplify the relationship of filter Typography properties and objects
  */
 const conformityAttributes = {
@@ -226,10 +251,18 @@ function printFonts(typographyData) {
 				googleFontsUrl += fontData;
 			});
 
-			const link = document.createElement('link');
-			link.rel = 'stylesheet';
-			link.href = `https://fonts.googleapis.com/css?family=${googleFontsUrl}`;
-			document.head.appendChild(link);
+			const href = `https://fonts.googleapis.com/css?family=${googleFontsUrl}`;
+
+			getEditorDocuments().forEach((doc) => {
+				if (doc.querySelector(`link[href="${href}"]`)) {
+					return;
+				}
+
+				const link = doc.createElement('link');
+				link.rel = 'stylesheet';
+				link.href = href;
+				doc.head.appendChild(link);
+			});
 		}
 
 		doAction('ghostkit.typography.print.fonts', webfontList);
@@ -387,12 +420,15 @@ function printStyles(typographyData) {
 			});
 		}
 
-		const $styles = document.querySelector(
-			'#ghostkit-typography-inline-css'
-		);
-		if ($styles) {
-			$styles.innerHTML = typographyCss;
-		}
+		getEditorDocuments().forEach((doc) => {
+			const $styles = doc.querySelector(
+				'#ghostkit-typography-inline-css'
+			);
+
+			if ($styles) {
+				$styles.innerHTML = typographyCss;
+			}
+		});
 	}
 }
 

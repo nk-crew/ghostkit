@@ -1,7 +1,7 @@
 import { createBlock } from '@wordpress/blocks';
 import { ToolbarButton } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
-import { render } from '@wordpress/element';
+import { createRoot } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
 
@@ -54,7 +54,7 @@ function ToolbarTemplates() {
 
 			$toolbar.appendChild($toolbarPlace);
 
-			render(<LibraryButton />, $toolbarPlace);
+			createRoot($toolbarPlace).render(<LibraryButton />);
 		}
 	});
 

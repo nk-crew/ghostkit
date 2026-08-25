@@ -22,7 +22,7 @@ class GhostKit_Color_Palette_Plugin {
 				if ( function_exists( 'wp_is_block_theme' ) && ! wp_is_block_theme() ) {
 					$this->add_palette();
 
-					add_action( 'enqueue_block_editor_assets', array( $this, 'add_palette_styles' ) );
+					add_action( 'enqueue_block_assets', array( $this, 'add_editor_palette_styles' ) );
 					add_action( 'wp_enqueue_scripts', array( $this, 'add_palette_styles' ) );
 
 					$allow_custom_palette = 'true';
@@ -66,6 +66,22 @@ class GhostKit_Color_Palette_Plugin {
 				add_theme_support( 'editor-color-palette', $custom_palette );
 			}
 		}
+	}
+
+	/**
+	 * Print Gutenberg Palette Styles in the editor.
+	 *
+	 * The palette classes are applied to blocks inside the editor canvas, which is always
+	 * iframed since WordPress 7.1. Only `enqueue_block_assets` output reaches that iframe;
+	 * `enqueue_block_editor_assets` output stays outside it.
+	 */
+	public function add_editor_palette_styles() {
+		// The frontend is already covered by the `wp_enqueue_scripts` hook.
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$this->add_palette_styles();
 	}
 
 	/**

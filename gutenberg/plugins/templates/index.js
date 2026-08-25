@@ -122,8 +122,6 @@ class TemplatesModal extends Component {
 							},
 						}));
 					}}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 				/>
 			);
 		}
