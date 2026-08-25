@@ -631,7 +631,7 @@ class GhostKit_Assets {
 			);
 		}
 		foreach ( glob( ghostkit()->plugin_path . 'build/gutenberg/blocks/*/styles/style.css' ) as $file ) {
-			$block_name      = basename( dirname( dirname( $file ) ) );
+			$block_name      = basename( dirname( $file, 2 ) );
 			$block_style_url = 'build/gutenberg/blocks/' . $block_name . '/styles/style';
 			$block_css_deps  = array( 'ghostkit' );
 

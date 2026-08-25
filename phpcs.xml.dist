@@ -41,12 +41,6 @@
 	<ini name="memory_limit" value="256M"/>
 
 	<!--
-	Prevent errors caused by WordPress Coding Standards not supporting PHP 8.0+.
-	See https://github.com/WordPress/WordPress-Coding-Standards/issues/2035
-	-->
-	<ini name="error_reporting" value="E_ALL &#38; ~E_DEPRECATED" />
-
-	<!--
 	#############################################################################
 	SET THE RULES TO USE
 	See https://github.com/WordPress/WordPress-Coding-Standards
@@ -65,7 +59,8 @@
 	<rule ref="WordPress.WP.I18n" />
 	<config name="text_domain" value="ghostkit" />
 
-	<rule ref="WordPress.CodeAnalysis.EmptyStatement"/>
+	<!-- Renamed in WPCS 3.0; the sniff now lives upstream in PHPCS itself. -->
+	<rule ref="Generic.CodeAnalysis.EmptyPHPStatement"/>
 
 
     <!--
@@ -102,7 +97,8 @@
         <properties>
             <property name="prefixes" type="array">
                 <element value="GhostKit"/>
-                <element value="gkt"/>
+                <!-- WPCS 3 wants at least four characters; every gkt hook name carries the underscore. -->
+                <element value="gkt_"/>
             </property>
         </properties>
     </rule>

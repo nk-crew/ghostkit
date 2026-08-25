@@ -41,20 +41,20 @@ class GhostKit_Extension_Styles {
 	/**
 	 * Check if string end with.
 	 *
-	 * @param string $string full string.
+	 * @param string $subject full string.
 	 * @param string $test  test string.
 	 *
 	 * @return boolean
 	 */
-	private static function endswith( $string, $test ) {
-		$strlen  = strlen( $string );
+	private static function endswith( $subject, $test ) {
+		$strlen  = strlen( $subject );
 		$testlen = strlen( $test );
 
 		if ( $testlen > $strlen ) {
 			return false;
 		}
 
-		return substr_compare( $string, $test, $strlen - $testlen, $testlen ) === 0;
+		return substr_compare( $subject, $test, $strlen - $testlen, $testlen ) === 0;
 	}
 
 	/**

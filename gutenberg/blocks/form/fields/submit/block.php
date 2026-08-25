@@ -24,7 +24,7 @@ class GhostKit_Form_Field_Submit_Block {
 	 * Init.
 	 */
 	public function init() {
-		register_block_type_from_metadata( dirname( __FILE__ ) );
+		register_block_type_from_metadata( __DIR__ );
 	}
 }
 new GhostKit_Form_Field_Submit_Block();
