@@ -280,7 +280,6 @@ The plugin documentation provides a comprehensive source of information on block
 * fixed PHP warnings logged by the Table of Contents and Widgetized Area blocks
 * raised the minimum PHP requirement to 7.4
 * **Pro:**
-* added WordPress 7.1 compatibility
 * fixed tooltips never appearing in the editor
 * fixed the update notice still offering a version already installed
 * added a capability check to the license activation request
