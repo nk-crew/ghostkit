@@ -15,7 +15,6 @@ All notable changes to this project will be documented in this file.
 * fixed tooltips never appearing in the editor
 * fixed the update notice still offering a version already installed
 * added a capability check to the license activation request
-* raised the minimum PHP requirement to 8.1
 
 = 3.6.1 - Jun 21, 2026 =
 
