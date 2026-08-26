@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 7.1
 * Requires PHP: 7.4
-* Stable tag: 3.6.1
+* Stable tag: 3.7.0
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -269,6 +269,20 @@ The plugin documentation provides a comprehensive source of information on block
 19. Blocks Extensions
 
 ## Changelog ##
+
+= 3.7.0 - Aug 26, 2026 =
+
+* added WordPress 7.1 compatibility
+* added a Privacy-Enhanced Mode toggle to the Video block, shown once the entered URL is a YouTube one
+* changed YouTube embeds to use the regular YouTube host by default, because the privacy-enhanced host asks a share of visitors to sign in before it plays anything
+* fixed block icons and the custom color palette not reaching the blocks they style in the editor
+* fixed the typography preview not applying in the editor
+* fixed PHP warnings logged by the Table of Contents and Widgetized Area blocks
+* raised the minimum PHP requirement to 7.4
+* **Pro:**
+* fixed tooltips never appearing in the editor
+* fixed the update notice still offering a version already installed
+* added a capability check to the license activation request
 
 = 3.6.1 - Jun 21, 2026 =
 
