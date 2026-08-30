@@ -40,7 +40,11 @@ if ( is_multisite() ) {
 
 if (
 	in_array( plugin_basename( __FILE__ ), $gkt_active_plugins, true ) &&
-	in_array( 'ghostkit-pro/class-ghost-kit-pro.php', $gkt_active_plugins, true )
+	in_array( 'ghostkit-pro/class-ghost-kit-pro.php', $gkt_active_plugins, true ) &&
+	// `active_plugins` goes on naming a plugin whose directory was removed by hand
+	// and WordPress simply skips it, so stepping aside for one of those would leave
+	// the site with neither plugin.
+	file_exists( WP_PLUGIN_DIR . '/ghostkit-pro/class-ghost-kit-pro.php' )
 ) {
 	unset( $gkt_active_plugins );
 	return;
