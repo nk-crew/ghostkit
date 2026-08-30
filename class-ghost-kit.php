@@ -17,6 +17,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/*
+ * Ghost Kit Pro carries its own copy of this core, so only one of the two may run.
+ * Which copy PHP reaches first depends on the order WordPress includes plugins in,
+ * and that order is not ours to pick: network-activated plugins come before
+ * site-activated ones, and a third party can reorder `active_plugins`. So the
+ * standalone plugin steps aside on its own whenever the Pro plugin is active,
+ * before it defines anything at all.
+ *
+ * Only the activated plugin steps aside. The copy inside the Pro plugin, and any
+ * copy embedded in a theme or another plugin, is not in the list below and keeps
+ * loading as before.
+ */
+$gkt_active_plugins = (array) get_option( 'active_plugins', array() );
+
+if ( is_multisite() ) {
+	$gkt_active_plugins = array_merge(
+		$gkt_active_plugins,
+		array_keys( (array) get_site_option( 'active_sitewide_plugins', array() ) )
+	);
+}
+
+if (
+	in_array( plugin_basename( __FILE__ ), $gkt_active_plugins, true ) &&
+	in_array( 'ghostkit-pro/class-ghost-kit-pro.php', $gkt_active_plugins, true )
+) {
+	unset( $gkt_active_plugins );
+	return;
+}
+
+unset( $gkt_active_plugins );
+
 if ( ! defined( 'GHOSTKIT_VERSION' ) ) {
 	define( 'GHOSTKIT_VERSION', '3.7.0' );
 }
