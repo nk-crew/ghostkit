@@ -2,7 +2,7 @@
 /**
  * Plugin Name:  Ghost Kit
  * Description:  Page Builder Blocks and Extensions for Gutenberg
- * Version:      3.7.0
+ * Version:      3.7.1
  * Plugin URI:   https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
  * Author:       Ghost Kit Team
  * Author URI:   https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
@@ -53,7 +53,7 @@ if (
 unset( $gkt_active_plugins );
 
 if ( ! defined( 'GHOSTKIT_VERSION' ) ) {
-	define( 'GHOSTKIT_VERSION', '3.7.0' );
+	define( 'GHOSTKIT_VERSION', '3.7.1' );
 }
 
 if ( ! class_exists( 'GhostKit' ) ) :
