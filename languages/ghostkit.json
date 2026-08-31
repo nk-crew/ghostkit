@@ -38,10 +38,7 @@
          "I already did": [
             ""
          ],
-         "Ghost Kit and Ghost Kit Pro should not be active at the same time. We've automatically deactivated Ghost Kit.": [
-            ""
-         ],
-         "Ghost Kit and Ghost Kit Pro should not be active at the same time. We've automatically deactivated Ghost Kit Pro.": [
+         "This version of Ghost Kit is too old to run next to Ghost Kit Pro. We've automatically deactivated Ghost Kit.": [
             ""
          ],
          "Default Fonts Site": [
@@ -1023,11 +1020,9 @@
          "Grow": [
             ""
          ],
-         "%d Column (%s)": [
-            ""
-         ],
-         "%d Columns (%s)": [
-            ""
+         "%1$d Column (%2$s)": [
+            "",
+            "%1$d Columns (%2$s)"
          ],
          "Order": [
             ""
@@ -1585,6 +1580,12 @@
             ""
          ],
          "Video URL": [
+            ""
+         ],
+         "Privacy-Enhanced Mode": [
+            ""
+         ],
+         "Load the video from youtube-nocookie.com. YouTube stores no cookies until playback starts, but some visitors are asked to sign in before the video plays.": [
             ""
          ],
          "Select Video": [

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.7.1 - Aug 31, 2026 =
+
+* changed Ghost Kit to stay active next to Ghost Kit Pro instead of being deactivated
+* **Pro:**
+* fixed effects sometimes not running, leaving blocks with a reveal effect hidden on the page
+
 = 3.7.0 - Aug 26, 2026 =
 
 * added WordPress 7.1 compatibility

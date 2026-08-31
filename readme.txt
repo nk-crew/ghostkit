@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 7.1
 * Requires PHP: 7.4
-* Stable tag: 3.7.0
+* Stable tag: 3.7.1
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -269,6 +269,12 @@ The plugin documentation provides a comprehensive source of information on block
 19. Blocks Extensions
 
 ## Changelog ##
+
+= 3.7.1 - Aug 31, 2026 =
+
+* changed Ghost Kit to stay active next to Ghost Kit Pro instead of being deactivated
+* **Pro:**
+* fixed effects sometimes not running, leaving blocks with a reveal effect hidden on the page
 
 = 3.7.0 - Aug 26, 2026 =
 
