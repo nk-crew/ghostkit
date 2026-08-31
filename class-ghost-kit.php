@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:  Ghost Kit
- * Description:  Page Builder Blocks and Extensions for Gutenberg
+ * Description:  Animate WordPress blocks with reveal, scroll, mouse and loop effects.
  * Version:      3.7.1
  * Plugin URI:   https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
  * Author:       Ghost Kit Team

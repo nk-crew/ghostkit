@@ -1,7 +1,7 @@
-# Ghost Kit – Page Builder Blocks, Motion Effects & Extensions #
+# Block Animations, Motion & Scroll Effects – Ghost Kit #
 
 * Contributors: nko
-* Tags: page builder, effects, animation, blocks, gutenberg blocks
+* Tags: animation, effects, scroll effects, blocks, gutenberg blocks
 * Donate link: https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=donate
 * Requires at least: 6.6
 * Tested up to: 7.1
@@ -10,263 +10,156 @@
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
-Create engaging websites using over 25 advanced blocks featuring motion effects, smooth animations, and robust extensions.
+Animate WordPress blocks with reveal, scroll, mouse and loop effects, set in the block settings.
 
 ## Description ##
 
-**The Ultimate WordPress Page Building Solution**
-★★★★★<br>
-
-**Ghost Kit enhances the WordPress editing experience** with a comprehensive collection of Gutenberg blocks, motion effects, and extensions. Create sophisticated, interactive websites using an intuitive interface and extensive customization options. Design engaging layouts, add smooth animations, and extend functionality while maintaining optimal performance. Ghost Kit gives you the precise control you need over your content, making it a powerful alternative to complex page builders.
+**Ghost Kit adds motion to the blocks you already use.** Select a block, open Effects in the block settings, and choose what happens when it comes into view, when the page scrolls past it, and when the pointer moves across it.
 
 [See Live Demo](https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [Documentation](https://www.ghostkit.io/docs/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=head) | [GitHub](https://github.com/nk-crew/ghostkit/)
 
-We created this blocks collection for our own needs - create different multipurpose sites and themes. This is a professional collection and extensions with responsive grid system helps us and will help you as well, **Ghost Kit will boost your development speed**.
+WordPress ships a good set of blocks now. What it still does not ship is motion, and the usual way to get motion is to rebuild the page in a page builder. Ghost Kit is the smaller move. Keep the blocks you have and add the animation on top.
 
-### 🏆 Create Multipurpose Sites with Ghost Kit ###
+### 🎬 Reveal animations ###
 
-Gutenberg is good tool for basic websites, but when you need something advanced, Ghost Kit will give you the needed power. Enormous collection of blocks and extensions will be your magic wand:
+Start from a preset, Fade In, Zoom In or one of the three directional zooms, then adjust the offset, opacity, scale and rotation the block animates from. The transition is a spring rather than a fixed easing curve, so the movement settles instead of stopping dead. Reveal is in the free plugin.
 
-#### 🧱 Blocks ####
+### 📜 Scroll effects ###
 
-* [**Advanced Columns Block**](https://www.ghostkit.io/docs/blocks/advanced-columns/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Responsive grid block to build layouts of all shapes and sizes thanks to a twelve column system. Visual columns size and order change.
+Tie a block's position, scale, rotation and opacity to how far the page has scrolled, rather than to a single trigger. This is how parallax sections and scroll-driven reveals are built.
 
-* [**Progress Block**](https://www.ghostkit.io/docs/blocks/progress/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Show the progress of your work, skills or earnings.
+### 🖱️ Mouse effects ###
 
-* [**Button Block**](https://www.ghostkit.io/docs/blocks/button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Change important links to buttons to get more click rate.
+Move, tilt, scale or rotate a block as the pointer travels over it. Hover and press are separate states, so a card can lift under the cursor and sink when it is clicked.
 
-* [**Circle Button Block**](https://www.ghostkit.io/docs/blocks/circle-button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Circle button with circular text.
+### 🔁 Loop animations ###
 
-* [**Shape Divider Block**](https://www.ghostkit.io/docs/blocks/shape-divider/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Add SVG shapes between your sections.
+Run an animation continuously. Rotating badges, floating shapes and drifting backgrounds are all loops with different transforms.
 
-* [**Divider Block**](https://www.ghostkit.io/docs/blocks/divider/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Divide your long texts and blocks.
+### ♿ Reduced motion is respected ###
 
-* [**Alert Block**](https://www.ghostkit.io/docs/blocks/alert/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Provide contextual feedback messages for user actions.
+Every effect checks `prefers-reduced-motion: reduce` before it runs, so a visitor who turned animations off in their operating system gets a still page. There is nothing to configure.
 
-* [**Icon Block**](https://www.ghostkit.io/docs/blocks/icon/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Icons are one of the best visual replacement for text descriptions.
+### 🧩 It works on the blocks you already have ###
 
-* [**Number Box Block**](https://www.ghostkit.io/docs/blocks/number-box/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Show your progress and rewards using counting numbers.
+Effects appear on every core WordPress block, from Paragraph, Heading and Image to Cover, Group, Columns, Buttons and Query Loop. They appear on every Ghost Kit block as well. A block from another plugin can opt in by declaring `supports.ghostkit` in its own `block.json`.
 
-* [**Accordion Block**](https://www.ghostkit.io/docs/blocks/accordion/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Toggle the visibility of content across your project.
+You do not have to rebuild anything. Install the plugin, select a block that is already on the page, and the controls are there.
 
-* [**Tabs Block**](https://www.ghostkit.io/docs/blocks/tabs/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Separate content on the tabs with titles.
+### ⚙️ Extensions ###
 
-* [**Toggle Content Block**](https://www.ghostkit.io/docs/blocks/toggle-content/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Switch content by clicking on toggle button.
-
-* [**Countdown Block**](https://www.ghostkit.io/docs/blocks/countdown/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Display countdown for you upcoming events.
-
-* [**Video Block**](https://www.ghostkit.io/docs/blocks/video/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.
-
-* [**Image Compare Block**](https://www.ghostkit.io/docs/blocks/image-compare/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Compare two images with a slider.
-
-* [**Image Scroller Block**](https://www.ghostkit.io/docs/blocks/image-scroller/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Scroll tall images with hover or mouse scroll.
-
-* [**Interactive Links Block**](https://www.ghostkit.io/docs/blocks/interactive-links/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Interactive links with media displayed on hover.
-
-* [**Magnifying Image Block**](https://www.ghostkit.io/docs/blocks/magnifying-image/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Image block with magnifying glass effect.
-
-* [**Carousel Block**](https://www.ghostkit.io/docs/blocks/carousel/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Carousel for any type of content – images or other blocks.
-
-* [**Marquee Block**](https://www.ghostkit.io/docs/blocks/marquee/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Scroll text and blocks in a marquee effect.
-
-* [**Code Highlight Block**](https://www.ghostkit.io/docs/blocks/code/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Display code snippets with syntax highlighting
-
-* [**Pricing Table Block**](https://www.ghostkit.io/docs/blocks/pricing-table/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Sell your products or services and show all features.
-
-* [**Testimonial Block**](https://www.ghostkit.io/docs/blocks/testimonial/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Show how your users love your products and what saying.
-
-* [**GIF Block**](https://www.ghostkit.io/docs/blocks/gif/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Search for and insert an animated image from Giphy.
-
-* [**Contact Form Block**](https://www.ghostkit.io/docs/blocks/form/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Add contact form to your page with reCaptcha.
-
-* [**Google Maps Block**](https://www.ghostkit.io/docs/blocks/google-maps/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Show maps with custom styles, markers and settings.
-
-* [**GitHub Gist Block**](https://www.ghostkit.io/docs/blocks/github-gist/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Embed code parts form GitHub Gist to your site or documentation.
-
-* [**Changelog Block**](https://www.ghostkit.io/docs/blocks/changelog/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Show the changes log of your product.
-
-* [**Table of Contents Block**](https://www.ghostkit.io/docs/blocks/table-of-contents/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
-Automatically generate a table of contents by parsing page headers in content.
-
-* **Markdown Block**
-Lightweight markup language with plain-text-formatting syntax.
-
-* **Widgetized Area Block**
-Select registered sidebars and put it in any place.
-
-#### ⚙️ Extensions ####
-
-* [**Effects**](https://www.ghostkit.io/docs/extensions/effects/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
-Add stunning visual effects and interactivity to Ghost Kit and Core blocks. You can can easily add reveal animations, scroll effects, mouse move/hover/press effects and loop animations.
+The same place carries the controls a block usually needs and WordPress leaves out.
 
 * [**Position**](https://www.ghostkit.io/docs/extensions/position/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
-Change block position to absolute or fixed and move it with offset in Ghost Kit and Core blocks.
+Switch a block to absolute or fixed and offset it, per screen size.
 
 * [**Spacings**](https://www.ghostkit.io/docs/extensions/spacings/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
-Easily add spacings to Ghost Kit and Core blocks.
-
-* [**Display**](https://www.ghostkit.io/docs/extensions/display-conditions/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
-Show and hide blocks Ghost Kit and Core blocks on different screen sizes.
+Padding and margin per screen size, on any block.
 
 * [**Frame**](https://www.ghostkit.io/docs/extensions/frame/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
-Add borders, shadows and corner radius to Ghost Kit and Core blocks on different screen sizes.
+Borders, corner radius and shadows, with a separate hover state.
+
+* [**Display**](https://www.ghostkit.io/docs/extensions/display-conditions/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+Hide a block on the screen sizes where it does not belong.
+
+* [**Transform**](https://www.ghostkit.io/docs/extensions/transform/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
+Translate, scale, rotate and skew, including a hover state.
 
 * [**Custom CSS & JavaScript**](https://www.ghostkit.io/docs/extensions/custom-css-js/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=extensions)
-This extension is available on all pages and let you add custom CSS and JavaScript for the current page and globally site wide.
+Per page or site wide, edited in the admin with syntax highlighting.
 
-### 📄 Typography ###
+### 🧱 Blocks ###
 
-Change typography options globally on a whole site or on specific pages only. Options available:
+Ghost Kit also ships blocks for the things core still leaves out. Every one of them carries the Effects panel.
 
-* Font Family
-  * Google Fonts
-  * Adobe Fonts (Typekit) in Pro version
-* Font Weight
-* Font Size
-* Line Height
-* Letter Spacing
+* [Advanced Columns](https://www.ghostkit.io/docs/blocks/advanced-columns/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), a twelve column responsive grid with visual size and order controls
+* [Accordion](https://www.ghostkit.io/docs/blocks/accordion/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Tabs](https://www.ghostkit.io/docs/blocks/tabs/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Toggle Content](https://www.ghostkit.io/docs/blocks/toggle-content/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [Alert](https://www.ghostkit.io/docs/blocks/alert/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Icon](https://www.ghostkit.io/docs/blocks/icon/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Number Box](https://www.ghostkit.io/docs/blocks/number-box/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Progress](https://www.ghostkit.io/docs/blocks/progress/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Countdown](https://www.ghostkit.io/docs/blocks/countdown/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [Button](https://www.ghostkit.io/docs/blocks/button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Circle Button](https://www.ghostkit.io/docs/blocks/circle-button/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Divider](https://www.ghostkit.io/docs/blocks/divider/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Shape Divider](https://www.ghostkit.io/docs/blocks/shape-divider/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [Video](https://www.ghostkit.io/docs/blocks/video/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [GIF](https://www.ghostkit.io/docs/blocks/gif/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Image Compare](https://www.ghostkit.io/docs/blocks/image-compare/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Image Scroller](https://www.ghostkit.io/docs/blocks/image-scroller/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Magnifying Image](https://www.ghostkit.io/docs/blocks/magnifying-image/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Carousel](https://www.ghostkit.io/docs/blocks/carousel/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Marquee](https://www.ghostkit.io/docs/blocks/marquee/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [Contact Form](https://www.ghostkit.io/docs/blocks/form/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Google Maps](https://www.ghostkit.io/docs/blocks/google-maps/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Pricing Table](https://www.ghostkit.io/docs/blocks/pricing-table/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Testimonial](https://www.ghostkit.io/docs/blocks/testimonial/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Table of Contents](https://www.ghostkit.io/docs/blocks/table-of-contents/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
+* [Code Highlight](https://www.ghostkit.io/docs/blocks/code/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [GitHub Gist](https://www.ghostkit.io/docs/blocks/github-gist/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Changelog](https://www.ghostkit.io/docs/blocks/changelog/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks), [Interactive Links](https://www.ghostkit.io/docs/blocks/interactive-links/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=blocks)
 
-By default you can change typography for the following elements:
+### ✍️ Content formatting ###
 
-* Body
-* Buttons
-* Headings
-  * From H1 to H6
+Formats that apply to a text selection rather than to a whole block. See them on the [formats demo page](https://www.ghostkit.io/docs/formats/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting).
 
-### 🎨 Color Palette ###
-
-Add custom colors to Gutenberg color palette.
-
-### 📝 Extended Core Blocks ###
-
-Ghost Kit enhances all WordPress blocks by providing additional functionalities, but it also offers special extensions for specific blocks.
-
-* [Headings](https://www.ghostkit.io/docs/core-blocks/heading/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=core-blocks)
-* [Lists](https://www.ghostkit.io/docs/core-blocks/list/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=core-blocks)
-* [Paragraph](https://www.ghostkit.io/docs/core-blocks/paragraph/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=core-blocks)
-
-### 📝 Content Formatting ###
-
-See demo page with content formatting [https://www.ghostkit.io/docs/formats/](https://www.ghostkit.io/docs/formats/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-
-* [Animated Text](https://www.ghostkit.io/docs/formats/animated-text/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Badges](https://www.ghostkit.io/docs/formats/badge/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Lorem Ipsum Generator](https://www.ghostkit.io/docs/formats/lorem-ipsum-generator/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Spoiler](https://www.ghostkit.io/docs/formats/spoiler/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Stroke](https://www.ghostkit.io/docs/formats/stroke/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Tooltip](https://www.ghostkit.io/docs/formats/tooltip/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
-* [Uppercase](https://www.ghostkit.io/docs/formats/tooltip/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
+[Animated Text](https://www.ghostkit.io/docs/formats/animated-text/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting), [Badges](https://www.ghostkit.io/docs/formats/badge/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting), [Lorem Ipsum Generator](https://www.ghostkit.io/docs/formats/lorem-ipsum-generator/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting), [Spoiler](https://www.ghostkit.io/docs/formats/spoiler/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting), [Stroke](https://www.ghostkit.io/docs/formats/stroke/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting), [Tooltip](https://www.ghostkit.io/docs/formats/tooltip/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting), [Uppercase](https://www.ghostkit.io/docs/formats/uppercase/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting)
 
 ### 🔥 Ghost Kit Pro ###
 
-> Ghost Kit plugin is also available in a professional version which includes more features and blocks! [**Learn more about Ghost Kit Pro**](https://www.ghostkit.io/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=pro)
->
-> In order to maintain the free version of the plugin on an ongoing basis, and to provide quick and effective support for free, we offer a Pro version of the plugin. The Pro version allows you to:
+> The free plugin covers reveal animations, the layout extensions and the block set. [**Ghost Kit Pro**](https://www.ghostkit.io/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=pro) adds the rest of the motion system and pays for the free version to keep being maintained and supported.
 
-* More Blocks
-  * Code Highlight block
-  * Marquee block
-  * Interactive Links block
-  * Magnifying Image block
-  * Image Scroller block
-  * Circle Button block
-  * Toggle Content block
-* More Content Formatting
-  * Animated Text format
-  * Stroke format
-  * Spoiler format
-  * Tooltip format
-* Advanced Effects:
-  * Loop Effects
-  * Scroll Effects
-  * Mouse Effects
-  * 3D Rotation
-  * Custom Viewport
-  * Replay Animation
-* More Icon Packs
-* Custom Block Attributes
-* CSS Transform and Transition for blocks
-* Custom Responsive Breakpoints
-* Additional shapes for Shape Divider block
-* Adobe Fonts (Typekit)
-* Custom Fonts
-* Gradient buttons, backgrounds, icons, badges
-* Google Maps custom markers and info boxes
-* And more
+* Scroll effects, mouse effects and loop animations
+* 3D rotation, custom viewport and replay for reveal animations
+* CSS transform and transition per block, with a hover state
+* Custom block attributes and custom responsive breakpoints
+* Marquee, Code Highlight, Interactive Links, Magnifying Image, Image Scroller, Circle Button and Toggle Content blocks
+* Animated Text, Stroke, Spoiler and Tooltip formats
+* More icon packs, Adobe Fonts and custom font files
+* Gradients for buttons, backgrounds, icons and badges
+* Extra shapes for the Shape Divider block
 
-### 🏳️ Multilingual ##
+### 🏳️ Multilingual ###
 
-Ghost Kit adds a new layer of compatibility for [WPML](https://wpml.org/). All blocks are compatible with it and ready for translation. [https://www.ghostkit.io/docs/languages/multilingual/](https://www.ghostkit.io/docs/languages/multilingual/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=multilingual)
+Ghost Kit adds a layer of [WPML](https://wpml.org/) compatibility. Every block is translation ready. [Read the multilingual guide](https://www.ghostkit.io/docs/languages/multilingual/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=multilingual).
 
 ## Installation ##
 
 ### Automatic installation ###
 
-Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of Ghost Kit, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
-
-In the search field type Ghost Kit and click Search Plugins. Once you’ve found our plugin you can view details about it such as the point release, rating and description. Most importantly of course, you can install it by simply clicking “Install Now”.
+In the WordPress dashboard go to Plugins, click Add New, and search for Ghost Kit. Click Install Now and then Activate. Effects appear in the block settings straight away.
 
 ### Manual installation ###
 
-The manual installation method involves downloading our Ghost Kit plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+Download the plugin, upload the folder to `wp-content/plugins` over FTP, and activate it from the Plugins screen. The WordPress documentation has [the longer version](https://wordpress.org/documentation/article/manage-plugins/#manual-plugin-installation-1).
 
 ## Frequently Asked Questions ##
 
-### Documentation ####
+### Which blocks can I animate? ###
 
-The plugin documentation provides a comprehensive source of information on blocks, extensions, actions, filters, events, and more for developers. It is a valuable resource for finding all the relevant details you may need.
+Every core WordPress block and every Ghost Kit block. That covers Paragraph, Heading, Image, Cover, Group, Columns, Buttons, Query Loop and the rest of the core set. A block from another plugin joins in once it declares `supports.ghostkit` in its `block.json`.
 
-[https://www.ghostkit.io/docs/getting-started/](https://www.ghostkit.io/docs/getting-started/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs)
+### Do I need a page builder? ###
+
+No. Ghost Kit works inside the standard block editor and the Site Editor. Pages you have already built stay as they are, and the Effects panel appears on the blocks that are on them.
+
+### Do the animations work on mobile? ###
+
+Yes. Reveal animations run on touch devices as the visitor scrolls. Mouse effects need a pointer, so they stay idle on touch screens rather than misfiring.
+
+### Will animations slow down my site? ###
+
+The effects are CSS transforms and opacity changes, which the browser composites on the GPU. Ghost Kit loads the effects script only on pages that actually use an effect.
+
+### What happens for visitors who turned animations off? ###
+
+Ghost Kit checks `prefers-reduced-motion: reduce` and skips the animation for them, leaving the block in its final state. This is on by default and there is no setting to remember.
+
+### How do I add a parallax effect? ###
+
+Select the block, open Effects, and use Scroll to tie its vertical offset to the scroll position. Scroll effects are part of Ghost Kit Pro.
+
+### Can I reuse an effect on another block? ###
+
+Yes. The block toolbar has a Ghost Kit menu with Copy extensions and Paste extensions, so an effect you tuned on one block can be pasted onto the next one instead of set up again.
+
+### Does Ghost Kit have documentation? ###
+
+Yes, at [ghostkit.io/docs](https://www.ghostkit.io/docs/getting-started/?utm_source=wordpress.org&utm_medium=faq&utm_campaign=docs). It covers every block, every extension, and the filters and events for developers.
+
+### Is Ghost Kit translation ready? ###
+
+Yes, and it carries WPML compatibility for block content.
 
 ## Screenshots ##
 
-1. All blocks
-2. Templates
-3. Responsive Advanced Columns
-4. Progress Bar
-5. Button
-6. Divider
-7. Accordion
-8. Tabs
-9. Carousel
-10. Alert
-11. Icon Box
-12. Counter Box
-13. Google Maps
-14. Video
-15. Testimonial
-16. GitHub Gist
-17. Changelog
-18. Pricing Table
-19. Blocks Extensions
+1. Ghost Kit panels on a core Group block: Effects, Position, Spacings, Frame, Transform, Custom CSS and Display Conditions
+2. Reveal settings: a Zoom In preset, the offset the block animates from, and a spring transition
+3. Ghost Kit blocks in the inserter
+4. Frame: border, corner radius and shadow, each with a hover state and a value per screen size
+5. Display Conditions: hide a block at one screen size and leave it at the others
+6. Transform: translate, scale and rotate a block, in 2D or 3D
 
 ## Changelog ##
 
