@@ -93,7 +93,7 @@ events.on(document, 'init.blocks.gkt', () => {
 				mute,
 				volume:
 					parseFloat($this.getAttribute('data-video-volume')) || 0,
-				showContols: 1,
+				showControls: 1,
 			};
 
 			// Opt-in privacy-enhanced host. Left unset, VideoWorker keeps its own default.
