@@ -47,4 +47,31 @@ class BreakpointsMigrationTest extends WP_UnitTestCase {
 		$this->assertFalse( get_site_option( 'ghostkit_run_breakpoints_processing_status' ) );
 		$this->assertFalse( wp_next_scheduled( 'ghostkit_run_breakpoints_processing_cron' ) );
 	}
+
+	/**
+	 * The runner keys on the plugin's own version option and waits for the release that carries a migration.
+	 */
+	public function test_runner_uses_own_version_option_and_waits_for_the_release() {
+		// Visual Portfolio's version option must not gate Ghost Kit migrations any more.
+		update_option( 'vpf_db_version', '3.8.2' );
+		delete_option( 'ghostkit_db_version' );
+		update_option( 'ghostkit_saved_breakpoints_hash', 'abc' );
+
+		$not_yet_released = new class() extends GhostKit_Migrations {
+			protected $version = '3.7.1';
+		};
+		$not_yet_released->init();
+
+		$this->assertSame( 'abc', get_option( 'ghostkit_saved_breakpoints_hash' ) );
+		$this->assertSame( '3.7.1', get_option( 'ghostkit_db_version' ) );
+
+		$released = new class() extends GhostKit_Migrations {
+			protected $version = '3.7.2';
+		};
+		$released->init();
+
+		$this->assertFalse( get_option( 'ghostkit_saved_breakpoints_hash' ) );
+		$this->assertSame( '3.7.2', get_option( 'ghostkit_db_version' ) );
+		$this->assertSame( '3.8.2', get_option( 'vpf_db_version' ) );
+	}
 }

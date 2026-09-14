@@ -43,7 +43,7 @@ class GhostKit_Migrations {
 	 */
 	public function init() {
 		// Migration code added after `$this->initial_version` plugin version.
-		$saved_version   = get_option( 'vpf_db_version', $this->initial_version );
+		$saved_version   = get_option( 'ghostkit_db_version', $this->initial_version );
 		$current_version = $this->version;
 
 		foreach ( $this->get_migrations() as $migration ) {
@@ -57,7 +57,7 @@ class GhostKit_Migrations {
 		}
 
 		if ( version_compare( $saved_version, $current_version, '<' ) ) {
-			update_option( 'vpf_db_version', $current_version );
+			update_option( 'ghostkit_db_version', $current_version );
 		}
 	}
 
