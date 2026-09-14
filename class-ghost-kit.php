@@ -151,9 +151,6 @@ if ( ! class_exists( 'GhostKit' ) ) :
 			require_once $this->plugin_path . 'classes/class-typography.php';
 			require_once $this->plugin_path . 'classes/class-fonts.php';
 			require_once $this->plugin_path . 'classes/class-templates.php';
-			require_once $this->plugin_path . 'classes/class-scss-replace-modules.php';
-			require_once $this->plugin_path . 'classes/class-scss-compiler.php';
-			require_once $this->plugin_path . 'classes/class-breakpoints-background.php';
 			require_once $this->plugin_path . 'classes/class-breakpoints.php';
 			require_once $this->plugin_path . 'classes/class-ask-review.php';
 			require_once $this->plugin_path . 'classes/class-deactivate-duplicate-plugin.php';

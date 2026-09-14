@@ -31,7 +31,6 @@ const zipFiles = [
 	'assets/**/*',
 	'build/**/*',
 	'classes/**/*',
-	'composer-libraries/**/*',
 	'gutenberg/**/*',
 	'languages/**/*',
 	'settings/**/*',
@@ -40,6 +39,10 @@ const zipFiles = [
 	'LICENSE.txt',
 	'readme.txt',
 	'wpml-config.xml',
+	// SCSS sources are compiled into `build/`; nothing on a site reads them.
+	'!assets/**/*.scss',
+	'!gutenberg/**/*.scss',
+	'!settings/**/*.scss',
 ];
 
 // Bump current version number.

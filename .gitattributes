@@ -20,4 +20,3 @@ languages/*.json      linguist-generated=true
 
 # Third-party code, excluded from the language statistics.
 assets/vendor/**      -diff linguist-vendored=true
-composer-libraries/** linguist-vendored=true

@@ -32,7 +32,7 @@
 		"format:css": "stylelint --fix --custom-syntax postcss-scss \"assets/**/*.scss\" \"gutenberg/**/*.scss\" \"settings/**/*.scss\"",
 		"format:js": "biome check --write",
 		"format:php": "nk-wp-env run --env-cwd='wp-content/plugins/ghostkit' cli composer run-script format",
-		"make-pot": "composer wp -- i18n make-pot ./ ./languages/ghostkit.pot --exclude=vendor,vendors,node_modules,build,dist,dist-zip,composer-libraries --headers='{\"Last-Translator\":\"nK\",\"Report-Msgid-Bugs-To\":\"https://github.com/nk-o/ghostkit/issues\"}'",
+		"make-pot": "composer wp -- i18n make-pot ./ ./languages/ghostkit.pot --exclude=vendor,vendors,node_modules,build,dist,dist-zip --headers='{\"Last-Translator\":\"nK\",\"Report-Msgid-Bugs-To\":\"https://github.com/nk-o/ghostkit/issues\"}'",
 		"make-json": "po2json ./languages/ghostkit.pot ./languages/ghostkit.json --format=jed1.x --pretty --domain=ghostkit",
 		"prepare": "husky install",
 		"postinstall": "patch-package && composer install",

@@ -33,7 +33,6 @@
 		"**/build": true,
 		"**/dist": true,
 		"**/dist-zip": true,
-		"**/vendor": true,
-		"**/composer-libraries": true
+		"**/vendor": true
 	}
 }

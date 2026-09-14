@@ -48,7 +48,7 @@
 		padding-left: calc(var(--gkt-changelog--version-badge__min-width) + var(--gkt-changelog--date__margin-left));
 		margin-top: var(--gkt-changelog--content__margin-top);
 
-		@media screen and (max-width: 768px) {
+		@media screen and (max-width: #{$media-sm}) {
 			padding-left: 0;
 		}
 	}

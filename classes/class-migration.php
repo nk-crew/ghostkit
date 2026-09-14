@@ -68,7 +68,39 @@ class GhostKit_Migrations {
 				'version' => '2.25.1',
 				'cb'      => array( $this, 'v_2_25_1' ),
 			),
+			array(
+				'version' => '3.7.2',
+				'cb'      => array( $this, 'v_3_7_2' ),
+			),
 		);
+	}
+
+	/**
+	 * Remove what the runtime SCSS compiler left behind: compiled CSS in uploads,
+	 * the cron event of its queue, and the options of the queue.
+	 */
+	public function v_3_7_2() {
+		global $wpdb;
+
+		$upload_dir = wp_get_upload_dir();
+
+		GhostKit_Breakpoints::remove_dir( $upload_dir['basedir'] . '/ghostkit/gutenberg' );
+
+		wp_clear_scheduled_hook( 'ghostkit_run_breakpoints_processing_cron' );
+
+		delete_option( 'ghostkit_saved_breakpoints_hash' );
+
+		// phpcs:ignore
+		$batch_options = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+				$wpdb->esc_like( 'ghostkit_run_breakpoints_processing_batch_' ) . '%'
+			)
+		);
+
+		foreach ( $batch_options as $batch_option ) {
+			delete_option( $batch_option );
+		}
 	}
 
 	/**
