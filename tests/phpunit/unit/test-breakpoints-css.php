@@ -99,6 +99,22 @@ class BreakpointsCssTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A fractional value from a theme keeps its fraction; an integer given as a string stays an integer.
+	 */
+	public function test_replace_keeps_fractional_values() {
+		$this->assertSame(
+			'@media (max-width:777.98px){}@media (min-width:777.98px){}@media (max-width:1077px){}',
+			GhostKit_Breakpoints::replace_breakpoints(
+				'@media (max-width:768px){}@media (min-width:768px){}@media (max-width:992px){}',
+				array(
+					'sm' => 770 + 8 - 0.02,
+					'md' => '1077',
+				)
+			)
+		);
+	}
+
+	/**
 	 * Generation writes the LTR and RTL files that carry breakpoints and records them.
 	 */
 	public function test_generation_writes_ltr_and_rtl_twins() {
