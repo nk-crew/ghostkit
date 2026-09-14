@@ -90,16 +90,32 @@ class GhostKit_Migrations {
 
 		delete_option( 'ghostkit_saved_breakpoints_hash' );
 
-		// phpcs:ignore
-		$batch_options = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
-				$wpdb->esc_like( 'ghostkit_run_breakpoints_processing_batch_' ) . '%'
-			)
-		);
+		// The queue kept its batches and status as site options: sitemeta on multisite, options otherwise.
+		delete_site_option( 'ghostkit_run_breakpoints_processing_status' );
+
+		$batch_like = $wpdb->esc_like( 'ghostkit_run_breakpoints_processing_batch_' ) . '%';
+
+		if ( is_multisite() ) {
+			// phpcs:ignore
+			$batch_options = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT meta_key FROM {$wpdb->sitemeta} WHERE site_id = %d AND meta_key LIKE %s",
+					get_current_network_id(),
+					$batch_like
+				)
+			);
+		} else {
+			// phpcs:ignore
+			$batch_options = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+					$batch_like
+				)
+			);
+		}
 
 		foreach ( $batch_options as $batch_option ) {
-			delete_option( $batch_option );
+			delete_site_option( $batch_option );
 		}
 	}
 
