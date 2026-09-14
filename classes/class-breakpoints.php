@@ -297,8 +297,10 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 			$map      = array();
 
 			foreach ( $defaults as $name => $default ) {
-				if ( isset( $breakpoints[ $name ] ) ) {
-					$map[ $default ] = (int) $breakpoints[ $name ];
+				if ( isset( $breakpoints[ $name ] ) && is_numeric( $breakpoints[ $name ] ) ) {
+					// Themes pass fractions such as 777.98 to keep a max-width query from
+					// overlapping the min-width one, so the value is kept as given.
+					$map[ $default ] = (string) ( 0 + $breakpoints[ $name ] );
 				}
 			}
 
