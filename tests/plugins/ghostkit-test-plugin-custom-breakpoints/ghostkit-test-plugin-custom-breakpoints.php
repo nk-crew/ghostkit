@@ -6,9 +6,11 @@
  * @package ghostkit
  */
 
+// Priority 100 wins over Ghost Kit Pro, which applies its saved settings at 99.
 add_filter(
 	'gkt_breakpoint_sm',
 	function () {
 		return 700;
-	}
+	},
+	100
 );
