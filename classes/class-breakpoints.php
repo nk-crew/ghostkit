@@ -167,7 +167,12 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 			}
 
 			try {
-				$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $build_dir, FilesystemIterator::SKIP_DOTS ) );
+				// CATCH_GET_CHILD skips a subdirectory PHP cannot open instead of ending the walk.
+				$iterator = new RecursiveIteratorIterator(
+					new RecursiveDirectoryIterator( $build_dir, FilesystemIterator::SKIP_DOTS ),
+					RecursiveIteratorIterator::LEAVES_ONLY,
+					RecursiveIteratorIterator::CATCH_GET_CHILD
+				);
 
 				foreach ( $iterator as $file ) {
 					if ( 'css' !== $file->getExtension() ) {
@@ -203,10 +208,26 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 					$files[] = $relative;
 				}
 			} catch ( UnexpectedValueException $e ) {
-				// A directory PHP cannot open ends the walk; the files written so far are still served.
+				// `build` itself could not be opened; nothing was written.
 				unset( $e );
 			}
 
+			// WordPress derives the `-rtl.css` URL from the served one, so a file whose RTL twin
+			// exists in the build but was not written would give RTL sites a 404. Serve neither.
+			foreach ( $files as $index => $relative ) {
+				$rtl_twin = preg_replace( '/\.css$/', '-rtl.css', $relative );
+
+				if (
+					$rtl_twin !== $relative &&
+					! in_array( $rtl_twin, $files, true ) &&
+					file_exists( $plugin_path . $rtl_twin )
+				) {
+					wp_delete_file( $output_dir . '/' . $relative );
+					unset( $files[ $index ] );
+				}
+			}
+
+			$files = array_values( $files );
 			sort( $files );
 
 			return $files;
