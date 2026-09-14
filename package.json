@@ -90,7 +90,7 @@
 		"markdown-it": "^14.0.0",
 		"motion": "^11.15.0",
 		"patch-package": "^8.0.1",
-		"qs": "^6.11.2",
+		"qs": "^6.16.0",
 		"raf-schd": "^4.0.3",
 		"react-ace": "^10.1.0",
 		"react-select": "^5.8.0",
