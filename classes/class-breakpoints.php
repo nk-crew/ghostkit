@@ -166,40 +166,45 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 				return $files;
 			}
 
-			$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $build_dir, FilesystemIterator::SKIP_DOTS ) );
+			try {
+				$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $build_dir, FilesystemIterator::SKIP_DOTS ) );
 
-			foreach ( $iterator as $file ) {
-				if ( 'css' !== $file->getExtension() ) {
-					continue;
+				foreach ( $iterator as $file ) {
+					if ( 'css' !== $file->getExtension() ) {
+						continue;
+					}
+
+					$path = wp_normalize_path( $file->getPathname() );
+                    // phpcs:ignore
+                    $css  = file_get_contents( $path );
+
+					if ( false === $css ) {
+						continue;
+					}
+
+					$replaced = self::replace_breakpoints( $css, $breakpoints );
+
+					if ( $replaced === $css ) {
+						continue;
+					}
+
+					$relative = substr( $path, strlen( $plugin_path ) );
+					$target   = $output_dir . '/' . $relative;
+
+					if ( ! wp_mkdir_p( dirname( $target ) ) ) {
+						continue;
+					}
+
+                    // phpcs:ignore
+                    if ( false === file_put_contents( $target, $replaced ) ) {
+						continue;
+					}
+
+					$files[] = $relative;
 				}
-
-				$path = wp_normalize_path( $file->getPathname() );
-                // phpcs:ignore
-                $css  = file_get_contents( $path );
-
-				if ( false === $css ) {
-					continue;
-				}
-
-				$replaced = self::replace_breakpoints( $css, $breakpoints );
-
-				if ( $replaced === $css ) {
-					continue;
-				}
-
-				$relative = substr( $path, strlen( $plugin_path ) );
-				$target   = $output_dir . '/' . $relative;
-
-				if ( ! wp_mkdir_p( dirname( $target ) ) ) {
-					continue;
-				}
-
-                // phpcs:ignore
-                if ( false === file_put_contents( $target, $replaced ) ) {
-					continue;
-				}
-
-				$files[] = $relative;
+			} catch ( UnexpectedValueException $e ) {
+				// A directory PHP cannot open ends the walk; the files written so far are still served.
+				unset( $e );
 			}
 
 			sort( $files );
@@ -228,18 +233,23 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 				return;
 			}
 
-			$iterator = new RecursiveIteratorIterator(
-				new RecursiveDirectoryIterator( $dir, FilesystemIterator::SKIP_DOTS ),
-				RecursiveIteratorIterator::CHILD_FIRST
-			);
+			try {
+				$iterator = new RecursiveIteratorIterator(
+					new RecursiveDirectoryIterator( $dir, FilesystemIterator::SKIP_DOTS ),
+					RecursiveIteratorIterator::CHILD_FIRST
+				);
 
-			foreach ( $iterator as $item ) {
-				if ( $item->isDir() ) {
-                    // phpcs:ignore
-                    rmdir( $item->getPathname() );
-				} else {
-					wp_delete_file( $item->getPathname() );
+				foreach ( $iterator as $item ) {
+					if ( $item->isDir() ) {
+                        // phpcs:ignore
+                        rmdir( $item->getPathname() );
+					} else {
+						wp_delete_file( $item->getPathname() );
+					}
 				}
+			} catch ( UnexpectedValueException $e ) {
+				// A directory PHP cannot open stays in place, with the directories above it.
+				return;
 			}
 
             // phpcs:ignore

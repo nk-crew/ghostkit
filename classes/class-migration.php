@@ -47,7 +47,11 @@ class GhostKit_Migrations {
 		$current_version = $this->version;
 
 		foreach ( $this->get_migrations() as $migration ) {
-			if ( version_compare( $saved_version, $migration['version'], '<' ) ) {
+			if (
+				version_compare( $saved_version, $migration['version'], '<' ) &&
+				// A migration keyed above the plugin version belongs to a later release and waits for it.
+				version_compare( $migration['version'], $current_version, '<=' )
+			) {
 				call_user_func( $migration['cb'] );
 			}
 		}
