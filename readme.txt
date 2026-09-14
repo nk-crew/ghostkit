@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 7.1
 * Requires PHP: 7.4
-* Stable tag: 3.7.1
+* Stable tag: 3.7.2
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -162,6 +162,15 @@ Yes, and it carries WPML compatibility for block content.
 6. Transform: translate, scale and rotate a block, in 2D or 3D
 
 ## Changelog ##
+
+= 3.7.2 - Sep 14, 2026 =
+
+* fixed a critical error on sites where another plugin ships a different version of the same CSS parser, which showed up as "Declaration of Sabberworm\CSS\Value\Size::render() must be compatible" once the custom breakpoints styles were rebuilt
+* changed custom breakpoints to be applied to the shipped stylesheets directly instead of compiling styles on the site, so the change takes effect on the next page load
+* fixed RTL sites loading the left-to-right stylesheets for blocks, the editor and the settings pages
+* **Pro:**
+* fixed one failed plugin update on the Plugins screen leaving the remaining queued updates waiting for a page reload
+* fixed RTL sites loading the left-to-right stylesheets of the Pro blocks on the frontend and in the editor
 
 = 3.7.1 - Aug 31, 2026 =
 

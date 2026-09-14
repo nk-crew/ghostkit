@@ -2,7 +2,7 @@
 /**
  * Plugin Name:  Ghost Kit
  * Description:  Animate WordPress blocks with reveal, scroll, mouse and loop effects.
- * Version:      3.7.1
+ * Version:      3.7.2
  * Plugin URI:   https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
  * Author:       Ghost Kit Team
  * Author URI:   https://www.ghostkit.io/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=byline
@@ -53,7 +53,7 @@ if (
 unset( $gkt_active_plugins );
 
 if ( ! defined( 'GHOSTKIT_VERSION' ) ) {
-	define( 'GHOSTKIT_VERSION', '3.7.1' );
+	define( 'GHOSTKIT_VERSION', '3.7.2' );
 }
 
 if ( ! class_exists( 'GhostKit' ) ) :
