@@ -531,7 +531,6 @@ class GhostKit_Assets {
 			$css_deps
 		);
 		wp_style_add_data( 'ghostkit', 'rtl', 'replace' );
-		wp_style_add_data( 'ghostkit', 'suffix', '.min' );
 
 		self::register_script(
 			'ghostkit',
@@ -653,7 +652,6 @@ class GhostKit_Assets {
 				array_unique( $block_css_deps )
 			);
 			wp_style_add_data( 'ghostkit-block-' . $block_name, 'rtl', 'replace' );
-			wp_style_add_data( 'ghostkit-block-' . $block_name, 'suffix', '.min' );
 		}
 
 		do_action( 'gkt_after_assets_register' );

@@ -43,17 +43,21 @@ class GhostKit_Migrations {
 	 */
 	public function init() {
 		// Migration code added after `$this->initial_version` plugin version.
-		$saved_version   = get_option( 'vpf_db_version', $this->initial_version );
+		$saved_version   = get_option( 'ghostkit_db_version', $this->initial_version );
 		$current_version = $this->version;
 
 		foreach ( $this->get_migrations() as $migration ) {
-			if ( version_compare( $saved_version, $migration['version'], '<' ) ) {
+			if (
+				version_compare( $saved_version, $migration['version'], '<' ) &&
+				// A migration keyed above the plugin version belongs to a later release and waits for it.
+				version_compare( $migration['version'], $current_version, '<=' )
+			) {
 				call_user_func( $migration['cb'] );
 			}
 		}
 
 		if ( version_compare( $saved_version, $current_version, '<' ) ) {
-			update_option( 'vpf_db_version', $current_version );
+			update_option( 'ghostkit_db_version', $current_version );
 		}
 	}
 
@@ -68,7 +72,55 @@ class GhostKit_Migrations {
 				'version' => '2.25.1',
 				'cb'      => array( $this, 'v_2_25_1' ),
 			),
+			array(
+				'version' => '3.7.2',
+				'cb'      => array( $this, 'v_3_7_2' ),
+			),
 		);
+	}
+
+	/**
+	 * Remove what the runtime SCSS compiler left behind: compiled CSS in uploads,
+	 * the cron event of its queue, and the options of the queue.
+	 */
+	public function v_3_7_2() {
+		global $wpdb;
+
+		$upload_dir = wp_get_upload_dir();
+
+		GhostKit_Breakpoints::remove_dir( $upload_dir['basedir'] . '/ghostkit/gutenberg' );
+
+		wp_clear_scheduled_hook( 'ghostkit_run_breakpoints_processing_cron' );
+
+		delete_option( 'ghostkit_saved_breakpoints_hash' );
+
+		// The queue kept its batches and status as site options: sitemeta on multisite, options otherwise.
+		delete_site_option( 'ghostkit_run_breakpoints_processing_status' );
+
+		$batch_like = $wpdb->esc_like( 'ghostkit_run_breakpoints_processing_batch_' ) . '%';
+
+		if ( is_multisite() ) {
+			// phpcs:ignore
+			$batch_options = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT meta_key FROM {$wpdb->sitemeta} WHERE site_id = %d AND meta_key LIKE %s",
+					get_current_network_id(),
+					$batch_like
+				)
+			);
+		} else {
+			// phpcs:ignore
+			$batch_options = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+					$batch_like
+				)
+			);
+		}
+
+		foreach ( $batch_options as $batch_option ) {
+			delete_site_option( $batch_option );
+		}
 	}
 
 	/**

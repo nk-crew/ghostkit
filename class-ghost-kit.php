@@ -151,9 +151,6 @@ if ( ! class_exists( 'GhostKit' ) ) :
 			require_once $this->plugin_path . 'classes/class-typography.php';
 			require_once $this->plugin_path . 'classes/class-fonts.php';
 			require_once $this->plugin_path . 'classes/class-templates.php';
-			require_once $this->plugin_path . 'classes/class-scss-replace-modules.php';
-			require_once $this->plugin_path . 'classes/class-scss-compiler.php';
-			require_once $this->plugin_path . 'classes/class-breakpoints-background.php';
 			require_once $this->plugin_path . 'classes/class-breakpoints.php';
 			require_once $this->plugin_path . 'classes/class-ask-review.php';
 			require_once $this->plugin_path . 'classes/class-deactivate-duplicate-plugin.php';
@@ -312,7 +309,6 @@ if ( ! class_exists( 'GhostKit' ) ) :
 				filemtime( plugin_dir_path( __FILE__ ) . 'build/gutenberg/editor.css' )
 			);
 			wp_style_add_data( 'ghostkit-editor', 'rtl', 'replace' );
-			wp_style_add_data( 'ghostkit-editor', 'suffix', '.min' );
 
 			// Since WordPress 7.1 the post editor canvas is always iframed, and core collects
 			// the iframe assets by running `enqueue_block_assets` a second time with
