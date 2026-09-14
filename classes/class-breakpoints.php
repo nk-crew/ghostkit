@@ -40,14 +40,7 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 		protected static $default_lg = 1200;
 
 		/**
-		 * Database saved hash option Name.
-		 *
-		 * @var string
-		 */
-		protected $database_saved_hash_option_name = 'ghostkit_saved_breakpoints_hash';
-
-		/**
-		 * Plugin name.
+		 * Plugin name. Also the directory under uploads that holds the generated CSS.
 		 *
 		 * @var string
 		 */
@@ -61,44 +54,11 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 		protected $plugin_version = GHOSTKIT_VERSION;
 
 		/**
-		 * Scss Configurations.
-		 *
-		 * @var array
-		 */
-		protected $scss_configs = array(
-			'gutenberg/style.scss',
-			'gutenberg/editor.scss',
-			'gutenberg/blocks/*/styles/style.scss',
-		);
-
-		/**
-		 * Compile Scss Configurations.
-		 *
-		 * @var array
-		 */
-		protected $compile_scss_configs;
-
-		/**
-		 * Background breakpoints processing.
-		 *
-		 * @var object
-		 */
-		protected $breakpoints_background_process;
-
-		/**
 		 * GhostKit_Breakpoints constructor.
 		 */
 		public function __construct() {
-			if ( ! class_exists( 'GhostKit_Breakpoints_Background' ) ) {
-				// breakpoints background.
-				require_once __DIR__ . '/class-breakpoints-background.php';
-			}
-
-			$this->compile_scss_configs           = $this->get_compile_scss_configs();
-			$this->breakpoints_background_process = new GhostKit_Breakpoints_Background();
-
 			add_filter( 'style_loader_src', array( $this, 'change_style_src_to_compile' ), 10, 1 );
-			add_action( 'gkt_before_assets_register', array( $this, 'maybe_compile_scss_files' ) );
+			add_action( 'gkt_before_assets_register', array( $this, 'maybe_generate_css' ) );
 		}
 
 		/**
@@ -120,89 +80,250 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 		}
 
 		/**
-		 * Get compile scss configurations.
+		 * Name of the option that holds the hash and the list of generated files.
 		 *
-		 * @return array
+		 * @return string
 		 */
-		protected function get_compile_scss_configs() {
-			$plugin_path          = $this->get_plugin_path();
-			$upload_dir           = wp_upload_dir();
-			$compile_scss_configs = array();
-			$scss_paths           = apply_filters( 'gkt_scss_paths', $plugin_path );
-			$scss_configs         = apply_filters( 'gkt_scss_configs', $this->scss_configs );
+		protected function get_option_name() {
+			return str_replace( '-', '_', $this->plugin_name ) . '_breakpoints_css';
+		}
 
-			if ( ! is_array( $scss_paths ) ) {
-				$scss_paths = array( $scss_paths );
+		/**
+		 * Directory under uploads that holds the generated CSS.
+		 *
+		 * @return string
+		 */
+		protected function get_output_dir() {
+			$upload_dir = wp_get_upload_dir();
+
+			return $upload_dir['basedir'] . '/' . $this->plugin_name;
+		}
+
+		/**
+		 * Stored hash and list of generated files.
+		 *
+		 * @return array|false
+		 */
+		protected function get_generated_css() {
+			$stored = get_option( $this->get_option_name() );
+
+			if (
+				! is_array( $stored ) ||
+				! isset( $stored['hash'], $stored['files'] ) ||
+				! is_array( $stored['files'] )
+			) {
+				return false;
 			}
 
-			foreach ( $scss_configs as $scss_config ) {
-				foreach ( $scss_paths as $path ) {
-					$compile_scss_configs = $this->get_parsed_scss_files( $compile_scss_configs, $path, $upload_dir, $scss_config );
+			return $stored;
+		}
+
+		/**
+		 * Regenerate the CSS when the breakpoints or the plugin version changed.
+		 *
+		 * @return void
+		 */
+		public function maybe_generate_css() {
+			$breakpoints = self::get_breakpoints();
+			$hash        = $this->get_breakpoints_hash( $breakpoints );
+			$stored      = $this->get_generated_css();
+
+			if ( $hash === $this->get_default_breakpoints_hash() ) {
+				if ( $stored ) {
+					$this->remove_generated_css();
+				}
+				return;
+			}
+
+			if ( $stored && $stored['hash'] === $hash ) {
+				return;
+			}
+
+			$this->remove_generated_css();
+
+			update_option(
+				$this->get_option_name(),
+				array(
+					'hash'  => $hash,
+					'files' => $this->generate_css( $breakpoints ),
+				)
+			);
+		}
+
+		/**
+		 * Write the built CSS files with the breakpoint values replaced into uploads.
+		 *
+		 * @param array $breakpoints - Breakpoints.
+		 * @return array Paths of the written files, relative to the plugin directory.
+		 */
+		protected function generate_css( $breakpoints ) {
+			$plugin_path = wp_normalize_path( $this->get_plugin_path() );
+			$build_dir   = $plugin_path . 'build';
+			$output_dir  = $this->get_output_dir();
+			$files       = array();
+
+			if ( ! is_dir( $build_dir ) ) {
+				return $files;
+			}
+
+			$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $build_dir, FilesystemIterator::SKIP_DOTS ) );
+
+			foreach ( $iterator as $file ) {
+				if ( 'css' !== $file->getExtension() ) {
+					continue;
+				}
+
+				$path = wp_normalize_path( $file->getPathname() );
+                // phpcs:ignore
+                $css  = file_get_contents( $path );
+
+				if ( false === $css ) {
+					continue;
+				}
+
+				$replaced = self::replace_breakpoints( $css, $breakpoints );
+
+				if ( $replaced === $css ) {
+					continue;
+				}
+
+				$relative = substr( $path, strlen( $plugin_path ) );
+				$target   = $output_dir . '/' . $relative;
+
+				if ( ! wp_mkdir_p( dirname( $target ) ) ) {
+					continue;
+				}
+
+                // phpcs:ignore
+                if ( false === file_put_contents( $target, $replaced ) ) {
+					continue;
+				}
+
+				$files[] = $relative;
+			}
+
+			sort( $files );
+
+			return $files;
+		}
+
+		/**
+		 * Remove the generated CSS and the option that lists it.
+		 *
+		 * @return void
+		 */
+		protected function remove_generated_css() {
+			self::remove_dir( $this->get_output_dir() . '/build' );
+			delete_option( $this->get_option_name() );
+		}
+
+		/**
+		 * Delete a directory with everything inside it.
+		 *
+		 * @param string $dir - Absolute path.
+		 * @return void
+		 */
+		public static function remove_dir( $dir ) {
+			if ( ! is_dir( $dir ) ) {
+				return;
+			}
+
+			$iterator = new RecursiveIteratorIterator(
+				new RecursiveDirectoryIterator( $dir, FilesystemIterator::SKIP_DOTS ),
+				RecursiveIteratorIterator::CHILD_FIRST
+			);
+
+			foreach ( $iterator as $item ) {
+				if ( $item->isDir() ) {
+                    // phpcs:ignore
+                    rmdir( $item->getPathname() );
+				} else {
+					wp_delete_file( $item->getPathname() );
 				}
 			}
 
-			return $compile_scss_configs;
+            // phpcs:ignore
+            rmdir( $dir );
 		}
 
 		/**
-		 * Get parsed array of scss files
+		 * Replace the default breakpoint values inside `@media` preludes with the given ones.
 		 *
-		 * @param array  $compile_scss_configs - Array of config width scss files.
-		 * @param string $scss_path - Path to scss files.
-		 * @param string $upload_dir - Uploas WP dir.
-		 * @param string $scss_config - File search mask.
-		 * @return array
+		 * Only `(min-width: Npx)` and `(max-width: Npx)` whose N is a default breakpoint change,
+		 * in one pass, so a custom value equal to another default is never replaced twice.
+		 *
+		 * @param string $css - CSS to process.
+		 * @param array  $breakpoints - Breakpoints keyed xs, sm, md, lg.
+		 * @return string
 		 */
-		protected function get_parsed_scss_files( &$compile_scss_configs, $scss_path, $upload_dir, $scss_config ) {
-			foreach ( glob( $scss_path . $scss_config ) as $template ) {
-				$output_file = str_replace( $scss_path, $upload_dir['basedir'] . '/' . $this->plugin_name . '/', $template );
-				$output_file = str_replace( '.scss', '.min.css', $output_file );
+		public static function replace_breakpoints( $css, $breakpoints ) {
+			$defaults = array(
+				'xs' => self::$default_xs,
+				'sm' => self::$default_sm,
+				'md' => self::$default_md,
+				'lg' => self::$default_lg,
+			);
+			$map      = array();
 
-				$compile_scss_configs[] = array(
-					'input_file'  => $template,
-					'output_file' => $output_file,
-				);
+			foreach ( $defaults as $name => $default ) {
+				if ( isset( $breakpoints[ $name ] ) ) {
+					$map[ $default ] = (int) $breakpoints[ $name ];
+				}
 			}
-			return $compile_scss_configs;
+
+			return preg_replace_callback(
+				'/@media[^{;]*\{/',
+				function ( $prelude ) use ( $map ) {
+					return preg_replace_callback(
+						'/\(\s*(min|max)-width\s*:\s*(\d+)px\s*\)/',
+						function ( $query ) use ( $map ) {
+							$value = (int) $query[2];
+
+							if ( ! isset( $map[ $value ] ) ) {
+								return $query[0];
+							}
+
+							return '(' . $query[1] . '-width:' . $map[ $value ] . 'px)';
+						},
+						$prelude[0]
+					);
+				},
+				$css
+			);
 		}
 
 		/**
-		 * Change style src to compile css files.
+		 * Serve the generated CSS instead of the plugin file when custom breakpoints are set.
 		 *
 		 * @param string $src - Url to style.
 		 * @return string
 		 */
 		public function change_style_src_to_compile( $src ) {
-			$plugin_url               = $this->get_plugin_url();
-			$breakpoints              = self::get_breakpoints();
-			$breakpoints_hash         = $this->get_breakpoints_hash( $breakpoints );
-			$default_breakpoints_hash = $this->get_default_breakpoints_hash();
+			$stored = $this->get_generated_css();
 
-			if ( $breakpoints_hash !== $default_breakpoints_hash ) {
-				$is_plugin_file = strstr( $src, $plugin_url );
-
-				if ( $is_plugin_file ) {
-					$configs       = $this->compile_scss_configs;
-					$relative_uri  = str_replace( $plugin_url, '', $is_plugin_file );
-					$relative_path = explode( '?ver=', $relative_uri )[0];
-					$upload_dir    = wp_upload_dir();
-					$output_file   = $upload_dir['basedir'] . '/' . $this->plugin_name . '/' . $relative_path;
-
-					foreach ( $configs as $config ) {
-						if (
-							$config['output_file'] === $output_file &&
-							file_exists( $output_file )
-						) {
-							// add hash to compiled CSS version to prevent problems with cache.
-							$uri_with_hash_version = str_replace( '?ver=', '?ver=' . $breakpoints_hash . '.', $relative_uri );
-
-							$src = $upload_dir['baseurl'] . '/' . $this->plugin_name . '/' . $uri_with_hash_version;
-						}
-					}
-				}
+			if ( ! $stored || empty( $stored['files'] ) ) {
+				return $src;
 			}
 
-			return $src;
+			$plugin_url = $this->get_plugin_url();
+
+			if ( 0 !== strpos( $src, $plugin_url ) ) {
+				return $src;
+			}
+
+			$path = strtok( substr( $src, strlen( $plugin_url ) ), '?' );
+
+			if ( ! in_array( $path, $stored['files'], true ) ) {
+				return $src;
+			}
+
+			if ( ! file_exists( $this->get_output_dir() . '/' . $path ) ) {
+				return $src;
+			}
+
+			$upload_dir = wp_get_upload_dir();
+
+			return add_query_arg( 'ver', $stored['hash'], $upload_dir['baseurl'] . '/' . $this->plugin_name . '/' . $path );
 		}
 
 		/**
@@ -276,68 +397,6 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 					'lg' => self::$default_lg,
 				)
 			);
-		}
-
-		/**
-		 * Styles may need to be compiled if breakpoints have been changed.
-		 *
-		 * @return void
-		 */
-		public function maybe_compile_scss_files() {
-			$breakpoints              = self::get_breakpoints();
-			$breakpoints_hash         = $this->get_breakpoints_hash( $breakpoints );
-			$default_breakpoints_hash = $this->get_default_breakpoints_hash();
-			$saved_breakpoints_hash   = get_option( $this->database_saved_hash_option_name );
-
-			if (
-				$breakpoints_hash !== $saved_breakpoints_hash &&
-				$breakpoints_hash !== $default_breakpoints_hash
-			) {
-				$compile_scss_configs = $this->compile_scss_configs;
-
-				// Replace modules in all SCSS files.
-				if ( ! empty( $compile_scss_configs ) ) {
-					$plugin_path = $this->get_plugin_path();
-
-					$scss_paths = apply_filters( 'gkt_scss_paths', $plugin_path );
-
-					if ( ! is_array( $scss_paths ) ) {
-						$scss_paths = array( $scss_paths );
-					}
-
-					foreach ( $scss_paths as $path ) {
-						new GhostKit_Scss_Replace_Modules( $path );
-					}
-				}
-
-				$breakpoints = self::get_breakpoints();
-
-				$variables = array(
-					'media-xs' => $breakpoints['xs'] . 'px',
-					'media-sm' => $breakpoints['sm'] . 'px',
-					'media-md' => $breakpoints['md'] . 'px',
-					'media-lg' => $breakpoints['lg'] . 'px',
-				);
-
-				foreach ( $compile_scss_configs as $compile_scss_config ) {
-					$scss_config_arguments = array_merge(
-						$compile_scss_config,
-						array(
-							'variables'   => $variables,
-						)
-					);
-
-					if ( ! file_exists( $compile_scss_config['output_file'] ) ) {
-						new GhostKit_Scss_Compiler( $scss_config_arguments );
-					} else {
-						$this->breakpoints_background_process->push_to_queue( $scss_config_arguments );
-					}
-				}
-
-				$this->breakpoints_background_process->save()->dispatch();
-
-				update_option( $this->database_saved_hash_option_name, $breakpoints_hash );
-			}
 		}
 
 		/**
