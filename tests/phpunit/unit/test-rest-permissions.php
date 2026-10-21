@@ -313,6 +313,14 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 		$this->assertSame( 403, $response->get_status() );
 		$this->assertSame( 'old();', get_option( 'ghostkit_custom_code' )['ghostkit_custom_js_head'] );
 
+		// A null value would replace the script through array_merge.
+		$request = new WP_REST_Request( 'POST', '/ghostkit/v1/update_custom_code' );
+		$request->set_param( 'data', array( 'ghostkit_custom_js_head' => null ) );
+		$response = rest_get_server()->dispatch( $request );
+
+		$this->assertSame( 403, $response->get_status() );
+		$this->assertSame( 'old();', get_option( 'ghostkit_custom_code' )['ghostkit_custom_js_head'] );
+
 		// CSS can still be saved when JS is sent unchanged.
 		$request = new WP_REST_Request( 'POST', '/ghostkit/v1/update_custom_code' );
 		$request->set_param(

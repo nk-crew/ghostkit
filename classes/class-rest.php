@@ -1851,7 +1851,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 				foreach ( array( 'ghostkit_custom_js_head', 'ghostkit_custom_js_foot' ) as $js_key ) {
 					$current_js = isset( $current_code[ $js_key ] ) ? $current_code[ $js_key ] : '';
 
-					if ( isset( $new_code[ $js_key ] ) && (string) $new_code[ $js_key ] !== (string) $current_js ) {
+					if ( array_key_exists( $js_key, $new_code ) && (string) $new_code[ $js_key ] !== (string) $current_js ) {
 						return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change custom JavaScript.', 'ghostkit' ), true );
 					}
 				}
