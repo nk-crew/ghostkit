@@ -316,12 +316,10 @@ class GhostKit_Rest extends WP_REST_Controller {
 	/**
 	 * Get attachment image <img> tag permissions.
 	 *
-	 * @param WP_REST_Request $request  request object.
-	 *
 	 * @return bool|WP_Error
 	 */
-	public function get_attachment_image_permission( WP_REST_Request $request ) {
-		if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( 'read_post', (int) $request->get_param( 'id' ) ) ) {
+	public function get_attachment_image_permission() {
+		if ( ! current_user_can( 'edit_posts' ) ) {
 			return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to read this image.', 'ghostkit' ), true );
 		}
 

@@ -830,17 +830,23 @@ class GhostKit_Assets {
 
 	/**
 	 * Sanitize custom CSS for output inside a <style> tag.
-	 * Unlike wp_kses() it keeps `&` and `>` selectors intact.
+	 * Unlike wp_kses() it keeps `&`, `>` and `<` intact.
 	 *
 	 * @param string $css - code.
 	 *
 	 * @return string
 	 */
 	public static function sanitize_custom_css( $css ) {
-		$css = wp_strip_all_tags( (string) $css );
-		$css = preg_replace( '#</style#i', '', $css );
+		// Drop HTML tags such as a <style> wrapper but keep their text, so CSS pasted with tags still applies.
+		$css = preg_replace( '#</?[a-zA-Z][^<>]*>#', '', (string) $css );
 
-		// Earlier versions printed `&gt;` as `>`, keep that for CSS saved with the entity.
+		// Nothing may close the <style> or <script> element the CSS is printed in.
+		do {
+			$prev = $css;
+			$css  = preg_replace( '#</(style|script)|<!--#i', '', $css );
+		} while ( $prev !== $css );
+
+		// GhostKit_Extension_Styles::parse() escapes `>` in block style selectors at render time.
 		return str_replace( '&gt;', '>', $css );
 	}
 

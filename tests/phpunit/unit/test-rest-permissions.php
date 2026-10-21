@@ -250,6 +250,26 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertStringContainsString( 'wp-image-' . $attachment_id, $response->get_data()['response'] );
+
+		// The media library shows Authors images attached to other users' drafts, so the route serves them too.
+		$admin_id    = self::factory()->user->create( array( 'role' => 'administrator' ) );
+		$draft_id    = self::factory()->post->create(
+			array(
+				'post_status' => 'draft',
+				'post_author' => $admin_id,
+			)
+		);
+		$attached_id = self::factory()->attachment->create_upload_object( DIR_TESTDATA . '/images/canola.jpg', $draft_id );
+		wp_update_post(
+			array(
+				'ID'          => $attached_id,
+				'post_author' => $admin_id,
+			)
+		);
+		$response = $this->get( '/ghostkit/v1/get_attachment_image/' . $attached_id );
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertStringContainsString( 'wp-image-' . $attached_id, $response->get_data()['response'] );
 	}
 
 	/**
@@ -357,12 +377,23 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Custom CSS keeps `&` and `>` and cannot close the style tag.
+	 * Custom CSS keeps `&`, `>` and `<` and cannot close the style tag.
 	 */
 	public function test_custom_css_sanitizer() {
-		$css = GhostKit_Assets::sanitize_custom_css( '.a { & > .b { color: red; } } &gt; .c {} </style><script>alert(1)</script>' );
+		$this->assertSame( '.a { & > .b { color: red; } } > .c {}', GhostKit_Assets::sanitize_custom_css( '.a { & > .b { color: red; } } &gt; .c {}' ) );
 
-		$this->assertSame( '.a { & > .b { color: red; } } > .c {}', $css );
-		$this->assertSame( '.x {}', GhostKit_Assets::sanitize_custom_css( '.x {}</STYLE' ) );
+		// A <style> wrapper is dropped, its rules stay.
+		$this->assertSame( '.a{b:c}', GhostKit_Assets::sanitize_custom_css( '<style>.a{b:c}</style>' ) );
+
+		// `<` inside CSS does not cut the rules after it.
+		$css = '@media (600px <= width <= 900px) { .a { color: red; } } .b { content: "<"; } .c { color: blue; }';
+		$this->assertSame( $css, GhostKit_Assets::sanitize_custom_css( $css ) );
+
+		// Nothing in the output can close the style element or open a comment.
+		foreach ( array( '.x {}</st</styleyle>', '.x {}</STYLE >', '.x {}</STYLE', '.x {}<!--', '.x {}</scr</scriptipt>', '.x {}<!<!---->' ) as $input ) {
+			$output = GhostKit_Assets::sanitize_custom_css( $input );
+
+			$this->assertDoesNotMatchRegularExpression( '#</style|</script|<!--#i', $output, $input );
+		}
 	}
 }
