@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   playwright:
-    name: Playwright
+    name: Playwright (WP ${{ matrix.wp.name }})
     # 2 vCPU, not 4. `workers: 1` does not make this job single-threaded -- the
     # browser and the wp-env stack use the other cores, and measuring the switch
     # showed `playwright test` getting 40-70% slower. It still wins: Blacksmith
@@ -30,6 +30,19 @@ jobs:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     timeout-minutes: 30
     if: ${{ github.repository == 'nk-crew/ghostkit' || github.event_name == 'pull_request' }}
+    # A WordPress trunk breakage is reported but does not block merges.
+    continue-on-error: ${{ matrix.wp.name == 'trunk' }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        wp:
+          # The version .wp-env.json resolves to (latest release).
+          - name: latest
+            core: ''
+          # WordPress trunk, to catch breakage from the next release (7.2) early.
+          - name: trunk
+            core: WordPress/WordPress#master
 
     steps:
       - uses: actions/checkout@v4
@@ -57,6 +70,8 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Install WordPress and start the server
+        env:
+          WP_ENV_CORE: ${{ matrix.wp.core }}
         run: |
           npm run wp-env start
 
@@ -68,6 +83,6 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ failure() && !cancelled() }}
         with:
-          name: failures-artifacts${{ matrix.plugin && format('-{0}', matrix.plugin) || '' }}
+          name: failures-artifacts-wp-${{ matrix.wp.name }}
           path: artifacts/test-results
           if-no-files-found: ignore

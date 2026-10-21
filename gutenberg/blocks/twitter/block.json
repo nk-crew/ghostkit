@@ -100,7 +100,5 @@
 			"type": "boolean",
 			"default": true
 		}
-	},
-	"style": ["ghostkit", "ghostkit-block-twitter"],
-	"viewScript": ["ghostkit", "ghostkit-block-twitter"]
+	}
 }

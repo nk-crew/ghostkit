@@ -1,15 +1,9 @@
-import 'react-virtualized/styles.css';
-
 import classnames from 'classnames/dedupe';
-import {
-	AutoSizer,
-	CellMeasurer,
-	CellMeasurerCache,
-	List,
-} from 'react-virtualized';
 
 import dashCaseToTitle from '../../utils/dash-case-to-title';
 import { maybeDecode, maybeEncode } from '../../utils/encode-decode';
+import { useIcons } from './icons-store';
+import VirtualList from './virtual-list';
 
 const { GHOSTKIT } = window;
 
@@ -19,21 +13,23 @@ import {
 	Dropdown,
 	G,
 	Path,
+	Spinner,
 	SVG,
 	TextareaControl,
 	TextControl,
 	Tooltip,
 } from '@wordpress/components';
-import { Fragment, useEffect, useRef, useState } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Go over each icon.
  *
+ * @param {Object}   icons    icons list.
  * @param {Function} callback callback.
  */
-function eachIcons(callback) {
-	const { icons, settings } = GHOSTKIT;
+function eachIcons(icons, callback) {
+	const { settings } = GHOSTKIT;
 
 	Object.keys(icons).forEach((key) => {
 		const allow =
@@ -81,14 +77,19 @@ function Icon(props) {
 
 const hiddenIconCategories = {};
 
+// Requests the icons list while mounted.
+function LoadIcons() {
+	useIcons();
+
+	return null;
+}
+
 /**
  * Dropdown
  *
  * @param props
  */
 function IconPickerDropdown(props) {
-	const cellMCache = useRef();
-
 	const { onChange, value, label, className, renderToggle, insideInspector } =
 		props;
 
@@ -97,20 +98,8 @@ function IconPickerDropdown(props) {
 		useState(hiddenIconCategories);
 	const [customizeIcon, setCustomizeIcon] = useState(false);
 
-	// Mounted.
-	useEffect(() => {
-		cellMCache.current = new CellMeasurerCache({
-			defaultHeight: 65,
-			fixedWidth: true,
-		});
-	}, []);
-
-	// Mounted and updated.
-	useEffect(() => {
-		if (cellMCache.current) {
-			cellMCache.current.clearAll();
-		}
-	});
+	// Subscribe only: the list is requested when the dropdown opens.
+	const { icons, error } = useIcons(false);
 
 	function getDropdownContent() {
 		const rows = [
@@ -164,7 +153,7 @@ function IconPickerDropdown(props) {
 			},
 		];
 
-		eachIcons((iconsData) => {
+		eachIcons(icons || {}, (iconsData) => {
 			const showCategory =
 				typeof hiddenCategories[iconsData.name] !== 'undefined'
 					? hiddenCategories[iconsData.name]
@@ -302,7 +291,7 @@ function IconPickerDropdown(props) {
 
 				if (currentIcons.length === 3 || allIcons.length === i + 1) {
 					rows.push({
-						key: 'icons',
+						key: `icons-${iconsData.name}-${i}`,
 						render: (
 							<div className="ghostkit-component-icon-picker-list">
 								{currentIcons}
@@ -315,51 +304,30 @@ function IconPickerDropdown(props) {
 			});
 		});
 
-		// No icons.
-		if (rows.length === 1) {
+		if (!icons && !error) {
+			rows.push({
+				key: 'loading',
+				render: <Spinner />,
+			});
+		} else if (rows.length === 1) {
+			// No icons.
 			rows.push({
 				key: 'icons',
-				render: __('No icons found.', 'ghostkit'),
+				render: error
+					? __('Icons failed to load.', 'ghostkit')
+					: __('No icons found.', 'ghostkit'),
 			});
 		}
-
-		const result = (
-			<AutoSizer key={`autosizer-${customizeIcon ? '1' : '0'}`}>
-				{({ width, height }) => (
-					<List
-						className="ghostkit-component-icon-picker-list-wrap"
-						width={width}
-						height={height}
-						rowCount={rows.length}
-						rowHeight={cellMCache?.current?.rowHeight}
-						rowRenderer={(data) => {
-							const { index, style, parent, key } = data;
-
-							return (
-								<CellMeasurer
-									cache={cellMCache?.current}
-									columnIndex={0}
-									key={key}
-									rowIndex={index}
-									parent={parent}
-								>
-									{() => (
-										<div style={style}>
-											{rows[index].render || ''}
-										</div>
-									)}
-								</CellMeasurer>
-							);
-						}}
-					/>
-				)}
-			</AutoSizer>
-		);
 
 		return (
 			<>
 				<div className="ghostkit-component-icon-picker-sizer" />
-				<div className="ghostkit-component-icon-picker">{result}</div>
+				<div className="ghostkit-component-icon-picker">
+					<VirtualList
+						className="ghostkit-component-icon-picker-list-wrap"
+						rows={rows}
+					/>
+				</div>
 			</>
 		);
 	}
@@ -370,7 +338,12 @@ function IconPickerDropdown(props) {
 			contentClassName="ghostkit-component-icon-picker-content"
 			renderToggle={renderToggle}
 			focusOnMount={false}
-			renderContent={() => getDropdownContent()}
+			renderContent={() => (
+				<>
+					<LoadIcons />
+					{getDropdownContent()}
+				</>
+			)}
 			{...(insideInspector
 				? {
 						popoverProps: {
@@ -435,8 +408,13 @@ IconPicker.Preview = (props) => {
 
 	let { data, name } = props;
 
-	if (!data && name) {
-		eachIcons((iconsData) => {
+	// The list lookup changes the output only for class name values
+	// (legacy icons with an SVG fallback), so SVG values need no list.
+	const needsList = !data && !!name && !/^</.test(maybeDecode(name));
+	const { icons } = useIcons(needsList);
+
+	if (needsList && icons) {
+		eachIcons(icons, (iconsData) => {
 			iconsData.icons.forEach((iconData) => {
 				if (
 					!data &&

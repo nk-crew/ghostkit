@@ -1,5 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
-import { Spinner } from '@wordpress/components';
+import { Notice, Spinner } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { Component } from '@wordpress/element';
@@ -8,7 +8,10 @@ import { debounce } from 'throttle-debounce';
 
 import CodeEditor from '../../gutenberg/components/code-editor';
 
-const { GHOSTKIT } = window;
+const { GHOSTKIT, ghostkitVariables } = window;
+
+// Global JS is printed unescaped, so the server refuses JS changes without unfiltered_html.
+const canEditCustomJS = ghostkitVariables?.canEditCustomJS ?? true;
 
 class CssJs extends Component {
 	constructor(props) {
@@ -19,6 +22,7 @@ class CssJs extends Component {
 			customCSS: false,
 			customJSHead: false,
 			customJSFoot: false,
+			saveError: false,
 		};
 
 		this.maybePrepareCode = this.maybePrepareCode.bind(this);
@@ -70,11 +74,25 @@ class CssJs extends Component {
 	}
 
 	updateCustomCodeDebounce() {
-		this.props.updateCustomCode({
-			ghostkit_custom_css: this.state.customCSS,
-			ghostkit_custom_js_head: this.state.customJSHead,
-			ghostkit_custom_js_foot: this.state.customJSFoot,
-		});
+		this.setState({ saveError: false });
+
+		this.props
+			.updateCustomCode({
+				ghostkit_custom_css: this.state.customCSS,
+				...(canEditCustomJS
+					? {
+							ghostkit_custom_js_head: this.state.customJSHead,
+							ghostkit_custom_js_foot: this.state.customJSFoot,
+						}
+					: {}),
+			})
+			.catch((error) => {
+				this.setState({
+					saveError:
+						error?.message ||
+						__('Failed to save custom code.', 'ghostkit'),
+				});
+			});
 	}
 
 	render() {
@@ -84,6 +102,16 @@ class CssJs extends Component {
 			<div className="ghostkit-settings-content-wrapper ghostkit-settings-css-js">
 				{icons && Object.keys(icons).length ? (
 					<>
+						{this.state.saveError ? (
+							<Notice
+								status="error"
+								onRemove={() => {
+									this.setState({ saveError: false });
+								}}
+							>
+								{this.state.saveError}
+							</Notice>
+						) : null}
 						<h4 style={{ marginTop: 0 }}>
 							{__('CSS', 'ghostkit')}
 						</h4>
@@ -102,8 +130,15 @@ class CssJs extends Component {
 							<Spinner />
 						)}
 						<h4>{__('JavaScript', 'ghostkit')}</h4>
-						{this.state.customJSHead !== false &&
-						this.state.customJSFoot !== false ? (
+						{!canEditCustomJS ? (
+							<Notice status="warning" isDismissible={false}>
+								{__(
+									"You don't have permissions to edit custom JavaScript code.",
+									'ghostkit'
+								)}
+							</Notice>
+						) : this.state.customJSHead !== false &&
+							this.state.customJSFoot !== false ? (
 							<>
 								<p className="ghostkit-help-text">
 									{__(
@@ -174,7 +209,7 @@ export default compose([
 		updateCustomCode(value) {
 			dispatch('ghostkit/plugins/custom-code').setCustomCode(value);
 
-			apiFetch({
+			return apiFetch({
 				path: '/ghostkit/v1/update_custom_code',
 				method: 'POST',
 				data: {

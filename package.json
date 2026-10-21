@@ -78,7 +78,6 @@
 		"@lottiefiles/lottie-player": "^2.0.12",
 		"@use-gesture/react": "^10.3.0",
 		"ace-builds": "^1.32.5",
-		"bezier-easing-editor": "^0.8.0",
 		"classnames": "^2.5.1",
 		"deep-equal": "^2.2.3",
 		"gist-simple": "^2.1.0",
