@@ -838,7 +838,7 @@ class GhostKit_Assets {
 	 */
 	public static function sanitize_custom_css( $css ) {
 		// Drop HTML tags such as a <style> wrapper but keep their text, so CSS pasted with tags still applies.
-		$css = preg_replace( '#</?[a-zA-Z][^<>]*>#', '', (string) $css );
+		$css = preg_replace( '#</?[a-zA-Z](?:[^<>"\']|"[^"]*"|\'[^\']*\')*>#', '', (string) $css );
 
 		// Nothing may close the <style> or <script> element the CSS is printed in.
 		do {

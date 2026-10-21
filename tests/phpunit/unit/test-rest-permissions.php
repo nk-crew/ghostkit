@@ -270,6 +270,23 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertStringContainsString( 'wp-image-' . $attached_id, $response->get_data()['response'] );
+
+		// A contributor cannot browse the media library, so another user's private image stays hidden.
+		$private_id = self::factory()->post->create(
+			array(
+				'post_status' => 'private',
+				'post_author' => $admin_id,
+			)
+		);
+		wp_update_post(
+			array(
+				'ID'          => $attached_id,
+				'post_parent' => $private_id,
+			)
+		);
+		$this->login_as( 'contributor' );
+
+		$this->assertSame( 403, $this->get( '/ghostkit/v1/get_attachment_image/' . $attached_id )->get_status() );
 	}
 
 	/**
@@ -384,6 +401,7 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 
 		// A <style> wrapper is dropped, its rules stay.
 		$this->assertSame( '.a{b:c}', GhostKit_Assets::sanitize_custom_css( '<style>.a{b:c}</style>' ) );
+		$this->assertSame( '.a{b:c}', GhostKit_Assets::sanitize_custom_css( '<style media="(width > 600px)">.a{b:c}</style>' ) );
 
 		// `<` inside CSS does not cut the rules after it.
 		$css = '@media (600px <= width <= 900px) { .a { color: red; } } .b { content: "<"; } .c { color: blue; }';
