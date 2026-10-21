@@ -33,6 +33,10 @@ class GhostKit_Ask_Review_Notice {
 	 * Check if we can display notice.
 	 */
 	public function is_notice_allowed() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return false;
+		}
+
 		$state = get_site_option( $this->option_name . '_state' );
 		$time  = (int) get_site_option( $this->option_name . '_time' );
 
@@ -99,7 +103,7 @@ class GhostKit_Ask_Review_Notice {
 	 * Enqueue script.
 	 */
 	public function admin_enqueue_scripts() {
-		if ( is_customize_preview() ) {
+		if ( is_customize_preview() || ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
@@ -119,6 +123,10 @@ class GhostKit_Ask_Review_Notice {
 	 */
 	public function ajax_gkt_dismiss_ask_review_notice() {
 		check_ajax_referer( $this->option_name, 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( null, 403 );
+		}
 
 		$type = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'yes';
 

@@ -138,7 +138,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_templates' ),
-				'permission_callback' => '__return_true',
+				'permission_callback' => array( $this, 'get_templates_permission' ),
 			)
 		);
 
@@ -149,7 +149,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_template_data' ),
-				'permission_callback' => '__return_true',
+				'permission_callback' => array( $this, 'get_template_data_permission' ),
 			)
 		);
 
@@ -316,45 +316,108 @@ class GhostKit_Rest extends WP_REST_Controller {
 	/**
 	 * Get attachment image <img> tag permissions.
 	 *
-	 * @return bool
+	 * @param WP_REST_Request $request  request object.
+	 *
+	 * @return bool|WP_Error
 	 */
-	public function get_attachment_image_permission() {
+	public function get_attachment_image_permission( WP_REST_Request $request ) {
+		// Users who can browse the media library see every attachment there; others only those they may read.
+		if (
+			! current_user_can( 'edit_posts' ) ||
+			! ( current_user_can( 'upload_files' ) || current_user_can( 'read_post', (int) $request->get_param( 'id' ) ) )
+		) {
+			return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to read this image.', 'ghostkit' ), true );
+		}
+
 		return true;
+	}
+
+	/**
+	 * Social feed permissions (Instagram and Twitter).
+	 * The blocks render these routes through rest_do_request() for every visitor,
+	 * so only requests that reach the REST API over HTTP need the editor capability.
+	 *
+	 * @return bool|WP_Error
+	 */
+	public function get_social_feed_permission() {
+		if ( ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || current_user_can( 'edit_posts' ) ) {
+			return true;
+		}
+
+		return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to request this data.', 'ghostkit' ), true );
 	}
 
 	/**
 	 * Get Instagram feed permissions.
 	 *
-	 * @return bool
+	 * @return bool|WP_Error
 	 */
 	public function get_instagram_feed_permission() {
-		return true;
+		return $this->get_social_feed_permission();
 	}
 
 	/**
 	 * Get Instagram profile permissions.
 	 *
-	 * @return bool
+	 * @return bool|WP_Error
 	 */
 	public function get_instagram_profile_permission() {
-		return true;
+		return $this->get_social_feed_permission();
 	}
 
 	/**
 	 * Get Twitter feed permissions.
 	 *
-	 * @return bool
+	 * @return bool|WP_Error
 	 */
 	public function get_twitter_feed_permission() {
-		return true;
+		return $this->get_social_feed_permission();
 	}
 
 	/**
 	 * Get Twitter profile permissions.
 	 *
-	 * @return bool
+	 * @return bool|WP_Error
 	 */
 	public function get_twitter_profile_permission() {
+		return $this->get_social_feed_permission();
+	}
+
+	/**
+	 * Get templates list permissions.
+	 *
+	 * @return bool|WP_Error
+	 */
+	public function get_templates_permission() {
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to read templates.', 'ghostkit' ), true );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Get template data permissions.
+	 *
+	 * @param WP_REST_Request $request  request object.
+	 *
+	 * @return bool|WP_Error
+	 */
+	public function get_template_data_permission( WP_REST_Request $request ) {
+		$allowed = $this->get_templates_permission();
+
+		if ( true !== $allowed ) {
+			return $allowed;
+		}
+
+		if ( 'local' === $request->get_param( 'type' ) ) {
+			$post = get_post( (int) $request->get_param( 'id' ) );
+
+			if ( $post && 'ghostkit_template' === $post->post_type && ! current_user_can( 'read_post', $post->ID ) ) {
+				return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to read this template.', 'ghostkit' ), true );
+			}
+		}
+
 		return true;
 	}
 
@@ -1786,6 +1849,18 @@ class GhostKit_Rest extends WP_REST_Controller {
 
 		if ( is_array( $new_code ) ) {
 			$current_code = get_option( 'ghostkit_custom_code', array() );
+
+			// Global JS is printed unescaped on every page, so changing it needs the same capability as per-post JS.
+			if ( ! current_user_can( 'unfiltered_html' ) ) {
+				foreach ( array( 'ghostkit_custom_js_head', 'ghostkit_custom_js_foot' ) as $js_key ) {
+					$current_js = isset( $current_code[ $js_key ] ) ? $current_code[ $js_key ] : '';
+
+					if ( array_key_exists( $js_key, $new_code ) && (string) $new_code[ $js_key ] !== (string) $current_js ) {
+						return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change custom JavaScript.', 'ghostkit' ), true );
+					}
+				}
+			}
+
 			update_option( 'ghostkit_custom_code', array_merge( $current_code, $new_code ) );
 		}
 
@@ -1952,7 +2027,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 	 */
 	public function error( $code, $response, $true_error = false ) {
 		if ( $true_error ) {
-			return new WP_Error( $code, $response, array( 'status' => 401 ) );
+			return new WP_Error( $code, $response, array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return new WP_REST_Response(
