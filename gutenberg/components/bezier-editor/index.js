@@ -93,11 +93,21 @@ export default function BezierEditor({
 
 		e.preventDefault();
 
-		updateHandle(
-			index,
-			value[2 * index] + delta[0],
-			value[2 * index + 1] + delta[1]
-		);
+		if (!onChange) {
+			return;
+		}
+
+		// Clamp only the axis the key moves, so a value outside the range
+		// on the other axis (y of Ease Out Back is 1.56) stays as it is.
+		const newValue = [...value];
+
+		if (delta[0]) {
+			newValue[2 * index] = clampX(value[2 * index] + delta[0]);
+		} else {
+			newValue[2 * index + 1] = clampY(value[2 * index + 1] + delta[1]);
+		}
+
+		onChange(newValue);
 	}
 
 	const xFrom = x(0);

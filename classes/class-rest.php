@@ -291,11 +291,23 @@ class GhostKit_Rest extends WP_REST_Controller {
 
 	/**
 	 * Get icons list permissions.
+	 * The list is static plugin data, so any user who can edit posts of a post type
+	 * shown in the block editor gets it, including users who edit only pages.
 	 *
 	 * @return bool
 	 */
 	public function get_icons_permission() {
-		return current_user_can( 'edit_posts' );
+		if ( current_user_can( 'edit_posts' ) ) {
+			return true;
+		}
+
+		foreach ( get_post_types( array( 'show_in_rest' => true ), 'objects' ) as $post_type ) {
+			if ( current_user_can( $post_type->cap->edit_posts ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

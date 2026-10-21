@@ -69,6 +69,23 @@ class GhostKitIconsRestTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A user who edits only pages gets the icons too.
+	 */
+	public function test_get_icons_allows_pages_only_role() {
+		add_role( 'gkt_pages_editor', 'Pages Editor', array( 'read' => true, 'edit_pages' => true ) );
+		wp_set_current_user( self::factory()->user->create( array( 'role' => 'gkt_pages_editor' ) ) );
+		$this->assertFalse( current_user_can( 'edit_posts' ) );
+
+		$response = rest_do_request( new WP_REST_Request( 'GET', '/ghostkit/v1/get_icons' ) );
+		$data     = $response->get_data();
+
+		remove_role( 'gkt_pages_editor' );
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertArrayHasKey( 'font-awesome', $data['response'] );
+	}
+
+	/**
 	 * Editors get every pack with its SVG icons, including packs added through the filter.
 	 */
 	public function test_get_icons_returns_packs_with_svg_for_contributor() {

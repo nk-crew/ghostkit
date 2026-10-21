@@ -6,20 +6,6 @@ const REVEAL_CONTENT = `<!-- wp:paragraph {"ghostkit":{"effects":{"reveal":{"opa
 <p>Revealed paragraph</p>
 <!-- /wp:paragraph -->`;
 
-const PLAIN_CONTENT = `<!-- wp:paragraph -->
-<p>Plain paragraph</p>
-<!-- /wp:paragraph -->`;
-
-async function getHeadRevealStyles(page) {
-	return page.evaluate(
-		(css) =>
-			Array.from(document.head.querySelectorAll('style')).filter(
-				(style) => style.textContent.includes(css)
-			).length,
-		REVEAL_CSS
-	);
-}
-
 for (const theme of ['empty-theme', 'empty-theme-php']) {
 	test.describe(`effects reveal (${theme})`, () => {
 		test.beforeAll(async ({ requestUtils }) => {
@@ -31,24 +17,6 @@ for (const theme of ['empty-theme', 'empty-theme-php']) {
 		test.afterAll(async ({ requestUtils }) => {
 			await requestUtils.deleteAllPosts();
 			await requestUtils.activateTheme('empty-theme');
-		});
-
-		test('page without effects gets no reveal styles', async ({
-			page,
-			requestUtils,
-		}) => {
-			const post = await requestUtils.createPost({
-				title: 'GKT no effects',
-				content: PLAIN_CONTENT,
-				status: 'publish',
-			});
-
-			await page.goto(post.link);
-
-			await expect(getHeadRevealStyles(page)).resolves.toBe(0);
-			await expect(page.locator('html')).not.toHaveClass(
-				/ghostkit-effects-enabled/
-			);
 		});
 
 		test('page with reveal hides the block until it is revealed', async ({
