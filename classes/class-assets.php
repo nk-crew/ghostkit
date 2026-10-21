@@ -838,13 +838,18 @@ class GhostKit_Assets {
 	 */
 	public static function sanitize_custom_css( $css ) {
 		// Drop HTML tags such as a <style> wrapper but keep their text, so CSS pasted with tags still applies.
-		$css = preg_replace( '#</?[a-zA-Z](?:[^<>"\']|"[^"]*"|\'[^\']*\')*>#', '', (string) $css );
+		$stripped = preg_replace( '#</?[a-zA-Z](?:[^<>"\']|"[^"]*"|\'[^\']*\')*>#', '', (string) $css );
+		if ( null !== $stripped ) {
+			$css = $stripped;
+		}
 
-		// Nothing may close the <style> or <script> element the CSS is printed in.
-		do {
-			$prev = $css;
-			$css  = preg_replace( '#</(style|script)|<!--#i', '', $css );
-		} while ( $prev !== $css );
+		// No end tag or comment can open: `</` becomes the CSS escape `\3c /`, `<!--` a space, and ESC bytes
+		// (ISO-2022-JP shift sequences that hide `</style` from byte matching) are dropped.
+		$css = (string) preg_replace(
+			array( '#<!--#', '#<(?=/)#' ),
+			array( ' ', '\\\\3c ' ),
+			str_replace( "\x1b", '', (string) $css )
+		);
 
 		// GhostKit_Extension_Styles::parse() escapes `>` in block style selectors at render time.
 		return str_replace( '&gt;', '>', $css );

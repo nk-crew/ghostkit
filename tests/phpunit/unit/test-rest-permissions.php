@@ -376,6 +376,9 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 		$this->assertSame( '.a{b:c}', GhostKit_Assets::sanitize_custom_css( '<style>.a{b:c}</style>' ) );
 		$this->assertSame( '.a{b:c}', GhostKit_Assets::sanitize_custom_css( '<style media="(width > 600px)">.a{b:c}</style>' ) );
 
+		// A comment wrapper cannot open, its rules stay.
+		$this->assertSame( ' .a{b:c}-->', GhostKit_Assets::sanitize_custom_css( '<!--.a{b:c}-->' ) );
+
 		// `<` inside CSS does not cut the rules after it.
 		$css = '@media (600px <= width <= 900px) { .a { color: red; } } .b { content: "<"; } .c { color: blue; }';
 		$this->assertSame( $css, GhostKit_Assets::sanitize_custom_css( $css ) );
@@ -386,5 +389,37 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 
 			$this->assertDoesNotMatchRegularExpression( '#</style|</script|<!--#i', $output, $input );
 		}
+	}
+
+	/**
+	 * An ISO-2022-JP shift sequence cannot hide `</style` from the sanitizer.
+	 */
+	public function test_custom_css_sanitizer_drops_esc_bytes() {
+		$output = GhostKit_Assets::sanitize_custom_css( "<\x1b(B/style><img src=x onerror=alert(1) a\">" );
+
+		$this->assertStringNotContainsString( '</', $output );
+		$this->assertStringNotContainsString( "\x1b", $output );
+	}
+
+	/**
+	 * No end tag survives, whatever element the CSS is printed in.
+	 */
+	public function test_custom_css_sanitizer_escapes_any_end_tag() {
+		$output = GhostKit_Assets::sanitize_custom_css( "</noscript a'><img src=x onerror=alert(1) b\">" );
+
+		$this->assertStringNotContainsString( '</', $output );
+	}
+
+	/**
+	 * Deeply nested input is sanitized in one pass.
+	 */
+	public function test_custom_css_sanitizer_is_linear_on_nested_input() {
+		$css = str_repeat( '</', 20000 ) . str_repeat( 'style', 20000 );
+
+		$start  = microtime( true );
+		$output = GhostKit_Assets::sanitize_custom_css( $css );
+
+		$this->assertLessThan( 0.1, microtime( true ) - $start );
+		$this->assertStringNotContainsString( '</', $output );
 	}
 }
