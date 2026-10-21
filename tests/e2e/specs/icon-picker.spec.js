@@ -61,9 +61,14 @@ test.describe('icon picker', () => {
 		expect(await iconButtons.count()).toBeLessThan(200);
 
 		await popover.getByLabel('Search Icon').fill('instagram');
-		await expect(iconButtons).toHaveCount(2);
 
-		await iconButtons.first().click();
+		// Ghost Kit Pro adds icon packs with more matches, so pick the FontAwesome ones.
+		const fontAwesomeButtons = iconButtons.filter({
+			has: page.locator('.ghostkit-svg-icon-fa'),
+		});
+		await expect(fontAwesomeButtons).toHaveCount(2);
+
+		await fontAwesomeButtons.first().click();
 
 		const icon = await page.evaluate(() => {
 			const block = window.wp.data

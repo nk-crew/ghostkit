@@ -87,7 +87,7 @@
 		"lorem-ipsum": "^2.0.8",
 		"luxon": "^3.4.4",
 		"markdown-it": "^14.0.0",
-		"motion": "^11.15.0",
+		"motion": "^14.5.0",
 		"patch-package": "^8.0.1",
 		"qs": "^6.11.2",
 		"raf-schd": "^4.0.3",

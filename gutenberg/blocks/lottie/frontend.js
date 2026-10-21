@@ -19,17 +19,20 @@ events.on(
 );
 
 // In Viewport trigger.
-inView('.ghostkit-lottie[data-trigger="viewport"] > lottie-player', (info) => {
-	if (info?.target?.play) {
-		info.target.play();
-	}
-
-	return (leaveInfo) => {
-		if (leaveInfo?.target?.pause) {
-			leaveInfo.target.pause();
+inView(
+	'.ghostkit-lottie[data-trigger="viewport"] > lottie-player',
+	(element) => {
+		if (element?.play) {
+			element.play();
 		}
-	};
-});
+
+		return () => {
+			if (element?.pause) {
+				element.pause();
+			}
+		};
+	}
+);
 
 // Scroll trigger.
 events.on(document, 'init.blocks.gkt', () => {
