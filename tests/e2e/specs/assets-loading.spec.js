@@ -205,6 +205,54 @@ test.describe('assets loading', () => {
 		).resolves.toBe(true);
 	});
 
+	test('retired social blocks stay valid and load no assets', async ({
+		page,
+		admin,
+		editor,
+	}) => {
+		const content = `<!-- wp:ghostkit/instagram {"accessToken":"token"} /-->
+
+<!-- wp:ghostkit/twitter {"userName":"nkdevv"} /-->`;
+
+		const frontendPage = await createPublishedPageWithContent(
+			page,
+			admin,
+			editor,
+			'GKT assets retired social',
+			content
+		);
+
+		await expect(
+			page.evaluate(() =>
+				window.wp.data
+					.select('core/block-editor')
+					.getBlocks()
+					.map((block) => [block.name, block.isValid])
+			)
+		).resolves.toEqual([
+			['ghostkit/instagram', true],
+			['ghostkit/twitter', true],
+		]);
+
+		for (const handle of [
+			'ghostkit',
+			'ghostkit-block-instagram',
+			'ghostkit-block-twitter',
+		]) {
+			await expect(hasEnqueuedStyle(frontendPage, handle)).resolves.toBe(
+				false
+			);
+		}
+
+		await expect(
+			frontendPage.evaluate(() =>
+				Array.from(document.querySelectorAll('script[src]')).some(
+					(node) => /ghostkit|ghost-kit/.test(node.src)
+				)
+			)
+		).resolves.toBe(false);
+	});
+
 	test('effects attrs without rendered HTML enqueue effects script', async ({
 		page,
 		admin,

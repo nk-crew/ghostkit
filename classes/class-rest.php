@@ -62,47 +62,14 @@ class GhostKit_Rest extends WP_REST_Controller {
 			)
 		);
 
-		// Get Instagram profile.
+		// Get icons list for the icon picker.
 		register_rest_route(
 			$namespace,
-			'/get_instagram_profile/',
+			'/get_icons/',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_instagram_profile' ),
-				'permission_callback' => array( $this, 'get_instagram_profile_permission' ),
-			)
-		);
-
-		// Get Instagram feed.
-		register_rest_route(
-			$namespace,
-			'/get_instagram_feed/',
-			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_instagram_feed' ),
-				'permission_callback' => array( $this, 'get_instagram_feed_permission' ),
-			)
-		);
-
-		// Get Twitter profile.
-		register_rest_route(
-			$namespace,
-			'/get_twitter_profile/',
-			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_twitter_profile' ),
-				'permission_callback' => array( $this, 'get_twitter_profile_permission' ),
-			)
-		);
-
-		// Get Twitter feed.
-		register_rest_route(
-			$namespace,
-			'/get_twitter_feed/',
-			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_twitter_feed' ),
-				'permission_callback' => array( $this, 'get_twitter_feed_permission' ),
+				'callback'            => array( $this, 'get_icons' ),
+				'permission_callback' => array( $this, 'get_icons_permission' ),
 			)
 		);
 
@@ -138,7 +105,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_templates' ),
-				'permission_callback' => '__return_true',
+				'permission_callback' => array( $this, 'get_templates_permission' ),
 			)
 		);
 
@@ -149,7 +116,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_template_data' ),
-				'permission_callback' => '__return_true',
+				'permission_callback' => array( $this, 'get_template_data_permission' ),
 			)
 		);
 
@@ -316,45 +283,78 @@ class GhostKit_Rest extends WP_REST_Controller {
 	/**
 	 * Get attachment image <img> tag permissions.
 	 *
-	 * @return bool
+	 * @param WP_REST_Request $request  request object.
+	 *
+	 * @return bool|WP_Error
 	 */
-	public function get_attachment_image_permission() {
+	public function get_attachment_image_permission( WP_REST_Request $request ) {
+		// Users who can browse the media library see every attachment there; others only those they may read.
+		if (
+			! current_user_can( 'edit_posts' ) ||
+			! ( current_user_can( 'upload_files' ) || current_user_can( 'read_post', (int) $request->get_param( 'id' ) ) )
+		) {
+			return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to read this image.', 'ghostkit' ), true );
+		}
+
 		return true;
 	}
 
 	/**
-	 * Get Instagram feed permissions.
+	 * Get icons list permissions.
+	 * The list is static plugin data, so any user who can edit posts of a post type
+	 * shown in the block editor gets it, including users who edit only pages.
 	 *
-	 * @return bool
+	 * @return bool|WP_Error
 	 */
-	public function get_instagram_feed_permission() {
+	public function get_icons_permission() {
+		if ( current_user_can( 'edit_posts' ) ) {
+			return true;
+		}
+
+		foreach ( get_post_types( array( 'show_in_rest' => true ), 'objects' ) as $post_type ) {
+			if ( current_user_can( $post_type->cap->edit_posts ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get templates list permissions.
+	 *
+	 * @return bool|WP_Error
+	 */
+	public function get_templates_permission() {
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to read templates.', 'ghostkit' ), true );
+		}
+
 		return true;
 	}
 
 	/**
-	 * Get Instagram profile permissions.
+	 * Get template data permissions.
 	 *
-	 * @return bool
+	 * @param WP_REST_Request $request  request object.
+	 *
+	 * @return bool|WP_Error
 	 */
-	public function get_instagram_profile_permission() {
-		return true;
-	}
+	public function get_template_data_permission( WP_REST_Request $request ) {
+		$allowed = $this->get_templates_permission();
 
-	/**
-	 * Get Twitter feed permissions.
-	 *
-	 * @return bool
-	 */
-	public function get_twitter_feed_permission() {
-		return true;
-	}
+		if ( true !== $allowed ) {
+			return $allowed;
+		}
 
-	/**
-	 * Get Twitter profile permissions.
-	 *
-	 * @return bool
-	 */
-	public function get_twitter_profile_permission() {
+		if ( 'local' === $request->get_param( 'type' ) ) {
+			$post = get_post( (int) $request->get_param( 'id' ) );
+
+			if ( $post && 'ghostkit_template' === $post->post_type && ! current_user_can( 'read_post', $post->ID ) ) {
+				return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to read this template.', 'ghostkit' ), true );
+			}
+		}
+
 		return true;
 	}
 
@@ -608,678 +608,12 @@ class GhostKit_Rest extends WP_REST_Controller {
 	}
 
 	/**
-	 * Get Instagram feed.
-	 *
-	 * @param WP_REST_Request $request  request object.
+	 * Get icons list with SVG of every icon.
 	 *
 	 * @return mixed
 	 */
-	public function get_instagram_feed( WP_REST_Request $request ) {
-		$cache_name       = 'ghostkit_instagram_feed_cache';
-		$cache_expiration = $request->get_param( 'cache_expiration' ) ? $request->get_param( 'cache_expiration' ) : DAY_IN_SECONDS;
-		$count            = $request->get_param( 'count' ) ? $request->get_param( 'count' ) : 6;
-		$access_token     = $request->get_param( 'access_token' );
-
-		if ( ! $access_token ) {
-			return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', 'ghostkit' ) );
-		}
-
-		$hash = md5(
-			wp_json_encode(
-				array(
-					$access_token,
-					$count,
-					$cache_expiration,
-				)
-			)
-		);
-
-		$cache_name = $cache_name . '_' . $hash;
-
-		// get cached data.
-		$result = get_transient( $cache_name );
-
-		// if there is no cache available, request instagram feed.
-		if ( false === $result && $access_token ) {
-			// Make Requests.
-			$feed = wp_remote_get( 'https://api.instagram.com/v1/users/self/media/recent/?access_token=' . $access_token . '&count=' . $count );
-
-			if ( ! is_wp_error( $feed ) && isset( $feed['body'] ) ) {
-				$feed = json_decode( $feed['body'], true );
-			} else {
-				$feed = false;
-			}
-
-			if ( $feed && is_array( $feed ) ) {
-				$result = $feed;
-				set_transient( $cache_name, $result, $cache_expiration );
-			}
-		}
-
-		if ( $result ) {
-			return $this->success( $result );
-		} else {
-			return $this->error( 'no_instagram_data_loaded', __( 'Instagram data failed to load.', 'ghostkit' ) );
-		}
-	}
-
-	/**
-	 * Get Instagram profile.
-	 *
-	 * @param WP_REST_Request $request  request object.
-	 *
-	 * @return mixed
-	 */
-	public function get_instagram_profile( WP_REST_Request $request ) {
-		$cache_name       = 'ghostkit_instagram_profile_cache';
-		$cache_expiration = $request->get_param( 'cache_expiration' ) ? $request->get_param( 'cache_expiration' ) : DAY_IN_SECONDS;
-		$access_token     = $request->get_param( 'access_token' );
-
-		if ( ! $access_token ) {
-			return $this->error( 'no_token_found', __( 'Provide Instagram Access Token.', 'ghostkit' ) );
-		}
-
-		$hash = md5(
-			wp_json_encode(
-				array(
-					$access_token,
-					$cache_expiration,
-				)
-			)
-		);
-
-		$cache_name = $cache_name . '_' . $hash;
-
-		// get cached data.
-		$result = get_transient( $cache_name );
-
-		// if there is no cache available, request instagram feed.
-		if ( false === $result && $access_token ) {
-			// Make Requests.
-			$profile = wp_remote_get( 'https://api.instagram.com/v1/users/self/?access_token=' . $access_token );
-
-			if ( ! is_wp_error( $profile ) && isset( $profile['body'] ) ) {
-				$profile = json_decode( $profile['body'], true );
-			} else {
-				$profile = false;
-			}
-
-			if ( $profile && is_array( $profile ) ) {
-				$result = $profile;
-				set_transient( $cache_name, $result, $cache_expiration );
-			}
-		}
-
-		if ( $result ) {
-			return $this->success( $result );
-		} else {
-			return $this->error( 'no_instagram_data_loaded', __( 'Instagram data failed to load.', 'ghostkit' ) );
-		}
-	}
-
-	/**
-	 * Get Twitter profile.
-	 *
-	 * @param WP_REST_Request $request  request object.
-	 *
-	 * @return mixed
-	 */
-	public function get_twitter_profile( WP_REST_Request $request ) {
-		$cache_name       = 'ghostkit_twitter_profile_cache';
-		$cache_expiration = $request->get_param( 'cache_expiration' ) ? $request->get_param( 'cache_expiration' ) : DAY_IN_SECONDS;
-
-		$consumer_key        = $request->get_param( 'consumer_key' );
-		$consumer_secret     = $request->get_param( 'consumer_secret' );
-		$access_token        = $request->get_param( 'access_token' );
-		$access_token_secret = $request->get_param( 'access_token_secret' );
-		$screen_name         = $request->get_param( 'screen_name' );
-
-		if ( ! $consumer_key ) {
-			return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', 'ghostkit' ) );
-		}
-		if ( ! $consumer_secret ) {
-			return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', 'ghostkit' ) );
-		}
-		if ( ! $access_token ) {
-			return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', 'ghostkit' ) );
-		}
-		if ( ! $access_token_secret ) {
-			return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', 'ghostkit' ) );
-		}
-		if ( ! $screen_name ) {
-			return $this->error( 'no_screen_name_found', __( 'Provide Username.', 'ghostkit' ) );
-		}
-
-		$api_data_ready = $consumer_key && $consumer_secret && $access_token && $access_token_secret;
-
-		$hash = md5(
-			wp_json_encode(
-				array(
-					$consumer_key,
-					$consumer_secret,
-					$access_token,
-					$access_token_secret,
-					$cache_expiration,
-				)
-			)
-		);
-
-		$cache_name = $cache_name . '_' . $screen_name . '_' . $hash;
-
-		// get cached data.
-		$result = get_transient( $cache_name );
-
-		// if there is no cache available, request twitter feed.
-		if ( false === $result && $api_data_ready ) {
-			// request_api_twitter.
-			$profile = $this->request_api_twitter(
-				array(
-					'url'                 => 'https://api.twitter.com/1.1/users/show.json',
-					'consumer_key'        => $consumer_key,
-					'consumer_secret'     => $consumer_secret,
-					'access_token'        => $access_token,
-					'access_token_secret' => $access_token_secret,
-					'include_entities'    => 'true',
-					'screen_name'         => $screen_name,
-				)
-			);
-
-			if ( $profile && isset( $profile['screen_name'] ) ) {
-				$result = $profile;
-
-				// prepare different profile image sizes.
-				if ( $result['profile_image_url'] ) {
-					$result['profile_images'] = $this->get_twitter_profile_images( $result['profile_image_url'] );
-				}
-				if ( $result['profile_image_url_https'] ) {
-					$result['profile_images_https'] = $this->get_twitter_profile_images( $result['profile_image_url_https'] );
-				}
-
-				// prepare short counts.
-				$result['followers_count_short']  = $this->convert_number_short( $result['followers_count'] );
-				$result['friends_count_short']    = $this->convert_number_short( $result['friends_count'] );
-				$result['listed_count_short']     = $this->convert_number_short( $result['listed_count'] );
-				$result['favourites_count_short'] = $this->convert_number_short( $result['favourites_count'] );
-				$result['statuses_count_short']   = $this->convert_number_short( $result['statuses_count'] );
-
-				// prepare url link.
-				if ( $result['url'] && isset( $result['entities']['url'] ) ) {
-					$result['url_entitled'] = $this->add_tweet_entity_links( $result['url'], $result['entities']['url'] );
-				}
-
-				// description with links.
-				if ( isset( $result['entities']['description'] ) ) {
-					$result['description_entitled'] = $this->add_tweet_entity_links( $result['description'], $result['entities']['description'] );
-				}
-
-				set_transient( $cache_name, $result, $cache_expiration );
-			}
-		}
-
-		if ( $result ) {
-			return $this->success( $result );
-		} else {
-			return $this->error( 'no_twitter_data_loaded', __( 'Twitter data failed to load.', 'ghostkit' ) );
-		}
-	}
-
-	/**
-	 * Get Twitter feed.
-	 *
-	 * @param WP_REST_Request $request  request object.
-	 *
-	 * @return mixed
-	 */
-	public function get_twitter_feed( WP_REST_Request $request ) {
-		$cache_name       = 'ghostkit_twitter_feed_cache';
-		$cache_expiration = $request->get_param( 'cache_expiration' ) ? $request->get_param( 'cache_expiration' ) : DAY_IN_SECONDS;
-
-		$count               = (int) ( $request->get_param( 'count' ) ? $request->get_param( 'count' ) : 6 );
-		$consumer_key        = $request->get_param( 'consumer_key' );
-		$consumer_secret     = $request->get_param( 'consumer_secret' );
-		$access_token        = $request->get_param( 'access_token' );
-		$access_token_secret = $request->get_param( 'access_token_secret' );
-		$screen_name         = $request->get_param( 'screen_name' );
-		$exclude_replies     = 'true' === $request->get_param( 'exclude_replies' );
-		$include_rts         = 'true' === $request->get_param( 'include_rts' );
-		$tweet_mode_extended = 'true' === $request->get_param( 'tweet_mode_extended' );
-
-		$api_data_ready = $consumer_key && $consumer_secret && $access_token && $access_token_secret;
-
-		if ( ! $consumer_key ) {
-			return $this->error( 'no_consumer_key_found', __( 'Provide Twitter Consumer Key.', 'ghostkit' ) );
-		}
-		if ( ! $consumer_secret ) {
-			return $this->error( 'no_consumer_secret_found', __( 'Provide Twitter Consumer Secret.', 'ghostkit' ) );
-		}
-		if ( ! $access_token ) {
-			return $this->error( 'no_access_token_found', __( 'Provide Twitter Access Token.', 'ghostkit' ) );
-		}
-		if ( ! $access_token_secret ) {
-			return $this->error( 'no_access_token_secret_found', __( 'Provide Twitter Access Token Secret.', 'ghostkit' ) );
-		}
-		if ( ! $screen_name ) {
-			return $this->error( 'no_screen_name_found', __( 'Provide Username.', 'ghostkit' ) );
-		}
-
-		$hash = md5(
-			wp_json_encode(
-				array(
-					$consumer_key,
-					$consumer_secret,
-					$access_token,
-					$access_token_secret,
-					$cache_expiration,
-					$tweet_mode_extended,
-				)
-			)
-		);
-
-		$cache_name = $cache_name . '_' . $screen_name . '_' . $hash;
-
-		// get cached data.
-		$feed = get_transient( $cache_name );
-
-		$result = array();
-
-		if ( $api_data_ready ) {
-			// if there is no cache available, request twitter feed.
-			if ( false === $feed ) {
-				$feed = $this->request_api_twitter(
-					array(
-						'url'                 => 'https://api.twitter.com/1.1/statuses/user_timeline.json',
-						'consumer_key'        => $consumer_key,
-						'consumer_secret'     => $consumer_secret,
-						'access_token'        => $access_token,
-						'access_token_secret' => $access_token_secret,
-						'screen_name'         => $screen_name,
-						'tweet_mode_extended' => $tweet_mode_extended,
-						'exclude_replies'     => 'false',
-						'include_rts'         => 'true',
-						'count'               => 200,
-					)
-				);
-
-				if ( $feed && ! ( isset( $feed['errors'] ) && count( $feed['errors'] ) > 0 ) ) {
-					set_transient( $cache_name, $feed, $cache_expiration );
-				} else {
-					$feed = false;
-				}
-			}
-
-			$tweets_count     = $feed ? count( $feed ) : 0;
-			$limit_to_display = min( $count, $tweets_count );
-
-			if ( $limit_to_display > 0 ) {
-				for ( $i = 0; $i < $tweets_count; $i++ ) {
-					$new_item = $feed[ $i ];
-
-					// check for replies.
-					if ( $exclude_replies && $new_item['in_reply_to_user_id'] ) {
-						continue;
-					}
-
-					// check for retweets.
-					if ( ! $include_rts && isset( $new_item['retweeted_status'] ) ) {
-						continue;
-					}
-
-					// full text.
-					if ( $tweet_mode_extended || ! isset( $new_item['text'] ) ) {
-						$text = isset( $new_item['full_text'] ) ? $new_item['full_text'] : null;
-
-						if ( null === $text ) {
-							$text = isset( $new_item['text'] ) ? $new_item['text'] : '';
-						}
-
-						$new_item['text'] = $text;
-					}
-
-					// prepare tweet content.
-					$new_item = $this->prepare_tweet_content( $new_item );
-
-					if ( isset( $new_item['retweeted_status'] ) ) {
-						// full text.
-						if ( $tweet_mode_extended || ! isset( $new_item['retweeted_status']['text'] ) ) {
-							$text = isset( $new_item['retweeted_status']['full_text'] ) ? $new_item['retweeted_status']['full_text'] : null;
-
-							if ( null === $text ) {
-								$text = isset( $new_item['retweeted_status']['text'] ) ? $new_item['retweeted_status']['text'] : '';
-							}
-
-							$new_item['retweeted_status']['text'] = $text;
-						}
-
-						$new_item['retweeted_status'] = $this->prepare_tweet_content( $new_item['retweeted_status'] );
-					}
-
-					$result[] = $new_item;
-
-					if ( count( $result ) >= $limit_to_display ) {
-						break;
-					}
-				}
-			}
-		}
-
-		if ( $result ) {
-			return $this->success( $result );
-		} else {
-			return $this->error( 'no_twitter_data_loaded', __( 'Twitter data failed to load.', 'ghostkit' ) );
-		}
-	}
-
-	/**
-	 * Get Twitter API url result
-	 *
-	 * @param array $data - api request data.
-	 *
-	 * @return bool|mixed
-	 */
-	public function request_api_twitter( $data ) {
-		$data = array_merge(
-			array(
-				'url'                 => 'https://api.twitter.com/1.1/statuses/user_timeline.json',
-				'consumer_key'        => '',
-				'consumer_secret'     => '',
-				'access_token'        => '',
-				'access_token_secret' => '',
-				'screen_name'         => '',
-				'exclude_replies'     => '',
-				'include_rts'         => '',
-				'count'               => '',
-				'include_entities'    => '',
-				'tweet_mode_extended' => '',
-			),
-			$data
-		);
-
-		$oauth = array(
-			'oauth_consumer_key'     => $data['consumer_key'],
-			'oauth_nonce'            => time(),
-			'oauth_signature_method' => 'HMAC-SHA1',
-			'oauth_token'            => $data['access_token'],
-			'oauth_timestamp'        => time(),
-			'oauth_version'          => '1.0',
-		);
-
-		$base_info_url = $data['url'];
-
-		if ( $data['screen_name'] ) {
-			$data['url']         .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
-			$data['url']         .= 'screen_name=' . $data['screen_name'];
-			$oauth['screen_name'] = $data['screen_name'];
-		}
-		if ( $data['exclude_replies'] ) {
-			$data['url']             .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
-			$data['url']             .= 'exclude_replies=' . $data['exclude_replies'];
-			$oauth['exclude_replies'] = $data['exclude_replies'];
-		}
-		if ( $data['include_rts'] ) {
-			$data['url']         .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
-			$data['url']         .= 'include_rts=' . $data['include_rts'];
-			$oauth['include_rts'] = $data['include_rts'];
-		}
-		if ( $data['count'] ) {
-			$data['url']   .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
-			$data['url']   .= 'count=' . $data['count'];
-			$oauth['count'] = $data['count'];
-		}
-		if ( $data['include_entities'] ) {
-			$data['url']              .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
-			$data['url']              .= 'include_entities=' . $data['include_entities'];
-			$oauth['include_entities'] = $data['include_entities'];
-		}
-
-		// Tweet Mode.
-		if ( $data['tweet_mode_extended'] ) {
-			$data['url']        .= strpos( $data['url'], '?' ) !== false ? '&' : '?';
-			$data['url']        .= 'tweet_mode=extended';
-			$oauth['tweet_mode'] = 'extended';
-		}
-
-		$base_info     = $this->build_base_string( $base_info_url, 'GET', $oauth );
-		$composite_key = rawurlencode( $data['consumer_secret'] ) . '&' . rawurlencode( $data['access_token_secret'] );
-
-        // phpcs:ignore
-        $oauth_signature          = base64_encode( hash_hmac( 'sha1', $base_info, $composite_key, true ) );
-		$oauth['oauth_signature'] = $oauth_signature;
-
-		// Make Requests.
-		$header      = array( $this->build_authorization_header( $oauth ), 'Expect:' );
-		$options_buf = wp_remote_get(
-			$data['url'],
-			array(
-				'headers'   => implode( "\n", $header ),
-				'sslverify' => false,
-			)
-		);
-
-		if ( ! is_wp_error( $options_buf ) && isset( $options_buf['body'] ) ) {
-			return json_decode( $options_buf['body'], true );
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Build base string
-	 *
-	 * @param string $base_uri - url.
-	 * @param string $method - method.
-	 * @param array  $params - params.
-	 *
-	 * @return string
-	 */
-	private function build_base_string( $base_uri, $method, $params ) {
-		$r = array();
-		ksort( $params );
-		foreach ( $params as $key => $value ) {
-			$r[] = "$key=" . rawurlencode( $value );
-		}
-		return $method . '&' . rawurlencode( $base_uri ) . '&' . rawurlencode( implode( '&', $r ) );
-	}
-
-	/**
-	 * Build authorization header
-	 *
-	 * @param array $oauth - auth data.
-	 *
-	 * @return string
-	 */
-	private function build_authorization_header( $oauth ) {
-		$r      = 'Authorization: OAuth ';
-		$values = array();
-
-		foreach ( $oauth as $key => $value ) {
-			$values[] = "$key=\"" . rawurlencode( $value ) . '"';
-		}
-
-		$r .= implode( ', ', $values );
-
-		return $r;
-	}
-
-	/**
-	 * Prepare tweet content.
-	 *
-	 * @param array $tweet - tweet data.
-	 *
-	 * @return array - new tweet data.
-	 */
-	public function prepare_tweet_content( $tweet ) {
-		// prepare different profile image sizes.
-		if ( $tweet['user']['profile_image_url'] ) {
-			$tweet['user']['profile_images'] = $this->get_twitter_profile_images( $tweet['user']['profile_image_url'] );
-		}
-		if ( $tweet['user']['profile_image_url_https'] ) {
-			$tweet['user']['profile_images_https'] = $this->get_twitter_profile_images( $tweet['user']['profile_image_url_https'] );
-		}
-
-		// prepare short counts.
-		$tweet['retweet_count_short']  = $this->convert_number_short( $tweet['retweet_count'] );
-		$tweet['favorite_count_short'] = $this->convert_number_short( $tweet['favorite_count'] );
-
-		// user friendly date.
-		$date      = strtotime( $tweet['created_at'] );
-		$now       = time();
-		$diff_date = $now - $date;
-
-		if ( $diff_date / 60 < 1 ) {
-			// seconds.
-			// translators: %d - seconds.
-			$date = sprintf( esc_html__( '%ds', 'ghostkit' ), intval( $diff_date % 60 ) );
-		} elseif ( $diff_date / 60 < 60 ) {
-			// minutes.
-			// translators: %d - minutes.
-			$date = sprintf( esc_html__( '%dm', 'ghostkit' ), intval( $diff_date / 60 ) );
-		} elseif ( $diff_date / 3600 < 24 ) {
-			// hours.
-			// translators: %d - hours.
-			$date = sprintf( esc_html__( '%dh', 'ghostkit' ), intval( $diff_date / 3600 ) );
-		} elseif ( gmdate( 'Y' ) === gmdate( 'Y', $date ) ) {
-			// current year.
-			$date = gmdate( esc_html__( 'M j', 'ghostkit' ), $date );
-		} else {
-			// past years.
-			$date = gmdate( esc_html__( 'Y M j', 'ghostkit' ), $date );
-		}
-
-		$tweet['date_formatted'] = $date;
-
-		// text with links and media.
-		$tweet['text_entitled'] = $this->add_tweet_entity_links( $tweet['text'], $tweet['entities'] );
-
-		// text with links only.
-		$tweet['text_entitled_no_media'] = $this->add_tweet_entity_links( $tweet['text'], $tweet['entities'], false );
-
-		return $tweet;
-	}
-
-	/**
-	 * Adds a link around any entities in a twitter feed
-	 * twitter entities include urls, user mentions, hashtags and media
-	 * http://stackoverflow.com/a/15390225
-	 *
-	 * @param string  $text - tweet text.
-	 * @param array   $entities - available entities.
-	 * @param boolean $show_media - show tweet images.
-	 *
-	 * @return string tweet
-	 */
-	public function add_tweet_entity_links( $text, $entities, $show_media = true ) {
-		$replacements = array();
-		if ( isset( $entities['hashtags'] ) ) {
-			foreach ( $entities['hashtags'] as $hashtag ) {
-				list ($start, $end)     = $hashtag['indices'];
-				$replacements[ $start ] = array(
-					$start,
-					$end,
-					"<a href=\"https://twitter.com/hashtag/{$hashtag['text']}\" target=\"_blank\">#{$hashtag['text']}</a>",
-				);
-			}
-		}
-		if ( isset( $entities['urls'] ) ) {
-			foreach ( $entities['urls'] as $url ) {
-				list ($start, $end) = $url['indices'];
-				// you can also use $url['expanded_url'] in place of $url['url'].
-				$replacements[ $start ] = array(
-					$start,
-					$end,
-					"<a href=\"{$url['url']}\" target=\"_blank\">{$url['display_url']}</a>",
-				);
-			}
-		}
-		if ( isset( $entities['user_mentions'] ) ) {
-			foreach ( $entities['user_mentions'] as $mention ) {
-				list ($start, $end)     = $mention['indices'];
-				$replacements[ $start ] = array(
-					$start,
-					$end,
-					"<a href=\"https://twitter.com/{$mention['screen_name']}\" target=\"_blank\">@{$mention['screen_name']}</a>",
-				);
-			}
-		}
-		if ( isset( $entities['media'] ) ) {
-			foreach ( $entities['media'] as $media ) {
-				list ($start, $end) = $media['indices'];
-
-				if ( $show_media ) {
-					$replacements[ $start ] = array(
-						$start,
-						$end,
-						"<div><a href=\"{$media['url']}\" target=\"_blank\"><img src=\"{$media['media_url_https']}\" /></a></div>",
-					);
-				} else {
-					$replacements[ $start ] = array(
-						$start,
-						$end,
-						"<a href=\"{$media['url']}\" target=\"_blank\">{$media['url']}</a>",
-					);
-				}
-			}
-		}
-
-		// sort in reverse order by start location.
-		krsort( $replacements );
-
-		foreach ( $replacements as $replace_data ) {
-			list ($start, $end, $replace_text) = $replace_data;
-
-			$text = mb_substr( $text, 0, $start, 'UTF-8' ) . $replace_text . mb_substr( $text, $end, null, 'UTF-8' );
-		}
-
-		return $text;
-	}
-
-	/**
-	 * Convert long numbers to short. eg: 1500 -> 1.5K
-	 * Thanks https://code.recuweb.com/2018/php-format-numbers-to-nearest-thousands/ .
-	 *
-	 * @param number $num - number.
-	 * @return string
-	 */
-	public function convert_number_short( $num ) {
-		if ( $num > 1000 ) {
-			$x               = round( $num );
-			$x_number_format = number_format( $x );
-			$x_array         = explode( ',', $x_number_format );
-			$x_parts         = array( 'K', 'M', 'B', 'T' );
-			$x_count_parts   = count( $x_array ) - 1;
-			$x_display       = $x;
-			$x_display       = $x_array[0] . ( (int) 0 !== $x_array[1][0] ? '.' . $x_array[1][0] : '' );
-			$x_display      .= $x_parts[ $x_count_parts - 1 ];
-
-			return $x_display;
-		}
-
-		return $num;
-	}
-
-	/**
-	 * Prepare profile image urls
-	 * https://developer.twitter.com/en/docs/accounts-and-users/user-profile-images-and-banners
-	 *
-	 * @param string $url - profile image.
-	 *
-	 * @return array images
-	 */
-	public function get_twitter_profile_images( $url ) {
-		if ( strpos( $url, '.jpg' ) !== false ) {
-			return array(
-				'normal'   => $url,
-				'bigger'   => str_replace( '_normal.jpg', '_bigger.jpg', $url ),
-				'mini'     => str_replace( '_normal.jpg', '_mini.jpg', $url ),
-				'original' => str_replace( '_normal.jpg', '.jpg', $url ),
-			);
-		}
-
-		return array(
-			'normal'   => $url,
-			'bigger'   => str_replace( '_normal.png', '_bigger.png', $url ),
-			'mini'     => str_replace( '_normal.png', '_mini.png', $url ),
-			'original' => str_replace( '_normal.png', '.png', $url ),
-		);
+	public function get_icons() {
+		return $this->success( apply_filters( 'gkt_icons_list', array() ) );
 	}
 
 	/**
@@ -1786,6 +1120,18 @@ class GhostKit_Rest extends WP_REST_Controller {
 
 		if ( is_array( $new_code ) ) {
 			$current_code = get_option( 'ghostkit_custom_code', array() );
+
+			// Global JS is printed unescaped on every page, so changing it needs the same capability as per-post JS.
+			if ( ! current_user_can( 'unfiltered_html' ) ) {
+				foreach ( array( 'ghostkit_custom_js_head', 'ghostkit_custom_js_foot' ) as $js_key ) {
+					$current_js = isset( $current_code[ $js_key ] ) ? $current_code[ $js_key ] : '';
+
+					if ( array_key_exists( $js_key, $new_code ) && (string) $new_code[ $js_key ] !== (string) $current_js ) {
+						return $this->error( 'user_dont_have_permission', __( 'User don\'t have permissions to change custom JavaScript.', 'ghostkit' ), true );
+					}
+				}
+			}
+
 			update_option( 'ghostkit_custom_code', array_merge( $current_code, $new_code ) );
 		}
 
@@ -1952,7 +1298,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 	 */
 	public function error( $code, $response, $true_error = false ) {
 		if ( $true_error ) {
-			return new WP_Error( $code, $response, array( 'status' => 401 ) );
+			return new WP_Error( $code, $response, array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return new WP_REST_Response(
