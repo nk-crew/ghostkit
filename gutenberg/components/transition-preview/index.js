@@ -33,7 +33,12 @@ export default function TransitionPreview(props) {
 
 		setTimeout(() => {
 			if (buttonRef.current && buttonSquareRef.current) {
-				const animationOptions = {};
+				// Motion 13.5+ no longer reduces motion by itself in animate().
+				const animationOptions = {
+					reduceMotion: window.matchMedia(
+						'(prefers-reduced-motion: reduce)'
+					).matches,
+				};
 
 				if (opts?.type === 'easing') {
 					animationOptions.type = 'tween';

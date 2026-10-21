@@ -75,14 +75,9 @@ function show($item, animationSpeed, cb) {
 		}
 	);
 
+	// Motion does not resolve then() for an animation stopped manually.
 	animation.then(() => {
-		// Check if animation stopped manually.
-		const isStopped =
-			$item.gktAccordion.animation?.animations?.[0]?.isStopped || false;
-
-		if (!isStopped) {
-			resetContentStyles($content);
-		}
+		resetContentStyles($content);
 
 		$item.gktAccordion.animation = null;
 
@@ -114,14 +109,9 @@ function hide($item, animationSpeed, cb) {
 		}
 	);
 
+	// Motion does not resolve then() for an animation stopped manually.
 	animation.then(() => {
-		// Check if animation stopped manually.
-		const isStopped =
-			$item.gktAccordion.animation?.animations?.[0]?.isStopped || false;
-
-		if (!isStopped) {
-			resetContentStyles($content);
-		}
+		resetContentStyles($content);
 
 		$item.gktAccordion.animation = null;
 
