@@ -14,6 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class GhostKit_Extension_Effects {
 	/**
+	 * Whether the reveal styles are already printed on this page.
+	 *
+	 * @var boolean
+	 */
+	private $reveal_styles_printed = false;
+
+	/**
 	 * GhostKit_Extension_Effects constructor.
 	 */
 	public function __construct() {
@@ -92,6 +99,14 @@ class GhostKit_Extension_Effects {
 			}
 
 			$processor = apply_filters( 'gkt_extension_effects_tag_processor', $processor, $effects_data, $block_content, $block, $block_type );
+
+			// A block rendered after wp_head (widgets, custom loops in classic themes)
+			// may still need the reveal styles, so print them right before it.
+			if ( ! $this->reveal_styles_printed && did_action( 'wp_head' ) && $processor->has_class( 'ghostkit-effects-reveal' ) ) {
+				$this->reveal_styles_printed = true;
+
+				return $this->get_reveal_styles() . $processor->get_updated_html();
+			}
 		}
 
 		return $processor->get_updated_html();
@@ -99,11 +114,30 @@ class GhostKit_Extension_Effects {
 
 	/**
 	 * Add styles using JS for effects reveal feature.
+	 * Printed only when the page uses effects: the assets detector has enqueued
+	 * the effects script by now for every block parsed or rendered before wp_head.
+	 */
+	public function add_reveal_styles() {
+		if ( $this->reveal_styles_printed || ! wp_script_is( 'ghostkit-extension-effects', 'enqueued' ) ) {
+			return;
+		}
+
+		$this->reveal_styles_printed = true;
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $this->get_reveal_styles();
+	}
+
+	/**
+	 * Styles and script for effects reveal feature.
 	 * As we need to hide blocks, we should make sure that
 	 *  1. JS is enabled in the browser.
 	 *  2. User has not set reduced motion in the OS settings.
+	 *
+	 * @return string
 	 */
-	public function add_reveal_styles() {
+	public function get_reveal_styles() {
+		ob_start();
 		?>
 		<style type="text/css">
 			.ghostkit-effects-enabled .ghostkit-effects-reveal {
@@ -119,6 +153,7 @@ class GhostKit_Extension_Effects {
 			}
 		</script>
 		<?php
+		return ob_get_clean();
 	}
 }
 

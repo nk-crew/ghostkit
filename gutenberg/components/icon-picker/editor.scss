@@ -104,11 +104,12 @@
 	}
 
 	.ghostkit-component-icon-picker-list-wrap {
+		box-sizing: border-box;
 		padding: 15px;
+	}
 
-		.ReactVirtualized__Grid__innerScrollContainer > div {
-			padding-bottom: 10px;
-		}
+	.ghostkit-component-icon-picker-list-row {
+		padding-bottom: 10px;
 	}
 
 	.ghostkit-component-icon-picker-list-panel-toggle {

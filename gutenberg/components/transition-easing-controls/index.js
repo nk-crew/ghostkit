@@ -7,10 +7,10 @@ import {
 } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import BezierEditor from 'bezier-easing-editor';
 import classnames from 'classnames/dedupe';
 
 import round from '../../utils/round';
+import BezierEditor from '../bezier-editor';
 import Select from '../select';
 import TransitionPreview from '../transition-preview';
 import DEFAULT from './default';
@@ -29,18 +29,11 @@ export function EasingBezierEditor(props) {
 		height: 140,
 		padding: [25, 55, 25, 55],
 		background: 'transparent',
-		color: '#ccc',
-		gridColor: 'transparent',
 		curveColor: '#bfbfbf',
-		progressColor: '#ccc',
 		handleColor: 'var(--wp-admin-theme-color)',
 		curveWidth: 2,
 		handleRadius: 6,
 		handleStroke: 2,
-		textStyle: {
-			display: 'none',
-		},
-		// We have to add the onChange callback to prevent warning in console.
 		onChange(val) {
 			if (onChange) {
 				onChange(val);

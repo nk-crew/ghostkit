@@ -492,7 +492,7 @@ class GhostKit_Assets {
 			'googleReCaptchaAPISiteKey'   => $recaptcha_site_key,
 			'googleReCaptchaAPISecretKey' => is_admin() ? $recaptcha_secret_key : '',
 			'sidebars'                    => $sidebars,
-			'icons'                       => is_admin() ? apply_filters( 'gkt_icons_list', array() ) : array(),
+			'icons'                       => is_admin() ? GhostKit_Icons_List::get_packs() : array(),
 			'shapes'                      => is_admin() ? apply_filters( 'gkt_shapes_list', array() ) : array(),
 			'fonts'                       => is_admin() ? apply_filters( 'gkt_fonts_list', array() ) : array(),
 			'customTypographyList'        => is_admin() ? apply_filters( 'gkt_custom_typography', array() ) : array(),
