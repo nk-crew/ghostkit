@@ -799,8 +799,7 @@ class GhostKit_Assets {
 	 */
 	public static function add_custom_css( $name, $css ) {
 		if ( ! wp_style_is( $name, 'enqueued' ) ) {
-			$css = wp_kses( $css, array( '\'', '\"' ) );
-			$css = str_replace( '&gt;', '>', $css );
+			$css = self::sanitize_custom_css( $css );
 
 			$allow_js_fallback = apply_filters( 'gkt_custom_css_allow_js_fallback', self::$already_added_custom_assets, $name, $css );
 
@@ -827,6 +826,22 @@ class GhostKit_Assets {
 		}
 
 		self::$stored_assets[] = $name;
+	}
+
+	/**
+	 * Sanitize custom CSS for output inside a <style> tag.
+	 * Unlike wp_kses() it keeps `&` and `>` selectors intact.
+	 *
+	 * @param string $css - code.
+	 *
+	 * @return string
+	 */
+	public static function sanitize_custom_css( $css ) {
+		$css = wp_strip_all_tags( (string) $css );
+		$css = preg_replace( '#</style#i', '', $css );
+
+		// Earlier versions printed `&gt;` as `>`, keep that for CSS saved with the entity.
+		return str_replace( '&gt;', '>', $css );
 	}
 
 	/**
