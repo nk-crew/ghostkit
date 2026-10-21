@@ -70,6 +70,24 @@ class GhostKit_Icons_List {
     }
 
     /**
+     * Icon packs without their icons. The editor loads the icons
+     * on demand from the `ghostkit/v1/get_icons` REST route.
+     *
+     * @return array
+     */
+    public static function get_packs() {
+        $packs = array();
+
+        foreach ( apply_filters( 'gkt_icons_list', array() ) as $key => $pack ) {
+            $packs[ $key ] = array(
+                'name' => isset( $pack['name'] ) ? $pack['name'] : $key,
+            );
+        }
+
+        return $packs;
+    }
+
+    /**
      * Extend icons list.
      *
      * @param array $icons - icons list.

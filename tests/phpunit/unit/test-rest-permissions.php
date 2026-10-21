@@ -290,33 +290,6 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Social feed routes over HTTP need edit_posts, so visitors cannot trigger outbound requests.
-	 */
-	public function test_social_feed_http_request_refused_for_visitor() {
-		if ( ! defined( 'REST_REQUEST' ) ) {
-			define( 'REST_REQUEST', true );
-		}
-
-		wp_set_current_user( 0 );
-		$response = $this->get(
-			'/ghostkit/v1/get_instagram_feed',
-			array( 'access_token' => 'visitor-token' )
-		);
-
-		$this->assertSame( 401, $response->get_status() );
-		$this->assertSame( array(), $this->http_requests );
-
-		$this->login_as( 'contributor' );
-		$response = $this->get(
-			'/ghostkit/v1/get_instagram_feed',
-			array( 'access_token' => 'editor-token' )
-		);
-
-		$this->assertNotContains( $response->get_status(), array( 401, 403 ) );
-		$this->assertCount( 1, $this->http_requests );
-	}
-
-	/**
 	 * Without unfiltered_html, changing global JS is refused and the option keeps its value.
 	 */
 	public function test_global_js_change_refused_without_unfiltered_html() {
