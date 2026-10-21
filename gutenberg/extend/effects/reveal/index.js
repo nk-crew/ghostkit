@@ -207,6 +207,9 @@ function EffectsRevealTools(props) {
 						<li>{__('3D Rotation', 'ghostkit')}</li>
 						<li>{__('Custom Viewport', 'ghostkit')}</li>
 						<li>{__('Replay Animation', 'ghostkit')}</li>
+						<li>
+							{__('Animate Inner Blocks One by One', 'ghostkit')}
+						</li>
 					</ul>
 					<ProNote.Button
 						target="_blank"
