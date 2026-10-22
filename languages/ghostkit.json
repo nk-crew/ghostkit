@@ -53,6 +53,15 @@
          "User don't have permissions to change Customizer options.": [
             ""
          ],
+         "User don't have permissions to read this image.": [
+            ""
+         ],
+         "User don't have permissions to read templates.": [
+            ""
+         ],
+         "User don't have permissions to read this template.": [
+            ""
+         ],
          "Custom fonts not found.": [
             ""
          ],
@@ -65,45 +74,6 @@
          "Image not found.": [
             ""
          ],
-         "Provide Instagram Access Token.": [
-            ""
-         ],
-         "Instagram data failed to load.": [
-            ""
-         ],
-         "Provide Twitter Consumer Key.": [
-            ""
-         ],
-         "Provide Twitter Consumer Secret.": [
-            ""
-         ],
-         "Provide Twitter Access Token.": [
-            ""
-         ],
-         "Provide Twitter Access Token Secret.": [
-            ""
-         ],
-         "Provide Username.": [
-            ""
-         ],
-         "Twitter data failed to load.": [
-            ""
-         ],
-         "%ds": [
-            ""
-         ],
-         "%dm": [
-            ""
-         ],
-         "%dh": [
-            ""
-         ],
-         "M j": [
-            ""
-         ],
-         "Y M j": [
-            ""
-         ],
          "Templates not found.": [
             ""
          ],
@@ -114,6 +84,9 @@
             ""
          ],
          "Custom code not found.": [
+            ""
+         ],
+         "User don't have permissions to change custom JavaScript.": [
             ""
          ],
          "Typography not found.": [
@@ -315,24 +288,6 @@
             ""
          ],
          "This e-mail was sent from a contact form on %1$s. (%2$s)": [
-            ""
-         ],
-         "Posts": [
-            ""
-         ],
-         "Followers": [
-            ""
-         ],
-         "Following": [
-            ""
-         ],
-         "Verified account": [
-            ""
-         ],
-         "Tweets": [
-            ""
-         ],
-         "Retweeted": [
             ""
          ],
          "Blocks": [
@@ -1210,46 +1165,10 @@
          "After label…": [
             ""
          ],
-         "Photos Number": [
-            ""
-         ],
-         "Profile Info": [
-            ""
-         ],
-         "Show Profile Info": [
-            ""
-         ],
-         "Show Avatar": [
-            ""
-         ],
-         "Avatar Size": [
-            ""
-         ],
-         "Show Name": [
-            ""
-         ],
-         "Show Stats": [
-            ""
-         ],
-         "Show BIO": [
-            ""
-         ],
-         "Show Website": [
-            ""
-         ],
-         "API Data": [
-            ""
-         ],
-         "Access Token": [
-            ""
-         ],
-         "A valid Access Token is required to use Instagram feed. How to get token": [
-            ""
-         ],
          "Instagram": [
             ""
          ],
-         "A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector.": [
+         "Instagram retired the API this block used, so the block shows nothing on the site. You can remove it.": [
             ""
          ],
          "Play Animation On": [
@@ -1492,73 +1411,10 @@
          "Write source…": [
             ""
          ],
-         "Username": [
-            ""
-         ],
-         "Feed": [
-            ""
-         ],
-         "Tweets Number": [
-            ""
-         ],
-         "Show Replies": [
-            ""
-         ],
-         "Show Retweets": [
-            ""
-         ],
-         "Show Date": [
-            ""
-         ],
-         "Show Actions": [
-            ""
-         ],
-         "Text Mode": [
-            ""
-         ],
-         "Short": [
-            ""
-         ],
-         "Full": [
-            ""
-         ],
-         "Convert Text Links": [
-            ""
-         ],
-         "Links + Media": [
-            ""
-         ],
-         "Links": [
-            ""
-         ],
-         "No Convert": [
-            ""
-         ],
-         "Profile": [
-            ""
-         ],
-         "Show Profile": [
-            ""
-         ],
-         "Show Location": [
-            ""
-         ],
-         "Consumer Key": [
-            ""
-         ],
-         "Consumer Secret": [
-            ""
-         ],
-         "Access Token Secret": [
-            ""
-         ],
-         "A valid API data is required to use Twitter feed. How to get it": [
-            ""
-         ],
          "Twitter": [
             ""
          ],
-         "A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.": [
+         "Twitter retired the API this block used, so the block shows nothing on the site. You can remove it.": [
             ""
          ],
          "Background color settings are unavailable because the required Gutenberg color control component is not available in this WordPress installation.": [
@@ -1648,6 +1504,12 @@
          "--- Select Sidebar ---": [
             ""
          ],
+         "End point handle": [
+            ""
+         ],
+         "Start point handle": [
+            ""
+         ],
          "Clear Media": [
             ""
          ],
@@ -1727,6 +1589,9 @@
             ""
          ],
          "Reset": [
+            ""
+         ],
+         "Icons failed to load.": [
             ""
          ],
          "No icons found.": [
@@ -2182,6 +2047,9 @@
          "Replay Animation": [
             ""
          ],
+         "Animate Inner Blocks One by One": [
+            ""
+         ],
          "TL": [
             ""
          ],
@@ -2456,6 +2324,9 @@
             ""
          ],
          "Breakpoints available for Pro users only. Read more about Ghost Kit Pro plugin here - ": [
+            ""
+         ],
+         "Failed to save custom code.": [
             ""
          ],
          "Adobe and Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ": [

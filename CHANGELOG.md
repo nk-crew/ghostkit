@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.8.0 - Oct 22, 2026 =
+
+* raised the minimum PHP requirement to 8.3
+* fixed a security issue where visitors could read draft and private templates and make the site fetch remote templates through the REST API; template routes now require a user who can edit posts
+* fixed a security issue where custom CSS could close the element it is printed in on sites with some character sets or through an end tag other than `</style>`; every end tag in custom CSS is now escaped
+* fixed custom CSS losing rules when it uses nesting with `&`, child selectors, range media queries or is wrapped in `<style>` tags
+* changed global custom JavaScript to be editable only by users allowed to post unfiltered HTML, matching per-post JavaScript; the settings page hides those editors from other admins and shows save errors instead of failing silently
+* improved editor loading: the icon list (about 2 MB) loads when the icon picker opens instead of on every editor screen
+* removed the requests the Instagram and Twitter blocks sent on every page view to APIs that no longer return data; saved blocks stay valid and render nothing, as before, with a notice in the editor
+* changed Accordion events when opening an item is interrupted by a close: it now fires show, hide, show, shown
+* **Pro:**
+* added an option to the Reveal effect to animate the inner blocks one by one, with a delay between them
+* improved scroll performance: scroll effects that animate only opacity and position run on the browser's native scroll timelines instead of a script on every frame; elements on a timeline no longer fire the `update.effects.scroll.gkt` event on each frame
+* improved idle CPU use on pages with effects: effect loops stop requesting frames while no element needs an update
+* fixed rotating effects losing their perspective on the first frame
+* fixed the Image Scroller not scrolling back when the pointer leaves it
+* fixed a security issue where users without access to settings could call the Adobe Fonts (Typekit) route
+* added a link on the Updates page to where the license key is found
+
 = 3.7.2 - Sep 14, 2026 =
 
 * fixed a critical error on sites where another plugin ships a different version of the same CSS parser, which showed up as "Declaration of Sabberworm\CSS\Value\Size::render() must be compatible" once the custom breakpoints styles were rebuilt
