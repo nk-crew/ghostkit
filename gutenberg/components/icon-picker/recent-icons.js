@@ -11,7 +11,7 @@ const NAME = 'recentIcons';
  * Recently picked icons of the current user, newest first.
  * Core persists `core/preferences` in the user's `persisted_preferences` meta.
  *
- * @return {Object} `{ recent, addRecent }`, recent is a list of `<pack>:<keys>` ids.
+ * @return {Object} `{ recent, addRecent }`, recent is a list of `<pack>:<fallback or keys>` ids.
  */
 export function useRecentIcons() {
 	const recent = useSelect(

@@ -80,6 +80,7 @@ function IconGrid(
 ) {
 	const scrollRef = useRef();
 	const pendingFocus = useRef(null);
+	const opened = useRef(false);
 	const [scrollTop, setScrollTop] = useState(0);
 	const [viewHeight, setViewHeight] = useState(0);
 	const [active, setActive] = useState(null);
@@ -102,10 +103,17 @@ function IconGrid(
 		return () => observer.disconnect();
 	}, []);
 
+	// The picker opens at the selected icon, so its row is mounted and takes the tab stop.
 	// A new search or pack filter starts from the top.
 	useLayoutEffect(() => {
-		scrollRef.current.scrollTop = 0;
-		setScrollTop(0);
+		if (!opened.current && selectedIndex > -1) {
+			scrollToRow(rows[cells[selectedIndex].row]);
+		} else {
+			scrollRef.current.scrollTop = 0;
+			setScrollTop(0);
+		}
+
+		opened.current = true;
 		setActive(null);
 		onHover(null);
 	}, [groups]);
@@ -126,13 +134,8 @@ function IconGrid(
 		}
 	});
 
-	function moveTo(index) {
-		if (index < 0 || index >= cells.length) {
-			return;
-		}
-
+	function scrollToRow(row) {
 		const node = scrollRef.current;
-		const row = rows[cells[index].row];
 		let top = node.scrollTop;
 
 		// The sticky heading covers the first HEADING_HEIGHT pixels.
@@ -146,6 +149,16 @@ function IconGrid(
 			node.scrollTop = top;
 			setScrollTop(top);
 		}
+	}
+
+	function moveTo(index) {
+		if (index < 0 || index >= cells.length) {
+			return;
+		}
+
+		const node = scrollRef.current;
+
+		scrollToRow(rows[cells[index].row]);
 
 		pendingFocus.current = index;
 		setActive(index);
@@ -261,6 +274,10 @@ function IconGrid(
 			row.top <= scrollTop + viewHeight + OVERSCAN
 	);
 
+	// Keep one option tabbable when the current one is scrolled out and unmounted.
+	const mountedCells = visibleRows.flatMap((row) => row.cells || []);
+	const tabStop = mountedCells.includes(current) ? current : mountedCells[0];
+
 	return (
 		<div
 			ref={scrollRef}
@@ -326,7 +343,7 @@ function IconGrid(
 										aria-selected={selected}
 										aria-label={item.name}
 										data-index={index}
-										tabIndex={index === current ? 0 : -1}
+										tabIndex={index === tabStop ? 0 : -1}
 										className={classnames(
 											'ghostkit-component-icon-picker-button',
 											selected ? 'is-selected' : ''

@@ -92,7 +92,8 @@ function preparePacks(icons) {
 			key,
 			title: iconsData.name || key,
 			items: (iconsData.icons || []).map((iconData) => ({
-				id: `${key}:${iconData.keys}`,
+				// FontAwesome regular and solid icons share keys, the fallback class tells them apart.
+				id: `${key}:${iconData.fallback || iconData.keys}`,
 				name: getIconTip(iconData) || iconsData.name || key,
 				keys: (iconData.keys || '').toLowerCase(),
 				svg: iconData.svg,

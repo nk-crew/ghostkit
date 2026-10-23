@@ -186,6 +186,150 @@ test.describe('icon picker', () => {
 		);
 	});
 
+	test('shows the selected icon far down the list and reaches it with Tab', async ({
+		page,
+		admin,
+		editor,
+	}) => {
+		await admin.createNewPost({ showWelcomeGuide: false });
+
+		const lastIcon = await page.evaluate(async () => {
+			const result = await window.wp.apiFetch({
+				path: '/ghostkit/v1/get_icons/',
+			});
+			const icons = result.response['font-awesome'].icons;
+
+			return icons[icons.length - 1].svg;
+		});
+
+		await editor.insertBlock({
+			name: 'ghostkit/icon-box',
+			attributes: { icon: encodeURIComponent(lastIcon) },
+		});
+		await editor.openDocumentSettingsSidebar();
+		await page
+			.locator(
+				'.block-editor-block-inspector .ghostkit-component-icon-picker-toggle'
+			)
+			.click();
+
+		const popover = page.locator('.ghostkit-component-icon-picker-content');
+		const search = popover.getByRole('searchbox');
+		const selected = popover.getByRole('option', { selected: true });
+
+		// Tab from the search field moves through the pack filter into the grid.
+		async function tabToGrid() {
+			await search.focus();
+
+			for (let i = 0; i < 4; i += 1) {
+				await page.keyboard.press('Tab');
+
+				const role = await page.evaluate(() =>
+					document.activeElement.getAttribute('role')
+				);
+
+				if (role === 'option') {
+					return;
+				}
+			}
+		}
+
+		await expect(selected).toBeInViewport();
+		await tabToGrid();
+		await expect(selected).toBeFocused();
+
+		// Scrolled away, the selected option unmounts and a mounted one takes the tab stop.
+		await popover
+			.locator('.ghostkit-component-icon-picker-grid')
+			.evaluate((node) => {
+				node.scrollTop = 0;
+			});
+		await expect(selected).toHaveCount(0);
+		await tabToGrid();
+		await expect(popover.getByRole('option').first()).toBeFocused();
+	});
+
+	test('keeps the picked one of two icons with the same name in Recent', async ({
+		page,
+		admin,
+		editor,
+	}) => {
+		await admin.createNewPost({ showWelcomeGuide: false });
+		await editor.insertBlock({ name: 'ghostkit/icon-box' });
+		await editor.openDocumentSettingsSidebar();
+
+		const toggle = page.locator(
+			'.block-editor-block-inspector .ghostkit-component-icon-picker-toggle'
+		);
+		const popover = page.locator('.ghostkit-component-icon-picker-content');
+
+		await toggle.click();
+		await popover.getByRole('searchbox').fill('bell');
+
+		// FontAwesome has a solid and a regular icon with the keys `bell`.
+		const bells = popover.getByRole('option', {
+			name: 'Bell',
+			exact: true,
+		});
+		await expect(bells).toHaveCount(2);
+		await bells.nth(1).click();
+		await expect(bells.nth(1)).toHaveAttribute('aria-selected', 'true');
+
+		await page.keyboard.press('Escape');
+		await expect(popover).toBeHidden();
+		await toggle.click();
+
+		await expect(
+			popover.locator('.ghostkit-component-icon-picker-heading', {
+				hasText: 'Recent',
+			})
+		).toHaveCount(2);
+		await expect(popover.getByRole('option').first()).toHaveAttribute(
+			'aria-selected',
+			'true'
+		);
+	});
+
+	test('keeps icons in view and scrolls the content on a short screen', async ({
+		page,
+		admin,
+		editor,
+	}) => {
+		await admin.createNewPost({ showWelcomeGuide: false });
+		await editor.insertBlock({ name: 'ghostkit/icon-box' });
+		await editor.openDocumentSettingsSidebar();
+		await page.setViewportSize({ width: 1280, height: 320 });
+
+		await page
+			.locator(
+				'.block-editor-block-inspector .ghostkit-component-icon-picker-toggle'
+			)
+			.click();
+
+		const popover = page.locator('.ghostkit-component-icon-picker-content');
+
+		await popover.getByRole('button', { name: 'Custom SVG' }).click();
+
+		const textarea = popover.getByRole('textbox', { name: 'Icon Output' });
+		await expect(textarea).toBeAttached();
+
+		// The grid keeps at least a row of icons instead of collapsing to nothing.
+		await expect(popover.getByRole('option').first()).toBeInViewport({
+			ratio: 1,
+		});
+
+		// Wheel over the footer, the way a user reaches the hidden part.
+		const footer = await popover
+			.locator('.ghostkit-component-icon-picker-current')
+			.boundingBox();
+		await page.mouse.move(
+			footer.x + footer.width / 2,
+			footer.y + footer.height / 2
+		);
+		await page.mouse.wheel(0, 1000);
+		await expect(textarea).toBeInViewport({ ratio: 0.95 });
+	});
+
 	test('class name icons saved by old versions render as SVG in the canvas', async ({
 		admin,
 		editor,

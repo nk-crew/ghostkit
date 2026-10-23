@@ -58,10 +58,6 @@
 	cursor: pointer;
 }
 
-.ghostkit-component-icon-picker-content > .components-popover__content {
-	overflow: hidden;
-}
-
 .ghostkit-component-icon-picker {
 	display: flex;
 	flex-direction: column;
@@ -74,7 +70,8 @@
 
 	.ghostkit-component-icon-picker-grid {
 		flex: 1 1 auto;
-		min-height: 0;
+		// A heading and two rows stay visible; on a short screen the popover scrolls instead.
+		min-height: 120px;
 		// Room for the focus ring of the edge cells.
 		padding: 0 2px;
 		margin: 0 -2px;
