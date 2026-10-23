@@ -40,20 +40,13 @@ function EffectsProTools() {
 		<>
 			{selected && (
 				<div style={{ gridColumn: '1 / -1' }}>
-					<ProNote title={__('Advanced Effects', 'ghostkit')}>
-						<p>
-							{__(
-								'Advanced effects are available in the Ghost Kit Pro plugin only.',
-								'ghostkit'
-							)}
-						</p>
-						<ProNote.Button
-							target="_blank"
-							rel="noopener noreferrer"
-							href={`https://www.ghostkit.io/docs/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=${version}`}
-						>
-							{__('Read More', 'ghostkit')}
-						</ProNote.Button>
+					<ProNote
+						href={`https://www.ghostkit.io/docs/extensions/effects/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_effects&utm_content=${version}`}
+					>
+						{__(
+							'Advanced effects are available in the Ghost Kit Pro plugin only.',
+							'ghostkit'
+						)}
 					</ProNote>
 				</div>
 			)}

@@ -31,7 +31,6 @@ import { ReactComponent as blockGridColumn } from './block-grid-column.svg';
 import { ReactComponent as blockIcon } from './block-icon.svg';
 import { ReactComponent as blockIconBox } from './block-icon-box.svg';
 import { ReactComponent as blockImageCompare } from './block-image-compare.svg';
-import { ReactComponent as blockInstagram } from './block-instagram.svg';
 import { ReactComponent as blockLottie } from './block-lottie.svg';
 import { ReactComponent as blockMarkdown } from './block-markdown.svg';
 import { ReactComponent as blockPricingTable } from './block-pricing.svg';
@@ -41,7 +40,6 @@ import { ReactComponent as blockTab } from './block-tab.svg';
 import { ReactComponent as blockTableOfContents } from './block-table-of-contents.svg';
 import { ReactComponent as blockTabs } from './block-tabs.svg';
 import { ReactComponent as blockTestimonial } from './block-testimonial.svg';
-import { ReactComponent as blockTwitter } from './block-twitter.svg';
 import { ReactComponent as blockVideo } from './block-video.svg';
 import { ReactComponent as blockWidgetizedArea } from './block-widgetized-area.svg';
 import { ReactComponent as borderDashed } from './border-dashed.svg';
@@ -56,13 +54,9 @@ import { ReactComponent as extensionSpacings } from './extension-spacings.svg';
 import { ReactComponent as extensionSR } from './extension-sr.svg';
 import { ReactComponent as extensionTransform } from './extension-transform.svg';
 import { ReactComponent as ghostkitLogo } from './ghostkit-logo.svg';
-import { ReactComponent as iconArrowDown } from './icon-arrow-down.svg';
-import { ReactComponent as iconArrowLeft } from './icon-arrow-left.svg';
 import { ReactComponent as iconArrowRight } from './icon-arrow-right.svg';
-import { ReactComponent as iconArrowUp } from './icon-arrow-up.svg';
 import { ReactComponent as iconBadge } from './icon-badge.svg';
 import { ReactComponent as iconBox } from './icon-box.svg';
-import { ReactComponent as iconCircle } from './icon-circle.svg';
 import { ReactComponent as iconFeltPen } from './icon-felt-pen.svg';
 import { ReactComponent as iconFlipHorizontal } from './icon-flip-horizontal.svg';
 import { ReactComponent as iconFlipVertical } from './icon-flip-vertical.svg';
@@ -73,7 +67,6 @@ import { ReactComponent as iconHorizontalCenter } from './icon-horizontal-center
 import { ReactComponent as iconHorizontalEnd } from './icon-horizontal-end.svg';
 import { ReactComponent as iconHorizontalStart } from './icon-horizontal-start.svg';
 import { ReactComponent as iconHorizontalStretch } from './icon-horizontal-stretch.svg';
-import { ReactComponent as iconKebabMenu } from './icon-kebab-menu.svg';
 import { ReactComponent as iconMap } from './icon-map.svg';
 import { ReactComponent as iconMarker } from './icon-marker.svg';
 import { ReactComponent as iconPointer } from './icon-pointer.svg';
@@ -85,10 +78,8 @@ import { ReactComponent as iconTypographyFontSize } from './icon-typography-font
 import { ReactComponent as iconTypographyGoogleFonts } from './icon-typography-google-fonts.svg';
 import { ReactComponent as iconTypographyLetterSpacing } from './icon-typography-letter-spacing.svg';
 import { ReactComponent as iconTypographyLineHeight } from './icon-typography-line-height.svg';
-import { ReactComponent as iconVerticalBetween } from './icon-vertical-between.svg';
 import { ReactComponent as iconVerticalBottom } from './icon-vertical-bottom.svg';
 import { ReactComponent as iconVerticalCenter } from './icon-vertical-center.svg';
-import { ReactComponent as iconVerticalStretch } from './icon-vertical-stretch.svg';
 import { ReactComponent as iconVerticalTop } from './icon-vertical-top.svg';
 import { ReactComponent as pluginColorPalette } from './plugin-color-palette.svg';
 import { ReactComponent as pluginCustomCode } from './plugin-custom-code.svg';
@@ -129,7 +120,6 @@ export default {
 	'block-icon': blockIcon,
 	'block-icon-box': blockIconBox,
 	'block-image-compare': blockImageCompare,
-	'block-instagram': blockInstagram,
 	'block-lottie': blockLottie,
 	'block-markdown': blockMarkdown,
 	'block-gif': blockGif,
@@ -138,7 +128,6 @@ export default {
 	'block-tabs': blockTabs,
 	'block-tab': blockTab,
 	'block-testimonial': blockTestimonial,
-	'block-twitter': blockTwitter,
 	'block-video': blockVideo,
 	'block-widgetized-area': blockWidgetizedArea,
 	'block-table-of-contents': blockTableOfContents,
@@ -194,19 +183,13 @@ export default {
 	'icon-horizontal-end': iconHorizontalEnd,
 	'icon-horizontal-start': iconHorizontalStart,
 	'icon-horizontal-stretch': iconHorizontalStretch,
-	'icon-vertical-between': iconVerticalBetween,
 	'icon-vertical-bottom': iconVerticalBottom,
 	'icon-vertical-center': iconVerticalCenter,
-	'icon-vertical-stretch': iconVerticalStretch,
 	'icon-vertical-top': iconVerticalTop,
 	'icon-flip-horizontal': iconFlipHorizontal,
 	'icon-flip-vertical': iconFlipVertical,
-	'icon-arrow-down': iconArrowDown,
-	'icon-arrow-left': iconArrowLeft,
 	'icon-arrow-right': iconArrowRight,
-	'icon-arrow-up': iconArrowUp,
 	'icon-box': iconBox,
-	'icon-circle': iconCircle,
 	'icon-trash': iconTrash,
 	'icon-marker': iconMarker,
 	'icon-pointer': iconPointer,
@@ -214,7 +197,6 @@ export default {
 	'icon-map': iconMap,
 	'icon-badge': iconBadge,
 	'icon-felt-pen': iconFeltPen,
-	'icon-kebab-menu': iconKebabMenu,
 	'icon-typography-font-size': iconTypographyFontSize,
 	'icon-typography-letter-spacing': iconTypographyLetterSpacing,
 	'icon-typography-line-height': iconTypographyLineHeight,

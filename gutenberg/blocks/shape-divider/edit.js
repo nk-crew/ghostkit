@@ -146,20 +146,13 @@ export default function BlockEdit(props) {
 									});
 								}}
 							/>
-							<ProNote title={__('Pro Shapes', 'ghostkit')}>
-								<p>
-									{__(
-										'Additional 30 shapes available in the Ghost Kit Pro plugin only',
-										'ghostkit'
-									)}
-								</p>
-								<ProNote.Button
-									target="_blank"
-									rel="noopener noreferrer"
-									href={`https://www.ghostkit.io/docs/blocks/shape-divider/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_shapes&utm_content=${version}`}
-								>
-									{__('Read More', 'ghostkit')}
-								</ProNote.Button>
+							<ProNote
+								href={`https://www.ghostkit.io/docs/blocks/shape-divider/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_shapes&utm_content=${version}`}
+							>
+								{__(
+									'Additional 30 shapes available in the Ghost Kit Pro plugin only',
+									'ghostkit'
+								)}
 							</ProNote>
 						</div>
 					);

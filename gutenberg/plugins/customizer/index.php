@@ -33,7 +33,7 @@ class GhostKit_Customizer_Plugin {
 				$allow_customizer = 'false';
 
 				// Don't parse customizer controls if a block theme is activated and no plugins use the customizer.
-				if ( ( function_exists( 'wp_is_block_theme' ) && ! wp_is_block_theme() ) || has_action( 'customize_register' ) ) {
+				if ( ! wp_is_block_theme() || has_action( 'customize_register' ) ) {
 					add_action( 'customize_register', array( $this, 'parse_customizer_controls' ), 99999 );
 					$allow_customizer = 'true';
 				}

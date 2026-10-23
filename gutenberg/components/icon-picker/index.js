@@ -2,8 +2,9 @@ import classnames from 'classnames/dedupe';
 
 import dashCaseToTitle from '../../utils/dash-case-to-title';
 import { maybeDecode, maybeEncode } from '../../utils/encode-decode';
+import IconGrid from './icon-grid';
 import { useIcons } from './icons-store';
-import VirtualList from './virtual-list';
+import { useRecentIcons } from './recent-icons';
 
 const { GHOSTKIT } = window;
 
@@ -11,16 +12,33 @@ import {
 	BaseControl,
 	Button,
 	Dropdown,
-	G,
+	__experimentalToggleGroupControl as ExperimentalToggleGroupControl,
+	__experimentalToggleGroupControlOption as ExperimentalToggleGroupControlOption,
 	Path,
+	SearchControl,
+	SelectControl,
 	Spinner,
+	ToggleGroupControl as StableToggleGroupControl,
+	ToggleGroupControlOption as StableToggleGroupControlOption,
 	SVG,
 	TextareaControl,
-	TextControl,
-	Tooltip,
 } from '@wordpress/components';
-import { Fragment, useState } from '@wordpress/element';
+import { useMemo, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+
+const ToggleGroupControl =
+	StableToggleGroupControl || ExperimentalToggleGroupControl;
+const ToggleGroupControlOption =
+	StableToggleGroupControlOption || ExperimentalToggleGroupControlOption;
+
+// More packs than this do not fit a toggle group in the popover, so they get a select.
+const MAX_TOGGLE_PACKS = 2;
+
+const codeIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+		<Path d="M20.8 10.7l-4.3-4.3-1.1 1.1 4.3 4.3c.1.1.1.3 0 .4l-4.3 4.3 1.1 1.1 4.3-4.3c.7-.8.7-1.9 0-2.6zM4.2 11.8l4.3-4.3-1-1-4.3 4.3c-.7.7-.7 1.8 0 2.5l4.3 4.3 1.1-1.1-4.3-4.3c-.2-.1-.2-.3-.1-.4z" />
+	</SVG>
+);
 
 /**
  * Go over each icon.
@@ -37,7 +55,7 @@ function eachIcons(icons, callback) {
 			settings[`icon_pack_${key}`];
 
 		if (allow) {
-			callback(icons[key]);
+			callback(icons[key], key);
 		}
 	});
 }
@@ -59,29 +77,293 @@ function getIconTip(iconData) {
 	return result;
 }
 
-// we need this lazy loading component to prevent a huge lags while first loading SVG icons
-function Icon(props) {
-	const { iconData, onClick, active } = props;
+/**
+ * Enabled icon packs with their icons prepared for the picker.
+ *
+ * @param {Object} icons icons list from the REST route.
+ *
+ * @return {Array} packs, `{ key, title, items }`.
+ */
+function preparePacks(icons) {
+	const packs = [];
 
-	return (
-		<IconPicker.Preview
-			className={classnames(
-				'ghostkit-component-icon-picker-button',
-				active ? 'ghostkit-component-icon-picker-button-active' : ''
-			)}
-			onClick={onClick}
-			data={iconData}
-		/>
-	);
+	eachIcons(icons, (iconsData, key) => {
+		packs.push({
+			key,
+			title: iconsData.name || key,
+			items: (iconsData.icons || []).map((iconData) => ({
+				// FontAwesome regular and solid icons share keys, the fallback class tells them apart.
+				id: `${key}:${iconData.fallback || iconData.keys}`,
+				name: getIconTip(iconData) || iconsData.name || key,
+				keys: (iconData.keys || '').toLowerCase(),
+				svg: iconData.svg,
+				class: iconData.class,
+				value: maybeDecode(iconData.svg),
+				fallback: iconData.fallback,
+			})),
+		});
+	});
+
+	return packs;
 }
 
-const hiddenIconCategories = {};
+/**
+ * Popover content: search, pack filter, icons grid and footer.
+ *
+ * @param {Object}   props          props.
+ * @param {string}   props.value    current icon.
+ * @param {Function} props.onChange change callback.
+ */
+function IconPickerContent({ value, onChange }) {
+	const { icons, error } = useIcons();
+	const { recent, addRecent } = useRecentIcons();
 
-// Requests the icons list while mounted.
-function LoadIcons() {
-	useIcons();
+	const [search, setSearch] = useState('');
+	const [pack, setPack] = useState('all');
+	const [customizeIcon, setCustomizeIcon] = useState(false);
+	const [hover, setHover] = useState(null);
+	// Recent icons stay in place while the popover is open, so a pick does not move the grid.
+	const [recentOnOpen] = useState(recent);
 
-	return null;
+	const searchRef = useRef();
+	const gridRef = useRef();
+
+	const decodedValue = maybeDecode(value);
+
+	// The packs list is printed with the page, so the filter shows before the icons load.
+	const packOptions = useMemo(() => {
+		const result = [];
+
+		eachIcons(GHOSTKIT.icons || icons || {}, (data, key) => {
+			result.push({ value: key, label: data.name || key });
+		});
+
+		return result;
+	}, [icons]);
+
+	const packs = useMemo(() => (icons ? preparePacks(icons) : []), [icons]);
+
+	const groups = useMemo(() => {
+		const query = search.trim().toLowerCase();
+		const result = [];
+
+		if (!query && pack === 'all' && recentOnOpen.length) {
+			const items = [];
+
+			recentOnOpen.forEach((id) => {
+				packs.forEach((data) => {
+					const item = data.items.find((i) => i.id === id);
+
+					if (item) {
+						items.push(item);
+					}
+				});
+			});
+
+			if (items.length) {
+				result.push({
+					key: 'recent',
+					title: __('Recent', 'ghostkit'),
+					items,
+				});
+			}
+		}
+
+		packs.forEach((data) => {
+			if (pack !== 'all' && pack !== data.key) {
+				return;
+			}
+
+			const items = query
+				? data.items.filter((item) => item.keys.indexOf(query) > -1)
+				: data.items;
+
+			if (items.length) {
+				result.push({ key: data.key, title: data.title, items });
+			}
+		});
+
+		return result;
+	}, [packs, search, pack, recentOnOpen]);
+
+	function isSelected(item) {
+		return (
+			!!decodedValue &&
+			(item.value === decodedValue || item.fallback === decodedValue)
+		);
+	}
+
+	let selectedItem = null;
+
+	packs.some((data) => {
+		selectedItem = data.items.find(isSelected) || null;
+
+		return !!selectedItem;
+	});
+
+	function pick(item) {
+		onChange(maybeDecode(item.svg));
+		addRecent(item.id);
+	}
+
+	let currentName = __('No icon', 'ghostkit');
+
+	if (hover) {
+		currentName = hover.name;
+	} else if (selectedItem) {
+		currentName = selectedItem.name;
+	} else if (decodedValue) {
+		currentName = __('Custom SVG', 'ghostkit');
+	}
+
+	let grid;
+
+	if (!icons) {
+		grid = error ? (
+			<p className="ghostkit-component-icon-picker-empty">
+				{__('Icons failed to load.', 'ghostkit')}
+			</p>
+		) : (
+			<div className="ghostkit-component-icon-picker-empty">
+				<Spinner />
+			</div>
+		);
+	} else if (!groups.length) {
+		grid = (
+			<p className="ghostkit-component-icon-picker-empty">
+				{__('No icons found.', 'ghostkit')}
+			</p>
+		);
+	} else {
+		grid = (
+			<IconGrid
+				ref={gridRef}
+				label={__('Icons', 'ghostkit')}
+				groups={groups}
+				isSelected={isSelected}
+				onPick={pick}
+				onHover={setHover}
+				onType={(key) => {
+					setSearch(search + key);
+					searchRef.current?.focus();
+				}}
+				onExitTop={() => searchRef.current?.focus()}
+			/>
+		);
+	}
+
+	let packControl = null;
+
+	if (packOptions.length > MAX_TOGGLE_PACKS) {
+		packControl = (
+			<SelectControl
+				label={__('Icon pack', 'ghostkit')}
+				hideLabelFromVision
+				value={pack}
+				options={[
+					{ value: 'all', label: __('All', 'ghostkit') },
+					...packOptions,
+				]}
+				onChange={setPack}
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+			/>
+		);
+	} else if (packOptions.length > 1) {
+		packControl = (
+			<ToggleGroupControl
+				label={__('Icon pack', 'ghostkit')}
+				hideLabelFromVision
+				value={pack}
+				onChange={(val) => setPack(val || 'all')}
+				isBlock
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+			>
+				<ToggleGroupControlOption
+					value="all"
+					label={__('All', 'ghostkit')}
+				/>
+				{packOptions.map((option) => (
+					<ToggleGroupControlOption
+						key={option.value}
+						value={option.value}
+						label={option.label}
+					/>
+				))}
+			</ToggleGroupControl>
+		);
+	}
+
+	return (
+		<div className="ghostkit-component-icon-picker">
+			<SearchControl
+				ref={searchRef}
+				label={__('Search icons', 'ghostkit')}
+				placeholder={__('Search icons', 'ghostkit')}
+				value={search}
+				onChange={setSearch}
+				onKeyDown={(event) => {
+					if (event.key === 'ArrowDown') {
+						event.preventDefault();
+						gridRef.current?.focusFirst();
+					} else if (event.key === 'Enter') {
+						const first = groups.find(
+							(group) => group.key !== 'recent'
+						);
+
+						if (first) {
+							event.preventDefault();
+							pick(first.items[0]);
+						}
+					} else if (event.key === 'Escape' && search) {
+						// Clear the search first; the next Escape closes the popover.
+						event.preventDefault();
+						setSearch('');
+					}
+				}}
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
+			/>
+			{packControl}
+			{grid}
+			<div className="ghostkit-component-icon-picker-footer">
+				<span
+					className={classnames(
+						'ghostkit-component-icon-picker-current',
+						hover && hover !== selectedItem ? 'is-preview' : ''
+					)}
+				>
+					{currentName}
+				</span>
+				<Button
+					icon={codeIcon}
+					label={__('Custom SVG', 'ghostkit')}
+					isPressed={customizeIcon}
+					onClick={() => setCustomizeIcon(!customizeIcon)}
+					size="compact"
+				/>
+				<Button
+					variant="tertiary"
+					disabled={!value}
+					accessibleWhenDisabled
+					onClick={() => onChange('')}
+					size="compact"
+				>
+					{__('Reset', 'ghostkit')}
+				</Button>
+			</div>
+			{customizeIcon ? (
+				<TextareaControl
+					label={__('Icon Output', 'ghostkit')}
+					value={value}
+					onChange={onChange}
+					autoComplete="off"
+					__nextHasNoMarginBottom
+				/>
+			) : null}
+		</div>
+	);
 }
 
 /**
@@ -93,256 +375,13 @@ function IconPickerDropdown(props) {
 	const { onChange, value, label, className, renderToggle, insideInspector } =
 		props;
 
-	const [search, setSearch] = useState('');
-	const [hiddenCategories, setHiddenCategories] =
-		useState(hiddenIconCategories);
-	const [customizeIcon, setCustomizeIcon] = useState(false);
-
-	// Subscribe only: the list is requested when the dropdown opens.
-	const { icons, error } = useIcons(false);
-
-	function getDropdownContent() {
-		const rows = [
-			{
-				key: 'form',
-				render: (
-					<Fragment key="form">
-						<TextControl
-							label={__('Search Icon', 'ghostkit')}
-							value={maybeDecode(search)}
-							onChange={(searchVal) =>
-								setSearch(maybeEncode(searchVal))
-							}
-							placeholder={__('Type to Search…', 'ghostkit')}
-							autoComplete="off"
-							// eslint-disable-next-line jsx-a11y/no-autofocus
-							autoFocus
-						/>
-						<div className="ghostkit-component-icon-picker-input-output">
-							{customizeIcon ? (
-								<TextareaControl
-									label={__('Icon Output', 'ghostkit')}
-									value={value}
-									onChange={(newData) => {
-										onChange(newData);
-									}}
-									placeholder={__('Icon Output', 'ghostkit')}
-									autoComplete="off"
-								/>
-							) : (
-								<Button
-									variant="secondary"
-									onClick={() => setCustomizeIcon(true)}
-									style={{
-										marginRight: 5,
-									}}
-								>
-									{__('Customize Icon', 'ghostkit')}
-								</Button>
-							)}
-							<Button
-								variant="secondary"
-								disabled={!value}
-								onClick={() => onChange('')}
-							>
-								{__('Reset', 'ghostkit')}
-							</Button>
-						</div>
-					</Fragment>
-				),
-			},
-		];
-
-		eachIcons(icons || {}, (iconsData) => {
-			const showCategory =
-				typeof hiddenCategories[iconsData.name] !== 'undefined'
-					? hiddenCategories[iconsData.name]
-					: true;
-			const searchString = search.toLowerCase();
-
-			// prepare all icons.
-			const allIcons = iconsData.icons
-				.filter((iconData) => {
-					if (
-						!searchString ||
-						(searchString &&
-							iconData.keys.indexOf(searchString.toLowerCase()) >
-								-1)
-					) {
-						return true;
-					}
-
-					return false;
-				})
-				.map((iconData) => {
-					const iconTip = getIconTip(iconData);
-
-					const result = (
-						<Icon
-							active={
-								maybeDecode(iconData.svg) === maybeDecode(value)
-							}
-							iconData={iconData}
-							onClick={() => {
-								onChange(maybeDecode(iconData.svg));
-							}}
-						/>
-					);
-
-					if (iconTip) {
-						return (
-							<Tooltip
-								key={maybeDecode(iconData.svg)}
-								text={iconTip}
-							>
-								{/* We need this <div> just because Tooltip don't work without it */}
-								<div>{result}</div>
-							</Tooltip>
-						);
-					}
-
-					return result;
-				});
-
-			if (!allIcons.length) {
-				return;
-			}
-
-			// prepare icons category toggle title.
-			rows.push({
-				key: `title-${iconsData.name}`,
-				render: (
-					// Used PanelBody https://github.com/WordPress/gutenberg/blob/master/packages/components/src/panel/body.js.
-					<div
-						className={classnames(
-							'components-panel__body ghostkit-component-icon-picker-list-panel-toggle',
-							showCategory ? 'is-opened' : ''
-						)}
-					>
-						<h2 className="components-panel__body-title">
-							<Button
-								className="components-panel__body-toggle"
-								onClick={() => {
-									setHiddenCategories({
-										...hiddenCategories,
-										[iconsData.name]: !showCategory,
-									});
-								}}
-								aria-expanded={showCategory}
-							>
-								{/*
-                    Firefox + NVDA don't announce aria-expanded because the browser
-                    repaints the whole element, so this wrapping span hides that.
-                */}
-								<span aria-hidden="true">
-									{showCategory ? (
-										<SVG
-											className="components-panel__arrow"
-											width="24px"
-											height="24px"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<G>
-												<Path
-													fill="none"
-													d="M0,0h24v24H0V0z"
-												/>
-											</G>
-											<G>
-												<Path d="M12,8l-6,6l1.41,1.41L12,10.83l4.59,4.58L18,14L12,8z" />
-											</G>
-										</SVG>
-									) : (
-										<SVG
-											className="components-panel__arrow"
-											width="24px"
-											height="24px"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<G>
-												<Path
-													fill="none"
-													d="M0,0h24v24H0V0z"
-												/>
-											</G>
-											<G>
-												<Path d="M7.41,8.59L12,13.17l4.59-4.58L18,10l-6,6l-6-6L7.41,8.59z" />
-											</G>
-										</SVG>
-									)}
-								</span>
-								{iconsData.name}
-							</Button>
-						</h2>
-					</div>
-				),
-			});
-
-			if (!showCategory) {
-				return;
-			}
-
-			let currentIcons = [];
-
-			allIcons.forEach((icon, i) => {
-				currentIcons.push(icon);
-
-				if (currentIcons.length === 3 || allIcons.length === i + 1) {
-					rows.push({
-						key: `icons-${iconsData.name}-${i}`,
-						render: (
-							<div className="ghostkit-component-icon-picker-list">
-								{currentIcons}
-							</div>
-						),
-					});
-
-					currentIcons = [];
-				}
-			});
-		});
-
-		if (!icons && !error) {
-			rows.push({
-				key: 'loading',
-				render: <Spinner />,
-			});
-		} else if (rows.length === 1) {
-			// No icons.
-			rows.push({
-				key: 'icons',
-				render: error
-					? __('Icons failed to load.', 'ghostkit')
-					: __('No icons found.', 'ghostkit'),
-			});
-		}
-
-		return (
-			<>
-				<div className="ghostkit-component-icon-picker-sizer" />
-				<div className="ghostkit-component-icon-picker">
-					<VirtualList
-						className="ghostkit-component-icon-picker-list-wrap"
-						rows={rows}
-					/>
-				</div>
-			</>
-		);
-	}
-
 	const dropdown = (
 		<Dropdown
 			className={className}
 			contentClassName="ghostkit-component-icon-picker-content"
 			renderToggle={renderToggle}
-			focusOnMount={false}
 			renderContent={() => (
-				<>
-					<LoadIcons />
-					{getDropdownContent()}
-				</>
+				<IconPickerContent value={value} onChange={onChange} />
 			)}
 			{...(insideInspector
 				? {

@@ -3,6 +3,7 @@
  */
 @import "../../variables";
 
+// Toolbar switcher, mounted only on WordPress 6.6.
 .ghostkit-toolbar-responsive {
 	// Hide Gutenberg preview dropdown.
 	~ .block-editor-post-preview__dropdown,
@@ -23,5 +24,14 @@
 }
 
 .ghostkit-toolbar-responsive__dropdown-content .components-menu-item__button.is-active {
+	color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+}
+
+.ghostkit-preview-menu-item svg {
+	width: 22px;
+	height: auto;
+}
+
+.ghostkit-preview-menu-item.is-active {
 	color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
 }

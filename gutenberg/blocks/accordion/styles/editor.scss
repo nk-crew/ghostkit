@@ -43,6 +43,14 @@
 		transition: var(--gkt-accordion__transition-duration) transform var(--gkt-accordion__transition-easing);
 	}
 
+	// The frontend style is loaded in the editor too. Its `heading > button` rule is meant for
+	// the full-width toggle of the saved markup, while in the editor that button is only the chevron.
+	.ghostkit-accordion-item-heading > .ghostkit-accordion-item-collapse {
+		width: auto;
+		padding: 0;
+		font-size: var(--gkt-accordion--heading-collapse-icon__font-size);
+	}
+
 	// Content.
 	&-content {
 		display: none;

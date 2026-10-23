@@ -38,11 +38,20 @@ export default function PreviewLottie(props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [lottieRef]);
 
+	// lottie-player resolves `src` against `window.location.href`, which is a blob: URL in the
+	// iframed editor canvas, so a relative URL fails to load. Pass it already absolute.
+	let src = url;
+	try {
+		src = new URL(url, document.baseURI).href;
+	} catch {
+		// A typed URL that cannot be parsed goes to the player as is and shows its error state.
+	}
+
 	return (
 		<lottie-player
 			key={`lottie-${trigger}-${speed}-${loop}-${direction}`}
 			ref={lottieRef}
-			src={url}
+			src={src}
 			direction={direction}
 			background="transparent"
 			mode="normal"

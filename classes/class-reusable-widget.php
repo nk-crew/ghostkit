@@ -34,7 +34,7 @@ class GhostKit_Reusable_Widget extends WP_Widget {
 		$block_id = isset( $instance['block'] ) && ! empty( $instance['block'] ) ? $instance['block'] : '';
 		$post     = $block_id ? get_post( $block_id ) : false;
 
-		if ( $block_id && isset( $post->post_content ) && $post->post_content && function_exists( 'has_blocks' ) && function_exists( 'parse_blocks' ) ) {
+		if ( $block_id && isset( $post->post_content ) && $post->post_content ) {
             // phpcs:disable
             echo $args['before_widget'];
 

@@ -9,6 +9,8 @@ import classnames from 'classnames/dedupe';
 export default function DropdownPicker(props) {
 	const {
 		label,
+		indicator,
+		value,
 		className,
 		contentClassName,
 		onClick,
@@ -51,9 +53,19 @@ export default function DropdownPicker(props) {
 							}
 						}}
 					>
+						{indicator && (
+							<span className="ghostkit-component-dropdown-picker-toggle-indicator">
+								{indicator}
+							</span>
+						)}
 						<span className="ghostkit-component-dropdown-picker-toggle-label">
 							{label}
 						</span>
+						{value && (
+							<span className="ghostkit-component-dropdown-picker-toggle-value">
+								{value}
+							</span>
+						)}
 					</Button>
 				)}
 				renderContent={() => children}
