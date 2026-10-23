@@ -33,7 +33,6 @@ import * as gridColumn from './grid-column';
 import * as icon from './icon';
 import * as iconBox from './icon-box';
 import * as imageCompare from './image-compare';
-import * as instagram from './instagram';
 import * as lottie from './lottie';
 import * as markdown from './markdown';
 import * as pricingTable from './pricing-table';
@@ -44,7 +43,6 @@ import * as toc from './table-of-contents';
 import * as tabs from './tabs';
 import * as tabsTab from './tabs-tab';
 import * as testimonial from './testimonial';
-import * as twitter from './twitter';
 import * as video from './video';
 import * as widgetizedArea from './widgetized-area';
 
@@ -79,8 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		pricingTableItem,
 		testimonial,
 		toc,
-		twitter,
-		instagram,
 		lottie,
 		markdown,
 		googleMaps,

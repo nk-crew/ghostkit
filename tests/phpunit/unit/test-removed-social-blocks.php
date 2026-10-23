@@ -1,14 +1,14 @@
 <?php
 /**
- * Tests for the Instagram and Twitter blocks whose APIs were retired.
+ * Tests for content saved with the removed Instagram and Twitter blocks.
  *
  * @package ghostkit
  */
 
 /**
- * Retired social blocks tests.
+ * Removed social blocks tests.
  */
-class GhostKitRetiredSocialBlocksTest extends WP_UnitTestCase {
+class GhostKitRemovedSocialBlocksTest extends WP_UnitTestCase {
 	/**
 	 * Outbound HTTP requests made during a test.
 	 *
@@ -23,7 +23,7 @@ class GhostKitRetiredSocialBlocksTest extends WP_UnitTestCase {
 	 * @param array       $args    request args.
 	 * @param string      $url     request url.
 	 *
-	 * @return array
+	 * @return WP_Error
 	 */
 	public function record_http_request( $preempt, $args, $url ) {
 		$this->http_requests[] = $url;
@@ -58,20 +58,20 @@ class GhostKitRetiredSocialBlocksTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Saved blocks with credentials render nothing and send no request.
+	 * Saved blocks are no longer registered, render nothing and send no request.
 	 */
 	public function test_saved_blocks_render_empty_without_http_requests() {
 		$content = '<!-- wp:ghostkit/instagram {"accessToken":"token","count":4} /-->'
 			. '<!-- wp:ghostkit/twitter {"consumerKey":"a","consumerSecret":"b","accessToken":"c","accessTokenSecret":"d","userName":"nkdevv"} /-->';
 
-		$this->assertTrue( WP_Block_Type_Registry::get_instance()->is_registered( 'ghostkit/instagram' ) );
-		$this->assertTrue( WP_Block_Type_Registry::get_instance()->is_registered( 'ghostkit/twitter' ) );
+		$this->assertFalse( WP_Block_Type_Registry::get_instance()->is_registered( 'ghostkit/instagram' ) );
+		$this->assertFalse( WP_Block_Type_Registry::get_instance()->is_registered( 'ghostkit/twitter' ) );
 		$this->assertSame( '', trim( do_blocks( $content ) ) );
 		$this->assertSame( array(), $this->http_requests );
 	}
 
 	/**
-	 * The routes that proxied the retired APIs are gone.
+	 * No social routes are registered.
 	 */
 	public function test_social_routes_are_not_registered() {
 		$routes = rest_get_server()->get_routes( 'ghostkit/v1' );
