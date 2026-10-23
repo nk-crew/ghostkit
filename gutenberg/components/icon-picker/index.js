@@ -276,7 +276,7 @@ function IconPickerContent({ value, onChange }) {
 				hideLabelFromVision
 				value={pack}
 				onChange={(val) => setPack(val || 'all')}
-				isBlock
+				isAdaptiveWidth
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
 			>
