@@ -31,7 +31,6 @@ import { ReactComponent as blockGridColumn } from './block-grid-column.svg';
 import { ReactComponent as blockIcon } from './block-icon.svg';
 import { ReactComponent as blockIconBox } from './block-icon-box.svg';
 import { ReactComponent as blockImageCompare } from './block-image-compare.svg';
-import { ReactComponent as blockInstagram } from './block-instagram.svg';
 import { ReactComponent as blockLottie } from './block-lottie.svg';
 import { ReactComponent as blockMarkdown } from './block-markdown.svg';
 import { ReactComponent as blockPricingTable } from './block-pricing.svg';
@@ -41,7 +40,6 @@ import { ReactComponent as blockTab } from './block-tab.svg';
 import { ReactComponent as blockTableOfContents } from './block-table-of-contents.svg';
 import { ReactComponent as blockTabs } from './block-tabs.svg';
 import { ReactComponent as blockTestimonial } from './block-testimonial.svg';
-import { ReactComponent as blockTwitter } from './block-twitter.svg';
 import { ReactComponent as blockVideo } from './block-video.svg';
 import { ReactComponent as blockWidgetizedArea } from './block-widgetized-area.svg';
 import { ReactComponent as borderDashed } from './border-dashed.svg';
@@ -129,7 +127,6 @@ export default {
 	'block-icon': blockIcon,
 	'block-icon-box': blockIconBox,
 	'block-image-compare': blockImageCompare,
-	'block-instagram': blockInstagram,
 	'block-lottie': blockLottie,
 	'block-markdown': blockMarkdown,
 	'block-gif': blockGif,
@@ -138,7 +135,6 @@ export default {
 	'block-tabs': blockTabs,
 	'block-tab': blockTab,
 	'block-testimonial': blockTestimonial,
-	'block-twitter': blockTwitter,
 	'block-video': blockVideo,
 	'block-widgetized-area': blockWidgetizedArea,
 	'block-table-of-contents': blockTableOfContents,

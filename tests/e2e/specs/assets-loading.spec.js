@@ -205,20 +205,28 @@ test.describe('assets loading', () => {
 		).resolves.toBe(true);
 	});
 
-	test('retired social blocks stay valid and load no assets', async ({
+	test('removed social blocks show as missing and render nothing', async ({
 		page,
 		admin,
 		editor,
 	}) => {
-		const content = `<!-- wp:ghostkit/instagram {"accessToken":"token"} /-->
+		const content = `<!-- wp:paragraph -->
+<p>Before</p>
+<!-- /wp:paragraph -->
 
-<!-- wp:ghostkit/twitter {"userName":"nkdevv"} /-->`;
+<!-- wp:ghostkit/instagram {"accessToken":"token"} /-->
+
+<!-- wp:ghostkit/twitter {"userName":"nkdevv"} /-->
+
+<!-- wp:paragraph -->
+<p>After</p>
+<!-- /wp:paragraph -->`;
 
 		const frontendPage = await createPublishedPageWithContent(
 			page,
 			admin,
 			editor,
-			'GKT assets retired social',
+			'GKT assets removed social',
 			content
 		);
 
@@ -227,12 +235,27 @@ test.describe('assets loading', () => {
 				window.wp.data
 					.select('core/block-editor')
 					.getBlocks()
-					.map((block) => [block.name, block.isValid])
+					.map((block) => [
+						block.name,
+						block.attributes.originalName || null,
+					])
 			)
 		).resolves.toEqual([
-			['ghostkit/instagram', true],
-			['ghostkit/twitter', true],
+			['core/paragraph', null],
+			['core/missing', 'ghostkit/instagram'],
+			['core/missing', 'ghostkit/twitter'],
+			['core/paragraph', null],
 		]);
+
+		// Nothing is printed between the two paragraphs.
+		await expect(
+			frontendPage.evaluate(
+				() =>
+					Array.from(document.querySelectorAll('p')).find(
+						(node) => node.textContent.trim() === 'Before'
+					)?.nextElementSibling?.outerHTML
+			)
+		).resolves.toMatch(/^<p[^>]*>After<\/p>$/);
 
 		for (const handle of [
 			'ghostkit',
