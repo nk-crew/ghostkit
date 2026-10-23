@@ -277,6 +277,7 @@ function IconPickerContent({ value, onChange }) {
 				value={pack}
 				onChange={(val) => setPack(val || 'all')}
 				isBlock
+				isAdaptiveWidth
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
 			>

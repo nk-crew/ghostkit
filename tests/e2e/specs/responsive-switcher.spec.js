@@ -14,18 +14,6 @@ function getCoreDevice(page) {
 	);
 }
 
-// The View menu slot exists since WordPress 6.7.
-function hasPreviewMenuSlot(page) {
-	return page.evaluate(() => !!window.wp.editor.PluginPreviewMenuItem);
-}
-
-// WordPress 7.1 puts the description into the accessible name, 7.2 does not.
-function ghostKitItem(page, width) {
-	return page
-		.getByRole('menuitemcheckbox')
-		.filter({ hasText: `Devices with screen width <= ${width}` });
-}
-
 async function openCustomCSSPopover(page, editor) {
 	await editor.insertBlock({
 		name: 'core/paragraph',
@@ -107,78 +95,45 @@ test.describe('responsive switcher', () => {
 		expect(topItemIsReachable).toBe(true);
 	});
 
-	test('keeps Ghost Kit breakpoints and core devices in one View menu, in sync', async ({
+	test('previews the breakpoint picked in a block control and leaves the View menu to core', async ({
 		page,
+		editor,
 	}) => {
-		test.skip(
-			!(await hasPreviewMenuSlot(page)),
-			'WordPress 6.6 has no View menu slot'
-		);
+		const popover = await openCustomCSSPopover(page, editor);
+		const canvas = page.locator('iframe[name="editor-canvas"]');
 
-		const viewButton = page
-			.getByRole('region', { name: 'Editor top bar' })
-			.getByRole('button', { name: 'View', exact: true });
-
-		await expect(viewButton).toBeVisible();
-		await expect(page.locator('.ghostkit-toolbar-responsive')).toHaveCount(
-			0
-		);
-
-		// Ghost Kit breakpoint sets core back to Desktop.
-		await page.evaluate(() =>
-			window.wp.data.dispatch('core/editor').setDeviceType('Tablet')
-		);
-		await viewButton.click();
-		await ghostKitItem(page, '576px').click();
-
-		expect(await getGhostKitDevice(page)).toBe('sm');
-		expect(await getCoreDevice(page)).toBe('Desktop');
-
-		// A core device turns the Ghost Kit breakpoint off.
-		await viewButton.click();
-		await expect(ghostKitItem(page, '576px')).toHaveAttribute(
-			'aria-checked',
-			'true'
-		);
-		await page.getByRole('menuitemradio', { name: /^Mobile/ }).click();
-		// WordPress 7.1 keeps the menu open after a device pick.
-		await page.keyboard.press('Escape');
-
-		expect(await getCoreDevice(page)).toBe('Mobile');
-		expect(await getGhostKitDevice(page)).toBe('');
-
-		await page.evaluate(() =>
-			window.wp.data.dispatch('core/editor').setDeviceType('Desktop')
-		);
-		await viewButton.click();
-		const laptop = ghostKitItem(page, '1200px');
-		await laptop.click();
-		expect(await getGhostKitDevice(page)).toBe('xl');
-
-		// Clicking the active Ghost Kit breakpoint again turns it off.
-		await viewButton.click();
-		await laptop.click();
-		expect(await getGhostKitDevice(page)).toBe('');
-	});
-
-	test('keeps the toolbar switcher on WordPress without the View menu slot', async ({
-		page,
-	}) => {
-		test.skip(
-			await hasPreviewMenuSlot(page),
-			'WordPress 6.7+ uses the View menu'
-		);
-
-		const toggle = page.getByRole('button', {
-			name: 'Responsive Preview',
-		});
-
-		await expect(toggle).toBeVisible();
-		await toggle.click();
-		await page
-			.getByRole('menuitem', { name: 'Mobile', exact: true })
+		await popover
+			.locator('.ghostkit-control-responsive-toggle-button')
+			.click();
+		await popover
+			.locator('.ghostkit-control-responsive-toggle-dropdown > button')
+			.last()
 			.click();
 
 		expect(await getGhostKitDevice(page)).toBe('sm');
+		await expect
+			.poll(() => canvas.evaluate((el) => el.offsetWidth))
+			.toBe(375);
+
+		await page.keyboard.press('Escape');
+		await expect(popover).toBeHidden();
+
+		// Ghost Kit adds nothing to the View menu or the top bar.
+		await expect(
+			page.locator(
+				'.ghostkit-preview-menu-item, .ghostkit-toolbar-responsive'
+			)
+		).toHaveCount(0);
+
+		// A core device turns the Ghost Kit breakpoint off and sizes the canvas itself.
+		await page.evaluate(() =>
+			window.wp.data.dispatch('core/editor').setDeviceType('Tablet')
+		);
+
+		expect(await getGhostKitDevice(page)).toBe('');
+		expect(await getCoreDevice(page)).toBe('Tablet');
+		await expect
+			.poll(() => canvas.evaluate((el) => el.offsetWidth))
+			.not.toBe(375);
 	});
 });

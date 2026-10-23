@@ -73,8 +73,9 @@
 }
 
 // Rows that share one bordered group, like the Color panel's Text and Background rows.
+// Border and radius values are the block editor's .block-editor-color-gradient-item.
 .ghostkit-component-dropdown-picker-group {
-	border: 1px solid rgba(0, 0, 0, 10%);
+	border: 1px solid #ddd;
 	border-radius: 2px;
 
 	.ghostkit-component-dropdown-picker-group {
@@ -91,8 +92,18 @@
 		border: 0;
 	}
 
+	> :first-child .ghostkit-component-dropdown-picker-toggle {
+		border-top-left-radius: 2px;
+		border-top-right-radius: 2px;
+	}
+
+	> :last-child .ghostkit-component-dropdown-picker-toggle {
+		border-bottom-right-radius: 2px;
+		border-bottom-left-radius: 2px;
+	}
+
 	> * + * .ghostkit-component-dropdown-picker-toggle {
-		border-top: 1px solid rgba(0, 0, 0, 10%);
+		border-top: 1px solid #ddd;
 	}
 }
 
