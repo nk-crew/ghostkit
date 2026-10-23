@@ -9,6 +9,7 @@
 /dist-zip
 /node_modules
 /tests
+/tools
 /vendor
 
 # Files to ignore
