@@ -170,3 +170,83 @@ test.describe('accordion', () => {
 		expect(await getInlineStyles(content)).toBe('');
 	});
 });
+
+// Offsets inside the first (open) item, relative to the item box.
+function measureItem(item) {
+	return item.evaluate(($item) => {
+		const box = (selector) =>
+			$item.querySelector(selector).getBoundingClientRect();
+		const itemBox = $item.getBoundingClientRect();
+		const heading = box('.ghostkit-accordion-item-heading');
+		const label = box('.ghostkit-accordion-item-label');
+		const chevron = box('.ghostkit-accordion-item-collapse svg');
+		const paragraph = box('.ghostkit-accordion-item-content p');
+
+		return {
+			headingHeight: Math.round(heading.height),
+			labelTop: Math.round(label.top - itemBox.top),
+			labelLeft: Math.round(label.left - itemBox.left),
+			chevronRight: Math.round(itemBox.right - chevron.right),
+			chevronTop: Math.round(chevron.top - itemBox.top),
+			paragraphTop: Math.round(paragraph.top - itemBox.top),
+		};
+	});
+}
+
+test.describe('accordion editor', () => {
+	test.beforeAll(async ({ requestUtils }) => {
+		const pluginName = process.env.CORE ? 'ghost-kit-pro' : 'ghost-kit';
+		await requestUtils.activatePlugin(pluginName);
+	});
+
+	test.afterAll(async ({ requestUtils }) => {
+		await requestUtils.deleteAllPosts();
+	});
+
+	test('editor item layout matches the frontend', async ({
+		page,
+		admin,
+		editor,
+	}) => {
+		await admin.createNewPost({
+			title: 'GKT accordion parity',
+			showWelcomeGuide: false,
+		});
+
+		await editor.insertBlock({
+			name: 'ghostkit/accordion',
+			innerBlocks: [
+				{
+					name: 'ghostkit/accordion-item',
+					attributes: {
+						heading: 'First',
+						slug: 'gkt-parity-first',
+						active: true,
+					},
+					innerBlocks: [
+						{
+							name: 'core/paragraph',
+							attributes: { content: 'First content' },
+						},
+					],
+				},
+			],
+		});
+
+		const editorItem = editor.canvas
+			.locator('.ghostkit-accordion-item')
+			.first();
+		await expect(editorItem).toBeVisible();
+		const inEditor = await measureItem(editorItem);
+
+		const postId = await editor.publishPost();
+		await page.goto(`/?p=${postId}`);
+
+		const frontendItem = page
+			.locator('[data-accordion="gkt-parity-first"]')
+			.first();
+		await expect(frontendItem).toBeVisible();
+
+		expect(inEditor).toEqual(await measureItem(frontendItem));
+	});
+});
