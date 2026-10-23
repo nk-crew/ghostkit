@@ -45,6 +45,7 @@ export default function DropdownPicker(props) {
 								? 'ghostkit-component-dropdown-picker-toggle-active'
 								: ''
 						)}
+						aria-expanded={isOpen}
 						onClick={(e) => {
 							if (onClick) {
 								onClick(toggle, isOpen, e);

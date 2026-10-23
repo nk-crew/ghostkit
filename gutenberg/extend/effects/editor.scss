@@ -8,4 +8,9 @@
 	.components-tools-panel-item:has(+ .components-tools-panel-item) .ghostkit-component-dropdown-picker-toggle {
 		border-bottom: none;
 	}
+
+	// The ToolsPanel row gap, which the effect rows above the note do not get.
+	> * + :has(> .ghostkit-pro-component-note) {
+		margin-top: 16px;
+	}
 }
