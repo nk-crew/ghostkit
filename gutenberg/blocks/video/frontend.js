@@ -298,10 +298,6 @@ events.on(document, 'init.blocks.gkt', () => {
 					clickAction !== 'fullscreen' &&
 					(videoAutoplay || videoAutopause)
 				) {
-					if (!('IntersectionObserver' in window)) {
-						return;
-					}
-
 					const videoObserverData = {
 						callback: (entries) => {
 							entries.forEach((entry) => {

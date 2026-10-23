@@ -107,7 +107,7 @@ function ghostkit_sort_array_deep_for_meta_compare( $value ) {
 		return $value;
 	}
 
-	if ( function_exists( 'wp_is_numeric_array' ) && wp_is_numeric_array( $value ) ) {
+	if ( wp_is_numeric_array( $value ) ) {
 		$sorted = array();
 
 		foreach ( $value as $item ) {
