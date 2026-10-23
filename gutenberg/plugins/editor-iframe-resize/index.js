@@ -1,4 +1,5 @@
 import { useDispatch, useSelect } from '@wordpress/data';
+import domReady from '@wordpress/dom-ready';
 import { PluginPreviewMenuItem } from '@wordpress/editor';
 import { useEffect } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
@@ -7,6 +8,7 @@ import classnames from 'classnames/dedupe';
 import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
 import { getPreviewWidth } from '../../utils/get-media-sizes';
+import mountEditorToolbarToggle from './toolbar-dropdown';
 
 export const name = 'gkt-editor-iframe-resize';
 
@@ -152,4 +154,9 @@ export function Plugin() {
 			<ResponsivePreviewMenuItems />
 		</>
 	);
+}
+
+// WordPress 6.6 has no View menu slot, keep the toolbar switcher there.
+if (!PluginPreviewMenuItem) {
+	domReady(mountEditorToolbarToggle);
 }

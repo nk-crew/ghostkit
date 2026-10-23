@@ -14,6 +14,11 @@ function getCoreDevice(page) {
 	);
 }
 
+// The View menu slot exists since WordPress 6.7.
+function hasPreviewMenuSlot(page) {
+	return page.evaluate(() => !!window.wp.editor.PluginPreviewMenuItem);
+}
+
 // WordPress 7.1 puts the description into the accessible name, 7.2 does not.
 function ghostKitItem(page, width) {
 	return page
@@ -105,6 +110,11 @@ test.describe('responsive switcher', () => {
 	test('keeps Ghost Kit breakpoints and core devices in one View menu, in sync', async ({
 		page,
 	}) => {
+		test.skip(
+			!(await hasPreviewMenuSlot(page)),
+			'WordPress 6.6 has no View menu slot'
+		);
+
 		const viewButton = page
 			.getByRole('region', { name: 'Editor top bar' })
 			.getByRole('button', { name: 'View', exact: true });
@@ -149,5 +159,26 @@ test.describe('responsive switcher', () => {
 		await viewButton.click();
 		await laptop.click();
 		expect(await getGhostKitDevice(page)).toBe('');
+	});
+
+	test('keeps the toolbar switcher on WordPress without the View menu slot', async ({
+		page,
+	}) => {
+		test.skip(
+			await hasPreviewMenuSlot(page),
+			'WordPress 6.7+ uses the View menu'
+		);
+
+		const toggle = page.getByRole('button', {
+			name: 'Responsive Preview',
+		});
+
+		await expect(toggle).toBeVisible();
+		await toggle.click();
+		await page
+			.getByRole('menuitem', { name: 'Mobile', exact: true })
+			.click();
+
+		expect(await getGhostKitDevice(page)).toBe('sm');
 	});
 });
