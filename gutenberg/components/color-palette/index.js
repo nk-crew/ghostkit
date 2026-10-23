@@ -3,40 +3,16 @@ import {
 	useMultipleOriginColorsAndGradients as stableUseMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
 import { ColorPalette as WPColorPalette } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
 
 import ApplyFilters from '../apply-filters';
 
+// WP 6.6 exports only the experimental name.
 const useMultipleOriginColorsAndGradients =
 	stableUseMultipleOriginColorsAndGradients ||
-	experimentalUseMultipleOriginColorsAndGradients ||
-	(() => ({ colors: [], gradients: [], hasColorsOrGradients: false }));
+	experimentalUseMultipleOriginColorsAndGradients;
 
 function useColors() {
-	// New way to get colors and gradients.
-	if (
-		useMultipleOriginColorsAndGradients &&
-		useMultipleOriginColorsAndGradients()
-	) {
-		return useMultipleOriginColorsAndGradients().colors;
-	}
-
-	// Old way.
-	const { themeColors } = useSelect((select) => {
-		const settings = select('core/block-editor').getSettings();
-
-		return {
-			themeColors: settings.colors,
-		};
-	});
-
-	const colors = [];
-
-	if (themeColors && themeColors.length) {
-		colors.push({ name: 'Theme', colors: themeColors });
-	}
-
-	return colors;
+	return useMultipleOriginColorsAndGradients().colors;
 }
 
 export default function ColorPalette(props) {

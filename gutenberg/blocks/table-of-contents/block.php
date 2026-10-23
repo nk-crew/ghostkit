@@ -56,19 +56,6 @@ class GhostKit_TOC_Block {
 	}
 
 	/**
-	 * Get heading text from html tag.
-	 *
-	 * @param String $html heading html.
-	 *
-	 * @return String heading text.
-	 */
-	public function get_heading_text( $html ) {
-		preg_match_all( '/(<h([1-6]{1})[^>]*>)(.*)<\/h\2>/msuU', $html, $matches, PREG_SET_ORDER );
-
-		return isset( $matches[0][3] ) ? $matches[0][3] : '';
-	}
-
-	/**
 	 * Get heading text and id from html tag.
 	 *
 	 * @param String $html heading html.
@@ -174,7 +161,7 @@ class GhostKit_TOC_Block {
 	 * @return string post content.
 	 */
 	public function parse_toc_headings( $content ) {
-		if ( ! is_singular() || ! function_exists( 'has_blocks' ) || ! function_exists( 'parse_blocks' ) || ! has_blocks( get_the_ID() ) ) {
+		if ( ! is_singular() || ! has_blocks( get_the_ID() ) ) {
 			return $content;
 		}
 

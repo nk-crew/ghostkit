@@ -1,21 +1,7 @@
 import { unregisterBlockType } from '@wordpress/blocks';
 import $ from 'jquery';
 
-const {
-	GHOSTKIT,
-	_wpLoadBlockEditor: wpLoadBlockEditor,
-	_wpLoadGutenbergEditor: wpLoadGutenbergEditor,
-} = window;
-
-let loadBlocksEditor = null;
-
-if (typeof wpLoadBlockEditor !== 'undefined') {
-	// Using Gutenberg plugin
-	loadBlocksEditor = wpLoadBlockEditor;
-} else if (typeof wpLoadGutenbergEditor !== 'undefined') {
-	// Using WP core Gutenberg
-	loadBlocksEditor = wpLoadGutenbergEditor;
-}
+const { GHOSTKIT, _wpLoadBlockEditor: loadBlocksEditor } = window;
 
 $(() => {
 	if (loadBlocksEditor && GHOSTKIT) {

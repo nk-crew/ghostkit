@@ -201,10 +201,6 @@ if ( ! class_exists( 'GhostKit' ) ) :
 		 * JS translation.
 		 */
 		public function js_translation() {
-			if ( ! function_exists( 'wp_set_script_translations' ) ) {
-				return;
-			}
-
 			wp_set_script_translations( 'ghostkit-block-countdown', 'ghostkit', plugin_dir_path( __FILE__ ) . '/languages' );
 		}
 
@@ -212,10 +208,6 @@ if ( ! class_exists( 'GhostKit' ) ) :
 		 * JS translation for editor.
 		 */
 		public function js_translation_editor() {
-			if ( ! function_exists( 'wp_set_script_translations' ) ) {
-				return;
-			}
-
 			wp_set_script_translations( 'ghostkit-editor', 'ghostkit', plugin_dir_path( __FILE__ ) . '/languages' );
 			wp_set_script_translations( 'ghostkit-settings', 'ghostkit', plugin_dir_path( __FILE__ ) . '/languages' );
 		}
@@ -356,7 +348,7 @@ if ( ! class_exists( 'GhostKit' ) ) :
 					'ghostkit/alert',
 					'ghostkit/button',
 					'ghostkit/carousel',
-					'ghostkit/carousel-single',
+					'ghostkit/carousel-slide',
 					'ghostkit/changelog',
 					'ghostkit/counter-box',
 					'ghostkit/grid',
@@ -427,7 +419,7 @@ if ( ! class_exists( 'GhostKit' ) ) :
 		 * Init hook
 		 */
 		public function init_hook() {
-			load_plugin_textdomain( 'ghostkit', false, plugin_dir_path( __FILE__ ) . '/languages' );
+			load_plugin_textdomain( 'ghostkit', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
 
 		/**
