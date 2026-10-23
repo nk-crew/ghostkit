@@ -97,9 +97,7 @@ class GhostKit_Settings {
 
 		wp_enqueue_style( 'wp-components' );
 
-		if ( function_exists( 'wp_enqueue_media' ) ) {
-			wp_enqueue_media();
-		}
+		wp_enqueue_media();
 	}
 
 	/**
@@ -204,22 +202,6 @@ class GhostKit_Settings {
 			'ghostkit_go_pro',
 			array( $this, 'go_pro_redirect' )
 		);
-
-		global $wp_version;
-
-		// Since WP 6.3 user have an ability to open the reusable blocks page
-		// From the Appearance -> Editor -> Patterns.
-		if ( ! version_compare( $wp_version, '6.3', '>=' ) ) {
-			add_menu_page(
-				esc_html__( 'Reusable Blocks', 'ghostkit' ),
-				esc_html__( 'Reusable Blocks', 'ghostkit' ),
-				'read',
-				'edit.php?post_type=wp_block',
-				'',
-				'dashicons-editor-table',
-				57
-			);
-		}
 	}
 
 	/**

@@ -153,8 +153,6 @@ class GhostKit_Parse_Blocks {
 	public static function maybe_parse_blocks( $content, $location = 'content' ) {
 		if (
 			isset( $content ) &&
-			function_exists( 'has_blocks' ) &&
-			function_exists( 'parse_blocks' ) &&
 			$content &&
 			has_blocks( $content )
 		) {

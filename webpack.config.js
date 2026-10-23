@@ -48,10 +48,6 @@ const vendorFiles = [
 		destination: 'assets/vendor/jarallax/dist/jarallax.min.js.map',
 	},
 	{
-		source: 'node_modules/jarallax/dist/jarallax.css',
-		destination: 'assets/vendor/jarallax/dist/jarallax.css',
-	},
-	{
 		source: 'node_modules/swiper/swiper-bundle.min.js',
 		destination: 'assets/vendor/swiper/swiper-bundle.min.js',
 	},
