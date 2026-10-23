@@ -308,9 +308,6 @@
          "CSS & JavaScript": [
             ""
          ],
-         "Reusable Blocks": [
-            ""
-         ],
          "Collapse": [
             ""
          ],
@@ -1165,12 +1162,6 @@
          "After label…": [
             ""
          ],
-         "Instagram": [
-            ""
-         ],
-         "Instagram retired the API this block used, so the block shows nothing on the site. You can remove it.": [
-            ""
-         ],
          "Play Animation On": [
             ""
          ],
@@ -1294,13 +1285,7 @@
          "Write caption…": [
             ""
          ],
-         "Pro Shapes": [
-            ""
-         ],
          "Additional 30 shapes available in the Ghost Kit Pro plugin only": [
-            ""
-         ],
-         "Read More": [
             ""
          ],
          "Vertical Flip": [
@@ -1409,12 +1394,6 @@
             ""
          ],
          "Write source…": [
-            ""
-         ],
-         "Twitter": [
-            ""
-         ],
-         "Twitter retired the API this block used, so the block shows nothing on the site. You can remove it.": [
             ""
          ],
          "Background color settings are unavailable because the required Gutenberg color control component is not available in this WordPress installation.": [
@@ -1576,19 +1555,13 @@
          "Edit": [
             ""
          ],
-         "Search Icon": [
+         "Recent": [
             ""
          ],
-         "Type to Search…": [
+         "No icon": [
             ""
          ],
-         "Icon Output": [
-            ""
-         ],
-         "Customize Icon": [
-            ""
-         ],
-         "Reset": [
+         "Custom SVG": [
             ""
          ],
          "Icons failed to load.": [
@@ -1597,10 +1570,28 @@
          "No icons found.": [
             ""
          ],
+         "Icon pack": [
+            ""
+         ],
+         "All": [
+            ""
+         ],
+         "Search icons": [
+            ""
+         ],
+         "Reset": [
+            ""
+         ],
+         "Icon Output": [
+            ""
+         ],
          "!important": [
             ""
          ],
          "Aspect Ratio": [
+            ""
+         ],
+         "Read More": [
             ""
          ],
          "Remove Block?": [
@@ -1781,9 +1772,6 @@
             ""
          ],
          "Letter Spacing": [
-            ""
-         ],
-         "Attributes": [
             ""
          ],
          "Adding custom attributes to block available in the Ghost Kit Pro plugin only.": [
@@ -2017,9 +2005,6 @@
          "Mouse Move": [
             ""
          ],
-         "Advanced Effects": [
-            ""
-         ],
          "Advanced effects are available in the Ghost Kit Pro plugin only.": [
             ""
          ],
@@ -2030,9 +2015,6 @@
             ""
          ],
          "Rotate": [
-            ""
-         ],
-         "Pro Settings": [
             ""
          ],
          "Advanced reveal settings are available in the Ghost Kit Pro plugin only:": [
@@ -2047,7 +2029,7 @@
          "Replay Animation": [
             ""
          ],
-         "Animate Inner Blocks One by One": [
+         "Stagger Inner Blocks": [
             ""
          ],
          "TL": [
@@ -2123,9 +2105,6 @@
             ""
          ],
          "Origin": [
-            ""
-         ],
-         "Pro Transformations": [
             ""
          ],
          "Adding transformations for normal and hover state are available in the Ghost Kit Pro plugin only.": [
@@ -2440,9 +2419,6 @@
          "block title\u0004Image Compare": [
             ""
          ],
-         "block title\u0004Instagram": [
-            ""
-         ],
          "block title\u0004Lottie Animation": [
             ""
          ],
@@ -2471,9 +2447,6 @@
             ""
          ],
          "block title\u0004Testimonial": [
-            ""
-         ],
-         "block title\u0004Twitter": [
             ""
          ],
          "block title\u0004Video": [
@@ -2581,9 +2554,6 @@
          "block description\u0004Compare two images with a slider.": [
             ""
          ],
-         "block description\u0004Show Instagram feed and user data.": [
-            ""
-         ],
          "block description\u0004Add Lottie SVG animations.": [
             ""
          ],
@@ -2612,9 +2582,6 @@
             ""
          ],
          "block description\u0004Show how your users love your products and what saying.": [
-            ""
-         ],
-         "block description\u0004Show Twitter feed and user data.": [
             ""
          ],
          "block description\u0004Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.": [
@@ -2731,9 +2698,6 @@
          "block keyword\u0004after": [
             ""
          ],
-         "block keyword\u0004instagram": [
-            ""
-         ],
          "block keyword\u0004lottie": [
             ""
          ],
@@ -2789,9 +2753,6 @@
             ""
          ],
          "block keyword\u0004quote": [
-            ""
-         ],
-         "block keyword\u0004twitter": [
             ""
          ],
          "block keyword\u0004video": [
