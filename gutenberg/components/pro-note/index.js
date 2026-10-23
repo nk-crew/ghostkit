@@ -1,48 +1,20 @@
-import { Button } from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import classnames from 'classnames/dedupe';
-
-import getIcon from '../../utils/get-icon';
-
-export default function ProNote(props) {
-	const { title, children } = props;
-
-	const [collapsed, setCollapsed] = useState(props.collapsed);
-
-	return (
-		<div
-			className={classnames(
-				'ghostkit-pro-component-note',
-				collapsed && 'ghostkit-pro-component-note-collapsed'
-			)}
-		>
-			<div className="ghostkit-pro-component-note-inner">
-				{title && <h3>{title}</h3>}
-				{collapsed && (
-					<Button
-						onClick={() => {
-							setCollapsed(!collapsed);
-						}}
-					>
-						{getIcon('icon-arrow-right')}
-					</Button>
-				)}
-				{!collapsed && children && <div>{children}</div>}
-			</div>
-		</div>
-	);
-}
+import { __ } from '@wordpress/i18n';
 
 /**
- * Button for ProNote
- * @param props
+ * One line of help text with a link to the Pro docs.
+ *
+ * @param {Object} props
+ * @param {string} props.href     docs URL.
+ * @param {*}      props.children help text.
  */
-ProNote.Button = function ProNoteButton(props) {
-	const { children } = props;
-
+export default function ProNote({ href, children }) {
 	return (
-		<a className="ghostkit-pro-component-note-button" {...props}>
-			{children}
-		</a>
+		<p className="ghostkit-pro-component-note">
+			{children}{' '}
+			<a href={href} target="_blank" rel="noopener noreferrer">
+				<span>{__('Read More', 'ghostkit')}</span>
+				<span aria-hidden="true"> →</span>
+			</a>
+		</p>
 	);
-};
+}

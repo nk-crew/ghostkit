@@ -24,20 +24,13 @@ function ProTransitionTools() {
 			isShownByDefault={false}
 		>
 			<div style={{ gridColumn: '1 / -1' }}>
-				<ProNote title={__('Transition', 'ghostkit')}>
-					<p>
-						{__(
-							'Transition and transform configurations are available in the Ghost Kit Pro plugin only.',
-							'ghostkit'
-						)}
-					</p>
-					<ProNote.Button
-						target="_blank"
-						rel="noopener noreferrer"
-						href={`https://www.ghostkit.io/docs/extensions/custom-css-js/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_transition&utm_content=${version}`}
-					>
-						{__('Read More', 'ghostkit')}
-					</ProNote.Button>
+				<ProNote
+					href={`https://www.ghostkit.io/docs/extensions/custom-css-js/?utm_source=plugin&utm_medium=block_settings&utm_campaign=pro_transition&utm_content=${version}`}
+				>
+					{__(
+						'Transition and transform configurations are available in the Ghost Kit Pro plugin only.',
+						'ghostkit'
+					)}
 				</ProNote>
 			</div>
 		</ToolsPanelItem>

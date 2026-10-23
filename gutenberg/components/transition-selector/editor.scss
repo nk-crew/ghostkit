@@ -3,36 +3,22 @@
 // Transition selector.
 .ghostkit-component-transition-selector {
 	.ghostkit-component-dropdown-picker-toggle {
-		min-height: 30px;
-		padding: 3px;
-		border-color: #949494;
-		border-radius: 4px;
-
-		.ghostkit-component-dropdown-picker-toggle-label {
-			display: flex;
-			gap: 10px;
-			align-items: center;
-			width: 100%;
-
+		.ghostkit-component-dropdown-picker-toggle-indicator {
 			> .ghostkit-component-bezier-editor,
 			> .ghostkit-component-spring-editor {
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
-				width: 24px;
-				height: 24px;
-				overflow: hidden;
-				background-color: var(--wp-admin-theme-color);
-				border-radius: 2px;
+				width: 100%;
+				height: 100%;
 			}
 		}
 
 		.ghostkit-component-transition-selector-reset {
 			display: inline-block;
+			flex: 0 0 15px;
 			width: 15px;
 			height: 15px;
-			margin-right: 5px;
-			margin-left: auto;
 			overflow: hidden;
 			color: #000;
 			cursor: pointer;

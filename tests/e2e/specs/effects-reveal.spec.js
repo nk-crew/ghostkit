@@ -123,3 +123,81 @@ test.describe('bezier editor', () => {
 		expect(afterDrag[3]).toBeCloseTo(0.5, 1);
 	});
 });
+
+test.describe('transition selector', () => {
+	test.beforeAll(async ({ requestUtils }) => {
+		const pluginName = process.env.CORE ? 'ghost-kit-pro' : 'ghost-kit';
+		await requestUtils.activatePlugin(pluginName);
+	});
+
+	test('names the row by its label and summarizes the transition', async ({
+		page,
+		admin,
+	}) => {
+		await admin.createNewPost({ showWelcomeGuide: false });
+
+		// Render the selector the way Ghost Kit Pro effects get it, from the components store.
+		await page.evaluate(() => {
+			const { createElement, createRoot } = window.wp.element;
+			const { TransitionSelector } = window.wp.data
+				.select('ghostkit/base/components')
+				.get();
+
+			const node = document.createElement('div');
+			node.id = 'gkt-transition-test';
+			node.style.cssText =
+				'position:fixed;top:100px;left:100px;width:260px;z-index:100000;background:#fff';
+			document.body.appendChild(node);
+			createRoot(node).render(
+				createElement(
+					'div',
+					null,
+					createElement(TransitionSelector, {
+						label: 'Transition',
+						value: {
+							type: 'spring',
+							stiffness: 300,
+							damping: 35,
+							mass: 2,
+						},
+						onChange() {},
+					}),
+					createElement(TransitionSelector, {
+						value: {
+							type: 'easing',
+							easing: [0.42, 0, 0.58, 1],
+							duration: 0.9,
+						},
+						onChange() {},
+					})
+				)
+			);
+		});
+
+		const rows = page.locator(
+			'#gkt-transition-test .ghostkit-component-dropdown-picker-toggle'
+		);
+
+		await expect(rows).toHaveCount(2);
+		await expect(
+			rows
+				.nth(0)
+				.locator('.ghostkit-component-dropdown-picker-toggle-label')
+		).toHaveText('Transition');
+		await expect(
+			rows
+				.nth(0)
+				.locator('.ghostkit-component-dropdown-picker-toggle-value')
+		).toHaveText('Spring · 0.75s');
+		await expect(
+			rows
+				.nth(1)
+				.locator('.ghostkit-component-dropdown-picker-toggle-label')
+		).toHaveText('Easing');
+		await expect(
+			rows
+				.nth(1)
+				.locator('.ghostkit-component-dropdown-picker-toggle-value')
+		).toHaveText('0.9s');
+	});
+});

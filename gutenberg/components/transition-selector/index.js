@@ -1,4 +1,3 @@
-import { BaseControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -9,7 +8,11 @@ import {
 	EasingControls,
 } from '../transition-easing-controls';
 import EASING_DEFAULT from '../transition-easing-controls/default';
-import { SpringControls, SpringEditor } from '../transition-spring-controls';
+import {
+	getSpringDuration,
+	SpringControls,
+	SpringEditor,
+} from '../transition-spring-controls';
 import SPRING_DEFAULT from '../transition-spring-controls/default';
 
 export default function TransitionSelector(props) {
@@ -30,7 +33,6 @@ export default function TransitionSelector(props) {
 		easingValue = EASING_DEFAULT.easing;
 	}
 
-	let buttonLabel = '';
 	const resetButton = allowReset && value && (
 		// biome-ignore lint/a11y/useSemanticElements: this sits inside the dropdown toggle button, a real <button> would nest interactive controls.
 		<span
@@ -61,39 +63,46 @@ export default function TransitionSelector(props) {
 		</span>
 	);
 
+	let typeLabel = '';
+	let duration = 0;
+	let indicator;
+
 	if (value?.type === 'easing') {
-		buttonLabel = (
-			<>
-				<EasingBezierEditor variant="preview" value={easingValue} />
-				{__('Easing', 'ghostkit')}
-				{resetButton}
-			</>
+		typeLabel = __('Easing', 'ghostkit');
+		duration = value?.duration ?? EASING_DEFAULT.duration;
+		indicator = (
+			<EasingBezierEditor variant="preview" value={easingValue} />
 		);
 	} else if (value?.type === 'spring') {
-		buttonLabel = (
-			<>
-				<SpringEditor variant="preview" value={value} />
-				{__('Spring', 'ghostkit')}
-				{resetButton}
-			</>
-		);
+		typeLabel = __('Spring', 'ghostkit');
+		duration = getSpringDuration(value);
+		indicator = <SpringEditor variant="preview" value={value} />;
 	} else {
-		buttonLabel = (
-			<>
-				<SpringEditor
-					variant="preview"
-					value={{
-						type: 'spring',
-						stiffness: 930,
-						damping: 40,
-						mass: 6,
-						delay: 0,
-					}}
-					backgroundColor="#c3c3c3"
-				/>
-				{__('Add…', 'ghostkit')}
-			</>
+		indicator = (
+			<SpringEditor
+				variant="preview"
+				value={{
+					type: 'spring',
+					stiffness: 930,
+					damping: 40,
+					mass: 6,
+					delay: 0,
+				}}
+				backgroundColor="#c3c3c3"
+			/>
 		);
+	}
+
+	// The label names the row and the type moves into the summary, like "Spring · 1.05s".
+	let rowLabel = label || __('Add…', 'ghostkit');
+	// A spring that never settles has no duration to show.
+	const durationText = duration === null ? '' : `${duration}s`;
+	let summary =
+		typeLabel && [typeLabel, durationText].filter(Boolean).join(' · ');
+
+	if (!label && typeLabel) {
+		rowLabel = typeLabel;
+		summary = durationText;
 	}
 
 	if (!enableEasing && !enableSpring) {
@@ -101,9 +110,18 @@ export default function TransitionSelector(props) {
 	}
 
 	return (
-		<BaseControl id={label} label={label}>
+		<div className="ghostkit-component-dropdown-picker-group">
 			<DropdownPicker
-				label={buttonLabel}
+				label={rowLabel}
+				indicator={indicator}
+				value={
+					(summary || resetButton) && (
+						<>
+							{summary}
+							{resetButton}
+						</>
+					)
+				}
 				className="ghostkit-component-transition-selector"
 				contentClassName="ghostkit-component-transition-selector-content"
 				isOpenTransition={isOpenTransition}
@@ -173,6 +191,6 @@ export default function TransitionSelector(props) {
 					/>
 				)}
 			</DropdownPicker>
-		</BaseControl>
+		</div>
 	);
 }
