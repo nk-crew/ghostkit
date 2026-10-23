@@ -158,6 +158,35 @@ test.describe('lottie block', () => {
 		await expect(relevantErrors).toEqual([]);
 	});
 
+	test('lottie with a relative file URL plays in the editor', async ({
+		page,
+		admin,
+		editor,
+	}) => {
+		await mockLottieResponse(page.context());
+
+		await admin.createNewPost({
+			title: 'Ghost Kit Lottie relative URL',
+			showWelcomeGuide: false,
+		});
+
+		await editor.insertBlock({
+			name: 'ghostkit/lottie',
+			attributes: {
+				fileUrl: TEST_LOTTIE_PATH,
+				fileWidth: 100,
+				fileHeight: 100,
+			},
+		});
+
+		const player = editor.canvas.locator('lottie-player').first();
+
+		await expect
+			.poll(() => player.evaluate(($el) => $el.currentState))
+			.toBe('playing');
+		await expect(player.locator('.error')).toHaveCount(0);
+	});
+
 	test('lottie-player loads without duplicate registration errors on frontend', async ({
 		page,
 		admin,
