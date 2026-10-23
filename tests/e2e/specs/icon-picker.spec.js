@@ -51,7 +51,7 @@ test.describe('icon picker', () => {
 		expect((await iconsResponse).status()).toBe(200);
 
 		const popover = page.locator('.ghostkit-component-icon-picker-content');
-		const iconButtons = popover.getByRole('option');
+		const iconButtons = popover.getByRole('listbox').getByRole('option');
 
 		await expect(iconButtons.first()).toBeVisible();
 
@@ -101,13 +101,17 @@ test.describe('icon picker', () => {
 
 		await expect(search).toBeFocused();
 		await search.fill('arrow-right');
-		await expect(popover.getByRole('option').first()).toBeVisible();
+		await expect(
+			popover.getByRole('listbox').getByRole('option').first()
+		).toBeVisible();
 
 		await page.keyboard.press('ArrowDown');
-		await expect(popover.getByRole('option').first()).toBeFocused();
+		await expect(
+			popover.getByRole('listbox').getByRole('option').first()
+		).toBeFocused();
 
 		await page.keyboard.press('ArrowRight');
-		const second = popover.getByRole('option').nth(1);
+		const second = popover.getByRole('listbox').getByRole('option').nth(1);
 		await expect(second).toBeFocused();
 		const secondName = await second.getAttribute('aria-label');
 
@@ -156,7 +160,7 @@ test.describe('icon picker', () => {
 		await toggle.click();
 		await popover.getByRole('searchbox').fill('dragon');
 
-		const option = popover.getByRole('option').first();
+		const option = popover.getByRole('listbox').getByRole('option').first();
 		const name = await option.getAttribute('aria-label');
 
 		// Core saves preferences to the user meta with a debounce.
@@ -180,10 +184,9 @@ test.describe('icon picker', () => {
 			{ hasText: 'Recent' }
 		);
 		await expect(recent.first()).toBeVisible();
-		await expect(popover.getByRole('option').first()).toHaveAttribute(
-			'aria-label',
-			name
-		);
+		await expect(
+			popover.getByRole('listbox').getByRole('option').first()
+		).toHaveAttribute('aria-label', name);
 	});
 
 	test('shows the selected icon far down the list and reaches it with Tab', async ({
@@ -215,7 +218,9 @@ test.describe('icon picker', () => {
 
 		const popover = page.locator('.ghostkit-component-icon-picker-content');
 		const search = popover.getByRole('searchbox');
-		const selected = popover.getByRole('option', { selected: true });
+		const selected = popover
+			.getByRole('listbox')
+			.getByRole('option', { selected: true });
 
 		// Tab from the search field moves through the pack filter into the grid.
 		async function tabToGrid() {
@@ -246,7 +251,9 @@ test.describe('icon picker', () => {
 			});
 		await expect(selected).toHaveCount(0);
 		await tabToGrid();
-		await expect(popover.getByRole('option').first()).toBeFocused();
+		await expect(
+			popover.getByRole('listbox').getByRole('option').first()
+		).toBeFocused();
 	});
 
 	test('keeps the picked one of two icons with the same name in Recent', async ({
@@ -267,10 +274,11 @@ test.describe('icon picker', () => {
 		await popover.getByRole('searchbox').fill('bell');
 
 		// FontAwesome has a solid and a regular icon with the keys `bell`.
-		const bells = popover.getByRole('option', {
-			name: 'Bell',
-			exact: true,
-		});
+		// Ghost Kit Pro adds packs with more of them, so keep the FontAwesome ones.
+		const bells = popover
+			.getByRole('listbox')
+			.getByRole('option', { name: 'Bell', exact: true })
+			.filter({ has: page.locator('.ghostkit-svg-icon-fa') });
 		await expect(bells).toHaveCount(2);
 		await bells.nth(1).click();
 		await expect(bells.nth(1)).toHaveAttribute('aria-selected', 'true');
@@ -284,10 +292,9 @@ test.describe('icon picker', () => {
 				hasText: 'Recent',
 			})
 		).toHaveCount(2);
-		await expect(popover.getByRole('option').first()).toHaveAttribute(
-			'aria-selected',
-			'true'
-		);
+		await expect(
+			popover.getByRole('listbox').getByRole('option').first()
+		).toHaveAttribute('aria-selected', 'true');
 	});
 
 	test('keeps icons in view and scrolls the content on a short screen', async ({
@@ -314,7 +321,9 @@ test.describe('icon picker', () => {
 		await expect(textarea).toBeAttached();
 
 		// The grid keeps at least a row of icons instead of collapsing to nothing.
-		await expect(popover.getByRole('option').first()).toBeInViewport({
+		await expect(
+			popover.getByRole('listbox').getByRole('option').first()
+		).toBeInViewport({
 			ratio: 1,
 		});
 
