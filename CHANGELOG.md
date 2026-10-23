@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 = 3.8.0 - Oct 22, 2026 =
 
+* added WordPress 7.2 compatibility
 * raised the minimum PHP requirement to 8.3
 * fixed a security issue where visitors could read draft and private templates and make the site fetch remote templates through the REST API; template routes now require a user who can edit posts
 * fixed a security issue where custom CSS could close the element it is printed in on sites with some character sets or through an end tag other than `</style>`; every end tag in custom CSS is now escaped
