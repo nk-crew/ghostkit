@@ -176,7 +176,7 @@ Yes, and it carries WPML compatibility for block content.
 * changed Accordion events when opening an item is interrupted by a close: it now fires show, hide, show, shown
 * added a redesigned icon picker with search, an icon set filter, keyboard navigation and recently used icons
 * updated FontAwesome to 7.3.1; icon class names saved with the previous version keep working
-* added the responsive breakpoints to the WordPress View menu on WordPress 6.7 and later, kept in sync with the native device switcher
+* removed the breakpoints dropdown from the editor top bar; the device toggles in block settings still preview each breakpoint, and the WordPress device preview turns that preview off
 * fixed the Custom CSS popover closing when switching devices and its device list being clipped
 * changed effect and transition settings to show as one group with their current values
 * changed Pro notes to a single help line
