@@ -1,11 +1,37 @@
 import { Button, Tooltip } from '@wordpress/components';
-import { useEffect, useState } from '@wordpress/element';
+import {
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import classnames from 'classnames/dedupe';
 
 import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
 import ActiveIndicator from '../active-indicator';
+
+/**
+ * Get the top edge of the nearest ancestor that clips its overflow.
+ *
+ * @param {Element} element - element to start from.
+ *
+ * @return {number}
+ */
+function getClippingTop(element) {
+	let parent = element.parentElement;
+
+	while (parent && parent !== document.body) {
+		if (window.getComputedStyle(parent).overflowY !== 'visible') {
+			return Math.max(0, parent.getBoundingClientRect().top);
+		}
+
+		parent = parent.parentElement;
+	}
+
+	return 0;
+}
 
 /**
  * Component Class
@@ -20,6 +46,9 @@ export default function ResponsiveToggle(props) {
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
+	const [shiftDown, setShiftDown] = useState(0);
+	const toggleRef = useRef();
+	const dropdownRef = useRef();
 
 	const { allDevices, device, setDevice } = useResponsive();
 
@@ -36,6 +65,23 @@ export default function ResponsiveToggle(props) {
 			document.removeEventListener('click', handleClickOutside);
 		};
 	});
+
+	// The list is pulled up to put the active item over the toggle. Push it
+	// back down when that would hide items behind a clipping parent, such as a popover.
+	useLayoutEffect(() => {
+		if (!isOpen) {
+			setShiftDown(0);
+			return;
+		}
+
+		const hiddenHeight =
+			getClippingTop(dropdownRef.current) -
+			dropdownRef.current.getBoundingClientRect().top;
+
+		if (hiddenHeight > 0) {
+			setShiftDown(hiddenHeight);
+		}
+	}, [isOpen]);
 
 	const items = [];
 	const icons = [
@@ -92,6 +138,7 @@ export default function ResponsiveToggle(props) {
 	return (
 		<div className="ghostkit-control-responsive-toggle">
 			<Button
+				ref={toggleRef}
 				className="ghostkit-control-responsive-toggle-button"
 				onClick={() => {
 					setIsOpen(true);
@@ -101,12 +148,14 @@ export default function ResponsiveToggle(props) {
 				{withActiveResponsive && <ActiveIndicator />}
 			</Button>
 			<div
+				ref={dropdownRef}
 				className={classnames(
 					'ghostkit-control-responsive-toggle-dropdown',
 					isOpen && 'is-open'
 				)}
 				style={{
 					transform: `translateY(${translateY})`,
+					marginTop: shiftDown || undefined,
 				}}
 			>
 				{items.map((data) => {
@@ -118,6 +167,10 @@ export default function ResponsiveToggle(props) {
 							)}
 							onClick={() => {
 								setDevice(data.name);
+
+								// Hiding the focused item would drop focus to the body,
+								// and a parent popover closes on focus loss.
+								toggleRef.current.focus();
 								setIsOpen(false);
 							}}
 						>

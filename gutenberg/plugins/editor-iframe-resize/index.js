@@ -1,10 +1,8 @@
-import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
-import { subscribe, useSelect } from '@wordpress/data';
-import domReady from '@wordpress/dom-ready';
-import { PostPreviewButton } from '@wordpress/editor';
-import { createRoot } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { throttle } from 'lodash';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { PluginPreviewMenuItem } from '@wordpress/editor';
+import { useEffect } from '@wordpress/element';
+import { __, sprintf } from '@wordpress/i18n';
+import classnames from 'classnames/dedupe';
 
 import useResponsive from '../../hooks/use-responsive';
 import getIcon from '../../utils/get-icon';
@@ -55,19 +53,16 @@ function IframeResponsiveStyles() {
 	);
 }
 
-function ResponsiveToggleDropdown() {
+/**
+ * Add Ghost Kit breakpoints to the editor "View" menu next to the core devices.
+ */
+function ResponsivePreviewMenuItems() {
 	const { device, setDevice, allDevices } = useResponsive();
 
-	const { hasActiveMetaboxes, isViewable } = useSelect((select) => {
-		const { getEditedPostAttribute } = select('core/editor');
-		const { getPostType } = select('core');
-		const postType = getPostType(getEditedPostAttribute('type'));
-
-		return {
-			hasActiveMetaboxes: select('core/edit-post').hasMetaBoxes(),
-			isViewable: postType?.viewable ?? false,
-		};
-	}, []);
+	// Public slot since WordPress 6.7.
+	if (!PluginPreviewMenuItem) {
+		return null;
+	}
 
 	const items = [];
 	const icons = [
@@ -75,16 +70,9 @@ function ResponsiveToggleDropdown() {
 		getIcon('tabs-tablet'),
 		getIcon('tabs-laptop'),
 		getIcon('tabs-desktop'),
-		getIcon('tabs-tv'),
 	];
 
-	let selectedIcon = icons[icons.length - 1];
-
-	[...Object.keys(allDevices), ''].forEach((deviceName, i) => {
-		if (deviceName === device) {
-			selectedIcon = icons[i];
-		}
-
+	Object.keys(allDevices).forEach((deviceName, i) => {
 		let title = __('Desktop', 'ghostkit');
 
 		switch (deviceName) {
@@ -110,127 +98,58 @@ function ResponsiveToggleDropdown() {
 		});
 	});
 
-	return (
-		<>
-			<DropdownMenu
-				className="ghostkit-toolbar-responsive__dropdown"
-				popoverProps={{
-					className: 'ghostkit-toolbar-responsive__dropdown-content',
-					placement: 'bottom-end',
-				}}
-				toggleProps={{
-					className: 'ghostkit-toolbar-responsive__button-toggle',
-				}}
-				menuProps={{
-					'aria-label': __('View options', 'ghostkit'),
-				}}
-				icon={selectedIcon}
-				label={__('Responsive Preview', 'ghostkit')}
-			>
-				{({ onClose }) => (
-					<>
-						<MenuGroup>
-							{items.map((data) => {
-								return (
-									<MenuItem
-										key={data.name}
-										className={
-											device === data.name && 'is-active'
-										}
-										onClick={() => setDevice(data.name)}
-										icon={data.icon}
-									>
-										{data.title}
-									</MenuItem>
-								);
-							})}
-						</MenuGroup>
-						{isViewable && (
-							<MenuGroup>
-								<div className="edit-post-header-preview__grouping-external">
-									<PostPreviewButton
-										className="edit-post-header-preview__button-external"
-										role="menuitem"
-										forceIsAutosaveable={hasActiveMetaboxes}
-										textContent={
-											<>
-												{__('Preview in new tab')}
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													viewBox="0 0 24 24"
-													width="24"
-													height="24"
-													aria-hidden="true"
-													focusable="false"
-												>
-													<path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z" />
-												</svg>
-											</>
-										}
-										onPreview={onClose}
-									/>
-								</div>
-							</MenuGroup>
-						)}
-					</>
-				)}
-			</DropdownMenu>
-			<style
-				dangerouslySetInnerHTML={{
-					__html: `
-					.interface-interface-skeleton__header {
-						z-index: 91;
-					}
-					`,
-				}}
-			/>
-		</>
-	);
-}
+	return items.map((data) => {
+		const isActive = device === data.name;
 
-export function Plugin() {
-	return <IframeResponsiveStyles />;
+		return (
+			<PluginPreviewMenuItem
+				key={data.name}
+				className={classnames(
+					'ghostkit-preview-menu-item',
+					isActive && 'is-active'
+				)}
+				icon={data.icon}
+				role="menuitemcheckbox"
+				isSelected={isActive}
+				info={sprintf(
+					// translators: %s: breakpoint width in pixels, for example "768px".
+					__('Devices with screen width <= %s', 'ghostkit'),
+					`${allDevices[data.name]}px`
+				)}
+				onClick={() => setDevice(isActive ? '' : data.name)}
+			>
+				{data.title}
+			</PluginPreviewMenuItem>
+		);
+	});
 }
 
 /**
- * Add dropdown toggle to toolbar.
+ * A core device change (Tablet, Mobile, or a resized canvas) takes over the
+ * preview, so turn the Ghost Kit breakpoint off. Picking a Ghost Kit
+ * breakpoint switches core back to Desktop, see useResponsive().
  */
-const TOOLBAR_TOGGLE_CONTAINER_CLASS = 'ghostkit-toolbar-responsive';
-
-const mountEditorToolbarToggle = () => {
-	const createToggle = (postHeader) => {
-		const toggleContainer = document.createElement('div');
-		toggleContainer.classList.add(TOOLBAR_TOGGLE_CONTAINER_CLASS);
-
-		postHeader.prepend(toggleContainer);
-
-		const root = createRoot(toggleContainer);
-		root.render(<ResponsiveToggleDropdown />);
-	};
-
-	// Always check if toggle is inserted, because post header sometimes gets unmounted.
-	subscribe(
-		throttle(
-			() => {
-				// Check if toggle exists already.
-				if (
-					document.querySelector(`.${TOOLBAR_TOGGLE_CONTAINER_CLASS}`)
-				) {
-					return;
-				}
-
-				const postHeader = document.querySelector(
-					'.editor-header__settings, .edit-post-header__settings'
-				);
-
-				if (postHeader) {
-					createToggle(postHeader);
-				}
-			},
-			200,
-			{ trailing: true }
-		)
+function useResetOnCoreDeviceChange() {
+	const coreDeviceType = useSelect(
+		(select) => select('core/editor')?.getDeviceType?.(),
+		[]
 	);
-};
+	const { setDevice } = useDispatch('ghostkit/responsive');
 
-domReady(mountEditorToolbarToggle);
+	useEffect(() => {
+		if (coreDeviceType && coreDeviceType !== 'Desktop') {
+			setDevice('');
+		}
+	}, [coreDeviceType, setDevice]);
+}
+
+export function Plugin() {
+	useResetOnCoreDeviceChange();
+
+	return (
+		<>
+			<IframeResponsiveStyles />
+			<ResponsivePreviewMenuItems />
+		</>
+	);
+}
