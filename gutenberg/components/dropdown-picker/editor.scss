@@ -23,6 +23,77 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
+
+	// Color panel row look: round indicator, label, value summary on the right.
+	&:has(.ghostkit-component-dropdown-picker-toggle-indicator, .ghostkit-component-dropdown-picker-toggle-value) {
+		gap: 8px;
+		justify-content: flex-start;
+		padding-top: 0;
+		padding-bottom: 0;
+		text-align: left;
+
+		.ghostkit-component-dropdown-picker-toggle-label {
+			flex: 1 1 auto;
+			min-width: 0;
+		}
+	}
+
+	.ghostkit-component-dropdown-picker-toggle-indicator {
+		display: inline-flex;
+		flex: 0 0 24px;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		overflow: hidden;
+		color: #fff;
+		background-color: var(--wp-admin-theme-color);
+		border-radius: 50%;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 20%);
+
+		> svg {
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	.ghostkit-component-dropdown-picker-toggle-value {
+		display: inline-flex;
+		flex: 0 1 auto;
+		gap: 4px;
+		align-items: center;
+		max-width: 55%;
+		overflow: hidden;
+		font-size: 12px;
+		font-weight: 400;
+		color: #757575;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+
+// Rows that share one bordered group, like the Color panel's Text and Background rows.
+.ghostkit-component-dropdown-picker-group {
+	border: 1px solid rgba(0, 0, 0, 10%);
+	border-radius: 2px;
+
+	.ghostkit-component-dropdown-picker-group {
+		border: 0;
+		border-radius: 0;
+	}
+
+	.ghostkit-component-dropdown-picker-wrapper,
+	.ghostkit-component-dropdown-picker-wrapper > .components-base-control__field {
+		margin-bottom: 0;
+	}
+
+	.ghostkit-component-dropdown-picker-toggle {
+		border: 0;
+	}
+
+	> * + * .ghostkit-component-dropdown-picker-toggle {
+		border-top: 1px solid rgba(0, 0, 0, 10%);
+	}
 }
 
 // Dropdown.
