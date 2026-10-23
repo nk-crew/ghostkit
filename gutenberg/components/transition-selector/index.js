@@ -8,29 +8,12 @@ import {
 	EasingControls,
 } from '../transition-easing-controls';
 import EASING_DEFAULT from '../transition-easing-controls/default';
-import { SpringControls, SpringEditor } from '../transition-spring-controls';
+import {
+	getSpringDuration,
+	SpringControls,
+	SpringEditor,
+} from '../transition-spring-controls';
 import SPRING_DEFAULT from '../transition-spring-controls/default';
-
-const {
-	Motion: { spring, calcGeneratorDuration },
-} = window;
-
-/**
- * Seconds a spring takes to settle on a 0 to 1 change, as Motion plays it.
- *
- * @param {Object} value spring transition.
- * @return {number} duration.
- */
-function getSpringDuration(value) {
-	const generator = spring({
-		stiffness: value?.stiffness,
-		damping: value?.damping,
-		mass: value?.mass,
-		keyframes: [0, 1],
-	});
-
-	return Math.round(calcGeneratorDuration(generator) / 10) / 100;
-}
 
 export default function TransitionSelector(props) {
 	const {
@@ -112,11 +95,14 @@ export default function TransitionSelector(props) {
 
 	// The label names the row and the type moves into the summary, like "Spring · 1.05s".
 	let rowLabel = label || __('Add…', 'ghostkit');
-	let summary = typeLabel && `${typeLabel} · ${duration}s`;
+	// A spring that never settles has no duration to show.
+	const durationText = duration === null ? '' : `${duration}s`;
+	let summary =
+		typeLabel && [typeLabel, durationText].filter(Boolean).join(' · ');
 
 	if (!label && typeLabel) {
 		rowLabel = typeLabel;
-		summary = `${duration}s`;
+		summary = durationText;
 	}
 
 	if (!enableEasing && !enableSpring) {

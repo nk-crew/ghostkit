@@ -18,10 +18,28 @@ const NumberControl = StableNumberControl || ExperimentalNumberControl;
 const Grid = StableGrid || ExperimentalGrid;
 
 const {
-	Motion: { spring },
+	Motion: { spring, calcGeneratorDuration },
 } = window;
 
 export { DEFAULT, PRESETS };
+
+/**
+ * Seconds a spring takes to settle on a 0 to 1 change, as Motion plays it.
+ *
+ * @param {Object} value spring transition.
+ * @return {number|null} duration, or null when the spring never settles within Motion's limit.
+ */
+export function getSpringDuration(value) {
+	const generator = spring({
+		stiffness: value?.stiffness,
+		damping: value?.damping,
+		mass: value?.mass,
+		keyframes: [0, 1],
+	});
+	const duration = calcGeneratorDuration(generator);
+
+	return Number.isFinite(duration) ? Math.round(duration / 10) / 100 : null;
+}
 
 export function SpringEditor(props) {
 	const { value, variant = '', backgroundColor } = props;
@@ -89,7 +107,8 @@ export function SpringEditor(props) {
 		newPath += ` ${height / 2 + options.padding}`;
 
 		setPath(newPath);
-		setDuration(springData.duration);
+		// Motion 14 springs carry no duration, so measure it the way Motion plays it.
+		setDuration(getSpringDuration(value));
 	}, [options, value?.stiffness, value?.damping, value?.mass]);
 
 	return (
