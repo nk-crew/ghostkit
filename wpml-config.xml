@@ -169,11 +169,9 @@
         <gutenberg-block type="ghostkit/grid" translate="0" />
         <gutenberg-block type="ghostkit/grid-column" translate="0" />
         <gutenberg-block type="ghostkit/icon-box" translate="0" />
-        <gutenberg-block type="ghostkit/instagram" translate="0" />
         <gutenberg-block type="ghostkit/shape-divider" translate="0" />
         <gutenberg-block type="ghostkit/tabs-tab-v2" translate="0" />
         <gutenberg-block type="ghostkit/pricing-table" translate="0" />
-        <gutenberg-block type="ghostkit/twitter" translate="0" />
         <gutenberg-block type="ghostkit/video" translate="0" />
         <gutenberg-block type="ghostkit/widgetized-area" translate="0" />
     </gutenberg-blocks>
