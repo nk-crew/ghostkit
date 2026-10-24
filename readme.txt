@@ -163,37 +163,34 @@ Yes, and it carries WPML compatibility for block content.
 
 ## Changelog ##
 
-= 3.8.0 - Oct 22, 2026 =
+= 3.8.0 - Oct 24, 2026 =
 
 * added WordPress 7.2 compatibility
 * raised the minimum PHP requirement to 8.3
-* fixed a security issue where visitors could read draft and private templates and make the site fetch remote templates through the REST API; template routes now require a user who can edit posts
-* fixed a security issue where custom CSS could close the element it is printed in on sites with some character sets or through an end tag other than `</style>`; every end tag in custom CSS is now escaped
-* fixed custom CSS losing rules when it uses nesting with `&`, child selectors, range media queries or is wrapped in `<style>` tags
-* changed global custom JavaScript to be editable only by users allowed to post unfiltered HTML, matching per-post JavaScript; the settings page hides those editors from other admins and shows save errors instead of failing silently
-* improved editor loading: the icon list (about 2 MB) loads when the icon picker opens instead of on every editor screen
-* removed the Instagram and Twitter blocks, whose services retired the APIs they used; saved blocks show as unsupported in the editor and print nothing on the site
-* changed Accordion events when opening an item is interrupted by a close: it now fires show, hide, show, shown
 * added a redesigned icon picker with search, an icon set filter, keyboard navigation and recently used icons
-* updated FontAwesome to 7.3.1; icon class names saved with the previous version keep working
-* removed the breakpoints dropdown from the editor top bar; the device toggles in block settings still preview each breakpoint, and the WordPress device preview turns that preview off
-* fixed the Custom CSS popover closing when switching devices and its device list being clipped
+* updated FontAwesome to 7.3.1; icons saved with the previous version keep working
 * changed effect and transition settings to show as one group with their current values
-* changed Pro notes to a single help line
-* fixed the Accordion layout in the editor to match the frontend
+* changed global custom JavaScript to be editable only by users allowed to post unfiltered HTML
+* improved block editor loading: icons (about 2 MB) load only when the icon picker opens
+* removed the Instagram and Twitter blocks, whose services shut down the APIs they used; saved blocks print nothing on the site
+* removed the breakpoints dropdown from the editor top bar; the device toggles in block settings still preview each breakpoint
+* changed the Accordion to fire show, hide, show, shown when opening an item is interrupted by a close
+* security fix: visitors could read draft and private templates and make the site fetch remote templates
+* security fix: custom CSS could close the tag it is printed in and add HTML to the page
+* fixed custom CSS losing rules that use nesting with `&`, child selectors, range media queries or `<style>` tags
+* fixed the Custom CSS popover closing when switching devices, and its device list being cut off
+* fixed the Accordion looking different in the editor than on the site
 * fixed Lottie animations with a relative file URL not playing in the editor
-* fixed spring transitions not showing their duration
 * fixed Carousel Slide text missing from post excerpts
-* removed unused code
 * **Pro:**
-* added a Stagger option to the Reveal effect to animate the inner blocks one by one, with a delay between them
-* improved scroll performance: scroll effects that animate only opacity and position run on the browser's native scroll timelines instead of a script on every frame; elements on a timeline no longer fire the `update.effects.scroll.gkt` event on each frame
-* improved idle CPU use on pages with effects: effect loops stop requesting frames while no element needs an update
+* added a Stagger option to the Reveal effect to animate inner blocks one by one
+* added the Lucide icon set, and updated Heroicons to 2.2 and Octicons to 19.41
+* added a link on the Updates page to where the license key is
+* improved scroll performance: scroll effects that animate only opacity and position run on the browser's scroll timelines; elements on a timeline no longer fire `update.effects.scroll.gkt` on each frame
+* improved CPU use on idle pages with effects
+* security fix: users without access to settings could call the Adobe Fonts (Typekit) route
 * fixed rotating effects losing their perspective on the first frame
-* fixed the Image Scroller not scrolling back, or jumping back instead of animating, when the pointer leaves it
-* fixed a security issue where users without access to settings could call the Adobe Fonts (Typekit) route
-* added a link on the Updates page to where the license key is found
-* updated Heroicons to 2.2 and Octicons to 19.41, and added the Lucide icon set
+* fixed the Image Scroller not animating back when the pointer leaves it
 
 = 3.7.2 - Sep 14, 2026 =
 
