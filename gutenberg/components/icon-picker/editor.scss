@@ -183,3 +183,8 @@
 		line-height: 1.5;
 	}
 }
+
+// Adaptive options keep their label width and share the rest of the row.
+.ghostkit-component-icon-picker-packs > * {
+	flex: 1 1 auto;
+}

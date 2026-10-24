@@ -276,6 +276,8 @@ function IconPickerContent({ value, onChange }) {
 				hideLabelFromVision
 				value={pack}
 				onChange={(val) => setPack(val || 'all')}
+				className="ghostkit-component-icon-picker-packs"
+				isBlock
 				isAdaptiveWidth
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
