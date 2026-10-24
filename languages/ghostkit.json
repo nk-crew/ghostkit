@@ -53,6 +53,15 @@
          "User don't have permissions to change Customizer options.": [
             ""
          ],
+         "User don't have permissions to read this image.": [
+            ""
+         ],
+         "User don't have permissions to read templates.": [
+            ""
+         ],
+         "User don't have permissions to read this template.": [
+            ""
+         ],
          "Custom fonts not found.": [
             ""
          ],
@@ -65,45 +74,6 @@
          "Image not found.": [
             ""
          ],
-         "Provide Instagram Access Token.": [
-            ""
-         ],
-         "Instagram data failed to load.": [
-            ""
-         ],
-         "Provide Twitter Consumer Key.": [
-            ""
-         ],
-         "Provide Twitter Consumer Secret.": [
-            ""
-         ],
-         "Provide Twitter Access Token.": [
-            ""
-         ],
-         "Provide Twitter Access Token Secret.": [
-            ""
-         ],
-         "Provide Username.": [
-            ""
-         ],
-         "Twitter data failed to load.": [
-            ""
-         ],
-         "%ds": [
-            ""
-         ],
-         "%dm": [
-            ""
-         ],
-         "%dh": [
-            ""
-         ],
-         "M j": [
-            ""
-         ],
-         "Y M j": [
-            ""
-         ],
          "Templates not found.": [
             ""
          ],
@@ -114,6 +84,9 @@
             ""
          ],
          "Custom code not found.": [
+            ""
+         ],
+         "User don't have permissions to change custom JavaScript.": [
             ""
          ],
          "Typography not found.": [
@@ -317,24 +290,6 @@
          "This e-mail was sent from a contact form on %1$s. (%2$s)": [
             ""
          ],
-         "Posts": [
-            ""
-         ],
-         "Followers": [
-            ""
-         ],
-         "Following": [
-            ""
-         ],
-         "Verified account": [
-            ""
-         ],
-         "Tweets": [
-            ""
-         ],
-         "Retweeted": [
-            ""
-         ],
          "Blocks": [
             ""
          ],
@@ -351,9 +306,6 @@
             ""
          ],
          "CSS & JavaScript": [
-            ""
-         ],
-         "Reusable Blocks": [
             ""
          ],
          "Collapse": [
@@ -1210,48 +1162,6 @@
          "After label…": [
             ""
          ],
-         "Photos Number": [
-            ""
-         ],
-         "Profile Info": [
-            ""
-         ],
-         "Show Profile Info": [
-            ""
-         ],
-         "Show Avatar": [
-            ""
-         ],
-         "Avatar Size": [
-            ""
-         ],
-         "Show Name": [
-            ""
-         ],
-         "Show Stats": [
-            ""
-         ],
-         "Show BIO": [
-            ""
-         ],
-         "Show Website": [
-            ""
-         ],
-         "API Data": [
-            ""
-         ],
-         "Access Token": [
-            ""
-         ],
-         "A valid Access Token is required to use Instagram feed. How to get token": [
-            ""
-         ],
-         "Instagram": [
-            ""
-         ],
-         "A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector.": [
-            ""
-         ],
          "Play Animation On": [
             ""
          ],
@@ -1375,13 +1285,7 @@
          "Write caption…": [
             ""
          ],
-         "Pro Shapes": [
-            ""
-         ],
          "Additional 30 shapes available in the Ghost Kit Pro plugin only": [
-            ""
-         ],
-         "Read More": [
             ""
          ],
          "Vertical Flip": [
@@ -1492,75 +1396,6 @@
          "Write source…": [
             ""
          ],
-         "Username": [
-            ""
-         ],
-         "Feed": [
-            ""
-         ],
-         "Tweets Number": [
-            ""
-         ],
-         "Show Replies": [
-            ""
-         ],
-         "Show Retweets": [
-            ""
-         ],
-         "Show Date": [
-            ""
-         ],
-         "Show Actions": [
-            ""
-         ],
-         "Text Mode": [
-            ""
-         ],
-         "Short": [
-            ""
-         ],
-         "Full": [
-            ""
-         ],
-         "Convert Text Links": [
-            ""
-         ],
-         "Links + Media": [
-            ""
-         ],
-         "Links": [
-            ""
-         ],
-         "No Convert": [
-            ""
-         ],
-         "Profile": [
-            ""
-         ],
-         "Show Profile": [
-            ""
-         ],
-         "Show Location": [
-            ""
-         ],
-         "Consumer Key": [
-            ""
-         ],
-         "Consumer Secret": [
-            ""
-         ],
-         "Access Token Secret": [
-            ""
-         ],
-         "A valid API data is required to use Twitter feed. How to get it": [
-            ""
-         ],
-         "Twitter": [
-            ""
-         ],
-         "A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector.": [
-            ""
-         ],
          "Background color settings are unavailable because the required Gutenberg color control component is not available in this WordPress installation.": [
             ""
          ],
@@ -1648,6 +1483,12 @@
          "--- Select Sidebar ---": [
             ""
          ],
+         "End point handle": [
+            ""
+         ],
+         "Start point handle": [
+            ""
+         ],
          "Clear Media": [
             ""
          ],
@@ -1714,28 +1555,43 @@
          "Edit": [
             ""
          ],
-         "Search Icon": [
+         "Recent": [
             ""
          ],
-         "Type to Search…": [
+         "No icon": [
             ""
          ],
-         "Icon Output": [
+         "Custom SVG": [
             ""
          ],
-         "Customize Icon": [
+         "Icons failed to load.": [
+            ""
+         ],
+         "No icons found.": [
+            ""
+         ],
+         "Icon pack": [
+            ""
+         ],
+         "All": [
+            ""
+         ],
+         "Search icons": [
             ""
          ],
          "Reset": [
             ""
          ],
-         "No icons found.": [
+         "Icon Output": [
             ""
          ],
          "!important": [
             ""
          ],
          "Aspect Ratio": [
+            ""
+         ],
+         "Read More": [
             ""
          ],
          "Remove Block?": [
@@ -1916,9 +1772,6 @@
             ""
          ],
          "Letter Spacing": [
-            ""
-         ],
-         "Attributes": [
             ""
          ],
          "Adding custom attributes to block available in the Ghost Kit Pro plugin only.": [
@@ -2152,9 +2005,6 @@
          "Mouse Move": [
             ""
          ],
-         "Advanced Effects": [
-            ""
-         ],
          "Advanced effects are available in the Ghost Kit Pro plugin only.": [
             ""
          ],
@@ -2167,9 +2017,6 @@
          "Rotate": [
             ""
          ],
-         "Pro Settings": [
-            ""
-         ],
          "Advanced reveal settings are available in the Ghost Kit Pro plugin only:": [
             ""
          ],
@@ -2180,6 +2027,9 @@
             ""
          ],
          "Replay Animation": [
+            ""
+         ],
+         "Stagger Inner Blocks": [
             ""
          ],
          "TL": [
@@ -2255,9 +2105,6 @@
             ""
          ],
          "Origin": [
-            ""
-         ],
-         "Pro Transformations": [
             ""
          ],
          "Adding transformations for normal and hover state are available in the Ghost Kit Pro plugin only.": [
@@ -2458,6 +2305,9 @@
          "Breakpoints available for Pro users only. Read more about Ghost Kit Pro plugin here - ": [
             ""
          ],
+         "Failed to save custom code.": [
+            ""
+         ],
          "Adobe and Custom Fonts available for Pro users only. Read more about Ghost Kit Pro plugin here - ": [
             ""
          ],
@@ -2569,9 +2419,6 @@
          "block title\u0004Image Compare": [
             ""
          ],
-         "block title\u0004Instagram": [
-            ""
-         ],
          "block title\u0004Lottie Animation": [
             ""
          ],
@@ -2600,9 +2447,6 @@
             ""
          ],
          "block title\u0004Testimonial": [
-            ""
-         ],
-         "block title\u0004Twitter": [
             ""
          ],
          "block title\u0004Video": [
@@ -2710,9 +2554,6 @@
          "block description\u0004Compare two images with a slider.": [
             ""
          ],
-         "block description\u0004Show Instagram feed and user data.": [
-            ""
-         ],
          "block description\u0004Add Lottie SVG animations.": [
             ""
          ],
@@ -2741,9 +2582,6 @@
             ""
          ],
          "block description\u0004Show how your users love your products and what saying.": [
-            ""
-         ],
-         "block description\u0004Show Twitter feed and user data.": [
             ""
          ],
          "block description\u0004Plain and Fullscreen YouTube, Vimeo and Self-Hosted videos.": [
@@ -2860,9 +2698,6 @@
          "block keyword\u0004after": [
             ""
          ],
-         "block keyword\u0004instagram": [
-            ""
-         ],
          "block keyword\u0004lottie": [
             ""
          ],
@@ -2918,9 +2753,6 @@
             ""
          ],
          "block keyword\u0004quote": [
-            ""
-         ],
-         "block keyword\u0004twitter": [
             ""
          ],
          "block keyword\u0004video": [

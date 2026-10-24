@@ -32,8 +32,8 @@ Ghost Kit enhances the WordPress editing experience with a comprehensive collect
 
 ### Prerequisites
 
-- PHP >= 7.2
-- Node.js >= 18.0
+- PHP >= 8.3
+- Node.js >= 22.0
 - Composer >= 2.0
 
 ### Getting Started

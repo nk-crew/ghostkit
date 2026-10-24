@@ -2,23 +2,23 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ghost Kit 3.7.2\n"
+"Project-Id-Version: Ghost Kit 3.8.0\n"
 "Report-Msgid-Bugs-To: https://github.com/nk-o/ghostkit/issues\n"
 "Last-Translator: nK\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-14T10:22:54+00:00\n"
+"POT-Creation-Date: 2026-10-23T15:55:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
 
 #. Plugin Name of the plugin
 #: class-ghost-kit.php
-#: class-ghost-kit.php:234
-#: settings/index.php:136
-#: settings/index.php:137
+#: class-ghost-kit.php:226
+#: settings/index.php:134
+#: settings/index.php:135
 #: gutenberg/extend/block-actions-copy-paste/index.js:73
 #: gutenberg/plugins/ghostkit/index.js:37
 #: gutenberg/plugins/ghostkit/index.js:43
@@ -42,39 +42,39 @@ msgstr ""
 msgid "Ghost Kit Team"
 msgstr ""
 
-#: class-ghost-kit.php:486
-#: settings/index.php:202
+#: class-ghost-kit.php:478
+#: settings/index.php:200
 msgid "Go Pro"
 msgstr ""
 
-#: classes/class-ask-review.php:70
+#: classes/class-ask-review.php:74
 msgid "Satisfied using Ghost Kit?"
 msgstr ""
 
 #. translators: %s - Plugin name.
-#: classes/class-ask-review.php:74
+#: classes/class-ask-review.php:78
 msgid "Hey, we noticed you've been using %s for more than two weeks now - that's awesome!"
 msgstr ""
 
 #. translators: %s - Plugin name.
-#: classes/class-ask-review.php:74
+#: classes/class-ask-review.php:78
 msgctxt "plugin name inside the review notice"
 msgid "Ghost Kit"
 msgstr ""
 
-#: classes/class-ask-review.php:77
+#: classes/class-ask-review.php:81
 msgid "Could you please do us a BIG favor and give it a rating on WordPress.org to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: classes/class-ask-review.php:82
+#: classes/class-ask-review.php:86
 msgid "Yes, you deserve it"
 msgstr ""
 
-#: classes/class-ask-review.php:87
+#: classes/class-ask-review.php:91
 msgid "No, maybe later"
 msgstr ""
 
-#: classes/class-ask-review.php:90
+#: classes/class-ask-review.php:94
 msgid "I already did"
 msgstr ""
 
@@ -91,8 +91,8 @@ msgstr ""
 msgid "Google Fonts"
 msgstr ""
 
-#: classes/class-rest.php:285
-#: classes/class-rest.php:298
+#: classes/class-rest.php:252
+#: classes/class-rest.php:265
 #: classes/class-rest.php:368
 #: classes/class-rest.php:381
 #: classes/class-rest.php:394
@@ -105,8 +105,20 @@ msgstr ""
 msgid "User don't have permissions to change options."
 msgstr ""
 
-#: classes/class-rest.php:311
+#: classes/class-rest.php:278
 msgid "User don't have permissions to change Customizer options."
+msgstr ""
+
+#: classes/class-rest.php:296
+msgid "User don't have permissions to read this image."
+msgstr ""
+
+#: classes/class-rest.php:330
+msgid "User don't have permissions to read templates."
+msgstr ""
+
+#: classes/class-rest.php:354
+msgid "User don't have permissions to read this template."
 msgstr ""
 
 #: classes/class-rest.php:490
@@ -125,86 +137,27 @@ msgstr ""
 msgid "Image not found."
 msgstr ""
 
-#: classes/class-rest.php:624
-#: classes/class-rest.php:679
-msgid "Provide Instagram Access Token."
-msgstr ""
-
-#: classes/class-rest.php:662
-#: classes/class-rest.php:716
-msgid "Instagram data failed to load."
-msgstr ""
-
-#: classes/class-rest.php:738
-#: classes/class-rest.php:850
-msgid "Provide Twitter Consumer Key."
-msgstr ""
-
-#: classes/class-rest.php:741
-#: classes/class-rest.php:853
-msgid "Provide Twitter Consumer Secret."
-msgstr ""
-
-#: classes/class-rest.php:744
-#: classes/class-rest.php:856
-msgid "Provide Twitter Access Token."
-msgstr ""
-
-#: classes/class-rest.php:747
-#: classes/class-rest.php:859
-msgid "Provide Twitter Access Token Secret."
-msgstr ""
-
-#: classes/class-rest.php:750
-#: classes/class-rest.php:862
-msgid "Provide Username."
-msgstr ""
-
-#: classes/class-rest.php:822
-#: classes/class-rest.php:968
-msgid "Twitter data failed to load."
-msgstr ""
-
-#. translators: %d - seconds.
-#: classes/class-rest.php:1131
-msgid "%ds"
-msgstr ""
-
-#. translators: %d - minutes.
-#: classes/class-rest.php:1135
-msgid "%dm"
-msgstr ""
-
-#. translators: %d - hours.
-#: classes/class-rest.php:1139
-msgid "%dh"
-msgstr ""
-
-#: classes/class-rest.php:1142
-msgid "M j"
-msgstr ""
-
-#: classes/class-rest.php:1145
-msgid "Y M j"
-msgstr ""
-
-#: classes/class-rest.php:1663
+#: classes/class-rest.php:997
 msgid "Templates not found."
 msgstr ""
 
-#: classes/class-rest.php:1682
+#: classes/class-rest.php:1016
 msgid "Invalid template ID."
 msgstr ""
 
-#: classes/class-rest.php:1758
+#: classes/class-rest.php:1092
 msgid "Template data not found."
 msgstr ""
 
-#: classes/class-rest.php:1773
+#: classes/class-rest.php:1107
 msgid "Custom code not found."
 msgstr ""
 
-#: classes/class-rest.php:1823
+#: classes/class-rest.php:1130
+msgid "User don't have permissions to change custom JavaScript."
+msgstr ""
+
+#: classes/class-rest.php:1169
 msgid "Typography not found."
 msgstr ""
 
@@ -317,7 +270,7 @@ msgstr ""
 
 #: classes/class-templates.php:98
 #: classes/class-templates.php:100
-#: settings/index.php:193
+#: settings/index.php:191
 #: gutenberg/plugins/ghostkit/index.js:81
 #: gutenberg/plugins/templates/index.js:169
 #: gutenberg/plugins/templates/index.js:716
@@ -519,54 +472,19 @@ msgstr ""
 msgid "This e-mail was sent from a contact form on %1$s. (%2$s)"
 msgstr ""
 
-#: gutenberg/blocks/instagram/block.php:155
-#: gutenberg/blocks/instagram/edit.js:251
-msgid "Posts"
-msgstr ""
-
-#: gutenberg/blocks/instagram/block.php:158
-#: gutenberg/blocks/twitter/block.php:188
-#: gutenberg/blocks/instagram/edit.js:261
-#: gutenberg/blocks/twitter/edit.js:432
-msgid "Followers"
-msgstr ""
-
-#: gutenberg/blocks/instagram/block.php:161
-#: gutenberg/blocks/twitter/block.php:185
-#: gutenberg/blocks/instagram/edit.js:272
-#: gutenberg/blocks/twitter/edit.js:422
-msgid "Following"
-msgstr ""
-
-#: gutenberg/blocks/twitter/block.php:171
-#: gutenberg/blocks/twitter/block.php:255
-#: gutenberg/blocks/twitter/edit.js:391
-#: gutenberg/blocks/twitter/edit.js:535
-msgid "Verified account"
-msgstr ""
-
-#: gutenberg/blocks/twitter/block.php:182
-#: gutenberg/blocks/twitter/edit.js:415
-msgid "Tweets"
-msgstr ""
-
-#: gutenberg/blocks/twitter/block.php:245
-#: gutenberg/blocks/twitter/edit.js:519
-msgid "Retweeted"
-msgstr ""
-
-#: settings/index.php:149
+#: settings/index.php:147
 #: gutenberg/plugins/templates/index.js:267
 #: settings/pages/index.js:14
 msgid "Blocks"
 msgstr ""
 
-#: settings/index.php:156
+#: settings/index.php:154
+#: gutenberg/components/icon-picker/index.js:241
 #: settings/pages/index.js:18
 msgid "Icons"
 msgstr ""
 
-#: settings/index.php:163
+#: settings/index.php:161
 #: gutenberg/plugins/ghostkit/index.js:56
 #: gutenberg/plugins/typography/index.js:853
 #: gutenberg/plugins/typography/index.js:1112
@@ -574,27 +492,22 @@ msgstr ""
 msgid "Typography"
 msgstr ""
 
-#: settings/index.php:170
+#: settings/index.php:168
 #: settings/pages/index.js:26
 msgid "Fonts"
 msgstr ""
 
-#: settings/index.php:177
+#: settings/index.php:175
 #: settings/pages/index.js:30
 msgid "Breakpoints"
 msgstr ""
 
-#: settings/index.php:184
+#: settings/index.php:182
 #: gutenberg/plugins/custom-code/index.js:71
 #: gutenberg/plugins/custom-code/index.js:366
 #: gutenberg/plugins/ghostkit/index.js:68
 #: settings/pages/index.js:34
 msgid "CSS & JavaScript"
-msgstr ""
-
-#: settings/index.php:214
-#: settings/index.php:215
-msgid "Reusable Blocks"
 msgstr ""
 
 #: gutenberg/blocks/accordion-item/edit.js:102
@@ -738,7 +651,7 @@ msgstr ""
 #: gutenberg/blocks/counter-box/edit.js:233
 #: gutenberg/blocks/grid/awb-fallback.js:182
 #: gutenberg/blocks/image-compare/edit.js:554
-#: gutenberg/blocks/shape-divider/edit.js:315
+#: gutenberg/blocks/shape-divider/edit.js:308
 #: gutenberg/extend/frame/shadow/index.js:186
 #: gutenberg/style-variants/core-list/index.js:257
 msgid "Color"
@@ -1147,7 +1060,7 @@ msgstr ""
 #: gutenberg/blocks/divider/edit.js:123
 #: gutenberg/blocks/grid-column/edit.js:162
 #: gutenberg/blocks/grid/awb-fallback.js:233
-#: gutenberg/blocks/shape-divider/edit.js:252
+#: gutenberg/blocks/shape-divider/edit.js:245
 msgid "Size"
 msgstr ""
 
@@ -1474,7 +1387,7 @@ msgid "Add Marker"
 msgstr ""
 
 #: gutenberg/blocks/google-maps/edit.js:436
-#: gutenberg/blocks/shape-divider/edit.js:249
+#: gutenberg/blocks/shape-divider/edit.js:242
 #: gutenberg/components/google-fonts/index.js:223
 msgid "Style"
 msgstr ""
@@ -1489,7 +1402,7 @@ msgstr ""
 
 #: gutenberg/blocks/google-maps/edit.js:468
 #: gutenberg/blocks/progress/edit.js:59
-#: gutenberg/blocks/shape-divider/edit.js:256
+#: gutenberg/blocks/shape-divider/edit.js:249
 #: gutenberg/components/media-size-selector/index.js:102
 #: gutenberg/extend/position/height/index.js:32
 #: gutenberg/extend/position/height/index.js:42
@@ -1755,7 +1668,6 @@ msgid "Content Vertical End"
 msgstr ""
 
 #: gutenberg/blocks/grid/edit.js:295
-#: gutenberg/blocks/instagram/edit.js:98
 msgid "Columns"
 msgstr ""
 
@@ -1809,7 +1721,7 @@ msgstr ""
 
 #: gutenberg/blocks/icon/edit/inspector-controls.js:26
 #: gutenberg/blocks/lottie/edit.js:132
-#: gutenberg/blocks/shape-divider/edit.js:285
+#: gutenberg/blocks/shape-divider/edit.js:278
 #: gutenberg/components/media-size-selector/index.js:96
 #: gutenberg/extend/frame/border/index.js:200
 #: gutenberg/extend/position/width/index.js:32
@@ -1945,72 +1857,6 @@ msgstr ""
 msgid "After label…"
 msgstr ""
 
-#: gutenberg/blocks/instagram/edit.js:88
-msgid "Photos Number"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:117
-msgid "Profile Info"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:119
-msgid "Show Profile Info"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:128
-#: gutenberg/blocks/twitter/edit.js:142
-#: gutenberg/blocks/twitter/edit.js:234
-msgid "Show Avatar"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:138
-#: gutenberg/blocks/twitter/edit.js:150
-#: gutenberg/blocks/twitter/edit.js:244
-msgid "Avatar Size"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:155
-#: gutenberg/blocks/twitter/edit.js:162
-#: gutenberg/blocks/twitter/edit.js:261
-msgid "Show Name"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:164
-#: gutenberg/blocks/twitter/edit.js:270
-msgid "Show Stats"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:173
-msgid "Show BIO"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:182
-#: gutenberg/blocks/twitter/edit.js:291
-msgid "Show Website"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:197
-#: gutenberg/blocks/twitter/edit.js:315
-msgid "API Data"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:201
-#: gutenberg/blocks/twitter/edit.js:333
-msgid "Access Token"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:209
-msgid "A valid Access Token is required to use Instagram feed. How to get token"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:334
-msgid "Instagram"
-msgstr ""
-
-#: gutenberg/blocks/instagram/edit.js:335
-msgid "A valid Access Token is required to use Instagram feed. You can fill it in the block settings in Inspector."
-msgstr ""
-
 #: gutenberg/blocks/lottie/edit.js:73
 msgid "Play Animation On"
 msgstr ""
@@ -2062,8 +1908,8 @@ msgstr ""
 #: gutenberg/blocks/markdown/edit.js:84
 #: gutenberg/blocks/video/edit/inspector-controls.js:288
 #: gutenberg/blocks/video/edit/inspector-controls.js:289
-#: gutenberg/components/transition-easing-controls/index.js:299
-#: gutenberg/components/transition-spring-controls/index.js:243
+#: gutenberg/components/transition-easing-controls/index.js:292
+#: gutenberg/components/transition-spring-controls/index.js:262
 #: settings/pages/blocks.js:214
 msgid "Preview"
 msgstr ""
@@ -2093,7 +1939,6 @@ msgid "Show Price Repeat"
 msgstr ""
 
 #: gutenberg/blocks/pricing-table-item/edit.js:351
-#: gutenberg/blocks/twitter/edit.js:279
 msgid "Show Description"
 msgstr ""
 
@@ -2191,32 +2036,19 @@ msgstr ""
 msgid "Write caption…"
 msgstr ""
 
-#: gutenberg/blocks/shape-divider/edit.js:149
-msgid "Pro Shapes"
-msgstr ""
-
-#: gutenberg/blocks/shape-divider/edit.js:151
+#: gutenberg/blocks/shape-divider/edit.js:152
 msgid "Additional 30 shapes available in the Ghost Kit Pro plugin only"
 msgstr ""
 
-#: gutenberg/blocks/shape-divider/edit.js:161
-#: gutenberg/extend/attributes/index.js:59
-#: gutenberg/extend/custom-css/pro-transition/index.js:39
-#: gutenberg/extend/effects/pro-effects/index.js:55
-#: gutenberg/extend/effects/reveal/index.js:216
-#: gutenberg/extend/transform/pro-transforms/index.js:58
-msgid "Read More"
-msgstr ""
-
-#: gutenberg/blocks/shape-divider/edit.js:206
+#: gutenberg/blocks/shape-divider/edit.js:199
 msgid "Vertical Flip"
 msgstr ""
 
-#: gutenberg/blocks/shape-divider/edit.js:217
+#: gutenberg/blocks/shape-divider/edit.js:210
 msgid "Horizontal Flip"
 msgstr ""
 
-#: gutenberg/blocks/shape-divider/edit.js:230
+#: gutenberg/blocks/shape-divider/edit.js:223
 msgid "Shapes"
 msgstr ""
 
@@ -2352,98 +2184,6 @@ msgstr ""
 msgid "Write source…"
 msgstr ""
 
-#: gutenberg/blocks/twitter/edit.js:110
-msgid "Username"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:117
-msgid "Feed"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:119
-msgid "Tweets Number"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:128
-msgid "Show Replies"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:135
-msgid "Show Retweets"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:169
-msgid "Show Date"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:176
-msgid "Show Actions"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:183
-msgid "Text Mode"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:188
-msgid "Short"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:192
-msgid "Full"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:200
-msgid "Convert Text Links"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:205
-msgid "Links + Media"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:209
-msgid "Links"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:213
-msgid "No Convert"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:223
-msgid "Profile"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:225
-msgid "Show Profile"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:300
-msgid "Show Location"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:319
-msgid "Consumer Key"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:326
-msgid "Consumer Secret"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:340
-msgid "Access Token Secret"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:348
-msgid "A valid API data is required to use Twitter feed. How to get it"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:650
-msgid "Twitter"
-msgstr ""
-
-#: gutenberg/blocks/twitter/edit.js:651
-msgid "A valid API data is required to use Twitter feed. You can fill it in the block settings in Inspector."
-msgstr ""
-
 #: gutenberg/blocks/video/edit/background-color.js:56
 msgid "Background color settings are unavailable because the required Gutenberg color control component is not available in this WordPress installation."
 msgstr ""
@@ -2564,6 +2304,14 @@ msgstr ""
 msgid "--- Select Sidebar ---"
 msgstr ""
 
+#: gutenberg/components/bezier-editor/index.js:167
+msgid "End point handle"
+msgstr ""
+
+#: gutenberg/components/bezier-editor/index.js:168
+msgid "Start point handle"
+msgstr ""
+
 #: gutenberg/components/button-clear-media/index.js:7
 msgid "Clear Media"
 msgstr ""
@@ -2660,29 +2408,48 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: gutenberg/components/icon-picker/index.js:122
-msgid "Search Icon"
+#: gutenberg/components/icon-picker/index.js:166
+msgid "Recent"
 msgstr ""
 
-#: gutenberg/components/icon-picker/index.js:127
-msgid "Type to Search…"
+#: gutenberg/components/icon-picker/index.js:209
+msgid "No icon"
 msgstr ""
 
-#: gutenberg/components/icon-picker/index.js:135
-#: gutenberg/components/icon-picker/index.js:140
-msgid "Icon Output"
+#: gutenberg/components/icon-picker/index.js:216
+#: gutenberg/components/icon-picker/index.js:341
+msgid "Custom SVG"
 msgstr ""
 
-#: gutenberg/components/icon-picker/index.js:151
-msgid "Customize Icon"
+#: gutenberg/components/icon-picker/index.js:224
+msgid "Icons failed to load."
 msgstr ""
 
-#: gutenberg/components/icon-picker/index.js:159
+#: gutenberg/components/icon-picker/index.js:234
+msgid "No icons found."
+msgstr ""
+
+#: gutenberg/components/icon-picker/index.js:260
+#: gutenberg/components/icon-picker/index.js:275
+msgid "Icon pack"
+msgstr ""
+
+#: gutenberg/components/icon-picker/index.js:264
+#: gutenberg/components/icon-picker/index.js:285
+msgid "All"
+msgstr ""
+
+#: gutenberg/components/icon-picker/index.js:302
+#: gutenberg/components/icon-picker/index.js:303
+msgid "Search icons"
+msgstr ""
+
+#: gutenberg/components/icon-picker/index.js:353
 msgid "Reset"
 msgstr ""
 
-#: gutenberg/components/icon-picker/index.js:322
-msgid "No icons found."
+#: gutenberg/components/icon-picker/index.js:358
+msgid "Icon Output"
 msgstr ""
 
 #: gutenberg/components/important-toggle/index.js:14
@@ -2691,6 +2458,10 @@ msgstr ""
 
 #: gutenberg/components/media-size-selector/index.js:83
 msgid "Aspect Ratio"
+msgstr ""
+
+#: gutenberg/components/pro-note/index.js:15
+msgid "Read More"
 msgstr ""
 
 #: gutenberg/components/remove-button/index.js:19
@@ -2702,33 +2473,34 @@ msgid "Cancel"
 msgstr ""
 
 #: gutenberg/components/responsive-tab-panel/index.js:38
-#: gutenberg/components/responsive-toggle/index.js:72
+#: gutenberg/components/responsive-toggle/index.js:118
 msgid "All devices"
 msgstr ""
 
 #. translators: %s: breakpoint width in pixels, for example "768px".
 #: gutenberg/components/responsive-tab-panel/index.js:41
-#: gutenberg/components/responsive-toggle/index.js:75
+#: gutenberg/components/responsive-toggle/index.js:121
+#: gutenberg/plugins/editor-iframe-resize/index.js:118
 msgid "Devices with screen width <= %s"
 msgstr ""
 
-#: gutenberg/components/transition-easing-controls/index.js:116
+#: gutenberg/components/transition-easing-controls/index.js:109
 #: gutenberg/components/transition-presets-control/index.js:44
-#: gutenberg/components/transition-spring-controls/index.js:156
+#: gutenberg/components/transition-spring-controls/index.js:175
 msgid "-- Presets --"
 msgstr ""
 
-#: gutenberg/components/transition-easing-controls/index.js:201
-#: gutenberg/components/transition-easing-controls/index.js:202
+#: gutenberg/components/transition-easing-controls/index.js:194
+#: gutenberg/components/transition-easing-controls/index.js:195
 msgid "Bezier"
 msgstr ""
 
-#: gutenberg/components/transition-easing-controls/index.js:275
+#: gutenberg/components/transition-easing-controls/index.js:268
 msgid "Duration"
 msgstr ""
 
-#: gutenberg/components/transition-easing-controls/index.js:287
-#: gutenberg/components/transition-spring-controls/index.js:231
+#: gutenberg/components/transition-easing-controls/index.js:280
+#: gutenberg/components/transition-spring-controls/index.js:250
 msgid "Delay"
 msgstr ""
 
@@ -2786,29 +2558,29 @@ msgstr ""
 msgid "Zoom In From Right"
 msgstr ""
 
-#: gutenberg/components/transition-selector/index.js:68
-#: gutenberg/components/transition-selector/index.js:136
+#: gutenberg/components/transition-selector/index.js:71
+#: gutenberg/components/transition-selector/index.js:154
 msgid "Easing"
 msgstr ""
 
-#: gutenberg/components/transition-selector/index.js:76
-#: gutenberg/components/transition-selector/index.js:140
+#: gutenberg/components/transition-selector/index.js:77
+#: gutenberg/components/transition-selector/index.js:158
 msgid "Spring"
 msgstr ""
 
-#: gutenberg/components/transition-selector/index.js:94
+#: gutenberg/components/transition-selector/index.js:97
 msgid "Add…"
 msgstr ""
 
-#: gutenberg/components/transition-spring-controls/index.js:201
+#: gutenberg/components/transition-spring-controls/index.js:220
 msgid "Stiffness"
 msgstr ""
 
-#: gutenberg/components/transition-spring-controls/index.js:211
+#: gutenberg/components/transition-spring-controls/index.js:230
 msgid "Damping"
 msgstr ""
 
-#: gutenberg/components/transition-spring-controls/index.js:221
+#: gutenberg/components/transition-spring-controls/index.js:240
 msgid "Mass"
 msgstr ""
 
@@ -2949,11 +2721,7 @@ msgstr ""
 msgid "Letter Spacing"
 msgstr ""
 
-#: gutenberg/extend/attributes/index.js:47
-msgid "Attributes"
-msgstr ""
-
-#: gutenberg/extend/attributes/index.js:49
+#: gutenberg/extend/attributes/index.js:50
 msgid "Adding custom attributes to block available in the Ghost Kit Pro plugin only."
 msgstr ""
 
@@ -3233,12 +3001,11 @@ msgid "Y"
 msgstr ""
 
 #: gutenberg/extend/custom-css/pro-transition/index.js:20
-#: gutenberg/extend/custom-css/pro-transition/index.js:27
 #: gutenberg/extend/effects/reveal/index.js:195
 msgid "Transition"
 msgstr ""
 
-#: gutenberg/extend/custom-css/pro-transition/index.js:29
+#: gutenberg/extend/custom-css/pro-transition/index.js:30
 msgid "Transition and transform configurations are available in the Ghost Kit Pro plugin only."
 msgstr ""
 
@@ -3288,11 +3055,7 @@ msgstr ""
 msgid "Mouse Move"
 msgstr ""
 
-#: gutenberg/extend/effects/pro-effects/index.js:43
-msgid "Advanced Effects"
-msgstr ""
-
-#: gutenberg/extend/effects/pro-effects/index.js:45
+#: gutenberg/extend/effects/pro-effects/index.js:46
 msgid "Advanced effects are available in the Ghost Kit Pro plugin only."
 msgstr ""
 
@@ -3311,11 +3074,7 @@ msgstr ""
 msgid "Rotate"
 msgstr ""
 
-#: gutenberg/extend/effects/reveal/index.js:199
-msgid "Pro Settings"
-msgstr ""
-
-#: gutenberg/extend/effects/reveal/index.js:201
+#: gutenberg/extend/effects/reveal/index.js:202
 msgid "Advanced reveal settings are available in the Ghost Kit Pro plugin only:"
 msgstr ""
 
@@ -3329,6 +3088,10 @@ msgstr ""
 
 #: gutenberg/extend/effects/reveal/index.js:209
 msgid "Replay Animation"
+msgstr ""
+
+#: gutenberg/extend/effects/reveal/index.js:210
+msgid "Stagger Inner Blocks"
 msgstr ""
 
 #: gutenberg/extend/frame/borderRadius/index.js:21
@@ -3443,11 +3206,7 @@ msgstr ""
 msgid "Origin"
 msgstr ""
 
-#: gutenberg/extend/transform/pro-transforms/index.js:46
-msgid "Pro Transformations"
-msgstr ""
-
-#: gutenberg/extend/transform/pro-transforms/index.js:48
+#: gutenberg/extend/transform/pro-transforms/index.js:49
 msgid "Adding transformations for normal and hover state are available in the Ghost Kit Pro plugin only."
 msgstr ""
 
@@ -3518,7 +3277,7 @@ msgid "Global"
 msgstr ""
 
 #: gutenberg/plugins/custom-code/index.js:174
-#: settings/pages/css-js.js:88
+#: settings/pages/css-js.js:116
 msgid "CSS"
 msgstr ""
 
@@ -3528,16 +3287,17 @@ msgid "You don't have permissions to edit global custom code."
 msgstr ""
 
 #: gutenberg/plugins/custom-code/index.js:206
-#: settings/pages/css-js.js:104
+#: settings/pages/css-js.js:132
 msgid "JavaScript"
 msgstr ""
 
 #: gutenberg/plugins/custom-code/index.js:213
-#: settings/pages/css-js.js:109
+#: settings/pages/css-js.js:144
 msgid "Add custom JavaScript code in <head> section or in the end of <body> tag. Insert Google Analytics, Tag Manager or other JavaScript code snippets."
 msgstr ""
 
 #: gutenberg/plugins/custom-code/index.js:283
+#: settings/pages/css-js.js:135
 msgid "You don't have permissions to edit custom JavaScript code."
 msgstr ""
 
@@ -3575,31 +3335,36 @@ msgstr ""
 msgid "Default:"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:88
+#: gutenberg/plugins/editor-iframe-resize/index.js:78
+#: gutenberg/plugins/editor-iframe-resize/toolbar-dropdown.js:45
 msgid "Desktop"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:92
+#: gutenberg/plugins/editor-iframe-resize/index.js:82
+#: gutenberg/plugins/editor-iframe-resize/toolbar-dropdown.js:49
 msgid "Mobile"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:95
+#: gutenberg/plugins/editor-iframe-resize/index.js:85
+#: gutenberg/plugins/editor-iframe-resize/toolbar-dropdown.js:52
 msgid "Mobile Landscape"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:98
+#: gutenberg/plugins/editor-iframe-resize/index.js:88
+#: gutenberg/plugins/editor-iframe-resize/toolbar-dropdown.js:55
 msgid "Tablet"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:101
+#: gutenberg/plugins/editor-iframe-resize/index.js:91
+#: gutenberg/plugins/editor-iframe-resize/toolbar-dropdown.js:58
 msgid "Laptop"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:125
+#: gutenberg/plugins/editor-iframe-resize/toolbar-dropdown.js:82
 msgid "View options"
 msgstr ""
 
-#: gutenberg/plugins/editor-iframe-resize/index.js:128
+#: gutenberg/plugins/editor-iframe-resize/toolbar-dropdown.js:85
 msgid "Responsive Preview"
 msgstr ""
 
@@ -3733,6 +3498,10 @@ msgstr ""
 
 #: settings/pages/breakpoints.js:12
 msgid "Breakpoints available for Pro users only. Read more about Ghost Kit Pro plugin here - "
+msgstr ""
+
+#: settings/pages/css-js.js:93
+msgid "Failed to save custom code."
 msgstr ""
 
 #: settings/pages/fonts.js:36
@@ -4255,21 +4024,6 @@ msgctxt "block keyword"
 msgid "after"
 msgstr ""
 
-#: gutenberg/blocks/instagram/block.json
-msgctxt "block title"
-msgid "Instagram"
-msgstr ""
-
-#: gutenberg/blocks/instagram/block.json
-msgctxt "block description"
-msgid "Show Instagram feed and user data."
-msgstr ""
-
-#: gutenberg/blocks/instagram/block.json
-msgctxt "block keyword"
-msgid "instagram"
-msgstr ""
-
 #: gutenberg/blocks/lottie/block.json
 msgctxt "block title"
 msgid "Lottie Animation"
@@ -4478,21 +4232,6 @@ msgstr ""
 #: gutenberg/blocks/testimonial/block.json
 msgctxt "block keyword"
 msgid "quote"
-msgstr ""
-
-#: gutenberg/blocks/twitter/block.json
-msgctxt "block title"
-msgid "Twitter"
-msgstr ""
-
-#: gutenberg/blocks/twitter/block.json
-msgctxt "block description"
-msgid "Show Twitter feed and user data."
-msgstr ""
-
-#: gutenberg/blocks/twitter/block.json
-msgctxt "block keyword"
-msgid "twitter"
 msgstr ""
 
 #: gutenberg/blocks/video/block.json

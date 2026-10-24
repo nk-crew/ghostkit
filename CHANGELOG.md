@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.8.0 - Oct 24, 2026 =
+
+* added WordPress 7.2 compatibility
+* raised the minimum PHP requirement to 8.3
+* added a redesigned icon picker with search, an icon set filter, keyboard navigation and recently used icons
+* updated FontAwesome to 7.3.1; icons saved with the previous version keep working
+* changed effect and transition settings to show as one group with their current values
+* changed global custom JavaScript to be editable only by users allowed to post unfiltered HTML
+* improved block editor loading: icons (about 2 MB) load only when the icon picker opens
+* removed the Instagram and Twitter blocks, whose services shut down the APIs they used; saved blocks print nothing on the site
+* removed the breakpoints dropdown from the editor top bar; the device toggles in block settings still preview each breakpoint
+* changed the Accordion to fire show, hide, show, shown when opening an item is interrupted by a close
+* security fix: visitors could read draft and private templates and make the site fetch remote templates
+* security fix: custom CSS could close the tag it is printed in and add HTML to the page
+* fixed custom CSS losing rules that use nesting with `&`, child selectors, range media queries or `<style>` tags
+* fixed the Custom CSS popover closing when switching devices, and its device list being cut off
+* fixed the Accordion looking different in the editor than on the site
+* fixed Lottie animations with a relative file URL not playing in the editor
+* fixed Carousel Slide text missing from post excerpts
+* **Pro:**
+* added a Stagger option to the Reveal effect to animate inner blocks one by one
+* added the Lucide icon set, and updated Heroicons to 2.2 and Octicons to 19.41
+* added a link on the Updates page to where the license key is
+* improved scroll performance: scroll effects that animate only opacity and position run on the browser's scroll timelines; elements on a timeline no longer fire `update.effects.scroll.gkt` on each frame
+* improved CPU use on idle pages with effects
+* security fix: users without access to settings could call the Adobe Fonts (Typekit) route
+* fixed rotating effects losing their perspective on the first frame
+* fixed the Image Scroller not animating back when the pointer leaves it
+
 = 3.7.2 - Sep 14, 2026 =
 
 * fixed a critical error on sites where another plugin ships a different version of the same CSS parser, which showed up as "Declaration of Sabberworm\CSS\Value\Size::render() must be compatible" once the custom breakpoints styles were rebuilt
