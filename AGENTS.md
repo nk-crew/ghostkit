@@ -26,3 +26,16 @@ WordPress plugin: large set of Gutenberg blocks and related editor/settings UI (
 ## Commands
 
 Defined in `package.json` (e.g. `npm run dev`, `npm run build`, lint, env, e2e). Use those exact names.
+
+## CI
+
+`npm run ci:local` is the gate before a pull request. It runs the build, the
+linters, PHPUnit, the PHP coding standards, and the E2E suite. Pull requests and
+pushes to `master` run nothing on GitHub, so nothing else repeats these checks
+before a merge.
+
+A `v*` tag runs the same checks on GitHub, with the previous WordPress version and
+WordPress trunk added, and deploys to WordPress.org only when they pass. A trunk
+failure does not block the deploy. After any other failure the release is not
+out: rerun a flaky failure with `gh run rerun <run-id> --failed`, and release a
+real fix as a new version.
