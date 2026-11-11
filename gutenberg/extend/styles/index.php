@@ -208,7 +208,7 @@ class GhostKit_Extension_Styles {
 					}
 
 					// add custom css.
-					if ( ! empty( $prop_value ) && '' !== $prop_value ) {
+					if ( '' !== $prop_value ) {
 						if ( $with_important ) {
 							$prop_value .= ' !important';
 						}
