@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.8.1 - Nov 17, 2026 =
+
+* fixed block style values of 0, such as a margin or opacity of 0, showing in the editor but missing on the site
+
 = 3.8.0 - Oct 24, 2026 =
 
 * added WordPress 7.2 compatibility
