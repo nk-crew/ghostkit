@@ -99,5 +99,13 @@
 			"ghostkit",
 			"gutenberg-test-plugin-disables-the-css-animations"
 		]
+	},
+	"overrides": {
+		"copy-webpack-plugin": {
+			"serialize-javascript": "^7.1.4"
+		},
+		"nomnom": {
+			"underscore": "^1.13.8"
+		}
 	}
 }
