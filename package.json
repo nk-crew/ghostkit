@@ -61,6 +61,8 @@
 		"npm-run-all": "^4.1.5",
 		"parse-version-string": "^1.0.1",
 		"po2json": "^0.4.5",
+		"postcss": "^8.5.33",
+		"postcss-selector-parser": "^7.2.1",
 		"rtlcss-webpack-plugin": "^4.0.7",
 		"stylelint": "^16.26.1",
 		"webpack-remove-empty-scripts": "^1.0.4",
@@ -82,7 +84,7 @@
 		"markdown-it": "^14.0.0",
 		"motion": "^14.5.0",
 		"patch-package": "^8.0.1",
-		"qs": "^6.11.2",
+		"qs": "^6.17.1",
 		"raf-schd": "^4.0.3",
 		"react-ace": "^10.1.0",
 		"react-select": "^5.8.0",
@@ -91,7 +93,7 @@
 		"shorthash": "0.0.2",
 		"slugify": "^1.6.6",
 		"striptags": "^3.2.0",
-		"swiper": "^8.4.6",
+		"swiper": "^14.4.0",
 		"throttle-debounce": "^5.0.0"
 	},
 	"nkPluginToolkit": {

@@ -392,14 +392,16 @@ class GhostKit_Assets {
 
 		// Swiper.
 		if ( apply_filters( 'gkt_enqueue_plugin_swiper', true ) ) {
-			// Add legacy swiper version in order to support Elementor plugin.
-			// https://wordpress.org/support/topic/visual-portfolio-elementor-issue/.
-			if ( class_exists( '\Elementor\Plugin' ) ) {
-				self::register_style( 'swiper', 'assets/vendor/swiper-5-4-5/swiper.min', array(), '5.4.5' );
-				self::register_script( 'swiper', 'assets/vendor/swiper-5-4-5/swiper.min', array(), '5.4.5' );
-			} else {
-				self::register_style( 'swiper', 'assets/vendor/swiper/swiper-bundle.min', array(), '8.4.6' );
-				self::register_script( 'swiper', 'assets/vendor/swiper/swiper-bundle.min', array(), '8.4.6' );
+			self::register_style( 'ghostkit-swiper', 'build/assets/js/swiper' );
+			self::register_script( 'ghostkit-swiper', 'build/assets/js/swiper' );
+			if ( ! class_exists( '\\Elementor\\Plugin' ) ) {
+				if ( ! wp_script_is( 'swiper', 'registered' ) ) {
+					wp_register_script( 'swiper', false, array( 'ghostkit-swiper' ), null, true );
+					wp_add_inline_script( 'ghostkit-swiper', 'if (typeof window.Swiper === "undefined") { window.Swiper = window.GhostKitSwiper; }' );
+				}
+				if ( ! wp_style_is( 'swiper', 'registered' ) ) {
+					wp_register_style( 'swiper', false, array( 'ghostkit-swiper' ), null );
+				}
 			}
 		}
 
@@ -601,8 +603,9 @@ class GhostKit_Assets {
 					}
 					break;
 				case 'carousel':
-					if ( wp_script_is( 'swiper' ) || wp_script_is( 'swiper', 'registered' ) ) {
-						$block_js_deps[] = 'swiper';
+					$swiper_handle = wp_script_is( 'ghostkit-swiper', 'registered' ) ? 'ghostkit-swiper' : 'swiper';
+					if ( wp_script_is( $swiper_handle ) || wp_script_is( $swiper_handle, 'registered' ) ) {
+						$block_js_deps[] = $swiper_handle;
 					}
 					break;
 				case 'countdown':
@@ -639,7 +642,7 @@ class GhostKit_Assets {
 					$block_css_deps[] = 'gist-simple';
 					break;
 				case 'carousel':
-					$block_css_deps[] = 'swiper';
+					$block_css_deps[] = wp_style_is( 'ghostkit-swiper', 'registered' ) ? 'ghostkit-swiper' : 'swiper';
 					break;
 				case 'tabs':
 					$block_name = 'tabs-v2';
