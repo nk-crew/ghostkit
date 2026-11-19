@@ -9,31 +9,19 @@ const {
 } = window;
 
 function getSwiperVersion(Swiper) {
-	let ver = 8;
-
-	// in version 8 added new parameter `maxBackfaceHiddenSlides`.
-	if (typeof Swiper.defaults.maxBackfaceHiddenSlides === 'undefined') {
-		ver = 7;
-	}
-
-	// in version 7 added new parameter `rewind`.
-	if (typeof Swiper.defaults.rewind === 'undefined') {
-		ver = 6;
-	}
-
-	// in version 6 added new parameter `loopPreventsSlide`.
-	if (typeof Swiper.defaults.loopPreventsSlide === 'undefined') {
-		ver = 5;
-	}
-
-	return ver;
+	if (typeof Swiper.defaults.maxBackfaceHiddenSlides !== 'undefined')
+		return 8;
+	if (typeof Swiper.defaults.rewind !== 'undefined') return 7;
+	if (typeof Swiper.defaults.loopPreventsSlide !== 'undefined') return 6;
+	return 5;
 }
 
 /**
  * Prepare Carousels.
  */
 events.on(document, 'init.blocks.gkt', () => {
-	if (typeof window.Swiper === 'undefined') {
+	const Swiper = window.GhostKitSwiper || window.Swiper;
+	if (typeof Swiper === 'undefined') {
 		return;
 	}
 
@@ -114,10 +102,10 @@ events.on(document, 'init.blocks.gkt', () => {
 			// add arrows
 			if (options.navigation) {
 				const $prevArrowIcon = $carousel.querySelector(
-					'.ghostkit-carousel-arrow-prev-icon'
+					':scope > .ghostkit-carousel-arrow-prev-icon'
 				);
 				const $nextArrowIcon = $carousel.querySelector(
-					'.ghostkit-carousel-arrow-next-icon'
+					':scope > .ghostkit-carousel-arrow-next-icon'
 				);
 
 				// Create and add arrow previous.
@@ -128,6 +116,7 @@ events.on(document, 'init.blocks.gkt', () => {
 				);
 				$prevArrow.innerHTML = $prevArrowIcon.innerHTML;
 				$carousel.append($prevArrow);
+				options.navigation.prevEl = $prevArrow;
 
 				// Create and add arrow next.
 				const $nextArrow = document.createElement('div');
@@ -137,6 +126,7 @@ events.on(document, 'init.blocks.gkt', () => {
 				);
 				$nextArrow.innerHTML = $nextArrowIcon.innerHTML;
 				$carousel.append($nextArrow);
+				options.navigation.nextEl = $nextArrow;
 			}
 
 			// Add bullets.
@@ -144,6 +134,7 @@ events.on(document, 'init.blocks.gkt', () => {
 				const $bullets = document.createElement('div');
 				$bullets.classList.add('ghostkit-carousel-bullets');
 				$carousel.append($bullets);
+				options.pagination.el = $bullets;
 			}
 
 			// Calculate responsive.
@@ -191,7 +182,7 @@ events.on(document, 'init.blocks.gkt', () => {
 
 			// Fallbacks for old Swiper versions.
 			(() => {
-				const swiperVersion = getSwiperVersion(window.Swiper);
+				const swiperVersion = getSwiperVersion(Swiper);
 
 				// Since v7 used container class `swiper`, we should also add old `swiper-container` class.
 				if (swiperVersion < 7) {
@@ -212,7 +203,7 @@ events.on(document, 'init.blocks.gkt', () => {
 			events.trigger($carousel, 'init.carousel.gkt', { options });
 
 			// init swiper
-			new window.Swiper($carousel, options);
+			new Swiper($carousel, options);
 
 			events.trigger($carousel, 'inited.carousel.gkt', { options });
 		});
@@ -256,15 +247,11 @@ events.on(
 	}
 );
 
-/**
- * Re-create slides duplicates.
- * https://github.com/nolimits4web/swiper/issues/2629
- */
 events.on(
 	document,
 	'shown.tab.gkt shown.accordion.gkt move.image-compare.gkt closed.alert.gkt animated.counter.gkt',
 	(e) => {
-		const $el = e.delegateTarget;
+		const $el = e.target;
 		const $carousels = getParents($el);
 
 		$carousels.forEach(($this) => {
@@ -273,6 +260,14 @@ events.on(
 				$this.getAttribute('data-loop') === 'true' &&
 				$this.swiper
 			) {
+				if ('loopPreventsSliding' in $this.swiper.params) {
+					$this.swiper.emit('_loopContentChanged', $el);
+					$this.swiper.update();
+					if ($this.swiper.params.autoHeight)
+						$this.swiper.updateAutoHeight();
+					return;
+				}
+
 				const $slide = $el.closest('.swiper-slide');
 
 				// Copy the content of duplicated slide to original when changed content inside duplicated slide.
@@ -288,8 +283,8 @@ events.on(
 								$slide.getAttribute(
 									'data-swiper-slide-index'
 								) &&
-							$slideSibling.classList.contains(
-								':not(.swiper-slide-duplicate):first-child'
+							!$slideSibling.classList.contains(
+								'swiper-slide-duplicate'
 							)
 						) {
 							$slideSibling.innerHTML = $slide.innerHTML;

@@ -1,3 +1,4 @@
+const scopeSwiperCss = require('./build-tools/scope-swiper-css');
 const path = require('path');
 
 const glob = require('glob');
@@ -10,7 +11,42 @@ const isProduction = process.env.NODE_ENV === 'production';
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const { getProjectSourcePath } = require('@wordpress/scripts/utils');
 
+const swiperCssPattern = /[\\/]node_modules[\\/]swiper[\\/].*\.css$/;
+const cssRule = defaultConfig.module.rules.find((rule) =>
+	rule.test?.test('style.css')
+);
+const scopedSwiperCssRule = {
+	...cssRule,
+	test: swiperCssPattern,
+	use: [
+		...cssRule.use,
+		{
+			loader: require.resolve('postcss-loader'),
+			options: {
+				postcssOptions: {
+					config: false,
+					plugins: [scopeSwiperCss('ghostkit-swiper')],
+				},
+			},
+		},
+	],
+};
+cssRule.exclude = swiperCssPattern;
+defaultConfig.module.rules.push(scopedSwiperCssRule);
+
 const vendorFiles = [
+	{
+		source: 'node_modules/swiper/swiper-bundle.min.js',
+		destination: 'assets/vendor/swiper/swiper-bundle.min.js',
+	},
+	{
+		source: 'node_modules/swiper/swiper-bundle.min.js.map',
+		destination: 'assets/vendor/swiper/swiper-bundle.min.js.map',
+	},
+	{
+		source: 'node_modules/swiper/swiper-bundle.min.css',
+		destination: 'assets/vendor/swiper/swiper-bundle.min.css',
+	},
 	{
 		source: 'node_modules/gist-simple/dist/gist-simple.css',
 		destination: 'assets/vendor/gist-simple/dist/gist-simple.css',
@@ -48,18 +84,6 @@ const vendorFiles = [
 		destination: 'assets/vendor/jarallax/dist/jarallax.min.js.map',
 	},
 	{
-		source: 'node_modules/swiper/swiper-bundle.min.js',
-		destination: 'assets/vendor/swiper/swiper-bundle.min.js',
-	},
-	{
-		source: 'node_modules/swiper/swiper-bundle.min.js.map',
-		destination: 'assets/vendor/swiper/swiper-bundle.min.js.map',
-	},
-	{
-		source: 'node_modules/swiper/swiper-bundle.min.css',
-		destination: 'assets/vendor/swiper/swiper-bundle.min.css',
-	},
-	{
 		source: 'node_modules/luxon/build/global/luxon.min.js',
 		destination: 'assets/vendor/luxon/build/global/luxon.min.js',
 	},
@@ -81,7 +105,7 @@ const vendorFiles = [
 	},
 ];
 
-defaultConfig.module.rules[2].use[1].options.url = false;
+cssRule.use[1].options.url = false;
 
 // Prepare JS for assets.
 const entryAssetsJs = glob
