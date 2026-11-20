@@ -1,7 +1,7 @@
 {
 	"name": "ghostkit",
 	"title": "Ghost Kit",
-	"version": "3.8.1",
+	"version": "3.8.2",
 	"description": "Page Builder Blocks and Extensions for Gutenberg",
 	"license": "GPL-2.0",
 	"author": "nK <https://nkdev.info>",
@@ -70,7 +70,7 @@
 	},
 	"dependencies": {
 		"@giphy/js-fetch-api": "^5.3.0",
-		"@lottiefiles/lottie-player": "^2.0.12",
+		"@lottiefiles/lottie-player": "2.0.12",
 		"@use-gesture/react": "^10.3.0",
 		"ace-builds": "^1.32.5",
 		"classnames": "^2.5.1",
@@ -80,6 +80,7 @@
 		"ivent": "^0.2.0",
 		"jarallax": "^3.1.0",
 		"lorem-ipsum": "^2.0.8",
+		"lottie-web": "5.12.2",
 		"luxon": "^3.4.4",
 		"markdown-it": "^14.0.0",
 		"motion": "^14.5.0",

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.8.2 - Nov 20, 2026 =
+
+* fixed a stored XSS vulnerability in the Lottie Animation block
+* disabled After Effects expressions in Lottie animations. Export animations with baked keyframes to preserve expression-driven motion.
+
 = 3.8.1 - Nov 17, 2026 =
 
 * fixed block style values of 0, such as a margin or opacity of 0, showing in the editor but missing on the site

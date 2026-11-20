@@ -1,0 +1,152 @@
+diff --git a/node_modules/lottie-web/player/js/modules/main.js b/node_modules/lottie-web/player/js/modules/main.js
+--- a/node_modules/lottie-web/player/js/modules/main.js
++++ b/node_modules/lottie-web/player/js/modules/main.js
+@@ -6,27 +6,14 @@
+   roundValues,
+   setIdPrefix,
+   setSubframeEnabled,
+-  setExpressionsPlugin,
+ } from '../utils/common';
+ import PropertyFactory from '../utils/PropertyFactory';
+ import ShapePropertyFactory from '../utils/shapes/ShapeProperty';
+ import Matrix from '../3rd_party/transformation-matrix';
+ 
+ const lottie = {};
+-var standalone = '__[STANDALONE]__';
+-var animationData = '__[ANIMATIONDATA]__';
+-var renderer = '';
+-
+ function setLocation(href) {
+   setLocationHref(href);
+-}
+-
+-function searchAnimations() {
+-  if (standalone === true) {
+-    animationManager.searchAnimations(animationData, standalone, renderer);
+-  } else {
+-    animationManager.searchAnimations();
+-  }
+ }
+ 
+ function setSubframeRendering(flag) {
+@@ -35,13 +22,6 @@
+ 
+ function setPrefix(prefix) {
+   setIdPrefix(prefix);
+-}
+-
+-function loadAnimation(params) {
+-  if (standalone === true) {
+-    params.animationData = JSON.parse(animationData);
+-  }
+-  return animationManager.loadAnimation(params);
+ }
+ 
+ function setQuality(value) {
+@@ -72,12 +52,6 @@
+   return typeof navigator !== 'undefined';
+ }
+ 
+-function installPlugin(type, plugin) {
+-  if (type === 'expressions') {
+-    setExpressionsPlugin(plugin);
+-  }
+-}
+-
+ function getFactory(name) {
+   switch (name) {
+     case 'propertyFactory':
+@@ -98,9 +72,7 @@
+ lottie.setSpeed = animationManager.setSpeed;
+ lottie.setDirection = animationManager.setDirection;
+ lottie.stop = animationManager.stop;
+-lottie.searchAnimations = searchAnimations;
+-lottie.registerAnimation = animationManager.registerAnimation;
+-lottie.loadAnimation = loadAnimation;
++lottie.loadAnimation = animationManager.loadAnimation;
+ lottie.setSubframeRendering = setSubframeRendering;
+ lottie.resize = animationManager.resize;
+ // lottie.start = start;
+@@ -108,7 +80,6 @@
+ lottie.destroy = animationManager.destroy;
+ lottie.setQuality = setQuality;
+ lottie.inBrowser = inBrowser;
+-lottie.installPlugin = installPlugin;
+ lottie.freeze = animationManager.freeze;
+ lottie.unfreeze = animationManager.unfreeze;
+ lottie.setVolume = animationManager.setVolume;
+@@ -118,45 +89,6 @@
+ lottie.useWebWorker = setWebWorker;
+ lottie.setIDPrefix = setPrefix;
+ lottie.__getFactory = getFactory;
+-lottie.version = '[[BM_VERSION]]';
++lottie.version = '5.12.2';
+ 
+-function checkReady() {
+-  if (document.readyState === 'complete') {
+-    clearInterval(readyStateCheckInterval);
+-    searchAnimations();
+-  }
+-}
+-
+-function getQueryVariable(variable) {
+-  var vars = queryString.split('&');
+-  for (var i = 0; i < vars.length; i += 1) {
+-    var pair = vars[i].split('=');
+-    if (decodeURIComponent(pair[0]) == variable) { // eslint-disable-line eqeqeq
+-      return decodeURIComponent(pair[1]);
+-    }
+-  }
+-  return null;
+-}
+-var queryString = '';
+-if (standalone) {
+-  var scripts = document.getElementsByTagName('script');
+-  var index = scripts.length - 1;
+-  var myScript = scripts[index] || {
+-    src: '',
+-  };
+-  queryString = myScript.src ? myScript.src.replace(/^[^\?]+\??/, '') : ''; // eslint-disable-line no-useless-escape
+-  renderer = getQueryVariable('renderer');
+-}
+-var readyStateCheckInterval = setInterval(checkReady, 100);
+-
+-// this adds bodymovin to the window object for backwards compatibility
+-try {
+-  if (!(typeof exports === 'object' && typeof module !== 'undefined')
+-    && !(typeof define === 'function' && define.amd) // eslint-disable-line no-undef
+-  ) {
+-    window.bodymovin = lottie;
+-  }
+-} catch (err) {
+-  //
+-}
+ export default lottie;
+diff --git a/node_modules/lottie-web/player/js/modules/svg.js b/node_modules/lottie-web/player/js/modules/svg.js
+--- a/node_modules/lottie-web/player/js/modules/svg.js
++++ b/node_modules/lottie-web/player/js/modules/svg.js
+@@ -1,12 +1,4 @@
+ import lottie from './svg_light';
+-import {
+-  setExpressionsPlugin,
+-  setExpressionInterfaces,
+-} from '../utils/common';
+-import Expressions from '../utils/expressions/Expressions';
+-import interfacesProvider from '../utils/expressions/InterfacesProvider';
+-import expressionPropertyDecorator from '../utils/expressions/ExpressionPropertyDecorator';
+-import expressionTextPropertyDecorator from '../utils/expressions/ExpressionTextPropertyDecorator';
+ // SVG effects
+ import { registerEffect } from '../elements/svgElements/SVGEffects';
+ import SVGTintFilter from '../elements/svgElements/effects/SVGTintEffect';
+@@ -19,11 +11,6 @@
+ import SVGGaussianBlurEffect from '../elements/svgElements/effects/SVGGaussianBlurEffect';
+ import SVGTransformEffect from '../elements/svgElements/effects/SVGTransformEffect';
+ 
+-// Registering expression plugin
+-setExpressionsPlugin(Expressions);
+-setExpressionInterfaces(interfacesProvider);
+-expressionPropertyDecorator();
+-expressionTextPropertyDecorator();
+ registerEffect(20, SVGTintFilter, true);
+ registerEffect(21, SVGFillFilter, true);
+ registerEffect(22, SVGStrokeEffect, false);

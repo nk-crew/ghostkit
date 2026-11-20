@@ -193,6 +193,16 @@ test.describe('lottie block', () => {
 		editor,
 	}) => {
 		await mockLottieResponse(page.context());
+		await page.context().addInitScript(() => {
+			const getElementsByClassName = document.getElementsByClassName;
+			window.lottieDocumentScans = [];
+			document.getElementsByClassName = (className) => {
+				if (className === 'lottie' || className === 'bodymovin') {
+					window.lottieDocumentScans.push(className);
+				}
+				return getElementsByClassName.call(document, className);
+			};
+		});
 
 		await admin.createNewPost({
 			title: 'Ghost Kit Lottie frontend coverage',
@@ -224,9 +234,11 @@ test.describe('lottie block', () => {
 			}
 		);
 
-		await expect(
-			frontendPage.locator('lottie-player').first()
-		).toBeVisible();
+		const player = frontendPage.locator('lottie-player').first();
+		await expect(player).toBeVisible();
+		await expect
+			.poll(() => player.evaluate((element) => element.currentState))
+			.toBe('playing');
 
 		await frontendPage.waitForTimeout(1000);
 
@@ -238,5 +250,15 @@ test.describe('lottie block', () => {
 		);
 
 		await expect(relevantErrors).toEqual([]);
+		expect(
+			await frontendPage.evaluate(() => window.lottieDocumentScans)
+		).toEqual([]);
+
+		const playerAsset = await frontendPage
+			.locator('script#lottie-player-js')
+			.getAttribute('src');
+		const response = await frontendPage.request.get(playerAsset);
+		expect(response.ok()).toBe(true);
+		expect(await response.text()).not.toMatch(/\beval\s*\(/);
 	});
 });

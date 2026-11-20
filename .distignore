@@ -6,8 +6,10 @@
 /.vscode
 /.wordpress-org
 /artifacts
+/build-tools
 /dist-zip
 /node_modules
+/patches
 /tests
 /tools
 /vendor
