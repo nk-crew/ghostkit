@@ -92,14 +92,6 @@ const vendorFiles = [
 		destination: 'assets/vendor/luxon/build/global/luxon.min.js.map',
 	},
 	{
-		source: 'node_modules/@lottiefiles/lottie-player/dist/lottie-player.js',
-		destination: 'assets/vendor/lottie-player/dist/lottie-player.js',
-	},
-	{
-		source: 'node_modules/@lottiefiles/lottie-player/dist/lottie-player.js.map',
-		destination: 'assets/vendor/lottie-player/dist/lottie-player.js.map',
-	},
-	{
 		source: 'node_modules/motion/dist/motion.js',
 		destination: 'assets/vendor/motion/dist/motion.min.js',
 	},
@@ -325,4 +317,50 @@ newConfig.module.rules.push({
 	],
 });
 
-module.exports = newConfig;
+const lottieConfig = {
+	name: 'lottie-player',
+	mode: defaultConfig.mode,
+	target: defaultConfig.target,
+	devtool: false,
+	stats: 'minimal',
+	entry: {
+		'lottie-player': require.resolve(
+			'@lottiefiles/lottie-player/dist/lottie-player.esm.js'
+		),
+	},
+	output: {
+		path: path.resolve(__dirname, 'assets/vendor/lottie-player'),
+		filename: '[name].js',
+	},
+	module: {
+		rules: [
+			{
+				test: /[\\/]@lottiefiles[\\/]lottie-player[\\/]dist[\\/]lottie-player\.esm\.js$/,
+				use: path.resolve(
+					__dirname,
+					'build-tools/lottie-player-loader.js'
+				),
+			},
+		],
+	},
+	plugins: [
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: require.resolve('@lottiefiles/lottie-player/LICENSE'),
+					to: 'lottie-player.MIT.txt',
+				},
+				{
+					from: require.resolve('lottie-web/LICENSE.md'),
+					to: 'lottie-web.MIT.txt',
+				},
+				{
+					from: 'node_modules/lit-html/LICENSE',
+					to: 'lit.BSD.txt',
+				},
+			],
+		}),
+	],
+};
+
+module.exports = [newConfig, lottieConfig];

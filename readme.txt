@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 7.2
 * Requires PHP: 8.3
-* Stable tag: 3.8.1
+* Stable tag: 3.8.2
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -162,6 +162,11 @@ Yes, and it carries WPML compatibility for block content.
 6. Transform: translate, scale and rotate a block, in 2D or 3D
 
 ## Changelog ##
+
+= 3.8.2 - Nov 20, 2026 =
+
+* fixed a stored XSS vulnerability in the Lottie Animation block
+* disabled After Effects expressions in Lottie animations. Export animations with baked keyframes to preserve expression-driven motion.
 
 = 3.8.1 - Nov 17, 2026 =
 

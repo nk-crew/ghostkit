@@ -412,7 +412,7 @@ class GhostKit_Assets {
 
 		// Lottie Player.
 		if ( apply_filters( 'gkt_enqueue_plugin_lottie_player', true ) ) {
-			self::register_script( 'lottie-player', 'assets/vendor/lottie-player/dist/lottie-player', array(), '2.0.12' );
+			self::register_script( 'lottie-player', 'assets/vendor/lottie-player/lottie-player' );
 			wp_script_add_data( 'lottie-player', 'async', true );
 		}
 
