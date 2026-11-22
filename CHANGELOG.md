@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.9.1 - Nov 23, 2026 =
+
+* fixed long links overflowing Alert blocks on narrow screens, including the style the 3.9.0 package missed
+
 = 3.9.0 - Nov 23, 2026 =
 
 * fixed long links overflowing Alert blocks on narrow screens

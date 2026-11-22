@@ -1,7 +1,7 @@
 {
 	"name": "ghostkit",
 	"title": "Ghost Kit",
-	"version": "3.9.0",
+	"version": "3.9.1",
 	"description": "Page Builder Blocks and Extensions for Gutenberg",
 	"license": "GPL-2.0",
 	"author": "nK <https://nkdev.info>",
@@ -20,7 +20,8 @@
 		"env:destroy": "nk-wp-env destroy",
 		"env:ports": "nk-env-ports",
 		"test": "npm-run-all lint test:unit:php",
-		"ci:local": "npm-run-all build lint env:start lint:php test:e2e test:unit:php",
+		"build:check": "changes=$(git status --porcelain --untracked-files=all -- build/) && if [ -n \"$changes\" ]; then printf '%s\\n' 'Commit the regenerated build/ files.' \"$changes\"; exit 1; fi",
+		"ci:local": "npm-run-all build build:check lint env:start lint:php test:e2e test:unit:php",
 		"test:e2e": "playwright test --config tests/e2e/playwright.config.js",
 		"test:e2e:ui": "playwright test --config tests/e2e/playwright.config.js --ui",
 		"pretest:unit:php": "nk-wp-env start",
