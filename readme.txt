@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 7.2
 * Requires PHP: 8.3
-* Stable tag: 3.9.0
+* Stable tag: 3.9.1
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -162,6 +162,10 @@ Yes, and it carries WPML compatibility for block content.
 6. Transform: translate, scale and rotate a block, in 2D or 3D
 
 ## Changelog ##
+
+= 3.9.1 - Nov 23, 2026 =
+
+* fixed long links overflowing Alert blocks on narrow screens, including the style the 3.9.0 package missed
 
 = 3.9.0 - Nov 23, 2026 =
 

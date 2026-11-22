@@ -48,8 +48,8 @@ jobs:
           restore-keys: |
             playwright-${{ runner.os }}-
 
-      - name: Npm build
-        run: npm run build
+      - name: Build and check committed assets
+        run: npm run build && npm run build:check
 
       # Chromium only. The shared preset gates its webkit and firefox projects
       # behind `@webkit` and `@firefox` tags and no spec carries either, so the

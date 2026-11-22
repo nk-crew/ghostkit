@@ -92,8 +92,8 @@ jobs:
           echo "Testing against WordPress ${PREVIOUS_WP_VERSION}."
           echo "WP_ENV_CORE=https://wordpress.org/wordpress-${PREVIOUS_WP_VERSION}.zip" >> "$GITHUB_ENV"
 
-      - name: Npm build
-        run: npm run build
+      - name: Build and check committed assets
+        run: npm run build && npm run build:check
 
       - name: Running unit tests
         run: |
