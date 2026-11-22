@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+= 3.9.0 - Nov 23, 2026 =
+
+* fixed long links overflowing Alert blocks on narrow screens
+* **Pro:**
+* added a license screen that shows your license status, expiry date and how to find your key, along with clearer update messages in the Plugins list
+
 = 3.8.2 - Nov 20, 2026 =
 
 * fixed a stored XSS vulnerability in the Lottie Animation block
