@@ -6,6 +6,10 @@ const REVEAL_CONTENT = `<!-- wp:paragraph {"ghostkit":{"effects":{"reveal":{"opa
 <p>Revealed paragraph</p>
 <!-- /wp:paragraph -->`;
 
+const REVEAL_LCP_CONTENT = `<!-- wp:heading {"style":{"typography":{"fontSize":"96px"}},"ghostkit":{"effects":{"reveal":{"opacity":0,"y":20}}}} -->
+<h2 class="wp-block-heading" style="font-size:96px">Largest revealed heading</h2>
+<!-- /wp:heading -->`;
+
 for (const theme of ['empty-theme', 'empty-theme-php']) {
 	test.describe(`effects reveal (${theme})`, () => {
 		test.beforeAll(async ({ requestUtils }) => {
@@ -49,6 +53,51 @@ for (const theme of ['empty-theme', 'empty-theme-php']) {
 
 			await expect(paragraph).not.toHaveClass(/ghostkit-effects-reveal/);
 			await expect(paragraph).toBeVisible();
+		});
+
+		test('reveal block above the fold is the LCP before the reveal script runs', async ({
+			page,
+			requestUtils,
+		}) => {
+			const post = await requestUtils.createPost({
+				title: 'GKT reveal LCP',
+				content: REVEAL_LCP_CONTENT,
+				status: 'publish',
+			});
+
+			await page.emulateMedia({ reducedMotion: 'no-preference' });
+			await page.route(/\/extend\/effects\/frontend\.js/, (route) =>
+				route.abort()
+			);
+			await page.goto(post.link);
+
+			const heading = page.locator('h2', {
+				hasText: 'Largest revealed heading',
+			});
+
+			await expect(heading).toHaveClass(/ghostkit-effects-reveal/);
+
+			const lcpText = await page.evaluate(
+				() =>
+					new Promise((resolve) => {
+						const entries = [];
+						new PerformanceObserver((list) =>
+							entries.push(...list.getEntries())
+						).observe({
+							type: 'largest-contentful-paint',
+							buffered: true,
+						});
+						setTimeout(
+							() =>
+								resolve(
+									entries.at(-1)?.element?.textContent ?? null
+								),
+							500
+						);
+					})
+			);
+
+			expect(lcpText).toBe('Largest revealed heading');
 		});
 	});
 }
