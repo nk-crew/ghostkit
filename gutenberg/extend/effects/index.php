@@ -106,9 +106,10 @@ class GhostKit_Extension_Effects {
 	public function add_reveal_styles() {
 		?>
 		<style type="text/css">
+			/* Not 0 or visibility: hidden, which browsers skip as the Largest Contentful Paint until the reveal. */
 			.ghostkit-effects-enabled .ghostkit-effects-reveal {
 				pointer-events: none;
-				visibility: hidden;
+				opacity: 0.001;
 			}
 		</style>
 		<script>
