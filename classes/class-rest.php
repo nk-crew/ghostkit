@@ -804,12 +804,13 @@ class GhostKit_Rest extends WP_REST_Controller {
 	 */
 	public function get_templates() {
 		$url       = 'https://library.ghostkit.io/wp-json/ghostkit-library/v1/get_library/';
-		$templates = get_transient( 'ghostkit_remote_templates', false );
+		$templates = get_transient( 'ghostkit_remote_templates' );
 
 		/*
 		 * Get remote templates.
 		 */
 		if ( ! $templates ) {
+			$templates           = array();
 			$requested_templates = wp_remote_get(
 				add_query_arg(
 					array(
@@ -988,14 +989,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 			);
 		}
 
-		// merge all available templates.
-		$templates = array_merge( $templates, $local_templates, $theme_templates );
-
-		if ( is_array( $templates ) ) {
-			return $this->success( $templates );
-		} else {
-			return $this->error( 'no_templates', __( 'Templates not found.', 'ghostkit' ) );
-		}
+		return $this->success( array_merge( $templates, $local_templates, $theme_templates ) );
 	}
 
 	/**
