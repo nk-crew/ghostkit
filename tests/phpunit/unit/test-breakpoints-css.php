@@ -135,6 +135,23 @@ class BreakpointsCssTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Editor icons in generated stylesheets still load from the plugin.
+	 */
+	public function test_generated_editor_css_uses_plugin_icon_urls() {
+		$this->generate_with_custom_sm();
+
+		$icon = ghostkit()->plugin_url . 'gutenberg/icons/extension-position.svg';
+
+		foreach ( array( 'editor.css', 'editor-rtl.css' ) as $name ) {
+			// phpcs:ignore
+			$css = file_get_contents( $this->output_dir() . '/build/gutenberg/' . $name );
+
+			$this->assertStringContainsString( 'url(' . $icon . ')', $css );
+			$this->assertDoesNotMatchRegularExpression( '~url\(\s*["\']?\.\./~i', $css );
+		}
+	}
+
+	/**
 	 * The src filter swaps recorded files only, with the hash as version.
 	 */
 	public function test_style_src_swapped_for_generated_file_only() {
