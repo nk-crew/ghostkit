@@ -129,6 +129,34 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * An unavailable remote library does not hide local templates.
+	 */
+	public function test_local_templates_listed_when_remote_library_is_unavailable() {
+		delete_transient( 'ghostkit_remote_templates' );
+		$this->login_as( 'contributor' );
+		self::factory()->post->create(
+			array(
+				'post_type'   => 'ghostkit_template',
+				'post_status' => 'publish',
+				'post_title'  => 'Local template during an outage',
+			)
+		);
+
+		$library_unavailable = static function () {
+			return new WP_Error( 'http_request_failed', 'Remote library unavailable' );
+		};
+		add_filter( 'pre_http_request', $library_unavailable, 11 );
+		try {
+			$response = $this->get( '/ghostkit/v1/get_templates' );
+		} finally {
+			remove_filter( 'pre_http_request', $library_unavailable, 11 );
+		}
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertContains( 'Local template during an outage', wp_list_pluck( $response->get_data()['response'], 'title' ) );
+	}
+
+	/**
 	 * A private template is not returned to a user who cannot read it.
 	 */
 	public function test_private_local_template_refused_for_contributor() {
