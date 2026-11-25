@@ -195,6 +195,7 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 
 					$relative = substr( $path, strlen( $plugin_path ) );
 					$target   = $output_dir . '/' . $relative;
+					$replaced = self::resolve_css_urls( $replaced, $this->get_plugin_url() . $relative );
 
 					if ( ! wp_mkdir_p( dirname( $target ) ) ) {
 						continue;
@@ -231,6 +232,33 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 			sort( $files );
 
 			return $files;
+		}
+
+		/**
+		 * Resolve relative URLs against the original stylesheet before it moves to uploads.
+		 *
+		 * @param string $css CSS to process.
+		 * @param string $source_url Original stylesheet URL.
+		 * @return string
+		 */
+		private static function resolve_css_urls( $css, $source_url ) {
+			return preg_replace_callback(
+				'~(?:"(?:\\\\.|[^"\\\\])*"|\'(?:\\\\.|[^\'\\\\])*\'|/\*.*?\*/)(*SKIP)(*F)'
+				. '|(\burl\(\s*)(?:(["\'])((?:\\\\.|(?!\2)[^\\\\])*)\2|((?:\\\\.|[^"\'()\s\\\\])+))(\s*\))~is',
+				static function ( $matches ) use ( $source_url ) {
+					$quote = $matches[2];
+					$url   = '' === $quote ? $matches[4] : $matches[3];
+
+					if ( '' === $url || preg_match( '~^(?:[/#]|[a-z][a-z0-9+.-]*:)~i', $url ) ) {
+						return $matches[0];
+					}
+
+					$absolute_url = \WpOrg\Requests\Iri::absolutize( $source_url, $url );
+
+					return $absolute_url ? $matches[1] . $quote . $absolute_url . $quote . $matches[5] : $matches[0];
+				},
+				$css
+			);
 		}
 
 		/**
@@ -410,6 +438,7 @@ if ( ! class_exists( 'GhostKit_Breakpoints' ) ) {
 						$breakpoints,
 						array(
 							$this->plugin_version,
+							'absolute-css-urls',
 						)
 					)
 				)
