@@ -1,4 +1,4 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '../utils/editor-test';
 
 const TEST_GIST_URL = 'https://gist.github.com/fake-user/fake-gist';
 const TEST_GIST_FILE = 'example.php';

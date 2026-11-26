@@ -1,4 +1,4 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '../utils/editor-test';
 
 const REVEAL_CSS = '.ghostkit-effects-enabled .ghostkit-effects-reveal';
 

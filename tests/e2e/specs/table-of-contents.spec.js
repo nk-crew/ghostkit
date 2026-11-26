@@ -1,5 +1,5 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
 import qs from 'qs';
+import { expect, test } from '../utils/editor-test';
 
 const TOC_ENDPOINT = '/';
 const TOC_REST_ROUTE = '/ghostkit/v1/get_table_of_contents/';

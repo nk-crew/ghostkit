@@ -1,4 +1,4 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '../utils/editor-test';
 
 const TEST_LOTTIE_PATH = '/test-lottie.json';
 const TEST_LOTTIE_ANIMATION = {

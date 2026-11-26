@@ -1,4 +1,4 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '../utils/editor-test';
 
 // Saved by Ghost Kit 3.9.1, before the number format option existed.
 const SAVED_COUNTERS = `<!-- wp:ghostkit/counter-box -->

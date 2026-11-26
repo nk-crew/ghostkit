@@ -1,4 +1,4 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '../utils/editor-test';
 
 test.describe('icon picker', () => {
 	test.beforeAll(async ({ requestUtils }) => {

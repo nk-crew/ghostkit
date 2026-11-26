@@ -1,4 +1,4 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '../utils/editor-test';
 
 const EXPECTED_GOOGLE_FONTS_FAMILY =
 	'Inter:400,400i,700,700i|Raleway:400,400i,700,700i|Source Serif 4:400,400i,700,700i';

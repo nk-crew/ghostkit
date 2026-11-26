@@ -1,4 +1,4 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '../utils/editor-test';
 
 async function publishAndGetFrontendPage(page, editor) {
 	await editor.publishPost();

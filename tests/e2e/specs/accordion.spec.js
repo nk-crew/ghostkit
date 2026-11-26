@@ -1,4 +1,4 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '../utils/editor-test';
 
 function accordionItem(slug, heading) {
 	return `<!-- wp:ghostkit/accordion-item {"slug":"${slug}"} -->

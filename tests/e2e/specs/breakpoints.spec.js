@@ -1,4 +1,4 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '../utils/editor-test';
 
 // Sets `gkt_breakpoint_sm` to 700 the way Ghost Kit Pro does; mapped in .wp-env.json.
 const TEST_PLUGIN = 'ghost-kit-test-plugin-custom-breakpoints';

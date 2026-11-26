@@ -1,5 +1,5 @@
-import { expect, test } from '@wordpress/e2e-test-utils-playwright';
 import createCarouselContent from '../utils/create-carousel-content.cjs';
+import { expect, test } from '../utils/editor-test';
 
 test('short carousel keeps its loop, columns and nested state', async ({
 	page,
