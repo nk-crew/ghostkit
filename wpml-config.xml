@@ -5,7 +5,7 @@
         </gutenberg-block>
         <gutenberg-block type="ghostkit/button-single" translate="1">
             <xpath>//span[@class="ghostkit-button-text"]</xpath>
-            <xpath>//a/@href</xpath>
+            <xpath type="link">//a/@href</xpath>
             <xpath>//a/@aria-label</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/changelog" translate="1">
@@ -17,9 +17,9 @@
         </gutenberg-block>
         <gutenberg-block type="ghostkit/counter-box" translate="1">
             <xpath>//div[contains(@class,"ghostkit-counter-box-number")]/div[contains(@class,"ghostkit-counter-box-number-wrap")]</xpath>
-            <xpath>//a/@href</xpath>
+            <xpath type="link">//a/@href</xpath>
             <xpath>//a/@aria-label</xpath>
-            <key name="url" />
+            <key name="url" type="link" />
             <key name="ariaLabel" />
         </gutenberg-block>
         <gutenberg-block type="ghostkit/gif" translate="1">
@@ -30,9 +30,9 @@
             <xpath>//div/@data-caption</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/icon" translate="1">
-            <xpath>//a/@href</xpath>
+            <xpath type="link">//a/@href</xpath>
             <xpath>//a/@arialabel</xpath>
-            <key name="url" />
+            <key name="url" type="link" />
             <key name="ariaLabel" />
         </gutenberg-block>
         <gutenberg-block type="ghostkit/image-compare" translate="1">
@@ -77,9 +77,9 @@
             <xpath>//div[@class="ghostkit-testimonial-meta"]/div[@class="ghostkit-testimonial-name"]</xpath>
             <xpath>//div[@class="ghostkit-testimonial-meta"]/div[@class="ghostkit-testimonial-source"]</xpath>
             <xpath>//div[@class="ghostkit-testimonial-photo"]/img/@alt</xpath>
-            <xpath>//a[@class="ghostkit-testimonial-link"]/@href</xpath>
+            <xpath type="link">//a[@class="ghostkit-testimonial-link"]/@href</xpath>
             <xpath>//a[@class="ghostkit-testimonial-link"]/@aria-label</xpath>
-            <key name="url" />
+            <key name="url" type="link" />
             <key name="ariaLabel" />
         </gutenberg-block>
 
