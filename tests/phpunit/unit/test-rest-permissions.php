@@ -278,6 +278,7 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertStringContainsString( 'wp-image-' . $attachment_id, $response->get_data()['response'] );
+		$this->assertStringContainsString( ' alt=""', $response->get_data()['response'] );
 
 		// The media library shows Authors images attached to other users' drafts, so the route serves them too.
 		$admin_id    = self::factory()->user->create( array( 'role' => 'administrator' ) );
