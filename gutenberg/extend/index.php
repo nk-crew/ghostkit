@@ -109,7 +109,7 @@ class GhostKit_Extensions {
 		}
 		if ( ! array_key_exists( 'ghostkit', $block_type->supports ) ) {
 			$block_type->supports['ghostkit'] = self::$default_supports;
-		} else {
+		} elseif ( false !== $block_type->supports['ghostkit'] ) {
 			$new_supports = self::$default_supports;
 
 			// Change defaults to user custom configs.
@@ -124,7 +124,7 @@ class GhostKit_Extensions {
 			$block_type->supports['ghostkit'] = $new_supports;
 		}
 
-		// Add attribute.
+		// Add attribute, also for an explicit opt-out, so content saved before it still passes the REST attribute schema.
 		if ( ! $block_type->attributes ) {
 			$block_type->attributes = array();
 		}

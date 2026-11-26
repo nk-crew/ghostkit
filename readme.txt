@@ -120,6 +120,24 @@ Download the plugin, upload the folder to `wp-content/plugins` over FTP, and act
 
 Every core WordPress block and every Ghost Kit block. That covers Paragraph, Heading, Image, Cover, Group, Columns, Buttons, Query Loop and the rest of the core set. A block from another plugin joins in once it declares `supports.ghostkit` in its `block.json`.
 
+### Can I turn the Ghost Kit extensions off for a block? ###
+
+Yes, with a filter in your theme or plugin. Set `supports.ghostkit` to `false` to remove every extension from a block, or set one extension to `false` to remove only that one. The extension keys are `effects`, `position`, `spacings`, `frame`, `transform`, `customCSS`, `display` and `attributes`.
+
+```
+add_filter( 'register_block_type_args', function ( $args, $name ) {
+    if ( 'core/paragraph' === $name ) {
+        $args['supports']['ghostkit'] = false;
+    }
+    if ( 'core/image' === $name ) {
+        $args['supports']['ghostkit'] = array( 'spacings' => false );
+    }
+    return $args;
+}, 10, 2 );
+```
+
+Clear the settings on existing blocks before you turn an extension off, because its panel is gone afterwards and styles saved earlier still print.
+
 ### Do I need a page builder? ###
 
 No. Ghost Kit works inside the standard block editor and the Site Editor. Pages you have already built stay as they are, and the Effects panel appears on the blocks that are on them.
