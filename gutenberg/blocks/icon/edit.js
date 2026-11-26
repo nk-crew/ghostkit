@@ -1,15 +1,20 @@
-import { useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { Notice, PanelBody } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
+import { __ } from '@wordpress/i18n';
 import classnames from 'classnames/dedupe';
 
 import IconPicker from '../../components/icon-picker';
 import EditBlockControls from './edit/block-controls';
 import ColorControls from './edit/color-controls';
 import EditInspectorControls from './edit/inspector-controls';
+import { hasNativeIcon } from './transforms';
 
 export default function BlockEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId } = props;
 	const { flipV, flipH } = attributes;
+	const showNativeIconNotice = useSelect(hasNativeIcon, []);
 
 	let { className = '' } = props;
 
@@ -28,6 +33,18 @@ export default function BlockEdit(props) {
 
 	return (
 		<>
+			{showNativeIconNotice && (
+				<InspectorControls>
+					<PanelBody>
+						<Notice status="info" isDismissible={false}>
+							{__(
+								'Use the block toolbar to convert compatible Ghost Kit icons to the WordPress Icon block.',
+								'ghostkit'
+							)}
+						</Notice>
+					</PanelBody>
+				</InspectorControls>
+			)}
 			<EditInspectorControls
 				attributes={attributes}
 				setAttributes={setAttributes}
