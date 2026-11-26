@@ -10,7 +10,7 @@
  */
 class GhostKitTocTitleTest extends WP_UnitTestCase {
 	/**
-	 * A block that keeps the default title prints it in the site language.
+	 * Only a block without a saved title prints the default in the site language.
 	 */
 	public function test_default_title_is_translated() {
 		$translate = static function ( $translation, $text, $domain ) {
@@ -18,19 +18,25 @@ class GhostKitTocTitleTest extends WP_UnitTestCase {
 		};
 		add_filter( 'gettext', $translate, 10, 3 );
 
-		$post_id = self::factory()->post->create(
-			array(
-				'post_content' => '<!-- wp:ghostkit/table-of-contents /-->'
-					. '<!-- wp:heading --><h2 class="wp-block-heading" id="intro">Intro</h2><!-- /wp:heading -->',
-			)
+		$cases = array(
+			'<!-- wp:ghostkit/table-of-contents /-->' => 'Tabla de contenidos',
+			'<!-- wp:ghostkit/table-of-contents {"title":"Table of Contents"} /-->' => 'Table of Contents',
 		);
-		$this->go_to( get_permalink( $post_id ) );
-		the_post();
 
-		$html = apply_filters( 'the_content', get_the_content() );
+		foreach ( $cases as $toc => $title ) {
+			$post_id = self::factory()->post->create(
+				array(
+					'post_content' => $toc . '<!-- wp:heading --><h2 class="wp-block-heading" id="intro">Intro</h2><!-- /wp:heading -->',
+				)
+			);
+			$this->go_to( get_permalink( $post_id ) );
+			the_post();
+
+			$html = apply_filters( 'the_content', get_the_content() );
+
+			$this->assertMatchesRegularExpression( '#<h5 class="ghostkit-toc-title">\s*' . $title . '\s*</h5>#', $html );
+		}
 
 		remove_filter( 'gettext', $translate, 10 );
-
-		$this->assertMatchesRegularExpression( '#<h5 class="ghostkit-toc-title">\s*Tabla de contenidos\s*</h5>#', $html );
 	}
 }
