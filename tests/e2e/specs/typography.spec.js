@@ -548,19 +548,19 @@ test.describe('Font Library typography', () => {
 					.getByRole('menuitem', { name: 'Typography' })
 					.click();
 				const dialog = page.getByRole('dialog', { name: 'Typography' });
-				const localBody = dialog
+				const dialogBody = dialog
 					.locator('.ghostkit-typography')
 					.filter({
 						has: page.getByText('Body', { exact: true }),
 					});
-				await selectLibrary(localBody, page);
-				await localBody
+				await selectLibrary(dialogBody, page);
+				await dialogBody
 					.locator('.ghostkit-typography-font-selector input')
 					.fill(family);
 				await page
 					.getByRole('option', { name: family, exact: true })
 					.click();
-				await localBody
+				await dialogBody
 					.locator('.ghostkit-typography-weight-control input')
 					.fill('Regular Italic');
 				await page
@@ -578,6 +578,18 @@ test.describe('Font Library typography', () => {
 				await setGoogleBodyFont(requestUtils, family);
 				googleFamilies.length = 0;
 				await admin.editPost(post.id);
+				await page
+					.getByRole('button', { name: 'Options', exact: true })
+					.click();
+				await page
+					.getByRole('menuitem', { name: 'Typography' })
+					.click();
+				await dialog
+					.getByRole('tab', { name: 'Global', exact: true })
+					.click();
+				await expect(
+					dialogBody.locator('.ghostkit-typography-font-selector')
+				).toContainText(family);
 				await expectFont(paragraph, 'italic', faces[1].src);
 				expect(googleFamilies).not.toContain(family);
 
