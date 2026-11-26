@@ -85,7 +85,7 @@ export default function BlockEdit(props) {
 					{hasNativeAccordion() && (
 						<Notice status="info" isDismissible={false}>
 							{__(
-								'Deprecated. Use the WordPress Accordion block for new content.',
+								'Use the block toolbar to convert compatible Ghost Kit accordions to the WordPress Accordion block.',
 								'ghostkit'
 							)}
 						</Notice>
