@@ -209,11 +209,13 @@ class GhostKit_TOC_Block {
 	/**
 	 * Register gutenberg block output
 	 *
-	 * @param array $attributes - block attributes.
+	 * @param array    $attributes - block attributes.
+	 * @param string   $content - block content.
+	 * @param WP_Block $block - block instance.
 	 *
 	 * @return string
 	 */
-	public function block_render( $attributes ) {
+	public function block_render( $attributes, $content = '', $block = null ) {
 		$attributes = array_merge(
 			array(
 				'title'          => 'Table of Contents',
@@ -223,6 +225,11 @@ class GhostKit_TOC_Block {
 			),
 			$attributes
 		);
+
+		// WordPress fills in block.json defaults untranslated, unless a plugin such as WPML translated the default.
+		if ( ! isset( $block->parsed_block['attrs']['title'] ) && 'Table of Contents' === $attributes['title'] ) {
+			$attributes['title'] = __( 'Table of Contents', 'ghostkit' );
+		}
 
 		if ( empty( $this->available_headings ) ) {
 			return '';

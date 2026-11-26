@@ -5,17 +5,22 @@
         </gutenberg-block>
         <gutenberg-block type="ghostkit/button-single" translate="1">
             <xpath>//span[@class="ghostkit-button-text"]</xpath>
-            <xpath>//a/@href</xpath>
+            <xpath type="link">//a/@href</xpath>
+            <xpath>//a/@aria-label</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/changelog" translate="1">
             <xpath>//h2[@class="ghostkit-changelog-date"]</xpath>
+            <key name="date" />
         </gutenberg-block>
         <gutenberg-block type="ghostkit/countdown" translate="1">
             <xpath>//div[contains(@class,"ghostkit-countdown-unit")]/span[@class="ghostkit-countdown-unit-label"]</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/counter-box" translate="1">
             <xpath>//div[contains(@class,"ghostkit-counter-box-number")]/div[contains(@class,"ghostkit-counter-box-number-wrap")]</xpath>
-            <xpath>//a/@href</xpath>
+            <xpath type="link">//a/@href</xpath>
+            <xpath>//a/@aria-label</xpath>
+            <key name="url" type="link" />
+            <key name="ariaLabel" />
         </gutenberg-block>
         <gutenberg-block type="ghostkit/gif" translate="1">
             <xpath>//img/@alt</xpath>
@@ -24,21 +29,36 @@
         <gutenberg-block type="ghostkit/gist" translate="1">
             <xpath>//div/@data-caption</xpath>
         </gutenberg-block>
+        <gutenberg-block type="ghostkit/icon" translate="1">
+            <xpath type="link">//a/@href</xpath>
+            <xpath>//a/@arialabel</xpath>
+            <key name="url" type="link" />
+            <key name="ariaLabel" />
+        </gutenberg-block>
+        <gutenberg-block type="ghostkit/image-compare" translate="1">
+            <xpath>//div[@class="ghostkit-image-compare-image-before"]/img/@alt</xpath>
+            <xpath>//div[@class="ghostkit-image-compare-image-after"]/img/@alt</xpath>
+            <xpath>//div[contains(@class,"ghostkit-image-compare-image-label")]</xpath>
+            <xpath>//figcaption</xpath>
+        </gutenberg-block>
         <gutenberg-block type="ghostkit/google-maps" translate="1">
             <xpath>//div[@class="ghostkit-google-maps-marker"]/div[@class="ghostkit-pro-google-maps-marker-info-window-text"]</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/markdown" translate="1">
-            <xpath>//div[@class="ghostkit-markdown"]</xpath>
+            <xpath>//div[contains(@class,"ghostkit-markdown")]</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/pricing-table-item" translate="1">
             <xpath>//h3[@class="ghostkit-pricing-table-item-title"]</xpath>
             <xpath>//div[@class="ghostkit-pricing-table-item-price"]/span</xpath>
+            <xpath>//div[@class="ghostkit-pricing-table-item-description"]</xpath>
             <xpath>//ul[@class="ghostkit-pricing-table-item-features"]/li</xpath>
             <xpath>//div[@class="ghostkit-pricing-table-item-popular-badge"]</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/progress" translate="1">
             <xpath>//div[@class="ghostkit-progress-caption"]</xpath>
-            <xpath>//div[@class="ghostkit-progress-bar-count"]/div/span</xpath>
+            <xpath>//div[@class="ghostkit-progress-bar-count"]/div/span[position()!=2]</xpath>
+            <key name="countPrefix" />
+            <key name="countSuffix" />
         </gutenberg-block>
         <gutenberg-block type="ghostkit/table-of-contents" translate="1">
             <key name="title" />
@@ -56,6 +76,11 @@
         <gutenberg-block type="ghostkit/testimonial" translate="1">
             <xpath>//div[@class="ghostkit-testimonial-meta"]/div[@class="ghostkit-testimonial-name"]</xpath>
             <xpath>//div[@class="ghostkit-testimonial-meta"]/div[@class="ghostkit-testimonial-source"]</xpath>
+            <xpath>//div[@class="ghostkit-testimonial-photo"]/img/@alt</xpath>
+            <xpath type="link">//a[@class="ghostkit-testimonial-link"]/@href</xpath>
+            <xpath>//a[@class="ghostkit-testimonial-link"]/@aria-label</xpath>
+            <key name="url" type="link" />
+            <key name="ariaLabel" />
         </gutenberg-block>
 
 
@@ -174,6 +199,7 @@
         <gutenberg-block type="ghostkit/form-submit-button" translate="0" />
         <gutenberg-block type="ghostkit/grid" translate="0" />
         <gutenberg-block type="ghostkit/grid-column" translate="0" />
+        <gutenberg-block type="ghostkit/lottie" translate="0" />
         <gutenberg-block type="ghostkit/icon-box" translate="0" />
         <gutenberg-block type="ghostkit/shape-divider" translate="0" />
         <gutenberg-block type="ghostkit/tabs-tab-v2" translate="0" />
