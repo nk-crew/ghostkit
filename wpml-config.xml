@@ -1,7 +1,7 @@
 <wpml-config>
     <gutenberg-blocks>
         <gutenberg-block type="ghostkit/accordion-item" translate="1">
-            <xpath>//a[@class="ghostkit-accordion-item-heading"]/span[@class="ghostkit-accordion-item-label"]</xpath>
+            <xpath>//*[@class="ghostkit-accordion-item-heading"]//span[@class="ghostkit-accordion-item-label"]</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/button-single" translate="1">
             <xpath>//span[@class="ghostkit-button-text"]</xpath>
@@ -31,10 +31,10 @@
             <xpath>//div[@class="ghostkit-markdown"]</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/pricing-table-item" translate="1">
-            <xpath>//div[@class="ghostkit-pricing-table-item"]/h3[@class="ghostkit-pricing-table-item-title"]</xpath>
-            <xpath>//div[@class="ghostkit-pricing-table-item"]/div[@class="ghostkit-pricing-table-item-price"]/span</xpath>
-            <xpath>//div[@class="ghostkit-pricing-table-item"]/ul[@class="ghostkit-pricing-table-item-features"]/li</xpath>
-            <xpath>//div[@class="ghostkit-pricing-table-item"]/div[@class="ghostkit-pricing-table-item-popular-badge"]</xpath>
+            <xpath>//h3[@class="ghostkit-pricing-table-item-title"]</xpath>
+            <xpath>//div[@class="ghostkit-pricing-table-item-price"]/span</xpath>
+            <xpath>//ul[@class="ghostkit-pricing-table-item-features"]/li</xpath>
+            <xpath>//div[@class="ghostkit-pricing-table-item-popular-badge"]</xpath>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/progress" translate="1">
             <xpath>//div[@class="ghostkit-progress-caption"]</xpath>
@@ -46,6 +46,12 @@
         <gutenberg-block type="ghostkit/tabs-v2" translate="1">
             <xpath>//div[contains(@class,"ghostkit-tabs-buttons")]/a[contains(@class,"ghostkit-tabs-buttons-item")]</xpath>
             <xpath>//div[contains(@class,"ghostkit-tabs-buttons")]/div[contains(@class,"ghostkit-tabs-buttons-item")]/span</xpath>
+            <xpath>//div[@role="tablist"]/button[@role="tab"]</xpath>
+            <key name="tabsData">
+                <key name="*">
+                    <key name="title" />
+                </key>
+            </key>
         </gutenberg-block>
         <gutenberg-block type="ghostkit/testimonial" translate="1">
             <xpath>//div[@class="ghostkit-testimonial-meta"]/div[@class="ghostkit-testimonial-name"]</xpath>
