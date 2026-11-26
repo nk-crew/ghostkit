@@ -477,6 +477,7 @@ class GhostKit_Assets {
 			'version'                     => GHOSTKIT_VERSION,
 			'pro'                         => false,
 			'supportsBlockTypeTemplate'   => version_compare( strtok( get_bloginfo( 'version' ), '-' ), '7.2', '>=' ),
+			'supportsNativeTabsHashLinks' => version_compare( get_bloginfo( 'version' ), '7.2-RC3', '>=' ),
 
 			'themeName'                   => $theme_data->get( 'Name' ),
 			'settings'                    => get_option( 'ghostkit_settings', array() ),
