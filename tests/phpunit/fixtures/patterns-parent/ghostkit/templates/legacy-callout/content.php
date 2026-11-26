@@ -1,7 +1,7 @@
 <?php
 /**
  * Name: Parent callout
- * Category: Legacy callouts
+ * Category: Columns
  *
  * @package ghostkit
  */

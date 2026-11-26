@@ -52,6 +52,8 @@ class GhostKit_Patterns {
 					$category = sanitize_title( $headers['category'] );
 
 					if ( $category ) {
+						$category = 'ghostkit-' . $category;
+
 						if ( ! WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( $category ) ) {
 							register_block_pattern_category( $category, array( 'label' => $headers['category'] ) );
 						}
@@ -63,6 +65,7 @@ class GhostKit_Patterns {
 			}
 		}
 	}
+
 	/**
 	 * Preserve legacy post capabilities on migrated patterns.
 	 *

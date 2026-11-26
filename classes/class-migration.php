@@ -203,10 +203,20 @@ class GhostKit_Migrations {
 			return false;
 		}
 
-		foreach ( array(
+		$metadata = array(
 			'_ghostkit_template_id'  => (string) $template->ID,
 			'wp_pattern_sync_status' => 'unsynced',
-		) as $key => $value ) {
+		);
+
+		if ( 'trash' === $template->post_status ) {
+			foreach ( array( '_wp_trash_meta_status', '_wp_trash_meta_time' ) as $key ) {
+				if ( metadata_exists( 'post', $template->ID, $key ) ) {
+					$metadata[ $key ] = get_post_meta( $template->ID, $key, true );
+				}
+			}
+		}
+
+		foreach ( $metadata as $key => $value ) {
 			if ( get_post_meta( $pattern_id, $key, true ) !== $value && ! update_post_meta( $pattern_id, $key, $value ) ) {
 				return false;
 			}
@@ -237,6 +247,7 @@ class GhostKit_Migrations {
 							'post_status'           => $template->post_status,
 							'post_date'             => $template->post_date,
 							'post_date_gmt'         => $template->post_date_gmt,
+							'edit_date'             => true,
 							'post_password'         => $template->post_password,
 							'post_content_filtered' => '',
 						)

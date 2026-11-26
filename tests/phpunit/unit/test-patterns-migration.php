@@ -99,6 +99,44 @@ class GhostKitPatternsMigrationTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Retain scheduled dates and the state needed to restore or purge trash.
+	 */
+	public function test_preserves_future_and_trashed_template_visibility() {
+		register_post_type( 'ghostkit_template' );
+		delete_option( 'ghostkit_patterns_migrated' );
+
+		$scheduled_at = gmdate( 'Y-m-d H:i:s', time() + DAY_IN_SECONDS );
+		self::factory()->post->create(
+			array(
+				'post_type'     => 'ghostkit_template',
+				'post_title'    => 'Scheduled template',
+				'post_status'   => 'future',
+				'post_date'     => get_date_from_gmt( $scheduled_at ),
+				'post_date_gmt' => $scheduled_at,
+			)
+		);
+		$trashed = self::factory()->post->create(
+			array(
+				'post_type'   => 'ghostkit_template',
+				'post_status' => 'publish',
+			)
+		);
+		wp_trash_post( $trashed );
+
+		( new GhostKit_Migrations() )->init();
+
+		$future = get_posts( array( 'post_type' => 'wp_block', 'post_status' => 'future' ) );
+		$this->assertCount( 1, $future );
+		$this->assertSame( $scheduled_at, $future[0]->post_date_gmt );
+		$this->assertSame( 'Scheduled template', $future[0]->post_title );
+
+		$trash = get_posts( array( 'post_type' => 'wp_block', 'post_status' => 'trash' ) );
+		$this->assertCount( 1, $trash );
+		$this->assertSame( 'publish', get_post_meta( $trash[0]->ID, '_wp_trash_meta_status', true ) );
+		$this->assertSame( get_post_meta( $trashed, '_wp_trash_meta_time', true ), get_post_meta( $trash[0]->ID, '_wp_trash_meta_time', true ) );
+	}
+
+	/**
 	 * Expose the child file as a native pattern and fall back to the parent.
 	 */
 	public function test_theme_patterns_prefer_active_child_files() {
@@ -114,13 +152,20 @@ class GhostKitPatternsMigrationTest extends WP_UnitTestCase {
 
 		add_filter( 'template_directory', $parent );
 		add_filter( 'stylesheet_directory', $child );
+		add_filter( 'should_load_remote_block_patterns', '__return_false' );
+		wp_set_current_user( self::factory()->user->create( array( 'role' => 'editor' ) ) );
 
 		try {
 			GhostKit_Patterns::register_theme_patterns();
 			$pattern = $registry->get_registered( $name );
 			$this->assertSame( 'Child callout', $pattern['title'] );
-			$this->assertSame( array( 'legacy-callouts' ), $pattern['categories'] );
+			$this->assertSame( array( 'ghostkit-columns' ), $pattern['categories'] );
 			$this->assertStringContainsString( '<p>Child theme callout.</p>', $pattern['content'] );
+
+			$response = rest_do_request( '/wp/v2/block-patterns/patterns' );
+			$this->assertSame( 200, $response->get_status() );
+			$patterns = array_column( $response->get_data(), null, 'name' );
+			$this->assertSame( array( 'ghostkit-columns' ), $patterns[ $name ]['categories'] );
 
 			unregister_block_pattern( $name );
 			remove_filter( 'stylesheet_directory', $child );
@@ -128,13 +173,14 @@ class GhostKitPatternsMigrationTest extends WP_UnitTestCase {
 			GhostKit_Patterns::register_theme_patterns();
 			$this->assertStringContainsString( '<p>Parent theme callout.</p>', $registry->get_registered( $name )['content'] );
 		} finally {
+			remove_filter( 'should_load_remote_block_patterns', '__return_false' );
 			remove_filter( 'template_directory', $parent );
 			remove_filter( 'stylesheet_directory', $child );
 			remove_filter( 'stylesheet_directory', $parent );
 			if ( $registry->is_registered( $name ) ) {
 				unregister_block_pattern( $name );
 			}
-			unregister_block_pattern_category( 'legacy-callouts' );
+			unregister_block_pattern_category( 'ghostkit-columns' );
 		}
 	}
 }

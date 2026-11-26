@@ -2,8 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-Ghost Kit 4.0 replaces the remote Ghost Kit template library with WordPress Patterns. Blocks already inserted from the library stay in the posts and pages where they were saved.
-
 = 3.9.2 - Nov 26, 2026 =
 
 * fixed reveal effects delaying Largest Contentful Paint for blocks visible when the page opens
