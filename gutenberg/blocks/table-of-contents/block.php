@@ -224,6 +224,11 @@ class GhostKit_TOC_Block {
 			$attributes
 		);
 
+		// WordPress does not translate block.json attribute defaults, and the editor does not save a default value.
+		if ( 'Table of Contents' === $attributes['title'] ) {
+			$attributes['title'] = __( 'Table of Contents', 'ghostkit' );
+		}
+
 		if ( empty( $this->available_headings ) ) {
 			return '';
 		}
