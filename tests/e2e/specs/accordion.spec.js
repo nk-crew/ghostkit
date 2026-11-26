@@ -374,15 +374,35 @@ test.describe('accordion transition', () => {
 		).toContainText('Première question');
 
 		const exclusions = await page.evaluate(() => {
-			const { cloneBlock, switchToBlockType } = window.wp.blocks;
-			const [block] = window.wp.data
-				.select('core/block-editor')
-				.getBlocks();
+			const { cloneBlock, createBlock, switchToBlockType } =
+				window.wp.blocks;
+			const store = 'core/block-editor';
+			const { dispatch, select } = window.wp.data;
+			const [block] = select(store).getBlocks();
 			const [firstItem, secondItem] = block.innerBlocks;
-			return [
+			const conflictingGroup = createBlock('core/group', {
+				anchor: 'gkt-first',
+			});
+			dispatch(store).insertBlocks(conflictingGroup);
+			const conflictingAnchorTransform = switchToBlockType(
+				block,
+				'core/accordion'
+			);
+			dispatch(store).removeBlocks(conflictingGroup.clientId);
+
+			const incompatible = [
 				cloneBlock(block, { ghostkit: { customCSS: 'color: red' } }),
 				cloneBlock(block, {}, [
 					cloneBlock(firstItem, { active: false }),
+					cloneBlock(secondItem, { active: true }),
+				]),
+				cloneBlock(block, {}, [
+					cloneBlock(firstItem, { active: false, slug: undefined }, [
+						createBlock('core/heading', {
+							anchor: 'faq-details',
+							content: 'FAQ details',
+						}),
+					]),
 					cloneBlock(secondItem, { active: true }),
 				]),
 				cloneBlock(block, {}, [
@@ -390,9 +410,20 @@ test.describe('accordion transition', () => {
 					cloneBlock(secondItem, { active: true }),
 				]),
 				cloneBlock(block, { collapseTitleTag: 'div' }),
-			].map((legacy) => switchToBlockType(legacy, 'core/accordion'));
+				cloneBlock(block, {}, [
+					firstItem,
+					cloneBlock(secondItem, { slug: 'gkt-first' }),
+				]),
+			];
+
+			return [
+				conflictingAnchorTransform,
+				...incompatible.map((legacy) =>
+					switchToBlockType(legacy, 'core/accordion')
+				),
+			];
 		});
-		expect(exclusions).toEqual([null, null, null, null]);
+		expect(exclusions).toEqual([null, null, null, null, null, null, null]);
 
 		await page.evaluate(() => {
 			const store = 'core/block-editor';
