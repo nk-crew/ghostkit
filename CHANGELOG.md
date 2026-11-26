@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+= Unreleased =
+
+* deprecated Ghost Kit Tabs when WordPress Tabs are available and added a toolbar action to convert compatible tabs on WordPress 7.2 and later
+
 = 3.9.2 - Nov 26, 2026 =
 
 * fixed reveal effects delaying Largest Contentful Paint for blocks visible when the page opens

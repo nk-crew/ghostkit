@@ -82,6 +82,8 @@ Ghost Kit also ships blocks for the things core still leaves out. Every one of t
 
 Existing Ghost Kit accordions remain editable. Use the block toolbar to transform a compatible accordion to the WordPress Accordion block. Accordions with settings the WordPress block cannot reproduce stay in Ghost Kit.
 
+Use the WordPress Tabs block for new content on WordPress 7.1 and later. Existing Ghost Kit tabs remain editable. On WordPress 7.2 and later, use the block toolbar to transform compatible Ghost Kit tabs to WordPress Tabs, keeping their content and tab links.
+
 ### ✍️ Content formatting ###
 
 Formats that apply to a text selection rather than to a whole block. See them on the [formats demo page](https://www.ghostkit.io/docs/formats/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=formatting).
