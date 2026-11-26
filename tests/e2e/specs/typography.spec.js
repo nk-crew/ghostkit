@@ -288,7 +288,26 @@ test.describe('typography', () => {
 test.describe('Font Library typography', () => {
 	const family = 'Cardo';
 	const slug = 'ghost-kit-local-cardo';
-	const fontFamily = `"${family}", serif`;
+	const fontFamily = `${family}, serif`;
+	const typographyPath = '/ghostkit/v1/update_custom_typography';
+
+	async function setGoogleBodyFont(requestUtils, name) {
+		await requestUtils.rest({
+			path: typographyPath,
+			method: 'POST',
+			data: {
+				data: {
+					ghostkit_typography: JSON.stringify({
+						body: {
+							fontFamily: name,
+							fontFamilyCategory: 'google-fonts',
+							fontWeight: '400',
+						},
+					}),
+				},
+			},
+		});
+	}
 
 	async function selectLibrary(wrapper, page) {
 		await wrapper
@@ -333,7 +352,6 @@ test.describe('Font Library typography', () => {
 			request,
 			requestUtils,
 		}) => {
-			const typographyPath = '/ghostkit/v1/update_custom_typography';
 			const { response: originalTypography } = await requestUtils.rest({
 				path: '/ghostkit/v1/get_custom_typography',
 			});
@@ -505,21 +523,7 @@ test.describe('Font Library typography', () => {
 				await expectFont(paragraph, 'normal', faces[0].src);
 				expect(googleFamilies).not.toContain(family);
 
-				await requestUtils.rest({
-					path: typographyPath,
-					method: 'POST',
-					data: {
-						data: {
-							ghostkit_typography: JSON.stringify({
-								body: {
-									fontFamily: family,
-									fontFamilyCategory: 'google-fonts',
-									fontWeight: '400',
-								},
-							}),
-						},
-					},
-				});
+				await setGoogleBodyFont(requestUtils, family);
 				await page.goto(post.link);
 				await expect(
 					page.getByText('Font fixture', { exact: true })
@@ -533,6 +537,9 @@ test.describe('Font Library typography', () => {
 					'Cardo, sans-serif'
 				);
 				await expect.poll(() => googleFamilies).toContain(family);
+
+				await setGoogleBodyFont(requestUtils, 'Inter');
+				await admin.editPost(post.id);
 
 				await page
 					.getByRole('button', { name: 'Options', exact: true })
@@ -568,6 +575,7 @@ test.describe('Font Library typography', () => {
 				await expect(
 					page.getByText('Post updated.', { exact: true })
 				).toBeVisible();
+				await setGoogleBodyFont(requestUtils, family);
 				googleFamilies.length = 0;
 				await admin.editPost(post.id);
 				await expectFont(paragraph, 'italic', faces[1].src);
