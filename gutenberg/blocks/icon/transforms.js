@@ -22,6 +22,7 @@ const registrySignatures = new WeakMap();
 
 export function hasNativeIcon() {
 	return (
+		!!window.ghostkitCoreIcons &&
 		!!getBlockType(nativeIcon) &&
 		!window.GHOSTKIT?.disabledBlocks?.[nativeIcon]
 	);
@@ -142,7 +143,7 @@ function getNativeAttributes(attributes) {
 	if (
 		!hasNativeIcon() ||
 		typeof icon !== 'string' ||
-		!/^\d+(?:\.\d+)?px$/.test(width) ||
+		!/^\d+(?:\.\d+)?(?:px|rem)$/.test(width) ||
 		!hasBlockSupport(native, ['dimensions', 'width']) ||
 		justify !== 'center' ||
 		!native.supports.align?.includes?.(align || 'center') ||

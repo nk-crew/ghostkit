@@ -36,7 +36,7 @@ export default function BlockEdit(props) {
 					<PanelBody>
 						<Notice status="info" isDismissible={false}>
 							{__(
-								'This block is deprecated. Use the WordPress Icon block for new content.',
+								'Use the block toolbar to convert compatible Ghost Kit icons to the WordPress Icon block.',
 								'ghostkit'
 							)}
 						</Notice>

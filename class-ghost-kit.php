@@ -182,6 +182,7 @@ if ( ! class_exists( 'GhostKit' ) ) :
 
 			add_action( 'wp_enqueue_scripts', array( $this, 'js_translation' ), 11 );
 			add_action( 'enqueue_block_editor_assets', array( $this, 'js_translation_editor' ) );
+			add_filter( 'block_editor_settings_all', array( $this, 'localize_core_icons' ), PHP_INT_MAX );
 
 			// add Ghost Kit blocks category.
 			add_filter( 'block_categories_all', array( $this, 'block_categories_all' ), 9999 );
@@ -323,16 +324,6 @@ if ( ! class_exists( 'GhostKit' ) ) :
 				$js_deps
 			);
 
-			if ( class_exists( 'WP_Icons_Registry' ) && WP_Block_Type_Registry::get_instance()->is_registered( 'core/icon' ) ) {
-				$core_icons = array();
-				foreach ( WP_Icons_Registry::get_instance()->get_registered_icons( 'core/' ) as $icon ) {
-					if ( strpos( $icon['name'], 'core/' ) === 0 && ! empty( $icon['content'] ) ) {
-						$core_icons[ $icon['name'] ] = $icon['content'];
-					}
-				}
-				wp_localize_script( 'ghostkit-editor', 'ghostkitCoreIcons', $core_icons );
-			}
-
 			// Load plugins in editor only (skip legacy Widgets screen).
 			if ( ! isset( $current_screen->id ) || 'widgets' !== $current_screen->id ) {
 				GhostKit_Assets::enqueue_script(
@@ -341,6 +332,34 @@ if ( ! class_exists( 'GhostKit' ) ) :
 					array( 'ghostkit-editor' )
 				);
 			}
+		}
+
+		/**
+		 * Share the registry used by available native Icon blocks.
+		 *
+		 * @param array $settings Block editor settings.
+		 * @return array Block editor settings.
+		 */
+		public function localize_core_icons( $settings ) {
+			$allowed = $settings['allowedBlockTypes'] ?? true;
+
+			if (
+				! class_exists( 'WP_Icons_Registry' ) ||
+				! WP_Block_Type_Registry::get_instance()->is_registered( 'core/icon' ) ||
+				( true !== $allowed && ! in_array( 'core/icon', (array) $allowed, true ) )
+			) {
+				return $settings;
+			}
+
+			$core_icons = array();
+			foreach ( WP_Icons_Registry::get_instance()->get_registered_icons( 'core/' ) as $icon ) {
+				if ( strpos( $icon['name'], 'core/' ) === 0 && ! empty( $icon['content'] ) ) {
+					$core_icons[ $icon['name'] ] = $icon['content'];
+				}
+			}
+			wp_localize_script( 'ghostkit-helper', 'ghostkitCoreIcons', $core_icons );
+
+			return $settings;
 		}
 
 		/**

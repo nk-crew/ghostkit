@@ -478,7 +478,7 @@ test.describe('standalone Icon transition', () => {
 			page
 				.locator('.block-editor-block-inspector')
 				.getByText(
-					'This block is deprecated. Use the WordPress Icon block for new content.',
+					'Use the block toolbar to convert compatible Ghost Kit icons to the WordPress Icon block.',
 					{ exact: true }
 				)
 				.filter({ visible: true })
@@ -525,7 +525,7 @@ test.describe('standalone Icon transition', () => {
 			name: 'ghostkit/icon',
 			attributes: {
 				icon: native.icon,
-				width: '36px',
+				width: '2rem',
 				color: '#123456',
 				backgroundColor: '#fedcba',
 				ariaLabel: 'Add item',
@@ -577,7 +577,7 @@ test.describe('standalone Icon transition', () => {
 		await page.goto(`/?p=${postId}`);
 		const svg = page.locator('.wp-block-icon.aligncenter#add-item svg');
 		await expect(svg).toHaveAttribute('aria-label', 'Add item');
-		await expect(svg).toHaveCSS('width', '36px');
+		await expect(svg).toHaveCSS('width', '32px');
 		await expect(svg).toHaveCSS('color', 'rgb(18, 52, 86)');
 		await expect(svg).toHaveCSS('background-color', 'rgb(254, 220, 186)');
 		await expect(svg.locator('path')).toHaveAttribute('d', native.path);
