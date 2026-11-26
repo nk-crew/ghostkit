@@ -91,10 +91,10 @@ class GhostKit_Migrations {
 			return;
 		}
 
-		$lock = 'ghostkit_patterns_' . md5( DB_NAME . ':' . $wpdb->posts );
+		$lock_name = 'ghostkit_patterns_migration_lock';
+		$lock      = $this->claim_template_migration( $lock_name );
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		if ( '1' !== (string) $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 0)', $lock ) ) ) {
+		if ( ! $lock ) {
 			return;
 		}
 
@@ -123,8 +123,57 @@ class GhostKit_Migrations {
 			update_option( 'ghostkit_patterns_migrated', true );
 		} finally {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$wpdb->get_var( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', $lock ) );
+			$wpdb->delete(
+				$wpdb->options,
+				array(
+					'option_name'  => $lock_name,
+					'option_value' => $lock,
+				)
+			);
 		}
+	}
+
+	/**
+	 * Claim the migration option once, including after a crashed request.
+	 *
+	 * @param string $name The site-scoped lock option.
+	 * @return string|false
+	 */
+	private function claim_template_migration( $name ) {
+		global $wpdb;
+
+		$now   = time();
+		$token = $now . ':' . wp_generate_uuid4();
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$claimed = $wpdb->query( $wpdb->prepare( "INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %s, 'no')", $name, $token ) );
+
+		if ( 1 === $claimed ) {
+			return $token;
+		}
+
+		if ( false === $claimed ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$previous = $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $name ) );
+
+		if ( null === $previous || (int) $previous > $now - HOUR_IN_SECONDS ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$claimed = $wpdb->update(
+			$wpdb->options,
+			array( 'option_value' => $token ),
+			array(
+				'option_name'  => $name,
+				'option_value' => $previous,
+			)
+		);
+
+		return 1 === $claimed ? $token : false;
 	}
 
 	/**

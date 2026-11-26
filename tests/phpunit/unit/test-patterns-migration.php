@@ -40,6 +40,13 @@ class GhostKitPatternsMigrationTest extends WP_UnitTestCase {
 		wp_set_object_terms( $template, 'Callouts', 'ghostkit_template_category' );
 		delete_option( 'ghostkit_patterns_migrated' );
 
+
+		$lock_name = 'ghostkit_patterns_migration_lock';
+		add_option( $lock_name, time() . ':other-request', '', false );
+		( new GhostKit_Migrations() )->init();
+		$this->assertFalse( get_option( 'ghostkit_patterns_migrated' ) );
+		$this->assertSame( 0, (int) wp_count_posts( 'wp_block' )->private );
+		update_option( $lock_name, ( time() - HOUR_IN_SECONDS - 1 ) . ':crashed-request' );
 		$fail = static function ( $empty, $post ) {
 			return $empty || ( 'wp_block' === $post['post_type'] && 'private' === $post['post_status'] );
 		};
@@ -88,6 +95,16 @@ class GhostKitPatternsMigrationTest extends WP_UnitTestCase {
 		$response = rest_do_request( $route );
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertSame( $markup, $response->get_data()['content']['raw'] );
+
+		$context = new WP_Block_Editor_Context();
+		$this->assertNotContains( $pattern->ID, wp_list_pluck( rest_do_request( '/wp/v2/blocks' )->get_data(), 'id' ) );
+		$editor_patterns = get_block_editor_settings( array(), $context )['__experimentalAdditionalBlockPatterns'] ?? array();
+		$this->assertSame( $markup, array_column( $editor_patterns, 'content', 'id' )[ $pattern->ID ] );
+
+		wp_set_current_user( $contributor );
+		$editor_patterns = get_block_editor_settings( array(), $context )['__experimentalAdditionalBlockPatterns'] ?? array();
+		$this->assertArrayNotHasKey( $pattern->ID, array_column( $editor_patterns, 'content', 'id' ) );
+		wp_set_current_user( $other_editor );
 
 		wp_update_post( array( 'ID' => $pattern->ID, 'post_title' => 'My revised pattern' ) );
 		delete_option( 'ghostkit_patterns_migrated' );

@@ -24,7 +24,7 @@ class GhostKit_Patterns {
 				$slug = basename( dirname( $file ) );
 				$path = realpath( $file );
 
-				if ( ! $root || ! $path || ! str_starts_with( $path, $root . '/ghostkit/templates/' ) || ! is_readable( $path ) || ! preg_match( '/^[a-zA-Z0-9_-]+$/', $slug ) ) {
+				if ( ! $root || ! $path || ! str_starts_with( wp_normalize_path( $path ), wp_normalize_path( $root ) . '/ghostkit/templates/' ) || ! is_readable( $path ) || ! preg_match( '/^[a-zA-Z0-9_-]+$/', $slug ) ) {
 					continue;
 				}
 
@@ -52,7 +52,10 @@ class GhostKit_Patterns {
 					$category = sanitize_title( $headers['category'] );
 
 					if ( $category ) {
-						$category = 'ghostkit-' . $category;
+						// WordPress REST remaps these legacy core category slugs.
+						if ( in_array( $category, array( 'buttons', 'columns', 'query' ), true ) ) {
+							$category = 'ghostkit-' . $category;
+						}
 
 						if ( ! WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( $category ) ) {
 							register_block_pattern_category( $category, array( 'label' => $headers['category'] ) );
@@ -64,6 +67,49 @@ class GhostKit_Patterns {
 				register_block_pattern( $name, $pattern );
 			}
 		}
+	}
+
+	/**
+	 * Include private migrated patterns in the authorized editor's inserter.
+	 *
+	 * @param array $settings Block editor settings.
+	 * @return array
+	 */
+	public static function add_private_template_patterns( $settings ) {
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return $settings;
+		}
+
+		$patterns = get_posts(
+			array(
+				'post_type'      => 'wp_block',
+				'post_status'    => 'private',
+				'posts_per_page' => -1,
+				'meta_key'       => '_ghostkit_template_id', // phpcs:ignore WordPress.DB.SlowDBQuery
+			)
+		);
+
+		foreach ( $patterns as $pattern ) {
+			if ( ! current_user_can( 'read_post', $pattern->ID ) || 'unsynced' !== get_post_meta( $pattern->ID, 'wp_pattern_sync_status', true ) ) {
+				continue;
+			}
+
+			$categories = wp_get_object_terms( $pattern->ID, 'wp_pattern_category', array( 'fields' => 'slugs' ) );
+
+			// Core's reusable-block query lists published records only.
+			$settings['__experimentalAdditionalBlockPatterns'] ??= $settings['__experimentalBlockPatterns'] ?? array();
+			$settings['__experimentalAdditionalBlockPatterns'][] = array(
+				'name'       => 'ghostkit/private-template-' . $pattern->ID,
+				'id'         => $pattern->ID,
+				'type'       => 'user',
+				'title'      => $pattern->post_title,
+				'categories' => is_wp_error( $categories ) ? array() : $categories,
+				'content'    => $pattern->post_content,
+				'syncStatus' => 'unsynced',
+			);
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -103,4 +149,5 @@ class GhostKit_Patterns {
 }
 
 add_action( 'init', array( 'GhostKit_Patterns', 'register_theme_patterns' ), 20 );
+add_filter( 'block_editor_settings_all', array( 'GhostKit_Patterns', 'add_private_template_patterns' ) );
 add_filter( 'map_meta_cap', array( 'GhostKit_Patterns', 'map_template_capabilities' ), 10, 4 );
