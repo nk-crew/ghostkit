@@ -9,12 +9,27 @@ const nativeAccordionBlocks = [
 ];
 
 export function hasNativeAccordion() {
-	return nativeAccordionBlocks.every(getBlockType);
+	return nativeAccordionBlocks.every(
+		(name) => getBlockType(name) && !window.GHOSTKIT?.disabledBlocks?.[name]
+	);
 }
 
 function hasOnlyAttributes(attributes, supported) {
 	return Object.keys(attributes).every(
 		(key) => attributes[key] === undefined || supported.includes(key)
+	);
+}
+
+function preservesAutoclose(items) {
+	const firstOpenIndex = items.findIndex(
+		({ attributes }) => attributes.active
+	);
+
+	// Core closes sibling panels on every toggle and handles fragments before later items register.
+	return !items.some(
+		({ attributes: { slug, active } }, index) =>
+			(active && index !== firstOpenIndex) ||
+			(slug && index < firstOpenIndex)
 	);
 }
 
@@ -24,7 +39,7 @@ export default {
 			type: 'block',
 			blocks: ['core/accordion'],
 			isMatch(attributes, block) {
-				const { collapseTitleTag } = attributes;
+				const { collapseOne, collapseTitleTag } = attributes;
 
 				return (
 					hasNativeAccordion() &&
@@ -39,6 +54,7 @@ export default {
 					]) &&
 					block.isValid &&
 					block.innerBlocks.length > 0 &&
+					(!collapseOne || preservesAutoclose(block.innerBlocks)) &&
 					block.innerBlocks.every(
 						({ name, isValid, attributes: item }) =>
 							name === 'ghostkit/accordion-item' &&
@@ -78,7 +94,7 @@ export default {
 								}),
 								createBlock(
 									'core/accordion-panel',
-									{},
+									{ openByDefault: active },
 									slug
 										? [
 												createBlock(

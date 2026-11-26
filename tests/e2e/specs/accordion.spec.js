@@ -378,12 +378,21 @@ test.describe('accordion transition', () => {
 			const [block] = window.wp.data
 				.select('core/block-editor')
 				.getBlocks();
+			const [firstItem, secondItem] = block.innerBlocks;
 			return [
 				cloneBlock(block, { ghostkit: { customCSS: 'color: red' } }),
+				cloneBlock(block, {}, [
+					cloneBlock(firstItem, { active: false }),
+					cloneBlock(secondItem, { active: true }),
+				]),
+				cloneBlock(block, {}, [
+					firstItem,
+					cloneBlock(secondItem, { active: true }),
+				]),
 				cloneBlock(block, { collapseTitleTag: 'div' }),
 			].map((legacy) => switchToBlockType(legacy, 'core/accordion'));
 		});
-		expect(exclusions).toEqual([null, null]);
+		expect(exclusions).toEqual([null, null, null, null]);
 
 		await page.evaluate(() => {
 			const store = 'core/block-editor';
@@ -412,6 +421,7 @@ test.describe('accordion transition', () => {
 		await expect(first).toHaveAttribute('aria-expanded', 'false');
 		await expect(second).toHaveAttribute('aria-expanded', 'true');
 
+		await page.goto('about:blank');
 		await page.goto(`/?p=${postId}#gkt-second`);
 		await expect(page.locator('#gkt-second')).toBeVisible();
 		await expect(page.locator('#gkt-second')).toHaveText(
@@ -426,5 +436,10 @@ test.describe('accordion transition', () => {
 		await expect(
 			editor.canvas.locator('.wp-block-accordion-heading strong')
 		).toHaveText('Première question');
+		await expect(
+			editor.canvas
+				.locator('.wp-block-accordion-panel')
+				.getByText('Première réponse', { exact: true })
+		).toBeVisible();
 	});
 });
