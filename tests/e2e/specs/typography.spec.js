@@ -30,12 +30,12 @@ function expectGoogleFontsHref(href) {
 	expect(url.searchParams.get('ver')).toBeTruthy();
 }
 
-test.describe('typography', () => {
-	test.beforeAll(async ({ requestUtils }) => {
-		const pluginName = process.env.CORE ? 'ghost-kit-pro' : 'ghost-kit';
-		await requestUtils.activatePlugin(pluginName);
-	});
+test.beforeAll(async ({ requestUtils }) => {
+	const pluginName = process.env.CORE ? 'ghost-kit-pro' : 'ghost-kit';
+	await requestUtils.activatePlugin(pluginName);
+});
 
+test.describe('typography', () => {
 	test.afterAll(async ({ requestUtils }) => {
 		await Promise.all([
 			requestUtils.deleteAllPosts(),
@@ -286,8 +286,8 @@ test.describe('typography', () => {
 });
 
 test.describe('Font Library typography', () => {
-	const family = 'Ghost Kit Fixture Serif';
-	const slug = 'ghost-kit-fixture-serif';
+	const family = 'Cardo';
+	const slug = 'ghost-kit-local-cardo';
 	const fontFamily = `"${family}", serif`;
 
 	async function selectLibrary(wrapper, page) {
@@ -326,7 +326,7 @@ test.describe('Font Library typography', () => {
 	}
 
 	for (const theme of ['empty-theme', 'empty-theme-php']) {
-		test(`applies uploaded faces globally and per post in ${theme}`, async ({
+		test(`keeps local and Google Cardo available in ${theme}`, async ({
 			admin,
 			editor,
 			page,
@@ -338,6 +338,17 @@ test.describe('Font Library typography', () => {
 				path: '/ghostkit/v1/get_custom_typography',
 			});
 			const familiesPath = '/wp/v2/font-families';
+			const googleFamilies = [];
+			page.on('request', (fontRequest) => {
+				const url = fontRequest.url();
+				if (url.startsWith('https://fonts.googleapis.com/')) {
+					googleFamilies.push(
+						...normalizeGoogleFontsFamily(url)
+							.split('|')
+							.map((entry) => entry.split(':')[0])
+					);
+				}
+			});
 			let familyId;
 			let globalStylesPath;
 			let originalSettings;
@@ -429,8 +440,8 @@ test.describe('Font Library typography', () => {
 								fontFamilies: [
 									{ ...preset, fontFace: faces },
 									{
-										name: 'Inter',
-										slug: 'fixture-inter',
+										name: 'Ghost Kit Fixture Serif',
+										slug: 'ghost-kit-fixture-serif',
 										fontFamily: 'serif',
 									},
 								],
@@ -447,24 +458,31 @@ test.describe('Font Library typography', () => {
 				});
 				await selectLibrary(body, page);
 
-				const input = body.locator(
-					'.ghostkit-typography-font-selector input'
-				);
-				await input.fill('Inter');
-				await expect(
-					page.getByRole('option', { name: 'Inter', exact: true })
-				).toHaveCount(0);
-				await input.fill(family);
+				await body
+					.locator('.ghostkit-typography-font-selector input')
+					.fill(family);
+				const libraryOption = page.getByRole('option', {
+					name: family,
+					exact: true,
+				});
+				await expect(libraryOption).toBeVisible();
 				const saved = page.waitForResponse(
 					(response) =>
 						response.url().includes('update_custom_typography') &&
 						response.request().method() === 'POST' &&
 						response.request().postData()?.includes(slug)
 				);
-				await page
-					.getByRole('option', { name: family, exact: true })
-					.click();
+				await libraryOption.click();
 				expect((await saved).ok()).toBe(true);
+				const { response: savedTypography } = await requestUtils.rest({
+					path: '/ghostkit/v1/get_custom_typography',
+				});
+				expect(
+					JSON.parse(savedTypography.ghostkit_typography).body
+				).toMatchObject({
+					fontFamily: slug,
+					fontFamilyCategory: 'font-library',
+				});
 
 				post = await requestUtils.createPost({
 					title: 'Uploaded Font Library Faces',
@@ -472,17 +490,20 @@ test.describe('Font Library typography', () => {
 					content:
 						'<!-- wp:paragraph --><p>Font fixture</p><!-- /wp:paragraph -->',
 				});
+				googleFamilies.length = 0;
 				await page.goto(post.link);
 				await expectFont(
 					page.getByText('Font fixture', { exact: true }),
 					'normal',
 					faces[0].src
 				);
+				expect(googleFamilies).not.toContain(family);
 				await admin.editPost(post.id);
 				const paragraph = editor.canvas.getByRole('document', {
 					name: 'Paragraph',
 				});
 				await expectFont(paragraph, 'normal', faces[0].src);
+				expect(googleFamilies).not.toContain(family);
 
 				await requestUtils.rest({
 					path: typographyPath,
@@ -491,7 +512,7 @@ test.describe('Font Library typography', () => {
 						data: {
 							ghostkit_typography: JSON.stringify({
 								body: {
-									fontFamily: 'Inter',
+									fontFamily: family,
 									fontFamilyCategory: 'google-fonts',
 									fontWeight: '400',
 								},
@@ -499,11 +520,19 @@ test.describe('Font Library typography', () => {
 						},
 					},
 				});
+				await page.goto(post.link);
+				await expect(
+					page.getByText('Font fixture', { exact: true })
+				).toHaveCSS('font-family', 'Cardo, sans-serif');
+				await expect.poll(() => googleFamilies).toContain(family);
+
+				googleFamilies.length = 0;
 				await admin.editPost(post.id);
 				await expect(paragraph).toHaveCSS(
 					'font-family',
-					'Inter, sans-serif'
+					'Cardo, sans-serif'
 				);
+				await expect.poll(() => googleFamilies).toContain(family);
 
 				await page
 					.getByRole('button', { name: 'Options', exact: true })
@@ -539,8 +568,10 @@ test.describe('Font Library typography', () => {
 				await expect(
 					page.getByText('Post updated.', { exact: true })
 				).toBeVisible();
+				googleFamilies.length = 0;
 				await admin.editPost(post.id);
 				await expectFont(paragraph, 'italic', faces[1].src);
+				expect(googleFamilies).not.toContain(family);
 
 				await page.goto(post.link);
 				await expectFont(
@@ -548,6 +579,7 @@ test.describe('Font Library typography', () => {
 					'italic',
 					faces[1].src
 				);
+				expect(googleFamilies).not.toContain(family);
 			} finally {
 				await requestUtils.rest({
 					path: typographyPath,
