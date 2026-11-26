@@ -9,7 +9,6 @@ import './transform';
 import './custom-css';
 import './display';
 import './toc-headings';
-import './toolbar-templates';
 import './block-actions-copy-paste';
 
 import { hasBlockSupport } from '@wordpress/blocks';

@@ -42,6 +42,8 @@ class GhostKit_Migrations {
 	 * Init.
 	 */
 	public function init() {
+		$this->migrate_templates();
+
 		// Migration code added after `$this->initial_version` plugin version.
 		$saved_version   = get_option( 'ghostkit_db_version', $this->initial_version );
 		$current_version = $this->version;
@@ -77,6 +79,174 @@ class GhostKit_Migrations {
 				'cb'      => array( $this, 'v_3_7_2' ),
 			),
 		);
+	}
+
+	/**
+	 * Copy legacy templates once, retrying incomplete copies on the next request.
+	 */
+	public function migrate_templates() {
+		global $wpdb;
+
+		if ( get_option( 'ghostkit_patterns_migrated' ) ) {
+			return;
+		}
+
+		$lock = 'ghostkit_patterns_' . md5( DB_NAME . ':' . $wpdb->posts );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		if ( '1' !== (string) $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 0)', $lock ) ) ) {
+			return;
+		}
+
+		try {
+			if ( get_option( 'ghostkit_patterns_migrated' ) ) {
+				return;
+			}
+
+			register_taxonomy( 'ghostkit_template_category', 'ghostkit_template', array( 'public' => false ) );
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$templates = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'auto-draft' ORDER BY ID", 'ghostkit_template' ) );
+
+			if ( $wpdb->last_error ) {
+				return;
+			}
+
+			foreach ( $templates as $template_id ) {
+				$template = get_post( $template_id );
+
+				if ( $template && ! $this->copy_template( $template ) ) {
+					return;
+				}
+			}
+
+			update_option( 'ghostkit_patterns_migrated', true );
+		} finally {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->get_var( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', $lock ) );
+		}
+	}
+
+	/**
+	 * Copy one legacy template without overwriting a completed pattern.
+	 *
+	 * @param WP_Post $template Legacy template.
+	 * @return bool
+	 */
+	private function copy_template( $template ) {
+		global $wpdb;
+
+		$marker = 'ghostkit_template:' . $template->ID;
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$pattern = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT posts.ID, posts.post_content_filtered
+				FROM {$wpdb->posts} posts
+				LEFT JOIN {$wpdb->postmeta} meta ON posts.ID = meta.post_id AND meta.meta_key = '_ghostkit_template_id'
+				WHERE posts.post_type = 'wp_block' AND (meta.meta_value = %d OR posts.post_content_filtered = %s)
+				LIMIT 1",
+				$template->ID,
+				$marker
+			)
+		);
+
+		if ( $wpdb->last_error ) {
+			return false;
+		}
+
+		if ( $pattern && $marker !== $pattern->post_content_filtered ) {
+			return true;
+		}
+
+		$pattern_id = $pattern ? (int) $pattern->ID : wp_insert_post(
+			array(
+				'post_type'             => 'wp_block',
+				'post_status'           => 'auto-draft',
+				'post_title'            => $marker,
+				'post_author'           => $template->post_author,
+				'post_content_filtered' => $marker,
+			),
+			true
+		);
+
+		if ( is_wp_error( $pattern_id ) ) {
+			return false;
+		}
+
+		$terms = wp_get_object_terms( $template->ID, 'ghostkit_template_category' );
+
+		if ( is_wp_error( $terms ) ) {
+			return false;
+		}
+
+		$categories = array();
+
+		foreach ( $terms as $term ) {
+			$category = get_term_by( 'slug', $term->slug, 'wp_pattern_category' );
+
+			if ( $category ) {
+				$categories[] = (int) $category->term_id;
+				continue;
+			}
+
+			$category = wp_insert_term( $term->name, 'wp_pattern_category', array( 'slug' => $term->slug ) );
+
+			if ( is_wp_error( $category ) ) {
+				return false;
+			}
+
+			$categories[] = (int) $category['term_id'];
+		}
+
+		if ( is_wp_error( wp_set_object_terms( $pattern_id, $categories, 'wp_pattern_category' ) ) ) {
+			return false;
+		}
+
+		foreach ( array(
+			'_ghostkit_template_id'  => (string) $template->ID,
+			'wp_pattern_sync_status' => 'unsynced',
+		) as $key => $value ) {
+			if ( get_post_meta( $pattern_id, $key, true ) !== $value && ! update_post_meta( $pattern_id, $key, $value ) ) {
+				return false;
+			}
+		}
+
+		$copy_markup = static function ( $data, $postarr ) use ( $pattern_id, $template ) {
+			if ( (int) ( $postarr['ID'] ?? 0 ) === $pattern_id ) {
+				$data['post_author']  = $template->post_author;
+				$data['post_title']   = wp_slash( $template->post_title );
+				$data['post_content'] = wp_slash( $template->post_content );
+				$data['post_excerpt'] = '';
+			}
+
+			return $data;
+		};
+
+		add_filter( 'wp_insert_post_data', $copy_markup, 10, 2 );
+
+		try {
+			return ! is_wp_error(
+				wp_update_post(
+					wp_slash(
+						array(
+							'ID'                    => $pattern_id,
+							'post_title'            => $template->post_title,
+							'post_content'          => $template->post_content,
+							'post_excerpt'          => $marker,
+							'post_status'           => $template->post_status,
+							'post_date'             => $template->post_date,
+							'post_date_gmt'         => $template->post_date_gmt,
+							'post_password'         => $template->post_password,
+							'post_content_filtered' => '',
+						)
+					),
+					true
+				)
+			);
+		} finally {
+			remove_filter( 'wp_insert_post_data', $copy_markup, 10 );
+		}
 	}
 
 	/**

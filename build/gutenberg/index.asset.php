@@ -17,10 +17,9 @@
 		'wp-i18n',
 		'wp-keycodes',
 		'wp-notices',
-		'wp-plugins',
 		'wp-preferences',
 		'wp-rich-text',
 		'wp-token-list'
 	),
-	'version' => '9d649f0abdb35caa557f'
+	'version' => '717cf15fd4f9a4c5a556'
 );

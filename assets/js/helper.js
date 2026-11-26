@@ -12,7 +12,6 @@ const {
 	disabledBlocks,
 	allowPluginColorPalette,
 	allowPluginCustomizer,
-	allowTemplates,
 	sidebars,
 	timezone,
 
@@ -28,7 +27,6 @@ const {
 	customTypographyList,
 
 	admin_url: adminUrl,
-	admin_templates_url: adminTemplatesUrl,
 } = window.ghostkitVariables;
 
 // prepare media vars.
@@ -54,7 +52,6 @@ const GHOSTKIT = {
 
 	allowPluginColorPalette,
 	allowPluginCustomizer,
-	allowTemplates,
 
 	vars,
 	replaceVars(str) {
@@ -84,7 +81,6 @@ const GHOSTKIT = {
 	customTypographyList,
 
 	adminUrl,
-	adminTemplatesUrl,
 
 	/**
 	 * Instance helper functions.
