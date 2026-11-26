@@ -131,7 +131,8 @@ function getFontWeightLabel(weight) {
 		case '900i':
 			label = __('Black Italic', 'ghostkit');
 			break;
-		// no default
+		default:
+			label = weight;
 	}
 
 	return label;
@@ -205,7 +206,13 @@ export default class Typography extends Component {
 			),
 		} = this.props;
 
-		const fontsIcon = `icon-typography-${fontFamilyCategory}`;
+		const libraryCategory = 'font-library';
+		const library = GHOSTKIT.fonts[libraryCategory];
+		const libraryIcon = getIcon('plugin-typography', false);
+		const fontsIcon =
+			fontFamilyCategory === libraryCategory
+				? libraryIcon
+				: getIcon(`icon-typography-${fontFamilyCategory}`, false);
 		const allowFontSelectors = applyFilters(
 			'ghostkit.typography.allow.fonts',
 			fontFamilyCategory !== 'adobe-fonts' &&
@@ -245,7 +252,7 @@ export default class Typography extends Component {
 				<div className="ghostkit-control-typography">
 					{typeof fontFamilyCategory !== 'undefined' ? (
 						<DropdownMenu
-							icon={getIcon(fontsIcon, false)}
+							icon={fontsIcon}
 							label={__('Font Family Category', 'ghostkit')}
 							popoverProps={{
 								position: 'bottom right',
@@ -262,6 +269,22 @@ export default class Typography extends Component {
 						>
 							{({ onClose }) => (
 								<MenuGroup>
+									{library ? (
+										<MenuItem
+											icon={libraryIcon}
+											onClick={() => {
+												onChange({
+													fontFamilyCategory:
+														libraryCategory,
+													fontFamily: '',
+													fontWeight: '',
+												});
+												onClose();
+											}}
+										>
+											{library.name}
+										</MenuItem>
+									) : null}
 									<MenuItem
 										icon={getIcon(
 											'icon-typography-google-fonts',
@@ -361,6 +384,21 @@ export default class Typography extends Component {
 									<Select
 										value={fontFamilyValue}
 										onChange={(opt) => {
+											const weights =
+												fontFamilyCategory ===
+													libraryCategory &&
+												opt?.value
+													? getFontWeights(
+															opt.value,
+															libraryCategory
+														)
+													: [];
+											const defaultWeight =
+												weights.find(
+													({ value }) =>
+														value === '400'
+												) || weights[0];
+
 											onChange({
 												fontFamily:
 													opt && opt.value
@@ -368,7 +406,8 @@ export default class Typography extends Component {
 														: '',
 												fontWeight:
 													opt && opt.value
-														? '400'
+														? defaultWeight?.value ||
+															'400'
 														: '',
 												fontFamilyCategory,
 											});

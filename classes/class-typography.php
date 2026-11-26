@@ -103,10 +103,14 @@ class GhostKit_Typography {
 							$typography_styles .= $output['selectors'] . '{';
 
 							if ( self::is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ) {
-								// Add double quotes to the font name, because some fonts have a space in the name.
-								// And if the font name is not in quotes, then the browser will not be able to find it.
-								// For example font-family: Source Serif 4; - will not work.
-								$typography_styles .= 'font-family: "' . esc_attr( $typography_prepeare_style['style-properties']['font-family'] ) . '", sans-serif;';
+								$font_family = $typography_prepeare_style['style-properties']['font-family'];
+								if ( 'font-library' === ( $typography_prepeare_style['style-properties']['font-family-category'] ?? '' ) ) {
+									if ( is_string( $font_family ) && preg_match( '/\A[\p{L}\p{N}-]+\z/u', $font_family ) ) {
+										$typography_styles .= 'font-family: var(--wp--preset--font-family--' . $font_family . ', sans-serif);';
+									}
+								} else {
+									$typography_styles .= 'font-family: "' . esc_attr( $font_family ) . '", sans-serif;';
+								}
 							}
 
 							if ( self::is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ) {
@@ -190,7 +194,6 @@ class GhostKit_Typography {
 	public static function get_typography_values( $typography_object, $typography_prepeare_styles ) {
 		$conformity_attributes = array(
 			'fontFamily'         => 'font-family',
-			'fontFamilyCategory' => 'font-family-category',
 			'fontSize'           => 'font-size',
 			'fontWeight'         => 'font-weight',
 			'lineHeight'         => 'line-height',
@@ -207,6 +210,9 @@ class GhostKit_Typography {
 							self::is_exist( $typography_prepeare_styles[ $meta_typography_key ]['style-properties'], $conformity_attributes[ $typography_attribute_key ], 'isset' ) ) {
 							if ( '' !== $typography_attribute ) {
 								$typography_prepeare_styles[ $meta_typography_key ]['style-properties'][ $conformity_attributes[ $typography_attribute_key ] ] = $typography_attribute;
+								if ( 'fontFamily' === $typography_attribute_key ) {
+										$typography_prepeare_styles[ $meta_typography_key ]['style-properties']['font-family-category'] = ( (array) $meta_typography_value )['fontFamilyCategory'] ?? '';
+								}
 							}
 						}
 					}

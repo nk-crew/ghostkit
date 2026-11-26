@@ -286,6 +286,7 @@ function getCurrentTypography(typographyData, typographyPrepeareStyles) {
 				) {
 					Object.keys(conformityAttributes).forEach((propertyKey) => {
 						if (
+							propertyKey !== 'font-family-category' &&
 							isExist(
 								typographyData.ghostkit_typography[key][
 									conformityAttributes[propertyKey]
@@ -301,6 +302,13 @@ function getCurrentTypography(typographyData, typographyPrepeareStyles) {
 								typographyData.ghostkit_typography[key][
 									conformityAttributes[propertyKey]
 								];
+							if (propertyKey === 'font-family') {
+								typographyPrepeareStyles[key][
+									'style-properties'
+								]['font-family-category'] =
+									typographyData.ghostkit_typography[key]
+										.fontFamilyCategory ?? '';
+							}
 						}
 					});
 				}
@@ -402,6 +410,24 @@ function printStyles(typographyData) {
 											typographyStyles +=
 												'font-style: normal;';
 										}
+									}
+									const properties =
+										typographyPrepeareStyles[key][
+											'style-properties'
+										];
+									if (
+										propertyKey === 'font-family' &&
+										properties['font-family-category'] ===
+											'font-library'
+									) {
+										const slug = properties[propertyKey];
+										if (
+											typeof slug === 'string' &&
+											!/[^\p{L}\p{N}-]/u.test(slug)
+										) {
+											typographyStyles += `font-family: var(--wp--preset--font-family--${slug}, sans-serif);`;
+										}
+										return;
 									}
 									typographyStyles = `${
 										typographyStyles + propertyKey
