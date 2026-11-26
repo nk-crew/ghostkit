@@ -1,4 +1,5 @@
 import { createBlock, getBlockType, hasBlockSupport } from '@wordpress/blocks';
+import { select } from '@wordpress/data';
 import { addFilter } from '@wordpress/hooks';
 
 import { maybeDecode, maybeEncode } from '../../utils/encode-decode';
@@ -20,11 +21,14 @@ const supportedAttributes = [
 ];
 const registrySignatures = new WeakMap();
 
-export function hasNativeIcon() {
+export function hasNativeIcon(selectStore = select) {
 	return (
 		!!window.ghostkitCoreIcons &&
 		!!getBlockType(nativeIcon) &&
-		!window.GHOSTKIT?.disabledBlocks?.[nativeIcon]
+		!window.GHOSTKIT?.disabledBlocks?.[nativeIcon] &&
+		!selectStore('core/preferences')
+			?.get('core', 'hiddenBlockTypes')
+			?.includes(nativeIcon)
 	);
 }
 
@@ -143,7 +147,7 @@ function getNativeAttributes(attributes) {
 	if (
 		!hasNativeIcon() ||
 		typeof icon !== 'string' ||
-		!/^\d+(?:\.\d+)?(?:px|rem)$/.test(width) ||
+		!/^\d+(?:\.\d+)?(?:px|rem|vw|vh)$/.test(width) ||
 		!hasBlockSupport(native, ['dimensions', 'width']) ||
 		justify !== 'center' ||
 		!native.supports.align?.includes?.(align || 'center') ||

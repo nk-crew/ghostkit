@@ -474,15 +474,28 @@ test.describe('standalone Icon transition', () => {
 		);
 		await editor.insertBlock({ name: 'ghostkit/icon' });
 		await editor.openDocumentSettingsSidebar();
-		await expect(
-			page
-				.locator('.block-editor-block-inspector')
-				.getByText(
-					'Use the block toolbar to convert compatible Ghost Kit icons to the WordPress Icon block.',
-					{ exact: true }
-				)
-				.filter({ visible: true })
-		).toHaveCount(availability.native ? 1 : 0);
+		const notice = page
+			.locator('.block-editor-block-inspector')
+			.getByText(
+				'Use the block toolbar to convert compatible Ghost Kit icons to the WordPress Icon block.',
+				{ exact: true }
+			)
+			.filter({ visible: true });
+		await expect(notice).toHaveCount(availability.native ? 1 : 0);
+		if (availability.native) {
+			await page.evaluate(() =>
+				window.wp.data
+					.dispatch('core/preferences')
+					.set('core', 'hiddenBlockTypes', ['core/icon'])
+			);
+			await expect(notice).toHaveCount(0);
+			await page.evaluate(() =>
+				window.wp.data
+					.dispatch('core/preferences')
+					.set('core', 'hiddenBlockTypes', [])
+			);
+			await expect(notice).toHaveCount(1);
+		}
 		await expect(
 			page.locator(
 				'.block-editor-block-inspector .ghostkit-component-icon-picker-toggle'
@@ -547,6 +560,8 @@ test.describe('standalone Icon transition', () => {
 				{ ghostkit: { customCSS: 'color: red' } },
 				{ justify: 'end' },
 				{ width: '75%' },
+				{ width: '4vw', ghostkit: undefined, className: undefined },
+				{ width: '4vh', ghostkit: undefined, className: undefined },
 				{ flipV: true },
 			];
 			return overrides.map((attrs) =>
@@ -564,6 +579,8 @@ test.describe('standalone Icon transition', () => {
 			false,
 			false,
 			false,
+			true,
+			true,
 			native.flip,
 		]);
 		await page.locator('.block-editor-block-switcher button').click();
