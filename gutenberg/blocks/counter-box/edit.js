@@ -9,6 +9,7 @@ import {
 import {
 	BaseControl,
 	PanelBody,
+	SelectControl,
 	TabPanel,
 	TextControl,
 	ToggleControl,
@@ -54,6 +55,9 @@ export default function BlockEdit(props) {
 		number,
 		animateInViewport,
 		animateInViewportFrom,
+		numberFormat,
+		thousandsSeparator,
+		decimalSeparator,
 		numberPosition,
 		numberAlign,
 		numberSize,
@@ -191,6 +195,51 @@ export default function BlockEdit(props) {
 								})
 							}
 						/>
+					) : null}
+					{animateInViewport ? (
+						<SelectControl
+							label={__('Number format', 'ghostkit')}
+							help={__(
+								'Separators the number shows while it counts. Type the number with these separators or without any.',
+								'ghostkit'
+							)}
+							value={numberFormat}
+							options={[
+								{
+									value: 'none',
+									label: __('As typed', 'ghostkit'),
+								},
+								{
+									value: 'locale',
+									label: __('Site language', 'ghostkit'),
+								},
+								{
+									value: 'custom',
+									label: __('Custom separators', 'ghostkit'),
+								},
+							]}
+							onChange={(value) =>
+								setAttributes({ numberFormat: value })
+							}
+						/>
+					) : null}
+					{animateInViewport && numberFormat === 'custom' ? (
+						<>
+							<TextControl
+								label={__('Thousands separator', 'ghostkit')}
+								value={thousandsSeparator}
+								onChange={(value) =>
+									setAttributes({ thousandsSeparator: value })
+								}
+							/>
+							<TextControl
+								label={__('Decimal separator', 'ghostkit')}
+								value={decimalSeparator}
+								onChange={(value) =>
+									setAttributes({ decimalSeparator: value })
+								}
+							/>
+						</>
 					) : null}
 				</PanelBody>
 				<PanelBody

@@ -1,4 +1,5 @@
 import round from '../../utils/round';
+import getCountFormat from './count-format';
 import DEFAULTS from './reveal/defaults';
 
 const {
@@ -129,26 +130,45 @@ events.on(document, 'init.blocks.gkt', () => {
 		.forEach(($counter) => {
 			$counter.classList.add('ghostkit-count-up-ready');
 
-			if (isReducedMotion) {
-				return;
-			}
-
 			const isProgress = $counter.classList.contains(
 				'ghostkit-progress-bar'
 			);
+			const formatType = $counter.getAttribute('data-count-format');
+			const countFormat =
+				!isProgress && formatType
+					? getCountFormat($counter.textContent, formatType, {
+							thousands:
+								$counter.getAttribute('data-count-thousands') ??
+								',',
+							decimal:
+								$counter.getAttribute('data-count-decimal'),
+						})
+					: null;
+
+			if (isReducedMotion) {
+				if (countFormat) {
+					$counter.textContent = countFormat.render(
+						countFormat.value
+					);
+				}
+				return;
+			}
+
 			const $progressRoot = isProgress
 				? $counter.closest('.ghostkit-progress')
 				: null;
 			const from =
 				parseFloat($counter.getAttribute('data-count-from')) || 0;
-			const to =
-				parseFloat(
-					isProgress
-						? $counter.getAttribute('aria-valuenow')
-						: $counter.textContent
-				) || 0;
+			const to = countFormat
+				? countFormat.value
+				: parseFloat(
+						isProgress
+							? $counter.getAttribute('aria-valuenow')
+							: $counter.textContent
+					) || 0;
 			let $progressCountBadgeWrap;
 			let $progressCountBadge;
+			let $countValue;
 			let digits = 0;
 
 			// biome-ignore-start lint/suspicious/noTemplateCurlyInString: `${val}` is a literal placeholder token inside the counter mask, not a template literal.
@@ -177,7 +197,20 @@ events.on(document, 'init.blocks.gkt', () => {
 
 				$counter.style.width = '0%';
 			} else {
-				$counter.textContent = mask.replace('${val}', from);
+				const $countFinal = document.createElement('span');
+
+				$countFinal.className = 'ghostkit-count-up-final';
+				$countFinal.textContent = countFormat
+					? countFormat.render(to)
+					: $counter.textContent;
+
+				$countValue = document.createElement('span');
+				$countValue.setAttribute('aria-hidden', 'true');
+				$countValue.textContent = countFormat
+					? countFormat.render(from)
+					: mask.replace('${val}', from);
+
+				$counter.replaceChildren($countValue, $countFinal);
 
 				// Calculate digits after the decimal point.
 				digits = Math.max(
@@ -206,10 +239,9 @@ events.on(document, 'init.blocks.gkt', () => {
 								Math.ceil(position);
 						}
 					} else {
-						$counter.textContent = mask.replace(
-							'${val}',
-							round(position, digits)
-						);
+						$countValue.textContent = countFormat
+							? countFormat.render(position)
+							: mask.replace('${val}', round(position, digits));
 					}
 				},
 			};
@@ -234,6 +266,10 @@ events.on(document, 'init.blocks.gkt', () => {
 							config.cb(progress);
 						},
 					}).then(() => {
+						if ($countValue?.isConnected) {
+							$counter.textContent = $countValue.textContent;
+						}
+
 						events.trigger($counter, 'counted.counter.gkt', {
 							config,
 						});
