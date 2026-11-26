@@ -17,6 +17,17 @@ import GapSettings from '../../components/gap-settings';
 
 const buttonBlockName = 'ghostkit/button-single';
 
+const templateSettings = {
+	template: [[buttonBlockName]],
+	templateInsertUpdatesSelection: true,
+};
+const supportsBlockTypeTemplate =
+	window.ghostkitVariables.supportsBlockTypeTemplate === '1';
+
+export const blockTypeTemplateSettings = supportsBlockTypeTemplate
+	? templateSettings
+	: {};
+
 /**
  * Block Edit Class.
  *
@@ -80,10 +91,9 @@ export default function BlockEdit(props) {
 		},
 		{
 			allowedBlocks: [buttonBlockName],
-			template: [[buttonBlockName]],
+			...(!supportsBlockTypeTemplate && templateSettings),
 			orientation: 'horizontal',
 			directInsert: true,
-			templateInsertUpdatesSelection: true,
 			renderAppender: isSelectedBlockInRoot
 				? () => (
 						<Tooltip text={__('Add Button', 'ghostkit')}>
