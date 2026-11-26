@@ -189,7 +189,10 @@ test.describe('Tabs transition', () => {
 					tabs.innerBlocks[1],
 				]),
 			];
+			actions.removeBlocks(tabs.clientId);
+			const control = available(cloneBlock(tabs));
 			const rejected = variants.map(available);
+			actions.insertBlocks(tabs);
 
 			const conflict = createBlock('core/group', { anchor: slugs[0] });
 			actions.insertBlocks(conflict);
@@ -206,14 +209,9 @@ test.describe('Tabs transition', () => {
 			actions.removeBlocks(carousel.clientId);
 			actions.insertBlocks(tabs);
 
-			if (native) {
-				actions.replaceBlocks(
-					tabs.clientId,
-					switchToBlockType(tabs, 'core/tabs')
-				);
-			}
 			return {
 				native,
+				control,
 				rejected,
 				duplicateAnchor,
 				carouselTransform,
@@ -223,6 +221,7 @@ test.describe('Tabs transition', () => {
 			};
 		});
 
+		expect(result.control).toBe(result.native);
 		expect(result.rejected).toEqual(Array(7).fill(false));
 		expect(result.duplicateAnchor).toBeNull();
 		expect(result.carouselTransform).toBeNull();
@@ -231,6 +230,18 @@ test.describe('Tabs transition', () => {
 			await expect(editor.canvas.locator('.ghostkit-tabs')).toBeVisible();
 			return;
 		}
+
+		await editor.canvas
+			.locator('.ghostkit-tabs-buttons-item [contenteditable="true"]')
+			.nth(1)
+			.click();
+		await page.locator('.block-editor-block-switcher button').click();
+		await page
+			.locator(
+				'.block-editor-block-switcher__popover .editor-block-list-item-tabs'
+			)
+			.click();
+		await expect(editor.canvas.locator('.wp-block-tabs')).toBeVisible();
 
 		const postId = await editor.publishPost();
 		const url = `/?p=${postId}`;
@@ -272,5 +283,70 @@ test.describe('Tabs transition', () => {
 		await expect(
 			editor.canvas.getByText('Panel 2', { exact: true })
 		).toBeVisible();
+	});
+
+	test('keeps native conversion unavailable when editing a synced pattern', async ({
+		requestUtils,
+		page,
+		admin,
+		editor,
+	}) => {
+		await admin.createNewPost({ showWelcomeGuide: false });
+		const fixture = await page.evaluate(() => {
+			const { createBlock, serialize, switchToBlockType } =
+				window.wp.blocks;
+			const block = createBlock(
+				'ghostkit/tabs-v2',
+				{},
+				['tab-1', 'tab-2'].map((slug, index) =>
+					createBlock('ghostkit/tabs-tab-v2', {
+						slug,
+						anchor: `${slug}-content`,
+						active: index === 0,
+					})
+				)
+			);
+			return {
+				content: serialize(block),
+				convertible: !!switchToBlockType(block, 'core/tabs'),
+				native:
+					window.ghostkitVariables.supportsNativeTabsHashLinks ===
+					'1',
+			};
+		});
+		expect(fixture.convertible).toBe(fixture.native);
+		const pattern = await requestUtils.createBlock({
+			title: 'Synced Ghost Kit tabs',
+			content: fixture.content,
+			status: 'publish',
+		});
+
+		try {
+			await admin.visitAdminPage(
+				'post.php',
+				`post=${pattern.id}&action=edit`
+			);
+			await expect(editor.canvas.locator('.ghostkit-tabs')).toBeVisible();
+			const result = await page.evaluate(() => {
+				const [block] = window.wp.data
+					.select('core/block-editor')
+					.getBlocks();
+				return {
+					valid: block.isValid,
+					transformed: window.wp.blocks.switchToBlockType(
+						block,
+						'core/tabs'
+					),
+				};
+			});
+			expect(result.valid).toBe(true);
+			expect(result.transformed).toBeNull();
+		} finally {
+			await requestUtils.rest({
+				method: 'DELETE',
+				path: `/wp/v2/blocks/${pattern.id}`,
+				params: { force: true },
+			});
+		}
 	});
 });

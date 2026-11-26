@@ -12,7 +12,20 @@ const nativeTabsBlocks = [
 ];
 
 export function hasNativeTabs() {
-	return !!getBlockType('core/tabs');
+	return (
+		!!getBlockType('core/tabs') &&
+		!window.GHOSTKIT?.disabledBlocks?.['core/tabs']
+	);
+}
+
+function isEditingSyncedPattern() {
+	const editor = select('core/editor');
+	return (
+		editor?.getCurrentPostType() === 'wp_block' &&
+		editor.getEditedPostAttribute('meta')?.wp_pattern_sync_status !==
+			'unsynced' &&
+		editor.getEditedPostAttribute('wp_pattern_sync_status') !== 'unsynced'
+	);
 }
 
 function hasOnlyAttributes(attributes, supported) {
@@ -58,8 +71,10 @@ function hasUniqueTabAnchors(block, editor) {
 				clientId !== block.clientId &&
 				editor.getBlockName(clientId) === 'ghostkit/tabs-v2' &&
 				tabsData.some(
-					({ slug }) =>
-						anchors.has(slug) || anchors.has(`${slug}-button`)
+					(tab) =>
+						typeof tab?.slug === 'string' &&
+						(anchors.has(tab.slug) ||
+							anchors.has(`${tab.slug}-button`))
 				)
 			);
 		})
@@ -92,10 +107,11 @@ export default {
 					hasBlockSupport('core/tab-panel', 'anchor') &&
 					hasBlockSupport('core/group', 'anchor') &&
 					editor &&
-					!editor.getBlockParentsByBlockName(
-						block.clientId,
-						'ghostkit/carousel'
-					).length &&
+					!editor.getBlockParentsByBlockName(block.clientId, [
+						'ghostkit/carousel',
+						'core/block',
+					]).length &&
+					!isEditingSyncedPattern() &&
 					block.isValid &&
 					!trigger &&
 					!buttonsVerticalAlign &&
