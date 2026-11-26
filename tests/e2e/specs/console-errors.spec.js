@@ -104,3 +104,36 @@ test.describe('console errors', () => {
 		await expect(issues.deprecations).toEqual([]);
 	});
 });
+
+test('a new Buttons block selects its first button without a selection prop warning', async ({
+	page,
+	admin,
+	editor,
+}) => {
+	const warnings = [];
+	page.on('console', (message) => {
+		if (
+			message
+				.text()
+				.includes('templateInsertUpdatesSelection prop of InnerBlocks')
+		) {
+			warnings.push(message.text());
+		}
+	});
+
+	await admin.createNewPost({ showWelcomeGuide: false });
+	await editor.insertBlock({ name: 'ghostkit/button' });
+
+	await expect(
+		editor.canvas.locator('[data-type="ghostkit/button-single"]')
+	).toHaveCount(1);
+	await expect
+		.poll(() =>
+			page.evaluate(
+				() =>
+					wp.data.select('core/block-editor').getSelectedBlock()?.name
+			)
+		)
+		.toBe('ghostkit/button-single');
+	expect(warnings).toEqual([]);
+});
