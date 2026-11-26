@@ -39,4 +39,28 @@ class GhostKitTocTitleTest extends WP_UnitTestCase {
 
 		remove_filter( 'gettext', $translate, 10 );
 	}
+
+	/**
+	 * A default title another plugin already translated is printed as it is.
+	 */
+	public function test_translated_default_title_is_kept() {
+		$block_type = WP_Block_Type_Registry::get_instance()->get_registered( 'ghostkit/table-of-contents' );
+		$default    = $block_type->attributes['title']['default'];
+
+		$block_type->attributes['title']['default'] = 'Sommaire';
+
+		$post_id = self::factory()->post->create(
+			array(
+				'post_content' => '<!-- wp:ghostkit/table-of-contents /--><!-- wp:heading --><h2 class="wp-block-heading" id="intro">Intro</h2><!-- /wp:heading -->',
+			)
+		);
+		$this->go_to( get_permalink( $post_id ) );
+		the_post();
+
+		$html = apply_filters( 'the_content', get_the_content() );
+
+		$block_type->attributes['title']['default'] = $default;
+
+		$this->assertMatchesRegularExpression( '#<h5 class="ghostkit-toc-title">\s*Sommaire\s*</h5>#', $html );
+	}
 }

@@ -226,8 +226,8 @@ class GhostKit_TOC_Block {
 			$attributes
 		);
 
-		// WordPress fills in block.json defaults untranslated.
-		if ( ! isset( $block->parsed_block['attrs']['title'] ) ) {
+		// WordPress fills in block.json defaults untranslated, unless a plugin such as WPML translated the default.
+		if ( ! isset( $block->parsed_block['attrs']['title'] ) && 'Table of Contents' === $attributes['title'] ) {
 			$attributes['title'] = __( 'Table of Contents', 'ghostkit' );
 		}
 
