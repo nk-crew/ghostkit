@@ -442,10 +442,17 @@ test.describe('standalone Icon transition', () => {
 
 		await admin.createNewPost({ showWelcomeGuide: false });
 		const availability = await page.evaluate(() => {
-			const { createBlock, getBlockType } = window.wp.blocks;
+			const { createBlock, getBlockType, switchToBlockType } =
+				window.wp.blocks;
 			const store = window.wp.data.select('core/block-editor');
 			return {
 				native: !!getBlockType('core/icon'),
+				imageToCover: switchToBlockType(
+					createBlock('core/image', {
+						url: 'https://example.com/cover.png',
+					}),
+					'core/cover'
+				)?.[0]?.attributes.url,
 				description: getBlockType('ghostkit/icon').description,
 				inserter: store
 					.getInserterItems()
@@ -458,6 +465,7 @@ test.describe('standalone Icon transition', () => {
 			};
 		});
 		expect(availability.inserter).toBe(true);
+		expect(availability.imageToCover).toBe('https://example.com/cover.png');
 		expect(availability.incoming).toBe(false);
 		expect(availability.description).toBe(
 			availability.native

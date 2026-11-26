@@ -192,8 +192,11 @@ function getNativeAttributes(attributes) {
 addFilter(
 	'blocks.switchToBlockType.transformedBlock',
 	'ghostkit/icon/remove-generated-attributes',
-	(block, [source]) => {
-		if (source.name !== 'ghostkit/icon' || block.name !== nativeIcon) {
+	(block, sourceBlocks) => {
+		const source = Array.isArray(sourceBlocks)
+			? sourceBlocks[0]
+			: sourceBlocks;
+		if (source?.name !== 'ghostkit/icon' || block.name !== nativeIcon) {
 			return block;
 		}
 

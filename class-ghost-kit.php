@@ -325,7 +325,7 @@ if ( ! class_exists( 'GhostKit' ) ) :
 
 			if ( class_exists( 'WP_Icons_Registry' ) && WP_Block_Type_Registry::get_instance()->is_registered( 'core/icon' ) ) {
 				$core_icons = array();
-				foreach ( WP_Icons_Registry::get_instance()->get_registered_icons() as $icon ) {
+				foreach ( WP_Icons_Registry::get_instance()->get_registered_icons( 'core/' ) as $icon ) {
 					if ( strpos( $icon['name'], 'core/' ) === 0 && ! empty( $icon['content'] ) ) {
 						$core_icons[ $icon['name'] ] = $icon['content'];
 					}
