@@ -573,11 +573,7 @@ class GhostKit_Rest extends WP_REST_Controller {
 			if ( $image_src ) {
 				list( $src, $width, $height ) = $image_src;
 
-				$alt = trim( wp_strip_all_tags( get_post_meta( $id, '_wp_attachment_image_alt', true ) ) );
-
-				if ( $alt ) {
-					$attr['alt'] = $alt;
-				}
+				$attr['alt'] = trim( wp_strip_all_tags( get_post_meta( $id, '_wp_attachment_image_alt', true ) ) );
 
 				if ( ! isset( $attr['class'] ) ) {
 					$attr['class'] = 'wp-image-' . $id;
