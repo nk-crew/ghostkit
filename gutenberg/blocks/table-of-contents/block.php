@@ -215,7 +215,7 @@ class GhostKit_TOC_Block {
 	 *
 	 * @return string
 	 */
-	public function block_render( $attributes, $content, $block ) {
+	public function block_render( $attributes, $content = '', $block = null ) {
 		$attributes = array_merge(
 			array(
 				'title'          => 'Table of Contents',
