@@ -72,9 +72,10 @@ function isExist(value) {
  *
  * @param {Object} typographyData - Typography Data.
  * @param {Array}  currentFonts   - Previous Array With Current Fonts.
+ * @param {Object} overrides      - Per-post typography assignments.
  * @return {Array} currentFonts - Next Array With Current Fonts.
  */
-function getCurrentFonts(typographyData, currentFonts) {
+function getCurrentFonts(typographyData, currentFonts, overrides) {
 	if (typographyData !== false) {
 		if (isExist(typographyData.ghostkit_typography)) {
 			Object.keys(typographyData.ghostkit_typography).forEach(
@@ -84,6 +85,14 @@ function getCurrentFonts(typographyData, currentFonts) {
 							typographyData.ghostkit_typography[typography];
 						const { fontFamilyCategory } =
 							typographyData.ghostkit_typography[typography];
+						const override = overrides?.[typography];
+						if (
+							fontFamilyCategory === 'google-fonts' &&
+							override?.fontFamilyCategory === 'font-library' &&
+							isExist(override.fontFamily)
+						) {
+							return;
+						}
 						let { fontWeight } =
 							typographyData.ghostkit_typography[typography];
 						const fontWeights = [];
@@ -140,7 +149,8 @@ function printFonts(typographyData) {
 	let currentFonts = [];
 	currentFonts = getCurrentFonts(
 		typographyData.customTypography,
-		currentFonts
+		currentFonts,
+		typographyData.meta?.ghostkit_typography
 	);
 	currentFonts = getCurrentFonts(typographyData.meta, currentFonts);
 

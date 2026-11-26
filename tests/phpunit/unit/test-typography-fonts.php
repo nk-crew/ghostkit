@@ -30,6 +30,16 @@ class GhostKitTypographyFontsTest extends WP_UnitTestCase {
 	public function test_native_presets_match_core_css_when_available() {
 		$families = array(
 			array(
+				'slug'       => 'local-cardo',
+				'name'       => 'Cardo',
+				'fontFamily' => 'Cardo, serif',
+			),
+			array(
+				'slug'       => 'local-inter',
+				'name'       => 'Local Inter',
+				'fontFamily' => 'Inter, sans-serif',
+			),
+			array(
 				'slug'       => '0',
 				'name'       => 'Numeric Fixture',
 				'fontFamily' => 'monospace',

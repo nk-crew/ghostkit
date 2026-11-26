@@ -344,16 +344,6 @@ class GhostKit_Fonts {
 			return $fonts;
 		}
 
-		$existing_names = array();
-		foreach ( $fonts as $category ) {
-			foreach ( $category['fonts'] as $font ) {
-				$existing_names[ strtolower( $font['name'] ) ] = true;
-				if ( isset( $font['label'] ) ) {
-					$existing_names[ strtolower( $font['label'] ) ] = true;
-				}
-			}
-		}
-
 		$families = array();
 		foreach ( $presets as $origin ) {
 			if ( ! is_array( $origin ) ) {
@@ -374,12 +364,6 @@ class GhostKit_Fonts {
 
 		$choices = array();
 		foreach ( $families as $slug => $preset ) {
-			$family = trim( explode( ',', $preset['fontFamily'], 2 )[0], " \"'" );
-			$label  = $preset['name'] ?? $family;
-			if ( isset( $existing_names[ strtolower( $label ) ] ) || isset( $existing_names[ strtolower( $family ) ] ) ) {
-				continue;
-			}
-
 			$widths = array();
 			foreach ( $preset['fontFace'] ?? array() as $face ) {
 				$weight = trim( (string) ( $face['fontWeight'] ?? '400' ) );
@@ -413,7 +397,7 @@ class GhostKit_Fonts {
 
 			$choices[] = array(
 				'name'   => (string) $slug,
-				'label'  => $label,
+				'label'  => $preset['name'] ?? trim( explode( ',', $preset['fontFamily'], 2 )[0], " \"'" ),
 				'widths' => $widths ? array_values( array_unique( $widths ) ) : array( '400', '700' ),
 			);
 		}
