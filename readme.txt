@@ -116,6 +116,10 @@ Download the plugin, upload the folder to `wp-content/plugins` over FTP, and act
 
 ## Frequently Asked Questions ##
 
+### Where did Ghost Kit Templates go? ###
+
+Ghost Kit 4.0 replaces Templates with WordPress Patterns. Local templates are copied into My Patterns as unsynced patterns, and templates from the active theme appear in the pattern inserter. The Ghost Kit remote template library is no longer available. Blocks you already inserted from the library stay in your posts and pages.
+
 ### Which blocks can I animate? ###
 
 Every core WordPress block and every Ghost Kit block. That covers Paragraph, Heading, Image, Cover, Group, Columns, Buttons, Query Loop and the rest of the core set. A block from another plugin joins in once it declares `supports.ghostkit` in its `block.json`.

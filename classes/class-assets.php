@@ -500,7 +500,6 @@ class GhostKit_Assets {
 			'fonts'                       => is_admin() ? apply_filters( 'gkt_fonts_list', array() ) : array(),
 			'customTypographyList'        => is_admin() ? apply_filters( 'gkt_custom_typography', array() ) : array(),
 			'admin_url'                   => admin_url(),
-			'admin_templates_url'         => admin_url( 'edit.php?post_type=ghostkit_template' ),
 		);
 
 		$global_data = apply_filters( 'gkt_global_data', $global_data );

@@ -7,7 +7,6 @@ import getIcon from '../../utils/get-icon';
 import { ColorPaletteModal } from '../color-palette';
 import { CustomCodeModal } from '../custom-code';
 import { CustomizerModal } from '../customizer';
-import { TemplatesModal } from '../templates';
 import { TypographyModal } from '../typography';
 
 const { GHOSTKIT } = window;
@@ -67,20 +66,6 @@ export class Plugin extends Component {
 								{getIcon('plugin-custom-code')}
 								{__('CSS & JavaScript', 'ghostkit')}
 							</Button>
-							{GHOSTKIT.allowTemplates && (
-								<Button
-									className="plugin-ghostkit-panel-button"
-									variant="secondary"
-									onClick={() => {
-										this.setState({
-											isModalOpen: 'templates',
-										});
-									}}
-								>
-									{getIcon('plugin-templates')}
-									{__('Templates', 'ghostkit')}
-								</Button>
-							)}
 							{GHOSTKIT.allowPluginColorPalette ? (
 								<Button
 									className="plugin-ghostkit-panel-button"
@@ -111,13 +96,6 @@ export class Plugin extends Component {
 							) : null}
 						</PanelBody>
 					</PluginSidebar>
-				) : null}
-				{isModalOpen === 'templates' ? (
-					<TemplatesModal
-						onRequestClose={() =>
-							this.setState({ isModalOpen: false })
-						}
-					/>
 				) : null}
 				{isModalOpen === 'typography' ? (
 					<TypographyModal

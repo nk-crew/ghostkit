@@ -142,12 +142,6 @@ export default function BlockEdit(props) {
 		];
 		layouts = applyFilters('ghostkit.editor.grid.layouts', layouts, props);
 
-		const templatesModal = applyFilters(
-			'ghostkit.editor.grid.templatesModal',
-			'',
-			props
-		);
-
 		return (
 			<Placeholder
 				icon={getIcon('block-grid')}
@@ -185,7 +179,6 @@ export default function BlockEdit(props) {
 						);
 					})}
 				</div>
-				{templatesModal}
 			</Placeholder>
 		);
 	}

@@ -84,7 +84,6 @@ import { ReactComponent as iconVerticalTop } from './icon-vertical-top.svg';
 import { ReactComponent as pluginColorPalette } from './plugin-color-palette.svg';
 import { ReactComponent as pluginCustomCode } from './plugin-custom-code.svg';
 import { ReactComponent as pluginCustomizer } from './plugin-customizer.svg';
-import { ReactComponent as pluginTemplates } from './plugin-templates.svg';
 import { ReactComponent as pluginTypography } from './plugin-typography.svg';
 import { ReactComponent as srFade } from './sr-fade.svg';
 import { ReactComponent as srZoom } from './sr-zoom.svg';
@@ -150,7 +149,6 @@ export default {
 	'border-double': borderDouble,
 	'border-solid': borderSolid,
 
-	'plugin-templates': pluginTemplates,
 	'plugin-custom-code': pluginCustomCode,
 	'plugin-color-palette': pluginColorPalette,
 	'plugin-customizer': pluginCustomizer,

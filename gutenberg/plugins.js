@@ -5,8 +5,9 @@ import * as customCode from './plugins/custom-code';
 import * as customizer from './plugins/customizer';
 import * as editorIframeResize from './plugins/editor-iframe-resize';
 import * as ghostkit from './plugins/ghostkit';
-import * as templates from './plugins/templates';
 import * as typography from './plugins/typography';
+
+import './plugins/patterns';
 
 const { GHOSTKIT } = window;
 
@@ -15,7 +16,6 @@ const { GHOSTKIT } = window;
  */
 [
 	ghostkit,
-	templates,
 	typography,
 	customCode,
 	colorPalette,
@@ -25,8 +25,7 @@ const { GHOSTKIT } = window;
 	if (
 		(name === 'ghostkit-color-palette' &&
 			!GHOSTKIT.allowPluginColorPalette) ||
-		(name === 'ghostkit-customizer' && !GHOSTKIT.allowPluginCustomizer) ||
-		(name === 'ghostkit-templates' && !GHOSTKIT.allowTemplates)
+		(name === 'ghostkit-customizer' && !GHOSTKIT.allowPluginCustomizer)
 	) {
 		return;
 	}

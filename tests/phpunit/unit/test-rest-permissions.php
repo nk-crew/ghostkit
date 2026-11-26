@@ -10,67 +10,24 @@
  */
 class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 	/**
-	 * Outbound HTTP requests made during a test.
-	 *
-	 * @var array
-	 */
-	private $http_requests = array();
-
-	/**
-	 * Set up a fresh REST server and block outbound HTTP.
-	 *
-	 * @return void
+	 * Set up a fresh REST server.
 	 */
 	public function set_up() {
 		parent::set_up();
 
-		// The test case unregisters plugin post types between tests.
-		if ( ! post_type_exists( 'ghostkit_template' ) ) {
-			GhostKit_Templates::add_custom_post_type();
-		}
-
 		global $wp_rest_server;
 		$wp_rest_server = new WP_REST_Server();
 		do_action( 'rest_api_init', $wp_rest_server );
-
-		$this->http_requests = array();
-		add_filter( 'pre_http_request', array( $this, 'record_http_request' ), 10, 3 );
 	}
 
 	/**
 	 * Tear down.
-	 *
-	 * @return void
 	 */
 	public function tear_down() {
 		global $wp_rest_server;
 		$wp_rest_server = null;
 
-		remove_filter( 'pre_http_request', array( $this, 'record_http_request' ), 10 );
-
 		parent::tear_down();
-	}
-
-	/**
-	 * Record outbound request and answer with an empty JSON object.
-	 *
-	 * @param false|array $pre  short-circuit value.
-	 * @param array       $args request args.
-	 * @param string      $url  request URL.
-	 * @return array
-	 */
-	public function record_http_request( $pre, $args, $url ) {
-		$this->http_requests[] = $url;
-
-		return array(
-			'headers'  => array(),
-			'body'     => '{"response":[]}',
-			'response' => array(
-				'code'    => 200,
-				'message' => 'OK',
-			),
-			'cookies'  => array(),
-		);
 	}
 
 	/**
@@ -101,164 +58,12 @@ class GhostKitRestPermissionsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Visitors and subscribers cannot list templates, and no library request is made.
+	 * Removed Ghost Kit template endpoints are no longer registered.
 	 */
-	public function test_templates_list_refused_without_edit_posts() {
-		delete_transient( 'ghostkit_remote_templates' );
-
-		wp_set_current_user( 0 );
-		$this->assertSame( 401, $this->get( '/ghostkit/v1/get_templates' )->get_status() );
-
-		$this->login_as( 'subscriber' );
-		$this->assertSame( 403, $this->get( '/ghostkit/v1/get_templates' )->get_status() );
-
-		$this->assertSame( array(), $this->http_requests );
-		$this->assertFalse( get_transient( 'ghostkit_remote_templates' ) );
-	}
-
-	/**
-	 * Contributors can list templates.
-	 */
-	public function test_templates_list_allowed_for_contributor() {
-		$this->login_as( 'contributor' );
-
-		$response = $this->get( '/ghostkit/v1/get_templates' );
-
-		$this->assertSame( 200, $response->get_status() );
-		$this->assertTrue( $response->get_data()['success'] );
-	}
-
-	/**
-	 * An unavailable remote library does not hide local templates.
-	 */
-	public function test_local_templates_listed_when_remote_library_is_unavailable() {
-		delete_transient( 'ghostkit_remote_templates' );
-		$this->login_as( 'contributor' );
-		self::factory()->post->create(
-			array(
-				'post_type'   => 'ghostkit_template',
-				'post_status' => 'publish',
-				'post_title'  => 'Local template during an outage',
-			)
-		);
-
-		$library_unavailable = static function () {
-			return new WP_Error( 'http_request_failed', 'Remote library unavailable' );
-		};
-		add_filter( 'pre_http_request', $library_unavailable, 11 );
-		try {
-			$response = $this->get( '/ghostkit/v1/get_templates' );
-		} finally {
-			remove_filter( 'pre_http_request', $library_unavailable, 11 );
-		}
-
-		$this->assertSame( 200, $response->get_status() );
-		$this->assertContains( 'Local template during an outage', wp_list_pluck( $response->get_data()['response'], 'title' ) );
-	}
-
-	/**
-	 * A private template is not returned to a user who cannot read it.
-	 */
-	public function test_private_local_template_refused_for_contributor() {
-		$admin_id    = self::factory()->user->create( array( 'role' => 'administrator' ) );
-		$template_id = self::factory()->post->create(
-			array(
-				'post_type'    => 'ghostkit_template',
-				'post_status'  => 'private',
-				'post_author'  => $admin_id,
-				'post_content' => 'secret template content',
-			)
-		);
-
-		$this->login_as( 'contributor' );
-		$response = $this->get(
-			'/ghostkit/v1/get_template_data',
-			array(
-				'id'   => (string) $template_id,
-				'type' => 'local',
-			)
-		);
-
-		$this->assertSame( 403, $response->get_status() );
-		$this->assertStringNotContainsString( 'secret template content', wp_json_encode( $response->get_data() ) );
-
-		wp_set_current_user( 0 );
-		$response = $this->get(
-			'/ghostkit/v1/get_template_data',
-			array(
-				'id'   => (string) $template_id,
-				'type' => 'local',
-			)
-		);
-
-		$this->assertSame( 401, $response->get_status() );
-		$this->assertStringNotContainsString( 'secret template content', wp_json_encode( $response->get_data() ) );
-	}
-
-	/**
-	 * Editors can read a private template.
-	 */
-	public function test_private_local_template_allowed_for_editor() {
-		$admin_id    = self::factory()->user->create( array( 'role' => 'administrator' ) );
-		$template_id = self::factory()->post->create(
-			array(
-				'post_type'    => 'ghostkit_template',
-				'post_status'  => 'private',
-				'post_author'  => $admin_id,
-				'post_content' => 'secret template content',
-			)
-		);
-
-		$this->login_as( 'editor' );
-		$response = $this->get(
-			'/ghostkit/v1/get_template_data',
-			array(
-				'id'   => (string) $template_id,
-				'type' => 'local',
-			)
-		);
-
-		$this->assertSame( 200, $response->get_status() );
-		$this->assertSame( 'secret template content', $response->get_data()['response']['content'] );
-	}
-
-	/**
-	 * Visitors cannot make the site fetch a remote template.
-	 */
-	public function test_remote_template_refused_for_visitor() {
-		wp_set_current_user( 0 );
-
-		$response = $this->get(
-			'/ghostkit/v1/get_template_data',
-			array(
-				'id'   => 'some-template',
-				'type' => 'remote',
-			)
-		);
-
-		$this->assertSame( 401, $response->get_status() );
-		$this->assertSame( array(), $this->http_requests );
-		$this->assertFalse( get_transient( 'ghostkit_template_remote_some-template' ) );
-	}
-
-	/**
-	 * A theme template id with a path is rejected before any file lookup.
-	 */
-	public function test_theme_template_id_cannot_traverse_directories() {
-		$this->login_as( 'editor' );
-
-		$response = $this->get(
-			'/ghostkit/v1/get_template_data',
-			array(
-				'id'   => '../../../../wp-config',
-				'type' => 'theme',
-			)
-		);
-
-		$data = $response->get_data();
-
-		$this->assertFalse( $data['success'] );
-		$this->assertSame( 'invalid_id', $data['error_code'] );
+	public function test_template_routes_are_gone() {
+		$this->login_as( 'administrator' );
+		$this->assertSame( 404, $this->get( '/ghostkit/v1/get_templates' )->get_status() );
+		$this->assertSame( 404, $this->get( '/ghostkit/v1/get_template_data' )->get_status() );
 	}
 
 	/**

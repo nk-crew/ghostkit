@@ -42,6 +42,8 @@ class GhostKit_Migrations {
 	 * Init.
 	 */
 	public function init() {
+		$this->migrate_templates();
+
 		// Migration code added after `$this->initial_version` plugin version.
 		$saved_version   = get_option( 'ghostkit_db_version', $this->initial_version );
 		$current_version = $this->version;
@@ -77,6 +79,246 @@ class GhostKit_Migrations {
 				'cb'      => array( $this, 'v_3_7_2' ),
 			),
 		);
+	}
+
+	/**
+	 * Copy legacy templates once, retrying incomplete copies on the next request.
+	 */
+	public function migrate_templates() {
+		global $wpdb;
+
+		if ( get_option( 'ghostkit_patterns_migrated' ) ) {
+			return;
+		}
+
+		$lock_name = 'ghostkit_patterns_migration_lock';
+		$lock      = $this->claim_template_migration( $lock_name );
+
+		if ( ! $lock ) {
+			return;
+		}
+
+		try {
+			if ( get_option( 'ghostkit_patterns_migrated' ) ) {
+				return;
+			}
+
+			register_taxonomy( 'ghostkit_template_category', 'ghostkit_template', array( 'public' => false ) );
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$templates = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'auto-draft' ORDER BY ID", 'ghostkit_template' ) );
+
+			if ( $wpdb->last_error ) {
+				return;
+			}
+
+			foreach ( $templates as $template_id ) {
+				$template = get_post( $template_id );
+
+				if ( $template && ! $this->copy_template( $template ) ) {
+					return;
+				}
+			}
+
+			update_option( 'ghostkit_patterns_migrated', true );
+		} finally {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->delete(
+				$wpdb->options,
+				array(
+					'option_name'  => $lock_name,
+					'option_value' => $lock,
+				)
+			);
+		}
+	}
+
+	/**
+	 * Claim the migration option once, including after a crashed request.
+	 *
+	 * @param string $name The site-scoped lock option.
+	 * @return string|false
+	 */
+	private function claim_template_migration( $name ) {
+		global $wpdb;
+
+		$now   = time();
+		$token = $now . ':' . wp_generate_uuid4();
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$claimed = $wpdb->query( $wpdb->prepare( "INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %s, 'no')", $name, $token ) );
+
+		if ( 1 === $claimed ) {
+			return $token;
+		}
+
+		if ( false === $claimed ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$previous = $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $name ) );
+
+		if ( null === $previous || (int) $previous > $now - HOUR_IN_SECONDS ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$claimed = $wpdb->update(
+			$wpdb->options,
+			array( 'option_value' => $token ),
+			array(
+				'option_name'  => $name,
+				'option_value' => $previous,
+			)
+		);
+
+		return 1 === $claimed ? $token : false;
+	}
+
+	/**
+	 * Copy one legacy template without overwriting a completed pattern.
+	 *
+	 * @param WP_Post $template Legacy template.
+	 * @return bool
+	 */
+	private function copy_template( $template ) {
+		global $wpdb;
+
+		$marker     = 'ghostkit_template:' . $template->ID;
+		$trash_time = 'trash' === $template->post_status ? get_post_meta( $template->ID, '_wp_trash_meta_time', true ) : '';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$pattern = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT posts.ID, posts.post_content_filtered
+				FROM {$wpdb->posts} posts
+				LEFT JOIN {$wpdb->postmeta} meta ON posts.ID = meta.post_id AND meta.meta_key = '_ghostkit_template_id'
+				WHERE posts.post_type = 'wp_block' AND (meta.meta_value = %d OR posts.post_content_filtered = %s)
+				LIMIT 1",
+				$template->ID,
+				$marker
+			)
+		);
+
+		if ( $wpdb->last_error ) {
+			return false;
+		}
+
+		if ( $pattern && $marker !== $pattern->post_content_filtered ) {
+			return $this->preserve_template_trash_time( (int) $pattern->ID, $trash_time );
+		}
+
+		$pattern_id = $pattern ? (int) $pattern->ID : wp_insert_post(
+			array(
+				'post_type'             => 'wp_block',
+				'post_status'           => 'auto-draft',
+				'post_title'            => $marker,
+				'post_author'           => $template->post_author,
+				'post_content_filtered' => $marker,
+			),
+			true
+		);
+
+		if ( is_wp_error( $pattern_id ) ) {
+			return false;
+		}
+
+		$terms = wp_get_object_terms( $template->ID, 'ghostkit_template_category' );
+
+		if ( is_wp_error( $terms ) ) {
+			return false;
+		}
+
+		$categories = array();
+
+		foreach ( $terms as $term ) {
+			$category = get_term_by( 'slug', $term->slug, 'wp_pattern_category' );
+
+			if ( $category ) {
+				$categories[] = (int) $category->term_id;
+				continue;
+			}
+
+			$category = wp_insert_term( $term->name, 'wp_pattern_category', array( 'slug' => $term->slug ) );
+
+			if ( is_wp_error( $category ) ) {
+				return false;
+			}
+
+			$categories[] = (int) $category['term_id'];
+		}
+
+		if ( is_wp_error( wp_set_object_terms( $pattern_id, $categories, 'wp_pattern_category' ) ) ) {
+			return false;
+		}
+
+		$metadata = array(
+			'_ghostkit_template_id'  => (string) $template->ID,
+			'wp_pattern_sync_status' => 'unsynced',
+		);
+
+		if ( 'trash' === $template->post_status && metadata_exists( 'post', $template->ID, '_wp_trash_meta_status' ) ) {
+			$metadata['_wp_trash_meta_status'] = get_post_meta( $template->ID, '_wp_trash_meta_status', true );
+		}
+
+		foreach ( $metadata as $key => $value ) {
+			if ( get_post_meta( $pattern_id, $key, true ) !== $value && ! update_post_meta( $pattern_id, $key, $value ) ) {
+				return false;
+			}
+		}
+
+		$copy_markup = static function ( $data, $postarr ) use ( $pattern_id, $template ) {
+			if ( (int) ( $postarr['ID'] ?? 0 ) === $pattern_id ) {
+				$data['post_author']  = $template->post_author;
+				$data['post_title']   = wp_slash( $template->post_title );
+				$data['post_content'] = wp_slash( $template->post_content );
+				$data['post_excerpt'] = '';
+			}
+
+			return $data;
+		};
+
+		add_filter( 'wp_insert_post_data', $copy_markup, 10, 2 );
+
+		try {
+			$result = wp_update_post(
+				wp_slash(
+					array(
+						'ID'                    => $pattern_id,
+						'post_title'            => $template->post_title,
+						'post_content'          => $template->post_content,
+						'post_excerpt'          => $marker,
+						'post_status'           => $template->post_status,
+						'post_date'             => $template->post_date,
+						'post_date_gmt'         => $template->post_date_gmt,
+						'edit_date'             => true,
+						'post_password'         => $template->post_password,
+						'post_content_filtered' => '',
+					)
+				),
+				true
+			);
+		} finally {
+			remove_filter( 'wp_insert_post_data', $copy_markup, 10 );
+		}
+
+		return ! is_wp_error( $result ) && $this->preserve_template_trash_time( $pattern_id, $trash_time );
+	}
+
+	/**
+	 * Set the purge timestamp only after WordPress sees the pattern as trashed.
+	 *
+	 * @param int    $pattern_id The destination pattern.
+	 * @param string $trash_time The original purge timestamp.
+	 * @return bool
+	 */
+	private function preserve_template_trash_time( $pattern_id, $trash_time ) {
+		if ( '' === $trash_time || 'trash' !== get_post_status( $pattern_id ) || metadata_exists( 'post', $pattern_id, '_wp_trash_meta_time' ) ) {
+			return true;
+		}
+
+		return (bool) add_post_meta( $pattern_id, '_wp_trash_meta_time', $trash_time, true );
 	}
 
 	/**
