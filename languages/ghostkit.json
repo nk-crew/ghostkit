@@ -74,9 +74,6 @@
          "Image not found.": [
             ""
          ],
-         "Templates not found.": [
-            ""
-         ],
          "Invalid template ID.": [
             ""
          ],
@@ -288,6 +285,9 @@
             ""
          ],
          "This e-mail was sent from a contact form on %1$s. (%2$s)": [
+            ""
+         ],
+         "Table of Contents": [
             ""
          ],
          "Blocks": [
@@ -616,6 +616,27 @@
             ""
          ],
          "Animate from": [
+            ""
+         ],
+         "Number format": [
+            ""
+         ],
+         "Separators the number shows while it counts. Type the number with these separators or without any.": [
+            ""
+         ],
+         "As typed": [
+            ""
+         ],
+         "Site language": [
+            ""
+         ],
+         "Custom separators": [
+            ""
+         ],
+         "Thousands separator": [
+            ""
+         ],
+         "Decimal separator": [
             ""
          ],
          "Write number…": [
@@ -1334,9 +1355,6 @@
             ""
          ],
          "Write title…": [
-            ""
-         ],
-         "Table of Contents": [
             ""
          ],
          "Start adding Heading blocks to create a table of contents. Headings with HTML anchors will be linked here.": [

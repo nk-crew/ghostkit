@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ghost Kit 3.9.1\n"
+"Project-Id-Version: Ghost Kit 3.9.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nk-o/ghostkit/issues\n"
 "Last-Translator: nK\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-22T21:18:26+00:00\n"
+"POT-Creation-Date: 2026-11-26T11:07:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: ghostkit\n"
@@ -133,31 +133,27 @@ msgstr ""
 msgid "Provide image ID."
 msgstr ""
 
-#: classes/class-rest.php:606
+#: classes/class-rest.php:602
 msgid "Image not found."
 msgstr ""
 
-#: classes/class-rest.php:997
-msgid "Templates not found."
-msgstr ""
-
-#: classes/class-rest.php:1016
+#: classes/class-rest.php:1006
 msgid "Invalid template ID."
 msgstr ""
 
-#: classes/class-rest.php:1092
+#: classes/class-rest.php:1082
 msgid "Template data not found."
 msgstr ""
 
-#: classes/class-rest.php:1107
+#: classes/class-rest.php:1097
 msgid "Custom code not found."
 msgstr ""
 
-#: classes/class-rest.php:1130
+#: classes/class-rest.php:1120
 msgid "User don't have permissions to change custom JavaScript."
 msgstr ""
 
-#: classes/class-rest.php:1169
+#: classes/class-rest.php:1159
 msgid "Typography not found."
 msgstr ""
 
@@ -472,6 +468,11 @@ msgstr ""
 msgid "This e-mail was sent from a contact form on %1$s. (%2$s)"
 msgstr ""
 
+#: gutenberg/blocks/table-of-contents/block.php:231
+#: gutenberg/blocks/table-of-contents/edit.js:178
+msgid "Table of Contents"
+msgstr ""
+
 #: settings/index.php:147
 #: gutenberg/plugins/templates/index.js:267
 #: settings/pages/index.js:14
@@ -618,7 +619,7 @@ msgstr ""
 
 #: gutenberg/blocks/alert/edit.js:149
 #: gutenberg/blocks/button-single/edit.js:231
-#: gutenberg/blocks/counter-box/edit.js:199
+#: gutenberg/blocks/counter-box/edit.js:248
 #: gutenberg/blocks/divider/edit.js:158
 #: gutenberg/blocks/icon-box/edit.js:201
 #: gutenberg/blocks/progress/edit.js:123
@@ -627,7 +628,7 @@ msgstr ""
 
 #: gutenberg/blocks/alert/edit.js:160
 #: gutenberg/blocks/button-single/edit.js:126
-#: gutenberg/blocks/counter-box/edit.js:210
+#: gutenberg/blocks/counter-box/edit.js:259
 #: gutenberg/blocks/divider/edit.js:172
 #: gutenberg/blocks/icon-box/edit.js:212
 #: gutenberg/blocks/progress/edit.js:135
@@ -637,7 +638,7 @@ msgstr ""
 
 #: gutenberg/blocks/alert/edit.js:165
 #: gutenberg/blocks/button-single/edit.js:131
-#: gutenberg/blocks/counter-box/edit.js:215
+#: gutenberg/blocks/counter-box/edit.js:264
 #: gutenberg/blocks/divider/edit.js:177
 #: gutenberg/blocks/icon-box/edit.js:217
 #: gutenberg/blocks/image-compare/edit.js:264
@@ -648,7 +649,7 @@ msgid "Hover"
 msgstr ""
 
 #: gutenberg/blocks/alert/edit.js:179
-#: gutenberg/blocks/counter-box/edit.js:233
+#: gutenberg/blocks/counter-box/edit.js:282
 #: gutenberg/blocks/grid/awb-fallback.js:182
 #: gutenberg/blocks/image-compare/edit.js:554
 #: gutenberg/blocks/shape-divider/edit.js:308
@@ -684,16 +685,16 @@ msgid "Icon Position"
 msgstr ""
 
 #: gutenberg/blocks/button-single/edit.js:215
-#: gutenberg/blocks/counter-box/edit.js:122
-#: gutenberg/blocks/counter-box/edit.js:277
+#: gutenberg/blocks/counter-box/edit.js:126
+#: gutenberg/blocks/counter-box/edit.js:326
 #: gutenberg/blocks/icon-box/edit.js:131
 #: gutenberg/blocks/icon-box/edit.js:278
 msgid "Left"
 msgstr ""
 
 #: gutenberg/blocks/button-single/edit.js:219
-#: gutenberg/blocks/counter-box/edit.js:132
-#: gutenberg/blocks/counter-box/edit.js:285
+#: gutenberg/blocks/counter-box/edit.js:136
+#: gutenberg/blocks/counter-box/edit.js:334
 #: gutenberg/blocks/icon-box/edit.js:141
 #: gutenberg/blocks/icon-box/edit.js:286
 #: gutenberg/extend/position/distance/index.js:23
@@ -725,12 +726,12 @@ msgstr ""
 msgid "Write text…"
 msgstr ""
 
-#: gutenberg/blocks/button/edit.js:89
+#: gutenberg/blocks/button/edit.js:99
 msgid "Add Button"
 msgstr ""
 
-#: gutenberg/blocks/button/edit.js:135
-#: gutenberg/blocks/button/edit.js:136
+#: gutenberg/blocks/button/edit.js:145
+#: gutenberg/blocks/button/edit.js:146
 #: gutenberg/blocks/form/fields/submit/edit.js:131
 #: gutenberg/blocks/form/fields/submit/edit.js:132
 msgid "Align"
@@ -971,16 +972,16 @@ msgstr ""
 msgid "Display content after expiration:"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:90
+#: gutenberg/blocks/counter-box/edit.js:94
 msgid "Number Position"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:97
+#: gutenberg/blocks/counter-box/edit.js:101
 msgid "Number Size"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:114
-#: gutenberg/blocks/counter-box/edit.js:271
+#: gutenberg/blocks/counter-box/edit.js:118
+#: gutenberg/blocks/counter-box/edit.js:320
 #: gutenberg/blocks/grid-column/edit.js:218
 #: gutenberg/blocks/grid-column/edit.js:245
 #: gutenberg/blocks/grid/edit.js:314
@@ -992,18 +993,18 @@ msgstr ""
 msgid "Top"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:145
+#: gutenberg/blocks/counter-box/edit.js:149
 msgid "Number Alignment"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:150
+#: gutenberg/blocks/counter-box/edit.js:154
 #: gutenberg/blocks/grid/edit.js:340
 #: gutenberg/blocks/icon-box/edit.js:161
 #: gutenberg/blocks/image-compare/edit.js:293
 msgid "Start"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:155
+#: gutenberg/blocks/counter-box/edit.js:159
 #: gutenberg/blocks/grid-column/edit.js:223
 #: gutenberg/blocks/grid/edit.js:319
 #: gutenberg/blocks/grid/edit.js:345
@@ -1012,28 +1013,56 @@ msgstr ""
 msgid "Center"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:160
+#: gutenberg/blocks/counter-box/edit.js:164
 #: gutenberg/blocks/grid/edit.js:350
 #: gutenberg/blocks/icon-box/edit.js:175
 #: gutenberg/blocks/image-compare/edit.js:313
 msgid "End"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:172
+#: gutenberg/blocks/counter-box/edit.js:176
 #: gutenberg/blocks/icon-box/edit.js:190
 msgid "Show Content"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:177
+#: gutenberg/blocks/counter-box/edit.js:181
 #: gutenberg/blocks/progress/edit.js:113
 msgid "Animate in viewport"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:185
+#: gutenberg/blocks/counter-box/edit.js:189
 msgid "Animate from"
 msgstr ""
 
-#: gutenberg/blocks/counter-box/edit.js:299
+#: gutenberg/blocks/counter-box/edit.js:201
+msgid "Number format"
+msgstr ""
+
+#: gutenberg/blocks/counter-box/edit.js:202
+msgid "Separators the number shows while it counts. Type the number with these separators or without any."
+msgstr ""
+
+#: gutenberg/blocks/counter-box/edit.js:210
+msgid "As typed"
+msgstr ""
+
+#: gutenberg/blocks/counter-box/edit.js:214
+msgid "Site language"
+msgstr ""
+
+#: gutenberg/blocks/counter-box/edit.js:218
+msgid "Custom separators"
+msgstr ""
+
+#: gutenberg/blocks/counter-box/edit.js:229
+msgid "Thousands separator"
+msgstr ""
+
+#: gutenberg/blocks/counter-box/edit.js:236
+msgid "Decimal separator"
+msgstr ""
+
+#: gutenberg/blocks/counter-box/edit.js:348
 msgid "Write number…"
 msgstr ""
 
@@ -2102,10 +2131,6 @@ msgstr ""
 
 #: gutenberg/blocks/table-of-contents/edit.js:147
 msgid "Write title…"
-msgstr ""
-
-#: gutenberg/blocks/table-of-contents/edit.js:178
-msgid "Table of Contents"
 msgstr ""
 
 #: gutenberg/blocks/table-of-contents/edit.js:179

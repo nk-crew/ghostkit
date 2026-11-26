@@ -6,7 +6,7 @@
 * Requires at least: 6.6
 * Tested up to: 7.2
 * Requires PHP: 8.3
-* Stable tag: 3.9.1
+* Stable tag: 3.9.2
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
@@ -180,6 +180,18 @@ Yes, and it carries WPML compatibility for block content.
 6. Transform: translate, scale and rotate a block, in 2D or 3D
 
 ## Changelog ##
+
+= 3.9.2 - Nov 26, 2026 =
+
+* fixed reveal effects delaying Largest Contentful Paint for blocks visible when the page opens
+* fixed the Templates panel failing to load when the remote library is unreachable and no templates are cached
+* fixed extension icons missing when custom breakpoints serve the editor stylesheet from the uploads folder
+* fixed the WordPress 7.2 warning when inserting a Buttons block, which still creates and selects its first button
+* fixed a grid background image omitting alt text when the Media Library has none
+* fixed WPML translations for block text, image descriptions and links, including the default Table of Contents title
+* fixed a block that sets supports.ghostkit to false still getting the default extension panels
+* added a Number format option to Number Box, so a number typed with separators counts in full and keeps those separators
+* updated Jarallax to 3.2.0 for parallax backgrounds
 
 = 3.9.1 - Nov 23, 2026 =
 
