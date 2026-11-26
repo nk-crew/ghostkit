@@ -122,8 +122,23 @@ class GhostKitPatternsMigrationTest extends WP_UnitTestCase {
 			)
 		);
 		wp_trash_post( $trashed );
+		$trash_time = (string) ( time() - ( EMPTY_TRASH_DAYS + 1 ) * DAY_IN_SECONDS );
+		update_post_meta( $trashed, '_wp_trash_meta_time', $trash_time );
 
-		( new GhostKit_Migrations() )->init();
+		$scheduled_cleanup = static function ( $data ) {
+			if ( 'wp_block' === $data['post_type'] && 'trash' === $data['post_status'] ) {
+				wp_scheduled_delete();
+			}
+
+			return $data;
+		};
+		add_filter( 'wp_insert_post_data', $scheduled_cleanup );
+
+		try {
+			( new GhostKit_Migrations() )->init();
+		} finally {
+			remove_filter( 'wp_insert_post_data', $scheduled_cleanup );
+		}
 
 		$future = get_posts( array( 'post_type' => 'wp_block', 'post_status' => 'future' ) );
 		$this->assertCount( 1, $future );
@@ -133,7 +148,9 @@ class GhostKitPatternsMigrationTest extends WP_UnitTestCase {
 		$trash = get_posts( array( 'post_type' => 'wp_block', 'post_status' => 'trash' ) );
 		$this->assertCount( 1, $trash );
 		$this->assertSame( 'publish', get_post_meta( $trash[0]->ID, '_wp_trash_meta_status', true ) );
-		$this->assertSame( get_post_meta( $trashed, '_wp_trash_meta_time', true ), get_post_meta( $trash[0]->ID, '_wp_trash_meta_time', true ) );
+		$this->assertSame( $trash_time, get_post_meta( $trash[0]->ID, '_wp_trash_meta_time', true ) );
+		wp_scheduled_delete();
+		$this->assertNull( get_post( $trash[0]->ID ) );
 	}
 
 	/**

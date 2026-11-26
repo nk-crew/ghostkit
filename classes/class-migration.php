@@ -136,7 +136,8 @@ class GhostKit_Migrations {
 	private function copy_template( $template ) {
 		global $wpdb;
 
-		$marker = 'ghostkit_template:' . $template->ID;
+		$marker     = 'ghostkit_template:' . $template->ID;
+		$trash_time = 'trash' === $template->post_status ? get_post_meta( $template->ID, '_wp_trash_meta_time', true ) : '';
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$pattern = $wpdb->get_row(
@@ -156,7 +157,7 @@ class GhostKit_Migrations {
 		}
 
 		if ( $pattern && $marker !== $pattern->post_content_filtered ) {
-			return true;
+			return $this->preserve_template_trash_time( (int) $pattern->ID, $trash_time );
 		}
 
 		$pattern_id = $pattern ? (int) $pattern->ID : wp_insert_post(
@@ -208,12 +209,8 @@ class GhostKit_Migrations {
 			'wp_pattern_sync_status' => 'unsynced',
 		);
 
-		if ( 'trash' === $template->post_status ) {
-			foreach ( array( '_wp_trash_meta_status', '_wp_trash_meta_time' ) as $key ) {
-				if ( metadata_exists( 'post', $template->ID, $key ) ) {
-					$metadata[ $key ] = get_post_meta( $template->ID, $key, true );
-				}
-			}
+		if ( 'trash' === $template->post_status && metadata_exists( 'post', $template->ID, '_wp_trash_meta_status' ) ) {
+			$metadata['_wp_trash_meta_status'] = get_post_meta( $template->ID, '_wp_trash_meta_status', true );
 		}
 
 		foreach ( $metadata as $key => $value ) {
@@ -236,28 +233,43 @@ class GhostKit_Migrations {
 		add_filter( 'wp_insert_post_data', $copy_markup, 10, 2 );
 
 		try {
-			return ! is_wp_error(
-				wp_update_post(
-					wp_slash(
-						array(
-							'ID'                    => $pattern_id,
-							'post_title'            => $template->post_title,
-							'post_content'          => $template->post_content,
-							'post_excerpt'          => $marker,
-							'post_status'           => $template->post_status,
-							'post_date'             => $template->post_date,
-							'post_date_gmt'         => $template->post_date_gmt,
-							'edit_date'             => true,
-							'post_password'         => $template->post_password,
-							'post_content_filtered' => '',
-						)
-					),
-					true
-				)
+			$result = wp_update_post(
+				wp_slash(
+					array(
+						'ID'                    => $pattern_id,
+						'post_title'            => $template->post_title,
+						'post_content'          => $template->post_content,
+						'post_excerpt'          => $marker,
+						'post_status'           => $template->post_status,
+						'post_date'             => $template->post_date,
+						'post_date_gmt'         => $template->post_date_gmt,
+						'edit_date'             => true,
+						'post_password'         => $template->post_password,
+						'post_content_filtered' => '',
+					)
+				),
+				true
 			);
 		} finally {
 			remove_filter( 'wp_insert_post_data', $copy_markup, 10 );
 		}
+
+		return ! is_wp_error( $result ) && $this->preserve_template_trash_time( $pattern_id, $trash_time );
+	}
+
+	/**
+	 * Set the purge timestamp only after WordPress sees the pattern as trashed.
+	 *
+	 * @param int    $pattern_id The destination pattern.
+	 * @param string $trash_time The original purge timestamp.
+	 * @return bool
+	 */
+	private function preserve_template_trash_time( $pattern_id, $trash_time ) {
+		if ( '' === $trash_time || 'trash' !== get_post_status( $pattern_id ) || metadata_exists( 'post', $pattern_id, '_wp_trash_meta_time' ) ) {
+			return true;
+		}
+
+		return (bool) add_post_meta( $pattern_id, '_wp_trash_meta_time', $trash_time, true );
 	}
 
 	/**
