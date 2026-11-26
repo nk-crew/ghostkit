@@ -21,5 +21,5 @@
 		'wp-rich-text',
 		'wp-token-list'
 	),
-	'version' => '62b67c91a07746032e10'
+	'version' => 'fe1d4baf72f11edda039'
 );

@@ -285,7 +285,7 @@ test.describe('Tabs transition', () => {
 		).toBeVisible();
 	});
 
-	test('keeps native conversion unavailable when editing a synced pattern', async ({
+	test('keeps native conversion unavailable when editing shared content', async ({
 		requestUtils,
 		page,
 		admin,
@@ -320,33 +320,52 @@ test.describe('Tabs transition', () => {
 			content: fixture.content,
 			status: 'publish',
 		});
+		const part = await requestUtils.createTemplate('wp_template_part', {
+			slug: 'ghostkit-tabs-test-part',
+			title: 'Shared Ghost Kit tabs',
+			content: fixture.content,
+		});
 
 		try {
-			await admin.visitAdminPage(
-				'post.php',
-				`post=${pattern.id}&action=edit`
-			);
-			await expect(editor.canvas.locator('.ghostkit-tabs')).toBeVisible();
-			const result = await page.evaluate(() => {
-				const [block] = window.wp.data
-					.select('core/block-editor')
-					.getBlocks();
-				return {
-					valid: block.isValid,
-					transformed: window.wp.blocks.switchToBlockType(
-						block,
-						'core/tabs'
-					),
-				};
-			});
-			expect(result.valid).toBe(true);
-			expect(result.transformed).toBeNull();
+			for (const [pageName, query] of [
+				['post.php', `post=${pattern.id}&action=edit`],
+				[
+					'site-editor.php',
+					`postType=wp_template_part&postId=${encodeURIComponent(part.id)}&canvas=edit`,
+				],
+			]) {
+				await admin.visitAdminPage(pageName, query);
+				await expect(
+					editor.canvas.locator('.ghostkit-tabs')
+				).toBeVisible();
+				const result = await page.evaluate(() => {
+					const [block] = window.wp.data
+						.select('core/block-editor')
+						.getBlocks();
+					return {
+						valid: block.isValid,
+						transformed: window.wp.blocks.switchToBlockType(
+							block,
+							'core/tabs'
+						),
+					};
+				});
+				expect(result.valid).toBe(true);
+				expect(result.transformed).toBeNull();
+			}
 		} finally {
-			await requestUtils.rest({
-				method: 'DELETE',
-				path: `/wp/v2/blocks/${pattern.id}`,
-				params: { force: true },
-			});
+			await Promise.all([
+				requestUtils.rest({
+					method: 'DELETE',
+					path: `/wp/v2/blocks/${pattern.id}`,
+					params: { force: true },
+				}),
+				requestUtils.rest({
+					method: 'DELETE',
+					path: `/wp/v2/template-parts/${part.id}`,
+					params: { force: true },
+				}),
+			]);
 		}
 	});
 });

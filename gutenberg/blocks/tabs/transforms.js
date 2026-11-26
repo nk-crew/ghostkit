@@ -18,13 +18,17 @@ export function hasNativeTabs() {
 	);
 }
 
-function isEditingSyncedPattern() {
+function isEditingSharedContent() {
 	const editor = select('core/editor');
+	const postType = editor?.getCurrentPostType();
+
 	return (
-		editor?.getCurrentPostType() === 'wp_block' &&
-		editor.getEditedPostAttribute('meta')?.wp_pattern_sync_status !==
-			'unsynced' &&
-		editor.getEditedPostAttribute('wp_pattern_sync_status') !== 'unsynced'
+		postType === 'wp_template_part' ||
+		(postType === 'wp_block' &&
+			editor.getEditedPostAttribute('meta')?.wp_pattern_sync_status !==
+				'unsynced' &&
+			editor.getEditedPostAttribute('wp_pattern_sync_status') !==
+				'unsynced')
 	);
 }
 
@@ -110,8 +114,9 @@ export default {
 					!editor.getBlockParentsByBlockName(block.clientId, [
 						'ghostkit/carousel',
 						'core/block',
+						'core/template-part',
 					]).length &&
-					!isEditingSyncedPattern() &&
+					!isEditingSharedContent() &&
 					block.isValid &&
 					!trigger &&
 					!buttonsVerticalAlign &&
