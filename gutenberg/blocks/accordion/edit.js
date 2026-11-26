@@ -6,6 +6,7 @@ import {
 import { createBlock } from '@wordpress/blocks';
 import {
 	Button,
+	Notice,
 	PanelBody,
 	SelectControl,
 	ToggleControl,
@@ -15,6 +16,8 @@ import { useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 import classnames from 'classnames/dedupe';
+
+import { hasNativeAccordion } from './transforms';
 
 const accordionItemBlockName = 'ghostkit/accordion-item';
 
@@ -79,6 +82,14 @@ export default function BlockEdit(props) {
 		<div {...blockProps}>
 			<InspectorControls>
 				<PanelBody>
+					{hasNativeAccordion() && (
+						<Notice status="info" isDismissible={false}>
+							{__(
+								'Deprecated. Use the WordPress Accordion block for new content.',
+								'ghostkit'
+							)}
+						</Notice>
+					)}
 					<ToggleControl
 						label={__('Collapse one item only', 'ghostkit')}
 						checked={!!collapseOne}

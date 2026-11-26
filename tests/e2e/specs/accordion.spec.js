@@ -250,3 +250,181 @@ test.describe('accordion editor', () => {
 		expect(inEditor).toEqual(await measureItem(frontendItem));
 	});
 });
+
+test.describe('accordion transition', () => {
+	test.beforeAll(async ({ requestUtils }) => {
+		await requestUtils.activatePlugin(
+			process.env.CORE ? 'ghost-kit-pro' : 'ghost-kit'
+		);
+	});
+
+	test.afterAll(async ({ requestUtils }) => {
+		await requestUtils.deleteAllPosts();
+	});
+
+	test('legacy insertion and Accordion–Tabs transforms stay available', async ({
+		page,
+		admin,
+		editor,
+	}) => {
+		await admin.createNewPost({ showWelcomeGuide: false });
+		await editor.insertBlock({
+			name: 'ghostkit/accordion',
+			innerBlocks: ['First tab', 'Second tab'].map((heading) => ({
+				name: 'ghostkit/accordion-item',
+				attributes: { heading },
+			})),
+		});
+		await expect(
+			editor.canvas.locator('.ghostkit-accordion-item-label').first()
+		).toBeEditable();
+
+		const { native, description, available, tabTitles, accordionTitles } =
+			await page.evaluate(() => {
+				const { getBlockType, switchToBlockType } = window.wp.blocks;
+				const editorStore = window.wp.data.select('core/block-editor');
+				const [accordion] = editorStore.getBlocks();
+				const [tabs] = switchToBlockType(accordion, 'ghostkit/tabs-v2');
+				const [restored] = switchToBlockType(
+					tabs,
+					'ghostkit/accordion'
+				);
+
+				return {
+					native: !!getBlockType('core/accordion'),
+					description: getBlockType('ghostkit/accordion').description,
+					available: [accordion, tabs].map((block) =>
+						editorStore
+							.getBlockTransformItems([block])
+							.map(({ name }) => name)
+					),
+					tabTitles: tabs.attributes.tabsData.map(
+						({ title }) => title
+					),
+					accordionTitles: restored.innerBlocks.map(
+						({ attributes }) => attributes.heading
+					),
+				};
+			});
+
+		expect(description).toBe(
+			native
+				? 'Deprecated. Use the WordPress Accordion block for new content.'
+				: 'Toggle the visibility of content across your project.'
+		);
+		expect(available[0]).toContain('ghostkit/tabs-v2');
+		expect(available[1]).toContain('ghostkit/accordion');
+		expect(tabTitles).toEqual(['First tab', 'Second tab']);
+		expect(accordionTitles).toEqual(tabTitles);
+	});
+
+	test('native transform keeps translated titles, panels and incoming anchors', async ({
+		page,
+		admin,
+		editor,
+	}) => {
+		await admin.createNewPost({
+			title: 'GKT accordion transform',
+			showWelcomeGuide: false,
+		});
+
+		const native = await page.evaluate(
+			() => !!window.wp.blocks.getBlockType('core/accordion')
+		);
+		test.skip(!native, 'WordPress does not register the native Accordion');
+
+		await editor.insertBlock({
+			name: 'ghostkit/accordion',
+			attributes: { collapseOne: true, collapseTitleTag: 'h4' },
+			innerBlocks: [
+				{
+					name: 'ghostkit/accordion-item',
+					attributes: {
+						heading: '<strong>Première question</strong>',
+						slug: 'gkt-first',
+						titleTag: 'h4',
+						active: true,
+					},
+					innerBlocks: [
+						{
+							name: 'core/paragraph',
+							attributes: { content: 'Première réponse' },
+						},
+					],
+				},
+				{
+					name: 'ghostkit/accordion-item',
+					attributes: {
+						heading: 'Deuxième question',
+						slug: 'gkt-second',
+						titleTag: 'h4',
+					},
+					innerBlocks: [
+						{
+							name: 'core/paragraph',
+							attributes: { content: 'Deuxième réponse' },
+						},
+					],
+				},
+			],
+		});
+
+		await expect(
+			editor.canvas.getByRole('heading', { level: 4 }).first()
+		).toContainText('Première question');
+
+		const exclusions = await page.evaluate(() => {
+			const { cloneBlock, switchToBlockType } = window.wp.blocks;
+			const [block] = window.wp.data
+				.select('core/block-editor')
+				.getBlocks();
+			return [
+				cloneBlock(block, { ghostkit: { customCSS: 'color: red' } }),
+				cloneBlock(block, { collapseTitleTag: 'div' }),
+			].map((legacy) => switchToBlockType(legacy, 'core/accordion'));
+		});
+		expect(exclusions).toEqual([null, null]);
+
+		await page.evaluate(() => {
+			const store = 'core/block-editor';
+			const [block] = window.wp.data.select(store).getBlocks();
+			window.wp.data
+				.dispatch(store)
+				.replaceBlocks(
+					block.clientId,
+					window.wp.blocks.switchToBlockType(block, 'core/accordion')
+				);
+		});
+
+		const postId = await editor.publishPost();
+		await page.goto(`/?p=${postId}`);
+
+		const first = page.getByRole('button', { name: 'Première question' });
+		const second = page.getByRole('button', { name: 'Deuxième question' });
+
+		await expect(first.locator('strong')).toHaveText('Première question');
+		await expect(first).toHaveAttribute('aria-expanded', 'true');
+		await expect(second).toHaveAttribute('aria-expanded', 'false');
+		await expect(page.locator('#gkt-first')).toHaveText('Première réponse');
+		await expect(page.getByRole('heading', { level: 4 })).toHaveCount(2);
+
+		await second.press('Enter');
+		await expect(first).toHaveAttribute('aria-expanded', 'false');
+		await expect(second).toHaveAttribute('aria-expanded', 'true');
+
+		await page.goto(`/?p=${postId}#gkt-second`);
+		await expect(page.locator('#gkt-second')).toBeVisible();
+		await expect(page.locator('#gkt-second')).toHaveText(
+			'Deuxième réponse'
+		);
+		await expect(first).toHaveAttribute('aria-expanded', 'false');
+
+		await admin.visitAdminPage('post.php', `post=${postId}&action=edit`);
+		await expect(
+			editor.canvas.locator('.wp-block-accordion')
+		).toBeVisible();
+		await expect(
+			editor.canvas.locator('.wp-block-accordion-heading strong')
+		).toHaveText('Première question');
+	});
+});
