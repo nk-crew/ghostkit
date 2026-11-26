@@ -18,6 +18,7 @@ class GhostKit_Fonts {
 		add_action( 'init', array( $this, 'enqueue_fonts' ), 20 );
 		add_filter( 'gkt_fonts_list', array( $this, 'add_default_site_fonts' ), 9 );
 		add_filter( 'gkt_fonts_list', array( $this, 'add_google_fonts' ) );
+		add_filter( 'gkt_fonts_list', array( $this, 'add_wordpress_fonts' ), PHP_INT_MAX );
 	}
 
 	/**
@@ -323,6 +324,107 @@ class GhostKit_Fonts {
 				$this->get_default_site_font(),
 			),
 		);
+		return $fonts;
+	}
+
+	/**
+	 * Add the active font presets WordPress makes available to the current theme.
+	 *
+	 * @param array $fonts Font categories from Ghost Kit and its extensions.
+	 * @return array
+	 */
+	public function add_wordpress_fonts( $fonts ) {
+		if ( ! is_admin() ) {
+			return $fonts;
+		}
+
+		$settings = wp_get_global_settings();
+		$presets  = $settings['typography']['fontFamilies'] ?? null;
+		if ( ! is_array( $presets ) ) {
+			return $fonts;
+		}
+
+		$existing_names = array();
+		foreach ( $fonts as $category ) {
+			foreach ( $category['fonts'] as $font ) {
+				$existing_names[ strtolower( $font['name'] ) ] = true;
+				if ( isset( $font['label'] ) ) {
+					$existing_names[ strtolower( $font['label'] ) ] = true;
+				}
+			}
+		}
+
+		$families = array();
+		foreach ( $presets as $origin ) {
+			if ( ! is_array( $origin ) ) {
+				continue;
+			}
+
+			foreach ( $origin as $preset ) {
+				if ( '' === ( $preset['slug'] ?? '' ) || empty( $preset['fontFamily'] ) ) {
+					continue;
+				}
+
+				$slug = _wp_to_kebab_case( $preset['slug'] );
+				if ( preg_match( '/\A[A-Za-z0-9_\x{0080}-\x{10FFFF}-]+\z/u', $slug ) ) {
+					$families[ $slug ] = $preset;
+				}
+			}
+		}
+
+		$choices = array();
+		foreach ( $families as $slug => $preset ) {
+			$family = trim( explode( ',', $preset['fontFamily'], 2 )[0], " \"'" );
+			$label  = $preset['name'] ?? $family;
+			if ( isset( $existing_names[ strtolower( $label ) ] ) || isset( $existing_names[ strtolower( $family ) ] ) ) {
+				continue;
+			}
+
+			$widths = array();
+			foreach ( $preset['fontFace'] ?? array() as $face ) {
+				$weight = trim( (string) ( $face['fontWeight'] ?? '400' ) );
+				$weight = array(
+					'normal' => '400',
+					'bold'   => '700',
+				)[ $weight ] ?? $weight;
+				if ( ! preg_match( '/\A(?:[1-9]\d{0,2}|1000)(?:\s+(?:[1-9]\d{0,2}|1000))?\z/', $weight ) ) {
+					continue;
+				}
+
+				$style   = $face['fontStyle'] ?? 'normal';
+				$suffix  = 'normal' === $style ? '' : 'i';
+				$weights = preg_split( '/\s+/', $weight );
+				if ( isset( $weights[1] ) ) {
+					$weights = array_merge(
+						$weights,
+						array_filter(
+							range( 100, 900, 100 ),
+							static function ( $value ) use ( $weights ) {
+								return $value > $weights[0] && $value < $weights[1];
+							}
+						)
+					);
+				}
+				foreach ( $weights as $value ) {
+					$widths[] = $value . $suffix;
+				}
+			}
+			natsort( $widths );
+
+			$choices[] = array(
+				'name'   => (string) $slug,
+				'label'  => $label,
+				'widths' => $widths ? array_values( array_unique( $widths ) ) : array( '400', '700' ),
+			);
+		}
+
+		if ( $choices ) {
+			$fonts['font-library'] = array(
+				'name'  => __( 'Font Library', 'ghostkit' ),
+				'fonts' => $choices,
+			);
+		}
+
 		return $fonts;
 	}
 

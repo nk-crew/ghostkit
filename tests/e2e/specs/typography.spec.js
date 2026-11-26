@@ -284,3 +284,300 @@ test.describe('typography', () => {
 		);
 	});
 });
+
+test.describe('Font Library typography', () => {
+	const family = 'Ghost Kit Fixture Serif';
+	const slug = 'ghost-kit-fixture-serif';
+	const fontFamily = `"${family}", serif`;
+
+	async function selectLibrary(wrapper, page) {
+		await wrapper
+			.locator('.ghostkit-typography-font-category-control-toggle')
+			.click();
+		await page
+			.locator('.ghostkit-typography-font-category-control-menu')
+			.getByText('Font Library', { exact: true })
+			.click();
+	}
+
+	async function expectFont(paragraph, style, source) {
+		await expect(paragraph).toHaveCSS('font-family', fontFamily);
+		await expect(paragraph).toHaveCSS('font-style', style);
+		const result = await paragraph.evaluate(
+			async (element, { css, sourceUrl }) => {
+				const { defaultView, fonts } = element.ownerDocument;
+				const computed = defaultView.getComputedStyle(element);
+				const loaded = await fonts.load(
+					`${computed.fontStyle} ${computed.fontWeight} 18px ${css}`
+				);
+				return {
+					faces: loaded.map((face) => face.style),
+					file:
+						defaultView.performance.getEntriesByName(sourceUrl)
+							.length > 0,
+				};
+			},
+			{
+				css: fontFamily,
+				sourceUrl: Array.isArray(source) ? source[0] : source,
+			}
+		);
+		expect(result).toEqual({ faces: [style], file: true });
+	}
+
+	for (const theme of ['empty-theme', 'empty-theme-php']) {
+		test(`applies uploaded faces globally and per post in ${theme}`, async ({
+			admin,
+			editor,
+			page,
+			request,
+			requestUtils,
+		}) => {
+			const typographyPath = '/ghostkit/v1/update_custom_typography';
+			const { response: originalTypography } = await requestUtils.rest({
+				path: '/ghostkit/v1/get_custom_typography',
+			});
+			const familiesPath = '/wp/v2/font-families';
+			let familyId;
+			let globalStylesPath;
+			let originalSettings;
+			let post;
+
+			try {
+				await requestUtils.activateTheme(theme);
+				const stylesId =
+					await requestUtils.getCurrentThemeGlobalStylesPostId();
+				if (!stylesId) {
+					expect(theme).toBe('empty-theme-php');
+					await page.goto('/');
+					await expect(
+						page.locator('meta[name="generator"]')
+					).toHaveAttribute('content', /^WordPress 6\./);
+					await admin.visitAdminPage(
+						'admin.php?page=ghostkit&sub_page=typography'
+					);
+					await page
+						.locator(
+							'.ghostkit-typography-font-category-control-toggle'
+						)
+						.first()
+						.click();
+					await expect(
+						page.getByRole('menuitem', { name: 'Google Fonts' })
+					).toBeVisible();
+					await expect(
+						page.getByRole('menuitem', { name: 'Font Library' })
+					).toHaveCount(0);
+					return;
+				}
+				globalStylesPath = `/wp/v2/global-styles/${stylesId}`;
+				({ settings: originalSettings } = await requestUtils.rest({
+					path: globalStylesPath,
+					params: { context: 'edit' },
+				}));
+
+				const { id, font_family_settings: preset } =
+					await requestUtils.rest({
+						path: familiesPath,
+						method: 'POST',
+						data: {
+							font_family_settings: JSON.stringify({
+								name: family,
+								slug,
+								fontFamily,
+							}),
+						},
+					});
+				familyId = id;
+
+				const faces = [];
+				for (const style of ['normal', 'italic']) {
+					const name = `cardo_${style}_400.woff2`;
+					const response = await request.get(
+						`/wp-content/themes/twentytwentyfour/assets/fonts/cardo/${name}`
+					);
+					expect(response.ok()).toBe(true);
+					const { font_face_settings: face } =
+						await requestUtils.rest({
+							path: `${familiesPath}/${familyId}/font-faces`,
+							method: 'POST',
+							multipart: {
+								font_face_settings: JSON.stringify({
+									fontFamily: family,
+									fontWeight: '400',
+									fontStyle: style,
+									src: ['fixture'],
+								}),
+								fixture: {
+									name,
+									mimeType: 'font/woff2',
+									buffer: await response.body(),
+								},
+							},
+						});
+					faces.push(face);
+				}
+
+				await requestUtils.rest({
+					path: globalStylesPath,
+					method: 'POST',
+					data: {
+						settings: {
+							...originalSettings,
+							typography: {
+								...originalSettings.typography,
+								fontFamilies: [
+									{ ...preset, fontFace: faces },
+									{
+										name: 'Inter',
+										slug: 'fixture-inter',
+										fontFamily: 'serif',
+									},
+								],
+							},
+						},
+					},
+				});
+
+				await admin.visitAdminPage(
+					'admin.php?page=ghostkit&sub_page=typography'
+				);
+				const body = page.locator('.ghostkit-typography').filter({
+					has: page.getByText('Body', { exact: true }),
+				});
+				await selectLibrary(body, page);
+
+				const input = body.locator(
+					'.ghostkit-typography-font-selector input'
+				);
+				await input.fill('Inter');
+				await expect(
+					page.getByRole('option', { name: 'Inter', exact: true })
+				).toHaveCount(0);
+				await input.fill(family);
+				const saved = page.waitForResponse(
+					(response) =>
+						response.url().includes('update_custom_typography') &&
+						response.request().method() === 'POST' &&
+						response.request().postData()?.includes(slug)
+				);
+				await page
+					.getByRole('option', { name: family, exact: true })
+					.click();
+				expect((await saved).ok()).toBe(true);
+
+				post = await requestUtils.createPost({
+					title: 'Uploaded Font Library Faces',
+					status: 'publish',
+					content:
+						'<!-- wp:paragraph --><p>Font fixture</p><!-- /wp:paragraph -->',
+				});
+				await page.goto(post.link);
+				await expectFont(
+					page.getByText('Font fixture', { exact: true }),
+					'normal',
+					faces[0].src
+				);
+				await admin.editPost(post.id);
+				const paragraph = editor.canvas.getByRole('document', {
+					name: 'Paragraph',
+				});
+				await expectFont(paragraph, 'normal', faces[0].src);
+
+				await requestUtils.rest({
+					path: typographyPath,
+					method: 'POST',
+					data: {
+						data: {
+							ghostkit_typography: JSON.stringify({
+								body: {
+									fontFamily: 'Inter',
+									fontFamilyCategory: 'google-fonts',
+									fontWeight: '400',
+								},
+							}),
+						},
+					},
+				});
+				await admin.editPost(post.id);
+				await expect(paragraph).toHaveCSS(
+					'font-family',
+					'Inter, sans-serif'
+				);
+
+				await page
+					.getByRole('button', { name: 'Options', exact: true })
+					.click();
+				await page
+					.getByRole('menuitem', { name: 'Typography' })
+					.click();
+				const dialog = page.getByRole('dialog', { name: 'Typography' });
+				const localBody = dialog
+					.locator('.ghostkit-typography')
+					.filter({
+						has: page.getByText('Body', { exact: true }),
+					});
+				await selectLibrary(localBody, page);
+				await localBody
+					.locator('.ghostkit-typography-font-selector input')
+					.fill(family);
+				await page
+					.getByRole('option', { name: family, exact: true })
+					.click();
+				await localBody
+					.locator('.ghostkit-typography-weight-control input')
+					.fill('Regular Italic');
+				await page
+					.getByRole('option', { name: 'Regular Italic' })
+					.click();
+				await dialog.getByRole('button', { name: 'Close' }).click();
+
+				await expectFont(paragraph, 'italic', faces[1].src);
+				await page
+					.getByRole('button', { name: 'Save', exact: true })
+					.click();
+				await expect(
+					page.getByText('Post updated.', { exact: true })
+				).toBeVisible();
+				await admin.editPost(post.id);
+				await expectFont(paragraph, 'italic', faces[1].src);
+
+				await page.goto(post.link);
+				await expectFont(
+					page.getByText('Font fixture', { exact: true }),
+					'italic',
+					faces[1].src
+				);
+			} finally {
+				await requestUtils.rest({
+					path: typographyPath,
+					method: 'POST',
+					data: {
+						data: {
+							ghostkit_typography: '{}',
+							...originalTypography,
+						},
+					},
+				});
+				if (originalSettings) {
+					await requestUtils.rest({
+						path: globalStylesPath,
+						method: 'POST',
+						data: { settings: originalSettings },
+					});
+				}
+				if (familyId) {
+					await requestUtils.rest({
+						path: `${familiesPath}/${familyId}`,
+						method: 'DELETE',
+						params: { force: true },
+					});
+				}
+				if (post) {
+					await requestUtils.deleteAllPosts();
+				}
+				await requestUtils.activateTheme('empty-theme');
+			}
+		});
+	}
+});
