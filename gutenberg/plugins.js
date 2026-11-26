@@ -7,6 +7,8 @@ import * as editorIframeResize from './plugins/editor-iframe-resize';
 import * as ghostkit from './plugins/ghostkit';
 import * as typography from './plugins/typography';
 
+import './plugins/patterns';
+
 const { GHOSTKIT } = window;
 
 /**
