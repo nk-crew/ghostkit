@@ -372,7 +372,8 @@ test.describe('Font Library typography', () => {
 				}
 				globalStylesPath = `/wp/v2/global-styles/${stylesId}`;
 				({ settings: originalSettings } = await requestUtils.rest({
-					path: `${globalStylesPath}?context=edit`,
+					path: globalStylesPath,
+					params: { context: 'edit' },
 				}));
 
 				const { id, font_family_settings: preset } =
@@ -567,8 +568,9 @@ test.describe('Font Library typography', () => {
 				}
 				if (familyId) {
 					await requestUtils.rest({
-						path: `${familiesPath}/${familyId}?force=true`,
+						path: `${familiesPath}/${familyId}`,
 						method: 'DELETE',
+						params: { force: true },
 					});
 				}
 				if (post) {

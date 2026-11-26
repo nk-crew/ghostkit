@@ -339,7 +339,7 @@ class GhostKit_Fonts {
 		}
 
 		$presets = wp_get_global_settings( array( 'typography', 'fontFamilies' ) );
-		if ( ! $presets ) {
+		if ( ! is_array( $presets ) ) {
 			return $fonts;
 		}
 
@@ -355,6 +355,10 @@ class GhostKit_Fonts {
 
 		$families = array();
 		foreach ( $presets as $origin ) {
+			if ( ! is_array( $origin ) ) {
+				continue;
+			}
+
 			foreach ( $origin as $preset ) {
 				if ( '' === ( $preset['slug'] ?? '' ) || empty( $preset['fontFamily'] ) ) {
 					continue;
