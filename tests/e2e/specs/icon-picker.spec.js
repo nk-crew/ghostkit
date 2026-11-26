@@ -356,3 +356,230 @@ test.describe('icon picker', () => {
 		).toBeVisible();
 	});
 });
+
+test.describe('standalone Icon transition', () => {
+	test.beforeAll(async ({ requestUtils }) => {
+		await requestUtils.activatePlugin(
+			process.env.CORE ? 'ghost-kit-pro' : 'ghost-kit'
+		);
+	});
+
+	test.afterAll(async ({ requestUtils }) => {
+		await requestUtils.deleteAllPosts();
+	});
+
+	test('keeps saved icon markup and a new icon editable', async ({
+		admin,
+		editor,
+		page,
+		requestUtils,
+	}) => {
+		const strokeSvg =
+			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"></circle></svg>';
+		const attrs = {
+			icon: encodeURIComponent(strokeSvg),
+			url: '#details',
+			target: '_blank',
+			rel: 'noopener noreferrer',
+			ariaLabel: 'More details',
+			backgroundGradient: 'linear-gradient(90deg, #f00, #00f)',
+			ghostkit: {
+				id: 'saved-icon',
+				styles: {
+					'_u002d__u002d_gkt-icon__background': encodeURIComponent(
+						'linear-gradient(90deg, #f00, #00f)'
+					),
+					'_u002d__u002d_gkt-icon__width': '50px',
+				},
+			},
+			className: 'ghostkit-custom-saved-icon',
+		};
+		const post = await requestUtils.createPost({
+			title: 'Saved standalone icons',
+			content: `<!-- wp:ghostkit/icon ${JSON.stringify(attrs)} -->
+<div class="wp-block-ghostkit-icon ghostkit-icon ghostkit-custom-saved-icon"><a href="#details" target="_blank" rel="noopener noreferrer" ariaLabel="More details" class="ghostkit-icon-inner">${strokeSvg}</a></div>
+<!-- /wp:ghostkit/icon -->
+
+<!-- wp:ghostkit/icon {"icon":"fa-brands fa-instagram"} -->
+<div class="wp-block-ghostkit-icon ghostkit-icon"><div class="ghostkit-icon-inner"><span class="fa-brands fa-instagram"></span></div></div>
+<!-- /wp:ghostkit/icon -->`,
+			status: 'publish',
+		});
+		await page.goto(post.link);
+		const link = page.getByRole('link', { name: 'More details' });
+		await expect(link).toHaveAttribute('href', '#details');
+		await expect(link).toHaveAttribute('target', '_blank');
+		await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+		await expect(link.locator('svg')).toHaveAttribute(
+			'stroke',
+			'currentColor'
+		);
+		await expect(link.locator('circle')).toHaveAttribute('r', '8');
+		await expect(link).toHaveCSS('background-image', /^linear-gradient/);
+		await expect(page.locator('.ghostkit-icon .fa-instagram')).toHaveCount(
+			1
+		);
+
+		await page.goto(`/wp-admin/post.php?post=${post.id}&action=edit`);
+		await expect(editor.canvas.locator('.ghostkit-icon svg')).toHaveCount(
+			2
+		);
+		expect(
+			await page.evaluate(() => {
+				const { getBlocks, getBlockTransformItems } =
+					window.wp.data.select('core/block-editor');
+				return getBlocks().map((block) => ({
+					valid: block.isValid,
+					native: getBlockTransformItems([block]).some(
+						({ name }) => name === 'core/icon'
+					),
+				}));
+			})
+		).toEqual([
+			{ valid: true, native: false },
+			{ valid: true, native: false },
+		]);
+
+		await admin.createNewPost({ showWelcomeGuide: false });
+		const availability = await page.evaluate(() => {
+			const { createBlock, getBlockType } = window.wp.blocks;
+			const store = window.wp.data.select('core/block-editor');
+			return {
+				native: !!getBlockType('core/icon'),
+				description: getBlockType('ghostkit/icon').description,
+				inserter: store
+					.getInserterItems()
+					.some(({ name }) => name === 'ghostkit/icon'),
+				incoming:
+					!!getBlockType('core/icon') &&
+					store
+						.getBlockTransformItems([createBlock('core/icon')])
+						.some(({ name }) => name === 'ghostkit/icon'),
+			};
+		});
+		expect(availability.inserter).toBe(true);
+		expect(availability.incoming).toBe(false);
+		expect(availability.description).toBe(
+			availability.native
+				? 'Deprecated. Use the WordPress Icon block for new content.'
+				: 'Insert SVG icons'
+		);
+		await editor.insertBlock({ name: 'ghostkit/icon' });
+		await editor.openDocumentSettingsSidebar();
+		await expect(
+			page
+				.locator('.block-editor-block-inspector')
+				.getByText(
+					'This block is deprecated. Use the WordPress Icon block for new content.',
+					{ exact: true }
+				)
+				.filter({ visible: true })
+		).toHaveCount(availability.native ? 1 : 0);
+		await expect(
+			page.locator(
+				'.block-editor-block-inspector .ghostkit-component-icon-picker-toggle'
+			)
+		).toBeEnabled();
+		await expect(editor.canvas.locator('.ghostkit-icon svg')).toBeVisible();
+	});
+
+	test('converts only registry equivalents and keeps their output after reopening', async ({
+		admin,
+		editor,
+		page,
+	}) => {
+		await admin.createNewPost({
+			title: 'Standalone icon conversion',
+			showWelcomeGuide: false,
+		});
+		const native = await page.evaluate(async () => {
+			const type = window.wp.blocks.getBlockType('core/icon');
+			if (!type) {
+				return null;
+			}
+			const icon = await window.wp.data
+				.resolveSelect('core')
+				.getEntityRecord('root', 'icon', 'core/plus');
+			const svg = new DOMParser().parseFromString(
+				icon.content,
+				'image/svg+xml'
+			).documentElement;
+			svg.setAttribute('fill', 'currentColor');
+			return {
+				icon: encodeURIComponent(svg.outerHTML),
+				path: svg.querySelector('path').getAttribute('d'),
+				flip: !!type.attributes.flipHorizontal,
+			};
+		});
+		test.skip(!native, 'WordPress does not register the native Icon');
+
+		await editor.insertBlock({
+			name: 'ghostkit/icon',
+			attributes: {
+				icon: native.icon,
+				width: '36px',
+				color: '#123456',
+				backgroundColor: '#fedcba',
+				ariaLabel: 'Add item',
+				anchor: 'add-item',
+				flipH: native.flip,
+			},
+		});
+		const transformMenu = await page.evaluate(() => {
+			const { getBlocks, getBlockTransformItems } =
+				window.wp.data.select('core/block-editor');
+			const { cloneBlock } = window.wp.blocks;
+			const [block] = getBlocks();
+			const overrides = [
+				{},
+				{ icon: '%3Csvg%3E' },
+				{ icon: block.attributes.icon.replace('12.5', '12.6') },
+				{ url: '#details' },
+				{ backgroundGradient: 'linear-gradient(red, blue)' },
+				{ ghostkit: { customCSS: 'color: red' } },
+				{ justify: 'end' },
+				{ width: '75%' },
+				{ flipV: true },
+			];
+			return overrides.map((attrs) =>
+				getBlockTransformItems([cloneBlock(block, attrs)]).some(
+					({ name }) => name === 'core/icon'
+				)
+			);
+		});
+		expect(transformMenu).toEqual([
+			true,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			native.flip,
+		]);
+		await page.locator('.block-editor-block-switcher button').click();
+		await page
+			.locator(
+				'.block-editor-block-switcher__popover .editor-block-list-item-icon'
+			)
+			.click();
+
+		const postId = await editor.publishPost();
+		await page.goto(`/?p=${postId}`);
+		const svg = page.locator('.wp-block-icon.aligncenter#add-item svg');
+		await expect(svg).toHaveAttribute('aria-label', 'Add item');
+		await expect(svg).toHaveCSS('width', '36px');
+		await expect(svg).toHaveCSS('color', 'rgb(18, 52, 86)');
+		await expect(svg).toHaveCSS('background-color', 'rgb(254, 220, 186)');
+		await expect(svg.locator('path')).toHaveAttribute('d', native.path);
+		if (native.flip) {
+			await expect(svg).toHaveClass(/is-flip-horizontal/);
+		}
+		await page.goto(`/wp-admin/post.php?post=${postId}&action=edit`);
+		await expect(
+			editor.canvas.locator('.wp-block-icon svg path')
+		).toHaveAttribute('d', native.path);
+		await expect(editor.canvas.locator('.ghostkit-icon')).toHaveCount(0);
+	});
+});

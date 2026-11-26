@@ -1,13 +1,24 @@
+import { __ } from '@wordpress/i18n';
+
 import getIcon from '../../utils/get-icon';
 import metadata from './block.json';
 import edit from './edit';
 import save from './save';
+import transforms, { hasNativeIcon } from './transforms';
 
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
+	get description() {
+		return hasNativeIcon()
+			? __(
+					'Deprecated. Use the WordPress Icon block for new content.',
+					'ghostkit'
+				)
+			: __('Insert SVG icons', 'ghostkit');
+	},
 	icon: getIcon('block-icon', true),
 	ghostkit: {
 		previewUrl: 'https://www.ghostkit.io/docs/blocks/icon/',
@@ -42,4 +53,5 @@ export const settings = {
 	},
 	edit,
 	save,
+	transforms,
 };

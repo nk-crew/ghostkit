@@ -323,6 +323,16 @@ if ( ! class_exists( 'GhostKit' ) ) :
 				$js_deps
 			);
 
+			if ( class_exists( 'WP_Icons_Registry' ) && WP_Block_Type_Registry::get_instance()->is_registered( 'core/icon' ) ) {
+				$core_icons = array();
+				foreach ( WP_Icons_Registry::get_instance()->get_registered_icons() as $icon ) {
+					if ( strpos( $icon['name'], 'core/' ) === 0 && ! empty( $icon['content'] ) ) {
+						$core_icons[ $icon['name'] ] = $icon['content'];
+					}
+				}
+				wp_localize_script( 'ghostkit-editor', 'ghostkitCoreIcons', $core_icons );
+			}
+
 			// Load plugins in editor only (skip legacy Widgets screen).
 			if ( ! isset( $current_screen->id ) || 'widgets' !== $current_screen->id ) {
 				GhostKit_Assets::enqueue_script(
