@@ -31,7 +31,9 @@
         </gutenberg-block>
         <gutenberg-block type="ghostkit/icon" translate="1">
             <xpath>//a/@href</xpath>
+            <xpath>//a/@arialabel</xpath>
             <key name="url" />
+            <key name="ariaLabel" />
         </gutenberg-block>
         <gutenberg-block type="ghostkit/image-compare" translate="1">
             <xpath>//div[@class="ghostkit-image-compare-image-before"]/img/@alt</xpath>
