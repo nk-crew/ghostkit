@@ -83,10 +83,12 @@ class GhostKit_Patterns {
 			return $settings;
 		}
 
+		// Since WordPress 6.9, the edit-context collection omits posts the user cannot edit.
+		$statuses = version_compare( get_bloginfo( 'version' ), '6.9', '>=' ) ? array( 'private', 'publish' ) : array( 'private' );
 		$patterns = get_posts(
 			array(
 				'post_type'      => 'wp_block',
-				'post_status'    => array( 'publish', 'private' ),
+				'post_status'    => $statuses,
 				'posts_per_page' => -1,
 				'meta_key'       => '_ghostkit_template_id', // phpcs:ignore WordPress.DB.SlowDBQuery
 			)

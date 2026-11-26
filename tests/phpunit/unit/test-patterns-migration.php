@@ -37,7 +37,7 @@ class GhostKitPatternsMigrationTest extends WP_UnitTestCase {
 				'post_content' => wp_slash( $markup ),
 			)
 		);
-		self::factory()->post->create(
+		$published_template = self::factory()->post->create(
 			array(
 				'post_type'    => 'ghostkit_template',
 				'post_author'  => $editor,
@@ -113,7 +113,11 @@ class GhostKitPatternsMigrationTest extends WP_UnitTestCase {
 		wp_set_current_user( $contributor );
 		$editor_patterns = get_block_editor_settings( array(), $context )['ghostkitReadablePatterns'] ?? array();
 		$this->assertArrayNotHasKey( $pattern->ID, array_column( $editor_patterns, 'content', 'id' ) );
-		$this->assertSame( array( 'Published Ghost Kit template' ), array_column( $editor_patterns, 'title' ) );
+		$native_list = new WP_REST_Request( 'GET', '/wp/v2/blocks' );
+		$native_list->set_param( 'context', 'edit' );
+		$native_titles   = wp_list_pluck( wp_list_pluck( rest_do_request( $native_list )->get_data(), 'title' ), 'raw' );
+		$inserted_titles = array_merge( $native_titles, array_column( $editor_patterns, 'title' ) );
+		$this->assertSame( array( 'Published Ghost Kit template' ), array_values( array_intersect( $inserted_titles, array( get_the_title( $published_template ) ) ) ) );
 		wp_set_current_user( $other_editor );
 
 		wp_update_post( array( 'ID' => $pattern->ID, 'post_title' => 'My revised pattern' ) );
