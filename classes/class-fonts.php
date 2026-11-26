@@ -338,7 +338,8 @@ class GhostKit_Fonts {
 			return $fonts;
 		}
 
-		$presets = wp_get_global_settings( array( 'typography', 'fontFamilies' ) );
+		$settings = wp_get_global_settings();
+		$presets  = $settings['typography']['fontFamilies'] ?? null;
 		if ( ! is_array( $presets ) ) {
 			return $fonts;
 		}
@@ -365,7 +366,7 @@ class GhostKit_Fonts {
 				}
 
 				$slug = _wp_to_kebab_case( $preset['slug'] );
-				if ( preg_match( '/\A[\p{L}\p{M}\p{N}-]+\z/u', $slug ) ) {
+				if ( preg_match( '/\A[A-Za-z0-9_\x{0080}-\x{10FFFF}-]+\z/u', $slug ) ) {
 					$families[ $slug ] = $preset;
 				}
 			}

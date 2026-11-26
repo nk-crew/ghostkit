@@ -91,7 +91,7 @@ class GhostKit_Typography {
 				$font_family      = $style_properties['font-family'] ?? '';
 				$is_library_font  = 'font-library' === ( $style_properties['font-family-category'] ?? '' );
 				$has_font_family  = $is_library_font
-					? is_string( $font_family ) && preg_match( '/\A[\p{L}\p{M}\p{N}-]+\z/u', $font_family )
+					? is_string( $font_family ) && preg_match( '/\A[A-Za-z0-9_\x{0080}-\x{10FFFF}-]+\z/u', $font_family )
 					: self::is_exist( $style_properties, 'font-family' );
 
 				if (
