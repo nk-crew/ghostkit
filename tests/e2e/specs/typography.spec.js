@@ -345,11 +345,32 @@ test.describe('Font Library typography', () => {
 
 			try {
 				await requestUtils.activateTheme(theme);
-				const { _links: links } = await requestUtils.rest({
-					path: `/wp/v2/themes/${theme}?context=edit`,
-				});
-				const { href } = links['wp:user-global-styles'][0];
-				globalStylesPath = `/wp/v2/global-styles/${href.split('/').at(-1)}`;
+				const stylesId =
+					await requestUtils.getCurrentThemeGlobalStylesPostId();
+				if (!stylesId) {
+					expect(theme).toBe('empty-theme-php');
+					await page.goto('/');
+					await expect(
+						page.locator('meta[name="generator"]')
+					).toHaveAttribute('content', /^WordPress 6\./);
+					await admin.visitAdminPage(
+						'admin.php?page=ghostkit&sub_page=typography'
+					);
+					await page
+						.locator(
+							'.ghostkit-typography-font-category-control-toggle'
+						)
+						.first()
+						.click();
+					await expect(
+						page.getByRole('menuitem', { name: 'Google Fonts' })
+					).toBeVisible();
+					await expect(
+						page.getByRole('menuitem', { name: 'Font Library' })
+					).toHaveCount(0);
+					return;
+				}
+				globalStylesPath = `/wp/v2/global-styles/${stylesId}`;
 				({ settings: originalSettings } = await requestUtils.rest({
 					path: `${globalStylesPath}?context=edit`,
 				}));
@@ -461,6 +482,27 @@ test.describe('Font Library typography', () => {
 					name: 'Paragraph',
 				});
 				await expectFont(paragraph, 'normal', faces[0].src);
+
+				await requestUtils.rest({
+					path: typographyPath,
+					method: 'POST',
+					data: {
+						data: {
+							ghostkit_typography: JSON.stringify({
+								body: {
+									fontFamily: 'Inter',
+									fontFamilyCategory: 'google-fonts',
+									fontWeight: '400',
+								},
+							}),
+						},
+					},
+				});
+				await admin.editPost(post.id);
+				await expect(paragraph).toHaveCSS(
+					'font-family',
+					'Inter, sans-serif'
+				);
 
 				await page
 					.getByRole('button', { name: 'Options', exact: true })

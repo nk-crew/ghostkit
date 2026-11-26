@@ -356,12 +356,12 @@ class GhostKit_Fonts {
 		$families = array();
 		foreach ( $presets as $origin ) {
 			foreach ( $origin as $preset ) {
-				if ( empty( $preset['slug'] ) || empty( $preset['fontFamily'] ) ) {
+				if ( '' === ( $preset['slug'] ?? '' ) || empty( $preset['fontFamily'] ) ) {
 					continue;
 				}
 
 				$slug = _wp_to_kebab_case( $preset['slug'] );
-				if ( preg_match( '/\A[\p{L}\p{N}-]+\z/u', $slug ) ) {
+				if ( preg_match( '/\A[\p{L}\p{M}\p{N}-]+\z/u', $slug ) ) {
 					$families[ $slug ] = $preset;
 				}
 			}

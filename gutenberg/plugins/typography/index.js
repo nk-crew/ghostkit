@@ -423,7 +423,7 @@ function printStyles(typographyData) {
 										const slug = properties[propertyKey];
 										if (
 											typeof slug === 'string' &&
-											!/[^\p{L}\p{N}-]/u.test(slug)
+											!/[^\p{L}\p{M}\p{N}-]/u.test(slug)
 										) {
 											typographyStyles += `font-family: var(--wp--preset--font-family--${slug}, sans-serif);`;
 										}

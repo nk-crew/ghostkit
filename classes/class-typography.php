@@ -87,10 +87,17 @@ class GhostKit_Typography {
 
 			// Collect all the styles for further transfer to the inline file on the edit or front page.
 			foreach ( $typography_prepeare_styles as $typography_prepeare_style ) {
+				$style_properties = $typography_prepeare_style['style-properties'];
+				$font_family      = $style_properties['font-family'] ?? '';
+				$is_library_font  = 'font-library' === ( $style_properties['font-family-category'] ?? '' );
+				$has_font_family  = $is_library_font
+					? is_string( $font_family ) && preg_match( '/\A[\p{L}\p{M}\p{N}-]+\z/u', $font_family )
+					: self::is_exist( $style_properties, 'font-family' );
+
 				if (
 					self::is_exist( $typography_prepeare_style['output'] ) &&
 					is_array( $typography_prepeare_style['output'] ) &&
-					( self::is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ||
+					( $has_font_family ||
 						self::is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ||
 						self::is_exist( $typography_prepeare_style['style-properties'], 'font-weight' ) ||
 						self::is_exist( $typography_prepeare_style['style-properties'], 'line-height' ) ||
@@ -102,15 +109,10 @@ class GhostKit_Typography {
 							$typography_styles  = '';
 							$typography_styles .= $output['selectors'] . '{';
 
-							if ( self::is_exist( $typography_prepeare_style['style-properties'], 'font-family' ) ) {
-								$font_family = $typography_prepeare_style['style-properties']['font-family'];
-								if ( 'font-library' === ( $typography_prepeare_style['style-properties']['font-family-category'] ?? '' ) ) {
-									if ( is_string( $font_family ) && preg_match( '/\A[\p{L}\p{N}-]+\z/u', $font_family ) ) {
-										$typography_styles .= 'font-family: var(--wp--preset--font-family--' . $font_family . ', sans-serif);';
-									}
-								} else {
-									$typography_styles .= 'font-family: "' . esc_attr( $font_family ) . '", sans-serif;';
-								}
+							if ( $has_font_family ) {
+								$typography_styles .= $is_library_font
+									? 'font-family: var(--wp--preset--font-family--' . $font_family . ', sans-serif);'
+									: 'font-family: "' . esc_attr( $font_family ) . '", sans-serif;';
 							}
 
 							if ( self::is_exist( $typography_prepeare_style['style-properties'], 'font-size' ) ) {
@@ -206,7 +208,7 @@ class GhostKit_Typography {
 			foreach ( json_decode( $typography_object ) as $meta_typography_key => $meta_typography_value ) {
 				if ( array_key_exists( $meta_typography_key, $typography_prepeare_styles ) ) {
 					foreach ( $meta_typography_value as $typography_attribute_key => $typography_attribute ) {
-						if ( self::is_exist( $conformity_attributes[ $typography_attribute_key ] ) &&
+						if ( isset( $conformity_attributes[ $typography_attribute_key ] ) &&
 							self::is_exist( $typography_prepeare_styles[ $meta_typography_key ]['style-properties'], $conformity_attributes[ $typography_attribute_key ], 'isset' ) ) {
 							if ( '' !== $typography_attribute ) {
 								$typography_prepeare_styles[ $meta_typography_key ]['style-properties'][ $conformity_attributes[ $typography_attribute_key ] ] = $typography_attribute;
