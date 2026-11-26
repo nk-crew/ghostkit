@@ -21,6 +21,9 @@ export default function BlockSave(props) {
 	const {
 		number,
 		animateInViewport,
+		numberFormat,
+		thousandsSeparator,
+		decimalSeparator,
 		numberPosition,
 		numberAlign,
 		showContent,
@@ -33,6 +36,10 @@ export default function BlockSave(props) {
 	let { animateInViewportFrom } = attributes;
 
 	animateInViewportFrom = parseFloat(animateInViewportFrom);
+
+	const countFormat =
+		animateInViewport && numberFormat !== 'none' ? numberFormat : null;
+	const isCustomFormat = countFormat === 'custom';
 
 	let className = classnames(
 		'ghostkit-counter-box',
@@ -81,6 +88,13 @@ export default function BlockSave(props) {
 							animateInViewport && animateInViewportFrom
 								? animateInViewportFrom
 								: null,
+						'data-count-format': countFormat,
+						'data-count-thousands': isCustomFormat
+							? thousandsSeparator
+							: null,
+						'data-count-decimal': isCustomFormat
+							? decimalSeparator
+							: null,
 					}}
 				/>
 			</div>

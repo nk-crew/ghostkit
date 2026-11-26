@@ -35,6 +35,19 @@
 			"type": "number",
 			"default": 0
 		},
+		"numberFormat": {
+			"type": "string",
+			"enum": ["none", "locale", "custom"],
+			"default": "none"
+		},
+		"thousandsSeparator": {
+			"type": "string",
+			"default": ","
+		},
+		"decimalSeparator": {
+			"type": "string",
+			"default": "."
+		},
 		"numberPosition": {
 			"type": "string",
 			"default": "top"
